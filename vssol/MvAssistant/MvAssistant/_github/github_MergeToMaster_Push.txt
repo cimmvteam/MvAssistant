@@ -1,0 +1,10 @@
+
+cd MvAssistant
+git add --all
+git commit -m 'merge'
+git push
+git checkout develop
+cd ..
+
+
+
