@@ -1,0 +1,11 @@
+C:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\MvAssistant.dll
+C:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\MvAssistant.pdb
+C:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\MathNet.Numerics.dll
+C:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\Newtonsoft.Json.dll
+C:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\MathNet.Numerics.xml
+C:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\Newtonsoft.Json.xml
+C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csprojAssemblyReference.cache
+C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CoreCompileInputs.cache
+C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CopyComplete
+C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.dll
+C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.pdb
