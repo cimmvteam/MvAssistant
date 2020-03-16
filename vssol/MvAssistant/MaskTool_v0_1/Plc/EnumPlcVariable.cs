@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.MaskTool.Plc
+namespace MvAssistant.MaskTool_v0_1.Plc
 {
     public enum EnumPlcVariable
     {

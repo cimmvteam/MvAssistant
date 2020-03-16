@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MaskTool.TestMy.Machine
+namespace MaskTool.TestMy.MachineReal
 {
     [TestClass]
     public class UnitTest1
