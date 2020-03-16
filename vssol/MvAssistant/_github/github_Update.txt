@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'update'
+git commit -m 'add plc context'
 git pull
 git push
 cd ..

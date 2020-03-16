@@ -9,3 +9,7 @@ C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.Cor
 C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CopyComplete
 C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.dll
 C:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.pdb
+D:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csprojAssemblyReference.cache
+D:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CoreCompileInputs.cache
+D:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.dll
+D:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.pdb

@@ -48,7 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DeviceDrive\FanucRobot\FanucRobotLdd.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\OmronPlcLdd.cs" />
+    <Compile Include="MaskTool\Plc\EnumPlcVariable.cs" />
+    <Compile Include="MaskTool\Plc\InspectionChStage.cs" />
+    <Compile Include="MaskTool\Plc\PlcDeviceContext.cs" />
+    <Compile Include="PartsInsp\Plc\EnumPlcVariable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MaskTool\Robot\" />
+    <Folder Include="PartsInsp\Robot\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
