@@ -62,8 +62,8 @@
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotTCPData.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotUIOParameter.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvTCPCoordinateCfg.cs" />
-    <Compile Include="DeviceDrive\OmronPlc\OmronPlcCompolet.cs" />
-    <Compile Include="DeviceDrive\OmronPlc\OmronPlcMapper.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />
     <Compile Include="Logging\IMvLoggable.cs" />
     <Compile Include="Logging\MvLogger.cs" />
     <Compile Include="Logging\MvLoggerDisplayEnum.cs" />
@@ -71,9 +71,9 @@
     <Compile Include="Logging\MvLoggerEventArgs.cs" />
     <Compile Include="Logging\MvLoggerMapper.cs" />
     <Compile Include="Logging\MvLoggerMapperEventArgs.cs" />
-    <Compile Include="MaskTool_v0_1\Plc\EnumPlcVariable.cs" />
-    <Compile Include="MaskTool_v0_1\Plc\InspectionChStage.cs" />
-    <Compile Include="MaskTool_v0_1\Plc\PlcDeviceContext.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvEnumPlcVariable.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvPlcInspChStage.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvPlcContext.cs" />
     <Compile Include="MvEventUtil.cs" />
     <Compile Include="MvLog.cs" />
     <Compile Include="MvUtil.cs" />

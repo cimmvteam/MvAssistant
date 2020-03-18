@@ -22,3 +22,16 @@ D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\Newtonsoft.Json.xml
 D:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CopyComplete
 D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\Interop.FRRJIf.dll
 D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\CIPCompolet.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\Interop.FRRJIf.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\MvAssistant.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\MvAssistant.pdb
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\CIPCompolet.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\MathNet.Numerics.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\Newtonsoft.Json.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\MathNet.Numerics.xml
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\Newtonsoft.Json.xml
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csprojAssemblyReference.cache
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CoreCompileInputs.cache
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CopyComplete
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.dll
+D:\ycProject\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.pdb

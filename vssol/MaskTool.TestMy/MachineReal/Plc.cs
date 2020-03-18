@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.MaskTool_v0_1.Plc;
 
 namespace MaskTool.TestMy.MachineReal
 {
@@ -7,8 +8,16 @@ namespace MaskTool.TestMy.MachineReal
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestPlcConnect()
         {
+
+            using(var plc = new MvPlcContext())
+            {
+                plc.Connect();
+
+
+            }
+
         }
     }
 }
