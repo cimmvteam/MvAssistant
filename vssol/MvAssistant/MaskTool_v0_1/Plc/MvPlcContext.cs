@@ -35,7 +35,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public int Connect()
         {
             this.OmronPlcCompolet = new MvOmronPlcLdd();
-            this.OmronPlcCompolet.NLPLC_Initial("192.168.0.100", 5000);
+            this.OmronPlcCompolet.NLPLC_Initial("192.168.0.200", 5000);
             
             this.Read<bool>(MvEnumPlcVariable.plc_on);
 

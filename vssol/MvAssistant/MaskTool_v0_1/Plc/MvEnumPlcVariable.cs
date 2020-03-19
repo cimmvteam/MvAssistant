@@ -7,6 +7,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 {
     public enum MvEnumPlcVariable
     {
+        PC_TO_PLC_CheckClock,//PLC軟體狀態檢查
+        PC_TO_PLC_CheckClock_Reply,
 
         ic_stage_pos_x,
         ic_stage_pos_y,
