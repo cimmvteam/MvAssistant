@@ -26,7 +26,7 @@ namespace MvAssistant.Tasking
             return task;
         }
 
-        public static MvCancelTask RunLoopUntilCancel(Func<bool> funcIsContinue, int delay_ms = 0)
+        public static MvCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0)
         {
             var task = new MvCancelTask();
             var ct = task.CancelTokenSource.Token;

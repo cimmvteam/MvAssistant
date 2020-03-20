@@ -57,8 +57,8 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MachineReal\Plc.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Device\UtDevicePlc.cs" />
+    <Compile Include="MachineReal\UtPlc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

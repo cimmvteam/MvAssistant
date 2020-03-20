@@ -53,7 +53,7 @@ namespace MvAssistant.Logging
                     else return;
                 }
 
-                this.Task = MvCancelTask.RunLoopUntilCancel(() =>
+                this.Task = MvCancelTask.RunLoop(() =>
                 {
                     MvSpinWait.SpinUntil(() => this.msgQueue.Count > 0);
 
