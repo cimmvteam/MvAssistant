@@ -3,9 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'unit test - plc connection function '
+git commit -m 'unit test - update device drive dll'
 git pull
 git push
-cd ..
-
-
+cd .
