@@ -62,6 +62,7 @@
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotTCPData.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotUIOParameter.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvTCPCoordinateCfg.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\FanucRobotLdd_v42_15.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />
     <Compile Include="Logging\IMvLoggable.cs" />
