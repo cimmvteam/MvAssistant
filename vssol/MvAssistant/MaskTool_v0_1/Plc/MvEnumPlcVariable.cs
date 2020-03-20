@@ -177,6 +177,5 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         ic_stage_trigger,
 
 
-        plc_on,
     }
 }
