@@ -54,32 +54,29 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
 
             this.m_keepConnection = MvCancelTask.RunLoop(() =>
-              {
+            {
+                this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, false);
+                if (!SpinWait.SpinUntil(() => !this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
+                {
+                    this.LockAssign(ref this.m_isConnected, false);
+                    return false;
+                }
+                this.LockAssign(ref this.m_isConnected, true);
 
-                  if (!SpinWait.SpinUntil(() => !this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
-                  {
-                      this.LockAssign(ref this.m_isConnected, false);
-                      return false;
-                  }
 
+                this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, true);
+                if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
+                {
 
-                  this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, true);
-
-                  if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
-                  {
-
-                      this.LockAssign(ref this.m_isConnected, false);
+                    this.LockAssign(ref this.m_isConnected, false);
                     //throw new MvException("PLC connection T1 timeout");
                     return false;
-                  }
-
-                  this.LockAssign(ref this.m_isConnected, true);
-                  this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, false);
+                }
+                else this.LockAssign(ref this.m_isConnected, true);
 
 
-
-                  return true;
-              }, 500);
+                return true;
+            }, 500);
 
 
 
@@ -94,7 +91,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             {
             }
 
-            using(var obj = this.m_keepConnection)
+            using (var obj = this.m_keepConnection)
             {
                 obj.Cancel();
                 SpinWait.SpinUntil(() => obj.IsEnd(), 1000);

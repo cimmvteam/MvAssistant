@@ -44,8 +44,12 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PylonC.NET">
+      <HintPath>..\DLL\PylonC.Net.v5_0\PylonC.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -53,8 +57,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="uEyeDotNet">
+      <HintPath>..\DLL\iDS\uEyeDotNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvFanucRobotInfo.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvFanucRobotLdd.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotAlarmInfo.cs" />
@@ -62,6 +70,8 @@
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotTCPData.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotUIOParameter.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvTCPCoordinateCfg.cs" />
+    <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
+    <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />
     <Compile Include="Logging\IMvLoggable.cs" />

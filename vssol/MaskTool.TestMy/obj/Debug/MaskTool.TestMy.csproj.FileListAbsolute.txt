@@ -85,3 +85,4 @@ D:\project\github\MvAssistant\vssol\MaskTool.TestMy\bin\Debug\ja\CompoletFramewo
 D:\project\github\MvAssistant\vssol\MaskTool.TestMy\bin\Debug\ja\SysmacCipService.resources.dll
 D:\project\github\MvAssistant\vssol\MaskTool.TestMy\bin\Debug\ja\CompoletDataManager.resources.dll
 D:\project\github\MvAssistant\vssol\MaskTool.TestMy\bin\Debug\ja\FgwDotnet.resources.dll
+D:\project\github\MvAssistant\vssol\MaskTool.TestMy\bin\Debug\uEyeDotNet.dll
