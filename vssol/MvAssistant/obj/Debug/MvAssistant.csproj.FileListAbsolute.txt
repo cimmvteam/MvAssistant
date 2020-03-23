@@ -69,3 +69,4 @@ D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\ja\CompoletDataManag
 D:\ycProject\github\MvAssistant\vssol\MvAssistant\bin\Debug\ja\FgwDotnet.resources.dll
 D:\Project\GitHub\MvAssistant\vssol\MvAssistant\bin\Debug\PylonC.NET.dll
 D:\Project\GitHub\MvAssistant\vssol\MvAssistant\bin\Debug\PylonC.NET.xml
+D:\Project\GitHub\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csprojAssemblyReference.cache
