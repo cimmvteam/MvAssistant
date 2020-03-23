@@ -57,10 +57,10 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Device\UtRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="MachineReal\UtPlc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SgsVerify\UtRepeatRun.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
