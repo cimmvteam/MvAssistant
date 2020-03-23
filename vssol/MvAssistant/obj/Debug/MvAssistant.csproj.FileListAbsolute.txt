@@ -64,3 +64,6 @@ D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\ja\SysmacCipService.re
 D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\ja\CompoletDataManager.resources.dll
 D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\ja\FgwDotnet.resources.dll
 D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\uEyeDotNet.dll
+D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\PylonC.NET.dll
+D:\project\github\MvAssistant\vssol\MvAssistant\bin\Debug\PylonC.NET.xml
+D:\project\github\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csprojAssemblyReference.cache
