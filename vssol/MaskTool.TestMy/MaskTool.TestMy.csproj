@@ -57,6 +57,9 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Device\CurrentPOS.cs" />
+    <Compile Include="Device\RobotHandler.cs" />
+    <Compile Include="Device\UtRobotHandler.cs" />
     <Compile Include="Device\UtRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="MachineReal\UtPlc.cs" />

@@ -15,16 +15,20 @@ namespace MaskTool.TestMy.Device
             {
                 robot.RobotIp = "192.168.0.50";
                 robot.ConnectIfNo();
+
+                robot.StopProgram();
                 robot.SystemRecoverAuto();
                 robot.AlarmReset();
                 robot.ExecutePNS("PNS0101");
 
+                var robotInfo = robot.GetCurrRobotInfo();
+
+                var  target = new float[] { robotInfo.x, robotInfo.y, robotInfo.z + 10, robotInfo.w, robotInfo.p, robotInfo.r };
+
+                robot.ExecuteMove(target);
 
 
-                Array target = new float[] { 0, 0, 5, 0, 0, 0 };
-
-
-                robot.MoveStraightSync(target, 0, 0, 1, 20);
+                //robot.MoveStraightSync(target, 0, 0, 0, 20);
 
 
 
