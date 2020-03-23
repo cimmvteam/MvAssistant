@@ -15,7 +15,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.m_PlcContext = plc;
         }
 
-        public string BrClamp(char BoxType, bool IsClamp)
+        public string BTClamp(char BoxType, bool IsClamp)
         {
             var plc = this.m_PlcContext;
             var Result = "";
@@ -33,7 +33,30 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Reply), 1000))
                     throw new MvException("Box Hand T4 timeout");
-                Result = plc.Read<string>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result);
+                switch (plc.Read<string>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
+                {
+                    case "0":
+                        Result = "Invalid";
+                        break;
+                    case "1":
+                        Result = "OK";
+                        break;
+                    case "2":
+                        Result = "Clamp no box type";
+                        break;
+                    case "3":
+                        Result = "Tactile out range";
+                        break;
+                    case "4":
+                        Result = "Motor error";
+                        break;
+                    case "5":
+                        Result = "Please initial";
+                        break;
+                    case "6":
+                        Result = "System not ready";
+                        break;
+                }
             }
             else
                 throw new MvException("PLC connection fail");
