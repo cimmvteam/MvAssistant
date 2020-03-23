@@ -70,6 +70,7 @@
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotTCPData.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvRobotUIOParameter.cs" />
     <Compile Include="DeviceDrive\FanucRobot_v42_14\MvTCPCoordinateCfg.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\FanucRobotLdd_v42_15.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Logging\MvLoggerMapper.cs" />
     <Compile Include="Logging\MvLoggerMapperEventArgs.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvEnumPlcVariable.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvPlcBoxRobot.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcInspChStage.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcContext.cs" />
     <Compile Include="MvEventUtil.cs" />

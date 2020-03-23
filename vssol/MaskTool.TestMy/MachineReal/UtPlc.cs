@@ -26,9 +26,16 @@ namespace MaskTool.TestMy.MachineReal
             }
 
         }
+<<<<<<< HEAD
+        public void TestHandshake()
+        {
+
+        }
+=======
 
 
 
 
+>>>>>>> b54f04460879b9de87c7ac34cd9e08eb48c3a7b4
     }
 }

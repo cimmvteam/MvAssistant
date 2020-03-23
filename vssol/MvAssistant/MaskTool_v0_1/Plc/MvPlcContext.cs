@@ -20,10 +20,12 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public bool IsConnected { get { return m_isConnected; } }
 
         public MvPlcInspChStage IcStage;
+        public MvPlcBoxRobot BoxRobot;
 
         public MvPlcContext()
         {
             this.IcStage = new MvPlcInspChStage(this);
+            this.BoxRobot = new MvPlcBoxRobot(this);
         }
         ~MvPlcContext() { this.Dispose(false); }
 
