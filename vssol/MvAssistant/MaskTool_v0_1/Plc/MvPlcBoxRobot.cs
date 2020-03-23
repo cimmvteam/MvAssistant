@@ -15,10 +15,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.m_PlcContext = plc;
         }
 
-        public string BTClamp(char BoxType, bool IsClamp)
+        public string BTClamp(string BoxType, bool IsClamp)
         {
-            var plc = this.m_PlcContext;
             var Result = "";
+            var plc = this.m_PlcContext;
             if (plc.IsConnected)
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Box_Type, BoxType);

@@ -86,6 +86,7 @@
     <Compile Include="MaskTool_v0_1\Plc\MvPlcBoxRobot.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcInspChStage.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcContext.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvPlcMaskRobot.cs" />
     <Compile Include="MvEventUtil.cs" />
     <Compile Include="MvException.cs" />
     <Compile Include="MvLog.cs" />
