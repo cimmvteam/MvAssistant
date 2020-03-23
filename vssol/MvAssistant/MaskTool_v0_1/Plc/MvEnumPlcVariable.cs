@@ -68,9 +68,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ClampCmd_Complete,
         BT_TO_PC_ClampCmd_Result,
         PC_TO_BT_Unclamp,//放開mask box
-        BT_TO_PC_UnclampCmd_Reaply,
+        BT_TO_PC_UnclampCmd_Reply,
         BT_TO_PC_UnclampCmd_Complete,
         BT_TO_PC_UnclampCmd_Result,
+        PC_TO_BT_Initial_A03,//機台狀態Initial
+        BT_TO_PC_Initial_A03_Reply,
+        BT_TO_PC_Initial_A03_Complete,
+        BT_TO_PC_Initial_A03_Result,
         BT_TO_PC_HandPosition,
         BT_TO_PC_LoadSensor,//判有無Box
         PC_TO_BT_Laser1_FLS,
@@ -94,7 +98,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ForceMx,
         BT_TO_PC_ForceMy,
         BT_TO_PC_ForceMz,
-        BT_TO_PC_Vaccum,
+        BT_TO_PC_Vacuum,
 
         //Mask Robot Hand(A04)
         CCD_Result,

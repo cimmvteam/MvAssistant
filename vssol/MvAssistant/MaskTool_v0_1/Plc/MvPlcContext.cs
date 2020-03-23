@@ -22,12 +22,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public MvPlcInspChStage IcStage;
         public MvPlcBoxRobot BoxRobot;
         public MvPlcMaskRobot MaskRobot;
+        public MvPlcOpenStage OpenStage;
 
         public MvPlcContext()
         {
             this.IcStage = new MvPlcInspChStage(this);
             this.BoxRobot = new MvPlcBoxRobot(this);
             this.MaskRobot = new MvPlcMaskRobot(this);
+            this.OpenStage = new MvPlcOpenStage(this);
         }
         ~MvPlcContext() { this.Dispose(false); }
 
