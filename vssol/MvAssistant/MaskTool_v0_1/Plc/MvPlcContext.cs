@@ -23,6 +23,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public MvPlcBoxRobot BoxRobot;
         public MvPlcMaskRobot MaskRobot;
         public MvPlcOpenStage OpenStage;
+        public MvPlcCabinet Cabinet;
 
         public MvPlcContext()
         {
@@ -30,6 +31,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.BoxRobot = new MvPlcBoxRobot(this);
             this.MaskRobot = new MvPlcMaskRobot(this);
             this.OpenStage = new MvPlcOpenStage(this);
+            this.Cabinet = new MvPlcCabinet(this);
         }
         ~MvPlcContext() { this.Dispose(false); }
 

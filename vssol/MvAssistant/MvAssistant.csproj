@@ -84,6 +84,7 @@
     <Compile Include="Logging\MvLoggerMapperEventArgs.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvEnumPlcVariable.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcBoxRobot.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvPlcCabinet.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcInspCh.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcContext.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcMaskRobot.cs" />
