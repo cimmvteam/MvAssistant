@@ -161,23 +161,30 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         IC_TO_PC_XYResult,
         PC_TO_IC_ZCmd,//CCD高度變更
         PC_TO_IC_ZPoint,
-        IC_TO_PC_Zreply,
-        IC_TO_PC_Zcomplete,
-        IC_TO_PC_Zresult,
+        IC_TO_PC_ZReply,
+        IC_TO_PC_ZComplete,
+        IC_TO_PC_ZResult,
         PC_TO_IC_WCmd,//Mask方向旋轉
         PC_TO_IC_WPoint,
-        IC_TO_PC_Wreply,
-        IC_TO_PC_Wcomplete,
-        IC_TO_PC_Wresult,
+        IC_TO_PC_WReply,
+        IC_TO_PC_WComplete,
+        IC_TO_PC_WResult,
+        PC_TO_IC_Initial_A06,
+        IC_TO_PC_Initial_A06_Reply,
+        IC_TO_PC_Initial_A06_Complete,
+        IC_TO_PC_Initial_A06_Result,
         PC_TO_IC_RobotIntrude,
+        PC_TO_OS_RobotLicence,
         IC_TO_PC_Positon_X,//XY Stage位置
         IC_TO_PC_Positon_Y,
         IC_TO_PC_Positon_Z,//CCD Z軸位置
         IC_TO_PC_Positon_W,//旋轉位置
         PC_TO_IC_Robot_AboutLimit_R,//檢測Robot侵入位置(左右)
         PC_TO_IC_Robot_AboutLimit_L,
+        IC_TO_PC_RobotPosition_About,
         PC_TO_IC_Robot_UpDownLimit_U,//檢測Robot侵入位置(上下)
         PC_TO_IC_Robot_UpDownLimit_D,
+        IC_TO_PC_RobotPosition_UpDown,
 
         //Load Port(A07)
         PC_TO_LP_DP1Limit,//壓差極限數值寫入 AWord
@@ -193,15 +200,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         LD_TO_PC_Laser3,
         LD_TO_PC_Laser4,
         LD_TO_PC_Laser5,
-        LD_TO_PC_Laser6,
-
-
-
-        ic_stage_pos_x,
-        ic_stage_pos_y,
-        ic_stage_pos_z,
-        ic_stage_trigger,
-
+        LD_TO_PC_Laser6
 
     }
 }

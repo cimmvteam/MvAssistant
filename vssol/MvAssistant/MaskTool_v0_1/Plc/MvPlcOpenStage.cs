@@ -22,14 +22,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_Open, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage OpenBox T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage OpenBox T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_Open), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage OpenBox T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Open_Result))
             {
                 case 1:
@@ -56,14 +56,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_Close, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage CloseBox T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage CloseBox T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_Close), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage CloseBox T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Close_Result))
             {
                 case 1:
@@ -91,14 +91,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_Clamp, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Clamp_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage Clamp T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Clamp_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage Clamp T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_Clamp), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Clamp_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage Clamp T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Clamp_Result))
             {
                 case 1:
@@ -126,14 +126,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_Unclamp, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage Unclamp T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage Unclamp T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_Unclamp), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage Unclamp T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Result))
             {
                 //case 1:
@@ -161,14 +161,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_SortClamp, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage SortClamp T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage SortClamp T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_SortClamp), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage SortClamp T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Result))
             {
                 case 1:
@@ -193,14 +193,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_SortUnclamp, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage SortUnclamp T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage SortUnclamp T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_SortUnclamp), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage SortUnclamp T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Result))
             {
                 case 1:
@@ -219,14 +219,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_Lock, IsLock);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Lock_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage Lock/Unlock T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Lock_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage Lock/Unlock T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_Lock), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Lock_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage Lock/Unlock T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Lock_Result))
             {
                 //case 1:
@@ -252,14 +252,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_OS_Initial_A05, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Reply), 1000))
-                throw new MvException("Box Hand T0 timeout");
+                throw new MvException("Open Stage Initial T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Complete), 5000))
-                throw new MvException("Box Hand T2 timeout");
+                throw new MvException("Open Stage Initial T2 timeout");
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_Initial_A05), 1000);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Complete), 1000))
-                throw new MvException("Box Hand T4 timeout");
+                throw new MvException("Open Stage Initial T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Result))
             {
                 //case 0:
@@ -286,11 +286,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認Robot入侵
-        public Tuple<bool, bool> CheckRobotIntrude(bool BTIntrude, bool MTIntrude)
+        public Tuple<bool, bool> CheckRobotIntrude()
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_OS_BTIntrude, BTIntrude);
-            plc.Write(MvEnumPlcVariable.PC_TO_OS_MTIntrude, MTIntrude);
+            plc.Write(MvEnumPlcVariable.PC_TO_OS_BTIntrude, true);
+            plc.Write(MvEnumPlcVariable.PC_TO_OS_MTIntrude, true);
 
             return new Tuple<bool, bool>(
                 plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_BTLicence),
@@ -306,7 +306,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認Stage上固定Box的夾具位置
-        public Tuple<int, int> CheckSortClampPos()
+        public Tuple<int, int> CheckSortClampPosition()
         {
             var plc = this.m_PlcContext;
 
@@ -317,7 +317,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認Slider位置
-        public Tuple<int, int> CheckSliderPos()
+        public Tuple<int, int> CheckSliderPosition()
         {
             var plc = this.m_PlcContext;
 
