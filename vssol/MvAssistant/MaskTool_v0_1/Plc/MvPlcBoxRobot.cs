@@ -14,7 +14,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             this.m_PlcContext = plc;
         }
-        public string BTClamp(uint BoxType)
+        public string Clamp(uint BoxType)
         {
             var Result = "";
             var plc = this.m_PlcContext;
@@ -29,7 +29,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Clamp), 1000);
 
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Reply), 1000))
+            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 1000))
                 throw new MvException("Box Hand T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
             {
@@ -58,7 +58,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public string BTUnclamp()
+        public string Unclamp()
         {
             var Result = "";
             var plc = this.m_PlcContext;
@@ -72,31 +72,31 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Unclamp), 1000);
 
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Reply), 1000))
+            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 1000))
                 throw new MvException("Box Hand T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Result))
             {
-                case 0:
-                    Result = "Invalid";
-                    break;
-                case 1:
-                    Result = "OK";
-                    break;
-                case 2:
-                    Result = "Clamp no box type";
-                    break;
-                case 3:
-                    Result = "Tactile out range";
-                    break;
-                case 4:
-                    Result = "Motor error";
-                    break;
-                case 5:
-                    Result = "Please initial";
-                    break;
-                case 6:
-                    Result = "System not ready";
-                    break;
+                //case 0:
+                //    Result = "Invalid";
+                //    break;
+                //case 1:
+                //    Result = "OK";
+                //    break;
+                //case 2:
+                //    Result = "Clamp no box type";
+                //    break;
+                //case 3:
+                //    Result = "Tactile out range";
+                //    break;
+                //case 4:
+                //    Result = "Motor error";
+                //    break;
+                //case 5:
+                //    Result = "Please initial";
+                //    break;
+                //case 6:
+                //    Result = "System not ready";
+                //    break;
             }
             return Result;
         }
@@ -118,19 +118,26 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 throw new MvException("Box Hand T4 timeout");
             switch (plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
             {
-                case 0:
-                    Result = "Invalid";
-                    break;
-                case 1:
-                    Result = "Idle";
-                    break;
-                case 2:
-                    Result = "Busy";
-                    break;
-                case 3:
-                    Result = "Error";
-                    break;
+                //case 0:
+                //    Result = "Invalid";
+                //    break;
+                //case 1:
+                //    Result = "Idle";
+                //    break;
+                //case 2:
+                //    Result = "Busy";
+                //    break;
+                //case 3:
+                //    Result = "Error";
+                //    break;
             }
+            return Result;
+        }
+
+        public string SetCommand()
+        {
+            string Result = "";
+
             return Result;
         }
 

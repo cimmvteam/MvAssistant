@@ -104,31 +104,53 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         CCD_Result,
 
         //Open Stage(A05)
-        PC_TO_OS_Clamp,
+        PC_TO_OS_Open,//開盒
+        OS_TO_PC_Open_Reply,
+        OS_TO_PC_Open_Complete,
+        OS_TO_PC_Open_Result,
+        PC_TO_OS_Close,//關盒
+        OS_TO_PC_Close_Reply,
+        OS_TO_PC_Close_Complete,
+        OS_TO_PC_Close_Result,
+        PC_TO_OS_Clamp,//開盒夾爪閉合
         OS_TO_PC_Clamp_Reply,
         OS_TO_PC_Clamp_Complete,
         OS_TO_PC_Clamp_Result,//Result(1:OK 2:NoBox 3:NoClose 4:)
-        PC_TO_OS_Unclamp,
+        PC_TO_OS_Unclamp,//開盒夾爪鬆開
         OS_TO_PC_Unclamp_Reply,
         OS_TO_PC_Unclamp_Complete,
         OS_TO_PC_Unclamp_Result,
-        PC_TO_OS_SortClamp,
+        PC_TO_OS_SortClamp,//Stage上固定Box的夾具閉合
         OS_TO_PC_SortClamp_Reply,
         OS_TO_PC_SortClamp_Complete,
         OS_TO_PC_SortClamp_Result,
-        PC_TO_OS_SortUnclamp,
+        PC_TO_OS_SortUnclamp,//Stage上固定Box的夾具鬆開
         OS_TO_PC_SortUnclamp_Reply,
         OS_TO_PC_SortUnclamp_Complete,
         OS_TO_PC_SortUnclamp_Result,
-        PC_TO_OS_Lock,
+        PC_TO_OS_Lock,//開關盒鎖
         OS_TO_PC_Lock_Reply,
         OS_TO_PC_Lock_Complete,
         OS_TO_PC_Lock_Result,
+        PC_TO_OS_Initial_A05,//Initial
+        OS_TO_PC_Initial_A05_Reply,
+        OS_TO_PC_Initial_A05_Complete,
+        OS_TO_PC_Initial_A05_Result,
         PC_TO_OS_BoxType,//設定內容 1.Box type 2.作動速度%
         PC_TO_OS_BTIntrude,//Robot侵入A05
         PC_TO_OS_MTIntrude,
         PC_TO_OS_BTLicence,//Robot侵入A05許可
         PC_TO_OS_MTLicence,
+        OS_TO_PC_ClampStatus,
+        OS_TO_PC_SortClamp1_Position,
+        OS_TO_PC_SortClamp2_Position,
+        OS_TO_PC_Slider1_Position,
+        OS_TO_PC_Slider2_Position,
+        OS_TO_PC_Cover1_Position,
+        OS_TO_PC_Cover2_Position,
+        OS_TO_PC_CoverSensor_Open,
+        OS_TO_PC_CoverSensor_Close,
+        OS_TO_PC_BoxCheckOK,
 
         //Inspection Chamber(A06)
         PC_TO_IC_XYCmd,//Stage進行XY移動
