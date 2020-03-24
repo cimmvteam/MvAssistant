@@ -6,12 +6,12 @@ using System.Threading;
 
 namespace MvAssistant.MaskTool_v0_1.Plc
 {
-    public class MvPlcInspChStage
+    public class MvPlcInspCh
     {
 
         MvPlcContext m_PlcContext;
 
-        public MvPlcInspChStage(MvPlcContext plc)
+        public MvPlcInspCh(MvPlcContext plc)
         {
             this.m_PlcContext = plc;
         }
