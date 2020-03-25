@@ -722,35 +722,36 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             short UF = 0, UT = 0;
             short ValidC = 0, ValidJ = 0;
             int[] intValues = new int[5];
-            object R2Value = 0;
-            object R3Value = 0;
+            //object R2Value = 0;
+            //object R3Value = 0;
 
             //R[3] Set MotionType
-            //R[7] Set C_pos mov type, Reated/Absolute Position
-            //R[8] Set move with UF or UT
             for (int i = 0; i < 1; i++)
                 intValues[i] = _SelectCorJ;
             mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Mov ,position, 1:Rotate J1~6
 
-
+            //R[7] Set C_pos mov type, Reated/Absolute Position
             for (int i = 0; i < 1; i++)
                 intValues[i] = _SelectOfstOrPos;
             mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
 
 
+            //R[8] Set move with UF or UT
             for (int i = 0; i < 1; i++)
                 intValues[i] = _IsMoveUT;
             mobjNumReg.SetValues(8, intValues, 1);    //Write R[8].0:Offset with UF, 1:Offset with UT
 
+            //R[9] Set move speed
             for (int i = 0; i < 1; i++)
                 intValues[i] = Speed;
             mobjNumReg.SetValues(9, intValues, 1);    //Write R[9]. R[9] mm/sec
 
-            for (int i = 0; i < 1; i++)               //Clear to ZERO. R[5]uses to returen MOV END.Return 51 means done.
+            //R[5] finish flag, clear to zero
+            for (int i = 0; i < 1; i++)               //Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
                 intValues[i] = 0;
             mobjNumReg.SetValues(5, intValues, 1);
 
-
+            //R[1] trigger robot
             for (int i = 0; i < 2; i++)               //Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
                 intValues[i] = 0;
             mobjNumReg.SetValues(1, intValues, 2);
@@ -967,6 +968,104 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         {
             mobjNumReg.SetValues(index, vals, vals.Length);
         }
+
+
+
+        public void ExecuteMove(List<float[]> Targets, int Continuity, int[] fineTargetIndex)
+        {
+            fineTargetIndex.Distinct().ToArray(); //Remove repeat index 防呆用
+            Array.Sort(fineTargetIndex);
+
+            int speed = 500;
+            int MotionType = 1; //0:Offset; 1:Postion;2:Joint
+            int MoveFrame = 0;
+            int IsMoveTCP = 0;
+            int CorJ, OfsOrPos;
+            switch (MotionType)
+            {
+                case 0:
+                    CorJ = 0; OfsOrPos = 0; break;
+                case 1:
+                    CorJ = 0; OfsOrPos = 1; break;
+                case 2:
+                    CorJ = 1; OfsOrPos = 0; break;
+                default:
+                    CorJ = 0; OfsOrPos = 0; break;
+            }
+
+            Dictionary<int[], bool> fineTarget_conDic = new Dictionary<int[], bool>();
+            if (fineTargetIndex.Length > 1)
+            {
+                int indexTail = 1;
+                for (int i = 0; i < fineTargetIndex.Length; i++)
+                {
+                    if (i == 0 && fineTargetIndex[i] != 1)
+                    {
+                        fineTarget_conDic.Add(Enumerable.Range(1, fineTargetIndex[i] - 1).ToArray(), false);
+                        indexTail = fineTargetIndex[i];
+                    }
+                    else if (i == 0)
+                    {
+                        indexTail = fineTargetIndex[0];
+                    }
+                    else if (fineTargetIndex[i] - fineTargetIndex[i - 1] != 1)
+                    {
+                        fineTarget_conDic.Add(Enumerable.Range(indexTail, fineTargetIndex[i - 1] - indexTail + 1).ToArray(), true);
+                        fineTarget_conDic.Add(Enumerable.Range(fineTargetIndex[i - 1] + 1, fineTargetIndex[i] - fineTargetIndex[i - 1] - 1).ToArray(), false);
+                        indexTail = fineTargetIndex[i];
+                    }
+                    else if (i == fineTargetIndex.Length - 1)
+                    {
+                        fineTarget_conDic.Add(Enumerable.Range(indexTail, fineTargetIndex[i] - indexTail + 1).ToArray(), true);
+                        indexTail = fineTargetIndex[i];
+                        if (indexTail < Targets.Count)
+                            fineTarget_conDic.Add(Enumerable.Range(indexTail + 1, Targets.Count - indexTail).ToArray(), false);
+                    }
+                }
+
+                foreach (var finTarget in fineTarget_conDic)
+                {
+                    this.SwitchUT(MoveFrame);
+                    List<float[]> tmpTargets = new List<float[]>();
+                    if (finTarget.Value == true)
+                    {
+                        foreach (var targetIndex in finTarget.Key)
+                        {
+                            tmpTargets.Add(Targets[targetIndex]);
+                        }
+                        this.MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                    }
+                    else
+                    {
+                        this.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                    }
+                    tmpTargets.Clear();
+                }
+            }
+            else if (fineTargetIndex.Length == 1)
+            {
+                List<float[]> tmpTargets = new List<float[]>();
+                tmpTargets.Add(Targets[0]);
+                this.SwitchUT(MoveFrame);
+                this.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                tmpTargets.Clear();
+            }
+            else
+            {
+                this.SwitchUT(MoveFrame);
+                this.MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+            }
+        }
+
+        public void ExecuteMove(float[] target)
+        {
+            float[] pos = target;
+            List<float[]> targets = new List<float[]>();
+            targets.Add(pos);
+            ExecuteMove(targets, 0, new int[] { 1 });
+            targets.Clear();
+        }
+
 
 
 
