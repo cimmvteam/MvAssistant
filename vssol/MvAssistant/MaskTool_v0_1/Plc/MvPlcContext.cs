@@ -24,6 +24,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public MvPlcMaskRobot MaskRobot;
         public MvPlcOpenStage OpenStage;
         public MvPlcCabinet Cabinet;
+        public MvPlcCleanCh CleanCh;
 
         public MvPlcContext()
         {
@@ -32,6 +33,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.MaskRobot = new MvPlcMaskRobot(this);
             this.OpenStage = new MvPlcOpenStage(this);
             this.Cabinet = new MvPlcCabinet(this);
+            this.CleanCh = new MvPlcCleanCh(this);
         }
         ~MvPlcContext() { this.Dispose(false); }
 
@@ -63,6 +65,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             this.m_keepConnection = MvCancelTask.RunLoop(() =>
             {
+
                 this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, false);
                 if (!SpinWait.SpinUntil(() => !this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
                 {
@@ -70,7 +73,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     return false;
                 }
                 this.LockAssign(ref this.m_isConnected, true);
-
 
                 this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, true);
                 if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
@@ -82,9 +84,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 }
                 else this.LockAssign(ref this.m_isConnected, true);
 
-
                 return true;
-            }, 500);
+            }, 1000);
 
 
 

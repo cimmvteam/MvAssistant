@@ -52,8 +52,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         CC_TO_PC_DP,//實際壓差數值讀取 BWord 壓差是否達標讀取 Bit
         PC_TO_CC_Blow,
         PC_TO_CC_BlowTime,//Time單位為1ms
-        CC_TO_PC_BlowOutput,//吹氣輸出
-        CC_TO_PC_BlowComplete,//吹氣完成
+        CC_TO_PC_Blow_Output,//吹氣輸出
+        CC_TO_PC_Blow_Reply,
+        CC_TO_PC_Blow_Complete,//吹氣完成
         PC_TO_CC_PressureControl,
         CC_TO_PressureControl,
         CC_TO_PC_Pressure,//壓力表數值
