@@ -610,7 +610,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
         /// <summary>
         /// 輸入Robot設定PNS name, 讀取並執行PNS
-        /// e.q. PNS0101
         /// </summary>
         /// <param name="PNSname"></param>
         public bool ExecutePNS(string PNSname)
@@ -729,12 +728,12 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             //R[3] Set MotionType
             for (int i = 0; i < 1; i++)
                 intValues[i] = _SelectCorJ;
-            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Move with position, 1:Rotate J1~6
+            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Mov ,position, 1:Rotate J1~6
 
             //R[7] Set C_pos mov type, Reated/Absolute Position
             for (int i = 0; i < 1; i++)
                 intValues[i] = _SelectOfstOrPos;
-            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Move with reated pos, 1:Mov with absolute Pos
+            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
 
 
             //R[8] Set move with UF or UT
@@ -775,13 +774,14 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             {
                 if (ValidC != 0)  //Valid Cartesian values
                 {
-
                     xyzwprArray.SetValue(TargetPos.GetValue(0), 0);  //X_position
                     xyzwprArray.SetValue(TargetPos.GetValue(1), 1);  //Y_position
                     xyzwprArray.SetValue(TargetPos.GetValue(2), 2);  //Z_position
                     xyzwprArray.SetValue(TargetPos.GetValue(3), 3);  //W_position
                     xyzwprArray.SetValue(TargetPos.GetValue(4), 4);  //P_position
                     xyzwprArray.SetValue(TargetPos.GetValue(5), 5);  //R_position
+                    if(TargetPos.GetValue(6)!=null)
+                        xyzwprArray.SetValue(TargetPos.GetValue(6), 6);  //R_position
                 }
                 else
                 {
@@ -798,6 +798,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                     JointArray.SetValue(TargetPos.GetValue(3), 3);  //J4_position
                     JointArray.SetValue(TargetPos.GetValue(4), 4);  //J5_position
                     JointArray.SetValue(TargetPos.GetValue(5), 5);  //J6_position
+                    if (TargetPos.GetValue(6) != null)
+                        JointArray.SetValue(TargetPos.GetValue(6), 6);  //J6_position
                 }
                 else
                 {
@@ -896,6 +898,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                         xyzwprArray.SetValue(Targets[i].GetValue(3), 3);  //W_position
                         xyzwprArray.SetValue(Targets[i].GetValue(4), 4);  //P_position
                         xyzwprArray.SetValue(Targets[i].GetValue(5), 5);  //R_position
+                        if (Targets[i].GetValue(6) != null)
+                            xyzwprArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
                     }
                     else
                     {
@@ -912,6 +916,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                         JointArray.SetValue(Targets[i].GetValue(3), 3);  //J4_position
                         JointArray.SetValue(Targets[i].GetValue(4), 4);  //J5_position
                         JointArray.SetValue(Targets[i].GetValue(5), 5);  //J6_position
+                        if (Targets[i].GetValue(6) != null)
+                            JointArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
                     }
                     else
                     {
