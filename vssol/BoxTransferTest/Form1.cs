@@ -5,9 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MvAssistant.MaskTool_v0_1.Robot;
+using MvAssistant.MaskTool_v0_1.SocketComm;
 
 namespace BoxTransferTest
 {
@@ -15,6 +17,9 @@ namespace BoxTransferTest
     {
         BoxRobotHandler robotHandler;
         RobotMotionInfo motionInfo;
+        SynchronizationContext _syncContext = null;
+        AsynchronousClient client;
+        bool socketConnectFlag = false;
 
         public Form1()
         {
@@ -68,14 +73,28 @@ namespace BoxTransferTest
         {
             string ip = textBox9.Text;
             string port = textBox10.Text;
-
-
+            client = new AsynchronousClient();
+            try
+            {
+                //AsynchronousClient.StartClient(ip, Convert.ToInt32(port));
+                //listBox1.Items.Add(AsynchronousClient.response);
+                //socketConnectFlag = true;
+                //ThreadStart ts = new ThreadStart(AsynchronousClient.RcvMsg);
+                //Thread t = new Thread(ts);
+                //t.Start();
+            }
+            catch(Exception ex)
+            {
+                listBox1.Items.Add("Exception:"+ex.StackTrace.ToString());
+            }
         }
 
         private void SendMsgToLP(object sender, EventArgs e)
         {
             string msg = textBox8.Text;
-            ///TO DO:撰寫Socket Host端
+            ///TO DO:撰寫Socket Client端
+            ///
+            
         }
 
         private void DrawerConnect(object sender, EventArgs e)
@@ -88,6 +107,37 @@ namespace BoxTransferTest
         {
             string msg = textBox10.Text;
             ///TO DO:撰寫Socket Host端
+        }
+
+        //void UpdateRcvMsg()
+        //{
+        //    while(socketConnectFlag)
+        //    {
+        //        AsynchronousClient.RcvMsg();
+        //        Control_UpdateCallBack(listBox1, )
+        //    }
+
+        //}
+
+        delegate void SetTextCallback(Control ctrl, object obj);
+        void Control_UpdateCallBack(Control ctrl, object obj)
+        { //31行
+            if (ctrl == null || obj == null) return;//判斷若 參數都是null return
+            if (ctrl.InvokeRequired) //判斷是否是自己建立的Thrad若是，就進入if內了
+            {
+                SetTextCallback d = new SetTextCallback(Control_UpdateCallBack);//委派把自己傳進來，所以會在執行這個方法第二次
+                                                                                //所以第一次近來跑到地38行結束後，他會再從31行進來再跑一次，這時已經是第2次了，所以會直接掉入else去做Add的動作
+                                                                                //每次回圈都Call這個方法，然後每次這個方法他會跑兩次，第二次才會去做Add的動作
+                this.Invoke(d, new object[] { ctrl, obj }); //38行
+            }
+            else
+            {
+                if (ctrl == listBox1)
+                {
+                    listBox1.Items.Add(obj);
+                    listBox1.SelectedIndex = listBox1.Items.Count - 1;
+                }
+            }
         }
     }
 }

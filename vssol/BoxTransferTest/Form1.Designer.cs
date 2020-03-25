@@ -55,17 +55,17 @@
             this.label10 = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button7 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.textBox12 = new System.Windows.Forms.TextBox();
-            this.listView2 = new System.Windows.Forms.ListView();
             this.button8 = new System.Windows.Forms.Button();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -267,12 +267,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.listBox1);
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.textBox10);
             this.groupBox2.Controls.Add(this.textBox9);
-            this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.textBox8);
             this.groupBox2.Controls.Add(this.label9);
@@ -325,23 +325,14 @@
             this.textBox9.Size = new System.Drawing.Size(161, 22);
             this.textBox9.TabIndex = 24;
             // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(10, 134);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(369, 209);
-            this.listView1.TabIndex = 23;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.listBox2);
             this.groupBox3.Controls.Add(this.button7);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label12);
             this.groupBox3.Controls.Add(this.textBox11);
             this.groupBox3.Controls.Add(this.textBox12);
-            this.groupBox3.Controls.Add(this.listView2);
             this.groupBox3.Controls.Add(this.button8);
             this.groupBox3.Controls.Add(this.textBox13);
             this.groupBox3.Controls.Add(this.label13);
@@ -394,15 +385,6 @@
             this.textBox12.Size = new System.Drawing.Size(161, 22);
             this.textBox12.TabIndex = 24;
             // 
-            // listView2
-            // 
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(10, 134);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(369, 209);
-            this.listView2.TabIndex = 23;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            // 
             // button8
             // 
             this.button8.Location = new System.Drawing.Point(6, 21);
@@ -428,6 +410,24 @@
             this.label13.Size = new System.Drawing.Size(56, 12);
             this.label13.TabIndex = 22;
             this.label13.Text = "CommLog";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(10, 147);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(383, 196);
+            this.listBox1.TabIndex = 29;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 12;
+            this.listBox2.Location = new System.Drawing.Point(6, 147);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(383, 196);
+            this.listBox2.TabIndex = 30;
             // 
             // Form1
             // 
@@ -479,17 +479,17 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox listBox2;
     }
 }
 
