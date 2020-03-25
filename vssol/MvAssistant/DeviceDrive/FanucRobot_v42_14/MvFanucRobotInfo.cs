@@ -16,7 +16,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         public float w { get { return (float)this.posArray.GetValue(3); } set { this.posArray.SetValue(value, 3); } }
         public float p { get { return (float)this.posArray.GetValue(4); } set { this.posArray.SetValue(value, 4); } }
         public float r { get { return (float)this.posArray.GetValue(5); } set { this.posArray.SetValue(value, 5); } }
-        public float e1 { get { return (float)this.posArray.GetValue(5); } set { this.posArray.SetValue(value, 6); } }
+        public float e1 { get { return (float)this.posArray.GetValue(6); } set { this.posArray.SetValue(value, 6); } }
 
 
         public float j1 { get { return (float)this.jointArray.GetValue(0); } set { this.jointArray.SetValue(value, 0); } }
@@ -25,7 +25,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         public float j4 { get { return (float)this.jointArray.GetValue(3); } set { this.jointArray.SetValue(value, 3); } }
         public float j5 { get { return (float)this.jointArray.GetValue(4); } set { this.jointArray.SetValue(value, 4); } }
         public float j6 { get { return (float)this.jointArray.GetValue(5); } set { this.jointArray.SetValue(value, 5); } }
-        public float j7 { get { return (float)this.jointArray.GetValue(5); } set { this.jointArray.SetValue(value, 5); } }
+        public float j7 { get { return (float)this.jointArray.GetValue(6); } set { this.jointArray.SetValue(value, 6); } }
 
 
         [XmlIgnore]

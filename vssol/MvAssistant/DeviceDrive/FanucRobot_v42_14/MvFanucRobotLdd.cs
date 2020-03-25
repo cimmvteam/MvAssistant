@@ -773,13 +773,14 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             {
                 if (ValidC != 0)  //Valid Cartesian values
                 {
-
                     xyzwprArray.SetValue(TargetPos.GetValue(0), 0);  //X_position
                     xyzwprArray.SetValue(TargetPos.GetValue(1), 1);  //Y_position
                     xyzwprArray.SetValue(TargetPos.GetValue(2), 2);  //Z_position
                     xyzwprArray.SetValue(TargetPos.GetValue(3), 3);  //W_position
                     xyzwprArray.SetValue(TargetPos.GetValue(4), 4);  //P_position
                     xyzwprArray.SetValue(TargetPos.GetValue(5), 5);  //R_position
+                    if(TargetPos.GetValue(6)!=null)
+                        xyzwprArray.SetValue(TargetPos.GetValue(6), 6);  //R_position
                 }
                 else
                 {
@@ -796,6 +797,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                     JointArray.SetValue(TargetPos.GetValue(3), 3);  //J4_position
                     JointArray.SetValue(TargetPos.GetValue(4), 4);  //J5_position
                     JointArray.SetValue(TargetPos.GetValue(5), 5);  //J6_position
+                    if (TargetPos.GetValue(6) != null)
+                        JointArray.SetValue(TargetPos.GetValue(6), 6);  //J6_position
                 }
                 else
                 {
@@ -894,6 +897,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                         xyzwprArray.SetValue(Targets[i].GetValue(3), 3);  //W_position
                         xyzwprArray.SetValue(Targets[i].GetValue(4), 4);  //P_position
                         xyzwprArray.SetValue(Targets[i].GetValue(5), 5);  //R_position
+                        if (Targets[i].GetValue(6) != null)
+                            xyzwprArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
                     }
                     else
                     {
@@ -910,6 +915,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                         JointArray.SetValue(Targets[i].GetValue(3), 3);  //J4_position
                         JointArray.SetValue(Targets[i].GetValue(4), 4);  //J5_position
                         JointArray.SetValue(Targets[i].GetValue(5), 5);  //J6_position
+                        if (Targets[i].GetValue(6) != null)
+                            JointArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
                     }
                     else
                     {
