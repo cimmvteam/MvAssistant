@@ -23,6 +23,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_IC_XPoint, X_Position);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_YPoint, Y_Position);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYReply), 1000))
@@ -30,11 +32,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 5000))
                 throw new MvException("Inspection XY T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_XYCmd), 1000);
+
+            //SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_XYCmd), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 1000))
                 throw new MvException("Inspection XY T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_XYResult))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_XYResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -64,6 +68,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             string Result = "";
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_IC_ZPoint, Z_Position);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZReply), 1000))
@@ -71,11 +77,12 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 5000))
                 throw new MvException("Inspection Z T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_ZCmd), 1000);
+            //SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_ZCmd), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 1000))
                 throw new MvException("Inspection Z T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_ZResult))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_ZResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -105,6 +112,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             string Result = "";
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_IC_WPoint, W_Position);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WReply), 1000))
@@ -112,11 +121,12 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 5000))
                 throw new MvException("Inspection W T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_WCmd), 1000);
+            //SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_WCmd), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 1000))
                 throw new MvException("Inspection W T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_WResult))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_WResult))
             {
                 case 0:
                     Result = "Invalid";
