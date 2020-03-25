@@ -16,6 +16,7 @@ namespace MvAssistant.MaskTool_v0_1.Robot
         public CurrentPOS curPos;
         bool isRunning = false;
 
+
         public BoxRobotHandler()
         {
             ldd = new MvFanucRobotLdd();

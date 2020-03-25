@@ -104,3 +104,4 @@ D:\Code\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CoreCompileIn
 D:\Code\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csproj.CopyComplete
 D:\Code\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.dll
 D:\Code\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.pdb
+D:\Code\MvAssistant\vssol\MvAssistant\obj\Debug\MvAssistant.csprojAssemblyReference.cache
