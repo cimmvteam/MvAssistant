@@ -19,11 +19,19 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         public bool IsConnected { get { return m_isConnected; } }
 
-        public MvPlcInspChStage IcStage;
+        public MvPlcInspCh InspCh;
+        public MvPlcBoxRobot BoxRobot;
+        public MvPlcMaskRobot MaskRobot;
+        public MvPlcOpenStage OpenStage;
+        public MvPlcCabinet Cabinet;
 
         public MvPlcContext()
         {
-            this.IcStage = new MvPlcInspChStage(this);
+            this.InspCh = new MvPlcInspCh(this);
+            this.BoxRobot = new MvPlcBoxRobot(this);
+            this.MaskRobot = new MvPlcMaskRobot(this);
+            this.OpenStage = new MvPlcOpenStage(this);
+            this.Cabinet = new MvPlcCabinet(this);
         }
         ~MvPlcContext() { this.Dispose(false); }
 

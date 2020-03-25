@@ -68,9 +68,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ClampCmd_Complete,
         BT_TO_PC_ClampCmd_Result,
         PC_TO_BT_Unclamp,//放開mask box
-        BT_TO_PC_UnclampCmd_Reaply,
+        BT_TO_PC_UnclampCmd_Reply,
         BT_TO_PC_UnclampCmd_Complete,
         BT_TO_PC_UnclampCmd_Result,
+        PC_TO_BT_Initial_A03,//機台狀態Initial
+        BT_TO_PC_Initial_A03_Reply,
+        BT_TO_PC_Initial_A03_Complete,
+        BT_TO_PC_Initial_A03_Result,
         BT_TO_PC_HandPosition,
         BT_TO_PC_LoadSensor,//判有無Box
         PC_TO_BT_Laser1_FLS,
@@ -94,37 +98,59 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ForceMx,
         BT_TO_PC_ForceMy,
         BT_TO_PC_ForceMz,
-        BT_TO_PC_Vaccum,
+        BT_TO_PC_Vacuum,
 
         //Mask Robot Hand(A04)
         CCD_Result,
 
         //Open Stage(A05)
-        PC_TO_OS_Clamp,
+        PC_TO_OS_Open,//開盒
+        OS_TO_PC_Open_Reply,
+        OS_TO_PC_Open_Complete,
+        OS_TO_PC_Open_Result,
+        PC_TO_OS_Close,//關盒
+        OS_TO_PC_Close_Reply,
+        OS_TO_PC_Close_Complete,
+        OS_TO_PC_Close_Result,
+        PC_TO_OS_Clamp,//開盒夾爪閉合
         OS_TO_PC_Clamp_Reply,
         OS_TO_PC_Clamp_Complete,
         OS_TO_PC_Clamp_Result,//Result(1:OK 2:NoBox 3:NoClose 4:)
-        PC_TO_OS_Unclamp,
+        PC_TO_OS_Unclamp,//開盒夾爪鬆開
         OS_TO_PC_Unclamp_Reply,
         OS_TO_PC_Unclamp_Complete,
         OS_TO_PC_Unclamp_Result,
-        PC_TO_OS_SortClamp,
+        PC_TO_OS_SortClamp,//Stage上固定Box的夾具閉合
         OS_TO_PC_SortClamp_Reply,
         OS_TO_PC_SortClamp_Complete,
         OS_TO_PC_SortClamp_Result,
-        PC_TO_OS_SortUnclamp,
+        PC_TO_OS_SortUnclamp,//Stage上固定Box的夾具鬆開
         OS_TO_PC_SortUnclamp_Reply,
         OS_TO_PC_SortUnclamp_Complete,
         OS_TO_PC_SortUnclamp_Result,
-        PC_TO_OS_Lock,
+        PC_TO_OS_Lock,//開關盒鎖
         OS_TO_PC_Lock_Reply,
         OS_TO_PC_Lock_Complete,
         OS_TO_PC_Lock_Result,
+        PC_TO_OS_Initial_A05,//Initial
+        OS_TO_PC_Initial_A05_Reply,
+        OS_TO_PC_Initial_A05_Complete,
+        OS_TO_PC_Initial_A05_Result,
         PC_TO_OS_BoxType,//設定內容 1.Box type 2.作動速度%
         PC_TO_OS_BTIntrude,//Robot侵入A05
         PC_TO_OS_MTIntrude,
         PC_TO_OS_BTLicence,//Robot侵入A05許可
         PC_TO_OS_MTLicence,
+        OS_TO_PC_ClampStatus,
+        OS_TO_PC_SortClamp1_Position,
+        OS_TO_PC_SortClamp2_Position,
+        OS_TO_PC_Slider1_Position,
+        OS_TO_PC_Slider2_Position,
+        OS_TO_PC_Cover1_Position,
+        OS_TO_PC_Cover2_Position,
+        OS_TO_PC_CoverSensor_Open,
+        OS_TO_PC_CoverSensor_Close,
+        OS_TO_PC_BoxCheckOK,
 
         //Inspection Chamber(A06)
         PC_TO_IC_XYCmd,//Stage進行XY移動
@@ -135,23 +161,30 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         IC_TO_PC_XYResult,
         PC_TO_IC_ZCmd,//CCD高度變更
         PC_TO_IC_ZPoint,
-        IC_TO_PC_Zreply,
-        IC_TO_PC_Zcomplete,
-        IC_TO_PC_Zresult,
+        IC_TO_PC_ZReply,
+        IC_TO_PC_ZComplete,
+        IC_TO_PC_ZResult,
         PC_TO_IC_WCmd,//Mask方向旋轉
         PC_TO_IC_WPoint,
-        IC_TO_PC_Wreply,
-        IC_TO_PC_Wcomplete,
-        IC_TO_PC_Wresult,
+        IC_TO_PC_WReply,
+        IC_TO_PC_WComplete,
+        IC_TO_PC_WResult,
+        PC_TO_IC_Initial_A06,
+        IC_TO_PC_Initial_A06_Reply,
+        IC_TO_PC_Initial_A06_Complete,
+        IC_TO_PC_Initial_A06_Result,
         PC_TO_IC_RobotIntrude,
+        PC_TO_OS_RobotLicence,
         IC_TO_PC_Positon_X,//XY Stage位置
         IC_TO_PC_Positon_Y,
         IC_TO_PC_Positon_Z,//CCD Z軸位置
         IC_TO_PC_Positon_W,//旋轉位置
         PC_TO_IC_Robot_AboutLimit_R,//檢測Robot侵入位置(左右)
         PC_TO_IC_Robot_AboutLimit_L,
+        IC_TO_PC_RobotPosition_About,
         PC_TO_IC_Robot_UpDownLimit_U,//檢測Robot侵入位置(上下)
         PC_TO_IC_Robot_UpDownLimit_D,
+        IC_TO_PC_RobotPosition_UpDown,
 
         //Load Port(A07)
         PC_TO_LP_DP1Limit,//壓差極限數值寫入 AWord
@@ -167,15 +200,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         LD_TO_PC_Laser3,
         LD_TO_PC_Laser4,
         LD_TO_PC_Laser5,
-        LD_TO_PC_Laser6,
-
-
-
-        ic_stage_pos_x,
-        ic_stage_pos_y,
-        ic_stage_pos_z,
-        ic_stage_trigger,
-
+        LD_TO_PC_Laser6
 
     }
 }
