@@ -16,6 +16,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         public float w { get { return (float)this.posArray.GetValue(3); } set { this.posArray.SetValue(value, 3); } }
         public float p { get { return (float)this.posArray.GetValue(4); } set { this.posArray.SetValue(value, 4); } }
         public float r { get { return (float)this.posArray.GetValue(5); } set { this.posArray.SetValue(value, 5); } }
+        public float e1 { get { return (float)this.posArray.GetValue(5); } set { this.posArray.SetValue(value, 6); } }
 
 
         public float j1 { get { return (float)this.jointArray.GetValue(0); } set { this.jointArray.SetValue(value, 0); } }
@@ -24,13 +25,15 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         public float j4 { get { return (float)this.jointArray.GetValue(3); } set { this.jointArray.SetValue(value, 3); } }
         public float j5 { get { return (float)this.jointArray.GetValue(4); } set { this.jointArray.SetValue(value, 4); } }
         public float j6 { get { return (float)this.jointArray.GetValue(5); } set { this.jointArray.SetValue(value, 5); } }
+        public float j7 { get { return (float)this.jointArray.GetValue(5); } set { this.jointArray.SetValue(value, 5); } }
+
 
         [XmlIgnore]
-        public Array posArray = new float[9];
+        public Array posArray = new float[10];
         [XmlIgnore]
         public Array configArray = new short[7];
         [XmlIgnore]
-        public Array jointArray = new float[9];
+        public Array jointArray = new float[10];
         public short userFrame = 0;
         public short userTool = 0;
         public short validC = 0;

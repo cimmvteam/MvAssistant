@@ -610,7 +610,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
         /// <summary>
         /// 輸入Robot設定PNS name, 讀取並執行PNS
-        /// e.q. PNS0101
         /// </summary>
         /// <param name="PNSname"></param>
         public bool ExecutePNS(string PNSname)
@@ -731,12 +730,12 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             //R[8] Set move with UF or UT
             for (int i = 0; i < 1; i++)
                 intValues[i] = _SelectCorJ;
-            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Move with position, 1:Rotate J1~6
+            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Mov ,position, 1:Rotate J1~6
 
 
             for (int i = 0; i < 1; i++)
                 intValues[i] = _SelectOfstOrPos;
-            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Move with reated pos, 1:Mov with absolute Pos
+            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
 
 
             for (int i = 0; i < 1; i++)
