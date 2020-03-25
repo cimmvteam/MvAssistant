@@ -77,5 +77,27 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.OpenStage.CheckBoxExist());
             }
         }
+
+        [TestMethod]
+        public void TestPlcInspCh()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.StartAsyn();
+                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
+                Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
+                Console.WriteLine(plc.InspCh.WPosition(20));//0~359
+                Console.WriteLine(plc.InspCh.Initial());
+                Console.WriteLine(plc.InspCh.CheckRobotIntrude());
+                Console.WriteLine(plc.InspCh.CheckXYPosition());
+                Console.WriteLine(plc.InspCh.CheckZPosition());
+                Console.WriteLine(plc.InspCh.CheckWPosition());
+                Console.WriteLine(plc.InspCh.CheckRobotAbout(-10,10));
+                Console.WriteLine(plc.InspCh.CheckRobotUpDown(10,0));
+            }
+        }
     }
 }

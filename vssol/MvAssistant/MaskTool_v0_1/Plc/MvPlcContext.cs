@@ -34,6 +34,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.OpenStage = new MvPlcOpenStage(this);
             this.Cabinet = new MvPlcCabinet(this);
             this.CleanCh = new MvPlcCleanCh(this);
+
+            this.PlcLdd = new MvOmronPlcLdd();
+            this.PlcLdd.NLPLC_Initial("192.168.0.200", 2);
+
         }
         ~MvPlcContext() { this.Dispose(false); }
 
@@ -41,7 +45,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         public T Read<T>(MvEnumPlcVariable plcvar)
         {
-            return (T)this.PlcLdd.Read(plcvar.ToString());
+            var obj = this.PlcLdd.Read(plcvar.ToString());
+
+            return (T)obj;
         }
         public void Write(MvEnumPlcVariable plcvar, object data)
         {
@@ -59,9 +65,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         public int StartAsyn()
         {
-            this.PlcLdd = new MvOmronPlcLdd();
-            this.PlcLdd.NLPLC_Initial("192.168.0.200", 2);
-
+         
 
             this.m_keepConnection = MvCancelTask.RunLoop(() =>
             {
