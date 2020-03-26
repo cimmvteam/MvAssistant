@@ -32,7 +32,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 1000))
                 throw new MvException("Open Stage Initial T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
             {
                 //case 0:
                 //    Result = "Invalid";

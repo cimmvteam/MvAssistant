@@ -15,7 +15,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.m_PlcContext = plc;
         }
 
-        public Tuple<uint, uint, uint> ParticleCount(uint L_Limit, uint M_Limit, uint S_Limit)
+        public Tuple<int, int, int> ParticleCount(uint L_Limit, uint M_Limit, uint S_Limit)
         {
             var plc = this.m_PlcContext;
 
@@ -23,10 +23,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit, M_Limit);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit, S_Limit);
 
-            return new Tuple<uint, uint, uint>(
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_PD_L),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_PD_M),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_PD_S)
+            return new Tuple<int, int, int>(
+                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_L),
+                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_M),
+                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_S)
                 );
         }
 
@@ -36,9 +36,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double, double>(
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_MaskLevel1),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_MaskLevel2),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_MaskLevel3)
+                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel1),
+                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel2),
+                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel3)
                 );
         }
 
@@ -65,13 +65,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //為壓差計
-        public uint DP(uint DP_Limit)
+        public int PressureGauge(uint PressureLimit)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_DP_Limit,DP_Limit);
+            plc.Write(MvEnumPlcVariable.PC_TO_CC_DP_Limit, PressureLimit);
 
-            return plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_DP);
+            return plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_DP);
         }
 
         //空氣閥吹風

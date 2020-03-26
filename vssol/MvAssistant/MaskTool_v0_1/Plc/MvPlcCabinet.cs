@@ -15,24 +15,24 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //壓差表數值
-        public Tuple<uint, uint> DP(uint DP1, uint DP2)
+        public Tuple<int, int> PressureGauge(uint Gauge1, uint Gauge2)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, DP1);
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, DP2);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2);
 
-            return new Tuple<uint, uint>(
-                plc.Read<uint>(MvEnumPlcVariable.DB_TO_PC_DP1),
-                plc.Read<uint>(MvEnumPlcVariable.DB_TO_PC_DP2)
+            return new Tuple<int, int>(
+                plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP1),
+                plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP2)
                 );
         }
 
         //節流閥回授訊號
-        public Tuple<int, int> Exhaust(int Exhaust1, int Exhaust2)
+        public Tuple<int, int> ExhaustValve(int Valve1, int Valve2)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust1, Exhaust1);
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust2, Exhaust2);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust1, Valve1);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust2, Valve2);
 
             return new Tuple<int, int>(
                 plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_1),

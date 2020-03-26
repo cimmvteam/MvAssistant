@@ -34,7 +34,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 1000))
                 throw new MvException("Box Hand Clamp T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
             {
                 case 0:
                     Result = "Invalid";
@@ -79,7 +79,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 1000))
                 throw new MvException("Box Hand Unclamp T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Result))
             {
                 //case 0:
                 //    Result = "Invalid";
@@ -123,7 +123,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 1000))
                 throw new MvException("Box Hand Initial T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
             {
                 //case 0:
                 //    Result = "Invalid";
@@ -193,7 +193,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認六軸力覺Sensor
-        public Tuple<uint, uint, uint, uint, uint, uint> CheckSixAxisSensor(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
+        public Tuple<int, int, int, int, int, int> CheckSixAxisSensor(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_Fx, Fx);
@@ -203,13 +203,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_My, My);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_Mz, Mz);
 
-            return new Tuple<uint, uint, uint, uint, uint, uint>(
-                plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ForceFx),
-                plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ForceFy),
-                plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ForceFz),
-                plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ForceMx),
-                plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ForceMx),
-                plc.Read<uint>(MvEnumPlcVariable.BT_TO_PC_ForceMx)
+            return new Tuple<int, int, int, int, int, int>(
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFx),
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFy),
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFz),
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMx),
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMx),
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMx)
                 );
         }
 

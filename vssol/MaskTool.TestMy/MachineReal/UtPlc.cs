@@ -29,6 +29,7 @@ namespace MaskTool.TestMy.MachineReal
 
         }
 
+        [TestMethod]
         public void TestPlcBoxRobot()
         {
             using (var plc = new MvPlcContext())
@@ -51,6 +52,93 @@ namespace MaskTool.TestMy.MachineReal
             }
         }
 
+        [TestMethod]
+        public void TestPlcCabinet()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.StartAsyn();
+                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.Cabinet.PressureGauge(1,2));
+                Console.WriteLine(plc.Cabinet.ExhaustValve(3,4));
+                plc.Cabinet.SignalTower(true,false,false);
+                plc.Cabinet.Buzzer(1);
+                Console.WriteLine(plc.Cabinet.CheckAreaSensor());
+            }
+        }
+
+        [TestMethod]
+        public void TestPlcCleanCh()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.StartAsyn();
+                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.CleanCh.ParticleCount(1,2,3));
+                Console.WriteLine(plc.CleanCh.CheckMaskLevel());
+                Console.WriteLine(plc.CleanCh.RobotPosAbout(10,-20));
+                Console.WriteLine(plc.CleanCh.RobotPosUpDown(10,-10));
+                Console.WriteLine(plc.CleanCh.PressureGauge(2));
+                Console.WriteLine(plc.CleanCh.GasValveBlow(3));
+                Console.WriteLine(plc.CleanCh.PressureCtl(10));
+                Console.WriteLine(plc.CleanCh.CheckPressure());
+                Console.WriteLine(plc.CleanCh.CheckAreaSensor());
+            }
+        }
+
+        [TestMethod]
+        public void TestPlcInspCh()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.StartAsyn();
+                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
+                Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
+                Console.WriteLine(plc.InspCh.WPosition(20));//0~359
+                Console.WriteLine(plc.InspCh.Initial());
+                Console.WriteLine(plc.InspCh.CheckRobotIntrude());
+                Console.WriteLine(plc.InspCh.CheckXYPosition());
+                Console.WriteLine(plc.InspCh.CheckZPosition());
+                Console.WriteLine(plc.InspCh.CheckWPosition());
+                Console.WriteLine(plc.InspCh.CheckRobotAbout(-10, 10));
+                Console.WriteLine(plc.InspCh.CheckRobotUpDown(10, 0));
+            }
+        }
+
+        [TestMethod]
+        public void TestPlcLoadPort()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.StartAsyn();
+                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.LoadPort.PressureGauge(1,2));
+            }
+        }
+
+        [TestMethod]
+        public void TestPlcMaskRobot()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.StartAsyn();
+                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.MaskRobot.Initial());
+            }
+        }
+
+        [TestMethod]
         public void TestPlcOpenStage()
         {
             using (var plc = new MvPlcContext())
@@ -79,24 +167,16 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcInspCh()
+        public void TestPlcHandInspection()
         {
             using (var plc = new MvPlcContext())
             {
+
                 plc.StartAsyn();
                 if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
                     throw new MvException("PLC connection fail");
 
-                Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
-                Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
-                Console.WriteLine(plc.InspCh.WPosition(20));//0~359
-                Console.WriteLine(plc.InspCh.Initial());
-                Console.WriteLine(plc.InspCh.CheckRobotIntrude());
-                Console.WriteLine(plc.InspCh.CheckXYPosition());
-                Console.WriteLine(plc.InspCh.CheckZPosition());
-                Console.WriteLine(plc.InspCh.CheckWPosition());
-                Console.WriteLine(plc.InspCh.CheckRobotAbout(-10,10));
-                Console.WriteLine(plc.InspCh.CheckRobotUpDown(10,0));
+                Console.WriteLine(plc.HandInspection());
             }
         }
     }

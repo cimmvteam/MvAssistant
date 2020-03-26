@@ -32,7 +32,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Complete), 1000))
                 throw new MvException("Open Stage OpenBox T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Open_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Open_Result))
             {
                 case 1:
                     Result = "OK";
@@ -68,7 +68,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Complete), 1000))
                 throw new MvException("Open Stage CloseBox T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Close_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Close_Result))
             {
                 case 1:
                     Result = "OK";
@@ -105,7 +105,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Clamp_Complete), 1000))
                 throw new MvException("Open Stage Clamp T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Clamp_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Clamp_Result))
             {
                 case 1:
                     Result = "OK";
@@ -142,7 +142,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Complete), 1000))
                 throw new MvException("Open Stage Unclamp T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Unclamp_Result))
             {
                 //case 1:
                 //    Result = "OK";
@@ -179,7 +179,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Complete), 1000))
                 throw new MvException("Open Stage SortClamp T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_SortClamp_Result))
             {
                 case 1:
                     Result = "OK";
@@ -213,7 +213,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Complete), 1000))
                 throw new MvException("Open Stage SortUnclamp T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_SortUnclamp_Result))
             {
                 case 1:
                     Result = "OK";
@@ -241,7 +241,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Lock_Complete), 1000))
                 throw new MvException("Open Stage Lock/Unlock T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Lock_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Lock_Result))
             {
                 //case 1:
                 //    Result = "OK";
@@ -276,7 +276,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Complete), 1000))
                 throw new MvException("Open Stage Initial T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Result))
             {
                 //case 0:
                 //    Result = "Invalid";
@@ -315,10 +315,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認開盒夾爪狀態
-        public uint CheckClampStatus()
+        public int CheckClampStatus()
         {
             var plc = this.m_PlcContext;
-            return plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_ClampStatus);
+            return plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_ClampStatus);
         }
 
         //確認Stage上固定Box的夾具位置

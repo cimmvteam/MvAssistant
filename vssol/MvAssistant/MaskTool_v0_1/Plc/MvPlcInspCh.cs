@@ -36,7 +36,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 1000))
                 throw new MvException("Inspection XY T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_XYResult))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_XYResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -79,7 +79,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 1000))
                 throw new MvException("Inspection Z T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_ZResult))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_ZResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -122,7 +122,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 1000))
                 throw new MvException("Inspection W T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_WResult))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_WResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -163,7 +163,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 1000))
                 throw new MvException("Inspection Initial T4 timeout");
-            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Result))
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Result))
             {
                 //case 0:
                 //    Result = "Invalid";

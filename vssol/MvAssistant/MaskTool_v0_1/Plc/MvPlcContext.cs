@@ -25,6 +25,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public MvPlcOpenStage OpenStage;
         public MvPlcCabinet Cabinet;
         public MvPlcCleanCh CleanCh;
+        public MvPlcLoadPort LoadPort;
 
         public MvPlcContext()
         {
@@ -34,6 +35,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.OpenStage = new MvPlcOpenStage(this);
             this.Cabinet = new MvPlcCabinet(this);
             this.CleanCh = new MvPlcCleanCh(this);
+            this.LoadPort = new MvPlcLoadPort(this);
 
             this.PlcLdd = new MvOmronPlcLdd();
             this.PlcLdd.NLPLC_Initial("192.168.0.200", 2);
@@ -111,7 +113,17 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             }
         }
 
-
+        public Tuple<double, double, double, double, double, double> HandInspection()
+        {
+            return new Tuple<double, double, double, double, double, double>(
+            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser1),
+            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser2),
+            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser3),
+            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser4),
+            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser5),
+            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser6)
+            );
+        }
 
 
         #region IDisposable
