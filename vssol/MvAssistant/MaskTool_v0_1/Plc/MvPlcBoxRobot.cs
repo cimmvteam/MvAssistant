@@ -14,12 +14,15 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             this.m_PlcContext = plc;
         }
+
         public string Clamp(uint BoxType)
         {
             var Result = "";
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Box_Type, BoxType);
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Reply), 1000))
@@ -27,7 +30,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 5000))
                 throw new MvException("Box Hand Clamp T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Clamp), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 1000))
                 throw new MvException("Box Hand Clamp T4 timeout");
@@ -63,6 +66,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var Result = "";
             var plc = this.m_PlcContext;
 
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Reply), 1000))
@@ -70,7 +75,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 5000))
                 throw new MvException("Box Hand Unclamp T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Unclamp), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 1000))
                 throw new MvException("Box Hand Unclamp T4 timeout");
@@ -105,6 +110,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Reply), 1000))
@@ -112,7 +119,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 5000))
                 throw new MvException("Box Hand Initial T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Initial_A03), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 1000))
                 throw new MvException("Box Hand Initial T4 timeout");

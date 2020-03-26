@@ -80,6 +80,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, BlowTime);
+            plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Reply), 1000))
@@ -87,7 +89,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 5000))
                 throw new MvException("Open Stage Lock/Unlock T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_CC_Blow), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000))
                 throw new MvException("Open Stage Lock/Unlock T4 timeout");

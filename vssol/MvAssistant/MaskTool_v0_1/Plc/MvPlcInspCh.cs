@@ -32,13 +32,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 5000))
                 throw new MvException("Inspection XY T2 timeout");
 
-
-            //SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_XYCmd), 1000);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 1000))
                 throw new MvException("Inspection XY T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_XYResult))
+            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_XYResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -76,13 +74,12 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 throw new MvException("Inspection Z T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 5000))
                 throw new MvException("Inspection Z T2 timeout");
-
-            //SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_ZCmd), 1000);
+            
             plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 1000))
                 throw new MvException("Inspection Z T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_ZResult))
+            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_ZResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -120,13 +117,12 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 throw new MvException("Inspection W T0 timeout");
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 5000))
                 throw new MvException("Inspection W T2 timeout");
-
-            //SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_WCmd), 1000);
+            
             plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 1000))
                 throw new MvException("Inspection W T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_WResult))
+            switch (plc.Read<uint>(MvEnumPlcVariable.IC_TO_PC_WResult))
             {
                 case 0:
                     Result = "Invalid";
@@ -154,6 +150,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+            Thread.Sleep(100);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, true);
 
             if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Reply), 1000))
@@ -161,7 +159,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 5000))
                 throw new MvException("Inspection Initial T2 timeout");
 
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_IC_Initial_A06), 1000);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
 
             if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 1000))
                 throw new MvException("Inspection Initial T4 timeout");

@@ -102,6 +102,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_Vacuum,
 
         //Mask Robot Hand(A04)
+        PC_TO_MT_Initial_A04,
+        MT_TO_PC_Initial_A04_Reply,
+        MT_TO_PC_Initial_A04_Complete,
+        MT_TO_PC_Initial_A04_Result,
         CCD_Result,
 
         //Open Stage(A05)

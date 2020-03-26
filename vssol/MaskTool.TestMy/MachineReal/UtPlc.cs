@@ -66,7 +66,7 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.OpenStage.Unclamp());
                 Console.WriteLine(plc.OpenStage.SortClamp());
                 Console.WriteLine(plc.OpenStage.SortUnclamp());
-                Console.WriteLine(plc.OpenStage.Lock(true));// T/F
+                Console.WriteLine(plc.OpenStage.Lock());
                 Console.WriteLine(plc.OpenStage.Initial());
                 Console.WriteLine(plc.OpenStage.CheckRobotIntrude());
                 Console.WriteLine(plc.OpenStage.CheckClampStatus());
