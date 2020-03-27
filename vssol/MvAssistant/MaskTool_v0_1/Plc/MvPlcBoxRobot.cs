@@ -19,45 +19,56 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var Result = "";
             var plc = this.m_PlcContext;
-
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Box_Type, BoxType);
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Reply), 1000))
-                throw new MvException("Box Hand Clamp T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 5000))
-                throw new MvException("Box Hand Clamp T2 timeout");
-
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 1000))
-                throw new MvException("Box Hand Clamp T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
+            try
             {
-                case 0:
-                    Result = "Invalid";
-                    break;
-                case 1:
-                    Result = "OK";
-                    break;
-                case 2:
-                    Result = "Clamp no box type";
-                    break;
-                case 3:
-                    Result = "Tactile out range";
-                    break;
-                case 4:
-                    Result = "Motor error";
-                    break;
-                case 5:
-                    Result = "Please initial";
-                    break;
-                case 6:
-                    Result = "System not ready";
-                    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Box_Type, BoxType);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Reply), 1000))
+                    throw new MvException("Box Hand Clamp T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 5000))
+                    throw new MvException("Box Hand Clamp T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Clamp no box type";
+                        break;
+                    case 3:
+                        Result = "Tactile out range";
+                        break;
+                    case 4:
+                        Result = "Motor error";
+                        break;
+                    case 5:
+                        Result = "Please initial";
+                        break;
+                    case 6:
+                        Result = "System not ready";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Complete), 1000))
+                    throw new MvException("Box Hand Clamp T4 timeout");
             }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Box_Type, 0);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
+            }
+                        
             return Result;
         }
 
@@ -65,44 +76,53 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var Result = "";
             var plc = this.m_PlcContext;
-
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Reply), 1000))
-                throw new MvException("Box Hand Unclamp T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 5000))
-                throw new MvException("Box Hand Unclamp T2 timeout");
-
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 1000))
-                throw new MvException("Box Hand Unclamp T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Result))
+            try
             {
-                //case 0:
-                //    Result = "Invalid";
-                //    break;
-                //case 1:
-                //    Result = "OK";
-                //    break;
-                //case 2:
-                //    Result = "Clamp no box type";
-                //    break;
-                //case 3:
-                //    Result = "Tactile out range";
-                //    break;
-                //case 4:
-                //    Result = "Motor error";
-                //    break;
-                //case 5:
-                //    Result = "Please initial";
-                //    break;
-                //case 6:
-                //    Result = "System not ready";
-                //    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Reply), 1000))
+                    throw new MvException("Box Hand Unclamp T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 5000))
+                    throw new MvException("Box Hand Unclamp T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Result))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Clamp no box type";
+                        break;
+                    case 3:
+                        Result = "Tactile out range";
+                        break;
+                    case 4:
+                        Result = "Motor error";
+                        break;
+                    case 5:
+                        Result = "Please initial";
+                        break;
+                    case 6:
+                        Result = "System not ready";
+                        break;
+                }
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_UnclampCmd_Complete), 1000))
+                    throw new MvException("Box Hand Unclamp T4 timeout");
             }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
+            }           
+           
             return Result;
         }
         
@@ -110,34 +130,44 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Reply), 1000))
-                throw new MvException("Box Hand Initial T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 5000))
-                throw new MvException("Box Hand Initial T2 timeout");
-
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 1000))
-                throw new MvException("Box Hand Initial T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
+            try
             {
-                //case 0:
-                //    Result = "Invalid";
-                //    break;
-                //case 1:
-                //    Result = "Idle";
-                //    break;
-                //case 2:
-                //    Result = "Busy";
-                //    break;
-                //case 3:
-                //    Result = "Error";
-                //    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Reply), 1000))
+                    throw new MvException("Box Hand Initial T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 5000))
+                    throw new MvException("Box Hand Initial T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "Idle";
+                        break;
+                    case 2:
+                        Result = "Busy";
+                        break;
+                    case 3:
+                        Result = "Error";
+                        break;
+                }
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Complete), 1000))
+                    throw new MvException("Box Hand Initial T4 timeout");
             }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
+            }           
+           
             return Result;
         }
 
@@ -168,6 +198,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Laser1_FLS, FLS);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Laser1_RLS, RLS);
+            Thread.Sleep(100);
             return plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_LaserPosition1);
         }
 
@@ -176,6 +207,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Laser2_Limit, ClampLength);
+            Thread.Sleep(100);
             return plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_LaserPosition2);
         }
 
@@ -185,7 +217,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Limit_X, Level_X);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Limit_Y, Level_Y);
-
+            Thread.Sleep(100);
             return new Tuple<double, double>(
                 plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_Level_X),
                 plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_Level_Y)
@@ -202,7 +234,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_Mx, Mx);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_My, My);
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_Mz, Mz);
-
+            Thread.Sleep(100);
             return new Tuple<int, int, int, int, int, int>(
                 plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFx),
                 plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFy),
