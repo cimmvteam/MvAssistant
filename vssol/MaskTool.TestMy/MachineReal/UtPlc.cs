@@ -61,9 +61,9 @@ namespace MaskTool.TestMy.MachineReal
                 if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
                     throw new MvException("PLC connection fail");
 
-                Console.WriteLine(plc.Cabinet.PressureGauge(1,2));
-                Console.WriteLine(plc.Cabinet.ExhaustValve(3,4));
-                plc.Cabinet.SignalTower(true,false,false);
+                Console.WriteLine(plc.Cabinet.PressureGauge(1, 2));
+                Console.WriteLine(plc.Cabinet.ExhaustValve(3, 4));
+                plc.Cabinet.SignalTower(true, false, false);
                 plc.Cabinet.Buzzer(1);
                 Console.WriteLine(plc.Cabinet.CheckAreaSensor());
             }
@@ -78,10 +78,10 @@ namespace MaskTool.TestMy.MachineReal
                 if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
                     throw new MvException("PLC connection fail");
 
-                Console.WriteLine(plc.CleanCh.ParticleCount(1,2,3));
+                Console.WriteLine(plc.CleanCh.ParticleCount(1, 2, 3));
                 Console.WriteLine(plc.CleanCh.CheckMaskLevel());
-                Console.WriteLine(plc.CleanCh.RobotPosAbout(10,-20));
-                Console.WriteLine(plc.CleanCh.RobotPosUpDown(10,-10));
+                Console.WriteLine(plc.CleanCh.RobotPosAbout(10, -20));
+                Console.WriteLine(plc.CleanCh.RobotPosUpDown(10, -10));
                 Console.WriteLine(plc.CleanCh.PressureGauge(2));
                 Console.WriteLine(plc.CleanCh.GasValveBlow(3));
                 Console.WriteLine(plc.CleanCh.PressureCtl(10));
@@ -121,7 +121,7 @@ namespace MaskTool.TestMy.MachineReal
                 if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
                     throw new MvException("PLC connection fail");
 
-                Console.WriteLine(plc.LoadPort.PressureGauge(1,2));
+                Console.WriteLine(plc.LoadPort.PressureGauge(1, 2));
             }
         }
 
@@ -144,25 +144,62 @@ namespace MaskTool.TestMy.MachineReal
             using (var plc = new MvPlcContext())
             {
 
-                plc.StartAsyn();
-                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
-                    throw new MvException("PLC connection fail");
+                //plc.StartAsyn();
+                //if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                //    throw new MvException("PLC connection fail");
 
-                Console.WriteLine(plc.OpenStage.Open());
-                Console.WriteLine(plc.OpenStage.Close());
-                Console.WriteLine(plc.OpenStage.Clamp());
-                Console.WriteLine(plc.OpenStage.Unclamp());
-                Console.WriteLine(plc.OpenStage.SortClamp());
-                Console.WriteLine(plc.OpenStage.SortUnclamp());
-                Console.WriteLine(plc.OpenStage.Lock());
+                //Console.WriteLine(plc.OpenStage.Open());
+                //Console.WriteLine(plc.OpenStage.Lock());
+                //Console.WriteLine(plc.OpenStage.Close());
+                //Console.WriteLine(plc.OpenStage.Clamp());
+                //Console.WriteLine(plc.OpenStage.Unclamp());
+                //Console.WriteLine(plc.OpenStage.SortClamp());
+                //Console.WriteLine(plc.OpenStage.SortUnclamp());
                 Console.WriteLine(plc.OpenStage.Initial());
-                Console.WriteLine(plc.OpenStage.CheckRobotIntrude());
+                //Console.WriteLine(plc.OpenStage.CheckRobotIntrude(true, false));
                 Console.WriteLine(plc.OpenStage.CheckClampStatus());
                 Console.WriteLine(plc.OpenStage.CheckSortClampPosition());
                 Console.WriteLine(plc.OpenStage.CheckSliderPosition());
                 Console.WriteLine(plc.OpenStage.CheckCoverPos());
                 Console.WriteLine(plc.OpenStage.CheckCoverSensor());
                 Console.WriteLine(plc.OpenStage.CheckBoxExist());
+            }
+        }
+
+        [TestMethod]
+        public void TestPlcOpenStageFlow()
+        {
+            using (var plc = new MvPlcContext())
+            {
+
+                //plc.StartAsyn();
+                //if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                //    throw new MvException("PLC connection fail");
+
+                Console.WriteLine(plc.OpenStage.Initial());
+                for (int i = 0; i < 1; i++)
+                //while (true)
+                {
+                    Console.WriteLine(plc.OpenStage.SortClamp());
+                    Console.WriteLine(plc.OpenStage.SortUnclamp());
+                    Console.WriteLine(plc.OpenStage.Close());
+                    Console.WriteLine(plc.OpenStage.Clamp());
+                    Console.WriteLine(plc.OpenStage.Open());
+                    Console.WriteLine(plc.OpenStage.CheckRobotIntrude(true, false));//mask
+                    Console.WriteLine(plc.OpenStage.CheckRobotIntrude(true, true));//complete
+                    Console.WriteLine(plc.OpenStage.Close());
+                    Console.WriteLine(plc.OpenStage.Unclamp());
+                    Console.WriteLine(plc.OpenStage.Lock());
+                }
+
+                //Console.WriteLine(plc.OpenStage.CheckClampStatus());
+                //Console.WriteLine(plc.OpenStage.CheckSortClampPosition());
+                //Console.WriteLine(plc.OpenStage.CheckSliderPosition());
+                //Console.WriteLine(plc.OpenStage.CheckCoverPos());
+                //Console.WriteLine(plc.OpenStage.CheckCoverSensor());
+                //Console.WriteLine(plc.OpenStage.CheckBoxExist());
+
+                //plc.Close();
             }
         }
 
