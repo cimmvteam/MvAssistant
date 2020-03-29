@@ -123,7 +123,7 @@ namespace BoxTransferTest
 
         private void SendMsgToDrawer(object sender, EventArgs e)
         {
-            string msg = textBox10.Text;
+            string msg = textBox13.Text;
             udpClient1.Send(msg);
         }
 

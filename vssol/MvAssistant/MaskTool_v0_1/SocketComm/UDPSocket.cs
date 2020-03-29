@@ -47,7 +47,7 @@ namespace MvAssistant.MaskTool_v0_1.SocketComm
         {
             byte[] b = Encoding.UTF8.GetBytes(msg);
             udp.Send(b, b.Length, ipep);
-            if(RcvMsgEvent!=null)
+            if (RcvMsgEvent != null)
             {
                 RcvMsgEvent("SendMsg:" + msg);
             }
