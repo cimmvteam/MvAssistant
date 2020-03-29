@@ -19,7 +19,10 @@ namespace BoxTransferTest
         RobotMotionInfo motionInfo;
         SynchronizationContext _syncContext = null;
         AsynchronousClient client;
+        UDPSocket udpServer1;
+        UDPSocket udpClient1;
         bool socketConnectFlag = false;
+        string drawerData;
 
         public Form1()
         {
@@ -85,7 +88,7 @@ namespace BoxTransferTest
             }
             catch(Exception ex)
             {
-                listBox1.Items.Add("Exception:"+ex.StackTrace.ToString());
+                
             }
         }
 
@@ -100,43 +103,42 @@ namespace BoxTransferTest
         private void DrawerConnect(object sender, EventArgs e)
         {
             string ip = textBox12.Text;
-            string port = textBox11.Text;
+            int port = Convert.ToInt32(textBox11.Text);
+
+            udpServer1 = new UDPSocket(JOBTYPE.RECVDTA,ip,port);
+            udpClient1 = new UDPSocket(JOBTYPE.SENDDATA, ip, port);
+            udpServer1.RcvMsgEvent += DrawerEventHandler;
+            udpClient1.RcvMsgEvent += DrawerEventHandler;
+            Thread listenThread = new Thread(udpServer1.Listen);
+            listenThread.Start();
         }
+
+        public void DrawerEventHandler(string msg)
+        {
+            drawerData = msg;
+            DrawerMsgUpdate();
+        }
+
+        
 
         private void SendMsgToDrawer(object sender, EventArgs e)
         {
             string msg = textBox10.Text;
-            ///TO DO:撰寫Socket Host端
+            udpClient1.Send(msg);
         }
 
-        //void UpdateRcvMsg()
-        //{
-        //    while(socketConnectFlag)
-        //    {
-        //        AsynchronousClient.RcvMsg();
-        //        Control_UpdateCallBack(listBox1, )
-        //    }
-
-        //}
-
-        delegate void SetTextCallback(Control ctrl, object obj);
-        void Control_UpdateCallBack(Control ctrl, object obj)
-        { //31行
-            if (ctrl == null || obj == null) return;//判斷若 參數都是null return
-            if (ctrl.InvokeRequired) //判斷是否是自己建立的Thrad若是，就進入if內了
+        public void DrawerMsgUpdate()
+        {
+            if (this.InvokeRequired)
             {
-                SetTextCallback d = new SetTextCallback(Control_UpdateCallBack);//委派把自己傳進來，所以會在執行這個方法第二次
-                                                                                //所以第一次近來跑到地38行結束後，他會再從31行進來再跑一次，這時已經是第2次了，所以會直接掉入else去做Add的動作
-                                                                                //每次回圈都Call這個方法，然後每次這個方法他會跑兩次，第二次才會去做Add的動作
-                this.Invoke(d, new object[] { ctrl, obj }); //38行
+                this.Invoke(new MethodInvoker(DrawerMsgUpdate));
+
             }
             else
             {
-                if (ctrl == listBox1)
-                {
-                    listBox1.Items.Add(obj);
-                    listBox1.SelectedIndex = listBox1.Items.Count - 1;
-                }
+                textBox15.Text += drawerData + Environment.NewLine;
+                textBox15.SelectionStart = textBox15.TextLength;
+                textBox15.ScrollToCaret();
             }
         }
     }

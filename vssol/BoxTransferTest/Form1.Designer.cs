@@ -64,8 +64,8 @@
             this.button8 = new System.Windows.Forms.Button();
             this.textBox13 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBox15 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -267,7 +267,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Controls.Add(this.textBox14);
             this.groupBox2.Controls.Add(this.button6);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
@@ -327,7 +327,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.listBox2);
+            this.groupBox3.Controls.Add(this.textBox15);
             this.groupBox3.Controls.Add(this.button7);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label12);
@@ -411,23 +411,21 @@
             this.label13.TabIndex = 22;
             this.label13.Text = "CommLog";
             // 
-            // listBox1
+            // textBox14
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(10, 147);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(383, 196);
-            this.listBox1.TabIndex = 29;
+            this.textBox14.Location = new System.Drawing.Point(10, 135);
+            this.textBox14.Multiline = true;
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(369, 164);
+            this.textBox14.TabIndex = 29;
             // 
-            // listBox2
+            // textBox15
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(6, 147);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(383, 196);
-            this.listBox2.TabIndex = 30;
+            this.textBox15.Location = new System.Drawing.Point(10, 135);
+            this.textBox15.Multiline = true;
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(369, 164);
+            this.textBox15.TabIndex = 30;
             // 
             // Form1
             // 
@@ -488,8 +486,8 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox textBox13;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBox15;
     }
 }
 
