@@ -102,6 +102,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_Vacuum,
 
         //Mask Robot Hand(A04)
+        PC_TO_MT_Initial_A04,
+        MT_TO_PC_Initial_A04_Reply,
+        MT_TO_PC_Initial_A04_Complete,
+        MT_TO_PC_Initial_A04_Result,
         CCD_Result,
 
         //Open Stage(A05)
@@ -140,8 +144,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_OS_BoxType,//設定內容 1.Box type 2.作動速度%
         PC_TO_OS_BTIntrude,//Robot侵入A05
         PC_TO_OS_MTIntrude,
-        PC_TO_OS_BTLicence,//Robot侵入A05許可
-        PC_TO_OS_MTLicence,
+        OS_TO_PC_BTLicence,//Robot侵入A05許可
+        OS_TO_PC_MTLicence,
         OS_TO_PC_ClampStatus,
         OS_TO_PC_SortClamp1_Position,
         OS_TO_PC_SortClamp2_Position,

@@ -88,6 +88,7 @@
     <Compile Include="MaskTool_v0_1\Plc\MvPlcCleanCh.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcInspCh.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcContext.cs" />
+    <Compile Include="MaskTool_v0_1\Plc\MvPlcLoadPort.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcMaskRobot.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcOpenStage.cs" />
     <Compile Include="MaskTool_v0_1\Robot\BoxRobotHandler.cs" />
