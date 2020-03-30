@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MvAssistant.MaskTool_v0_1.Plc
 {
@@ -20,7 +21,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1);
             plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2);
-
+            Thread.Sleep(100);
             return new Tuple<int, int>(
                 plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP1),
                 plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP2)
@@ -33,7 +34,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust1, Valve1);
             plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust2, Valve2);
-
+            Thread.Sleep(100);
             return new Tuple<int, int>(
                 plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_1),
                 plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_2)

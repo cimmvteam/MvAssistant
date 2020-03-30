@@ -22,7 +22,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_L_Limit, L_Limit);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit, M_Limit);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit, S_Limit);
-
+            Thread.Sleep(100);
             return new Tuple<int, int, int>(
                 plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_L),
                 plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_M),
@@ -49,7 +49,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
-
+            Thread.Sleep(100);
             return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_RobotPosition_About);
         }
 
@@ -60,7 +60,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_D, Limit_D);
-
+            Thread.Sleep(100);
             return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_RobotPosition_UpDown);
         }
 
@@ -70,30 +70,38 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_DP_Limit, PressureLimit);
-
+            Thread.Sleep(100);
             return plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_DP);
         }
 
-        //空氣閥吹風
+        //空氣閥吹風(BlowTime單位為ms)
         public bool GasValveBlow(uint BlowTime)
         {
             var plc = this.m_PlcContext;
+            try
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, BlowTime);
+                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, true);
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, BlowTime);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, true);
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Reply), 1000))
+                    throw new MvException("Open Stage Lock/Unlock T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 5000))
+                    throw new MvException("Open Stage Lock/Unlock T2 timeout");
 
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Reply), 1000))
-                throw new MvException("Open Stage Lock/Unlock T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 5000))
-                throw new MvException("Open Stage Lock/Unlock T2 timeout");
+                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000))
-                throw new MvException("Open Stage Lock/Unlock T4 timeout");
-            
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000))
+                    throw new MvException("Open Stage Lock/Unlock T4 timeout");
+            }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, 0);
+                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+            }
             return plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Output);
         }
 
@@ -103,7 +111,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PressureControl, AirPressure);
-
+            Thread.Sleep(100);
             return plc.Read<double>(MvEnumPlcVariable.CC_TO_PressureControl);
         }
 

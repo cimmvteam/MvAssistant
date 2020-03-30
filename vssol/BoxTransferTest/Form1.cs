@@ -37,7 +37,7 @@ namespace BoxTransferTest
 
         private void RobotConnect(object sender, EventArgs e)
         {
-            this.robotHandler.ldd.RobotIp = "192.168.0.51";
+            this.robotHandler.ldd.RobotIp = "192.168.0.50";
             int connectRes = robotHandler.ConnectIfNO();
             if (robotHandler != null)
             {
@@ -105,7 +105,7 @@ namespace BoxTransferTest
             string ip = textBox12.Text;
             int port = Convert.ToInt32(textBox11.Text);
 
-            udpServer1 = new UDPSocket(JOBTYPE.RECVDTA,ip,port);
+            udpServer1 = new UDPSocket(JOBTYPE.RECVDTA,ip,6000);
             udpClient1 = new UDPSocket(JOBTYPE.SENDDATA, ip, port);
             udpServer1.RcvMsgEvent += DrawerEventHandler;
             udpClient1.RcvMsgEvent += DrawerEventHandler;
