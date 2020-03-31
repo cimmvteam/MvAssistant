@@ -191,16 +191,16 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認Robot入侵
-        public bool CheckRobotIntrude()
+        public bool ReadRobotIntrude()
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_IC_RobotIntrude, true);
-
+            Thread.Sleep(100);
             return plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_RobotLicence);
         }
 
         //確認 XY Stage位置
-        public Tuple<double, double> CheckXYPosition()
+        public Tuple<double, double> ReadXYPosition()
         {
             var plc = this.m_PlcContext;
 
@@ -211,7 +211,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認 CCD Z軸位置
-        public double CheckZPosition()
+        public double ReadZPosition()
         {
             var plc = this.m_PlcContext;
 
@@ -219,31 +219,65 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //確認旋轉位置
-        public double CheckWPosition()
+        public double ReadWPosition()
         {
             var plc = this.m_PlcContext;
 
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_W);
         }
 
-        //確認Robot侵入位置(左右)
-        public double CheckRobotAbout(double AboutLimit_R, double AboutLimit_L)
+        //設定手臂可侵入的左右區間極限值
+        public void SetRobotAboutLimit(double AboutLimit_R, double AboutLimit_L)
         {
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_R, AboutLimit_R);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_L, AboutLimit_L);
+        }
 
+        //讀取手臂可侵入的左右區間極限值
+        public Tuple<double,double> ReadRobotAboutLimitSetting()
+        {
+            var plc = this.m_PlcContext;
+
+            return new Tuple<double, double>(
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_R),
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_L)
+                );
+        }
+
+        //讀取Robot侵入位置(左右)
+        public double ReadRobotPosAbout()
+        {
+            var plc = this.m_PlcContext;
+            
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_About);
         }
 
-        //檢測Robot侵入位置(上下)
-        public double CheckRobotUpDown(double UpDownLimit_U, double UpDownLimit_D)
+        //設定手臂可侵入的上下區間極限值
+        public void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
         {
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_D, UpDownLimit_D);
+        }
+
+        //讀取手臂可侵入的上下區間極限值
+        public Tuple< double,double> ReadRobotUpDownLimitSetting()
+        {
+            var plc = this.m_PlcContext;
+            
+            return new Tuple<double, double>(
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_U),
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_D)
+                );
+        }
+
+        //檢測Robot侵入位置(上下)
+        public double ReadRobotPosUpDown()
+        {
+            var plc = this.m_PlcContext;
 
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_UpDown);
         }

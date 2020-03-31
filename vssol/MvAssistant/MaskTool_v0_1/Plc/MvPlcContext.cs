@@ -65,7 +65,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         public int StartAsyn()
         {
-         
+
 
             this.m_keepConnection = MvCancelTask.RunLoop(() =>
             {
@@ -111,8 +111,23 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             }
         }
 
+<<<<<<< HEAD
 
+=======
+        //信號燈
+        public void SignalTower(bool Red, bool Orange, bool Blue)
+        {
+            this.Write(MvEnumPlcVariable.PC_TO_DR_Red, Red);
+            this.Write(MvEnumPlcVariable.PC_TO_DR_Orange, Orange);
+            this.Write(MvEnumPlcVariable.PC_TO_DR_Blue, Blue);
+        }
+>>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
 
+        //蜂鳴器
+        public void Buzzer(uint BuzzerType)
+        {
+            this.Write(MvEnumPlcVariable.PC_TO_DR_Buzzer, BuzzerType);
+        }
 
         #region IDisposable
         // Flag: Has Dispose already been called?

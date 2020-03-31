@@ -210,8 +210,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
+<<<<<<< HEAD
         //開關盒鎖(True：上鎖, False：開鎖)
         public string Lock(bool IsLock)
+=======
+        //移到開/關盒鎖的位置
+        public string Lock()
+>>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             var Result = "";
             var plc = this.m_PlcContext;
@@ -285,8 +290,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
+<<<<<<< HEAD
         //確認Robot入侵
         public Tuple<bool, bool> CheckRobotIntrude()
+=======
+        //讀取Robot入侵
+        public Tuple<bool, bool> ReadRobotIntrude(bool BTIntrude, bool MTIntrude)
+>>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_OS_BTIntrude, true);
@@ -298,15 +308,25 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
+<<<<<<< HEAD
         //確認開盒夾爪狀態
         public uint CheckClampStatus()
+=======
+        //讀取開盒夾爪狀態
+        public int ReadClampStatus()
+>>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             var plc = this.m_PlcContext;
             return plc.Read<uint>(MvEnumPlcVariable.OS_TO_PC_ClampStatus);
         }
 
+<<<<<<< HEAD
         //確認Stage上固定Box的夾具位置
         public Tuple<int, int> CheckSortClampPosition()
+=======
+        //讀取Stage上固定Box的夾具位置
+        public Tuple<long, long> ReadSortClampPosition()
+>>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             var plc = this.m_PlcContext;
 
@@ -316,8 +336,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
+<<<<<<< HEAD
         //確認Slider位置
         public Tuple<int, int> CheckSliderPosition()
+=======
+        //讀取Slider的位置
+        public Tuple<long, long> ReadSliderPosition()
+>>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             var plc = this.m_PlcContext;
 
@@ -327,8 +352,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
-        //確認盒蓋位置
-        public Tuple<double, double> CheckCoverPos()
+        //讀取盒蓋位置
+        public Tuple<double, double> ReadCoverPos()
         {
             var plc = this.m_PlcContext;
 
@@ -338,8 +363,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
-        //確認盒蓋開闔
-        public Tuple<bool, bool> CheckCoverSensor()
+        //讀取盒蓋開闔
+        public Tuple<bool, bool> ReadCoverSensor()
         {
             var plc = this.m_PlcContext;
 
@@ -349,8 +374,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
-        //確認是否有Box
-        public bool CheckBoxExist()
+        //讀取是否有Box
+        public bool ReadBoxExist()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_BoxCheckOK);
