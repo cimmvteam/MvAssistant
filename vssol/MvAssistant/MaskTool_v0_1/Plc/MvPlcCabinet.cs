@@ -15,52 +15,58 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.m_PlcContext = plc;
         }
 
-        //壓差表數值
-        public Tuple<int, int> PressureGauge(uint Gauge1, uint Gauge2)
+        #region 壓差表
+        //設定Cabinet內部與外部環境最大壓差限制
+        public void SetPressureDiffLimit(uint Gauge1MaxLimit, uint Gauge2MaxLimit)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1);
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2);
-            Thread.Sleep(100);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1MaxLimit);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2MaxLimit);
+        }
+
+        //讀取Cabinet內部與外部環境最大壓差限制
+        public Tuple<int, int> ReadPressureDiffLimit()
+        {
+            var plc = this.m_PlcContext;
+            return new Tuple<int, int>(
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_DP1Limit),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_DP2Limit)
+                );
+        }
+
+        //讀取Cabinet內部與外部環境壓差
+        public Tuple<int, int> ReadPressureDiff()
+        {
+            var plc = this.m_PlcContext;
             return new Tuple<int, int>(
                 plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP1),
                 plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP2)
                 );
         }
+        #endregion
 
-        //節流閥回授訊號
-        public Tuple<int, int> ExhaustValve(int Valve1, int Valve2)
+        #region 節流閥
+        //設定節流閥開啟大小
+        public void SetExhaustValve(int Valve1, int Valve2)
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust1, Valve1);
             plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust2, Valve2);
-            Thread.Sleep(100);
+        }
+
+        //讀取節流閥回授的開啟大小
+        public Tuple<int, int> ReadExhaustValve()
+        {
+            var plc = this.m_PlcContext;
             return new Tuple<int, int>(
                 plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_1),
                 plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_2)
                 );
         }
+        #endregion
 
-        //信號燈
-        public void SignalTower(bool Red, bool Orange, bool Blue)
-        {
-            var plc = this.m_PlcContext;
-
-            plc.Write(MvEnumPlcVariable.PC_TO_DR_Red, Red);
-            plc.Write(MvEnumPlcVariable.PC_TO_DR_Orange, Orange);
-            plc.Write(MvEnumPlcVariable.PC_TO_DR_Blue, Blue);
-        }
-
-        //蜂鳴器
-        public void Buzzer(uint BuzzerType)
-        {
-            var plc = this.m_PlcContext;
-
-            plc.Write(MvEnumPlcVariable.PC_TO_DR_Buzzer, BuzzerType);
-        }
-
-        //一排一個 各自獨立，遮斷時True，Reset time 500ms
-        public Tuple<bool, bool, bool, bool, bool, bool, bool> CheckAreaSensor()
+        //讀取光閘是否遮斷，一排一個 各自獨立，遮斷時True，Reset time 500ms
+        public Tuple<bool, bool, bool, bool, bool, bool, bool> ReadAreaSensor()
         {
             var plc = this.m_PlcContext;
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(

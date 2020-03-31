@@ -186,15 +186,15 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取夾爪前方是否有Box
-        public bool ReadDetectBox()
+        public bool ReadBoxDetect()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_LoadSensor);
         }
 
-        #region"夾爪間距"
+        #region 夾爪間距
         //設定夾爪間距的極限值
-        public void SetHandSpace(double Minimum, double Maximum)
+        public void SetHandSpaceLimit(double Minimum, double Maximum)
         {
             var plc = this.m_PlcContext;
 
@@ -203,7 +203,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取夾爪間距的極限值設定
-        public Tuple<double, double> ReadHandSpace()
+        public Tuple<double, double> ReadHandSpaceLimit()
         {
             var plc = this.m_PlcContext;
 
@@ -221,16 +221,16 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_LaserPosition1);
         }
 
-        #region"Clamp前方物距"
+        #region Clamp前方物距
         //設定Clamp與Cabinet的最小間距
-        public void SetClampToCabinetSpace(double Minimum)
+        public void SetClampToCabinetSpaceLimit(double Minimum)
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_BT_Laser2_Limit, Minimum);//夾爪夾取Box時與Cabinet的距離限制
         }
 
         //讀取Clamp與Cabinet的最小間距設定值
-        public double ReadClampToCabinetSpace()
+        public double ReadClampToCabinetSpaceLimit()
         {
             var plc = this.m_PlcContext;
             return plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Laser2_Limit);//夾爪夾取Box時與Cabinet的距離限制
@@ -244,7 +244,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
         #endregion
 
-        #region"水平Sensor"
+        #region 水平Sensor
         //設定XY軸水平Sensor的標準值
         public void SetLevelSensorLimit(double Level_X, double Level_Y)
         {
@@ -254,15 +254,17 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取XY軸水平Sensor的標準值
-        public void ReadLevelSensorLimit(double Level_X, double Level_Y)
+        public Tuple<double, double> ReadLevelSensorLimit()
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Limit_X, Level_X);
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Limit_Y, Level_Y);
+            return new Tuple<double, double>(
+            plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Level_Limit_X),
+            plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Level_Limit_Y)
+            );
         }
 
         //讀取XY軸水平Sensor目前數值
-        public Tuple<double, double> ReadLevelSensor(double Level_X, double Level_Y)
+        public Tuple<double, double> ReadLevelSensor()
         {
             var plc = this.m_PlcContext;
             return new Tuple<double, double>(
@@ -272,7 +274,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
         #endregion
 
-        #region "六軸Sensor"
+        #region 六軸Sensor
         //設定六軸力覺Sensor的壓力極限值
         public void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
         {
