@@ -203,7 +203,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取夾爪間距的極限值設定
-        public Tuple<double, double> ReadHandSpaceLimit()
+        public Tuple<double, double> ReadHandSpaceLimitSetting()
         {
             var plc = this.m_PlcContext;
 
@@ -230,7 +230,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取Clamp與Cabinet的最小間距設定值
-        public double ReadClampToCabinetSpaceLimit()
+        public double ReadClampToCabinetSpaceLimitSetting()
         {
             var plc = this.m_PlcContext;
             return plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Laser2_Limit);//夾爪夾取Box時與Cabinet的距離限制
@@ -254,7 +254,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取XY軸水平Sensor的標準值
-        public Tuple<double, double> ReadLevelSensorLimit()
+        public Tuple<double, double> ReadLevelSensorLimitSetting()
         {
             var plc = this.m_PlcContext;
             return new Tuple<double, double>(
@@ -288,7 +288,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取六軸力覺Sensor的壓力極限值
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimit()
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
         {
             var plc = this.m_PlcContext;
             return new Tuple<int, int, int, int, int, int>(

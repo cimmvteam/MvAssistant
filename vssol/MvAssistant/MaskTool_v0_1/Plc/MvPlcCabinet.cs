@@ -17,15 +17,15 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         #region 壓差表
         //設定Cabinet內部與外部環境最大壓差限制
-        public void SetPressureDiffLimit(uint Gauge1MaxLimit, uint Gauge2MaxLimit)
+        public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1MaxLimit);
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2MaxLimit);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
+            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
         }
 
         //讀取Cabinet內部與外部環境最大壓差限制
-        public Tuple<int, int> ReadPressureDiffLimit()
+        public Tuple<int, int> ReadPressureDiffLimitSetting()
         {
             var plc = this.m_PlcContext;
             return new Tuple<int, int>(
@@ -47,15 +47,25 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         #region 節流閥
         //設定節流閥開啟大小
-        public void SetExhaustValve(int Valve1, int Valve2)
+        public void SetExhaustFlow(int Valve1, int Valve2)
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust1, Valve1);
             plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust2, Valve2);
         }
 
-        //讀取節流閥回授的開啟大小
-        public Tuple<int, int> ReadExhaustValve()
+        //設定節流閥開啟大小
+        public Tuple<int, int> ReadExhaustFlowSetting()
+        {
+            var plc = this.m_PlcContext;
+            return new Tuple<int, int>(
+            plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_Exhaust1),
+            plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_Exhaust2)
+            );
+        }
+
+        //讀取節流閥實際的開啟大小
+        public Tuple<int, int> ReadExhaustFlow()
         {
             var plc = this.m_PlcContext;
             return new Tuple<int, int>(

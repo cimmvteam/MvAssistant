@@ -15,12 +15,30 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.m_PlcContext = plc;
         }
 
-        //壓差表數值
-        public Tuple<int, int> PressureGauge(uint Gauge1, uint Gauge2)
+        //設定壓差極限值
+        public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_LP_DP1Limit, Gauge1);
-            plc.Write(MvEnumPlcVariable.PC_TO_LP_DP2Limit, Gauge2);
+
+            plc.Write(MvEnumPlcVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
+            plc.Write(MvEnumPlcVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
+        }
+
+        //讀取壓差極限值
+        public Tuple<int, int> ReadPressureDiffLimitSrtting()
+        {
+            var plc = this.m_PlcContext;
+
+            return new Tuple<int, int>(
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_LP_DP1Limit),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_LP_DP2Limit)
+                );
+        }
+
+        //讀取實際壓差
+        public Tuple<int, int> ReadPressureDiff()
+        {
+            var plc = this.m_PlcContext;
 
             return new Tuple<int, int>(
                 plc.Read<int>(MvEnumPlcVariable.LP_TO_PC_DP1),

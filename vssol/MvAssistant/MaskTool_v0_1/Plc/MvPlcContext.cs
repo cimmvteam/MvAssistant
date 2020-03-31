@@ -67,7 +67,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         public int StartAsyn()
         {
-         
+
 
             this.m_keepConnection = MvCancelTask.RunLoop(() =>
             {
@@ -111,18 +111,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 obj.Cancel();
                 SpinWait.SpinUntil(() => obj.IsEnd(), 1000);
             }
-        }
-
-        public Tuple<double, double, double, double, double, double> HandInspection()
-        {
-            return new Tuple<double, double, double, double, double, double>(
-            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser1),
-            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser2),
-            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser3),
-            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser4),
-            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser5),
-            this.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser6)
-            );
         }
 
         //信號燈

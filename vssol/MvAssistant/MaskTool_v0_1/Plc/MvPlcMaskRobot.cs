@@ -19,35 +19,61 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Reply), 1000))
-                throw new MvException("Open Stage Initial T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 5000))
-                throw new MvException("Open Stage Initial T2 timeout");
-
-            plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 1000))
-                throw new MvException("Open Stage Initial T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
+            try
             {
-                //case 0:
-                //    Result = "Invalid";
-                //    break;
-                //case 1:
-                //    Result = "Idle";
-                //    break;
-                //case 2:
-                //    Result = "Busy";
-                //    break;
-                //case 3:
-                //    Result = "Error";
-                //    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Reply), 1000))
+                    throw new MvException("Open Stage Initial T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 5000))
+                    throw new MvException("Open Stage Initial T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "Idle";
+                        break;
+                    case 2:
+                        Result = "Busy";
+                        break;
+                    case 3:
+                        Result = "Error";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 1000))
+                    throw new MvException("Open Stage Initial T4 timeout");
             }
+            catch (Exception ex)
+            { throw ex; }
+            finally
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
+            }
+            
             return Result;
         }
+
+        //將夾爪伸到LoadPort，讀取感測器的值，確認夾爪有無變形
+        public Tuple<double, double, double, double, double, double> ReadHandInspection()
+        {
+            var plc = this.m_PlcContext;
+            return new Tuple<double, double, double, double, double, double>(
+            plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser1),
+            plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser2),
+            plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser3),
+            plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser4),
+            plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser5),
+            plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser6)
+            );
+        }
     }
+       
 }

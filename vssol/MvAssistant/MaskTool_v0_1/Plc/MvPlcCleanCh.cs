@@ -27,7 +27,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取各種大小Particle的數量限制
-        public Tuple<int, int, int> ReadParticleCntLimit()
+        public Tuple<int, int, int> ReadParticleCntLimitSetting()
         {
             var plc = this.m_PlcContext;
 
@@ -65,7 +65,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         #region 手臂侵入(左右)
         //設定手臂可侵入的左右區間極限值
-        public void SetRobotPosAboutLimit(double Limit_R, double Limit_L)
+        public void SetRobotAboutLimit(double Limit_R, double Limit_L)
         {
             var plc = this.m_PlcContext;
 
@@ -74,7 +74,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取手臂可侵入的左右區間極限值
-        public Tuple<double, double> ReadRobotPosAboutLimit()
+        public Tuple<double, double> ReadRobotAboutLimitSetting()
         {
             var plc = this.m_PlcContext;
 
@@ -95,7 +95,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         #region 手臂侵入(上下)
         //設定手臂可侵入的上下區間極限值
-        public void SetRobotPosUpDownLimit(double Limit_U, double Limit_D)
+        public void SetRobotUpDownLimit(double Limit_U, double Limit_D)
         {
             var plc = this.m_PlcContext;
 
@@ -104,7 +104,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取手臂可侵入的上下區間極限值
-        public Tuple<double, double> ReadRobotPosUpDownLimit()
+        public Tuple<double, double> ReadRobotUpDownLimitSetting()
         {
             var plc = this.m_PlcContext;
 
@@ -133,7 +133,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取壓力表壓差限制
-        public int ReadPressureDiffLimit()
+        public int ReadPressureDiffLimitSetting()
         {
             var plc = this.m_PlcContext;
 
@@ -207,7 +207,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取吹氣壓力設定值
-        public double ReadPressureCtrl()
+        public double ReadPressureCtrlSetting()
         {
             var plc = this.m_PlcContext;
 
