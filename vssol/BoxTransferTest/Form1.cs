@@ -52,16 +52,17 @@ namespace BoxTransferTest
 
         private void RobotStepMove(object sender, EventArgs e)
         {
-            robotHandler.ldd.ExecutePNS("PNS0101");
-            float[] target = new float[7];
-            target[0] = float.Parse(textBox1.Text);
-            target[1] = float.Parse(textBox2.Text);
-            target[2] = float.Parse(textBox3.Text);
-            target[3] = float.Parse(textBox4.Text);
-            target[4] = float.Parse(textBox5.Text);
-            target[5] = float.Parse(textBox6.Text);
-            target[6] = float.Parse(textBox7.Text);
-            robotHandler.ExecuteMove(target);
+            //robotHandler.ldd.ExecutePNS("PNS0101");
+            //float[] target = new float[7];
+            //target[0] = float.Parse(textBox1.Text);
+            //target[1] = float.Parse(textBox2.Text);
+            //target[2] = float.Parse(textBox3.Text);
+            //target[3] = float.Parse(textBox4.Text);
+            //target[4] = float.Parse(textBox5.Text);
+            //target[5] = float.Parse(textBox6.Text);
+            //target[6] = float.Parse(textBox7.Text);
+            //robotHandler.ExecuteMove(target);
+            robotHandler.ldd.ExecutePNS("PNS0100");
         }
 
         private void LoadPortConnect(object sender, EventArgs e)
