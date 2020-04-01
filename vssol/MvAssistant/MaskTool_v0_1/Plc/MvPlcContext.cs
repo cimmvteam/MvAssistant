@@ -25,6 +25,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public MvPlcOpenStage OpenStage;
         public MvPlcCabinet Cabinet;
         public MvPlcCleanCh CleanCh;
+        public MvPlcLoadPort LoadPort;
 
         public MvPlcContext()
         {
@@ -34,6 +35,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.OpenStage = new MvPlcOpenStage(this);
             this.Cabinet = new MvPlcCabinet(this);
             this.CleanCh = new MvPlcCleanCh(this);
+            this.LoadPort = new MvPlcLoadPort(this);
 
             this.PlcLdd = new MvOmronPlcLdd();
             this.PlcLdd.NLPLC_Initial("192.168.0.200", 2);
@@ -111,20 +113,16 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             }
         }
 
-<<<<<<< HEAD
-
-=======
         //信號燈
-        public void SignalTower(bool Red, bool Orange, bool Blue)
+        public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
             this.Write(MvEnumPlcVariable.PC_TO_DR_Red, Red);
             this.Write(MvEnumPlcVariable.PC_TO_DR_Orange, Orange);
             this.Write(MvEnumPlcVariable.PC_TO_DR_Blue, Blue);
         }
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
 
         //蜂鳴器
-        public void Buzzer(uint BuzzerType)
+        public void SetBuzzer(uint BuzzerType)
         {
             this.Write(MvEnumPlcVariable.PC_TO_DR_Buzzer, BuzzerType);
         }

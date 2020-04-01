@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MvAssistant.MaskTool_v0_1.Plc
 {
@@ -13,30 +14,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             this.m_PlcContext = plc;
         }
-        public string MTClamp(string MaskType, bool IsClamp)
+
+        public string Initial()
         {
             string Result = "";
-<<<<<<< HEAD
-            var plc = m_PlcContext;
-            if (plc.IsConnected)
-            {
-
-            }
-            else
-                throw new MvException("PLC connection fail");
-            return Result;
-        }
-        public string MTClampCheck()//檢查MaskClamp目前夾距、夾取角度及各項狀態與設定值是否吻合
-        {
-            string Result = "";
-
-            return Result;
-        }
-        public string MaskCheck()//檢查夾爪有無夾取Mask
-        {
-            string Result = "";
-
-=======
             var plc = this.m_PlcContext;
             try
             {
@@ -71,13 +52,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Initial T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
-            }
-            
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
+                throw ex;
+            }            
             return Result;
         }
 

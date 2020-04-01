@@ -77,11 +77,59 @@ namespace MvAssistant.MaskTool_v0_1.SocketComm
 
     public enum Drawer_SendCMDList
     {
-
+        [Description("SetMotionSpeed")]
+        SetMotionSpeed,
+        [Description("SetTimeOut")]
+        SetTimeOut,
+        [Description("SetParameter")]
+        SetParameter,
+        [Description("TrayMotion")]
+        TrayMotion,
+        [Description("BrightLED")]
+        BrightLED,
+        [Description("PositionRead")]
+        PositionRead,
+        [Description("BoxDetection")]
+        BoxDetection,
+        [Description("WriteNetSetting")]
+        WriteNetSetting,
+        [Description("LCDMsg")]
+        LCDMsg,
+        [Description("INI")]
+        INI,
     }
 
     public enum Drawer_RcvCMDList
     {
+        [Description("ReplyTrayMotion")]
+        ReplyTrayMotion,
+        [Description("ReplySetSpeed")]
+        ReplySetSpeed,
+        [Description("ReplySetTimeOut")]
+        ReplySetTimeOut,
+        [Description("ReplyPosition")]
+        ReplyPosition,
+        [Description("ReplyBoxDetection")]
+        ReplyBoxDetection,
+        [Description("TrayArrive")]
+        TrayArrive,
+        [Description("ButtonEvent")]
+        ButtonEvent,
+    }
 
+    public enum Drawer_EnumRcvAlarmList
+    {
+        [Description("TimeOutEvent")]
+        TimeOutEvent,
+        [Description("TrayMotioning")]
+        TrayMotioning,
+        [Description("INIFailed")]
+        INIFailed,
+        [Description("TrayMotionError")]
+        TrayMotionError,
+        [Description("Error")]
+        Error,
+        [Description("SysStartUp")]
+        SysStartUp,
     }
 }

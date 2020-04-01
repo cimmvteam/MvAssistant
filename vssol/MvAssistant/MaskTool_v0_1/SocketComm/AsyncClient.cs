@@ -9,7 +9,7 @@ namespace MvAssistant.MaskTool_v0_1.SocketComm
     public class AsynchronousClient
     {
         // The port number for the remote device.  
-        private const int port = 11000;
+        private static Socket client;
 
         // ManualResetEvent instances signal completion.  
         private static ManualResetEvent connectDone =
@@ -20,9 +20,9 @@ namespace MvAssistant.MaskTool_v0_1.SocketComm
             new ManualResetEvent(false);
 
         // The response from the remote device.  
-        private static String response = String.Empty;
+        public static string response = String.Empty;
 
-        private static void StartClient()
+        public static void StartClient(string IPV4_Address,int port)
         {
             // Connect to a remote device.  
             try
@@ -30,12 +30,12 @@ namespace MvAssistant.MaskTool_v0_1.SocketComm
                 // Establish the remote endpoint for the socket.  
                 // The name of the
                 // remote device is "host.contoso.com".  
-                IPHostEntry ipHostInfo = Dns.GetHostEntry("host.contoso.com");
+                IPHostEntry ipHostInfo = Dns.GetHostEntry(IPV4_Address);
                 IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
 
                 // Create a TCP/IP socket.  
-                Socket client = new Socket(ipAddress.AddressFamily,
+                client = new Socket(ipAddress.AddressFamily,
                     SocketType.Stream, ProtocolType.Tcp);
 
                 // Connect to the remote endpoint.  
@@ -43,26 +43,35 @@ namespace MvAssistant.MaskTool_v0_1.SocketComm
                     new AsyncCallback(ConnectCallback), client);
                 connectDone.WaitOne();
 
-                // Send test data to the remote device.  
-                Send(client, "This is a test<EOF>");
-                sendDone.WaitOne();
-
-                // Receive the response from the remote device.  
-                Receive(client);
-                receiveDone.WaitOne();
 
                 // Write the response to the console.  
                 Console.WriteLine("Response received : {0}", response);
-
-                // Release the socket.  
-                client.Shutdown(SocketShutdown.Both);
-                client.Close();
-
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public static void SendMsg(string msg)
+        {
+            // Send test data to the remote device.  
+            Send(client, msg);
+            sendDone.WaitOne();
+        }
+
+        public static void RcvMsg()
+        {
+            // Receive the response from the remote device.  
+            Receive(client);
+            receiveDone.WaitOne();
+        }
+
+        public static void CloseClient()
+        {
+            // Release the socket.  
+            client.Shutdown(SocketShutdown.Both);
+            client.Close();
         }
 
         private static void ConnectCallback(IAsyncResult ar)
