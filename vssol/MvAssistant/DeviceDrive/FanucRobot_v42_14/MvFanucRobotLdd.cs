@@ -123,7 +123,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             {
                 //************************Added by yhlinag to try initialize Fanuc API with thread __begin*************/
 
-                Action act = delegate()
+                Action act = delegate ()
                 {
                     mobjCore = new FRRJIf.Core();
                     mreInitialFanucAPI.Set();
@@ -204,10 +204,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(this.RobotIp));
             return mobjCore.Connect(this.RobotIp);
         }
-
-
-
-
 
         public bool AlarmReset()
         {
@@ -571,44 +567,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
 
         /// <summary>
-        /// 寫入Robot數字暫存器R
-        /// </summary>
-        /// <param name="Rno"></param>
-        /// <param name="Value"></param>
-        public void WriteReg(int Rno, int Value)
-        {
-            mobjNumReg.SetValue(Rno, Value);
-        }
-
-        /// <summary>
-        /// 寫入Robot位置暫存器PR
-        /// </summary>
-        /// <param name="PRno"></param>
-        /// <param name="PosX"></param>
-        /// <param name="PosY"></param>
-        /// <param name="PosZ"></param>
-        /// <param name="PosW"></param>
-        /// <param name="PosP"></param>
-        /// <param name="PosR"></param>
-        /// <param name="PRUF"></param>
-        /// <param name="PRUT"></param>
-        public void WritePosReg(int PRno, float PosX, float PosY, float PosZ, float PosW, float PosP, float PosR, short PRUF, short PRUT)
-        {
-            Array xyzwprArray = new float[9];
-
-            //Position 
-            xyzwprArray.SetValue(PosX, 0);  //X_distance
-            xyzwprArray.SetValue(PosY, 1);  //Y_distance
-            xyzwprArray.SetValue(PosZ, 2);  //Z_distance
-            xyzwprArray.SetValue(PosW, 3);  //W_orientation
-            xyzwprArray.SetValue(PosP, 4);  //P_orientation
-            xyzwprArray.SetValue(PosR, 5);  //R_orientation
-
-            mobjPosReg.SetValueXyzwpr(PRno, ref xyzwprArray, ref CurRobotInfo.configArray, PRUF, PRUT);
-        }
-
-
-        /// <summary>
         /// 輸入Robot設定PNS name, 讀取並執行PNS
         /// </summary>
         /// <param name="PNSname"></param>
@@ -678,7 +636,64 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         }
 
 
+        #region Register
 
+        /// <summary>
+        /// 寫入Robot數字暫存器R
+        /// </summary>
+        /// <param name="Rno"></param>
+        /// <param name="Value"></param>
+        public void WriteReg(int Rno, int Value)
+        {
+            mobjNumReg.SetValue(Rno, Value);
+        }
+        /// <summary>
+        /// 寫入Robot位置暫存器PR
+        /// </summary>
+        /// <param name="PRno"></param>
+        /// <param name="PosX"></param>
+        /// <param name="PosY"></param>
+        /// <param name="PosZ"></param>
+        /// <param name="PosW"></param>
+        /// <param name="PosP"></param>
+        /// <param name="PosR"></param>
+        /// <param name="PRUF"></param>
+        /// <param name="PRUT"></param>
+        public void WritePosReg(int PRno, float PosX, float PosY, float PosZ, float PosW, float PosP, float PosR, short PRUF, short PRUT)
+        {
+            Array xyzwprArray = new float[9];
+
+            //Position 
+            xyzwprArray.SetValue(PosX, 0);  //X_distance
+            xyzwprArray.SetValue(PosY, 1);  //Y_distance
+            xyzwprArray.SetValue(PosZ, 2);  //Z_distance
+            xyzwprArray.SetValue(PosW, 3);  //W_orientation
+            xyzwprArray.SetValue(PosP, 4);  //P_orientation
+            xyzwprArray.SetValue(PosR, 5);  //R_orientation
+
+            mobjPosReg.SetValueXyzwpr(PRno, ref xyzwprArray, ref CurRobotInfo.configArray, PRUF, PRUT);
+        }
+
+
+        public int GetRegValue(int index)
+        {
+            this.mobjDataTable.Refresh();
+            Object reg = 0;
+            mobjNumReg.GetValue(index, ref reg);
+            return (int)reg;
+        }
+        public void SetRegValue(int index, int val)
+        {
+            mobjNumReg.SetValue(index, val);
+        }
+        public void SetRegValues(int index, int[] vals)
+        {
+            mobjNumReg.SetValues(index, vals, vals.Length);
+        }
+
+        #endregion
+
+        #region Pns0101
 
         /// <summary>
         /// must 用thread 
@@ -689,9 +704,9 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         /// <param name="_IsMoveUT"></param>
         /// <param name="Speed"></param>
         /// <returns></returns>
-        public bool MoveStraightSync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
+        public bool Pns0101MoveStraightSync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
         {
-            MoveStraightAsync(Target, _SelectCorJ, _SelectOfstOrPos, _IsMoveUT, Speed);
+            Pns0101MoveStraightAsync(Target, _SelectCorJ, _SelectOfstOrPos, _IsMoveUT, Speed);
 
             while (this.MoveIsComplete())
             {
@@ -708,10 +723,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
             return true;
         }
-
-
-
-        public int MoveStraightAsync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
+        public int Pns0101MoveStraightAsync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
         {
             if (!this.IsConnected()) return -1;
 
@@ -780,7 +792,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                     xyzwprArray.SetValue(TargetPos.GetValue(3), 3);  //W_position
                     xyzwprArray.SetValue(TargetPos.GetValue(4), 4);  //P_position
                     xyzwprArray.SetValue(TargetPos.GetValue(5), 5);  //R_position
-                    if(TargetPos.GetValue(6)!=null)
+                    if (TargetPos.GetValue(6) != null)
                         xyzwprArray.SetValue(TargetPos.GetValue(6), 6);  //R_position
                 }
                 else
@@ -822,8 +834,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
             return 0;
         }
-
-        public int MoveStraightAsync(List<float[]> Targets, int _Continuity, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
+        public int Pns0101MoveStraightAsync(List<float[]> Targets, int _Continuity, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
         {
             if (!this.IsConnected()) return -1;
             Array xyzwprArray = new float[9];
@@ -940,38 +951,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         }
 
 
-        public bool MoveIsComplete()
-        {
-            var reg5 = this.GetRegValue(5);
-            return reg5 == 51;
-        }
 
-        public int GetRegValue(int index)
-        {
-            this.mobjDataTable.Refresh();
-            Object reg = 0;
-            mobjNumReg.GetValue(index, ref reg);
-            return (int)reg;
-        }
-
-        public void MoveCompeleteReply()
-        {
-            SetRegValue(5, 0);
-        }
-
-
-        public void SetRegValue(int index, int val)
-        {
-            mobjNumReg.SetValue(index, val);
-        }
-        public void SetRegValues(int index, int[] vals)
-        {
-            mobjNumReg.SetValues(index, vals, vals.Length);
-        }
-
-
-
-        public void ExecuteMove(List<float[]> Targets, int Continuity, int[] fineTargetIndex)
+        public void Pns0101ContinuityMove(List<float[]> Targets, int Continuity, int[] fineTargetIndex)
         {
             fineTargetIndex.Distinct().ToArray(); //Remove repeat index 防呆用
             Array.Sort(fineTargetIndex);
@@ -1033,11 +1014,11 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                         {
                             tmpTargets.Add(Targets[targetIndex]);
                         }
-                        this.MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.Pns0101MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     else
                     {
-                        this.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     tmpTargets.Clear();
                 }
@@ -1047,28 +1028,38 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                 List<float[]> tmpTargets = new List<float[]>();
                 tmpTargets.Add(Targets[0]);
                 this.SwitchUT(MoveFrame);
-                this.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                 tmpTargets.Clear();
             }
             else
             {
                 this.SwitchUT(MoveFrame);
-                this.MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.Pns0101MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
             }
         }
-
-        public void ExecuteMove(float[] target)
+        public void Pns0101ContinuityMove(float[] target)
         {
             float[] pos = target;
             List<float[]> targets = new List<float[]>();
             targets.Add(pos);
-            ExecuteMove(targets, 0, new int[] { 1 });
+            Pns0101ContinuityMove(targets, 0, new int[] { 1 });
             targets.Clear();
         }
 
 
+        public bool MoveIsComplete()
+        {
+            var reg5 = this.GetRegValue(5);
+            return reg5 == 51;
+        }
+
+        public void MoveCompeleteReply()
+        {
+            SetRegValue(5, 0);
+        }
 
 
+        #endregion
 
 
         #region IDisposable

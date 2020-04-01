@@ -151,11 +151,11 @@ namespace MaskTool.TestMy.Device
                         {
                             tmpTargets.Add(Targets[targetIndex]);
                         }
-                        this.ldd.MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.ldd.Pns0101MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     else
                     {
-                        this.ldd.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.ldd.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     tmpTargets.Clear();
                 }
@@ -165,13 +165,13 @@ namespace MaskTool.TestMy.Device
                 List<float[]> tmpTargets = new List<float[]>();
                 tmpTargets.Add(Targets[0]);
                 this.ldd.SwitchUT(MoveFrame);
-                this.ldd.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.ldd.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                 tmpTargets.Clear();
             }
             else
             {
                 this.ldd.SwitchUT(MoveFrame);
-                this.ldd.MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.ldd.Pns0101MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
             }
         }
 

@@ -21,18 +21,20 @@ namespace MaskTool.TestMy.Device
             ldd = new MvFanucRobotLdd();
             alarmInfos = new List<MvRobotAlarmInfo>();
         }
+        ~RobotHandler()
+        {
+            this.Close();
+        }
+
 
         public void Close()
         {
-            this.ldd.Close();
+            if (this.ldd != null)
+                using (var obj = this.ldd)
+                    this.ldd.Close();
         }
 
-        public int ConnectIfNO()
-        {
-            if (this.ldd.IsConnected()) return 0;
-          
-            return this.ldd.ReConnect();
-        }
+        public int ConnectIfNO() { return this.ldd.ConnectIfNo(); }
 
         public void getCurrentPOS()
         {
@@ -70,10 +72,7 @@ namespace MaskTool.TestMy.Device
                 return false;
         }
 
-        public bool IsConnected()
-        {
-            return this.ldd.IsConnected();
-        }
+        public bool IsConnected() { return this.ldd.IsConnected(); }
 
         public void KeepGetCurrentPos()
         {
@@ -89,101 +88,7 @@ namespace MaskTool.TestMy.Device
             Thread.Sleep(PositionRecordInterval_MillSec);
         }
 
-        public void ExecuteMove(List<float[]> Targets, int Continuity, int[] fineTargetIndex)
-        {
-            fineTargetIndex.Distinct().ToArray(); //Remove repeat index 防呆用
-            Array.Sort(fineTargetIndex);
-
-            int speed = 500;
-            int MotionType = 1; //0:Offset; 1:Postion; 2:Joint
-            int MoveFrame = 0;
-            int IsMoveTCP = 0;
-            int CorJ, OfsOrPos;
-            switch (MotionType)
-            {
-                case 0:
-                    CorJ = 0; OfsOrPos = 0; break;
-                case 1:
-                    CorJ = 0; OfsOrPos = 1; break;
-                case 2:
-                    CorJ = 1; OfsOrPos = 0; break;
-                default:
-                    CorJ = 0; OfsOrPos = 0; break;
-            }
-
-            Dictionary<int[], bool> fineTarget_conDic = new Dictionary<int[], bool>();
-            if (fineTargetIndex.Length > 1)
-            {
-                int indexTail = 1;
-                for (int i = 0; i < fineTargetIndex.Length; i++)
-                {
-                    if (i == 0 && fineTargetIndex[i] != 1)
-                    {
-                        fineTarget_conDic.Add(Enumerable.Range(1, fineTargetIndex[i] - 1).ToArray(), false);
-                        indexTail = fineTargetIndex[i];
-                    }
-                    else if (i == 0)
-                    {
-                        indexTail = fineTargetIndex[0];
-                    }
-                    else if (fineTargetIndex[i] - fineTargetIndex[i - 1] != 1)
-                    {
-                        fineTarget_conDic.Add(Enumerable.Range(indexTail, fineTargetIndex[i - 1] - indexTail + 1).ToArray(), true);
-                        fineTarget_conDic.Add(Enumerable.Range(fineTargetIndex[i - 1] + 1, fineTargetIndex[i] - fineTargetIndex[i - 1] - 1).ToArray(), false);
-                        indexTail = fineTargetIndex[i];
-                    }
-                    else if (i == fineTargetIndex.Length - 1)
-                    {
-                        fineTarget_conDic.Add(Enumerable.Range(indexTail, fineTargetIndex[i] - indexTail + 1).ToArray(), true);
-                        indexTail = fineTargetIndex[i];
-                        if (indexTail < Targets.Count)
-                            fineTarget_conDic.Add(Enumerable.Range(indexTail + 1, Targets.Count - indexTail).ToArray(), false);
-                    }
-                }
-
-                foreach (var finTarget in fineTarget_conDic)
-                {
-                    this.ldd.SwitchUT(MoveFrame);
-                    List<float[]> tmpTargets = new List<float[]>();
-                    if (finTarget.Value == true)
-                    {
-                        foreach (var targetIndex in finTarget.Key)
-                        {
-                            tmpTargets.Add(Targets[targetIndex]);
-                        }
-                        this.ldd.MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
-                    }
-                    else
-                    {
-                        this.ldd.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
-                    }
-                    tmpTargets.Clear();
-                }
-            }
-            else if (fineTargetIndex.Length == 1)
-            {
-                List<float[]> tmpTargets = new List<float[]>();
-                tmpTargets.Add(Targets[0]);
-                this.ldd.SwitchUT(MoveFrame);
-                this.ldd.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
-                tmpTargets.Clear();
-            }
-            else
-            {
-                this.ldd.SwitchUT(MoveFrame);
-                this.ldd.MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
-            }
-        }
-
-        public void ExecuteMove(float[] target)
-        {
-            float[] pos = target;
-            List<float[]> targets = new List<float[]>();
-            targets.Add(pos);
-            ExecuteMove(targets, 0, new int[] { 1 });
-            targets.Clear();
-        }
-
+     
         public void StartSgsVerify()
         {
             var toBr = this.GenHomeToBarcodeReader();
@@ -204,7 +109,7 @@ namespace MaskTool.TestMy.Device
                 this.ExecuteMove(target);
 
             }
-            for (var idx = toBr.Count-1; idx >=0; idx--)
+            for (var idx = toBr.Count - 1; idx >= 0; idx--)
             {
                 var pose = toBr[idx];
 
@@ -219,32 +124,8 @@ namespace MaskTool.TestMy.Device
             }
 
 
-            for (var idx = 0; idx < toCc.Count; idx++)
-            {
-                var pose = toCc[idx];
 
-                target[0] = pose.x;
-                target[1] = pose.y;
-                target[2] = pose.z;
-                target[3] = pose.w;
-                target[4] = pose.p;
-                target[5] = pose.r;
-                this.ExecuteMove(target);
 
-            }
-            for (var idx = toCc.Count - 1; idx >= 0; idx--)
-            {
-                var pose = toCc[idx];
-
-                target[0] = pose.x;
-                target[1] = pose.y;
-                target[2] = pose.z;
-                target[3] = pose.w;
-                target[4] = pose.p;
-                target[5] = pose.r;
-                this.ExecuteMove(target);
-
-            }
 
 
 
@@ -310,12 +191,12 @@ namespace MaskTool.TestMy.Device
             //LPA 上方
             poss.Add(new MvFanucRobotInfo()
             {
-                x = 215,
-                y = 301,
-                z = 333,
-                w = -4,
-                p = -57,
-                r = -121,
+                x = 244,
+                y = 290,
+                z = 495,
+                w = 96,
+                p = -89,
+                r = -155,
             });
 
 
@@ -327,7 +208,7 @@ namespace MaskTool.TestMy.Device
                 z = 471,
                 w = -79,
                 p = -87,
-                r = -26,
+                r = -12,
             });
 
 

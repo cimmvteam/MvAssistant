@@ -33,7 +33,7 @@ namespace BoxTransferTest.ViewUc
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-
+            robotHandler.StartSgsVerify();
 
 
         }
@@ -52,20 +52,55 @@ namespace BoxTransferTest.ViewUc
         {
             robotHandler = new RobotHandler();
             robotHandler.ldd.RobotIp = "192.168.0.50";
-            int connectRes = robotHandler.ConnectIfNO();
-            if (robotHandler != null)
+            if (robotHandler.ConnectIfNO() == 0)
             {
-                robotHandler.ldd.StopProgram();
-                robotHandler.ldd.AlarmReset();
+                this.LogWrite("Connection Success");
             }
-            robotHandler.ldd.ExecutePNS("PNS0101");
+            else
+            {
+                this.LogWrite("Connection Fail");
+                this.robotHandler.Close();
+                return;
+            }
 
-            robotHandler.getCurrentPOS();
+           //var currPos = robotHandler.getCurrentPOS();
 
+
+        }
+
+        void LogWrite(string msg)
+        {
+            var now = DateTime.Now;
+            this.rtbLog.AppendText(string.Format("{0} {1}", now.ToString("yyyyMMdd HH:ii:ss"), msg));
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (robotHandler == null) return;
+            robotHandler.ldd.StopProgram();
+
+
+            if (robotHandler.ldd.AlarmReset())
+            {
+                this.LogWrite("Reset Done");
+            }
+            else
+            {
+                this.LogWrite("Reset Fail");
+                return;
+            }
+
+
+
+            robotHandler.ldd.ExecutePNS("PNS0101");
+
+
+
 
         }
     }

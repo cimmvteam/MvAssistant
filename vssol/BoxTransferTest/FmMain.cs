@@ -27,6 +27,10 @@ namespace BoxTransferTest
 
         private void FmMain_Load(object sender, EventArgs e)
         {
+            var fm = new FmSgsTest();
+            fm.MdiParent = this;
+            fm.WindowState = FormWindowState.Maximized;
+            fm.Show();
 
         }
 
