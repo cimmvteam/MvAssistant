@@ -30,14 +30,8 @@ namespace MaskTool.TestMy.Device
         public int ConnectIfNO()
         {
             if (this.ldd.IsConnected()) return 0;
-            this.ldd.RobotIp = "192.168.0.50";
-            bool flagConnection = false;
-            this.ldd.ReConnect();
-            if (ldd.IsConnected())
-            {
-                flagConnection = true;
-            }
-            return 0;
+          
+            return this.ldd.ReConnect();
         }
 
         public void getCurrentPOS()

@@ -10,6 +10,7 @@ namespace MaskTool.TestMy.Device
         public void TestMethod1()
         {
             RobotHandler robotHandler = new RobotHandler();
+            robotHandler.ldd.RobotIp = "192.168.0.50";
             int connectRes = robotHandler.ConnectIfNO();
             if (robotHandler != null)
             {
@@ -24,7 +25,7 @@ namespace MaskTool.TestMy.Device
             float[] target = new float[6];
             target[0] = robotHandler.curPos.CurrentX;
             target[1] = robotHandler.curPos.CurrentY;
-            target[2] = robotHandler.curPos.CurrentZ+5;
+            target[2] = robotHandler.curPos.CurrentZ + 5;
             target[3] = robotHandler.curPos.CurrentW;
             target[4] = robotHandler.curPos.CurrentP;
             target[5] = robotHandler.curPos.CurrentR;

@@ -34,7 +34,9 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.ucMaskRobot1 = new BoxTransferTest.ViewUc.UcMaskRobot();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -53,6 +55,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.ucMaskRobot1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -98,6 +101,13 @@
             this.tabPage5.Text = "Drawer";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // ucMaskRobot1
+            // 
+            this.ucMaskRobot1.Location = new System.Drawing.Point(46, 48);
+            this.ucMaskRobot1.Name = "ucMaskRobot1";
+            this.ucMaskRobot1.Size = new System.Drawing.Size(150, 150);
+            this.ucMaskRobot1.TabIndex = 0;
+            // 
             // FmSgsTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -107,6 +117,7 @@
             this.Name = "FmSgsTest";
             this.Text = "FmMaskRobot";
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -119,5 +130,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
+        private ViewUc.UcMaskRobot ucMaskRobot1;
     }
 }
