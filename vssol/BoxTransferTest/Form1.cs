@@ -37,7 +37,7 @@ namespace BoxTransferTest
 
         private void RobotConnect(object sender, EventArgs e)
         {
-            this.robotHandler.ldd.RobotIp = "192.168.0.50";
+            this.robotHandler.ldd.RobotIp = "192.168.0.51";
             int connectRes = robotHandler.ConnectIfNO();
             if (robotHandler != null)
             {

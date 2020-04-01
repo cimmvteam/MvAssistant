@@ -33,6 +33,15 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
+        public void TestPLCClosePort()//當發生PLC連線占用Port，嘗試關閉Port解決問題
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.ClosePort();
+            }
+        }
+
+        [TestMethod]
         public void TestPublicArea()
         {
             using (var plc = new MvPlcContext())
@@ -199,12 +208,12 @@ namespace MaskTool.TestMy.MachineReal
                     Console.WriteLine(plc.OpenStage.Unclamp());
                     Console.WriteLine(plc.OpenStage.Lock());
                 }
-                //Console.WriteLine(plc.OpenStage.CheckClampStatus());
-                //Console.WriteLine(plc.OpenStage.CheckSortClampPosition());
-                //Console.WriteLine(plc.OpenStage.CheckSliderPosition());
-                //Console.WriteLine(plc.OpenStage.CheckCoverPos());
-                //Console.WriteLine(plc.OpenStage.CheckCoverSensor());
-                //Console.WriteLine(plc.OpenStage.CheckBoxExist());
+                //Console.WriteLine(plc.OpenStage.ReadClampStatus());
+                //Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
+                //Console.WriteLine(plc.OpenStage.ReadSliderPosition());
+                //Console.WriteLine(plc.OpenStage.ReadCoverPos());
+                //Console.WriteLine(plc.OpenStage.ReadCoverSensor());
+                //Console.WriteLine(plc.OpenStage.ReadBoxExist());
             }
         }
     }

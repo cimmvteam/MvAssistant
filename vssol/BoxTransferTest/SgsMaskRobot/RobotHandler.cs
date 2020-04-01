@@ -106,7 +106,7 @@ namespace MaskTool.TestMy.Device
                 target[3] = pose.w;
                 target[4] = pose.p;
                 target[5] = pose.r;
-                this.ExecuteMove(target);
+                this.ldd.Pns0101ContinuityMove(target);
 
             }
             for (var idx = toBr.Count - 1; idx >= 0; idx--)
@@ -119,7 +119,7 @@ namespace MaskTool.TestMy.Device
                 target[3] = pose.w;
                 target[4] = pose.p;
                 target[5] = pose.r;
-                this.ExecuteMove(target);
+                this.ldd.Pns0101ContinuityMove(target);
 
             }
 

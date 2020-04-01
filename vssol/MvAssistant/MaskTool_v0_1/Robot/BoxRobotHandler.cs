@@ -31,7 +31,7 @@ namespace MvAssistant.MaskTool_v0_1.Robot
         public int ConnectIfNO()
         {
             if (this.ldd.IsConnected()) return 0;
-            this.ldd.RobotIp = "192.168.0.50";
+            this.ldd.RobotIp = "192.168.0.51";
             bool flagConnection = false;
             this.ldd.ReConnect();
             if (ldd.IsConnected())
