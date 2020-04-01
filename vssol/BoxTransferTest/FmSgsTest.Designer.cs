@@ -103,9 +103,10 @@
             // 
             // ucMaskRobot1
             // 
-            this.ucMaskRobot1.Location = new System.Drawing.Point(46, 48);
+            this.ucMaskRobot1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucMaskRobot1.Location = new System.Drawing.Point(3, 3);
             this.ucMaskRobot1.Name = "ucMaskRobot1";
-            this.ucMaskRobot1.Size = new System.Drawing.Size(150, 150);
+            this.ucMaskRobot1.Size = new System.Drawing.Size(840, 493);
             this.ucMaskRobot1.TabIndex = 0;
             // 
             // FmSgsTest
