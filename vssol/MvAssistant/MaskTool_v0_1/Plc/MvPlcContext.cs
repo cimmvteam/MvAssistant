@@ -97,9 +97,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             return 0;
         }
-
-
-
+               
         public void Close()
         {
             using (var obj = this.PlcLdd)
@@ -111,6 +109,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 obj.Cancel();
                 SpinWait.SpinUntil(() => obj.IsEnd(), 1000);
             }
+        }
+
+        public void ClosePort()
+        {
+            this.PlcLdd.NLPLC_ClosePort();
         }
 
         //信號燈

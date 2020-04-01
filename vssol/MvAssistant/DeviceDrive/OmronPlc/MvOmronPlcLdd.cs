@@ -40,6 +40,16 @@ namespace MvAssistant.DeviceDrive.OmronPlc
                 _CIPcompolet.Active = true;
             }
         }
+        public void NLPLC_ClosePort()
+        {
+            lock (this)
+            {
+                if (this._CIPcompolet == null)
+                    this._CIPcompolet = new NJCompolet();
+
+                _CIPcompolet.Active = false;
+            }
+        }
         public bool IsConnected() { lock (this) return this._CIPcompolet != null; }
 
         #region Read / Write Variable
