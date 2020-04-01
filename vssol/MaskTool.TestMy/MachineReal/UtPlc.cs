@@ -18,6 +18,9 @@ namespace MaskTool.TestMy.MachineReal
 
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
+
                 plc.StartAsyn();
 
                 if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
@@ -37,6 +40,7 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
                 plc.ClosePort();
             }
         }
@@ -46,6 +50,7 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
                 plc.SetSignalTower(true, false, false);
                 plc.SetBuzzer(1);
             }
@@ -56,6 +61,7 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.BoxRobot.Clamp(0));
                 Console.WriteLine(plc.BoxRobot.Unclamp());
                 Console.WriteLine(plc.BoxRobot.Initial());
@@ -83,6 +89,7 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
                 plc.Cabinet.SetPressureDiffLimit(1, 2);
                 Console.WriteLine(plc.Cabinet.ReadPressureDiffLimitSetting());
                 Console.WriteLine(plc.Cabinet.ReadPressureDiff());
@@ -98,6 +105,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
                 plc.CleanCh.SetParticleCntLimit(1, 2, 3);
                 Console.WriteLine(plc.CleanCh.ReadParticleCntLimitSetting());
                 Console.WriteLine(plc.CleanCh.ReadParticleCount());
@@ -125,6 +134,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
                 Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
                 Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
                 Console.WriteLine(plc.InspCh.WPosition(20));//0~359
@@ -148,6 +159,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
                 plc.LoadPort.SetPressureDiffLimit(1, 2);
                 Console.WriteLine(plc.LoadPort.ReadPressureDiffLimitSrtting());
                 Console.WriteLine(plc.LoadPort.ReadPressureDiff());
@@ -159,6 +172,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
                 Console.WriteLine(plc.MaskRobot.Initial());
                 Console.WriteLine(plc.MaskRobot.ReadHandInspection());
             }
@@ -169,6 +184,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
                 Console.WriteLine(plc.OpenStage.Open());
                 Console.WriteLine(plc.OpenStage.Lock());
                 Console.WriteLine(plc.OpenStage.Close());
@@ -193,6 +210,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
+                plc.Connect("192.168.0.200", 2);
+
                 Console.WriteLine(plc.OpenStage.Initial());
                 for (int i = 0; i < 1; i++)
                 //while (true)

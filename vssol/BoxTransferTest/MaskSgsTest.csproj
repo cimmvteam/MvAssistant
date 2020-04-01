@@ -66,6 +66,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="ProgramMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SgsMaskRobot\CurrentPOS.cs" />
     <Compile Include="SgsMaskRobot\RobotHandler.cs" />
@@ -74,6 +75,12 @@
     </Compile>
     <Compile Include="ViewUc\UcMaskRobot.Designer.cs">
       <DependentUpon>UcMaskRobot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewUc\UcOpenStage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewUc\UcOpenStage.Designer.cs">
+      <DependentUpon>UcOpenStage.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FmMain.resx">
       <DependentUpon>FmMain.cs</DependentUpon>
@@ -96,6 +103,9 @@
     </Compile>
     <EmbeddedResource Include="ViewUc\UcMaskRobot.resx">
       <DependentUpon>UcMaskRobot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewUc\UcOpenStage.resx">
+      <DependentUpon>UcOpenStage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

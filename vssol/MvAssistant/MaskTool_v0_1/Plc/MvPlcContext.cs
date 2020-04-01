@@ -12,6 +12,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
     {
 
         public MvOmronPlcLdd PlcLdd;
+        public string PlcIp;
+        public int PlcPort;
         bool m_isConnected = false;
 
         MvCancelTask m_keepConnection;
@@ -36,13 +38,19 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.Cabinet = new MvPlcCabinet(this);
             this.CleanCh = new MvPlcCleanCh(this);
             this.LoadPort = new MvPlcLoadPort(this);
-
-            this.PlcLdd = new MvOmronPlcLdd();
-            this.PlcLdd.NLPLC_Initial("192.168.0.200", 2);
-
         }
         ~MvPlcContext() { this.Dispose(false); }
 
+
+
+        public void Connect(string ip = null, int? port = null)
+        {
+            if (ip != null) this.PlcIp = ip;
+            if (port != null) this.PlcPort = port.Value;
+
+            this.PlcLdd = new MvOmronPlcLdd();
+            this.PlcLdd.NLPLC_Initial(this.PlcIp, this.PlcPort);
+        }
 
 
         public T Read<T>(MvEnumPlcVariable plcvar)
@@ -97,7 +105,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             return 0;
         }
-               
+
         public void Close()
         {
             using (var obj = this.PlcLdd)
