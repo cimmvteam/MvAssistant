@@ -51,10 +51,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage OpenBox T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Open, false);
+                throw ex;
             }
             return Result;
         }
@@ -96,10 +95,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage CloseBox T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Close, false);
+                throw ex;
             }
             return Result;
         }
@@ -142,10 +140,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Clamp T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Clamp, false);
+                throw ex;
             }
             return Result;
         }
@@ -188,12 +185,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Unclamp T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Unclamp, false);
+                throw ex;
             }
-
             return Result;
         }
 
@@ -232,10 +227,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage SortClamp T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_SortClamp, false);
+                throw ex;
             }
             return Result;
         }
@@ -269,10 +263,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage SortUnclamp T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_SortUnclamp, false);
+                throw ex;
             }
             return Result;
         }
@@ -315,10 +308,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Lock/Unlock T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Lock, false);
+                throw ex;
             }
             return Result;
         }
@@ -360,12 +352,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Initial T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Initial_A05, false);
+                throw ex;
             }
-
             return Result;
 
         }

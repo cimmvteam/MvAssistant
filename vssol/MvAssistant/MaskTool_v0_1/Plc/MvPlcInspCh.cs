@@ -21,41 +21,50 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_XPoint, X_Position);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_YPoint, Y_Position);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYReply), 1000))
-                throw new MvException("Inspection XY T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 5000))
-                throw new MvException("Inspection XY T2 timeout");
-
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 1000))
-                throw new MvException("Inspection XY T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_XYResult))
+            try
             {
-                case 0:
-                    Result = "Invalid";
-                    break;
-                case 1:
-                    Result = "OK";
-                    break;
-                case 2:
-                    Result = "Point out range";
-                    break;
-                case 3:
-                    Result = "Status busy";
-                    break;
-                case 4:
-                    Result = "Motor error";
-                    break;
-                case 5:
-                    Result = "Point Same";
-                    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_XPoint, X_Position);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_YPoint, Y_Position);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYReply), 1000))
+                    throw new MvException("Inspection XY T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 5000))
+                    throw new MvException("Inspection XY T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_XYResult))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Point out range";
+                        break;
+                    case 3:
+                        Result = "Status busy";
+                        break;
+                    case 4:
+                        Result = "Motor error";
+                        break;
+                    case 5:
+                        Result = "Point Same";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 1000))
+                    throw new MvException("Inspection XY T4 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+                throw ex;
             }
             return Result;
         }
@@ -65,40 +74,49 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_ZPoint, Z_Position);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZReply), 1000))
-                throw new MvException("Inspection Z T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 5000))
-                throw new MvException("Inspection Z T2 timeout");
-            
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 1000))
-                throw new MvException("Inspection Z T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_ZResult))
+            try
             {
-                case 0:
-                    Result = "Invalid";
-                    break;
-                case 1:
-                    Result = "OK";
-                    break;
-                case 2:
-                    Result = "Point out range";
-                    break;
-                case 3:
-                    Result = "Status busy";
-                    break;
-                case 4:
-                    Result = "Motor error";
-                    break;
-                case 5:
-                    Result = "Point Same";
-                    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZPoint, Z_Position);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZReply), 1000))
+                    throw new MvException("Inspection Z T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 5000))
+                    throw new MvException("Inspection Z T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_ZResult))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Point out range";
+                        break;
+                    case 3:
+                        Result = "Status busy";
+                        break;
+                    case 4:
+                        Result = "Motor error";
+                        break;
+                    case 5:
+                        Result = "Point Same";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 1000))
+                    throw new MvException("Inspection Z T4 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+                throw ex;
             }
             return Result;
         }
@@ -108,40 +126,49 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_WPoint, W_Position);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WReply), 1000))
-                throw new MvException("Inspection W T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 5000))
-                throw new MvException("Inspection W T2 timeout");
-            
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 1000))
-                throw new MvException("Inspection W T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_WResult))
+            try
             {
-                case 0:
-                    Result = "Invalid";
-                    break;
-                case 1:
-                    Result = "OK";
-                    break;
-                case 2:
-                    Result = "Point out range";
-                    break;
-                case 3:
-                    Result = "Status busy";
-                    break;
-                case 4:
-                    Result = "Motor error";
-                    break;
-                case 5:
-                    Result = "Point Same";
-                    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_WPoint, W_Position);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WReply), 1000))
+                    throw new MvException("Inspection W T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 5000))
+                    throw new MvException("Inspection W T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_WResult))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Point out range";
+                        break;
+                    case 3:
+                        Result = "Status busy";
+                        break;
+                    case 4:
+                        Result = "Motor error";
+                        break;
+                    case 5:
+                        Result = "Point Same";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 1000))
+                    throw new MvException("Inspection W T4 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+                throw ex;
             }
             return Result;
         }
@@ -150,33 +177,42 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
-            Thread.Sleep(100);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Reply), 1000))
-                throw new MvException("Inspection Initial T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 5000))
-                throw new MvException("Inspection Initial T2 timeout");
-
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 1000))
-                throw new MvException("Inspection Initial T4 timeout");
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Result))
+            try
             {
-                //case 0:
-                //    Result = "Invalid";
-                //    break;
-                //case 1:
-                //    Result = "Idle";
-                //    break;
-                //case 2:
-                //    Result = "Busy";
-                //    break;
-                //case 3:
-                //    Result = "Error";
-                //    break;
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Reply), 1000))
+                    throw new MvException("Inspection Initial T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 5000))
+                    throw new MvException("Inspection Initial T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Result))
+                {
+                    case 0:
+                        Result = "Invalid";
+                        break;
+                    case 1:
+                        Result = "Idle";
+                        break;
+                    case 2:
+                        Result = "Busy";
+                        break;
+                    case 3:
+                        Result = "Error";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 1000))
+                    throw new MvException("Inspection Initial T4 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+                throw ex;
             }
             return Result;
         }
@@ -188,7 +224,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        //確認Robot入侵
+        //讀取Robot入侵
         public bool ReadRobotIntrude()
         {
             var plc = this.m_PlcContext;
@@ -197,7 +233,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_RobotLicence);
         }
 
-        //確認 XY Stage位置
+        //讀取 XY Stage位置
         public Tuple<double, double> ReadXYPosition()
         {
             var plc = this.m_PlcContext;
@@ -208,7 +244,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
-        //確認 CCD Z軸位置
+        //讀取 CCD Z軸位置
         public double ReadZPosition()
         {
             var plc = this.m_PlcContext;
@@ -216,7 +252,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_Z);
         }
 
-        //確認旋轉位置
+        //讀取旋轉位置
         public double ReadWPosition()
         {
             var plc = this.m_PlcContext;
@@ -234,7 +270,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取手臂可侵入的左右區間極限值
-        public Tuple<double,double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotAboutLimitSetting()
         {
             var plc = this.m_PlcContext;
 
@@ -248,7 +284,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public double ReadRobotPosAbout()
         {
             var plc = this.m_PlcContext;
-            
+
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_About);
         }
 
@@ -262,17 +298,17 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取手臂可侵入的上下區間極限值
-        public Tuple< double,double> ReadRobotUpDownLimitSetting()
+        public Tuple<double, double> ReadRobotUpDownLimitSetting()
         {
             var plc = this.m_PlcContext;
-            
+
             return new Tuple<double, double>(
                 plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_U),
                 plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_D)
                 );
         }
 
-        //檢測Robot侵入位置(上下)
+        //讀取Robot侵入位置(上下)
         public double ReadRobotPosUpDown()
         {
             var plc = this.m_PlcContext;

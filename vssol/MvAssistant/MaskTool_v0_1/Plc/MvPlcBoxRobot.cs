@@ -62,13 +62,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Box Hand Clamp T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Box_Type, 0);
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Clamp, false);
+                throw ex;
             }
-
             return Result;
         }
 
@@ -117,12 +115,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Box Hand Unclamp T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Unclamp, false);
+                throw ex;
             }
-
             return Result;
         }
 
@@ -162,12 +158,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Box Hand Initial T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
+                throw ex;
             }
-
             return Result;
         }
 
@@ -310,8 +304,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFy),
                 plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceFz),
                 plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMx),
-                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMx),
-                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMx)
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMy),
+                plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ForceMz)
                 );
         }
         #endregion
