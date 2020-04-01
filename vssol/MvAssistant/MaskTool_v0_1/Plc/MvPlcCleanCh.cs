@@ -188,11 +188,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Lock/Unlock T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, 0);
                 plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+                throw ex;
             }
             return Result;
         }

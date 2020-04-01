@@ -114,7 +114,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //信號燈
-        public void SignalTower(bool Red, bool Orange, bool Blue)
+        public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
             this.Write(MvEnumPlcVariable.PC_TO_DR_Red, Red);
             this.Write(MvEnumPlcVariable.PC_TO_DR_Orange, Orange);
@@ -122,7 +122,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //蜂鳴器
-        public void Buzzer(uint BuzzerType)
+        public void SetBuzzer(uint BuzzerType)
         {
             this.Write(MvEnumPlcVariable.PC_TO_DR_Buzzer, BuzzerType);
         }

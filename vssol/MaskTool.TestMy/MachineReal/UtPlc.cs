@@ -34,8 +34,8 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
-                plc.SignalTower(true, false, false);
-                plc.Buzzer(1);
+                plc.SetSignalTower(true, false, false);
+                plc.SetBuzzer(1);
             }
         }
 
@@ -162,10 +162,10 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.OpenStage.Close());
                 Console.WriteLine(plc.OpenStage.Clamp());
                 Console.WriteLine(plc.OpenStage.Unclamp());
-                //Console.WriteLine(plc.OpenStage.SortClamp());
+                Console.WriteLine(plc.OpenStage.SortClamp());
                 Console.WriteLine(plc.OpenStage.SortUnclamp());
                 Console.WriteLine(plc.OpenStage.Initial());
-                Console.WriteLine(plc.OpenStage.SetCommand());
+                //Console.WriteLine(plc.OpenStage.SetCommand());
                 Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));
                 Console.WriteLine(plc.OpenStage.ReadClampStatus());
                 Console.WriteLine(plc.OpenStage.ReadSortClampPosition());

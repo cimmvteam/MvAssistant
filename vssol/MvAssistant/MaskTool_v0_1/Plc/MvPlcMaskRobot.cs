@@ -52,12 +52,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     throw new MvException("Open Stage Initial T4 timeout");
             }
             catch (Exception ex)
-            { throw ex; }
-            finally
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
-            }
-            
+                throw ex;
+            }            
             return Result;
         }
 
