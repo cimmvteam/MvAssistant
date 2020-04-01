@@ -6,6 +6,9 @@ using MvAssistant.MaskTool_v0_1.Plc;
 
 namespace MaskTool.TestMy.MachineReal
 {
+
+
+    //[20200401] Merge
     [TestClass]
     public class UtPlc
     {
@@ -29,12 +32,8 @@ namespace MaskTool.TestMy.MachineReal
 
         }
 
-<<<<<<< HEAD
-        public void TestPlcBoxRobot()
-=======
         [TestMethod]
         public void TestPublicArea()
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             using (var plc = new MvPlcContext())
             {
@@ -43,22 +42,6 @@ namespace MaskTool.TestMy.MachineReal
             }
         }
 
-<<<<<<< HEAD
-                plc.StartAsyn();
-                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
-                    throw new MvException("PLC connection fail");
-
-                Console.WriteLine(plc.BoxRobot.Clamp(0));// BoxType
-                Console.WriteLine(plc.BoxRobot.Unclamp());
-                Console.WriteLine(plc.BoxRobot.Initial());
-                Console.WriteLine(plc.BoxRobot.CheckHandPos());
-                Console.WriteLine(plc.BoxRobot.CheckBox());
-                Console.WriteLine(plc.BoxRobot.CheckHandPosByLSR(1.1, 2.2));//  double*2
-                Console.WriteLine(plc.BoxRobot.CheckClampLength(20.2));//  double*1
-                Console.WriteLine(plc.BoxRobot.CheckLevelSensor(3.3, 4.4));//  double*2
-                Console.WriteLine(plc.BoxRobot.CheckSixAxisSensor(1, 2, 3, 4, 5, 6));//  uinr*6
-                Console.WriteLine(plc.BoxRobot.CheakHandVacuum());
-=======
         [TestMethod]
         public void TestPlcBoxRobot()
         {
@@ -83,21 +66,14 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
             }
         }
 
-        public void TestPlcOpenStage()
+        [TestMethod]
+        public void TestPlcCabinet()
         {
             using (var plc = new MvPlcContext())
             {
-<<<<<<< HEAD
-
-                plc.StartAsyn();
-                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
-                    throw new MvException("PLC connection fail");
-
-=======
                 plc.Cabinet.SetPressureDiffLimit(1, 2);
                 Console.WriteLine(plc.Cabinet.ReadPressureDiffLimitSetting());
                 Console.WriteLine(plc.Cabinet.ReadPressureDiff());
@@ -184,24 +160,14 @@ namespace MaskTool.TestMy.MachineReal
         {
             using (var plc = new MvPlcContext())
             {
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
                 Console.WriteLine(plc.OpenStage.Open());
+                Console.WriteLine(plc.OpenStage.Lock());
                 Console.WriteLine(plc.OpenStage.Close());
                 Console.WriteLine(plc.OpenStage.Clamp());
                 Console.WriteLine(plc.OpenStage.Unclamp());
                 //Console.WriteLine(plc.OpenStage.SortClamp());
                 Console.WriteLine(plc.OpenStage.SortUnclamp());
-                Console.WriteLine(plc.OpenStage.Lock(true));// T/F
                 Console.WriteLine(plc.OpenStage.Initial());
-<<<<<<< HEAD
-                Console.WriteLine(plc.OpenStage.CheckRobotIntrude());
-                Console.WriteLine(plc.OpenStage.CheckClampStatus());
-                Console.WriteLine(plc.OpenStage.CheckSortClampPosition());
-                Console.WriteLine(plc.OpenStage.CheckSliderPosition());
-                Console.WriteLine(plc.OpenStage.CheckCoverPos());
-                Console.WriteLine(plc.OpenStage.CheckCoverSensor());
-                Console.WriteLine(plc.OpenStage.CheckBoxExist());
-=======
                 Console.WriteLine(plc.OpenStage.SetCommand());
                 Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));
                 Console.WriteLine(plc.OpenStage.ReadClampStatus());
@@ -210,31 +176,10 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.OpenStage.ReadCoverPos());
                 Console.WriteLine(plc.OpenStage.ReadCoverSensor());
                 Console.WriteLine(plc.OpenStage.ReadBoxExist());
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
             }
         }
 
         [TestMethod]
-<<<<<<< HEAD
-        public void TestPlcInspCh()
-        {
-            using (var plc = new MvPlcContext())
-            {
-                plc.StartAsyn();
-                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
-                    throw new MvException("PLC connection fail");
-
-                Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
-                Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
-                Console.WriteLine(plc.InspCh.WPosition(20));//0~359
-                Console.WriteLine(plc.InspCh.Initial());
-                Console.WriteLine(plc.InspCh.CheckRobotIntrude());
-                Console.WriteLine(plc.InspCh.CheckXYPosition());
-                Console.WriteLine(plc.InspCh.CheckZPosition());
-                Console.WriteLine(plc.InspCh.CheckWPosition());
-                Console.WriteLine(plc.InspCh.CheckRobotAbout(-10,10));
-                Console.WriteLine(plc.InspCh.CheckRobotUpDown(10,0));
-=======
         public void TestPlcOpenStageFlow()//Test OK
         {
             using (var plc = new MvPlcContext())
@@ -260,7 +205,6 @@ namespace MaskTool.TestMy.MachineReal
                 //Console.WriteLine(plc.OpenStage.CheckCoverPos());
                 //Console.WriteLine(plc.OpenStage.CheckCoverSensor());
                 //Console.WriteLine(plc.OpenStage.CheckBoxExist());
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
             }
         }
     }

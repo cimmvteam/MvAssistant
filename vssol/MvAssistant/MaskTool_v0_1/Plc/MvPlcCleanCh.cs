@@ -15,26 +15,15 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             this.m_PlcContext = plc;
         }
 
-<<<<<<< HEAD
-        public Tuple<uint, uint, uint> ParticleCount(uint L_Limit, uint M_Limit, uint S_Limit)
-=======
         #region"Particle數量監控"
         //設定各種大小Particle的數量限制
         public void SetParticleCntLimit(uint L_Limit, uint M_Limit, uint S_Limit)
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_L_Limit, L_Limit);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit, M_Limit);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit, S_Limit);
-<<<<<<< HEAD
-
-            return new Tuple<uint, uint, uint>(
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_PD_L),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_PD_M),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_PD_S)
-=======
         }
 
         //讀取各種大小Particle的數量限制
@@ -58,7 +47,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_L),
                 plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_M),
                 plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_S)
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
                 );
         }
         #endregion
@@ -69,9 +57,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double, double>(
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_MaskLevel1),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_MaskLevel2),
-                plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_MaskLevel3)
+                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel1),
+                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel2),
+                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel3)
                 );
         }
 
@@ -83,8 +71,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
-<<<<<<< HEAD
-=======
         }
 
         //讀取手臂可侵入的左右區間極限值
@@ -102,7 +88,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public double ReadRobotPosAbout()
         {
             var plc = this.m_PlcContext;
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
 
             return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_RobotPosition_About);
         }
@@ -116,8 +101,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
             plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_D, Limit_D);
-<<<<<<< HEAD
-=======
         }
 
         //讀取手臂可侵入的上下區間極限值
@@ -135,22 +118,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         public double ReadRobotPosUpDown()
         {
             var plc = this.m_PlcContext;
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
 
             return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_RobotPosition_UpDown);
         }
         #endregion
 
-<<<<<<< HEAD
-        //為壓差計
-        public uint DP(uint DP_Limit)
-        {
-            var plc = this.m_PlcContext;
-
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_DP_Limit,DP_Limit);
-
-            return plc.Read<uint>(MvEnumPlcVariable.CC_TO_PC_DP);
-=======
         #region 壓差表
         //設定壓力表壓差限制
         public void SetPressureDiffLimit(uint PressureLimit)
@@ -174,37 +146,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_DP);
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         }
         #endregion
 
-<<<<<<< HEAD
-        //空氣閥吹風
-        public bool GasValveBlow(uint BlowTime)
-=======
         //空氣閥吹風(BlowTime單位為ms)
         public string GasValveBlow(uint BlowTime)
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         {
             string Result = "";
             var plc = this.m_PlcContext;
-<<<<<<< HEAD
-
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, BlowTime);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, true);
-
-            if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Reply), 1000))
-                throw new MvException("Open Stage Lock/Unlock T0 timeout");
-            else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 5000))
-                throw new MvException("Open Stage Lock/Unlock T2 timeout");
-
-            SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.PC_TO_CC_Blow), 1000);
-
-            if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000))
-                throw new MvException("Open Stage Lock/Unlock T4 timeout");
-            
-            return plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Output);
-=======
             try
             {
                 plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, BlowTime);
@@ -246,7 +195,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
             }
             return Result;
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         }
 
         #region 吹氣壓力控制
@@ -256,11 +204,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             plc.Write(MvEnumPlcVariable.PC_TO_CC_PressureControl, AirPressure);
-<<<<<<< HEAD
-
-            return plc.Read<double>(MvEnumPlcVariable.CC_TO_PressureControl);
-=======
->>>>>>> 7d76a0e8abe70a0aea1c750ff12f3c502bf5a150
         }
 
         //讀取吹氣壓力設定值
