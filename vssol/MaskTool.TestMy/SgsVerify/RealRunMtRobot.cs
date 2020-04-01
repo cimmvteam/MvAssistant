@@ -100,7 +100,6 @@ namespace MaskTool.TestMy.SgsVerify
 
             return poss;
         }
-
         public List<MvFanucRobotInfo> GenHome2Cc2Os()
         {
             var poss = new List<MvFanucRobotInfo>();
