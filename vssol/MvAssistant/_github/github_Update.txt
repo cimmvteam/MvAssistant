@@ -3,7 +3,9 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'ut robot'
+git commit -m 'sgs robot'
 git pull
 git push
-cd .
+cd ..
+
+
