@@ -68,8 +68,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProgramMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SgsMaskRobot\CurrentPOS.cs" />
-    <Compile Include="SgsMaskRobot\RobotHandler.cs" />
     <Compile Include="ViewUc\UcMaskRobot.cs">
       <SubType>UserControl</SubType>
     </Compile>

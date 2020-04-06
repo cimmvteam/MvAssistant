@@ -8,49 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaskTool.TestMy.Device;
+using MvAssistant.Tasking;
 
 namespace BoxTransferTest.ViewUc
 {
     public partial class UcMaskRobot : UserControl
     {
-        RobotHandler robotHandler;
+        MaskRobotHandler robotHandler;
+
+        MvCancelTask task;
+
 
 
         public UcMaskRobot()
         {
             InitializeComponent();
         }
-
-        private void label5_Click(object sender, EventArgs e)
+        ~UcMaskRobot()
         {
-
+            this.TaskClose();
         }
 
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            robotHandler.StartSgsVerify();
-
-
-        }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UcMaskRobot_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            robotHandler = new RobotHandler();
+            robotHandler = new MaskRobotHandler();
             robotHandler.ldd.RobotIp = "192.168.0.50";
             if (robotHandler.ConnectIfNO() == 0)
             {
@@ -63,15 +45,9 @@ namespace BoxTransferTest.ViewUc
                 return;
             }
 
-           //var currPos = robotHandler.getCurrentPOS();
+            //var currPos = robotHandler.getCurrentPOS();
 
 
-        }
-
-        void LogWrite(string msg)
-        {
-            var now = DateTime.Now;
-            this.rtbLog.AppendText(string.Format("{0} {1}", now.ToString("yyyyMMdd HH:ii:ss"), msg));
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)
@@ -96,11 +72,83 @@ namespace BoxTransferTest.ViewUc
             }
 
 
+        }
 
-            robotHandler.ldd.ExecutePNS("PNS0101");
+        private void btnStartPns0101_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //robotHandler.StartPns0101SgsVerify();
+            }
+            catch (Exception ex)
+            {
+                this.LogWrite(ex.Message);
+            }
+
+        }
+
+        private void btnStartPns0102_Click(object sender, EventArgs e)
+        {
+            if (this.task != null) return;
+            if (this.task != null && !this.task.IsEnd()) return;
+
+            this.task = MvCancelTask.RunLoop(() =>
+            {
+                //大迴圈, 來回一次
+                try
+                {
+                    robotHandler.SgsVerifyStartPns0102(ri =>
+                    {
+                        this.Invoke(new Action(() =>
+                        {
+                            tbPoseX.Text = ri.x + "";
+                            tbPoseY.Text = ri.y + "";
+                            tbPoseZ.Text = ri.z + "";
+                            tbPoseW.Text = ri.w + "";
+                            tbPoseP.Text = ri.p + "";
+                            tbPoseR.Text = ri.r + "";
+                        }));
+                    });
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    this.LogWrite(ex.Message);
+                    return false;
+                }
+            }, 1000);
+        }
+
+        private void btnStopPns0101_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStopPns0102_Click(object sender, EventArgs e)
+        {
+            this.TaskClose();
+        }
 
 
+        void LogWrite(string msg)
+        {
+            var now = DateTime.Now;
+            this.rtbLog.AppendText(string.Format("{0} {1}\r\n", now.ToString("yyyyMMdd HH:mm:ss"), msg));
+        }
 
+        void TaskClose()
+        {
+            if (this.task != null)
+            {
+                using (var obj = this.task)
+                    obj.Cancel();
+                this.task = null;
+            }
+        }
+
+
+        private void UcMaskRobot_Load(object sender, EventArgs e)
+        {
 
         }
     }
