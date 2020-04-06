@@ -13,7 +13,7 @@ namespace BoxTransferTest.ViewUc
 {
     public partial class UcOpenStage : UserControl
     {
-        UtPlc plc;
+        UtPlc plc = new UtPlc();
         public UcOpenStage()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace BoxTransferTest.ViewUc
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            plc.boolTestStop=true;
+            plc.boolTestStop = true;
         }
 
     }
