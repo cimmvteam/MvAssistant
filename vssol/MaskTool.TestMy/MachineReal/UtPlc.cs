@@ -12,6 +12,7 @@ namespace MaskTool.TestMy.MachineReal
     [TestClass]
     public class UtPlc
     {
+        public bool boolTestStop = false;
         [TestMethod]
         public void TestPlcConnect()
         {
@@ -213,18 +214,26 @@ namespace MaskTool.TestMy.MachineReal
                 plc.Connect("192.168.0.200", 2);
 
                 Console.WriteLine(plc.OpenStage.Initial());
-                for (int i = 0; i < 1; i++)
-                //while (true)
+                //for (int i = 0; i < 1; i++)
+                while (boolTestStop == false)
                 {
                     Console.WriteLine(plc.OpenStage.SortClamp());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.SortUnclamp());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Close());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Clamp());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Open());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));//Mask Robot入侵將MTIntrude訊號改為False
                     Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, true));//沒有Robot入侵時，將訊號改為True
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Close());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Unclamp());
+                    if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Lock());
                 }
                 //Console.WriteLine(plc.OpenStage.ReadClampStatus());

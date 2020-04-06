@@ -36,43 +36,48 @@
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnStop.Location = new System.Drawing.Point(132, 3);
+            this.btnStop.Location = new System.Drawing.Point(176, 4);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(123, 63);
+            this.btnStop.Size = new System.Drawing.Size(164, 79);
             this.btnStop.TabIndex = 32;
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnStart.Location = new System.Drawing.Point(3, 3);
+            this.btnStart.Location = new System.Drawing.Point(4, 4);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(123, 63);
+            this.btnStart.Size = new System.Drawing.Size(164, 79);
             this.btnStart.TabIndex = 31;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // rtbLog
             // 
             this.rtbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbLog.Location = new System.Drawing.Point(359, 2);
-            this.rtbLog.Margin = new System.Windows.Forms.Padding(2);
+            this.rtbLog.Location = new System.Drawing.Point(479, 2);
+            this.rtbLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rtbLog.Name = "rtbLog";
-            this.rtbLog.Size = new System.Drawing.Size(256, 476);
+            this.rtbLog.Size = new System.Drawing.Size(340, 594);
             this.rtbLog.TabIndex = 35;
             this.rtbLog.Text = "";
             // 
             // UcOpenStage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.rtbLog);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "UcOpenStage";
-            this.Size = new System.Drawing.Size(617, 481);
+            this.Size = new System.Drawing.Size(823, 601);
             this.ResumeLayout(false);
 
         }
