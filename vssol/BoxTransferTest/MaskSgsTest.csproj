@@ -119,6 +119,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MaskTool.TestMy\MaskTool.TestMy.csproj">
+      <Project>{c720df8c-b6fe-4284-a4ae-b1fec882f9cd}</Project>
+      <Name>MaskTool.TestMy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>
