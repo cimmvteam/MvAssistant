@@ -141,7 +141,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         OS_TO_PC_Initial_A05_Reply,
         OS_TO_PC_Initial_A05_Complete,
         OS_TO_PC_Initial_A05_Result,
-        PC_TO_OS_BoxType,//設定內容 1.Box type 2.作動速度%
+        PC_TO_OS_BoxType,//設定內容 1.Box type－鐵盒：1、水晶盒：2      2.作動速度%
         PC_TO_OS_BTIntrude,//Robot侵入A05
         PC_TO_OS_MTIntrude,
         OS_TO_PC_BTLicence,//Robot侵入A05許可

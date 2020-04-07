@@ -212,6 +212,7 @@ namespace MaskTool.TestMy.MachineReal
             using (var plc = new MvPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
+                boolTestStop = false;
                 plc.OpenStage.SetCommand(1);//鐵盒：1，水晶盒：2
                 Console.WriteLine(plc.OpenStage.Initial());
                 //for (int i = 0; i < 1; i++)
