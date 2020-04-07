@@ -187,16 +187,16 @@ namespace MaskTool.TestMy.MachineReal
             {
                 plc.Connect("192.168.0.200", 2);
 
-                Console.WriteLine(plc.OpenStage.Open());
-                Console.WriteLine(plc.OpenStage.Lock());
-                Console.WriteLine(plc.OpenStage.Close());
-                Console.WriteLine(plc.OpenStage.Clamp());
-                Console.WriteLine(plc.OpenStage.Unclamp());
-                Console.WriteLine(plc.OpenStage.SortClamp());
-                Console.WriteLine(plc.OpenStage.SortUnclamp());
-                Console.WriteLine(plc.OpenStage.Initial());
-                //Console.WriteLine(plc.OpenStage.SetCommand());
-                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));
+                //Console.WriteLine(plc.OpenStage.Open());
+                //Console.WriteLine(plc.OpenStage.Lock());
+                //Console.WriteLine(plc.OpenStage.Close());
+                //Console.WriteLine(plc.OpenStage.Clamp());
+                //Console.WriteLine(plc.OpenStage.Unclamp());
+                //Console.WriteLine(plc.OpenStage.SortClamp());
+                //Console.WriteLine(plc.OpenStage.SortUnclamp());
+                //Console.WriteLine(plc.OpenStage.Initial());
+                ////Console.WriteLine(plc.OpenStage.SetCommand());
+                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, true));
                 Console.WriteLine(plc.OpenStage.ReadClampStatus());
                 Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
                 Console.WriteLine(plc.OpenStage.ReadSliderPosition());
@@ -212,7 +212,7 @@ namespace MaskTool.TestMy.MachineReal
             using (var plc = new MvPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-
+                plc.OpenStage.SetCommand(1);//鐵盒：1，水晶盒：2
                 Console.WriteLine(plc.OpenStage.Initial());
                 //for (int i = 0; i < 1; i++)
                 while (boolTestStop == false)

@@ -360,11 +360,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         }
 
-        public string SetCommand()
+        public void SetCommand(uint BoxType)
         {
-            string Result = "";
-
-            return Result;
+            var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_OS_BoxType, BoxType);
+            
         }
 
         //讀取Robot入侵
