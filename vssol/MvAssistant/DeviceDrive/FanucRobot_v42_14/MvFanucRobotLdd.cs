@@ -67,6 +67,21 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         public FRRJIf.DataNumReg MObjNumReg { get { return mobjNumReg; } }
 
 
+        /// <summary>
+        /// Stop executing program
+        /// </summary>
+        /// <returns></returns>
+        public int StopProgram()
+        {
+            Array UI4_CycleStop = new short[1];
+
+            UI4_CycleStop.SetValue((short)1, 0);
+            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
+            UI4_CycleStop.SetValue((short)0, 0);
+            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
+
+            return 0;
+        }
         public bool AlarmReset()
         {
             Array UIAlways_ON = new short[3];
@@ -92,32 +107,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
             return IsResetSuccess;
 
-        }
-
-        public int Close()
-        {
-            // 若 mobjCore 不為空
-            if (mobjCore != null)
-            {
-                // 將 mobjCore 斷開連線
-                try { mobjCore.Disconnect(); }
-                catch (Exception ex) { MvLog.WarnNs(this, ex); }
-                mobjCore = null;
-            }
-            return 0;
-        }
-
-        public int ConnectIfNo()
-        {
-            if (!this.IsConnected())
-            {
-                if (this.ReConnect() != 0)
-                {
-                    this.Close();
-                    return -1;
-                }
-            }
-            return 0;
         }
         /// <summary>
         /// 輸入Robot設定PNS name, 讀取並執行PNS
@@ -176,6 +165,121 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             // Excution Result alarm message
             return PrgRunningCheck();
         }
+        public bool PrgRunningCheck()
+        {
+            Array UO3_PrgRun = new short[1];
+            mobjCore.ReadUO(3, ref UO3_PrgRun, 1);
+
+            if ((short)UO3_PrgRun.GetValue(0) == 0)
+            { return false; }
+            else
+            { return true; }
+        }
+
+
+
+        #region Device Connection
+
+        public int Close()
+        {
+            // 若 mobjCore 不為空
+            if (mobjCore != null)
+            {
+                // 將 mobjCore 斷開連線
+                try { mobjCore.Disconnect(); }
+                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                mobjCore = null;
+            }
+            return 0;
+        }
+        public int ConnectIfNo()
+        {
+            if (!this.IsConnected())
+            {
+                if (this.ReConnect() != 0)
+                {
+                    this.Close();
+                    return -1;
+                }
+            }
+            return 0;
+        }
+        public bool IsConnected()
+        {
+            if (mobjCore == null) return false;
+            //--失敗為 0, 成功為 1.
+            return mobjCore.get_ConnectState() == 1;
+        }
+        public int ReConnect()
+        {
+            //CheckDeviceAvailable();
+            this.Close();
+            if (!RobotInitConnect()) return -1;
+
+            //TODO: 需要確認是否要repeat讀位置
+            //LaunchGetPos();
+
+            return 0;
+        }
+        public bool RobotInitConnect()
+        {
+            //if (true)
+            mobjCore = new FRRJIf.Core();
+            //else
+            //InitFanucApi();
+
+            // You need to set data table before connecting.
+            mobjDataTable = mobjCore.get_DataTable();
+
+            {
+                mobjAlarm = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_LIST, 5, 0);
+                mobjAlarmCurrent = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_CURRENT, 1, 0);
+                mobjCurPos = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1);
+                mobjCurPosUF = mobjDataTable.AddCurPosUF(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1, 9);
+                mobjCurPos2 = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 2);
+                mobjTask = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK, 1);
+                mobjTaskIgnoreMacro = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO, 1);
+                mobjTaskIgnoreKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_KAREL, 1);
+                mobjTaskIgnoreMacroKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO_KAREL, 1);
+                mobjPosReg = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 1, 1, 40);
+                mobjPosReg2 = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 2, 1, 4);
+                mobjSysVarInt = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$FAST_CLOCK");
+                mobjSysVarInt2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
+                mobjSysVarReal = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$MOR_GRP[1].$CURRENT_ANG[1]");
+                mobjSysVarReal2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$DUTY_TEMP");
+                mobjSysVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$TIMER[10].$COMMENT");
+                mobjSysVarPos = mobjDataTable.AddSysVarPos(FRRJIf.FRIF_DATA_TYPE.SYSVAR_POS, "$MNUTOOL[1,1]");
+                mobjVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$[HTTPKCL]CMDS[1]");
+                mobjNumReg = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 60);
+                mobjNumReg2 = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_REAL, 51, 60);
+                mobjPosRegXyzwpr = mobjDataTable.AddPosRegXyzwpr(FRRJIf.FRIF_DATA_TYPE.POSREG_XYZWPR, 1, 1, 40);
+                mobjStrReg = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG, 1, 3);
+                mobjStrRegComment = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG_COMMENT, 1, 3);
+            }
+
+            // 2nd data table.
+            // You must not set the first data table.
+            mobjDataTable2 = mobjCore.get_DataTable2();
+            mobjNumReg3 = mobjDataTable2.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 5);
+            mobjSysVarIntArray = new FRRJIf.DataSysVar[10];
+            mobjSysVarIntArray[0] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[1].$TIMER_VAL");
+            mobjSysVarIntArray[1] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[2].$TIMER_VAL");
+            mobjSysVarIntArray[2] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[3].$TIMER_VAL");
+            mobjSysVarIntArray[3] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[4].$TIMER_VAL");
+            mobjSysVarIntArray[4] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[5].$TIMER_VAL");
+            mobjSysVarIntArray[5] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[6].$TIMER_VAL");
+            mobjSysVarIntArray[6] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[7].$TIMER_VAL");
+            mobjSysVarIntArray[7] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[8].$TIMER_VAL");
+            mobjSysVarIntArray[8] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[9].$TIMER_VAL");
+            mobjSysVarIntArray[9] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
+
+            //get host name
+            System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(this.RobotIp));
+            return mobjCore.Connect(this.RobotIp);
+        }
+
+        #endregion
+
 
         public MvFanucRobotInfo GetCurrRobotInfo()
         {
@@ -193,9 +297,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                                      ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
                 robotInfo.robotTime = DateTime.Now;
 
-                object R5Value = 0;
-                mobjNumReg.GetValue(5, ref R5Value);
-                robotInfo.isReachTarget = ((int)R5Value == 51);
+                robotInfo.isReachTarget = this.MoveIsComplete();
 
                 return robotInfo;
             }
@@ -279,118 +381,18 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             else { return false; }
         }
 
-        public bool IsConnected()
-        {
-            if (mobjCore == null) return false;
-            //--失敗為 0, 成功為 1.
-            return mobjCore.get_ConnectState() == 1;
-        }
 
         public void MoveCompeleteReply()
         {
             this.WriteRegValue(5, 0);
         }
-
         public bool MoveIsComplete()
         {
             var reg5 = this.GetRegValue(5);
             return reg5 == 51;
         }
 
-        public bool PrgRunningCheck()
-        {
-            Array UO3_PrgRun = new short[1];
-            mobjCore.ReadUO(3, ref UO3_PrgRun, 1);
 
-            if ((short)UO3_PrgRun.GetValue(0) == 0)
-            { return false; }
-            else
-            { return true; }
-        }
-
-        public int ReConnect()
-        {
-            //CheckDeviceAvailable();
-            this.Close();
-            if (!RobotInit()) return -1;
-
-            //TODO: 需要確認是否要repeat讀位置
-            //LaunchGetPos();
-
-            return 0;
-        }
-        public bool RobotInit()
-        {
-            //if (true)
-            mobjCore = new FRRJIf.Core();
-            //else
-            //InitFanucApi();
-
-            // You need to set data table before connecting.
-            mobjDataTable = mobjCore.get_DataTable();
-
-            {
-                mobjAlarm = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_LIST, 5, 0);
-                mobjAlarmCurrent = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_CURRENT, 1, 0);
-                mobjCurPos = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1);
-                mobjCurPosUF = mobjDataTable.AddCurPosUF(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1, 9);
-                mobjCurPos2 = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 2);
-                mobjTask = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK, 1);
-                mobjTaskIgnoreMacro = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO, 1);
-                mobjTaskIgnoreKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_KAREL, 1);
-                mobjTaskIgnoreMacroKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO_KAREL, 1);
-                mobjPosReg = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 1, 1, 40);
-                mobjPosReg2 = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 2, 1, 4);
-                mobjSysVarInt = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$FAST_CLOCK");
-                mobjSysVarInt2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
-                mobjSysVarReal = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$MOR_GRP[1].$CURRENT_ANG[1]");
-                mobjSysVarReal2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$DUTY_TEMP");
-                mobjSysVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$TIMER[10].$COMMENT");
-                mobjSysVarPos = mobjDataTable.AddSysVarPos(FRRJIf.FRIF_DATA_TYPE.SYSVAR_POS, "$MNUTOOL[1,1]");
-                mobjVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$[HTTPKCL]CMDS[1]");
-                mobjNumReg = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 60);
-                mobjNumReg2 = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_REAL, 51, 60);
-                mobjPosRegXyzwpr = mobjDataTable.AddPosRegXyzwpr(FRRJIf.FRIF_DATA_TYPE.POSREG_XYZWPR, 1, 1, 40);
-                mobjStrReg = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG, 1, 3);
-                mobjStrRegComment = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG_COMMENT, 1, 3);
-            }
-
-            // 2nd data table.
-            // You must not set the first data table.
-            mobjDataTable2 = mobjCore.get_DataTable2();
-            mobjNumReg3 = mobjDataTable2.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 5);
-            mobjSysVarIntArray = new FRRJIf.DataSysVar[10];
-            mobjSysVarIntArray[0] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[1].$TIMER_VAL");
-            mobjSysVarIntArray[1] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[2].$TIMER_VAL");
-            mobjSysVarIntArray[2] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[3].$TIMER_VAL");
-            mobjSysVarIntArray[3] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[4].$TIMER_VAL");
-            mobjSysVarIntArray[4] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[5].$TIMER_VAL");
-            mobjSysVarIntArray[5] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[6].$TIMER_VAL");
-            mobjSysVarIntArray[6] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[7].$TIMER_VAL");
-            mobjSysVarIntArray[7] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[8].$TIMER_VAL");
-            mobjSysVarIntArray[8] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[9].$TIMER_VAL");
-            mobjSysVarIntArray[9] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
-
-            //get host name
-            System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(this.RobotIp));
-            return mobjCore.Connect(this.RobotIp);
-        }
-
-        /// <summary>
-        /// Stop executing program
-        /// </summary>
-        /// <returns></returns>
-        public int StopProgram()
-        {
-            Array UI4_CycleStop = new short[1];
-
-            UI4_CycleStop.SetValue((short)1, 0);
-            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
-            UI4_CycleStop.SetValue((short)0, 0);
-            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
-
-            return 0;
-        }
 
         public void SwitchUT(int UT)
         {
@@ -521,7 +523,17 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             }
         }
 
-        public void TCP_AutoSetting(float X, float Y, float Z, float W, float P, float R, int ToolSelected)
+        /// <summary>
+        /// Old Name: TCP_AutoSetting
+        /// </summary>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <param name="Z"></param>
+        /// <param name="W"></param>
+        /// <param name="P"></param>
+        /// <param name="R"></param>
+        /// <param name="ToolSelected"></param>
+        public void Pns0101_SettingToolFrame(float X, float Y, float Z, float W, float P, float R, int ToolSelected)
         {
             try
             {
@@ -550,15 +562,10 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
 
                 a = mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref CurRobotInfo.configArray, 9, (short)UT_Selected);  //Write to PR[1]
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = UT_Selected;
 
-                mobjNumReg.SetValues(11, intValues, 1);    //Set R[11]. Selects TCP number
+                this.WriteRegValue(11, UT_Selected);//Set R[11]. Selects TCP number
+                this.WriteRegValue(10, 1);//Set R[10]. R[10] set to 1 to setting TCP then back to LBL[1]
 
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = 1;
-
-                mobjNumReg.SetValues(10, intValues, 1);    //Set R[10]. R[10] set to 1 to setting TCP then back to LBL[1]
 
                 for (int i = 0; i < 1; i++)
                     intValues[i] = 1;
@@ -839,7 +846,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                     xyzwprArray.SetValue(TargetPos.GetValue(3), 3);  //W_position
                     xyzwprArray.SetValue(TargetPos.GetValue(4), 4);  //P_position
                     xyzwprArray.SetValue(TargetPos.GetValue(5), 5);  //R_position
-                    if (TargetPos.GetValue(6) != null)
+                    if (TargetPos.Length > 6 && TargetPos.GetValue(6) != null)
                         xyzwprArray.SetValue(TargetPos.GetValue(6), 6);  //R_position
                 }
                 else
@@ -857,7 +864,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                     JointArray.SetValue(TargetPos.GetValue(3), 3);  //J4_position
                     JointArray.SetValue(TargetPos.GetValue(4), 4);  //J5_position
                     JointArray.SetValue(TargetPos.GetValue(5), 5);  //J6_position
-                    if (TargetPos.GetValue(6) != null)
+                    if (TargetPos.Length > 6 && TargetPos.GetValue(6) != null)
                         JointArray.SetValue(TargetPos.GetValue(6), 6);  //J6_position
                 }
                 else
@@ -865,6 +872,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                     //return "InValid J Return";
                 }
             }
+
             ConfigArray.SetValue((short)0, 4);    //for Index 0
             ConfigArray.SetValue((short)0, 5);
             ConfigArray.SetValue((short)0, 6);
@@ -874,10 +882,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             else
                 mobjPosReg.SetValueJoint(2, ref JointArray, UF, UT);
 
-            for (int i = 0; i < 2; i++)
-                intValues[i] = 1;
 
-            mobjNumReg.SetValues(1, intValues, 2);
+            this.WriteRegValues(1, new int[] { 1, 1 });
 
             return 0;
         }

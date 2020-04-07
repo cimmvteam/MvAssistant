@@ -131,8 +131,11 @@ namespace BoxTransferTest.ViewUc
 
         void LogWrite(string msg)
         {
-            var now = DateTime.Now;
-            this.rtbLog.AppendText(string.Format("{0} {1}\r\n", now.ToString("yyyyMMdd HH:mm:ss"), msg));
+            this.Invoke(new Action(() =>
+            {
+                var now = DateTime.Now;
+                this.rtbLog.AppendText(string.Format("{0} {1}\r\n", now.ToString("yyyyMMdd HH:mm:ss"), msg));
+            }));
         }
 
         void TaskClose()
