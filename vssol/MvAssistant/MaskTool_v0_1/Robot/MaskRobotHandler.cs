@@ -112,10 +112,38 @@ namespace MaskTool.TestMy.Device
             if (!this.ldd.ExecutePNS("PNS0102"))
                 throw new Exception("Start Pns0102 Program Fail.");
 
+
+            //--- Check at home ---
+            var robotInfo = this.ldd.GetCurrRobotInfo();
+            {
+                var flagErrPos = robotInfo.x > 337 || robotInfo.x < 297;
+                flagErrPos = robotInfo.y > 20 || robotInfo.y < -20;
+                flagErrPos = robotInfo.z > 376 || robotInfo.z < 336;
+                flagErrPos = !(robotInfo.w > 160 || robotInfo.w < -160);
+                flagErrPos = robotInfo.p > 10 || robotInfo.p < -10;
+                flagErrPos = robotInfo.r > 10 || robotInfo.r < -10;
+
+                if (flagErrPos)
+                    throw new Exception("Mask robot is not at home");
+            }
+            /*
+             *  x = 317,
+                y = 0,
+                z = 356,
+                w = 179,
+                p = 0,
+                r = 0,*/
+                
+
+
+
+
+            //--- Run ---
+
             this.ldd.Pns0102AsynRun();
             while (!this.ldd.Pns0102AsynEnd())
             {
-                var robotInfo = this.ldd.GetCurrRobotInfo();
+                robotInfo = this.ldd.GetCurrRobotInfo();
                 waitEvent(robotInfo);
                 Thread.Sleep(500);
             }

@@ -90,7 +90,6 @@ namespace BoxTransferTest.ViewUc
         private void btnStartPns0102_Click(object sender, EventArgs e)
         {
             if (this.task != null) return;
-            if (this.task != null && !this.task.IsEnd()) return;
 
             this.task = MvCancelTask.RunLoop(() =>
             {
