@@ -116,23 +116,17 @@ namespace MaskTool.TestMy.Device
             //--- Check at home ---
             var robotInfo = this.ldd.GetCurrRobotInfo();
             {
-                var flagErrPos = robotInfo.x > 337 || robotInfo.x < 297;
-                flagErrPos = robotInfo.y > 20 || robotInfo.y < -20;
-                flagErrPos = robotInfo.z > 376 || robotInfo.z < 336;
-                flagErrPos = !(robotInfo.w > 160 || robotInfo.w < -160);
-                flagErrPos = robotInfo.p > 10 || robotInfo.p < -10;
-                flagErrPos = robotInfo.r > 10 || robotInfo.r < -10;
+                var flagErrPos = robotInfo.x > 337 || robotInfo.x < 297;//317
+                flagErrPos = robotInfo.y > 20 || robotInfo.y < -20;//0
+                flagErrPos = robotInfo.z > 376 || robotInfo.z < 336;//356
+                flagErrPos = !(robotInfo.w > 170 || robotInfo.w < -170);//180
+                flagErrPos = robotInfo.p > 10 || robotInfo.p < -10;//0
+                flagErrPos = robotInfo.r > 10 || robotInfo.r < -10;//0
 
                 if (flagErrPos)
                     throw new Exception("Mask robot is not at home");
             }
-            /*
-             *  x = 317,
-                y = 0,
-                z = 356,
-                w = 179,
-                p = 0,
-                r = 0,*/
+            
                 
 
 
