@@ -817,7 +817,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             //object R2Value = 0;
             //object R3Value = 0;
 
-            this.WriteRegValue(3, _SelectCorJ);//Write R[3]. 0:Mov ,position, 1:Rotate J1~6
+            this.WriteRegValue(3, _SelectCorJ);//Write R[3]. 0:Mov position, 1:Rotate J1~6
             this.WriteRegValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
             this.WriteRegValue(8, _IsMoveUT);//Write R[8].0:Offset with UF, 1:Offset with UT
             this.WriteRegValue(9, Speed);//Write R[9]. R[9] mm/sec
