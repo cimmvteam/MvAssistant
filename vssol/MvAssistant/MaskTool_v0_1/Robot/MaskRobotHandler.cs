@@ -8,20 +8,19 @@ using MvAssistant.DeviceDrive.FanucRobot;
 
 namespace MaskTool.TestMy.Device
 {
-    public class RobotHandler
+    public class MaskRobotHandler : IDisposable
     {
         public int PositionRecordInterval_MillSec = 7;
         public MvFanucRobotLdd ldd;
         public List<MvRobotAlarmInfo> alarmInfos;
-        public CurrentPOS curPos;
         bool isRunning = false;
 
-        public RobotHandler()
+        public MaskRobotHandler()
         {
             ldd = new MvFanucRobotLdd();
             alarmInfos = new List<MvRobotAlarmInfo>();
         }
-        ~RobotHandler()
+        ~MaskRobotHandler()
         {
             this.Close();
         }
@@ -36,27 +35,7 @@ namespace MaskTool.TestMy.Device
 
         public int ConnectIfNO() { return this.ldd.ConnectIfNo(); }
 
-        public void getCurrentPOS()
-        {
-            var info = this.ldd.GetCurrRobotInfo();
-            curPos = new CurrentPOS();
-            curPos.CurrentX = info.x;
-            curPos.CurrentY = info.y;
-            curPos.CurrentZ = info.z;
-            curPos.CurrentW = info.w;
-            curPos.CurrentP = info.p;
-            curPos.CurrentR = info.r;
-            //curPos.CurrentE1 = info.e1;
-            curPos.CurrentJ1 = info.j1;
-            curPos.CurrentJ2 = info.j2;
-            curPos.CurrentJ3 = info.j3;
-            curPos.CurrentJ4 = info.j4;
-            curPos.CurrentJ5 = info.j5;
-            curPos.CurrentJ6 = info.j6;
-            //curPos.CurrentJ7 = info.j7;
-            curPos.UserFrame = info.userFrame;
-            curPos.UserTool = info.userTool;
-        }
+
 
         public bool HasRobotAlarm()
         {
@@ -88,17 +67,30 @@ namespace MaskTool.TestMy.Device
             Thread.Sleep(PositionRecordInterval_MillSec);
         }
 
-     
-        public void StartSgsVerify()
+
+        #region SGS Verify
+
+        public void SgsVerifyStartPns0101()
         {
-            var toBr = this.GenHomeToBarcodeReader();
-            var toCc = this.GenHome2Cc2Os();
+            this.ldd.StopProgram();
+            if (!this.ldd.ExecutePNS("PNS0101"))
+                throw new Exception("Start PNS0101 Fail");
+
+
+            var toBr = this.SgsVerifyGenHomeToBarcodeReader();
+            var toCc = this.SgsVerifyGenHome2Cc2Os();
+
+            var targets = new List<MvFanucRobotInfo>();
+            targets.AddRange(toBr);
+            var stack = new Stack<MvFanucRobotInfo>(toBr);
+            targets.AddRange(stack.ToList());
+
 
 
             float[] target = new float[6];
-            for (var idx = 0; idx < toBr.Count; idx++)
+            for (var idx = 0; idx < targets.Count; idx++)
             {
-                var pose = toBr[idx];
+                var pose = targets[idx];
 
                 target[0] = pose.x;
                 target[1] = pose.y;
@@ -109,33 +101,51 @@ namespace MaskTool.TestMy.Device
                 this.ldd.Pns0101ContinuityMove(target);
 
             }
-            for (var idx = toBr.Count - 1; idx >= 0; idx--)
-            {
-                var pose = toBr[idx];
-
-                target[0] = pose.x;
-                target[1] = pose.y;
-                target[2] = pose.z;
-                target[3] = pose.w;
-                target[4] = pose.p;
-                target[5] = pose.r;
-                this.ldd.Pns0101ContinuityMove(target);
-
-            }
-
-
-
-
-
-
 
 
 
         }
 
+        public void SgsVerifyStartPns0102(Action<MvFanucRobotInfo> waitEvent)
+        {
+            this.ldd.StopProgram();
+            if (!this.ldd.ExecutePNS("PNS0102"))
+                throw new Exception("Start Pns0102 Program Fail.");
 
 
-        public List<MvFanucRobotInfo> GenHomeToBarcodeReader()
+            //--- Check at home ---
+            var robotInfo = this.ldd.GetCurrRobotInfo();
+            {
+                var flagErrPos = robotInfo.x > 337 || robotInfo.x < 297;//317
+                flagErrPos = robotInfo.y > 20 || robotInfo.y < -20;//0
+                flagErrPos = robotInfo.z > 376 || robotInfo.z < 336;//356
+                flagErrPos = !(robotInfo.w > 170 || robotInfo.w < -170);//180
+                flagErrPos = robotInfo.p > 10 || robotInfo.p < -10;//0
+                flagErrPos = robotInfo.r > 10 || robotInfo.r < -10;//0
+
+                if (flagErrPos)
+                    throw new Exception("Mask robot is not at home");
+            }
+            
+                
+
+
+
+
+            //--- Run ---
+
+            this.ldd.Pns0102AsynRun();
+            while (!this.ldd.Pns0102AsynEnd())
+            {
+                robotInfo = this.ldd.GetCurrRobotInfo();
+                waitEvent(robotInfo);
+                Thread.Sleep(500);
+            }
+
+
+        }
+
+        public List<MvFanucRobotInfo> SgsVerifyGenHomeToBarcodeReader()
         {
             var poss = new List<MvFanucRobotInfo>();
 
@@ -216,7 +226,7 @@ namespace MaskTool.TestMy.Device
 
             return poss;
         }
-        public List<MvFanucRobotInfo> GenHome2Cc2Os()
+        public List<MvFanucRobotInfo> SgsVerifyGenHome2Cc2Os()
         {
             var poss = new List<MvFanucRobotInfo>();
 
@@ -273,6 +283,52 @@ namespace MaskTool.TestMy.Device
             return poss;
         }
 
+        #endregion
+
+
+
+        #region IDisposable
+        // Flag: Has Dispose already been called?
+        bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+
+
+            this.DisposeSelf();
+
+            disposed = true;
+        }
+
+
+
+
+
+        void DisposeSelf()
+        {
+            this.Close();
+        }
+
+        #endregion
 
 
 

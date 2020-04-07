@@ -36,7 +36,7 @@ namespace MvAssistant.Tasking
                 {
                     ct.ThrowIfCancellationRequested();
                     if (!funcIsContinue()) break;
-                    if (delay_ms > 0) Thread.Sleep(delay_ms);
+                    if (delay_ms > 0) MvSpinWait.SpinUntil(() => ct.IsCancellationRequested, delay_ms);
                 }
             }, ct);
 

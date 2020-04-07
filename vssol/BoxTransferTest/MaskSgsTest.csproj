@@ -68,8 +68,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProgramMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SgsMaskRobot\CurrentPOS.cs" />
-    <Compile Include="SgsMaskRobot\RobotHandler.cs" />
+    <Compile Include="ViewUc\UcBoxRobot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewUc\UcBoxRobot.Designer.cs">
+      <DependentUpon>UcBoxRobot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewUc\UcDrawer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewUc\UcDrawer.Designer.cs">
+      <DependentUpon>UcDrawer.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewUc\UcMaskRobot.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,6 +111,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ViewUc\UcBoxRobot.resx">
+      <DependentUpon>UcBoxRobot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewUc\UcDrawer.resx">
+      <DependentUpon>UcDrawer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcMaskRobot.resx">
       <DependentUpon>UcMaskRobot.cs</DependentUpon>
     </EmbeddedResource>

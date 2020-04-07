@@ -63,6 +63,21 @@ namespace MvAssistant.MaskTool_v0_1.Robot
             curPos.UserTool = info.userTool;
         }
 
+        public void SgsVerifyStartPns0102(Action<MvFanucRobotInfo> waitEvent)
+        {
+            this.ldd.StopProgram();
+            if (!this.ldd.ExecutePNS("PNS0102"))
+                throw new Exception("Start Pns0102 Program Fail.");
+
+            this.ldd.Pns0102AsynRun();
+            while (!this.ldd.Pns0102AsynEnd())
+            {
+                var robotInfo = this.ldd.GetCurrRobotInfo();
+                waitEvent(robotInfo);
+                Thread.Sleep(500);
+            }
+        }
+
         public bool HasRobotAlarm()
         {
             var alarmmsg = String.Empty;

@@ -92,6 +92,7 @@
     <Compile Include="MaskTool_v0_1\Plc\MvPlcMaskRobot.cs" />
     <Compile Include="MaskTool_v0_1\Plc\MvPlcOpenStage.cs" />
     <Compile Include="MaskTool_v0_1\Robot\BoxRobotHandler.cs" />
+    <Compile Include="MaskTool_v0_1\Robot\MaskRobotHandler.cs" />
     <Compile Include="MaskTool_v0_1\Robot\RobotMotionInfo.cs" />
     <Compile Include="MaskTool_v0_1\SocketComm\AsyncClient.cs" />
     <Compile Include="MaskTool_v0_1\SocketComm\AsyncHost.cs" />

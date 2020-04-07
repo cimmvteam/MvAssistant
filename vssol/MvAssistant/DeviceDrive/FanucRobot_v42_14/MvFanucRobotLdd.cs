@@ -13,48 +13,45 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
 
         #region FANUC Internal Variable
+        private FRRJIf.DataAlarm mobjAlarm;
+        private FRRJIf.DataAlarm mobjAlarmCurrent;
         private FRRJIf.Core mobjCore;
+        private FRRJIf.DataCurPos mobjCurPos;
+        private FRRJIf.DataCurPos mobjCurPos2;
+        private FRRJIf.DataCurPos mobjCurPosUF;
         private FRRJIf.DataTable mobjDataTable;
         private FRRJIf.DataTable mobjDataTable2;
-        private FRRJIf.DataCurPos mobjCurPos;
-        private FRRJIf.DataCurPos mobjCurPosUF;
-        private FRRJIf.DataCurPos mobjCurPos2;
-        private FRRJIf.DataTask mobjTask;
-        private FRRJIf.DataTask mobjTaskIgnoreMacro;
-        private FRRJIf.DataTask mobjTaskIgnoreKarel;
-        private FRRJIf.DataTask mobjTaskIgnoreMacroKarel;
-        private FRRJIf.DataPosReg mobjPosReg;
-        private FRRJIf.DataPosReg mobjPosReg2;
-        private FRRJIf.DataPosRegXyzwpr mobjPosRegXyzwpr;
-        private FRRJIf.DataSysVar mobjSysVarInt;
-        private FRRJIf.DataSysVar mobjSysVarInt2;
-        private FRRJIf.DataSysVar mobjSysVarReal;
-        private FRRJIf.DataSysVar mobjSysVarReal2;
-        private FRRJIf.DataSysVar mobjSysVarString;
-        private FRRJIf.DataSysVarPos mobjSysVarPos;
-        private FRRJIf.DataSysVar[] mobjSysVarIntArray;
         private FRRJIf.DataNumReg mobjNumReg;
         private FRRJIf.DataNumReg mobjNumReg2;
         private FRRJIf.DataNumReg mobjNumReg3;
-        private FRRJIf.DataAlarm mobjAlarm;
-        private FRRJIf.DataAlarm mobjAlarmCurrent;
-        private FRRJIf.DataSysVar mobjVarString;
+        private FRRJIf.DataPosReg mobjPosReg;
+        private FRRJIf.DataPosReg mobjPosReg2;
+        private FRRJIf.DataPosRegXyzwpr mobjPosRegXyzwpr;
         private FRRJIf.DataString mobjStrReg;
         private FRRJIf.DataString mobjStrRegComment;
+        private FRRJIf.DataSysVar mobjSysVarInt;
+        private FRRJIf.DataSysVar mobjSysVarInt2;
+        private FRRJIf.DataSysVar[] mobjSysVarIntArray;
+        private FRRJIf.DataSysVarPos mobjSysVarPos;
+        private FRRJIf.DataSysVar mobjSysVarReal;
+        private FRRJIf.DataSysVar mobjSysVarReal2;
+        private FRRJIf.DataSysVar mobjSysVarString;
+        private FRRJIf.DataTask mobjTask;
+        private FRRJIf.DataTask mobjTaskIgnoreKarel;
+        private FRRJIf.DataTask mobjTaskIgnoreMacro;
+        private FRRJIf.DataTask mobjTaskIgnoreMacroKarel;
+        private FRRJIf.DataSysVar mobjVarString;
         #endregion FANUC Internal Variable
 
-        public FRRJIf.DataTable MObjDataTable { get { return mobjDataTable; } }
-        public FRRJIf.DataNumReg MObjNumReg { get { return mobjNumReg; } }
-
         public bool IsInitialFanucAPI = true;
-        ManualResetEvent mreInitialFanucAPI = new ManualResetEvent(false);
-
+        public bool isUnderSystemRecoverAuto = false;
+        public MvFanucRobotInfo m_currRobotInfo = new MvFanucRobotInfo();
         public string RobotIp;
         private bool HasRobotFaultStatus = false;
-
-        public bool isUnderSystemRecoverAuto = false;
         private object lockCurRobotInfo = new object();
-        public MvFanucRobotInfo m_currRobotInfo = new MvFanucRobotInfo();
+        ManualResetEvent mreInitialFanucAPI = new ManualResetEvent(false);
+        ~MvFanucRobotLdd() { this.Dispose(false); }
+
         public MvFanucRobotInfo CurRobotInfo
         {
             get
@@ -66,40 +63,123 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             }
         }
 
+        public FRRJIf.DataTable MObjDataTable { get { return mobjDataTable; } }
+        public FRRJIf.DataNumReg MObjNumReg { get { return mobjNumReg; } }
 
-        ~MvFanucRobotLdd() { this.Dispose(false); }
 
-
-
-        public int ConnectIfNo()
+        /// <summary>
+        /// Stop executing program
+        /// </summary>
+        /// <returns></returns>
+        public int StopProgram()
         {
-            if (!this.IsConnected())
+            Array UI4_CycleStop = new short[1];
+
+            UI4_CycleStop.SetValue((short)1, 0);
+            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
+            UI4_CycleStop.SetValue((short)0, 0);
+            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
+
+            return 0;
+        }
+        public bool AlarmReset()
+        {
+            Array UIAlways_ON = new short[3];
+            Array UI5_FaultReset_NEGEDGE = new short[1];
+            Array UO6_Fault = new short[1]; //On means Fault occurred
+            bool IsRWSuccess;
+            bool IsResetSuccess;
+
+            UIAlways_ON.SetValue((short)1, 0);
+            UIAlways_ON.SetValue((short)1, 1);
+            UIAlways_ON.SetValue((short)1, 2);
+            IsRWSuccess = mobjCore.WriteSDO(1, ref UIAlways_ON, 3);//UI 1 2 3 8 must ON
+            IsRWSuccess = mobjCore.WriteSDO(8, ref UIAlways_ON, 1);
+            UI5_FaultReset_NEGEDGE.SetValue((short)1, 0);                     //      __________
+            IsRWSuccess = mobjCore.WriteSDO(5, ref UI5_FaultReset_NEGEDGE, 1);//UI[5]:          Negtiveedge trigger(HIGH First)
+            UI5_FaultReset_NEGEDGE.SetValue((short)0, 0);
+            Thread.Sleep(500);                                                //      ____
+            IsRWSuccess = mobjCore.WriteSDO(5, ref UI5_FaultReset_NEGEDGE, 1);//UI[5]:    |_____Negtiveedge trigger(Trigger!)
+            mobjDataTable.Refresh();
+
+            IsRWSuccess = mobjCore.ReadUO(6, UO6_Fault, 1);
+            IsResetSuccess = UO6_Fault.GetValue(0).ToString() == "0";
+
+            return IsResetSuccess;
+
+        }
+        /// <summary>
+        /// 輸入Robot設定PNS name, 讀取並執行PNS
+        /// </summary>
+        /// <param name="PNSname"></param>
+        public bool ExecutePNS(string PNSname)
+        {
+            Array UI = new short[18];
+            Array UOInfo = new short[18];
+            MvRobotUIOParameter UIO = new MvRobotUIOParameter();
+            String PNScode;
+
+            if (PNSname.Length == 7 && PNSname.Substring(0, 3) == "PNS")
             {
-                if (this.ReConnect() != 0)
-                {
-                    this.Close();
-                    return -1;
-                }
+                PNScode = Convert.ToString(Convert.ToInt32(PNSname.Substring(5)), 2);
+                PNScode = PNScode.PadLeft(8, '0');
             }
-            return 0;
-        }
-        public int ReConnect()
-        {
-            //CheckDeviceAvailable();
-            this.Close();
-            if (!RobotInit()) return -1;
+            else
+            {
+                throw new System.ArgumentException("PNS Name is NOT match Rule; PNS name:" + PNSname);
+            }
 
-            //TODO: 需要確認是否要repeat讀位置
-            //LaunchGetPos();
+            //Write Default UI Setting 
+            UI.SetValue(UIO.UI1_IMSTP, 0);
+            UI.SetValue(UIO.UI2_HOLD, 1);
+            UI.SetValue(UIO.UI3_SFSPD, 2);
+            UI.SetValue(UIO.UI4_CycleStop, 3);
+            UI.SetValue(UIO.UI5_FaultReset_NEGEDGE, 4);
+            UI.SetValue(UIO.UI6_Start_NEGEDGE_NoUsed, 5);
+            UI.SetValue(UIO.UI7_Home_NoUSed, 6);
+            UI.SetValue(UIO.UI8_ENABLE, 7);
+            // Select PNS Code
+            for (int idx = 0; idx < PNScode.Length; idx++)
+                UI.SetValue(Convert.ToInt16(PNScode.Substring(7 - idx, 1)), 8 + idx);
 
-            return 0;
+            #region Program Start UI Request
+            //Program Start UI timing Request  
+            //1. Trobe = 1 keep 30ms -> PNS讀取(<130ms)
+            //2. ProdStart = 1; trobe =1 and ProdStart keep > 100ms
+            //3. ProdStart = 0; trobe =1 and ProdStart = 0 , PROGRUN start in 35 ms
+            //4. trobe = 0; Finish All back to 0
+
+            Array UI17_PNStrobe_ProgTiming = new short[4] { 1, 1, 1, 0 };
+            Array UI18_PNSstart_ProgTiming = new short[4] { 0, 1, 0, 0 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                UI.SetValue(UI17_PNStrobe_ProgTiming.GetValue(i), 16); // PNStrobe
+                UI.SetValue(UI18_PNSstart_ProgTiming.GetValue(i), 17); // ProdStart
+
+                mobjCore.WriteSDO(1, ref UI, 18);
+                Thread.Sleep(200);
+            }
+            #endregion
+
+            // Excution Result alarm message
+            return PrgRunningCheck();
         }
-        public bool IsConnected()
+        public bool PrgRunningCheck()
         {
-            if (mobjCore == null) return false;
-            //--失敗為 0, 成功為 1.
-            return mobjCore.get_ConnectState() == 1;
+            Array UO3_PrgRun = new short[1];
+            mobjCore.ReadUO(3, ref UO3_PrgRun, 1);
+
+            if ((short)UO3_PrgRun.GetValue(0) == 0)
+            { return false; }
+            else
+            { return true; }
         }
+
+
+
+        #region Device Connection
+
         public int Close()
         {
             // 若 mobjCore 不為空
@@ -112,43 +192,36 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             }
             return 0;
         }
-
-
-
-        [Obsolete("沒用到")]
-        bool InitFanucApi()
+        public int ConnectIfNo()
         {
-            // 請大家安裝Robot SDK  - YCLIUAB
-            try
+            if (!this.IsConnected())
             {
-                //************************Added by yhlinag to try initialize Fanuc API with thread __begin*************/
-
-                Action act = delegate ()
+                if (this.ReConnect() != 0)
                 {
-                    mobjCore = new FRRJIf.Core();
-                    mreInitialFanucAPI.Set();
-                    IsInitialFanucAPI = true;
-                };
-
-                Thread th = new Thread(new ThreadStart(act));
-                th.Start();
-                //mobjCore = new FRRJIf.Core();  //marked by yhlinag
-                if (IsInitialFanucAPI)
-                {
-                    mreInitialFanucAPI.Reset();
-                    mreInitialFanucAPI.WaitOne();
+                    this.Close();
+                    return -1;
                 }
-
-                //************************Added by yhlinag to try initialize Fanuc API with thread __end*************/
             }
-            catch (Exception)
-            {
-                // TODO: Feedback robot initla fail
-                return false;
-            }
-            return true;
+            return 0;
         }
-        public bool RobotInit()
+        public bool IsConnected()
+        {
+            if (mobjCore == null) return false;
+            //--失敗為 0, 成功為 1.
+            return mobjCore.get_ConnectState() == 1;
+        }
+        public int ReConnect()
+        {
+            //CheckDeviceAvailable();
+            this.Close();
+            if (!RobotInitConnect()) return -1;
+
+            //TODO: 需要確認是否要repeat讀位置
+            //LaunchGetPos();
+
+            return 0;
+        }
+        public bool RobotInitConnect()
         {
             //if (true)
             mobjCore = new FRRJIf.Core();
@@ -205,47 +278,53 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             return mobjCore.Connect(this.RobotIp);
         }
 
-        public bool AlarmReset()
+        #endregion
+
+
+        public MvFanucRobotInfo GetCurrRobotInfo()
         {
-            Array UIAlways_ON = new short[3];
-            Array UI5_FaultReset_NEGEDGE = new short[1];
-            Array UO6_Fault = new short[1]; //On means Fault occurred
-            bool IsRWSuccess;
-            bool IsResetSuccess;
+            lock (lockCurRobotInfo)
+            {
+                //short ValidC = 0, ValidJ = 0;	// 移除未使用的變數。by YMWANGN, 2016/11/17。
+                //Alarm TEST
+                var msg = "";
+                var alarmInfo = new MvRobotAlarmInfo();
+                HasRobotFault(ref msg, ref alarmInfo);
 
-            UIAlways_ON.SetValue((short)1, 0);
-            UIAlways_ON.SetValue((short)1, 1);
-            UIAlways_ON.SetValue((short)1, 2);
-            IsRWSuccess = mobjCore.WriteSDO(1, ref UIAlways_ON, 3);//UI 1 2 3 8 must ON
-            IsRWSuccess = mobjCore.WriteSDO(8, ref UIAlways_ON, 1);
-            UI5_FaultReset_NEGEDGE.SetValue((short)1, 0);                     //      __________
-            IsRWSuccess = mobjCore.WriteSDO(5, ref UI5_FaultReset_NEGEDGE, 1);//UI[5]:          Negtiveedge trigger(HIGH First)
-            UI5_FaultReset_NEGEDGE.SetValue((short)0, 0);
-            Thread.Sleep(500);                                                //      ____
-            IsRWSuccess = mobjCore.WriteSDO(5, ref UI5_FaultReset_NEGEDGE, 1);//UI[5]:    |_____Negtiveedge trigger(Trigger!)
-            mobjDataTable.Refresh();
 
-            IsRWSuccess = mobjCore.ReadUO(6, UO6_Fault, 1);
-            IsResetSuccess = UO6_Fault.GetValue(0).ToString() == "0";
+                var robotInfo = new MvFanucRobotInfo();
+                mobjCurPosUF.GetValue(ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray,
+                                     ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
+                robotInfo.robotTime = DateTime.Now;
 
-            return IsResetSuccess;
+                robotInfo.isReachTarget = this.MoveIsComplete();
 
+                return robotInfo;
+            }
         }
 
-        /// <summary>
-        /// Stop executing program
-        /// </summary>
-        /// <returns></returns>
-        public int StopProgram()
+        public MvRobotAlarmInfo GetRobotAlarm()
         {
-            Array UI4_CycleStop = new short[1];
-
-            UI4_CycleStop.SetValue((short)1, 0);
-            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
-            UI4_CycleStop.SetValue((short)0, 0);
-            mobjCore.WriteSDO(4, ref UI4_CycleStop, 1);
-
-            return 0;
+            MvRobotAlarmInfo alminfo = new MvRobotAlarmInfo();
+            mobjDataTable.Refresh();
+            mobjAlarm.GetValue(
+                1,
+            ref alminfo.AlarmID,
+            ref alminfo.AlarmNumber,
+            ref alminfo.CauseAlarmID,
+            ref alminfo.CauseAlarmNumber,
+            ref alminfo.Severity,
+            ref alminfo.Year,
+            ref alminfo.Month,
+            ref alminfo.Day,
+            ref alminfo.Hour,
+            ref alminfo.Minute,
+            ref alminfo.Second,
+            ref alminfo.AlarmMessage,
+            ref alminfo.CauseAlarmMessage,
+            ref alminfo.SeverityMessage
+            );
+            return alminfo;
         }
 
         public bool HasRobotFault(ref string message, ref MvRobotAlarmInfo alarmInfo)
@@ -282,7 +361,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             return HasRobotFaultStatus;
         }
 
-
         public bool HasRobotFault()
         {
             //************IMPORTANT*************************************************//
@@ -304,84 +382,45 @@ namespace MvAssistant.DeviceDrive.FanucRobot
         }
 
 
-        /*AlarmFuncComment
-    * 
-    * Specify argument Count as index of target alarm history item. (Specify 1 for the first item.)
-   Argument AlarmID will have returned alarm ID. In case of ‘SRVO-001’, AlarmID is 11 that represents
-   ‘SRVO’. Please see alarm code table in R-J3 reference. If there is no active alarm, AlarmID is zero for
-   active alarm reference.
-   Argument AlarmNumber will have returned alarm number. In case of ‘SRVO-001’, AlarmNumber is 1.
-   If there is no active alarm, AlarmNumber is zero for active alarm reference.
-   Argument CauseAlarmID will have returned cause alarm ID. Some alarm have two alarm messages.
-   The second alarm is cause code. This argument is to read cause code. If there is no cause code,
-   CauseAlarmID is 0.
-   Argument CauseAlarmNumber will have returned cause alarm Number. This argument is to read cause
-   code alarm number. If there is no cause code, CauseAlarmNumber is 0.
-   Argument Severity will have return alarm severity. Severity value means as follows:
-   NONE 128
-   WARN 0
-   PAUSE.L 2
-   PAUSE.G 34
-   STOP.L 6
-   STOP.G 38
-   SERVO 54
-   ABORT.L 11
-   ABORT.G 43
-   SERVO2 58
-   SYSTEM 123
-   Argument Year, Month, Day, Hour, Minute, Second will have returned alarm occurred date and time (24
-   hours format).
-   Argument AlarmMessage will have returned alarm message. The message is the top line to teach
-   pendant screen includes alarm code like ‘SRVO-001’. (Kanji message not supported.)
-   Argument CauseAlarmMessage will have returned cause code alarm message. (Kanji message not
-   supported)
-   Argument SeverityMessage will have returned alarm severity string like ‘WARN’
-
-*/
-        public MvRobotAlarmInfo GetRobotAlarm()
+        public void MoveCompeleteReply()
         {
-            MvRobotAlarmInfo alminfo = new MvRobotAlarmInfo();
-            mobjDataTable.Refresh();
-            mobjAlarm.GetValue(
-                1,
-            ref alminfo.AlarmID,
-            ref alminfo.AlarmNumber,
-            ref alminfo.CauseAlarmID,
-            ref alminfo.CauseAlarmNumber,
-            ref alminfo.Severity,
-            ref alminfo.Year,
-            ref alminfo.Month,
-            ref alminfo.Day,
-            ref alminfo.Hour,
-            ref alminfo.Minute,
-            ref alminfo.Second,
-            ref alminfo.AlarmMessage,
-            ref alminfo.CauseAlarmMessage,
-            ref alminfo.SeverityMessage
-            );
-            return alminfo;
+            this.WriteRegValue(5, 0);
         }
-        public MvFanucRobotInfo GetCurrRobotInfo()
+        public bool MoveIsComplete()
         {
-            lock (lockCurRobotInfo)
+            var reg5 = this.GetRegValue(5);
+            return reg5 == 51;
+        }
+
+
+
+        public void SwitchUT(int UT)
+        {
+            try
             {
-                //short ValidC = 0, ValidJ = 0;	// 移除未使用的變數。by YMWANGN, 2016/11/17。
-                //Alarm TEST
-                var msg = "";
-                var alarmInfo = new MvRobotAlarmInfo();
-                HasRobotFault(ref msg, ref alarmInfo);
+                #region code
+                int UT_Setting = 0;
+                int[] intValues = new int[5];
 
+                UT_Setting = UT;
 
-                var robotInfo = new MvFanucRobotInfo();
-                mobjCurPosUF.GetValue(ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray,
-                                     ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
-                robotInfo.robotTime = DateTime.Now;
+                for (int i = 0; i < 1; i++)
+                    intValues[i] = UT_Setting;
 
-                object R5Value = 0;
-                mobjNumReg.GetValue(5, ref R5Value);
-                robotInfo.isReachTarget = ((int)R5Value == 51);
+                mobjNumReg.SetValues(4, intValues, 1);    //Set R[4]. UT number
 
-                return robotInfo;
+                for (int i = 0; i < 1; i++)
+                    intValues[i] = 1;
+                mobjNumReg.SetValues(6, intValues, 1);    //Set R[6]. 0:Mov,1:UT Setting
+
+                for (int i = 0; i < 1; i++)
+                    intValues[i] = 1;
+                mobjNumReg.SetValues(1, intValues, 1);
+                #endregion code
+            }
+            catch (Exception)
+            {
+                //Log.GetInstance().Write(ex);
             }
         }
 
@@ -484,8 +523,17 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             }
         }
 
-
-        public void TCP_AutoSetting(float X, float Y, float Z, float W, float P, float R, int ToolSelected)
+        /// <summary>
+        /// Old Name: TCP_AutoSetting
+        /// </summary>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <param name="Z"></param>
+        /// <param name="W"></param>
+        /// <param name="P"></param>
+        /// <param name="R"></param>
+        /// <param name="ToolSelected"></param>
+        public void Pns0101_SettingToolFrame(float X, float Y, float Z, float W, float P, float R, int ToolSelected)
         {
             try
             {
@@ -514,15 +562,10 @@ namespace MvAssistant.DeviceDrive.FanucRobot
 
 
                 a = mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref CurRobotInfo.configArray, 9, (short)UT_Selected);  //Write to PR[1]
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = UT_Selected;
 
-                mobjNumReg.SetValues(11, intValues, 1);    //Set R[11]. Selects TCP number
+                this.WriteRegValue(11, UT_Selected);//Set R[11]. Selects TCP number
+                this.WriteRegValue(10, 1);//Set R[10]. R[10] set to 1 to setting TCP then back to LBL[1]
 
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = 1;
-
-                mobjNumReg.SetValues(10, intValues, 1);    //Set R[10]. R[10] set to 1 to setting TCP then back to LBL[1]
 
                 for (int i = 0; i < 1; i++)
                     intValues[i] = 1;
@@ -535,117 +578,86 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             }
         }
 
-        public void SwitchUT(int UT)
+        [Obsolete("沒用到")]
+        bool InitFanucApi()
         {
+            // 請大家安裝Robot SDK  - YCLIUAB
             try
             {
-                #region code
-                int UT_Setting = 0;
-                int[] intValues = new int[5];
+                //************************Added by yhlinag to try initialize Fanuc API with thread __begin*************/
 
-                UT_Setting = UT;
+                Action act = delegate ()
+                {
+                    mobjCore = new FRRJIf.Core();
+                    mreInitialFanucAPI.Set();
+                    IsInitialFanucAPI = true;
+                };
 
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = UT_Setting;
+                Thread th = new Thread(new ThreadStart(act));
+                th.Start();
+                //mobjCore = new FRRJIf.Core();  //marked by yhlinag
+                if (IsInitialFanucAPI)
+                {
+                    mreInitialFanucAPI.Reset();
+                    mreInitialFanucAPI.WaitOne();
+                }
 
-                mobjNumReg.SetValues(4, intValues, 1);    //Set R[4]. UT number
-
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = 1;
-                mobjNumReg.SetValues(6, intValues, 1);    //Set R[6]. 0:Mov,1:UT Setting
-
-                for (int i = 0; i < 1; i++)
-                    intValues[i] = 1;
-                mobjNumReg.SetValues(1, intValues, 1);
-                #endregion code
+                //************************Added by yhlinag to try initialize Fanuc API with thread __end*************/
             }
             catch (Exception)
             {
-                //Log.GetInstance().Write(ex);
+                // TODO: Feedback robot initla fail
+                return false;
             }
+            return true;
         }
+        /*AlarmFuncComment
+    * 
+    * Specify argument Count as index of target alarm history item. (Specify 1 for the first item.)
+   Argument AlarmID will have returned alarm ID. In case of ‘SRVO-001’, AlarmID is 11 that represents
+   ‘SRVO’. Please see alarm code table in R-J3 reference. If there is no active alarm, AlarmID is zero for
+   active alarm reference.
+   Argument AlarmNumber will have returned alarm number. In case of ‘SRVO-001’, AlarmNumber is 1.
+   If there is no active alarm, AlarmNumber is zero for active alarm reference.
+   Argument CauseAlarmID will have returned cause alarm ID. Some alarm have two alarm messages.
+   The second alarm is cause code. This argument is to read cause code. If there is no cause code,
+   CauseAlarmID is 0.
+   Argument CauseAlarmNumber will have returned cause alarm Number. This argument is to read cause
+   code alarm number. If there is no cause code, CauseAlarmNumber is 0.
+   Argument Severity will have return alarm severity. Severity value means as follows:
+   NONE 128
+   WARN 0
+   PAUSE.L 2
+   PAUSE.G 34
+   STOP.L 6
+   STOP.G 38
+   SERVO 54
+   ABORT.L 11
+   ABORT.G 43
+   SERVO2 58
+   SYSTEM 123
+   Argument Year, Month, Day, Hour, Minute, Second will have returned alarm occurred date and time (24
+   hours format).
+   Argument AlarmMessage will have returned alarm message. The message is the top line to teach
+   pendant screen includes alarm code like ‘SRVO-001’. (Kanji message not supported.)
+   Argument CauseAlarmMessage will have returned cause code alarm message. (Kanji message not
+   supported)
+   Argument SeverityMessage will have returned alarm severity string like ‘WARN’
 
-
-        /// <summary>
-        /// 輸入Robot設定PNS name, 讀取並執行PNS
-        /// </summary>
-        /// <param name="PNSname"></param>
-        public bool ExecutePNS(string PNSname)
-        {
-            Array UI = new short[18];
-            Array UOInfo = new short[18];
-            MvRobotUIOParameter UIO = new MvRobotUIOParameter();
-            String PNScode;
-
-            if (PNSname.Length == 7 && PNSname.Substring(0, 3) == "PNS")
-            {
-                PNScode = Convert.ToString(Convert.ToInt32(PNSname.Substring(5)), 2);
-                PNScode = PNScode.PadLeft(8, '0');
-            }
-            else
-            {
-                throw new System.ArgumentException("PNS Name is NOT match Rule; PNS name:" + PNSname);
-            }
-
-            //Write Default UI Setting 
-            UI.SetValue(UIO.UI1_IMSTP, 0);
-            UI.SetValue(UIO.UI2_HOLD, 1);
-            UI.SetValue(UIO.UI3_SFSPD, 2);
-            UI.SetValue(UIO.UI4_CycleStop, 3);
-            UI.SetValue(UIO.UI5_FaultReset_NEGEDGE, 4);
-            UI.SetValue(UIO.UI6_Start_NEGEDGE_NoUsed, 5);
-            UI.SetValue(UIO.UI7_Home_NoUSed, 6);
-            UI.SetValue(UIO.UI8_ENABLE, 7);
-            // Select PNS Code
-            for (int idx = 0; idx < PNScode.Length; idx++)
-                UI.SetValue(Convert.ToInt16(PNScode.Substring(7 - idx, 1)), 8 + idx);
-
-            #region Program Start UI Request
-            //Program Start UI timing Request  
-            //1. Trobe = 1 keep 30ms -> PNS讀取(<130ms)
-            //2. ProdStart = 1; trobe =1 and ProdStart keep > 100ms
-            //3. ProdStart = 0; trobe =1 and ProdStart = 0 , PROGRUN start in 35 ms
-            //4. trobe = 0; Finish All back to 0
-
-            Array UI17_PNStrobe_ProgTiming = new short[4] { 1, 1, 1, 0 };
-            Array UI18_PNSstart_ProgTiming = new short[4] { 0, 1, 0, 0 };
-
-            for (int i = 0; i < 4; i++)
-            {
-                UI.SetValue(UI17_PNStrobe_ProgTiming.GetValue(i), 16); // PNStrobe
-                UI.SetValue(UI18_PNSstart_ProgTiming.GetValue(i), 17); // ProdStart
-
-                mobjCore.WriteSDO(1, ref UI, 18);
-                Thread.Sleep(200);
-            }
-            #endregion
-
-            // Excution Result alarm message
-            return PrgRunningCheck();
-        }
-
-        public bool PrgRunningCheck()
-        {
-            Array UO3_PrgRun = new short[1];
-            mobjCore.ReadUO(3, ref UO3_PrgRun, 1);
-
-            if ((short)UO3_PrgRun.GetValue(0) == 0)
-            { return false; }
-            else
-            { return true; }
-        }
+*/
 
 
         #region Register
 
-        /// <summary>
-        /// 寫入Robot數字暫存器R
-        /// </summary>
-        /// <param name="Rno"></param>
-        /// <param name="Value"></param>
-        public void WriteReg(int Rno, int Value)
+        public int GetRegValue(int index)
         {
-            mobjNumReg.SetValue(Rno, Value);
+            lock (this)
+            {
+                this.mobjDataTable.Refresh();
+                Object reg = 0;
+                mobjNumReg.GetValue(index, ref reg);
+                return (int)reg;
+            }
         }
         /// <summary>
         /// 寫入Robot位置暫存器PR
@@ -671,286 +683,30 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             xyzwprArray.SetValue(PosP, 4);  //P_orientation
             xyzwprArray.SetValue(PosR, 5);  //R_orientation
 
-            mobjPosReg.SetValueXyzwpr(PRno, ref xyzwprArray, ref CurRobotInfo.configArray, PRUF, PRUT);
+            lock (this)
+                mobjPosReg.SetValueXyzwpr(PRno, ref xyzwprArray, ref CurRobotInfo.configArray, PRUF, PRUT);
         }
-
-
-        public int GetRegValue(int index)
+        /// <summary>
+        /// 寫入Robot數字暫存器R
+        /// </summary>
+        /// <param name="Rno"></param>
+        /// <param name="Value"></param>
+        public void WriteRegValue(int index, int val)
         {
-            this.mobjDataTable.Refresh();
-            Object reg = 0;
-            mobjNumReg.GetValue(index, ref reg);
-            return (int)reg;
+            lock (this)
+                mobjNumReg.SetValue(index, val);
         }
-        public void SetRegValue(int index, int val)
+        public void WriteRegValues(int index, int[] vals)
         {
-            mobjNumReg.SetValue(index, val);
-        }
-        public void SetRegValues(int index, int[] vals)
-        {
-            mobjNumReg.SetValues(index, vals, vals.Length);
+            lock (this)
+                mobjNumReg.SetValues(index, vals, vals.Length);
         }
 
         #endregion
 
+
+
         #region Pns0101
-
-        /// <summary>
-        /// must 用thread 
-        /// </summary>
-        /// <param name="Target"></param>
-        /// <param name="_SelectCorJ"></param>
-        /// <param name="_SelectOfstOrPos"></param>
-        /// <param name="_IsMoveUT"></param>
-        /// <param name="Speed"></param>
-        /// <returns></returns>
-        public bool Pns0101MoveStraightSync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
-        {
-            Pns0101MoveStraightAsync(Target, _SelectCorJ, _SelectOfstOrPos, _IsMoveUT, Speed);
-
-            while (this.MoveIsComplete())
-            {
-                m_currRobotInfo = GetCurrRobotInfo();
-
-                var msg = "";
-                var alarmInfo = new MvRobotAlarmInfo();
-                if (HasRobotFault(ref msg, ref alarmInfo)) { break; }
-
-                Thread.Sleep(100);
-            }
-
-            this.MoveCompeleteReply();
-
-            return true;
-        }
-        public int Pns0101MoveStraightAsync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
-        {
-            if (!this.IsConnected()) return -1;
-
-            Array xyzwprArray = new float[9];
-            Array ConfigArray = new short[7];
-            Array JointArray = new float[9];
-            Array TargetPos = Target;
-            short UF = 0, UT = 0;
-            short ValidC = 0, ValidJ = 0;
-            int[] intValues = new int[5];
-            //object R2Value = 0;
-            //object R3Value = 0;
-
-            //R[3] Set MotionType
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _SelectCorJ;
-            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Mov ,position, 1:Rotate J1~6
-
-            //R[7] Set C_pos mov type, Reated/Absolute Position
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _SelectOfstOrPos;
-            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
-
-
-            //R[8] Set move with UF or UT
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _IsMoveUT;
-            mobjNumReg.SetValues(8, intValues, 1);    //Write R[8].0:Offset with UF, 1:Offset with UT
-
-            //R[9] Set move speed
-            for (int i = 0; i < 1; i++)
-                intValues[i] = Speed;
-            mobjNumReg.SetValues(9, intValues, 1);    //Write R[9]. R[9] mm/sec
-
-            //R[5] finish flag, clear to zero
-            for (int i = 0; i < 1; i++)               //Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
-                intValues[i] = 0;
-            mobjNumReg.SetValues(5, intValues, 1);
-
-            //R[1] trigger robot
-            for (int i = 0; i < 2; i++)               //Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
-                intValues[i] = 0;
-            mobjNumReg.SetValues(1, intValues, 2);
-
-
-
-
-            //從哪(當前 移到指到位置
-            m_currRobotInfo = GetCurrRobotInfo();
-
-            xyzwprArray = CurRobotInfo.posArray;
-            ConfigArray = CurRobotInfo.configArray;
-            JointArray = CurRobotInfo.jointArray;
-            UF = CurRobotInfo.userFrame;
-            UT = CurRobotInfo.userTool;
-            ValidC = CurRobotInfo.validC;
-            ValidJ = CurRobotInfo.validJ;
-
-            if (_SelectCorJ == 0)
-            {
-                if (ValidC != 0)  //Valid Cartesian values
-                {
-                    xyzwprArray.SetValue(TargetPos.GetValue(0), 0);  //X_position
-                    xyzwprArray.SetValue(TargetPos.GetValue(1), 1);  //Y_position
-                    xyzwprArray.SetValue(TargetPos.GetValue(2), 2);  //Z_position
-                    xyzwprArray.SetValue(TargetPos.GetValue(3), 3);  //W_position
-                    xyzwprArray.SetValue(TargetPos.GetValue(4), 4);  //P_position
-                    xyzwprArray.SetValue(TargetPos.GetValue(5), 5);  //R_position
-                    if (TargetPos.GetValue(6) != null)
-                        xyzwprArray.SetValue(TargetPos.GetValue(6), 6);  //R_position
-                }
-                else
-                {
-                    //return "InValid C Return";
-                }
-            }
-            else
-            {
-                if (ValidJ != 0)  //Valid Cartesian values
-                {
-                    JointArray.SetValue(TargetPos.GetValue(0), 0);  //J1_position
-                    JointArray.SetValue(TargetPos.GetValue(1), 1);  //J2_position
-                    JointArray.SetValue(TargetPos.GetValue(2), 2);  //J3_position
-                    JointArray.SetValue(TargetPos.GetValue(3), 3);  //J4_position
-                    JointArray.SetValue(TargetPos.GetValue(4), 4);  //J5_position
-                    JointArray.SetValue(TargetPos.GetValue(5), 5);  //J6_position
-                    if (TargetPos.GetValue(6) != null)
-                        JointArray.SetValue(TargetPos.GetValue(6), 6);  //J6_position
-                }
-                else
-                {
-                    //return "InValid J Return";
-                }
-            }
-            ConfigArray.SetValue((short)0, 4);    //for Index 0
-            ConfigArray.SetValue((short)0, 5);
-            ConfigArray.SetValue((short)0, 6);
-
-            if (_SelectCorJ == 0)
-                mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref ConfigArray, UF, UT);
-            else
-                mobjPosReg.SetValueJoint(2, ref JointArray, UF, UT);
-
-            for (int i = 0; i < 2; i++)
-                intValues[i] = 1;
-
-            mobjNumReg.SetValues(1, intValues, 2);
-
-            return 0;
-        }
-        public int Pns0101MoveStraightAsync(List<float[]> Targets, int _Continuity, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
-        {
-            if (!this.IsConnected()) return -1;
-            Array xyzwprArray = new float[9];
-            Array ConfigArray = new short[7];
-            Array JointArray = new float[9];
-            short UF = 0, UT = 0;
-            short ValidC = 0, ValidJ = 0;
-            int[] intValues = new int[5];
-            object R2Value = 0;
-            object R3Value = 0;
-            int targets_cnt = Targets.Count;
-
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _SelectCorJ;
-            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Mov ,position, 1:Rotate J1~6
-
-
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _SelectOfstOrPos;
-            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
-
-
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _IsMoveUT;
-            mobjNumReg.SetValues(8, intValues, 1);    //Write R[8].0:Offset with UF, 1:Offset with UT
-
-            for (int i = 0; i < 1; i++)
-                intValues[i] = Speed;
-            mobjNumReg.SetValues(9, intValues, 1);    //Write R[9]. R[9] mm/sec
-
-            for (int i = 0; i < 1; i++)               //Clear to ZERO. R[5]uses to returen MOV END.Return 51 means done.
-                intValues[i] = 0;
-            mobjNumReg.SetValues(5, intValues, 1);
-
-            for (int i = 0; i < 2; i++)               //Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
-                intValues[i] = 0;
-            mobjNumReg.SetValues(1, intValues, 2);
-
-            for (int i = 0; i < 1; i++)
-                intValues[i] = targets_cnt;
-            mobjNumReg.SetValues(42, intValues, 1); //Write R[42] so that give summation of Move Position Count
-
-            for (int i = 0; i < 1; i++)
-                intValues[i] = _Continuity;
-            mobjNumReg.SetValues(43, intValues, 1); //Write R[43] for moving continuity setting
-
-
-            //從哪(當前 移到指到位置
-            m_currRobotInfo = GetCurrRobotInfo();
-
-            xyzwprArray = CurRobotInfo.posArray;
-            ConfigArray = CurRobotInfo.configArray;
-            JointArray = CurRobotInfo.jointArray;
-            UF = CurRobotInfo.userFrame;
-            UT = CurRobotInfo.userTool;
-            ValidC = CurRobotInfo.validC;
-            ValidJ = CurRobotInfo.validJ;
-
-            ConfigArray.SetValue((short)0, 4);    //for Index 0
-            ConfigArray.SetValue((short)0, 5);
-            ConfigArray.SetValue((short)0, 6);
-
-            for (int i = 0; i < targets_cnt; i++)
-            {
-                if (_SelectCorJ == 0)
-                {
-                    if (ValidC != 0)  //Valid Cartesian values
-                    {
-                        xyzwprArray.SetValue(Targets[i].GetValue(0), 0);  //X_position
-                        xyzwprArray.SetValue(Targets[i].GetValue(1), 1);  //Y_position
-                        xyzwprArray.SetValue(Targets[i].GetValue(2), 2);  //Z_position
-                        xyzwprArray.SetValue(Targets[i].GetValue(3), 3);  //W_position
-                        xyzwprArray.SetValue(Targets[i].GetValue(4), 4);  //P_position
-                        xyzwprArray.SetValue(Targets[i].GetValue(5), 5);  //R_position
-                        if (Targets[i].GetValue(6) != null)
-                            xyzwprArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
-                    }
-                    else
-                    {
-                        //return "InValid C Return";
-                    }
-                }
-                else
-                {
-                    if (ValidJ != 0)  //Valid Cartesian values
-                    {
-                        JointArray.SetValue(Targets[i].GetValue(0), 0);  //J1_position
-                        JointArray.SetValue(Targets[i].GetValue(1), 1);  //J2_position
-                        JointArray.SetValue(Targets[i].GetValue(2), 2);  //J3_position
-                        JointArray.SetValue(Targets[i].GetValue(3), 3);  //J4_position
-                        JointArray.SetValue(Targets[i].GetValue(4), 4);  //J5_position
-                        JointArray.SetValue(Targets[i].GetValue(5), 5);  //J6_position
-                        if (Targets[i].GetValue(6) != null)
-                            JointArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
-                    }
-                    else
-                    {
-                        //return "InValid J Return";
-                    }
-                }
-
-                if (_SelectCorJ == 0)
-                    mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref ConfigArray, UF, UT);
-                else
-                    mobjPosReg.SetValueJoint(2, ref JointArray, UF, UT);
-            }
-
-            for (int i = 0; i < 2; i++)
-                intValues[i] = 1;
-
-            mobjNumReg.SetValues(1, intValues, 2);
-
-            return 0;
-        }
-
-
 
         public void Pns0101ContinuityMove(List<float[]> Targets, int Continuity, int[] fineTargetIndex)
         {
@@ -1037,6 +793,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot
                 this.Pns0101MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
             }
         }
+
         public void Pns0101ContinuityMove(float[] target)
         {
             float[] pos = target;
@@ -1046,20 +803,270 @@ namespace MvAssistant.DeviceDrive.FanucRobot
             targets.Clear();
         }
 
-
-        public bool MoveIsComplete()
+        public int Pns0101MoveStraightAsync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
         {
-            var reg5 = this.GetRegValue(5);
-            return reg5 == 51;
+            if (!this.IsConnected()) return -1;
+
+            Array xyzwprArray = new float[9];
+            Array ConfigArray = new short[7];
+            Array JointArray = new float[9];
+            Array TargetPos = Target;
+            short UF = 0, UT = 0;
+            short ValidC = 0, ValidJ = 0;
+            int[] intValues = new int[5];
+            //object R2Value = 0;
+            //object R3Value = 0;
+
+            this.WriteRegValue(3, _SelectCorJ);//Write R[3]. 0:Mov position, 1:Rotate J1~6
+            this.WriteRegValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
+            this.WriteRegValue(8, _IsMoveUT);//Write R[8].0:Offset with UF, 1:Offset with UT
+            this.WriteRegValue(9, Speed);//Write R[9]. R[9] mm/sec
+            this.WriteRegValue(5, 0);//Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
+            this.WriteRegValues(1, new int[] { 0, 0 });//Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
+
+
+            //從哪(當前 移到指到位置
+            m_currRobotInfo = GetCurrRobotInfo();
+
+            xyzwprArray = CurRobotInfo.posArray;
+            ConfigArray = CurRobotInfo.configArray;
+            JointArray = CurRobotInfo.jointArray;
+            UF = CurRobotInfo.userFrame;
+            UT = CurRobotInfo.userTool;
+            ValidC = CurRobotInfo.validC;
+            ValidJ = CurRobotInfo.validJ;
+
+            if (_SelectCorJ == 0)
+            {
+                if (ValidC != 0)  //Valid Cartesian values
+                {
+                    xyzwprArray.SetValue(TargetPos.GetValue(0), 0);  //X_position
+                    xyzwprArray.SetValue(TargetPos.GetValue(1), 1);  //Y_position
+                    xyzwprArray.SetValue(TargetPos.GetValue(2), 2);  //Z_position
+                    xyzwprArray.SetValue(TargetPos.GetValue(3), 3);  //W_position
+                    xyzwprArray.SetValue(TargetPos.GetValue(4), 4);  //P_position
+                    xyzwprArray.SetValue(TargetPos.GetValue(5), 5);  //R_position
+                    if (TargetPos.Length > 6 && TargetPos.GetValue(6) != null)
+                        xyzwprArray.SetValue(TargetPos.GetValue(6), 6);  //R_position
+                }
+                else
+                {
+                    //return "InValid C Return";
+                }
+            }
+            else
+            {
+                if (ValidJ != 0)  //Valid Cartesian values
+                {
+                    JointArray.SetValue(TargetPos.GetValue(0), 0);  //J1_position
+                    JointArray.SetValue(TargetPos.GetValue(1), 1);  //J2_position
+                    JointArray.SetValue(TargetPos.GetValue(2), 2);  //J3_position
+                    JointArray.SetValue(TargetPos.GetValue(3), 3);  //J4_position
+                    JointArray.SetValue(TargetPos.GetValue(4), 4);  //J5_position
+                    JointArray.SetValue(TargetPos.GetValue(5), 5);  //J6_position
+                    if (TargetPos.Length > 6 && TargetPos.GetValue(6) != null)
+                        JointArray.SetValue(TargetPos.GetValue(6), 6);  //J6_position
+                }
+                else
+                {
+                    //return "InValid J Return";
+                }
+            }
+
+            ConfigArray.SetValue((short)0, 4);    //for Index 0
+            ConfigArray.SetValue((short)0, 5);
+            ConfigArray.SetValue((short)0, 6);
+
+            if (_SelectCorJ == 0)
+                mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref ConfigArray, UF, UT);
+            else
+                mobjPosReg.SetValueJoint(2, ref JointArray, UF, UT);
+
+
+            this.WriteRegValues(1, new int[] { 1, 1 });
+
+            return 0;
         }
 
-        public void MoveCompeleteReply()
+        public int Pns0101MoveStraightAsync(List<float[]> Targets, int _Continuity, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
         {
-            SetRegValue(5, 0);
+            if (!this.IsConnected()) return -1;
+            Array xyzwprArray = new float[9];
+            Array ConfigArray = new short[7];
+            Array JointArray = new float[9];
+            short UF = 0, UT = 0;
+            short ValidC = 0, ValidJ = 0;
+            int[] intValues = new int[5];
+            object R2Value = 0;
+            object R3Value = 0;
+            int targets_cnt = Targets.Count;
+
+            for (int i = 0; i < 1; i++)
+                intValues[i] = _SelectCorJ;
+            mobjNumReg.SetValues(3, intValues, 1);    //Write R[3]. 0:Mov ,position, 1:Rotate J1~6
+
+
+            for (int i = 0; i < 1; i++)
+                intValues[i] = _SelectOfstOrPos;
+            mobjNumReg.SetValues(7, intValues, 1);    //Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
+
+
+            for (int i = 0; i < 1; i++)
+                intValues[i] = _IsMoveUT;
+            mobjNumReg.SetValues(8, intValues, 1);    //Write R[8].0:Offset with UF, 1:Offset with UT
+
+            for (int i = 0; i < 1; i++)
+                intValues[i] = Speed;
+            mobjNumReg.SetValues(9, intValues, 1);    //Write R[9]. R[9] mm/sec
+
+            for (int i = 0; i < 1; i++)               //Clear to ZERO. R[5]uses to returen MOV END.Return 51 means done.
+                intValues[i] = 0;
+            mobjNumReg.SetValues(5, intValues, 1);
+
+            for (int i = 0; i < 2; i++)               //Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
+                intValues[i] = 0;
+            mobjNumReg.SetValues(1, intValues, 2);
+
+            for (int i = 0; i < 1; i++)
+                intValues[i] = targets_cnt;
+            mobjNumReg.SetValues(42, intValues, 1); //Write R[42] so that give summation of Move Position Count
+
+            for (int i = 0; i < 1; i++)
+                intValues[i] = _Continuity;
+            mobjNumReg.SetValues(43, intValues, 1); //Write R[43] for moving continuity setting
+
+
+            //從哪(當前 移到指到位置
+            m_currRobotInfo = GetCurrRobotInfo();
+
+            xyzwprArray = CurRobotInfo.posArray;
+            ConfigArray = CurRobotInfo.configArray;
+            JointArray = CurRobotInfo.jointArray;
+            UF = CurRobotInfo.userFrame;
+            UT = CurRobotInfo.userTool;
+            ValidC = CurRobotInfo.validC;
+            ValidJ = CurRobotInfo.validJ;
+
+            ConfigArray.SetValue((short)0, 4);    //for Index 0
+            ConfigArray.SetValue((short)0, 5);
+            ConfigArray.SetValue((short)0, 6);
+
+            for (int i = 0; i < targets_cnt; i++)
+            {
+                if (_SelectCorJ == 0)
+                {
+                    if (ValidC != 0)  //Valid Cartesian values
+                    {
+                        xyzwprArray.SetValue(Targets[i].GetValue(0), 0);  //X_position
+                        xyzwprArray.SetValue(Targets[i].GetValue(1), 1);  //Y_position
+                        xyzwprArray.SetValue(Targets[i].GetValue(2), 2);  //Z_position
+                        xyzwprArray.SetValue(Targets[i].GetValue(3), 3);  //W_position
+                        xyzwprArray.SetValue(Targets[i].GetValue(4), 4);  //P_position
+                        xyzwprArray.SetValue(Targets[i].GetValue(5), 5);  //R_position
+                        if (Targets[i].Length > 6 && Targets[i].GetValue(6) != null)
+                            xyzwprArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
+                    }
+                    else
+                    {
+                        //return "InValid C Return";
+                    }
+                }
+                else
+                {
+                    if (ValidJ != 0)  //Valid Cartesian values
+                    {
+                        JointArray.SetValue(Targets[i].GetValue(0), 0);  //J1_position
+                        JointArray.SetValue(Targets[i].GetValue(1), 1);  //J2_position
+                        JointArray.SetValue(Targets[i].GetValue(2), 2);  //J3_position
+                        JointArray.SetValue(Targets[i].GetValue(3), 3);  //J4_position
+                        JointArray.SetValue(Targets[i].GetValue(4), 4);  //J5_position
+                        JointArray.SetValue(Targets[i].GetValue(5), 5);  //J6_position
+                        if (Targets[i].GetValue(6) != null)
+                            JointArray.SetValue(Targets[i].GetValue(6), 6);  //R_position
+                    }
+                    else
+                    {
+                        //return "InValid J Return";
+                    }
+                }
+
+                if (_SelectCorJ == 0)
+                    mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref ConfigArray, UF, UT);
+                else
+                    mobjPosReg.SetValueJoint(2, ref JointArray, UF, UT);
+            }
+
+            for (int i = 0; i < 2; i++)
+                intValues[i] = 1;
+
+            mobjNumReg.SetValues(1, intValues, 2);
+
+            return 0;
         }
+
+        /// <summary>
+        /// must 用thread 
+        /// </summary>
+        /// <param name="Target"></param>
+        /// <param name="_SelectCorJ"></param>
+        /// <param name="_SelectOfstOrPos"></param>
+        /// <param name="_IsMoveUT"></param>
+        /// <param name="Speed"></param>
+        /// <returns></returns>
+        public bool Pns0101MoveStraightSync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
+        {
+            Pns0101MoveStraightAsync(Target, _SelectCorJ, _SelectOfstOrPos, _IsMoveUT, Speed);
+
+            while (this.MoveIsComplete())
+            {
+                m_currRobotInfo = GetCurrRobotInfo();
+
+                var msg = "";
+                var alarmInfo = new MvRobotAlarmInfo();
+                if (HasRobotFault(ref msg, ref alarmInfo)) { break; }
+
+                Thread.Sleep(100);
+            }
+
+            this.MoveCompeleteReply();
+
+            return true;
+        }
+        #endregion
+
+        #region Pns0102
+
+
+
+        public void Pns0102SynRun()
+        {
+            this.WriteRegValue(1, 1);//Write R[1]=1 to start program
+
+
+            while (!this.MoveIsComplete())
+            {
+                Thread.Sleep(500);
+            }
+            this.MoveCompeleteReply();
+
+
+        }
+
+        public void Pns0102AsynRun()
+        {
+            this.WriteRegValue(1, 1);//Write R[1]=1 to start program
+        }
+        public bool Pns0102AsynEnd()
+        {
+            if (!this.MoveIsComplete()) return false;
+            this.MoveCompeleteReply();
+            return true;
+        }
+
 
 
         #endregion
+
 
 
         #region IDisposable
