@@ -76,6 +76,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_Initial_A03_Reply,
         BT_TO_PC_Initial_A03_Complete,
         BT_TO_PC_Initial_A03_Result,
+        PC_TO_BT_Speed,
         BT_TO_PC_HandPosition,
         BT_TO_PC_LoadSensor,//判有無Box
         PC_TO_BT_Laser1_FLS,
@@ -100,13 +101,27 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ForceMy,
         BT_TO_PC_ForceMz,
         BT_TO_PC_Vacuum,
+        BT_TO_PC_A03Status,
 
         //Mask Robot Hand(A04)
+        PC_TO_MT_Clamp,
+        PC_TO_MT_MaskType,
+        MT_TO_PC_ClampCmd_Reply,
+        MT_TO_PC_ClampCmd_Complete,
+        MT_TO_PC_ClampCmd_Result,
+        PC_TO_MT_Unclamp,
+        MT_TO_PC_UnclampCmd_Reply,
+        MT_TO_PC_UnclampCmd_Complete,
+        MT_TO_PC_UnclampCmd_Result,
         PC_TO_MT_Initial_A04,
         MT_TO_PC_Initial_A04_Reply,
         MT_TO_PC_Initial_A04_Complete,
         MT_TO_PC_Initial_A04_Result,
-        CCD_Result,
+        PC_TO_MT_Speed,
+        MT_TO_PC_StaticElectricity_Limit_UP,
+        MT_TO_PC_StaticElectricity_Limit_Down,
+        MT_TO_PC_StaticElectricity_Value,
+        MT_TO_PC_A04Status,
 
         //Open Stage(A05)
         PC_TO_OS_Open,//開盒
@@ -156,6 +171,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         OS_TO_PC_CoverSensor_Open,
         OS_TO_PC_CoverSensor_Close,
         OS_TO_PC_BoxCheckOK,
+        OS_TO_PC_A05Status,
 
         //Inspection Chamber(A06)
         PC_TO_IC_XYCmd,//Stage進行XY移動
@@ -178,6 +194,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         IC_TO_PC_Initial_A06_Reply,
         IC_TO_PC_Initial_A06_Complete,
         IC_TO_PC_Initial_A06_Result,
+        PC_TO_IC_Z_Speed,
+        PC_TO_IC_XY_Speed,
+        PC_TO_IC_W_Speed,
         PC_TO_IC_RobotIntrude,
         PC_TO_OS_RobotLicence,
         IC_TO_PC_Positon_X,//XY Stage位置
@@ -198,6 +217,24 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         LP_TO_PC_DP2,
 
         //外罩(A08)
+        PC_TO_FFU_SetSpeed,
+        PC_TO_FFU_Address,
+        PC_TO_FFU_Write,
+        FFU_TO_PC_Write_Reply,
+        FFU_TO_PC_Write_Complete,
+        FFU_TO_PC_Write_Result,
+        FFU_TO_PC_FFUCurrentSpeed_1,
+        FFU_TO_PC_FFUCurrentSpeed_2,
+        FFU_TO_PC_FFUCurrentSpeed_3,
+        FFU_TO_PC_FFUCurrentSpeed_4,
+        FFU_TO_PC_FFUCurrentSpeed_5,
+        FFU_TO_PC_FFUCurrentSpeed_6,
+        FFU_TO_PC_FFUCurrentSpeed_7,
+        FFU_TO_PC_FFUCurrentSpeed_8,
+        FFU_TO_PC_FFUCurrentSpeed_9,
+        FFU_TO_PC_FFUCurrentSpeed_10,
+        FFU_TO_PC_FFUCurrentSpeed_11,
+        FFU_TO_PC_FFUCurrentSpeed_12,
 
         //Hand Inspection(A09)
         LD_TO_PC_Laser1,//測距Sensor數值，4個下方 2個側邊

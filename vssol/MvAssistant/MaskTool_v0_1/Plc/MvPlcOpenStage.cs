@@ -360,11 +360,27 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         }
 
-        public void SetCommand(uint BoxType)
+        public void SetBoxType(uint BoxType)
         {
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_OS_BoxType, BoxType);
-            
+
+        }
+
+        public string ReadBoxTypeSetting()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.PC_TO_OS_BoxType))
+            {
+                case 1:
+                    Result = "鐵盒";
+                    break;
+                case 2:
+                    Result = "水晶盒";
+                    break;
+            }
+            return Result;
         }
 
         //讀取Robot入侵
@@ -436,6 +452,28 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_BoxCheckOK);
+        }
+
+        public string ReadA05Status()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_A05Status))
+            {
+                case 0:
+                    Result = "Idle";
+                    break;
+                case 1:
+                    Result = "Busy";
+                    break;
+                case 2:
+                    Result = "Alarm";
+                    break;
+                case 3:
+                    Result = "Maintenance";
+                    break;
+            }
+            return Result;
         }
     }
 }

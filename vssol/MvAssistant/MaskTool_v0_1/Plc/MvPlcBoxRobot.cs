@@ -165,11 +165,16 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public string SetCommand()
+        public void SetClampSpeed(double Speed)
         {
-            string Result = "";
+            var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Speed, Speed);
+        }
 
-            return Result;
+        public double ReadClampSpeedSetting()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Speed);
         }
 
         //讀取軟體記憶的夾爪位置
@@ -315,6 +320,28 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Vacuum);
+        }
+        
+        public string ReadA03Status()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_A03Status))
+            {
+                case 0:
+                    Result = "Idle";
+                    break;
+                case 1:
+                    Result = "Busy";
+                    break;
+                case 2:
+                    Result = "Alarm";
+                    break;
+                case 3:
+                    Result = "Maintenance";
+                    break;
+            }
+            return Result;
         }
     }
 }
