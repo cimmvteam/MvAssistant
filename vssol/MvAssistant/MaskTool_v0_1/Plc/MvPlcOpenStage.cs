@@ -447,6 +447,20 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
+        //讀取盒子是否變形
+        public double ReadBoxDeform()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<double>(MvEnumPlcVariable.OS_TO_PC_SoundWave);
+        }
+
+        //讀取平台上的重量
+        public double ReadWeightOnStage()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<double>(MvEnumPlcVariable.OS_TO_PC_Weight_Cruuent);
+        }
+
         //讀取是否有Box
         public bool ReadBoxExist()
         {
@@ -454,22 +468,22 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_BoxCheckOK);
         }
 
-        public string ReadA05Status()
+        public string ReadOpenStageStatus()
         {
             string Result = "";
             var plc = this.m_PlcContext;
             switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_A05Status))
             {
-                case 0:
+                case 1:
                     Result = "Idle";
                     break;
-                case 1:
+                case 2:
                     Result = "Busy";
                     break;
-                case 2:
+                case 3:
                     Result = "Alarm";
                     break;
-                case 3:
+                case 4:
                     Result = "Maintenance";
                     break;
             }

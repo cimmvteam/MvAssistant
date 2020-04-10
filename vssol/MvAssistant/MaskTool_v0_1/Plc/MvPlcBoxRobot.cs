@@ -139,17 +139,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
-                        Result = "Idle";
+                        Result = "OK";
                         break;
                     case 2:
-                        Result = "Busy";
+                        Result = "Have Box";
                         break;
                     case 3:
-                        Result = "Error";
+                        Result = "";
                         break;
                 }
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
@@ -165,13 +162,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public void SetClampSpeed(double Speed)
+        public void SetSpeed(double ClampSpeed)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_BT_Speed, Speed);
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Speed, ClampSpeed);
         }
 
-        public double ReadClampSpeedSetting()
+        public double ReadSpeedSetting()
         {
             var plc = this.m_PlcContext;
             return plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Speed);
@@ -286,7 +283,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_Mz, Mz);
         }
 
-        //讀取六軸力覺Sensor的壓力極限值
+        //讀取六軸力覺Sensor的壓力極限值設定
         public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
         {
             var plc = this.m_PlcContext;
@@ -322,22 +319,22 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Vacuum);
         }
         
-        public string ReadA03Status()
+        public string ReadBTRobotStatus()
         {
             string Result = "";
             var plc = this.m_PlcContext;
             switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_A03Status))
             {
-                case 0:
+                case 1:
                     Result = "Idle";
                     break;
-                case 1:
+                case 2:
                     Result = "Busy";
                     break;
-                case 2:
+                case 3:
                     Result = "Alarm";
                     break;
-                case 3:
+                case 4:
                     Result = "Maintenance";
                     break;
             }

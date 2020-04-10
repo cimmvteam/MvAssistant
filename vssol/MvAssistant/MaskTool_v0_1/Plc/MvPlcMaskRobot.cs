@@ -139,17 +139,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
-                        Result = "Idle";
+                        Result = "OK";
                         break;
                     case 2:
-                        Result = "Busy";
+                        Result = "Have Mask";
                         break;
                     case 3:
-                        Result = "Error";
+                        Result = "";
                         break;
                 }
 
@@ -166,13 +163,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public void SetClampSpeed(double Speed)
+        public void SetSpeed(double ClampSpeed)
         {
             var plc = m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_MT_Speed, Speed);
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_Speed, ClampSpeed);
         }
 
-        public double ReadClampSpeedSetting()
+        public double ReadSpeedSetting()
         {
             var plc = m_PlcContext;
             return plc.Read<double>(MvEnumPlcVariable.PC_TO_MT_Speed);
@@ -205,22 +202,22 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
         #endregion
 
-        public string ReadA04Status()
+        public string ReadMTRobotStatus()
         {
             string Result = "";
             var plc = this.m_PlcContext;
             switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_A04Status))
             {
-                case 0:
+                case 1:
                     Result = "Idle";
                     break;
-                case 1:
+                case 2:
                     Result = "Busy";
                     break;
-                case 2:
+                case 3:
                     Result = "Alarm";
                     break;
-                case 3:
+                case 4:
                     Result = "Maintenance";
                     break;
             }

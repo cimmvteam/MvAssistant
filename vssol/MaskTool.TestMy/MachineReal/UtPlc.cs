@@ -66,8 +66,8 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.BoxRobot.Clamp(0));
                 Console.WriteLine(plc.BoxRobot.Unclamp());
                 Console.WriteLine(plc.BoxRobot.Initial());
-                plc.BoxRobot.SetClampSpeed(10); //Speed：1~100mm/s
-                Console.WriteLine(plc.BoxRobot.ReadClampSpeedSetting());
+                plc.BoxRobot.SetSpeed(10); //Speed：1~100mm/s
+                Console.WriteLine(plc.BoxRobot.ReadSpeedSetting());
                 Console.WriteLine(plc.BoxRobot.ReadHandPos());
                 Console.WriteLine(plc.BoxRobot.ReadBoxDetect());
                 plc.BoxRobot.SetHandSpaceLimit(10, 20);
@@ -83,7 +83,7 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
-                Console.WriteLine(plc.BoxRobot.ReadA03Status());
+                Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
             }
         }
 
@@ -143,7 +143,8 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
                 Console.WriteLine(plc.InspCh.WPosition(20));//0~359
                 Console.WriteLine(plc.InspCh.Initial());
-                //Console.WriteLine(plc.InspCh.SetCommand());
+                plc.InspCh.SetSpeed(10,10,10);
+                Console.WriteLine(plc.InspCh.ReadSpeedSetting());
                 Console.WriteLine(plc.InspCh.ReadRobotIntrude());
                 Console.WriteLine(plc.InspCh.ReadXYPosition());
                 Console.WriteLine(plc.InspCh.ReadZPosition());
@@ -154,6 +155,7 @@ namespace MaskTool.TestMy.MachineReal
                 plc.InspCh.SetRobotUpDownLimit(10, 0);
                 Console.WriteLine(plc.InspCh.ReadRobotUpDownLimitSetting());
                 Console.WriteLine(plc.InspCh.ReadRobotPosUpDown());
+                Console.WriteLine(plc.InspCh.ReadInspChStatus()); 
             }
         }
 
@@ -180,12 +182,12 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.MaskRobot.Clamp(0));
                 Console.WriteLine(plc.MaskRobot.Unclamp());
                 Console.WriteLine(plc.MaskRobot.Initial());
-                plc.MaskRobot.SetClampSpeed(10);
-                Console.WriteLine(plc.MaskRobot.ReadClampSpeedSetting());
-                plc.MaskRobot.SetStaticElecLimit(10,20);
+                plc.MaskRobot.SetSpeed(10);
+                Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
+                plc.MaskRobot.SetStaticElecLimit(10, 20);
                 Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadStaticElec());
-                Console.WriteLine(plc.MaskRobot.ReadA04Status());
+                Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
                 Console.WriteLine(plc.MaskRobot.ReadHandInspection());
             }
         }
@@ -198,12 +200,12 @@ namespace MaskTool.TestMy.MachineReal
                 plc.Connect("192.168.0.200", 2);
 
                 //Console.WriteLine(plc.OpenStage.Open());
-                //Console.WriteLine(plc.OpenStage.Lock());
                 //Console.WriteLine(plc.OpenStage.Close());
                 //Console.WriteLine(plc.OpenStage.Clamp());
                 //Console.WriteLine(plc.OpenStage.Unclamp());
                 //Console.WriteLine(plc.OpenStage.SortClamp());
                 //Console.WriteLine(plc.OpenStage.SortUnclamp());
+                //Console.WriteLine(plc.OpenStage.Lock());
                 //Console.WriteLine(plc.OpenStage.Initial());
                 plc.OpenStage.SetBoxType(0);
                 Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
@@ -213,8 +215,10 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.OpenStage.ReadSliderPosition());
                 Console.WriteLine(plc.OpenStage.ReadCoverPos());
                 Console.WriteLine(plc.OpenStage.ReadCoverSensor());
+                Console.WriteLine(plc.OpenStage.ReadBoxDeform());
+                Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
                 Console.WriteLine(plc.OpenStage.ReadBoxExist());
-                Console.WriteLine(plc.OpenStage.ReadA05Status());
+                Console.WriteLine(plc.OpenStage.ReadOpenStageStatus());
             }
         }
 

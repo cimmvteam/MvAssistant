@@ -170,6 +170,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         OS_TO_PC_Cover2_Position,
         OS_TO_PC_CoverSensor_Open,
         OS_TO_PC_CoverSensor_Close,
+        OS_TO_PC_SoundWave,
+        OS_TO_PC_Weight_Cruuent,
         OS_TO_PC_BoxCheckOK,
         OS_TO_PC_A05Status,
 
@@ -198,7 +200,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_IC_XY_Speed,
         PC_TO_IC_W_Speed,
         PC_TO_IC_RobotIntrude,
-        PC_TO_OS_RobotLicence,
+        IC_TO_PC_RobotLicence,
         IC_TO_PC_Positon_X,//XY Stage位置
         IC_TO_PC_Positon_Y,
         IC_TO_PC_Positon_Z,//CCD Z軸位置
@@ -209,6 +211,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_IC_Robot_UpDownLimit_U,//檢測Robot侵入位置(上下)
         PC_TO_IC_Robot_UpDownLimit_D,
         IC_TO_PC_RobotPosition_UpDown,
+        IC_TO_PC_A06Status,
 
         //Load Port(A07)
         PC_TO_LP_DP1Limit,//壓差極限數值寫入 AWord
