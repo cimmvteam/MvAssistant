@@ -86,8 +86,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_LaserPosition2,//偵測Robot Hand前方物體距離
         PC_TO_BT_Level_Limit_X,
         PC_TO_BT_Level_Limit_Y,
+        PC_TO_BT_Level_Reset,
         BT_TO_PC_Level_X,
         BT_TO_PC_Level_Y,
+        PC_TO_BT_Level_Reset_Complete,
         PC_TO_BT_ForceLimit_Fx,
         PC_TO_BT_ForceLimit_Fy,
         PC_TO_BT_ForceLimit_Fz,

@@ -268,6 +268,28 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_Level_Y)
                 );
         }
+
+        //設定XY軸水平Sensor的標準值
+        public bool SetLevelReset()
+        {
+            var plc = this.m_PlcContext;
+            try
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Level_Reset_Complete), 1000))
+                    throw new MvException("Box Hand Level Reset T0 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, false);
+                throw ex;
+            }
+
+            return plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Level_Reset_Complete);
+        }
         #endregion
 
         #region 六軸Sensor
@@ -318,7 +340,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Vacuum);
         }
-        
+
         public string ReadBTRobotStatus()
         {
             string Result = "";

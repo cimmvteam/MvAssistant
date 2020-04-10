@@ -54,6 +54,8 @@ namespace MaskTool.TestMy.MachineReal
                 plc.Connect("192.168.0.200", 2);
                 plc.SetSignalTower(true, false, false);
                 plc.SetBuzzer(1);
+                plc.CoverFanCtrl(1, 200);
+                Console.WriteLine(plc.ReadCoverFanSpeed()); 
             }
         }
 
@@ -79,6 +81,7 @@ namespace MaskTool.TestMy.MachineReal
                 plc.BoxRobot.SetLevelSensorLimit(0, 0);
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensor());
+                Console.WriteLine(plc.BoxRobot.SetLevelReset());
                 plc.BoxRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
