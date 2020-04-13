@@ -57,9 +57,6 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device\Robot\CurrentPOS.cs" />
-    <Compile Include="Device\Robot\RobotHandler.cs" />
-    <Compile Include="Device\Robot\UtRobotHandler.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="MachineReal\UtPlc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +71,9 @@
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Device\Robot\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

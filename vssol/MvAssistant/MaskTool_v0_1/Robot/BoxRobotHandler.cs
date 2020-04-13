@@ -63,6 +63,21 @@ namespace MvAssistant.MaskTool_v0_1.Robot
             curPos.UserTool = info.userTool;
         }
 
+        public void SgsVerifyStartPns0102(Action<MvFanucRobotInfo> waitEvent)
+        {
+            this.ldd.StopProgram();
+            if (!this.ldd.ExecutePNS("PNS0102"))
+                throw new Exception("Start Pns0102 Program Fail.");
+
+            this.ldd.Pns0102AsynRun();
+            while (!this.ldd.Pns0102AsynEnd())
+            {
+                var robotInfo = this.ldd.GetCurrRobotInfo();
+                waitEvent(robotInfo);
+                Thread.Sleep(500);
+            }
+        }
+
         public bool HasRobotAlarm()
         {
             var alarmmsg = String.Empty;
@@ -158,11 +173,11 @@ namespace MvAssistant.MaskTool_v0_1.Robot
                         {
                             tmpTargets.Add(Targets[targetIndex]);
                         }
-                        this.ldd.MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.ldd.Pns0101MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     else
                     {
-                        this.ldd.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.ldd.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     tmpTargets.Clear();
                 }
@@ -172,13 +187,13 @@ namespace MvAssistant.MaskTool_v0_1.Robot
                 List<float[]> tmpTargets = new List<float[]>();
                 tmpTargets.Add(Targets[0]);
                 this.ldd.SwitchUT(MoveFrame);
-                this.ldd.MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.ldd.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                 tmpTargets.Clear();
             }
             else
             {
                 this.ldd.SwitchUT(MoveFrame);
-                this.ldd.MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.ldd.Pns0101MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
             }
         }
 

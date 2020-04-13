@@ -139,17 +139,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_Initial_A03_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
-                        Result = "Idle";
+                        Result = "OK";
                         break;
                     case 2:
-                        Result = "Busy";
+                        Result = "Have Box";
                         break;
                     case 3:
-                        Result = "Error";
+                        Result = "";
                         break;
                 }
                 plc.Write(MvEnumPlcVariable.PC_TO_BT_Initial_A03, false);
@@ -165,11 +162,16 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public string SetCommand()
+        public void SetSpeed(double ClampSpeed)
         {
-            string Result = "";
+            var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_Speed, ClampSpeed);
+        }
 
-            return Result;
+        public double ReadSpeedSetting()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<double>(MvEnumPlcVariable.PC_TO_BT_Speed);
         }
 
         //讀取軟體記憶的夾爪位置
@@ -266,6 +268,28 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Read<double>(MvEnumPlcVariable.BT_TO_PC_Level_Y)
                 );
         }
+
+        //設定XY軸水平Sensor的標準值
+        public bool SetLevelReset()
+        {
+            var plc = this.m_PlcContext;
+            try
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Level_Reset_Complete), 1000))
+                    throw new MvException("Box Hand Level Reset T0 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, false);
+                throw ex;
+            }
+
+            return plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Level_Reset_Complete);
+        }
         #endregion
 
         #region 六軸Sensor
@@ -281,7 +305,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_BT_ForceLimit_Mz, Mz);
         }
 
-        //讀取六軸力覺Sensor的壓力極限值
+        //讀取六軸力覺Sensor的壓力極限值設定
         public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
         {
             var plc = this.m_PlcContext;
@@ -315,6 +339,28 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.BT_TO_PC_Vacuum);
+        }
+
+        public string ReadBTRobotStatus()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_A03Status))
+            {
+                case 1:
+                    Result = "Idle";
+                    break;
+                case 2:
+                    Result = "Busy";
+                    break;
+                case 3:
+                    Result = "Alarm";
+                    break;
+                case 4:
+                    Result = "Maintenance";
+                    break;
+            }
+            return Result;
         }
     }
 }

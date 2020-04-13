@@ -32,9 +32,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return new Tuple<int, int, int>(
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_L),
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_M),
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_S)
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_L_Limit),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit)
                 );
         }
 

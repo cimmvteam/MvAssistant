@@ -27,6 +27,10 @@ namespace BoxTransferTest
 
         private void FmMain_Load(object sender, EventArgs e)
         {
+            var fm = new FmSgsTest();
+            fm.MdiParent = this;
+            fm.WindowState = FormWindowState.Maximized;
+            fm.Show();
 
         }
 
@@ -35,6 +39,11 @@ namespace BoxTransferTest
             var fm = new Form1();
             fm.MdiParent = this;
             fm.Show();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }

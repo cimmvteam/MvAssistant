@@ -217,11 +217,25 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public string SetCommand()
+        public void SetSpeed(double StageXYSpeed, double CcdZSpeed, double MaskWSpeed)
         {
-            string Result = "";
+            var plc = this.m_PlcContext;
 
-            return Result;
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_XY_Speed, StageXYSpeed);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_Z_Speed, CcdZSpeed);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_W_Speed, MaskWSpeed);
+        }
+
+        //讀取手臂可侵入的上下區間極限值
+        public Tuple<double, double, double> ReadSpeedSetting()
+        {
+            var plc = this.m_PlcContext;
+
+            return new Tuple<double, double, double>(
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_XY_Speed),
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Z_Speed),
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_W_Speed)
+                );
         }
 
         //讀取Robot入侵
@@ -230,7 +244,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             plc.Write(MvEnumPlcVariable.PC_TO_IC_RobotIntrude, true);
             Thread.Sleep(100);
-            return plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_RobotLicence);
+            return plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_RobotLicence);
         }
 
         //讀取 XY Stage位置
@@ -260,6 +274,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_W);
         }
 
+        #region 手臂入侵(左右)
         //設定手臂可侵入的左右區間極限值
         public void SetRobotAboutLimit(double AboutLimit_R, double AboutLimit_L)
         {
@@ -287,7 +302,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_About);
         }
+        #endregion
 
+        #region 手臂入侵(上下)
         //設定手臂可侵入的上下區間極限值
         public void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
         {
@@ -296,7 +313,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
             plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_D, UpDownLimit_D);
         }
-
+        
         //讀取手臂可侵入的上下區間極限值
         public Tuple<double, double> ReadRobotUpDownLimitSetting()
         {
@@ -314,6 +331,29 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_UpDown);
+        }
+        #endregion
+
+        public string ReadInspChStatus()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_A06Status))
+            {
+                case 1:
+                    Result = "Idle";
+                    break;
+                case 2:
+                    Result = "Busy";
+                    break;
+                case 3:
+                    Result = "Alarm";
+                    break;
+                case 4:
+                    Result = "Maintenance";
+                    break;
+            }
+            return Result;
         }
     }
 }

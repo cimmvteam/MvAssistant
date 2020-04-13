@@ -360,10 +360,26 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
         }
 
-        public string SetCommand()
+        public void SetBoxType(uint BoxType)
+        {
+            var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_OS_BoxType, BoxType);
+
+        }
+
+        public string ReadBoxTypeSetting()
         {
             string Result = "";
-
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.PC_TO_OS_BoxType))
+            {
+                case 1:
+                    Result = "鐵盒";
+                    break;
+                case 2:
+                    Result = "水晶盒";
+                    break;
+            }
             return Result;
         }
 
@@ -431,11 +447,47 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 );
         }
 
+        //讀取盒子是否變形
+        public double ReadBoxDeform()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<double>(MvEnumPlcVariable.OS_TO_PC_SoundWave);
+        }
+
+        //讀取平台上的重量
+        public double ReadWeightOnStage()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<double>(MvEnumPlcVariable.OS_TO_PC_Weight_Cruuent);
+        }
+
         //讀取是否有Box
         public bool ReadBoxExist()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_BoxCheckOK);
+        }
+
+        public string ReadOpenStageStatus()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_A05Status))
+            {
+                case 1:
+                    Result = "Idle";
+                    break;
+                case 2:
+                    Result = "Busy";
+                    break;
+                case 3:
+                    Result = "Alarm";
+                    break;
+                case 4:
+                    Result = "Maintenance";
+                    break;
+            }
+            return Result;
         }
     }
 }
