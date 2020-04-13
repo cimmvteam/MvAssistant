@@ -10,6 +10,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         //PLC Connection
         PC_TO_PLC_CheckClock,//PLC軟體狀態檢查
         PC_TO_PLC_CheckClock_Reply,
+        Reset_ALL,
+        Reset_ALL_Complete,
 
         //Cabinet(A01)
         PC_TO_DB_DP1Limit, //壓差設定數值寫入 AWord
@@ -51,7 +53,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_CC_DP_Limit,//壓差設定數值寫入 AWord
         CC_TO_PC_DP,//實際壓差數值讀取 BWord 壓差是否達標讀取 Bit
         PC_TO_CC_Blow,
-        PC_TO_CC_BlowTime,//Time單位為1ms
+        PC_TO_CC_BlowTime,//Time單位為100ms
         CC_TO_PC_Blow_Result,//吹氣結果
         CC_TO_PC_Blow_Reply,
         CC_TO_PC_Blow_Complete,//吹氣完成
@@ -214,6 +216,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_IC_Robot_UpDownLimit_D,
         IC_TO_PC_RobotPosition_UpDown,
         IC_TO_PC_A06Status,
+        A06_Alarm,
 
         //Load Port(A07)
         PC_TO_LP_DP1Limit,//壓差極限數值寫入 AWord

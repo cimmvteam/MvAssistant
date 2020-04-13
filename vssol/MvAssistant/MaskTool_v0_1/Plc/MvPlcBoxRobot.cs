@@ -33,9 +33,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 switch (plc.Read<int>(MvEnumPlcVariable.BT_TO_PC_ClampCmd_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
                         Result = "OK";
                         break;
@@ -53,6 +50,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                         break;
                     case 6:
                         Result = "System not ready";
+                        break;
+                    case 7:
+                        Result = "No Box";
                         break;
                 }
 
@@ -281,6 +281,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.PC_TO_BT_Level_Reset_Complete), 1000))
                     throw new MvException("Box Hand Level Reset T0 timeout");
+
+                plc.Write(MvEnumPlcVariable.PC_TO_BT_Level_Reset, false);
             }
             catch (Exception ex)
             {

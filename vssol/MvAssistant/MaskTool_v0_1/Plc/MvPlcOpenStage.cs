@@ -25,9 +25,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Open, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Reply), 1000))
-                    throw new MvException("Open Stage OpenBox T0 timeout");
+                    throw new MvException("Open Stage Open Box T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Complete), 10 * 1000))
-                    throw new MvException("Open Stage OpenBox T2 timeout");
+                    throw new MvException("Open Stage Open Box T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Open_Result))
                 {
@@ -48,7 +48,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Open, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Open_Complete), 1000))
-                    throw new MvException("Open Stage OpenBox T4 timeout");
+                    throw new MvException("Open Stage Open Box T4 timeout");
             }
             catch (Exception ex)
             {
@@ -69,9 +69,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Close, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Reply), 1000))
-                    throw new MvException("Open Stage CloseBox T0 timeout");
+                    throw new MvException("Open Stage Close Box T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Complete), 10 * 1000))
-                    throw new MvException("Open Stage CloseBox T2 timeout");
+                    throw new MvException("Open Stage Close Box T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Close_Result))
                 {
@@ -92,7 +92,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_OS_Close, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Close_Complete), 1000))
-                    throw new MvException("Open Stage CloseBox T4 timeout");
+                    throw new MvException("Open Stage Close Box T4 timeout");
             }
             catch (Exception ex)
             {

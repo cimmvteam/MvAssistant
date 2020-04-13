@@ -27,9 +27,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Clamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Reply), 1000))
-                    throw new MvException("Box Hand Clamp T0 timeout");
+                    throw new MvException("Mask Hand Clamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Complete), 5000))
-                    throw new MvException("Box Hand Clamp T2 timeout");
+                    throw new MvException("Mask Hand Clamp T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Result))
                 {
@@ -40,7 +40,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Clamp no box type";
+                        Result = "Clamp no mask type";
                         break;
                     case 3:
                         Result = "Tactile out range";
@@ -59,7 +59,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Clamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Complete), 1000))
-                    throw new MvException("Box Hand Clamp T4 timeout");
+                    throw new MvException("Mask Hand Clamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -81,9 +81,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Unclamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Reply), 1000))
-                    throw new MvException("Box Hand Unclamp T0 timeout");
+                    throw new MvException("Mask Hand Unclamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Complete), 5000))
-                    throw new MvException("Box Hand Unclamp T2 timeout");
+                    throw new MvException("Mask Hand Unclamp T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Result))
                 {
@@ -94,7 +94,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Clamp no box type";
+                        Result = "Clamp no mask type";
                         break;
                     case 3:
                         Result = "Tactile out range";
@@ -112,7 +112,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Unclamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Complete), 1000))
-                    throw new MvException("Box Hand Unclamp T4 timeout");
+                    throw new MvException("Mask Hand Unclamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -133,9 +133,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Reply), 1000))
-                    throw new MvException("Open Stage Initial T0 timeout");
+                    throw new MvException("Mask Hand Initial T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 5000))
-                    throw new MvException("Open Stage Initial T2 timeout");
+                    throw new MvException("Mask Hand Initial T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
                 {
@@ -153,7 +153,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Initial_A04, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 1000))
-                    throw new MvException("Open Stage Initial T4 timeout");
+                    throw new MvException("Mask Hand Initial T4 timeout");
             }
             catch (Exception ex)
             {

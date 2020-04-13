@@ -7,25 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-<<<<<<< HEAD
-using MvAssistant.MaskTool_v0_1.Robot;
-=======
 using MaskTool.TestMy.Device;
 using MvAssistant.Tasking;
->>>>>>> fffb9723d0246a50c558516000757257859477dc
 
 namespace BoxTransferTest.ViewUc
 {
     public partial class UcMaskRobot : UserControl
     {
-<<<<<<< HEAD
-        BoxRobotHandler robotHandler;
-=======
         MaskRobotHandler robotHandler;
 
         MvCancelTask task;
-
->>>>>>> fffb9723d0246a50c558516000757257859477dc
 
 
         public UcMaskRobot()
@@ -148,14 +139,7 @@ namespace BoxTransferTest.ViewUc
 
         void TaskClose()
         {
-<<<<<<< HEAD
-            robotHandler = new BoxRobotHandler();
-            robotHandler.ldd.RobotIp = "192.168.0.50";
-            int connectRes = robotHandler.ConnectIfNO();
-            if (robotHandler != null)
-=======
             if (this.task != null)
->>>>>>> fffb9723d0246a50c558516000757257859477dc
             {
                 using (var obj = this.task)
                     obj.Cancel();
