@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaskTool.TestMy.Device;
+using MvAssistant.MaskTool_v0_1.Robot;
 
 namespace BoxTransferTest.ViewUc
 {
     public partial class UcMaskRobot : UserControl
     {
-        RobotHandler robotHandler;
+        BoxRobotHandler robotHandler;
 
 
         public UcMaskRobot()
@@ -50,7 +50,7 @@ namespace BoxTransferTest.ViewUc
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            robotHandler = new RobotHandler();
+            robotHandler = new BoxRobotHandler();
             robotHandler.ldd.RobotIp = "192.168.0.50";
             int connectRes = robotHandler.ConnectIfNO();
             if (robotHandler != null)
