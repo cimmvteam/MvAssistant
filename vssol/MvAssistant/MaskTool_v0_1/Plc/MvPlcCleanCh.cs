@@ -32,9 +32,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return new Tuple<int, int, int>(
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_L),
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_M),
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_S)
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_L_Limit),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit)
                 );
         }
 
@@ -149,7 +149,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
         #endregion
 
-        //空氣閥吹風(BlowTime單位為ms)
+        //空氣閥吹風(BlowTime單位為100ms)
         public string GasValveBlow(uint BlowTime)
         {
             string Result = "";
@@ -162,30 +162,21 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Reply), 1000))
-                    throw new MvException("Open Stage Lock/Unlock T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 5000))
-                    throw new MvException("Open Stage Lock/Unlock T2 timeout");
+                    throw new MvException("Open Stage Gas Valve Blow T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000 + (int)BlowTime*100))
+                    throw new MvException("Open Stage Gas Valve Blow T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_Blow_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
-                        Result = "Idle";
-                        break;
-                    case 2:
-                        Result = "Busy";
-                        break;
-                    case 3:
-                        Result = "Error";
+                        Result = "OK";
                         break;
                 }
 
                 plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000))
-                    throw new MvException("Open Stage Lock/Unlock T4 timeout");
+                    throw new MvException("Open Stage Gas Valve Blow T4 timeout");
             }
             catch (Exception ex)
             {
@@ -214,11 +205,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取實際吹氣壓力
-        public double ReadBlowPressure()
+        public Single ReadBlowPressure()
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_PressureControl);
+            return plc.Read<Single>(MvEnumPlcVariable.CC_TO_PC_PressureControl);
         }
         #endregion
 
@@ -236,9 +227,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return new Tuple<bool, bool, bool>(
-            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area1),
-            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area2),
-            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area3)
+            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area1),//Right
+            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area2),//Front
+            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area3)//Left
             );
         }
     }

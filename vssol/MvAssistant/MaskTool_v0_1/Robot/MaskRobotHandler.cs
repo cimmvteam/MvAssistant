@@ -98,7 +98,7 @@ namespace MaskTool.TestMy.Device
                 target[3] = pose.w;
                 target[4] = pose.p;
                 target[5] = pose.r;
-                this.ldd.Pns0101ContinuityMove(target);
+                this.ldd.Pns0103ContinuityMove(target);
 
             }
 

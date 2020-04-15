@@ -185,22 +185,19 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Reply), 1000))
                     throw new MvException("Inspection Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 30 * 1000))
                     throw new MvException("Inspection Initial T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
-                        Result = "Idle";
+                        Result = "OK";
                         break;
                     case 2:
-                        Result = "Busy";
+                        Result = "";
                         break;
                     case 3:
-                        Result = "Error";
+                        Result = "";
                         break;
                 }
 
@@ -217,20 +214,34 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public string SetCommand()
+        public void SetSpeed(double StageXYSpeed, double CcdZSpeed, double MaskWSpeed)
         {
-            string Result = "";
+            var plc = this.m_PlcContext;
 
-            return Result;
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_XY_Speed, StageXYSpeed);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_Z_Speed, CcdZSpeed);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_W_Speed, MaskWSpeed);//   angle per second
+        }
+
+        //讀取手臂可侵入的上下區間極限值
+        public Tuple<double, double, double> ReadSpeedSetting()
+        {
+            var plc = this.m_PlcContext;
+
+            return new Tuple<double, double, double>(
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_XY_Speed),
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Z_Speed),
+                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_W_Speed)
+                );
         }
 
         //讀取Robot入侵
-        public bool ReadRobotIntrude()
+        public bool ReadRobotIntrude(bool isIntrude)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_RobotIntrude, true);
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_RobotIntrude, !isIntrude);
             Thread.Sleep(100);
-            return plc.Read<bool>(MvEnumPlcVariable.PC_TO_OS_RobotLicence);
+            return plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_RobotLicence);
         }
 
         //讀取 XY Stage位置
@@ -260,8 +271,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_W);
         }
 
+        #region 手臂入侵(左右)
         //設定手臂可侵入的左右區間極限值
-        public void SetRobotAboutLimit(double AboutLimit_R, double AboutLimit_L)
+        public void SetRobotAboutLimit(double AboutLimit_L, double AboutLimit_R)
         {
             var plc = this.m_PlcContext;
 
@@ -287,7 +299,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_About);
         }
+        #endregion
 
+        #region 手臂入侵(上下)
         //設定手臂可侵入的上下區間極限值
         public void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
         {
@@ -314,6 +328,35 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
 
             return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_UpDown);
+        }
+        #endregion
+
+        public string ReadInspChStatus()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_A06Status))
+            {
+                case 1:
+                    Result = "Idle";
+                    break;
+                case 2:
+                    Result = "Busy";
+                    break;
+                case 3:
+                    Result = "Alarm";
+                    break;
+                case 4:
+                    Result = "Maintenance";
+                    break;
+            }
+            return Result;
+        }
+
+        public bool[] ReadAlarmArray()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<bool[]>(MvEnumPlcVariable.A06_Alarm);
         }
     }
 }

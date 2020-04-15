@@ -19,7 +19,6 @@ namespace BoxTransferTest.ViewUc
         MvCancelTask task;
 
 
-
         public UcMaskRobot()
         {
             InitializeComponent();

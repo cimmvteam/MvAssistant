@@ -10,6 +10,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         //PLC Connection
         PC_TO_PLC_CheckClock,//PLC軟體狀態檢查
         PC_TO_PLC_CheckClock_Reply,
+        Reset_ALL,
+        Reset_ALL_Complete,
 
         //Cabinet(A01)
         PC_TO_DB_DP1Limit, //壓差設定數值寫入 AWord
@@ -51,7 +53,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_CC_DP_Limit,//壓差設定數值寫入 AWord
         CC_TO_PC_DP,//實際壓差數值讀取 BWord 壓差是否達標讀取 Bit
         PC_TO_CC_Blow,
-        PC_TO_CC_BlowTime,//Time單位為1ms
+        PC_TO_CC_BlowTime,//Time單位為100ms
         CC_TO_PC_Blow_Result,//吹氣結果
         CC_TO_PC_Blow_Reply,
         CC_TO_PC_Blow_Complete,//吹氣完成
@@ -76,6 +78,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_Initial_A03_Reply,
         BT_TO_PC_Initial_A03_Complete,
         BT_TO_PC_Initial_A03_Result,
+        PC_TO_BT_Speed,
         BT_TO_PC_HandPosition,
         BT_TO_PC_LoadSensor,//判有無Box
         PC_TO_BT_Laser1_FLS,
@@ -85,8 +88,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_LaserPosition2,//偵測Robot Hand前方物體距離
         PC_TO_BT_Level_Limit_X,
         PC_TO_BT_Level_Limit_Y,
+        PC_TO_BT_Level_Reset,
         BT_TO_PC_Level_X,
         BT_TO_PC_Level_Y,
+        PC_TO_BT_Level_Reset_Complete,
         PC_TO_BT_ForceLimit_Fx,
         PC_TO_BT_ForceLimit_Fy,
         PC_TO_BT_ForceLimit_Fz,
@@ -100,13 +105,27 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ForceMy,
         BT_TO_PC_ForceMz,
         BT_TO_PC_Vacuum,
+        BT_TO_PC_A03Status,
 
         //Mask Robot Hand(A04)
+        PC_TO_MT_Clamp,
+        PC_TO_MT_MaskType,
+        MT_TO_PC_ClampCmd_Reply,
+        MT_TO_PC_ClampCmd_Complete,
+        MT_TO_PC_ClampCmd_Result,
+        PC_TO_MT_Unclamp,
+        MT_TO_PC_UnclampCmd_Reply,
+        MT_TO_PC_UnclampCmd_Complete,
+        MT_TO_PC_UnclampCmd_Result,
         PC_TO_MT_Initial_A04,
         MT_TO_PC_Initial_A04_Reply,
         MT_TO_PC_Initial_A04_Complete,
         MT_TO_PC_Initial_A04_Result,
-        CCD_Result,
+        PC_TO_MT_Speed,
+        MT_TO_PC_StaticElectricity_Limit_UP,
+        MT_TO_PC_StaticElectricity_Limit_Down,
+        MT_TO_PC_StaticElectricity_Value,
+        MT_TO_PC_A04Status,
 
         //Open Stage(A05)
         PC_TO_OS_Open,//開盒
@@ -141,7 +160,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         OS_TO_PC_Initial_A05_Reply,
         OS_TO_PC_Initial_A05_Complete,
         OS_TO_PC_Initial_A05_Result,
-        PC_TO_OS_BoxType,//設定內容 1.Box type 2.作動速度%
+        PC_TO_OS_BoxType,//設定內容 1.Box type－鐵盒：1、水晶盒：2      2.作動速度%
         PC_TO_OS_BTIntrude,//Robot侵入A05
         PC_TO_OS_MTIntrude,
         OS_TO_PC_BTLicence,//Robot侵入A05許可
@@ -155,7 +174,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         OS_TO_PC_Cover2_Position,
         OS_TO_PC_CoverSensor_Open,
         OS_TO_PC_CoverSensor_Close,
+        OS_TO_PC_SoundWave,
+        OS_TO_PC_Weight_Cruuent,
         OS_TO_PC_BoxCheckOK,
+        OS_TO_PC_A05Status,
 
         //Inspection Chamber(A06)
         PC_TO_IC_XYCmd,//Stage進行XY移動
@@ -178,8 +200,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         IC_TO_PC_Initial_A06_Reply,
         IC_TO_PC_Initial_A06_Complete,
         IC_TO_PC_Initial_A06_Result,
+        PC_TO_IC_Z_Speed,
+        PC_TO_IC_XY_Speed,
+        PC_TO_IC_W_Speed,
         PC_TO_IC_RobotIntrude,
-        PC_TO_OS_RobotLicence,
+        IC_TO_PC_RobotLicence,
         IC_TO_PC_Positon_X,//XY Stage位置
         IC_TO_PC_Positon_Y,
         IC_TO_PC_Positon_Z,//CCD Z軸位置
@@ -190,6 +215,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         PC_TO_IC_Robot_UpDownLimit_U,//檢測Robot侵入位置(上下)
         PC_TO_IC_Robot_UpDownLimit_D,
         IC_TO_PC_RobotPosition_UpDown,
+        IC_TO_PC_A06Status,
+        A06_Alarm,
 
         //Load Port(A07)
         PC_TO_LP_DP1Limit,//壓差極限數值寫入 AWord
@@ -198,6 +225,24 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         LP_TO_PC_DP2,
 
         //外罩(A08)
+        PC_TO_FFU_SetSpeed,
+        PC_TO_FFU_Address,
+        PC_TO_FFU_Write,
+        FFU_TO_PC_Write_Reply,
+        FFU_TO_PC_Write_Complete,
+        FFU_TO_PC_Write_Result,
+        FFU_TO_PC_FFUCurrentSpeed_1,
+        FFU_TO_PC_FFUCurrentSpeed_2,
+        FFU_TO_PC_FFUCurrentSpeed_3,
+        FFU_TO_PC_FFUCurrentSpeed_4,
+        FFU_TO_PC_FFUCurrentSpeed_5,
+        FFU_TO_PC_FFUCurrentSpeed_6,
+        FFU_TO_PC_FFUCurrentSpeed_7,
+        FFU_TO_PC_FFUCurrentSpeed_8,
+        FFU_TO_PC_FFUCurrentSpeed_9,
+        FFU_TO_PC_FFUCurrentSpeed_10,
+        FFU_TO_PC_FFUCurrentSpeed_11,
+        FFU_TO_PC_FFUCurrentSpeed_12,
 
         //Hand Inspection(A09)
         LD_TO_PC_Laser1,//測距Sensor數值，4個下方 2個側邊

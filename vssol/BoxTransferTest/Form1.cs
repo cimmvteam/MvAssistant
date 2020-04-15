@@ -70,7 +70,7 @@ namespace BoxTransferTest
             //target[5] = float.Parse(textBox6.Text);
             //target[6] = float.Parse(textBox7.Text);
             //robotHandler.ExecuteMove(target);
-            robotHandler.ldd.ExecutePNS("PNS0100");
+            robotHandler.ldd.ExecutePNS("PNS0102");
         }
 
         private void LoadPortConnect(object sender, EventArgs e)
@@ -89,7 +89,7 @@ namespace BoxTransferTest
             }
             catch(Exception ex)
             {
-                
+                throw ex;
             }
         }
 
