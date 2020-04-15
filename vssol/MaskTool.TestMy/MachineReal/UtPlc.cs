@@ -70,7 +70,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcBoxRobot() //Test OK
+        public void TestPlcBoxRobot() //測試 OK
         {
             using (var plc = new MvPlcContext())
             {
