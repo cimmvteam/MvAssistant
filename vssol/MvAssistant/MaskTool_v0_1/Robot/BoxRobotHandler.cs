@@ -165,7 +165,7 @@ namespace MvAssistant.MaskTool_v0_1.Robot
 
                 foreach (var finTarget in fineTarget_conDic)
                 {
-                    this.ldd.SwitchUT(MoveFrame);
+                    this.ldd.Pns0101SwitchToolFrame(MoveFrame);
                     List<float[]> tmpTargets = new List<float[]>();
                     if (finTarget.Value == true)
                     {
@@ -173,11 +173,11 @@ namespace MvAssistant.MaskTool_v0_1.Robot
                         {
                             tmpTargets.Add(Targets[targetIndex]);
                         }
-                        this.ldd.Pns0101MoveStraightAsync(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.ldd.Pns0103ContinuityMove(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     else
                     {
-                        this.ldd.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        this.ldd.Pns0103ContinuityMove(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     tmpTargets.Clear();
                 }
@@ -186,14 +186,14 @@ namespace MvAssistant.MaskTool_v0_1.Robot
             {
                 List<float[]> tmpTargets = new List<float[]>();
                 tmpTargets.Add(Targets[0]);
-                this.ldd.SwitchUT(MoveFrame);
-                this.ldd.Pns0101MoveStraightAsync(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.ldd.Pns0101SwitchToolFrame(MoveFrame);
+                this.ldd.Pns0103ContinuityMove(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                 tmpTargets.Clear();
             }
             else
             {
-                this.ldd.SwitchUT(MoveFrame);
-                this.ldd.Pns0101MoveStraightAsync(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                this.ldd.Pns0101SwitchToolFrame(MoveFrame);
+                this.ldd.Pns0103ContinuityMove(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
             }
         }
 
