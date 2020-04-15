@@ -70,7 +70,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcBoxRobot() //Test OK
+        public void TestPlcBoxRobot() //測試 OK
         {
             using (var plc = new MvPlcContext())
             {
@@ -240,7 +240,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcOpenStageFlow()//Test OK
+        public void TestPlcOpenStageFlow()//測試 OK
         {
             using (var plc = new MvPlcContext())
             {
