@@ -58,6 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device\UtDevicePlc.cs" />
+    <Compile Include="MachineReal\UtPlcCabinet.cs" />
+    <Compile Include="MachineReal\UtPlcBoxRobot.cs" />
+    <Compile Include="MachineReal\UtPlcPublicArea.cs" />
     <Compile Include="MachineReal\UtPlc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SgsVerify\RealRunMtRobot.cs" />

@@ -101,7 +101,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcCabinet()//測試OK
+        public void TestPlcCabinet()//測試 OK
         {
             using (var plc = new MvPlcContext())
             {
@@ -117,7 +117,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcCleanCh()//Test OK
+        public void TestPlcCleanCh()//測試 OK
         {
             using (var plc = new MvPlcContext())
             {
@@ -146,7 +146,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcInspCh()
+        public void TestPlcInspCh()//測試 OK
         {
             using (var plc = new MvPlcContext())
             {
@@ -177,7 +177,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcLoadPort()//Test OK
+        public void TestPlcLoadPort()//測試 OK
         {
             using (var plc = new MvPlcContext())
             {
@@ -210,7 +210,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcOpenStage()//Function各別測試OK
+        public void TestPlcOpenStage()
         {
             using (var plc = new MvPlcContext())
             {
@@ -240,7 +240,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcOpenStageFlow()//測試 OK
+        public void TestPlcOpenStageFlow()
         {
             using (var plc = new MvPlcContext())
             {
