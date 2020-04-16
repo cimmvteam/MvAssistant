@@ -110,12 +110,17 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             using (var obj = this.PlcLdd)
             {
+                
             }
 
-            using (var obj = this.m_keepConnection)
+            if (this.m_keepConnection != null)
             {
-                obj.Cancel();
-                SpinWait.SpinUntil(() => obj.IsEnd(), 1000);
+                using (var obj = this.m_keepConnection)
+                {
+                    obj.Cancel();
+                    SpinWait.SpinUntil(() => obj.IsEnd(), 1000);
+                }
+                this.m_keepConnection = null;
             }
         }
 
