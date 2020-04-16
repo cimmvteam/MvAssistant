@@ -384,11 +384,11 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         //讀取Robot入侵
-        public Tuple<bool, bool> ReadRobotIntrude(bool BTIntrude, bool MTIntrude)
+        public Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_OS_BTIntrude, BTIntrude);
-            plc.Write(MvEnumPlcVariable.PC_TO_OS_MTIntrude, MTIntrude);
+            plc.Write(MvEnumPlcVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
+            plc.Write(MvEnumPlcVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
             Thread.Sleep(100);
             return new Tuple<bool, bool>(
                 plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_BTLicence),

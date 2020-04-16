@@ -58,6 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device\UtDevicePlc.cs" />
+    <Compile Include="MachineReal\UtPlcOpenStage.cs" />
+    <Compile Include="MachineReal\UtPlcMaskRobot.cs" />
+    <Compile Include="MachineReal\UtPlcLoadPort.cs" />
+    <Compile Include="MachineReal\UtPlcInspCh.cs" />
+    <Compile Include="MachineReal\UtPlcCleanCh.cs" />
     <Compile Include="MachineReal\UtPlcCabinet.cs" />
     <Compile Include="MachineReal\UtPlcBoxRobot.cs" />
     <Compile Include="MachineReal\UtPlcPublicArea.cs" />

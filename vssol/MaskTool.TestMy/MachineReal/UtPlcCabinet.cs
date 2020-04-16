@@ -60,7 +60,7 @@ namespace MaskTool.TestMy.MachineReal
         }
 
         [TestMethod]
-        public void TestPlcComponentStatus()//測試 OK
+        public void TestPlcComponentStatus()
         {
             using (var plc = new MvPlcContext())
             {

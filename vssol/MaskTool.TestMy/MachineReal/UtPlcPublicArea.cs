@@ -6,13 +6,9 @@ using MvAssistant.MaskTool_v0_1.Plc;
 
 namespace MaskTool.TestMy.MachineReal
 {
-
-
-    //[20200401] Merge
     [TestClass]
     public class UtPlcPublicArea
     {
-        public bool boolTestStop = false;
         [TestMethod]
         public void TestPlcConnect()
         {
