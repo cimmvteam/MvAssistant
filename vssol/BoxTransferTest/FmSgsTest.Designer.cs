@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.ucDrawer1 = new BoxTransferTest.ViewUc.UcDrawer();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.ucOpenStage1 = new BoxTransferTest.ViewUc.UcOpenStage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -37,9 +38,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.ucMaskRobot1 = new BoxTransferTest.ViewUc.UcMaskRobot();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.ucDrawer1 = new BoxTransferTest.ViewUc.UcDrawer();
+            this.ucLoadPort1 = new BoxTransferTest.ViewUc.UcLoadPort();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -54,6 +56,13 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Drawer";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // ucDrawer1
+            // 
+            this.ucDrawer1.Location = new System.Drawing.Point(26, 21);
+            this.ucDrawer1.Name = "ucDrawer1";
+            this.ucDrawer1.Size = new System.Drawing.Size(663, 423);
+            this.ucDrawer1.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -75,6 +84,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.ucLoadPort1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(846, 499);
@@ -133,12 +143,12 @@
             this.tabControl1.Size = new System.Drawing.Size(854, 525);
             this.tabControl1.TabIndex = 0;
             // 
-            // ucDrawer1
+            // ucLoadPort1
             // 
-            this.ucDrawer1.Location = new System.Drawing.Point(26, 21);
-            this.ucDrawer1.Name = "ucDrawer1";
-            this.ucDrawer1.Size = new System.Drawing.Size(663, 423);
-            this.ucDrawer1.TabIndex = 0;
+            this.ucLoadPort1.Location = new System.Drawing.Point(18, 3);
+            this.ucLoadPort1.Name = "ucLoadPort1";
+            this.ucLoadPort1.Size = new System.Drawing.Size(587, 488);
+            this.ucLoadPort1.TabIndex = 0;
             // 
             // FmSgsTest
             // 
@@ -150,6 +160,7 @@
             this.Text = "FmMaskRobot";
             this.tabPage5.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -169,5 +180,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private ViewUc.UcBoxRobot ucBoxRobot1;
         private ViewUc.UcDrawer ucDrawer1;
+        private ViewUc.UcLoadPort ucLoadPort1;
     }
 }

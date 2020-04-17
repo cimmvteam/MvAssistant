@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 
-namespace MvAssistant.MaskTool_v0_1.SocketComm
+namespace MvAssistant.MaskTool_v0_1.Drawer_SocketComm
 {
     public class StateObject
     {

@@ -5,7 +5,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Configuration;
 
-namespace MvAssistant.MaskTool_v0_1.SocketComm
+namespace MvAssistant.MaskTool_v0_1.Drawer_SocketComm
 {
     public class AsynchoronousSocketListener
     {

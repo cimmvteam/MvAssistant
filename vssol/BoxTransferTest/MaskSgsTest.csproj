@@ -80,6 +80,12 @@
     <Compile Include="ViewUc\UcDrawer.Designer.cs">
       <DependentUpon>UcDrawer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewUc\UcLoadPort.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewUc\UcLoadPort.Designer.cs">
+      <DependentUpon>UcLoadPort.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewUc\UcMaskRobot.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcDrawer.resx">
       <DependentUpon>UcDrawer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewUc\UcLoadPort.resx">
+      <DependentUpon>UcLoadPort.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcMaskRobot.resx">
       <DependentUpon>UcMaskRobot.cs</DependentUpon>
