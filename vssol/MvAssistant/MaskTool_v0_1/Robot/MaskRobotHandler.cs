@@ -126,8 +126,8 @@ namespace MaskTool.TestMy.Device
                 if (flagErrPos)
                     throw new Exception("Mask robot is not at home");
             }
-            
-                
+
+
 
 
 
@@ -285,7 +285,155 @@ namespace MaskTool.TestMy.Device
 
         #endregion
 
+        #region TeachingPosition
 
+        public List<MvFanucRobotInfo> LPUpsideToOSPutMask()
+        {
+            var poss = new List<MvFanucRobotInfo>();
+
+            //PR[54]-Load Port upside
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -1,
+                y = 303,
+                z = 190,
+                w = 45,
+                p = -89,
+                r = -135,
+            });
+
+            //PR[55]-LoadPort前(未伸出手臂)
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -253,
+                y = 303,
+                z = 190,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[56]-LoadPort上方(伸出手臂)
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -634,
+                y = 303,
+                z = 190,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PE[57]-LoadPort上，取/放Mask右上一點點的位置
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -634,
+                y = 303,
+                z = 79,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[58]-LoadPort上，取/放Mask上面一點點的位置
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -635,
+                y = 283,
+                z = 79,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[59]-LoadPort上，取/放Mask的位置
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -634,
+                y = 283,
+                z = 63,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            return poss;
+        }
+
+        public List<MvFanucRobotInfo> OSGetMaskToLPUpside()
+        {
+            var poss = new List<MvFanucRobotInfo>();
+
+            //PR[59]-LoadPort上，取/放Mask的位置
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -634,
+                y = 283,
+                z = 63,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[58]-LoadPort上，取/放Mask上面一點點的位置
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -635,
+                y = 283,
+                z = 79,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PE[57]-LoadPort上，取/放Mask右上一點點的位置
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -634,
+                y = 303,
+                z = 79,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[56]-LoadPort上方(伸出手臂)
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -634,
+                y = 303,
+                z = 190,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[55]-LoadPort前(未伸出手臂)
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -253,
+                y = 303,
+                z = 190,
+                w = 45,
+                p = -89,
+                r = -47,
+            });
+
+            //PR[54]-Load Port upside
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = -1,
+                y = 303,
+                z = 190,
+                w = 45,
+                p = -89,
+                r = -135,
+            });
+
+            return poss;
+        }
+
+        #endregion
 
         #region IDisposable
         // Flag: Has Dispose already been called?
