@@ -132,7 +132,7 @@ public struct PosTriggerPar
     public int nPolarity;
 };
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Stage
+namespace MvAssistant.DeviceDriver.HiwinStage
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void HMPLEventCBFuncPtr(int value);

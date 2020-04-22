@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-using MvAssistant.DeviceDrive.FanucRobot;
+using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 
 namespace MaskTool.TestMy.Device
 {
