@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component
+namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("753D9DA8-FD7F-4912-8B42-1BEC87402646")]
     public interface IHalStaticElectricityDetector : IHalComponent

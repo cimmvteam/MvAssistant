@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Vibration
+namespace MvAssistant.Mac.v1_0.Hal.Component.Vibration
 {
 
     [GuidAttribute("F0D438F5-27D7-4ABF-ABA8-E3C73647B0A5")]

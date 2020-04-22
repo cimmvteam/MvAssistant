@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Gripper
+namespace MvAssistant.Mac.v1_0.Hal.Component.Gripper
 {
     public enum HalEnumGripperDirection
     {

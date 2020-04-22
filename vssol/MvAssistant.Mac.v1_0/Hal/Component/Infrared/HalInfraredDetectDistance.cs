@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System.Runtime.InteropServices;
-using MaskAutoCleaner.Hal.Intf.Component.Infrared;
+using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
 
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Infrared
+namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
 {
 
     [GuidAttribute("381F012E-54B7-4B97-8AAB-BA123091A849")]

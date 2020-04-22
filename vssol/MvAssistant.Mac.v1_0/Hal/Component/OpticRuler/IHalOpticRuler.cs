@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component
+namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("8E060ECD-CBD7-4493-B7E6-AC1A757E7AE0")]
     public interface IHalOpticRuler : IHalComponent

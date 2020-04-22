@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component
+namespace MvAssistant.Mac.v1_0.Hal.Component.AutoSwitch
 {
     [GuidAttribute("2B175C5C-4E66-4D33-B30C-2370E36D76E5")]
     public interface IHalAutoSwitch : IHalComponent

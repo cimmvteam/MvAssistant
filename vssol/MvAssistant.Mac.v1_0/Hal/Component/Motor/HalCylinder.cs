@@ -1,12 +1,12 @@
 ﻿using System;
-using MaskAutoCleaner.Hal.Intf.Component.Motor;
+using MvAssistant.Mac.v1_0.Hal.Component.Motor;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Motor
+namespace MvAssistant.Mac.v1_0.Hal.Component.Motor
 {
     [GuidAttribute("582437CC-52F7-40E0-8E50-D15EF16C8B62")]
     public class HalCylinder : HalComponentBase, IHalCylinder

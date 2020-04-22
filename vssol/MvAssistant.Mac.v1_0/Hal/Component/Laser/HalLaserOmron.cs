@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System.Runtime.InteropServices;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Laser
+namespace MvAssistant.Mac.v1_0.Hal.Component.Laser
 {
     [GuidAttribute("481067B7-7092-40F6-8904-6D309F7DC45B")]
     public class HalLaserOmron : HalComponentBase, IHalLaser

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Manifest.Exceptions
+namespace MvAssistant.Manifest.Exceptions
 {
     public class NoDriverException : Exception
     {

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Infrared
+namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
 {
     [GuidAttribute("DB7A2EE2-A811-454D-ADC8-CDB71FCBAF84")]
     public interface IHalInfraredPhotointerrupter : IHalComponent

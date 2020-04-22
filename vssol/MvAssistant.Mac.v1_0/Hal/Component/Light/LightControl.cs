@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System.Runtime.InteropServices;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Light
+namespace MvAssistant.Mac.v1_0.Hal.Component.Light
 {
     [GuidAttribute("9D3F03C3-32CA-4992-B236-D3CACDE1235E")]
     public class LightControl : HalComponentBase, IHalLight

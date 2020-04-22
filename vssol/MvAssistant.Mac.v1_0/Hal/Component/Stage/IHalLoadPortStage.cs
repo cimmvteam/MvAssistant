@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Stage
+namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 {
     [GuidAttribute("FAACAFC5-5B69-4782-824B-10AEB3B4BFF6")]
     public interface IHalLoadPortStage : IHalComponent

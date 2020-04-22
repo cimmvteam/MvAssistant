@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Motor
+namespace MvAssistant.Mac.v1_0.Hal.Component.Motor
 {
     [GuidAttribute("D6B8D055-BDB2-4925-8CAD-BFEDEB3A5C38")]
     public interface IHalClamper : IHalComponent

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Robot
+namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
     [GuidAttribute("A3065B41-C1F5-41B0-937E-A13205DB0D46")]
     public interface IHalRobot : IHalComponent
@@ -23,12 +23,12 @@ namespace MaskAutoCleaner.Hal.Intf.Component.Robot
         /// </summary>
         /// <returns></returns>
         int HalMoveAsyn();
+
         /// <summary>
         /// 直線運動
         /// </summary>
         /// <returns></returns>
         int HalMoveStraightAsyn(HalRobotMotion motion);
-
 
         bool HalMoveIsComplete();
         int HalMoveEnd();

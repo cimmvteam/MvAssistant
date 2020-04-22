@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.SECSModule
+namespace MvAssistant.Mac.v1_0.Hal.Component.SECSModule
 {
 
     [GuidAttribute("D94D1EB0-5AB1-4654-B0BE-BF202E85C295")]

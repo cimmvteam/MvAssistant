@@ -1,12 +1,12 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Stage;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Stage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Stage
+namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 {
     [GuidAttribute("04BCF46C-83FF-49FA-A13B-10708C48B57F")]
     public class HalStageHirata : HalComponentBase, IHalInspectionStage

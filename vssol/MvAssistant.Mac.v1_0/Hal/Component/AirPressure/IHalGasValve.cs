@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.AirPressure
+namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
     [GuidAttribute("97D0228B-B781-4C2F-B531-6C6D95AA4B2A")]
     public interface IHalGasValve : IHalComponent

@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf;
-using MaskAutoCleaner.Hal.Intf.Component.Robot;
+﻿using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Robot
+namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
 
     [GuidAttribute("C3782713-449C-4FC2-830C-5D8F0B48C35D")]

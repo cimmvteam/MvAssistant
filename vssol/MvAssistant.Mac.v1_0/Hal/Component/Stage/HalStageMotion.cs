@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Stage
+namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 {
     [GuidAttribute("F1F2FF75-55BC-4BAD-AF8F-A6A4836A6E12")]
     public class HalStageMotion

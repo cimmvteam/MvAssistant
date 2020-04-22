@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component
+namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("AD149AD6-FB29-4E00-B69A-2438DB7D69E8")]
     public interface IHalLight : IHalComponent

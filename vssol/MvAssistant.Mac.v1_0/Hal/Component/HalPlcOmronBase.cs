@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component
+namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     public class HalPlcOmronBase : HalComponentBase
     {

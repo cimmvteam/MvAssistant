@@ -1,18 +1,18 @@
-﻿using MaskAutoCleaner.Hal.Intf.Assembly;
+﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Manifest;
-using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Door;
+using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Door;
 using System.Runtime.InteropServices;
-using MaskAutoCleaner.Hal.Intf.Component.Button;
-using MaskAutoCleaner.Hal.Intf.Component.Infrared;
-using MaskAutoCleaner.Hal.Intf.Component.PresenceDetector;
+using MvAssistant.Mac.v1_0.Hal.Component.Button;
+using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
+using MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector;
 
-namespace MaskAutoCleaner.Hal.Imp.Assembly
+namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [MachineManifest(DeviceEnum.drawer_assembly)]
     [GuidAttribute("419868FC-BF5F-413F-A6DC-EBAEFDD65B8E")]

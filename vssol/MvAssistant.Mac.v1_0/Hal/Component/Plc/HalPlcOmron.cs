@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.IO;
 using MvAssistant.DeviceDrive.OmronPlc;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Plc
+namespace MvAssistant.Mac.v1_0.Hal.Component.Plc
 {
     [GuidAttribute("75427515-83D5-46F6-8CD4-F87BDBD88620")]
     public class HalPlcOmron : HalComponentBase, IHalPlc

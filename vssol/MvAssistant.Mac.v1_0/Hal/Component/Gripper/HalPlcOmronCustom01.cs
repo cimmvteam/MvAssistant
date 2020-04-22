@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Gripper;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Gripper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Gripper
+namespace MvAssistant.Mac.v1_0.Hal.Component.Gripper
 {
     [GuidAttribute("B81CFCFA-8320-4111-9E19-03CB900C5E69")]
     public class HalPlcOmronCustom01 : HalPlcOmronBase, IHalGripper

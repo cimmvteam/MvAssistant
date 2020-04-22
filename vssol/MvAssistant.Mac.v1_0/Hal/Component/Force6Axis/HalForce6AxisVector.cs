@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Force6Axis
+namespace MvAssistant.Mac.v1_0.Hal.Component.Force6Axis
 {
     [GuidAttribute("F5B9C254-4551-453D-AF48-68DE104AD9B8")]
     public class HalForce6AxisVector : MathNet.Numerics.LinearAlgebra.Single.DenseVector

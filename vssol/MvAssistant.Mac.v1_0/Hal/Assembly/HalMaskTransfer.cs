@@ -1,26 +1,22 @@
-﻿using MaskAutoCleaner.Hal.Intf.Assembly;
-using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Force6Axis;
-using MaskAutoCleaner.Hal.Intf.Component.Gripper;
-using MaskAutoCleaner.Hal.Intf.Component.Inclinometer;
-using MaskAutoCleaner.Hal.Intf.Component.Infrared;
-using MaskAutoCleaner.Hal.Intf.Component.Robot;
-using MaskAutoCleaner.Hal.Intf.Component.Stage;
-using MaskAutoCleaner.Manifest;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Camera;
+using MvAssistant.Mac.v1_0.Hal.Component.Force6Axis;
+using MvAssistant.Mac.v1_0.Hal.Component.Gripper;
+using MvAssistant.Mac.v1_0.Hal.Component.Inclinometer;
+using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+using MvAssistant.Mac.v1_0.Hal.Component.Stage;
+using MvAssistant.Manifest;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Assembly
+namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [MachineManifest(DeviceEnum.masktransfer_assembly)]
     [GuidAttribute("BE7EADB1-6821-4CDC-980C-8673F2B50225")]
     public class HalMaskTransfer : HalAssemblyBase, IHalMaskTransfer
     {
-        #region Device Components (請看範例說明)
+        #region Device Components
 
 
         [MachineManifest(DeviceEnum.masktransfer_robot_1)]

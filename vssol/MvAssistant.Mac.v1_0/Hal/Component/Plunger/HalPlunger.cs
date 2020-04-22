@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System.Runtime.InteropServices;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Plunger
+namespace MvAssistant.Mac.v1_0.Hal.Component.Plunger
 {
     [GuidAttribute("6D928A86-C8D2-42AA-AC9B-2B52B5CFA6AE")]
     public class HalPlunger : HalComponentBase, IHalPlunger

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Force6Axis
+namespace MvAssistant.Mac.v1_0.Hal.Component.Force6Axis
 {
     [GuidAttribute("E75DDA06-CF8C-4321-B241-3E509EA7F994")]
     public class IHalForce6AxisEventArgs : EventArgs

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Robot
+namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
     [GuidAttribute("0F7340AE-4295-4659-A626-6F10471152A9")]
     public class HalRobotMotion

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component.Door;
+using MvAssistant.Mac.v1_0.Hal.Component.Door;
 using System.Runtime.InteropServices;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Door
+namespace MvAssistant.Mac.v1_0.Hal.Component.Door
 {
     [GuidAttribute("0B36F57C-364D-45FD-B5E5-74C869B27A5E")]
     public class InSideDoorHirata : HalComponentBase, IHalDoor

@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.PresenceDetector;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.PresenceDetector
+namespace MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector
 {
      [GuidAttribute("2560E105-5260-4BD7-B44A-C11E68FDA732")]
     public class HalPresenceDetector : HalComponentBase, IHalPresenceDetector

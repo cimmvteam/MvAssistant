@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component.AirPressure;
+﻿using MvAssistant.Mac.v1_0.Hal.Component.AirPressure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.AirPressure
+namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
 
     [GuidAttribute("6AF656AC-2333-4BF2-9D34-8847632EF160")]

@@ -1,7 +1,8 @@
-﻿using MaskAutoCleaner.Hal.Intf.Assembly;
-using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Stage;
-using MaskAutoCleaner.Manifest;
+﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Camera;
+using MvAssistant.Mac.v1_0.Hal.Component.Stage;
+using MvAssistant.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Assembly
+namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [MachineManifest(DeviceEnum.inspection_assembly)]
     [GuidAttribute("F6FF301E-55DB-4861-AF19-A90F5A70FDA6")]

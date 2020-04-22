@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.FiberOptic
+namespace MvAssistant.Mac.v1_0.Hal.Component.FiberOptic
 {
     [GuidAttribute("2A01477C-03BA-46C4-994E-8C8F81575583")]
     public class HalFiberOptic : HalComponentBase, IHalFiberOptic

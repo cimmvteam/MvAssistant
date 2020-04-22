@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MaskAutoCleaner.Manifest
+namespace MvAssistant.Manifest
 {
     [XmlRoot("Manifest")]
     public class MachineManifest

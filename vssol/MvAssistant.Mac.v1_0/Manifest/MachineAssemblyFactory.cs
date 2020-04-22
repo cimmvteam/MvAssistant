@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Manifest.Exceptions;
+﻿using MvAssistant.Manifest.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Manifest
+namespace MvAssistant.Manifest
 {
     /// <summary>
     /// Assembly Factory, 根據Manifest.xml描述建立對應的Assembly objects

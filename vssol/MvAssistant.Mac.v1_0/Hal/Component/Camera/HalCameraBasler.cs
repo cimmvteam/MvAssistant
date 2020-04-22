@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf;
-using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Camera
+namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
 {
     [GuidAttribute("A6DDB05A-1D8A-4CC0-8039-0162D6FB4670")]
     public class HalCameraBasler : HalComponentBase, IHalCamera

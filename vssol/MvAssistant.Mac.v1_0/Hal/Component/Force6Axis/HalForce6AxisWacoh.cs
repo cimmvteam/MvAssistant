@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Force6Axis;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Force6Axis;
 using MvAssistant.DeviceDrive;
 using MvAssistant.DeviceDrive.WacohForce;
 using System;
@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Force6Axis
+namespace MvAssistant.Mac.v1_0.Hal.Component.Force6Axis
 {
     [GuidAttribute("DE783AF6-C770-4DCA-B271-E0EEBF5787F6")]
     public class HalForce6AxisWacoh : HalComponentBase, IHalForce6Axis

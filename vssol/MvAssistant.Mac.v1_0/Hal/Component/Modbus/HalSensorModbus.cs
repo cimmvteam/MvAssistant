@@ -1,11 +1,11 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Modbus
+namespace MvAssistant.Mac.v1_0.Hal.Component.Modbus
 {
     [GuidAttribute("A50685A5-7FFB-4FB0-8042-0A3EA70AEDE4")]
     public class HalSensorModbus : HalComponentBase, IHalModbus

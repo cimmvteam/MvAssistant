@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System.Runtime.InteropServices;
-using MaskAutoCleaner.Hal.Intf.Component.Inclinometer;
+using MvAssistant.Mac.v1_0.Hal.Component.Inclinometer;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Inclinometer
+namespace MvAssistant.Mac.v1_0.Hal.Component.Inclinometer
 {
     [Guid("F0AEF882-8298-4DAE-9D7C-99AFEDEAF7F3")]
     public class InclinometerOmronPlc : HalPlcOmronBase, IHalInclinometer

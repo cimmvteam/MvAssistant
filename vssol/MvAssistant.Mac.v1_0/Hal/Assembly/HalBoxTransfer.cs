@@ -1,18 +1,13 @@
-﻿using MaskAutoCleaner.Hal.Intf.Assembly;
-using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Force6Axis;
-using MaskAutoCleaner.Hal.Intf.Component.Gripper;
-using MaskAutoCleaner.Hal.Intf.Component.Robot;
-using MaskAutoCleaner.Hal.Intf.Assembly;
-using MaskAutoCleaner.Manifest;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Camera;
+using MvAssistant.Mac.v1_0.Hal.Component.Force6Axis;
+using MvAssistant.Mac.v1_0.Hal.Component.Gripper;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+using MvAssistant.Manifest;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Assembly
+namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [MachineManifest(DeviceEnum.boxtransfer_assembly)]
     [GuidAttribute("53CD572B-CAB0-498A-8005-B56AB7ED745F")]

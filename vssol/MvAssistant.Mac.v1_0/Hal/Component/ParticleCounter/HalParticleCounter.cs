@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.ParticleCounter
+namespace MvAssistant.Mac.v1_0.Hal.Component.ParticleCounter
 {
     [GuidAttribute("EBAFD2BC-B2B7-4000-9AE3-95A58DC5526B")]
     public class HalParticleCounter : HalComponentBase, IHalParticleCounter

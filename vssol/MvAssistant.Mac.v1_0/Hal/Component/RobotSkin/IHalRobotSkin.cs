@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component
+namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("973AB1DD-AE70-42E9-9B61-1CB763D00430")]
     public interface IHalRobotSkin : IHalComponent

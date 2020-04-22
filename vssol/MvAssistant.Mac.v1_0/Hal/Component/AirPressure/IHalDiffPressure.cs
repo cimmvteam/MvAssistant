@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.AirPressure
+namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
     [GuidAttribute("B94641B4-C070-47B6-8498-CE4CCE0D5574")]
     public interface IHalDiffPressure : IHalComponent

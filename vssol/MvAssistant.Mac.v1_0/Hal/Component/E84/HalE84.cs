@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf;
-using MaskAutoCleaner.Hal.Intf.Component;
+﻿using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.E84
+namespace MvAssistant.Mac.v1_0.Hal.Component.E84
 {
 
     [GuidAttribute("6992B3E5-6303-4C58-944C-50751DC55E50")]

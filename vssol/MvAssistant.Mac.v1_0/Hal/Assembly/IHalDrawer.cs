@@ -1,8 +1,8 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component;
-using MaskAutoCleaner.Hal.Intf.Component.Button;
-using MaskAutoCleaner.Hal.Intf.Component.Door;
-using MaskAutoCleaner.Hal.Intf.Component.Infrared;
-using MaskAutoCleaner.Hal.Intf.Component.PresenceDetector;
+﻿using MvAssistant.Mac.v1_0.Hal.Component;
+using MvAssistant.Mac.v1_0.Hal.Component.Button;
+using MvAssistant.Mac.v1_0.Hal.Component.Door;
+using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
+using MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Assembly
+namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {    
     [GuidAttribute("D4D85EB6-C9DF-4B9D-A0A5-000B0ACEC252")]
     public interface IHalDrawer:IHalAssembly

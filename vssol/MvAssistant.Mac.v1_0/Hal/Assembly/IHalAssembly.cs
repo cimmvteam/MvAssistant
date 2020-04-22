@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Assembly
+namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [GuidAttribute("FB454402-72E5-4C11-8B5C-F81D82591669")]
     public interface IHalAssembly : IHal

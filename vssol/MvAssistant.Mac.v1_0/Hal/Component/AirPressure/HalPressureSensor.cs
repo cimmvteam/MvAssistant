@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.Hal.Intf.Component.AirPressure;
+﻿using MvAssistant.Mac.v1_0.Hal.Component.AirPressure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.AirPressure
+namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
     [GuidAttribute("E99805FA-2669-4A7D-94CC-F7F0AEBF9920")]
     public class HalPressureSensor : HalComponentBase, IHalPressureSensor

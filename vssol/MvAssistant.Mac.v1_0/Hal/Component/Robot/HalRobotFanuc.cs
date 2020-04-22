@@ -1,5 +1,5 @@
-﻿using MaskAutoCleaner.Hal.Intf;
-using MaskAutoCleaner.Hal.Intf.Component.Robot;
+﻿using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Robot
+namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
 
     [GuidAttribute("5EDFE42F-A27A-42B5-9702-11FC84208D74")]

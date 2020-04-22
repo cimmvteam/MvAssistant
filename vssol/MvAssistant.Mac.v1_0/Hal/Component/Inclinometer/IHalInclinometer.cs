@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Hal.Intf.Component.Inclinometer
+namespace MvAssistant.Mac.v1_0.Hal.Component.Inclinometer
 {
     [GuidAttribute("52E1A19D-D84E-463C-A5CD-8F0946DB5309")]
     public interface IHalInclinometer : IHalComponent

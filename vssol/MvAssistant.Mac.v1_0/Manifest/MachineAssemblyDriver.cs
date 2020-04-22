@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MaskAutoCleaner.Manifest
+namespace MvAssistant.Manifest
 {
     [Serializable]
     public class MachineAssemblyDriver

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MaskAutoCleaner.Hal.Intf.Component;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using System.Runtime.InteropServices;
-using MaskAutoCleaner.Hal.Intf.Component.Inclinometer;
+using MvAssistant.Mac.v1_0.Hal.Component.Inclinometer;
 
-namespace MaskAutoCleaner.Hal.Imp.Component.Inclinometer
+namespace MvAssistant.Mac.v1_0.Hal.Component.Inclinometer
 {
     [GuidAttribute("6D330C85-23B3-4534-A3FF-6578DDA1ABA9")]
     public class InclinometerSICK : HalComponentBase, IHalInclinometer
