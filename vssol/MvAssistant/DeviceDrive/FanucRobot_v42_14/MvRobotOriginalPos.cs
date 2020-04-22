@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.FanucRobot
+namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
 {
 
     public class MvRobotOriginalPos  //No use, 要不要刪除?

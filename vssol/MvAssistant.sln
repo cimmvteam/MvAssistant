@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskTool.TestMy", "MaskTool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskSgsTest", "BoxTransferTest\MaskSgsTest.csproj", "{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.v1_0", "MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj", "{1C5A74CE-C1B7-44B6-B09F-59F36C442506}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C5A74CE-C1B7-44B6-B09F-59F36C442506}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5A74CE-C1B7-44B6-B09F-59F36C442506}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5A74CE-C1B7-44B6-B09F-59F36C442506}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5A74CE-C1B7-44B6-B09F-59F36C442506}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
