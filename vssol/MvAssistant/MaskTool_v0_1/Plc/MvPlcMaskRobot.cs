@@ -33,26 +33,17 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Result))
                 {
-                    case 0:
-                        Result = "Invalid";
-                        break;
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Clamp no mask type";
+                        Result = "No mask type";
                         break;
                     case 3:
-                        Result = "Tactile out range";
+                        Result = "";
                         break;
                     case 4:
-                        Result = "Motor error";
-                        break;
-                    case 5:
-                        Result = "Please initial";
-                        break;
-                    case 6:
-                        Result = "System not ready";
+                        Result = "";
                         break;
                 }
 
@@ -163,6 +154,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
+        #region Speed setting
         public void SetSpeed(double ClampSpeed)
         {
             var plc = m_PlcContext;
@@ -174,7 +166,82 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = m_PlcContext;
             return plc.Read<double>(MvEnumPlcVariable.PC_TO_MT_Speed);
         }
+        #endregion
 
+        public Tuple<double, double, double, double> ReadClampGripPos()
+        {
+            var plc = this.m_PlcContext;
+            return new Tuple<double, double, double, double>(
+                plc.Read<double>(MvEnumPlcVariable.MT_TO_PC_Position_Up),
+                plc.Read<double>(MvEnumPlcVariable.MT_TO_PC_Position_Down),
+                plc.Read<double>(MvEnumPlcVariable.MT_TO_PC_Position_Left),
+                plc.Read<double>(MvEnumPlcVariable.MT_TO_PC_Position_Right)
+                );
+        }
+
+        #region CCD Spin
+        public string CCDSpin(int SpinDegree)
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Spin, false);
+                Thread.Sleep(100);
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Spin_Point, SpinDegree);
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Spin, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Spin_Reply), 1000))
+                    throw new MvException("Mask Hand Initial T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Spin_Complete), 5000))
+                    throw new MvException("Mask Hand Initial T2 timeout");
+
+                switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Spin_Result))
+                {
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Have Mask";
+                        break;
+                    case 3:
+                        Result = "";
+                        break;
+                }
+
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Spin, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Spin_Complete), 1000))
+                    throw new MvException("Mask Hand Initial T4 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Spin, false);
+                throw ex;
+            }
+            return Result;
+        }
+
+        public int ReadCCDSpinDegree()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Position_Spin);
+        }
+#endregion
+
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
+        {
+            var plc = this.m_PlcContext;
+            return new Tuple<int, int, int, int, int, int>(
+                plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceFx),
+                plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceFy),
+                plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceFz),
+                plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceMx),
+                plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceMy),
+                plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceMz)
+                );
+        }
+        
         #region 靜電感測
         //設定靜電感測的區間限制
         public void SetStaticElecLimit(double Minimum, double Maximum)

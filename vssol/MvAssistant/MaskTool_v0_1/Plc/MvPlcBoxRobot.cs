@@ -37,22 +37,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Clamp no box type";
+                        Result = "No box type";
                         break;
                     case 3:
-                        Result = "Tactile out range";
-                        break;
-                    case 4:
-                        Result = "Motor error";
-                        break;
-                    case 5:
-                        Result = "Please initial";
-                        break;
-                    case 6:
-                        Result = "System not ready";
-                        break;
-                    case 7:
-                        Result = "No Box";
+                        Result = "No box";
                         break;
                 }
 

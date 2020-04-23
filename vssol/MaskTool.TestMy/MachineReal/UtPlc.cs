@@ -111,7 +111,6 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.Cabinet.ReadPressureDiff());
                 plc.Cabinet.SetExhaustFlow(3, 4);
                 Console.WriteLine(plc.Cabinet.ReadExhaustFlowSetting());
-                Console.WriteLine(plc.Cabinet.ReadExhaustFlow());//硬體應有另一個實際值，待測
                 Console.WriteLine(plc.Cabinet.ReadAreaSensor());
             }
         }
@@ -201,6 +200,10 @@ namespace MaskTool.TestMy.MachineReal
                 //Console.WriteLine(plc.MaskRobot.Initial());
                 //plc.MaskRobot.SetSpeed(10);
                 //Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
+                //Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
+                //plc.MaskRobot.CCDSpin(10);
+                //Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
+                //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
                 //plc.MaskRobot.SetStaticElecLimit(10, 20);
                 //Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 //Console.WriteLine(plc.MaskRobot.ReadStaticElec());

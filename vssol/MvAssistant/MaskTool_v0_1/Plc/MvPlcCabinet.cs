@@ -63,16 +63,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_Exhaust2)
             );
         }
-
-        //讀取節流閥實際的開啟大小
-        public Tuple<int, int> ReadExhaustFlow()
-        {
-            var plc = this.m_PlcContext;
-            return new Tuple<int, int>(
-                plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_1),
-                plc.Read<int>(MvEnumPlcVariable.DR_Analog_Output_Exhaust_2)
-                );
-        }
         #endregion
 
         //讀取光閘是否遮斷，一排一個 各自獨立，遮斷時True，Reset time 500ms

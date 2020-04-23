@@ -218,9 +218,9 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_XY_Speed, StageXYSpeed);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Z_Speed, CcdZSpeed);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_W_Speed, MaskWSpeed);//   angle per second
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_XY_Speed, StageXYSpeed);// (mm/sec)
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_Z_Speed, CcdZSpeed);// (mm/sec)
+            plc.Write(MvEnumPlcVariable.PC_TO_IC_W_Speed, MaskWSpeed);// angle per second(degree/sec)
         }
 
         //讀取手臂可侵入的上下區間極限值

@@ -145,6 +145,34 @@ namespace MaskTool.TestMy.Device
 
         }
 
+        public void MaskRobotMove(List<MvFanucRobotInfo> PathPosition)
+        {
+            this.ldd.StopProgram();
+            if (!this.ldd.ExecutePNS("PNS0101"))
+                throw new Exception("Start PNS0101 Fail");
+            
+            var targets = new List<MvFanucRobotInfo>();
+            targets.AddRange(PathPosition);
+            var stack = new Stack<MvFanucRobotInfo>(PathPosition);
+            targets.AddRange(stack.ToList());
+            
+            float[] target = new float[6];
+            for (var idx = 0; idx < targets.Count; idx++)
+            {
+                var pose = targets[idx];
+
+                target[0] = pose.x;
+                target[1] = pose.y;
+                target[2] = pose.z;
+                target[3] = pose.w;
+                target[4] = pose.p;
+                target[5] = pose.r;
+                this.ldd.Pns0103ContinuityMove(target);
+
+            }
+            
+        }
+
         public List<MvFanucRobotInfo> SgsVerifyGenHomeToBarcodeReader()
         {
             var poss = new List<MvFanucRobotInfo>();
@@ -359,80 +387,6 @@ namespace MaskTool.TestMy.Device
 
             return poss;
         }
-
-        public List<MvFanucRobotInfo> OSGetMaskToLPUpside()
-        {
-            var poss = new List<MvFanucRobotInfo>();
-
-            //PR[59]-LoadPort上，取/放Mask的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 283,
-                z = 63,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[58]-LoadPort上，取/放Mask上面一點點的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -635,
-                y = 283,
-                z = 79,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PE[57]-LoadPort上，取/放Mask右上一點點的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 303,
-                z = 79,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[56]-LoadPort上方(伸出手臂)
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[55]-LoadPort前(未伸出手臂)
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -253,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[54]-Load Port upside
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -1,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -135,
-            });
-
-            return poss;
-        }
-
         #endregion
 
         #region IDisposable

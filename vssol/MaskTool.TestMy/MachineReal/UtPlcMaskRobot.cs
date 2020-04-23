@@ -21,6 +21,10 @@ namespace MaskTool.TestMy.MachineReal
         //        //Console.WriteLine(plc.MaskRobot.Initial());
         //        //plc.MaskRobot.SetSpeed(10);
         //        //Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
+        //        //Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
+        //        //plc.MaskRobot.CCDSpin(10);
+        //        //Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
+        //        //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
         //        //plc.MaskRobot.SetStaticElecLimit(10, 20);
         //        //Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
         //        //Console.WriteLine(plc.MaskRobot.ReadStaticElec());
@@ -68,6 +72,9 @@ namespace MaskTool.TestMy.MachineReal
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
+                Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
+                Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
+                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
             }
         }
 
@@ -81,6 +88,11 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.MaskRobot.Clamp(0));
                 Console.WriteLine(plc.MaskRobot.Unclamp());
                 Console.WriteLine(plc.MaskRobot.ReadHandInspection()); //OK
+                plc.MaskRobot.CCDSpin(10);
+
+
+
+
             }
         }
     }

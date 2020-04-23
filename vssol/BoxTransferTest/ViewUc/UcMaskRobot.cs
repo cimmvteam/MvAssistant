@@ -77,6 +77,7 @@ namespace BoxTransferTest.ViewUc
         {
             try
             {
+                //robotHandler.MaskRobotMove(robotHandler.LPUpsideToOSPutMask()); // Add by LingChengYeh
                 //robotHandler.StartPns0101SgsVerify();
             }
             catch (Exception ex)
