@@ -1,0 +1,112 @@
+﻿using MaskAutoCleaner.Hal.Intf;
+using MaskAutoCleaner.Hal.Intf.Component;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MaskAutoCleaner.Hal.Imp.Component.Camera
+{
+    public class HalCameraFake : IHalCamera
+    {
+        Image image;
+        private string imagePath;
+        public string ImagePath
+        {
+            get { return imagePath; }
+            set { imagePath = value; }
+        }
+
+        public string Image { get; set; }
+
+
+        public Image Shot()
+        {
+            return Shot(imagePath);
+        }
+
+        public void SetExposureTime(double mseconds)
+        {
+
+        }
+
+        public void SetFocus(double percentage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ID
+        {
+            get;
+            set;
+        }
+
+        public string DeviceConnStr
+        {
+            get;
+            set;
+        }
+
+        public int HalConnect()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int HalClose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsConnected()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Image Shot(string imgFilePath)
+        {
+            /// randomly pick up image from folder
+            //var ext = new List<string> { ".jpg", ".bmp", ".png" };
+            //var imgFiles = Directory.GetFiles(imgFolderPath, "*.*", SearchOption.AllDirectories).
+            //    Where(s => ext.Contains(Path.GetExtension(s)));
+
+            //if (imgFiles == null || imgFiles.Count() == 0)
+            //    return new System.Drawing.Bitmap(10, 10);
+
+            //Random rnd = new Random(Guid.NewGuid().GetHashCode());
+            //int rndNum = rnd.Next(imgFiles.Count() - 1);
+            //return new System.Drawing.Bitmap(imgFiles.ElementAt(rndNum).ToString());
+
+<<<<<<< HEAD
+            if (imagePath==null)imgFilePath = @"UserData\Image\off.png";
+=======
+            //imgFilePath = @"UserData\Image\on.png";
+            if (string.IsNullOrEmpty(imgFilePath)) return null;
+
+>>>>>>> 177021f56286d3f342d8b19367d543e5f1a8d5fc
+            if (imgFilePath.Substring(0, 7).ToUpper().Equals("HTTP://") ||
+                imgFilePath.Substring(0, 2).ToUpper().Equals("\\\\"))
+            {
+                //System.Net.WebRequest request = System.Net.WebRequest.Create(imgFilePath);
+                //System.Net.WebResponse response = request.GetResponse();
+                //System.IO.Stream responseStream = response.GetResponseStream();
+                //Bitmap img = new Bitmap(responseStream);
+                //return img;
+                WebClient wc = new WebClient();
+                Stream s = wc.OpenRead(imgFilePath);
+                Bitmap img = new Bitmap(s);
+                return img;
+            }
+            else
+            {
+                imgFilePath = imgFilePath.Replace("\\", "\\\\");
+                Bitmap img = new Bitmap(imgFilePath);
+                return img;
+            }
+        }
+    }
+}

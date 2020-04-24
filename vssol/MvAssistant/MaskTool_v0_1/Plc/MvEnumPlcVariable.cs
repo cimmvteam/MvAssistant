@@ -7,11 +7,19 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 {
     public enum MvEnumPlcVariable
     {
-        //PLC Connection
+        //PLC Connection & Public Area
         PC_TO_PLC_CheckClock,//PLC軟體狀態檢查
         PC_TO_PLC_CheckClock_Reply,
+        PC_TO_DR_Red,
+        PC_TO_DR_Orange,
+        PC_TO_DR_Blue,
+        PC_TO_DR_Buzzer,//0: None 1~4:Have
         Reset_ALL,
         Reset_ALL_Complete,
+        PC_TO_BT_EMS,
+        PC_TO_MT_EMS,
+        PC_TO_OS_EMS,
+        PC_TO_IC_EMS,
 
         //Cabinet(A01)
         PC_TO_DB_DP1Limit, //壓差設定數值寫入 AWord
@@ -20,12 +28,6 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         DB_TO_PC_DP2,
         PC_TO_DB_Exhaust1, //節流閥開啟大小寫入 Word
         PC_TO_DB_Exhaust2,
-        DR_Analog_Output_Exhaust_1,//節流閥回授訊號
-        DR_Analog_Output_Exhaust_2,
-        PC_TO_DR_Red,
-        PC_TO_DR_Orange,
-        PC_TO_DR_Blue,
-        PC_TO_DR_Buzzer,//0: None 1~4:Have
         DR_TO_PC_Area1,//一排一個 各自獨立，遮斷時True，Reset time 500ms
         DR_TO_PC_Area2,
         DR_TO_PC_Area3,
@@ -106,6 +108,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         BT_TO_PC_ForceMz,
         BT_TO_PC_Vacuum,
         BT_TO_PC_A03Status,
+        PC_TO_BT_RobotMoving,
 
         //Mask Robot Hand(A04)
         PC_TO_MT_Clamp,
@@ -122,10 +125,35 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         MT_TO_PC_Initial_A04_Complete,
         MT_TO_PC_Initial_A04_Result,
         PC_TO_MT_Speed,
+        PC_TO_MT_Spin_Speed,
+        PC_TO_MT_Tactile_Limit,
+        MT_TO_PC_Position_Up,
+        MT_TO_PC_Position_Down,
+        MT_TO_PC_Position_Left,
+        MT_TO_PC_Position_Right,
+        PC_TO_MT_Spin_Point,
+        PC_TO_MT_Spin,
+        MT_TO_PC_Spin_Reply,
+        MT_TO_PC_Spin_Complete,
+        MT_TO_PC_Spin_Result,
+        MT_TO_PC_Position_Spin,
+        PC_TO_MT_ForceLimit_Fx,
+        PC_TO_MT_ForceLimit_Fy,
+        PC_TO_MT_ForceLimit_Fz,
+        PC_TO_MT_ForceLimit_Mx,
+        PC_TO_MT_ForceLimit_My,
+        PC_TO_MT_ForceLimit_Mz,
+        MT_TO_PC_ForceFx,
+        MT_TO_PC_ForceFy,
+        MT_TO_PC_ForceFz,
+        MT_TO_PC_ForceMx,
+        MT_TO_PC_ForceMy,
+        MT_TO_PC_ForceMz,
         MT_TO_PC_StaticElectricity_Limit_UP,
         MT_TO_PC_StaticElectricity_Limit_Down,
         MT_TO_PC_StaticElectricity_Value,
         MT_TO_PC_A04Status,
+        PC_TO_MT_RobotMoving,
 
         //Open Stage(A05)
         PC_TO_OS_Open,//開盒

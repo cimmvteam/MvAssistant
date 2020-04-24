@@ -52,6 +52,7 @@ namespace MaskTool.TestMy.MachineReal
         //            plc.CoverFanCtrl(i, (600));
         //        }
         //        Console.WriteLine(plc.ReadCoverFanSpeed());
+        //        plc.EMSAlarm(true, false, false, false);
         //    }
         //}
 
@@ -92,6 +93,19 @@ namespace MaskTool.TestMy.MachineReal
                     plc.CoverFanCtrl(i, (600 + i * 50));
                 }
                 Console.WriteLine(plc.ReadCoverFanSpeed());
+            }
+        }
+
+        [TestMethod]
+        public void TestEMSSignal()
+        {
+            using (var plc = new MvPlcContext())
+            {
+                plc.Connect("192.168.0.200", 2);
+                plc.EMSAlarm(true, false, false, false);
+                plc.EMSAlarm(false, true, false, false);
+                plc.EMSAlarm(false, false, true, false);
+                plc.EMSAlarm(false, false, false, true);
             }
         }
 

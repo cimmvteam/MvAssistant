@@ -37,22 +37,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Clamp no box type";
+                        Result = "No box type";
                         break;
                     case 3:
-                        Result = "Tactile out range";
-                        break;
-                    case 4:
-                        Result = "Motor error";
-                        break;
-                    case 5:
-                        Result = "Please initial";
-                        break;
-                    case 6:
-                        Result = "System not ready";
-                        break;
-                    case 7:
-                        Result = "No Box";
+                        Result = "No box";
                         break;
                 }
 
@@ -363,6 +351,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                     break;
             }
             return Result;
+        }
+
+        //當手臂作動時，需要讓指令讓PLC知道目前Robot是移動狀態
+        public void RobotMoving(bool isMoving)
+        {
+            var plc = m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_RobotMoving, isMoving);
         }
     }
 }

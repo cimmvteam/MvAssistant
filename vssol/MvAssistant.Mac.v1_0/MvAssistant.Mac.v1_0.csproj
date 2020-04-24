@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1C5A74CE-C1B7-44B6-B09F-59F36C442506}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MvAssistant.Mac.v1_0</RootNamespace>
+    <AssemblyName>MvAssistant.Mac.v1_0</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Hal\AssemblyFake\HalBoxTransferFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalCabinetFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalCleanChamberFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalDrawerFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalInspectionChamberFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalLoadPortFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalMaskTransferFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalOpenStageFake.cs" />
+    <Compile Include="Hal\AssemblyFake\HalUniversalFake.cs" />
+    <Compile Include="Hal\Assembly\HalAssemblyBase.cs" />
+    <Compile Include="Hal\Assembly\HalBoxTransfer.cs" />
+    <Compile Include="Hal\Assembly\HalCabinet.cs" />
+    <Compile Include="Hal\Assembly\HalCleanChamber.cs" />
+    <Compile Include="Hal\Assembly\HalDrawer.cs" />
+    <Compile Include="Hal\Assembly\HalInspectionChamber.cs" />
+    <Compile Include="Hal\Assembly\HalLoadPort.cs" />
+    <Compile Include="Hal\Assembly\HalMaskTransfer.cs" />
+    <Compile Include="Hal\Assembly\HalOpenStage.cs" />
+    <Compile Include="Hal\Assembly\HalUniversal.cs" />
+    <Compile Include="Hal\Assembly\IHalAssembly.cs" />
+    <Compile Include="Hal\Assembly\IHalBoxTransfer.cs" />
+    <Compile Include="Hal\Assembly\IHalCabinet.cs" />
+    <Compile Include="Hal\Assembly\IHalCleanChamber.cs" />
+    <Compile Include="Hal\Assembly\IHalDrawer.cs" />
+    <Compile Include="Hal\Assembly\IHalInspectionChamber.cs" />
+    <Compile Include="Hal\Assembly\IHalLoadPort.cs" />
+    <Compile Include="Hal\Assembly\IHalMaskTransfer.cs" />
+    <Compile Include="Hal\Assembly\IHalOpenStage.cs" />
+    <Compile Include="Hal\Assembly\IHalUniversal.cs" />
+    <Compile Include="Hal\Component\AirPressure\HalDiffPressure.cs" />
+    <Compile Include="Hal\Component\AirPressure\HalGasValve.cs" />
+    <Compile Include="Hal\Component\AirPressure\HalPressureCtrl.cs" />
+    <Compile Include="Hal\Component\AirPressure\HalPressureSensor.cs" />
+    <Compile Include="Hal\Component\AirPressure\IHalDiffPressure.cs" />
+    <Compile Include="Hal\Component\AirPressure\IHalGasValve.cs" />
+    <Compile Include="Hal\Component\AirPressure\IHalPressureCtrl.cs" />
+    <Compile Include="Hal\Component\AirPressure\IHalPressureSensor.cs" />
+    <Compile Include="Hal\Component\AutoSwitch\HalAutoSwitch.cs" />
+    <Compile Include="Hal\Component\AutoSwitch\IHalAutoSwitch.cs" />
+    <Compile Include="Hal\Component\Button\HalButton.cs" />
+    <Compile Include="Hal\Component\Button\IHalButton.cs" />
+    <Compile Include="Hal\Component\Camera\HalCameraBasler.cs" />
+    <Compile Include="Hal\Component\Camera\HalCameraiDSU3Cam.cs" />
+    <Compile Include="Hal\Component\Camera\HalCameraSenTech.cs" />
+    <Compile Include="Hal\Component\Camera\IHalCamera.cs" />
+    <Compile Include="Hal\Component\Door\IHalDoor.cs" />
+    <Compile Include="Hal\Component\Door\InSideDoorHirata.cs" />
+    <Compile Include="Hal\Component\E84\HalE84.cs" />
+    <Compile Include="Hal\Component\E84\IHalE84.cs" />
+    <Compile Include="Hal\Component\FiberOptic\HalFiberOptic.cs" />
+    <Compile Include="Hal\Component\FiberOptic\IHalFiberOptic.cs" />
+    <Compile Include="Hal\Component\Force6Axis\HalForce6AxisVector.cs" />
+    <Compile Include="Hal\Component\Force6Axis\HalForce6AxisWacoh.cs" />
+    <Compile Include="Hal\Component\Force6Axis\IHalForce6Axis.cs" />
+    <Compile Include="Hal\Component\Force6Axis\IHalForce6AxisEventArgs.cs" />
+    <Compile Include="Hal\Component\Gripper\HalEnumGripperDirection.cs" />
+    <Compile Include="Hal\Component\Gripper\HalGripperCmd.cs" />
+    <Compile Include="Hal\Component\Gripper\HalGripperToyo.cs" />
+    <Compile Include="Hal\Component\Gripper\HalPlcOmronCustom01.cs" />
+    <Compile Include="Hal\Component\Gripper\IHalGripper.cs" />
+    <Compile Include="Hal\Component\HalComponentBase.cs" />
+    <Compile Include="Hal\Component\HalPlcOmronBase.cs" />
+    <Compile Include="Hal\Component\Identifier\HalBarcodeReader.cs" />
+    <Compile Include="Hal\Component\Identifier\HalRfidReader.cs" />
+    <Compile Include="Hal\Component\Identifier\IHalBarcodeReader.cs" />
+    <Compile Include="Hal\Component\Identifier\IHalRfidReader.cs" />
+    <Compile Include="Hal\Component\IHalComponent.cs" />
+    <Compile Include="Hal\Component\Inclinometer\IHalInclinometer.cs" />
+    <Compile Include="Hal\Component\Inclinometer\InclinometerOmronPlc.cs" />
+    <Compile Include="Hal\Component\Inclinometer\InclinometerSICK.cs" />
+    <Compile Include="Hal\Component\Infrared\HalInfraredDetectDistance.cs" />
+    <Compile Include="Hal\Component\Infrared\HalInfraredPhotointerrupter.cs" />
+    <Compile Include="Hal\Component\Infrared\IHalInfraredDetectDistance.cs" />
+    <Compile Include="Hal\Component\Infrared\IHalInfraredPhotointerrupter.cs" />
+    <Compile Include="Hal\Component\Ionizer\HalIonizer.cs" />
+    <Compile Include="Hal\Component\Ionizer\IHalIonizer.cs" />
+    <Compile Include="Hal\Component\Laser\HalLaserOmron.cs" />
+    <Compile Include="Hal\Component\Laser\IHalLaser.cs" />
+    <Compile Include="Hal\Component\Light\IHalLight.cs" />
+    <Compile Include="Hal\Component\Light\LightControl.cs" />
+    <Compile Include="Hal\Component\Modbus\HalSensorModbus.cs" />
+    <Compile Include="Hal\Component\Modbus\IHalModbus.cs" />
+    <Compile Include="Hal\Component\Motor\HalCylinder.cs" />
+    <Compile Include="Hal\Component\Motor\HalLoadClamper.cs" />
+    <Compile Include="Hal\Component\Motor\IHalClamper.cs" />
+    <Compile Include="Hal\Component\Motor\IHalCylinder.cs" />
+    <Compile Include="Hal\Component\Motor\IHalMotor.cs" />
+    <Compile Include="Hal\Component\OpticRuler\IHalOpticRuler.cs" />
+    <Compile Include="Hal\Component\ParticleCounter\HalParticleCounter.cs" />
+    <Compile Include="Hal\Component\ParticleCounter\IHalParticleCounter.cs" />
+    <Compile Include="Hal\Component\Plc\HalPlcOmron.cs" />
+    <Compile Include="Hal\Component\Plc\IHalPlc.cs" />
+    <Compile Include="Hal\Component\Plunger\HalPlunger.cs" />
+    <Compile Include="Hal\Component\Plunger\IHalPlunger.cs" />
+    <Compile Include="Hal\Component\PresenceDetector\HalPresenceDetector.cs" />
+    <Compile Include="Hal\Component\PresenceDetector\IHalPresenceDetector.cs" />
+    <Compile Include="Hal\Component\RobotSkin\HalRobotSkinMechaVision.cs" />
+    <Compile Include="Hal\Component\RobotSkin\IHalRobotSkin.cs" />
+    <Compile Include="Hal\Component\Robot\HalRobotEnumMotionType.cs" />
+    <Compile Include="Hal\Component\Robot\HalRobotFanuc.cs" />
+    <Compile Include="Hal\Component\Robot\HalRobotMotion.cs" />
+    <Compile Include="Hal\Component\Robot\HalRobotPose.cs" />
+    <Compile Include="Hal\Component\Robot\HalRobotStaubli.cs" />
+    <Compile Include="Hal\Component\Robot\IHalRobot.cs" />
+    <Compile Include="Hal\Component\SECSModule\HalSECSModule.cs" />
+    <Compile Include="Hal\Component\SECSModule\IHalSECSModule.cs" />
+    <Compile Include="Hal\Component\Stage\HalStageHirata.cs" />
+    <Compile Include="Hal\Component\Stage\HalStageHiwin.cs" />
+    <Compile Include="Hal\Component\Stage\HalStageMotion.cs" />
+    <Compile Include="Hal\Component\Stage\IHalInspectionStage.cs" />
+    <Compile Include="Hal\Component\Stage\IHalLoadPortStage.cs" />
+    <Compile Include="Hal\Component\Stage\IHalPellicleDeformStage.cs" />
+    <Compile Include="Hal\Component\StaticElectricity\HalStaticElectricityDetector.cs" />
+    <Compile Include="Hal\Component\StaticElectricity\IHalStaticElectricityDetector.cs" />
+    <Compile Include="Hal\Component\Tactile\HalTactileRightHandRobotics.cs" />
+    <Compile Include="Hal\Component\Tactile\IHalTactile.cs" />
+    <Compile Include="Hal\ComponentFake\AirPressure\HalDiffPressureFake.cs" />
+    <Compile Include="Hal\ComponentFake\AirPressure\HalGasValveFake.cs" />
+    <Compile Include="Hal\ComponentFake\AirPressure\HalPressureCtrlFake.cs" />
+    <Compile Include="Hal\ComponentFake\AirPressure\HalPressureSensorFake.cs" />
+    <Compile Include="Hal\ComponentFake\AutoSwitch\HalAutoSwitchFake.cs" />
+    <Compile Include="Hal\ComponentFake\Button\HalButtonFake.cs" />
+    <Compile Include="Hal\ComponentFake\Camera\HalCameraFake.cs" />
+    <Compile Include="Hal\ComponentFake\Door\DoorFake.cs" />
+    <Compile Include="Hal\ComponentFake\E84\HalE84Fake.cs" />
+    <Compile Include="Hal\ComponentFake\FiberOptic\HalFiberOpticFake.cs" />
+    <Compile Include="Hal\ComponentFake\Force6Axis\HalForce6AxisFake.cs" />
+    <Compile Include="Hal\ComponentFake\Gripper\HalGripperFake.cs" />
+    <Compile Include="Hal\ComponentFake\Identifier\HalBarcodeReaderFake.cs" />
+    <Compile Include="Hal\ComponentFake\Identifier\HalRfidReaderFake.cs" />
+    <Compile Include="Hal\ComponentFake\Inclinometer\InclinometerFake.cs" />
+    <Compile Include="Hal\ComponentFake\Infrared\HalInfraredDetectDistance.cs" />
+    <Compile Include="Hal\ComponentFake\Infrared\HalInfraredPhotointerrupter.cs" />
+    <Compile Include="Hal\ComponentFake\Ionizer\HalIonizerFake.cs" />
+    <Compile Include="Hal\ComponentFake\Laser\HalLaserFake.cs" />
+    <Compile Include="Hal\ComponentFake\Light\LightControlFake.cs" />
+    <Compile Include="Hal\ComponentFake\Modbus\HalSensorModbusFake.cs" />
+    <Compile Include="Hal\ComponentFake\Motor\HalCylinderFake.cs" />
+    <Compile Include="Hal\ComponentFake\Motor\HalLoadClamperFake.cs" />
+    <Compile Include="Hal\ComponentFake\ParticleCounter\HalParticleCountetFake.cs" />
+    <Compile Include="Hal\ComponentFake\Plc\HalPlcFake.cs" />
+    <Compile Include="Hal\ComponentFake\Plunger\HalPlungerFake.cs" />
+    <Compile Include="Hal\ComponentFake\PresenceDetector\HalPresenceDetectorFake.cs" />
+    <Compile Include="Hal\ComponentFake\RobotSkin\HalRobotSkinFake.cs" />
+    <Compile Include="Hal\ComponentFake\Robot\HalRobotFake.cs" />
+    <Compile Include="Hal\ComponentFake\Stage\HalInspectionStageFake.cs" />
+    <Compile Include="Hal\ComponentFake\Stage\HalLoadPortStageFake.cs" />
+    <Compile Include="Hal\ComponentFake\Stage\HalPellicleDeformStageFake.cs" />
+    <Compile Include="Hal\ComponentFake\StaticElectricity\HalStaticElectricityDetectorFake.cs" />
+    <Compile Include="Hal\ComponentFake\Tactile\HalTactileFake.cs" />
+    <Compile Include="Hal\ComponentFake\Vibration\HalVibrationFake.cs" />
+    <Compile Include="Hal\Component\Vibration\HalVibrationCwTech.cs" />
+    <Compile Include="Hal\Component\Vibration\IHalVibration.cs" />
+    <Compile Include="Hal\HalBase.cs" />
+    <Compile Include="Hal\HalFakeBase.cs" />
+    <Compile Include="Hal\HalUtil.cs" />
+    <Compile Include="Hal\IHal.cs" />
+    <Compile Include="Hal\IHalFake.cs" />
+    <Compile Include="Manifest\DeviceEnum.cs" />
+    <Compile Include="Manifest\Exceptions\AssemblyCreationException.cs" />
+    <Compile Include="Manifest\Exceptions\HalObjectNotFoundException.cs" />
+    <Compile Include="Manifest\Exceptions\GenCheckSumException.cs" />
+    <Compile Include="Manifest\Exceptions\InvalidCheckSumException.cs" />
+    <Compile Include="Manifest\Exceptions\InvalidManifestException.cs" />
+    <Compile Include="Manifest\Exceptions\LackAssemblyElementException.cs" />
+    <Compile Include="Manifest\Exceptions\ManifestAccessException.cs" />
+    <Compile Include="Manifest\Exceptions\ManifestSemanticException.cs" />
+    <Compile Include="Manifest\Exceptions\MultipleDriverException.cs" />
+    <Compile Include="Manifest\Exceptions\NoDriverException.cs" />
+    <Compile Include="Manifest\Exceptions\NoPropertyException.cs" />
+    <Compile Include="Manifest\IManifestMachine.cs" />
+    <Compile Include="Manifest\MachineAssembly.cs" />
+    <Compile Include="Manifest\MachineAssemblyDriver.cs" />
+    <Compile Include="Manifest\MachineAssemblyDriverReference.cs" />
+    <Compile Include="Manifest\MachineAssemblyFactory.cs" />
+    <Compile Include="Manifest\MachineManifest.cs" />
+    <Compile Include="Manifest\MachineManifestAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Hal\ComponentFake\Camera\HalCameraFake.cs.orig" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
+      <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
+      <Name>MvAssistant</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

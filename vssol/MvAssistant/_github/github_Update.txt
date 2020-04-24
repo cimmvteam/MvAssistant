@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'mask robot'
+git commit -m 'update hal'
 git pull
 git push
 cd ..

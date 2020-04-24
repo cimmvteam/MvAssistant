@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MvAssistant</RootNamespace>
     <AssemblyName>MvAssistant</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,17 +31,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CIPCompolet">
       <HintPath>..\DLL\OmronPLC\CIPCompolet.dll</HintPath>
     </Reference>
+    <Reference Include="CToolkit.v1_1.Fw">
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Std">
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.FRRJIf">
       <HintPath>..\DLL\FanucDll\Interop.FRRJIf.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="MathNet.Numerics, Version=4.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.4.9.0\lib\net40\MathNet.Numerics.dll</HintPath>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -75,6 +84,11 @@
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />
+    <Compile Include="DeviceDrive\WacohForce\WacohForceEnumConnectionStatus.cs" />
+    <Compile Include="DeviceDrive\WacohForce\WacohForceLdd.cs" />
+    <Compile Include="DeviceDrive\WacohForce\WacohForceMessageEventArgs.cs" />
+    <Compile Include="DeviceDrive\WacohForce\WacohForceMessageReceiver.cs" />
+    <Compile Include="DeviceDrive\WacohForce\WacohForceVector.cs" />
     <Compile Include="Logging\IMvLoggable.cs" />
     <Compile Include="Logging\MvLogger.cs" />
     <Compile Include="Logging\MvLoggerDisplayEnum.cs" />
@@ -94,12 +108,12 @@
     <Compile Include="MaskTool_v0_1\Robot\BoxRobotHandler.cs" />
     <Compile Include="MaskTool_v0_1\Robot\MaskRobotHandler.cs" />
     <Compile Include="MaskTool_v0_1\Robot\RobotMotionInfo.cs" />
-    <Compile Include="MaskTool_v0_1\SocketComm\AsyncClient.cs" />
-    <Compile Include="MaskTool_v0_1\SocketComm\AsyncHost.cs" />
-    <Compile Include="MaskTool_v0_1\SocketComm\EnumSocketCMDList.cs" />
-    <Compile Include="MaskTool_v0_1\SocketComm\SocketMsgTranslator.cs" />
-    <Compile Include="MaskTool_v0_1\SocketComm\StateObject.cs" />
-    <Compile Include="MaskTool_v0_1\SocketComm\UDPSocket.cs" />
+    <Compile Include="MaskTool_v0_1\Drawer_SocketComm\AsyncClient.cs" />
+    <Compile Include="MaskTool_v0_1\Drawer_SocketComm\AsyncHost.cs" />
+    <Compile Include="MaskTool_v0_1\Drawer_SocketComm\EnumSocketCMDList.cs" />
+    <Compile Include="MaskTool_v0_1\Drawer_SocketComm\SocketMsgTranslator.cs" />
+    <Compile Include="MaskTool_v0_1\Drawer_SocketComm\StateObject.cs" />
+    <Compile Include="MaskTool_v0_1\Drawer_SocketComm\UDPSocket.cs" />
     <Compile Include="MvEventUtil.cs" />
     <Compile Include="MvException.cs" />
     <Compile Include="MvLog.cs" />
@@ -112,6 +126,7 @@
     <Compile Include="Tasking\MvSpinSleep.cs" />
     <Compile Include="Tasking\MvSpinWait.cs" />
     <Compile Include="Tasking\MvTask.cs" />
+    <Compile Include="TypeMap\TypeMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Interop.FRRJIf.dll">

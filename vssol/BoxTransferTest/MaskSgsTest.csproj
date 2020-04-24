@@ -34,8 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,6 +88,12 @@
     <Compile Include="ViewUc\UcDrawer.Designer.cs">
       <DependentUpon>UcDrawer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewUc\UcLoadPort.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewUc\UcLoadPort.Designer.cs">
+      <DependentUpon>UcLoadPort.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewUc\UcMaskRobot.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -117,12 +131,16 @@
     <EmbeddedResource Include="ViewUc\UcDrawer.resx">
       <DependentUpon>UcDrawer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ViewUc\UcLoadPort.resx">
+      <DependentUpon>UcLoadPort.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcMaskRobot.resx">
       <DependentUpon>UcMaskRobot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcOpenStage.resx">
       <DependentUpon>UcOpenStage.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -137,9 +155,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MaskTool.TestMy\MaskTool.TestMy.csproj">
+    <ProjectReference Include="..\MaskTool.TestMy\MvAssistant.Mac.MyTest.csproj">
       <Project>{c720df8c-b6fe-4284-a4ae-b1fec882f9cd}</Project>
-      <Name>MaskTool.TestMy</Name>
+      <Name>MvAssistant.Mac.MyTest</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>

@@ -55,7 +55,6 @@ namespace MaskTool.TestMy.MachineReal
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.Cabinet.ReadPressureDiff());
-                Console.WriteLine(plc.Cabinet.ReadExhaustFlow());//硬體應有另一個實際值，待測
             }
         }
 
