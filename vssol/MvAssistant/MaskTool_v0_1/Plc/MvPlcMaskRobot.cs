@@ -28,7 +28,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Reply), 1000))
                     throw new MvException("Mask Hand Clamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Complete), 10 * 1000))
                     throw new MvException("Mask Hand Clamp T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ClampCmd_Result))
@@ -73,7 +73,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Reply), 1000))
                     throw new MvException("Mask Hand Unclamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Complete), 10 * 1000))
                     throw new MvException("Mask Hand Unclamp T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_UnclampCmd_Result))
@@ -125,7 +125,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Reply), 1000))
                     throw new MvException("Mask Hand Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Complete), 120 * 1000))
                     throw new MvException("Mask Hand Initial T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Initial_A04_Result))
@@ -155,7 +155,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         #region Speed setting
-        public void SetSpeed(double? ClampSpeed, double? CCDSpinSpeed, double? SpinDegreeLimit)
+        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed, int? SpinDegreeLimit)
         {
             var plc = m_PlcContext;
             if (ClampSpeed != null)
@@ -166,10 +166,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Write(MvEnumPlcVariable.PC_TO_MT_Tactile_Limit, SpinDegreeLimit);
         }
 
-        public double ReadSpeedSetting()
+        public Tuple<double, long, int> ReadSpeedSetting()
         {
             var plc = m_PlcContext;
-            return plc.Read<double>(MvEnumPlcVariable.PC_TO_MT_Speed);
+            return new Tuple<double, long, int>(
+                  plc.Read<double>(MvEnumPlcVariable.PC_TO_MT_Speed),
+                  plc.Read<long>(MvEnumPlcVariable.PC_TO_MT_Spin_Speed),
+                  plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_Tactile_Limit)
+                );
         }
         #endregion
 
@@ -198,7 +202,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Spin_Reply), 1000))
                     throw new MvException("Mask Hand Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Spin_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.MT_TO_PC_Spin_Complete), 20 * 1000))
                     throw new MvException("Mask Hand Initial T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Spin_Result))
@@ -207,7 +211,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Have Mask";
+                        Result = "Out of range";
                         break;
                     case 3:
                         Result = "";
@@ -227,10 +231,10 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             return Result;
         }
 
-        public int ReadCCDSpinDegree()
+        public long ReadCCDSpinDegree()
         {
             var plc = this.m_PlcContext;
-            return plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Position_Spin);
+            return plc.Read<long>(MvEnumPlcVariable.MT_TO_PC_Position_Spin);
         }
         #endregion
 

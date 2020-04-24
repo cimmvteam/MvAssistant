@@ -327,7 +327,7 @@ namespace MvAssistant.MaskTool_v0_1.Plc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Reply), 1000))
                     throw new MvException("Open Stage Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Complete), 30 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Complete), 300 * 1000))
                     throw new MvException("Open Stage Initial T2 timeout");
 
                 switch (plc.Read<int>(MvEnumPlcVariable.OS_TO_PC_Initial_A05_Result))

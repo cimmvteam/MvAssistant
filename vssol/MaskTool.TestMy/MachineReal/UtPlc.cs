@@ -67,6 +67,10 @@ namespace MaskTool.TestMy.MachineReal
                 }
                 Console.WriteLine(plc.ReadCoverFanSpeed());
                 plc.EMSAlarm(true, false, false, false);
+                plc.EMSAlarm(false, true, false, false);
+                plc.EMSAlarm(false, false, true, false);
+                plc.EMSAlarm(false, false, false, true);
+                plc.EMSAlarm(false, false, false, false);
             }
         }
 
@@ -197,44 +201,44 @@ namespace MaskTool.TestMy.MachineReal
             {
                 plc.Connect("192.168.0.200", 2);
 
-                //Console.WriteLine(plc.MaskRobot.Clamp(0));
-                //Console.WriteLine(plc.MaskRobot.Unclamp());
-                //Console.WriteLine(plc.MaskRobot.Initial());
-                //plc.MaskRobot.SetSpeed(10,null,10);
-                //Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
-                //Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
-                //plc.MaskRobot.CCDSpin(10);
-                //Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
-                //plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
-                //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
-                //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
-                //plc.MaskRobot.SetStaticElecLimit(10, 20);
-                //Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
-                //Console.WriteLine(plc.MaskRobot.ReadStaticElec());
-                //Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
+                Console.WriteLine(plc.MaskRobot.Clamp(1));//OK
+                Console.WriteLine(plc.MaskRobot.Unclamp());//OK
+                Console.WriteLine(plc.MaskRobot.Initial());//OK
+                plc.MaskRobot.SetSpeed(6, 8, 5);//OK
+                Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());//OK
+                Console.WriteLine(plc.MaskRobot.ReadClampGripPos());//OK
+                plc.MaskRobot.CCDSpin(1000);//need test
+                Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
+                plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
+                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
+                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
+                plc.MaskRobot.SetStaticElecLimit(10, 20);
+                Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
+                Console.WriteLine(plc.MaskRobot.ReadStaticElec());
+                Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
                 Console.WriteLine(plc.MaskRobot.ReadHandInspection());//OK
                 plc.MaskRobot.RobotMoving(true);
             }
         }
 
         [TestMethod]
-        public void TestPlcOpenStage()
+        public void TestPlcOpenStage()//OK
         {
             using (var plc = new MvPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
 
-                //Console.WriteLine(plc.OpenStage.Open());
-                //Console.WriteLine(plc.OpenStage.Close());
-                //Console.WriteLine(plc.OpenStage.Clamp());
-                //Console.WriteLine(plc.OpenStage.Unclamp());
-                //Console.WriteLine(plc.OpenStage.SortClamp());
-                //Console.WriteLine(plc.OpenStage.SortUnclamp());
-                //Console.WriteLine(plc.OpenStage.Lock());
-                //Console.WriteLine(plc.OpenStage.Initial());
-                plc.OpenStage.SetBoxType(0);
+                Console.WriteLine(plc.OpenStage.Open());
+                Console.WriteLine(plc.OpenStage.Close());
+                Console.WriteLine(plc.OpenStage.Clamp());
+                Console.WriteLine(plc.OpenStage.Unclamp());
+                Console.WriteLine(plc.OpenStage.SortClamp());
+                Console.WriteLine(plc.OpenStage.SortUnclamp());
+                Console.WriteLine(plc.OpenStage.Lock());
+                Console.WriteLine(plc.OpenStage.Initial());
+                plc.OpenStage.SetBoxType(1);
                 Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
-                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, true));
+                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
                 Console.WriteLine(plc.OpenStage.ReadClampStatus());
                 Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
                 Console.WriteLine(plc.OpenStage.ReadSliderPosition());
@@ -255,6 +259,7 @@ namespace MaskTool.TestMy.MachineReal
                 plc.Connect("192.168.0.200", 2);
                 boolTestStop = false;
                 plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
+                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
                 Console.WriteLine(plc.OpenStage.Initial());
                 //for (int i = 0; i < 1; i++)
                 while (boolTestStop == false)
@@ -269,8 +274,8 @@ namespace MaskTool.TestMy.MachineReal
                     if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Open());
                     if (boolTestStop) break;
-                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));//Mask Robot入侵將MTIntrude訊號改為False
-                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, true));//沒有Robot入侵時，將訊號改為True
+                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));
+                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
                     if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Close());
                     if (boolTestStop) break;
