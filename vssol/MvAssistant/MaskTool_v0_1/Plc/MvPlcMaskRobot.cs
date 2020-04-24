@@ -155,10 +155,15 @@ namespace MvAssistant.MaskTool_v0_1.Plc
         }
 
         #region Speed setting
-        public void SetSpeed(double ClampSpeed)
+        public void SetSpeed(double? ClampSpeed, double? CCDSpinSpeed, double? SpinDegreeLimit)
         {
             var plc = m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_MT_Speed, ClampSpeed);
+            if (ClampSpeed != null)
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Speed, ClampSpeed);
+            if (CCDSpinSpeed != null)
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Spin_Speed, CCDSpinSpeed);
+            if (SpinDegreeLimit != null)
+                plc.Write(MvEnumPlcVariable.PC_TO_MT_Tactile_Limit, SpinDegreeLimit);
         }
 
         public double ReadSpeedSetting()
@@ -227,7 +232,34 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             var plc = this.m_PlcContext;
             return plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_Position_Spin);
         }
-#endregion
+        #endregion
+
+        #region 六軸Sensor
+        //設定六軸力覺Sensor的壓力極限值
+        public void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
+        {
+            var plc = this.m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Fx, Fx);
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Fy, Fy);
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Fz, Fz);
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Mx, Mx);
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_ForceLimit_My, My);
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Mz, Mz);
+        }
+
+        //讀取六軸力覺Sensor的壓力極限值設定
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
+        {
+            var plc = this.m_PlcContext;
+            return new Tuple<int, int, int, int, int, int>(
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Fx),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Fy),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Fz),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Mx),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_ForceLimit_My),
+                plc.Read<int>(MvEnumPlcVariable.PC_TO_MT_ForceLimit_Mz)
+                );
+        }
 
         public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
         {
@@ -241,7 +273,8 @@ namespace MvAssistant.MaskTool_v0_1.Plc
                 plc.Read<int>(MvEnumPlcVariable.MT_TO_PC_ForceMz)
                 );
         }
-        
+        #endregion
+
         #region 靜電感測
         //設定靜電感測的區間限制
         public void SetStaticElecLimit(double Minimum, double Maximum)
@@ -303,6 +336,13 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser5),
             plc.Read<double>(MvEnumPlcVariable.LD_TO_PC_Laser6)
             );
+        }
+
+        //當手臂作動時，需要讓指令讓PLC知道目前Robot是移動狀態
+        public void RobotMoving(bool isMoving)
+        {
+            var plc = m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_MT_RobotMoving, isMoving);
         }
     }
 

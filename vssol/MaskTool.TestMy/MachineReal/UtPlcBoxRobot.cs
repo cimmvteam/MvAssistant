@@ -39,6 +39,7 @@ namespace MaskTool.TestMy.MachineReal
         //        Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
         //        Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
         //        Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
+        //        plc.BoxRobot.RobotMoving(true);
         //    }
         //}
 
@@ -103,9 +104,11 @@ namespace MaskTool.TestMy.MachineReal
             using (var plc = new MvPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
+                plc.BoxRobot.RobotMoving(true);
                 Console.WriteLine(plc.BoxRobot.Initial());
                 Console.WriteLine(plc.BoxRobot.Clamp(1));
                 Console.WriteLine(plc.BoxRobot.Unclamp());
+                plc.BoxRobot.RobotMoving(false);
             }
         }
     }

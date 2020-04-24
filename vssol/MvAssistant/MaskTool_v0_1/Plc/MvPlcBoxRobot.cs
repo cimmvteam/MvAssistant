@@ -352,5 +352,12 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             }
             return Result;
         }
+
+        //當手臂作動時，需要讓指令讓PLC知道目前Robot是移動狀態
+        public void RobotMoving(bool isMoving)
+        {
+            var plc = m_PlcContext;
+            plc.Write(MvEnumPlcVariable.PC_TO_BT_RobotMoving, isMoving);
+        }
     }
 }

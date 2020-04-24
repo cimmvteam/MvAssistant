@@ -66,6 +66,7 @@ namespace MaskTool.TestMy.MachineReal
                     plc.CoverFanCtrl(i, (600));
                 }
                 Console.WriteLine(plc.ReadCoverFanSpeed());
+                plc.EMSAlarm(true, false, false, false);
             }
         }
 
@@ -97,6 +98,7 @@ namespace MaskTool.TestMy.MachineReal
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
                 Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
+                plc.BoxRobot.RobotMoving(true);
             }
         }
 
@@ -198,17 +200,20 @@ namespace MaskTool.TestMy.MachineReal
                 //Console.WriteLine(plc.MaskRobot.Clamp(0));
                 //Console.WriteLine(plc.MaskRobot.Unclamp());
                 //Console.WriteLine(plc.MaskRobot.Initial());
-                //plc.MaskRobot.SetSpeed(10);
+                //plc.MaskRobot.SetSpeed(10,null,10);
                 //Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
                 //Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
                 //plc.MaskRobot.CCDSpin(10);
                 //Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
+                //plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
+                //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
                 //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
                 //plc.MaskRobot.SetStaticElecLimit(10, 20);
                 //Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 //Console.WriteLine(plc.MaskRobot.ReadStaticElec());
                 //Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
                 Console.WriteLine(plc.MaskRobot.ReadHandInspection());//OK
+                plc.MaskRobot.RobotMoving(true);
             }
         }
 

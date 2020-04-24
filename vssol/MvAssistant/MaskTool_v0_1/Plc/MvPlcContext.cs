@@ -223,6 +223,14 @@ namespace MvAssistant.MaskTool_v0_1.Plc
             }
         }
 
+        public void EMSAlarm(bool BT_EMS,bool RT_EMS,bool OS_EMS,bool IC_EMS)
+        {
+            this.Write(MvEnumPlcVariable.PC_TO_BT_EMS, BT_EMS);
+            this.Write(MvEnumPlcVariable.PC_TO_MT_EMS, RT_EMS);
+            this.Write(MvEnumPlcVariable.PC_TO_OS_EMS, OS_EMS);
+            this.Write(MvEnumPlcVariable.PC_TO_IC_EMS, IC_EMS);
+        }
+
         #region IDisposable
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
