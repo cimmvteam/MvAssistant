@@ -28,9 +28,12 @@ namespace MvAssistant.Mac
         }
         public string ID { get { return this.MachineDeviceCfg.ID; } }
         protected string DeviceConnStr { get { return this.MachineDeviceCfg.DevConnStr; } }
+
         public HalBase this[string key] { get { return this.GetMachine(key); } set { this.SetMachine(key, value); } }
+        public HalBase this[MacEnumDevice key] { get { return this.GetMachine(key); } set { this.SetMachine(key, value); } }
 
 
+        public HalBase GetMachine(MacEnumDevice key) { return this.GetMachine(key.ToString()); }
         public HalBase GetMachine(string key)
         {
             var machines = (from row in this.Machines
@@ -42,6 +45,7 @@ namespace MvAssistant.Mac
 
             return machines.FirstOrDefault().Value;
         }
+        public void SetMachine(MacEnumDevice key, HalBase hal) { this.SetMachine(key, hal); }
         public void SetMachine(string key, HalBase hal) { this.Machines[key] = hal; }
         private Dictionary<string, string> GetDevSettings()
         {

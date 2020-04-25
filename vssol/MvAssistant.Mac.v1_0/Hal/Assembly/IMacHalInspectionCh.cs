@@ -14,19 +14,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     public interface IMacHalInspectionCh : IMacHalAssembly
     {
 
-        IHalCamera Inspection_ccd_defense_side_1 { get; set; }
-        IHalCamera Inspection_ccd_defense_top_1 { get; set; }
-        IHalCamera Inspection_ccd_inspect_side_1 { get; set; }
-        IHalCamera Inspection_ccd_inspect_top_1 { get; set; }
-        IHalLaser Inspection_laser_entry_1 { get; set; }
-        IHalLaser Inspection_laser_entry_2 { get; set; }
-        IHalLight Inspection_lightbar_1 { get; set; }
-        IHalLight Inspection_linesource_1 { get; set; }
-        IHalLight Inspection_linesource_2 { get; set; }
-        IHalLight Inspection_linesource_3 { get; set; }
-        IHalLight Inspection_linesource_4 { get; set; }
-        IHalParticleCounter Inspection_particle_counter_1 { get; set; }
-        IHalLight Inspection_ringlight_1 { get; set; }
-        IHalInspectionStage Inspection_stage_1 { get; set; }
+
+
+
     }
 }

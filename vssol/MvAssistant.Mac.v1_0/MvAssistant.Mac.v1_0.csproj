@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawer_SocketComm\AsyncClient.cs" />
+    <Compile Include="Drawer_SocketComm\AsyncHost.cs" />
+    <Compile Include="Drawer_SocketComm\EnumSocketCMDList.cs" />
+    <Compile Include="Drawer_SocketComm\SocketMsgTranslator.cs" />
+    <Compile Include="Drawer_SocketComm\StateObject.cs" />
+    <Compile Include="Drawer_SocketComm\UDPSocket.cs" />
     <Compile Include="Hal\Assembly\IMacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\IMacHalCleanCh.cs" />
@@ -211,8 +217,19 @@
     <Compile Include="Manifest\MacMachineDeviceCfg.cs" />
     <Compile Include="Manifest\MacMachineDriverCfg.cs" />
     <Compile Include="Manifest\MachineManifestCfg.cs" />
-    <Compile Include="Manifest\MacMachineManifestAttribute.cs" />
+    <Compile Include="Plc\MvEnumPlcVariable.cs" />
+    <Compile Include="Plc\MvPlcBoxRobot.cs" />
+    <Compile Include="Plc\MvPlcCabinet.cs" />
+    <Compile Include="Plc\MvPlcCleanCh.cs" />
+    <Compile Include="Plc\MvPlcContext.cs" />
+    <Compile Include="Plc\MvPlcInspCh.cs" />
+    <Compile Include="Plc\MvPlcLoadPort.cs" />
+    <Compile Include="Plc\MvPlcMaskRobot.cs" />
+    <Compile Include="Plc\MvPlcOpenStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Robot\BoxRobotHandler.cs" />
+    <Compile Include="Robot\MaskRobotHandler.cs" />
+    <Compile Include="Robot\RobotMotionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hal\Component\Camera\HalCameraFake.cs.orig" />
