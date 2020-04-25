@@ -8,12 +8,14 @@ using System.Runtime.InteropServices;
 using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
 
 
-namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
+namespace MvAssistant.Mac.v1_0.Hal.ComponentFake.Infrared
 {
 
-    [GuidAttribute("C7C126FA-3CF4-40DE-9E43-9447F28E19E6")]
-    public class HalInfraredPhotointerrupter : MacHalComponentBase, IHalInfraredPhotointerrupter
+    [GuidAttribute("910C05CC-7848-426D-BEF4-6DE00E0A8A91")]
+    public class HalInfraredPhotointerrupter : HalFakeBase, IHalInfraredPhotointerrupter
     {
+        public float fake = 0;
+
         public bool SetIrAddress(string varName)
         {
             throw new NotImplementedException();
@@ -21,39 +23,31 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
 
         public float GetValue()
         {
-            throw new NotImplementedException();
+
+
+            return fake;
         }
 
         public void HalZeroCalibration()
         {
-            throw new NotImplementedException();
+           
         }
 
         public int HalConnect()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public int HalClose()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public bool HalIsConnected()
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        public string ID
-        {
-            get;
-            set;
-        }
-
-        public string DeviceConnStr
-        {
-            get;
-            set;
-        }
+ 
     }
 }

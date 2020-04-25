@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
 
 
-namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
+namespace MvAssistant.Mac.v1_0.Hal.ComponentFake.Infrared
 {
 
-    [GuidAttribute("381F012E-54B7-4B97-8AAB-BA123091A849")]
-    public class HalInfraredDetectDistance : MacHalComponentBase, IHalInfraredDetectDistance
+    [GuidAttribute("922DA85A-9AFB-4495-9E26-800EE25CFD17")]
+    public class HalInfraredDetectDistance : HalFakeBase, IHalInfraredDetectDistance
     {
         public bool SetIrAddress(string varName)
         {

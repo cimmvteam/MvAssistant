@@ -9,12 +9,12 @@ using System.Text;
 namespace MvAssistant.Mac.v1_0.Hal.ComponentFake.Plc
 {
     [GuidAttribute("DDC7BD3A-C7FF-40FD-9A0D-283EA4C8772A")]
-    public class HalPlcFake : HalFakeBase, IHalPlc
+    public class MacHalPlcFake : HalFakeBase, IHalPlc
     {
         object FakeData = null;
 
 
-        public HalPlcFake() { }
+        public MacHalPlcFake() { }
 
         public Object GetValue(string varName) { return this.FakeData; }
 
