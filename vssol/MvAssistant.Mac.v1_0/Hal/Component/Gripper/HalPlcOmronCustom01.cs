@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Gripper
 {
     [GuidAttribute("B81CFCFA-8320-4111-9E19-03CB900C5E69")]
-    public class HalPlcOmronCustom01 : HalPlcOmronBase, IHalGripper
+    public class HalPlcOmronCustom01 : MacHalPlcOmronBase, IHalGripper
     {
 
         public const string PlcVarKey_Enable = "var_enable";

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Laser
 {
     [GuidAttribute("481067B7-7092-40F6-8904-6D309F7DC45B")]
-    public class HalLaserOmron : HalComponentBase, IHalLaser
+    public class HalLaserOmron : MacHalComponentBase, IHalLaser
     {
 
         public bool SetAddress(string varName)

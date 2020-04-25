@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Motor
 {
     [GuidAttribute("582437CC-52F7-40E0-8E50-D15EF16C8B62")]
-    public class HalCylinder : HalComponentBase, IHalCylinder
+    public class HalCylinder : MacHalComponentBase, IHalCylinder
     {
         private bool isShrinked;
 

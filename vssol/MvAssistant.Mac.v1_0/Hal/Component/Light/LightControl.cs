@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Light
 {
     [GuidAttribute("9D3F03C3-32CA-4992-B236-D3CACDE1235E")]
-    public class LightControl : HalComponentBase, IHalLight
+    public class LightControl : MacHalComponentBase, IHalLight
     {
         private int lightValue = 0;
         public int LightValue

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector
 {
      [GuidAttribute("2560E105-5260-4BD7-B44A-C11E68FDA732")]
-    public class HalPresenceDetector : HalComponentBase, IHalPresenceDetector
+    public class HalPresenceDetector : MacHalComponentBase, IHalPresenceDetector
     {
         private bool isPresent;
 

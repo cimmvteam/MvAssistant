@@ -10,7 +10,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.Inclinometer;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Inclinometer
 {
     [GuidAttribute("6D330C85-23B3-4534-A3FF-6578DDA1ABA9")]
-    public class InclinometerSICK : HalComponentBase, IHalInclinometer
+    public class InclinometerSICK : MacHalComponentBase, IHalInclinometer
     {
         public object GetAngle()
         {

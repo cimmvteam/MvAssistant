@@ -15,9 +15,9 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         /// 在此 Maintain Fake Device 的宣告
         /// </summary>
         /// <returns></returns>
-        public List<MachineDriver> DriverFakeAll()
+        public List<MacMachineDriverCfg> DriverFakeAll()
         {
-            var list = new List<MachineDriver>();
+            var list = new List<MacMachineDriverCfg>();
             list.AddRange(DriverFakeAssembly());
             list.AddRange(DriverFakeDevice());
             list.AddRange(DriverFakeOpticSensor());
@@ -26,84 +26,78 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             list.AddRange(DriverFakeLight());
             return list;
         }
-        public List<MachineDriver> DriverFakeAssembly()
+        public List<MacMachineDriverCfg> DriverFakeAssembly()
         {
-            return new MachineDriver[]{
+            return new MacMachineDriverCfg[]{
 
             }.ToList();
         }
-        public List<MachineDriver> DriverFakeCamera()
+        public List<MacMachineDriverCfg> DriverFakeCamera()
         {
-            return new MachineDriver[]{
+            return new MacMachineDriverCfg[]{
 
 
             }.ToList();
         }
-        public List<MachineDriver> DriverFakeDevice()
+        public List<MacMachineDriverCfg> DriverFakeDevice()
         {
-            return new MachineDriver[]{
+            return new MacMachineDriverCfg[]{
 
             }.ToList();
         }
-        public List<MachineDriver> DriverFakeOpticSensor()
+        public List<MacMachineDriverCfg> DriverFakeLight()
         {
-            return new MachineDriver[]{
+            return new MacMachineDriverCfg[]{
+            }.ToList();
+        }
 
-                new MachineDriver(){
+        public List<MacMachineDriverCfg> DriverFakeMotion()
+        {
+            return new MacMachineDriverCfg[]{
+
+
+                new MacMachineDriverCfg(){
                     Vendor = "Fake",
-                    Product = "Fake Laser Sensor-1",
-                    Description = "雷射測距Sensor",
-                    AssignType = typeof(Hal.ComponentFake.Laser.HalLaserFake),
-                    DriverPath = "MaskAutoCleaner.HalFake.dll",
-                    DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
-                }, new MachineDriver(){
+                    Product = "Mask Gripper",
+                    Remark = null,
+                    AssignType = typeof(Hal.ComponentFake.Gripper.HalGripperFake),
+                    DriverId = ManifestDriverId.MaskGripperFake.ToString(),
+                    DriverPath = null,
+                },
+                new MacMachineDriverCfg(){
                     Vendor = "Fake",
-                    Product = "Fake Laser Sensor-2",
-                    Description = "雷射測距Sensor - Clean Chamber 防碰撞",
+                    Product = "Box Gripper",
+                    Remark = null,
+                    AssignType = typeof(Hal.ComponentFake.Gripper.HalGripperFake),
+                    DriverId = ManifestDriverId.BoxGripperFake.ToString(),
+                    DriverPath = null,
+                },
+            }.ToList();
+        }
+
+        public List<MacMachineDriverCfg> DriverFakeOpticSensor()
+        {
+            return new MacMachineDriverCfg[]{
+
+                new MacMachineDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Laser Sensor",
+                    Remark = null,
                     AssignType = typeof(Hal.ComponentFake.Laser.HalLaserFake),
-                    DriverPath = "MaskAutoCleaner.HalFake.dll",
-                    DriverId = ManifestDriverId.LaserCollision_OmronPlc.ToString(),
+                    DriverId = ManifestDriverId.Laser_Fake.ToString(),
+                    DriverPath = null,
                 },
                 }.ToList();
         }
-        public List<MachineDriver> DriverFakeMotion()
-        {
-            return new MachineDriver[]{
-
-
-                new MachineDriver(){
-                    Vendor = "Fake",
-                    Product = "Mask Gripper",
-                    Description = "Mask Gripper",
-                    AssignType = typeof(Hal.ComponentFake.Gripper.HalGripperFake),
-                    DriverPath = "MaskAutoCleaner.HalFake.dll",
-                    DriverId = ManifestDriverId.MaskGripperFake.ToString(),
-                },
-                new MachineDriver(){
-                    Vendor = "Fake",
-                    Product = "Box Gripper",
-                    Description = "Box Gripper",
-                    AssignType = typeof(Hal.ComponentFake.Gripper.HalGripperFake),
-                    DriverPath = "MaskAutoCleaner.HalFake.dll",
-                    DriverId = ManifestDriverId.BoxGripperFake.ToString(),
-                },
-            }.ToList();
-        }
-        public List<MachineDriver> DriverFakeLight()
-        {
-            return new MachineDriver[]{
-            }.ToList();
-        }
-
         /// <summary>
         /// 在此 Maintain Real Device Drive的宣告
         /// </summary>
         /// <returns></returns>
-        public List<MachineDriver> DriverRealAll()
+        public List<MacMachineDriverCfg> DriverRealAll()
         {
-            var dict = new Dictionary<string, MachineDriver>();
+            var dict = new Dictionary<string, MacMachineDriverCfg>();
 
-            var list = new List<MachineDriver>();
+            var list = new List<MacMachineDriverCfg>();
             list.AddRange(DriverRealAssembly());
             list.AddRange(DriverRealDevice());
             list.AddRange(DriverRealOpticSensor());
@@ -112,80 +106,80 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             list.AddRange(DriverRealLight());
             return list;
         }
-        public List<MachineDriver> DriverRealAssembly()
+        public List<MacMachineDriverCfg> DriverRealAssembly()
         {
-            return new MachineDriver[]{
-                 new MachineDriver(){
+            return new MacMachineDriverCfg[]{
+                 new MacMachineDriverCfg(){
                     Vendor = "Hirata",
                     Product = "Load Port",
-                    AssignType = typeof(Hal.Assembly.HalLoadPort),
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalLoadPort),
                     DriverId = ManifestDriverId.LoadPort.ToString(),
                 },
 
             }.ToList();
         }
-        public List<MachineDriver> DriverRealCamera()
+        public List<MacMachineDriverCfg> DriverRealCamera()
         {
-            return new MachineDriver[]{
+            return new MacMachineDriverCfg[]{
 
             }.ToList();
         }
-        public List<MachineDriver> DriverRealDevice()
+        public List<MacMachineDriverCfg> DriverRealDevice()
         {
-            return new MachineDriver[]{
-                 new MachineDriver(){
+            return new MacMachineDriverCfg[]{
+                 new MacMachineDriverCfg(){
                     Vendor = "Omron",
                     Product = "PLC",
-                    Description = "Omron PLC",
+                    Remark = null,
                     AssignType = typeof(Hal.Component.Plc.HalPlcOmron),
-                    DriverPath =null,
                     DriverId = ManifestDriverId.Plc_Omron.ToString(),
+                    DriverPath =null,
                 },
-                 new MachineDriver(){
+                 new MacMachineDriverCfg(){
                     Vendor = "Omron",
                     Product = "Inclinometer MPU6050",
-                    Description = "Angle Sensor",
+                    Remark = "Angle Sensor",
                     AssignType = typeof(Hal.Component.Inclinometer.InclinometerOmronPlc),
-                    DriverPath =null,
                     DriverId = ManifestDriverId.Inclinometer_OmronPlc.ToString(),
+                    DriverPath =null,
                 },
             }.ToList();
         }
-        public List<MachineDriver> DriverRealOpticSensor()
+        public List<MacMachineDriverCfg> DriverRealLight()
         {
-            return new MachineDriver[]{
-
+            return new MacMachineDriverCfg[]{
             }.ToList();
         }
-        public List<MachineDriver> DriverRealMotion()
+
+        public List<MacMachineDriverCfg> DriverRealMotion()
         {
-            return new MachineDriver[]{
-                   new MachineDriver(){
+            return new MacMachineDriverCfg[]{
+                   new MacMachineDriverCfg(){
                     Vendor = "Fanuc",
                     Product = "Fanuc Robot LR Mate 200iD",
-                    Description = "Fanuc Robot",
+                    Remark = null,
                     AssignType = typeof(Hal.Component.Robot.HalRobotFanuc),
-                    DriverPath = "MaskAutoCleaner.Hal.dll",
                     DriverId = ManifestDriverId.FanucRobot.ToString(),
+                    DriverPath = null,
                 },
-                new MachineDriver(){
+                new MacMachineDriverCfg(){
                     Vendor = "NRC",
                     Product = "Mask Gripper",
-                    Description = "Mask Gripper",
+                    Remark = null,
                     AssignType = typeof(Hal.Component.Gripper.HalPlcOmronCustom01),
-                    DriverPath = "MaskAutoCleaner.HalFake.dll",
                     DriverId = ManifestDriverId.MaskGripperNrc.ToString(),
+                    DriverPath = null,
                 },
 
             }.ToList();
         }
-        public List<MachineDriver> DriverRealLight()
+
+        public List<MacMachineDriverCfg> DriverRealOpticSensor()
         {
-            return new MachineDriver[]{
+            return new MacMachineDriverCfg[]{
+
             }.ToList();
         }
-
-
-
     }
 }

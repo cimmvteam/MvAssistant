@@ -8,7 +8,7 @@ using System.Text;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Modbus
 {
     [GuidAttribute("A50685A5-7FFB-4FB0-8042-0A3EA70AEDE4")]
-    public class HalSensorModbus : HalComponentBase, IHalModbus
+    public class HalSensorModbus : MacHalComponentBase, IHalModbus
     {
         public void HalZeroCalibration()
         {

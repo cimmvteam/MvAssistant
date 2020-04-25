@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
 {
     [GuidAttribute("DB7A2EE2-A811-454D-ADC8-CDB71FCBAF84")]
-    public interface IHalInfraredPhotointerrupter : IHalComponent
+    public interface IHalInfraredPhotointerrupter : IMacHalComponent
     {
         /// <summary>
         /// 讀取[光遮斷] value

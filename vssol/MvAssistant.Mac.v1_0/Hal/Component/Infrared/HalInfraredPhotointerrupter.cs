@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
 {
 
     [GuidAttribute("C7C126FA-3CF4-40DE-9E43-9447F28E19E6")]
-    public class HalInfraredPhotointerrupter : HalComponentBase, IHalInfraredPhotointerrupter
+    public class HalInfraredPhotointerrupter : MacHalComponentBase, IHalInfraredPhotointerrupter
     {
         public bool SetIrAddress(string varName)
         {

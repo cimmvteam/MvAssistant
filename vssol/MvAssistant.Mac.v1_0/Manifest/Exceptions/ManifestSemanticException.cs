@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Manifest.Exceptions
 {
-    public class ManifestSemanticException : Exception
+    public class ManifestSemanticException : MacException
     {
         public ManifestSemanticException()
         {

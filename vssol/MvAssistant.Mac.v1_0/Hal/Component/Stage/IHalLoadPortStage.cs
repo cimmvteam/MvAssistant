@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 {
     [GuidAttribute("FAACAFC5-5B69-4782-824B-10AEB3B4BFF6")]
-    public interface IHalLoadPortStage : IHalComponent
+    public interface IHalLoadPortStage : IMacHalComponent
     {
         /// <summary>
         /// 設定[LoadPort Stage]移動速度

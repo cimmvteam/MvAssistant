@@ -10,7 +10,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.Inclinometer;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Inclinometer
 {
     [Guid("F0AEF882-8298-4DAE-9D7C-99AFEDEAF7F3")]
-    public class InclinometerOmronPlc : HalPlcOmronBase, IHalInclinometer
+    public class InclinometerOmronPlc : MacHalPlcOmronBase, IHalInclinometer
     {
 
         #region Override HAL

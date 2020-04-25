@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Ionizer
 {
     [GuidAttribute("33CB2AFA-7AD6-499E-ADB0-5FE108E3B16C")]
-    public class HalIonizer : HalComponentBase, IHalIonizer
+    public class HalIonizer : MacHalComponentBase, IHalIonizer
     {
         public bool TurnOn()
         {

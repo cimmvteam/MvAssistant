@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Identifier
 {
 
     [GuidAttribute("CB3D995E-81D6-4D0E-9642-D57AF4BF5CF2")]
-    public class HalRfidReader : HalComponentBase, IHalRfidReader
+    public class HalRfidReader : MacHalComponentBase, IHalRfidReader
     {
         public string ReadRfidCode()
         {

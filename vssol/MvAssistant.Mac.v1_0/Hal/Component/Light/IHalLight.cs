@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("AD149AD6-FB29-4E00-B69A-2438DB7D69E8")]
-    public interface IHalLight : IHalComponent
+    public interface IHalLight : IMacHalComponent
     {
         /// <summary>
         /// 設定[光源Intensity] value

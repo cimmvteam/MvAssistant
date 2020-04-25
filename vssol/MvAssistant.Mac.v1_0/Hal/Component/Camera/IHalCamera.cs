@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
 {
     [GuidAttribute("DC1CA257-1564-4C86-B6FE-892B79CA107C")]
-    public interface IHalCamera : IHalComponent
+    public interface IHalCamera : IMacHalComponent
     {
         /// <summary>
         /// Camera take pictures

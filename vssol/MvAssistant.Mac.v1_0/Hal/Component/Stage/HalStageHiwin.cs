@@ -11,7 +11,7 @@ using System.Text;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 {
     [GuidAttribute("DD9C98E2-5B4B-4310-AF15-1E39FC87EB86")]
-    public class HalStageHiwin : HalComponentBase, IHalInspectionStage
+    public class HalStageHiwin : MacHalComponentBase, IHalInspectionStage
     {
         ComInfo connect_setting = new ComInfo();
 

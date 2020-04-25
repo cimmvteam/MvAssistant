@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Force6Axis
 {
     [GuidAttribute("DE783AF6-C770-4DCA-B271-E0EEBF5787F6")]
-    public class HalForce6AxisWacoh : HalComponentBase, IHalForce6Axis
+    public class HalForce6AxisWacoh : MacHalComponentBase, IHalForce6Axis
     {
         WacohForceLdd ldd;
 

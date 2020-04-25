@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Identifier
 {
     [GuidAttribute("3175D644-9669-4144-B438-D86D777943EF")]
-    public class HalBarcodeReader : HalComponentBase, IHalBarcodeReader
+    public class HalBarcodeReader : MacHalComponentBase, IHalBarcodeReader
     {
         public string ReadBarcode()
         {

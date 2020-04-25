@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("BEB0E42C-0D9D-4033-B3B3-FF48C6C6582D")]
-    public interface IHalTactile : IHalComponent
+    public interface IHalTactile : IMacHalComponent
     {
         /// <summary>
         /// 讀取[Tactile]壓力 raw value

@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.StaticElectricity
 {
 
     [GuidAttribute("22193BC0-19ED-4108-B9FA-B810640A183E")]
-    public class HalStaticElectricityDetector : HalComponentBase, IHalStaticElectricityDetector
+    public class HalStaticElectricityDetector : MacHalComponentBase, IHalStaticElectricityDetector
     {
         public float Get()
         {

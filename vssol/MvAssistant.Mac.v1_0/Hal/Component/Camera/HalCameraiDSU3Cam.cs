@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
 {
     [GuidAttribute("1BC89ED0-0697-4670-8B67-D6CB8E9F8068")]
-    public class HalCameraiDSU3Cam : HalComponentBase, IHalCamera
+    public class HalCameraiDSU3Cam : MacHalComponentBase, IHalCamera
     {
         int IHal.HalConnect()
         {

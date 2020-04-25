@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
 
     [GuidAttribute("5EDFE42F-A27A-42B5-9702-11FC84208D74")]
-    public class HalRobotFanuc : HalComponentBase, IHalRobot
+    public class HalRobotFanuc : MacHalComponentBase, IHalRobot
     {
         public HalRobotFanuc()
         {

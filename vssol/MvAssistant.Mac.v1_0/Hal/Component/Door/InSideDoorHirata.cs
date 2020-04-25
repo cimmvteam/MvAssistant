@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Door
 {
     [GuidAttribute("0B36F57C-364D-45FD-B5E5-74C869B27A5E")]
-    public class InSideDoorHirata : HalComponentBase, IHalDoor
+    public class InSideDoorHirata : MacHalComponentBase, IHalDoor
     {
 
 

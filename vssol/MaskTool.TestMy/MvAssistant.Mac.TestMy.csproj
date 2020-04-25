@@ -62,6 +62,7 @@
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
+    <Compile Include="HalTest\UtHalContext.cs" />
     <Compile Include="MachineReal\UtPlcOpenStage.cs" />
     <Compile Include="MachineReal\UtPlcMaskRobot.cs" />
     <Compile Include="MachineReal\UtPlcLoadPort.cs" />
@@ -74,6 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="GenCfg\Manifest\Manifest.xml.real">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

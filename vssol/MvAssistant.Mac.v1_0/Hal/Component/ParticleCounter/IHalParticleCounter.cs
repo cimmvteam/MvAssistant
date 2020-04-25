@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component
 {
     [GuidAttribute("7104B93A-9735-4E09-9C65-27818C57E0BD")]
-    public interface IHalParticleCounter : IHalComponent
+    public interface IHalParticleCounter : IMacHalComponent
     {
         /// <summary>
         /// 取得[Particle Conter] value

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
 {
     [GuidAttribute("90BA4CDC-7A82-454A-8F3F-6FE6413AEF41")]
-    public class HalCameraSenTech : HalComponentBase, IHalCamera
+    public class HalCameraSenTech : MacHalComponentBase, IHalCamera
     {
         int IHal.HalConnect()
         {

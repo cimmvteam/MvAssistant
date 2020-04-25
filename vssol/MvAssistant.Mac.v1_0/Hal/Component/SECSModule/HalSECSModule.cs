@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.SECSModule
 {
 
     [GuidAttribute("D94D1EB0-5AB1-4654-B0BE-BF202E85C295")]
-    public class HalSECSModule :HalComponentBase, IHalSECSMODULE
+    public class HalSECSModule :MacHalComponentBase, IHalSECSMODULE
     {
         bool ConnectTAP(string IPAddress, int port)
         {

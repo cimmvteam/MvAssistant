@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
     [GuidAttribute("CF9AB756-4759-4A7F-A7DC-87429818ECA5")]
-    public class HalDiffPressure :HalComponentBase, IHalDiffPressure
+    public class HalDiffPressure :MacHalComponentBase, IHalDiffPressure
     {
         public float GetPressureValue()
         {

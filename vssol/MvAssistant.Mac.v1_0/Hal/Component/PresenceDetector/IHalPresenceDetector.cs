@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector
 {
     [GuidAttribute("8B925765-EB3D-44F3-B0C2-79CC4934B963")]
-    public interface IHalPresenceDetector : IHalComponent
+    public interface IHalPresenceDetector : IMacHalComponent
     {
         /// <summary>
         /// 壓力感知是否有東西

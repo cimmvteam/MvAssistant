@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.AutoSwitch
 {
     [GuidAttribute("A1C4C775-2DBE-4280-B13D-593A8BD56E45")]
-    public class HalAutoSwitch : HalComponentBase, IHalAutoSwitch
+    public class HalAutoSwitch : MacHalComponentBase, IHalAutoSwitch
     {
         private bool autoSwitchResult = false;
         public bool AutoSwitchResult

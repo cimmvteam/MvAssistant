@@ -11,7 +11,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
 
     [GuidAttribute("C3782713-449C-4FC2-830C-5D8F0B48C35D")]
-    public class HalRobotStaubli : HalComponentBase, IHalRobot
+    public class HalRobotStaubli : MacHalComponentBase, IHalRobot
     {
 
         int IHal.HalConnect()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
     [GuidAttribute("97D0228B-B781-4C2F-B531-6C6D95AA4B2A")]
-    public interface IHalGasValve : IHalComponent
+    public interface IHalGasValve : IMacHalComponent
     {
         /// <summary>
         /// 開啟Valve

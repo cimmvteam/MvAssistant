@@ -13,7 +13,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.E84
 {
 
     [GuidAttribute("6992B3E5-6303-4C58-944C-50751DC55E50")]
-    public class HalE84 : HalComponentBase, IHalE84
+    public class HalE84 : MacHalComponentBase, IHalE84
     {
         private bool oht_Aligned;
         private string e84_OHTStatus;

@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Infrared
 {
 
     [GuidAttribute("381F012E-54B7-4B97-8AAB-BA123091A849")]
-    public class HalInfraredDetectDistance : HalComponentBase, IHalInfraredDetectDistance
+    public class HalInfraredDetectDistance : MacHalComponentBase, IHalInfraredDetectDistance
     {
         public bool SetIrAddress(string varName)
         {

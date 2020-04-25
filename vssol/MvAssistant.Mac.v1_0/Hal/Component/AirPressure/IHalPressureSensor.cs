@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
     [GuidAttribute("8DCE9B6A-4D36-4920-940D-C162B99BB28C")]
-    public interface IHalPressureSensor : IHalComponent
+    public interface IHalPressureSensor : IMacHalComponent
     {
         /// <summary>
         /// 設定[氣體壓力計] value

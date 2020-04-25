@@ -10,7 +10,7 @@ using MvAssistant.DeviceDrive.OmronPlc;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Plc
 {
     [GuidAttribute("75427515-83D5-46F6-8CD4-F87BDBD88620")]
-    public class HalPlcOmron : HalComponentBase, IHalPlc
+    public class HalPlcOmron : MacHalComponentBase, IHalPlc
     {
         MvOmronPlcLdd OmronPLC;
 

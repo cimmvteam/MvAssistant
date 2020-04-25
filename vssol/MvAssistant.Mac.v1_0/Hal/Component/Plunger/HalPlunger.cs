@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Plunger
 {
     [GuidAttribute("6D928A86-C8D2-42AA-AC9B-2B52B5CFA6AE")]
-    public class HalPlunger : HalComponentBase, IHalPlunger
+    public class HalPlunger : MacHalComponentBase, IHalPlunger
     {
         private bool isPressed;
 

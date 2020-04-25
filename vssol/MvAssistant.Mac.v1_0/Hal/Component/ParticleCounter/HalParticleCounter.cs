@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Component.ParticleCounter
 {
     [GuidAttribute("EBAFD2BC-B2B7-4000-9AE3-95A58DC5526B")]
-    public class HalParticleCounter : HalComponentBase, IHalParticleCounter
+    public class HalParticleCounter : MacHalComponentBase, IHalParticleCounter
     {
         #region for TestScript
         private float particleValue;

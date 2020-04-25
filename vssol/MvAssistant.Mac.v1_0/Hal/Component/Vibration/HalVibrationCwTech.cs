@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Vibration
 {
 
     [GuidAttribute("F0D438F5-27D7-4ABF-ABA8-E3C73647B0A5")]
-    public class HalVibrationCwTech : HalComponentBase, IHalVibration
+    public class HalVibrationCwTech : MacHalComponentBase, IHalVibration
     {
 
 

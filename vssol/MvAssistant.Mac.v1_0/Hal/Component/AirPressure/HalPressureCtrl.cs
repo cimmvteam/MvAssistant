@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.AirPressure
 {
 
     [GuidAttribute("6AF656AC-2333-4BF2-9D34-8847632EF160")]
-    public class HalPressureCtrl : HalComponentBase, IHalPressureCtrl
+    public class HalPressureCtrl : MacHalComponentBase, IHalPressureCtrl
     {     
         public double ReadPresureValue()
         {
