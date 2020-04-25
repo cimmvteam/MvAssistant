@@ -9,58 +9,38 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MvAssistant.Manifest
+namespace MvAssistant.Mac.v1_0.Manifest
 {
     [XmlRoot("Manifest")]
     public class MachineManifest
     {
-        
-        private List<MachineAssembly> assemblies = new List<MachineAssembly>();
 
-        private List<MachineAssemblyDriver> assemblyDrivers = new List<MachineAssemblyDriver>();
+        private List<MachineDevice> m_devices = new List<MachineDevice>();
+        private List<MachineDriver> m_drivers = new List<MachineDriver>();
 
-        private string version;
-
-        private string checksum;
-
-        private bool checksumFlag;
-
-        [XmlArray("Assemblies")]
-        [XmlArrayItem("Assembly")]
-        public List<MachineAssembly> Assemblies
+        [XmlArray("Devices")]
+        [XmlArrayItem("Device")]
+        public List<MachineDevice> Devices
         {
-            get { return assemblies; }
-            set { assemblies = value; }
+            get { return m_devices; }
+            set { m_devices = value; }
         }
 
-        [XmlArray("AssemblyDrivers")]
-        [XmlArrayItem("AssemblyDriver")]
-        public List<MachineAssemblyDriver> AssemblyDrivers
+        [XmlArray("Drivers")]
+        [XmlArrayItem("Driver")]
+        public List<MachineDriver> Drivers
         {
-            get { return assemblyDrivers; }
-            set { assemblyDrivers = value; }
+            get { return m_drivers; }
+            set { m_drivers = value; }
         }
 
         [XmlAttribute]
-        public string Version
-        {
-            get { return version; }
-            set { version = value; }
-        }
+        public string Version { get; set; }
 
         [XmlAttribute]
-        public string CheckSum
-        {
-            get { return checksum; }
-            set { checksum = value; }
-        }
+        public string CheckSum { get; set; }
 
-        [XmlAttribute]
-        public bool CheckSumFlag
-        {
-            get { return checksumFlag; }
-            set { checksumFlag = value; }
-        }
+
 
         public void SaveToXmlFile(string fn) { MvUtil.SaveToXmlFile(this, fn); }
 
@@ -91,7 +71,6 @@ namespace MvAssistant.Manifest
                 return default(T);
             }
         }
-
         /// <summary>
         /// 將物件序列化成xml format
         /// </summary>
@@ -105,14 +84,12 @@ namespace MvAssistant.Manifest
             ser.Serialize(writer, o);
             return sb.ToString();
         }
-
         /// <summary>
         /// deserialize (反序列化) MachineManifest object from xml file
         /// </summary>
         /// <param name="filePath">xml file path for loading</param>
         /// <returns></returns>
         public static MachineManifest LoadFromXmlFile(string filePath) { return MvUtil.LoadFromXmlFile<MachineManifest>(filePath); }
-
         /// <summary>
         /// serialize (序列化) manifest object, and save as xml file
         /// </summary>
@@ -120,7 +97,7 @@ namespace MvAssistant.Manifest
         /// <param name="filePath">xml file path for saving</param>
         public static void SaveToXmlFile(MachineManifest manifest, string filePath) { MvUtil.SaveToXmlFile<MachineManifest>(manifest, filePath); }
         #endregion
-      
-  
+
+
     }
 }

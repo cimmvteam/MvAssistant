@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Manifest
+namespace MvAssistant.Mac.v1_0.Manifest
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property)]
     /// <summary>
@@ -12,18 +12,18 @@ namespace MvAssistant.Manifest
     /// </summary>
     public class MachineManifestAttribute : Attribute
     {
-        private DeviceEnum device;
+        private EnumDevice device;
 
         /// <summary>
         /// Specify device for linking HAL/Driver/HW relationship
         /// </summary>
-        public DeviceEnum Device
+        public EnumDevice Device
         {
             get { return device; }
             set { device = value; }
         }
 
-        public MachineManifestAttribute(DeviceEnum _device)
+        public MachineManifestAttribute(EnumDevice _device)
         {
             Device = _device;
         }

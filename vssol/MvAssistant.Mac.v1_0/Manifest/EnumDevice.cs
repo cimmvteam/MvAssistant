@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Manifest
+namespace MvAssistant.Mac.v1_0.Manifest
 {
-    public enum DeviceEnum
+    public enum EnumDevice
     {
         /// 編碼格式 ABCDEF
         /// AB: Assembly 

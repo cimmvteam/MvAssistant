@@ -3,7 +3,7 @@ using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Camera;
 using MvAssistant.Mac.v1_0.Hal.Component.Stage;
 
-using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 {    
-    [MachineManifest(DeviceEnum.inspection_assembly)]
+    [MachineManifest(EnumDevice.inspection_assembly)]
     [GuidAttribute("58130CF0-A31E-4502-87A4-EB43FF78DFE8")]
     public class HalInspectionChamberFake : HalFakeBase, IHalInspectionChamber
     {
@@ -38,7 +38,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         
 
         private IHalCamera inspection_ccd_defense_side_1;
-        [MachineManifest(DeviceEnum.inspection_ccd_defense_side_1)]
+        [MachineManifest(EnumDevice.inspection_ccd_defense_side_1)]
         public IHalCamera Inspection_ccd_defense_side_1
         {
             get { return inspection_ccd_defense_side_1; }
@@ -46,7 +46,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalCamera inspection_ccd_defense_top_1;
-        [MachineManifest(DeviceEnum.inspection_ccd_defense_top_1)]
+        [MachineManifest(EnumDevice.inspection_ccd_defense_top_1)]
         public IHalCamera Inspection_ccd_defense_top_1
         {
             get { return inspection_ccd_defense_top_1; }
@@ -54,14 +54,14 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalCamera inspection_ccd_inspect_side_1;
-        [MachineManifest(DeviceEnum.inspection_ccd_inspect_side_1)]
+        [MachineManifest(EnumDevice.inspection_ccd_inspect_side_1)]
         public IHalCamera Inspection_ccd_inspect_side_1
         {
             get { return inspection_ccd_inspect_side_1; }
             set { inspection_ccd_inspect_side_1 = value; }
         }
         private IHalCamera inspection_ccd_inspect_top_1;
-        [MachineManifest(DeviceEnum.inspection_ccd_inspect_top_1)]
+        [MachineManifest(EnumDevice.inspection_ccd_inspect_top_1)]
         public IHalCamera Inspection_ccd_inspect_top_1
         {
             get { return inspection_ccd_inspect_top_1; }
@@ -70,7 +70,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 
 
         private IHalLaser inspection_laser_entry_1;
-        [MachineManifest(DeviceEnum.inspection_laser_entry_1)]
+        [MachineManifest(EnumDevice.inspection_laser_entry_1)]
         public IHalLaser Inspection_laser_entry_1
         {
             get { return inspection_laser_entry_1; }
@@ -78,7 +78,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalLaser inspection_laser_entry_2;
-        [MachineManifest(DeviceEnum.inspection_laser_entry_2)]
+        [MachineManifest(EnumDevice.inspection_laser_entry_2)]
         public IHalLaser Inspection_laser_entry_2
         {
             get { return inspection_laser_entry_2; }
@@ -87,7 +87,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 
 
         private IHalLight inspection_lightbar_1;
-        [MachineManifest(DeviceEnum.inspection_lightbar_1)]
+        [MachineManifest(EnumDevice.inspection_lightbar_1)]
         public IHalLight Inspection_lightbar_1
         {
             get { return inspection_lightbar_1; }
@@ -96,7 +96,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 
 
         private IHalLight inspection_linesource_1;
-        [MachineManifest(DeviceEnum.inspection_linesource_1)]
+        [MachineManifest(EnumDevice.inspection_linesource_1)]
         public IHalLight Inspection_linesource_1
         {
             get { return inspection_linesource_1; }
@@ -104,7 +104,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalLight inspection_linesource_2;
-        [MachineManifest(DeviceEnum.inspection_linesource_2)]
+        [MachineManifest(EnumDevice.inspection_linesource_2)]
         public IHalLight Inspection_linesource_2
         {
             get { return inspection_linesource_2; }
@@ -112,7 +112,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalLight inspection_linesource_3;
-        [MachineManifest(DeviceEnum.inspection_linesource_3)]
+        [MachineManifest(EnumDevice.inspection_linesource_3)]
         public IHalLight Inspection_linesource_3
         {
             get { return inspection_linesource_3; }
@@ -121,7 +121,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 
 
         private IHalLight inspection_linesource_4;
-        [MachineManifest(DeviceEnum.inspection_linesource_4)]
+        [MachineManifest(EnumDevice.inspection_linesource_4)]
         public IHalLight Inspection_linesource_4
         {
             get { return inspection_linesource_4; }
@@ -129,14 +129,14 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalParticleCounter inspection_particle_counter_1;
-        [MachineManifest(DeviceEnum.inspection_particle_counter_1)]
+        [MachineManifest(EnumDevice.inspection_particle_counter_1)]
         public IHalParticleCounter Inspection_particle_counter_1
         {
             get { return inspection_particle_counter_1; }
             set { inspection_particle_counter_1 = value; }
         }
         private IHalLight inspection_ringlight_1;
-        [MachineManifest(DeviceEnum.inspection_ringlight_1)]
+        [MachineManifest(EnumDevice.inspection_ringlight_1)]
         public IHalLight Inspection_ringlight_1
         {
             get { return inspection_ringlight_1; }
@@ -144,7 +144,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalInspectionStage inspection_stage_1;
-        [MachineManifest(DeviceEnum.inspection_stage_1)]
+        [MachineManifest(EnumDevice.inspection_stage_1)]
         public IHalInspectionStage Inspection_stage_1
         {
             get { return inspection_stage_1; }

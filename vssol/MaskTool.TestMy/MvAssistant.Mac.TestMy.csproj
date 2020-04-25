@@ -8,8 +8,8 @@
     <ProjectGuid>{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MvAssistant.Mac.MyTest</RootNamespace>
-    <AssemblyName>MvAssistant.Mac.MyTest</AssemblyName>
+    <RootNamespace>MvAssistant.Mac.TestMy</RootNamespace>
+    <AssemblyName>MvAssistant.Mac.TestMy</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -58,6 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Device\UtDevicePlc.cs" />
+    <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
+    <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
+    <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
+    <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
     <Compile Include="MachineReal\UtPlcOpenStage.cs" />
     <Compile Include="MachineReal\UtPlcMaskRobot.cs" />
     <Compile Include="MachineReal\UtPlcLoadPort.cs" />
@@ -73,6 +77,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj">
+      <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
+      <Name>MvAssistant.Mac.v1_0</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>

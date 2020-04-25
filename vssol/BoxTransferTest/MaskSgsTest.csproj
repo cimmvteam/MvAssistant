@@ -155,9 +155,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MaskTool.TestMy\MvAssistant.Mac.MyTest.csproj">
+    <ProjectReference Include="..\MaskTool.TestMy\MvAssistant.Mac.TestMy.csproj">
       <Project>{c720df8c-b6fe-4284-a4ae-b1fec882f9cd}</Project>
-      <Name>MvAssistant.Mac.MyTest</Name>
+      <Name>MvAssistant.Mac.TestMy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj">
+      <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
+      <Name>MvAssistant.Mac.v1_0</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>

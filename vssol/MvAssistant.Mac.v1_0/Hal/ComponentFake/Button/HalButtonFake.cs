@@ -1,5 +1,5 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.Component.Button;
-using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;

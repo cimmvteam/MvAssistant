@@ -4,7 +4,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.Camera;
 using MvAssistant.Mac.v1_0.Hal.Component.Force6Axis;
 using MvAssistant.Mac.v1_0.Hal.Component.Gripper;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
-using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 {
     [GuidAttribute("E84D4D03-CCE7-4CB0-A192-CDD81C8C249F")]
-    [MachineManifest(DeviceEnum.boxtransfer_assembly)]
+    [MachineManifest(EnumDevice.boxtransfer_assembly)]
     public class HalBoxTransferFake : HalFakeBase, IHalBoxTransfer
     {
         #region Device Components (請看範例說明)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Manifest.Exceptions
+namespace MvAssistant.Mac.v1_0.Manifest.Exceptions
 {
     public class InvalidCheckSumException : Exception
     {

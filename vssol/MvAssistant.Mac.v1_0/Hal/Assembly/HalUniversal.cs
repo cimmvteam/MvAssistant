@@ -1,7 +1,7 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Motor;
-using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
-    [MachineManifest(DeviceEnum.universal_assembly)]
+    [MachineManifest(EnumDevice.universal_assembly)]
     [Guid("FAFCEF2B-6356-4438-890F-30F865CAA742")]
     public class HalUniversal : HalAssemblyBase, IHalUniversal
     {
@@ -20,9 +20,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #region Device Components
 
 
-        [MachineManifest(DeviceEnum.universal_plc_01)]
+        [MachineManifest(EnumDevice.universal_plc_01)]
         public IHalPlc plc_01 { get; set; }
-        [MachineManifest(DeviceEnum.universal_plc_02)]
+        [MachineManifest(EnumDevice.universal_plc_02)]
         public IHalPlc plc_02 { get; set; }
 
         #endregion Device Components

@@ -4,7 +4,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.Button;
 using MvAssistant.Mac.v1_0.Hal.Component.Door;
 using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
 using MvAssistant.Mac.v1_0.Hal.Component.PresenceDetector;
-using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 {
-    [MachineManifest(DeviceEnum.drawer_assembly)]
+    [MachineManifest(EnumDevice.drawer_assembly)]
     [GuidAttribute("E86AB31F-9642-42F2-852B-394ED097C54D")]
     public class HalDrawerFake : HalFakeBase, IHalDrawer
     {
@@ -38,14 +38,14 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         /// }
         /// 
         private IHalInfraredPhotointerrupter interupter_PeopleSideLimit;
-        [MachineManifest(DeviceEnum.drawer_Interupter_PeopleSideLimit)]
+        [MachineManifest(EnumDevice.drawer_Interupter_PeopleSideLimit)]
         public IHalInfraredPhotointerrupter Interupter_PeopleSideLimit
         {
             get { return interupter_PeopleSideLimit; }
             set { interupter_PeopleSideLimit = value; }
         }
         private IHalInfraredPhotointerrupter interupter_RobotSideLimit;
-        [MachineManifest(DeviceEnum.drawer_Interupter_RobotSideLimit)]
+        [MachineManifest(EnumDevice.drawer_Interupter_RobotSideLimit)]
         public IHalInfraredPhotointerrupter Interupter_RobotSideLimit
         {
             get { return interupter_RobotSideLimit; }
@@ -53,28 +53,28 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalInfraredPhotointerrupter interupter_PeopleSide;
-        [MachineManifest(DeviceEnum.drawer_Interupter_PeopleSide)]
+        [MachineManifest(EnumDevice.drawer_Interupter_PeopleSide)]
         public IHalInfraredPhotointerrupter Interupter_PeopleSide
         {
             get { return interupter_PeopleSide; }
             set { interupter_PeopleSide = value; }
         }
         private IHalInfraredPhotointerrupter interupter_RobotSide;
-        [MachineManifest(DeviceEnum.drawer_Interupter_RobotSide)]
+        [MachineManifest(EnumDevice.drawer_Interupter_RobotSide)]
         public IHalInfraredPhotointerrupter Interupter_RobotSide
         {
             get { return interupter_RobotSide; }
             set { interupter_RobotSide = value; }
         }
         private IHalInfraredPhotointerrupter interupter_Home;
-        [MachineManifest(DeviceEnum.drawer_Interupter_Home)]
+        [MachineManifest(EnumDevice.drawer_Interupter_Home)]
         public IHalInfraredPhotointerrupter Interupter_Home
         {
             get { return interupter_Home; }
             set { interupter_Home = value; }
         }
         private IHalButton button_DrawerLoadControl;
-        [MachineManifest(DeviceEnum.drawer_Button_DrawerLoadControl)]
+        [MachineManifest(EnumDevice.drawer_Button_DrawerLoadControl)]
         public IHalButton Button_DrawerLoadControl
         {
             get { return button_DrawerLoadControl; }
@@ -82,7 +82,7 @@ namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
         }
 
         private IHalPresenceDetector boxPresentDetector;
-        [MachineManifest(DeviceEnum.drawer_PresentDetector)]
+        [MachineManifest(EnumDevice.drawer_PresentDetector)]
         public IHalPresenceDetector BoxPresentDetector
         {
             get { return boxPresentDetector; }

@@ -204,11 +204,13 @@
     <Compile Include="Hal\Component\Vibration\HalVibrationCwTech.cs" />
     <Compile Include="Hal\Component\Vibration\IHalVibration.cs" />
     <Compile Include="Hal\HalBase.cs" />
+    <Compile Include="Hal\HalContext.cs" />
     <Compile Include="Hal\HalFakeBase.cs" />
     <Compile Include="Hal\HalUtil.cs" />
     <Compile Include="Hal\IHal.cs" />
     <Compile Include="Hal\IHalFake.cs" />
-    <Compile Include="Manifest\DeviceEnum.cs" />
+    <Compile Include="Manifest\EnumDevice.cs" />
+    <Compile Include="Manifest\EnumPositionId.cs" />
     <Compile Include="Manifest\Exceptions\AssemblyCreationException.cs" />
     <Compile Include="Manifest\Exceptions\HalObjectNotFoundException.cs" />
     <Compile Include="Manifest\Exceptions\GenCheckSumException.cs" />
@@ -221,10 +223,8 @@
     <Compile Include="Manifest\Exceptions\NoDriverException.cs" />
     <Compile Include="Manifest\Exceptions\NoPropertyException.cs" />
     <Compile Include="Manifest\IManifestMachine.cs" />
-    <Compile Include="Manifest\MachineAssembly.cs" />
-    <Compile Include="Manifest\MachineAssemblyDriver.cs" />
-    <Compile Include="Manifest\MachineAssemblyDriverReference.cs" />
-    <Compile Include="Manifest\MachineAssemblyFactory.cs" />
+    <Compile Include="Manifest\MachineDevice.cs" />
+    <Compile Include="Manifest\MachineDriver.cs" />
     <Compile Include="Manifest\MachineManifest.cs" />
     <Compile Include="Manifest\MachineManifestAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

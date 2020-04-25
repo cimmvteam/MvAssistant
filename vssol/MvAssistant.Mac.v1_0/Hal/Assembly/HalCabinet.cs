@@ -1,17 +1,10 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.Component;
-using MvAssistant.Mac.v1_0.Hal.Component.Door;
-using MvAssistant.Manifest;
+﻿using MvAssistant.Mac.v1_0.Manifest;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
-    [MachineManifest(DeviceEnum.cabinet_assembly)]
+    [MachineManifest(EnumDevice.cabinet_assembly)]
     [GuidAttribute("DBCB4F3E-0405-450E-80D5-F2D1401975F1")]
     public class HalCabinet : HalAssemblyBase, IHalCabinet
     {

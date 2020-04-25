@@ -7,45 +7,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MvAssistant.Manifest
+namespace MvAssistant.Mac.v1_0.Manifest
 {
-    public class MachineAssembly
+    [Serializable]
+    public class MachineDriver
     {
-        [XmlArray("Assemblies")]
-        [XmlArrayItem("Assembly")]
-        public MachineAssembly[] Assemblies { get; set; }
+
 
         [XmlAttribute]
-        public string DevConnStr { get; set; }
+        public string Description { get; set; }
 
-        /// <summary>
-        /// 對應到DeviceEnum的列舉項目
-        /// </summary>
         [XmlAttribute]
-        public string DeviceName { get; set; }
+        public string DriverPath { get; set; }
 
         [XmlAttribute]
         public string DriverId { get; set; }
-        /// <summary>
-        /// 對應到機台設備清單的Device ID
-        /// </summary>
-        [XmlAttribute]
-        public string ID { get; set; }
-        [XmlAttribute]
-        public string Level { get; set; }
 
         [XmlAttribute]
-        public string PositionId { get; set; }
+        public string Product { get; set; }
+
+        [XmlAttribute]
+        public string Vendor { get; set; }
 
 
-
-
-
-        #region Interface Type
+        #region Assign Type
 
         Type m_AssignType;
         Guid m_TypeGuid = Guid.Empty;
-
 
         [XmlIgnore]
         public Type AssignType
@@ -59,12 +47,11 @@ namespace MvAssistant.Manifest
                 var guid = guid_attrs.FirstOrDefault() as GuidAttribute;
 
                 if (guid != null && this.m_TypeGuid == Guid.Empty) this.m_TypeGuid = Guid.Parse(guid.Value);
-
-                this.HalIntfRefName = type.Name;
             }
         }
+
         [XmlAttribute]
-        public string HalIntfId
+        public string HalImpId
         {
             get { return this.m_TypeGuid.ToString().ToUpper(); }
             set
@@ -74,15 +61,19 @@ namespace MvAssistant.Manifest
                 var type = TypeMapper.Get(guid);
 
                 this.m_AssignType = type;
-
-                this.HalIntfRefName = type.Name;
             }
         }
 
         [XmlAttribute]
-        public string HalIntfRefName { get; set; }
+        public string HalImpRefName { get { return this.AssignType.Name; } set { } }
+
 
         #endregion
+
+
+
+
+
 
 
     }

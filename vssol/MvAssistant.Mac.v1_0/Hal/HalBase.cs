@@ -10,9 +10,11 @@ namespace MvAssistant.Mac
     [GuidAttribute("8592A98B-C7DD-46C3-9965-BFD952A7742A")]
     public abstract class HalBase : IHal, IDisposable
     {
-        ~HalBase() { this.Dispose(false); }
-
         private Dictionary<string, string> m_DevSettings;
+
+        ~HalBase() { this.Dispose(false); }
+        public string DeviceConnStr { get; set; }
+
         public Dictionary<string, string> DevSettings
         {
             get
@@ -21,8 +23,6 @@ namespace MvAssistant.Mac
                 return this.m_DevSettings;
             }
         }
-
-        public string DeviceConnStr { get; set; }
         public string ID { get; set; }
         private Dictionary<string, string> GetDevSettings()
         {
@@ -37,6 +37,9 @@ namespace MvAssistant.Mac
                         ).ToDictionary(x => x.row.Substring(0, x.idx), x => x.row.Substring(x.idx + 1));
             return dict;
         }
+
+        public List<HalBase> Machines = new List<HalBase>();
+
 
         #region IHal
 
@@ -91,8 +94,6 @@ namespace MvAssistant.Mac
 
             disposed = true;
         }
-
-
 
 
 

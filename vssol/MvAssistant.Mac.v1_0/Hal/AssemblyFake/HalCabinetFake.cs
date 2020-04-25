@@ -1,7 +1,7 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.Component.Door;
 using MvAssistant.Mac.v1_0.Hal.Component.FiberOptic;
-using MvAssistant.Manifest;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.AssemblyFake
 {
-    [MachineManifest(DeviceEnum.cabinet_assembly)]
+    [MachineManifest(EnumDevice.cabinet_assembly)]
     [GuidAttribute("935B114A-D18B-404B-A843-D02DA8DDBD89")]
     public class HalCabinetFake : HalFakeBase, IHalCabinet
     {
