@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.MaskTool_v0_1.Robot;
-using MvAssistant.MaskTool_v0_1.Drawer_SocketComm;
+using MvAssistant.Mac.Robot;
+using MvAssistant.Mac.Drawer_SocketComm;
 
 namespace BoxTransferTest
 {

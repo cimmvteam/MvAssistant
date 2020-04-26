@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 
-namespace MvAssistant.MaskTool_v0_1.Robot
+namespace MvAssistant.Mac.Robot
 {
     public class BoxRobotHandler
     {

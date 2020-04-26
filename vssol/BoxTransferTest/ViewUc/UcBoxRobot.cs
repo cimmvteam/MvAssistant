@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.MaskTool_v0_1.Robot;
+using MvAssistant.Mac.Robot;
 using MvAssistant.Tasking;
 
 namespace BoxTransferTest.ViewUc

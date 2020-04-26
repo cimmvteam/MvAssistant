@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.MaskTool_v0_1.Robot
+namespace MvAssistant.Mac.Robot
 {
     public class RobotMotionInfo
     {

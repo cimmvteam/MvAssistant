@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.ComponentModel;
 
-namespace MvAssistant.MaskTool_v0_1.Drawer_SocketComm
+namespace MvAssistant.Mac.Drawer_SocketComm
 {
     public enum LP_EnumSendCMDList
     {

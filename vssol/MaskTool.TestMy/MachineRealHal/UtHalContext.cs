@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 
-namespace MvAssistant.Mac.TestMy.HalTest
+namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtHalContext

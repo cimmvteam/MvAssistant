@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'end hal update'
+git commit -m 'hal structure update'
 git pull
 git push
 cd ..

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaskTool.TestMy.MachineReal;
-using MvAssistant.MaskTool_v0_1.Plc;
+using MaskTool.TestMy.MachineRealPlc;
+using MvAssistant.Mac.v1_0.CompPlc;
 
 namespace BoxTransferTest.ViewUc
 {

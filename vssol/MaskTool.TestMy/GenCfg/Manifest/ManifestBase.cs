@@ -50,7 +50,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             return new MacMachineDriverCfg[]{
             }.ToList();
         }
-
         public List<MacMachineDriverCfg> DriverFakeMotion()
         {
             return new MacMachineDriverCfg[]{
@@ -74,7 +73,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 },
             }.ToList();
         }
-
         public List<MacMachineDriverCfg> DriverFakeOpticSensor()
         {
             return new MacMachineDriverCfg[]{
@@ -89,6 +87,8 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 },
                 }.ToList();
         }
+
+
         /// <summary>
         /// 在此 Maintain Real Device Drive的宣告
         /// </summary>
@@ -109,12 +109,61 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public List<MacMachineDriverCfg> DriverRealAssembly()
         {
             return new MacMachineDriverCfg[]{
+                new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Box Transfer",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalBoxTransfer),
+                    DriverId = ManifestDriverId.BoxTransfer.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Cabinet",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalCabinet),
+                    DriverId = ManifestDriverId.Cabinet.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Clean Chamber",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalCleanCh),
+                    DriverId = ManifestDriverId.CleanCh.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Inspection Chamber",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalInspectionCh),
+                    DriverId = ManifestDriverId.InspectionCh.ToString(),
+                },
                  new MacMachineDriverCfg(){
                     Vendor = "Hirata",
                     Product = "Load Port",
                     Remark = null,
                     AssignType = typeof(Hal.Assembly.MacHalLoadPort),
                     DriverId = ManifestDriverId.LoadPort.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Mask Transfer",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalMaskTransfer),
+                    DriverId = ManifestDriverId.MaskTransfer.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Open Stage",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalOpenStage),
+                    DriverId = ManifestDriverId.OpenStage.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Universal",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalUniversal),
+                    DriverId = ManifestDriverId.Universal.ToString(),
                 },
 
             }.ToList();

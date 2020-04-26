@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 
-namespace MvAssistant.MaskTool_v0_1.Drawer_SocketComm
+namespace MvAssistant.Mac.Drawer_SocketComm
 {
     public class AsynchronousClient
     {

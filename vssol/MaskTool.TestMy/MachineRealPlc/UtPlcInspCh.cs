@@ -2,9 +2,9 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant;
-using MvAssistant.MaskTool_v0_1.Plc;
+using MvAssistant.Mac.v1_0.CompPlc;
 
-namespace MaskTool.TestMy.MachineReal
+namespace MaskTool.TestMy.MachineRealPlc
 {
     [TestClass]
     public class UtPlcInspCh

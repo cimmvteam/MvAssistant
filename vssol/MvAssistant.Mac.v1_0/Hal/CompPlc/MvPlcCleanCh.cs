@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.MaskTool_v0_1.Plc
+namespace MvAssistant.Mac.v1_0.CompPlc
 {
     public class MvPlcCleanCh
     {
