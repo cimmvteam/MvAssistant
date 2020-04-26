@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.CompPlc
+namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MvPlcCabinet
+    public class MacHalPlcCabinet
     {
-        private MvPlcContext m_PlcContext;
+        private MacHalPlcContext m_PlcContext;
 
-        public MvPlcCabinet(MvPlcContext plc)
+        public MacHalPlcCabinet(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
@@ -20,8 +20,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
         }
 
         //讀取Cabinet內部與外部環境最大壓差限制
@@ -29,8 +29,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
             return new Tuple<int, int>(
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_DP1Limit),
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_DP2Limit)
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit)
                 );
         }
 
@@ -39,8 +39,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
             return new Tuple<int, int>(
-                plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP1),
-                plc.Read<int>(MvEnumPlcVariable.DB_TO_PC_DP2)
+                plc.Read<int>(MacHalPlcEnumVariable.DB_TO_PC_DP1),
+                plc.Read<int>(MacHalPlcEnumVariable.DB_TO_PC_DP2)
                 );
         }
         #endregion
@@ -50,8 +50,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         public void SetExhaustFlow(int Valve1, int Valve2)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust1, Valve1);
-            plc.Write(MvEnumPlcVariable.PC_TO_DB_Exhaust2, Valve2);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1, Valve1);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2, Valve2);
         }
 
         //設定節流閥開啟大小
@@ -59,8 +59,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
             return new Tuple<int, int>(
-            plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_Exhaust1),
-            plc.Read<int>(MvEnumPlcVariable.PC_TO_DB_Exhaust2)
+            plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1),
+            plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2)
             );
         }
         #endregion
@@ -70,13 +70,13 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area1),
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area2),
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area3),
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area4),
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area5),
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area6),
-            plc.Read<bool>(MvEnumPlcVariable.DR_TO_PC_Area7)
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area1),
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area2),
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area3),
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area4),
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area5),
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area6),
+            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area7)
             );
         }
     }

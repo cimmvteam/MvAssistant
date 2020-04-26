@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'hal structure update'
+git commit -m 'rename plc to hal'
 git pull
 git push
 cd ..

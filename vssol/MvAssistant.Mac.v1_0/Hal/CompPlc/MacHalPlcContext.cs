@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.CompPlc
+namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MvPlcContext : IDisposable
+    public class MacHalPlcContext : IDisposable
     {
 
         public MvOmronPlcLdd PlcLdd;
@@ -21,25 +21,25 @@ namespace MvAssistant.Mac.v1_0.CompPlc
 
         public bool IsConnected { get { return m_isConnected; } }
 
-        public MvPlcInspCh InspCh;
-        public MvPlcBoxRobot BoxRobot;
-        public MvPlcMaskRobot MaskRobot;
-        public MvPlcOpenStage OpenStage;
-        public MvPlcCabinet Cabinet;
-        public MvPlcCleanCh CleanCh;
-        public MvPlcLoadPort LoadPort;
+        public MacHalPlcInspCh InspCh;
+        public MacHalPlcBoxRobot BoxRobot;
+        public MacHalPlcMaskRobot MaskRobot;
+        public MacHalPlcOpenStage OpenStage;
+        public MacHalPlcCabinet Cabinet;
+        public MacHalPlcCleanCh CleanCh;
+        public MacHalPlcLoadPort LoadPort;
 
-        public MvPlcContext()
+        public MacHalPlcContext()
         {
-            this.InspCh = new MvPlcInspCh(this);
-            this.BoxRobot = new MvPlcBoxRobot(this);
-            this.MaskRobot = new MvPlcMaskRobot(this);
-            this.OpenStage = new MvPlcOpenStage(this);
-            this.Cabinet = new MvPlcCabinet(this);
-            this.CleanCh = new MvPlcCleanCh(this);
-            this.LoadPort = new MvPlcLoadPort(this);
+            this.InspCh = new MacHalPlcInspCh(this);
+            this.BoxRobot = new MacHalPlcBoxRobot(this);
+            this.MaskRobot = new MacHalPlcMaskRobot(this);
+            this.OpenStage = new MacHalPlcOpenStage(this);
+            this.Cabinet = new MacHalPlcCabinet(this);
+            this.CleanCh = new MacHalPlcCleanCh(this);
+            this.LoadPort = new MacHalPlcLoadPort(this);
         }
-        ~MvPlcContext() { this.Dispose(false); }
+        ~MacHalPlcContext() { this.Dispose(false); }
 
 
 
@@ -53,13 +53,13 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         }
 
 
-        public T Read<T>(MvEnumPlcVariable plcvar)
+        public T Read<T>(MacHalPlcEnumVariable plcvar)
         {
             var obj = this.PlcLdd.Read(plcvar.ToString());
 
             return (T)obj;
         }
-        public void Write(MvEnumPlcVariable plcvar, object data)
+        public void Write(MacHalPlcEnumVariable plcvar, object data)
         {
             this.PlcLdd.Write(plcvar.ToString(), data);
         }
@@ -80,16 +80,16 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             this.m_keepConnection = MvCancelTask.RunLoop(() =>
             {
 
-                this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, false);
-                if (!SpinWait.SpinUntil(() => !this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
+                this.Write(MacHalPlcEnumVariable.PC_TO_PLC_CheckClock, false);
+                if (!SpinWait.SpinUntil(() => !this.Read<bool>(MacHalPlcEnumVariable.PC_TO_PLC_CheckClock_Reply), 2500))
                 {
                     this.LockAssign(ref this.m_isConnected, false);
                     return false;
                 }
                 this.LockAssign(ref this.m_isConnected, true);
 
-                this.Write(MvEnumPlcVariable.PC_TO_PLC_CheckClock, true);
-                if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.PC_TO_PLC_CheckClock_Reply), 2500))
+                this.Write(MacHalPlcEnumVariable.PC_TO_PLC_CheckClock, true);
+                if (!SpinWait.SpinUntil(() => this.Read<bool>(MacHalPlcEnumVariable.PC_TO_PLC_CheckClock_Reply), 2500))
                 {
 
                     this.LockAssign(ref this.m_isConnected, false);
@@ -110,7 +110,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             using (var obj = this.PlcLdd)
             {
-                
+
             }
 
             if (this.m_keepConnection != null)
@@ -132,15 +132,15 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         //信號燈
         public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
-            this.Write(MvEnumPlcVariable.PC_TO_DR_Red, Red);
-            this.Write(MvEnumPlcVariable.PC_TO_DR_Orange, Orange);
-            this.Write(MvEnumPlcVariable.PC_TO_DR_Blue, Blue);
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Red, Red);
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Orange, Orange);
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Blue, Blue);
         }
 
         //蜂鳴器
         public void SetBuzzer(uint BuzzerType)
         {
-            this.Write(MvEnumPlcVariable.PC_TO_DR_Buzzer, BuzzerType);
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Buzzer, BuzzerType);
         }
 
         //A08外罩風扇開關、風速控制
@@ -149,18 +149,18 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             string Result = "";
             try
             {
-                this.Write(MvEnumPlcVariable.PC_TO_FFU_SetSpeed, WindSpeed);
-                this.Write(MvEnumPlcVariable.PC_TO_FFU_Address, FanID);
-                this.Write(MvEnumPlcVariable.PC_TO_FFU_Write, false);
+                this.Write(MacHalPlcEnumVariable.PC_TO_FFU_SetSpeed, WindSpeed);
+                this.Write(MacHalPlcEnumVariable.PC_TO_FFU_Address, FanID);
+                this.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
                 Thread.Sleep(100);
-                this.Write(MvEnumPlcVariable.PC_TO_FFU_Write, true);
+                this.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, true);
 
-                if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.FFU_TO_PC_Write_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => this.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Reply), 1000))
                     throw new MvException("Outer Cover Fan Control T0 timeout");
-                else if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.FFU_TO_PC_Write_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => this.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Complete), 5000))
                     throw new MvException("Outer Cover Fan Control T2 timeout");
 
-                switch (this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_Write_Result))
+                switch (this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Result))
                 {
                     case 1:
                         Result = "OK";
@@ -170,14 +170,14 @@ namespace MvAssistant.Mac.v1_0.CompPlc
                         break;
                 }
 
-                this.Write(MvEnumPlcVariable.PC_TO_FFU_Write, false);
+                this.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
 
-                if (!SpinWait.SpinUntil(() => !this.Read<bool>(MvEnumPlcVariable.FFU_TO_PC_Write_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !this.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Complete), 1000))
                     throw new MvException("Outer Cover Fan Control T4 timeout");
             }
             catch (Exception ex)
             {
-                this.Write(MvEnumPlcVariable.PC_TO_FFU_Write, false);
+                this.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
                 throw ex;
             }
             return Result;
@@ -186,18 +186,18 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         public List<int> ReadCoverFanSpeed()
         {
             List<int> FanSpeedList = new List<int>();
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_1));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_2));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_3));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_4));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_5));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_6));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_7));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_8));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_9));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_10));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_11));
-            FanSpeedList.Add(this.Read<int>(MvEnumPlcVariable.FFU_TO_PC_FFUCurrentSpeed_12));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_1));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_2));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_3));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_4));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_5));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_6));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_7));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_8));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_9));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_10));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_11));
+            FanSpeedList.Add(this.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_12));
             return FanSpeedList;
 
         }
@@ -207,28 +207,28 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             string Result = "";
             try
             {
-                this.Write(MvEnumPlcVariable.Reset_ALL, false);
+                this.Write(MacHalPlcEnumVariable.Reset_ALL, false);
                 Thread.Sleep(100);
-                this.Write(MvEnumPlcVariable.Reset_ALL, true);
+                this.Write(MacHalPlcEnumVariable.Reset_ALL, true);
 
-                if (!SpinWait.SpinUntil(() => this.Read<bool>(MvEnumPlcVariable.Reset_ALL_Complete), 2000))
+                if (!SpinWait.SpinUntil(() => this.Read<bool>(MacHalPlcEnumVariable.Reset_ALL_Complete), 2000))
                     throw new MvException("Reset All T0 timeout");
 
-                this.Write(MvEnumPlcVariable.Reset_ALL, false);
+                this.Write(MacHalPlcEnumVariable.Reset_ALL, false);
             }
             catch (Exception ex)
             {
-                this.Write(MvEnumPlcVariable.Reset_ALL, false);
+                this.Write(MacHalPlcEnumVariable.Reset_ALL, false);
                 throw ex;
             }
         }
 
-        public void EMSAlarm(bool BT_EMS,bool RT_EMS,bool OS_EMS,bool IC_EMS)
+        public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
         {
-            this.Write(MvEnumPlcVariable.PC_TO_BT_EMS, BT_EMS);
-            this.Write(MvEnumPlcVariable.PC_TO_MT_EMS, RT_EMS);
-            this.Write(MvEnumPlcVariable.PC_TO_OS_EMS, OS_EMS);
-            this.Write(MvEnumPlcVariable.PC_TO_IC_EMS, IC_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, RT_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
         }
 
         #region IDisposable

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.CompPlc
+namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MvPlcLoadPort
+    public class MacHalPlcLoadPort
     {
-        private MvPlcContext m_PlcContext;
+        private MacHalPlcContext m_PlcContext;
 
-        public MvPlcLoadPort(MvPlcContext plc)
+        public MacHalPlcLoadPort(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
@@ -20,8 +20,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
-            plc.Write(MvEnumPlcVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
         }
 
         //讀取壓差極限值
@@ -30,8 +30,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<int, int>(
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_LP_DP1Limit),
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_LP_DP2Limit)
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_LP_DP2Limit)
                 );
         }
 
@@ -41,8 +41,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<int, int>(
-                plc.Read<int>(MvEnumPlcVariable.LP_TO_PC_DP1),
-                plc.Read<int>(MvEnumPlcVariable.LP_TO_PC_DP2)
+                plc.Read<int>(MacHalPlcEnumVariable.LP_TO_PC_DP1),
+                plc.Read<int>(MacHalPlcEnumVariable.LP_TO_PC_DP2)
                 );
         }
     }

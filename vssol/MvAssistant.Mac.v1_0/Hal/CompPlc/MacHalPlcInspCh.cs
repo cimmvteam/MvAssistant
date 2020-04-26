@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.CompPlc
+namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MvPlcInspCh
+    public class MacHalPlcInspCh
     {
 
-        MvPlcContext m_PlcContext;
+        MacHalPlcContext m_PlcContext;
 
-        public MvPlcInspCh(MvPlcContext plc)
+        public MacHalPlcInspCh(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
@@ -23,18 +23,18 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_XPoint, X_Position);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_YPoint, Y_Position);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XPoint, X_Position);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_YPoint, Y_Position);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, false);
                 Thread.Sleep(100);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, true);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYReply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYReply), 1000))
                     throw new MvException("Inspection XY T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYComplete), 5000))
                     throw new MvException("Inspection XY T2 timeout");
 
-                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_XYResult))
+                switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_XYResult))
                 {
                     case 0:
                         Result = "Invalid";
@@ -56,14 +56,14 @@ namespace MvAssistant.Mac.v1_0.CompPlc
                         break;
                 }
 
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_XYComplete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYComplete), 1000))
                     throw new MvException("Inspection XY T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_XYCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, false);
                 throw ex;
             }
             return Result;
@@ -76,17 +76,17 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZPoint, Z_Position);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZPoint, Z_Position);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZCmd, false);
                 Thread.Sleep(100);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, true);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZCmd, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZReply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_ZReply), 1000))
                     throw new MvException("Inspection Z T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_ZComplete), 5000))
                     throw new MvException("Inspection Z T2 timeout");
 
-                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_ZResult))
+                switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_ZResult))
                 {
                     case 0:
                         Result = "Invalid";
@@ -108,14 +108,14 @@ namespace MvAssistant.Mac.v1_0.CompPlc
                         break;
                 }
 
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZCmd, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_ZComplete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_ZComplete), 1000))
                     throw new MvException("Inspection Z T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_ZCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZCmd, false);
                 throw ex;
             }
             return Result;
@@ -128,17 +128,17 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_WPoint, W_Position);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WPoint, W_Position);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WCmd, false);
                 Thread.Sleep(100);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, true);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WCmd, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WReply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_WReply), 1000))
                     throw new MvException("Inspection W T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_WComplete), 5000))
                     throw new MvException("Inspection W T2 timeout");
 
-                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_WResult))
+                switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_WResult))
                 {
                     case 0:
                         Result = "Invalid";
@@ -160,14 +160,14 @@ namespace MvAssistant.Mac.v1_0.CompPlc
                         break;
                 }
 
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WCmd, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_WComplete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_WComplete), 1000))
                     throw new MvException("Inspection W T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_WCmd, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WCmd, false);
                 throw ex;
             }
             return Result;
@@ -179,16 +179,16 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, false);
                 Thread.Sleep(100);
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, true);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Reply), 1000))
                     throw new MvException("Inspection Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 30 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Complete), 30 * 1000))
                     throw new MvException("Inspection Initial T2 timeout");
 
-                switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Result))
+                switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Result))
                 {
                     case 1:
                         Result = "OK";
@@ -201,14 +201,14 @@ namespace MvAssistant.Mac.v1_0.CompPlc
                         break;
                 }
 
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_Initial_A06_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Complete), 1000))
                     throw new MvException("Inspection Initial T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_IC_Initial_A06, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, false);
                 throw ex;
             }
             return Result;
@@ -218,9 +218,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_XY_Speed, StageXYSpeed);// (mm/sec)
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Z_Speed, CcdZSpeed);// (mm/sec)
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_W_Speed, MaskWSpeed);// angle per second(degree/sec)
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XY_Speed, StageXYSpeed);// (mm/sec)
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Z_Speed, CcdZSpeed);// (mm/sec)
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_W_Speed, MaskWSpeed);// angle per second(degree/sec)
         }
 
         //讀取手臂可侵入的上下區間極限值
@@ -229,9 +229,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double, double>(
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_XY_Speed),
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Z_Speed),
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_W_Speed)
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_XY_Speed),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Z_Speed),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_W_Speed)
                 );
         }
 
@@ -239,9 +239,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         public bool ReadRobotIntrude(bool isIntrude)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_RobotIntrude, !isIntrude);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
             Thread.Sleep(100);
-            return plc.Read<bool>(MvEnumPlcVariable.IC_TO_PC_RobotLicence);
+            return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicence);
         }
 
         //讀取 XY Stage位置
@@ -250,8 +250,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double>(
-                plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_X),
-                plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_Y)
+                plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_X),
+                plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_Y)
                 );
         }
 
@@ -260,7 +260,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_Z);
+            return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_Z);
         }
 
         //讀取旋轉位置
@@ -268,7 +268,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_Positon_W);
+            return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_W);
         }
 
         #region 手臂入侵(左右)
@@ -277,8 +277,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_R, AboutLimit_R);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_L, AboutLimit_L);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R, AboutLimit_R);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_L, AboutLimit_L);
         }
 
         //讀取手臂可侵入的左右區間極限值
@@ -287,8 +287,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double>(
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_R),
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_AboutLimit_L)
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_L)
                 );
         }
 
@@ -297,7 +297,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_About);
+            return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_RobotPosition_About);
         }
         #endregion
 
@@ -307,8 +307,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
-            plc.Write(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_D, UpDownLimit_D);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_D, UpDownLimit_D);
         }
 
         //讀取手臂可侵入的上下區間極限值
@@ -317,8 +317,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double>(
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_U),
-                plc.Read<double>(MvEnumPlcVariable.PC_TO_IC_Robot_UpDownLimit_D)
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_U),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_D)
                 );
         }
 
@@ -327,7 +327,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.IC_TO_PC_RobotPosition_UpDown);
+            return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_RobotPosition_UpDown);
         }
         #endregion
 
@@ -335,7 +335,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            switch (plc.Read<int>(MvEnumPlcVariable.IC_TO_PC_A06Status))
+            switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_A06Status))
             {
                 case 1:
                     Result = "Idle";
@@ -356,7 +356,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         public bool[] ReadAlarmArray()
         {
             var plc = this.m_PlcContext;
-            return plc.Read<bool[]>(MvEnumPlcVariable.A06_Alarm);
+            return plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Alarm);
         }
     }
 }

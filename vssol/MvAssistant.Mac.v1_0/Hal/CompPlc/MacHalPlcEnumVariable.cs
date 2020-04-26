@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.Mac.v1_0.CompPlc
+namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public enum MvEnumPlcVariable
+    public enum MacHalPlcEnumVariable
     {
         //PLC Connection & Public Area
         PC_TO_PLC_CheckClock,//PLC軟體狀態檢查

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.CompPlc
+namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MvPlcCleanCh
+    public class MacHalPlcCleanCh
     {
-        private MvPlcContext m_PlcContext;
+        private MacHalPlcContext m_PlcContext;
 
-        public MvPlcCleanCh(MvPlcContext plc)
+        public MacHalPlcCleanCh(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
@@ -21,9 +21,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_L_Limit, L_Limit);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit, M_Limit);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit, S_Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_L_Limit, L_Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_M_Limit, M_Limit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_S_Limit, S_Limit);
         }
 
         //讀取各種大小Particle的數量限制
@@ -32,9 +32,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<int, int, int>(
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_L_Limit),
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_M_Limit),
-                plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_PD_S_Limit)
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_CC_PD_L_Limit),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_CC_PD_M_Limit),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_CC_PD_S_Limit)
                 );
         }
 
@@ -44,9 +44,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<int, int, int>(
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_L),
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_M),
-                plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_PD_S)
+                plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_PD_L),
+                plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_PD_M),
+                plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_PD_S)
                 );
         }
         #endregion
@@ -57,9 +57,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double, double>(
-                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel1),
-                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel2),
-                plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_MaskLevel3)
+                plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_MaskLevel1),
+                plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_MaskLevel2),
+                plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_MaskLevel3)
                 );
         }
 
@@ -69,8 +69,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
         }
 
         //讀取手臂可侵入的左右區間極限值
@@ -79,8 +79,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double>(
-                        plc.Read<double>(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_R),
-                        plc.Read<double>(MvEnumPlcVariable.PC_TO_CC_Robot_AboutLimit_L)
+                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R),
+                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L)
                         );
         }
 
@@ -89,7 +89,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_RobotPosition_About);
+            return plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_RobotPosition_About);
         }
         #endregion
 
@@ -99,8 +99,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_D, Limit_D);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_D, Limit_D);
         }
 
         //讀取手臂可侵入的上下區間極限值
@@ -109,8 +109,8 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double>(
-                        plc.Read<double>(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_U),
-                        plc.Read<double>(MvEnumPlcVariable.PC_TO_CC_Robot_UpDownLimit_D)
+                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_U),
+                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_D)
                         );
         }
 
@@ -119,7 +119,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_RobotPosition_UpDown);
+            return plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_RobotPosition_UpDown);
         }
         #endregion
 
@@ -129,7 +129,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_DP_Limit, PressureLimit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_DP_Limit, PressureLimit);
         }
 
         //讀取壓力表壓差限制
@@ -137,7 +137,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<int>(MvEnumPlcVariable.PC_TO_CC_DP_Limit);
+            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_CC_DP_Limit);
         }
 
         //讀取實際壓差
@@ -145,7 +145,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_DP);
+            return plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_DP);
         }
         #endregion
 
@@ -156,32 +156,32 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, BlowTime);
-                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_BlowTime, BlowTime);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Blow, false);
                 Thread.Sleep(100);
-                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, true);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Blow, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Reply), 1000))
                     throw new MvException("Open Stage Gas Valve Blow T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000 + (int)BlowTime*100))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Complete), 1000 + (int)BlowTime * 100))
                     throw new MvException("Open Stage Gas Valve Blow T2 timeout");
 
-                switch (plc.Read<int>(MvEnumPlcVariable.CC_TO_PC_Blow_Result))
+                switch (plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Result))
                 {
                     case 1:
                         Result = "OK";
                         break;
                 }
 
-                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Blow, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Blow_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Complete), 1000))
                     throw new MvException("Open Stage Gas Valve Blow T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MvEnumPlcVariable.PC_TO_CC_BlowTime, 0);
-                plc.Write(MvEnumPlcVariable.PC_TO_CC_Blow, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_BlowTime, 0);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Blow, false);
                 throw ex;
             }
             return Result;
@@ -193,7 +193,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MvEnumPlcVariable.PC_TO_CC_PressureControl, AirPressure);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PressureControl, AirPressure);
         }
 
         //讀取吹氣壓力設定值
@@ -201,7 +201,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.PC_TO_CC_PressureControl);
+            return plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_PressureControl);
         }
 
         //讀取實際吹氣壓力
@@ -209,7 +209,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<Single>(MvEnumPlcVariable.CC_TO_PC_PressureControl);
+            return plc.Read<Single>(MacHalPlcEnumVariable.CC_TO_PC_PressureControl);
         }
         #endregion
 
@@ -218,7 +218,7 @@ namespace MvAssistant.Mac.v1_0.CompPlc
         {
             var plc = this.m_PlcContext;
 
-            return plc.Read<double>(MvEnumPlcVariable.CC_TO_PC_Pressure);
+            return plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_Pressure);
         }
 
         //讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms
@@ -227,9 +227,9 @@ namespace MvAssistant.Mac.v1_0.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<bool, bool, bool>(
-            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area1),//Right
-            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area2),//Front
-            plc.Read<bool>(MvEnumPlcVariable.CC_TO_PC_Area3)//Left
+            plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area1),//Right
+            plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area2),//Front
+            plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area3)//Left
             );
         }
     }
