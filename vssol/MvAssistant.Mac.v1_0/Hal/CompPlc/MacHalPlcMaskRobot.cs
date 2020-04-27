@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MacHalPlcMaskRobot
+    [Guid("DFD72153-DCC6-4949-85DB-B5D7CED91E2E")]
+    public class MacHalPlcMaskRobot : MacHalComponentBase
     {
         private MacHalPlcContext m_PlcContext;
 

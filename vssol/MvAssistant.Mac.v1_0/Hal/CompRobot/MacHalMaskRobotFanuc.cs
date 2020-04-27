@@ -8,19 +8,19 @@ using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 {
-    public class MacHalMaskRobot : IDisposable
+    public class MacHalMaskRobotFanuc : IDisposable
     {
         public int PositionRecordInterval_MillSec = 7;
         public MvFanucRobotLdd ldd;
         public List<MvRobotAlarmInfo> alarmInfos;
         bool isRunning = false;
 
-        public MacHalMaskRobot()
+        public MacHalMaskRobotFanuc()
         {
             ldd = new MvFanucRobotLdd();
             alarmInfos = new List<MvRobotAlarmInfo>();
         }
-        ~MacHalMaskRobot()
+        ~MacHalMaskRobotFanuc()
         {
             this.Close();
         }

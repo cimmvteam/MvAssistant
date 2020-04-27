@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MacHalPlcInspCh
+    [Guid("56D4923B-F3CC-46C9-BFC5-9ACD13E1897A")]
+    public class MacHalPlcInspCh : MacHalComponentBase
     {
 
         MacHalPlcContext m_PlcContext;

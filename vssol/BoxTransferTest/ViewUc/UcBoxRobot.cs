@@ -14,7 +14,7 @@ namespace BoxTransferTest.ViewUc
 {
     public partial class UcBoxRobot : UserControl
     {
-        MacHalBoxRobot robotHandler;
+        MacHalBoxRobotFanuc robotHandler;
 
         MvCancelTask task;
         public UcBoxRobot()
@@ -77,7 +77,7 @@ namespace BoxTransferTest.ViewUc
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            robotHandler = new MacHalBoxRobot();
+            robotHandler = new MacHalBoxRobotFanuc();
             robotHandler.ldd.RobotIp = "192.168.0.51";
             if (robotHandler.ConnectIfNO() == 0)
             {

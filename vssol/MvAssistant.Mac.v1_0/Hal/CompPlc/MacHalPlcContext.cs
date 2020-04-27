@@ -3,11 +3,13 @@ using MvAssistant.Tasking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
+    [Guid("EEED741C-18BC-465E-9772-99F19DD68BD3")]
     public class MacHalPlcContext : IDisposable
     {
 
@@ -276,6 +278,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.Close();
         }
 
+
+
+        #endregion
+
+
+
+        //=== Static ===============================================================================================
+
+
+        #region Singleton Mapper
+
+        static Dictionary<string, MacHalPlcContext> m_mapper = new Dictionary<string, MacHalPlcContext>();
+        
 
 
         #endregion

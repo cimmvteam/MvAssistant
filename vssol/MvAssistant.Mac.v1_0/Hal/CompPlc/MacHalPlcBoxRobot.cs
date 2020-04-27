@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public class MacHalPlcBoxRobot
+    [Guid("843DEB1E-BF70-49A0-9D9D-CACCF3102548")]
+    public class MacHalPlcBoxRobot: MacHalComponentBase
     {
         MacHalPlcContext m_PlcContext;
 
@@ -359,5 +361,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = m_PlcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_RobotMoving, isMoving);
         }
+
+
+
+
     }
 }
