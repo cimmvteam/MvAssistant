@@ -62,6 +62,8 @@
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
+    <Compile Include="MachineRealHal\UtHalInspectionCh.cs" />
+    <Compile Include="MachineRealHal\UtHalMaskTransfer.cs" />
     <Compile Include="MachineRealHal\UtHalContext.cs" />
     <Compile Include="MachineRealPlc\PlcTestParamSingleton.cs" />
     <Compile Include="MachineRealPlc\UtPlcOpenStage.cs" />

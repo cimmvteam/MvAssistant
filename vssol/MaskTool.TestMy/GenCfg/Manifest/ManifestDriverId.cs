@@ -32,5 +32,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public static Guid MaskGripperFake = new Guid("F91E5CAC-8D68-4B99-997C-138D2A9BA2DF");
         public static Guid MaskGripperNrc = new Guid("A995D7DD-7795-4906-B642-16B911D48A00");
         public static Guid Plc_Omron = new Guid("3C7E058F-4667-451A-8251-8851BE807FB3");
+
+        public static Guid InspectionStage_Hirata = new Guid("4BE64C95-6F24-49F3-B7F5-7ED17AE0796D");
     }
 }

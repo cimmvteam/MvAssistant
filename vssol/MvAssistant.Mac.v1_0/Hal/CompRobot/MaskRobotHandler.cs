@@ -67,6 +67,16 @@ namespace MaskTool.TestMy.Device
             Thread.Sleep(PositionRecordInterval_MillSec);
         }
 
+        public void Move()
+        {
+
+
+
+            //this.ldd.Pns0101MoveStraightSync();
+        }
+
+
+
 
         #region SGS Verify
 
@@ -388,6 +398,12 @@ namespace MaskTool.TestMy.Device
             return poss;
         }
         #endregion
+
+
+
+
+
+
 
         #region IDisposable
         // Flag: Has Dispose already been called?

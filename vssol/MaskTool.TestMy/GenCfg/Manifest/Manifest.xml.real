@@ -9,10 +9,7 @@
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="inspection_assembly" DriverId="f19eb7b5-bb07-4a53-9e70-8616812a4f02" ID="DE_IC_A_ASB" Level="1" PositionId="InspectionCh01">
       <Devices>
-        <Device DevConnStr="DE_PLC_A;IC_laser1" DeviceName="inspection_laser_entry_1" DriverId="f8e36467-4887-4839-b2e2-64babd97c915" ID="DE_IC_A_11" Level="2" />
-        <Device DevConnStr="DE_PLC_A;IC_laser2" DeviceName="inspection_laser_entry_2" DriverId="f8e36467-4887-4839-b2e2-64babd97c915" ID="DE_IC_A_20" Level="2" />
-        <Device DevConnStr="DE_PLC_A;IC_lightbar1" DeviceName="inspection_lightbar_1" DriverId="16de9985-6f20-4e13-bf78-79b86c86c191" ID="DE_IC_A_06" Level="2" />
-        <Device DevConnStr="DE_PLC_A;IC_lightsource1" DeviceName="inspection_linesource_1" DriverId="16de9985-6f20-4e13-bf78-79b86c86c191" ID="DE_IC_A_07" Level="2" />
+        <Device DevConnStr="IP=192.168.1.31" DeviceName="inspection_stage_1" DriverId="4be64c95-6f24-49f3-b7f5-7ed17ae0796d" ID="DE_IC_A_01" Level="2" />
       </Devices>
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="clean_assembly" DriverId="c062fa7f-3825-4ea6-8be0-0afa876ba7e4" ID="DE_CC_A_ASB" Level="1" PositionId="CleanCh01">
@@ -27,11 +24,6 @@
     <Device DevConnStr="127.0.0.1;3039" DeviceName="masktransfer_assembly" DriverId="69fc9c19-9621-4852-82e2-4ad1cf14e642" ID="DE_MT_A_ASB" Level="1" PositionId="MaskTransfer01">
       <Devices>
         <Device DevConnStr="IP=192.168.1.31" DeviceName="masktransfer_robot_1" DriverId="b2e74fc0-ffa0-467b-8f69-208fe628a693" ID="DE_MT_A_02" Level="2" />
-        <Device DevConnStr="" DeviceName="masktransfer_inclinometer01" DriverId="84765797-e9f4-45f2-a95b-ab6ed7faf672" ID="DE_MT_A_10" Level="2" />
-        <Device DevConnStr="Assembly=DE_UNI_A_ASB;Component=DE_UNI_A_01;" DeviceName="masktransfer_gripper_01" DriverId="a995d7dd-7795-4906-b642-16b911d48a00" ID="DE_MT_A_23" Level="2" />
-        <Device DevConnStr="Assembly=DE_UNI_A_ASB;Component=DE_UNI_A_01;" DeviceName="masktransfer_gripper_02" DriverId="a995d7dd-7795-4906-b642-16b911d48a00" ID="DE_MT_A_24" Level="2" />
-        <Device DevConnStr="DE_PLC_A;masktransfer_gripper_03" DeviceName="masktransfer_gripper_03" DriverId="f91e5cac-8d68-4b99-997c-138d2a9ba2df" ID="DE_MT_A_25" Level="2" />
-        <Device DevConnStr="DE_PLC_A;masktransfer_gripper_04" DeviceName="masktransfer_gripper_04" DriverId="f91e5cac-8d68-4b99-997c-138d2a9ba2df" ID="DE_MT_A_26" Level="2" />
       </Devices>
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="cabinet_assembly" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_ASB" Level="1" PositionId="Cabinet01">
@@ -60,8 +52,11 @@
     <Driver DriverId="5abe148e-4dbc-4c3c-a615-958a817c26ba" Vendor="Hirata" Product="Universal" HalImpId="FAFCEF2B-6356-4438-890F-30F865CAA742" HalImpRefName="MacHalUniversal" />
     <Driver DriverId="3c7e058f-4667-451a-8251-8851be807fb3" Vendor="Omron" Product="PLC" HalImpId="75427515-83D5-46F6-8CD4-F87BDBD88620" HalImpRefName="MacHalPlcOmron" />
     <Driver DriverId="84765797-e9f4-45f2-a95b-ab6ed7faf672" Vendor="Omron" Product="Inclinometer MPU6050" Remark="Angle Sensor" HalImpId="F0AEF882-8298-4DAE-9D7C-99AFEDEAF7F3" HalImpRefName="InclinometerOmronPlc" />
+    <Driver DriverId="f8e36467-4887-4839-b2e2-64babd97c915" Vendor="Omron" Product="Laser" HalImpId="481067B7-7092-40F6-8904-6D309F7DC45B" HalImpRefName="HalLaserOmron" />
+    <Driver DriverId="58c1c1f7-55fc-4158-9838-9ffa86b3b3c0" Vendor="Omron" Product="Laser" HalImpId="481067B7-7092-40F6-8904-6D309F7DC45B" HalImpRefName="HalLaserOmron" />
     <Driver DriverId="b2e74fc0-ffa0-467b-8f69-208fe628a693" Vendor="Fanuc" Product="Fanuc Robot LR Mate 200iD" HalImpId="5EDFE42F-A27A-42B5-9702-11FC84208D74" HalImpRefName="HalRobotFanuc" />
     <Driver DriverId="a995d7dd-7795-4906-b642-16b911d48a00" Vendor="NRC" Product="Mask Gripper" HalImpId="B81CFCFA-8320-4111-9E19-03CB900C5E69" HalImpRefName="HalPlcOmronCustom01" />
+    <Driver DriverId="4be64c95-6f24-49f3-b7f5-7ed17ae0796d" Vendor="Hirata" Product="Inspection Stage" HalImpId="04BCF46C-83FF-49FA-A13B-10708C48B57F" HalImpRefName="HalStageHirata" />
     <Driver DriverId="038d965a-c296-47b2-bd42-906b7b730249" Vendor="Fake" Product="Fake Laser Sensor" HalImpId="143F00A9-E8A1-46D3-AF4E-89589F4885C3" HalImpRefName="HalLaserFake" />
     <Driver DriverId="f91e5cac-8d68-4b99-997c-138d2a9ba2df" Vendor="Fake" Product="Mask Gripper" HalImpId="6A40F98F-D78B-44B8-B71C-20303BABF9D2" HalImpRefName="HalGripperFake" />
     <Driver DriverId="e4a7500b-a364-4ca3-8859-d75fc689a366" Vendor="Fake" Product="Box Gripper" HalImpId="6A40F98F-D78B-44B8-B71C-20303BABF9D2" HalImpRefName="HalGripperFake" />

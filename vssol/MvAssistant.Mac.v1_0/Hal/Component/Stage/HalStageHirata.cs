@@ -1,5 +1,6 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Stage;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 
 
 
-
+        MacHalPlcContext plcContext;
 
 
 
@@ -29,6 +30,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 
         bool IHalInspectionStage.HalMoveRel(HalStageMotion p)
         {
+            
             throw new NotImplementedException();
         }
 

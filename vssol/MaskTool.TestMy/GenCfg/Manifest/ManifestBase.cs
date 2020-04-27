@@ -220,6 +220,14 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     DriverId = ManifestDriverId.MaskGripperNrc.ToString(),
                     DriverPath = null,
                 },
+                new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Inspection Stage",
+                    Remark = null,
+                    AssignType = typeof(Hal.Component.Stage.HalStageHirata),
+                    DriverId = ManifestDriverId.InspectionStage_Hirata.ToString(),
+                    DriverPath = null,
+                },
 
             }.ToList();
         }
@@ -227,7 +235,22 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public List<MacMachineDriverCfg> DriverRealOpticSensor()
         {
             return new MacMachineDriverCfg[]{
-
+                new MacMachineDriverCfg(){
+                    Vendor = "Omron",
+                    Product = "Laser",
+                    Remark = null,
+                    AssignType = typeof(Hal.Component.Laser.HalLaserOmron),
+                    DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
+                    DriverPath = null,
+                },
+                new MacMachineDriverCfg(){
+                    Vendor = "Omron",
+                    Product = "Laser",
+                    Remark = null,
+                    AssignType = typeof(Hal.Component.Laser.HalLaserOmron),
+                    DriverId = ManifestDriverId.LaserCollision_OmronPlc.ToString(),
+                    DriverPath = null,
+                },
             }.ToList();
         }
     }

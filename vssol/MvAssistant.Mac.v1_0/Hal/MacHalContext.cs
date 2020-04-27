@@ -47,9 +47,11 @@ namespace MvAssistant.Mac.v1_0.Hal
             inst.MachineDriverCfg = driver;
 
             if (hal == null)
-                this.HalDevices[deviceCfg.ID] = inst;
-            else hal.Machines[deviceCfg.ID] = inst;
+                this.HalDevices[deviceCfg.DeviceName] = inst;
+            else hal.Machines[deviceCfg.DeviceName] = inst;
 
+
+            if (deviceCfg.Devices == null) return;
             foreach (var dcv in deviceCfg.Devices)
             {
                 HalCreator(dcv, inst);
