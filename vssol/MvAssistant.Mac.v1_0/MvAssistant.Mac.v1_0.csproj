@@ -226,9 +226,9 @@
     <Compile Include="Hal\CompPlc\MacHalPlcMaskRobot.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcOpenStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Robot\BoxRobotHandler.cs" />
-    <Compile Include="Robot\MaskRobotHandler.cs" />
-    <Compile Include="Robot\RobotMotionInfo.cs" />
+    <Compile Include="Hal\CompRobot\MacHalBoxRobot.cs" />
+    <Compile Include="Hal\CompRobot\MacHalMaskRobot.cs" />
+    <Compile Include="Hal\CompRobot\MacHalRobotMotionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hal\Component\Camera\HalCameraFake.cs.orig" />

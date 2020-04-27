@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 using System.Threading;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 
-namespace MaskTool.TestMy.Device
+namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 {
-    public class MaskRobotHandler : IDisposable
+    public class MacHalMaskRobot : IDisposable
     {
         public int PositionRecordInterval_MillSec = 7;
         public MvFanucRobotLdd ldd;
         public List<MvRobotAlarmInfo> alarmInfos;
         bool isRunning = false;
 
-        public MaskRobotHandler()
+        public MacHalMaskRobot()
         {
             ldd = new MvFanucRobotLdd();
             alarmInfos = new List<MvRobotAlarmInfo>();
         }
-        ~MaskRobotHandler()
+        ~MacHalMaskRobot()
         {
             this.Close();
         }

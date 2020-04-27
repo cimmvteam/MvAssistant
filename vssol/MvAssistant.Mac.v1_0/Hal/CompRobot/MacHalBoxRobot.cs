@@ -6,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 
-namespace MvAssistant.Mac.Robot
+namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 {
-    public class BoxRobotHandler
+    public class MacHalBoxRobot
     {
         public int PositionRecordInterval_MillSec = 7;
         public MvFanucRobotLdd ldd;
@@ -17,7 +17,7 @@ namespace MvAssistant.Mac.Robot
         bool isRunning = false;
 
 
-        public BoxRobotHandler()
+        public MacHalBoxRobot()
         {
             ldd = new MvFanucRobotLdd();
             alarmInfos = new List<MvRobotAlarmInfo>();

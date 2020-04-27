@@ -1,4 +1,5 @@
 ﻿using MvAssistant.Mac.v1_0.CompPlc;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace BoxTransferTest
 {
-  public   class ProgramMgr
+    public class ProgramMgr
     {
 
-        public MvPlcContext Plc;
+        public MacHalPlcContext Plc;
 
 
         public void Initial()
         {
-            this.Plc = new MvPlcContext();
+            this.Plc = new MacHalPlcContext();
 
         }
 

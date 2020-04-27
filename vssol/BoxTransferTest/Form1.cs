@@ -15,7 +15,7 @@ namespace BoxTransferTest
 {
     public partial class Form1 : Form
     {
-        BoxRobotHandler robotHandler;
+        MacHalBoxRobotHandler robotHandler;
         RobotMotionInfo motionInfo;
         SynchronizationContext _syncContext = null;
         AsynchronousClient client;
@@ -31,7 +31,7 @@ namespace BoxTransferTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            robotHandler = new BoxRobotHandler();
+            robotHandler = new MacHalBoxRobotHandler();
             motionInfo = new RobotMotionInfo();
         }
 

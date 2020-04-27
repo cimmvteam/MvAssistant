@@ -22,7 +22,7 @@ namespace BoxTransferTest.ViewUc
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 boolTestStop = false;
