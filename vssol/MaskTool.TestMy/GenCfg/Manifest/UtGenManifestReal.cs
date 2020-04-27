@@ -133,36 +133,18 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 DriverId = ManifestDriverId.InspectionCh.ToString(),
                 PositionId = MacEnumPositionId.InspectionCh01.ToString(),
                 Devices = new MacMachineDeviceCfg[] {
+                    new MacMachineDeviceCfg(){
+                        ID = EnumMachineId.DE_IC_A_01.ToString(),
+                        DevConnStr = "IP=192.168.0.200;Port=2",
+                        DeviceName = MacEnumDevice.inspection_stage_1.ToString(),
+                        Level = "2",
+                        DriverId = ManifestDriverId.InspectionStage_Hirata.ToString(),
+                    },
 
 
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_IC_A_11.ToString(),
-                        DevConnStr = "DE_PLC_A;IC_laser1",
-                        DeviceName = MacEnumDevice.inspection_laser_entry_1.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_IC_A_20.ToString(),
-                        DevConnStr = "DE_PLC_A;IC_laser2",
-                        DeviceName = MacEnumDevice.inspection_laser_entry_2.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_IC_A_06.ToString(),
-                        DevConnStr = "DE_PLC_A;IC_lightbar1",
-                        DeviceName = MacEnumDevice.inspection_lightbar_1.ToString(),
-                        Level = "2",
-                        DriverId = "16de9985-6f20-4e13-bf78-79b86c86c191",
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_IC_A_07.ToString(),
-                        DevConnStr = "DE_PLC_A;IC_lightsource1",
-                        DeviceName = MacEnumDevice.inspection_linesource_1.ToString(),
-                        Level = "2",
-                        DriverId = "16de9985-6f20-4e13-bf78-79b86c86c191",
-                    },
+
+
+
 
                 },
             };
@@ -225,41 +207,9 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
                     },
 
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_MT_A_10.ToString(),
-                        DevConnStr = string.Format(""),
-                        DeviceName = MacEnumDevice.masktransfer_inclinometer01.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.Inclinometer_OmronPlc.ToString(),
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_MT_A_23.ToString(),
-                        DevConnStr = "Assembly=DE_UNI_A_ASB;Component=DE_UNI_A_01;",
-                        DeviceName = MacEnumDevice.masktransfer_gripper_01.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.MaskGripperNrc.ToString(),
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_MT_A_24.ToString(),
-                        DevConnStr = "Assembly=DE_UNI_A_ASB;Component=DE_UNI_A_01;",
-                        DeviceName = MacEnumDevice.masktransfer_gripper_02.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.MaskGripperNrc.ToString(),
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_MT_A_25.ToString(),
-                        DevConnStr = "DE_PLC_A;masktransfer_gripper_03",
-                        DeviceName = MacEnumDevice.masktransfer_gripper_03.ToString(),
-                        Level = "2",
-                        DriverId =ManifestDriverId.MaskGripperFake.ToString(),
-                    },
-                    new MacMachineDeviceCfg(){
-                        ID = EnumMachineId.DE_MT_A_26.ToString(),
-                        DevConnStr = "DE_PLC_A;masktransfer_gripper_04",
-                        DeviceName = MacEnumDevice.masktransfer_gripper_04.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.MaskGripperFake.ToString(),
-                    },
+
+
+
 
                 },
             };

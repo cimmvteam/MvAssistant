@@ -18,6 +18,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #region Device Components
 
 
+  
+
+
         public IHalRobot Robot { get{ return (IHalRobot)this.GetMachine(MacEnumDevice.masktransfer_robot_1); }  }
         public IHalForce6Axis Force6Axis { get{ return (IHalForce6Axis)this.GetMachine(MacEnumDevice.masktransfer_force_6axis_sensor_1); }  }
         public IHalInclinometer Gradienter { get{ return (IHalInclinometer)this.GetMachine(MacEnumDevice.masktransfer_inclinometer01); }  }

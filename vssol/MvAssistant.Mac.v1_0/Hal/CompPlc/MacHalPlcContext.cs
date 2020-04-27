@@ -231,7 +231,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
         }
 
+
+
+
+
+
         #region IDisposable
+
+
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
 

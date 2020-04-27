@@ -17,6 +17,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     {
         #region Device Components
 
+
+
+
+
         public IHalCamera Inspection_ccd_defense_side_1 { get{ return (IHalCamera)this.GetMachine(MacEnumDevice.inspection_ccd_defense_side_1); } }
         public IHalCamera Inspection_ccd_defense_top_1 { get{ return (IHalCamera)this.GetMachine(MacEnumDevice.inspection_ccd_defense_top_1); } }
         public IHalCamera Inspection_ccd_inspect_side_1 { get{ return (IHalCamera)this.GetMachine(MacEnumDevice.inspection_ccd_inspect_side_1); } }
