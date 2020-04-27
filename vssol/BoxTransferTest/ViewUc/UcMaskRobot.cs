@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaskTool.TestMy.Device;
 using MvAssistant.Tasking;
+using MvAssistant.Mac.v1_0.Hal.CompRobot;
 
 namespace BoxTransferTest.ViewUc
 {
     public partial class UcMaskRobot : UserControl
     {
-        MaskRobotHandler robotHandler;
+        MacHalMaskRobot robotHandler;
 
         MvCancelTask task;
 
@@ -31,7 +32,7 @@ namespace BoxTransferTest.ViewUc
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            robotHandler = new MaskRobotHandler();
+            robotHandler = new MacHalMaskRobot();
             robotHandler.ldd.RobotIp = "192.168.0.50";
             if (robotHandler.ConnectIfNO() == 0)
             {

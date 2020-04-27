@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.Mac.Robot;
 using MvAssistant.Tasking;
+using MvAssistant.Mac.v1_0.Hal.CompRobot;
 
 namespace BoxTransferTest.ViewUc
 {
     public partial class UcBoxRobot : UserControl
     {
-        MacHalBoxRobotHandler robotHandler;
+        MacHalBoxRobot robotHandler;
 
         MvCancelTask task;
         public UcBoxRobot()
@@ -77,7 +77,7 @@ namespace BoxTransferTest.ViewUc
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            robotHandler = new MacHalBoxRobotHandler();
+            robotHandler = new MacHalBoxRobot();
             robotHandler.ldd.RobotIp = "192.168.0.51";
             if (robotHandler.ConnectIfNO() == 0)
             {

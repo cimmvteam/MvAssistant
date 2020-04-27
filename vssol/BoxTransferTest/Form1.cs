@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.Mac.Robot;
 using MvAssistant.Mac.Drawer_SocketComm;
+using MvAssistant.Mac.v1_0.Hal.CompRobot;
 
 namespace BoxTransferTest
 {
     public partial class Form1 : Form
     {
-        MacHalBoxRobotHandler robotHandler;
-        RobotMotionInfo motionInfo;
+        MacHalBoxRobot robotHandler;
+        MacHalRobotMotionInfo motionInfo;
         SynchronizationContext _syncContext = null;
         AsynchronousClient client;
         UDPSocket udpServer1;
@@ -31,8 +31,8 @@ namespace BoxTransferTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            robotHandler = new MacHalBoxRobotHandler();
-            motionInfo = new RobotMotionInfo();
+            robotHandler = new MacHalBoxRobot();
+            motionInfo = new MacHalRobotMotionInfo();
         }
 
         private void RobotConnect(object sender, EventArgs e)
