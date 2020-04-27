@@ -32,13 +32,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
         {
             if (this.ldd.IsConnected()) return 0;
             this.ldd.RobotIp = "192.168.0.51";
-            bool flagConnection = false;
             this.ldd.ReConnect();
-            if (ldd.IsConnected())
-            {
-                flagConnection = true;
-            }
-            return 0;
+            if (ldd.IsConnected()) return 0;
+            else return -1;
         }
 
         public void getCurrentPOS()
