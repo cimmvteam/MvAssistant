@@ -160,12 +160,12 @@ namespace MaskTool.TestMy.Device
             this.ldd.StopProgram();
             if (!this.ldd.ExecutePNS("PNS0101"))
                 throw new Exception("Start PNS0101 Fail");
-            
+
             var targets = new List<MvFanucRobotInfo>();
             targets.AddRange(PathPosition);
             var stack = new Stack<MvFanucRobotInfo>(PathPosition);
             targets.AddRange(stack.ToList());
-            
+
             float[] target = new float[6];
             for (var idx = 0; idx < targets.Count; idx++)
             {
@@ -180,7 +180,7 @@ namespace MaskTool.TestMy.Device
                 this.ldd.Pns0103ContinuityMove(target);
 
             }
-            
+
         }
 
         public List<MvFanucRobotInfo> SgsVerifyGenHomeToBarcodeReader()
@@ -332,67 +332,34 @@ namespace MaskTool.TestMy.Device
             //PR[54]-Load Port upside
             poss.Add(new MvFanucRobotInfo()
             {
-                x = -1,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -135,
+                x = (float)-1.287,
+                y = (float)302.844,
+                z = (float)189.852,
+                w = (float)45.266,
+                p = (float)-88.801,
+                r = (float)-135.369,
             });
 
-            //PR[55]-LoadPort前(未伸出手臂)
+            //PR[56]-LoadPort上方(未伸出手臂)
             poss.Add(new MvFanucRobotInfo()
             {
-                x = -253,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -47,
+                x = (float)-422.038,
+                y = (float)305.272,
+                z = (float)181.435,
+                w = (float)7.339,
+                p = (float)-88.870,
+                r = (float)-8.811,
             });
 
-            //PR[56]-LoadPort上方(伸出手臂)
+            //PE[57]-LoadPort上方(伸出手臂)
             poss.Add(new MvFanucRobotInfo()
             {
-                x = -634,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PE[57]-LoadPort上，取/放Mask右上一點點的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 303,
-                z = 79,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[58]-LoadPort上，取/放Mask上面一點點的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -635,
-                y = 283,
-                z = 79,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[59]-LoadPort上，取/放Mask的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 283,
-                z = 63,
-                w = 45,
-                p = -89,
-                r = -47,
+                x = (float)-637.878,
+                y = (float)305.272,
+                z = (float)181.435,
+                w = (float)7.339,
+                p = (float)-88.870,
+                r = (float)-8.810,
             });
 
             return poss;

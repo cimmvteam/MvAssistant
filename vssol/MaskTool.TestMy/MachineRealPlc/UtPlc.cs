@@ -207,7 +207,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.MaskRobot.SetSpeed(6, 8, 5);//OK
                 Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());//OK
                 Console.WriteLine(plc.MaskRobot.ReadClampGripPos());//OK
-                plc.MaskRobot.CCDSpin(1000);//need test
+                plc.MaskRobot.CCDSpin(1000);//待測
                 Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
                 plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
