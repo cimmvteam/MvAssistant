@@ -2,6 +2,7 @@ using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.AirPressure;
 using MvAssistant.Mac.v1_0.Hal.Component.Camera;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     public class MacHalCleanCh : MacHalAssemblyBase, IMacHalCleanCh
     {
         #region Device Components
+
+
+        public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetMachine(MacEnumDevice.cleanch_plc); } }
 
 
         public IHalPressureCtrl Clean_air_pressure_controller_1 { get { return (IHalPressureCtrl)this.GetMachine(MacEnumDevice.clean_air_pressure_controller_1); } }

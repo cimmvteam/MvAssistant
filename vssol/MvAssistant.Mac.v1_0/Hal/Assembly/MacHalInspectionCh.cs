@@ -2,6 +2,7 @@
 using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Camera;
 using MvAssistant.Mac.v1_0.Hal.Component.Stage;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #region Device Components
 
 
+        public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetMachine(MacEnumDevice.inspectionch_plc); } }
 
 
 

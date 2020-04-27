@@ -4,6 +4,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.E84;
 using MvAssistant.Mac.v1_0.Hal.Component.Identifier;
 using MvAssistant.Mac.v1_0.Hal.Component.Motor;
 using MvAssistant.Mac.v1_0.Hal.Component.Stage;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
@@ -16,6 +17,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #region Device Components
 
 
+        public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetMachine(MacEnumDevice.loadport_plc); } }
 
         public IHalRfidReader RfidReader { get { return (IHalRfidReader)this.GetMachine(MacEnumDevice.loadport_rfid_reader_1); } }
         public IHalPlunger Plunger { get { return (IHalPlunger)this.GetMachine(MacEnumDevice.loadport_plunger_1); } }

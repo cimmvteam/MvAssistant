@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
 
@@ -10,7 +11,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         #region Device Components
-       
+
+        public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetMachine(MacEnumDevice.cabinet_plc); } }
+
 
         #endregion Device Components
 
