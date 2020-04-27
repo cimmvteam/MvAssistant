@@ -8,14 +8,30 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("DFD72153-DCC6-4949-85DB-B5D7CED91E2E")]
-    public class MacHalPlcMaskRobot : MacHalComponentBase
+    public class MacHalPlcMaskTransfer : MacHalComponentBase, IMacHalPlcMaskTransfer
     {
         private MacHalPlcContext m_PlcContext;
 
-        public MacHalPlcMaskRobot(MacHalPlcContext plc = null)
+        public MacHalPlcMaskTransfer(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
+
+        #region Hal
+
+        public override int HalConnect()
+        {
+            var ip = this.GetDevSetting("ip");
+            var port = this.GetDevSettingInt("port");
+            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+            return 0;
+        }
+
+        #endregion
+
+
+
+
 
         public string Clamp(uint MaskType)
         {

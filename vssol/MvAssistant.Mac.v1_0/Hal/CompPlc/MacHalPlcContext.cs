@@ -23,9 +23,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public bool IsConnected { get { return m_isConnected; } }
 
-        public MacHalPlcInspCh InspCh;
-        public MacHalPlcBoxRobot BoxRobot;
-        public MacHalPlcMaskRobot MaskRobot;
+        public MacHalPlcInspectionCh InspCh;
+        public MacHalPlcBoxTransfer BoxRobot;
+        public MacHalPlcMaskTransfer MaskRobot;
         public MacHalPlcOpenStage OpenStage;
         public MacHalPlcCabinet Cabinet;
         public MacHalPlcCleanCh CleanCh;
@@ -33,9 +33,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public MacHalPlcContext()
         {
-            this.InspCh = new MacHalPlcInspCh(this);
-            this.BoxRobot = new MacHalPlcBoxRobot(this);
-            this.MaskRobot = new MacHalPlcMaskRobot(this);
+            this.InspCh = new MacHalPlcInspectionCh(this);
+            this.BoxRobot = new MacHalPlcBoxTransfer(this);
+            this.MaskRobot = new MacHalPlcMaskTransfer(this);
             this.OpenStage = new MacHalPlcOpenStage(this);
             this.Cabinet = new MacHalPlcCabinet(this);
             this.CleanCh = new MacHalPlcCleanCh(this);
@@ -290,7 +290,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #region Singleton Mapper
 
         static Dictionary<string, MacHalPlcContext> m_mapper = new Dictionary<string, MacHalPlcContext>();
-        
+
+        public static MacHalPlcContext Get(string ip, int port)
+        {
+            var key = string.Format("{0}:{1}", ip, port);
+
+            if (!m_mapper.ContainsKey(key))
+                m_mapper[key] = new MacHalPlcContext();
+
+            return m_mapper[key];
+        }
+
 
 
         #endregion

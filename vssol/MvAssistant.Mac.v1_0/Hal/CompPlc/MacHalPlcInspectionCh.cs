@@ -8,15 +8,31 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("56D4923B-F3CC-46C9-BFC5-9ACD13E1897A")]
-    public class MacHalPlcInspCh : MacHalComponentBase
+    public class MacHalPlcInspectionCh : MacHalComponentBase, IMacHalPlcInspectionCh
     {
 
         MacHalPlcContext m_PlcContext;
 
-        public MacHalPlcInspCh(MacHalPlcContext plc = null)
+        public MacHalPlcInspectionCh(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
+
+        #region Hal
+
+        public override int HalConnect()
+        {
+            var ip = this.GetDevSetting("ip");
+            var port = this.GetDevSettingInt("port");
+            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+            return 0;
+        }
+
+        #endregion
+
+
+
+
 
         //Stage進行XY移動
         public string XYPosition(double X_Position, double Y_Position)

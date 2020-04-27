@@ -8,7 +8,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("17793D56-17D7-4DFD-850B-EEB443CE9231")]
-    public class MacHalPlcLoadPort : MacHalComponentBase
+    public class MacHalPlcLoadPort : MacHalComponentBase, IMacHalPlcLoadPort
     {
         private MacHalPlcContext m_PlcContext;
 
@@ -16,6 +16,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             this.m_PlcContext = plc;
         }
+
+        #region Hal
+
+        public override int HalConnect()
+        {
+            var ip = this.GetDevSetting("ip");
+            var port = this.GetDevSettingInt("port");
+            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+            return 0;
+        }
+
+        #endregion
+
+
+
+
 
         //設定壓差極限值
         public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)

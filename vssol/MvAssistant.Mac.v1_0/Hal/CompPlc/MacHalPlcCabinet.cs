@@ -8,7 +8,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("614E49F2-1F21-400D-ABAE-715C494A5654")]
-    public class MacHalPlcCabinet : MacHalComponentBase
+    public class MacHalPlcCabinet : MacHalComponentBase,IMacHalPlcCabinet
     {
         private MacHalPlcContext m_PlcContext;
 
@@ -16,6 +16,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             this.m_PlcContext = plc;
         }
+
+        #region Hal
+
+        public override int HalConnect()
+        {
+            var ip = this.GetDevSetting("ip");
+            var port = this.GetDevSettingInt("port");
+            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+            return 0;
+        }
+
+        #endregion
+
+
+
+
 
         #region 壓差表
         //設定Cabinet內部與外部環境最大壓差限制

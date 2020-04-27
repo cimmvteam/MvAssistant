@@ -8,7 +8,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("2CA853C0-DE8E-49D5-AF55-02DD20754F3D")]
-    public class MacHalPlcCleanCh : MacHalComponentBase
+    public class MacHalPlcCleanCh : MacHalComponentBase, IMacHalPlcCleanCh
     {
         private MacHalPlcContext m_PlcContext;
 
@@ -16,6 +16,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             this.m_PlcContext = plc;
         }
+
+        #region Hal
+
+        public override int HalConnect()
+        {
+            var ip = this.GetDevSetting("ip");
+            var port = this.GetDevSettingInt("port");
+            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+            return 0;
+        }
+
+        #endregion
+
+
+
+
 
         #region"Particle數量監控"
         //設定各種大小Particle的數量限制

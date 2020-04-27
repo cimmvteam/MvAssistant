@@ -25,6 +25,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalLaser Laser_BoxSlot_Z { get { return (IHalLaser)this.GetMachine(MacEnumDevice.boxtransfer_laser_gripper_1); } }
 
 
+
+
         #endregion Device Components
 
 
