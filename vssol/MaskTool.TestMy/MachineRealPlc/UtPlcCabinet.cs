@@ -2,7 +2,7 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant;
-using MvAssistant.Mac.v1_0.CompPlc;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 
 namespace MaskTool.TestMy.MachineRealPlc
 {
@@ -13,7 +13,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         //[TestMethod]
         //public void TestPlcCabinet()//測試 OK
         //{
-        //    using (var plc = new MvPlcContext())
+        //    using (var plc = new MacHalPlcContext())
         //    {
         //        plc.Connect("192.168.0.200", 2);
         //        plc.Cabinet.SetPressureDiffLimit(1, 2);
@@ -29,7 +29,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcVariableSetting()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.Cabinet.SetPressureDiffLimit(1, 2);
@@ -40,7 +40,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcReadSetting()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.Cabinet.ReadPressureDiffLimitSetting());
@@ -51,7 +51,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcHardwareStatus()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.Cabinet.ReadPressureDiff());
@@ -61,7 +61,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcComponentStatus()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.Cabinet.ReadAreaSensor());

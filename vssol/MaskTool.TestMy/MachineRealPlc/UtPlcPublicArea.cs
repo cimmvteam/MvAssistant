@@ -2,7 +2,7 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant;
-using MvAssistant.Mac.v1_0.CompPlc;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 
 namespace MaskTool.TestMy.MachineRealPlc
 {
@@ -13,7 +13,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         public void TestPlcConnect()
         {
 
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
 
@@ -35,7 +35,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         //[TestMethod]
         //public void TestPublicArea()   //Public Area所有Function，測試OK
         //{
-        //    using (var plc = new MvPlcContext())
+        //    using (var plc = new MacHalPlcContext())
         //    {
         //        plc.Connect("192.168.0.200", 2);
         //        plc.ResetAll();
@@ -59,7 +59,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestSignalTower()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.SetSignalTower(true, false, false);
@@ -71,7 +71,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestBuzzer()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.SetBuzzer(1);
@@ -85,7 +85,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestOuterCoverFan()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 for (uint i = 1; i < 13; i++)
@@ -99,7 +99,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestEMSSignal()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.EMSAlarm(true, false, false, false);
@@ -112,7 +112,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestResetAll()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.ResetAll();
@@ -122,7 +122,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPLCClosePort()//當發生PLC連線占用Port，嘗試關閉Port解決問題
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.ClosePort();

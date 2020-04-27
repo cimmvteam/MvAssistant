@@ -10,35 +10,36 @@ using MvAssistant.Mac.v1_0.Hal.Component.Inclinometer;
 namespace MvAssistant.Mac.v1_0.Hal.Component.Inclinometer
 {
     [Guid("F0AEF882-8298-4DAE-9D7C-99AFEDEAF7F3")]
-    public class InclinometerOmronPlc : MacHalPlcOmronBase, IHalInclinometer
+    public class InclinometerOmronPlc : IHalInclinometer
     {
-
-        #region Override HAL
-        public override int HalClose()
+        public object GetAngle()
         {
-            return 0;
+            throw new NotImplementedException();
         }
 
-        public override int HalConnect()
+        public int HalClose()
         {
-            this.PlcSetup();
-            return 0;
+            throw new NotImplementedException();
         }
 
-        public override bool HalIsConnected() { return this.GetAngle() != null; }
+        public int HalConnect()
+        {
+            throw new NotImplementedException();
+        }
 
-        #endregion
+        public bool HalIsConnected()
+        {
+            throw new NotImplementedException();
+        }
 
-
-        #region Override IHalInclinometer
-
-        public object GetAngle() { return this.PlcGetValue(this.DevSettings["Variable"]); }
+        public int HalStop()
+        {
+            throw new NotImplementedException();
+        }
 
         public void HalZeroCalibration()
         {
-
+            throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

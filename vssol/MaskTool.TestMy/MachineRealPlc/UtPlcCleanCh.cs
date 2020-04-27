@@ -2,18 +2,18 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant;
-using MvAssistant.Mac.v1_0.CompPlc;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 
 namespace MaskTool.TestMy.MachineRealPlc
 {
     [TestClass]
     public class UtPlcCleanCh
     {
-       
+
         //[TestMethod]
         //public void TestPlcCleanCh()//測試 OK
         //{
-        //    using (var plc = new MvPlcContext())
+        //    using (var plc = new MacHalPlcContext())
         //    {
         //        plc.Connect("192.168.0.200", 2);
 
@@ -42,7 +42,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcVariableSetting()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.CleanCh.SetParticleCntLimit(1, 2, 3);
@@ -56,7 +56,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcReadSetting()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.CleanCh.ReadParticleCntLimitSetting());
@@ -70,7 +70,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcHardwareStatus()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.CleanCh.ReadParticleCount());
@@ -87,7 +87,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPlcHardwareAction()
         {
-            using (var plc = new MvPlcContext())
+            using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.CleanCh.GasValveBlow(20));
