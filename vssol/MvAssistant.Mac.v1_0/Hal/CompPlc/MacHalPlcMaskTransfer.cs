@@ -173,24 +173,25 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         #region Speed setting
-        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed, int? SpinDegreeLimit)
+        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed)
         {
             var plc = m_PlcContext;
             if (ClampSpeed != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Speed, ClampSpeed);
             if (CCDSpinSpeed != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed, CCDSpinSpeed);
-            if (SpinDegreeLimit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit, SpinDegreeLimit);
         }
 
-        public Tuple<double, long, int> ReadSpeedSetting()
+        /// <summary>
+        /// 讀取速度設定
+        /// </summary>
+        /// <returns>夾爪速度 , CCD旋轉速度</returns>
+        public Tuple<double, long> ReadSpeedSetting()
         {
             var plc = m_PlcContext;
-            return new Tuple<double, long, int>(
+            return new Tuple<double, long>(
                   plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_Speed),
-                  plc.Read<long>(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed),
-                  plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit)
+                  plc.Read<long>(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed)
                 );
         }
         #endregion
@@ -294,6 +295,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceMy),
                 plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceMz)
                 );
+        }
+        #endregion
+
+        #region 夾爪觸覺Sensor
+        public void SetClampTactileLimit(int TactileLimit)
+        {
+            var plc = m_PlcContext;
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit, TactileLimit);
+        }
+
+        public int ReadClampTactileLimitSetting()
+        {
+            var plc = m_PlcContext;
+            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit);
         }
         #endregion
 

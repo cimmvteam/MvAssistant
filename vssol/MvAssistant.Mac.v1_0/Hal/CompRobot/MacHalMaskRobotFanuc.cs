@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 {
@@ -150,14 +151,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
             this.ldd.StopProgram();
             if (!this.ldd.ExecutePNS("PNS0101"))
                 throw new Exception("Start PNS0101 Fail");
-            
+
             var targets = new List<MvFanucRobotInfo>();
             targets.AddRange(PathPosition);
-            var stack = new Stack<MvFanucRobotInfo>(PathPosition);
-            targets.AddRange(stack.ToList());
-            
             float[] target = new float[6];
-            for (var idx = 0; idx < targets.Count; idx++)
+            var speed = 200;
+            int IsTcpMove = 0;
+            int CorJ, OfsOrPos;
+            
+            for (int idx = 0; idx < targets.Count; idx++)
             {
                 var pose = targets[idx];
 
@@ -167,10 +169,43 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
                 target[3] = pose.w;
                 target[4] = pose.p;
                 target[5] = pose.r;
-                this.ldd.Pns0103ContinuityMove(target);
+                speed = pose.speed;
 
+                switch (pose.MotionType)
+                {
+                    case 0:
+                        CorJ = 0; OfsOrPos = 0; break;
+                    case 1:
+                        CorJ = 0; OfsOrPos = 1; break;
+                    case 2:
+                        CorJ = 1; OfsOrPos = 0; break;
+                    default:
+                        CorJ = 0; OfsOrPos = 0; break;
+                }
+
+                this.ldd.Pns0101MoveStraightAsync(target, CorJ, OfsOrPos, IsTcpMove, speed);
             }
             
+            //var targets = new List<MvFanucRobotInfo>();
+            //targets.AddRange(PathPosition);
+            //var stack = new Stack<MvFanucRobotInfo>(PathPosition);
+            //targets.AddRange(stack.ToList());
+
+            //float[] target = new float[6];
+            //for (var idx = 0; idx < targets.Count; idx++)
+            //{
+            //    var pose = targets[idx];
+
+            //    target[0] = pose.x;
+            //    target[1] = pose.y;
+            //    target[2] = pose.z;
+            //    target[3] = pose.w;
+            //    target[4] = pose.p;
+            //    target[5] = pose.r;
+            //    this.ldd.Pns0103ContinuityMove(target);
+
+            //}
+
         }
 
         public List<MvFanucRobotInfo> SgsVerifyGenHomeToBarcodeReader()
@@ -322,67 +357,40 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
             //PR[54]-Load Port upside
             poss.Add(new MvFanucRobotInfo()
             {
-                x = -1,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -135,
+                x = (float)-1.287,
+                y = (float)302.844,
+                z = (float)189.852,
+                w = (float)45.266,
+                p = (float)-88.801,
+                r = (float)-135.369,
+                MotionType=1,
+                speed = 200
             });
 
-            //PR[55]-LoadPort前(未伸出手臂)
+            //PR[56]-LoadPort前(未伸出手臂)
             poss.Add(new MvFanucRobotInfo()
             {
-                x = -253,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -47,
+                x = (float)-422.038,
+                y = (float)305.272,
+                z = (float)181.435,
+                w = (float)7.339,
+                p = (float)-88.870,
+                r = (float)-8.811,
+                MotionType = 1,
+                speed = 100
             });
 
-            //PR[56]-LoadPort上方(伸出手臂)
+            //PR[57]-LoadPort上方(伸出手臂)
             poss.Add(new MvFanucRobotInfo()
             {
-                x = -634,
-                y = 303,
-                z = 190,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PE[57]-LoadPort上，取/放Mask右上一點點的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 303,
-                z = 79,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[58]-LoadPort上，取/放Mask上面一點點的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -635,
-                y = 283,
-                z = 79,
-                w = 45,
-                p = -89,
-                r = -47,
-            });
-
-            //PR[59]-LoadPort上，取/放Mask的位置
-            poss.Add(new MvFanucRobotInfo()
-            {
-                x = -634,
-                y = 283,
-                z = 63,
-                w = 45,
-                p = -89,
-                r = -47,
+                x = (float)-637.878,
+                y = (float)305.272,
+                z = (float)181.435,
+                w = (float)7.339,
+                p = (float)-88.870,
+                r = (float)-8.810,
+                MotionType = 1,
+                speed = 20
             });
 
             return poss;

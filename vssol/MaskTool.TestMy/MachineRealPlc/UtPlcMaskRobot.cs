@@ -27,6 +27,8 @@ namespace MaskTool.TestMy.MachineRealPlc
         //        //plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
         //        //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
         //        //Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
+        //        //plc.MaskRobot.SetClampTactileLimit(5);
+        //        //Console.WriteLine(plc.MaskRobot.ReadClampTactileLimitSetting());
         //        //plc.MaskRobot.SetStaticElecLimit(10, 20);
         //        //Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
         //        //Console.WriteLine(plc.MaskRobot.ReadStaticElec());
@@ -42,9 +44,10 @@ namespace MaskTool.TestMy.MachineRealPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.MaskRobot.SetSpeed(10,null,10);
+                plc.MaskRobot.SetSpeed(10,null);
                 plc.MaskRobot.SetStaticElecLimit(10, 20);
                 plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
+                plc.MaskRobot.SetClampTactileLimit(5);
             }
         }
 
@@ -57,6 +60,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
                 Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
+                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimitSetting());
             }
         }
 

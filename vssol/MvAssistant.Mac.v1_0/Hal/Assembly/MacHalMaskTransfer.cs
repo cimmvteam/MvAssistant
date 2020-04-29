@@ -10,6 +10,7 @@ using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -17,11 +18,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     public class MacHalMaskTransfer : MacHalAssemblyBase, IMacHalMaskTransfer
     {
         #region Device Components
+        public MacHalPlcContext PLC1;
+        public MacHalPlcMaskTransfer Plc;
+        //public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetMachine(MacEnumDevice.masktransfer_plc); } }
 
-
-        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetMachine(MacEnumDevice.masktransfer_plc); } }
-
-
+        public int HalMoveAsyn()
+        { return 0; }
         public IHalRobot Robot { get { return (IHalRobot)this.GetMachine(MacEnumDevice.masktransfer_robot_1); } }
         public IHalForce6Axis Force6Axis { get { return (IHalForce6Axis)this.GetMachine(MacEnumDevice.masktransfer_force_6axis_sensor_1); } }
         public IHalInclinometer Gradienter { get { return (IHalInclinometer)this.GetMachine(MacEnumDevice.masktransfer_inclinometer01); } }
@@ -39,8 +41,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalGripper Gripper04 { get { return (IHalGripper)this.GetMachine(MacEnumDevice.masktransfer_gripper_04); } }
         public IHalInfraredPhotointerrupter InfraLight { get { return (IHalInfraredPhotointerrupter)this.GetMachine(MacEnumDevice.masktransfer_light_interrupt_1); } }
         public IHalStaticElectricityDetector StaticElectricityDetector { get { return (IHalStaticElectricityDetector)this.GetMachine(MacEnumDevice.masktransfer_static_electricity_detector_1); } }
-
-
+        
+        
+        
         #endregion Device Components
 
 
