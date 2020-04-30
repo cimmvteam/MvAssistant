@@ -293,5 +293,29 @@ namespace MaskTool.TestMy.MachineRealPlc
                 //Console.WriteLine(plc.OpenStage.ReadBoxExist());
             }
         }
+
+        [TestMethod]
+        public void TestPlcInspChFlow()
+        {
+            using (var plc = new MacHalPlcContext())
+            {
+                plc.Connect("192.168.0.200", 2);
+                //bool[] AlarmArray = new bool[256];
+
+                Console.WriteLine(plc.InspCh.ReadRobotIntrude(false));
+                Console.WriteLine(plc.InspCh.Initial());
+                plc.InspCh.SetSpeed(10, 10, 10);
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine(plc.InspCh.XYPosition(200, 10));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.WPosition(51));//0~359
+                    Console.WriteLine(plc.InspCh.XYPosition(10, 10));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.XYPosition(10, 150));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
+                    Console.WriteLine(plc.InspCh.ZPosition(-50));//1~-85
+                    Console.WriteLine(plc.InspCh.XYPosition(200, 150));//X:300~-10,Y:250~-10
+                }
+            }
+        }
     }
 }

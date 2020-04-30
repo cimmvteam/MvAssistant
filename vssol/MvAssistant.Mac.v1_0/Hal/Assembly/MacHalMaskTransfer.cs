@@ -76,7 +76,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 motion.Speed = pose.speed;
                 motion.MotionType = HalRobotEnumMotionType.Position;
 
-       
+
                 this.Robot.HalMoveStraightAsyn(motion);
             }
 
@@ -139,6 +139,48 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return poss;
         }
 
+        public List<MvFanucRobotInfo> TurnJoint()
+        {
+            var poss = new List<MvFanucRobotInfo>();
+
+            poss.Add(new MvFanucRobotInfo()
+            {
+                j1 = (float)-1.287,
+                j2 = (float)302.844,
+                j3 = (float)189.852,
+                j4 = (float)45.266,
+                j5 = (float)-88.801,
+                j6 = (float)-135.369,
+                MotionType = 2,
+                speed = 20
+            });
+
+            poss.Add(new MvFanucRobotInfo()
+            {
+                j1 = (float)-422.038,
+                j2 = (float)305.272,
+                j3 = (float)181.435,
+                j4 = (float)7.339,
+                j5 = (float)-88.870,
+                j6 = (float)-8.811,
+                MotionType = 2,
+                speed = 100
+            });
+
+            poss.Add(new MvFanucRobotInfo()
+            {
+                j1 = (float)-637.878,
+                j2 = (float)305.272,
+                j3 = (float)181.435,
+                j4 = (float)7.339,
+                j5 = (float)-88.870,
+                j6 = (float)-8.810,
+                MotionType = 2,
+                speed = 200
+            });
+
+            return poss;
+        }
 
     }
 }

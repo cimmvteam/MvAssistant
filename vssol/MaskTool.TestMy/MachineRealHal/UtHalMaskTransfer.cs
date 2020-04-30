@@ -22,7 +22,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 mt.Robot.HalMoveAsyn();
                 mt.HalMoveAsyn();
-
+                mt.MtClamp();
             }
 
         }
