@@ -23,7 +23,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
         /// </summary>
         /// <returns></returns>
         int HalMoveAsyn();
-
+     
         /// <summary>
         /// 直線運動
         /// </summary>

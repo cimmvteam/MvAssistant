@@ -69,43 +69,55 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
         }
 
 
+
+        public void MoveShift()
+        {
+            var target = new float[] { 0, 0, 5, 0, 0, 0 };
+
+            this.ldd.Pns0101MoveStraightSync(target, 0, 0, 0, 20);
+        }
+
+
         #region SGS Verify
 
-        public void SgsVerifyStartPns0101()
-        {
-            this.ldd.StopProgram();
-            if (!this.ldd.ExecutePNS("PNS0101"))
-                throw new Exception("Start PNS0101 Fail");
+        //public void SgsVerifyStartPns0101()
+        //{
+        //    this.ldd.StopProgram();
+        //    if (!this.ldd.ExecutePNS("PNS0101"))
+        //        throw new Exception("Start PNS0101 Fail");
 
 
-            var toBr = this.SgsVerifyGenHomeToBarcodeReader();
-            var toCc = this.SgsVerifyGenHome2Cc2Os();
+        //    var toBr = this.SgsVerifyGenHomeToBarcodeReader();
+        //    var toCc = this.SgsVerifyGenHome2Cc2Os();
 
-            var targets = new List<MvFanucRobotInfo>();
-            targets.AddRange(toBr);
-            var stack = new Stack<MvFanucRobotInfo>(toBr);
-            targets.AddRange(stack.ToList());
-
-
-
-            float[] target = new float[6];
-            for (var idx = 0; idx < targets.Count; idx++)
-            {
-                var pose = targets[idx];
-
-                target[0] = pose.x;
-                target[1] = pose.y;
-                target[2] = pose.z;
-                target[3] = pose.w;
-                target[4] = pose.p;
-                target[5] = pose.r;
-                this.ldd.Pns0103ContinuityMove(target);
-
-            }
+        //    var targets = new List<MvFanucRobotInfo>();
+        //    targets.AddRange(toBr);
+        //    var stack = new Stack<MvFanucRobotInfo>(toBr);
+        //    targets.AddRange(stack.ToList());
 
 
 
-        }
+        //    float[] target = new float[6];
+        //    for (var idx = 0; idx < targets.Count; idx++)
+        //    {
+        //        var pose = targets[idx];
+
+        //        target[0] = pose.x;
+        //        target[1] = pose.y;
+        //        target[2] = pose.z;
+        //        target[3] = pose.w;
+        //        target[4] = pose.p;
+        //        target[5] = pose.r;
+        //        this.ldd.Pns0103ContinuityMove(target);
+
+        //    }
+
+
+
+        //}
+
+
+
 
         public void SgsVerifyStartPns0102(Action<MvFanucRobotInfo> waitEvent)
         {
@@ -158,7 +170,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
             var speed = 200;
             int IsTcpMove = 0;
             int CorJ, OfsOrPos;
-            
+
             for (int idx = 0; idx < targets.Count; idx++)
             {
                 var pose = targets[idx];
@@ -185,7 +197,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 
                 this.ldd.Pns0101MoveStraightAsync(target, CorJ, OfsOrPos, IsTcpMove, speed);
             }
-            
+
             //var targets = new List<MvFanucRobotInfo>();
             //targets.AddRange(PathPosition);
             //var stack = new Stack<MvFanucRobotInfo>(PathPosition);
@@ -363,7 +375,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
                 w = (float)45.266,
                 p = (float)-88.801,
                 r = (float)-135.369,
-                MotionType=1,
+                MotionType = 1,
                 speed = 200
             });
 

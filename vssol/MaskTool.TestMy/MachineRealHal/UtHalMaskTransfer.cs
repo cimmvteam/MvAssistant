@@ -13,16 +13,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestRobotMoveToLoadPort()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
 
-            var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
-            mt.Robot.HalMoveAsyn();
-            mt.HalMoveAsyn();
+                mt.Robot.HalMoveAsyn();
+                mt.HalMoveAsyn();
 
-
+            }
 
         }
     }
