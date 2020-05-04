@@ -21,6 +21,20 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
         #endregion
 
+        #region Assembly PLC Driver ID
+
+        public static Guid BoxTransferPlc = new Guid("56CA482D-90C4-40FD-A045-D11CA1D3168B");
+        public static Guid CabinetPlc = new Guid("33943026-DAD4-4763-92BB-0515BD373FDC");
+        public static Guid CleanChPlc = new Guid("BAFA23C0-8FE2-4365-ABD6-4D9C51722D8D");
+        public static Guid InspectionChPlc = new Guid("AD6A4DBB-B706-4628-A132-EC6EC65D61BD");
+        public static Guid LoadPortPlc = new Guid("1B96119D-4945-4E41-A722-A216E5A6D3AB");
+        public static Guid MaskTransferPlc = new Guid("88321FA1-2883-453C-8205-A9E48670B235");
+        public static Guid OpenStagePlc = new Guid("58A26D37-1181-4FC9-8479-0F2451905430");
+        public static Guid UniversalPlc = new Guid("0C161254-4F61-4C39-8AD4-C25F1C8EB5CD");
+
+        #endregion
+
+
 
 
         public static Guid BoxGripperFake = new Guid("E4A7500B-A364-4CA3-8859-D75FC689A366");

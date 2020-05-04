@@ -99,6 +99,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
             var list = new List<MacMachineDriverCfg>();
             list.AddRange(DriverRealAssembly());
+            list.AddRange(DriverRealAssemblyPlc());
             list.AddRange(DriverRealDevice());
             list.AddRange(DriverRealOpticSensor());
             list.AddRange(DriverRealCamera());
@@ -168,6 +169,61 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
             }.ToList();
         }
+        public List<MacMachineDriverCfg> DriverRealAssemblyPlc()
+        {
+            return new MacMachineDriverCfg[]{
+                new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Box Transfer PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcBoxTransfer),
+                    DriverId = ManifestDriverId.BoxTransferPlc.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Cabinet PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcCabinet),
+                    DriverId = ManifestDriverId.CabinetPlc.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Clean Chamber PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcCleanCh),
+                    DriverId = ManifestDriverId.CleanChPlc.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Inspection Chamber PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcInspectionCh),
+                    DriverId = ManifestDriverId.InspectionChPlc.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Load Port PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcLoadPort),
+                    DriverId = ManifestDriverId.LoadPortPlc.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Mask Transfer PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcMaskTransfer),
+                    DriverId = ManifestDriverId.MaskTransferPlc.ToString(),
+                },
+                 new MacMachineDriverCfg(){
+                    Vendor = "Hirata",
+                    Product = "Open Stage PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcOpenStage),
+                    DriverId = ManifestDriverId.OpenStagePlc.ToString(),
+                },
+
+            }.ToList();
+        }
         public List<MacMachineDriverCfg> DriverRealCamera()
         {
             return new MacMachineDriverCfg[]{
@@ -200,7 +256,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             return new MacMachineDriverCfg[]{
             }.ToList();
         }
-
         public List<MacMachineDriverCfg> DriverRealMotion()
         {
             return new MacMachineDriverCfg[]{
@@ -231,7 +286,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
             }.ToList();
         }
-
         public List<MacMachineDriverCfg> DriverRealOpticSensor()
         {
             return new MacMachineDriverCfg[]{

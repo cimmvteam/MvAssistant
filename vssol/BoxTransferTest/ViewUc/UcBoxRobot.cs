@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MvAssistant.Tasking;
-using MvAssistant.Mac.v1_0.Hal.CompRobot;
+using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 
 namespace BoxTransferTest.ViewUc
 {

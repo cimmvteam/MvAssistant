@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
 {
     public class MacHalRobotMotionInfo
     {
