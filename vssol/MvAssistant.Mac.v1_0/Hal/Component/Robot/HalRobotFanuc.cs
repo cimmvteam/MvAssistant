@@ -91,6 +91,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
         public int HalMoveStraightAsyn(HalRobotMotion motion)
         {
+
+            this.HalStopProgram();
+            if (!this.ldd.ExecutePNS("PNS0101"))
+                throw new Exception("Start PNS0101 Fail");
+
+
+
             var corJ = 0;
             var OfsOrPos = 0;
             switch (motion.MotionType)

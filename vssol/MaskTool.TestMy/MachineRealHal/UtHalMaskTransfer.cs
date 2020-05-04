@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
@@ -12,17 +13,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestRobotMoveToLoadPort()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
 
-            var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
-            mt.Robot.HalMoveAsyn();
-
-
-
-
+                mt.Robot.HalMoveAsyn();
+                mt.HalMoveAsyn();
+                mt.MtClamp();
+            }
 
         }
     }

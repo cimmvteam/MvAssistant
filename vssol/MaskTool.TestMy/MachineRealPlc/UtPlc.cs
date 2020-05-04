@@ -201,22 +201,24 @@ namespace MaskTool.TestMy.MachineRealPlc
             {
                 plc.Connect("192.168.0.200", 2);
 
-                Console.WriteLine(plc.MaskRobot.Clamp(1));//OK
-                Console.WriteLine(plc.MaskRobot.Unclamp());//OK
-                Console.WriteLine(plc.MaskRobot.Initial());//OK
-                plc.MaskRobot.SetSpeed(6, 8, 5);//OK
-                Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());//OK
-                Console.WriteLine(plc.MaskRobot.ReadClampGripPos());//OK
-                plc.MaskRobot.CCDSpin(1000);//待測
+                Console.WriteLine(plc.MaskRobot.Clamp(1));
+                Console.WriteLine(plc.MaskRobot.Unclamp());
+                Console.WriteLine(plc.MaskRobot.Initial());
+                plc.MaskRobot.SetSpeed(6, 8);
+                Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
+                Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
+                plc.MaskRobot.CCDSpin(1000);  // 待測
                 Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
                 plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
+                plc.MaskRobot.SetClampTactileLimit(5);
+                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimitSetting());
                 plc.MaskRobot.SetStaticElecLimit(10, 20);
                 Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadStaticElec());
                 Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
-                Console.WriteLine(plc.MaskRobot.ReadHandInspection());//OK
+                Console.WriteLine(plc.MaskRobot.ReadHandInspection());
                 plc.MaskRobot.RobotMoving(true);
             }
         }
@@ -289,6 +291,30 @@ namespace MaskTool.TestMy.MachineRealPlc
                 //Console.WriteLine(plc.OpenStage.ReadCoverPos());
                 //Console.WriteLine(plc.OpenStage.ReadCoverSensor());
                 //Console.WriteLine(plc.OpenStage.ReadBoxExist());
+            }
+        }
+
+        [TestMethod]
+        public void TestPlcInspChFlow()
+        {
+            using (var plc = new MacHalPlcContext())
+            {
+                plc.Connect("192.168.0.200", 2);
+                //bool[] AlarmArray = new bool[256];
+
+                Console.WriteLine(plc.InspCh.ReadRobotIntrude(false));
+                Console.WriteLine(plc.InspCh.Initial());
+                plc.InspCh.SetSpeed(10, 10, 10);
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.WriteLine(plc.InspCh.XYPosition(200, 10));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.WPosition(51));//0~359
+                    Console.WriteLine(plc.InspCh.XYPosition(10, 10));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.XYPosition(10, 150));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
+                    Console.WriteLine(plc.InspCh.ZPosition(-50));//1~-85
+                    Console.WriteLine(plc.InspCh.XYPosition(200, 150));//X:300~-10,Y:250~-10
+                }
             }
         }
     }

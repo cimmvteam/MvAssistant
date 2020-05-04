@@ -16,6 +16,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             halContext.Load();
 
 
+
+
             
 
 

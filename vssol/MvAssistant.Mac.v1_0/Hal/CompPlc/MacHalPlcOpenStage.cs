@@ -379,6 +379,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         }
 
+        /// <summary>
+        /// BoxType = 1：鐵盒 , 2：水晶盒
+        /// </summary>
+        /// <param name="BoxType">BoxType = 1：鐵盒 , 2：水晶盒</param>
         public void SetBoxType(uint BoxType)
         {
             var plc = this.m_PlcContext;
@@ -402,7 +406,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        //讀取Robot入侵
+        /// <summary>
+        /// 發送入侵訊號，確認Robot能否入侵
+        /// </summary>
+        /// <param name="isBTIntrude">BT Robot是否要入侵</param>
+        /// <param name="isMTIntrude">MT Robot是否要入侵</param>
+        /// <returns></returns>
         public Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude)
         {
             var plc = this.m_PlcContext;
@@ -443,8 +452,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_Slider2_Position)
                 );
         }
-
-        //讀取盒蓋位置
+        
+        /// <summary>
+        /// 讀取盒蓋位置
+        /// </summary>
+        /// <returns></returns>
         public Tuple<double, double> ReadCoverPos()
         {
             var plc = this.m_PlcContext;
@@ -454,8 +466,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Cover2_Position)
                 );
         }
-
-        //讀取盒蓋開闔
+        
+        /// <summary>
+        /// 讀取盒蓋開闔
+        /// </summary>
+        /// <returns></returns>
         public Tuple<bool, bool> ReadCoverSensor()
         {
             var plc = this.m_PlcContext;
@@ -465,22 +480,31 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_CoverSensor_Close)
                 );
         }
-
-        //讀取盒子是否變形
+        
+        /// <summary>
+        /// 讀取盒子是否變形
+        /// </summary>
+        /// <returns></returns>
         public double ReadBoxDeform()
         {
             var plc = this.m_PlcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_SoundWave);
         }
-
-        //讀取平台上的重量
+        
+        /// <summary>
+        /// 讀取平台上的重量
+        /// </summary>
+        /// <returns></returns>
         public double ReadWeightOnStage()
         {
             var plc = this.m_PlcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Weight_Cruuent);
         }
-
-        //讀取是否有Box
+        
+        /// <summary>
+        /// 讀取是否有Box
+        /// </summary>
+        /// <returns></returns>
         public bool ReadBoxExist()
         {
             var plc = this.m_PlcContext;

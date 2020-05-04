@@ -38,6 +38,14 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
         public short userTool = 0;
         public short validC = 0;
         public short validJ = 0;
+        /// <summary>
+        /// 0:Offset ; 1:Postion ; 2:Joint
+        /// </summary>
+        public int MotionType = 0;
+        /// <summary>
+        /// (mm/sec)
+        /// </summary>
+        public int speed = 100;
 
 
 

@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component;
+﻿using MvAssistant.DeviceDrive.FanucRobot_v42_14;
+using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Camera;
 using MvAssistant.Mac.v1_0.Hal.Component.Force6Axis;
 using MvAssistant.Mac.v1_0.Hal.Component.Gripper;
@@ -9,7 +10,9 @@ using MvAssistant.Mac.v1_0.Hal.Component.Stage;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -18,10 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     {
         #region Device Components
 
-
         public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetMachine(MacEnumDevice.masktransfer_plc); } }
-
-
         public IHalRobot Robot { get { return (IHalRobot)this.GetMachine(MacEnumDevice.masktransfer_robot_1); } }
         public IHalForce6Axis Force6Axis { get { return (IHalForce6Axis)this.GetMachine(MacEnumDevice.masktransfer_force_6axis_sensor_1); } }
         public IHalInclinometer Gradienter { get { return (IHalInclinometer)this.GetMachine(MacEnumDevice.masktransfer_inclinometer01); } }
@@ -41,11 +41,146 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalStaticElectricityDetector StaticElectricityDetector { get { return (IHalStaticElectricityDetector)this.GetMachine(MacEnumDevice.masktransfer_static_electricity_detector_1); } }
 
 
+
         #endregion Device Components
 
 
 
+        public int HalMoveAsyn()
+        { return 0; }
 
+
+        public void MoveToLoadPortFromHome()
+        {
+
+
+            List<MvFanucRobotInfo> PathPosition = LPUpsideToOSPutMask();
+
+            var targets = new List<MvFanucRobotInfo>();
+            targets.AddRange(PathPosition);
+            float[] target = new float[6];
+
+            for (int idx = 0; idx < targets.Count; idx++)
+            {
+                var pose = targets[idx];
+
+                var motion = new HalRobotMotion();
+
+                motion.X = pose.x;
+                motion.Y = pose.y;
+                motion.X = pose.z;
+                motion.X = pose.w;
+                motion.X = pose.p;
+                motion.X = pose.r;
+
+                motion.Speed = pose.speed;
+                motion.MotionType = HalRobotEnumMotionType.Position;
+
+
+                this.Robot.HalMoveStraightAsyn(motion);
+            }
+
+        }
+
+        public void MtClamp()
+        {
+
+
+            //TODO: Safety , caputre image and process to recognize position
+
+
+            this.Plc.Clamp(0);
+        }
+
+
+        public List<MvFanucRobotInfo> LPUpsideToOSPutMask()
+        {
+            var poss = new List<MvFanucRobotInfo>();
+
+            //PR[54]-Load Port upside
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = (float)-1.287,
+                y = (float)302.844,
+                z = (float)189.852,
+                w = (float)45.266,
+                p = (float)-88.801,
+                r = (float)-135.369,
+                MotionType = 1,
+                speed = 200
+            });
+
+            //PR[56]-LoadPort前(未伸出手臂)
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = (float)-422.038,
+                y = (float)305.272,
+                z = (float)181.435,
+                w = (float)7.339,
+                p = (float)-88.870,
+                r = (float)-8.811,
+                MotionType = 1,
+                speed = 100
+            });
+
+            //PR[57]-LoadPort上方(伸出手臂)
+            poss.Add(new MvFanucRobotInfo()
+            {
+                x = (float)-637.878,
+                y = (float)305.272,
+                z = (float)181.435,
+                w = (float)7.339,
+                p = (float)-88.870,
+                r = (float)-8.810,
+                MotionType = 1,
+                speed = 20
+            });
+
+            return poss;
+        }
+
+        public List<MvFanucRobotInfo> TurnJoint()
+        {
+            var poss = new List<MvFanucRobotInfo>();
+
+            poss.Add(new MvFanucRobotInfo()
+            {
+                j1 = (float)-1.287,
+                j2 = (float)302.844,
+                j3 = (float)189.852,
+                j4 = (float)45.266,
+                j5 = (float)-88.801,
+                j6 = (float)-135.369,
+                MotionType = 2,
+                speed = 20
+            });
+
+            poss.Add(new MvFanucRobotInfo()
+            {
+                j1 = (float)-422.038,
+                j2 = (float)305.272,
+                j3 = (float)181.435,
+                j4 = (float)7.339,
+                j5 = (float)-88.870,
+                j6 = (float)-8.811,
+                MotionType = 2,
+                speed = 100
+            });
+
+            poss.Add(new MvFanucRobotInfo()
+            {
+                j1 = (float)-637.878,
+                j2 = (float)305.272,
+                j3 = (float)181.435,
+                j4 = (float)7.339,
+                j5 = (float)-88.870,
+                j6 = (float)-8.810,
+                MotionType = 2,
+                speed = 200
+            });
+
+            return poss;
+        }
 
     }
 }
