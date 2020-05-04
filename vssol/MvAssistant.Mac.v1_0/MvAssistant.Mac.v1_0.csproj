@@ -169,7 +169,6 @@
     <Compile Include="Hal\Component\Robot\HalRobotFanuc.cs" />
     <Compile Include="Hal\Component\Robot\HalRobotMotion.cs" />
     <Compile Include="Hal\Component\Robot\HalRobotPose.cs" />
-    <Compile Include="Hal\Component\Robot\HalRobotStaubli.cs" />
     <Compile Include="Hal\Component\Robot\IHalRobot.cs" />
     <Compile Include="Hal\Component\SECSModule\HalSECSModule.cs" />
     <Compile Include="Hal\Component\SECSModule\IHalSECSModule.cs" />
@@ -233,9 +232,9 @@
     <Compile Include="Hal\CompPlc\MacHalPlcMaskTransfer.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcOpenStage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Hal\CompRobot\MacHalBoxRobotFanuc.cs" />
-    <Compile Include="Hal\CompRobot\MacHalMaskRobotFanuc.cs" />
-    <Compile Include="Hal\CompRobot\MacHalRobotMotionInfo.cs" />
+    <Compile Include="Hal\CompRobotTest\MacHalBoxRobotFanuc.cs" />
+    <Compile Include="Hal\CompRobotTest\MacHalMaskRobotFanuc.cs" />
+    <Compile Include="Hal\CompRobotTest\MacHalRobotMotionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hal\Component\Camera\HalCameraFake.cs.orig" />
