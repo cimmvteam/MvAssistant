@@ -7,7 +7,7 @@ using System.Threading;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
 {
     public class MacHalMaskRobotFanuc : IDisposable
     {

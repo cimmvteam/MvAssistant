@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MvAssistant.DeviceDrive.FanucRobot_v42_14;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
 {
     public class MacHalBoxRobotFanuc
     {

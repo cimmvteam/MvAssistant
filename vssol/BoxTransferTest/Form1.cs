@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MvAssistant.Mac.Drawer_SocketComm;
-using MvAssistant.Mac.v1_0.Hal.CompRobot;
+using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 
 namespace BoxTransferTest
 {
