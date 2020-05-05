@@ -49,7 +49,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYReply), 1000))
                     throw new MvException("Inspection XY T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYComplete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYComplete), 10 * 1000))
                     throw new MvException("Inspection XY T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_XYResult))
@@ -203,7 +203,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Reply), 1000))
                     throw new MvException("Inspection Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Complete), 30 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Complete), 120 * 1000))
                     throw new MvException("Inspection Initial T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Result))

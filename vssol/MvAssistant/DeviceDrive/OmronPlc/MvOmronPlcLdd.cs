@@ -54,8 +54,16 @@ namespace MvAssistant.DeviceDrive.OmronPlc
 
         #region Read / Write Variable
 
-        public object Read(string VarName) { return _CIPcompolet.ReadVariable(VarName); }
-        public void Write(string VarName, Object data) { _CIPcompolet.WriteVariable(VarName, data); }
+        public object Read(string VarName)
+        {
+            lock (this)
+                return _CIPcompolet.ReadVariable(VarName);
+        }
+        public void Write(string VarName, Object data)
+        {
+            lock (this)
+                _CIPcompolet.WriteVariable(VarName, data);
+        }
 
 
         public int ReadInt32(string varName) { return Convert.ToInt32(this.Read(varName)); }
