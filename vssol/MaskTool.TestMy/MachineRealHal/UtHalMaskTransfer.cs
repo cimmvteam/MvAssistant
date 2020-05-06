@@ -19,10 +19,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-
-                mt.Robot.HalMoveAsyn();
-                mt.HalMoveAsyn();
-                mt.MtClamp();
+                mt.RobotMove(mt.HomeToOpenStage());
+                mt.RobotMove(mt.OpenStageToHome());
+                mt.ChangeDirection(mt.PosToInspCh());
+                mt.RobotMove(mt.FrontSideIntoInspCh());
+                mt.RobotMove(mt.FrontSideLeaveInspCh());
+                mt.RobotMove(mt.BackSideIntoInspCh());
+                mt.RobotMove(mt.BackSideLeaveInspCh());
+                mt.ChangeDirection(mt.PosToCleanCh());
+                //mt.Robot.HalMoveAsyn();
+                //mt.HalMoveAsyn();
+                //mt.MtClamp();
             }
 
         }

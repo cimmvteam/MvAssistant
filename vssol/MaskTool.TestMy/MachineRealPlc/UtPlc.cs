@@ -263,8 +263,8 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
                 Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
                 Console.WriteLine(plc.OpenStage.Initial());
-                //for (int i = 0; i < 1; i++)
-                while (boolTestStop == false)
+                for (int i = 0; i < 1; i++)
+                //while (boolTestStop == false)
                 {
                     Console.WriteLine(plc.OpenStage.SortClamp());
                     if (boolTestStop) break;
@@ -304,16 +304,17 @@ namespace MaskTool.TestMy.MachineRealPlc
 
                 Console.WriteLine(plc.InspCh.ReadRobotIntrude(false));
                 Console.WriteLine(plc.InspCh.Initial());
-                plc.InspCh.SetSpeed(10, 10, 10);
+                plc.InspCh.SetSpeed(100, 50, 500);
                 for (int i = 0; i < 5; i++)
                 {
-                    Console.WriteLine(plc.InspCh.XYPosition(200, 10));//X:300~-10,Y:250~-10
-                    Console.WriteLine(plc.InspCh.WPosition(51));//0~359
-                    Console.WriteLine(plc.InspCh.XYPosition(10, 10));//X:300~-10,Y:250~-10
-                    Console.WriteLine(plc.InspCh.XYPosition(10, 150));//X:300~-10,Y:250~-10
+                    Console.WriteLine(plc.InspCh.XYPosition(200, 10));//X:300~-10,Y:250~-10  左下
+                    Console.WriteLine(plc.InspCh.WPosition(52));//0~359
+                    Console.WriteLine(plc.InspCh.XYPosition(10, 10));//X:300~-10,Y:250~-10  右下
+                    Console.WriteLine(plc.InspCh.XYPosition(10, 150));//X:300~-10,Y:250~-10  右上
+                    
+                    Console.WriteLine(plc.InspCh.XYPosition(200, 150));//X:300~-10,Y:250~-10  左上
                     Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
                     Console.WriteLine(plc.InspCh.ZPosition(-50));//1~-85
-                    Console.WriteLine(plc.InspCh.XYPosition(200, 150));//X:300~-10,Y:250~-10
                 }
             }
         }

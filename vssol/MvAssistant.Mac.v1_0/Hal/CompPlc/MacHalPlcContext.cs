@@ -63,7 +63,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
         public void Write(MacHalPlcEnumVariable plcvar, object data)
         {
-            this.PlcLdd.Write(plcvar.ToString(), data);
+                this.PlcLdd.Write(plcvar.ToString(), data);
         }
 
 
