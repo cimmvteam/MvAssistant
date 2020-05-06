@@ -12,12 +12,12 @@ namespace MvAssistant.Mac
     [GuidAttribute("8592A98B-C7DD-46C3-9965-BFD952A7742A")]
     public abstract class HalBase : IHal, IDisposable
     {
-        public MacMachineDeviceCfg MachineDeviceCfg;
-        public MacMachineDriverCfg MachineDriverCfg;
-        public Dictionary<string, HalBase> Machines = new Dictionary<string, HalBase>();
+        public MacManifestDeviceCfg HalDeviceCfg;
+        public MacManifestDriverCfg HalDriverCfg;
+        public Dictionary<string, HalBase> Hals = new Dictionary<string, HalBase>();
 
         ~HalBase() { this.Dispose(false); }
-        public string ID { get { return this.MachineDeviceCfg.ID; } }
+        public string ID { get { return this.HalDeviceCfg.ID; } }
 
 
 
@@ -28,7 +28,7 @@ namespace MvAssistant.Mac
         public HalBase GetMachine(MacEnumDevice key) { return this.GetMachine(key.ToString()); }
         public HalBase GetMachine(string key)
         {
-            var machines = (from row in this.Machines
+            var machines = (from row in this.Hals
                             where row.Key == key
                             select row).ToList();
 
@@ -38,7 +38,7 @@ namespace MvAssistant.Mac
             return machines.FirstOrDefault().Value;
         }
         public void SetMachine(MacEnumDevice key, HalBase hal) { this.SetMachine(key, hal); }
-        public void SetMachine(string key, HalBase hal) { this.Machines[key] = hal; }
+        public void SetMachine(string key, HalBase hal) { this.Hals[key] = hal; }
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace MvAssistant.Mac
 
         #region Device Setting
 
-        protected string DeviceConnStr { get { return this.MachineDeviceCfg.DevConnStr; } }
+        protected string DeviceConnStr { get { return this.HalDeviceCfg.DevConnStr; } }
         private Dictionary<string, string> m_DevSettings;
         public Dictionary<string, string> DevSettings
         {

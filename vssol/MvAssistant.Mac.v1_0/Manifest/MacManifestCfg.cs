@@ -12,15 +12,15 @@ using System.Xml.Serialization;
 namespace MvAssistant.Mac.v1_0.Manifest
 {
     [XmlRoot("Manifest")]
-    public class MachineManifestCfg
+    public class MacManifestCfg
     {
 
-        private List<MacMachineDeviceCfg> m_devices = new List<MacMachineDeviceCfg>();
-        private List<MacMachineDriverCfg> m_drivers = new List<MacMachineDriverCfg>();
+        private List<MacManifestDeviceCfg> m_devices = new List<MacManifestDeviceCfg>();
+        private List<MacManifestDriverCfg> m_drivers = new List<MacManifestDriverCfg>();
 
         [XmlArray("Devices")]
         [XmlArrayItem("Device")]
-        public List<MacMachineDeviceCfg> Devices
+        public List<MacManifestDeviceCfg> Devices
         {
             get { return m_devices; }
             set { m_devices = value; }
@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
 
         [XmlArray("Drivers")]
         [XmlArrayItem("Driver")]
-        public List<MacMachineDriverCfg> Drivers
+        public List<MacManifestDriverCfg> Drivers
         {
             get { return m_drivers; }
             set { m_drivers = value; }
@@ -89,13 +89,13 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// </summary>
         /// <param name="filePath">xml file path for loading</param>
         /// <returns></returns>
-        public static MachineManifestCfg LoadFromXmlFile(string filePath) { return MvUtil.LoadFromXmlFile<MachineManifestCfg>(filePath); }
+        public static MacManifestCfg LoadFromXmlFile(string filePath) { return MvUtil.LoadFromXmlFile<MacManifestCfg>(filePath); }
         /// <summary>
         /// serialize (序列化) manifest object, and save as xml file
         /// </summary>
         /// <param name="manifest">MachineManifest object</param>
         /// <param name="filePath">xml file path for saving</param>
-        public static void SaveToXmlFile(MachineManifestCfg manifest, string filePath) { MvUtil.SaveToXmlFile<MachineManifestCfg>(manifest, filePath); }
+        public static void SaveToXmlFile(MacManifestCfg manifest, string filePath) { MvUtil.SaveToXmlFile<MacManifestCfg>(manifest, filePath); }
         #endregion
 
 

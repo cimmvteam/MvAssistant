@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 namespace MvAssistant.Mac.v1_0.Manifest
 {
     [Serializable]
-    public class MacMachineDriverCfg
+    public class MacManifestDriverCfg
     {
 
         [XmlAttribute]

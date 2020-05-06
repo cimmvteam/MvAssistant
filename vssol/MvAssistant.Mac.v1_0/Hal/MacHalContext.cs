@@ -11,9 +11,9 @@ namespace MvAssistant.Mac.v1_0.Hal
     /// <summary>
     /// HAL assembly, comporot or device resource manager
     /// </summary>
-    public class MacHalContext : IDisposable
+    public class MacHalContext : IHal, IDisposable
     {
-        MachineManifestCfg manifest;
+        MacManifestCfg manifest;
         public string Path;
 
         public Dictionary<string, HalBase> HalDevices = new Dictionary<string, HalBase>();
@@ -25,7 +25,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
 
 
-        void HalCreator(MacMachineDeviceCfg deviceCfg, HalBase hal = null)
+        void HalCreator(MacManifestDeviceCfg deviceCfg, HalBase hal = null)
         {
             var drivers = (from row in this.manifest.Drivers
                            where row.DriverId == deviceCfg.DriverId
@@ -43,12 +43,12 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             if (inst == null) throw new MacHalObjectNotFoundException();
 
-            inst.MachineDeviceCfg = deviceCfg;
-            inst.MachineDriverCfg = driver;
+            inst.HalDeviceCfg = deviceCfg;
+            inst.HalDriverCfg = driver;
 
             if (hal == null)
                 this.HalDevices[deviceCfg.DeviceName] = inst;
-            else hal.Machines[deviceCfg.DeviceName] = inst;
+            else hal.Hals[deviceCfg.DeviceName] = inst;
 
 
             if (deviceCfg.Devices == null) return;
@@ -66,7 +66,7 @@ namespace MvAssistant.Mac.v1_0.Hal
         public void Load()
         {
             if (!string.IsNullOrEmpty(this.Path))
-                this.manifest = MachineManifestCfg.LoadFromXmlFile(this.Path);
+                this.manifest = MacManifestCfg.LoadFromXmlFile(this.Path);
 
             this.Check();
 
@@ -77,23 +77,6 @@ namespace MvAssistant.Mac.v1_0.Hal
             }
         }
 
-        public void Connect()
-        {
-            foreach (var kv in this.HalDevices)
-            {
-                this.Connect(kv.Value);
-            }
-        }
-        private void Connect(HalBase hal)
-        {
-            hal.HalConnect();
-            foreach (var kv in hal.Machines)
-            {
-                this.Connect(kv.Value);
-            }
-
-
-        }
 
 
 
@@ -111,6 +94,50 @@ namespace MvAssistant.Mac.v1_0.Hal
 
 
         #endregion
+
+
+        #region HAL
+
+
+
+        private void HalConnect(HalBase hal)
+        {
+            hal.HalConnect();
+            foreach (var kv in hal.Hals)
+            {
+                this.HalConnect(kv.Value);
+            }
+
+
+        }
+
+        public int HalClose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int HalConnect()
+        {
+            foreach (var kv in this.HalDevices)
+            {
+                this.HalConnect(kv.Value);
+            }
+            return 0;
+        }
+
+        public bool HalIsConnected()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int HalStop()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        #endregion
+
 
 
         #region Check

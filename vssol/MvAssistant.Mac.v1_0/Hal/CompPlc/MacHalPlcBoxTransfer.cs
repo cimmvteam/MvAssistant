@@ -8,10 +8,9 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("843DEB1E-BF70-49A0-9D9D-CACCF3102548")]
-    public class MacHalPlcBoxTransfer : MacHalComponentBase,IMacHalPlcBoxTransfer
+    public class MacHalPlcBoxTransfer : MacHalPlcBase, IMacHalPlcBoxTransfer
     {
-        MacHalPlcContext m_PlcContext;
-
+      
 
 
         public MacHalPlcBoxTransfer() { }
@@ -20,19 +19,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.m_PlcContext = plc;
         }
 
-        #region Hal
-
-        public override int HalConnect()
-        {
-            var ip = this.GetDevSetting("ip");
-            var port = this.GetDevSettingInt("portid");
-            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
-            return 0;
-        }
-
-        #endregion
-
-
+   
 
 
 

@@ -13,6 +13,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     public class MacHalPlcContext : MacHalComponentBase, IDisposable
     {
 
+        public const string DevConnStr_PlcIp = "ip";
+        public const string DevConnStr_PlcPortId = "portid";
+
         public MvOmronPlcLdd PlcLdd;
         public string PlcIp;
         public int PlcPort;
@@ -63,7 +66,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
         public void Write(MacHalPlcEnumVariable plcvar, object data)
         {
-                this.PlcLdd.Write(plcvar.ToString(), data);
+            this.PlcLdd.Write(plcvar.ToString(), data);
         }
 
 
@@ -112,7 +115,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             using (var obj = this.PlcLdd)
             {
-
             }
 
             if (this.m_keepConnection != null)
@@ -291,9 +293,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         static Dictionary<string, MacHalPlcContext> m_mapper = new Dictionary<string, MacHalPlcContext>();
 
-        public static MacHalPlcContext Get(string ip, int port)
+
+        public static MacHalPlcContext Get(string ip, string portid) { return Get(ip, Convert.ToInt32(portid)); }
+        public static MacHalPlcContext Get(string ip, int portid)
         {
-            var key = string.Format("{0}:{1}", ip, port);
+            var key = string.Format("{0}:{1}", ip, portid);
 
             if (!m_mapper.ContainsKey(key))
                 m_mapper[key] = new MacHalPlcContext();

@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.v1_0.Hal
         public override int HalConnect()
         {
             var errcnt = 0;
-            foreach (var kv in this.Machines)
+            foreach (var kv in this.Hals)
             {
                 if (kv.Value.HalConnect() != 0)
                     errcnt++;
