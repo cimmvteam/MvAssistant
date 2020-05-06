@@ -10,7 +10,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("EEED741C-18BC-465E-9772-99F19DD68BD3")]
-    public class MacHalPlcContext : IDisposable
+    public class MacHalPlcContext : MacHalComponentBase, IDisposable
     {
 
         public MvOmronPlcLdd PlcLdd;

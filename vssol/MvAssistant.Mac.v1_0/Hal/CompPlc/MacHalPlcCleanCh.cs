@@ -12,6 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     {
         private MacHalPlcContext m_PlcContext;
 
+        public MacHalPlcCleanCh() { }
         public MacHalPlcCleanCh(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
@@ -22,7 +23,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public override int HalConnect()
         {
             var ip = this.GetDevSetting("ip");
-            var port = this.GetDevSettingInt("port");
+            var port = this.GetDevSettingInt("portid");
             this.m_PlcContext = MacHalPlcContext.Get(ip, port);
             return 0;
         }

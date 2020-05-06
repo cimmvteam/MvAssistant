@@ -11,6 +11,22 @@ namespace MvAssistant.Mac.v1_0.Hal
     public abstract class MacHalAssemblyBase : HalBase
     {
 
+        #region Hal
+
+        public override int HalConnect()
+        {
+            var errcnt = 0;
+            foreach (var kv in this.Machines)
+            {
+                if (kv.Value.HalConnect() != 0)
+                    errcnt++;
+            }
+            return errcnt;
+        }
+
+
+        #endregion
+
 
     }
 }

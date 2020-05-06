@@ -11,7 +11,7 @@ namespace MvAssistant.Mac.v1_0.Hal
     /// <summary>
     /// HAL assembly, comporot or device resource manager
     /// </summary>
-    public class MacHalContext:IDisposable
+    public class MacHalContext : IDisposable
     {
         MachineManifestCfg manifest;
         public string Path;
@@ -75,9 +75,30 @@ namespace MvAssistant.Mac.v1_0.Hal
             {
                 this.HalCreator(dcv);
             }
+        }
+
+        public void Connect()
+        {
+            foreach (var kv in this.HalDevices)
+            {
+                this.Connect(kv.Value);
+            }
+        }
+        private void Connect(HalBase hal)
+        {
+            hal.HalConnect();
+            foreach (var kv in hal.Machines)
+            {
+                this.Connect(kv.Value);
+            }
 
 
         }
+
+
+
+
+
 
         public void Unload()
         {
@@ -175,7 +196,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         protected virtual void DisposeSelf()
         {
-            
+
         }
 
 

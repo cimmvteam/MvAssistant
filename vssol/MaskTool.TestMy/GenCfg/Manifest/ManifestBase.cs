@@ -172,6 +172,15 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public List<MacMachineDriverCfg> DriverRealAssemblyPlc()
         {
             return new MacMachineDriverCfg[]{
+                 new MacMachineDriverCfg(){
+                    Vendor = "Omron",
+                    Product = "PLC",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcContext),
+                    DriverId = ManifestDriverId.UniversalPlc.ToString(),
+                    DriverPath =null,
+                },
+
                 new MacMachineDriverCfg(){
                     Vendor = "Hirata",
                     Product = "Box Transfer PLC",
@@ -233,14 +242,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public List<MacMachineDriverCfg> DriverRealDevice()
         {
             return new MacMachineDriverCfg[]{
-                 new MacMachineDriverCfg(){
-                    Vendor = "Omron",
-                    Product = "PLC",
-                    Remark = null,
-                    AssignType = typeof(Hal.Component.Plc.MacHalPlcOmron),
-                    DriverId = ManifestDriverId.Plc_Omron.ToString(),
-                    DriverPath =null,
-                },
                  new MacMachineDriverCfg(){
                     Vendor = "Omron",
                     Product = "Inclinometer MPU6050",

@@ -44,6 +44,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion Device Components
 
+        #region HalBase
+
+        public override int HalConnect()
+        {
+            return base.HalConnect();
+        }
+
+
+        #endregion
+
 
 
         public int HalMoveAsyn()
