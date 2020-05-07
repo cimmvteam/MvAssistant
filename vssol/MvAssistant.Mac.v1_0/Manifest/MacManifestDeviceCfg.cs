@@ -9,11 +9,11 @@ using System.Xml.Serialization;
 
 namespace MvAssistant.Mac.v1_0.Manifest
 {
-    public class MacMachineDeviceCfg
+    public class MacManifestDeviceCfg
     {
         [XmlArray("Devices")]
         [XmlArrayItem("Device")]
-        public MacMachineDeviceCfg[] Devices { get; set; }
+        public MacManifestDeviceCfg[] Devices { get; set; }
 
         [XmlAttribute]
         public string DevConnStr { get; set; }

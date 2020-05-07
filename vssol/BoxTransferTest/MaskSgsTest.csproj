@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BoxTransferTest</RootNamespace>
-    <AssemblyName>BoxTransferTest</AssemblyName>
+    <RootNamespace>MvAssistant.Mac.VerifyEqp</RootNamespace>
+    <AssemblyName>MvAssistant.Mac.VerifyEqp</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -67,6 +67,12 @@
     <Compile Include="FmSgsTest.Designer.cs">
       <DependentUpon>FmSgsTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="FmVerifyEqp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmVerifyEqp.Designer.cs">
+      <DependentUpon>FmVerifyEqp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,42 @@
     </Compile>
     <Compile Include="ViewUc\UcBoxRobot.Designer.cs">
       <DependentUpon>UcBoxRobot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfInspectionCh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfInspectionCh.Designer.cs">
+      <DependentUpon>UcVrfInspectionCh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfLoadPort.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfLoadPort.Designer.cs">
+      <DependentUpon>UcVrfLoadPort.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfBoxTransfer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfBoxTransfer.Designer.cs">
+      <DependentUpon>UcVrfBoxTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfCabinet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfCabinet.Designer.cs">
+      <DependentUpon>UcVrfCabinet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfCleanCh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfCleanCh.Designer.cs">
+      <DependentUpon>UcVrfCleanCh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfDashboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfDashboard.Designer.cs">
+      <DependentUpon>UcVrfDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewUc\UcDrawer.cs">
       <SubType>UserControl</SubType>
@@ -106,11 +148,26 @@
     <Compile Include="ViewUc\UcOpenStage.Designer.cs">
       <DependentUpon>UcOpenStage.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewVerify\UcVrfMaskTransfer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfMaskTransfer.Designer.cs">
+      <DependentUpon>UcVrfMaskTransfer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfOpenStage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ViewVerify\UcVrfOpenStage.Designer.cs">
+      <DependentUpon>UcVrfOpenStage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FmMain.resx">
       <DependentUpon>FmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FmSgsTest.resx">
       <DependentUpon>FmSgsTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FmVerifyEqp.resx">
+      <DependentUpon>FmVerifyEqp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -128,6 +185,9 @@
     <EmbeddedResource Include="ViewUc\UcBoxRobot.resx">
       <DependentUpon>UcBoxRobot.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ViewVerify\UcVrfDashboard.resx">
+      <DependentUpon>UcVrfDashboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcDrawer.resx">
       <DependentUpon>UcDrawer.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ViewUc\UcOpenStage.resx">
       <DependentUpon>UcOpenStage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewVerify\UcVrfMaskTransfer.resx">
+      <DependentUpon>UcVrfMaskTransfer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

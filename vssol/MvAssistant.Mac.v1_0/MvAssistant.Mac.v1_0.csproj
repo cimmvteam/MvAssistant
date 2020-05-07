@@ -38,8 +38,10 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -152,9 +154,6 @@
     <Compile Include="Hal\Component\ParticleCounter\HalParticleCounter.cs" />
     <Compile Include="Hal\Component\ParticleCounter\HalParticleCountetFake.cs" />
     <Compile Include="Hal\Component\ParticleCounter\IHalParticleCounter.cs" />
-    <Compile Include="Hal\Component\Plc\IMacHalPlc.cs" />
-    <Compile Include="Hal\Component\Plc\MacHalPlcFake.cs" />
-    <Compile Include="Hal\Component\Plc\MacHalPlcOmron.cs" />
     <Compile Include="Hal\Component\Plunger\HalPlunger.cs" />
     <Compile Include="Hal\Component\Plunger\HalPlungerFake.cs" />
     <Compile Include="Hal\Component\Plunger\IHalPlunger.cs" />
@@ -190,6 +189,7 @@
     <Compile Include="Hal\Component\Vibration\HalVibrationCwTech.cs" />
     <Compile Include="Hal\Component\Vibration\HalVibrationFake.cs" />
     <Compile Include="Hal\Component\Vibration\IHalVibration.cs" />
+    <Compile Include="Hal\CompPlc\IMacHalPlcUniversal.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcOpenStage.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcMaskTransfer.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcLoadPort.cs" />
@@ -197,6 +197,8 @@
     <Compile Include="Hal\CompPlc\IMacHalPlcCleanCh.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcCabinet.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcBoxTransfer.cs" />
+    <Compile Include="Hal\CompPlc\MacHalPlcBase.cs" />
+    <Compile Include="Hal\CompPlc\MacHalPlcUniversal.cs" />
     <Compile Include="Hal\MacHalAssemblyBase.cs" />
     <Compile Include="Hal\IMacHalAssembly.cs" />
     <Compile Include="Hal\MacHalComponentBase.cs" />
@@ -219,9 +221,9 @@
     <Compile Include="Manifest\Exceptions\ManifestSemanticException.cs" />
     <Compile Include="Manifest\Exceptions\WrongDriverException.cs" />
     <Compile Include="Manifest\Exceptions\MacNoPropertyException.cs" />
-    <Compile Include="Manifest\MacMachineDeviceCfg.cs" />
-    <Compile Include="Manifest\MacMachineDriverCfg.cs" />
-    <Compile Include="Manifest\MachineManifestCfg.cs" />
+    <Compile Include="Manifest\MacManifestDeviceCfg.cs" />
+    <Compile Include="Manifest\MacManifestDriverCfg.cs" />
+    <Compile Include="Manifest\MacManifestCfg.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcEnumVariable.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcBoxTransfer.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcCabinet.cs" />
@@ -245,6 +247,9 @@
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
