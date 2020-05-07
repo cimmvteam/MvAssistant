@@ -45,4 +45,3 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
 
 }
-}

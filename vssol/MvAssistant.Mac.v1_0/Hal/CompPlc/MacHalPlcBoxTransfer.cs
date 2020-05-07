@@ -8,11 +8,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("843DEB1E-BF70-49A0-9D9D-CACCF3102548")]
-<<<<<<< HEAD
-    public class MacHalPlcBoxTransfer : MacHalComponentBase, IMacHalPlcBoxTransfer
-=======
     public class MacHalPlcBoxTransfer : MacHalPlcBase, IMacHalPlcBoxTransfer
->>>>>>> 5350502d48eeb12b518cce6e60c928d2c426c271
     {
       
 

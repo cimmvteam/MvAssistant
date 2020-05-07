@@ -77,17 +77,56 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         }
 
+        public void RobotMove(HalRobotMotion PathPosition)
+        {
+            this.Robot.HalMoveStraightAsyn(PathPosition);
+        }
+
         /// <summary>
         /// 調整手臂到其他進入Assembly的點位
         /// </summary>
         /// <param name="PosToAssembly">PosHome, PosToInspCh, PosToCleanCh</param>
         public void ChangeDirection(HalRobotMotion PosToAssembly)
         {
-            var ChgLicence = ChgDirLicence();
-            if (ChgLicence.Item1 == true)
+            bool Licence = false;
+            string PosName = "";
+            #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
+            var StasrtPosInfo = new MvFanucRobotLdd().GetCurrRobotInfo();
+            {
+                if (StasrtPosInfo.x <= PosHome().X + 5 && StasrtPosInfo.x >= PosHome().X - 5
+                    && StasrtPosInfo.y <= PosHome().Y + 5 && StasrtPosInfo.y >= PosHome().Y - 5
+                    && StasrtPosInfo.z <= PosHome().Z + 5 && StasrtPosInfo.z >= PosHome().Z - 5
+                    && StasrtPosInfo.w <= PosHome().W + 5 && StasrtPosInfo.w >= PosHome().W - 5
+                    && StasrtPosInfo.p <= PosHome().P + 5 && StasrtPosInfo.p >= PosHome().P - 5
+                    && StasrtPosInfo.r <= PosHome().R + 5 && StasrtPosInfo.r >= PosHome().R - 5)
+                {
+                    Licence = true; PosName = "Home";
+                }
+                else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
+                    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
+                    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
+                    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
+                    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
+                    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
+                {
+                    Licence = true; PosName = "Inspection Chamber";
+                }
+                else if (StasrtPosInfo.j1 <= PosToCleanCh().J1 + 5 && StasrtPosInfo.j1 >= PosToCleanCh().J1 - 5
+                    && StasrtPosInfo.j2 <= PosToCleanCh().J2 + 5 && StasrtPosInfo.j2 >= PosToCleanCh().J2 - 5
+                    && StasrtPosInfo.j3 <= PosToCleanCh().J3 + 5 && StasrtPosInfo.j3 >= PosToCleanCh().J3 - 5
+                    && StasrtPosInfo.j4 <= PosToCleanCh().J4 + 5 && StasrtPosInfo.j4 >= PosToCleanCh().J4 - 5
+                    && StasrtPosInfo.j5 <= PosToCleanCh().J5 + 5 && StasrtPosInfo.j5 >= PosToCleanCh().J5 - 5
+                    && StasrtPosInfo.j6 <= PosToCleanCh().J6 + 5 && StasrtPosInfo.j6 >= PosToCleanCh().J6 - 5)
+                {
+                    Licence = true; PosName = "Clean Chamber";
+                }
+            }
+            #endregion
+
+            if (Licence == true)
             {
                 //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
-                if (ChgLicence.Item2 != "Inspection Chamber" && PosToAssembly != PosToInspCh())
+                if (PosName != "Inspection Chamber" && PosToAssembly != PosToInspCh())
                 {
                     this.Robot.HalMoveStraightAsyn(PosToInspCh());
                     this.Robot.HalMoveStraightAsyn(PosToAssembly);
@@ -98,17 +137,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 }
             }
             else
-                throw new Exception("Mask robot can not turn to " + ChgLicence.Item2);
+                throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
         public void MtClamp()
         {
-
-
-            //TODO: Safety , caputre image and process to recognize position
-
+            //TODO: Safety , capture image and process to recognize position
 
             this.Plc.Clamp(0);
+        }
+
+        public void MtUnclamp()
+        {
+            //TODO: Safety , capture image and process to recognize position
+
+            this.Plc.Unclamp();
         }
 
         #region 路徑、點位資訊
@@ -541,7 +584,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 200
             });
 
-            //PR[72]-InspCh前，夾爪旋轉180度(未伸出手臂)
+            //PR[72]-InspCh前(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)295.586,
@@ -567,7 +610,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 20
             });
 
-            //PR[70]-InspCh前(未伸出手臂)
+            //PR[70]-InspCh前，夾爪旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)295.586,
@@ -584,6 +627,208 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             poss.Add(new HalRobotMotion()
             {
                 J1 = (float)-1.477,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+            });
+
+            return poss;
+        }
+
+        public List<HalRobotMotion> BackSideClean()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+
+            });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-634.621,
+                Z = (float)205.211,
+                W = (float)45.253,
+                P = (float)-88.801,
+                R = (float)44.586,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[25]-CleanCh內(伸出手臂於Air Gun上方，以Mask左下方為清理起點)
+            for (float y = 0; y < (float)150.0; y += (float)50.0)
+                for (float x = 0; x < (float)150.0; x += (float)150.0)
+                    poss.Add(new HalRobotMotion()
+                    {
+                        X = (float)58.192 + x,
+                        Y = (float)-734.080 + y,
+                        Z = (float)116.219,
+                        W = (float)45.272,
+                        P = (float)-88.801,
+                        R = (float)44.566,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 20
+                    });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-634.621,
+                Z = (float)205.211,
+                W = (float)45.253,
+                P = (float)-88.801,
+                R = (float)44.586,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+            });
+
+            return poss;
+        }
+
+        public List<HalRobotMotion> FrontSideClean()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+
+            });
+
+            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)89.843,
+                P = (float)1.229,
+                R = (float)-0.310,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[31]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)-70.174,
+                P = (float)89.091,
+                R = (float)-160.021,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-605.053,
+                Z = (float)229.019,
+                W = (float)-70.178,
+                P = (float)89.091,
+                R = (float)-160.025,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[35]-CleanCh內(伸出手臂於Air Gun上方，以Mask左下方為清理起點)
+            for (float y = 0; y < (float)150.0; y += (float)50.0)
+                for (float x = 0; x < (float)150.0; x += (float)150.0)
+                    poss.Add(new HalRobotMotion()
+                    {
+                        X = (float)47.708 + x,
+                        Y = (float)-722.709 + y,
+                        Z = (float)138.564,
+                        W = (float)-74.088,
+                        P = (float)89.110,
+                        R = (float)-163.934,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 20
+                    });
+
+            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-605.053,
+                Z = (float)229.019,
+                W = (float)-70.178,
+                P = (float)89.091,
+                R = (float)-160.025,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[31]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)-70.174,
+                P = (float)89.091,
+                R = (float)-160.021,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)89.843,
+                P = (float)1.229,
+                R = (float)-0.310,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[21]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
                 J2 = (float)-28.739,
                 J3 = (float)-32.678,
                 J4 = (float)-0.884,
@@ -644,47 +889,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return posotion;
         }
         #endregion
-
-        /// <summary>
-        /// 取得移動手臂方向的許可，回傳是否可移動及目前位置
-        /// </summary>
-        /// <returns>可否移動 ; 目前位置</returns>
-        public Tuple<bool, string> ChgDirLicence()
-        {
-            bool Licence = false;
-            string PosName = "";
-            var StasrtPosInfo = new MvFanucRobotLdd().GetCurrRobotInfo();
-            {
-                if (StasrtPosInfo.x <= PosHome().X + 5 && StasrtPosInfo.x >= PosHome().X - 5
-                    && StasrtPosInfo.y <= PosHome().Y + 5 && StasrtPosInfo.y >= PosHome().Y - 5
-                    && StasrtPosInfo.z <= PosHome().Z + 5 && StasrtPosInfo.z >= PosHome().Z - 5
-                    && StasrtPosInfo.w <= PosHome().W + 5 && StasrtPosInfo.w >= PosHome().W - 5
-                    && StasrtPosInfo.p <= PosHome().P + 5 && StasrtPosInfo.p >= PosHome().P - 5
-                    && StasrtPosInfo.r <= PosHome().R + 5 && StasrtPosInfo.r >= PosHome().R - 5)
-                {
-                    Licence = true; PosName = "Home";
-                }
-                else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
-                    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
-                    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
-                    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
-                    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
-                    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
-                {
-                    Licence = true; PosName = "Inspection Chamber";
-                }
-                else if (StasrtPosInfo.j1 <= PosToCleanCh().J1 + 5 && StasrtPosInfo.j1 >= PosToCleanCh().J1 - 5
-                    && StasrtPosInfo.j2 <= PosToCleanCh().J2 + 5 && StasrtPosInfo.j2 >= PosToCleanCh().J2 - 5
-                    && StasrtPosInfo.j3 <= PosToCleanCh().J3 + 5 && StasrtPosInfo.j3 >= PosToCleanCh().J3 - 5
-                    && StasrtPosInfo.j4 <= PosToCleanCh().J4 + 5 && StasrtPosInfo.j4 >= PosToCleanCh().J4 - 5
-                    && StasrtPosInfo.j5 <= PosToCleanCh().J5 + 5 && StasrtPosInfo.j5 >= PosToCleanCh().J5 - 5
-                    && StasrtPosInfo.j6 <= PosToCleanCh().J6 + 5 && StasrtPosInfo.j6 >= PosToCleanCh().J6 - 5)
-                {
-                    Licence = true; PosName = "Clean Chamber";
-                }
-            }
-            return new Tuple<bool, string>(Licence, PosName);
-        }
 
         //public List<HalRobotMotion> TurnJoint()
         //{
