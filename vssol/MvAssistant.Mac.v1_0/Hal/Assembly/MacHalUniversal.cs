@@ -1,6 +1,7 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Motor;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #region Device Components
 
 
-        public IHalPlc plc_01 { get { return (IHalPlc)this.GetMachine(MacEnumDevice.universal_plc_01); } }
+        public IMacHalPlcUniversal plc_01 { get { return (IMacHalPlcUniversal)this.GetMachine(MacEnumDevice.universal_plc_01); } }
 
         #endregion Device Components
 
