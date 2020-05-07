@@ -120,8 +120,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-
-        //開盒夾爪閉合
+        
+        /// <summary>
+        /// 開盒夾爪閉合
+        /// </summary>
+        /// <returns></returns>
         public string Clamp()
         {
             var Result = "";
@@ -165,8 +168,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-
-        //開盒夾爪鬆開
+        
+        /// <summary>
+        /// 開盒夾爪鬆開
+        /// </summary>
+        /// <returns></returns>
         public string Unclamp()
         {
             var Result = "";
@@ -210,8 +216,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-
-        //Stage上固定Box的夾具閉合
+        
+        /// <summary>
+        /// Stage上固定Box的夾具閉合
+        /// </summary>
+        /// <returns></returns>
         public string SortClamp()
         {
             var Result = "";
@@ -252,8 +261,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-
-        //Stage上固定Box的夾具鬆開
+        
+        /// <summary>
+        /// Stage上固定Box的夾具鬆開
+        /// </summary>
+        /// <returns></returns>
         public string SortUnclamp()
         {
             var Result = "";
@@ -288,8 +300,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-
-        //移到開/關盒鎖的位置
+        
+        /// <summary>
+        /// 移到開/關盒鎖的位置
+        /// </summary>
+        /// <returns></returns>
         public string Lock()
         {
             var Result = "";
@@ -329,6 +344,58 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             catch (Exception ex)
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
+                throw ex;
+            }
+            return Result;
+        }
+
+        /// <summary>
+        /// 控制是否吸真空固定盒子
+        /// </summary>
+        /// <param name="isSuck">True：吸取，False：釋放</param>
+        /// <returns></returns>
+        public string Vacuum(bool isSuck)
+        {
+            var Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
+                Thread.Sleep(100);
+                if (isSuck)
+                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, true);
+                else if (isSuck == false)
+                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, true);
+
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Reply), 1000))
+                    throw new MvException("Open Stage Vacuum T0 timeout");
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Complete), 5000))
+                    throw new MvException("Open Stage Vacuum T2 timeout");
+
+                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Result))
+                {
+                    case 1:
+                        Result = "OK";
+                        break;
+                    case 2:
+                        Result = "Fail";
+                        break;
+                    case 3:
+                        Result = "No Box";
+                        break;
+                }
+
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
+
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Complete), 1000))
+                    throw new MvException("Open Stage Vacuum T4 timeout");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
                 throw ex;
             }
             return Result;
@@ -390,20 +457,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         }
 
-        public string ReadBoxTypeSetting()
+        /// <summary>
+        /// 讀取盒子種類設定，1:鐵盒 , 2:水晶盒
+        /// </summary>
+        /// <returns>1:鐵盒 , 2:水晶盒</returns>
+        public int ReadBoxTypeSetting()
         {
             string Result = "";
             var plc = this.m_PlcContext;
-            switch (plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_BoxType))
-            {
-                case 1:
-                    Result = "鐵盒";
-                    break;
-                case 2:
-                    Result = "水晶盒";
-                    break;
-            }
-            return Result;
+            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_BoxType);
+        }
+
+        /// <summary>
+        /// 設定速度(%)
+        /// </summary>
+        /// <param name="Speed"></param>
+        public void SetSpeed(uint Speed)
+        {
+            var plc = this.m_PlcContext;
+            plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Speed, Speed);
+
+        }
+
+        public uint ReadSpeedSetting()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<uint>(MacHalPlcEnumVariable.PC_TO_OS_Speed);
+
         }
 
         /// <summary>
@@ -424,14 +504,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 );
         }
 
-        //讀取開盒夾爪狀態
+        /// <summary>
+        /// 讀取開盒夾爪狀態
+        /// </summary>
+        /// <returns>1: Clamp , 2: Unclamp</returns>
         public int ReadClampStatus()
         {
             var plc = this.m_PlcContext;
             return plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_ClampStatus);
         }
-
-        //讀取Stage上固定Box的夾具位置
+        
+        /// <summary>
+        /// 讀取Stage上固定Box的夾具位置
+        /// </summary>
+        /// <returns></returns>
         public Tuple<long, long> ReadSortClampPosition()
         {
             var plc = this.m_PlcContext;
@@ -441,8 +527,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp2_Position)
                 );
         }
-
-        //讀取Slider的位置
+        
+        /// <summary>
+        /// 讀取Slider的位置
+        /// </summary>
+        /// <returns></returns>
         public Tuple<long, long> ReadSliderPosition()
         {
             var plc = this.m_PlcContext;
@@ -452,7 +541,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_Slider2_Position)
                 );
         }
-        
+
         /// <summary>
         /// 讀取盒蓋位置
         /// </summary>
@@ -466,7 +555,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Cover2_Position)
                 );
         }
-        
+
         /// <summary>
         /// 讀取盒蓋開闔
         /// </summary>
@@ -480,7 +569,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_CoverSensor_Close)
                 );
         }
-        
+
         /// <summary>
         /// 讀取盒子是否變形
         /// </summary>
@@ -490,7 +579,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_SoundWave);
         }
-        
+
         /// <summary>
         /// 讀取平台上的重量
         /// </summary>
@@ -500,7 +589,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Weight_Cruuent);
         }
-        
+
         /// <summary>
         /// 讀取是否有Box
         /// </summary>

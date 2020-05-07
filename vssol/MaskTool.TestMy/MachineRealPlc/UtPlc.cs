@@ -6,9 +6,6 @@ using MvAssistant.Mac.v1_0.Hal.CompPlc;
 
 namespace MaskTool.TestMy.MachineRealPlc
 {
-
-
-    //[20200401] Merge
     [TestClass]
     public class UtPlc
     {
@@ -47,7 +44,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         }
 
         [TestMethod]
-        public void TestPublicArea()//測試OK
+        public void TestPublicArea()
         {
             using (var plc = new MacHalPlcContext())
             {
@@ -71,6 +68,19 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.EMSAlarm(false, false, true, false);
                 plc.EMSAlarm(false, false, false, true);
                 plc.EMSAlarm(false, false, false, false);
+
+                Console.WriteLine(plc.ReadPowerON());//待測
+                Console.WriteLine(plc.ReadBCP_Maintenance());//待測
+                Console.WriteLine(plc.ReadCB_Maintenance());//待測
+                Console.WriteLine(plc.ReadBCP_EMO());//待測
+                Console.WriteLine(plc.ReadCB_EMO());//待測
+                Console.WriteLine(plc.ReadLP1_EMO());//待測
+                Console.WriteLine(plc.ReadLP2_EMO());//待測
+                Console.WriteLine(plc.ReadBCP_Door());//待測
+                Console.WriteLine(plc.ReadLP1_Door());//待測
+                Console.WriteLine(plc.ReadLP2_Door());//待測
+                Console.WriteLine(plc.ReadBCP_Smoke());//待測
+                Console.WriteLine(plc.ReadLP_Light_Curtain());//待測
             }
         }
 
@@ -212,8 +222,15 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
-                plc.MaskRobot.SetClampTactileLimit(5);
-                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimitSetting());
+                plc.MaskRobot.SetClampTactileLim(15,10);// 待測
+                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimSetting());// 待測
+                Console.WriteLine(plc.MaskRobot.ReadClampTactile_FrontSide());// 待測
+                Console.WriteLine(plc.MaskRobot.ReadClampTactile_BehindSide());// 待測
+                Console.WriteLine(plc.MaskRobot.ReadClampTactile_LeftSide());// 待測
+                Console.WriteLine(plc.MaskRobot.ReadClampTactile_RightSide());// 待測
+                plc.MaskRobot.SetLevelLimit(15, 10,5);// 待測
+                Console.WriteLine(plc.MaskRobot.ReadLevelLimitSetting());// 待測
+                Console.WriteLine(plc.MaskRobot.ReadLevel());// 待測
                 plc.MaskRobot.SetStaticElecLimit(10, 20);
                 Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadStaticElec());
@@ -224,7 +241,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         }
 
         [TestMethod]
-        public void TestPlcOpenStage()//OK
+        public void TestPlcOpenStage()
         {
             using (var plc = new MacHalPlcContext())
             {
@@ -237,9 +254,12 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.OpenStage.SortClamp());
                 Console.WriteLine(plc.OpenStage.SortUnclamp());
                 Console.WriteLine(plc.OpenStage.Lock());
+                Console.WriteLine(plc.OpenStage.Vacuum(true));//待測
                 Console.WriteLine(plc.OpenStage.Initial());
                 plc.OpenStage.SetBoxType(1);
                 Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
+                plc.OpenStage.SetSpeed(50);//待測
+                Console.WriteLine(plc.OpenStage.ReadSpeedSetting()); //待測
                 Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
                 Console.WriteLine(plc.OpenStage.ReadClampStatus());
                 Console.WriteLine(plc.OpenStage.ReadSortClampPosition());

@@ -63,7 +63,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
         public void Write(MacHalPlcEnumVariable plcvar, object data)
         {
-                this.PlcLdd.Write(plcvar.ToString(), data);
+            this.PlcLdd.Write(plcvar.ToString(), data);
         }
 
 
@@ -145,7 +145,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.Write(MacHalPlcEnumVariable.PC_TO_DR_Buzzer, BuzzerType);
         }
 
-        //A08外罩風扇開關、風速控制
+        /// <summary>
+        /// A08外罩風扇編號、風速控制
+        /// </summary>
+        /// <param name="FanID"></param>
+        /// <param name="WindSpeed"></param>
+        /// <returns></returns>
         public string CoverFanCtrl(uint FanID, uint WindSpeed)
         {
             string Result = "";
@@ -225,15 +230,102 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
         }
 
+        /// <summary>
+        /// 當Assembly出錯時，針對部件下緊急停止訊號
+        /// </summary>
+        /// <param name="BT_EMS">Box Transfer是否緊急停止</param>
+        /// <param name="RT_EMS">Mask Transfer是否緊急停止</param>
+        /// <param name="OS_EMS">Open Stage是否緊急停止</param>
+        /// <param name="IC_EMS">Inspection Chamber是否緊急停止</param>
         public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
         {
             this.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
             this.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, RT_EMS);
             this.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
             this.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
+            Thread.Sleep(1000);
+            if (this.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
+                throw new MvException("PLC did not get 'Box Transfer EMS' alarm signal");
+            else if (this.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != RT_EMS)
+                throw new MvException("PLC did not get 'Mask Transfer EMS' alarm signal");
+            else if (this.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
+                throw new MvException("PLC did not get 'Open Stage EMS' alarm signal");
+            else if (this.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_EMS_Reply) != IC_EMS)
+                throw new MvException("PLC did not get 'Inspection Chamber EMS' alarm signal");
+
         }
 
+        #region PLC狀態訊號
+        public bool ReadPowerON()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_PowerON);
+        }
 
+        public bool ReadBCP_Maintenance()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Maintenance);
+        }
+
+        public bool ReadCB_Maintenance()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
+        }
+
+        public Tuple< bool,bool,bool,bool,bool> ReadBCP_EMO()
+        {
+            return new Tuple<bool, bool, bool, bool, bool>(
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO1),
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO2),
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO3),
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO4),
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO5)
+                );
+        }
+
+        public Tuple<bool, bool, bool> ReadCB_EMO()
+        {
+            return new Tuple<bool, bool, bool>(
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO1),
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO2),
+                this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO3)
+                );
+        }
+
+        public bool ReadLP1_EMO()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_EMO);
+        }
+
+        public bool ReadLP2_EMO()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_EMO);
+        }
+
+        public bool ReadBCP_Door()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Door);
+        }
+
+        public bool ReadLP1_Door()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_Door);
+        }
+
+        public bool ReadLP2_Door()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_Door);
+        }
+
+        public bool ReadBCP_Smoke()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Smoke);
+        }
+
+        public bool ReadLP_Light_Curtain()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
+        }
+        #endregion
 
 
 

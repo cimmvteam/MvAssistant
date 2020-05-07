@@ -53,6 +53,18 @@ namespace MaskTool.TestMy.MachineRealPlc
         //        }
         //        Console.WriteLine(plc.ReadCoverFanSpeed());
         //        plc.EMSAlarm(true, false, false, false);
+        //        Console.WriteLine(plc.ReadPowerON());
+        //        Console.WriteLine(plc.ReadBCP_Maintenance());
+        //        Console.WriteLine(plc.ReadCB_Maintenance());
+        //        Console.WriteLine(plc.ReadBCP_EMO());
+        //        Console.WriteLine(plc.ReadCB_EMO());
+        //        Console.WriteLine(plc.ReadLP1_EMO());
+        //        Console.WriteLine(plc.ReadLP2_EMO());
+        //        Console.WriteLine(plc.ReadBCP_Door());
+        //        Console.WriteLine(plc.ReadLP1_Door());
+        //        Console.WriteLine(plc.ReadLP2_Door());
+        //        Console.WriteLine(plc.ReadBCP_Smoke());
+        //        Console.WriteLine(plc.ReadLP_Light_Curtain());
         //    }
         //}
 
@@ -106,6 +118,27 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.EMSAlarm(false, true, false, false);
                 plc.EMSAlarm(false, false, true, false);
                 plc.EMSAlarm(false, false, false, true);
+            }
+        }
+
+        [TestMethod]
+        public void TestPLCSignal()
+        {
+            using (var plc = new MacHalPlcContext())
+            {
+                plc.Connect("192.168.0.200", 2);
+                Console.WriteLine(plc.ReadPowerON());
+                Console.WriteLine(plc.ReadBCP_Maintenance());
+                Console.WriteLine(plc.ReadCB_Maintenance());
+                Console.WriteLine(plc.ReadBCP_EMO());
+                Console.WriteLine(plc.ReadCB_EMO());
+                Console.WriteLine(plc.ReadLP1_EMO());
+                Console.WriteLine(plc.ReadLP2_EMO());
+                Console.WriteLine(plc.ReadBCP_Door());
+                Console.WriteLine(plc.ReadLP1_Door());
+                Console.WriteLine(plc.ReadLP2_Door());
+                Console.WriteLine(plc.ReadBCP_Smoke());
+                Console.WriteLine(plc.ReadLP_Light_Curtain());
             }
         }
 

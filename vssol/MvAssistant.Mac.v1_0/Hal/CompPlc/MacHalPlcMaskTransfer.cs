@@ -173,7 +173,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         #region Speed setting
-        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed)
+        /// <summary>
+        /// 設定速度：ClampSpeed(1~10mm/S)、CCDSpinSpeed * 0.01(deg/S)
+        /// </summary>
+        /// <param name="ClampSpeed">(1~10mm/S)</param>
+        /// <param name="CCDSpinSpeed"> * 0.01(deg/S)</param>
+        public void SetSpeed(double? ClampSpeed, int? CCDSpinSpeed)
         {
             var plc = m_PlcContext;
             if (ClampSpeed != null)
@@ -186,12 +191,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 讀取速度設定
         /// </summary>
         /// <returns>夾爪速度 , CCD旋轉速度</returns>
-        public Tuple<double, long> ReadSpeedSetting()
+        public Tuple<double, int> ReadSpeedSetting()
         {
             var plc = m_PlcContext;
-            return new Tuple<double, long>(
+            return new Tuple<double, int>(
                   plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_Speed),
-                  plc.Read<long>(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed)
+                  plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed)
                 );
         }
         #endregion
@@ -258,7 +263,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         #region 六軸Sensor
-        //設定六軸力覺Sensor的壓力極限值
+        /// <summary>
+        /// 設定六軸力覺Sensor的壓力極限值
+        /// </summary>
+        /// <param name="Fx"></param>
+        /// <param name="Fy"></param>
+        /// <param name="Fz"></param>
+        /// <param name="Mx"></param>
+        /// <param name="My"></param>
+        /// <param name="Mz"></param>
         public void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
         {
             var plc = this.m_PlcContext;
@@ -270,7 +283,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Mz, Mz);
         }
 
-        //讀取六軸力覺Sensor的壓力極限值設定
+        /// <summary>
+        /// 讀取六軸力覺Sensor的壓力極限值設定
+        /// </summary>
+        /// <returns></returns>
         public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
         {
             var plc = this.m_PlcContext;
@@ -299,21 +315,144 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         #region 夾爪觸覺Sensor
-        public void SetClampTactileLimit(int TactileLimit)
+        /// <summary>
+        /// 設定夾爪觸覺極限，上限、下限
+        /// </summary>
+        /// <param name="TactileLimit_Up">上限</param>
+        /// <param name="TactileLimit_Down">下限</param>
+        public void SetClampTactileLim(int TactileLimit_Up, int TactileLimit_Down)
         {
             var plc = m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit, TactileLimit);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Up, TactileLimit_Up);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Down, TactileLimit_Down);
         }
 
-        public int ReadClampTactileLimitSetting()
+        /// <summary>
+        /// 讀取夾爪觸覺極限設定值，上限、下限
+        /// </summary>
+        /// <returns>上限、下限</returns>
+        public Tuple< int,int> ReadClampTactileLimSetting()
         {
             var plc = m_PlcContext;
-            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit);
+            return new Tuple<int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Up),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Down)
+                );
+        }
+
+        /// <summary>
+        /// 讀取夾爪前端觸覺數值(前端Sensor會有三個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int,int> ReadClampTactile_FrontSide()
+        {
+            var plc = m_PlcContext;
+            return new Tuple<int, int,int>(
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Up_1),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Up_2),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Up_3)
+                );
+        }
+
+        /// <summary>
+        /// 讀取夾爪後端觸覺數值(後端Sensor會有三個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadClampTactile_BehindSide()
+        {
+            var plc = m_PlcContext;
+            return new Tuple<int, int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Dowm_1),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Dowm_2),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Dowm_3)
+                );
+        }
+
+        /// <summary>
+        /// 讀取夾爪左側觸覺數值(左側Sensor會有六個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int, int, int, int> ReadClampTactile_LeftSide()
+        {
+            var plc = m_PlcContext;
+            return new Tuple<int, int, int, int, int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Left_1),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Left_2),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Left_3),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Left_4),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Left_5),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Left_6)
+                );
+        }
+
+        /// <summary>
+        /// 讀取夾爪右側觸覺數值(右側Sensor會有六個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int, int, int, int> ReadClampTactile_RightSide()
+        {
+            var plc = m_PlcContext;
+            return new Tuple<int, int, int, int, int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Right_1),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Right_2),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Right_3),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Right_4),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Right_5),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Right_6)
+                );
+        }
+        #endregion
+
+        #region 水平Sensor
+        /// <summary>
+        /// 設定三軸水平極限值
+        /// </summary>
+        /// <param name="Level_X"></param>
+        /// <param name="Level_Y"></param>
+        /// <param name="Level_Z"></param>
+        public void SetLevelLimit(int Level_X, int Level_Y, int Level_Z)
+        {
+            var plc = m_PlcContext;
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_X, Level_X);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Y, Level_Y);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Z, Level_Z);
+        }
+
+        /// <summary>
+        /// 讀取三軸水平極限值設定
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int,int> ReadLevelLimitSetting()
+        {
+            var plc = m_PlcContext;
+            return new Tuple<int, int,int>(
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_X),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Y),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Z)
+                );
+        }
+
+        /// <summary>
+        /// 讀取三軸水平數值
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadLevel()
+        {
+            var plc = m_PlcContext;
+            return new Tuple<int, int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Level_X),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Level_Y),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Level_Z)
+                );
         }
         #endregion
 
         #region 靜電感測
-        //設定靜電感測的區間限制
+        /// <summary>
+        /// 設定靜電感測的區間限制
+        /// </summary>
+        /// <param name="Minimum"></param>
+        /// <param name="Maximum"></param>
         public void SetStaticElecLimit(double Minimum, double Maximum)
         {
             var plc = this.m_PlcContext;
@@ -321,7 +460,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_Down, Minimum);
         }
 
-        //讀取靜電感測的區間限制設定值
+        /// <summary>
+        /// 讀取靜電感測的區間限制設定值
+        /// </summary>
+        /// <returns></returns>
         public Tuple<double, double> ReadStaticElecLimitSetting()
         {
             var plc = this.m_PlcContext;
@@ -331,7 +473,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             );
         }
 
-        //讀取靜電測量值
+        /// <summary>
+        /// 讀取靜電測量值
+        /// </summary>
+        /// <returns></returns>
         public double ReadStaticElec()
         {
             var plc = this.m_PlcContext;
@@ -361,7 +506,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        //將夾爪伸到LoadPort，讀取感測器的值，確認夾爪有無變形
+        /// <summary>
+        /// 將夾爪伸到LoadPort，讀取感測器的值，確認夾爪有無變形
+        /// </summary>
+        /// <returns></returns>
         public Tuple<double, double, double, double, double, double> ReadHandInspection()
         {
             var plc = this.m_PlcContext;
@@ -375,11 +523,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             );
         }
 
-        //當手臂作動時，需要讓指令讓PLC知道目前Robot是移動狀態
+        /// <summary>
+        /// 當手臂作動時，需要讓指令讓PLC知道目前Robot是移動或靜止狀態
+        /// </summary>
+        /// <param name="isMoving"></param>
         public void RobotMoving(bool isMoving)
         {
             var plc = m_PlcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_MT_RobotMoving, isMoving);
+            Thread.Sleep(1000);
+            if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_RobotMoving_Reply) != isMoving)
+                throw new MvException("PLC did not get 'Mask Transfer Moving' signal");
         }
     }
 

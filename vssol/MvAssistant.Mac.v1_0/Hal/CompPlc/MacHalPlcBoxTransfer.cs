@@ -8,7 +8,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("843DEB1E-BF70-49A0-9D9D-CACCF3102548")]
-    public class MacHalPlcBoxTransfer : MacHalComponentBase,IMacHalPlcBoxTransfer
+    public class MacHalPlcBoxTransfer : MacHalComponentBase, IMacHalPlcBoxTransfer
     {
         MacHalPlcContext m_PlcContext;
 
@@ -374,11 +374,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        //當手臂作動時，需要讓指令讓PLC知道目前Robot是移動狀態
+        /// <summary>
+        /// 當手臂作動時，需要讓指令讓PLC知道目前Robot是移動或靜止狀態
+        /// </summary>
+        /// <param name="isMoving"></param>
         public void RobotMoving(bool isMoving)
         {
             var plc = m_PlcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_RobotMoving, isMoving);
+            Thread.Sleep(1000);
+            if (plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_RobotMoving_Reply) != isMoving)
+                throw new MvException("PLC did not get 'Box Transfer Moving' signal");
         }
 
 

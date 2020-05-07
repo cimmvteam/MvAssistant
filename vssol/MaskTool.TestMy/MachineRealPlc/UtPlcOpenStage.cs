@@ -25,6 +25,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         //        //Console.WriteLine(plc.OpenStage.Lock());
         //        //Console.WriteLine(plc.OpenStage.Initial());
         //        plc.OpenStage.SetBoxType(0);
+        //        plc.OpenStage.SetSpeed(50);
         //        Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
         //        Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
         //        Console.WriteLine(plc.OpenStage.ReadClampStatus());
@@ -76,6 +77,7 @@ namespace MaskTool.TestMy.MachineRealPlc
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.OpenStage.SetBoxType(0);
+                plc.OpenStage.SetSpeed(50);
             }
         }
 
@@ -86,6 +88,7 @@ namespace MaskTool.TestMy.MachineRealPlc
             {
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
+                Console.WriteLine(plc.OpenStage.ReadSpeedSetting());
             }
         }
 
@@ -128,6 +131,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 //while (true)
                 {
                     Console.WriteLine(plc.OpenStage.SortClamp());
+                    Console.WriteLine(plc.OpenStage.Vacuum(true));
                     Console.WriteLine(plc.OpenStage.SortUnclamp());
                     Console.WriteLine(plc.OpenStage.Close());
                     Console.WriteLine(plc.OpenStage.Clamp());
@@ -137,6 +141,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                     Console.WriteLine(plc.OpenStage.Close());
                     Console.WriteLine(plc.OpenStage.Unclamp());
                     Console.WriteLine(plc.OpenStage.Lock());
+                    Console.WriteLine(plc.OpenStage.Vacuum(false));
                 }
             }
         }
