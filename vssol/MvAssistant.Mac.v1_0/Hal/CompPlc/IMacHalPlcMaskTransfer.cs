@@ -25,13 +25,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         long ReadCCDSpinDegree();
 
-        void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz);
+        void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
 
         Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting();
 
         Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
 
-        void SetClampTactileLim(int TactileLimit_Up, int TactileLimit_Down);
+        void SetClampTactileLim(int? TactileLimit_Up, int? TactileLimit_Down);
 
         Tuple<int, int> ReadClampTactileLimSetting();
 
@@ -43,13 +43,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         Tuple<int, int, int, int, int, int> ReadClampTactile_RightSide();
 
-        void SetLevelLimit(int Level_X, int Level_Y, int Level_Z);
+        void SetLevelLimit(int? Level_X, int? Level_Y, int? Level_Z);
 
         Tuple<int, int, int> ReadLevelLimitSetting();
 
         Tuple<int, int, int> ReadLevel();
 
-        void SetStaticElecLimit(double Minimum, double Maximum);
+        void SetStaticElecLimit(double? Maximum, double? Minimum);
 
         Tuple<double, double> ReadStaticElecLimitSetting();
 

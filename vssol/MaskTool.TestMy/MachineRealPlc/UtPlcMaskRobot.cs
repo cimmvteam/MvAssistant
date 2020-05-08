@@ -16,7 +16,7 @@ namespace MaskTool.TestMy.MachineRealPlc
             {
                 plc.Connect("192.168.0.200", 2);
                 plc.MaskRobot.SetSpeed(10,null);
-                plc.MaskRobot.SetStaticElecLimit(10, 20);
+                plc.MaskRobot.SetStaticElecLimit(20, 10);
                 plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 plc.MaskRobot.SetClampTactileLim(15,10);
                 plc.MaskRobot.SetLevelLimit(15, 10, 5);

@@ -59,7 +59,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public int HalMoveAsyn()
         { return 0; }
 
-
+        /// <summary>
+        /// 給點位清單，依序移動
+        /// </summary>
+        /// <param name="PathPosition"></param>
         public void RobotMove(List<HalRobotMotion> PathPosition)
         {
             //List<HalRobotMotion> PathPosition = HomeToOpenStage();
@@ -77,6 +80,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         }
 
+        /// <summary>
+        /// 給單一點位，進行移動
+        /// </summary>
+        /// <param name="PathPosition"></param>
         public void RobotMove(HalRobotMotion PathPosition)
         {
             this.Robot.HalMoveStraightAsyn(PathPosition);
@@ -140,19 +147,249 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
-        public void MtClamp()
+        public string MTClamp()
         {
+            string result = "";
             //TODO: Safety , capture image and process to recognize position
-
-            this.Plc.Clamp(0);
+            //TODO: Safety , check sensor value: six axis sensor, clamp sensor, level sensor
+            result = Plc.Clamp(0);
+            return result;
         }
 
-        public void MtUnclamp()
+        public string MTUnclamp()
         {
+            string result = "";
             //TODO: Safety , capture image and process to recognize position
-
-            this.Plc.Unclamp();
+            //TODO: Safety , check sensor value: six axis sensor, clamp sensor, level sensor
+            result = Plc.Unclamp();
+            return result;
         }
+
+        public string MTCCDSpin(int SpinDegree)
+        {
+            string result = "";
+            result= Plc.CCDSpin(SpinDegree);
+            return result;
+        }
+
+        public void MTInitial()
+        {
+            //TODO: Safety , robot how to initial?
+            Plc.Initial();
+        }
+
+        public string ReadMTRobotStatus()
+        { return Plc.ReadMTRobotStatus(); }
+
+        /// <summary>
+        /// 當手臂作動或停止時，需要下指令讓PLC知道目前Robot是移動或靜止狀態
+        /// </summary>
+        /// <param name="isMoving">手臂是否要移動</param>
+        public void RobotMoving(bool isMoving)
+        { Plc.RobotMoving(isMoving); }
+
+        #region Set Parameter
+        /// <summary>
+        /// 設定夾爪觸覺極限
+        /// </summary>
+        /// <param name="TactileMaxLimit">上限</param>
+        /// <param name="TactileMinLimit">下限</param>
+        public void SetClampTactileLim(int? TactileMaxLimit, int? TactileMinLimit)
+        {
+            if (TactileMaxLimit != null && TactileMinLimit != null && TactileMinLimit > TactileMaxLimit)
+                throw new Exception("MT clamp tactile sensor maximum limit cannot be lower than the minimum limit !");
+            Plc.SetClampTactileLim(TactileMaxLimit, TactileMinLimit);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadClampTactileLimSetting();
+            if ((TactileMaxLimit != null && SetResult.Item1 != TactileMaxLimit)
+                || (TactileMinLimit != null && SetResult.Item2 != TactileMinLimit))
+                throw new Exception("MT clamp tactile sensor limit setting error !");
+        }
+
+        /// <summary>
+        /// 設定三軸水平極限值
+        /// </summary>
+        /// <param name="Level_X"></param>
+        /// <param name="Level_Y"></param>
+        /// <param name="Level_Z"></param>
+        public void SetLevelLimit(int? Level_X, int? Level_Y, int? Level_Z)
+        {
+            Plc.SetLevelLimit(Level_X, Level_Y, Level_Z);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadLevelLimitSetting();
+            if ((Level_X != null && SetResult.Item1 != Level_X)
+                || (Level_Y != null && SetResult.Item2 != Level_Y)
+                || (Level_Z != null && SetResult.Item3 != Level_Z))
+                throw new Exception("MT clamp level sensor limit setting error !");
+        }
+
+        /// <summary>
+        /// 設定六軸力覺Sensor的壓力極限值
+        /// </summary>
+        /// <param name="Fx"></param>
+        /// <param name="Fy"></param>
+        /// <param name="Fz"></param>
+        /// <param name="Mx"></param>
+        /// <param name="My"></param>
+        /// <param name="Mz"></param>
+        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        {
+            Plc.SetSixAxisSensorLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadLevelLimitSetting();
+            if ((Fx != null && SetResult.Item1 != Fx)
+                || (Fy != null && SetResult.Item2 != Fy)
+                || (Fz != null && SetResult.Item3 != Fz)
+                || (Mx != null && SetResult.Item1 != Mx)
+                || (My != null && SetResult.Item1 != My)
+                || (Mz != null && SetResult.Item1 != Mz))
+                throw new Exception("MT six axis sensor limit setting error !");
+        }
+
+        /// <summary>
+        /// 夾爪速度設定，單位(mm/sec)，CCD旋轉速度設定，單位(0.01 deg/sec)
+        /// </summary>
+        /// <param name="ClampSpeed">(mm/sec)</param>
+        /// <param name="CCDSpinSpeed">(0.01 deg/sec)</param>
+        public void SetSpeed(double? ClampSpeed, int? CCDSpinSpeed)
+        {
+            if (ClampSpeed < 1.0 || ClampSpeed > 10.0)
+                throw new Exception("MT clamp speed setting only between 1.0 ~ 10.0 (mm/sec) !");
+            Plc.SetSpeed(ClampSpeed, CCDSpinSpeed);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadSpeedSetting();
+            if (ClampSpeed != null && SetResult.Item1 != ClampSpeed)
+                throw new Exception("MT clamp speed setting error !");
+            else if (CCDSpinSpeed != null && SetResult.Item2 != CCDSpinSpeed)
+                throw new Exception("MT CCD spin speed setting error !");
+        }
+
+        /// <summary>
+        /// 設定靜電感測的區間限制
+        /// </summary>
+        /// <param name="Maximum">上限</param>
+        /// <param name="Minimum">下限</param>
+        public void SetStaticElecLimit(double? Maximum, double? Minimum)
+        {
+            if (Maximum != null && Minimum != null && Minimum > Maximum)
+                throw new Exception("MT static electricity sensor maximum limit cannot be lower than the minimum limit !");
+            Plc.SetStaticElecLimit(Maximum, Minimum);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadStaticElecLimitSetting();
+            if ((Maximum != null && SetResult.Item1 != Maximum)
+                || (Minimum != null && SetResult.Item2 != Minimum))
+                throw new Exception("MT static electricity sensor limit setting error !");
+        }
+        #endregion
+
+        #region Read Parameter
+        /// <summary>
+        /// 讀取夾爪觸覺極限設定值，上限、下限
+        /// </summary>
+        /// <returns>Maximum、Minimum</returns>
+        public Tuple<int, int> ReadClampTactileLimSetting()
+        { return Plc.ReadClampTactileLimSetting(); }
+
+        /// <summary>
+        /// 讀取三軸水平極限值設定，X軸、Y軸、Z軸
+        /// </summary>
+        /// <returns>X軸、Y軸、Z軸</returns>
+        public Tuple<int, int, int> ReadLevelLimitSetting()
+        { return Plc.ReadLevelLimitSetting(); }
+
+        /// <summary>
+        /// 讀取六軸力覺Sensor的壓力極限值設定，Fx、Fy、Fz、Mx、My、Mz
+        /// </summary>
+        /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
+        { return Plc.ReadSixAxisSensorLimitSetting(); }
+
+        /// <summary>
+        /// 讀取速度設定，夾爪速度、CCD旋轉速度
+        /// </summary>
+        /// <returns>夾爪速度、CCD旋轉速度</returns>
+        public Tuple<double, int> ReadSpeedSetting()
+        { return Plc.ReadSpeedSetting(); }
+
+        /// <summary>
+        /// 讀取靜電感測的區間限制設定值，上限、下限
+        /// </summary>
+        /// <returns>上限、下限</returns>
+        public Tuple<double, double> ReadStaticElecLimitSetting()
+        { return Plc.ReadStaticElecLimitSetting(); }
+        #endregion
+
+        #region Read Component Value
+        /// <summary>
+        /// 讀取CCD旋轉角度
+        /// </summary>
+        /// <returns></returns>
+        public long ReadCCDSpinDegree()
+        { return Plc.ReadCCDSpinDegree(); }
+
+        /// <summary>
+        /// 讀取夾爪鉗四邊伸出長度的位置，夾爪前端、夾爪後端、夾爪左邊、夾爪右邊
+        /// </summary>
+        /// <returns>夾爪前端、夾爪後端、夾爪左邊、夾爪右邊</returns>
+        public Tuple<double, double, double, double> ReadClampGripPos()
+        { return Plc.ReadClampGripPos(); }
+
+        /// <summary>
+        /// 讀取夾爪前端觸覺數值(前端Sensor會有三個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadClampTactile_FrontSide()
+        { return Plc.ReadClampTactile_FrontSide(); }
+
+        /// <summary>
+        /// 讀取夾爪後端觸覺數值(後端Sensor會有三個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadClampTactile_BehindSide()
+        { return Plc.ReadClampTactile_BehindSide(); }
+
+        /// <summary>
+        /// 讀取夾爪左側觸覺數值(左側Sensor會有六個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int, int, int, int> ReadClampTactile_LeftSide()
+        { return Plc.ReadClampTactile_LeftSide(); }
+
+        /// <summary>
+        /// 讀取夾爪右側觸覺數值(右側Sensor會有六個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int, int, int, int> ReadClampTactile_RightSide()
+        { return Plc.ReadClampTactile_RightSide(); }
+
+        /// <summary>
+        /// 讀取夾爪變形檢測數值(需要先將手臂伸到檢測平台)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<double, double, double, double, double, double> ReadHandInspection()
+        { return Plc.ReadHandInspection(); }
+
+        /// <summary>
+        /// 讀取三軸水平數值，X軸、Y軸、Z軸
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadLevel()
+        { return Plc.ReadLevel(); }
+
+        /// <summary>
+        /// 讀取六軸Sensor數值，Fx、Fy、Fz、Mx、My、Mz
+        /// </summary>
+        /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
+        { return Plc.ReadSixAxisSensor(); }
+
+        /// <summary>
+        /// 讀取靜電測量值
+        /// </summary>
+        /// <returns></returns>
+        public double ReadStaticElec()
+        { return Plc.ReadStaticElec(); }
+        #endregion
 
         #region 路徑、點位資訊
         public List<HalRobotMotion> HomeToOpenStage()
@@ -639,6 +876,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return poss;
         }
 
+        /// <summary>
+        /// 此路徑正取Mask，對Mask背面進行清理
+        /// </summary>
+        /// <returns></returns>
         public List<HalRobotMotion> BackSideClean()
         {
             var poss = new List<HalRobotMotion>();
@@ -714,6 +955,89 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return poss;
         }
 
+        /// <summary>
+        /// 此路徑正取Mask，對Mask背面進行拍照
+        /// </summary>
+        /// <returns></returns>
+        public List<HalRobotMotion> BackSideCCDTakeImage()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+
+            });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-634.621,
+                Z = (float)205.211,
+                W = (float)45.253,
+                P = (float)-88.801,
+                R = (float)44.586,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[27]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)
+            for (float y = 0; y < (float)150.0; y += (float)50.0)
+                for (float x = 0; x < (float)150.0; x += (float)150.0)
+                    poss.Add(new HalRobotMotion()
+                    {
+                        X = (float)-209.072 + x,
+                        Y = (float)-734.080 + y,
+                        Z = (float)205.211,
+                        W = (float)45.268,
+                        P = (float)-88.801,
+                        R = (float)44.570,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 20
+                    });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-634.621,
+                Z = (float)205.211,
+                W = (float)45.253,
+                P = (float)-88.801,
+                R = (float)44.586,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+            });
+
+            return poss;
+        }
+
+        /// <summary>
+        /// 此路徑反取Mask，對Mask正面進行清理
+        /// </summary>
+        /// <returns></returns>
         public List<HalRobotMotion> FrontSideClean()
         {
             var poss = new List<HalRobotMotion>();
@@ -782,6 +1106,137 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         W = (float)-74.088,
                         P = (float)89.110,
                         R = (float)-163.934,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 20
+                    });
+
+            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-605.053,
+                Z = (float)229.019,
+                W = (float)-70.178,
+                P = (float)89.091,
+                R = (float)-160.025,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[31]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)-70.174,
+                P = (float)89.091,
+                R = (float)-160.021,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)89.843,
+                P = (float)1.229,
+                R = (float)-0.310,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[21]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+            });
+
+            return poss;
+        }
+
+        /// <summary>
+        /// 此路徑反取Mask，對Mask正面進行拍照
+        /// </summary>
+        /// <returns></returns>
+        public List<HalRobotMotion> FrontSideCCDTakeImage()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                J1 = (float)-89.667,
+                J2 = (float)-28.739,
+                J3 = (float)-32.678,
+                J4 = (float)-0.884,
+                J5 = (float)33.525,
+                J6 = (float)1.596,
+                MotionType = HalRobotEnumMotionType.Joint,
+                Speed = 20
+
+            });
+
+            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)89.843,
+                P = (float)1.229,
+                R = (float)-0.310,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[31]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-302.844,
+                Z = (float)189.851,
+                W = (float)-70.174,
+                P = (float)89.091,
+                R = (float)-160.021,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-605.053,
+                Z = (float)229.019,
+                W = (float)-70.178,
+                P = (float)89.091,
+                R = (float)-160.025,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[39]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)
+            for (float y = 0; y < (float)150.0; y += (float)50.0)
+                for (float x = 0; x < (float)150.0; x += (float)150.0)
+                    poss.Add(new HalRobotMotion()
+                    {
+                        X = (float)-214.026 + x,
+                        Y = (float)-759.268 + y,
+                        Z = (float)290.305,
+                        W = (float)-70.183,
+                        P = (float)89.091,
+                        R = (float)-160.030,
                         MotionType = HalRobotEnumMotionType.Position,
                         Speed = 20
                     });
