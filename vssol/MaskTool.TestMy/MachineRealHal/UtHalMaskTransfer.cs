@@ -27,6 +27,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 mt.RobotMove(mt.BackSideIntoInspCh());
                 mt.RobotMove(mt.BackSideLeaveInspCh());
                 mt.ChangeDirection(mt.PosToCleanCh());
+                mt.RobotMove(mt.BackSideClean());
+                mt.RobotMove(mt.FrontSideClean());
+                mt.RobotMove(mt.FrontSideCCDTakeImage());
+                mt.RobotMove(mt.BackSideCCDTakeImage());
+                mt.ChangeDirection(mt.PosHome());
                 //mt.Robot.HalMoveAsyn();
                 //mt.HalMoveAsyn();
                 mt.MtClamp();

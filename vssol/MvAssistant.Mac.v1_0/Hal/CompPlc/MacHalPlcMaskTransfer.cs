@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     [Guid("DFD72153-DCC6-4949-85DB-B5D7CED91E2E")]
     public class MacHalPlcMaskTransfer : MacHalPlcBase, IMacHalPlcMaskTransfer
     {
-   
+
 
         public MacHalPlcMaskTransfer() { }
         public MacHalPlcMaskTransfer(MacHalPlcContext plc = null)
@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.m_PlcContext = plc;
         }
 
-    
+
 
 
 
@@ -142,10 +142,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Have Mask";
+                        Result = "Have mask";
                         break;
                     case 3:
-                        Result = "";
+                        Result = "Spin not servo ON";
                         break;
                 }
 
@@ -215,9 +215,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Spin, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Reply), 1000))
-                    throw new MvException("Mask Hand Initial T0 timeout");
+                    throw new MvException("Mask Hand CCD spin T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Complete), 20 * 1000))
-                    throw new MvException("Mask Hand Initial T2 timeout");
+                    throw new MvException("Mask Hand CCD spin T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Result))
                 {
@@ -235,7 +235,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Spin, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Complete), 1000))
-                    throw new MvException("Mask Hand Initial T4 timeout");
+                    throw new MvException("Mask Hand CCD spin T4 timeout");
             }
             catch (Exception ex)
             {
@@ -262,15 +262,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
+        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Fx, Fx);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Fy, Fy);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Fz, Fz);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Mx, Mx);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_My, My);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Mz, Mz);
+            if (Fx != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Fx, Fx);
+            if (Fy != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Fy, Fy);
+            if (Fz != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Fz, Fz);
+            if (Mx != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Mx, Mx);
+            if (My != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_My, My);
+            if (Mz != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_ForceLimit_Mz, Mz);
         }
 
         /// <summary>
@@ -310,18 +316,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// </summary>
         /// <param name="TactileLimit_Up">上限</param>
         /// <param name="TactileLimit_Down">下限</param>
-        public void SetClampTactileLim(int TactileLimit_Up, int TactileLimit_Down)
+        public void SetClampTactileLim(int? TactileLimit_Up, int? TactileLimit_Down)
         {
             var plc = m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Up, TactileLimit_Up);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Down, TactileLimit_Down);
+            if (TactileLimit_Up != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Up, TactileLimit_Up);
+            if (TactileLimit_Down != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Tactile_Limit_Down, TactileLimit_Down);
         }
 
         /// <summary>
         /// 讀取夾爪觸覺極限設定值，上限、下限
         /// </summary>
         /// <returns>上限、下限</returns>
-        public Tuple< int,int> ReadClampTactileLimSetting()
+        public Tuple<int, int> ReadClampTactileLimSetting()
         {
             var plc = m_PlcContext;
             return new Tuple<int, int>(
@@ -334,10 +342,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 讀取夾爪前端觸覺數值(前端Sensor會有三個數值)
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int,int> ReadClampTactile_FrontSide()
+        public Tuple<int, int, int> ReadClampTactile_FrontSide()
         {
             var plc = m_PlcContext;
-            return new Tuple<int, int,int>(
+            return new Tuple<int, int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Up_1),
                 plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Up_2),
                 plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Up_3)
@@ -400,22 +408,25 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="Level_X"></param>
         /// <param name="Level_Y"></param>
         /// <param name="Level_Z"></param>
-        public void SetLevelLimit(int Level_X, int Level_Y, int Level_Z)
+        public void SetLevelLimit(int? Level_X, int? Level_Y, int? Level_Z)
         {
             var plc = m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_X, Level_X);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Y, Level_Y);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Z, Level_Z);
+            if (Level_X != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_X, Level_X);
+            if (Level_Y != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Y, Level_Y);
+            if (Level_Z != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Z, Level_Z);
         }
 
         /// <summary>
         /// 讀取三軸水平極限值設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int,int> ReadLevelLimitSetting()
+        public Tuple<int, int, int> ReadLevelLimitSetting()
         {
             var plc = m_PlcContext;
-            return new Tuple<int, int,int>(
+            return new Tuple<int, int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_X),
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Y),
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Level_Limit_Z)
@@ -443,11 +454,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// </summary>
         /// <param name="Minimum"></param>
         /// <param name="Maximum"></param>
-        public void SetStaticElecLimit(double Minimum, double Maximum)
+        public void SetStaticElecLimit(double? Maximum,double? Minimum)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_UP, Maximum);
-            plc.Write(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_Down, Minimum);
+            if (Maximum != null)
+                plc.Write(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_UP, Maximum);
+            if (Minimum != null)
+                plc.Write(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_Down, Minimum);
         }
 
         /// <summary>
@@ -458,8 +471,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             var plc = this.m_PlcContext;
             return new Tuple<double, double>(
-                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_Down),
-                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_UP)
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_UP),
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_StaticElectricity_Limit_Down)
             );
         }
 
@@ -514,7 +527,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         /// <summary>
-        /// 當手臂作動時，需要讓指令讓PLC知道目前Robot是移動或靜止狀態
+        /// 當手臂作動或停止時，需要下指令讓PLC知道目前Robot是移動或靜止狀態
         /// </summary>
         /// <param name="isMoving"></param>
         public void RobotMoving(bool isMoving)

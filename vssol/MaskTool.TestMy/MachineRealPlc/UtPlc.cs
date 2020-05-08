@@ -63,11 +63,11 @@ namespace MaskTool.TestMy.MachineRealPlc
                     plc.CoverFanCtrl(i, (600));
                 }
                 Console.WriteLine(plc.ReadCoverFanSpeed());
-                plc.EMSAlarm(true, false, false, false);
-                plc.EMSAlarm(false, true, false, false);
-                plc.EMSAlarm(false, false, true, false);
-                plc.EMSAlarm(false, false, false, true);
-                plc.EMSAlarm(false, false, false, false);
+                plc.EMSAlarm(true, false, false, false);//待測
+                plc.EMSAlarm(false, true, false, false);//待測
+                plc.EMSAlarm(false, false, true, false);//待測
+                plc.EMSAlarm(false, false, false, true);//待測
+                plc.EMSAlarm(false, false, false, false);//待測
 
                 Console.WriteLine(plc.ReadPowerON());//待測
                 Console.WriteLine(plc.ReadBCP_Maintenance());//待測
@@ -85,7 +85,7 @@ namespace MaskTool.TestMy.MachineRealPlc
         }
 
         [TestMethod]
-        public void TestPlcBoxRobot() //測試 OK
+        public void TestPlcBoxRobot()
         {
             using (var plc = new MacHalPlcContext())
             {
@@ -112,7 +112,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
                 Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
-                plc.BoxRobot.RobotMoving(true);
+                plc.BoxRobot.RobotMoving(true);//待測
             }
         }
 
@@ -231,12 +231,12 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.MaskRobot.SetLevelLimit(15, 10,5);// 待測
                 Console.WriteLine(plc.MaskRobot.ReadLevelLimitSetting());// 待測
                 Console.WriteLine(plc.MaskRobot.ReadLevel());// 待測
-                plc.MaskRobot.SetStaticElecLimit(10, 20);
+                plc.MaskRobot.SetStaticElecLimit(20, 10);
                 Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadStaticElec());
                 Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
                 Console.WriteLine(plc.MaskRobot.ReadHandInspection());
-                plc.MaskRobot.RobotMoving(true);
+                plc.MaskRobot.RobotMoving(true);//待測
             }
         }
 
