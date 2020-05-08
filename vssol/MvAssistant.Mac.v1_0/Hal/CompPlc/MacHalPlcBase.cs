@@ -12,14 +12,18 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     public abstract class MacHalPlcBase : MacHalComponentBase, IMacHalPlcUniversal
     {
 
+        public const string DevConnStr_PlcIp = "ip";
+        public const string DevConnStr_PlcPortId = "portid";
+
+
         protected MacHalPlcContext m_PlcContext;
 
         #region Hal
 
         public override int HalConnect()
         {
-            var ip = this.GetDevSetting("ip");
-            var port = this.GetDevSettingInt("portid");
+            var ip = this.GetDevSetting(DevConnStr_PlcIp);
+            var port = this.GetDevSettingInt(DevConnStr_PlcPortId);
             this.m_PlcContext = MacHalPlcContext.Get(ip, port);
             return 0;
         }

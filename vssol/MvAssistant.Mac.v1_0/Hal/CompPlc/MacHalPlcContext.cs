@@ -13,8 +13,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     public class MacHalPlcContext : MacHalComponentBase, IDisposable
     {
 
-        public const string DevConnStr_PlcIp = "ip";
-        public const string DevConnStr_PlcPortId = "portid";
 
         public MvOmronPlcLdd PlcLdd;
         public string PlcIp;
