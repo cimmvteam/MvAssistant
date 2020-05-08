@@ -42,10 +42,72 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion Device Components
 
+        /// <summary>
+        /// 開盒
+        /// </summary>
+        /// <returns></returns>
+        public string OSOpen()
+        {
+            string result = "";
+            result=Plc.Open();
+            return result;
+        }
 
+        public string OSClose()
+        {
+            string result = "";
+            result = Plc.Close();
+            return result;
+        }
 
+        public string OSClamp()
+        {
+            string result = "";
+            result = Plc.Clamp();
+            return result;
+        }
 
+        public string OSUnclamp()
+        {
+            string result = "";
+            result = Plc.Unclamp();
+            return result;
+        }
 
+        public string OSSortClamp()
+        {
+            string result = "";
+            result = Plc.SortClamp();
+            return result;
+        }
+
+        public string OSSortUnclamp()
+        {
+            string result = "";
+            result = Plc.SortUnclamp();
+            return result;
+        }
+
+        public string OSLock()
+        {
+            string result = "";
+            result = Plc.Lock();
+            return result;
+        }
+
+        public string OSVacuum(bool isSuck)
+        {
+            string result = "";
+            result = Plc.Vacuum(isSuck);
+            return result;
+        }
+
+        public string OSInitial()
+        {
+            string result = "";
+            result = Plc.Initial();
+            return result;
+        }
 
     }
 }

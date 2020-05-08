@@ -18,13 +18,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.m_PlcContext = plc;
         }
 
-     
-
-
-
-
-
-
         public string Open()
         {
             var Result = "";

@@ -34,7 +34,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 mt.ChangeDirection(mt.PosHome());
                 //mt.Robot.HalMoveAsyn();
                 //mt.HalMoveAsyn();
-                mt.MtClamp();
+                mt.MTClamp();
             }
 
         }
