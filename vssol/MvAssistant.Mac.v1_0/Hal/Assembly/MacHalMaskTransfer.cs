@@ -55,10 +55,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #endregion
 
 
-
-        public int HalMoveAsyn()
-        { return 0; }
-
         /// <summary>
         /// 給點位清單，依序移動
         /// </summary>

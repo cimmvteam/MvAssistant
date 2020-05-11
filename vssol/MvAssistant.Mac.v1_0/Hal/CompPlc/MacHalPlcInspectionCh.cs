@@ -228,7 +228,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_IC_W_Speed, MaskWSpeed);// angle per second(degree/sec)
         }
 
-        //讀取手臂可侵入的上下區間極限值
+        //讀取速度設定
         public Tuple<double, double, double> ReadSpeedSetting()
         {
             var plc = this.m_PlcContext;
@@ -356,12 +356,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                     break;
             }
             return Result;
-        }
-
-        public bool[] ReadAlarmArray()
-        {
-            var plc = this.m_PlcContext;
-            return plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Alarm);
         }
     }
 }
