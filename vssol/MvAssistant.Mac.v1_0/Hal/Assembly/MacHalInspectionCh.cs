@@ -38,11 +38,32 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalLight Inspection_ringlight_1 { get{ return (IHalLight)this.GetMachine(MacEnumDevice.inspection_ringlight_1); } }
         public IHalInspectionStage Inspection_stage_1 { get{ return (IHalInspectionStage)this.GetMachine(MacEnumDevice.inspection_stage_1); } }
 
-        
+
         #endregion Device Components
 
-   
+        /// <summary>
+        /// Stage XY軸移動，X:300~-10,Y:250~-10，X軸位置、Y軸位置
+        /// </summary>
+        /// <param name="X_Position">X軸位置</param>
+        /// <param name="Y_Position">Y軸位置</param>
+        /// <returns></returns>
+        public string XYPosition(double X_Position, double Y_Position)
+        { return Plc.XYPosition(X_Position, Y_Position); }
 
-  
+        /// <summary>
+        /// CCD高度調整，1~-85
+        /// </summary>
+        /// <param name="Z_Position"></param>
+        /// <returns></returns>
+        public string ZPosition(double Z_Position)
+        { return Plc.ZPosition(Z_Position); }
+
+        /// <summary>
+        /// Mask載台方向旋轉，0~359
+        /// </summary>
+        /// <param name="W_Position"></param>
+        /// <returns></returns>
+        public string WPosition(double W_Position)
+        { return Plc.WPosition(W_Position); }
     }
 }

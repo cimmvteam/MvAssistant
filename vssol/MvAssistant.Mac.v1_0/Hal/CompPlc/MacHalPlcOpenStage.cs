@@ -227,10 +227,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "NoBox";
+                        Result = "No Box";
                         break;
                     case 3:
                         Result = "Clamping";
+                        break;
+                    case 4:
+                        Result = "No Box Type";
                         break;
                 }
 
@@ -493,10 +496,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 讀取開盒夾爪狀態
         /// </summary>
         /// <returns>1: Clamp , 2: Unclamp</returns>
-        public int ReadClampStatus()
+        public string ReadClampStatus()
         {
+            string Result = "";
             var plc = this.m_PlcContext;
-            return plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_ClampStatus);
+            switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_ClampStatus))
+            {
+                case 1:
+                    Result = "Clamp";
+                    break;
+                case 2:
+                    Result = "Unclamp";
+                    break;
+            }
+            return Result;
         }
         
         /// <summary>

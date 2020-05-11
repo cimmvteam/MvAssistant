@@ -36,7 +36,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude);
 
-        int ReadClampStatus();
+        string ReadClampStatus();
 
         Tuple<long, long> ReadSortClampPosition();
 

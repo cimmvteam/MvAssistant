@@ -49,7 +49,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public string OSOpen()
         {
             string result = "";
-            result=Plc.Open();
+            result = Plc.Open();
             return result;
         }
 
@@ -109,5 +109,101 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return result;
         }
 
+        public string ReadOpenStageStatus()
+        { return Plc.ReadOpenStageStatus(); }
+
+        #region Set Parameter
+        /// <summary>
+        /// 設定盒子種類，1：鐵盒 , 2：水晶盒
+        /// </summary>
+        /// <param name="BoxType">1：鐵盒 , 2：水晶盒</param>
+        public void SetBoxType(uint BoxType)
+        { Plc.SetBoxType(BoxType); }
+
+        /// <summary>
+        /// 設定速度(%)
+        /// </summary>
+        /// <param name="Speed">(%)</param>
+        public void SetSpeed(uint Speed)
+        { Plc.SetSpeed(Speed); }
+        #endregion
+
+        #region Read Parameter
+
+        public int ReadBoxTypeSetting()
+        { return Plc.ReadBoxTypeSetting(); }
+
+        public uint ReadSpeedSetting()
+        { return Plc.ReadSpeedSetting(); }
+        #endregion
+
+        #region Read Component Value
+
+        /// <summary>
+        /// 發送入侵訊號，確認Robot能否入侵
+        /// </summary>
+        /// <param name="isBTIntrude">BT Robot是否要入侵</param>
+        /// <param name="isMTIntrude">MT Robot是否要入侵</param>
+        /// <returns></returns>
+        public Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude)
+        { return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude); }
+
+        /// <summary>
+        /// 讀取開盒夾爪狀態
+        /// </summary>
+        /// <returns></returns>
+        public string ReadClampStatus()
+        { return Plc.ReadClampStatus(); }
+
+        /// <summary>
+        /// 讀取Stage上固定Box的夾具位置
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<long, long> ReadSortClampPosition()
+        { return Plc.ReadSortClampPosition(); }
+
+        /// <summary>
+        /// 讀取Slider的位置
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<long, long> ReadSliderPosition()
+        { return Plc.ReadSliderPosition(); }
+
+        /// <summary>
+        /// 讀取盒蓋位置
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<double, double> ReadCoverPos()
+        { return Plc.ReadCoverPos(); }
+
+        /// <summary>
+        /// 讀取盒蓋開闔
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<bool, bool> ReadCoverSensor()
+        { return Plc.ReadCoverSensor(); }
+
+        /// <summary>
+        /// 讀取盒子是否變形
+        /// </summary>
+        /// <returns></returns>
+        public double ReadBoxDeform()
+        { return Plc.ReadBoxDeform(); }
+
+        /// <summary>
+        /// 讀取平台上的重量
+        /// </summary>
+        /// <returns></returns>
+        public double ReadWeightOnStage()
+        { return Plc.ReadWeightOnStage(); }
+
+        /// <summary>
+        /// 讀取是否有Box
+        /// </summary>
+        /// <returns></returns>
+        public bool ReadBoxExist()
+        { return Plc.ReadBoxExist(); }
+        
+        #endregion
     }
 }
