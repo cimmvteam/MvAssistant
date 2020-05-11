@@ -156,7 +156,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.CleanCh.ReadPressureCtrlSetting());
                 Console.WriteLine(plc.CleanCh.ReadBlowPressure());
                 Console.WriteLine(plc.CleanCh.ReadPressure());
-                Console.WriteLine(plc.CleanCh.ReadAreaSensor());
+                Console.WriteLine(plc.CleanCh.ReadLightCurtain());
             }
         }
 

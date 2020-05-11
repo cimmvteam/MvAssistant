@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     [Guid("2CA853C0-DE8E-49D5-AF55-02DD20754F3D")]
     public class MacHalPlcCleanCh : MacHalPlcBase, IMacHalPlcCleanCh
     {
-   
+
 
         public MacHalPlcCleanCh() { }
         public MacHalPlcCleanCh(MacHalPlcContext plc = null)
@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.m_PlcContext = plc;
         }
 
-   
+
 
 
 
@@ -74,12 +74,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 手臂侵入(左右)
         //設定手臂可侵入的左右區間極限值
-        public void SetRobotAboutLimit(double Limit_R, double Limit_L)
+        public void SetRobotAboutLimit(double Limit_L, double Limit_R)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
             plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
         }
 
         //讀取手臂可侵入的左右區間極限值
@@ -88,8 +88,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
 
             return new Tuple<double, double>(
-                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R),
-                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L)
+                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L),
+                        plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R)
                         );
         }
 
@@ -141,7 +141,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_CC_DP_Limit, PressureLimit);
         }
 
-        //讀取壓力表壓差限制
+        //讀取壓力表壓差限制設定
         public int ReadPressureDiffLimitSetting()
         {
             var plc = this.m_PlcContext;
@@ -231,7 +231,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         //讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms
-        public Tuple<bool, bool, bool> ReadAreaSensor()
+        public Tuple<bool, bool, bool> ReadLightCurtain()
         {
             var plc = this.m_PlcContext;
 
