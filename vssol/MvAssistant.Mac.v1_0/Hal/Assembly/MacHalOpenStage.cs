@@ -46,63 +46,63 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// 開盒
         /// </summary>
         /// <returns></returns>
-        public string OSOpen()
+        public string Open()
         {
             string result = "";
             result = Plc.Open();
             return result;
         }
 
-        public string OSClose()
+        public string Close()
         {
             string result = "";
             result = Plc.Close();
             return result;
         }
 
-        public string OSClamp()
+        public string Clamp()
         {
             string result = "";
             result = Plc.Clamp();
             return result;
         }
 
-        public string OSUnclamp()
+        public string Unclamp()
         {
             string result = "";
             result = Plc.Unclamp();
             return result;
         }
 
-        public string OSSortClamp()
+        public string SortClamp()
         {
             string result = "";
             result = Plc.SortClamp();
             return result;
         }
 
-        public string OSSortUnclamp()
+        public string SortUnclamp()
         {
             string result = "";
             result = Plc.SortUnclamp();
             return result;
         }
 
-        public string OSLock()
+        public string Lock()
         {
             string result = "";
             result = Plc.Lock();
             return result;
         }
 
-        public string OSVacuum(bool isSuck)
+        public string Vacuum(bool isSuck)
         {
             string result = "";
             result = Plc.Vacuum(isSuck);
             return result;
         }
 
-        public string OSInitial()
+        public string Initial()
         {
             string result = "";
             result = Plc.Initial();

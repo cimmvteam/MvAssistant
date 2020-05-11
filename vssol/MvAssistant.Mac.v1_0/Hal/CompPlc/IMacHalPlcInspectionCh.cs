@@ -16,7 +16,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         string Initial();
 
-         string ReadInspChStatus();
+        string ReadInspChStatus();
+
         #region Set Parameter
         void SetSpeed(double StageXYSpeed, double CcdZSpeed, double MaskWSpeed);
 
@@ -28,9 +29,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #region Read Parameter
         Tuple<double, double, double> ReadSpeedSetting();
 
-         Tuple<double, double> ReadRobotAboutLimitSetting();
+        Tuple<double, double> ReadRobotAboutLimitSetting();
 
-         Tuple<double, double> ReadRobotUpDownLimitSetting();
+        Tuple<double, double> ReadRobotUpDownLimitSetting();
         #endregion
 
         #region Read Component Value
@@ -40,7 +41,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         double ReadZPosition();
 
-         double ReadWPosition();
+        double ReadWPosition();
 
         double ReadRobotPosAbout();
 

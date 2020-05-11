@@ -76,7 +76,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         //讀取光閘是否遮斷，一排一個 各自獨立，遮斷時True，Reset time 500ms
-        public Tuple<bool, bool, bool, bool, bool, bool, bool> ReadAreaSensor()
+        public Tuple<bool, bool, bool, bool, bool, bool, bool> ReadLightCurtain()
         {
             var plc = this.m_PlcContext;
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(

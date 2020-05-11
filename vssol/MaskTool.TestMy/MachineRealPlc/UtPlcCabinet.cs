@@ -64,7 +64,7 @@ namespace MaskTool.TestMy.MachineRealPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.Cabinet.ReadAreaSensor());
+                Console.WriteLine(plc.Cabinet.ReadLightCurtain());
             }
         }
     }

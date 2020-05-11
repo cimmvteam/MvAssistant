@@ -127,7 +127,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.Cabinet.ReadPressureDiff());
                 plc.Cabinet.SetExhaustFlow(3, 4);
                 Console.WriteLine(plc.Cabinet.ReadExhaustFlowSetting());
-                Console.WriteLine(plc.Cabinet.ReadAreaSensor());
+                Console.WriteLine(plc.Cabinet.ReadLightCurtain());
             }
         }
 

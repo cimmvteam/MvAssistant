@@ -47,7 +47,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="X_Position">X軸位置</param>
         /// <param name="Y_Position">Y軸位置</param>
         /// <returns></returns>
-        public string ICXYPosition(double X_Position, double Y_Position)
+        public string XYPosition(double X_Position, double Y_Position)
         { return Plc.XYPosition(X_Position, Y_Position); }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Z_Position"></param>
         /// <returns></returns>
-        public string ICZPosition(double Z_Position)
+        public string ZPosition(double Z_Position)
         { return Plc.ZPosition(Z_Position); }
 
         /// <summary>
@@ -63,10 +63,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="W_Position"></param>
         /// <returns></returns>
-        public string ICWPosition(double W_Position)
+        public string WPosition(double W_Position)
         { return Plc.WPosition(W_Position); }
 
-        public string ICInitial()
+        public string Initial()
         { return Plc.Initial(); }
 
         public string ReadInspChStatus()
@@ -95,7 +95,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="UpDownLimit_U"></param>
         /// <param name="UpDownLimit_D"></param>
-        void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
+        public void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
         { Plc.SetRobotUpDownLimit(UpDownLimit_U, UpDownLimit_D); }
         #endregion
 

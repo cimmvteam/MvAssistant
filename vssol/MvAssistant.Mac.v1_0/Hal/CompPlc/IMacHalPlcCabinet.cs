@@ -8,5 +8,23 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     public interface IMacHalPlcCabinet
     {
+
+        #region Set Parameter
+        void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit);
+
+        void SetExhaustFlow(int Valve1, int Valve2);
+        #endregion
+
+        #region Read Parameter
+        Tuple<int, int> ReadPressureDiffLimitSetting();
+
+        Tuple<int, int> ReadExhaustFlowSetting();
+        #endregion
+
+        #region Read Component Value
+        Tuple<int, int> ReadPressureDiff();
+
+        Tuple<bool, bool, bool, bool, bool, bool, bool> ReadLightCurtain();
+        #endregion
     }
 }
