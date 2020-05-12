@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.v1_0", "MvA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.VerifyEqp", "MvAssistant.Mac.VerifyEqp\MvAssistant.Mac.VerifyEqp.csproj", "{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleaner.StateMachine", "MvLib.StateMachine\MaskCleaner.StateMachine.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleaner.StateMachine", "MaskCleaner.StateMachine\MaskCleaner.StateMachine.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
