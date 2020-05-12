@@ -7,7 +7,7 @@ using MvAssistant.Mac.v1_0.Manifest;
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
     [TestClass]
-    public class UtHalCabinet
+    public class UtHalLoadPort
     {
         [TestMethod]
         public void TestSetParameter()
@@ -15,10 +15,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
             halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
-
-            cbn.SetPressureDiffLimit(50, 60);
-            cbn.SetExhaustFlow(20, 35);
+            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+            lp.SetPressureDiffLimit(40,50);
         }
 
         [TestMethod]
@@ -27,10 +25,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
             halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
-
-            cbn.ReadPressureDiffLimitSetting();
-            cbn.ReadExhaustFlowSetting();
+            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+            lp.ReadPressureDiffLimitSrtting();
         }
 
         [TestMethod]
@@ -39,10 +35,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
             halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
-
-            cbn.ReadPressureDiff();
-            cbn.ReadLightCurtain();
+            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+            lp.ReadPressureDiff();
         }
 
         [TestMethod]
@@ -51,8 +45,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
             halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
-
+            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
         }
     }
 }

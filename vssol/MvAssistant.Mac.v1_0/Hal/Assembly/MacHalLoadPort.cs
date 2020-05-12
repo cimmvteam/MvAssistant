@@ -29,9 +29,35 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
 
-        #endregion 
+        #endregion
 
- 
+        #region Set Parameter
+        /// <summary>
+        /// 設定LoadPort內部與外部環境最大壓差限制，錶1壓差限制、錶2壓差限制
+        /// </summary>
+        /// <param name="Gauge1Limit">錶1壓差限制</param>
+        /// <param name="Gauge2Limit">錶2壓差限制</param>
+        public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
+        { Plc.SetPressureDiffLimit(Gauge1Limit, Gauge2Limit); }
+        #endregion
+
+        #region Read Parameter
+        /// <summary>
+        /// 讀取LoadPort內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
+        /// </summary>
+        /// <returns>錶1壓差限制、錶2壓差限制</returns>
+        public Tuple<int, int> ReadPressureDiffLimitSrtting()
+        { return Plc.ReadPressureDiffLimitSrtting(); }
+        #endregion
+
+        #region Read Component Value
+        /// <summary>
+        /// 讀取LoadPort內部與外部環境壓差，錶1壓差、錶2壓差
+        /// </summary>
+        /// <returns>錶1壓差、錶2壓差</returns>
+        public Tuple<int, int> ReadPressureDiff()
+        { return ReadPressureDiff(); }
+        #endregion
 
     }
 }
