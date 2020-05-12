@@ -13,65 +13,72 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TestSetParameter()
         {
 
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
 
-            var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
 
-            ic.SetSpeed(200,100,50);
-            ic.SetRobotAboutLimit(10, 100);
-            ic.SetRobotUpDownLimit(10, -20);
+                ic.SetSpeed(200, 100, 50);
+                ic.SetRobotAboutLimit(10, 100);
+                ic.SetRobotUpDownLimit(10, -20);
+            }
         }
 
         [TestMethod]
         public void TestReadParameter()
         {
 
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
 
-            var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
 
-            ic.ReadSpeedSetting();
-            ic.ReadRobotAboutLimitSetting();
-            ic.ReadRobotUpDownLimitSetting();
+                ic.ReadSpeedSetting();
+                ic.ReadRobotAboutLimitSetting();
+                ic.ReadRobotUpDownLimitSetting();
+            }
         }
 
         [TestMethod]
         public void TestReadComponentValue()
         {
 
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
 
-            var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
 
-            ic.ReadRobotIntrude(false);
-            ic.ReadXYPosition();
-            ic.ReadZPosition();
-            ic.ReadWPosition();
-            ic.ReadRobotPosAbout();
-            ic.ReadRobotPosUpDown();
+                ic.ReadRobotIntrude(false);
+                ic.ReadXYPosition();
+                ic.ReadZPosition();
+                ic.ReadWPosition();
+                ic.ReadRobotPosAbout();
+                ic.ReadRobotPosUpDown();
+            }
         }
 
         [TestMethod]
         public void TestAssemblyWork()
         {
 
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
 
-            var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
 
-            ic.Initial();
-            ic.XYPosition(200,100);
-            ic.ZPosition(-50);
-            ic.WPosition(51);
-
+                ic.Initial();
+                ic.XYPosition(200, 100);
+                ic.ZPosition(-50);
+                ic.WPosition(51);
+            }
         }
     }
 }

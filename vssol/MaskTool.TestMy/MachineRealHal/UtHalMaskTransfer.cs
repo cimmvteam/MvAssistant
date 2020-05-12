@@ -11,7 +11,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     public class UtHalMaskTransfer
     {
         [TestMethod]
-        public void TestRobotMoveToLoadPort()
+        public void TestPathMove()
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
@@ -34,9 +34,83 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 mt.ChangeDirection(mt.PosHome());
                 //mt.Robot.HalMoveAsyn();
                 //mt.HalMoveAsyn();
-                mt.MTClamp();
+                mt.Clamp();
             }
 
+        }
+
+        [TestMethod]
+        public void TestSetParameter()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
+
+                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+
+                mt.SetClampTactileLim(50,10);
+                mt.SetLevelLimit(10,11,12);
+                mt.SetSixAxisSensorLimit(1, 2, 3, 4, 5, 6);
+                mt.SetSpeed(50, 60);
+                mt.SetStaticElecLimit(50,20);
+            }
+        }
+
+        [TestMethod]
+        public void TestReadParameter()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
+
+                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+
+                mt.ReadClampTactileLimSetting();
+                mt.ReadLevelLimitSetting();
+                mt.ReadSixAxisSensorLimitSetting();
+                mt.ReadSpeedSetting();
+                mt.ReadStaticElecLimitSetting();
+            }
+        }
+
+        [TestMethod]
+        public void TestReadComponentValue()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
+
+                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+
+                mt.ReadCCDSpinDegree();
+                mt.ReadClampGripPos();
+                mt.ReadClampTactile_FrontSide();
+                mt.ReadClampTactile_BehindSide();
+                mt.ReadClampTactile_LeftSide();
+                mt.ReadClampTactile_RightSide();
+                mt.ReadHandInspection();
+                mt.ReadLevel();
+                mt.ReadSixAxisSensor();
+                mt.ReadStaticElec();
+            }
+        }
+
+        [TestMethod]
+        public void TestAssemblyWork()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
+
+                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+
+                mt.Clamp();
+                mt.Unclamp();
+                mt.CCDSpin(50);
+                mt.Initial();
+                mt.ReadMTRobotStatus();
+                mt.RobotMoving(false);
+            }
         }
     }
 }

@@ -12,47 +12,55 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestSetParameter()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
 
-            cbn.SetPressureDiffLimit(50, 60);
-            cbn.SetExhaustFlow(20, 35);
+                cbn.SetPressureDiffLimit(50, 60);
+                cbn.SetExhaustFlow(20, 35);
+            }
         }
 
         [TestMethod]
         public void TestReadParameter()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
 
-            cbn.ReadPressureDiffLimitSetting();
-            cbn.ReadExhaustFlowSetting();
+                cbn.ReadPressureDiffLimitSetting();
+                cbn.ReadExhaustFlowSetting();
+            }
         }
 
         [TestMethod]
         public void TestReadComponentValue()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
 
-            cbn.ReadPressureDiff();
-            cbn.ReadLightCurtain();
+                cbn.ReadPressureDiff();
+                cbn.ReadLightCurtain();
+            }
         }
 
         [TestMethod]
         public void TestAssemblyWork()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
 
+            }
         }
     }
 }

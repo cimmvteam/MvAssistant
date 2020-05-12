@@ -12,60 +12,68 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestSetParameter()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
+                var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
 
-            cc.SetParticleCntLimit(20, 30, 40);
-            cc.SetRobotAboutLimit(10, 50);
-            cc.SetRobotUpDownLimit(50, 10);
-            cc.SetPressureDiffLimit(40);
-            cc.SetPressureCtrl(90);
+                cc.SetParticleCntLimit(20, 30, 40);
+                cc.SetRobotAboutLimit(10, 50);
+                cc.SetRobotUpDownLimit(50, 10);
+                cc.SetPressureDiffLimit(40);
+                cc.SetPressureCtrl(90);
+            }
         }
 
         [TestMethod]
         public void TestReadParameter()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
+                var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
 
-            cc.ReadParticleCntLimitSetting();
-            cc.ReadRobotAboutLimitSetting();
-            cc.ReadRobotUpDownLimitSetting();
-            cc.ReadPressureDiffLimitSetting();
-            cc.ReadPressureCtrlSetting();
+                cc.ReadParticleCntLimitSetting();
+                cc.ReadRobotAboutLimitSetting();
+                cc.ReadRobotUpDownLimitSetting();
+                cc.ReadPressureDiffLimitSetting();
+                cc.ReadPressureCtrlSetting();
+            }
         }
 
         [TestMethod]
         public void TestReadComponentValue()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
+                var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
 
-            cc.ReadParticleCount();
-            cc.ReadMaskLevel();
-            cc.ReadRobotPosAbout();
-            cc.ReadRobotPosUpDown();
-            cc.ReadPressureDiff();
-            cc.ReadBlowPressure();
-            cc.ReadPressure();
-            cc.ReadLightCurtain();
+                cc.ReadParticleCount();
+                cc.ReadMaskLevel();
+                cc.ReadRobotPosAbout();
+                cc.ReadRobotPosUpDown();
+                cc.ReadPressureDiff();
+                cc.ReadBlowPressure();
+                cc.ReadPressure();
+                cc.ReadLightCurtain();
+            }
         }
 
         [TestMethod]
         public void TestAssemblyWork()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
+                var cc = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCleanCh;
 
-            cc.GasValveBlow(50);
+                cc.GasValveBlow(50);
+            }
         }
     }
 }

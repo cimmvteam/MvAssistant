@@ -12,40 +12,49 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestSetParameter()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
-            lp.SetPressureDiffLimit(40,50);
+                var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+                lp.SetPressureDiffLimit(40, 50);
+            }
         }
 
         [TestMethod]
         public void TestReadParameter()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
-            lp.ReadPressureDiffLimitSrtting();
+                var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+                lp.ReadPressureDiffLimitSrtting();
+            }
         }
 
         [TestMethod]
         public void TestReadComponentValue()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
-            lp.ReadPressureDiff();
+                var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+                lp.ReadPressureDiff();
+            }
         }
 
         [TestMethod]
         public void TestAssemblyWork()
         {
-            var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.Load();
 
-            var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+                var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
+
+            }
         }
     }
 }
