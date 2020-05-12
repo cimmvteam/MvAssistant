@@ -106,7 +106,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.BoxRobot.SetLevelSensorLimit(10, 15);
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensor());
-                Console.WriteLine(plc.BoxRobot.SetLevelReset());
+                Console.WriteLine(plc.BoxRobot.LevelReset());
                 plc.BoxRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());

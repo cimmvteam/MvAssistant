@@ -265,8 +265,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 );
         }
 
-        //設定XY軸水平Sensor的標準值
-        public bool SetLevelReset()
+        //重置夾爪XY軸水平
+        public bool LevelReset()
         {
             var plc = this.m_PlcContext;
             try

@@ -243,7 +243,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
         /// <summary>
-        /// 夾爪速度設定，單位(mm/sec)，CCD旋轉速度設定，單位(0.01 deg/sec)
+        /// 夾速度設定，單位(mm/sec)，CCD旋轉速度設定，單位(0.01 deg/sec)
         /// </summary>
         /// <param name="ClampSpeed">(mm/sec)</param>
         /// <param name="CCDSpinSpeed">(0.01 deg/sec)</param>
