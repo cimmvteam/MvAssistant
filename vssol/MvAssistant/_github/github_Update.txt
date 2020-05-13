@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'hal adjust'
+git commit -m 'add state machine'
 git pull
 git push
 cd ..
