@@ -55,7 +55,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="L_Limit">Large Particle Qty</param>
         /// <param name="M_Limit">Medium Particle Qty</param>
         /// <param name="S_Limit">Small Particle Qty</param>
-        public void SetParticleCntLimit(uint L_Limit, uint M_Limit, uint S_Limit)
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         { Plc.SetParticleCntLimit(L_Limit, M_Limit, S_Limit); }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Limit_L">¥ª·¥­­</param>
         /// <param name="Limit_R">¥k·¥­­</param>
-        public void SetRobotAboutLimit( double Limit_L,double Limit_R)
+        public void SetRobotAboutLimit(double? Limit_L, double? Limit_R)
         { Plc.SetRobotAboutLimit(Limit_L, Limit_R); }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Limit_U">¤W·¥­­</param>
         /// <param name="Limit_D">¤U·¥­­</param>
-        public void SetRobotUpDownLimit(double Limit_U, double Limit_D)
+        public void SetRobotUpDownLimit(double? Limit_U, double? Limit_D)
         { Plc.SetRobotUpDownLimit(Limit_U, Limit_D); }
 
         /// <summary>

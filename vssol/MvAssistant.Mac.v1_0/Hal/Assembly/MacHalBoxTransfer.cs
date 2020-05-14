@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Minimum">最小間距</param>
         /// <param name="Maximum">最大間距</param>
-        public void SetHandSpaceLimit(double Minimum, double Maximum)
+        public void SetHandSpaceLimit(double? Minimum, double? Maximum)
         { Plc.SetHandSpaceLimit(Minimum, Maximum); }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Level_X">X軸水平極限</param>
         /// <param name="Level_Y">Y軸水平極限</param>
-        public void SetLevelSensorLimit(double Level_X, double Level_Y)
+        public void SetLevelSensorLimit(double? Level_X, double? Level_Y)
         { Plc.SetLevelSensorLimit(Level_X, Level_Y); }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
+        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
         { Plc.SetSixAxisSensorLimit(Fx, Fy, Fz, Mx, My, Mz); }
         #endregion
 

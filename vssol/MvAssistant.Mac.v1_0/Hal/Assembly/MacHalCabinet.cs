@@ -23,7 +23,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Gauge1Limit">錶1壓差限制</param>
         /// <param name="Gauge2Limit">錶2壓差限制</param>
-        public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
+        public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         { Plc.SetPressureDiffLimit(Gauge1Limit, Gauge2Limit); }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="Valve1">節流閥1</param>
         /// <param name="Valve2">節流閥2</param>
-        public void SetExhaustFlow(int Valve1, int Valve2)
+        public void SetExhaustFlow(int? Valve1, int? Valve2)
         { Plc.SetExhaustFlow(Valve1,Valve2); }
         #endregion
 

@@ -22,14 +22,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
 
         //Stage進行XY移動
-        public string XYPosition(double X_Position, double Y_Position)
+        public string XYPosition(double? X_Position, double? Y_Position)
         {
             string Result = "";
             var plc = this.m_PlcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XPoint, X_Position);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_YPoint, Y_Position);
+                if (X_Position != null)
+                    plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XPoint, X_Position);
+                if (Y_Position != null)
+                    plc.Write(MacHalPlcEnumVariable.PC_TO_IC_YPoint, Y_Position);
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, false);
                 Thread.Sleep(100);
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, true);
@@ -219,13 +221,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public void SetSpeed(double StageXYSpeed, double CcdZSpeed, double MaskWSpeed)
+        public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
         {
             var plc = this.m_PlcContext;
-
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XY_Speed, StageXYSpeed);// (mm/sec)
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Z_Speed, CcdZSpeed);// (mm/sec)
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_W_Speed, MaskWSpeed);// angle per second(degree/sec)
+            if (StageXYSpeed != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XY_Speed, StageXYSpeed);// (mm/sec)
+            if (CcdZSpeed != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Z_Speed, CcdZSpeed);// (mm/sec)
+            if (MaskWSpeed != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_W_Speed, MaskWSpeed);// angle per second(degree/sec)
         }
 
         //讀取速度設定
@@ -278,12 +282,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 手臂入侵(左右)
         //設定手臂可侵入的左右區間極限值
-        public void SetRobotAboutLimit(double AboutLimit_L, double AboutLimit_R)
+        public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R, AboutLimit_R);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_L, AboutLimit_L);
+            if (AboutLimit_R != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R, AboutLimit_R);
+            if (AboutLimit_L != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_L, AboutLimit_L);
         }
 
         //讀取手臂可侵入的左右區間極限值
@@ -308,12 +314,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 手臂入侵(上下)
         //設定手臂可侵入的上下區間極限值
-        public void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
+        public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_D, UpDownLimit_D);
+            if (UpDownLimit_U != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
+            if (UpDownLimit_D != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_D, UpDownLimit_D);
         }
 
         //讀取手臂可侵入的上下區間極限值

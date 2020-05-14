@@ -475,7 +475,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         /// <summary>
-        /// 發送入侵訊號，確認Robot能否入侵
+        /// 發送入侵訊號，回傳是否可以入侵
         /// </summary>
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
