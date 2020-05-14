@@ -13,7 +13,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     {
 
         public const string DevConnStr_PlcIp = "ip";
-        public const string DevConnStr_PlcPortId = "portid";
+        public const string DevConnStr_PlcPortId = "port";
 
 
         protected MacHalPlcContext m_PlcContext;
@@ -33,8 +33,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             using (var obj = this.m_PlcContext)
             {
-                this.m_PlcContext.Close();
-                this.m_PlcContext = null;
+                if (m_PlcContext != null)
+                {
+                    this.m_PlcContext.Close();
+                    this.m_PlcContext = null;
+                }
             }
             return 0;
         }

@@ -13,29 +13,40 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestPathMove()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+
+            try
             {
-                halContext.Load();
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.Load();
 
 
-                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                mt.RobotMove(mt.HomeToOpenStage());
-                mt.RobotMove(mt.OpenStageToHome());
-                mt.ChangeDirection(mt.PosToInspCh());
-                mt.RobotMove(mt.FrontSideIntoInspCh());
-                mt.RobotMove(mt.FrontSideLeaveInspCh());
-                mt.RobotMove(mt.BackSideIntoInspCh());
-                mt.RobotMove(mt.BackSideLeaveInspCh());
-                mt.ChangeDirection(mt.PosToCleanCh());
-                mt.RobotMove(mt.BackSideClean());
-                mt.RobotMove(mt.FrontSideClean());
-                mt.RobotMove(mt.FrontSideCCDTakeImage());
-                mt.RobotMove(mt.BackSideCCDTakeImage());
-                mt.ChangeDirection(mt.PosHome());
-                //mt.Robot.HalMoveAsyn();
-                //mt.HalMoveAsyn();
-                mt.Clamp();
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+
+                    if (mt.HalConnect() != 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Connect Fail");
+                    }
+
+                    mt.RobotMove(mt.HomeToOpenStage());
+                    mt.RobotMove(mt.OpenStageToHome());
+                    mt.ChangeDirection(mt.PosToInspCh());
+                    mt.RobotMove(mt.FrontSideIntoInspCh());
+                    mt.RobotMove(mt.FrontSideLeaveInspCh());
+                    mt.RobotMove(mt.BackSideIntoInspCh());
+                    mt.RobotMove(mt.BackSideLeaveInspCh());
+                    mt.ChangeDirection(mt.PosToCleanCh());
+                    mt.RobotMove(mt.BackSideClean());
+                    mt.RobotMove(mt.FrontSideClean());
+                    mt.RobotMove(mt.FrontSideCCDTakeImage());
+                    mt.RobotMove(mt.BackSideCCDTakeImage());
+                    mt.ChangeDirection(mt.PosHome());
+                    //mt.Robot.HalMoveAsyn();
+                    //mt.HalMoveAsyn();
+                    mt.Clamp();
+                }
             }
+            catch (Exception ex) { throw ex; }
 
         }
 
@@ -48,11 +59,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
-                mt.SetClampTactileLim(50,10);
-                mt.SetLevelLimit(10,11,12);
+                mt.SetClampTactileLim(50, 10);
+                mt.SetLevelLimit(10, 11, 12);
                 mt.SetSixAxisSensorLimit(1, 2, 3, 4, 5, 6);
                 mt.SetSpeed(50, 60);
-                mt.SetStaticElecLimit(50,20);
+                mt.SetStaticElecLimit(50, 20);
             }
         }
 

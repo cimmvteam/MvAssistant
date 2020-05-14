@@ -46,7 +46,8 @@ namespace MvAssistant.Mac
 
         public virtual int HalClose()
         {
-            throw new NotImplementedException();
+            return 0;
+            //throw new NotImplementedException();
         }
         public virtual int HalConnect()
         {
