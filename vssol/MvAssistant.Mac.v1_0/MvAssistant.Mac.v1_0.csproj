@@ -243,6 +243,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj">
+      <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
+      <Name>MvAssistant.DeviceDrive.FanucRobot_v42_15</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>

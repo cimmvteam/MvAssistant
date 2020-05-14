@@ -1,4 +1,4 @@
-﻿using MvAssistant.DeviceDrive.FanucRobot_v42_14;
+﻿using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.Mac.v1_0.Hal.Component;
 using MvAssistant.Mac.v1_0.Hal.Component.Camera;
 using MvAssistant.Mac.v1_0.Hal.Component.Force6Axis;

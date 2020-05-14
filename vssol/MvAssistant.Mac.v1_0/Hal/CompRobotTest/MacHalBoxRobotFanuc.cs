@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MvAssistant.DeviceDrive.FanucRobot_v42_14;
+using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
 {
@@ -103,7 +103,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                     continue;
                 }
             }
-            this.ldd.m_currRobotInfo = this.ldd.GetCurrRobotInfo();
+            //this.ldd.m_currRobotInfo = this.ldd.GetCurrRobotInfo();
             Thread.Sleep(PositionRecordInterval_MillSec);
         }
 
@@ -169,11 +169,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                         {
                             tmpTargets.Add(Targets[targetIndex]);
                         }
-                        this.ldd.Pns0103ContinuityMove(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        //this.ldd.Pns0103ContinuityMove(tmpTargets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     else
                     {
-                        this.ldd.Pns0103ContinuityMove(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                        //this.ldd.Pns0103ContinuityMove(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                     }
                     tmpTargets.Clear();
                 }
@@ -183,13 +183,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                 List<float[]> tmpTargets = new List<float[]>();
                 tmpTargets.Add(Targets[0]);
                 this.ldd.Pns0101SwitchToolFrame(MoveFrame);
-                this.ldd.Pns0103ContinuityMove(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
+                //this.ldd.Pns0103ContinuityMove(tmpTargets, 0, CorJ, OfsOrPos, IsMoveTCP, speed);
                 tmpTargets.Clear();
             }
             else
             {
                 this.ldd.Pns0101SwitchToolFrame(MoveFrame);
-                this.ldd.Pns0103ContinuityMove(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
+                //this.ldd.Pns0103ContinuityMove(Targets, Continuity, CorJ, OfsOrPos, IsMoveTCP, speed);
             }
         }
 

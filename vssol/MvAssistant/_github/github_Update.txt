@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'add state machine'
+git commit -m 'fix robot'
 git pull
 git push
 cd ..

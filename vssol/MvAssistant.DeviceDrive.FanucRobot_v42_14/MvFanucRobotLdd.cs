@@ -605,6 +605,17 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
             lock (this)
                 mobjPosReg.SetValueXyzwpr(PRno, ref xyzwprArray, ref CurRobotInfo.configArray, PRUF, PRUT);
         }
+
+        public MvFanucRobotInfo ReadPosReg(int prno=0)
+        {
+            var robotInfo = new MvFanucRobotInfo();
+            lock (this)
+                mobjPosReg.GetValue(prno, ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray, ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
+
+            return robotInfo;
+        }
+
+
         /// <summary>
         /// 寫入Robot數字暫存器R
         /// </summary>
