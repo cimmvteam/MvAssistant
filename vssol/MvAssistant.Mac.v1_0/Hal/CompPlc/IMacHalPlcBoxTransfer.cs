@@ -17,10 +17,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region Set Parameter
         void SetSpeed(double ClampSpeed);
-        void SetHandSpaceLimit(double Minimum, double Maximum);
+        void SetHandSpaceLimit(double? Minimum, double? Maximum);
         void SetClampToCabinetSpaceLimit(double Minimum);
-        void SetLevelSensorLimit(double Level_X, double Level_Y);
-        void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz);
+        void SetLevelSensorLimit(double? Level_X, double? Level_Y);
+        void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
         #endregion
 
         #region Read Parameter

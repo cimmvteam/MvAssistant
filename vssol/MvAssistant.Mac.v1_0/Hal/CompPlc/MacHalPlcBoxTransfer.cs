@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     [Guid("843DEB1E-BF70-49A0-9D9D-CACCF3102548")]
     public class MacHalPlcBoxTransfer : MacHalPlcBase, IMacHalPlcBoxTransfer
     {
-      
+
 
 
         public MacHalPlcBoxTransfer() { }
@@ -19,7 +19,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.m_PlcContext = plc;
         }
 
-   
+
 
 
 
@@ -186,12 +186,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 夾爪間距
         //設定夾爪間距的極限值
-        public void SetHandSpaceLimit(double Minimum, double Maximum)
+        public void SetHandSpaceLimit(double? Minimum, double? Maximum)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Laser1_FLS, Minimum);//夾爪最小夾距
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Laser1_RLS, Maximum);//夾爪最大夾距
+            if (Minimum != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Laser1_FLS, Minimum);//夾爪最小夾距
+            if (Maximum != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Laser1_RLS, Maximum);//夾爪最大夾距
         }
 
         //讀取夾爪間距的極限值設定
@@ -238,11 +240,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 水平Sensor
         //設定XY軸水平Sensor的標準值
-        public void SetLevelSensorLimit(double Level_X, double Level_Y)
+        public void SetLevelSensorLimit(double? Level_X, double? Level_Y)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_X, Level_X);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_Y, Level_Y);
+            if (Level_X != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_X, Level_X);
+            if (Level_Y != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_Y, Level_Y);
         }
 
         //讀取XY軸水平Sensor的標準值
@@ -292,15 +296,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 六軸Sensor
         //設定六軸力覺Sensor的壓力極限值
-        public void SetSixAxisSensorLimit(uint Fx, uint Fy, uint Fz, uint Mx, uint My, uint Mz)
+        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fx, Fx);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fy, Fy);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fz, Fz);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mx, Mx);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_My, My);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mz, Mz);
+            if (Fx != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fx, Fx);
+            if (Fy != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fy, Fy);
+            if (Fz != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fz, Fz);
+            if (Mx != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mx, Mx);
+            if (My != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_My, My);
+            if (Mz != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mz, Mz);
         }
 
         //讀取六軸力覺Sensor的壓力極限值設定
