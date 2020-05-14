@@ -8,7 +8,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     public interface IMacHalPlcInspectionCh
     {
-        string XYPosition(double X_Position, double Y_Position);
+        string XYPosition(double? X_Position, double? Y_Position);
 
         string ZPosition(double Z_Position);
 
@@ -19,11 +19,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         string ReadInspChStatus();
 
         #region Set Parameter
-        void SetSpeed(double StageXYSpeed, double CcdZSpeed, double MaskWSpeed);
+        void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed);
 
-        void SetRobotAboutLimit(double AboutLimit_L, double AboutLimit_R);
+        void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R);
 
-        void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D);
+        void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D);
         #endregion
 
         #region Read Parameter

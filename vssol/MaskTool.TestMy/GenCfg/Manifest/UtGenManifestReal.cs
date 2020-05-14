@@ -235,7 +235,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
                     new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_MT_A_02.ToString(),
-                        DevConnStr = "IP=192.168.1.31",
+                        DevConnStr = "ip=192.168.0.50",
                         DeviceName = MacEnumDevice.masktransfer_robot_1.ToString(),
                         Level = "2",
                         DriverId = ManifestDriverId.FanucRobot.ToString(),

@@ -25,5 +25,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #endregion Device Components
 
 
+
+        public override int HalClose()
+        {
+            //return base.HalClose();
+            return 0;
+
+        }
+
+
     }
 }

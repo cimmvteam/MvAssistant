@@ -9,7 +9,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     public interface IMacHalPlcLoadPort
     {
         #region Set Parameter
-        void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit);
+        void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit);
         #endregion
 
         #region Read Parameter

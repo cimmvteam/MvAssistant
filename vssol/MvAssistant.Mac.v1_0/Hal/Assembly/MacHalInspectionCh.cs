@@ -47,7 +47,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="X_Position">X軸位置</param>
         /// <param name="Y_Position">Y軸位置</param>
         /// <returns></returns>
-        public string XYPosition(double X_Position, double Y_Position)
+        public string XYPosition(double? X_Position, double? Y_Position)
         { return Plc.XYPosition(X_Position, Y_Position); }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="StageXYSpeed">Stage XY軸移動速度(mm/S)</param>
         /// <param name="CcdZSpeed">CCD Z軸移動速度(mm/S)</param>
         /// <param name="MaskWSpeed">Mask W軸旋轉速度(Deg/S)</param>
-        public void SetSpeed(double StageXYSpeed, double CcdZSpeed, double MaskWSpeed)
+        public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
         { Plc.SetSpeed(StageXYSpeed, CcdZSpeed, MaskWSpeed); }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="AboutLimit_L">左極限</param>
         /// <param name="AboutLimit_R">右極限</param>
-        public void SetRobotAboutLimit(double AboutLimit_L, double AboutLimit_R)
+        public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
         { Plc.SetRobotAboutLimit(AboutLimit_L, AboutLimit_R); }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="UpDownLimit_U"></param>
         /// <param name="UpDownLimit_D"></param>
-        public void SetRobotUpDownLimit(double UpDownLimit_U, double UpDownLimit_D)
+        public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         { Plc.SetRobotUpDownLimit(UpDownLimit_U, UpDownLimit_D); }
         #endregion
 
