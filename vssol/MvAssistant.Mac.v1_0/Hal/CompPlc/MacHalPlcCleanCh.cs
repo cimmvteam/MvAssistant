@@ -26,13 +26,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region"Particle數量監控"
         //設定各種大小Particle的數量限制
-        public void SetParticleCntLimit(uint L_Limit, uint M_Limit, uint S_Limit)
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_L_Limit, L_Limit);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_M_Limit, M_Limit);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_S_Limit, S_Limit);
+            if (L_Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_L_Limit, L_Limit);
+            if (M_Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_M_Limit, M_Limit);
+            if (S_Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_S_Limit, S_Limit);
         }
 
         //讀取各種大小Particle的數量限制
@@ -74,12 +77,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 手臂侵入(左右)
         //設定手臂可侵入的左右區間極限值
-        public void SetRobotAboutLimit(double Limit_L, double Limit_R)
+        public void SetRobotAboutLimit(double? Limit_L, double? Limit_R)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
+            if (Limit_L != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
+            if (Limit_R != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_R, Limit_R);
         }
 
         //讀取手臂可侵入的左右區間極限值
@@ -104,12 +109,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 手臂侵入(上下)
         //設定手臂可侵入的上下區間極限值
-        public void SetRobotUpDownLimit(double Limit_U, double Limit_D)
+        public void SetRobotUpDownLimit(double? Limit_U, double? Limit_D)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_D, Limit_D);
+            if (Limit_U != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
+            if (Limit_D != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_D, Limit_D);
         }
 
         //讀取手臂可侵入的上下區間極限值

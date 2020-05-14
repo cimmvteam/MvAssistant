@@ -24,12 +24,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
 
         //設定壓差極限值
-        public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
+        public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         {
             var plc = this.m_PlcContext;
 
-            plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
+            if (Gauge1Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
+            if (Gauge2Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
         }
 
         //讀取壓差極限值

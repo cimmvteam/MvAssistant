@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     [Guid("614E49F2-1F21-400D-ABAE-715C494A5654")]
     public class MacHalPlcCabinet : MacHalPlcBase, IMacHalPlcCabinet
     {
-  
+
 
         public MacHalPlcCabinet() { }
         public MacHalPlcCabinet(MacHalPlcContext plc = null)
@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.m_PlcContext = plc;
         }
 
-      
+
 
 
 
@@ -27,11 +27,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 壓差表
         //設定Cabinet內部與外部環境最大壓差限制
-        public void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit)
+        public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
+            if (Gauge1Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
+            if (Gauge2Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
         }
 
         //讀取Cabinet內部與外部環境最大壓差限制
@@ -57,11 +59,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region 節流閥
         //設定節流閥開啟大小
-        public void SetExhaustFlow(int Valve1, int Valve2)
+        public void SetExhaustFlow(int? Valve1, int? Valve2)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1, Valve1);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2, Valve2);
+            if (Valve1 != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1, Valve1);
+            if (Valve2 != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2, Valve2);
         }
 
         //設定節流閥開啟大小

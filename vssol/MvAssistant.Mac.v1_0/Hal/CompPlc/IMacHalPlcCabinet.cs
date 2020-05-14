@@ -10,9 +10,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     {
 
         #region Set Parameter
-        void SetPressureDiffLimit(uint Gauge1Limit, uint Gauge2Limit);
+        void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit);
 
-        void SetExhaustFlow(int Valve1, int Valve2);
+        void SetExhaustFlow(int? Valve1, int? Valve2);
         #endregion
 
         #region Read Parameter

@@ -94,7 +94,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
 
         }
 
-       
+
         public MvFanucRobotInfo GetCurrRobotInfo()
         {
             lock (lockCurRobotInfo)
@@ -263,7 +263,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
             // Excution Result alarm message
             return PrgRunningCheck();
         }
-        
+
         public bool PrgRunningCheck()
         {
             Array UO3_PrgRun = new short[1];
@@ -701,10 +701,17 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
             ConfigArray.SetValue((short)0, 6);
 
             if (_SelectCorJ == 0)
-                mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref ConfigArray, UF, UT);
+            {
+                if (!mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref ConfigArray, UF, UT))
+                {
+                    System.Diagnostics.Debug.WriteLine("Write Fail");
+                }
+            }
             else
                 mobjPosReg.SetValueJoint(2, ref JointArray, UF, UT);
 
+
+            this.mobjDataTable.Refresh();
 
             this.WriteRegValues(1, new int[] { 1, 1 });
 

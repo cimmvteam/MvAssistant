@@ -8,6 +8,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.Infrared;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.Mac.v1_0.Hal.Component.Stage;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion
 
-
         /// <summary>
         /// 給點位清單，依序移動
         /// </summary>
@@ -70,8 +70,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             for (int idx = 0; idx < targets.Count; idx++)
             {
                 var motion = targets[idx];
-
                 this.Robot.HalMoveStraightAsyn(motion);
+                while (!this.Robot.HalMoveIsComplete())
+                    Thread.Sleep(100);
+                this.Robot.HalMoveEnd();
+                
             }
 
         }
@@ -94,7 +97,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             bool Licence = false;
             string PosName = "";
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
-            var StasrtPosInfo = new MvFanucRobotLdd().GetCurrRobotInfo();
+            var StasrtPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
                 if (StasrtPosInfo.x <= PosHome().X + 5 && StasrtPosInfo.x >= PosHome().X - 5
                     && StasrtPosInfo.y <= PosHome().Y + 5 && StasrtPosInfo.y >= PosHome().Y - 5
@@ -164,7 +167,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public string CCDSpin(int SpinDegree)
         {
             string result = "";
-            result= Plc.CCDSpin(SpinDegree);
+            result = Plc.CCDSpin(SpinDegree);
             return result;
         }
 
