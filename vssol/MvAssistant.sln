@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.VerifyEqp",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleaner.StateMachine", "MaskCleaner.StateMachine\MaskCleaner.StateMachine.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_15", "MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj", "{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_14", "MvAssistant.DeviceDrive.FanucRobot_v42_14\MvAssistant.DeviceDrive.FanucRobot_v42_14.csproj", "{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,22 @@ Global
 		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.ActiveCfg = Release|x86
 		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.Build.0 = Release|x86
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|x86.Build.0 = Debug|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|x86.ActiveCfg = Release|Any CPU
+		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|x86.Build.0 = Release|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|x86.Build.0 = Debug|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

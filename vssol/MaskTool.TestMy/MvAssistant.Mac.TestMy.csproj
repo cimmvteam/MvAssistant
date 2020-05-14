@@ -57,6 +57,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
@@ -91,6 +92,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj">
+      <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
+      <Name>MvAssistant.DeviceDrive.FanucRobot_v42_15</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj">
       <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
       <Name>MvAssistant.Mac.v1_0</Name>
