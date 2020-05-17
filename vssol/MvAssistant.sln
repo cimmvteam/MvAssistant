@@ -11,11 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.v1_0", "MvA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.VerifyEqp", "MvAssistant.Mac.VerifyEqp\MvAssistant.Mac.VerifyEqp.csproj", "{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleaner.StateMachine", "MaskCleaner.StateMachine\MaskCleaner.StateMachine.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_15", "MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj", "{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_14", "MvAssistant.DeviceDrive.FanucRobot_v42_14\MvAssistant.DeviceDrive.FanucRobot_v42_14.csproj", "{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleaner", "MaskCleaner\MaskCleaner.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,14 +57,6 @@ Global
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|x86.ActiveCfg = Release|Any CPU
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|x86.Build.0 = Release|Any CPU
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|x86.ActiveCfg = Debug|x86
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|x86.Build.0 = Debug|x86
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.ActiveCfg = Release|x86
-		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.Build.0 = Release|x86
 		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -81,6 +73,14 @@ Global
 		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.Build.0 = Release|Any CPU
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|x86.ActiveCfg = Debug|x86
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Debug|x86.Build.0 = Debug|x86
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.ActiveCfg = Release|x86
+		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
