@@ -10,6 +10,10 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 {
     public class MvFanucRobotLdd : IDisposable
     {
+        /* 20200517 所有lock皆需使用 this
+         Fanuc API 並不允許多執行緒同步操作
+         為避免異常發生, 所有向Fanuc API存取 都需用同一個lock object*/
+
 
 
         #region FANUC Internal Variable
@@ -43,22 +47,203 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
         private FRRJIf.DataTask mobjTaskIgnoreMacro;
         private FRRJIf.DataTask mobjTaskIgnoreMacroKarel;
         private FRRJIf.DataSysVar mobjVarString;
+
         #endregion
 
-        public bool IsInitialFanucAPI = true;
         public bool isUnderSystemRecoverAuto = false;
         public string RobotIp;
         private bool HasRobotFaultStatus = false;
-        private object lockCurRobotInfo = new object();
         ManualResetEvent mreInitialFanucAPI = new ManualResetEvent(false);
         ~MvFanucRobotLdd() { this.Dispose(false); }
 
 
 
 
+        public MvFanucRobotInfo GetCurrRobotInfo()
+        {
+            var msg = "";
+            var alarmInfo = new MvRobotAlarm();
+            HasRobotFault(ref msg, ref alarmInfo);
+
+            var robotInfo = new MvFanucRobotInfo();
+            robotInfo.PosReg = this.ReadCurPosUf();
+            robotInfo.RobotTime = DateTime.Now;
+            robotInfo.IsReachTarget = this.MoveIsComplete();
+
+            return robotInfo;
+        }
+
+        public void MoveCompeleteReply()
+        {
+            this.SetRegIntValue(5, 0);
+        }
+
+        public bool MoveIsComplete()
+        {
+            var reg5 = this.ReadRegIntValue(5);
+            return reg5 == 51;
+        }
 
 
+        #region Device Connection
 
+        public int Close()
+        {
+            // 若 mobjCore 不為空
+            if (mobjCore != null)
+            {
+                // 將 mobjCore 斷開連線
+                //try {
+                mobjCore.Disconnect();
+                //}
+                //catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                mobjCore = null;
+            }
+            return 0;
+        }
+        public int ConnectIfNo()
+        {
+            if (!this.IsConnected())
+            {
+                if (this.ReConnect() != 0)
+                {
+                    this.Close();
+                    return -1;
+                }
+            }
+            return 0;
+        }
+        public bool IsConnected()
+        {
+            if (mobjCore == null) return false;
+            //--失敗為 0, 成功為 1.
+            return mobjCore.ConnectState == 1;
+        }
+        public int ReConnect()
+        {
+            //CheckDeviceAvailable();
+            this.Close();
+            if (!RobotInitConnect()) return -1;
+
+            //TODO: 需要確認是否要repeat讀位置
+            //LaunchGetPos();
+
+            return 0;
+        }
+        public bool RobotInitConnect()
+        {
+            bool blnRes = false;
+            int lngTmp = 0;
+
+
+            mobjCore = new FRRJIf.Core();
+
+            // You need to set data table before connecting.
+            mobjDataTable = mobjCore.DataTable;
+
+            {
+                mobjAlarm = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_LIST, 5, 0);
+                mobjAlarmCurrent = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_CURRENT, 1, 0);
+                mobjCurPos = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1);
+                mobjCurPosUF = mobjDataTable.AddCurPosUF(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1, 15);
+                mobjCurPos2 = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 2);
+                mobjTask = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK, 1);
+                mobjTaskIgnoreMacro = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO, 1);
+                mobjTaskIgnoreKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_KAREL, 1);
+                mobjTaskIgnoreMacroKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO_KAREL, 1);
+                mobjPosReg = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 1, 1, 40);
+                mobjPosReg2 = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 2, 1, 4);
+                mobjSysVarInt = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$FAST_CLOCK");
+                mobjSysVarInt2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
+                mobjSysVarReal = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$MOR_GRP[1].$CURRENT_ANG[1]");
+                mobjSysVarReal2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$DUTY_TEMP");
+                mobjSysVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$TIMER[10].$COMMENT");
+                mobjSysVarPos = mobjDataTable.AddSysVarPos(FRRJIf.FRIF_DATA_TYPE.SYSVAR_POS, "$MNUTOOL[1,1]");
+                mobjVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$[HTTPKCL]CMDS[1]");
+                mobjNumReg = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 60);
+                mobjNumReg2 = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_REAL, 51, 60);
+                mobjPosRegXyzwpr = mobjDataTable.AddPosRegXyzwpr(FRRJIf.FRIF_DATA_TYPE.POSREG_XYZWPR, 1, 1, 40);
+                mobjPosRegMG = mobjDataTable.AddPosRegMG(FRRJIf.FRIF_DATA_TYPE.POSREGMG, "C,J6", 1, 10);
+                mobjStrReg = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG, 1, 3);
+                mobjStrRegComment = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG_COMMENT, 1, 3);
+                //Debug.Assert(mobjStrRegComment != null);
+            }
+
+            // 2nd data table.
+            // You must not set the first data table.
+            mobjDataTable2 = mobjCore.DataTable2;
+            mobjNumReg3 = mobjDataTable2.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 5);
+            mobjSysVarIntArray = new FRRJIf.DataSysVar[10];
+            mobjSysVarIntArray[0] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[1].$TIMER_VAL");
+            mobjSysVarIntArray[1] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[2].$TIMER_VAL");
+            mobjSysVarIntArray[2] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[3].$TIMER_VAL");
+            mobjSysVarIntArray[3] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[4].$TIMER_VAL");
+            mobjSysVarIntArray[4] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[5].$TIMER_VAL");
+            mobjSysVarIntArray[5] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[6].$TIMER_VAL");
+            mobjSysVarIntArray[6] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[7].$TIMER_VAL");
+            mobjSysVarIntArray[7] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[8].$TIMER_VAL");
+            mobjSysVarIntArray[8] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[9].$TIMER_VAL");
+            mobjSysVarIntArray[9] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
+
+            //get host name
+            if (string.IsNullOrEmpty(this.RobotIp))
+            {
+                return false;
+            }
+
+            //connect
+            if (lngTmp > 0)
+                mobjCore.TimeOutValue = lngTmp;
+            blnRes = mobjCore.Connect(this.RobotIp);
+            if (blnRes == false)
+            {
+                msubClearVars();
+                return false;
+            }
+
+            return true;
+
+        }
+
+        private void msubClearVars()
+        {
+
+            mobjCore.Disconnect();
+
+            mobjCore = null;
+            mobjDataTable = null;
+            mobjDataTable2 = null;
+            mobjAlarm = null;
+            mobjAlarmCurrent = null;
+            mobjCurPos = null;
+            mobjCurPos2 = null;
+            mobjTask = null;
+            mobjTaskIgnoreMacro = null;
+            mobjTaskIgnoreKarel = null;
+            mobjTaskIgnoreMacroKarel = null;
+            mobjPosReg = null;
+            mobjPosReg2 = null;
+            mobjSysVarInt = null;
+            mobjSysVarReal = null;
+            mobjSysVarReal2 = null;
+            mobjSysVarString = null;
+            mobjSysVarPos = null;
+            mobjNumReg = null;
+            mobjNumReg2 = null;
+            mobjNumReg3 = null;
+            mobjVarString = null;
+            mobjStrReg = null;
+            mobjStrRegComment = null;
+            for (int ii = mobjSysVarIntArray.GetLowerBound(0); ii <= mobjSysVarIntArray.GetUpperBound(0); ii++)
+            {
+                mobjSysVarIntArray[ii] = null;
+            }
+
+        }
+
+        #endregion
+
+        #region System / Program
 
         public bool AlarmReset()
         {
@@ -145,52 +330,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             return PrgRunningCheck();
         }
 
-        public MvFanucRobotInfo GetCurrRobotInfo()
-        {
-            lock (lockCurRobotInfo)
-            {
-                //short ValidC = 0, ValidJ = 0;	// 移除未使用的變數。by YMWANGN, 2016/11/17。
-                //Alarm TEST
-                var msg = "";
-                var alarmInfo = new MvRobotAlarmInfo();
-                HasRobotFault(ref msg, ref alarmInfo);
 
-
-                var robotInfo = new MvFanucRobotInfo();
-                mobjCurPosUF.GetValue(ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray,
-                                     ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
-                robotInfo.robotTime = DateTime.Now;
-
-                robotInfo.isReachTarget = this.MoveIsComplete();
-
-                return robotInfo;
-            }
-        }
-        public MvRobotAlarmInfo GetRobotAlarm()
-        {
-            MvRobotAlarmInfo alminfo = new MvRobotAlarmInfo();
-            mobjDataTable.Refresh();
-            mobjAlarm.GetValue(
-                1,
-            ref alminfo.AlarmID,
-            ref alminfo.AlarmNumber,
-            ref alminfo.CauseAlarmID,
-            ref alminfo.CauseAlarmNumber,
-            ref alminfo.Severity,
-            ref alminfo.Year,
-            ref alminfo.Month,
-            ref alminfo.Day,
-            ref alminfo.Hour,
-            ref alminfo.Minute,
-            ref alminfo.Second,
-            ref alminfo.AlarmMessage,
-            ref alminfo.CauseAlarmMessage,
-            ref alminfo.SeverityMessage
-            );
-            return alminfo;
-        }
-
-        public bool HasRobotFault(ref string message, ref MvRobotAlarmInfo alarmInfo)
+        public bool HasRobotFault(ref string message, ref MvRobotAlarm alarmInfo)
         {
             //************IMPORTANT*************************************************//
             //UO[1~20] address has been mapping to DI[1~20] address at addr.22
@@ -201,14 +342,15 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             object UO6Value = (byte)0;
             bool IsReadSuccess = false;
 
+
+
             //1:有err   0:normal
-            mobjDataTable.Refresh();
-            IsReadSuccess = mobjNumReg.GetValue(26, ref UO6Value);
+            IsReadSuccess = this.GetRegValue(26, ref UO6Value);
             if (!IsReadSuccess)
                 throw new Exception("Read Fail");
             if ((int)UO6Value == 1)
             {
-                alarmInfo = GetRobotAlarm();
+                alarmInfo = ReadRobotAlarmInfo();
                 message = "Robot Err Occur !";
                 HasRobotFaultStatus = true;
                 //if (RobotFaultStatus != almInfo.Result) { this.Equipment.IO_Switch("LaserIO", DeviceSwitch.OFF); }
@@ -224,36 +366,6 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             return HasRobotFaultStatus;
         }
 
-        public bool HasRobotFault()
-        {
-            //************IMPORTANT*************************************************//
-            //UO[1~20] address has been mapping to DI[1~20] address at addr.22
-            //AND using BGLogic assign DI[1]~DI[20] to R[21]~R[40] respectivly
-            //If you wanna read UO[1], plz read R[21] and so on 
-            //**********************************************************************
-
-            object UO6Value = (byte)0;
-            bool IsReadSuccess = false;
-
-            //1:有err   0:normal
-            mobjDataTable.Refresh();
-            IsReadSuccess = mobjNumReg.GetValue(26, ref UO6Value);
-            if (!IsReadSuccess)
-                throw new Exception("Read Fail");
-            if ((int)UO6Value == 1) { return true; }
-            else { return false; }
-        }
-
-        public void MoveCompeleteReply()
-        {
-            this.WriteRegValue(5, 0);
-        }
-
-        public bool MoveIsComplete()
-        {
-            var reg5 = this.GetRegValue(5);
-            return reg5 == 51;
-        }
 
         public bool PrgRunningCheck()
         {
@@ -380,194 +492,102 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
                 isUnderSystemRecoverAuto = false;
             }
         }
-        #region Device Connection
-
-        public int Close()
-        {
-            // 若 mobjCore 不為空
-            if (mobjCore != null)
-            {
-                // 將 mobjCore 斷開連線
-                //try {
-                mobjCore.Disconnect();
-                //}
-                //catch (Exception ex) { MvLog.WarnNs(this, ex); }
-                mobjCore = null;
-            }
-            return 0;
-        }
-        public int ConnectIfNo()
-        {
-            if (!this.IsConnected())
-            {
-                if (this.ReConnect() != 0)
-                {
-                    this.Close();
-                    return -1;
-                }
-            }
-            return 0;
-        }
-        public bool IsConnected()
-        {
-            if (mobjCore == null) return false;
-            //--失敗為 0, 成功為 1.
-            return mobjCore.ConnectState == 1;
-        }
-        public int ReConnect()
-        {
-            //CheckDeviceAvailable();
-            this.Close();
-            if (!RobotInitConnect()) return -1;
-
-            //TODO: 需要確認是否要repeat讀位置
-            //LaunchGetPos();
-
-            return 0;
-        }
-        public bool RobotInitConnect()
-        {
-            bool blnRes = false;
-            int lngTmp = 0;
 
 
-            mobjCore = new FRRJIf.Core();
-
-            // You need to set data table before connecting.
-            mobjDataTable = mobjCore.DataTable;
-
-            {
-                mobjAlarm = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_LIST, 5, 0);
-                mobjAlarmCurrent = mobjDataTable.AddAlarm(FRRJIf.FRIF_DATA_TYPE.ALARM_CURRENT, 1, 0);
-                mobjCurPos = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1);
-                mobjCurPosUF = mobjDataTable.AddCurPosUF(FRRJIf.FRIF_DATA_TYPE.CURPOS, 1, 15);
-                mobjCurPos2 = mobjDataTable.AddCurPos(FRRJIf.FRIF_DATA_TYPE.CURPOS, 2);
-                mobjTask = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK, 1);
-                mobjTaskIgnoreMacro = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO, 1);
-                mobjTaskIgnoreKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_KAREL, 1);
-                mobjTaskIgnoreMacroKarel = mobjDataTable.AddTask(FRRJIf.FRIF_DATA_TYPE.TASK_IGNORE_MACRO_KAREL, 1);
-                mobjPosReg = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 1, 1, 40);
-                mobjPosReg2 = mobjDataTable.AddPosReg(FRRJIf.FRIF_DATA_TYPE.POSREG, 2, 1, 4);
-                mobjSysVarInt = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$FAST_CLOCK");
-                mobjSysVarInt2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
-                mobjSysVarReal = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$MOR_GRP[1].$CURRENT_ANG[1]");
-                mobjSysVarReal2 = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_REAL, "$DUTY_TEMP");
-                mobjSysVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$TIMER[10].$COMMENT");
-                mobjSysVarPos = mobjDataTable.AddSysVarPos(FRRJIf.FRIF_DATA_TYPE.SYSVAR_POS, "$MNUTOOL[1,1]");
-                mobjVarString = mobjDataTable.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_STRING, "$[HTTPKCL]CMDS[1]");
-                mobjNumReg = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 60);
-                mobjNumReg2 = mobjDataTable.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_REAL, 51, 60);
-                mobjPosRegXyzwpr = mobjDataTable.AddPosRegXyzwpr(FRRJIf.FRIF_DATA_TYPE.POSREG_XYZWPR, 1, 1, 40);
-                mobjPosRegMG = mobjDataTable.AddPosRegMG(FRRJIf.FRIF_DATA_TYPE.POSREGMG, "C,J6", 1, 10);
-                mobjStrReg = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG, 1, 3);
-                mobjStrRegComment = mobjDataTable.AddString(FRRJIf.FRIF_DATA_TYPE.STRREG_COMMENT, 1, 3);
-                //Debug.Assert(mobjStrRegComment != null);
-            }
-
-            // 2nd data table.
-            // You must not set the first data table.
-            mobjDataTable2 = mobjCore.DataTable2;
-            mobjNumReg3 = mobjDataTable2.AddNumReg(FRRJIf.FRIF_DATA_TYPE.NUMREG_INT, 1, 5);
-            mobjSysVarIntArray = new FRRJIf.DataSysVar[10];
-            mobjSysVarIntArray[0] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[1].$TIMER_VAL");
-            mobjSysVarIntArray[1] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[2].$TIMER_VAL");
-            mobjSysVarIntArray[2] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[3].$TIMER_VAL");
-            mobjSysVarIntArray[3] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[4].$TIMER_VAL");
-            mobjSysVarIntArray[4] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[5].$TIMER_VAL");
-            mobjSysVarIntArray[5] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[6].$TIMER_VAL");
-            mobjSysVarIntArray[6] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[7].$TIMER_VAL");
-            mobjSysVarIntArray[7] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[8].$TIMER_VAL");
-            mobjSysVarIntArray[8] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[9].$TIMER_VAL");
-            mobjSysVarIntArray[9] = mobjDataTable2.AddSysVar(FRRJIf.FRIF_DATA_TYPE.SYSVAR_INT, "$TIMER[10].$TIMER_VAL");
-
-            //get host name
-            if (string.IsNullOrEmpty(this.RobotIp))
-            {
-                return false;
-            }
-
-            //connect
-            if (lngTmp > 0)
-                mobjCore.TimeOutValue = lngTmp;
-            blnRes = mobjCore.Connect(this.RobotIp);
-            if (blnRes == false)
-            {
-                msubClearVars();
-                return false;
-            }
-
-            return true;
-
-        }
-
-
-
-
-        private void msubClearVars()
-        {
-
-            mobjCore.Disconnect();
-
-            mobjCore = null;
-            mobjDataTable = null;
-            mobjDataTable2 = null;
-            mobjAlarm = null;
-            mobjAlarmCurrent = null;
-            mobjCurPos = null;
-            mobjCurPos2 = null;
-            mobjTask = null;
-            mobjTaskIgnoreMacro = null;
-            mobjTaskIgnoreKarel = null;
-            mobjTaskIgnoreMacroKarel = null;
-            mobjPosReg = null;
-            mobjPosReg2 = null;
-            mobjSysVarInt = null;
-            mobjSysVarReal = null;
-            mobjSysVarReal2 = null;
-            mobjSysVarString = null;
-            mobjSysVarPos = null;
-            mobjNumReg = null;
-            mobjNumReg2 = null;
-            mobjNumReg3 = null;
-            mobjVarString = null;
-            mobjStrReg = null;
-            mobjStrRegComment = null;
-            for (int ii = mobjSysVarIntArray.GetLowerBound(0); ii <= mobjSysVarIntArray.GetUpperBound(0); ii++)
-            {
-                mobjSysVarIntArray[ii] = null;
-            }
-
-        }
         #endregion
 
 
 
         #region Register
 
-
-
-        public int GetRegValue(int index)
+        public bool GetPosRegValue(int PRno, MvFanucRobotPosReg posReg, bool isNeedRefresh = true)
+        {
+            //isNeedRefresh 預設為true, 確保取得最新資料, 若己知不需要更新, 可以設為false
+            lock (this)
+            {
+                if (isNeedRefresh)
+                    this.mobjDataTable.Refresh();
+                return this.mobjPosReg.GetValue(PRno, ref posReg.XyzwpreArrary, ref posReg.ConfigArray, ref posReg.JointArray,
+                    ref posReg.UserFrame, ref posReg.UserTool, ref posReg.ValidC, ref posReg.ValidJ);
+            }
+        }
+        public bool GetRegValue(int index, ref Object value, bool isNeedRefresh = true)
+        {
+            //isNeedRefresh 預設為true, 確保取得最新資料, 若己知不需要更新, 可以設為false
+            lock (this)
+            {
+                if (isNeedRefresh)
+                    this.mobjDataTable.Refresh();
+                return this.mobjNumReg.GetValue(index, ref value);
+            }
+        }
+        public bool GetAlarmInfo(MvRobotAlarm alminfo, bool isNeedRefresh = true)
         {
             lock (this)
             {
-                this.mobjDataTable.Refresh();
-                Object reg = 0;
-                mobjNumReg.GetValue(index, ref reg);
-                return (int)reg;
+                if (isNeedRefresh)
+                    mobjDataTable.Refresh();
+
+                return mobjAlarm.GetValue(1,
+                    ref alminfo.AlarmID,
+                    ref alminfo.AlarmNumber,
+                    ref alminfo.CauseAlarmID,
+                    ref alminfo.CauseAlarmNumber,
+                    ref alminfo.Severity,
+                    ref alminfo.Year,
+                    ref alminfo.Month,
+                    ref alminfo.Day,
+                    ref alminfo.Hour,
+                    ref alminfo.Minute,
+                    ref alminfo.Second,
+                    ref alminfo.AlarmMessage,
+                    ref alminfo.CauseAlarmMessage,
+                    ref alminfo.SeverityMessage
+                    );
+            }
+        }
+        public bool GetCurPosUf(MvFanucRobotPosReg posReg, bool isNeedRefresh = true)
+        {
+            lock (this)
+            {
+                if (isNeedRefresh)
+                    this.mobjDataTable.Refresh();
+
+                return this.mobjCurPosUF.GetValue(ref posReg.XyzwpreArrary, ref posReg.ConfigArray, ref posReg.JointArray,
+                    ref posReg.UserFrame, ref posReg.UserTool, ref posReg.ValidC, ref posReg.ValidJ);
             }
         }
 
-        public MvFanucRobotInfo ReadPosReg(int PRno = 0)
+        public MvFanucRobotPosReg ReadPosReg(int PRno = 0)
         {
-            mobjDataTable.Refresh();
-            var robotInfo = new MvFanucRobotInfo();
-            lock (this)
-                if (!mobjPosReg.GetValue(PRno, ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray, ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ))
-                    throw new MvException("Fail to read position register");
-
-            return robotInfo;
+            var posReg = new MvFanucRobotPosReg();
+            if (!this.GetPosRegValue(PRno, posReg))
+                throw new MvException("Fail to read position register");
+            return posReg;
+        }
+        public MvFanucRobotPosReg ReadCurPosUf()
+        {
+            var posReg = new MvFanucRobotPosReg();
+            if (!this.GetCurPosUf(posReg))
+                throw new MvException("Fail to read current position");
+            return posReg;
         }
 
+        public int ReadRegIntValue(int index)
+        {
+            object reg = 0;
+            if (!this.GetRegValue(index, ref reg))
+                throw new MvException("Fail to read register value");
+            return (int)reg;
+        }
+
+        public MvRobotAlarm ReadRobotAlarmInfo()
+        {
+            MvRobotAlarm alminfo = new MvRobotAlarm();
+            if (!this.GetAlarmInfo(alminfo))
+                throw new MvException("Fail to read alarm info");
+            return alminfo;
+        }
         public StringBuilder RegisterTest()
         {
 
@@ -598,42 +618,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             }
             return sb;
         }
-
-
-
-
-        public bool WritePosRegXyzWpr(int PRno, MvFanucRobotInfo robotInfo, short userFrame = -1, short userTool = -1)
-        {
-            lock (this)
-                return mobjPosReg.SetValueXyzwpr(PRno, ref robotInfo.posArray, ref robotInfo.configArray, userFrame, userTool);//User Frame 及 User Tool 要帶-1 才有辦法修改
-        }
-        public bool WritePosRegJoint(int PRno, MvFanucRobotInfo robotInfo, short userFrame = -1, short userTool = -1)
-        {
-            lock (this)
-                return mobjPosReg.SetValueJoint(PRno, ref robotInfo.jointArray, userFrame, userTool);//User Frame 及 User Tool 要帶-1 才有辦法修改
-        }
-
-
-
-
-        /// <summary>
-        /// 寫入Robot數字暫存器R
-        /// </summary>
-        /// <param name="Rno"></param>
-        /// <param name="Value"></param>
-        public void WriteRegValue(int index, int val)
-        {
-            lock (this)
-                mobjNumReg.SetValue(index, val);
-        }
-        public void WriteRegValues(int index, int[] vals)
-        {
-            lock (this)
-                mobjNumReg.SetValues(index, vals, vals.Length);
-        }
-
-
-        private string RegisterTestPrint(ref Array xyzwpr, ref Array config, ref Array joint, short intValidC, short intValidJ, int UF, int UT)
+        public string RegisterTestPrint(ref Array xyzwpr, ref Array config, ref Array joint, short intValidC, short intValidJ, int UF, int UT)
         {
             string tmp = "";
             int ii = 0;
@@ -699,6 +684,33 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             return tmp;
 
         }
+
+        public bool SetPosRegJoint(int PRno, MvFanucRobotPosReg posReg, short userFrame = -1, short userTool = -1)
+        {
+            lock (this)
+                return mobjPosReg.SetValueJoint(PRno, ref posReg.JointArray, userFrame, userTool);//User Frame 及 User Tool 要帶-1 才有辦法修改
+        }
+        public bool SetPosRegXyzWpr(int PRno, MvFanucRobotPosReg posReg, short userFrame = -1, short userTool = -1)
+        {
+            lock (this)
+                return mobjPosReg.SetValueXyzwpr(PRno, ref posReg.XyzwpreArrary, ref posReg.ConfigArray, userFrame, userTool);//User Frame 及 User Tool 要帶-1 才有辦法修改
+        }
+        /// <summary>
+        /// 寫入Robot數字暫存器R
+        /// </summary>
+        /// <param name="Rno"></param>
+        /// <param name="Value"></param>
+        public bool SetRegIntValue(int index, int val)
+        {
+            lock (this)
+                return this.mobjNumReg.SetValue(index, val);
+        }
+        public bool SetRegIntValues(int index, int[] vals)
+        {
+            lock (this)
+                return this.mobjNumReg.SetValues(index, vals, vals.Length);
+        }
+
         #endregion
 
 
@@ -713,30 +725,30 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 
             Array TargetPos = Target;
 
-            this.WriteRegValue(3, _SelectCorJ);//Write R[3]. 0:Mov position, 1:Rotate J1~6
-            this.WriteRegValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
-            this.WriteRegValue(8, _IsMoveUT);//Write R[8].0:Offset with UF, 1:Offset with UT
-            this.WriteRegValue(9, Speed);//Write R[9]. R[9] mm/sec
-            this.WriteRegValue(5, 0);//Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
-            this.WriteRegValues(1, new int[] { 0, 0 });//Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
+            this.SetRegIntValue(3, _SelectCorJ);//Write R[3]. 0:Mov position, 1:Rotate J1~6
+            this.SetRegIntValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
+            this.SetRegIntValue(8, _IsMoveUT);//Write R[8].0:Offset with UF, 1:Offset with UT
+            this.SetRegIntValue(9, Speed);//Write R[9]. R[9] mm/sec
+            this.SetRegIntValue(5, 0);//Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
+            this.SetRegIntValues(1, new int[] { 0, 0 });//Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
 
 
             //從哪(當前 移到指到位置
             var robotInfo = GetCurrRobotInfo();
 
             //還不確定為何要帶全帶0
-            robotInfo.configArray.SetValue((short)0, 4);    //for Index 0
-            robotInfo.configArray.SetValue((short)0, 5);
-            robotInfo.configArray.SetValue((short)0, 6);
+            robotInfo.PosReg.ConfigArray.SetValue((short)0, 4);    //for Index 0
+            robotInfo.PosReg.ConfigArray.SetValue((short)0, 5);
+            robotInfo.PosReg.ConfigArray.SetValue((short)0, 6);
 
 
 
             if (_SelectCorJ == 0)
             {
-                if (robotInfo.validC != 0)  //Valid Cartesian values
+                if (robotInfo.ValidC != 0)  //Valid Cartesian values
                 {
-                    for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.posArray.Length; idx++)
-                        robotInfo.posArray.SetValue(TargetPos.GetValue(idx), idx);  //X_position
+                    for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.XyzwpreArrary.Length; idx++)
+                        robotInfo.PosReg.XyzwpreArrary.SetValue(TargetPos.GetValue(idx), idx);  //X_position
                 }
                 else
                 {
@@ -745,10 +757,10 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             }
             else
             {
-                if (robotInfo.validJ != 0)  //Valid Cartesian values
+                if (robotInfo.ValidJ != 0)  //Valid Cartesian values
                 {
-                    for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.posArray.Length; idx++)
-                        robotInfo.jointArray.SetValue(TargetPos.GetValue(idx), idx);  //X_position
+                    for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.JointArray.Length; idx++)
+                        robotInfo.PosReg.JointArray.SetValue(TargetPos.GetValue(idx), idx);  //X_position
                 }
                 else
                 {
@@ -760,19 +772,19 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 
             if (_SelectCorJ == 0)
             {
-                if (!this.WritePosRegXyzWpr(1, robotInfo))
+                if (!this.SetPosRegXyzWpr(1, robotInfo.PosReg))
                     throw new MvException("Fail to write position register");
             }
             else
             {
-                if (!this.WritePosRegJoint(2, robotInfo))
+                if (!this.SetPosRegJoint(2, robotInfo.PosReg))
                     throw new MvException("Fail to write position register");
             }
 
 
             this.mobjDataTable.Refresh();
 
-            this.WriteRegValues(1, new int[] { 1, 1 });//R[1]=1 is start program
+            this.SetRegIntValues(1, new int[] { 1, 1 });//R[1]=1 is start program
 
             return 0;
         }
@@ -795,7 +807,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
                 GetCurrRobotInfo();
 
                 var msg = "";
-                var alarmInfo = new MvRobotAlarmInfo();
+                var alarmInfo = new MvRobotAlarm();
                 if (HasRobotFault(ref msg, ref alarmInfo)) { break; }
 
                 Thread.Sleep(100);
@@ -846,10 +858,11 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
                 //ConfigArray.SetValue((short)0, 6);
 
 
-                a = mobjPosReg.SetValueXyzwpr(1, ref xyzwprArray, ref CurRobotInfo.configArray, 9, (short)UT_Selected);  //Write to PR[1]
 
-                this.WriteRegValue(11, UT_Selected);//Set R[11]. Selects TCP number
-                this.WriteRegValue(10, 1);//Set R[10]. R[10] set to 1 to setting TCP then back to LBL[1]
+                this.SetPosRegXyzWpr(1, CurRobotInfo.PosReg, 9, (short)UT_Selected);//Write to PR[1]
+
+                this.SetRegIntValue(11, UT_Selected);//Set R[11]. Selects TCP number
+                this.SetRegIntValue(10, 1);//Set R[10]. R[10] set to 1 to setting TCP then back to LBL[1]
 
 
                 for (int i = 0; i < 1; i++)
@@ -907,12 +920,12 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 
         public void Pns0102AsynRun()
         {
-            this.WriteRegValue(1, 1);//Write R[1]=1 to start program
+            this.SetRegIntValue(1, 1);//Write R[1]=1 to start program
         }
 
         public void Pns0102SynRun()
         {
-            this.WriteRegValue(1, 1);//Write R[1]=1 to start program
+            this.SetRegIntValue(1, 1);//Write R[1]=1 to start program
 
 
             while (!this.MoveIsComplete())

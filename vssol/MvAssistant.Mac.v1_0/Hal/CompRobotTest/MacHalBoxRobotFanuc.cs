@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
     {
         public int PositionRecordInterval_MillSec = 7;
         public MvFanucRobotLdd ldd;
-        public List<MvRobotAlarmInfo> alarmInfos;
+        public List<MvRobotAlarm> alarmInfos;
         public CurrentPOS curPos;
         bool isRunning = false;
 
@@ -20,7 +20,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
         public MacHalBoxRobotFanuc()
         {
             ldd = new MvFanucRobotLdd();
-            alarmInfos = new List<MvRobotAlarmInfo>();
+            alarmInfos = new List<MvRobotAlarm>();
         }
 
         public void Close()
@@ -55,8 +55,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
             curPos.CurrentJ5 = info.j5;
             curPos.CurrentJ6 = info.j6;
             curPos.CurrentJ7 = info.j7;
-            curPos.UserFrame = info.userFrame;
-            curPos.UserTool = info.userTool;
+            curPos.UserFrame = info.UserFrame;
+            curPos.UserTool = info.UserTool;
         }
 
         public void SgsVerifyStartPns0102(Action<MvFanucRobotInfo> waitEvent)
@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
         public bool HasRobotAlarm()
         {
             var alarmmsg = String.Empty;
-            var alarmInfo = new MvRobotAlarmInfo();
+            var alarmInfo = new MvRobotAlarm();
             if (this.ldd.HasRobotFault(ref alarmmsg, ref alarmInfo))
             {
                 this.ldd.HasRobotFault(ref alarmmsg, ref alarmInfo);

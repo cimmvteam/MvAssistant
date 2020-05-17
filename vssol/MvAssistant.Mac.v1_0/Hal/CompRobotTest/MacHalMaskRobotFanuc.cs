@@ -14,13 +14,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
     {
         public int PositionRecordInterval_MillSec = 7;
         public MvFanucRobotLdd ldd;
-        public List<MvRobotAlarmInfo> alarmInfos;
+        public List<MvRobotAlarm> alarmInfos;
         bool isRunning = false;
 
         public MacHalMaskRobotFanuc()
         {
             ldd = new MvFanucRobotLdd();
-            alarmInfos = new List<MvRobotAlarmInfo>();
+            alarmInfos = new List<MvRobotAlarm>();
         }
         ~MacHalMaskRobotFanuc()
         {
@@ -42,7 +42,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
         public bool HasRobotAlarm()
         {
             var alarmmsg = String.Empty;
-            var alarmInfo = new MvRobotAlarmInfo();
+            var alarmInfo = new MvRobotAlarm();
             if (this.ldd.HasRobotFault(ref alarmmsg, ref alarmInfo))
             {
                 this.ldd.HasRobotFault(ref alarmmsg, ref alarmInfo);
@@ -168,7 +168,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                 target[3] = pose.w;
                 target[4] = pose.p;
                 target[5] = pose.r;
-                speed = pose.speed;
+                speed = pose.Speed;
 
                 switch (pose.MotionType)
                 {
@@ -363,7 +363,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                 p = (float)-88.801,
                 r = (float)-135.369,
                 MotionType = 1,
-                speed = 200
+                Speed = 200
             });
 
             //PR[56]-LoadPort前(未伸出手臂)
@@ -376,7 +376,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                 p = (float)-88.870,
                 r = (float)-8.811,
                 MotionType = 1,
-                speed = 100
+                Speed = 100
             });
 
             //PR[57]-LoadPort上方(伸出手臂)
@@ -389,7 +389,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
                 p = (float)-88.870,
                 r = (float)-8.810,
                 MotionType = 1,
-                speed = 20
+                Speed = 20
             });
 
             return poss;
