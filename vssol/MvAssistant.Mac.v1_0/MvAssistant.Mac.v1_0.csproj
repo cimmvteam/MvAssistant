@@ -237,6 +237,7 @@
     <Compile Include="Hal\CompRobotTest\MacHalBoxRobotFanuc.cs" />
     <Compile Include="Hal\CompRobotTest\MacHalMaskRobotFanuc.cs" />
     <Compile Include="Hal\CompRobotTest\MacHalRobotMotionInfo.cs" />
+    <Compile Include="Xml\XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Hal\Component\Camera\HalCameraFake.cs.orig" />
