@@ -22,7 +22,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         MvCancelTask m_keepConnection;
 
 
-        public bool IsConnected { get { return m_isConnected; } }
+        public bool IsConnectedByHandShake { get { return m_isConnected; } }
+        public bool IsConnected { get { return PlcLdd.IsConnected(); } }
 
         public MacHalPlcInspectionCh InspCh;
         public MacHalPlcBoxTransfer BoxRobot;

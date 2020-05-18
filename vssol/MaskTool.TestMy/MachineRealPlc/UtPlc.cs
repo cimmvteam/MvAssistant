@@ -21,7 +21,7 @@ namespace MaskTool.TestMy.MachineRealPlc
 
                 plc.StartAsyn();
 
-                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                if (!SpinWait.SpinUntil(() => plc.IsConnectedByHandShake, 60 * 1000))
                     throw new MvException("PLC connection fail");
 
                 Console.WriteLine("PLC connection success");
@@ -222,13 +222,13 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
-                plc.MaskRobot.SetClampTactileLim(15,10);// 待測
+                plc.MaskRobot.SetClampTactileLim(15, 10);// 待測
                 Console.WriteLine(plc.MaskRobot.ReadClampTactileLimSetting());// 待測
                 Console.WriteLine(plc.MaskRobot.ReadClampTactile_FrontSide());// 待測
                 Console.WriteLine(plc.MaskRobot.ReadClampTactile_BehindSide());// 待測
                 Console.WriteLine(plc.MaskRobot.ReadClampTactile_LeftSide());// 待測
                 Console.WriteLine(plc.MaskRobot.ReadClampTactile_RightSide());// 待測
-                plc.MaskRobot.SetLevelLimit(15, 10,5);// 待測
+                plc.MaskRobot.SetLevelLimit(15, 10, 5);// 待測
                 Console.WriteLine(plc.MaskRobot.ReadLevelLimitSetting());// 待測
                 Console.WriteLine(plc.MaskRobot.ReadLevel());// 待測
                 plc.MaskRobot.SetStaticElecLimit(20, 10);
@@ -246,30 +246,39 @@ namespace MaskTool.TestMy.MachineRealPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-
-                Console.WriteLine(plc.OpenStage.Open());
-                Console.WriteLine(plc.OpenStage.Close());
-                Console.WriteLine(plc.OpenStage.Clamp());
-                Console.WriteLine(plc.OpenStage.Unclamp());
-                Console.WriteLine(plc.OpenStage.SortClamp());
-                Console.WriteLine(plc.OpenStage.SortUnclamp());
-                Console.WriteLine(plc.OpenStage.Lock());
-                Console.WriteLine(plc.OpenStage.Vacuum(true));//待測
-                Console.WriteLine(plc.OpenStage.Initial());
-                plc.OpenStage.SetBoxType(1);
-                Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
-                plc.OpenStage.SetSpeed(50);//待測
-                Console.WriteLine(plc.OpenStage.ReadSpeedSetting()); //待測
-                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
-                Console.WriteLine(plc.OpenStage.ReadClampStatus());
-                Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
-                Console.WriteLine(plc.OpenStage.ReadSliderPosition());
-                Console.WriteLine(plc.OpenStage.ReadCoverPos());
-                Console.WriteLine(plc.OpenStage.ReadCoverSensor());
-                Console.WriteLine(plc.OpenStage.ReadBoxDeform());
-                Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
-                Console.WriteLine(plc.OpenStage.ReadBoxExist());
-                Console.WriteLine(plc.OpenStage.ReadOpenStageStatus());
+                if (plc.IsConnected)
+                    try
+                    {
+                        Console.WriteLine(plc.OpenStage.Open());
+                        Console.WriteLine(plc.OpenStage.Close());
+                        Console.WriteLine(plc.OpenStage.Clamp());
+                        Console.WriteLine(plc.OpenStage.Unclamp());
+                        Console.WriteLine(plc.OpenStage.SortClamp());
+                        Console.WriteLine(plc.OpenStage.SortUnclamp());
+                        Console.WriteLine(plc.OpenStage.Lock());
+                        Console.WriteLine(plc.OpenStage.Vacuum(true));//待測
+                        Console.WriteLine(plc.OpenStage.Initial());
+                        plc.OpenStage.SetBoxType(1);
+                        Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
+                        plc.OpenStage.SetSpeed(50);//待測
+                        Console.WriteLine(plc.OpenStage.ReadSpeedSetting()); //待測
+                        Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
+                        Console.WriteLine(plc.OpenStage.ReadClampStatus());
+                        Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
+                        Console.WriteLine(plc.OpenStage.ReadSliderPosition());
+                        Console.WriteLine(plc.OpenStage.ReadCoverPos());
+                        Console.WriteLine(plc.OpenStage.ReadCoverSensor());
+                        Console.WriteLine(plc.OpenStage.ReadBoxDeform());
+                        Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
+                        Console.WriteLine(plc.OpenStage.ReadBoxExist());
+                        Console.WriteLine(plc.OpenStage.ReadOpenStageStatus());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                else
+                    throw new Exception("Can not connect to PLC device !!");
             }
         }
 
@@ -331,7 +340,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                     Console.WriteLine(plc.InspCh.WPosition(52));//0~359
                     Console.WriteLine(plc.InspCh.XYPosition(10, 10));//X:300~-10,Y:250~-10  右下
                     Console.WriteLine(plc.InspCh.XYPosition(10, 150));//X:300~-10,Y:250~-10  右上
-                    
+
                     Console.WriteLine(plc.InspCh.XYPosition(200, 150));//X:300~-10,Y:250~-10  左上
                     Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
                     Console.WriteLine(plc.InspCh.ZPosition(-50));//1~-85

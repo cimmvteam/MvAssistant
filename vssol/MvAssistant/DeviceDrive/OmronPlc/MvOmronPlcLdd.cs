@@ -50,7 +50,7 @@ namespace MvAssistant.DeviceDrive.OmronPlc
                 _CIPcompolet.Active = false;
             }
         }
-        public bool IsConnected() { lock (this) return this._CIPcompolet != null; }
+        public bool IsConnected() { lock (this) return this._CIPcompolet.IsConnected; }
 
         #region Read / Write Variable
 
