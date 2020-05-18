@@ -32,7 +32,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         void SetSpeed(uint Speed);
 
-        uint ReadSpeedSetting();
+        int ReadSpeedSetting();
 
         Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude);
 

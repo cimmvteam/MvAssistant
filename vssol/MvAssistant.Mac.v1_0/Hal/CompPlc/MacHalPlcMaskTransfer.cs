@@ -360,9 +360,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             var plc = m_PlcContext;
             return new Tuple<int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Dowm_1),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Dowm_2),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Dowm_3)
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Down_1),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Down_2),
+                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Tactile_Down_3)
                 );
         }
 

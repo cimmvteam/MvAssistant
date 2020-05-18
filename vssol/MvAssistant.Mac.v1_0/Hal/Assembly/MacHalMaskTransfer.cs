@@ -455,7 +455,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Z = (float)64.855,
                 W = (float)-11.710,
                 P = (float)-88.971,
-                R = (float)-11.521,
+                R = (float)11.521,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -475,7 +475,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Z = (float)64.855,
                 W = (float)-11.710,
                 P = (float)-88.971,
-                R = (float)-11.521,
+                R = (float)11.521,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
