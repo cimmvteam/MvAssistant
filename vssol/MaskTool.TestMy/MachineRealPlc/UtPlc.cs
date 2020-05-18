@@ -3,6 +3,7 @@ using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.Mac.v1_0.Xml;
 
 namespace MaskTool.TestMy.MachineRealPlc
 {
@@ -10,6 +11,23 @@ namespace MaskTool.TestMy.MachineRealPlc
     public class UtPlc
     {
         public bool boolTestStop = false;
+
+        [TestMethod]
+        public void TestXmlEdit()
+        {
+            try
+            {
+                var doc = new XmlHelper();
+                doc.CreatXml("D://project/github/MsakPosition.xml");
+                doc.Insert("D://project/github/MsakPosition.xml", "58", "Position", "111.111", "122.222", "133.333", "144.444", "155.555", "166.666", "177.777");
+                doc.Update("D://project/github/MsakPosition.xml", "88", "Joint", "111", "222", "333", "444", "555", "666", "777");
+                doc.Delete("D://project/github/MsakPosition.xml", "58");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         [TestMethod]
         public void TestPlcConnect()
         {

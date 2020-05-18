@@ -147,8 +147,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             var motion = new HalRobotMotion()
             {
                 MotionType = HalRobotEnumMotionType.None,//取得資料不會有移動類型
-                UserFrame = robotInfo.userFrame,
-                UserTool = robotInfo.userTool,
+                UserFrame = robotInfo.UserFrame,
+                UserTool = robotInfo.UserTool,
                 X = robotInfo.x,
                 Y = robotInfo.y,
                 Z = robotInfo.z,
