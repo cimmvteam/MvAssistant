@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using MvAssistant.Mac.v1_0.JSon;
+
 namespace MaskCleanerVerify
 {
     public partial class FmRobotPath : Form
@@ -94,7 +96,7 @@ namespace MaskCleanerVerify
         }
 
 
-
+        /**
         /// <summary>存檔</summary>
         public void ToSave()
         {
@@ -107,7 +109,7 @@ namespace MaskCleanerVerify
             sw.Write(json);
             sw.Flush();
             sw.Close();
-        }
+        }*/
 
 
         /// <summary>按下 Save 鍵</summary>
@@ -119,7 +121,8 @@ namespace MaskCleanerVerify
             {
                 if (this.PositionInstances != null && this.PositionInstances.Any())
                 {
-                    ToSave();
+                    //ToSave();
+                    JSonHelper.SaveInstanceToJsonFile(this.PositionInstances, this.CurrentDeviceInfo.Path, this.CurrentDeviceInfo.FilePath);
                     RefreshPositionInfoList();
                     MessageBox.Show("存檔成功");
                 }
@@ -138,10 +141,14 @@ namespace MaskCleanerVerify
         /// <returns>int, 載入的筆數</returns>
         private int ToLoad()
         {
+            /*
             StreamReader sr = new StreamReader(this.CurrentDeviceInfo.FilePath, Encoding.Default);
             var json=sr.ReadToEnd();
             sr.Close();
             this.PositionInstances = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PositionInfo>>(json);
+            return this.PositionInstances.Count;*/
+            this.PositionInstances = new List<PositionInfo>();
+            this.PositionInstances=JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(this.CurrentDeviceInfo.FilePath);
             return this.PositionInstances.Count;
         }
 
@@ -398,6 +405,7 @@ namespace MaskCleanerVerify
         }
     }
 
+    /*
     public class PositionInfo
     {
 
@@ -423,7 +431,7 @@ namespace MaskCleanerVerify
             return text;
         }
     }
-
+    */
     public class ClassHelper
     {
         /// <summary>從 TSourceType(來源) 型態的物件複製一份屬性資料到 TTargetType(目標) 型態的物件</summary>

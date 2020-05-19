@@ -209,6 +209,7 @@
     <Compile Include="Hal\MacHalUtil.cs" />
     <Compile Include="Hal\IMacHal.cs" />
     <Compile Include="Hal\IMacHalFake.cs" />
+    <Compile Include="JSon\JSonHelper.cs" />
     <Compile Include="Manifest\MacEnumDevice.cs" />
     <Compile Include="Manifest\MacEnumPositionId.cs" />
     <Compile Include="Manifest\Exceptions\MacHalObjectNotFoundException.cs" />
