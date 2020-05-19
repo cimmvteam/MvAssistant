@@ -45,7 +45,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 {
                     halContext.Load();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_plc_01.ToString()] as MacHalUniversal;
 
                     unv.ReadCoverFanSpeed();
                     unv.ReadPowerON();
@@ -60,27 +60,27 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.ReadLP2_Door();
                     unv.ReadBCP_Smoke();
 
-                    unv.Alarm_General();
-                    unv.Alarm_Cabinet();
-                    unv.Alarm_CleanCh();
-                    unv.Alarm_BTRobot();
-                    unv.Alarm_MTRobot();
-                    unv.Alarm_OpenStage();
-                    unv.Alarm_InspCh();
-                    unv.Alarm_LoadPort();
-                    unv.Alarm_CoverFan();
-                    unv.Alarm_MTClampInsp();
+                    unv.ReadAlarm_General();
+                    unv.ReadAlarm_Cabinet();
+                    unv.ReadAlarm_CleanCh();
+                    unv.ReadAlarm_BTRobot();
+                    unv.ReadAlarm_MTRobot();
+                    unv.ReadAlarm_OpenStage();
+                    unv.ReadAlarm_InspCh();
+                    unv.ReadAlarm_LoadPort();
+                    unv.ReadAlarm_CoverFan();
+                    unv.ReadAlarm_MTClampInsp();
 
-                    unv.Warning_General();
-                    unv.Warning_Cabinet();
-                    unv.Warning_CleanCh();
-                    unv.Warning_BTRobot();
-                    unv.Warning_MTRobot();
-                    unv.Warning_OpenStage();
-                    unv.Warning_InspCh();
-                    unv.Warning_LoadPort();
-                    unv.Warning_CoverFan();
-                    unv.Warning_MTClampInsp();
+                    unv.ReadWarning_General();
+                    unv.ReadWarning_Cabinet();
+                    unv.ReadWarning_CleanCh();
+                    unv.ReadWarning_BTRobot();
+                    unv.ReadWarning_MTRobot();
+                    unv.ReadWarning_OpenStage();
+                    unv.ReadWarning_InspCh();
+                    unv.ReadWarning_LoadPort();
+                    unv.ReadWarning_CoverFan();
+                    unv.ReadWarning_MTClampInsp();
                 }
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var unv = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalUniversal;
 
-                unv.ResetAll();
+                unv.ResetAllAlarm();
                 unv.SetSignalTower(true, false, false);
                 unv.SetBuzzer(1);
                 unv.CoverFanCtrl(1, 150);

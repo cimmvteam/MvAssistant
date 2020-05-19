@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         List<int> ReadCoverFanSpeed();
 
-        void ResetAll();
+        void ResetAllAlarm();
 
         void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS);
 
@@ -45,29 +45,29 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         #region PLC alarm signal
-        string Alarm_General();
-        string Alarm_Cabinet();
-        string Alarm_CleanCh();
-        string Alarm_BTRobot();
-        string Alarm_MTRobot();
-        string Alarm_OpenStage();
-        string Alarm_InspCh();
-        string Alarm_LoadPort();
-        string Alarm_CoverFan();
-        string Alarm_MTClampInsp();
+        string ReadAlarm_General();
+        string ReadAlarm_Cabinet();
+        string ReadAlarm_CleanCh();
+        string ReadAlarm_BTRobot();
+        string ReadAlarm_MTRobot();
+        string ReadAlarm_OpenStage();
+        string ReadAlarm_InspCh();
+        string ReadAlarm_LoadPort();
+        string ReadAlarm_CoverFan();
+        string ReadAlarm_MTClampInsp();
         #endregion
 
         #region PLC warning signal
-        string Warning_General();
-        string Warning_Cabinet();
-        string Warning_CleanCh();
-        string Warning_BTRobot();
-        string Warning_MTRobot();
-        string Warning_OpenStage();
-        string Warning_InspCh();
-        string Warning_LoadPort();
-        string Warning_CoverFan();
-        string Warning_MTClampInsp();
+        string ReadWarning_General();
+        string ReadWarning_Cabinet();
+        string ReadWarning_CleanCh();
+        string ReadWarning_BTRobot();
+        string ReadWarning_MTRobot();
+        string ReadWarning_OpenStage();
+        string ReadWarning_InspCh();
+        string ReadWarning_LoadPort();
+        string ReadWarning_CoverFan();
+        string ReadWarning_MTClampInsp();
         #endregion
     }
 }

@@ -59,8 +59,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <summary>
         /// 重置所有PLC Alarm訊息
         /// </summary>
-        public void ResetAll()
-        { plc_01.ResetAll(); }
+        public void ResetAllAlarm()
+        { plc_01.ResetAllAlarm(); }
 
         /// <summary>
         /// 當Assembly出錯時，針對部件下緊急停止訊號，Box Transfer、Mask Transfer、Open Stage、Inspection Chamber
@@ -118,67 +118,67 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
         #region PLC alarm signal
-        public string Alarm_General()
-        { return plc_01.Alarm_General(); }
+        public string ReadAlarm_General()
+        { return plc_01.ReadAlarm_General(); }
 
-        public string Alarm_Cabinet()
-        { return plc_01.Alarm_Cabinet();}
+        public string ReadAlarm_Cabinet()
+        { return plc_01.ReadAlarm_Cabinet();}
 
-        public string Alarm_CleanCh()
-        { return plc_01.Alarm_CleanCh(); }
+        public string ReadAlarm_CleanCh()
+        { return plc_01.ReadAlarm_CleanCh(); }
 
-        public string Alarm_BTRobot()
-        { return plc_01.Alarm_BTRobot(); }
+        public string ReadAlarm_BTRobot()
+        { return plc_01.ReadAlarm_BTRobot(); }
 
-        public string Alarm_MTRobot()
-        { return plc_01.Alarm_MTRobot(); }
+        public string ReadAlarm_MTRobot()
+        { return plc_01.ReadAlarm_MTRobot(); }
 
-        public string Alarm_OpenStage()
-        { return plc_01.Alarm_OpenStage(); }
+        public string ReadAlarm_OpenStage()
+        { return plc_01.ReadAlarm_OpenStage(); }
 
-        public string Alarm_InspCh()
-        { return plc_01.Alarm_InspCh(); }
+        public string ReadAlarm_InspCh()
+        { return plc_01.ReadAlarm_InspCh(); }
 
-        public string Alarm_LoadPort()
-        { return plc_01.Alarm_LoadPort(); }
+        public string ReadAlarm_LoadPort()
+        { return plc_01.ReadAlarm_LoadPort(); }
 
-        public string Alarm_CoverFan()
-        { return plc_01.Alarm_CoverFan(); }
+        public string ReadAlarm_CoverFan()
+        { return plc_01.ReadAlarm_CoverFan(); }
 
-        public string Alarm_MTClampInsp()
-        { return plc_01.Alarm_MTClampInsp(); }
+        public string ReadAlarm_MTClampInsp()
+        { return plc_01.ReadAlarm_MTClampInsp(); }
         #endregion
 
         #region PLC warning signal
-        public string Warning_General()
-        { return plc_01.Warning_General(); }
+        public string ReadWarning_General()
+        { return plc_01.ReadWarning_General(); }
 
-        public string Warning_Cabinet()
-        { return plc_01.Warning_Cabinet(); }
+        public string ReadWarning_Cabinet()
+        { return plc_01.ReadWarning_Cabinet(); }
 
-        public string Warning_CleanCh()
-        { return plc_01.Warning_CleanCh(); }
+        public string ReadWarning_CleanCh()
+        { return plc_01.ReadWarning_CleanCh(); }
 
-        public string Warning_BTRobot()
-        { return plc_01.Warning_BTRobot(); }
+        public string ReadWarning_BTRobot()
+        { return plc_01.ReadWarning_BTRobot(); }
 
-        public string Warning_MTRobot()
-        { return plc_01.Warning_MTRobot(); }
+        public string ReadWarning_MTRobot()
+        { return plc_01.ReadWarning_MTRobot(); }
 
-        public string Warning_OpenStage()
-        { return plc_01.Warning_OpenStage(); }
+        public string ReadWarning_OpenStage()
+        { return plc_01.ReadWarning_OpenStage(); }
 
-        public string Warning_InspCh()
-        { return plc_01.Warning_InspCh(); }
+        public string ReadWarning_InspCh()
+        { return plc_01.ReadWarning_InspCh(); }
 
-        public string Warning_LoadPort()
-        { return plc_01.Warning_LoadPort(); }
+        public string ReadWarning_LoadPort()
+        { return plc_01.ReadWarning_LoadPort(); }
 
-        public string Warning_CoverFan()
-        { return plc_01.Warning_CoverFan(); }
+        public string ReadWarning_CoverFan()
+        { return plc_01.ReadWarning_CoverFan(); }
 
-        public string Warning_MTClampInsp()
-        { return plc_01.Warning_MTClampInsp(); }
+        public string ReadWarning_MTClampInsp()
+        { return plc_01.ReadWarning_MTClampInsp(); }
         #endregion
     }
 }

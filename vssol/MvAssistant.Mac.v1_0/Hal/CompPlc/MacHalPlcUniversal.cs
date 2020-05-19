@@ -100,7 +100,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         }
 
-        public void ResetAll()
+        public void ResetAllAlarm()
         {
             var plc = this.m_PlcContext;
             try
@@ -227,7 +227,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         #region PLC alarm signal
-        public string Alarm_General()
+        public string ReadAlarm_General()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -249,14 +249,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "PC Not Reset CheckClock, ";
-                //if (AlarmList[1] == true)
-                //    Result += "PLC Error, ";
-                //if (AlarmList[2] == true)
-                //    Result += "EIP Error, ";
-                //if (AlarmList[3] == true)
-                //    Result += "EtherCat Error, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -268,7 +260,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_Cabinet()
+        public string ReadAlarm_Cabinet()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -290,14 +282,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "DP1 TCP net error, ";
-                //if (AlarmList[1] == true)
-                //    Result += "DP2 TCP net error, ";
-                //if (AlarmList[2] == true)
-                //    Result += "DP1 Out range, ";
-                //if (AlarmList[3] == true)
-                //    Result += "DP2 Out range, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -309,7 +293,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_CleanCh()
+        public string ReadAlarm_CleanCh()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -339,22 +323,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "PD skt error, ";
-                //if (AlarmList[1] == true)
-                //    Result += "DP skt error, ";
-                //if (AlarmList[2] == true)
-                //    Result += "DP out range, ";
-                //if (AlarmList[3] == true)
-                //    Result += "PD-S out range, ";
-                //if (AlarmList[4] == true)
-                //    Result += "PD-M out range, ";
-                //if (AlarmList[5] == true)
-                //    Result += "PD-L out range, ";
-                //if (AlarmList[6] == true)
-                //    Result += "About laser sensor open circuit, ";
-                //if (AlarmList[7] == true)
-                //    Result += "UpDown laser sensor open circuit, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -366,7 +334,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_BTRobot()
+        public string ReadAlarm_BTRobot()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -394,20 +362,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "BT servo error, ";
-                //if (AlarmList[1] == true)
-                //    Result += "Hand point laser sensor open circuit, ";
-                //if (AlarmList[2] == true)
-                //    Result += "Prevent collision laser sensor open circuit, ";
-                //if (AlarmList[3] == true)
-                //    Result += "Level sensor X open circuit, ";
-                //if (AlarmList[4] == true)
-                //    Result += "Level sensor Y open circuit, ";
-                //if (AlarmList[5] == true)
-                //    Result += "Clamp T1 Timeout, ";
-                //if (AlarmList[6] == true)
-                //    Result += "Unclamp T1 Timeout, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -419,7 +373,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_MTRobot()
+        public string ReadAlarm_MTRobot()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -449,22 +403,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "Up定位誤差過大, ";
-                //if (AlarmList[1] == true)
-                //    Result += "Down定位誤差過大, ";
-                //if (AlarmList[2] == true)
-                //    Result += "Left定位誤差過大, ";
-                //if (AlarmList[3] == true)
-                //    Result += "Right定位誤差過大, ";
-                //if (AlarmList[4] == true)
-                //    Result += "Up Move Error, ";
-                //if (AlarmList[5] == true)
-                //    Result += "Down Move Error, ";
-                //if (AlarmList[6] == true)
-                //    Result += "Left Move Error, ";
-                //if (AlarmList[7] == true)
-                //    Result += "Right Move Error, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -476,7 +414,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_OpenStage()
+        public string ReadAlarm_OpenStage()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -510,26 +448,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "Clamp步進馬達Alarm, ";
-                //if (AlarmList[1] == true)
-                //    Result += "Cover1 servo alarm, ";
-                //if (AlarmList[2] == true)
-                //    Result += "Cover2 servo alarm, ";
-                //if (AlarmList[3] == true)
-                //    Result += "整定電動缸1Alarm, ";
-                //if (AlarmList[4] == true)
-                //    Result += "整定電動缸2Alarm, ";
-                //if (AlarmList[5] == true)
-                //    Result += "滑台1Alarm, ";
-                //if (AlarmList[6] == true)
-                //    Result += "滑台2Alarm, ";
-                //if (AlarmList[7] == true)
-                //    Result += "Slider未同步做動, ";
-                //if (AlarmList[8] == true)
-                //    Result += "Clamp扭力錯誤, ";
-                //if (AlarmList[9] == true)
-                //    Result += "氣壓不足, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -541,7 +459,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_InspCh()
+        public string ReadAlarm_InspCh()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -566,16 +484,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[1] == true)
-                //    Result += "X 驅動器Alarm, ";
-                //if (AlarmList[2] == true)
-                //    Result += "Y 驅動器Alarm, ";
-                //if (AlarmList[3] == true)
-                //    Result += "Z 驅動器Alarm, ";
-                //if (AlarmList[4] == true)
-                //    Result += "W 驅動器Alarm, ";
-                //if (AlarmList[5] == true)
-                //    Result += "動作中 Robot侵入, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -587,7 +495,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_LoadPort()
+        public string ReadAlarm_LoadPort()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -609,14 +517,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "DP1 TCP Error, ";
-                //if (AlarmList[1] == true)
-                //    Result += "DP2 TCP Error, ";
-                //if (AlarmList[2] == true)
-                //    Result += "DP1 Out Range, ";
-                //if (AlarmList[3] == true)
-                //    Result += "DP2 Out Range, ";
 
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
@@ -629,7 +529,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_CoverFan()
+        public string ReadAlarm_CoverFan()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -669,32 +569,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "FFU1 Error, ";
-                //if (AlarmList[1] == true)
-                //    Result += "FFU2 Error, ";
-                //if (AlarmList[2] == true)
-                //    Result += "FFU3 Error, ";
-                //if (AlarmList[3] == true)
-                //    Result += "FFU4 Error, ";
-                //if (AlarmList[4] == true)
-                //    Result += "FFU5 Error, ";
-                //if (AlarmList[5] == true)
-                //    Result += "FFU6 Error, ";
-                //if (AlarmList[6] == true)
-                //    Result += "FFU7 Error, ";
-                //if (AlarmList[7] == true)
-                //    Result += "FFU8 Error, ";
-                //if (AlarmList[8] == true)
-                //    Result += "FFU9 Error, ";
-                //if (AlarmList[9] == true)
-                //    Result += "FFU10 Error, ";
-                //if (AlarmList[10] == true)
-                //    Result += "FFU11 Error, ";
-                //if (AlarmList[11] == true)
-                //    Result += "FFU12 Error, ";
-                //if (AlarmList[12] == true)
-                //    Result += "RS485 Error, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -706,7 +580,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Alarm_MTClampInsp()
+        public string ReadAlarm_MTClampInsp()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -732,18 +606,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
-                //if (AlarmList[0] == true)
-                //    Result += "Laser1 Error (Signal disconnection ), ";
-                //if (AlarmList[1] == true)
-                //    Result += "Laser2 Error (Signal disconnection ), ";
-                //if (AlarmList[2] == true)
-                //    Result += "Laser3 Error (Signal disconnection ), ";
-                //if (AlarmList[3] == true)
-                //    Result += "Laser4 Error (Signal disconnection ), ";
-                //if (AlarmList[4] == true)
-                //    Result += "Laser5 Error (Signal disconnection ), ";
-                //if (AlarmList[5] == true)
-                //    Result += "Laser6 Error (Signal disconnection ), ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -757,7 +619,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         #region PLC warning signal
-        public string Warning_General()
+        public string ReadWarning_General()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -779,14 +641,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += ", ";
-                //if (WarningList[1] == true)
-                //    Result += ", ";
-                //if (WarningList[2] == true)
-                //    Result += ", ";
-                //if (WarningList[3] == true)
-                //    Result += ", ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -798,7 +652,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_Cabinet()
+        public string ReadWarning_Cabinet()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -820,14 +674,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += ", ";
-                //if (WarningList[1] == true)
-                //    Result += ", ";
-                //if (WarningList[2] == true)
-                //    Result += ", ";
-                //if (WarningList[3] == true)
-                //    Result += ", ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -839,7 +685,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_CleanCh()
+        public string ReadWarning_CleanCh()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -861,14 +707,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += ", ";
-                //if (WarningList[1] == true)
-                //    Result += ", ";
-                //if (WarningList[2] == true)
-                //    Result += ", ";
-                //if (WarningList[3] == true)
-                //    Result += ", ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -880,7 +718,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_BTRobot()
+        public string ReadWarning_BTRobot()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -910,22 +748,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += "Under maintenance, ";
-                //if (WarningList[1] == true)
-                //    Result += "Clamp T3 Timeout, ";
-                //if (WarningList[2] == true)
-                //    Result += "Unclamp T3 Timeout, ";
-                //if (WarningList[3] == true)
-                //    Result += "動作中Command訊號消失, ";
-                //if (WarningList[4] == true)
-                //    Result += "No Power ON, ";
-                //if (WarningList[5] == true)
-                //    Result += "Please Initial, ";
-                //if (WarningList[6] == true)
-                //    Result += "RS422 Error, ";
-                //if (WarningList[7] == true)
-                //    Result += "Setting speed out range, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -937,7 +759,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_MTRobot()
+        public string ReadWarning_MTRobot()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -955,10 +777,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += "RS422 Error, ";
-                //if (WarningList[1] == true)
-                //    Result += "RS232 Error, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -970,7 +788,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_OpenStage()
+        public string ReadWarning_OpenStage()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -988,10 +806,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += "Robot 侵入中不可執行Command, ";
-                //if (WarningList[1] == true)
-                //    Result += "Please initial, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -1004,7 +818,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_InspCh()
+        public string ReadWarning_InspCh()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -1036,24 +850,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += "X軸 驅動器Warning, ";
-                //if (WarningList[1] == true)
-                //    Result += "Y軸 驅動器Warning, ";
-                //if (WarningList[2] == true)
-                //    Result += "Z軸 驅動器Warning, ";
-                //if (WarningList[3] == true)
-                //    Result += "W軸 驅動器Warning, ";
-                //if (WarningList[4] == true)
-                //    Result += "動作中Jog Command下達, ";
-                //if (WarningList[5] == true)
-                //    Result += "動作中下達W Command, ";
-                //if (WarningList[6] == true)
-                //    Result += "動作中下達Z Command, ";
-                //if (WarningList[7] == true)
-                //    Result += "動作中下達XY Command, ";
-                //if (WarningList[8] == true)
-                //    Result += "Robot侵入中不可做動, ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -1065,7 +861,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_LoadPort()
+        public string ReadWarning_LoadPort()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -1087,14 +883,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += ", ";
-                //if (WarningList[1] == true)
-                //    Result += ", ";
-                //if (WarningList[2] == true)
-                //    Result += ", ";
-                //if (WarningList[3] == true)
-                //    Result += ", ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -1106,7 +894,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_CoverFan()
+        public string ReadWarning_CoverFan()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -1128,14 +916,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += ", ";
-                //if (WarningList[1] == true)
-                //    Result += ", ";
-                //if (WarningList[2] == true)
-                //    Result += ", ";
-                //if (WarningList[3] == true)
-                //    Result += ", ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
@@ -1147,7 +927,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return Result;
         }
 
-        public string Warning_MTClampInsp()
+        public string ReadWarning_MTClampInsp()
         {
             string Result = "";
             var plc = this.m_PlcContext;
@@ -1169,14 +949,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else
                             Result += "Unknown Warning Signal, ";
                 }
-                //if (WarningList[0] == true)
-                //    Result += ", ";
-                //if (WarningList[1] == true)
-                //    Result += ", ";
-                //if (WarningList[2] == true)
-                //    Result += ", ";
-                //if (WarningList[3] == true)
-                //    Result += ", ";
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
                     Result = Result.Substring(0, Result.Length - 2);
