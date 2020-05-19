@@ -35,12 +35,19 @@ namespace MaskCleanerVerify
         {
             //MvFanucRobotPosReg curr = ldd.ReadCurPosUf();
             //HalRobotMotion motion = new HalRobotMotion();
-
-            Fake_MvFanucRobotPosReg currentPosition = Fake_MvFanucRobotPosReg.GetNewInstance();
-            ClassHelper helper = new ClassHelper();
-            //var motion = saver.GetTargetInstanceFromSourceInstance<MvFanucRobotPosReg, HalRobotMotion>(curr, null, true);
-            var motion = helper.ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPosition, null, true);
-
+            /**
+                        Fake_MvFanucRobotPosReg currentPosition = Fake_MvFanucRobotPosReg.GetNewInstance();
+                        ClassHelper helper = new ClassHelper();
+                        //var motion = saver.GetTargetInstanceFromSourceInstance<MvFanucRobotPosReg, HalRobotMotion>(curr, null, true);
+                        var motion = helper.ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPosition, null, true);
+                        */
+            var tempPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+            var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(tempPos, null, true);
+            this.TempCurrentPosition = currentMotion;
+            PositionInfo newPositionInfo = GetNewPositionInfo();
+            this.PositionInstances.Add(newPositionInfo);
+            
+            RefreshPositionInfoList();
         }
 
 
