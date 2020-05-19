@@ -1,4 +1,5 @@
 ﻿using MaskCleanerVerify;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

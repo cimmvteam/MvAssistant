@@ -28,82 +28,84 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LstBxPositionHeaders = new System.Windows.Forms.ListBox();
+            this.LstBxPositionInfo = new System.Windows.Forms.ListBox();
             this.BtnAdd = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.BtnDelete = new System.Windows.Forms.Button();
+            this.BtnSave = new System.Windows.Forms.Button();
+            this.BtnLoad = new System.Windows.Forms.Button();
             this.CmbBoxDeviceName = new System.Windows.Forms.ComboBox();
             this.TxtBxDevicePath = new System.Windows.Forms.TextBox();
             this.txtBxDeviceIP = new System.Windows.Forms.TextBox();
             this.btnGetPosition = new System.Windows.Forms.Button();
-            this.LstBxPositionDetail = new System.Windows.Forms.ListBox();
             this.LstBxGetPosition = new System.Windows.Forms.ListBox();
             this.BtnAddGet = new System.Windows.Forms.Button();
+            this.BtnDeleteAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // LstBxPositionHeaders
+            // LstBxPositionInfo
             // 
-            this.LstBxPositionHeaders.FormattingEnabled = true;
-            this.LstBxPositionHeaders.ItemHeight = 15;
-            this.LstBxPositionHeaders.Location = new System.Drawing.Point(16, 118);
-            this.LstBxPositionHeaders.Margin = new System.Windows.Forms.Padding(4);
-            this.LstBxPositionHeaders.Name = "LstBxPositionHeaders";
-            this.LstBxPositionHeaders.Size = new System.Drawing.Size(407, 334);
-            this.LstBxPositionHeaders.TabIndex = 0;
+            this.LstBxPositionInfo.FormattingEnabled = true;
+            this.LstBxPositionInfo.HorizontalScrollbar = true;
+            this.LstBxPositionInfo.ItemHeight = 15;
+            this.LstBxPositionInfo.Location = new System.Drawing.Point(230, 115);
+            this.LstBxPositionInfo.Margin = new System.Windows.Forms.Padding(4);
+            this.LstBxPositionInfo.Name = "LstBxPositionInfo";
+            this.LstBxPositionInfo.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.LstBxPositionInfo.Size = new System.Drawing.Size(1205, 334);
+            this.LstBxPositionInfo.TabIndex = 0;
             // 
             // BtnAdd
             // 
-            this.BtnAdd.Location = new System.Drawing.Point(400, 490);
+            this.BtnAdd.Location = new System.Drawing.Point(180, 475);
             this.BtnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.BtnAdd.Name = "BtnAdd";
-            this.BtnAdd.Size = new System.Drawing.Size(159, 100);
+            this.BtnAdd.Size = new System.Drawing.Size(159, 42);
             this.BtnAdd.TabIndex = 1;
             this.BtnAdd.Text = "Add";
             this.BtnAdd.UseVisualStyleBackColor = true;
             this.BtnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
-            // button2
+            // BtnDelete
             // 
-            this.button2.Location = new System.Drawing.Point(901, 490);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(159, 100);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Delete";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.BtnDelete.Location = new System.Drawing.Point(514, 475);
+            this.BtnDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(159, 42);
+            this.BtnDelete.TabIndex = 2;
+            this.BtnDelete.Text = "Delete";
+            this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // button3
+            // BtnSave
             // 
-            this.button3.Location = new System.Drawing.Point(567, 490);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(159, 100);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Save Xml";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.BtnSave.Location = new System.Drawing.Point(347, 475);
+            this.BtnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(159, 42);
+            this.BtnSave.TabIndex = 3;
+            this.BtnSave.Text = "Save";
+            this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
-            // button4
+            // BtnLoad
             // 
-            this.button4.Location = new System.Drawing.Point(734, 490);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(159, 100);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Load Xml";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.BtnLoad.Location = new System.Drawing.Point(347, 525);
+            this.BtnLoad.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnLoad.Name = "BtnLoad";
+            this.BtnLoad.Size = new System.Drawing.Size(159, 42);
+            this.BtnLoad.TabIndex = 4;
+            this.BtnLoad.Text = "Load";
+            this.BtnLoad.UseVisualStyleBackColor = true;
+            this.BtnLoad.Click += new System.EventHandler(this.BtnLoad_Click);
             // 
             // CmbBoxDeviceName
             // 
             this.CmbBoxDeviceName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbBoxDeviceName.FormattingEnabled = true;
-            this.CmbBoxDeviceName.Location = new System.Drawing.Point(16, 15);
+            this.CmbBoxDeviceName.Location = new System.Drawing.Point(13, 17);
             this.CmbBoxDeviceName.Margin = new System.Windows.Forms.Padding(4);
             this.CmbBoxDeviceName.Name = "CmbBoxDeviceName";
-            this.CmbBoxDeviceName.Size = new System.Drawing.Size(407, 23);
+            this.CmbBoxDeviceName.Size = new System.Drawing.Size(1422, 23);
             this.CmbBoxDeviceName.TabIndex = 5;
             this.CmbBoxDeviceName.SelectedIndexChanged += new System.EventHandler(this.CmbBoxDeviceName_SelectedIndexChanged);
             // 
@@ -113,7 +115,7 @@
             this.TxtBxDevicePath.Margin = new System.Windows.Forms.Padding(4);
             this.TxtBxDevicePath.Name = "TxtBxDevicePath";
             this.TxtBxDevicePath.ReadOnly = true;
-            this.TxtBxDevicePath.Size = new System.Drawing.Size(407, 25);
+            this.TxtBxDevicePath.Size = new System.Drawing.Size(1419, 25);
             this.TxtBxDevicePath.TabIndex = 6;
             // 
             // txtBxDeviceIP
@@ -122,28 +124,19 @@
             this.txtBxDeviceIP.Margin = new System.Windows.Forms.Padding(4);
             this.txtBxDeviceIP.Name = "txtBxDeviceIP";
             this.txtBxDeviceIP.ReadOnly = true;
-            this.txtBxDeviceIP.Size = new System.Drawing.Size(407, 25);
+            this.txtBxDeviceIP.Size = new System.Drawing.Size(1419, 25);
             this.txtBxDeviceIP.TabIndex = 7;
             // 
             // btnGetPosition
             // 
-            this.btnGetPosition.Location = new System.Drawing.Point(13, 490);
+            this.btnGetPosition.Location = new System.Drawing.Point(13, 475);
             this.btnGetPosition.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetPosition.Name = "btnGetPosition";
-            this.btnGetPosition.Size = new System.Drawing.Size(159, 100);
+            this.btnGetPosition.Size = new System.Drawing.Size(159, 42);
             this.btnGetPosition.TabIndex = 9;
             this.btnGetPosition.Text = "Get";
             this.btnGetPosition.UseVisualStyleBackColor = true;
             this.btnGetPosition.Click += new System.EventHandler(this.btnGetPosition_Click);
-            // 
-            // LstBxPositionDetail
-            // 
-            this.LstBxPositionDetail.FormattingEnabled = true;
-            this.LstBxPositionDetail.ItemHeight = 15;
-            this.LstBxPositionDetail.Location = new System.Drawing.Point(430, 118);
-            this.LstBxPositionDetail.Name = "LstBxPositionDetail";
-            this.LstBxPositionDetail.Size = new System.Drawing.Size(136, 334);
-            this.LstBxPositionDetail.TabIndex = 11;
             // 
             // LstBxGetPosition
             // 
@@ -151,38 +144,50 @@
             this.LstBxGetPosition.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LstBxGetPosition.FormattingEnabled = true;
             this.LstBxGetPosition.ItemHeight = 15;
-            this.LstBxGetPosition.Location = new System.Drawing.Point(572, 118);
+            this.LstBxGetPosition.Location = new System.Drawing.Point(21, 114);
             this.LstBxGetPosition.Name = "LstBxGetPosition";
-            this.LstBxGetPosition.Size = new System.Drawing.Size(120, 332);
+            this.LstBxGetPosition.Size = new System.Drawing.Size(94, 332);
             this.LstBxGetPosition.TabIndex = 12;
             // 
             // BtnAddGet
             // 
-            this.BtnAddGet.Location = new System.Drawing.Point(180, 490);
+            this.BtnAddGet.Location = new System.Drawing.Point(122, 252);
             this.BtnAddGet.Margin = new System.Windows.Forms.Padding(4);
             this.BtnAddGet.Name = "BtnAddGet";
-            this.BtnAddGet.Size = new System.Drawing.Size(159, 100);
+            this.BtnAddGet.Size = new System.Drawing.Size(90, 42);
             this.BtnAddGet.TabIndex = 13;
-            this.BtnAddGet.Text = "AddGet";
+            this.BtnAddGet.Text = "=>";
             this.BtnAddGet.UseVisualStyleBackColor = true;
+            this.BtnAddGet.Click += new System.EventHandler(this.BtnAddGet_Click);
+            // 
+            // BtnDeleteAll
+            // 
+            this.BtnDeleteAll.Location = new System.Drawing.Point(514, 525);
+            this.BtnDeleteAll.Margin = new System.Windows.Forms.Padding(4);
+            this.BtnDeleteAll.Name = "BtnDeleteAll";
+            this.BtnDeleteAll.Size = new System.Drawing.Size(159, 42);
+            this.BtnDeleteAll.TabIndex = 14;
+            this.BtnDeleteAll.Text = "Delete All";
+            this.BtnDeleteAll.UseVisualStyleBackColor = true;
+            this.BtnDeleteAll.Click += new System.EventHandler(this.BtnDeleteAll_Click);
             // 
             // FmRobotPath
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1095, 745);
+            this.ClientSize = new System.Drawing.Size(1541, 745);
+            this.Controls.Add(this.BtnDeleteAll);
             this.Controls.Add(this.BtnAddGet);
             this.Controls.Add(this.LstBxGetPosition);
-            this.Controls.Add(this.LstBxPositionDetail);
             this.Controls.Add(this.btnGetPosition);
             this.Controls.Add(this.txtBxDeviceIP);
             this.Controls.Add(this.TxtBxDevicePath);
             this.Controls.Add(this.CmbBoxDeviceName);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.BtnLoad);
+            this.Controls.Add(this.BtnSave);
+            this.Controls.Add(this.BtnDelete);
             this.Controls.Add(this.BtnAdd);
-            this.Controls.Add(this.LstBxPositionHeaders);
+            this.Controls.Add(this.LstBxPositionInfo);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FmRobotPath";
             this.Text = "FmRobotPath";
@@ -194,17 +199,17 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox LstBxPositionHeaders;
+        private System.Windows.Forms.ListBox LstBxPositionInfo;
         private System.Windows.Forms.Button BtnAdd;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.Button BtnSave;
+        private System.Windows.Forms.Button BtnLoad;
         private System.Windows.Forms.ComboBox CmbBoxDeviceName;
         private System.Windows.Forms.TextBox TxtBxDevicePath;
         private System.Windows.Forms.TextBox txtBxDeviceIP;
         private System.Windows.Forms.Button btnGetPosition;
-        private System.Windows.Forms.ListBox LstBxPositionDetail;
         private System.Windows.Forms.ListBox LstBxGetPosition;
         private System.Windows.Forms.Button BtnAddGet;
+        private System.Windows.Forms.Button BtnDeleteAll;
     }
 }
