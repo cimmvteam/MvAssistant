@@ -88,11 +88,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
         }
 
 
-
-        public void From(mvfa)
-        {
-
-        }
-
+      
     }
 }
