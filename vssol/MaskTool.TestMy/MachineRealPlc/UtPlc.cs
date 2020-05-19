@@ -64,41 +64,72 @@ namespace MaskTool.TestMy.MachineRealPlc
         [TestMethod]
         public void TestPublicArea()// OK
         {
-            using (var plc = new MacHalPlcContext())
+            try
             {
-                plc.Connect("192.168.0.200", 2);
-                plc.ResetAll();
-                plc.SetSignalTower(true, false, false);
-                plc.SetSignalTower(false, true, false);
-                plc.SetSignalTower(false, false, true);
-                plc.SetBuzzer(1);
-                plc.SetBuzzer(2);
-                plc.SetBuzzer(3);
-                plc.SetBuzzer(4);
-                plc.SetBuzzer(0);
-                for (uint i = 1; i < 13; i++)
-                {
-                    plc.CoverFanCtrl(i, (600));
-                }
-                Console.WriteLine(plc.ReadCoverFanSpeed());
-                plc.EMSAlarm(true, false, false, false);// OK
-                plc.EMSAlarm(false, true, false, false);// OK
-                plc.EMSAlarm(false, false, true, false);// OK
-                plc.EMSAlarm(false, false, false, true);// OK
-                plc.EMSAlarm(false, false, false, false);// OK
 
-                Console.WriteLine(plc.ReadPowerON());// OK
-                Console.WriteLine(plc.ReadBCP_Maintenance());// BCP盤鑰匙鎖(主控盤)
-                Console.WriteLine(plc.ReadCB_Maintenance());// Cabinet鑰匙鎖
-                Console.WriteLine(plc.ReadBCP_EMO());// OK
-                Console.WriteLine(plc.ReadCB_EMO());// OK
-                Console.WriteLine(plc.ReadLP1_EMO());// OK
-                Console.WriteLine(plc.ReadLP2_EMO());// OK
-                Console.WriteLine(plc.ReadBCP_Door());// OK
-                Console.WriteLine(plc.ReadLP1_Door());// OK
-                Console.WriteLine(plc.ReadLP2_Door());// OK
-                Console.WriteLine(plc.ReadBCP_Smoke());// OK
-                Console.WriteLine(plc.ReadLP_Light_Curtain());// OK
+                using (var plc = new MacHalPlcContext())
+                {
+                    plc.Connect("192.168.0.200", 2);
+                    plc.ResetAll();
+                    plc.SetSignalTower(true, false, false);
+                    plc.SetSignalTower(false, true, false);
+                    plc.SetSignalTower(false, false, true);
+                    plc.SetBuzzer(1);
+                    plc.SetBuzzer(2);
+                    plc.SetBuzzer(3);
+                    plc.SetBuzzer(4);
+                    plc.SetBuzzer(0);
+                    for (uint i = 1; i < 13; i++)
+                    {
+                        plc.CoverFanCtrl(i, (600));
+                    }
+                    Console.WriteLine(plc.ReadCoverFanSpeed());
+                    plc.EMSAlarm(true, false, false, false);// OK
+                    plc.EMSAlarm(false, true, false, false);// OK
+                    plc.EMSAlarm(false, false, true, false);// OK
+                    plc.EMSAlarm(false, false, false, true);// OK
+                    plc.EMSAlarm(false, false, false, false);// OK
+
+                    Console.WriteLine(plc.ReadPowerON());// OK
+                    Console.WriteLine(plc.ReadBCP_Maintenance());// BCP盤鑰匙鎖(主控盤)
+                    Console.WriteLine(plc.ReadCB_Maintenance());// Cabinet鑰匙鎖
+                    Console.WriteLine(plc.ReadBCP_EMO());// OK
+                    Console.WriteLine(plc.ReadCB_EMO());// OK
+                    Console.WriteLine(plc.ReadLP1_EMO());// OK
+                    Console.WriteLine(plc.ReadLP2_EMO());// OK
+                    Console.WriteLine(plc.ReadBCP_Door());// OK
+                    Console.WriteLine(plc.ReadLP1_Door());// OK
+                    Console.WriteLine(plc.ReadLP2_Door());// OK
+                    Console.WriteLine(plc.ReadBCP_Smoke());// OK
+                    Console.WriteLine(plc.ReadLP_Light_Curtain());// OK
+
+                    plc.Universal.Alarm_General();
+                    plc.Universal.Alarm_Cabinet();
+                    plc.Universal.Alarm_CleanCh();
+                    plc.Universal.Alarm_BTRobot();
+                    plc.Universal.Alarm_MTRobot();
+                    plc.Universal.Alarm_OpenStage();
+                    plc.Universal.Alarm_InspCh();
+                    plc.Universal.Alarm_LoadPort();
+                    plc.Universal.Alarm_CoverFan();
+                    plc.Universal.Alarm_MTClampInsp();
+
+                    plc.Universal.Warning_General();
+                    plc.Universal.Warning_Cabinet();
+                    plc.Universal.Warning_CleanCh();
+                    plc.Universal.Warning_BTRobot();
+                    plc.Universal.Warning_MTRobot();
+                    plc.Universal.Warning_OpenStage();
+                    plc.Universal.Warning_InspCh();
+                    plc.Universal.Warning_LoadPort();
+                    plc.Universal.Warning_CoverFan();
+                    plc.Universal.Warning_MTClampInsp();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

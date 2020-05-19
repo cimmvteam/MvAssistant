@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -232,21 +233,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.General_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "PC Not Reset CheckClock";
-                        break;
-                    case 1:
-                        Result = "PLC Error";
-                        break;
-                    case 2:
-                        Result = "EIP Error";
-                        break;
-                    case 3:
-                        Result = "EtherCat Error";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "PC Not Reset CheckClock, ";
+                        else if (i == 1)
+                            Result += "PLC Error, ";
+                        else if (i == 2)
+                            Result += "EIP Error, ";
+                        else if (i == 3)
+                            Result += "EtherCat Error, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "PC Not Reset CheckClock, ";
+                //if (AlarmList[1] == true)
+                //    Result += "PLC Error, ";
+                //if (AlarmList[2] == true)
+                //    Result += "EIP Error, ";
+                //if (AlarmList[3] == true)
+                //    Result += "EtherCat Error, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -261,21 +274,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A01_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "DP1 TCP net error";
-                        break;
-                    case 1:
-                        Result = "DP2 TCP net error";
-                        break;
-                    case 2:
-                        Result = "DP1 Out range";
-                        break;
-                    case 3:
-                        Result = "DP2 Out range";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "DP1 TCP net error, ";
+                        else if (i == 1)
+                            Result += "DP2 TCP net error, ";
+                        else if (i == 2)
+                            Result += "DP1 Out range, ";
+                        else if (i == 3)
+                            Result += "DP2 Out range, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "DP1 TCP net error, ";
+                //if (AlarmList[1] == true)
+                //    Result += "DP2 TCP net error, ";
+                //if (AlarmList[2] == true)
+                //    Result += "DP1 Out range, ";
+                //if (AlarmList[3] == true)
+                //    Result += "DP2 Out range, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -290,33 +315,49 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A02_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "PD skt error";
-                        break;
-                    case 1:
-                        Result = "DP skt error";
-                        break;
-                    case 2:
-                        Result = "DP out range";
-                        break;
-                    case 3:
-                        Result = "PD-S out range";
-                        break;
-                    case 4:
-                        Result = "PD-M out range";
-                        break;
-                    case 5:
-                        Result = "PD-L out range";
-                        break;
-                    case 6:
-                        Result = "About laser sensor open circuit";
-                        break;
-                    case 7:
-                        Result = "UpDown laser sensor open circuit";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "PD skt error, ";
+                        else if (i == 1)
+                            Result += "DP skt error, ";
+                        else if (i == 2)
+                            Result += "DP out range, ";
+                        else if (i == 3)
+                            Result += "PD-S out range, ";
+                        else if (i == 4)
+                            Result += "PD-M out range, ";
+                        else if (i == 5)
+                            Result += "PD-L out range, ";
+                        else if (i == 6)
+                            Result += "About laser sensor open circuit, ";
+                        else if (i == 7)
+                            Result += "UpDown laser sensor open circuit, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "PD skt error, ";
+                //if (AlarmList[1] == true)
+                //    Result += "DP skt error, ";
+                //if (AlarmList[2] == true)
+                //    Result += "DP out range, ";
+                //if (AlarmList[3] == true)
+                //    Result += "PD-S out range, ";
+                //if (AlarmList[4] == true)
+                //    Result += "PD-M out range, ";
+                //if (AlarmList[5] == true)
+                //    Result += "PD-L out range, ";
+                //if (AlarmList[6] == true)
+                //    Result += "About laser sensor open circuit, ";
+                //if (AlarmList[7] == true)
+                //    Result += "UpDown laser sensor open circuit, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -331,30 +372,45 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A03_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "BT servo error";
-                        break;
-                    case 1:
-                        Result = "Hand point laser sensor open circuit";
-                        break;
-                    case 2:
-                        Result = "Prevent collision laser sensor open circuit";
-                        break;
-                    case 3:
-                        Result = "Level sensor X open circuit";
-                        break;
-                    case 4:
-                        Result = "Level sensor Y open circuit";
-                        break;
-                    case 5:
-                        Result = "Clamp T1 Timeout";
-                        break;
-                    case 6:
-                        Result = "Unclamp T1 Timeout";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "BT servo error, ";
+                        else if (i == 1)
+                            Result += "Hand point laser sensor open circuit, ";
+                        else if (i == 2)
+                            Result += "Prevent collision laser sensor open circuit, ";
+                        else if (i == 3)
+                            Result += "Level sensor X open circuit, ";
+                        else if (i == 4)
+                            Result += "Level sensor Y open circuit, ";
+                        else if (i == 5)
+                            Result += "Clamp T1 Timeout, ";
+                        else if (i == 6)
+                            Result += "Unclamp T1 Timeout, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "BT servo error, ";
+                //if (AlarmList[1] == true)
+                //    Result += "Hand point laser sensor open circuit, ";
+                //if (AlarmList[2] == true)
+                //    Result += "Prevent collision laser sensor open circuit, ";
+                //if (AlarmList[3] == true)
+                //    Result += "Level sensor X open circuit, ";
+                //if (AlarmList[4] == true)
+                //    Result += "Level sensor Y open circuit, ";
+                //if (AlarmList[5] == true)
+                //    Result += "Clamp T1 Timeout, ";
+                //if (AlarmList[6] == true)
+                //    Result += "Unclamp T1 Timeout, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -369,33 +425,49 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A04_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "Up定位誤差過大";
-                        break;
-                    case 1:
-                        Result = "Down定位誤差過大";
-                        break;
-                    case 2:
-                        Result = "Left定位誤差過大";
-                        break;
-                    case 3:
-                        Result = "Right定位誤差過大";
-                        break;
-                    case 4:
-                        Result = "Up Move Error";
-                        break;
-                    case 5:
-                        Result = "Down Move Error";
-                        break;
-                    case 6:
-                        Result = "Left Move Error";
-                        break;
-                    case 7:
-                        Result = "Right Move Error";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "Up定位誤差過大, ";
+                        else if (i == 1)
+                            Result += "Down定位誤差過大, ";
+                        else if (i == 2)
+                            Result += "Left定位誤差過大, ";
+                        else if (i == 3)
+                            Result += "Right定位誤差過大, ";
+                        else if (i == 4)
+                            Result += "Up Move Error, ";
+                        else if (i == 5)
+                            Result += "Down Move Error, ";
+                        else if (i == 6)
+                            Result += "Left Move Error, ";
+                        else if (i == 7)
+                            Result += "Right Move Error, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "Up定位誤差過大, ";
+                //if (AlarmList[1] == true)
+                //    Result += "Down定位誤差過大, ";
+                //if (AlarmList[2] == true)
+                //    Result += "Left定位誤差過大, ";
+                //if (AlarmList[3] == true)
+                //    Result += "Right定位誤差過大, ";
+                //if (AlarmList[4] == true)
+                //    Result += "Up Move Error, ";
+                //if (AlarmList[5] == true)
+                //    Result += "Down Move Error, ";
+                //if (AlarmList[6] == true)
+                //    Result += "Left Move Error, ";
+                //if (AlarmList[7] == true)
+                //    Result += "Right Move Error, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -410,39 +482,57 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A05_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "Clamp步進馬達Alarm";
-                        break;
-                    case 1:
-                        Result = "Cover1 servo alarm";
-                        break;
-                    case 2:
-                        Result = "Cover2 servo alarm";
-                        break;
-                    case 3:
-                        Result = "整定電動缸1Alarm";
-                        break;
-                    case 4:
-                        Result = "整定電動缸2Alarm";
-                        break;
-                    case 5:
-                        Result = "滑台1Alarm";
-                        break;
-                    case 6:
-                        Result = "滑台2Alarm";
-                        break;
-                    case 7:
-                        Result = "Slider未同步做動";
-                        break;
-                    case 8:
-                        Result = "Clamp扭力錯誤";
-                        break;
-                    case 9:
-                        Result = "氣壓不足";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "Clamp步進馬達Alarm, ";
+                        else if (i == 1)
+                            Result += "Cover1 servo alarm, ";
+                        else if (i == 2)
+                            Result += "Cover2 servo alarm, ";
+                        else if (i == 3)
+                            Result += "整定電動缸1Alarm, ";
+                        else if (i == 4)
+                            Result += "整定電動缸2Alarm, ";
+                        else if (i == 5)
+                            Result += "滑台1Alarm, ";
+                        else if (i == 6)
+                            Result += "滑台2Alarm, ";
+                        else if (i == 7)
+                            Result += "Slider未同步做動, ";
+                        else if (i == 8)
+                            Result += "Clamp扭力錯誤, ";
+                        else if (i == 9)
+                            Result += "氣壓不足, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "Clamp步進馬達Alarm, ";
+                //if (AlarmList[1] == true)
+                //    Result += "Cover1 servo alarm, ";
+                //if (AlarmList[2] == true)
+                //    Result += "Cover2 servo alarm, ";
+                //if (AlarmList[3] == true)
+                //    Result += "整定電動缸1Alarm, ";
+                //if (AlarmList[4] == true)
+                //    Result += "整定電動缸2Alarm, ";
+                //if (AlarmList[5] == true)
+                //    Result += "滑台1Alarm, ";
+                //if (AlarmList[6] == true)
+                //    Result += "滑台2Alarm, ";
+                //if (AlarmList[7] == true)
+                //    Result += "Slider未同步做動, ";
+                //if (AlarmList[8] == true)
+                //    Result += "Clamp扭力錯誤, ";
+                //if (AlarmList[9] == true)
+                //    Result += "氣壓不足, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -457,24 +547,38 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A06_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Alarm);
+
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 1:
-                        Result = "X 驅動器Alarm";
-                        break;
-                    case 2:
-                        Result = "Y 驅動器Alarm";
-                        break;
-                    case 3:
-                        Result = "Z 驅動器Alarm";
-                        break;
-                    case 4:
-                        Result = "W 驅動器Alarm";
-                        break;
-                    case 5:
-                        Result = "動作中 Robot侵入";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 1)
+                            Result += "X 驅動器Alarm, ";
+                        else if (i == 2)
+                            Result += "Y 驅動器Alarm, ";
+                        else if (i == 3)
+                            Result += "Z 驅動器Alarm, ";
+                        else if (i == 4)
+                            Result += "W 驅動器Alarm, ";
+                        else if (i == 5)
+                            Result += "動作中 Robot侵入, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[1] == true)
+                //    Result += "X 驅動器Alarm, ";
+                //if (AlarmList[2] == true)
+                //    Result += "Y 驅動器Alarm, ";
+                //if (AlarmList[3] == true)
+                //    Result += "Z 驅動器Alarm, ";
+                //if (AlarmList[4] == true)
+                //    Result += "W 驅動器Alarm, ";
+                //if (AlarmList[5] == true)
+                //    Result += "動作中 Robot侵入, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -489,21 +593,34 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A07_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "DP1 TCP Error";
-                        break;
-                    case 1:
-                        Result = "DP2 TCP Error";
-                        break;
-                    case 2:
-                        Result = "DP1 Out Range";
-                        break;
-                    case 3:
-                        Result = "DP2 Out Range";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "DP1 TCP Error, ";
+                        else if (i == 1)
+                            Result += "DP2 TCP Error, ";
+                        else if (i == 2)
+                            Result += "DP1 Out Range, ";
+                        else if (i == 3)
+                            Result += "DP2 Out Range, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "DP1 TCP Error, ";
+                //if (AlarmList[1] == true)
+                //    Result += "DP2 TCP Error, ";
+                //if (AlarmList[2] == true)
+                //    Result += "DP1 Out Range, ";
+                //if (AlarmList[3] == true)
+                //    Result += "DP2 Out Range, ";
+
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -518,48 +635,69 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A08_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "FFU1 Error";
-                        break;
-                    case 1:
-                        Result = "FFU2 Error";
-                        break;
-                    case 2:
-                        Result = "FFU3 Error";
-                        break;
-                    case 3:
-                        Result = "FFU4 Error";
-                        break;
-                    case 4:
-                        Result = "FFU5 Error";
-                        break;
-                    case 5:
-                        Result = "FFU6 Error";
-                        break;
-                    case 6:
-                        Result = "FFU7 Error";
-                        break;
-                    case 7:
-                        Result = "FFU8 Error";
-                        break;
-                    case 8:
-                        Result = "FFU9 Error";
-                        break;
-                    case 9:
-                        Result = "FFU10 Error";
-                        break;
-                    case 10:
-                        Result = "FFU11 Error";
-                        break;
-                    case 11:
-                        Result = "FFU12 Error";
-                        break;
-                    case 12:
-                        Result = "RS485 Error";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "FFU1 Error, ";
+                        else if (i == 1)
+                            Result += "FFU2 Error, ";
+                        else if (i == 2)
+                            Result += "FFU3 Error, ";
+                        else if (i == 3)
+                            Result += "FFU4 Error, ";
+                        else if (i == 4)
+                            Result += "FFU5 Error, ";
+                        else if (i == 5)
+                            Result += "FFU6 Error, ";
+                        else if (i == 6)
+                            Result += "FFU7 Error, ";
+                        else if (i == 7)
+                            Result += "FFU8 Error, ";
+                        else if (i == 8)
+                            Result += "FFU9 Error, ";
+                        else if (i == 9)
+                            Result += "FFU10 Error, ";
+                        else if (i == 10)
+                            Result += "FFU11 Error, ";
+                        else if (i == 11)
+                            Result += "FFU12 Error, ";
+                        else if (i == 12)
+                            Result += "RS485 Error, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "FFU1 Error, ";
+                //if (AlarmList[1] == true)
+                //    Result += "FFU2 Error, ";
+                //if (AlarmList[2] == true)
+                //    Result += "FFU3 Error, ";
+                //if (AlarmList[3] == true)
+                //    Result += "FFU4 Error, ";
+                //if (AlarmList[4] == true)
+                //    Result += "FFU5 Error, ";
+                //if (AlarmList[5] == true)
+                //    Result += "FFU6 Error, ";
+                //if (AlarmList[6] == true)
+                //    Result += "FFU7 Error, ";
+                //if (AlarmList[7] == true)
+                //    Result += "FFU8 Error, ";
+                //if (AlarmList[8] == true)
+                //    Result += "FFU9 Error, ";
+                //if (AlarmList[9] == true)
+                //    Result += "FFU10 Error, ";
+                //if (AlarmList[10] == true)
+                //    Result += "FFU11 Error, ";
+                //if (AlarmList[11] == true)
+                //    Result += "FFU12 Error, ";
+                //if (AlarmList[12] == true)
+                //    Result += "RS485 Error, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -574,27 +712,41 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A09_Alarm))
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
                 {
-                    case 0:
-                        Result = "Laser1 Error (Signal disconnection )";
-                        break;
-                    case 1:
-                        Result = "Laser2 Error (Signal disconnection )";
-                        break;
-                    case 2:
-                        Result = "Laser3 Error (Signal disconnection )";
-                        break;
-                    case 3:
-                        Result = "Laser4 Error (Signal disconnection )";
-                        break;
-                    case 4:
-                        Result = "Laser5 Error (Signal disconnection )";
-                        break;
-                    case 5:
-                        Result = "Laser6 Error (Signal disconnection )";
-                        break;
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "Laser1 Error (Signal disconnection ), ";
+                        else if (i == 1)
+                            Result += "Laser2 Error (Signal disconnection ), ";
+                        else if (i == 2)
+                            Result += "Laser3 Error (Signal disconnection ), ";
+                        else if (i == 3)
+                            Result += "Laser4 Error (Signal disconnection ), ";
+                        else if (i == 4)
+                            Result += "Laser5 Error (Signal disconnection ), ";
+                        else if (i == 5)
+                            Result += "Laser6 Error (Signal disconnection ), ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
                 }
+                //if (AlarmList[0] == true)
+                //    Result += "Laser1 Error (Signal disconnection ), ";
+                //if (AlarmList[1] == true)
+                //    Result += "Laser2 Error (Signal disconnection ), ";
+                //if (AlarmList[2] == true)
+                //    Result += "Laser3 Error (Signal disconnection ), ";
+                //if (AlarmList[3] == true)
+                //    Result += "Laser4 Error (Signal disconnection ), ";
+                //if (AlarmList[4] == true)
+                //    Result += "Laser5 Error (Signal disconnection ), ";
+                //if (AlarmList[5] == true)
+                //    Result += "Laser6 Error (Signal disconnection ), ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -611,21 +763,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.General_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "";
-                        break;
-                    case 1:
-                        Result = "";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += ", ";
+                //if (WarningList[1] == true)
+                //    Result += ", ";
+                //if (WarningList[2] == true)
+                //    Result += ", ";
+                //if (WarningList[3] == true)
+                //    Result += ", ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -640,21 +804,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A01_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "";
-                        break;
-                    case 1:
-                        Result = "";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += ", ";
+                //if (WarningList[1] == true)
+                //    Result += ", ";
+                //if (WarningList[2] == true)
+                //    Result += ", ";
+                //if (WarningList[3] == true)
+                //    Result += ", ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -669,33 +845,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A02_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "";
-                        break;
-                    case 1:
-                        Result = "";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
-                    case 5:
-                        Result = "";
-                        break;
-                    case 6:
-                        Result = "";
-                        break;
-                    case 7:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += ", ";
+                //if (WarningList[1] == true)
+                //    Result += ", ";
+                //if (WarningList[2] == true)
+                //    Result += ", ";
+                //if (WarningList[3] == true)
+                //    Result += ", ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -710,33 +886,49 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A03_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "Under maintenance";
-                        break;
-                    case 1:
-                        Result = "Clamp T3 Timeout";
-                        break;
-                    case 2:
-                        Result = "Unclamp T3 Timeout";
-                        break;
-                    case 3:
-                        Result = "動作中Command訊號消失";
-                        break;
-                    case 4:
-                        Result = "No Power ON";
-                        break;
-                    case 5:
-                        Result = "Please Initial";
-                        break;
-                    case 6:
-                        Result = "RS422 Error";
-                        break;
-                    case 7:
-                        Result = "Setting speed out range";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "Under maintenance, ";
+                        else if (i == 1)
+                            Result += "Clamp T3 Timeout, ";
+                        else if (i == 2)
+                            Result += "Unclamp T3 Timeout, ";
+                        else if (i == 3)
+                            Result += "動作中Command訊號消失, ";
+                        else if (i == 4)
+                            Result += "No Power ON, ";
+                        else if (i == 5)
+                            Result += "Please Initial, ";
+                        else if (i == 6)
+                            Result += "RS422 Error, ";
+                        else if (i == 7)
+                            Result += "Setting speed out range, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += "Under maintenance, ";
+                //if (WarningList[1] == true)
+                //    Result += "Clamp T3 Timeout, ";
+                //if (WarningList[2] == true)
+                //    Result += "Unclamp T3 Timeout, ";
+                //if (WarningList[3] == true)
+                //    Result += "動作中Command訊號消失, ";
+                //if (WarningList[4] == true)
+                //    Result += "No Power ON, ";
+                //if (WarningList[5] == true)
+                //    Result += "Please Initial, ";
+                //if (WarningList[6] == true)
+                //    Result += "RS422 Error, ";
+                //if (WarningList[7] == true)
+                //    Result += "Setting speed out range, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -751,33 +943,25 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A04_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "RS422 Error";
-                        break;
-                    case 1:
-                        Result = "RS232 Error";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
-                    case 5:
-                        Result = "";
-                        break;
-                    case 6:
-                        Result = "";
-                        break;
-                    case 7:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "RS422 Error, ";
+                        else if (i == 1)
+                            Result += "RS232 Error, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += "RS422 Error, ";
+                //if (WarningList[1] == true)
+                //    Result += "RS232 Error, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -792,39 +976,26 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A05_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "Robot 侵入中不可執行Command";
-                        break;
-                    case 1:
-                        Result = "Please initial";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
-                    case 5:
-                        Result = "";
-                        break;
-                    case 6:
-                        Result = "";
-                        break;
-                    case 7:
-                        Result = "";
-                        break;
-                    case 8:
-                        Result = "";
-                        break;
-                    case 9:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "Robot 侵入中不可執行Command, ";
+                        else if (i == 1)
+                            Result += "Please initial, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += "Robot 侵入中不可執行Command, ";
+                //if (WarningList[1] == true)
+                //    Result += "Please initial, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+
             }
             catch (Exception ex)
             {
@@ -839,36 +1010,53 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A06_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "X軸 驅動器Warning";
-                        break;
-                    case 1:
-                        Result = "Y軸 驅動器Warning";
-                        break;
-                    case 2:
-                        Result = "Z軸 驅動器Warning";
-                        break;
-                    case 3:
-                        Result = "W軸 驅動器Warning";
-                        break;
-                    case 4:
-                        Result = "動作中Jog Command下達";
-                        break;
-                    case 5:
-                        Result = "動作中下達W Command";
-                        break;
-                    case 6:
-                        Result = "動作中下達Z Command";
-                        break;
-                    case 7:
-                        Result = "動作中下達XY Command";
-                        break;
-                    case 8:
-                        Result = "Robot侵入中不可做動";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "X軸 驅動器Warning, ";
+                        else if (i == 1)
+                            Result += "Y軸 驅動器Warning, ";
+                        else if (i == 2)
+                            Result += "Z軸 驅動器Warning, ";
+                        else if (i == 3)
+                            Result += "W軸 驅動器Warning, ";
+                        else if (i == 4)
+                            Result += "動作中Jog Command下達, ";
+                        else if (i == 5)
+                            Result += "動作中下達W Command, ";
+                        else if (i == 6)
+                            Result += "動作中下達Z Command, ";
+                        else if (i == 7)
+                            Result += "動作中下達XY Command, ";
+                        else if (i ==8)
+                            Result += "Robot侵入中不可做動, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += "X軸 驅動器Warning, ";
+                //if (WarningList[1] == true)
+                //    Result += "Y軸 驅動器Warning, ";
+                //if (WarningList[2] == true)
+                //    Result += "Z軸 驅動器Warning, ";
+                //if (WarningList[3] == true)
+                //    Result += "W軸 驅動器Warning, ";
+                //if (WarningList[4] == true)
+                //    Result += "動作中Jog Command下達, ";
+                //if (WarningList[5] == true)
+                //    Result += "動作中下達W Command, ";
+                //if (WarningList[6] == true)
+                //    Result += "動作中下達Z Command, ";
+                //if (WarningList[7] == true)
+                //    Result += "動作中下達XY Command, ";
+                //if (WarningList[8] == true)
+                //    Result += "Robot侵入中不可做動, ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -883,21 +1071,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A07_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "";
-                        break;
-                    case 1:
-                        Result = "";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += ", ";
+                //if (WarningList[1] == true)
+                //    Result += ", ";
+                //if (WarningList[2] == true)
+                //    Result += ", ";
+                //if (WarningList[3] == true)
+                //    Result += ", ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -912,48 +1112,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A08_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "";
-                        break;
-                    case 1:
-                        Result = "";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
-                    case 5:
-                        Result = "";
-                        break;
-                    case 6:
-                        Result = "";
-                        break;
-                    case 7:
-                        Result = "";
-                        break;
-                    case 8:
-                        Result = "";
-                        break;
-                    case 9:
-                        Result = "";
-                        break;
-                    case 10:
-                        Result = "";
-                        break;
-                    case 11:
-                        Result = "";
-                        break;
-                    case 12:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += ", ";
+                //if (WarningList[1] == true)
+                //    Result += ", ";
+                //if (WarningList[2] == true)
+                //    Result += ", ";
+                //if (WarningList[3] == true)
+                //    Result += ", ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -968,27 +1153,33 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             try
             {
-                switch (plc.Read<int>(MacHalPlcEnumVariable.A09_Warning))
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
                 {
-                    case 0:
-                        Result = "";
-                        break;
-                    case 1:
-                        Result = "";
-                        break;
-                    case 2:
-                        Result = "";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
-                    case 5:
-                        Result = "";
-                        break;
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
                 }
+                //if (WarningList[0] == true)
+                //    Result += ", ";
+                //if (WarningList[1] == true)
+                //    Result += ", ";
+                //if (WarningList[2] == true)
+                //    Result += ", ";
+                //if (WarningList[3] == true)
+                //    Result += ", ";
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
