@@ -65,6 +65,7 @@
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
     <Compile Include="MachineRealDevice\UtLight.cs" />
     <Compile Include="MachineRealDevice\UtCamera.cs" />
+    <Compile Include="MachineRealHal\UtHalUniversal.cs" />
     <Compile Include="MachineRealHal\UtHalBoxTransfer.cs" />
     <Compile Include="MachineRealHal\UtHalLoadPort.cs" />
     <Compile Include="MachineRealHal\UtHalCleanCh.cs" />

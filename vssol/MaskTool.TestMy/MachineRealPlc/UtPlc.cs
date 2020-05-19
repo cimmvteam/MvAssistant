@@ -20,7 +20,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 var doc = new XmlHelper();
                 doc.CreatXml("D://project/github/MsakPosition.xml");
                 doc.Insert("D://project/github/MsakPosition.xml", "58", "Position", "111.111", "122.222", "133.333", "144.444", "155.555", "166.666", "177.777");
-                doc.Update("D://project/github/MsakPosition.xml", "88", "Joint", "111", "222", "333", "444", "555", "666", "777");
+                doc.Update("D://project/github/MsakPosition.xml", "58", "Joint", "111", "222", "333", "444", "555", "666", "777");
                 doc.Delete("D://project/github/MsakPosition.xml", "58");
             }
             catch (Exception ex)

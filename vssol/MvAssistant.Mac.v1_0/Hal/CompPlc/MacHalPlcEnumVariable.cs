@@ -299,7 +299,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         PC_TO_IC_Robot_UpDownLimit_D,
         IC_TO_PC_RobotPosition_UpDown,
         IC_TO_PC_A06Status,
-        A06_Alarm,
 
         //Load Port(A07)
         PC_TO_LP_DP1Limit,//壓差極限數值寫入 AWord
@@ -333,7 +332,30 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         LD_TO_PC_Laser3,
         LD_TO_PC_Laser4,
         LD_TO_PC_Laser5,
-        LD_TO_PC_Laser6
+        LD_TO_PC_Laser6,
 
+        //Alarm list
+        General_Alarm,
+        A01_Alarm,
+        A02_Alarm,
+        A03_Alarm,
+        A04_Alarm,
+        A05_Alarm,
+        A06_Alarm,
+        A07_Alarm,
+        A08_Alarm,
+        A09_Alarm,
+
+        //Warning list
+        General_Warning,
+        A01_Warning,
+        A02_Warning,
+        A03_Warning,
+        A04_Warning,
+        A05_Warning,
+        A06_Warning,
+        A07_Warning,
+        A08_Warning,
+        A09_Warning
     }
 }

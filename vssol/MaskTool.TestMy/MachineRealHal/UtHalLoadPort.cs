@@ -42,6 +42,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var lp = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalLoadPort;
                 lp.ReadPressureDiff();
+                lp.ReadLP_Light_Curtain();
             }
         }
 

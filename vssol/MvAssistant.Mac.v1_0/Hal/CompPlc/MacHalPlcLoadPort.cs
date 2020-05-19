@@ -55,5 +55,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<int>(MacHalPlcEnumVariable.LP_TO_PC_DP2)
                 );
         }
+
+        public bool ReadLP_Light_Curtain()
+        {
+            var plc = this.m_PlcContext;
+            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
+        }
+
     }
 }

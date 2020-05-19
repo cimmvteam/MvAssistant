@@ -18,6 +18,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region Read Component Value
         Tuple<int, int> ReadPressureDiff();
+
+        bool ReadLP_Light_Curtain();
         #endregion
     }
 }

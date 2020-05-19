@@ -56,7 +56,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <returns>錶1壓差、錶2壓差</returns>
         public Tuple<int, int> ReadPressureDiff()
-        { return ReadPressureDiff(); }
+        { return Plc.ReadPressureDiff(); }
+
+        /// <summary>
+        /// 讀取Load Port光閘是否被遮斷
+        /// </summary>
+        /// <returns></returns>
+        public bool ReadLP_Light_Curtain()
+        { return Plc.ReadLP_Light_Curtain(); }
         #endregion
 
     }
