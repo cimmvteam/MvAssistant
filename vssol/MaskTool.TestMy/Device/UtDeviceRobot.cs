@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 
 namespace MvAssistant.Mac.TestMy.Device
 {
@@ -33,43 +34,39 @@ namespace MvAssistant.Mac.TestMy.Device
         public void TestRobotInfoSerialize()
         {
 
-            var robotInfo = new MvFanucRobotInfo()
+            var robotInfo = new HalRobotMotion()
             {
-                x = 1.1f,
-                y = 2.2f,
-                z = 3.3f,
-                w = 4.4f,
-                p = 5.5f,
-                r = 6.6f,
-                e1 = 7.7f,
+                X = 1.1f,
+                Y = 2.2f,
+                Z = 3.3f,
+                W = 4.4f,
+                P = 5.5f,
+                R = 6.6f,
+                E1 = 7.7f,
                 UserFrame = 1,
                 UserTool = 1,
                 Speed = 60,
             };
 
             MvUtil.SaveToXmlFile(robotInfo, "pos.xml");
-            var loadObj = MvUtil.LoadFromXmlFile<MvFanucRobotInfo>("pos.xml");
+            var loadObj = MvUtil.LoadFromXmlFile<HalRobotMotion>("pos.xml");
 
 
-            Assert.AreEqual(robotInfo.x, loadObj.x);
-            Assert.AreEqual(robotInfo.y, loadObj.y);
-            Assert.AreEqual(robotInfo.z, loadObj.z);
-            Assert.AreEqual(robotInfo.w, loadObj.w);
-            Assert.AreEqual(robotInfo.p, loadObj.p);
-            Assert.AreEqual(robotInfo.r, loadObj.r);
-            Assert.AreEqual(robotInfo.e1, loadObj.e1);
-            Assert.AreEqual(robotInfo.e2, loadObj.e2);
-            Assert.AreEqual(robotInfo.e3, loadObj.e3);
+            Assert.AreEqual(robotInfo.X, loadObj.X);
+            Assert.AreEqual(robotInfo.Z, loadObj.Z);
+            Assert.AreEqual(robotInfo.Y, loadObj.Y);
+            Assert.AreEqual(robotInfo.W, loadObj.W);
+            Assert.AreEqual(robotInfo.P, loadObj.P);
+            Assert.AreEqual(robotInfo.R, loadObj.R);
+            Assert.AreEqual(robotInfo.E1, loadObj.E1);
 
-            Assert.AreEqual(robotInfo.j1, loadObj.j1);
-            Assert.AreEqual(robotInfo.j2, loadObj.j2);
-            Assert.AreEqual(robotInfo.j3, loadObj.j3);
-            Assert.AreEqual(robotInfo.j4, loadObj.j4);
-            Assert.AreEqual(robotInfo.j5, loadObj.j5);
-            Assert.AreEqual(robotInfo.j6, loadObj.j6);
-            Assert.AreEqual(robotInfo.j7, loadObj.j7);
-            Assert.AreEqual(robotInfo.j8, loadObj.j8);
-            Assert.AreEqual(robotInfo.j9, loadObj.j9);
+            Assert.AreEqual(robotInfo.J1, loadObj.J1);
+            Assert.AreEqual(robotInfo.J2, loadObj.J2);
+            Assert.AreEqual(robotInfo.J3, loadObj.J3);
+            Assert.AreEqual(robotInfo.J4, loadObj.J4);
+            Assert.AreEqual(robotInfo.J5, loadObj.J5);
+            Assert.AreEqual(robotInfo.J6, loadObj.J6);
+            Assert.AreEqual(robotInfo.J7, loadObj.J7);
 
             Assert.AreEqual(robotInfo.UserFrame, loadObj.UserFrame);
             Assert.AreEqual(robotInfo.UserTool, loadObj.UserTool);

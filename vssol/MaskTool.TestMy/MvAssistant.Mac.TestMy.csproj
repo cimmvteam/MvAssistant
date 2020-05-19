@@ -57,6 +57,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Device\UtBoxRobot.cs" />
     <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />

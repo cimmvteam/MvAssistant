@@ -34,6 +34,7 @@
             this.tsmiMaskRobot = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.robotPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiBoxRobot,
-            this.tsmiMaskRobot});
+            this.tsmiMaskRobot,
+            this.robotPathToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.fileToolStripMenuItem.Text = "&Form";
@@ -86,6 +88,13 @@
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // robotPathToolStripMenuItem
+            // 
+            this.robotPathToolStripMenuItem.Name = "robotPathToolStripMenuItem";
+            this.robotPathToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.robotPathToolStripMenuItem.Text = "Robot Path";
+            this.robotPathToolStripMenuItem.Click += new System.EventHandler(this.robotPathToolStripMenuItem_Click);
+            // 
             // FmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -113,5 +122,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripMenuItem tsmiBoxRobot;
         private System.Windows.Forms.ToolStripMenuItem tsmiMaskRobot;
+        private System.Windows.Forms.ToolStripMenuItem robotPathToolStripMenuItem;
     }
 }

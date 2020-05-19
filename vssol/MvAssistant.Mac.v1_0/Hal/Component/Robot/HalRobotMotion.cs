@@ -21,8 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
         public HalRobotPose Pose = new HalRobotPose();
 
-        [XmlIgnore]
-        public float X { get { return this.Pose.X; } set { this.Pose.X = value; } }
+        [XmlIgnore] public float X { get { return this.Pose.X; } set { this.Pose.X = value; } }
         [XmlIgnore]
         public float Y { get { return this.Pose.Y; } set { this.Pose.Y = value; } }
         [XmlIgnore]
@@ -33,6 +32,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
         public float P { get { return this.Pose.P; } set { this.Pose.P = value; } }
         [XmlIgnore]
         public float R { get { return this.Pose.R; } set { this.Pose.R = value; } }
+        [XmlIgnore]
+        public float E1 { get { return this.Pose.E1; } set { this.Pose.E1 = value; } }
         [XmlIgnore]
         public float J1 { get { return this.Pose.J1; } set { this.Pose.J1 = value; } }
         [XmlIgnore]
@@ -45,6 +46,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
         public float J5 { get { return this.Pose.J5; } set { this.Pose.J5 = value; } }
         [XmlIgnore]
         public float J6 { get { return this.Pose.J6; } set { this.Pose.J6 = value; } }
+        [XmlIgnore]
+        public float J7 { get { return this.Pose.J7; } set { this.Pose.J7 = value; } }
 
 
 
@@ -56,7 +59,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
         public bool IntersectRange(HalRobotPose start, HalRobotPose end)
         {
-            var func = new Func<float, float, float, bool>(delegate(float s, float x, float e) { return s <= x && x <= e; });
+            var func = new Func<float, float, float, bool>(delegate (float s, float x, float e) { return s <= x && x <= e; });
             var flag = true;
             flag &= func(start.X, this.Pose.X, end.X);
             flag &= func(start.Y, this.Pose.Y, end.Y);
@@ -84,6 +87,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             return (float)Math.Sqrt(distnace);
         }
 
+
+
+        public void From(mvfa)
+        {
+
+        }
 
     }
 }
