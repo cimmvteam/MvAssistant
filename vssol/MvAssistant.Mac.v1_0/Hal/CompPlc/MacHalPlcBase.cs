@@ -9,7 +9,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
 
     [Guid("22421239-9CEA-4050-AE0C-FF997A872FED")]
-    public abstract class MacHalPlcBase : MacHalComponentBase, IMacHalPlcUniversal
+    public abstract class MacHalPlcBase : MacHalComponentBase
     {
 
         public const string DevConnStr_PlcIp = "ip";

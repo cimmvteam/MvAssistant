@@ -22,7 +22,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         MvCancelTask m_keepConnection;
 
 
-        public bool IsConnected { get { return m_isConnected; } }
+        public bool IsConnectedByHandShake { get { return m_isConnected; } }
+        public bool IsConnected { get { return PlcLdd.IsConnected(); } }
 
         public MacHalPlcInspectionCh InspCh;
         public MacHalPlcBoxTransfer BoxRobot;
@@ -31,7 +32,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcCabinet Cabinet;
         public MacHalPlcCleanCh CleanCh;
         public MacHalPlcLoadPort LoadPort;
-        //public MacHalPlcUniversal Universal;
+        public MacHalPlcUniversal Universal;
 
         public MacHalPlcContext()
         {
@@ -42,7 +43,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.Cabinet = new MacHalPlcCabinet(this);
             this.CleanCh = new MacHalPlcCleanCh(this);
             this.LoadPort = new MacHalPlcLoadPort(this);
-            //this.Universal = new MacHalPlcUniversal(this);
+            this.Universal = new MacHalPlcUniversal(this);
         }
         ~MacHalPlcContext() { this.Dispose(false); }
 

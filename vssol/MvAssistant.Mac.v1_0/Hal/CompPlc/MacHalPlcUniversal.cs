@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -99,7 +100,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         }
 
-        public void ResetAll()
+        public void ResetAllAlarm()
         {
             var plc = this.m_PlcContext;
             try
@@ -223,10 +224,740 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Smoke);
         }
 
-        public bool ReadLP_Light_Curtain()
+        #endregion
+
+        #region PLC alarm signal
+        public string ReadAlarm_General()
         {
+            string Result = "";
             var plc = this.m_PlcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "PC Not Reset CheckClock, ";
+                        else if (i == 1)
+                            Result += "PLC Error, ";
+                        else if (i == 2)
+                            Result += "EIP Error, ";
+                        else if (i == 3)
+                            Result += "EtherCat Error, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_Cabinet()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "DP1 TCP net error, ";
+                        else if (i == 1)
+                            Result += "DP2 TCP net error, ";
+                        else if (i == 2)
+                            Result += "DP1 Out range, ";
+                        else if (i == 3)
+                            Result += "DP2 Out range, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_CleanCh()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "PD skt error, ";
+                        else if (i == 1)
+                            Result += "DP skt error, ";
+                        else if (i == 2)
+                            Result += "DP out range, ";
+                        else if (i == 3)
+                            Result += "PD-S out range, ";
+                        else if (i == 4)
+                            Result += "PD-M out range, ";
+                        else if (i == 5)
+                            Result += "PD-L out range, ";
+                        else if (i == 6)
+                            Result += "About laser sensor open circuit, ";
+                        else if (i == 7)
+                            Result += "UpDown laser sensor open circuit, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_BTRobot()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "BT servo error, ";
+                        else if (i == 1)
+                            Result += "Hand point laser sensor open circuit, ";
+                        else if (i == 2)
+                            Result += "Prevent collision laser sensor open circuit, ";
+                        else if (i == 3)
+                            Result += "Level sensor X open circuit, ";
+                        else if (i == 4)
+                            Result += "Level sensor Y open circuit, ";
+                        else if (i == 5)
+                            Result += "Clamp T1 Timeout, ";
+                        else if (i == 6)
+                            Result += "Unclamp T1 Timeout, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_MTRobot()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "Up定位誤差過大, ";
+                        else if (i == 1)
+                            Result += "Down定位誤差過大, ";
+                        else if (i == 2)
+                            Result += "Left定位誤差過大, ";
+                        else if (i == 3)
+                            Result += "Right定位誤差過大, ";
+                        else if (i == 4)
+                            Result += "Up Move Error, ";
+                        else if (i == 5)
+                            Result += "Down Move Error, ";
+                        else if (i == 6)
+                            Result += "Left Move Error, ";
+                        else if (i == 7)
+                            Result += "Right Move Error, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_OpenStage()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "Clamp步進馬達Alarm, ";
+                        else if (i == 1)
+                            Result += "Cover1 servo alarm, ";
+                        else if (i == 2)
+                            Result += "Cover2 servo alarm, ";
+                        else if (i == 3)
+                            Result += "整定電動缸1Alarm, ";
+                        else if (i == 4)
+                            Result += "整定電動缸2Alarm, ";
+                        else if (i == 5)
+                            Result += "滑台1Alarm, ";
+                        else if (i == 6)
+                            Result += "滑台2Alarm, ";
+                        else if (i == 7)
+                            Result += "Slider未同步做動, ";
+                        else if (i == 8)
+                            Result += "Clamp扭力錯誤, ";
+                        else if (i == 9)
+                            Result += "氣壓不足, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_InspCh()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Alarm);
+
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 1)
+                            Result += "X 驅動器Alarm, ";
+                        else if (i == 2)
+                            Result += "Y 驅動器Alarm, ";
+                        else if (i == 3)
+                            Result += "Z 驅動器Alarm, ";
+                        else if (i == 4)
+                            Result += "W 驅動器Alarm, ";
+                        else if (i == 5)
+                            Result += "動作中 Robot侵入, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_LoadPort()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "DP1 TCP Error, ";
+                        else if (i == 1)
+                            Result += "DP2 TCP Error, ";
+                        else if (i == 2)
+                            Result += "DP1 Out Range, ";
+                        else if (i == 3)
+                            Result += "DP2 Out Range, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_CoverFan()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "FFU1 Error, ";
+                        else if (i == 1)
+                            Result += "FFU2 Error, ";
+                        else if (i == 2)
+                            Result += "FFU3 Error, ";
+                        else if (i == 3)
+                            Result += "FFU4 Error, ";
+                        else if (i == 4)
+                            Result += "FFU5 Error, ";
+                        else if (i == 5)
+                            Result += "FFU6 Error, ";
+                        else if (i == 6)
+                            Result += "FFU7 Error, ";
+                        else if (i == 7)
+                            Result += "FFU8 Error, ";
+                        else if (i == 8)
+                            Result += "FFU9 Error, ";
+                        else if (i == 9)
+                            Result += "FFU10 Error, ";
+                        else if (i == 10)
+                            Result += "FFU11 Error, ";
+                        else if (i == 11)
+                            Result += "FFU12 Error, ";
+                        else if (i == 12)
+                            Result += "RS485 Error, ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadAlarm_MTClampInsp()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Alarm);
+
+                for (int i = 0; i < AlarmList.Length; i++)
+                {
+                    if (AlarmList[i])
+                        if (i == 0)
+                            Result += "Laser1 Error (Signal disconnection ), ";
+                        else if (i == 1)
+                            Result += "Laser2 Error (Signal disconnection ), ";
+                        else if (i == 2)
+                            Result += "Laser3 Error (Signal disconnection ), ";
+                        else if (i == 3)
+                            Result += "Laser4 Error (Signal disconnection ), ";
+                        else if (i == 4)
+                            Result += "Laser5 Error (Signal disconnection ), ";
+                        else if (i == 5)
+                            Result += "Laser6 Error (Signal disconnection ), ";
+                        else
+                            Result += "Unknown Alarm Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+        #endregion
+
+        #region PLC warning signal
+        public string ReadWarning_General()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_Cabinet()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_CleanCh()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_BTRobot()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "Under maintenance, ";
+                        else if (i == 1)
+                            Result += "Clamp T3 Timeout, ";
+                        else if (i == 2)
+                            Result += "Unclamp T3 Timeout, ";
+                        else if (i == 3)
+                            Result += "動作中Command訊號消失, ";
+                        else if (i == 4)
+                            Result += "No Power ON, ";
+                        else if (i == 5)
+                            Result += "Please Initial, ";
+                        else if (i == 6)
+                            Result += "RS422 Error, ";
+                        else if (i == 7)
+                            Result += "Setting speed out range, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_MTRobot()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "RS422 Error, ";
+                        else if (i == 1)
+                            Result += "RS232 Error, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_OpenStage()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "Robot 侵入中不可執行Command, ";
+                        else if (i == 1)
+                            Result += "Please initial, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_InspCh()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += "X軸 驅動器Warning, ";
+                        else if (i == 1)
+                            Result += "Y軸 驅動器Warning, ";
+                        else if (i == 2)
+                            Result += "Z軸 驅動器Warning, ";
+                        else if (i == 3)
+                            Result += "W軸 驅動器Warning, ";
+                        else if (i == 4)
+                            Result += "動作中Jog Command下達, ";
+                        else if (i == 5)
+                            Result += "動作中下達W Command, ";
+                        else if (i == 6)
+                            Result += "動作中下達Z Command, ";
+                        else if (i == 7)
+                            Result += "動作中下達XY Command, ";
+                        else if (i ==8)
+                            Result += "Robot侵入中不可做動, ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_LoadPort()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_CoverFan()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
+        }
+
+        public string ReadWarning_MTClampInsp()
+        {
+            string Result = "";
+            var plc = this.m_PlcContext;
+            try
+            {
+                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Warning);
+
+                for (int i = 0; i < WarningList.Length; i++)
+                {
+                    if (WarningList[i])
+                        if (i == 0)
+                            Result += ", ";
+                        else if (i == 1)
+                            Result += ", ";
+                        else if (i == 2)
+                            Result += ", ";
+                        else if (i == 3)
+                            Result += ", ";
+                        else
+                            Result += "Unknown Warning Signal, ";
+                }
+
+                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                    Result = Result.Substring(0, Result.Length - 2);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Result;
         }
         #endregion
     }

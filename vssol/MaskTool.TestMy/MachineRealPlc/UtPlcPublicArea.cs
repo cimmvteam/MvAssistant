@@ -20,7 +20,7 @@ namespace MaskTool.TestMy.MachineRealPlc
 
                 plc.StartAsyn();
 
-                if (!SpinWait.SpinUntil(() => plc.IsConnected, 60 * 1000))
+                if (!SpinWait.SpinUntil(() => plc.IsConnectedByHandShake, 60 * 1000))
                     throw new MvException("PLC connection fail");
 
                 Console.WriteLine("PLC connection success");

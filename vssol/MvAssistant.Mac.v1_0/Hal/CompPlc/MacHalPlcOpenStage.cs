@@ -467,10 +467,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         }
 
-        public uint ReadSpeedSetting()
+        public int ReadSpeedSetting()
         {
             var plc = this.m_PlcContext;
-            return plc.Read<uint>(MacHalPlcEnumVariable.PC_TO_OS_Speed);
+            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_Speed);
 
         }
 
