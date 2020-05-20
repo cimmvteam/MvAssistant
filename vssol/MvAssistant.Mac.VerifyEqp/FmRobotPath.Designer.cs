@@ -51,7 +51,7 @@
             this.LstBxPositionInfo.Margin = new System.Windows.Forms.Padding(4);
             this.LstBxPositionInfo.Name = "LstBxPositionInfo";
             this.LstBxPositionInfo.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.LstBxPositionInfo.Size = new System.Drawing.Size(1205, 334);
+            this.LstBxPositionInfo.Size = new System.Drawing.Size(1602, 334);
             this.LstBxPositionInfo.TabIndex = 0;
             // 
             // BtnAdd
@@ -175,7 +175,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1541, 745);
+            this.ClientSize = new System.Drawing.Size(1845, 745);
             this.Controls.Add(this.BtnDeleteAll);
             this.Controls.Add(this.BtnAddGet);
             this.Controls.Add(this.LstBxGetPosition);
