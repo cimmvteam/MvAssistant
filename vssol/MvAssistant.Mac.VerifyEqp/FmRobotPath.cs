@@ -138,13 +138,13 @@ namespace MaskCleanerVerify
                     return;
                 }
 
-
-                var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
-                 var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-                /** 正式
+                /** 測試
+             var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+              var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+          */
                 var currentPos = GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-                */
+                
                 currentMotion.Speed = GetSpeed();
                 currentMotion.MotionType = GetMotionType();
                 this.TempCurrentPosition = currentMotion;
@@ -416,14 +416,14 @@ namespace MaskCleanerVerify
                 this.DisplayCurrentDeviceInfoIP();
                 // Display Device File Name
                 this.DisplayCurrentDeviceInfoPath();
-                /** 正式
+                #region 正式, 測試時註解 
                 ldd = new MvFanucRobotLdd();
                 this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
                 if (ldd.ConnectIfNo() != 0)
                 { throw new Exception("無法連接裝置"); }
                 ldd.ExecutePNS("PNS0101");
-            */    
-               if (File.Exists(this.CurrentDeviceInfo.FilePath))
+                #endregion
+                if (File.Exists(this.CurrentDeviceInfo.FilePath))
                 {
                     ToLoad();
 
@@ -456,13 +456,13 @@ namespace MaskCleanerVerify
                 
                 var speed=GetSpeed();
                 var motionType = GetMotionType();
-
-                var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
-                var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-                /** 正式
-                  var currentPos = this.GetCurrentPosUf();
+                /** 測試
+               var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+               var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+             */
+                var currentPos = this.GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-                 */
+             
                 currentMotion.Speed = speed;
                 currentMotion.MotionType = motionType;
 
