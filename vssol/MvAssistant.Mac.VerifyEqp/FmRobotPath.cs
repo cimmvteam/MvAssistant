@@ -533,6 +533,7 @@ namespace MaskCleanerVerify
             get
             {
                 string rtnV = string.Empty;
+
                 rtnV =this.Path + @"\" + FileName;
                 return rtnV;
             }
@@ -542,7 +543,7 @@ namespace MaskCleanerVerify
             get
             {
                 string rtnV = string.Empty;
-                rtnV = Application.StartupPath ;
+                rtnV = @"D:\Positions" ;
                 return rtnV;
             }
         }
