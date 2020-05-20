@@ -52,7 +52,9 @@ namespace BoxTransferTest
         {
             var fm = new FmRobotPath();
             fm.MdiParent = this;
+            
             fm.Show();
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

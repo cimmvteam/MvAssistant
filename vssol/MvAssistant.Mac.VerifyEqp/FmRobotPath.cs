@@ -25,11 +25,76 @@ namespace MaskCleanerVerify
         private HalRobotMotion TempCurrentPosition { get; set; }
         /// <summary>準備記錄的點位集合</summary>
         private List<PositionInfo> PositionInstances { get; set; }
+
+        
         public FmRobotPath()
         {
             InitializeComponent();
         }
 
+
+        /// <summary>取得 點位資料中的最大序號</summary>
+        /// <returns></returns>
+        private int GetPositionInstancesMaxSn()
+        {
+            if(PositionInstances==null || !PositionInstances.Any())
+            {
+                return -1;
+            }
+            else
+            {
+                var maxSn = PositionInstances.Max(m => m.Sn);
+                return maxSn;
+            }
+        }
+
+
+        /// <summary>點位資料的 序號  是否存在</summary>
+        /// <param name="sn"></param>
+        /// <returns></returns>
+        private bool IsSnExist(int sn)
+        {
+            if (PositionInstances == null || !PositionInstances.Any())
+            {
+                return false;
+            }
+            else
+            {
+                var inst = PositionInstances.Where(m => m.Sn == sn).FirstOrDefault();
+                if (inst == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+
+        /// <summary>找到序號為特定值的點位資料, 刪除它</summary>
+        /// <param name="serNo"></param>
+        private void RemovePositionBySerialNum(int serNo)
+        {
+            if(this.PositionInstances==null || !this.PositionInstances.Any())
+            {
+                return;
+            }
+            var position = this.PositionInstances.Where(m => m.Sn == serNo).FirstOrDefault();
+            if (position != null)
+            {
+                this.PositionInstances.Remove(position);
+            }
+        }
+
+        /// <summary>取得點位資料中最大序號的下個序號 </summary>
+        /// <returns></returns>
+        private int GetPositionInstancesNextSn()
+        {
+            var rtnV=GetPositionInstancesMaxSn();
+            return ++rtnV;
+        }
         /// <summary>點選 Add 按鈕</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -43,24 +108,72 @@ namespace MaskCleanerVerify
                         //var motion = saver.GetTargetInstanceFromSourceInstance<MvFanucRobotPosReg, HalRobotMotion>(curr, null, true);
                         var motion = helper.ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPosition, null, true);
                         */
-            // var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
-            // var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+         
             try
             {
+
+                int? sn = GetSnFromController();
+                if (!sn.HasValue)
+                {
+                    MessageBox.Show("請將 Serial No 欄位設為整數");
+                    return;
+                }
+                DialogResult dialogResult = DialogResult.None;
+                if (IsSnExist(sn.Value))
+                {
+                    dialogResult = MessageBox.Show("Serial No : " + sn + " 已經存在,要繼續嗎?\n請按 [是]自動編號、[否]覆蓋原有資料、[取消]重新設定", "", MessageBoxButtons.YesNoCancel);
+                }
+                if (dialogResult == DialogResult.Yes)
+                {// 自動編號
+                    sn = this.GetPositionInstancesNextSn();
+                }
+                else if (dialogResult == DialogResult.No)
+                {// 覆蓋原有資料
+                 // 找到原資料刪除之   
+
+                    this.RemovePositionBySerialNum(sn.Value);
+                }
+                else if (dialogResult == DialogResult.Cancel)
+                {  // 取消
+                    return;
+                }
+
+
+                var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+                 var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                /** 正式
                 var currentPos = GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                */
+                currentMotion.Speed = GetSpeed();
+                currentMotion.MotionType = GetMotionType();
                 this.TempCurrentPosition = currentMotion;
-                PositionInfo newPositionInfo = GetNewPositionInfo();
+                PositionInfo newPositionInfo = GetNewPositionInfo(sn.Value);
+              
                 this.PositionInstances.Add(newPositionInfo);
 
                 RefreshPositionInfoList();
+                NumUdpSn.Value = this.GetPositionInstancesNextSn();
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
+        public int? GetSnFromController()
+        {
+            var text = NumUdpSn.Value;
+            int sn;
+            var b = int.TryParse(text.ToString(), out sn);
+            if (b)
+            {
+                return sn;
+            }
+            else
+            {
+                return default(int?);
+            }
+        }
 
 
         /// <summary>刪除被選定項目</summary>
@@ -69,8 +182,8 @@ namespace MaskCleanerVerify
             var selectedItems = this.LstBxPositionInfo.SelectedItems;
             foreach (var item in selectedItems)
             {
-                var id = item.ToString().Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
-                var selectedItem = this.PositionInstances.Where(m => m.PositionID == id).FirstOrDefault();
+                var sn = Convert.ToInt32( item.ToString().Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim());
+                var selectedItem = this.PositionInstances.Where(m => m.Sn == sn).FirstOrDefault();
                 if (selectedItem != null)
                 {
                     this.PositionInstances.Remove(selectedItem);
@@ -191,12 +304,20 @@ namespace MaskCleanerVerify
 
             }
         }
+        private void InitialMotionTypeList()
+        {
+            this.CmbBoxMotionType.Items.Clear();
+            var motionTypeName = Enum.GetNames(typeof(HalRobotEnumMotionType));
+            this.CmbBoxMotionType.Items.AddRange(motionTypeName);
+            this.CmbBoxMotionType.Text = HalRobotEnumMotionType.Position.ToString();
 
+        }
         private void FmRobotPath_Load(object sender, EventArgs e)
         {
 
             this.DeviceInfos = GetDeviceInfos();
             this.InitialCmbBoxDeviceName(DeviceInfos);
+            this.InitialMotionTypeList();
             return;
 
             ldd.RobotIp = "192.168.0.51";
@@ -264,7 +385,7 @@ namespace MaskCleanerVerify
             }
             else
             {
-                txtBxDeviceIP.Text = "IP: " + this.CurrentDeviceInfo.DeviceIP;
+                txtBxDeviceIP.Text = this.CurrentDeviceInfo.DeviceIP;
             }
         }
 
@@ -277,7 +398,7 @@ namespace MaskCleanerVerify
             }
             else
             {
-                this.TxtBxDevicePath.Text = "File Path: " + this.CurrentDeviceInfo.FilePath;
+                this.TxtBxDevicePath.Text = this.CurrentDeviceInfo.FilePath;
             }
         }
 
@@ -287,6 +408,7 @@ namespace MaskCleanerVerify
         /// <param name="e"></param>
         private void CmbBoxDeviceName_SelectedIndexChanged(object sender, EventArgs e)
         {
+         ///   this.Enabled = false;
             try
             {
               
@@ -294,12 +416,14 @@ namespace MaskCleanerVerify
                 this.DisplayCurrentDeviceInfoIP();
                 // Display Device File Name
                 this.DisplayCurrentDeviceInfoPath();
+                /** 正式
                 ldd = new MvFanucRobotLdd();
                 this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
                 if (ldd.ConnectIfNo() != 0)
                 { throw new Exception("無法連接裝置"); }
                 ldd.ExecutePNS("PNS0101");
-                if (File.Exists(this.CurrentDeviceInfo.FilePath))
+            */    
+               if (File.Exists(this.CurrentDeviceInfo.FilePath))
                 {
                     ToLoad();
 
@@ -314,6 +438,8 @@ namespace MaskCleanerVerify
             {
                 MessageBox.Show(ex.Message);
             }
+            NumUdpSn.Value = this.GetPositionInstancesNextSn();
+         //   this.Enabled = true;
 
         }
 
@@ -322,13 +448,24 @@ namespace MaskCleanerVerify
         /// <param name="e"></param>
         private void btnGetPosition_Click(object sender, EventArgs e)
         {
+
+
             try
             {
                 // 取得 MvFanucRobotPosReg 物件
-                //var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
-                //var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-                var currentPos = this.GetCurrentPosUf();
+                
+                var speed=GetSpeed();
+                var motionType = GetMotionType();
+
+                var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+                var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                /** 正式
+                  var currentPos = this.GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                 */
+                currentMotion.Speed = speed;
+                currentMotion.MotionType = motionType;
+
                 this.TempCurrentPosition = currentMotion;
                 DisplayGetPosition(currentMotion);
             }
@@ -338,6 +475,25 @@ namespace MaskCleanerVerify
 
             }
         }
+        private HalRobotEnumMotionType GetMotionType()
+        {
+            HalRobotEnumMotionType rtnV;
+            var b= Enum.TryParse<HalRobotEnumMotionType>(CmbBoxMotionType.Text, out rtnV);
+            if (!b)
+            {
+                rtnV = HalRobotEnumMotionType.Position;
+            }
+            return rtnV;
+        }
+
+        private int GetSpeed()
+        {
+            int rtnV;
+            var b= int.TryParse(NumUdpSpeed.Text, out rtnV);
+            if(!b) { NumUdpSpeed.Text = "0"; rtnV = 0; }
+            return rtnV;
+        }
+
 
         /// <summary>顯示 Get Button 所得的Position資料</summary>
         /// <param name="instance"></param>
@@ -345,19 +501,18 @@ namespace MaskCleanerVerify
         {
             this.LstBxGetPosition.Items.Clear();
             PropertyInfo[] properties = typeof(HalRobotMotion).GetProperties();
+            var text = "";
             foreach (var property in properties)
             {
                 if (property.CanRead)
                 {
-
                     var axisName = property.Name;
                     var value = property.GetValue(instance);
-                    var text = axisName + ": " + value.ToString();
-                    this.LstBxGetPosition.Items.Add(text);
+                    text += axisName + ": " + value.ToString()+", ";
                 }
-
             }
-
+            text += "Speed: " + instance.Speed + ", MotionType: " + instance.MotionType.ToString();
+           this.LstBxGetPosition.Items.Add(text);
         }
 
         /// <summary>按下 => 鈕</summary>
@@ -366,11 +521,39 @@ namespace MaskCleanerVerify
         private void BtnAddGet_Click(object sender, EventArgs e)
         {
             PositionInfo newPositionInfo = GetNewPositionInfo();
+            if (newPositionInfo == null) { return; }
+            int? sn=GetSnFromController();
+            if ( !sn.HasValue)
+            {
+                MessageBox.Show("請將 Serial No 欄位設為整數");
+                return;
+            }
+            DialogResult dialogResult=DialogResult.None  ;
+            if (IsSnExist(sn.Value))
+            {
+                dialogResult= MessageBox.Show( "Serial No : " + sn + " 已經存在，要繼續嗎?\n請按 [是]自動編號、[否]覆蓋原有資料、[取消]重新設定、", "", MessageBoxButtons.YesNoCancel);
+            }
+            if(dialogResult==DialogResult.Yes)
+            {// 自動編號
+                sn = this.GetPositionInstancesNextSn();
+            }
+            else if(dialogResult == DialogResult.No)
+            {// 覆蓋原有資料
+             // 找到原資料刪除之   
+
+                this.RemovePositionBySerialNum(sn.Value);
+            }
+            else if(dialogResult == DialogResult.Cancel)
+            {  // 取消
+                return;
+            }
             if (newPositionInfo != null)
             {
+                newPositionInfo.Sn = sn.Value;
                 this.PositionInstances.Add(newPositionInfo);
             }
             RefreshPositionInfoList();
+            NumUdpSn.Value = this.GetPositionInstancesNextSn();
         }
 
         private void BasicInitial()
@@ -384,6 +567,7 @@ namespace MaskCleanerVerify
             BasicInitial();
             if (this.PositionInstances != null && this.PositionInstances.Any())
             {
+                PositionInstances = PositionInstances.OrderBy(m => m.Sn).ToList();
                 foreach (var positionInfo in this.PositionInstances)
                 {
                     var text = positionInfo.ToString();
@@ -391,7 +575,12 @@ namespace MaskCleanerVerify
                 }
             }
         }
-
+        private PositionInfo GetNewPositionInfo(int sn)
+        {
+            var rtnV = GetNewPositionInfo();
+            rtnV.Sn = sn;
+            return rtnV;
+        }
         private PositionInfo GetNewPositionInfo()
         {
             PositionInfo positionInfo = null;

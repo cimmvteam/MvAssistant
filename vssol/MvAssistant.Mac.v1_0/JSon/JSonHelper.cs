@@ -45,7 +45,10 @@ namespace MvAssistant.Mac.v1_0.JSon
     public class PositionInfo
     {
 
+        /// <summary>Poosition ID</summary>
         public string PositionID { get; set; }
+        /// <summary>Serial No </summary>
+        public int Sn { get; set; }
         public HalRobotMotion Position { get; set; }
         public static string GetNewInstID()
         {
@@ -55,7 +58,7 @@ namespace MvAssistant.Mac.v1_0.JSon
         }
         public override string ToString()
         {
-            string text = PositionID + " | ";
+            string text = Sn.ToString("00000") + " | ";
             PropertyInfo[] properties = typeof(HalRobotMotion).GetProperties();
             foreach (var property in properties)
             {
@@ -64,6 +67,7 @@ namespace MvAssistant.Mac.v1_0.JSon
                     text = text + property.Name + ": " + property.GetValue(this.Position).ToString() + ", ";
                 }
             }
+            text += "Speed: " +this.Position.Speed+ ", MotionType: " + this.Position.MotionType.ToString();
             return text;
         }
     }
