@@ -294,7 +294,11 @@ namespace MaskCleanerVerify
                 this.DisplayCurrentDeviceInfoIP();
                 // Display Device File Name
                 this.DisplayCurrentDeviceInfoPath();
+                ldd = new MvFanucRobotLdd();
                 this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
+                if (ldd.ConnectIfNo() != 0)
+                { throw new Exception("無法連接裝置"); }
+                ldd.ExecutePNS("PNS0101");
                 if (File.Exists(this.CurrentDeviceInfo.FilePath))
                 {
                     ToLoad();
@@ -420,9 +424,9 @@ namespace MaskCleanerVerify
         private MvFanucRobotPosReg GetCurrentPosUf()
         {
           
-            if (ldd.ConnectIfNo() != 0)
-            { throw new Exception("無法連接裝置"); }
-            ldd.ExecutePNS("PNS0101");
+           // if (ldd.ConnectIfNo() != 0)
+           // { throw new Exception("無法連接裝置"); }
+           // ldd.ExecutePNS("PNS0101");
             var rtnV = ldd.ReadCurPosUf();
             return rtnV;
         }
