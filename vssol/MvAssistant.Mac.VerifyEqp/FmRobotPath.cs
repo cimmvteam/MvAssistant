@@ -289,10 +289,12 @@ namespace MaskCleanerVerify
         {
             try
             {
+              
                 // Display Device IP
                 this.DisplayCurrentDeviceInfoIP();
                 // Display Device File Name
                 this.DisplayCurrentDeviceInfoPath();
+                this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
                 if (File.Exists(this.CurrentDeviceInfo.FilePath))
                 {
                     ToLoad();
@@ -417,7 +419,7 @@ namespace MaskCleanerVerify
 
         private MvFanucRobotPosReg GetCurrentPosUf()
         {
-            this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
+          
             if (ldd.ConnectIfNo() != 0)
             { throw new Exception("無法連接裝置"); }
             ldd.ExecutePNS("PNS0101");
