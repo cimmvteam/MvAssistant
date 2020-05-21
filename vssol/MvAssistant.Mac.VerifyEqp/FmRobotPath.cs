@@ -1,4 +1,4 @@
-﻿//#define NO_DEVICE
+﻿//#define NO_DEVICE //無裝置可連接時要 define 這個條件
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;
@@ -22,9 +22,9 @@ namespace MaskCleanerVerify
         private MvFanucRobotLdd ldd = new MvFanucRobotLdd();
         /// <summary>裝置</summary>
         private IList<DeviceInfo> DeviceInfos = null;
-        /// <summary>上個訪問的點位</summary>
+        /// <summary>最後訪問的點位</summary>
         private HalRobotMotion TempCurrentPosition { get; set; }
-        /// <summary>準備記錄的點位集合</summary>
+        /// <summary>準備記錄點位的集合</summary>
         private List<PositionInfo> PositionInstances { get; set; }
 
         
@@ -51,7 +51,7 @@ namespace MaskCleanerVerify
 
 
         /// <summary>點位資料的 序號  是否存在</summary>
-        /// <param name="sn"></param>
+        /// <param name="sn">序號</param>
         /// <returns></returns>
         private bool IsSnExist(int sn)
         {
@@ -75,7 +75,7 @@ namespace MaskCleanerVerify
 
 
         /// <summary>找到序號為特定值的點位資料, 刪除它</summary>
-        /// <param name="serNo"></param>
+        /// <param name="serNo">序號</param>
         private void RemovePositionBySerialNum(int serNo)
         {
             if(this.PositionInstances==null || !this.PositionInstances.Any())
@@ -312,19 +312,7 @@ namespace MaskCleanerVerify
             this.DeviceInfos = GetDeviceInfos();
             this.InitialCmbBoxDeviceName(DeviceInfos);
             this.InitialMotionTypeList();
-            return;
-
-            ldd.RobotIp = "192.168.0.51";
-            System.Diagnostics.Debug.Assert(ldd.ConnectIfNo() == 0);
-
-            System.Diagnostics.Debug.Assert(ldd.AlarmReset());
-
-            System.Diagnostics.Debug.Assert(ldd.StopProgram() == 0);
-            System.Diagnostics.Debug.Assert(ldd.ExecutePNS("PNS0101"));
-
-
-
-
+            
 
         }
 
