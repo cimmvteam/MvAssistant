@@ -246,8 +246,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         PC_TO_OS_Speed,//作動速度%
         PC_TO_OS_BTIntrude,//Robot侵入A05
         PC_TO_OS_MTIntrude,
-        OS_TO_PC_BTLicence,//Robot侵入A05許可
-        OS_TO_PC_MTLicence,
+        OS_TO_PC_BTLicense,//Robot侵入A05許可
+        OS_TO_PC_MTLicense,
         OS_TO_PC_ClampStatus,
         OS_TO_PC_SortClamp1_Position,
         OS_TO_PC_SortClamp2_Position,
@@ -287,7 +287,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         PC_TO_IC_XY_Speed,
         PC_TO_IC_W_Speed,
         PC_TO_IC_RobotIntrude,
-        IC_TO_PC_RobotLicence,
+        IC_TO_PC_RobotLicense,
         IC_TO_PC_Positon_X,//XY Stage位置
         IC_TO_PC_Positon_Y,
         IC_TO_PC_Positon_Z,//CCD Z軸位置

@@ -250,7 +250,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.m_PlcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
             Thread.Sleep(100);
-            return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicence);
+            return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense);
         }
 
         //讀取 XY Stage位置

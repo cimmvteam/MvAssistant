@@ -487,8 +487,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
             Thread.Sleep(100);
             return new Tuple<bool, bool>(
-                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicence),
-                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicence)
+                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense),
+                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense)
                 );
         }
 

@@ -95,7 +95,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public void ChangeDirection(HalRobotMotion PosToAssembly)
         {
             bool Licence = false;
-            string PosName = "";
+            string StartPosName = "";
+            string EndPosName = "";
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
             var StasrtPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
@@ -106,22 +107,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     && StasrtPosInfo.p <= PosHome().P + 5 && StasrtPosInfo.p >= PosHome().P - 5
                     && StasrtPosInfo.r <= PosHome().R + 5 && StasrtPosInfo.r >= PosHome().R - 5)
                 {
-                    Licence = true; PosName = "Home";
+                    Licence = true; StartPosName = "Home";
                 }
-                else if (StasrtPosInfo.x <= PosToInspCh().X + 5 && StasrtPosInfo.x >= PosToInspCh().X - 5
-                    && StasrtPosInfo.y <= PosToInspCh().Y + 5 && StasrtPosInfo.y >= PosToInspCh().Y - 5
-                    && StasrtPosInfo.z <= PosToInspCh().Z + 5 && StasrtPosInfo.z >= PosToInspCh().Z - 5
-                    && StasrtPosInfo.w <= PosToInspCh().W + 5 && StasrtPosInfo.w >= PosToInspCh().W - 5
-                    && StasrtPosInfo.p <= PosToInspCh().P + 5 && StasrtPosInfo.p >= PosToInspCh().P - 5
-                    && StasrtPosInfo.r <= PosToInspCh().R + 5 && StasrtPosInfo.r >= PosToInspCh().R - 5)
-                //else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
-                //    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
-                //    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
-                //    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
-                //    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
-                //    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
+                //else if (StasrtPosInfo.x <= PosToInspCh().X + 5 && StasrtPosInfo.x >= PosToInspCh().X - 5
+                //    && StasrtPosInfo.y <= PosToInspCh().Y + 5 && StasrtPosInfo.y >= PosToInspCh().Y - 5
+                //    && StasrtPosInfo.z <= PosToInspCh().Z + 5 && StasrtPosInfo.z >= PosToInspCh().Z - 5
+                //    && StasrtPosInfo.w <= PosToInspCh().W + 5 && StasrtPosInfo.w >= PosToInspCh().W - 5
+                //    && StasrtPosInfo.p <= PosToInspCh().P + 5 && StasrtPosInfo.p >= PosToInspCh().P - 5
+                //    && StasrtPosInfo.r <= PosToInspCh().R + 5 && StasrtPosInfo.r >= PosToInspCh().R - 5)
+                else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
+                    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
+                    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
+                    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
+                    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
+                    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
                 {
-                    Licence = true; PosName = "Inspection Chamber";
+                    Licence = true; StartPosName = "Inspection Chamber";
                 }
                 else if (StasrtPosInfo.x <= PosToCleanCh().X + 5 && StasrtPosInfo.x >= PosToCleanCh().X - 5
                     && StasrtPosInfo.y <= PosToCleanCh().Y + 5 && StasrtPosInfo.y >= PosToCleanCh().Y - 5
@@ -136,23 +137,70 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 //    && StasrtPosInfo.j5 <= PosToCleanCh().J5 + 5 && StasrtPosInfo.j5 >= PosToCleanCh().J5 - 5
                 //    && StasrtPosInfo.j6 <= PosToCleanCh().J6 + 5 && StasrtPosInfo.j6 >= PosToCleanCh().J6 - 5)
                 {
-                    Licence = true; PosName = "Clean Chamber";
+                    Licence = true; StartPosName = "Clean Chamber";
                 }
+            }
+            #endregion
+
+            #region 確認終點
+            if (PosToAssembly.X <= PosHome().X + 5 && PosToAssembly.X >= PosHome().X - 5
+                    && PosToAssembly.Y <= PosHome().Y + 5 && PosToAssembly.Y >= PosHome().Y - 5
+                    && PosToAssembly.Z <= PosHome().Z + 5 && PosToAssembly.Z >= PosHome().Z - 5
+                    && PosToAssembly.W <= PosHome().W + 5 && PosToAssembly.W >= PosHome().W - 5
+                    && PosToAssembly.P <= PosHome().P + 5 && PosToAssembly.P >= PosHome().P - 5
+                    && PosToAssembly.R <= PosHome().R + 5 && PosToAssembly.R >= PosHome().R - 5)
+            {
+                EndPosName = "Home";
+            }
+            //else if (PosToAssembly.X <= PosToInspCh().X + 5 && PosToAssembly.X >= PosToInspCh().X - 5
+            //    && PosToAssembly.Y <= PosToInspCh().Y + 5 && PosToAssembly.Y >= PosToInspCh().Y - 5
+            //    && PosToAssembly.Z <= PosToInspCh().Z + 5 && PosToAssembly.Z >= PosToInspCh().Z - 5
+            //    && PosToAssembly.W <= PosToInspCh().W + 5 && PosToAssembly.W >= PosToInspCh().W - 5
+            //    && PosToAssembly.P <= PosToInspCh().P + 5 && PosToAssembly.P >= PosToInspCh().P - 5
+            //    && PosToAssembly.R <= PosToInspCh().R + 5 && PosToAssembly.R >= PosToInspCh().R - 5)
+            else if (PosToAssembly.J1 <= PosToInspCh().J1 + 5 && PosToAssembly.J1 >= PosToInspCh().J1 - 5
+                && PosToAssembly.J2 <= PosToInspCh().J2 + 5 && PosToAssembly.J2 >= PosToInspCh().J2 - 5
+                && PosToAssembly.J3 <= PosToInspCh().J3 + 5 && PosToAssembly.J3 >= PosToInspCh().J3 - 5
+                && PosToAssembly.J4 <= PosToInspCh().J4 + 5 && PosToAssembly.J4 >= PosToInspCh().J4 - 5
+                && PosToAssembly.J5 <= PosToInspCh().J5 + 5 && PosToAssembly.J5 >= PosToInspCh().J5 - 5
+                && PosToAssembly.J6 <= PosToInspCh().J6 + 5 && PosToAssembly.J6 >= PosToInspCh().J6 - 5)
+            {
+                EndPosName = "Inspection Chamber";
+            }
+            else if (PosToAssembly.X <= PosToCleanCh().X + 5 && PosToAssembly.X >= PosToCleanCh().X - 5
+                && PosToAssembly.Y <= PosToCleanCh().Y + 5 && PosToAssembly.Y >= PosToCleanCh().Y - 5
+                && PosToAssembly.Z <= PosToCleanCh().Z + 5 && PosToAssembly.Z >= PosToCleanCh().Z - 5
+                && PosToAssembly.W <= PosToCleanCh().W + 5 && PosToAssembly.W >= PosToCleanCh().W - 5
+                && PosToAssembly.P <= PosToCleanCh().P + 5 && PosToAssembly.P >= PosToCleanCh().P - 5
+                && PosToAssembly.R <= PosToCleanCh().R + 5 && PosToAssembly.R >= PosToCleanCh().R - 5)
+            //else if (PosToAssembly.J1 <= PosToCleanCh().J1 + 5 && PosToAssembly.J1 >= PosToCleanCh().J1 - 5
+            //    && PosToAssembly.J2 <= PosToCleanCh().J2 + 5 && PosToAssembly.J2 >= PosToCleanCh().J2 - 5
+            //    && PosToAssembly.J3 <= PosToCleanCh().J3 + 5 && PosToAssembly.J3 >= PosToCleanCh().J3 - 5
+            //    && PosToAssembly.J4 <= PosToCleanCh().J4 + 5 && PosToAssembly.J4 >= PosToCleanCh().J4 - 5
+            //    && PosToAssembly.J5 <= PosToCleanCh().J5 + 5 && PosToAssembly.J5 >= PosToCleanCh().J5 - 5
+            //    && PosToAssembly.J6 <= PosToCleanCh().J6 + 5 && PosToAssembly.J6 >= PosToCleanCh().J6 - 5)
+            {
+                EndPosName = "Clean Chamber";
             }
             #endregion
 
             if (Licence == true)
             {
-                //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
-                if (PosName != "Inspection Chamber")
+                if (StartPosName != EndPosName && EndPosName != "")
                 {
-                    this.Robot.HalMoveStraightAsyn(this.PosToInspCh());
-                    this.Robot.HalMoveStraightAsyn(PosToAssembly);
+                    //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
+                    if (StartPosName != "Inspection Chamber" && EndPosName != "Inspection Chamber")
+                    {
+                        this.Robot.HalMoveStraightAsyn(this.PosToInspCh());
+                        this.Robot.HalMoveStraightAsyn(PosToAssembly);
+                    }
+                    else
+                    {
+                        this.Robot.HalMoveStraightAsyn(PosToAssembly);
+                    }
                 }
                 else
-                {
-                    this.Robot.HalMoveStraightAsyn(PosToAssembly);
-                }
+                    throw new Exception("Unknown end position !!");
             }
             else
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
@@ -732,12 +780,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[70]-InspCh前(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)295.586,
-                Y = (float)232.637,
-                Z = (float)224.455,
-                W = (float)54.131,
-                P = (float)-88.593,
-                R = (float)126.138,
+                X = (float)347.440735,
+                Y = (float)83.9533844,
+                Z = (float)229.5585,
+                W = (float)55.07626,
+                P = (float)-88.53644,
+                R = (float)122.957176,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 200
             });
@@ -745,12 +793,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[71]-InspCh前，夾爪旋轉90度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)295.586,
-                Y = (float)232.637,
-                Z = (float)224.456,
-                W = (float)90.295,
-                P = (float)-2.003,
-                R = (float)89.678,
+                X = (float)347.4437,
+                Y = (float)83.93376,
+                Z = (float)229.553055,
+                W = (float)87.9169,
+                P = (float)-7.902644,
+                R = (float)90.8078,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -758,12 +806,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[72]-InspCh前，夾爪旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)295.586,
-                Y = (float)232.637,
-                Z = (float)224.456,
-                W = (float)-57.100,
-                P = (float)89.403,
-                R = (float)-57.382,
+                X = (float)347.4421,
+                Y = (float)60.6153,
+                Z = (float)229.5587,
+                W = (float)-37.94723,
+                P = (float)88.0081,
+                R = (float)-35.9757957,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -771,12 +819,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[73]-InspCh內(伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)693.027,
-                Y = (float)232.637,
-                Z = (float)224.456,
-                W = (float)-57.096,
-                P = (float)89.403,
-                R = (float)-57.379,
+                X = (float)713.397461,
+                Y = (float)60.6267357,
+                Z = (float)229.521408,
+                W = (float)-37.95548,
+                P = (float)88.01182,
+                R = (float)-35.983757,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 200
             });
@@ -784,12 +832,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[74]-Stage上方(盒子上方)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)693.027,
-                Y = (float)232.637,
-                Z = (float)131.201,
-                W = (float)-57.091,
-                P = (float)89.403,
-                R = (float)-57.374,
+                X = (float)713.3917,
+                Y = (float)60.627636,
+                Z = (float)104.926239,
+                W = (float)-37.9381828,
+                P = (float)88.0114441,
+                R = (float)-35.9664726,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
@@ -797,12 +845,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[75]-Stage上方(雲台上夾放Mask位置)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)693.027,
-                Y = (float)232.637,
-                Z = (float)120.929,
-                W = (float)-57.078,
-                P = (float)89.403,
-                R = (float)-57.361,
+                X = (float)713.3919,
+                Y = (float)60.6279678,
+                Z = (float)95.1371841,
+                W = (float)-37.966507,
+                P = (float)88.01119,
+                R = (float)-35.9946861,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -817,12 +865,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[75]-Stage上方(雲台上夾放Mask位置)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)693.027,
-                Y = (float)232.637,
-                Z = (float)120.929,
-                W = (float)-57.078,
-                P = (float)89.403,
-                R = (float)-57.361,
+                X = (float)713.3919,
+                Y = (float)60.6279678,
+                Z = (float)95.1371841,
+                W = (float)-37.966507,
+                P = (float)88.01119,
+                R = (float)-35.9946861,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -830,12 +878,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[74]-Stage上方(盒子上方)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)693.027,
-                Y = (float)232.637,
-                Z = (float)131.201,
-                W = (float)-57.091,
-                P = (float)89.403,
-                R = (float)-57.374,
+                X = (float)713.3917,
+                Y = (float)60.627636,
+                Z = (float)104.926239,
+                W = (float)-37.9381828,
+                P = (float)88.0114441,
+                R = (float)-35.9664726,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -843,12 +891,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[73]-InspCh內(伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)693.027,
-                Y = (float)232.637,
-                Z = (float)224.456,
-                W = (float)-57.096,
-                P = (float)89.403,
-                R = (float)-57.379,
+                X = (float)713.397461,
+                Y = (float)60.6267357,
+                Z = (float)229.521408,
+                W = (float)-37.95548,
+                P = (float)88.01182,
+                R = (float)-35.983757,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 200
             });
@@ -856,12 +904,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[72]-InspCh前(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)295.586,
-                Y = (float)232.637,
-                Z = (float)224.456,
-                W = (float)-57.100,
-                P = (float)89.403,
-                R = (float)-57.382,
+                X = (float)347.4421,
+                Y = (float)60.6153,
+                Z = (float)229.5587,
+                W = (float)-37.94723,
+                P = (float)88.0081,
+                R = (float)-35.9757957,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 200
             });
@@ -869,12 +917,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[71]-InspCh前，夾爪旋轉90度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)295.586,
-                Y = (float)232.637,
-                Z = (float)224.456,
-                W = (float)90.295,
-                P = (float)-2.003,
-                R = (float)89.678,
+                X = (float)347.4437,
+                Y = (float)83.93376,
+                Z = (float)229.553055,
+                W = (float)87.9169,
+                P = (float)-7.902644,
+                R = (float)90.8078,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -882,12 +930,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[70]-InspCh前，夾爪旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)295.586,
-                Y = (float)232.637,
-                Z = (float)224.455,
-                W = (float)54.131,
-                P = (float)-88.593,
-                R = (float)126.138,
+                X = (float)347.440735,
+                Y = (float)83.9533844,
+                Z = (float)229.5585,
+                W = (float)55.07626,
+                P = (float)-88.53644,
+                R = (float)122.957176,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -1313,8 +1361,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
-            
-            
+
+
 
             //PR[39]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[40]點位
             for (float y = 0; y <= (float)150.0; y += (float)50.0)
@@ -1356,7 +1404,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
-            
+
             //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
