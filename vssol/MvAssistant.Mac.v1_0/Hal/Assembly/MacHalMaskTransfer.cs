@@ -167,18 +167,18 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 EndPosName = "Inspection Chamber";
             }
-            else if (PosToAssembly.X <= PosToCleanCh().X + 5 && PosToAssembly.X >= PosToCleanCh().X - 5
-                && PosToAssembly.Y <= PosToCleanCh().Y + 5 && PosToAssembly.Y >= PosToCleanCh().Y - 5
-                && PosToAssembly.Z <= PosToCleanCh().Z + 5 && PosToAssembly.Z >= PosToCleanCh().Z - 5
-                && PosToAssembly.W <= PosToCleanCh().W + 5 && PosToAssembly.W >= PosToCleanCh().W - 5
-                && PosToAssembly.P <= PosToCleanCh().P + 5 && PosToAssembly.P >= PosToCleanCh().P - 5
-                && PosToAssembly.R <= PosToCleanCh().R + 5 && PosToAssembly.R >= PosToCleanCh().R - 5)
-            //else if (PosToAssembly.J1 <= PosToCleanCh().J1 + 5 && PosToAssembly.J1 >= PosToCleanCh().J1 - 5
-            //    && PosToAssembly.J2 <= PosToCleanCh().J2 + 5 && PosToAssembly.J2 >= PosToCleanCh().J2 - 5
-            //    && PosToAssembly.J3 <= PosToCleanCh().J3 + 5 && PosToAssembly.J3 >= PosToCleanCh().J3 - 5
-            //    && PosToAssembly.J4 <= PosToCleanCh().J4 + 5 && PosToAssembly.J4 >= PosToCleanCh().J4 - 5
-            //    && PosToAssembly.J5 <= PosToCleanCh().J5 + 5 && PosToAssembly.J5 >= PosToCleanCh().J5 - 5
-            //    && PosToAssembly.J6 <= PosToCleanCh().J6 + 5 && PosToAssembly.J6 >= PosToCleanCh().J6 - 5)
+            //else if (PosToAssembly.X <= PosToCleanCh().X + 5 && PosToAssembly.X >= PosToCleanCh().X - 5
+            //    && PosToAssembly.Y <= PosToCleanCh().Y + 5 && PosToAssembly.Y >= PosToCleanCh().Y - 5
+            //    && PosToAssembly.Z <= PosToCleanCh().Z + 5 && PosToAssembly.Z >= PosToCleanCh().Z - 5
+            //    && PosToAssembly.W <= PosToCleanCh().W + 5 && PosToAssembly.W >= PosToCleanCh().W - 5
+            //    && PosToAssembly.P <= PosToCleanCh().P + 5 && PosToAssembly.P >= PosToCleanCh().P - 5
+            //    && PosToAssembly.R <= PosToCleanCh().R + 5 && PosToAssembly.R >= PosToCleanCh().R - 5)
+            else if (PosToAssembly.J1 <= PosToCleanCh().J1 + 5 && PosToAssembly.J1 >= PosToCleanCh().J1 - 5
+                && PosToAssembly.J2 <= PosToCleanCh().J2 + 5 && PosToAssembly.J2 >= PosToCleanCh().J2 - 5
+                && PosToAssembly.J3 <= PosToCleanCh().J3 + 5 && PosToAssembly.J3 >= PosToCleanCh().J3 - 5
+                && PosToAssembly.J4 <= PosToCleanCh().J4 + 5 && PosToAssembly.J4 >= PosToCleanCh().J4 - 5
+                && PosToAssembly.J5 <= PosToCleanCh().J5 + 5 && PosToAssembly.J5 >= PosToCleanCh().J5 - 5
+                && PosToAssembly.J6 <= PosToCleanCh().J6 + 5 && PosToAssembly.J6 >= PosToCleanCh().J6 - 5)
             {
                 EndPosName = "Clean Chamber";
             }
@@ -1484,20 +1484,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             var posotion = new HalRobotMotion();
             //PR[21]-要進CleanCh的位置(未伸出手臂)
-            posotion.X = (float)-0.7841019;
-            posotion.Y = (float)-302.845428;
-            posotion.Z = (float)229.595718;
-            posotion.W = (float)45.2669678;
-            posotion.P = (float)-88.8010559;
-            posotion.R = (float)44.2383842;
-            posotion.MotionType = HalRobotEnumMotionType.Position;
-            //posotion.J1 = (float)-90.000;
-            //posotion.J2 = (float)-32.347;
-            //posotion.J3 = (float)-24.667;
-            //posotion.J4 = (float)-1.134;
-            //posotion.J5 = (float)25.515;
-            //posotion.J6 = (float)1.882;
-            //posotion.MotionType = HalRobotEnumMotionType.Joint;
+            //posotion.X = (float)-0.7841019;
+            //posotion.Y = (float)-302.845428;
+            //posotion.Z = (float)229.595718;
+            //posotion.W = (float)45.2669678;
+            //posotion.P = (float)-88.8010559;
+            //posotion.R = (float)44.2383842;
+            //posotion.MotionType = HalRobotEnumMotionType.Position;
+            posotion.J1 = (float)-90.000;
+            posotion.J2 = (float)-32.347;
+            posotion.J3 = (float)-24.667;
+            posotion.J4 = (float)-1.134;
+            posotion.J5 = (float)25.515;
+            posotion.J6 = (float)1.882;
+            posotion.MotionType = HalRobotEnumMotionType.Joint;
             posotion.Speed = 20;
 
             return posotion;

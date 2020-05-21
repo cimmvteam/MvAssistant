@@ -101,20 +101,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
             var corJ = 0;
             var OfsOrPos = 0;
+            float[] PosArray;
             switch (motion.MotionType)
             {
                 case HalRobotEnumMotionType.Offset:
-                    corJ = 0; OfsOrPos = 0; break;
+                    corJ = 0; OfsOrPos = 0; PosArray = motion.ToPoseArray(); break;
                 case HalRobotEnumMotionType.Position:
-                    corJ = 0; OfsOrPos = 1; break;
+                    corJ = 0; OfsOrPos = 1; PosArray = motion.ToPoseArray(); break;
                 case HalRobotEnumMotionType.Joint:
-                    corJ = 1; OfsOrPos = 0; break;
+                    corJ = 1; OfsOrPos = 0; PosArray = motion.ToJointArray(); break;//Joint模式讀取J1~J6座標
                 default:
-                    corJ = 0; OfsOrPos = 0; break;
+                    corJ = 0; OfsOrPos = 0; PosArray = motion.ToPoseArray(); break;
             }
 
 
-            return this.ldd.Pns0101MoveStraightAsync(motion.ToPoseArray(), corJ, OfsOrPos, motion.IsTcpMove, motion.Speed);
+            return this.ldd.Pns0101MoveStraightAsync(PosArray, corJ, OfsOrPos, motion.IsTcpMove, motion.Speed);
         }
 
 

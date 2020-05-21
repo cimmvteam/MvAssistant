@@ -50,7 +50,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
 
         public float[] ToPoseArray() { return this.Pose.Vector.ToArray(); }
-
+        public float[] ToJointArray() { return this.Pose.joint.ToArray(); }
 
 
 
