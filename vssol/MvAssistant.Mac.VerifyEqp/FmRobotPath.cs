@@ -1,4 +1,4 @@
-﻿#define _NO_DEVICE
+﻿//#define NO_DEVICE
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;
