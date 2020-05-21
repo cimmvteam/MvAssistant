@@ -33,8 +33,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     mt.ChangeDirection(mt.PosToInspCh());
                     mt.RobotMove(mt.FrontSideIntoInspCh());
                     mt.RobotMove(mt.FrontSideLeaveInspCh());
-                    //mt.RobotMove(mt.BackSideIntoInspCh());
-                    //mt.RobotMove(mt.BackSideLeaveInspCh());
+                    mt.RobotMove(mt.BackSideIntoInspCh());
+                    mt.RobotMove(mt.BackSideLeaveInspCh());
                     mt.ChangeDirection(mt.PosToCleanCh());
                     mt.RobotMove(mt.BackSideClean());
                     mt.RobotMove(mt.FrontSideClean());
