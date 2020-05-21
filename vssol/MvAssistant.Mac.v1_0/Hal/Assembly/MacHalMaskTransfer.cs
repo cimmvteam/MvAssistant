@@ -108,21 +108,33 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 {
                     Licence = true; PosName = "Home";
                 }
-                else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
-                    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
-                    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
-                    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
-                    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
-                    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
+                else if (StasrtPosInfo.x <= PosToInspCh().X + 5 && StasrtPosInfo.x >= PosToInspCh().X - 5
+                    && StasrtPosInfo.y <= PosToInspCh().Y + 5 && StasrtPosInfo.y >= PosToInspCh().Y - 5
+                    && StasrtPosInfo.z <= PosToInspCh().Z + 5 && StasrtPosInfo.z >= PosToInspCh().Z - 5
+                    && StasrtPosInfo.w <= PosToInspCh().W + 5 && StasrtPosInfo.w >= PosToInspCh().W - 5
+                    && StasrtPosInfo.p <= PosToInspCh().P + 5 && StasrtPosInfo.p >= PosToInspCh().P - 5
+                    && StasrtPosInfo.r <= PosToInspCh().R + 5 && StasrtPosInfo.r >= PosToInspCh().R - 5)
+                //else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
+                //    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
+                //    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
+                //    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
+                //    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
+                //    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
                 {
                     Licence = true; PosName = "Inspection Chamber";
                 }
-                else if (StasrtPosInfo.j1 <= PosToCleanCh().J1 + 5 && StasrtPosInfo.j1 >= PosToCleanCh().J1 - 5
-                    && StasrtPosInfo.j2 <= PosToCleanCh().J2 + 5 && StasrtPosInfo.j2 >= PosToCleanCh().J2 - 5
-                    && StasrtPosInfo.j3 <= PosToCleanCh().J3 + 5 && StasrtPosInfo.j3 >= PosToCleanCh().J3 - 5
-                    && StasrtPosInfo.j4 <= PosToCleanCh().J4 + 5 && StasrtPosInfo.j4 >= PosToCleanCh().J4 - 5
-                    && StasrtPosInfo.j5 <= PosToCleanCh().J5 + 5 && StasrtPosInfo.j5 >= PosToCleanCh().J5 - 5
-                    && StasrtPosInfo.j6 <= PosToCleanCh().J6 + 5 && StasrtPosInfo.j6 >= PosToCleanCh().J6 - 5)
+                else if (StasrtPosInfo.x <= PosToCleanCh().X + 5 && StasrtPosInfo.x >= PosToCleanCh().X - 5
+                    && StasrtPosInfo.y <= PosToCleanCh().Y + 5 && StasrtPosInfo.y >= PosToCleanCh().Y - 5
+                    && StasrtPosInfo.z <= PosToCleanCh().Z + 5 && StasrtPosInfo.z >= PosToCleanCh().Z - 5
+                    && StasrtPosInfo.w <= PosToCleanCh().W + 5 && StasrtPosInfo.w >= PosToCleanCh().W - 5
+                    && StasrtPosInfo.p <= PosToCleanCh().P + 5 && StasrtPosInfo.p >= PosToCleanCh().P - 5
+                    && StasrtPosInfo.r <= PosToCleanCh().R + 5 && StasrtPosInfo.r >= PosToCleanCh().R - 5)
+                //else if (StasrtPosInfo.j1 <= PosToCleanCh().J1 + 5 && StasrtPosInfo.j1 >= PosToCleanCh().J1 - 5
+                //    && StasrtPosInfo.j2 <= PosToCleanCh().J2 + 5 && StasrtPosInfo.j2 >= PosToCleanCh().J2 - 5
+                //    && StasrtPosInfo.j3 <= PosToCleanCh().J3 + 5 && StasrtPosInfo.j3 >= PosToCleanCh().J3 - 5
+                //    && StasrtPosInfo.j4 <= PosToCleanCh().J4 + 5 && StasrtPosInfo.j4 >= PosToCleanCh().J4 - 5
+                //    && StasrtPosInfo.j5 <= PosToCleanCh().J5 + 5 && StasrtPosInfo.j5 >= PosToCleanCh().J5 - 5
+                //    && StasrtPosInfo.j6 <= PosToCleanCh().J6 + 5 && StasrtPosInfo.j6 >= PosToCleanCh().J6 - 5)
                 {
                     Licence = true; PosName = "Clean Chamber";
                 }
@@ -132,9 +144,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             if (Licence == true)
             {
                 //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
-                if (PosName != "Inspection Chamber" && PosToAssembly.ToString() != PosToInspCh().ToString())
+                if (PosName != "Inspection Chamber")
                 {
-                    this.Robot.HalMoveStraightAsyn(PosToInspCh());
+                    this.Robot.HalMoveStraightAsyn(this.PosToInspCh());
                     this.Robot.HalMoveStraightAsyn(PosToAssembly);
                 }
                 else
@@ -542,13 +554,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[60]-要進InspCh的位置
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)0.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)302.84552,
+                Y = (float)-0.784070134,
+                Z = (float)229.5958,
+                W = (float)45.2667427,
+                P = (float)-88.80105,
+                R = (float)134.238617,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)0.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -666,13 +685,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[60]-要進InspCh的位置
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)0.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)302.84552,
+                Y = (float)-0.784070134,
+                Z = (float)229.5958,
+                W = (float)45.2667427,
+                P = (float)-88.80105,
+                R = (float)134.238617,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)0.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -686,13 +712,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[60]-要進InspCh的位置
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)0.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)302.84552,
+                Y = (float)-0.784070134,
+                Z = (float)229.5958,
+                W = (float)45.2667427,
+                P = (float)-88.80105,
+                R = (float)134.238617,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)0.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -862,13 +895,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[60]-要進InspCh的位置
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)0.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)302.84552,
+                Y = (float)-0.784070134,
+                Z = (float)229.5958,
+                W = (float)45.2667427,
+                P = (float)-88.80105,
+                R = (float)134.238617,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)0.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -886,13 +926,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-90.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-90.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
 
             });
@@ -911,8 +958,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             });
 
             //PR[25]-CleanCh內(伸出手臂於Air Gun上方，以Mask左下方為清理起點)
-            for (float y = 0; y < (float)150.0; y += (float)50.0)
-                for (float x = 0; x < (float)150.0; x += (float)150.0)
+            for (float y = 0; y <= (float)150.0; y += (float)50.0)
+                for (float x = 0; x <= (float)150.0; x += (float)150.0)
                     poss.Add(new HalRobotMotion()
                     {
                         X = (float)121.264 + x,
@@ -941,13 +988,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-90.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-90.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -965,13 +1019,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-90.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-90.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
 
             });
@@ -990,8 +1051,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             });
 
             //PR[27]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[29]點位
-            for (float y = 0; y < (float)150.0; y += (float)50.0)
-                for (float x = 0; x < (float)150.0; x += (float)150.0)
+            for (float y = 0; y <= (float)150.0; y += (float)50.0)
+                for (float x = 0; x <= (float)150.0; x += (float)150.0)
                     poss.Add(new HalRobotMotion()
                     {
                         X = (float)-114.608 + x,
@@ -1020,13 +1081,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-90.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-90.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -1044,31 +1112,25 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-90.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
-                Speed = 20
-
-            });
-
-            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)78.704,
-                Y = (float)-676.093,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
                 MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-90.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
+
             });
 
-            //PR[31]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)-0.784,
@@ -1081,7 +1143,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 20
             });
 
-            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
+            //PR[32]-要進CleanCh的位置，旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)-0.783,
@@ -1094,9 +1156,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 100
             });
 
+            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)78.704,
+                Y = (float)-676.093,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
             //PR[35]-CleanCh內(伸出手臂於Air Gun上方，以Mask左下方為清理起點)，新PR[36]點位
-            for (float y = 0; y < (float)150.0; y += (float)50.0)
-                for (float x = 0; x < (float)150.0; x += (float)150.0)
+            for (float y = 0; y <= (float)150.0; y += (float)50.0)
+                for (float x = 0; x <= (float)150.0; x += (float)150.0)
                     poss.Add(new HalRobotMotion()
                     {
                         X = (float)109.512 + x,
@@ -1109,33 +1184,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         Speed = 20
                     });
 
-            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.783,
-                Y = (float)-302.845,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[31]-要進CleanCh的位置(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.784,
-                Y = (float)-302.845,
-                Z = (float)229.596,
-                W = (float)89.486,
-                P = (float)-0.897,
-                R = (float)0.836,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)78.704,
@@ -1148,16 +1197,49 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 20
             });
 
+            //PR[32]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-0.783,
+                Y = (float)-302.845,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-0.784,
+                Y = (float)-302.845,
+                Z = (float)229.596,
+                W = (float)89.486,
+                P = (float)-0.897,
+                R = (float)0.836,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
             //PR[21]-要進CleanCh的位置，旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-90.000,
-                J2 = (float)-32.347,
-                J3 = (float)-24.667,
-                J4 = (float)-1.134,
-                J5 = (float)25.515,
-                J6 = (float)1.882,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-90.000,
+                //J2 = (float)-32.347,
+                //J3 = (float)-24.667,
+                //J4 = (float)-1.134,
+                //J5 = (float)25.515,
+                //J6 = (float)1.882,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -1175,31 +1257,25 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-89.667,
-                J2 = (float)-28.739,
-                J3 = (float)-32.678,
-                J4 = (float)-0.884,
-                J5 = (float)33.525,
-                J6 = (float)1.596,
-                MotionType = HalRobotEnumMotionType.Joint,
-                Speed = 20
-
-            });
-
-            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)78.704,
-                Y = (float)-676.093,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
                 MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-89.667,
+                //J2 = (float)-28.739,
+                //J3 = (float)-32.678,
+                //J4 = (float)-0.884,
+                //J5 = (float)33.525,
+                //J6 = (float)1.596,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
+
             });
 
-            //PR[31]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)-0.784,
@@ -1212,7 +1288,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 20
             });
 
-            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
+            //PR[32]-要進CleanCh的位置，旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)-0.783,
@@ -1225,9 +1301,24 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 100
             });
 
+            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)78.704,
+                Y = (float)-676.093,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+            
+            
+
             //PR[39]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[40]點位
-            for (float y = 0; y < (float)150.0; y += (float)50.0)
-                for (float x = 0; x < (float)150.0; x += (float)150.0)
+            for (float y = 0; y <= (float)150.0; y += (float)50.0)
+                for (float x = 0; x <= (float)150.0; x += (float)150.0)
                     poss.Add(new HalRobotMotion()
                     {
                         X = (float)-138.934 + x,
@@ -1240,33 +1331,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         Speed = 20
                     });
 
-            //PR[32]-CleanCh內(伸出手臂於Air Gun上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.783,
-                Y = (float)-302.845,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[31]-要進CleanCh的位置(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.784,
-                Y = (float)-302.845,
-                Z = (float)229.596,
-                W = (float)89.486,
-                P = (float)-0.897,
-                R = (float)0.836,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[41]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)78.704,
@@ -1279,16 +1344,49 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 Speed = 20
             });
 
+            //PR[32]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-0.783,
+                Y = (float)-302.845,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+            
+            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-0.784,
+                Y = (float)-302.845,
+                Z = (float)229.596,
+                W = (float)89.486,
+                P = (float)-0.897,
+                R = (float)0.836,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
             //PR[21]-要進CleanCh的位置，旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                J1 = (float)-89.667,
-                J2 = (float)-28.739,
-                J3 = (float)-32.678,
-                J4 = (float)-0.884,
-                J5 = (float)33.525,
-                J6 = (float)1.596,
-                MotionType = HalRobotEnumMotionType.Joint,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                //J1 = (float)-89.667,
+                //J2 = (float)-28.739,
+                //J3 = (float)-32.678,
+                //J4 = (float)-0.884,
+                //J5 = (float)33.525,
+                //J6 = (float)1.596,
+                //MotionType = HalRobotEnumMotionType.Joint,
                 Speed = 20
             });
 
@@ -1315,6 +1413,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             var posotion = new HalRobotMotion();
             //PR[60]-要進InspCh的位置
+            //posotion.X = (float)302.84552;
+            //posotion.Y = (float)-0.784070134;
+            //posotion.Z = (float)229.5958;
+            //posotion.W = (float)45.2667427;
+            //posotion.P = (float)-88.80105;
+            //posotion.R = (float)134.238617;
+            //posotion.MotionType = HalRobotEnumMotionType.Position;
             posotion.J1 = (float)0.000;
             posotion.J2 = (float)-32.347;
             posotion.J3 = (float)-24.667;
@@ -1331,13 +1436,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             var posotion = new HalRobotMotion();
             //PR[21]-要進CleanCh的位置(未伸出手臂)
-            posotion.J1 = (float)-90.000;
-            posotion.J2 = (float)-32.347;
-            posotion.J3 = (float)-24.667;
-            posotion.J4 = (float)-1.134;
-            posotion.J5 = (float)25.515;
-            posotion.J6 = (float)1.882;
-            posotion.MotionType = HalRobotEnumMotionType.Joint;
+            posotion.X = (float)-0.7841019;
+            posotion.Y = (float)-302.845428;
+            posotion.Z = (float)229.595718;
+            posotion.W = (float)45.2669678;
+            posotion.P = (float)-88.8010559;
+            posotion.R = (float)44.2383842;
+            posotion.MotionType = HalRobotEnumMotionType.Position;
+            //posotion.J1 = (float)-90.000;
+            //posotion.J2 = (float)-32.347;
+            //posotion.J3 = (float)-24.667;
+            //posotion.J4 = (float)-1.134;
+            //posotion.J5 = (float)25.515;
+            //posotion.J6 = (float)1.882;
+            //posotion.MotionType = HalRobotEnumMotionType.Joint;
             posotion.Speed = 20;
 
             return posotion;
