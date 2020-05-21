@@ -1,4 +1,5 @@
-﻿using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+﻿#define NO_DEVICE
+using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;
 using System.Collections.Generic;
@@ -138,13 +139,13 @@ namespace MaskCleanerVerify
                     return;
                 }
 
-                /** 測試
-             var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
-              var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-          */
+#if NO_DEVICE
+                var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+                var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+#else
                 var currentPos = GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-                
+#endif                
                 currentMotion.Speed = GetSpeed();
                 currentMotion.MotionType = GetMotionType();
                 this.TempCurrentPosition = currentMotion;
@@ -416,13 +417,14 @@ namespace MaskCleanerVerify
                 this.DisplayCurrentDeviceInfoIP();
                 // Display Device File Name
                 this.DisplayCurrentDeviceInfoPath();
-                #region 正式, 測試時註解 
+#if NO_DEVICE
+#else
                 ldd = new MvFanucRobotLdd();
                 this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
                 if (ldd.ConnectIfNo() != 0)
                 { throw new Exception("無法連接裝置"); }
                 ldd.ExecutePNS("PNS0101");
-                #endregion
+#endif
                 if (File.Exists(this.CurrentDeviceInfo.FilePath))
                 {
                     ToLoad();
@@ -456,13 +458,13 @@ namespace MaskCleanerVerify
                 
                 var speed=GetSpeed();
                 var motionType = GetMotionType();
-                /** 測試
-               var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
+#if NO_DEVICE
+                var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
                var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-             */
+#else
                 var currentPos = this.GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
-             
+#endif             
                 currentMotion.Speed = speed;
                 currentMotion.MotionType = motionType;
 
@@ -765,7 +767,7 @@ namespace MaskCleanerVerify
 
         }
 
-        #region 
+#region 
         public class Fake_MvFanucRobotPosReg
         {
             private static Random RandomInst = null;
@@ -836,7 +838,7 @@ namespace MaskCleanerVerify
         }
 
 
-        #endregion
+#endregion
 
     }
 }
