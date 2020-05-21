@@ -1,4 +1,4 @@
-﻿#define NO_DEVICE
+﻿#define _NO_DEVICE
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;
@@ -146,7 +146,7 @@ namespace MaskCleanerVerify
                 var currentPos = GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
 #endif                
-                currentMotion.Speed = GetSpeed();
+                currentMotion.Speed = GetSpeedFromControlle();
                 currentMotion.MotionType = GetMotionType();
                 this.TempCurrentPosition = currentMotion;
                 PositionInfo newPositionInfo = GetNewPositionInfo(sn.Value);
@@ -163,17 +163,10 @@ namespace MaskCleanerVerify
         }
         public int? GetSnFromController()
         {
-            var text = NumUdpSn.Value;
             int sn;
-            var b = int.TryParse(text.ToString(), out sn);
-            if (b)
-            {
-                return sn;
-            }
-            else
-            {
-                return default(int?);
-            }
+            var b = int.TryParse(NumUdpSn.Text, out sn);
+            if (b){return sn;}
+            else { return default(int?); }
         }
 
 
@@ -456,7 +449,7 @@ namespace MaskCleanerVerify
             {
                 // 取得 MvFanucRobotPosReg 物件
                 
-                var speed=GetSpeed();
+                var speed=GetSpeedFromControlle();
                 var motionType = GetMotionType();
 #if NO_DEVICE
                 var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
@@ -488,7 +481,7 @@ namespace MaskCleanerVerify
             return rtnV;
         }
 
-        private int GetSpeed()
+        private int GetSpeedFromControlle()
         {
             int rtnV;
             var b= int.TryParse(NumUdpSpeed.Text, out rtnV);
