@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaskCleanerVerify;
+using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,6 +46,15 @@ namespace BoxTransferTest
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void robotPathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fm = new FmRobotPath();
+            fm.MdiParent = this;
+            
+            fm.Show();
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }

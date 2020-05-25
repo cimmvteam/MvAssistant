@@ -33,6 +33,31 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion Device Components
 
+
+
+
+        public void MoveToDrawer(int number)
+        {
+
+
+
+            this.Robot.HalMoveStraightAsyn(new HalRobotMotion()
+            {
+                 X= 1,
+                 Y=2,
+                 Z=3,
+                 W=4,
+                 P=5,
+                 R=6,
+                 Speed=20,
+            });
+
+        }
+
+
+
+
+
         /// <summary>
         /// 夾取，1：鐵盒、2：水晶盒
         /// </summary>
