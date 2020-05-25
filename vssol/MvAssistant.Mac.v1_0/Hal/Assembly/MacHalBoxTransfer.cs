@@ -6,6 +6,7 @@ using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -32,8 +33,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         #endregion Device Components
-
-
 
 
         public void MoveToDrawer(int number)
@@ -222,4 +221,122 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #endregion
 
     }
+
+    /// <summary>Path Test Position Collection</summary>
+    /// <remarks>King, 2020/05/15 Add</remarks>
+    public class BoxTransferPathPasitions
+    {
+
+        /// <summary>面對 Drawer1 的點位</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public HalRobotMotion FaceDrawer1
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 加入在 Home 面對 Drawer1 的點位
+
+                return position;
+            }
+                
+        }
+
+        /// <summary>面對 Drawer2 的點位</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public HalRobotMotion FaceDrawer2
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 加入在 Home 面對 Drawer2 的點位
+
+                return position;
+            }
+        }
+        public HalRobotMotion FaceOpenStage
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 加入在 Home 面對 OpenStage 的點位
+
+                return position;
+            }
+        }
+
+
+
+        /// <summary>從 Home 到 Drawer1 的點位集合</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromHomeToDrawer1
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入從Home 到 Drawer1 的點位資料
+                return positions; 
+            }
+        }
+
+        /// <summary>從 Drawer1 到 Home 的點位集合  </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromDrawer1ToHome
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入從 Drawer1 到 Home 點位資料
+                return positions;
+            }
+        }
+
+        /// <summary>從 Home 到 Drawer2 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromHomeToDrawer2
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入Home 到 Drawer2 點位資料
+                return positions;
+            }
+        }
+
+        /// <summary>從 Drawer2 到 Home 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromDrawer2ToHome
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入Drawer2 到 Home 點位資料
+                return positions;
+            }
+        }
+        /// <summary>從 Home 到 OpenStage 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromHomeToOpenStage
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入 Home 到 OpenStage點位資料
+                return positions;
+            }
+        }
+
+        /// <summary>從 OpenStage 到 Home 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromOpenStageToHome
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入 OpenStage 到 Home點位資料
+                return positions;
+            }
+        }
+    }
+
+    
 }
