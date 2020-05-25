@@ -94,6 +94,8 @@
     <Compile Include="DeviceDrive\WacohForce\WacohForceMessageEventArgs.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceMessageReceiver.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceVector.cs" />
+    <Compile Include="IMvContextFlow.cs" />
+    <Compile Include="IMvContextFlowRun.cs" />
     <Compile Include="Logging\IMvLoggable.cs" />
     <Compile Include="Logging\MvLogger.cs" />
     <Compile Include="Logging\MvLoggerDisplayEnum.cs" />

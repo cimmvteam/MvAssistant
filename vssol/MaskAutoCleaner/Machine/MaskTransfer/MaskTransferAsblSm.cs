@@ -12,7 +12,7 @@ namespace MaskAutoCleaner.Machine.MaskTransfer
     /// <summary>
     /// MaskTransfer state machine
     /// </summary>
-    public class MaskTransferAsblSm
+    public class MaskTransferAsblSm : MachineAsblSmBase
     {
 
         public void LoadCurrentState()

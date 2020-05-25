@@ -51,6 +51,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -71,7 +77,8 @@
     <Compile Include="Inspect\EnumDefectStatus.cs" />
     <Compile Include="Inspect\EnumDefectType.cs" />
     <Compile Include="EnumMaskSide.cs" />
-    <Compile Include="Machine\MachineAssemblyBase.cs" />
+    <Compile Include="Machine\MachineAsblBase.cs" />
+    <Compile Include="Machine\MachineAsblSmBase.cs" />
     <Compile Include="Machine\MachineBase.cs" />
     <Compile Include="Machine\MaskTransfer\EnumMaskTransferCmdSet.cs" />
     <Compile Include="Machine\MaskTransfer\EnumMaskTransferState.cs" />

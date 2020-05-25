@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.Machine
 {
-    public abstract class MachineAssemblyBase : MachineBase
+    public abstract class MachineAsblBase : MachineBase
     {
         protected IMacHalAssembly halAssembly;
+        protected MachineAsblSmBase smAssembly;
 
 
 
