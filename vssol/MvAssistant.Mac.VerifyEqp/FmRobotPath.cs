@@ -257,7 +257,7 @@ namespace MaskCleanerVerify
         /// <returns>int, 載入的筆數</returns>
         private int ToLoad()
         {
-            /*
+            /**
             StreamReader sr = new StreamReader(this.CurrentDeviceInfo.FilePath, Encoding.Default);
             var json=sr.ReadToEnd();
             sr.Close();
@@ -603,7 +603,7 @@ namespace MaskCleanerVerify
             return rtnV;
         }
 
-        /*
+        /**
         public class PositionInfo
         {
 
