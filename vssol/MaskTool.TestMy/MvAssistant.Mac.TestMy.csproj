@@ -53,10 +53,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Device\UtDeviceCamera.cs" />
     <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
