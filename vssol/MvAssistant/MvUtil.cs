@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
@@ -285,7 +286,7 @@ namespace MvAssistant
         {
             var bgworker = new BackgroundWorker();
             bgworker.WorkerSupportsCancellation = true;
-            bgworker.DoWork += delegate(object sender, DoWorkEventArgs e)
+            bgworker.DoWork += delegate (object sender, DoWorkEventArgs e)
             {
                 work();
             };
@@ -347,5 +348,29 @@ namespace MvAssistant
                 return ex;
             }
         }
+
+
+        public static byte[] SerializeBinary(object obj)
+        {
+            var bf = new BinaryFormatter();
+            using (var ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                ms.Flush();
+                return ms.ToArray();
+            }
+        }
+
+        public static T DeserializeBinary<T>(byte[] dataArray)
+        {
+            var bf = new BinaryFormatter();
+            using (var ms = new MemoryStream(dataArray))
+            {
+                var obj = bf.Deserialize(ms);
+                return (T)obj;
+            }
+        }
+
+
     }
 }

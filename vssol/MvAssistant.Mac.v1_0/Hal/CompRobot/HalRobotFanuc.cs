@@ -105,13 +105,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             switch (motion.MotionType)
             {
                 case HalRobotEnumMotionType.Offset:
-                    corJ = 0; OfsOrPos = 0; PosArray = motion.ToPoseArray(); break;
+                    corJ = 0; OfsOrPos = 0; PosArray = motion.ToXyzwprArray(); break;
                 case HalRobotEnumMotionType.Position:
-                    corJ = 0; OfsOrPos = 1; PosArray = motion.ToPoseArray(); break;
+                    corJ = 0; OfsOrPos = 1; PosArray = motion.ToXyzwprArray(); break;
                 case HalRobotEnumMotionType.Joint:
                     corJ = 1; OfsOrPos = 0; PosArray = motion.ToJointArray(); break;//Joint模式讀取J1~J6座標
                 default:
-                    corJ = 0; OfsOrPos = 0; PosArray = motion.ToPoseArray(); break;
+                    corJ = 0; OfsOrPos = 0; PosArray = motion.ToXyzwprArray(); break;
             }
 
 
