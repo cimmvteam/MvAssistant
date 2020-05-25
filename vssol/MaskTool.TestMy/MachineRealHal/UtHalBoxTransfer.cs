@@ -10,19 +10,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalBoxTransfer
     {
+        /// <summary>路徑測試</summary>
+        /// <remarks>King, 2020/05/25</remarks>
         [TestMethod]
         public void TestPathMove()
         {
-            // BackHome
-            // ChangeDirectionFaceDrawer1
-            // HomeToDrawer1 #1~#20
-            // Drawer1 To Home
-            // ChangeDirectionFaceDrawer2 
-            // HomeToDrawer2 #1~#15
-            // Drawer2ToHome 
-            // ChangeDirectionFaceOpenStage
-            // HomeToOpenStage
-            // OpenStageToHome
+            int drawerIndex = default(int);
+            int boxIndex = default(int);
             try
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
@@ -36,22 +30,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
+                    mt.BackHomeFromAnyWhere();
 
-                    /*
-                    mt.RobotMove(mt.HomeToOpenStage());
-                    mt.RobotMove(mt.OpenStageToHome());
-                    mt.ChangeDirection(mt.PosToInspCh());
-                    mt.RobotMove(mt.FrontSideIntoInspCh());
-                    mt.RobotMove(mt.FrontSideLeaveInspCh());
-                    mt.RobotMove(mt.BackSideIntoInspCh());
-                    mt.RobotMove(mt.BackSideLeaveInspCh());
-                    mt.ChangeDirection(mt.PosToCleanCh());
-                    mt.RobotMove(mt.BackSideClean());
-                    mt.RobotMove(mt.FrontSideClean());
-                    mt.RobotMove(mt.FrontSideCCDTakeImage());
-                    mt.RobotMove(mt.BackSideCCDTakeImage());
-                    mt.ChangeDirection(mt.PosHome());
-                    */
+                  
+                    mt.ChangeDirectionToFaceDrawer(drawerIndex);// 執行前先調整 drawerIndex 變數
+                    mt.ForwardToDrawer(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
+                  
+
                 }
             }
             catch (Exception ex) { throw ex; }

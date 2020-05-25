@@ -34,6 +34,60 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion Device Components
 
+        #region Path test, 2020/05/25
+
+        /// <summary>回到 Home</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void BackHomeFromAnyWhere()
+        {// TODO: 待實作 [BackHomeFromAnyWhere]
+            //var position=new BoxTransferPathPasitions().
+        }
+
+        /// <summary>轉向面對 Drawer </summary>
+        /// <param name="drawerIndex">Drawer index</param>
+        public void ChangeDirectionToFaceDrawer(int drawerIndex)
+        { // TODO: 待實作 [ChangeDirectionToFaceDrawer]
+
+        }
+
+        /// <summary>從Home 移動到 Drawer</summary>
+        /// <param name="drawerIndex">Drawer index</param>
+        /// <param name="boxIndex">Box index</param>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ForwardToDrawer(int drawerIndex,int boxIndex)
+        {// TODO: 待實作 [ForwardToDrawer]
+
+        }
+
+        /// <summary>從 Drawer Back Home</summary>
+        /// <param name="drawerIndex">Drawer Index</param>
+        /// <param name="boxIndex">Box index</param>
+        ///<remarks>King, 2020/05/25 Add</remarks>
+        public void BackwardFromDrawer(int drawerIndex,int boxIndex)
+        { // TODO: 待實作 [BackwardFromDrawer]
+
+        }
+
+        /// <summary>轉動方向,面對 Open Stage</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ChangeDirectionToFaceOpenStage()
+        { // TODO: 待實作[ChangeDirectionToFaceOpenStage]
+
+        }
+
+        /// <summary>移至 OpenStage</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ForwardToOpenStage()
+        { // TODO: 待實作[ForwardToOpenStage]
+
+        }
+        /// <summary>從Open Stage Back Home</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void BackwardFromOpenStage()
+        {  // TODO: 待實作 [BackwardFromOpenStage]
+
+        }
+        #endregion
 
         public void MoveToDrawer(int number)
         {
@@ -227,6 +281,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     public class BoxTransferPathPasitions
     {
 
+        public HalRobotMotion Home
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 設定 Home 點位
+                return position;
+            }
+        }
+        
         /// <summary>面對 Drawer1 的點位</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public HalRobotMotion FaceDrawer1
