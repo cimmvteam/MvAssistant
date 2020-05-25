@@ -31,11 +31,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
                     mt.BackHomeFromAnyWhere();
-
-                  
                     mt.ChangeDirectionToFaceDrawer(drawerIndex);// 執行前先調整 drawerIndex 變數
                     mt.ForwardToDrawer(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
-                  
+                    mt.BackwardFromDrawer(drawerIndex, boxIndex);// 執行前先調整 drawerIndex 及 boxIndex變數
+                    mt.ChangeDirectionToFaceOpenStage();
+                    mt.ForwardToOpenStage();
+                    mt.BackwardFromOpenStage();
+
 
                 }
             }
