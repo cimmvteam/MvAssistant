@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.Fan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_14", "MvAssistant.DeviceDrive.FanucRobot_v42_14\MvAssistant.DeviceDrive.FanucRobot_v42_14.csproj", "{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleaner", "MaskCleaner\MaskCleaner.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskCleanerTool", "MaskCleanTool\MaskCleanerTool.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

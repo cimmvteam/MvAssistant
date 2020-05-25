@@ -57,16 +57,12 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device\UtBoxRobot.cs" />
     <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
-    <Compile Include="MachineRealDevice\UtLight.cs" />
-    <Compile Include="MachineRealDevice\UtCamera.cs" />
-    <Compile Include="MachineRealHal\UtHalUniversal.cs" />
     <Compile Include="MachineRealHal\UtHalBoxTransfer.cs" />
     <Compile Include="MachineRealHal\UtHalLoadPort.cs" />
     <Compile Include="MachineRealHal\UtHalCleanCh.cs" />
@@ -75,6 +71,7 @@
     <Compile Include="MachineRealHal\UtHalInspectionCh.cs" />
     <Compile Include="MachineRealHal\UtHalMaskTransfer.cs" />
     <Compile Include="MachineRealHal\UtHalContext.cs" />
+    <Compile Include="MachineRealHal\UtHalUniversal.cs" />
     <Compile Include="MachineRealPlc\PlcTestParamSingleton.cs" />
     <Compile Include="MachineRealPlc\UtPlcOpenStage.cs" />
     <Compile Include="MachineRealPlc\UtPlcMaskRobot.cs" />

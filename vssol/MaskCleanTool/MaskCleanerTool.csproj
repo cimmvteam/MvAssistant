@@ -7,8 +7,8 @@
     <ProjectGuid>{6170A960-30F6-48CF-B50A-7533D0D749B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MaskCleaner</RootNamespace>
-    <AssemblyName>MaskCleaner</AssemblyName>
+    <RootNamespace>MaskCleanTool</RootNamespace>
+    <AssemblyName>MaskCleanTool</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
