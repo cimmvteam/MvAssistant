@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MvAssistant.Tasking;
 using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 
-namespace BoxTransferTest.ViewUc
+namespace MvAssistantMacVerifyEqp.ViewUc
 {
     public partial class UcBoxRobot : UserControl
     {

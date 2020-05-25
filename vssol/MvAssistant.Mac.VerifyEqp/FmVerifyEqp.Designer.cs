@@ -1,4 +1,4 @@
-﻿namespace MvAssistant.Mac.VerifyEqp
+﻿namespace MvAssistantMacVerifyEqp
 {
     partial class FmVerifyEqp
     {

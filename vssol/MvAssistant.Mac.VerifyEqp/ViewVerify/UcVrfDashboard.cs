@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BoxTransferTest.ViewVerify
+namespace MvAssistantMacVerifyEqp.ViewVerify
 {
     public partial class UcDashboard : UserControl
     {

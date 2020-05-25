@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MaskTool.TestMy.MachineRealPlc;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 
-namespace BoxTransferTest.ViewUc
+namespace MvAssistantMacVerifyEqp.ViewUc
 {
     public partial class UcOpenStage : UserControl
     {

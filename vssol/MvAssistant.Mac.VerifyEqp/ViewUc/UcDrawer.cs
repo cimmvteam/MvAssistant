@@ -11,7 +11,7 @@ using MvAssistant.Mac.Drawer_SocketComm;
 using MvAssistant.Tasking;
 using System.Threading;
 
-namespace BoxTransferTest.ViewUc
+namespace MvAssistantMacVerifyEqp.ViewUc
 {
     public partial class UcDrawer : UserControl
     {

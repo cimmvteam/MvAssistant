@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MvAssistant.Mac.VerifyEqp
+namespace MvAssistantMacVerifyEqp
 {
     public partial class FmVerifyEqp : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace BoxTransferTest.ViewUc
+﻿namespace MvAssistantMacVerifyEqp.ViewUc
 {
     partial class UcBoxRobot
     {

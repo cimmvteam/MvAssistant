@@ -1,6 +1,6 @@
-﻿namespace BoxTransferTest
+﻿namespace MvAssistantMacVerifyEqp
 {
-    partial class Form1
+    partial class FmBoxRobot
     {
         /// <summary>
         /// 設計工具所需的變數。

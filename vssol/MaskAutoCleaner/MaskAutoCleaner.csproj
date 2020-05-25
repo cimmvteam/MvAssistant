@@ -7,8 +7,8 @@
     <ProjectGuid>{6170A960-30F6-48CF-B50A-7533D0D749B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MaskCleanTool</RootNamespace>
-    <AssemblyName>MaskCleanTool</AssemblyName>
+    <RootNamespace>MaskAutoCleaner</RootNamespace>
+    <AssemblyName>MaskAutoCleaner</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -65,6 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\MachineMgr.cs" />
+    <Compile Include="Inspect\DefectItem.cs" />
+    <Compile Include="Inspect\DefectList.cs" />
+    <Compile Include="Inspect\EnumDefectStatus.cs" />
+    <Compile Include="Inspect\EnumDefectType.cs" />
+    <Compile Include="EnumMaskSide.cs" />
+    <Compile Include="Machine\MachineBase.cs" />
     <Compile Include="StateMachine_v1_0\DeferralTransition.cs" />
     <Compile Include="StateMachine_v1_0\DeviceStateMachine.cs" />
     <Compile Include="StateMachine_v1_0\ExceptionState.cs" />
@@ -91,6 +98,9 @@
     <Compile Include="StateMachine_v1_0\SmExp\StatemMachineException.cs" />
     <Compile Include="StateMachine_v1_0\Transition.cs" />
     <Compile Include="StateMachine_v1_0\TransitionEvaluation.cs" />
+    <Compile Include="StateMachine_v1_1\State.cs" />
+    <Compile Include="StateMachine_v1_1\StateMachine.cs" />
+    <Compile Include="StateMachine_v1_1\Transition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -103,7 +113,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="StateMachine_v1_1\" />
+    <Folder Include="Machine\BoxTransfer\" />
+    <Folder Include="Machine\Cabinet\" />
+    <Folder Include="Machine\CleanCh\" />
+    <Folder Include="Machine\InspectionCh\" />
+    <Folder Include="Machine\LoadPort\" />
+    <Folder Include="Machine\MaskTransfer\" />
+    <Folder Include="Machine\OpenStage\" />
+    <Folder Include="Machine\Universal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
