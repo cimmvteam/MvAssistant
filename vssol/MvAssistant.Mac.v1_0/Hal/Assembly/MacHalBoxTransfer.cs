@@ -6,7 +6,9 @@ using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -33,8 +35,104 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion Device Components
 
+        #region Path test, 2020/05/25
+
+        /// <summary>回到 Home</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void BackHomeFromAnyWhere()
+        {
+            var position = new BoxTransferPathPasitions().Home;
+            this.MoveAsync(position);
+        }
+
+        /// <summary>轉向面對 Drawer </summary>
+        /// <param name="drawerIndex">Drawer index</param>
+        public void ChangeDirectionToFaceDrawer(int drawerIndex)
+        { 
+            var position = default(HalRobotMotion);
+            if (drawerIndex == 1)
+            {
+                position = new BoxTransferPathPasitions().FaceDrawer1;
+            }
+            else if(drawerIndex==2)
+            {
+                position = new BoxTransferPathPasitions().FaceDrawer2;
+            }
+            ChangeDirection(position);
+        }
+
+        private void ChangeDirection(HalRobotMotion position)
+        { // TODO: 待實作
+           
+        }
 
 
+        /// <summary>從Home 移動到 Drawer</summary>
+        /// <param name="drawerIndex">Drawer index</param>
+        /// <param name="boxIndex">Box index</param>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ForwardToDrawer(int drawerIndex,int boxIndex)
+        {// TODO: 待實作 [ForwardToDrawer]
+
+        }
+
+        /// <summary>從 Drawer Back Home</summary>
+        /// <param name="drawerIndex">Drawer Index</param>
+        /// <param name="boxIndex">Box index</param>
+        ///<remarks>King, 2020/05/25 Add</remarks>
+        public void BackwardFromDrawer(int drawerIndex,int boxIndex)
+        { // TODO: 待實作 [BackwardFromDrawer]
+
+        }
+
+        /// <summary>轉動方向,面對 Open Stage</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ChangeDirectionToFaceOpenStage()
+        { 
+            var position = new BoxTransferPathPasitions().FaceOpenStage;
+            ChangeDirection(position);
+        }
+
+        /// <summary>移至 OpenStage</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ForwardToOpenStage()
+        { 
+            var positions = new BoxTransferPathPasitions().FromHomeToOpenStage;
+            this.MoveAsync(positions);
+            
+        }
+
+
+        /// <summary>從Open Stage Back Home</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void BackwardFromOpenStage()
+        {
+            var positions = new BoxTransferPathPasitions().FromOpenStageToHome;
+            this.MoveAsync(positions);
+        }
+
+        /// <summary>非同步移動到某個位置</summary>
+        /// <param name="targetPosition">目標位置</param>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        private void MoveAsync(HalRobotMotion targetPosition)
+        {
+           this.Robot.HalMoveStraightAsyn(targetPosition);
+            while (!this.Robot.HalMoveIsComplete())
+            { Thread.Sleep(100); }
+            this.Robot.HalMoveEnd();
+        }
+
+        /// <summary>非同步沿某一組點位資料移動</summary>
+        /// <param name="targetPositions">點位資料集合</param>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        private void MoveAsync(List<HalRobotMotion> targetPositions)
+        {
+          foreach(var position in targetPositions)
+          {
+                this.MoveAsync(position);
+          }
+        }
+        #endregion
 
         public void MoveToDrawer(int number)
         {
@@ -222,4 +320,132 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #endregion
 
     }
+
+    /// <summary>Path Test Position Collection</summary>
+    /// <remarks>King, 2020/05/15 Add</remarks>
+    public class BoxTransferPathPasitions
+    {
+
+        public HalRobotMotion Home
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 設定 Home 點位
+                return position;
+            }
+        }
+        
+        /// <summary>面對 Drawer1 的點位</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public HalRobotMotion FaceDrawer1
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 加入在 Home 面對 Drawer1 的點位
+
+                return position;
+            }
+                
+        }
+
+        /// <summary>面對 Drawer2 的點位</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public HalRobotMotion FaceDrawer2
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 加入在 Home 面對 Drawer2 的點位
+
+                return position;
+            }
+        }
+        public HalRobotMotion FaceOpenStage
+        {
+            get
+            {
+                var position = new HalRobotMotion();
+                // TODO: 加入在 Home 面對 OpenStage 的點位
+
+                return position;
+            }
+        }
+
+
+
+        /// <summary>從 Home 到 Drawer1 的點位集合</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromHomeToDrawer1
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入從Home 到 Drawer1 的點位資料
+                return positions; 
+            }
+        }
+
+        /// <summary>從 Drawer1 到 Home 的點位集合  </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromDrawer1ToHome
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入從 Drawer1 到 Home 點位資料
+                return positions;
+            }
+        }
+
+        /// <summary>從 Home 到 Drawer2 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromHomeToDrawer2
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入Home 到 Drawer2 點位資料
+                return positions;
+            }
+        }
+
+        /// <summary>從 Drawer2 到 Home 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromDrawer2ToHome
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入Drawer2 到 Home 點位資料
+                return positions;
+            }
+        }
+        /// <summary>從 Home 到 OpenStage 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromHomeToOpenStage
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入 Home 到 OpenStage點位資料
+                return positions;
+            }
+        }
+
+        /// <summary>從 OpenStage 到 Home 點位的集合 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public List<HalRobotMotion> FromOpenStageToHome
+        {
+            get
+            {
+                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                // TODO: 加入 OpenStage 到 Home點位資料
+                return positions;
+            }
+        }
+    }
+
+    
 }

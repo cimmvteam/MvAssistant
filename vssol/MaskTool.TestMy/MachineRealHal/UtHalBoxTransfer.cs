@@ -6,9 +6,46 @@ using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
+
     [TestClass]
     public class UtHalBoxTransfer
     {
+        /// <summary>路徑測試</summary>
+        /// <remarks>King, 2020/05/25</remarks>
+        [TestMethod]
+        public void TestPathMove()
+        {
+            int drawerIndex = default(int);
+            int boxIndex = default(int);
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.Load();
+
+
+                    var mt = halContext.HalDevices[MacEnumDevice.boxtransfer_plc.ToString()] as MacHalBoxTransfer;
+
+                    if (mt.HalConnect() != 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Connect Fail");
+                    }
+                    mt.BackHomeFromAnyWhere();
+                    mt.ChangeDirectionToFaceDrawer(drawerIndex);// 執行前先調整 drawerIndex 變數
+                    mt.ForwardToDrawer(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
+                    mt.BackwardFromDrawer(drawerIndex, boxIndex);// 執行前先調整 drawerIndex 及 boxIndex變數
+                    mt.ChangeDirectionToFaceOpenStage();
+                    mt.ForwardToOpenStage();
+                    mt.BackwardFromOpenStage();
+
+
+                }
+            }
+            catch (Exception ex) { throw ex; }
+
+        }
+    
+
         [TestMethod]
         public void TestSetParameter()
         {
