@@ -8,6 +8,7 @@ using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -39,16 +40,32 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <summary>回到 Home</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackHomeFromAnyWhere()
-        {// TODO: 待實作 [BackHomeFromAnyWhere]
-            //var position=new BoxTransferPathPasitions().
+        {
+            var position = new BoxTransferPathPasitions().Home;
+            this.MoveAsync(position);
         }
 
         /// <summary>轉向面對 Drawer </summary>
         /// <param name="drawerIndex">Drawer index</param>
         public void ChangeDirectionToFaceDrawer(int drawerIndex)
-        { // TODO: 待實作 [ChangeDirectionToFaceDrawer]
-
+        { 
+            var position = default(HalRobotMotion);
+            if (drawerIndex == 1)
+            {
+                position = new BoxTransferPathPasitions().FaceDrawer1;
+            }
+            else if(drawerIndex==2)
+            {
+                position = new BoxTransferPathPasitions().FaceDrawer2;
+            }
+            ChangeDirection(position);
         }
+
+        private void ChangeDirection(HalRobotMotion position)
+        { // TODO: 待實作
+           
+        }
+
 
         /// <summary>從Home 移動到 Drawer</summary>
         /// <param name="drawerIndex">Drawer index</param>
@@ -71,21 +88,49 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <summary>轉動方向,面對 Open Stage</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void ChangeDirectionToFaceOpenStage()
-        { // TODO: 待實作[ChangeDirectionToFaceOpenStage]
-
+        { 
+            var position = new BoxTransferPathPasitions().FaceOpenStage;
+            ChangeDirection(position);
         }
 
         /// <summary>移至 OpenStage</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void ForwardToOpenStage()
-        { // TODO: 待實作[ForwardToOpenStage]
-
+        { 
+            var positions = new BoxTransferPathPasitions().FromHomeToOpenStage;
+            this.MoveAsync(positions);
+            
         }
+
+
         /// <summary>從Open Stage Back Home</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackwardFromOpenStage()
-        {  // TODO: 待實作 [BackwardFromOpenStage]
+        {
+            var positions = new BoxTransferPathPasitions().FromOpenStageToHome;
+            this.MoveAsync(positions);
+        }
 
+        /// <summary>非同步移動到某個位置</summary>
+        /// <param name="targetPosition">目標位置</param>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        private void MoveAsync(HalRobotMotion targetPosition)
+        {
+           this.Robot.HalMoveStraightAsyn(targetPosition);
+            while (!this.Robot.HalMoveIsComplete())
+            { Thread.Sleep(100); }
+            this.Robot.HalMoveEnd();
+        }
+
+        /// <summary>非同步沿某一組點位資料移動</summary>
+        /// <param name="targetPositions">點位資料集合</param>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        private void MoveAsync(List<HalRobotMotion> targetPositions)
+        {
+          foreach(var position in targetPositions)
+          {
+                this.MoveAsync(position);
+          }
         }
         #endregion
 
