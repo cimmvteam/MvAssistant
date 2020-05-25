@@ -6,9 +6,17 @@ using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
+
     [TestClass]
     public class UtHalBoxTransfer
     {
+        [TestMethod]
+        public void TestPathMove()
+        {
+            // Home to Drawer1
+            // Drawer1 To Home
+        }
+
         [TestMethod]
         public void TestSetParameter()
         {
