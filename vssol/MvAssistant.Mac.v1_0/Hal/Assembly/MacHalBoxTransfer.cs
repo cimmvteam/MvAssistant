@@ -61,9 +61,103 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             ChangeDirection(position);
         }
 
-        private void ChangeDirection(HalRobotMotion position)
-        { // TODO: 待實作
-           
+        private void ChangeDirection(HalRobotMotion basePosition)
+        { // TODO: 待討論
+            var positionInst = new BoxTransferPathPasitions();
+            HalRobotMotion faceOpenStage = positionInst.FaceOpenStage;
+            HalRobotMotion faceDrawer1 = positionInst.FaceDrawer1;
+            HalRobotMotion faceDrawer2 = positionInst.FaceDrawer2;
+            bool Licence = false;
+            string StartPosName = "";
+            string EndPosName = "";
+            #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
+            var StasrtPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
+            if (
+                    StasrtPosInfo.j1 <= faceOpenStage.J1 + 5 && StasrtPosInfo.j1 >= faceOpenStage.J1 - 5
+                    && StasrtPosInfo.j2 <= faceOpenStage.J2 + 5 && StasrtPosInfo.j2 >= faceOpenStage.J2 - 5
+                    && StasrtPosInfo.j3 <= faceOpenStage.J3 + 5 && StasrtPosInfo.j3 >= faceOpenStage.J3 - 5
+                    && StasrtPosInfo.j4 <= faceOpenStage.J4 + 5 && StasrtPosInfo.j4 >= faceOpenStage.J4 - 5
+                    && StasrtPosInfo.j5 <= faceOpenStage.J5 + 5 && StasrtPosInfo.j5 >= faceOpenStage.J5 - 5
+                    && StasrtPosInfo.j6 <= faceOpenStage.J6 + 5 && StasrtPosInfo.j6 >= faceOpenStage.J6 - 5
+                )
+            {
+                Licence = true; StartPosName = "Open Stage";
+            }
+            else if (
+                    StasrtPosInfo.j1 <= faceDrawer1.J1 + 5 && StasrtPosInfo.j1 >= faceDrawer1.J1 - 5
+                    && StasrtPosInfo.j2 <= faceDrawer1.J2 + 5 && StasrtPosInfo.j2 >= faceDrawer1.J2 - 5
+                    && StasrtPosInfo.j3 <= faceDrawer1.J3 + 5 && StasrtPosInfo.j3 >= faceDrawer1.J3 - 5
+                    && StasrtPosInfo.j4 <= faceDrawer1.J4 + 5 && StasrtPosInfo.j4 >= faceDrawer1.J4 - 5
+                    && StasrtPosInfo.j5 <= faceDrawer1.J5 + 5 && StasrtPosInfo.j5 >= faceDrawer1.J5 - 5
+                    && StasrtPosInfo.j6 <= faceDrawer1.J6 + 5 && StasrtPosInfo.j6 >= faceDrawer1.J6 - 5
+                )
+            {
+                Licence = true; StartPosName = "Drawer1";
+            }
+            else if (
+                 StasrtPosInfo.j1 <= faceDrawer2.J1 + 5 && StasrtPosInfo.j1 >= faceDrawer2.J1 - 5
+                    && StasrtPosInfo.j2 <= faceDrawer2.J2 + 5 && StasrtPosInfo.j2 >= faceDrawer2.J2 - 5
+                    && StasrtPosInfo.j3 <= faceDrawer2.J3 + 5 && StasrtPosInfo.j3 >= faceDrawer2.J3 - 5
+                    && StasrtPosInfo.j4 <= faceDrawer2.J4 + 5 && StasrtPosInfo.j4 >= faceDrawer2.J4 - 5
+                    && StasrtPosInfo.j5 <= faceDrawer2.J5 + 5 && StasrtPosInfo.j5 >= faceDrawer2.J5 - 5
+                    && StasrtPosInfo.j6 <= faceDrawer2.J6 + 5 && StasrtPosInfo.j6 >= faceDrawer2.J6 - 5
+                )
+            {
+                Licence = true; StartPosName = "Drawer2";
+            }
+            #endregion
+            #region 確認終點
+            if (basePosition.J1 <= faceOpenStage.J1 + 5 && basePosition.J1 >= faceOpenStage.J1 - 5
+                && basePosition.J2 <= faceOpenStage.J2 + 5 && basePosition.J2 >= faceOpenStage.J2 - 5
+                && basePosition.J3 <= faceOpenStage.J3 + 5 && basePosition.J3 >= faceOpenStage.J3 - 5
+                && basePosition.J4 <= faceOpenStage.J4 + 5 && basePosition.J4 >= faceOpenStage.J4 - 5
+                && basePosition.J5 <= faceOpenStage.J5 + 5 && basePosition.J5 >= faceOpenStage.J5 - 5
+                && basePosition.J6 <= faceOpenStage.J6 + 5 && basePosition.J6 >= faceOpenStage.J6 - 5)
+            {
+                EndPosName = "Open Stage";
+            }
+            else if (basePosition.J1 <= faceDrawer1.J1 + 5 && basePosition.J1 >= faceDrawer1.J1 - 5
+                && basePosition.J2 <= faceDrawer1.J2 + 5 && basePosition.J2 >= faceDrawer1.J2 - 5
+                && basePosition.J3 <= faceDrawer1.J3 + 5 && basePosition.J3 >= faceDrawer1.J3 - 5
+                && basePosition.J4 <= faceDrawer1.J4 + 5 && basePosition.J4 >= faceDrawer1.J4 - 5
+                && basePosition.J5 <= faceDrawer1.J5 + 5 && basePosition.J5 >= faceDrawer1.J5 - 5
+                && basePosition.J6 <= faceDrawer1.J6 + 5 && basePosition.J6 >= faceDrawer1.J6 - 5)
+            {
+                EndPosName = "Drawer1";
+            }
+            else if (basePosition.J1 <= faceDrawer2.J1 + 5 && basePosition.J1 >= faceDrawer2.J1 - 5
+                && basePosition.J2 <= faceDrawer2.J2 + 5 && basePosition.J2 >= faceDrawer2.J2 - 5
+                && basePosition.J3 <= faceDrawer2.J3 + 5 && basePosition.J3 >= faceDrawer2.J3 - 5
+                && basePosition.J4 <= faceDrawer2.J4 + 5 && basePosition.J4 >= faceDrawer2.J4 - 5
+                && basePosition.J5 <= faceDrawer2.J5 + 5 && basePosition.J5 >= faceDrawer2.J5 - 5
+                && basePosition.J6 <= faceDrawer2.J6 + 5 && basePosition.J6 >= faceDrawer2.J6 - 5)
+            {
+                EndPosName = "Drawer2";
+            }
+            #endregion
+            if (Licence == true)
+            {
+                if (StartPosName != EndPosName && EndPosName != "")
+                {
+                    /**
+                    //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
+                    if (StartPosName != "Inspection Chamber" && EndPosName != "Inspection Chamber")
+                    {
+                        RobotMove(PosToInspCh());
+                        RobotMove(PosToAssembly);
+                    }
+                    else
+                    {
+                        RobotMove(PosToAssembly);
+                    }
+                   */
+                    this.MoveAsync(basePosition);
+                }
+                else
+                    throw new Exception("Unknown end position !!");
+            }
+            else
+                throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
 
