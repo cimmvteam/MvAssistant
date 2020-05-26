@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
                 cbn.SetPressureDiffLimit(50, 60);
                 cbn.SetExhaustFlow(20, 35);
@@ -30,7 +30,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
                 cbn.ReadPressureDiffLimitSetting();
                 cbn.ReadExhaustFlowSetting();
@@ -44,7 +44,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
                 cbn.ReadPressureDiff();
                 cbn.ReadLightCurtain();
@@ -58,7 +58,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalCabinet;
+                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
             }
         }

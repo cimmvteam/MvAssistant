@@ -188,8 +188,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public string Clamp()
         {
             string result = "";
-            //TODO: Safety , capture image and process to recognize position
-            //TODO: Safety , check sensor value: six axis sensor, clamp sensor, level sensor
             result = Plc.Clamp(0);
             return result;
         }
@@ -197,8 +195,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public string Unclamp()
         {
             string result = "";
-            //TODO: Safety , capture image and process to recognize position
-            //TODO: Safety , check sensor value: six axis sensor, clamp sensor, level sensor
             result = Plc.Unclamp();
             return result;
         }

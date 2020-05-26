@@ -148,24 +148,40 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         #region PLC狀態訊號
+        /// <summary>
+        /// 讀取電源狀態，True：Power ON 、 False：Power OFF
+        /// </summary>
+        /// <returns>True：Power ON、False：Power OFF</returns>
         public bool ReadPowerON()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_PowerON);
         }
 
+        /// <summary>
+        /// 讀取設備內部，主控盤旁鑰匙鎖狀態，True：Maintenance 、 False：Auto
+        /// </summary>
+        /// <returns>True：Maintenance、False：Auto</returns>
         public bool ReadBCP_Maintenance()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Maintenance);
         }
 
+        /// <summary>
+        /// 讀取設備外部，抽屜旁鑰匙鎖狀態，True：Maintenance 、 False：Auto
+        /// </summary>
+        /// <returns>True：Maintenance、False：Auto</returns>
         public bool ReadCB_Maintenance()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
         }
 
+        /// <summary>
+        /// 讀取主控盤EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public Tuple<bool, bool, bool, bool, bool> ReadBCP_EMO()
         {
             var plc = this.m_PlcContext;
@@ -178,6 +194,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 );
         }
 
+        /// <summary>
+        /// 讀取抽屜EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public Tuple<bool, bool, bool> ReadCB_EMO()
         {
             var plc = this.m_PlcContext;
@@ -188,36 +208,60 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 );
         }
 
+        /// <summary>
+        /// 讀取Load Port 1 EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public bool ReadLP1_EMO()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_EMO);
         }
 
+        /// <summary>
+        /// 讀取Load Port 2 EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public bool ReadLP2_EMO()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_EMO);
         }
 
+        /// <summary>
+        /// 讀取主控盤的門，True：Open 、 False：Close
+        /// </summary>
+        /// <returns>True：Open、False：Close</returns>
         public bool ReadBCP_Door()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Door);
         }
 
+        /// <summary>
+        /// 讀取Load Port 1的門，True：Open 、 False：Close
+        /// </summary>
+        /// <returns>True：Open、False：Close</returns>
         public bool ReadLP1_Door()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_Door);
         }
 
+        /// <summary>
+        /// 讀取Load Port 2的門，True：Open 、 False：Close
+        /// </summary>
+        /// <returns>True：Open、False：Close</returns>
         public bool ReadLP2_Door()
         {
             var plc = this.m_PlcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_Door);
         }
 
+        /// <summary>
+        /// 讀取主控箱內的偵煙器是否偵測到訊號，True：Alarm 、 False：Normal
+        /// </summary>
+        /// <returns>True：Alarm、False：Normal</returns>
         public bool ReadBCP_Smoke()
         {
             var plc = this.m_PlcContext;
