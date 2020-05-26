@@ -12,7 +12,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace BoxTransferTest.ViewUc
+namespace MvAssistantMacVerifyEqp.ViewUc
 {
     public partial class UcLoadPort : UserControl
     {

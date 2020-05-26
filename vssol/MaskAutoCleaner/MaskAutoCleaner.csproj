@@ -7,8 +7,8 @@
     <ProjectGuid>{6170A960-30F6-48CF-B50A-7533D0D749B1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MaskCleanTool</RootNamespace>
-    <AssemblyName>MaskCleanTool</AssemblyName>
+    <RootNamespace>MaskAutoCleaner</RootNamespace>
+    <AssemblyName>MaskAutoCleaner</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -51,6 +51,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -65,6 +71,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\MachineMgr.cs" />
+    <Compile Include="Inspect\DefectItem.cs" />
+    <Compile Include="Inspect\DefectList.cs" />
+    <Compile Include="Inspect\EnumDefectStatus.cs" />
+    <Compile Include="Inspect\EnumDefectType.cs" />
+    <Compile Include="EnumMaskSide.cs" />
+    <Compile Include="Machine\MachineAsblBase.cs" />
+    <Compile Include="Machine\MachineAsblSmBase.cs" />
+    <Compile Include="Machine\MachineBase.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMaskTransferCmdSet.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMaskTransferState.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMaskTransferTransition.cs" />
+    <Compile Include="Machine\MaskTransfer\MaskTransferAsbl.cs" />
+    <Compile Include="Machine\MaskTransfer\MaskTransferAsblSm.cs" />
+    <Compile Include="Machine\MaskTransfer\MaskTransferCmdParam.cs" />
+    <Compile Include="Msg\EnumAlarmId.cs" />
+    <Compile Include="Msg\EnumAlarmLevel.cs" />
+    <Compile Include="Msg\EnumCeid.cs" />
+    <Compile Include="Msg\EnumEcid.cs" />
+    <Compile Include="Msg\EnumJobNotify.cs" />
+    <Compile Include="Msg\EnumSvid.cs" />
+    <Compile Include="Msg\IMsg.cs" />
+    <Compile Include="Msg\IMsgProcessable.cs" />
+    <Compile Include="Msg\MsgAlarm.cs" />
+    <Compile Include="Msg\MsgBase.cs" />
+    <Compile Include="Msg\MsgDeviceCmd.cs" />
+    <Compile Include="Msg\MsgFactory.cs" />
+    <Compile Include="Msg\MsgJobNotify.cs" />
+    <Compile Include="Msg\MsgRecipe.cs" />
+    <Compile Include="Msg\MsgRisk.cs" />
+    <Compile Include="Msg\MsgSecs.cs" />
+    <Compile Include="Msg\MsgSecsCeid.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\EnumNotifyParameters.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnActiveMaskProcessInitial.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnBtDockComplete.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnBtFinalBoxProcessEnd.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnBtReadBoxInfo.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnDrWaitBoxProc.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\PrescribedJobNotifyBase.cs" />
+    <Compile Include="Msg\PrescribedSecs\PrescribedSecsBase.cs" />
+    <Compile Include="Msg\PrescribedSecs\S1F3QuerySvid.cs" />
+    <Compile Include="Msg\PrescribedSecs\S3F17CreateJob.cs" />
+    <Compile Include="Msg\PrescribedSecs\S3F17DockStart.cs" />
+    <Compile Include="Msg\PrescribedSecs\S3F17Undock.cs" />
+    <Compile Include="Msg\PrescribedSecs\S6F11.cs" />
+    <Compile Include="Msg\PrescribedSecs\S6F11DockComplete.cs" />
     <Compile Include="StateMachine_v1_0\DeferralTransition.cs" />
     <Compile Include="StateMachine_v1_0\DeviceStateMachine.cs" />
     <Compile Include="StateMachine_v1_0\ExceptionState.cs" />
@@ -91,20 +143,25 @@
     <Compile Include="StateMachine_v1_0\SmExp\StatemMachineException.cs" />
     <Compile Include="StateMachine_v1_0\Transition.cs" />
     <Compile Include="StateMachine_v1_0\TransitionEvaluation.cs" />
+    <Compile Include="StateMachine_v1_1\State.cs" />
+    <Compile Include="StateMachine_v1_1\StateMachine.cs" />
+    <Compile Include="StateMachine_v1_1\Transition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj">
+      <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
+      <Name>MvAssistant.Mac.v1_0</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="StateMachine_v1_1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

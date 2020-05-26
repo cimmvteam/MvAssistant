@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BoxTransferTest
+namespace MvAssistantMacVerifyEqp
 {
     public partial class FmMain : Form
     {
@@ -19,7 +19,7 @@ namespace BoxTransferTest
             InitializeComponent();
         }
 
-        private void tsmiMaskRobot_Click(object sender, EventArgs e)
+        private void tsmiSgsTest_Click(object sender, EventArgs e)
         {
             var fm = new FmSgsTest();
             fm.MdiParent = this;
@@ -38,23 +38,29 @@ namespace BoxTransferTest
 
         private void tsmiBoxRobot_Click(object sender, EventArgs e)
         {
-            var fm = new Form1();
+            var fm = new FmBoxRobot();
             fm.MdiParent = this;
+            fm.WindowState = FormWindowState.Maximized;
             fm.Show();
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
+    
 
         private void robotPathToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var fm = new FmRobotPath();
             fm.MdiParent = this;
-            
-            fm.Show();
             this.WindowState = FormWindowState.Maximized;
+            fm.Show();
+        }
+
+        private void tsmiVerifyEQP_Click(object sender, EventArgs e)
+        {
+            var fm = new FmVerifyEqp();
+            fm.MdiParent = this;
+            this.WindowState = FormWindowState.Maximized;
+            fm.Show();
+
         }
     }
 }

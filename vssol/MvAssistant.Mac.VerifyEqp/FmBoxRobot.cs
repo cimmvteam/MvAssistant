@@ -11,9 +11,9 @@ using System.Windows.Forms;
 using MvAssistant.Mac.Drawer_SocketComm;
 using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 
-namespace BoxTransferTest
+namespace MvAssistantMacVerifyEqp
 {
-    public partial class Form1 : Form
+    public partial class FmBoxRobot : Form
     {
         MacHalBoxRobotFanuc robotHandler;
         MacHalRobotMotionInfo motionInfo;
@@ -24,7 +24,7 @@ namespace BoxTransferTest
         bool socketConnectFlag = false;
         string drawerData;
 
-        public Form1()
+        public FmBoxRobot()
         {
             InitializeComponent();
         }

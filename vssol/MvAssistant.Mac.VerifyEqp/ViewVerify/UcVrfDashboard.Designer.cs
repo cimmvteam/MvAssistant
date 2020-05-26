@@ -1,4 +1,4 @@
-﻿namespace BoxTransferTest.ViewVerify
+﻿namespace MvAssistantMacVerifyEqp.ViewVerify
 {
     partial class UcDashboard
     {

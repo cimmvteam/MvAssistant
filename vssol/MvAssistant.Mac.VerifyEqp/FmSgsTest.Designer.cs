@@ -1,4 +1,4 @@
-﻿namespace BoxTransferTest
+﻿namespace MvAssistantMacVerifyEqp
 {
     partial class FmSgsTest
     {
@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.ucDrawer1 = new BoxTransferTest.ViewUc.UcDrawer();
+            this.ucDrawer1 = new MvAssistantMacVerifyEqp.ViewUc.UcDrawer();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.ucOpenStage1 = new BoxTransferTest.ViewUc.UcOpenStage();
+            this.ucOpenStage1 = new MvAssistantMacVerifyEqp.ViewUc.UcOpenStage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ucBoxRobot1 = new BoxTransferTest.ViewUc.UcBoxRobot();
+            this.ucBoxRobot1 = new MvAssistantMacVerifyEqp.ViewUc.UcBoxRobot();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ucMaskRobot1 = new BoxTransferTest.ViewUc.UcMaskRobot();
+            this.ucMaskRobot1 = new MvAssistantMacVerifyEqp.ViewUc.UcMaskRobot();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.ucLoadPort1 = new BoxTransferTest.ViewUc.UcLoadPort();
+            this.ucLoadPort1 = new MvAssistantMacVerifyEqp.ViewUc.UcLoadPort();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
