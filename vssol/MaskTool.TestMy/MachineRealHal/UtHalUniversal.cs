@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var unv = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalUniversal;
+                var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
 
 
             }
@@ -29,7 +29,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var unv = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalUniversal;
+                var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
 
 
             }
@@ -45,7 +45,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 {
                     halContext.Load();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.universal_plc_01.ToString()] as MacHalUniversal;
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
 
                     unv.ReadCoverFanSpeed();
                     unv.ReadPowerON();
@@ -97,7 +97,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var unv = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalUniversal;
+                var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
 
                 unv.ResetAllAlarm();
                 unv.SetSignalTower(true, false, false);

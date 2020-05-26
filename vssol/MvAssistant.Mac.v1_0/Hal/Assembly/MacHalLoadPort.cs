@@ -59,9 +59,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadPressureDiff(); }
 
         /// <summary>
-        /// 讀取Load Port光閘是否被遮斷
+        /// 讀取Load Port光閘，True：遮斷 、 False：Normal
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True：遮斷、False：Normal</returns>
         public bool ReadLP_Light_Curtain()
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion

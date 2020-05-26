@@ -73,40 +73,80 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { plc_01.EMSAlarm(BT_EMS, RT_EMS, OS_EMS, IC_EMS); }
 
         #region PLC狀態訊號
+        /// <summary>
+        /// 讀取電源狀態，True：Power ON 、 False：Power OFF
+        /// </summary>
+        /// <returns>True：Power ON、False：Power OFF</returns>
         public bool ReadPowerON()
         { return plc_01.ReadPowerON(); }
 
+        /// <summary>
+        /// 讀取設備內部，主控盤旁鑰匙鎖狀態，True：Maintenance 、 False：Auto
+        /// </summary>
+        /// <returns>True：Maintenance、False：Auto</returns>
         public bool ReadBCP_Maintenance()
         { return plc_01.ReadBCP_Maintenance(); }
 
+        /// <summary>
+        /// 讀取設備外部，抽屜旁鑰匙鎖狀態，True：Maintenance 、 False：Auto
+        /// </summary>
+        /// <returns>True：Maintenance、False：Auto</returns>
         public bool ReadCB_Maintenance()
         { return plc_01.ReadCB_Maintenance(); }
 
+        /// <summary>
+        /// 讀取主控盤EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public Tuple<bool, bool, bool, bool, bool> ReadBCP_EMO()
         { return plc_01.ReadBCP_EMO(); }
 
+        /// <summary>
+        /// 讀取抽屜EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public Tuple<bool, bool, bool> ReadCB_EMO()
         { return plc_01.ReadCB_EMO(); }
 
+        /// <summary>
+        /// 讀取Load Port 1 EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public bool ReadLP1_EMO()
         { return plc_01.ReadLP1_EMO(); }
 
+        /// <summary>
+        /// 讀取Load Port 2 EMO按鈕是否觸發，True：Push 、 False：Release
+        /// </summary>
+        /// <returns>True：Push、False：Release</returns>
         public bool ReadLP2_EMO()
         { return plc_01.ReadLP2_EMO(); }
 
+        /// <summary>
+        /// 讀取主控盤的門，True：Open 、 False：Close
+        /// </summary>
+        /// <returns>True：Open、False：Close</returns>
         public bool ReadBCP_Door()
         { return plc_01.ReadBCP_Door(); }
 
+        /// <summary>
+        /// 讀取Load Port 1的門，True：Open 、 False：Close
+        /// </summary>
+        /// <returns>True：Open、False：Close</returns>
         public bool ReadLP1_Door()
         { return plc_01.ReadLP1_Door(); }
 
+        /// <summary>
+        /// 讀取Load Port 2的門，True：Open 、 False：Close
+        /// </summary>
+        /// <returns>True：Open、False：Close</returns>
         public bool ReadLP2_Door()
         { return plc_01.ReadLP2_Door(); }
 
         /// <summary>
-        /// 讀取煙霧偵測器訊號
+        /// 讀取主控箱內的偵煙器是否偵測到訊號，True：Alarm 、 False：Normal
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True：Alarm、False：Normal</returns>
         public bool ReadBCP_Smoke()
         { return plc_01.ReadBCP_Smoke(); }
         #endregion
