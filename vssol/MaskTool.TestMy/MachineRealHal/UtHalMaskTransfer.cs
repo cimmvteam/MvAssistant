@@ -73,7 +73,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 {
                     halContext.Load();
 
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_plc.ToString()] as MacHalMaskTransfer;
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    mt.HalConnect();
 
                     mt.ReadClampTactileLimSetting();
                     mt.ReadLevelLimitSetting();
