@@ -293,7 +293,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_UNI_A_01.ToString(),
-                        DevConnStr = string.Format("ip={0};portid={1}", this.plcIp, this.plcPortId),
+                        DevConnStr = string.Format("ip={0};port={1}", this.plcIp, this.plcPortId),
                         DeviceName = MacEnumDevice.universal_plc_01.ToString(),
                         Level = "2",
                         DriverId = ManifestDriverId.UniversalPlc.ToString(),

@@ -18,6 +18,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcUniversal(MacHalPlcContext plc = null)
         { this.m_PlcContext = plc; }
 
+
+        #region MacHalPlcBase
+
+        public override int HalConnect()
+        {
+            var rtn = base.HalConnect();
+            this.m_PlcContext.Connect();
+            return rtn;
+        }
+
+        #endregion
+
+
+
         //信號燈
         public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
@@ -889,7 +903,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "動作中下達Z Command, ";
                         else if (i == 7)
                             Result += "動作中下達XY Command, ";
-                        else if (i ==8)
+                        else if (i == 8)
                             Result += "Robot侵入中不可做動, ";
                         else
                             Result += "Unknown Warning Signal, ";

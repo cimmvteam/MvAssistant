@@ -10,7 +10,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("EEED741C-18BC-465E-9772-99F19DD68BD3")]
-    public class MacHalPlcContext : MacHalComponentBase, IDisposable
+    public class MacHalPlcContext :  IDisposable
     {
 
 
@@ -46,6 +46,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             this.Universal = new MacHalPlcUniversal(this);
         }
         ~MacHalPlcContext() { this.Dispose(false); }
+
+
 
 
 
@@ -395,7 +397,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             if (!m_mapper.ContainsKey(key))
                 m_mapper[key] = new MacHalPlcContext();
 
-            return m_mapper[key];
+            var rtn = m_mapper[key];
+            rtn.PlcIp = ip;
+            rtn.PlcPort = portid;
+            return rtn;
         }
 
 
