@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #region Device Components
 
-        public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetMachine(MacEnumDevice.cabinet_plc); } }
+        public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(MacEnumDevice.cabinet_plc); } }
 
 
         #endregion Device Components
