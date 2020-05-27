@@ -22,24 +22,24 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     {
         #region Device Components
 
-        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetMachine(MacEnumDevice.masktransfer_plc); } }
-        public IHalRobot Robot { get { return (IHalRobot)this.GetMachine(MacEnumDevice.masktransfer_robot_1); } }
-        public IHalForce6Axis Force6Axis { get { return (IHalForce6Axis)this.GetMachine(MacEnumDevice.masktransfer_force_6axis_sensor_1); } }
-        public IHalInclinometer Gradienter { get { return (IHalInclinometer)this.GetMachine(MacEnumDevice.masktransfer_inclinometer01); } }
-        public IHalCamera CameraPellicleDeform { get { return (IHalCamera)this.GetMachine(MacEnumDevice.masktransfer_ccd_pellicle_deform_1); } }
-        public IHalCamera CameraBarcodeReader { get { return (IHalCamera)this.GetMachine(MacEnumDevice.masktransfer_ccd_barcode_reader_1); } }
-        public IHalLight CameraBarcodeLight { get { return (IHalLight)this.GetMachine(MacEnumDevice.masktransfer_light_barcode_1); } }
-        public IHalPellicleDeformStage StagePellicleDeform { get { return (IHalPellicleDeformStage)this.GetMachine(MacEnumDevice.masktransfer_stage_pellicle_deform_1); } }
-        public IHalTactile Tactile1 { get { return (IHalTactile)this.GetMachine(MacEnumDevice.masktransfer_tactile_1); } }
-        public IHalTactile Tactile2 { get { return (IHalTactile)this.GetMachine(MacEnumDevice.masktransfer_tactile_2); } }
-        public IHalTactile Tactile3 { get { return (IHalTactile)this.GetMachine(MacEnumDevice.masktransfer_tactile_3); } }
-        public IHalTactile Tactile4 { get { return (IHalTactile)this.GetMachine(MacEnumDevice.masktransfer_tactile_4); } }
-        public IHalGripper Gripper01 { get { return (IHalGripper)this.GetMachine(MacEnumDevice.masktransfer_gripper_01); } }
-        public IHalGripper Gripper02 { get { return (IHalGripper)this.GetMachine(MacEnumDevice.masktransfer_gripper_02); } }
-        public IHalGripper Gripper03 { get { return (IHalGripper)this.GetMachine(MacEnumDevice.masktransfer_gripper_03); } }
-        public IHalGripper Gripper04 { get { return (IHalGripper)this.GetMachine(MacEnumDevice.masktransfer_gripper_04); } }
-        public IHalInfraredPhotointerrupter InfraLight { get { return (IHalInfraredPhotointerrupter)this.GetMachine(MacEnumDevice.masktransfer_light_interrupt_1); } }
-        public IHalStaticElectricityDetector StaticElectricityDetector { get { return (IHalStaticElectricityDetector)this.GetMachine(MacEnumDevice.masktransfer_static_electricity_detector_1); } }
+        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetHalDevice(MacEnumDevice.masktransfer_plc); } }
+        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.masktransfer_robot_1); } }
+        public IHalForce6Axis Force6Axis { get { return (IHalForce6Axis)this.GetHalDevice(MacEnumDevice.masktransfer_force_6axis_sensor_1); } }
+        public IHalInclinometer Gradienter { get { return (IHalInclinometer)this.GetHalDevice(MacEnumDevice.masktransfer_inclinometer01); } }
+        public IHalCamera CameraPellicleDeform { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.masktransfer_ccd_pellicle_deform_1); } }
+        public IHalCamera CameraBarcodeReader { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.masktransfer_ccd_barcode_reader_1); } }
+        public IHalLight CameraBarcodeLight { get { return (IHalLight)this.GetHalDevice(MacEnumDevice.masktransfer_light_barcode_1); } }
+        public IHalPellicleDeformStage StagePellicleDeform { get { return (IHalPellicleDeformStage)this.GetHalDevice(MacEnumDevice.masktransfer_stage_pellicle_deform_1); } }
+        public IHalTactile Tactile1 { get { return (IHalTactile)this.GetHalDevice(MacEnumDevice.masktransfer_tactile_1); } }
+        public IHalTactile Tactile2 { get { return (IHalTactile)this.GetHalDevice(MacEnumDevice.masktransfer_tactile_2); } }
+        public IHalTactile Tactile3 { get { return (IHalTactile)this.GetHalDevice(MacEnumDevice.masktransfer_tactile_3); } }
+        public IHalTactile Tactile4 { get { return (IHalTactile)this.GetHalDevice(MacEnumDevice.masktransfer_tactile_4); } }
+        public IHalGripper Gripper01 { get { return (IHalGripper)this.GetHalDevice(MacEnumDevice.masktransfer_gripper_01); } }
+        public IHalGripper Gripper02 { get { return (IHalGripper)this.GetHalDevice(MacEnumDevice.masktransfer_gripper_02); } }
+        public IHalGripper Gripper03 { get { return (IHalGripper)this.GetHalDevice(MacEnumDevice.masktransfer_gripper_03); } }
+        public IHalGripper Gripper04 { get { return (IHalGripper)this.GetHalDevice(MacEnumDevice.masktransfer_gripper_04); } }
+        public IHalInfraredPhotointerrupter InfraLight { get { return (IHalInfraredPhotointerrupter)this.GetHalDevice(MacEnumDevice.masktransfer_light_interrupt_1); } }
+        public IHalStaticElectricityDetector StaticElectricityDetector { get { return (IHalStaticElectricityDetector)this.GetHalDevice(MacEnumDevice.masktransfer_static_electricity_detector_1); } }
 
 
 
@@ -185,20 +185,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
-        public string Clamp()
+        public string Clamp(uint MaskType)
         {
             string result = "";
-            //TODO: Safety , capture image and process to recognize position
-            //TODO: Safety , check sensor value: six axis sensor, clamp sensor, level sensor
-            result = Plc.Clamp(0);
+            result = Plc.Clamp(MaskType);
             return result;
         }
 
         public string Unclamp()
         {
             string result = "";
-            //TODO: Safety , capture image and process to recognize position
-            //TODO: Safety , check sensor value: six axis sensor, clamp sensor, level sensor
             result = Plc.Unclamp();
             return result;
         }
@@ -215,7 +211,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //TODO: Safety , robot how to initial?
             Plc.Initial();
         }
-
+        
         public string ReadMTRobotStatus()
         { return Plc.ReadMTRobotStatus(); }
 

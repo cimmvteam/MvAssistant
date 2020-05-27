@@ -53,7 +53,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var bt = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalBoxTransfer;
+                var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
                 bt.SetSpeed(20);
                 bt.SetHandSpaceLimit(10, 20);
@@ -70,7 +70,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var bt = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalBoxTransfer;
+                var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
                 bt.ReadSpeedSetting();
                 bt.ReadHandSpaceLimitSetting();
@@ -87,7 +87,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var bt = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalBoxTransfer;
+                var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
                 bt.ReadHandPos();
                 bt.ReadBoxDetect();
@@ -106,7 +106,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var bt = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalBoxTransfer;
+                var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
                 bt.Clamp(1);
                 bt.Unclamp();

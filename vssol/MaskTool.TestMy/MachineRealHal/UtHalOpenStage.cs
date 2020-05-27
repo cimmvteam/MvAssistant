@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var os = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
                 os.SetBoxType(1);
                 os.SetSpeed(50);
@@ -30,7 +30,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var os = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
                 os.ReadBoxTypeSetting();
                 os.ReadSpeedSetting();
@@ -44,7 +44,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var os = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
                 os.ReadRobotIntrude(false, false);
                 os.ReadClampStatus();
@@ -66,7 +66,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.Load();
 
-                var os = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
                 os.Initial();
                 os.SortClamp();
                 os.Vacuum(true);

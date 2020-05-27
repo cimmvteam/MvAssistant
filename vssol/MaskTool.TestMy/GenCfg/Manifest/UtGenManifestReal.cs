@@ -55,6 +55,14 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DriverId = ManifestDriverId.BoxTransferPlc.ToString(),
                     },
 
+                     new MacManifestDeviceCfg(){
+                        ID = EnumMachineId.DE_BT_02.ToString(),
+                        DevConnStr = "ip=192.168.0.51",
+                        DeviceName = MacEnumDevice.boxtransfer_robot_1.ToString(),
+                        Level = "2",
+                        DriverId = ManifestDriverId.FanucRobot.ToString(),
+                    },
+
                 },
             };
             return rs;

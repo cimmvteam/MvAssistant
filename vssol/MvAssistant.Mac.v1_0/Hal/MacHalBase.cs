@@ -23,22 +23,22 @@ namespace MvAssistant.Mac
 
         #region Machines Get/Set
 
-        public HalBase this[string key] { get { return this.GetMachine(key); } set { this.SetMachine(key, value); } }
-        public HalBase this[MacEnumDevice key] { get { return this.GetMachine(key); } set { this.SetMachine(key, value); } }
-        public HalBase GetMachine(MacEnumDevice key) { return this.GetMachine(key.ToString()); }
-        public HalBase GetMachine(string key)
+        public HalBase this[string key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
+        public HalBase this[MacEnumDevice key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
+        public HalBase GetHalDevice(MacEnumDevice key) { return this.GetHalDevice(key.ToString()); }
+        public HalBase GetHalDevice(string key)
         {
-            var machines = (from row in this.Hals
+            var hals = (from row in this.Hals
                             where row.Key == key
                             select row).ToList();
 
-            if (machines.Count == 0) throw new MacException("No exist machine");
-            else if (machines.Count > 1) throw new MacException("Duplicate machine");
+            if (hals.Count == 0) throw new MacException("No exist machine");
+            else if (hals.Count > 1) throw new MacException("Duplicate machine");
 
-            return machines.FirstOrDefault().Value;
+            return hals.FirstOrDefault().Value;
         }
-        public void SetMachine(MacEnumDevice key, HalBase hal) { this.SetMachine(key, hal); }
-        public void SetMachine(string key, HalBase hal) { this.Hals[key] = hal; }
+        public void SetHalDevice(MacEnumDevice key, HalBase hal) { this.SetHalDevice(key, hal); }
+        public void SetHalDevice(string key, HalBase hal) { this.Hals[key] = hal; }
 
         #endregion
 
