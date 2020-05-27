@@ -424,7 +424,19 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             get
             {
-                var position = new HalRobotMotion();
+                var position = new HalRobotMotion {
+                    J1 = -90.07816f,
+                    J2 = 22.926424f,
+                    J3 = -64.1397858f,
+                    J4 = 0.9846464f,
+                    J5 = 61.5056839f,
+                    J6 = 1.27504456f,
+                    J7 = 402.3014f,
+                    Speed = 50,
+                    MotionType = HalRobotEnumMotionType.Joint,
+
+
+                };
                 // TODO: 設定 Home 點位
                 return position;
             }

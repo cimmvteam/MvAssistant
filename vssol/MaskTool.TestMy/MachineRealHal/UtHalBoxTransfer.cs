@@ -24,7 +24,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     halContext.Load();
 
 
-                    var mt = halContext.HalDevices[MacEnumDevice.boxtransfer_plc.ToString()] as MacHalBoxTransfer;
+                    var mt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
                     if (mt.HalConnect() != 0)
                     {
