@@ -185,10 +185,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
-        public string Clamp()
+        public string Clamp(uint MaskType)
         {
             string result = "";
-            result = Plc.Clamp(0);
+            result = Plc.Clamp(MaskType);
             return result;
         }
 
@@ -211,7 +211,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //TODO: Safety , robot how to initial?
             Plc.Initial();
         }
-
+        
         public string ReadMTRobotStatus()
         { return Plc.ReadMTRobotStatus(); }
 
