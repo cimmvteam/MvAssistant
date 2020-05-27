@@ -120,7 +120,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
-                mt.Clamp();
+                mt.Clamp(0);
                 mt.Unclamp();
                 //mt.CCDSpin(50);
                 mt.Initial();
