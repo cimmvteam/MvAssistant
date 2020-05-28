@@ -30,9 +30,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
-                   mt.BackDrawer1HomeFromAnyWhere();//V
-                    mt.ChangeDirectionToFaceDrawer(drawerIndex);// 執行前先調整 drawerIndex 變數
-                    mt.ForwardToDrawer(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
+                    mt.BackCabinet1Home();//[V] 
+
+                    mt.ChangeDirectionToFaceCabinet(drawerIndex);// 執行前先調整 drawerIndex 變數
+                    mt.ForwardToCabinet(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
                     mt.BackwardFromDrawer(drawerIndex, boxIndex);// 執行前先調整 drawerIndex 及 boxIndex變數
                     mt.ChangeDirectionToFaceOpenStage();
                     mt.ForwardToOpenStage();

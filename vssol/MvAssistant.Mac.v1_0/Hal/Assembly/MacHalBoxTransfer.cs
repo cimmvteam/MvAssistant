@@ -37,17 +37,32 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #region Path test, 2020/05/25
 
-        /// <summary>回到 Home</summary>
+        /// <summary>回到 Cabinet1 Home</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public void BackDrawer1HomeFromAnyWhere()
+        public void BackCabinet1Home()
         {
-            var position = new BoxTransferPathPasitions().Drawer1Home;
-            this.MoveAsync(position);
+            var positions =new List<HalRobotMotion> ( new HalRobotMotion[] { new BoxTransferPathPasitions().Cabinet1Home });
+            this.MoveAsync(positions);
         }
 
+        /// <summary>回到 Cabinet2 Home </summary>
+        public void BackCabinet2Home()
+        {
+            var positions = new List<HalRobotMotion>(new HalRobotMotion[] { new BoxTransferPathPasitions().Cabinet2Home });
+            this.MoveAsync(positions);
+        }
+
+        /// <summary>回到 Open Stage 的Home</summary>
+        private void BackOpenStageHome()
+        {
+            var positions = new List<HalRobotMotion>(new HalRobotMotion[] { new BoxTransferPathPasitions().OpenStageHome });
+            this.MoveAsync(positions);
+        }
+
+         
         /// <summary>轉向面對 Drawer </summary>
         /// <param name="drawerIndex">Drawer index</param>
-        public void ChangeDirectionToFaceDrawer(int drawerIndex)
+        public void ChangeDirectionToFaceCabinet(int drawerIndex)
         { 
             var position = default(HalRobotMotion);
             if (drawerIndex == 1)
@@ -68,8 +83,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { // TODO: 待討論
             var positionInst = new BoxTransferPathPasitions();
             HalRobotMotion openStageHome = positionInst.OpenStageHome;
-            HalRobotMotion drawer1Home = positionInst.Drawer1Home;
-            HalRobotMotion faceDrawer2 = positionInst.Drawer2Home;
+            HalRobotMotion drawer1Home = positionInst.Cabinet1Home;
+            HalRobotMotion faceDrawer2 = positionInst.Cabinet2Home;
             bool Licence = false;
             string StartPosName = "";
             string EndPosName = "";
@@ -177,16 +192,36 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
 
+        /// <summary>移到 Cabinet1(Drawer 1)</summary>
+        /// <param name="boxIndex">Box 的索引</param>
+        public void ForwardToCabinet1(int boxIndex)
+        {
+            this.ForwardToCabinet(1, boxIndex);
+        }
+
         /// <summary>從Home 移動到 Drawer</summary>
         /// <param name="drawerIndex">Drawer index</param>
         /// <param name="boxIndex">Box index</param>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public void ForwardToDrawer(int drawerIndex,int boxIndex)
+        public void ForwardToCabinet(int drawerIndex,int boxIndex)
         {// TODO: 待實作 [ForwardToDrawer]
             var positions = default(List<HalRobotMotion>);
             if (drawerIndex == 1)
             {
-                 positions= new BoxTransferPathPasitions().FromHomeToDrawer1;
+                switch (boxIndex)
+                {
+                    case 1:
+                        positions = new BoxTransferPathPasitions().FromHomeToCabinet01_01;
+                        break;
+                    default:
+                        positions = new List<HalRobotMotion>();
+                        break;
+                }
+               
+            }
+            else if (drawerIndex == 2)
+            {
+                
             }
             this.MoveAsync(positions);
         }
@@ -440,29 +475,41 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     /// <remarks>King, 2020/05/15 Add</remarks>
     public class BoxTransferPathPasitions
     {
+
+        /// <summary>Open Statge 的 Home 點</summary>
         public HalRobotMotion OpenStageHome
         {
             get
             {
+                var position = new HalRobotMotion
+                { // TODO: 加入實際 World 及 Joint 點位 
 
-                return null;
+                };
+                return position;
             }
 
         }
 
-        public HalRobotMotion Drawer2Home
+        /// <summary>Drawer 2 的 Home 點</summary>
+        public HalRobotMotion Cabinet2Home
         {
             get
             {
-                return null;
+                var position = new HalRobotMotion
+                { // TODO: 加入實際 World 及 Joint 點位
+
+                };
+                return position;
             }
         }
 
-        public HalRobotMotion Drawer1Home
+        /// <summary>Drawer 1 的 Home 點</summary>
+        public HalRobotMotion Cabinet1Home
         {
             get
             {
                 var position = new HalRobotMotion {
+                    // TODO: 加上 World 座標資料 
                     J1 = -90.07816f,
                     J2 = 22.926424f,
                     J3 = -64.1397858f,
@@ -523,24 +570,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         /// <summary>從 Home 到 Drawer1 的點位集合</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromHomeToDrawer1
+        public List<HalRobotMotion> FromHomeToCabinet01_01
         {
             get
             {
                 List<HalRobotMotion> positions = new List<HalRobotMotion>();
-                positions.Add(
-                    new HalRobotMotion
-                    {
-                        X= 0.6692078f,
-                        Y= -527.9844f,
-                        Z= 38.3338966f,
-                        W= 147.140915f,
-                        P= -86.85986f,
-                        R= -56.31354f,
-                        E1=403.3014f,
-                        Speed=60,
-                        MotionType=HalRobotEnumMotionType.Position,
-                    } );
+                var cabinet1Home = this.Cabinet1Home;
+                cabinet1Home.MotionType = HalRobotEnumMotionType.Position;
+                positions.Add(cabinet1Home);
                 positions.Add(
                     new HalRobotMotion
                     {
