@@ -15,8 +15,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestPathMove()
         {
-            int drawerIndex = 1;//            default(int);
-            int boxIndex = default(int);
+           int boxStartIndex = default(int);
+            int boxEndIndex = default(int);
             try
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
@@ -30,16 +30,47 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
-                    mt.BackCabinet1Home();//[V] 
 
-                    mt.ChangeDirectionToFaceCabinet(drawerIndex);// 執行前先調整 drawerIndex 變數
-                    mt.ForwardToCabinet(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
-                    mt.BackwardFromDrawer(drawerIndex, boxIndex);// 執行前先調整 drawerIndex 及 boxIndex變數
+                    // [V] 回到 Cabinet 1 Home
+                    mt.BackCabinet1Home();
+
+                    // [ ] 前進到 Cabinet 1 的某個盒子
+                    boxStartIndex = 1; boxEndIndex = 1;// boxEndIndex :最多 20
+                    for (var boxIndex = boxStartIndex; boxIndex <= boxEndIndex; boxIndex++)
+                    {
+                        mt.ForwardToCabinet1(boxIndex);
+                        System.Threading.Thread.Sleep(2000);
+                    }
+                    
+                    // [ ] 從 Cabinet 1 回到 Cabinet1 Home
+                    mt.BackwardFromCabinet1();
+
+                    // [ ] 轉到 Cabinet 2 方向
+                    mt.ChangeDirectionToFaceCabinet2();
+
+                    // [ ] 前到 Cabinet 2 某個盒子
+                    boxStartIndex = 1; boxEndIndex = 1;// boxEndIndex :最多 15
+                    for (var boxIndex = boxStartIndex; boxIndex <= boxEndIndex; boxIndex++)
+                    {
+                        mt.ForwardToCabinet2(boxIndex);
+                        System.Threading.Thread.Sleep(2000);
+                    }
+
+                    // [ ] 從 Cabnet 2 回到 Cabinet2 Home
+                    mt.BackwardFromCabinet2();
+
+                    // [ ] 轉向面對Open Stage 方向
                     mt.ChangeDirectionToFaceOpenStage();
+
+                    // [ ] 前進到 Open Stage
                     mt.ForwardToOpenStage();
+
+                    // [ ] 從 Open Stage  回到 Open Stage
                     mt.BackwardFromOpenStage();
 
-
+                    // [ ] 轉向 Cbinet 方向
+                    mt.ChangeDirectionToFaceCabinet1();
+  
                 }
             }
             catch (Exception ex) { throw ex; }

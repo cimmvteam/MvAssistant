@@ -41,87 +41,91 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackCabinet1Home()
         {
-            var positions =new List<HalRobotMotion> ( new HalRobotMotion[] { new BoxTransferPathPasitions().Cabinet1Home });
-            this.MoveAsync(positions);
+            var position = new BoxTransferPathPasitions().Cabinet1Home ;
+            this.MoveAsync(position);
         }
 
-        /// <summary>回到 Cabinet2 Home </summary>
-        public void BackCabinet2Home()
+       
+
+        /// <summary>轉到面對 Cabinet 1 的方向</summary>
+        public void ChangeDirectionToFaceCabinet1()
         {
-            var positions = new List<HalRobotMotion>(new HalRobotMotion[] { new BoxTransferPathPasitions().Cabinet2Home });
-            this.MoveAsync(positions);
+            this.ChangeDirectionToFaceCabinet(1);
         }
-
-        /// <summary>回到 Open Stage 的Home</summary>
-        private void BackOpenStageHome()
+        /// <summary>轉到面對 Cabinet 2 方向</summary>
+        public void ChangeDirectionToFaceCabinet2()
         {
-            var positions = new List<HalRobotMotion>(new HalRobotMotion[] { new BoxTransferPathPasitions().OpenStageHome });
-            this.MoveAsync(positions);
+            this.ChangeDirectionToFaceCabinet(2);
         }
-
-         
-        /// <summary>轉向面對 Drawer </summary>
-        /// <param name="drawerIndex">Drawer index</param>
-        public void ChangeDirectionToFaceCabinet(int drawerIndex)
+        /// <summary>轉向面對指定的 Cabinet</summary>
+        /// <param name="cabinetIndex">cabinet index</param>
+        private void ChangeDirectionToFaceCabinet(int cabinetIndex)
         { 
             var position = default(HalRobotMotion);
-            if (drawerIndex == 1)
+            if (cabinetIndex == 1)
             {
-                position = new BoxTransferPathPasitions().FaceDrawer1;
+                position = new BoxTransferPathPasitions().Cabinet1Home;
             }
-            else if(drawerIndex==2)
+            else if(cabinetIndex == 2)
             {
-                position = new BoxTransferPathPasitions().FaceDrawer2;
+                position = new BoxTransferPathPasitions().Cabinet2Home;
             }
             ChangeDirection(position);
         }
-        private void ChangeDirectionToDrawer1(List<HalRobotMotion> posirions)
-        {
 
+        /// <summary>轉向面對 Open Statge 的方向 </summary>
+        public void ChangeDirectionToFaceOpenStage()
+        {
+            var position = new BoxTransferPathPasitions().OpenStageHome;
+            ChangeDirection(position);
         }
+
         private void ChangeDirection(HalRobotMotion targetPosition)
         { // TODO: 待討論
             var positionInst = new BoxTransferPathPasitions();
             HalRobotMotion openStageHome = positionInst.OpenStageHome;
-            HalRobotMotion drawer1Home = positionInst.Cabinet1Home;
-            HalRobotMotion faceDrawer2 = positionInst.Cabinet2Home;
+            HalRobotMotion cabinet1Home = positionInst.Cabinet1Home;
+            HalRobotMotion cabinet2Home = positionInst.Cabinet2Home;
             bool Licence = false;
             string StartPosName = "";
             string EndPosName = "";
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
-            var StasrtPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
+            var StartPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             if (
-                    StasrtPosInfo.j1 <= openStageHome.J1 + 5 && StasrtPosInfo.j1 >= openStageHome.J1 - 5
-                    && StasrtPosInfo.j2 <= openStageHome.J2 + 5 && StasrtPosInfo.j2 >= openStageHome.J2 - 5
-                    && StasrtPosInfo.j3 <= openStageHome.J3 + 5 && StasrtPosInfo.j3 >= openStageHome.J3 - 5
-                    && StasrtPosInfo.j4 <= openStageHome.J4 + 5 && StasrtPosInfo.j4 >= openStageHome.J4 - 5
-                    && StasrtPosInfo.j5 <= openStageHome.J5 + 5 && StasrtPosInfo.j5 >= openStageHome.J5 - 5
-                    && StasrtPosInfo.j6 <= openStageHome.J6 + 5 && StasrtPosInfo.j6 >= openStageHome.J6 - 5
+                    StartPosInfo.j1 <= openStageHome.J1 + 5 && StartPosInfo.j1 >= openStageHome.J1 - 5
+                    && StartPosInfo.j2 <= openStageHome.J2 + 5 && StartPosInfo.j2 >= openStageHome.J2 - 5
+                    && StartPosInfo.j3 <= openStageHome.J3 + 5 && StartPosInfo.j3 >= openStageHome.J3 - 5
+                    && StartPosInfo.j4 <= openStageHome.J4 + 5 && StartPosInfo.j4 >= openStageHome.J4 - 5
+                    && StartPosInfo.j5 <= openStageHome.J5 + 5 && StartPosInfo.j5 >= openStageHome.J5 - 5
+                    && StartPosInfo.j6 <= openStageHome.J6 + 5 && StartPosInfo.j6 >= openStageHome.J6 - 5
+                    && StartPosInfo.j7 <= openStageHome.J7 + 5 && StartPosInfo.j7 >= openStageHome.J7 - 5
                 )
             {
                 Licence = true; StartPosName = "OpenStage Home";
             }
             else if (
-                    StasrtPosInfo.j1 <= drawer1Home.J1 + 5 && StasrtPosInfo.j1 >= drawer1Home.J1 - 5
-                    && StasrtPosInfo.j2 <= drawer1Home.J2 + 5 && StasrtPosInfo.j2 >= drawer1Home.J2 - 5
-                    && StasrtPosInfo.j3 <= drawer1Home.J3 + 5 && StasrtPosInfo.j3 >= drawer1Home.J3 - 5
-                    && StasrtPosInfo.j4 <= drawer1Home.J4 + 5 && StasrtPosInfo.j4 >= drawer1Home.J4 - 5
-                    && StasrtPosInfo.j5 <= drawer1Home.J5 + 5 && StasrtPosInfo.j5 >= drawer1Home.J5 - 5
-                    && StasrtPosInfo.j6 <= drawer1Home.J6 + 5 && StasrtPosInfo.j6 >= drawer1Home.J6 - 5
+                    StartPosInfo.j1 <= cabinet1Home.J1 + 5 && StartPosInfo.j1 >= cabinet1Home.J1 - 5
+                    && StartPosInfo.j2 <= cabinet1Home.J2 + 5 && StartPosInfo.j2 >= cabinet1Home.J2 - 5
+                    && StartPosInfo.j3 <= cabinet1Home.J3 + 5 && StartPosInfo.j3 >= cabinet1Home.J3 - 5
+                    && StartPosInfo.j4 <= cabinet1Home.J4 + 5 && StartPosInfo.j4 >= cabinet1Home.J4 - 5
+                    && StartPosInfo.j5 <= cabinet1Home.J5 + 5 && StartPosInfo.j5 >= cabinet1Home.J5 - 5
+                    && StartPosInfo.j6 <= cabinet1Home.J6 + 5 && StartPosInfo.j6 >= cabinet1Home.J6 - 5
+                    && StartPosInfo.j7 <= cabinet1Home.J7 + 5 && StartPosInfo.j7 >= cabinet1Home.J7 - 5
                 )
             {
-                Licence = true; StartPosName = "Drawer1 Home";
+                Licence = true; StartPosName = "Cabinet1 Home";
             }
             else if (
-                 StasrtPosInfo.j1 <= faceDrawer2.J1 + 5 && StasrtPosInfo.j1 >= faceDrawer2.J1 - 5
-                    && StasrtPosInfo.j2 <= faceDrawer2.J2 + 5 && StasrtPosInfo.j2 >= faceDrawer2.J2 - 5
-                    && StasrtPosInfo.j3 <= faceDrawer2.J3 + 5 && StasrtPosInfo.j3 >= faceDrawer2.J3 - 5
-                    && StasrtPosInfo.j4 <= faceDrawer2.J4 + 5 && StasrtPosInfo.j4 >= faceDrawer2.J4 - 5
-                    && StasrtPosInfo.j5 <= faceDrawer2.J5 + 5 && StasrtPosInfo.j5 >= faceDrawer2.J5 - 5
-                    && StasrtPosInfo.j6 <= faceDrawer2.J6 + 5 && StasrtPosInfo.j6 >= faceDrawer2.J6 - 5
+                 StartPosInfo.j1 <= cabinet2Home.J1 + 5 && StartPosInfo.j1 >= cabinet2Home.J1 - 5
+                    && StartPosInfo.j2 <= cabinet2Home.J2 + 5 && StartPosInfo.j2 >= cabinet2Home.J2 - 5
+                    && StartPosInfo.j3 <= cabinet2Home.J3 + 5 && StartPosInfo.j3 >= cabinet2Home.J3 - 5
+                    && StartPosInfo.j4 <= cabinet2Home.J4 + 5 && StartPosInfo.j4 >= cabinet2Home.J4 - 5
+                    && StartPosInfo.j5 <= cabinet2Home.J5 + 5 && StartPosInfo.j5 >= cabinet2Home.J5 - 5
+                    && StartPosInfo.j6 <= cabinet2Home.J6 + 5 && StartPosInfo.j6 >= cabinet2Home.J6 - 5
+                    && StartPosInfo.j7 <= cabinet2Home.J7 + 5 && StartPosInfo.j7 >= cabinet2Home.J7 - 5
                 )
             {
-                Licence = true; StartPosName = "Drawer2 Home";
+                Licence = true; StartPosName = "Cabinet2 Home";
             }
             #endregion
             #region 確認終點
@@ -130,27 +134,33 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 && targetPosition.J3 <= openStageHome.J3 + 5 && targetPosition.J3 >= openStageHome.J3 - 5
                 && targetPosition.J4 <= openStageHome.J4 + 5 && targetPosition.J4 >= openStageHome.J4 - 5
                 && targetPosition.J5 <= openStageHome.J5 + 5 && targetPosition.J5 >= openStageHome.J5 - 5
-                && targetPosition.J6 <= openStageHome.J6 + 5 && targetPosition.J6 >= openStageHome.J6 - 5)
+                && targetPosition.J6 <= openStageHome.J6 + 5 && targetPosition.J6 >= openStageHome.J6 - 5
+                 && targetPosition.J7 <= openStageHome.J7 + 5 && targetPosition.J7 >= openStageHome.J7 - 5
+                )
             {
                 EndPosName = "OpenStage Target";
             }
-            else if (targetPosition.J1 <= drawer1Home.J1 + 5 && targetPosition.J1 >= drawer1Home.J1 - 5
-                && targetPosition.J2 <= drawer1Home.J2 + 5 && targetPosition.J2 >= drawer1Home.J2 - 5
-                && targetPosition.J3 <= drawer1Home.J3 + 5 && targetPosition.J3 >= drawer1Home.J3 - 5
-                && targetPosition.J4 <= drawer1Home.J4 + 5 && targetPosition.J4 >= drawer1Home.J4 - 5
-                && targetPosition.J5 <= drawer1Home.J5 + 5 && targetPosition.J5 >= drawer1Home.J5 - 5
-                && targetPosition.J6 <= drawer1Home.J6 + 5 && targetPosition.J6 >= drawer1Home.J6 - 5)
+            else if (targetPosition.J1 <= cabinet1Home.J1 + 5 && targetPosition.J1 >= cabinet1Home.J1 - 5
+                && targetPosition.J2 <= cabinet1Home.J2 + 5 && targetPosition.J2 >= cabinet1Home.J2 - 5
+                && targetPosition.J3 <= cabinet1Home.J3 + 5 && targetPosition.J3 >= cabinet1Home.J3 - 5
+                && targetPosition.J4 <= cabinet1Home.J4 + 5 && targetPosition.J4 >= cabinet1Home.J4 - 5
+                && targetPosition.J5 <= cabinet1Home.J5 + 5 && targetPosition.J5 >= cabinet1Home.J5 - 5
+                && targetPosition.J6 <= cabinet1Home.J6 + 5 && targetPosition.J6 >= cabinet1Home.J6 - 5
+                 && targetPosition.J7 <= cabinet1Home.J7 + 5 && targetPosition.J7 >= cabinet1Home.J7 - 5
+                )
             {
-                EndPosName = "Drawer1 Target";
+                EndPosName = "Cabinet1 Target";
             }
-            else if (targetPosition.J1 <= faceDrawer2.J1 + 5 && targetPosition.J1 >= faceDrawer2.J1 - 5
-                && targetPosition.J2 <= faceDrawer2.J2 + 5 && targetPosition.J2 >= faceDrawer2.J2 - 5
-                && targetPosition.J3 <= faceDrawer2.J3 + 5 && targetPosition.J3 >= faceDrawer2.J3 - 5
-                && targetPosition.J4 <= faceDrawer2.J4 + 5 && targetPosition.J4 >= faceDrawer2.J4 - 5
-                && targetPosition.J5 <= faceDrawer2.J5 + 5 && targetPosition.J5 >= faceDrawer2.J5 - 5
-                && targetPosition.J6 <= faceDrawer2.J6 + 5 && targetPosition.J6 >= faceDrawer2.J6 - 5)
+            else if (targetPosition.J1 <= cabinet2Home.J1 + 5 && targetPosition.J1 >= cabinet2Home.J1 - 5
+                && targetPosition.J2 <= cabinet2Home.J2 + 5 && targetPosition.J2 >= cabinet2Home.J2 - 5
+                && targetPosition.J3 <= cabinet2Home.J3 + 5 && targetPosition.J3 >= cabinet2Home.J3 - 5
+                && targetPosition.J4 <= cabinet2Home.J4 + 5 && targetPosition.J4 >= cabinet2Home.J4 - 5
+                && targetPosition.J5 <= cabinet2Home.J5 + 5 && targetPosition.J5 >= cabinet2Home.J5 - 5
+                && targetPosition.J6 <= cabinet2Home.J6 + 5 && targetPosition.J6 >= cabinet2Home.J6 - 5
+                 && targetPosition.J7 <= cabinet2Home.J7 + 5 && targetPosition.J7 >= cabinet2Home.J7 - 5
+                )
             {
-                EndPosName = "Drawer2 Target";
+                EndPosName = "Cabinet2 Target";
             }
             #endregion
             if (Licence == true)
@@ -169,11 +179,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         RobotMove(PosToAssembly);
                     }
                    */
-                    if (StartPosName != "Drawer1 Home" && EndPosName != "Drawer1 Target")
+                    cabinet1Home.MotionType = targetPosition.MotionType = HalRobotEnumMotionType.Joint;
+                    if (StartPosName != "Cabinet1 Home" && EndPosName != "Cabinet1 Target")
                     {
                         // RobotMove(PosToInspCh());
                         //RobotMove(PosToAssembly);
-                        this.MoveAsync(drawer1Home);
+                        this.MoveAsync(cabinet1Home);
                         this.MoveAsync(targetPosition);
                     }
                     else
@@ -192,63 +203,56 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
 
-        /// <summary>移到 Cabinet1(Drawer 1)</summary>
+        /// <summary>移到 Cabinet1(Drawer 1) 某個 Box</summary>
         /// <param name="boxIndex">Box 的索引</param>
         public void ForwardToCabinet1(int boxIndex)
         {
             this.ForwardToCabinet(1, boxIndex);
         }
 
-        /// <summary>從Home 移動到 Drawer</summary>
-        /// <param name="drawerIndex">Drawer index</param>
+        /// <summary>移到 Cabinet2(Drawer 2) 某個 Box</summary>
+        /// <param name="boxIndex"> Box 索引</param>
+        public void ForwardToCabinet2(int boxIndex)
+        {
+            this.ForwardToCabinet(2, boxIndex);
+        }
+
+        /// <summary>從Home 移動到 Cabinet 某個 Box</summary>
+        /// <param name="cabinetIndex">Drawer index</param>
         /// <param name="boxIndex">Box index</param>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public void ForwardToCabinet(int drawerIndex,int boxIndex)
-        {// TODO: 待實作 [ForwardToDrawer]
-            var positions = default(List<HalRobotMotion>);
-            if (drawerIndex == 1)
+        private void ForwardToCabinet(int cabinetIndex,int boxIndex)
+        {
+            Func<HalRobotMotion> GetBoxPosition = () =>
             {
-                switch (boxIndex)
-                {
-                    case 1:
-                        positions = new BoxTransferPathPasitions().FromHomeToCabinet01_01;
-                        break;
-                    default:
-                        positions = new List<HalRobotMotion>();
-                        break;
-                }
-               
-            }
-            else if (drawerIndex == 2)
-            {
-                
-            }
+                // 終點 
+                //  TODO: 要獲得實際的 Position
+                var boxPosition = new HalRobotMotion();
+                return boxPosition;
+            };
+            var positions = GetBoxPosition();
             this.MoveAsync(positions);
         }
 
-        /// <summary>從 Drawer Back Home</summary>
-        /// <param name="drawerIndex">Drawer Index</param>
-        /// <param name="boxIndex">Box index</param>
-        ///<remarks>King, 2020/05/25 Add</remarks>
-        public void BackwardFromDrawer(int drawerIndex,int boxIndex)
-        { // TODO: 待實作 [BackwardFromDrawer]
-            
+ 
+        /// <summary>回到 Cabinet 1 Home</summary>
+        public void BackwardFromCabinet1()
+        {
+            var position = new BoxTransferPathPasitions().Cabinet1Home;
+            this.MoveAsync(position);
         }
-
-        /// <summary>轉動方向,面對 Open Stage</summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public void ChangeDirectionToFaceOpenStage()
-        { 
-            var position = new BoxTransferPathPasitions().FaceOpenStage;
-            ChangeDirection(position);
+        /// <summary>回到 Cabinet 2 Home</summary>
+        public void BackwardFromCabinet2()
+        {
+            var position = new BoxTransferPathPasitions().Cabinet2Home;
+            this.MoveAsync(position);
         }
-
         /// <summary>移至 OpenStage</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void ForwardToOpenStage()
-        { 
-            var positions = new BoxTransferPathPasitions().FromHomeToOpenStage;
-            this.MoveAsync(positions);
+        {
+            var position = new BoxTransferPathPasitions().OpenStage;
+            this.MoveAsync(position);
             
         }
 
@@ -257,8 +261,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackwardFromOpenStage()
         {
-            var positions = new BoxTransferPathPasitions().FromOpenStageToHome;
-            this.MoveAsync(positions);
+            var position = new BoxTransferPathPasitions().OpenStageHome;
+            this.MoveAsync(position);
         }
 
         /// <summary>非同步移動到某個位置</summary>
@@ -528,132 +532,18 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
         
 
-
-        /// <summary>面對 Drawer1 的點位</summary>
+        /// <summary>從 Home 到 OpenStage 點位 </summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public HalRobotMotion FaceDrawer1
+        public HalRobotMotion OpenStage
         {
             get
             {
-                var position = new HalRobotMotion();
-                // TODO: 加入在 Home 面對 Drawer1 的點位
-
-                return position;
-            }
-                
-        }
-
-        /// <summary>面對 Drawer2 的點位</summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public HalRobotMotion FaceDrawer2
-        {
-            get
-            {
-                var position = new HalRobotMotion();
-                // TODO: 加入在 Home 面對 Drawer2 的點位
-
-                return position;
-            }
-        }
-        public HalRobotMotion FaceOpenStage
-        {
-            get
-            {
-                var position = new HalRobotMotion();
-                // TODO: 加入在 Home 面對 OpenStage 的點位
-
-                return position;
-            }
-        }
-
-
-
-        /// <summary>從 Home 到 Drawer1 的點位集合</summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromHomeToCabinet01_01
-        {
-            get
-            {
-                List<HalRobotMotion> positions = new List<HalRobotMotion>();
-                var cabinet1Home = this.Cabinet1Home;
-                cabinet1Home.MotionType = HalRobotEnumMotionType.Position;
-                positions.Add(cabinet1Home);
-                positions.Add(
-                    new HalRobotMotion
-                    {
-                        X = 36.3934479f,
-                        Y = -680.056335f,
-                        Z = 38.28108f,
-                        W = 147.165817f,
-                        P = -86.8544f,
-                        R = -56.3381348f,
-                        E1 = 402.3014f,
-                        Speed = 60,
-                        MotionType = HalRobotEnumMotionType.Position,
-                    });
-                // TODO: 加入從Home 到 Drawer1 的點位資料
-                return positions; 
-            }
-        }
-
-        /// <summary>從 Drawer1 到 Home 的點位集合  </summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromDrawer1ToHome
-        {
-            get
-            {
-                List<HalRobotMotion> positions = new List<HalRobotMotion>();
-                // TODO: 加入從 Drawer1 到 Home 點位資料
-                return positions;
-            }
-        }
-
-        /// <summary>從 Home 到 Drawer2 點位的集合 </summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromHomeToDrawer2
-        {
-            get
-            {
-                List<HalRobotMotion> positions = new List<HalRobotMotion>();
-                // TODO: 加入Home 到 Drawer2 點位資料
-                return positions;
-            }
-        }
-
-        /// <summary>從 Drawer2 到 Home 點位的集合 </summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromDrawer2ToHome
-        {
-            get
-            {
-                List<HalRobotMotion> positions = new List<HalRobotMotion>();
-                // TODO: 加入Drawer2 到 Home 點位資料
-                return positions;
-            }
-        }
-        /// <summary>從 Home 到 OpenStage 點位的集合 </summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromHomeToOpenStage
-        {
-            get
-            {
-                List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                HalRobotMotion position = new HalRobotMotion();
                 // TODO: 加入 Home 到 OpenStage點位資料
-                return positions;
+                return position;
             }
         }
 
-        /// <summary>從 OpenStage 到 Home 點位的集合 </summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public List<HalRobotMotion> FromOpenStageToHome
-        {
-            get
-            {
-                List<HalRobotMotion> positions = new List<HalRobotMotion>();
-                // TODO: 加入 OpenStage 到 Home點位資料
-                return positions;
-            }
-        }
     }
 
     
