@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestPathMove()
         {
-            int drawerIndex = default(int);
+            int drawerIndex = 1;//            default(int);
             int boxIndex = default(int);
             try
             {
@@ -30,7 +30,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
-                    mt.BackHomeFromAnyWhere();
+                   mt.BackDrawer1HomeFromAnyWhere();//V
                     mt.ChangeDirectionToFaceDrawer(drawerIndex);// 執行前先調整 drawerIndex 變數
                     mt.ForwardToDrawer(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
                     mt.BackwardFromDrawer(drawerIndex, boxIndex);// 執行前先調整 drawerIndex 及 boxIndex變數

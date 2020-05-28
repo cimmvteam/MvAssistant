@@ -39,9 +39,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         /// <summary>回到 Home</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public void BackHomeFromAnyWhere()
+        public void BackDrawer1HomeFromAnyWhere()
         {
-            var position = new BoxTransferPathPasitions().Home;
+            var position = new BoxTransferPathPasitions().Drawer1Home;
             this.MoveAsync(position);
         }
 
@@ -60,39 +60,42 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             }
             ChangeDirection(position);
         }
+        private void ChangeDirectionToDrawer1(List<HalRobotMotion> posirions)
+        {
 
-        private void ChangeDirection(HalRobotMotion basePosition)
+        }
+        private void ChangeDirection(HalRobotMotion targetPosition)
         { // TODO: 待討論
             var positionInst = new BoxTransferPathPasitions();
-            HalRobotMotion faceOpenStage = positionInst.FaceOpenStage;
-            HalRobotMotion faceDrawer1 = positionInst.FaceDrawer1;
-            HalRobotMotion faceDrawer2 = positionInst.FaceDrawer2;
+            HalRobotMotion openStageHome = positionInst.OpenStageHome;
+            HalRobotMotion drawer1Home = positionInst.Drawer1Home;
+            HalRobotMotion faceDrawer2 = positionInst.Drawer2Home;
             bool Licence = false;
             string StartPosName = "";
             string EndPosName = "";
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
             var StasrtPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             if (
-                    StasrtPosInfo.j1 <= faceOpenStage.J1 + 5 && StasrtPosInfo.j1 >= faceOpenStage.J1 - 5
-                    && StasrtPosInfo.j2 <= faceOpenStage.J2 + 5 && StasrtPosInfo.j2 >= faceOpenStage.J2 - 5
-                    && StasrtPosInfo.j3 <= faceOpenStage.J3 + 5 && StasrtPosInfo.j3 >= faceOpenStage.J3 - 5
-                    && StasrtPosInfo.j4 <= faceOpenStage.J4 + 5 && StasrtPosInfo.j4 >= faceOpenStage.J4 - 5
-                    && StasrtPosInfo.j5 <= faceOpenStage.J5 + 5 && StasrtPosInfo.j5 >= faceOpenStage.J5 - 5
-                    && StasrtPosInfo.j6 <= faceOpenStage.J6 + 5 && StasrtPosInfo.j6 >= faceOpenStage.J6 - 5
+                    StasrtPosInfo.j1 <= openStageHome.J1 + 5 && StasrtPosInfo.j1 >= openStageHome.J1 - 5
+                    && StasrtPosInfo.j2 <= openStageHome.J2 + 5 && StasrtPosInfo.j2 >= openStageHome.J2 - 5
+                    && StasrtPosInfo.j3 <= openStageHome.J3 + 5 && StasrtPosInfo.j3 >= openStageHome.J3 - 5
+                    && StasrtPosInfo.j4 <= openStageHome.J4 + 5 && StasrtPosInfo.j4 >= openStageHome.J4 - 5
+                    && StasrtPosInfo.j5 <= openStageHome.J5 + 5 && StasrtPosInfo.j5 >= openStageHome.J5 - 5
+                    && StasrtPosInfo.j6 <= openStageHome.J6 + 5 && StasrtPosInfo.j6 >= openStageHome.J6 - 5
                 )
             {
-                Licence = true; StartPosName = "Open Stage";
+                Licence = true; StartPosName = "OpenStage Home";
             }
             else if (
-                    StasrtPosInfo.j1 <= faceDrawer1.J1 + 5 && StasrtPosInfo.j1 >= faceDrawer1.J1 - 5
-                    && StasrtPosInfo.j2 <= faceDrawer1.J2 + 5 && StasrtPosInfo.j2 >= faceDrawer1.J2 - 5
-                    && StasrtPosInfo.j3 <= faceDrawer1.J3 + 5 && StasrtPosInfo.j3 >= faceDrawer1.J3 - 5
-                    && StasrtPosInfo.j4 <= faceDrawer1.J4 + 5 && StasrtPosInfo.j4 >= faceDrawer1.J4 - 5
-                    && StasrtPosInfo.j5 <= faceDrawer1.J5 + 5 && StasrtPosInfo.j5 >= faceDrawer1.J5 - 5
-                    && StasrtPosInfo.j6 <= faceDrawer1.J6 + 5 && StasrtPosInfo.j6 >= faceDrawer1.J6 - 5
+                    StasrtPosInfo.j1 <= drawer1Home.J1 + 5 && StasrtPosInfo.j1 >= drawer1Home.J1 - 5
+                    && StasrtPosInfo.j2 <= drawer1Home.J2 + 5 && StasrtPosInfo.j2 >= drawer1Home.J2 - 5
+                    && StasrtPosInfo.j3 <= drawer1Home.J3 + 5 && StasrtPosInfo.j3 >= drawer1Home.J3 - 5
+                    && StasrtPosInfo.j4 <= drawer1Home.J4 + 5 && StasrtPosInfo.j4 >= drawer1Home.J4 - 5
+                    && StasrtPosInfo.j5 <= drawer1Home.J5 + 5 && StasrtPosInfo.j5 >= drawer1Home.J5 - 5
+                    && StasrtPosInfo.j6 <= drawer1Home.J6 + 5 && StasrtPosInfo.j6 >= drawer1Home.J6 - 5
                 )
             {
-                Licence = true; StartPosName = "Drawer1";
+                Licence = true; StartPosName = "Drawer1 Home";
             }
             else if (
                  StasrtPosInfo.j1 <= faceDrawer2.J1 + 5 && StasrtPosInfo.j1 >= faceDrawer2.J1 - 5
@@ -103,36 +106,36 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     && StasrtPosInfo.j6 <= faceDrawer2.J6 + 5 && StasrtPosInfo.j6 >= faceDrawer2.J6 - 5
                 )
             {
-                Licence = true; StartPosName = "Drawer2";
+                Licence = true; StartPosName = "Drawer2 Home";
             }
             #endregion
             #region 確認終點
-            if (basePosition.J1 <= faceOpenStage.J1 + 5 && basePosition.J1 >= faceOpenStage.J1 - 5
-                && basePosition.J2 <= faceOpenStage.J2 + 5 && basePosition.J2 >= faceOpenStage.J2 - 5
-                && basePosition.J3 <= faceOpenStage.J3 + 5 && basePosition.J3 >= faceOpenStage.J3 - 5
-                && basePosition.J4 <= faceOpenStage.J4 + 5 && basePosition.J4 >= faceOpenStage.J4 - 5
-                && basePosition.J5 <= faceOpenStage.J5 + 5 && basePosition.J5 >= faceOpenStage.J5 - 5
-                && basePosition.J6 <= faceOpenStage.J6 + 5 && basePosition.J6 >= faceOpenStage.J6 - 5)
+            if (targetPosition.J1 <= openStageHome.J1 + 5 && targetPosition.J1 >= openStageHome.J1 - 5
+                && targetPosition.J2 <= openStageHome.J2 + 5 && targetPosition.J2 >= openStageHome.J2 - 5
+                && targetPosition.J3 <= openStageHome.J3 + 5 && targetPosition.J3 >= openStageHome.J3 - 5
+                && targetPosition.J4 <= openStageHome.J4 + 5 && targetPosition.J4 >= openStageHome.J4 - 5
+                && targetPosition.J5 <= openStageHome.J5 + 5 && targetPosition.J5 >= openStageHome.J5 - 5
+                && targetPosition.J6 <= openStageHome.J6 + 5 && targetPosition.J6 >= openStageHome.J6 - 5)
             {
-                EndPosName = "Open Stage";
+                EndPosName = "OpenStage Target";
             }
-            else if (basePosition.J1 <= faceDrawer1.J1 + 5 && basePosition.J1 >= faceDrawer1.J1 - 5
-                && basePosition.J2 <= faceDrawer1.J2 + 5 && basePosition.J2 >= faceDrawer1.J2 - 5
-                && basePosition.J3 <= faceDrawer1.J3 + 5 && basePosition.J3 >= faceDrawer1.J3 - 5
-                && basePosition.J4 <= faceDrawer1.J4 + 5 && basePosition.J4 >= faceDrawer1.J4 - 5
-                && basePosition.J5 <= faceDrawer1.J5 + 5 && basePosition.J5 >= faceDrawer1.J5 - 5
-                && basePosition.J6 <= faceDrawer1.J6 + 5 && basePosition.J6 >= faceDrawer1.J6 - 5)
+            else if (targetPosition.J1 <= drawer1Home.J1 + 5 && targetPosition.J1 >= drawer1Home.J1 - 5
+                && targetPosition.J2 <= drawer1Home.J2 + 5 && targetPosition.J2 >= drawer1Home.J2 - 5
+                && targetPosition.J3 <= drawer1Home.J3 + 5 && targetPosition.J3 >= drawer1Home.J3 - 5
+                && targetPosition.J4 <= drawer1Home.J4 + 5 && targetPosition.J4 >= drawer1Home.J4 - 5
+                && targetPosition.J5 <= drawer1Home.J5 + 5 && targetPosition.J5 >= drawer1Home.J5 - 5
+                && targetPosition.J6 <= drawer1Home.J6 + 5 && targetPosition.J6 >= drawer1Home.J6 - 5)
             {
-                EndPosName = "Drawer1";
+                EndPosName = "Drawer1 Target";
             }
-            else if (basePosition.J1 <= faceDrawer2.J1 + 5 && basePosition.J1 >= faceDrawer2.J1 - 5
-                && basePosition.J2 <= faceDrawer2.J2 + 5 && basePosition.J2 >= faceDrawer2.J2 - 5
-                && basePosition.J3 <= faceDrawer2.J3 + 5 && basePosition.J3 >= faceDrawer2.J3 - 5
-                && basePosition.J4 <= faceDrawer2.J4 + 5 && basePosition.J4 >= faceDrawer2.J4 - 5
-                && basePosition.J5 <= faceDrawer2.J5 + 5 && basePosition.J5 >= faceDrawer2.J5 - 5
-                && basePosition.J6 <= faceDrawer2.J6 + 5 && basePosition.J6 >= faceDrawer2.J6 - 5)
+            else if (targetPosition.J1 <= faceDrawer2.J1 + 5 && targetPosition.J1 >= faceDrawer2.J1 - 5
+                && targetPosition.J2 <= faceDrawer2.J2 + 5 && targetPosition.J2 >= faceDrawer2.J2 - 5
+                && targetPosition.J3 <= faceDrawer2.J3 + 5 && targetPosition.J3 >= faceDrawer2.J3 - 5
+                && targetPosition.J4 <= faceDrawer2.J4 + 5 && targetPosition.J4 >= faceDrawer2.J4 - 5
+                && targetPosition.J5 <= faceDrawer2.J5 + 5 && targetPosition.J5 >= faceDrawer2.J5 - 5
+                && targetPosition.J6 <= faceDrawer2.J6 + 5 && targetPosition.J6 >= faceDrawer2.J6 - 5)
             {
-                EndPosName = "Drawer2";
+                EndPosName = "Drawer2 Target";
             }
             #endregion
             if (Licence == true)
@@ -151,7 +154,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         RobotMove(PosToAssembly);
                     }
                    */
-                    this.MoveAsync(basePosition);
+                    if (StartPosName != "Drawer1 Home" && EndPosName != "Drawer1 Target")
+                    {
+                        // RobotMove(PosToInspCh());
+                        //RobotMove(PosToAssembly);
+                        this.MoveAsync(drawer1Home);
+                        this.MoveAsync(targetPosition);
+                    }
+                    else
+                    {
+                        //RobotMove(PosToAssembly);
+                        this.MoveAsync(targetPosition);
+                    }
+
+                   
                 }
                 else
                     throw new Exception("Unknown end position !!");
@@ -167,7 +183,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void ForwardToDrawer(int drawerIndex,int boxIndex)
         {// TODO: 待實作 [ForwardToDrawer]
-
+            var positions = default(List<HalRobotMotion>);
+            if (drawerIndex == 1)
+            {
+                 positions= new BoxTransferPathPasitions().FromHomeToDrawer1;
+            }
+            this.MoveAsync(positions);
         }
 
         /// <summary>從 Drawer Back Home</summary>
@@ -176,7 +197,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         ///<remarks>King, 2020/05/25 Add</remarks>
         public void BackwardFromDrawer(int drawerIndex,int boxIndex)
         { // TODO: 待實作 [BackwardFromDrawer]
-
+            
         }
 
         /// <summary>轉動方向,面對 Open Stage</summary>
@@ -419,8 +440,25 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     /// <remarks>King, 2020/05/15 Add</remarks>
     public class BoxTransferPathPasitions
     {
+        public HalRobotMotion OpenStageHome
+        {
+            get
+            {
 
-        public HalRobotMotion Home
+                return null;
+            }
+
+        }
+
+        public HalRobotMotion Drawer2Home
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public HalRobotMotion Drawer1Home
         {
             get
             {
@@ -431,7 +469,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     J4 = 0.9846464f,
                     J5 = 61.5056839f,
                     J6 = 1.27504456f,
-                    J7 = 402.3014f,
+                    J7 = 414.898f,
                     Speed = 50,
                     MotionType = HalRobotEnumMotionType.Joint,
 
@@ -442,6 +480,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             }
         }
         
+
+
         /// <summary>面對 Drawer1 的點位</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public HalRobotMotion FaceDrawer1
@@ -488,6 +528,32 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             get
             {
                 List<HalRobotMotion> positions = new List<HalRobotMotion>();
+                positions.Add(
+                    new HalRobotMotion
+                    {
+                        X= 0.6692078f,
+                        Y= -527.9844f,
+                        Z= 38.3338966f,
+                        W= 147.140915f,
+                        P= -86.85986f,
+                        R= -56.31354f,
+                        E1=403.3014f,
+                        Speed=60,
+                        MotionType=HalRobotEnumMotionType.Position,
+                    } );
+                positions.Add(
+                    new HalRobotMotion
+                    {
+                        X = 36.3934479f,
+                        Y = -680.056335f,
+                        Z = 38.28108f,
+                        W = 147.165817f,
+                        P = -86.8544f,
+                        R = -56.3381348f,
+                        E1 = 402.3014f,
+                        Speed = 60,
+                        MotionType = HalRobotEnumMotionType.Position,
+                    });
                 // TODO: 加入從Home 到 Drawer1 的點位資料
                 return positions; 
             }
