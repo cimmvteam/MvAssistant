@@ -1,5 +1,5 @@
 ﻿// 如果要使用GUI功能，請取消註解以下內容，以定義ENABLED_ST_GUI並進行進一步的操作
-//#define ENABLED_ST_GUI
+#define ENABLED_ST_GUI
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,7 +37,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
                 // 顯示裝置名稱
                 Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
-
+                
                 // 主機端獲取影像
                 dataStream.StartAcquisition(nCountOfImagesToGrab);
 
@@ -60,12 +60,15 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
                             // 顯示接收影像的詳細資訊
                             Byte[] imageData = stImage.GetByteArray();
+                            //File.WriteAllBytes("Foo.txt", imageData);
                             Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);
                             Console.Write(" Size:" + stImage.ImageWidth + " x " + stImage.ImageHeight);
                             Console.Write(" First byte =" + imageData[0] + Environment.NewLine);
 
                             MemoryStream memoryStream = new MemoryStream(imageData);
+                            memoryStream.Seek(0, SeekOrigin.Begin);
                             img = Image.FromStream(memoryStream);
+                            memoryStream.Flush();
                         }
                         else
                         {
