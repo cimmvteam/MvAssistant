@@ -47,6 +47,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
 
+                    if (unv.HalConnect() != 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Connect Fail");
+                    }
+
                     unv.ReadCoverFanSpeed();
                     unv.ReadPowerON();
                     unv.ReadBCP_Maintenance();

@@ -176,7 +176,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     Vendor = "Omron",
                     Product = "PLC",
                     Remark = null,
-                    AssignType = typeof(Hal.CompPlc.MacHalPlcContext),
+                    AssignType = typeof(Hal.CompPlc.MacHalPlcUniversal),
                     DriverId = ManifestDriverId.UniversalPlc.ToString(),
                     DriverPath =null,
                 },
