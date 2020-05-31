@@ -2,9 +2,16 @@
   {
     "PositionFileDirectory": "D:\\Positions\\MTRobot\\",
     "ConfigFileName": "MTRobotPathConfig.json",
-    "DeviceName": "Mask Robot",
+    "DeviceName": "Mask_Robot",
     "DeviceIP": "192.168.0.50",
     "ConfigDetail": [
+      {
+        "SerialNumber": 0,
+        "PositionFileName": "Temp.json",
+        "UsageDescription": "Temp",
+        "PositionFileDescription": "未定",
+        "MotionType": 2
+      },
       {
         "SerialNumber": 10,
         "PositionFileName": "LoadPortHome.json",
@@ -144,9 +151,16 @@
   {
     "PositionFileDirectory": "D:\\Positions\\BTRobot\\",
     "ConfigFileName": "BTRobotPathConfig.json",
-    "DeviceName": "Box Robot",
+    "DeviceName": "Box_Robot",
     "DeviceIP": "192.168.0.51",
     "ConfigDetail": [
+      {
+        "SerialNumber": 0,
+        "PositionFileName": "Temp.json",
+        "UsageDescription": "Temp",
+        "PositionFileDescription": "未定",
+        "MotionType": 2
+      },
       {
         "SerialNumber": 10,
         "PositionFileName": "Cabinet_01_Home.json",
