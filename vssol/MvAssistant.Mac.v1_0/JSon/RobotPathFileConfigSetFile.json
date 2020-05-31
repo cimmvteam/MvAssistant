@@ -1,0 +1,62 @@
+[
+  {
+    "PositionFileDirectory": "D:\\Positions\\MTRobot\\",
+    "ConfigFileName": "MTRobotPathConfig.json",
+    "DeviceName": "Mask Robot",
+    "DeviceIP": "192.168.0.50",
+    "ConfigDetail": [
+      {
+        "SerialNumber": 10,
+        "PositionFileName": "LoadPortHome.json",
+        "UsageDescription": "從Load Port的Home點開始移動的起始點位",
+        "PositionFileDescription": "單一點位",
+        "MotionType":3
+      },
+      {
+        "SerialNumber": 20,
+        "PositionFileName": "InspChHome.json",
+        "UsageDescription": "從Inspection Chamber的Home點開始移動的起始點位",
+        "PositionFileDescription": "單一點位",
+        "MotionType":3
+      },
+      {
+        "SerialNumber": 30,
+        "PositionFileName": "CleanChHome.json",
+        "UsageDescription": "從Clean Chamber的Home點開始移動的起始點位",
+        "PositionFileDescription": "單一點位",
+        "MotionType": 3
+      }
+    ]
+
+  },
+  {
+    "PositionFileDirectory": "D:\\Positions\\BTRobot\\",
+    "ConfigFileName": "BTRobotPathConfig.json",
+    "DeviceName": "Box Robot",
+    "DeviceIP": "192.168.0.51",
+    "ConfigDetail": [
+      {
+        "SerialNumber": 10,
+        "PositionFileName": "Cabinet_01_Home.json",
+        "UsageDescription": "Cabinet 01 Home 點",
+        "PositionFileDescription": "單一點位",
+        "MotionType": 3
+      },
+      {
+        "SerialNumber": 20,
+        "PositionFileName": "Cabinet_02_Home.json",
+        "UsageDescription": "Cabinet 02 Home 點",
+        "PositionFileDescription": "單一點位",
+        "MotionType": 3
+      },
+      {
+        "SerialNumber": 30,
+        "PositionFileName": "OpenStage_Home.json",
+        "UsageDescription": "Open Stage Home 點",
+        "PositionFileDescription": "單一點位",
+        "MotionType": 3
+      }
+    ]
+  }
+
+]
