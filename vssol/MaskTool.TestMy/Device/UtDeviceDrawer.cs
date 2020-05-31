@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.DeviceDrive.KjMachineDrawer;
 
 namespace MvAssistant.Mac.TestMy.Device
 {
@@ -9,10 +10,9 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]
         public void TestMethod1()
         {
-            using (var light = new MvKjMachineDrawerLdd())
+            using (var drawer = new MvKjMachineDrawerLdd())
             {
-
-
+                drawer.ConnectIfNo();
 
 
             }
