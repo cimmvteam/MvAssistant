@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "PositionFileDirectory": "D:\\Positions\\MTRobot\\",
     "ConfigFileName": "MTRobotPathConfig.json",
@@ -8,23 +8,135 @@
       {
         "SerialNumber": 10,
         "PositionFileName": "LoadPortHome.json",
-        "UsageDescription": "�qLoad Port��Home�I�}�l���ʪ��_�l�I��",
-        "PositionFileDescription": "��@�I��",
-        "MotionType":3
+        "UsageDescription": "從Load Port的Home點開始移動的起始點位",
+        "PositionFileDescription": "單一點位",
+        "MotionType": 3
       },
       {
         "SerialNumber": 20,
         "PositionFileName": "InspChHome.json",
-        "UsageDescription": "�qInspection Chamber��Home�I�}�l���ʪ��_�l�I��",
-        "PositionFileDescription": "��@�I��",
-        "MotionType":3
+        "UsageDescription": "從Inspection Chamber的Home點開始移動的起始點位",
+        "PositionFileDescription": "單一點位",
+        "MotionType": 3
       },
       {
         "SerialNumber": 30,
         "PositionFileName": "CleanChHome.json",
-        "UsageDescription": "�qClean Chamber��Home�I�}�l���ʪ��_�l�I��",
-        "PositionFileDescription": "��@�I��",
+        "UsageDescription": "從Clean Chamber的Home點開始移動的起始點位",
+        "PositionFileDescription": "單一點位",
         "MotionType": 3
+      },
+      {
+        "SerialNumber": 40,
+        "PositionFileName": "LPHomeToLP1.json",
+        "UsageDescription": "從Load Port的Home點移到Load Port1",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 50,
+        "PositionFileName": "LPHomeToLP2.json",
+        "UsageDescription": "從Load Port的Home點移到Load Port2",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 60,
+        "PositionFileName": "LP1ToLPHome.json",
+        "UsageDescription": "從Load Port1移到Load Port的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 70,
+        "PositionFileName": "LP2ToLPHome.json",
+        "UsageDescription": "從Load Port2移到Load Port的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 80,
+        "PositionFileName": "LPHomeToOS.json",
+        "UsageDescription": "從Load Port的Home點移到Open Stage",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 90,
+        "PositionFileName": "OSToLPHome.json",
+        "UsageDescription": "從Open Stage移到Load Port的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 100,
+        "PositionFileName": "",
+        "UsageDescription": "從Load Port的Home點移到夾爪校正裝置(校正裝置名稱未定)",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 110,
+        "PositionFileName": "",
+        "UsageDescription": "從夾爪校正裝置移到Load Port的Home點(校正裝置名稱未定)",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 120,
+        "PositionFileName": "ICHomeFrontSideToIC.json",
+        "UsageDescription": "從Inspection Chamber的Home點，夾爪不旋轉，移到Inspection Chamber",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 130,
+        "PositionFileName": "ICHomeBackSideToIC.json",
+        "UsageDescription": "從Inspection Chamber的Home點，夾爪旋轉180º，移到Inspection Chamber",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 140,
+        "PositionFileName": "ICFrontSideToICHome.json",
+        "UsageDescription": "從Inspection Chamber，夾爪不旋轉的姿勢，移到InspectionChamber的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 150,
+        "PositionFileName": "ICBackSideToICHome.json",
+        "UsageDescription": "從Inspection Chamber，以夾爪旋轉180º的姿勢，移到Inspection Chamber的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 160,
+        "PositionFileName": "CCHomeFrontSideToClean.json",
+        "UsageDescription": "從Clean Chamber的Home點，夾爪不旋轉(Mask正面朝上)，移到Air Gun上方清潔Mask背面，最後回到Clean Chamber的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 170,
+        "PositionFileName": "CCHomeFrontSideToCamera.json",
+        "UsageDescription": "從Clean Chamber的Home點，夾爪不旋轉(Mask正面朝上)，移到Camera上方拍攝Mask背面影像，最後回到Clean Chamber的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 180,
+        "PositionFileName": "CCHomeBackSideToClean.json",
+        "UsageDescription": "從Clean Chamber的Home點，夾爪旋轉180º(Mask背面朝上)，移到Air Gun上方清潔Mask正面，最後回到Clean Chamber的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 190,
+        "PositionFileName": "CCHomeBackSideToCamera.json",
+        "UsageDescription": "從Clean Chamber的Home點，夾爪旋轉180º(Mask背面朝上)，移到Camera上方拍攝Mask正面影像，最後回到Clean Chamber的Home點",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
       }
     ]
 
@@ -38,22 +150,22 @@
       {
         "SerialNumber": 10,
         "PositionFileName": "Cabinet_01_Home.json",
-        "UsageDescription": "Cabinet 01 Home �I",
-        "PositionFileDescription": "��@�I��",
+        "UsageDescription": "Cabinet 01 Home 點",
+        "PositionFileDescription": "單一點位",
         "MotionType": 3
       },
       {
         "SerialNumber": 20,
         "PositionFileName": "Cabinet_02_Home.json",
-        "UsageDescription": "Cabinet 02 Home �I",
-        "PositionFileDescription": "��@�I��",
+        "UsageDescription": "Cabinet 02 Home 點",
+        "PositionFileDescription": "單一點位",
         "MotionType": 3
       },
       {
         "SerialNumber": 30,
         "PositionFileName": "OpenStage_Home.json",
-        "UsageDescription": "Open Stage Home �I",
-        "PositionFileDescription": "��@�I��",
+        "UsageDescription": "Open Stage Home 點",
+        "PositionFileDescription": "單一點位",
         "MotionType": 3
       }
     ]

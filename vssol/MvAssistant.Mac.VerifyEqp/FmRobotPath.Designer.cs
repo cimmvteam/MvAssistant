@@ -140,7 +140,7 @@
             this.TxtBxDevicePath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.TxtBxDevicePath.Name = "TxtBxDevicePath";
             this.TxtBxDevicePath.ReadOnly = true;
-            this.TxtBxDevicePath.Size = new System.Drawing.Size(1044, 25);
+            this.TxtBxDevicePath.Size = new System.Drawing.Size(1751, 25);
             this.TxtBxDevicePath.TabIndex = 6;
             this.TxtBxDevicePath.TextChanged += new System.EventHandler(this.TxtBxDevicePath_TextChanged);
             // 
@@ -272,7 +272,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(1130, 372);
+            this.groupBox1.Size = new System.Drawing.Size(1835, 372);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             // 
@@ -291,7 +291,7 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.CmbBoxMotionType);
             this.panel2.Controls.Add(this.label5);
-            this.panel2.Location = new System.Drawing.Point(833, 19);
+            this.panel2.Location = new System.Drawing.Point(1540, 17);
             this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(280, 65);
@@ -323,7 +323,7 @@
             this.LstBxJsonList.Location = new System.Drawing.Point(69, 90);
             this.LstBxJsonList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.LstBxJsonList.Name = "LstBxJsonList";
-            this.LstBxJsonList.Size = new System.Drawing.Size(1044, 244);
+            this.LstBxJsonList.Size = new System.Drawing.Size(1751, 244);
             this.LstBxJsonList.TabIndex = 20;
             this.LstBxJsonList.SelectedIndexChanged += new System.EventHandler(this.LstBxJsonList_SelectedIndexChanged);
             // 

@@ -103,7 +103,7 @@ namespace MvAssistant.Mac.v1_0.JSon
         {
             get
             {
-                var rtnV = SerialNumber.ToString("  0") + "   |   " + PositionFileName + "   |   " + UsageDescription   ;
+                var rtnV = SerialNumber.ToString("000000") + "   |   " + PositionFileName + "   |   " + UsageDescription   ;
                 return rtnV;
             }
 
