@@ -394,7 +394,7 @@ namespace MaskCleanerVerify
 #else
                 groupBox1.Enabled = false;
                 ldd = new MvFanucRobotLdd();
-                this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
+                this.ldd.RobotIp = this.RobotPathFileConfigSet.GetCurrentConfig("").DeviceIP;
                 if (ldd.ConnectIfNo() != 0)
                 { throw new Exception("無法連接裝置"); }
                 ldd.ExecutePNS("PNS0101");
