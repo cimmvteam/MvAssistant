@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'fix robot lock'
+git commit -m 'ldd update'
 git pull
 git push
 cd ..

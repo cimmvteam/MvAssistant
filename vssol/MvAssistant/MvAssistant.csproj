@@ -84,6 +84,7 @@
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerdd.cs" />
     <Compile Include="DeviceDrive\LelmacLight\MvLelmacLightLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />

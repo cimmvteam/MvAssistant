@@ -5,16 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.LelmacLight
+namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
-    public class MvLelmacLightLdd : IDisposable
+    public class MvKjMachineDrawerLdd : IDisposable
     {
 
-        public CtkNonStopTcpClient TcpClient;
 
-
-
-        public MvLelmacLightLdd()
+        public MvKjMachineDrawerLdd()
         {
 
         }
@@ -22,8 +19,7 @@ namespace MvAssistant.DeviceDrive.LelmacLight
 
         public int ConnectIfNo(string ip = null, int? port = null)
         {
-            this.TcpClient = new CtkNonStopTcpClient();
-            this.TcpClient.ConnectIfNo();
+        
 
 
 
@@ -33,12 +29,8 @@ namespace MvAssistant.DeviceDrive.LelmacLight
 
         public void Close()
         {
-            try
-            {
-                if (this.TcpClient != null)
-                    using (var obj = this.TcpClient) { obj.Disconnect(); }
-            }
-            catch (Exception ex) { MvLog.WarnNs(this, ex); }
+
+
         }
 
 
