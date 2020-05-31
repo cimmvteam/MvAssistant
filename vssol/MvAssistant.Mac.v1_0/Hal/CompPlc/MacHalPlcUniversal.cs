@@ -18,6 +18,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcUniversal(MacHalPlcContext plc = null)
         { this.m_PlcContext = plc; }
 
+
+        #region MacHalPlcBase
+
+        public override int HalConnect()
+        {
+            var rtn = base.HalConnect();
+            this.m_PlcContext.Connect();
+            return rtn;
+        }
+
+        #endregion
+
+
+
         //信號燈
         public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
@@ -399,10 +413,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "Level sensor X open circuit, ";
                         else if (i == 4)
                             Result += "Level sensor Y open circuit, ";
-                        else if (i == 5)
-                            Result += "Clamp T1 Timeout, ";
-                        else if (i == 6)
-                            Result += "Unclamp T1 Timeout, ";
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
@@ -444,6 +454,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "Left Move Error, ";
                         else if (i == 7)
                             Result += "Right Move Error, ";
+                        else if (i == 8)
+                            Result += "Tactile out range, ";
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
@@ -489,6 +501,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "Clamp扭力錯誤, ";
                         else if (i == 9)
                             Result += "氣壓不足, ";
+                        else if (i == 10)
+                            Result += "Cover1 Deviation is too large, ";
+                        else if (i == 11)
+                            Result += "Cover2 Deviation is too large, ";
                         else
                             Result += "Unknown Alarm Signal, ";
                 }
@@ -674,16 +690,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        if (i == 0)
-                            Result += ", ";
-                        else if (i == 1)
-                            Result += ", ";
-                        else if (i == 2)
-                            Result += ", ";
-                        else if (i == 3)
-                            Result += ", ";
-                        else
-                            Result += "Unknown Warning Signal, ";
+                        Result += "Unknown Warning Signal, ";
                 }
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
@@ -707,16 +714,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        if (i == 0)
-                            Result += ", ";
-                        else if (i == 1)
-                            Result += ", ";
-                        else if (i == 2)
-                            Result += ", ";
-                        else if (i == 3)
-                            Result += ", ";
-                        else
-                            Result += "Unknown Warning Signal, ";
+                        Result += "Unknown Warning Signal, ";
                 }
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
@@ -741,13 +739,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (WarningList[i])
                         if (i == 0)
-                            Result += ", ";
-                        else if (i == 1)
-                            Result += ", ";
-                        else if (i == 2)
-                            Result += ", ";
-                        else if (i == 3)
-                            Result += ", ";
+                            Result += "Clean T3 Timeout, ";
                         else
                             Result += "Unknown Warning Signal, ";
                 }
@@ -789,6 +781,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "RS422 Error, ";
                         else if (i == 7)
                             Result += "Setting speed out range, ";
+                        else if (i == 8)
+                            Result += "Clamp T1 Timeout, ";
+                        else if (i == 9)
+                            Result += "Unclamp T1 Timeout, ";
                         else
                             Result += "Unknown Warning Signal, ";
                 }
@@ -818,6 +814,18 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "RS422 Error, ";
                         else if (i == 1)
                             Result += "RS232 Error, ";
+                        else if (i == 2)
+                            Result += "Initial T1 Timeout, ";
+                        else if (i == 3)
+                            Result += "Clamp T1 Timeout, ";
+                        else if (i == 4)
+                            Result += "Unclamp T1 Timeout, ";
+                        else if (i == 5)
+                            Result += "Initial T3 Timeout, ";
+                        else if (i == 6)
+                            Result += "Clamp T3 Timeout, ";
+                        else if (i == 7)
+                            Result += "Unclamp T3 Timeout, ";
                         else
                             Result += "Unknown Warning Signal, ";
                 }
@@ -847,6 +855,42 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "Robot 侵入中不可執行Command, ";
                         else if (i == 1)
                             Result += "Please initial, ";
+                        else if (i == 2)
+                            Result += "SortClamp T1 Timeout, ";
+                        else if (i == 3)
+                            Result += "SortUnclamp T1 Timeout, ";
+                        else if (i == 4)
+                            Result += "Vacuum T1 Timeout, ";
+                        else if (i == 5)
+                            Result += "Clamp T1 Timeout, ";
+                        else if (i == 6)
+                            Result += "Unclamp T1 Timeout, ";
+                        else if (i == 7)
+                            Result += "Open T1 Timeout, ";
+                        else if (i == 8)
+                            Result += "Close T1 Timeout, ";
+                        else if (i == 9)
+                            Result += "Lock T1 Timeout, ";
+                        else if (i == 10)
+                            Result += "Initial T1 Timeout, ";
+                        else if (i == 11)
+                            Result += "SortClamp T3 Timeout, ";
+                        else if (i == 12)
+                            Result += "SortUnclamp T3 Timeout, ";
+                        else if (i == 13)
+                            Result += "Vacuum T3 Timeout, ";
+                        else if (i == 14)
+                            Result += "Clamp T3 Timeout, ";
+                        else if (i == 15)
+                            Result += "Unclamp T3 Timeout, ";
+                        else if (i == 16)
+                            Result += "Open T3 Timeout, ";
+                        else if (i == 17)
+                            Result += "Close T3 Timeout, ";
+                        else if (i == 18)
+                            Result += "Lock T3 Timeout, ";
+                        else if (i == 19)
+                            Result += "Initial T3 Timeout, ";
                         else
                             Result += "Unknown Warning Signal, ";
                 }
@@ -889,8 +933,24 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                             Result += "動作中下達Z Command, ";
                         else if (i == 7)
                             Result += "動作中下達XY Command, ";
-                        else if (i ==8)
+                        else if (i == 8)
                             Result += "Robot侵入中不可做動, ";
+                        else if (i == 9)
+                            Result += "Initial T1 Timeout, ";
+                        else if (i == 10)
+                            Result += "Z T1 Timeout, ";
+                        else if (i == 11)
+                            Result += "XY T1 Timeout, ";
+                        else if (i == 12)
+                            Result += "W T1 Timeout, ";
+                        else if (i == 13)
+                            Result += "Initial T3 Timeout, ";
+                        else if (i == 14)
+                            Result += "Z T3 Timeout, ";
+                        else if (i == 15)
+                            Result += "XY T3 Timeout, ";
+                        else if (i == 16)
+                            Result += "W T3 Timeout, ";
                         else
                             Result += "Unknown Warning Signal, ";
                 }
@@ -916,16 +976,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        if (i == 0)
-                            Result += ", ";
-                        else if (i == 1)
-                            Result += ", ";
-                        else if (i == 2)
-                            Result += ", ";
-                        else if (i == 3)
-                            Result += ", ";
-                        else
-                            Result += "Unknown Warning Signal, ";
+                        Result += "Unknown Warning Signal, ";
                 }
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
@@ -949,16 +1000,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        if (i == 0)
-                            Result += ", ";
-                        else if (i == 1)
-                            Result += ", ";
-                        else if (i == 2)
-                            Result += ", ";
-                        else if (i == 3)
-                            Result += ", ";
-                        else
-                            Result += "Unknown Warning Signal, ";
+                        Result += "Unknown Warning Signal, ";
                 }
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
@@ -982,16 +1024,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        if (i == 0)
-                            Result += ", ";
-                        else if (i == 1)
-                            Result += ", ";
-                        else if (i == 2)
-                            Result += ", ";
-                        else if (i == 3)
-                            Result += ", ";
-                        else
-                            Result += "Unknown Warning Signal, ";
+                        Result += "Unknown Warning Signal, ";
                 }
 
                 if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
