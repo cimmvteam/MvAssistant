@@ -178,6 +178,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         RobotMove(PosToAssembly);
                     }
                 }
+                else if(EndPosName==StartPosName)
+                    throw new Exception("End position as same as current position !!");
                 else
                     throw new Exception("Unknown end position !!");
             }
