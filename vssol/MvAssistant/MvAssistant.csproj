@@ -88,9 +88,11 @@
     <Compile Include="DeviceDrive\LelmacLight\MvLelmacLightLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\MultipleCameras.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\MvOmronSentechCameraLdd.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrab.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrabCallback.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\SaveAndLoadImage.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceEnumConnectionStatus.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceLdd.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceMessageEventArgs.cs" />
