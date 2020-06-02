@@ -27,7 +27,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
         public void Connect()
         {
-
             // 使用前先初始化 StApi
             api = new CStApiAutoInit();
             // 建立系統物件來瀏覽影像和連線
@@ -36,8 +35,8 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             device = system.CreateFirstStDevice();
             // 建立資料串流的物件以處理影像串流資訊
             dataStream = device.CreateStDataStream(0);
-
         }
+
         public void Close()
         {
             if (dataStream != null)
@@ -58,6 +57,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 api.Dispose();
 
         }
+
         public Image Capture()
         {
             Bitmap myimg = null;
@@ -67,71 +67,73 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 // 顯示裝置名稱
                 Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
+                dataStream.RegisterCallbackMethod(OnCallback);
+
                 // 主機端獲取影像
-                dataStream.StartAcquisition(nCountOfImagesToGrab);
+                dataStream.StartAcquisition();
 
                 // 開始由相機取得影像
                 device.AcquisitionStart();
 
-                // 循環取得資料並檢查狀態
-                // 持續執行取得影像直到足夠的幀數
-                //while (dataStream.IsGrabbing)
-                {
-                    // 逾時超過5000ms後，回收儲存影像資料的暫存區
-                    // 使用 'using' 語法可在不需使用時，自動管理暫存區重新排隊操作
-                    using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(5000))
-                    {
-                        // 檢查取得的資料是否包含影像資料
-                        if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
-                        {
-                            // 若是，建立IStImage物件已進行進一步的影像處理
-                            IStImage stImage = streamBuffer.GetIStImage();
+                //// 循環取得資料並檢查狀態
+                //// 持續執行取得影像直到足夠的幀數
+                ////while (dataStream.IsGrabbing)
+                //{
+                //    // 逾時超過5000ms後，回收儲存影像資料的暫存區
+                //    // 使用 'using' 語法可在不需使用時，自動管理暫存區重新排隊操作
+                //    using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(5000))
+                //    {
+                //        // 檢查取得的資料是否包含影像資料
+                //        if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
+                //        {
+                //            // 若是，建立IStImage物件已進行進一步的影像處理
+                //            IStImage stImage = streamBuffer.GetIStImage();
 
-                            // 顯示接收影像的詳細資訊
-                            Byte[] imageData = stImage.GetByteArray();
-                            //File.WriteAllBytes("Foo.txt",imageData);
-                            Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);
-                            Console.Write(" Size:" + stImage.ImageWidth + " x " + stImage.ImageHeight);
-                            Console.Write(" First byte =" + imageData[0] + Environment.NewLine);
-
-
-                            var width = (int)stImage.ImageWidth;
-                            var height = (int)stImage.ImageHeight;
-                            myimg = new Bitmap(width, height);
+                //            // 顯示接收影像的詳細資訊
+                //            Byte[] imageData = stImage.GetByteArray();
+                //            //File.WriteAllBytes("Foo.txt",imageData);
+                //            Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);
+                //            Console.Write(" Size:" + stImage.ImageWidth + " x " + stImage.ImageHeight);
+                //            Console.Write(" First byte =" + imageData[0] + Environment.NewLine);
 
 
+                //            var width = (int)stImage.ImageWidth;
+                //            var height = (int)stImage.ImageHeight;
+                //            myimg = new Bitmap(width, height);
 
 
-                            //TODO: https://stackoverflow.com/questions/3474434/set-individual-pixels-in-net-format16bppgrayscale-image
-
-                            for (var idx = 0; idx < imageData.Length; idx++)
-                            {
-                                var val = imageData[idx];
-                                var color = Color.FromArgb(val, val, val);
-                                myimg.SetPixel(idx % width, idx / width, color);
-                            }
-
-                            myimg.Save("output.jpg");
-
-                            //using (MemoryStream ms = new MemoryStream(imageData, 0, imageData.Length))
-                            //{
-                            //    ms.Seek(0, SeekOrigin.Begin);
-                            //    //Bitmap bmp = new Bitmap(memoryStream);
-                            //    //bmp.Save(memoryStream, ImageFormat.Jpeg);
-                            //    myimg = Image.FromStream(ms);
-                            //    img.Save("output.jpg", ImageFormat.Jpeg);
-                            //    //ms.Flush();
-                            //}
 
 
-                        }
-                        else
-                        {
-                            // 如果取得的資料不含影像資料
-                            Console.WriteLine("Image data does not exist.");
-                        }
-                    }
-                }
+                //            //TODO: https://stackoverflow.com/questions/3474434/set-individual-pixels-in-net-format16bppgrayscale-image
+
+                //            for (var idx = 0; idx < imageData.Length; idx++)
+                //            {
+                //                var val = imageData[idx];
+                //                var color = Color.FromArgb(val, val, val);
+                //                myimg.SetPixel(idx % width, idx / width, color);
+                //            }
+
+                //            myimg.Save("output.jpg");
+
+                //            //using (MemoryStream ms = new MemoryStream(imageData, 0, imageData.Length))
+                //            //{
+                //            //    ms.Seek(0, SeekOrigin.Begin);
+                //            //    //Bitmap bmp = new Bitmap(memoryStream);
+                //            //    //bmp.Save(memoryStream, ImageFormat.Jpeg);
+                //            //    myimg = Image.FromStream(ms);
+                //            //    img.Save("output.jpg", ImageFormat.Jpeg);
+                //            //    //ms.Flush();
+                //            //}
+
+
+                //        }
+                //        else
+                //        {
+                //            // 如果取得的資料不含影像資料
+                //            Console.WriteLine("Image data does not exist.");
+                //        }
+                //    }
+                //}
 
 
 
@@ -147,14 +149,77 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 device.AcquisitionStop();
                 // 停止主機取像
                 dataStream.StopAcquisition();
-
-
-
+                
                 // 等待直到按下Enter鍵
                 Console.WriteLine("\r\nPress Enter to exit.");
                 //Console.ReadLine();
             }
             return myimg;
+        }
+
+        // 處理影像召回動作的方法
+        static void OnCallback(IStCallbackParamBase paramBase, object[] param)
+        {
+            // 確認召回類型，這裡只處理新暫存器的事件
+            if (paramBase.CallbackType == eStCallbackType.TL_DataStreamNewBuffer)
+            {
+                // 如果接收到新暫存器的事件:
+                // 轉換收到召回的參數為IStCallbackParamGenTLEventNewBuffer以獲取其他信息
+                IStCallbackParamGenTLEventNewBuffer callbackParam = paramBase as IStCallbackParamGenTLEventNewBuffer;
+
+                if (callbackParam != null)
+                {
+                    try
+                    {
+                        // 從收到的召回參數獲取IStDataStream介面物件
+                        IStDataStream dataStream = callbackParam.GetIStDataStream();
+
+                        // Retrieve the buffer of image data for that callback indicated there is a buffer received.
+                        using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(0))
+                        {
+                            // 檢查取得的資料是否包含影像資料
+                            if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
+                            {
+                                // 若是，建立IStImage物件已進行進一步的影像處理
+                                IStImage stImage = streamBuffer.GetIStImage();
+#if ENABLED_ST_GUI
+                                CStImageDisplayWnd wnd = (CStImageDisplayWnd)param[0];
+
+                                // Check if display window is visible.
+                                if (!wnd.IsVisible)
+                                {
+                                    // Set the position and size of the window.
+                                    wnd.SetPosition(0, 0, (int)stImage.ImageWidth, (int)stImage.ImageHeight);
+
+                                    // Create a new thread to display the window.
+                                    wnd.Show(eStWindowMode.ModalessOnNewThread);
+                                }
+
+                                // Register the image to be displayed.
+                                // This will have a copy of the image data and original buffer can be released if necessary.
+                                wnd.RegisterIStImage(stImage);
+#else
+								// Display the information of the acquired image data.
+								Byte[] imageData = stImage.GetByteArray();
+								Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);
+								Console.Write(" Size:" + stImage.ImageWidth + " x " + stImage.ImageHeight);
+								Console.Write(" First byte =" + imageData[0] + Environment.NewLine);
+#endif
+                            }
+                            else
+                            {
+                                // If the acquired data contains no image data.
+                                Console.WriteLine("Image data does not exist.");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // If any exception occurred, display the description of the error here.
+                        throw ex;
+                    }
+                }
+            }
         }
 
         public void cameraSample()
@@ -251,7 +316,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             {
                 // 等待直到按下Enter鍵
                 Console.WriteLine("\r\nPress Enter to exit.");
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
 
