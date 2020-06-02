@@ -45,7 +45,7 @@
     <Device DevConnStr="127.0.0.1;3039" DeviceName="boxtransfer_assembly" DriverId="9f102552-22ef-42ad-8f36-edc709808ce8" ID="DE_BT_A_ASB" Level="1" PositionId="BoxTrasnfer01">
       <Devices>
         <Device DevConnStr="ip=192.168.0.200;port=2" DeviceName="boxtransfer_plc" DriverId="56ca482d-90c4-40fd-a045-d11ca1d3168b" Level="2" />
-        <Device DevConnStr="ip=192.168.0.51" DeviceName="boxtransfer_robot_1" DriverId="b2e74fc0-ffa0-467b-8f69-208fe628a693" ID="DE_BT_02" Level="2" />
+        <Device DevConnStr="ip=192.168.0.150" DeviceName="boxtransfer_robot_1" DriverId="b2e74fc0-ffa0-467b-8f69-208fe628a693" ID="DE_BT_02" Level="2" />
       </Devices>
     </Device>
     <Device DeviceName="universal_assembly" DriverId="5abe148e-4dbc-4c3c-a615-958a817c26ba" ID="DE_UNI_A_ASB" Level="1">

@@ -24,52 +24,57 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     halContext.Load();
 
 
-                    var mt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-
-                    if (mt.HalConnect() != 0)
+                    var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                    
+                    if (bt.HalConnect() != 0)
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
 
+
+                    bt.GotoStage1();
                     // [V] 回到 Cabinet 1 Home
-                    mt.BackCabinet1Home();
+                    bt.BackCabinet1Home();
 
                     // [ ] 前進到 Cabinet 1 的某個盒子
                     boxStartIndex = 1; boxEndIndex = 1;// boxEndIndex :最多 20
                     for (var boxIndex = boxStartIndex; boxIndex <= boxEndIndex; boxIndex++)
                     {
-                        mt.ForwardToCabinet1(boxIndex);
+                        bt.ForwardToCabinet1(boxIndex);
                         System.Threading.Thread.Sleep(2000);
                     }
-                    
+
+
+                  
+
                     // [ ] 從 Cabinet 1 回到 Cabinet1 Home
-                    mt.BackwardFromCabinet1();
+                    bt.BackwardFromCabinet1();
 
                     // [ ] 轉到 Cabinet 2 方向
-                    mt.ChangeDirectionToFaceCabinet2();
+                    bt.ChangeDirectionToFaceCabinet2();
 
                     // [ ] 前到 Cabinet 2 某個盒子
                     boxStartIndex = 1; boxEndIndex = 1;// boxEndIndex :最多 15
                     for (var boxIndex = boxStartIndex; boxIndex <= boxEndIndex; boxIndex++)
                     {
-                        mt.ForwardToCabinet2(boxIndex);
+                        bt.ForwardToCabinet2(boxIndex);
                         System.Threading.Thread.Sleep(2000);
                     }
 
                     // [ ] 從 Cabnet 2 回到 Cabinet2 Home
-                    mt.BackwardFromCabinet2();
+                    bt.BackwardFromCabinet2();
 
                     // [ ] 轉向面對Open Stage 方向
-                    mt.ChangeDirectionToFaceOpenStage();
+                    bt.ChangeDirectionToFaceOpenStage();
 
                     // [ ] 前進到 Open Stage
-                    mt.ForwardToOpenStage();
+                    bt.ForwardToOpenStage();
 
                     // [ ] 從 Open Stage  回到 Open Stage
-                    mt.BackwardFromOpenStage();
+                    bt.BackwardFromOpenStage();
 
                     // [ ] 轉向 Cbinet 方向
-                    mt.ChangeDirectionToFaceCabinet1();
+                    bt.ChangeDirectionToFaceCabinet1();
   
                 }
             }

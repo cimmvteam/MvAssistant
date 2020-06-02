@@ -225,16 +225,47 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             Func<HalRobotMotion> GetBoxPosition = () =>
             {
+                HalRobotMotion halRobotMotion=null;
+                if ( cabinetIndex==1)
+                { 
                 // 終點 
                 //  TODO: 要獲得實際的 Position
-                var boxPosition = new HalRobotMotion();
-                return boxPosition;
+               halRobotMotion = new HalRobotMotion
+                {
+                    X=3.3f,
+                    Y= -438.782349f,
+                    Z= 140.75882f,
+                    W= 90.0f,
+                    P= -90.0f,
+                    R=0.0f,
+                    E1= 517.0209f,
+                    J1= -90.0f,
+                    J2= 1.134951f,
+                    J3= -50.0000153f,
+                    J4=0.0f,
+                    J5=50.000002f,
+                    J6=0.0f,
+                    J7= 517.0209f,
+                    Speed=60,
+                    MotionType=HalRobotEnumMotionType.Position
+                };
+                }
+                else
+                {
+
+                }
+                return halRobotMotion;
             };
             var positions = GetBoxPosition();
             this.MoveAsync(positions);
         }
 
- 
+ public void GotoStage1()
+        {
+            var position = new BoxTransferPathPasitions().CabinetHomeToOpenStage01;
+            this.MoveAsync(position);
+        }
+
         /// <summary>回到 Cabinet 1 Home</summary>
         public void BackwardFromCabinet1()
         {
@@ -501,7 +532,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 var position = new HalRobotMotion
                 { // TODO: 加入實際 World 及 Joint 點位
-
+                    X= 527.898438f,
+                    Y= -9.219327f,
+                    Z= 38.3116455f,
+                    W= 147.213242f,
+                    P= -86.85704f,
+                    R= 32.5399f,
+                    E1= 414.897583f,
+                    J1= -1.15107226f,
+                    J2= 22.9280548f,
+                    J3= -64.14249f,
+                    J4= 0.983132958f,
+                    J5= 61.5038452f,
+                    J6= 1.27394938f,
+                    J7= 414.897583f,
+                     Speed=60,
+                     MotionType=HalRobotEnumMotionType.Position
                 };
                 return position;
             }
@@ -514,13 +560,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 var position = new HalRobotMotion {
                     // TODO: 加上 World 座標資料 
-                    J1 = -90.07816f,
-                    J2 = 22.926424f,
-                    J3 = -64.1397858f,
-                    J4 = 0.9846464f,
-                    J5 = 61.5056839f,
-                    J6 = 1.27504456f,
-                    J7 = 414.898f,
+                    J1 = -89.99923f,
+                    J2 = 0.000476679532f,
+                    J3 = -50.0014839f,
+                    J4 = -0.000300816144f,
+                    J5 = 49.9995537f,
+                    J6 = -0.00238952623f,
+                    J7 = 517.0201f,
+                    X= 0.00552143529f,
+                    Y= -438.778259f,
+                    Z= 140.748138f,
+                    W= -126.767067f,
+                    P= -89.99678f,
+                    R= -143.2324f,
+                    E1= 517.0201f,
                     Speed = 50,
                     MotionType = HalRobotEnumMotionType.Joint,
 
@@ -531,6 +584,38 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             }
         }
         
+
+        public List<HalRobotMotion> CabinetHomeToOpenStage01
+        {
+
+            get
+            {
+
+                var position = new List<HalRobotMotion>();
+                position.Add(Cabinet1Home);
+                position.Add(
+                    new HalRobotMotion
+                    {
+                         X= -380.6985f,
+                         Y= -690.6075f,
+                         Z= 181.8245f,
+                         W= -0.563894749f,
+                         P= -88.21404f,
+                         R= 25.5681438f,
+                         E1= 517.0209f,
+                         J1= -114.525215f,
+                         J2= 39.1008873f,
+                         J3= -27.4424839f,
+                         J4= -59.767025f,
+                         J5= 48.666275f,
+                         J6= 50.079895f,
+                         J7= 517.0209f,
+                         MotionType=HalRobotEnumMotionType.Position,
+                         Speed=60,
+                    } );
+                return position;
+            }
+        }
 
         /// <summary>從 Home 到 OpenStage 點位 </summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
