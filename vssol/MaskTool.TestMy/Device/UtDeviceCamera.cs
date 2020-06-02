@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
                 camera.Connect();
                 //camera.cameraSample();
-                Image img= camera.Capture();
+                Image img= camera.Capture(true);
                 camera.Close();
 
             }
