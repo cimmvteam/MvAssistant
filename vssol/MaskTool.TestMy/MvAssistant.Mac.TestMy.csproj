@@ -58,6 +58,9 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Device\UtLoadPort.cs" />
+    <Compile Include="Device\UtDeviceDrawer.cs" />
+    <Compile Include="Device\UtDeviceLight.cs" />
     <Compile Include="Device\UtDeviceCamera.cs" />
     <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />

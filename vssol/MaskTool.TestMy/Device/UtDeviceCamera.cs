@@ -14,9 +14,9 @@ namespace MvAssistant.Mac.TestMy.Device
             using (var camera = new MvOmronSentechCameraLdd())
             {
                 camera.Connect();
-                camera.cameraSample();
-                Image img= camera.Capture();
-
+                //camera.cameraSample();
+                Image img= camera.Capture(true);
+                camera.Close();
 
             }
 

@@ -106,6 +106,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.OpenStage.ReadBoxDeform());
                 Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
                 Console.WriteLine(plc.OpenStage.ReadBoxExist());
+                Console.WriteLine(plc.OpenStage.ReadBeenIntruded());
             }
         }
 

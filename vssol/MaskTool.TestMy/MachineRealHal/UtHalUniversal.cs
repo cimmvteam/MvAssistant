@@ -3,12 +3,73 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
+using System.Threading;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtHalUniversal
     {
+        [TestMethod]
+        public void TestFlow()
+        {
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.Load();
+
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+
+                    unv.HalConnect();
+                    os.HalConnect();
+                    mt.HalConnect();
+
+                    os.Initial();
+                    os.SetBoxType(1);
+                    os.SortClamp();
+                    os.Vacuum(true);
+                    os.SortUnclamp();
+                    os.Lock();
+                    if (os.ReadRobotIntrude(true, false).Item1 == true)
+                        bt.RobotMoving(true);
+                    else
+                        throw new Exception("Open Stage not allow Box Transfer intrude.");
+                    //BT開鎖
+                    bt.RobotMoving(false);
+                    SpinWait.SpinUntil(()=>(os.ReadRobotIntrude(false, false).Item1==false && os.ReadRobotIntrude(false, false).Item2==false));
+                    os.Close();
+                    os.Clamp();
+                    os.Open();
+                    if (os.ReadRobotIntrude( false, true).Item2 == true)
+                        mt.RobotMoving(true);
+                    else
+                        throw new Exception("Open Stage not allow Mask Transfer intrude.");
+                    //MT取mask
+                    mt.RobotMoving(false);
+                    SpinWait.SpinUntil(() => (os.ReadRobotIntrude(false, false).Item1 == false && os.ReadRobotIntrude(false, false).Item2 == false));
+                    os.Close();
+                    os.Unclamp();
+                    os.Lock();
+                    if (os.ReadRobotIntrude(true, false).Item1 == true)
+                        bt.RobotMoving(true);
+                    else
+                        throw new Exception("Open Stage not allow Box Transfer intrude.");
+                    //BT開鎖
+                    bt.RobotMoving(false);
+                    SpinWait.SpinUntil(() => (os.ReadRobotIntrude(false, false).Item1 == false && os.ReadRobotIntrude(false, false).Item2 == false));
+                    os.Vacuum(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         [TestMethod]
         public void TestSetParameter()
         {

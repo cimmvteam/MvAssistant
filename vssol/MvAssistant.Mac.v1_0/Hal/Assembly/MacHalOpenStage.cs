@@ -149,6 +149,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude); }
 
         /// <summary>
+        /// 讀取目前是否被Robot侵入
+        /// </summary>
+        /// <returns></returns>
+        public bool ReadBeenIntruded()
+        { return Plc.ReadBeenIntruded(); }
+
+        /// <summary>
         /// 讀取開盒夾爪狀態
         /// </summary>
         /// <returns></returns>
