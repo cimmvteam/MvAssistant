@@ -44,6 +44,7 @@
     <Reference Include="System.Management" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -210,7 +211,9 @@
     <Compile Include="Hal\MacHalUtil.cs" />
     <Compile Include="Hal\IMacHal.cs" />
     <Compile Include="Hal\IMacHalFake.cs" />
+    <Compile Include="JSon\BTRobotPath.cs" />
     <Compile Include="JSon\JSonHelper.cs" />
+    <Compile Include="JSon\PositionInfo.cs" />
     <Compile Include="Manifest\MacEnumDevice.cs" />
     <Compile Include="Manifest\MacEnumPositionId.cs" />
     <Compile Include="Manifest\Exceptions\MacHalObjectNotFoundException.cs" />
@@ -243,6 +246,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Hal\Obsolete\Camera\HalCameraFake.cs.orig" />
+    <None Include="JSon\RobotPathFileConfigSetFile.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

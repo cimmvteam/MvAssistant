@@ -15,8 +15,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestPathMove()
         {
-            int drawerIndex = default(int);
-            int boxIndex = default(int);
+           int boxStartIndex = default(int);
+            int boxEndIndex = default(int);
             try
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
@@ -24,21 +24,58 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     halContext.Load();
 
 
-                    var mt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-
-                    if (mt.HalConnect() != 0)
+                    var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                    
+                    if (bt.HalConnect() != 0)
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
-                    mt.BackHomeFromAnyWhere();
-                    mt.ChangeDirectionToFaceDrawer(drawerIndex);// 執行前先調整 drawerIndex 變數
-                    mt.ForwardToDrawer(drawerIndex,boxIndex); // 執行前先調整 drawerIndex 及 boxIndex變數
-                    mt.BackwardFromDrawer(drawerIndex, boxIndex);// 執行前先調整 drawerIndex 及 boxIndex變數
-                    mt.ChangeDirectionToFaceOpenStage();
-                    mt.ForwardToOpenStage();
-                    mt.BackwardFromOpenStage();
 
 
+                    bt.GotoStage1();
+                    // [V] 回到 Cabinet 1 Home
+                    bt.BackCabinet1Home();
+
+                    // [ ] 前進到 Cabinet 1 的某個盒子
+                    boxStartIndex = 1; boxEndIndex = 1;// boxEndIndex :最多 20
+                    for (var boxIndex = boxStartIndex; boxIndex <= boxEndIndex; boxIndex++)
+                    {
+                        bt.ForwardToCabinet1(boxIndex);
+                        System.Threading.Thread.Sleep(2000);
+                    }
+
+
+                  
+
+                    // [ ] 從 Cabinet 1 回到 Cabinet1 Home
+                    bt.BackwardFromCabinet1();
+
+                    // [ ] 轉到 Cabinet 2 方向
+                    bt.ChangeDirectionToFaceCabinet2();
+
+                    // [ ] 前到 Cabinet 2 某個盒子
+                    boxStartIndex = 1; boxEndIndex = 1;// boxEndIndex :最多 15
+                    for (var boxIndex = boxStartIndex; boxIndex <= boxEndIndex; boxIndex++)
+                    {
+                        bt.ForwardToCabinet2(boxIndex);
+                        System.Threading.Thread.Sleep(2000);
+                    }
+
+                    // [ ] 從 Cabnet 2 回到 Cabinet2 Home
+                    bt.BackwardFromCabinet2();
+
+                    // [ ] 轉向面對Open Stage 方向
+                    bt.ChangeDirectionToFaceOpenStage();
+
+                    // [ ] 前進到 Open Stage
+                    bt.ForwardToOpenStage();
+
+                    // [ ] 從 Open Stage  回到 Open Stage
+                    bt.BackwardFromOpenStage();
+
+                    // [ ] 轉向 Cbinet 方向
+                    bt.ChangeDirectionToFaceCabinet1();
+  
                 }
             }
             catch (Exception ex) { throw ex; }

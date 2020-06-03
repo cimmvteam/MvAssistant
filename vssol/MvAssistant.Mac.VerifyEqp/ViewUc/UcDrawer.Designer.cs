@@ -103,7 +103,7 @@
             // 
             this.DR_Log.Location = new System.Drawing.Point(34, 167);
             this.DR_Log.Name = "DR_Log";
-            this.DR_Log.Size = new System.Drawing.Size(420, 217);
+            this.DR_Log.Size = new System.Drawing.Size(420, 101);
             this.DR_Log.TabIndex = 7;
             this.DR_Log.Text = "";
             // 
@@ -155,7 +155,7 @@
             this.Controls.Add(this.DR_IPAddressBox);
             this.Controls.Add(this.DR_ConnectBtn);
             this.Name = "UcDrawer";
-            this.Size = new System.Drawing.Size(542, 423);
+            this.Size = new System.Drawing.Size(542, 389);
             this.Load += new System.EventHandler(this.UcDrawer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

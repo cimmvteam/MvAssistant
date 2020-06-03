@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.ucDrawer1 = new MvAssistantMacVerifyEqp.ViewUc.UcDrawer();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.ucOpenStage1 = new MvAssistantMacVerifyEqp.ViewUc.UcOpenStage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ucBoxRobot1 = new MvAssistantMacVerifyEqp.ViewUc.UcBoxRobot();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.ucMaskRobot1 = new MvAssistantMacVerifyEqp.ViewUc.UcMaskRobot();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.ucMaskRobot1 = new MvAssistantMacVerifyEqp.ViewUc.UcMaskRobot();
+            this.ucBoxRobot1 = new MvAssistantMacVerifyEqp.ViewUc.UcBoxRobot();
             this.ucLoadPort1 = new MvAssistantMacVerifyEqp.ViewUc.UcLoadPort();
+            this.ucOpenStage1 = new MvAssistantMacVerifyEqp.ViewUc.UcOpenStage();
+            this.ucDrawer1 = new MvAssistantMacVerifyEqp.ViewUc.UcDrawer();
             this.tabPage5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -52,17 +52,11 @@
             this.tabPage5.Controls.Add(this.ucDrawer1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(846, 499);
+            this.tabPage5.Size = new System.Drawing.Size(909, 732);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Drawer";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // ucDrawer1
-            // 
-            this.ucDrawer1.Location = new System.Drawing.Point(26, 21);
-            this.ucDrawer1.Name = "ucDrawer1";
-            this.ucDrawer1.Size = new System.Drawing.Size(663, 423);
-            this.ucDrawer1.TabIndex = 0;
+            this.tabPage5.Click += new System.EventHandler(this.tabPage5_Click);
             // 
             // tabPage4
             // 
@@ -73,14 +67,6 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Open Stage";
             this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // ucOpenStage1
-            // 
-            this.ucOpenStage1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucOpenStage1.Location = new System.Drawing.Point(0, 0);
-            this.ucOpenStage1.Name = "ucOpenStage1";
-            this.ucOpenStage1.Size = new System.Drawing.Size(846, 499);
-            this.ucOpenStage1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -103,13 +89,6 @@
             this.tabPage2.Text = "Box Robot";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // ucBoxRobot1
-            // 
-            this.ucBoxRobot1.Location = new System.Drawing.Point(8, 6);
-            this.ucBoxRobot1.Name = "ucBoxRobot1";
-            this.ucBoxRobot1.Size = new System.Drawing.Size(799, 485);
-            this.ucBoxRobot1.TabIndex = 0;
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.ucMaskRobot1);
@@ -120,14 +99,6 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Mask Robot";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // ucMaskRobot1
-            // 
-            this.ucMaskRobot1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucMaskRobot1.Location = new System.Drawing.Point(3, 3);
-            this.ucMaskRobot1.Name = "ucMaskRobot1";
-            this.ucMaskRobot1.Size = new System.Drawing.Size(840, 493);
-            this.ucMaskRobot1.TabIndex = 0;
             // 
             // tabControl1
             // 
@@ -140,8 +111,23 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(854, 525);
+            this.tabControl1.Size = new System.Drawing.Size(917, 758);
             this.tabControl1.TabIndex = 0;
+            // 
+            // ucMaskRobot1
+            // 
+            this.ucMaskRobot1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucMaskRobot1.Location = new System.Drawing.Point(3, 3);
+            this.ucMaskRobot1.Name = "ucMaskRobot1";
+            this.ucMaskRobot1.Size = new System.Drawing.Size(840, 493);
+            this.ucMaskRobot1.TabIndex = 0;
+            // 
+            // ucBoxRobot1
+            // 
+            this.ucBoxRobot1.Location = new System.Drawing.Point(8, 6);
+            this.ucBoxRobot1.Name = "ucBoxRobot1";
+            this.ucBoxRobot1.Size = new System.Drawing.Size(799, 485);
+            this.ucBoxRobot1.TabIndex = 0;
             // 
             // ucLoadPort1
             // 
@@ -150,11 +136,26 @@
             this.ucLoadPort1.Size = new System.Drawing.Size(587, 488);
             this.ucLoadPort1.TabIndex = 0;
             // 
+            // ucOpenStage1
+            // 
+            this.ucOpenStage1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucOpenStage1.Location = new System.Drawing.Point(0, 0);
+            this.ucOpenStage1.Name = "ucOpenStage1";
+            this.ucOpenStage1.Size = new System.Drawing.Size(846, 499);
+            this.ucOpenStage1.TabIndex = 0;
+            // 
+            // ucDrawer1
+            // 
+            this.ucDrawer1.Location = new System.Drawing.Point(26, 21);
+            this.ucDrawer1.Name = "ucDrawer1";
+            this.ucDrawer1.Size = new System.Drawing.Size(663, 658);
+            this.ucDrawer1.TabIndex = 0;
+            // 
             // FmSgsTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 525);
+            this.ClientSize = new System.Drawing.Size(917, 758);
             this.Controls.Add(this.tabControl1);
             this.Name = "FmSgsTest";
             this.Text = "FmMaskRobot";
