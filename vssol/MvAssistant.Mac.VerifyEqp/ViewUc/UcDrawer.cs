@@ -15,6 +15,9 @@ namespace MvAssistantMacVerifyEqp.ViewUc
 {
     public partial class UcDrawer : UserControl
     {
+       
+
+
         UDPSocket udpServer1;
         UDPSocket udpClient1;
         MvCancelTask task;
@@ -26,7 +29,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
 
         private void UcDrawer_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         private void DR_ConnectBtn_Click(object sender, EventArgs e)
@@ -79,4 +82,5 @@ namespace MvAssistantMacVerifyEqp.ViewUc
             udpClient1.Send(DR_SendedMsg.Text);
         }
     }
+    
 }

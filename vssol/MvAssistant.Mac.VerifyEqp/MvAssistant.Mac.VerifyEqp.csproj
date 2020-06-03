@@ -85,6 +85,12 @@
     <Compile Include="FmBoxRobot.Designer.cs">
       <DependentUpon>FmBoxRobot.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmDrawerTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDrawerTest.Designer.cs">
+      <DependentUpon>FrmDrawerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgramMgr.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FmBoxRobot.resx">
       <DependentUpon>FmBoxRobot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDrawerTest.resx">
+      <DependentUpon>FrmDrawerTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
