@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public interface IMacHalPlcBoxTransfer
+    public interface IMacHalPlcBoxTransfer : IMacHalComponent
     {
         string Clamp(uint BoxType);
         string Unclamp();

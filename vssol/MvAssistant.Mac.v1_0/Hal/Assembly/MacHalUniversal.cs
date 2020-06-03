@@ -1,14 +1,8 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.Component;
-using MvAssistant.Mac.v1_0.Hal.Component.Motor;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -23,6 +17,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IMacHalPlcUniversal plc_01 { get { return (IMacHalPlcUniversal)this.GetHalDevice(MacEnumDevice.universal_plc_01); } }
 
         #endregion Device Components
+
+
+
+
+
 
         /// <summary>
         /// 設備訊號燈設定
@@ -151,18 +150,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return plc_01.ReadBCP_Smoke(); }
         #endregion
 
-        public override int HalClose()
-        {
-            //return base.HalClose();
-            return 0;
-        }
-
         #region PLC alarm signal
         public string ReadAlarm_General()
         { return plc_01.ReadAlarm_General(); }
 
         public string ReadAlarm_Cabinet()
-        { return plc_01.ReadAlarm_Cabinet();}
+        { return plc_01.ReadAlarm_Cabinet(); }
 
         public string ReadAlarm_CleanCh()
         { return plc_01.ReadAlarm_CleanCh(); }

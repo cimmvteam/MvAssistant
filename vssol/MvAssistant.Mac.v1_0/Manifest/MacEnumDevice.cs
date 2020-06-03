@@ -178,7 +178,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_CC_08: 線光源
         /// </summary>
-        clean_linesource_1,
+        cleanch_inspection_spot_light_001,
 
         /// <summary>
         /// DE_CC_16: PA Counter Sensor

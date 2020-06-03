@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
@@ -42,7 +42,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 
@@ -56,7 +56,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
 

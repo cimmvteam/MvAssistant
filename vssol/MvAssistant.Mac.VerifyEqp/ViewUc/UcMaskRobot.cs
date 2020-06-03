@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MaskTool.TestMy.Device;
+﻿using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 using MvAssistant.Tasking;
-using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
+using System;
+using System.Windows.Forms;
 
 namespace MvAssistantMacVerifyEqp.ViewUc
 {

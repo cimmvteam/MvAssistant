@@ -9,12 +9,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalCleanCh
     {
+        const string ManifestPath = "GenCfg/Manifest/Manifest.xml.real";
+
+
+
         [TestMethod]
         public void TestSetParameter()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
 
@@ -29,9 +33,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestReadParameter()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
 
@@ -46,9 +50,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestReadComponentValue()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
 
@@ -66,13 +70,30 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestAssemblyWork()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
 
                 cc.GasValveBlow(50);
+            }
+        }
+
+
+
+        [TestMethod]
+        public void TestAssemblyWorkLight()
+        {
+            using (var halContext = new MacHalContext(ManifestPath))
+            {
+                halContext.MvCfLoad();
+                var cc = halContext.HalDevices[MacEnumDevice.clean_assembly] as MacHalCleanCh;
+                cc.HalConnect();
+
+
+                cc.InspectionSpotLight.TurnOn(255);
+
             }
         }
     }
