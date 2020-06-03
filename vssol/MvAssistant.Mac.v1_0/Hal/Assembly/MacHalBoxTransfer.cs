@@ -13,15 +13,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     {
         #region Device Components
 
-
-
         public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(MacEnumDevice.boxtransfer_plc); } }
-
-
         public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.boxtransfer_robot_1); } }
-
-
-
 
         #endregion Device Components
 
@@ -316,7 +309,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
             this.Robot.HalMoveStraightAsyn(new HalRobotMotion()
             {
-                 X= 1,
+                 X=1,
                  Y=2,
                  Z=3,
                  W=4,

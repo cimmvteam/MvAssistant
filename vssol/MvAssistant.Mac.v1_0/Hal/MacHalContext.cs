@@ -234,18 +234,14 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         #region IDisposable
 
-
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
-
-
         // Public implementation of Dispose pattern callable by consumers.
         public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
@@ -265,16 +261,10 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             disposed = true;
         }
-
-
         protected virtual void DisposeSelf()
         {
             this.HalClose();
         }
-
-
-
-
 
         #endregion
 

@@ -254,35 +254,15 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// </summary>
         inspection_ccd_defense_top_1,
 
-        /// <summary>
-        /// DE_IC_05: 環形光
-        /// </summary>
-        inspection_ringlight_1,
+        inspectionch_light_circle_defense_top_001,
+        inspectionch_light_bar_inspection_side_001,
+        inspectionch_light_bar_denfese_side_001,
+        inspectionch_light_circle_inspection_top_001,
+        inspectionch_light_spot_inspection_left_001,
+        inspectionch_light_spot_inspection_right_001,
 
-        /// <summary>
-        /// DE_IC_06: Light Bar
-        /// </summary>
-        inspection_lightbar_1,
 
-        /// <summary>
-        /// DE_IC_07: 線光源-1 (x,y)
-        /// </summary>
-        inspection_linesource_1,
 
-        /// <summary>
-        /// DE_IC_17: 線光源-2 (-x,y)
-        /// </summary>
-        inspection_linesource_2,
-
-        /// <summary>
-        /// DE_IC_18: 線光源-3 (-x,-y)
-        /// </summary>
-        inspection_linesource_3,
-
-        /// <summary>
-        /// DE_IC_19: 線光源-4 (x,-y)
-        /// </summary>
-        inspection_linesource_4,
 
         /// <summary>
         /// DE_IC_10: Particle Counter
@@ -330,9 +310,9 @@ namespace MvAssistant.Mac.v1_0.Manifest
         loadport_ccd_top_1,
 
         /// <summary>
-        /// DE_LP_13: Light Bar
+        /// Use of inspection
         /// </summary>
-        loadport_lightbar_1,
+        loadport_light_bar_001,
 
         /// <summary>
         /// DE_LP_25: Clamper
@@ -485,12 +465,12 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_OS_18: Light Bar (Top)
         /// </summary>
-        openstage_lightbar_top_1,
+        openstage_light_bar_defense_top_001,
 
         /// <summary>
         /// DE_OS_19: Light Bar (Barcode)
         /// </summary>
-        openstage_lightbar_barcode_1,
+        openstage_light_bar_defense_side_001,
 
         /// <summary>
         /// DE_OS_08: Particle Counter
@@ -526,6 +506,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// DE_OS_23: Auto Switch,NPN,三線式-2
         /// </summary>
         openstage_auto_switch_2,
+
         #endregion Open Stage
 
 

@@ -88,9 +88,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext(ManifestPath))
             {
                 halContext.MvCfLoad();
-                var cc = halContext.HalDevices[MacEnumDevice.clean_assembly] as MacHalCleanCh;
-                cc.HalConnect();
+                var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
 
+                cc.HalConnect();
 
                 cc.InspectionSpotLight.TurnOn(255);
 
