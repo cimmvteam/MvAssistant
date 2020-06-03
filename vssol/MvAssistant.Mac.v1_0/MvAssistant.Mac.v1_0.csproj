@@ -125,6 +125,11 @@
     <Compile Include="Hal\CompRobotTest\MacHalBoxRobotFanuc.cs" />
     <Compile Include="Hal\CompRobotTest\MacHalMaskRobotFanuc.cs" />
     <Compile Include="Hal\CompRobotTest\MacHalRobotMotionInfo.cs" />
+    <Compile Include="Hal\CompCamera\HalCameraBasler.cs" />
+    <Compile Include="Hal\CompCamera\HalCameraFake.cs" />
+    <Compile Include="Hal\CompCamera\HalCameraiDSU3Cam.cs" />
+    <Compile Include="Hal\CompCamera\HalCameraSenTech.cs" />
+    <Compile Include="Hal\CompCamera\IHalCamera.cs" />
     <Compile Include="JSon\BTRobotPath.cs" />
     <Compile Include="JSon\JSonHelper.cs" />
     <Compile Include="JSon\PositionInfo.cs" />

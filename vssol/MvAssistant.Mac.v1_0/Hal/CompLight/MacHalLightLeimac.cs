@@ -69,7 +69,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
                 this.ldd.RemotePort = this.port;
                 this.ldd.Model = this.model;
                 this.HalContext.ResourceRegister(this.resourceKey, this.ldd);
-
             }
 
             return 0;

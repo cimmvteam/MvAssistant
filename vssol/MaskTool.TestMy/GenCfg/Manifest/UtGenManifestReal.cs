@@ -58,7 +58,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
                      new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_BT_02.ToString(),
-                        DevConnStr = "ip=192.168.0.51",
+                        DevConnStr = "ip=192.168.0.150",
                         DeviceName = MacEnumDevice.boxtransfer_robot_1.ToString(),
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
                     },
@@ -278,7 +278,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
                     new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_MT_A_02.ToString(),
-                        DevConnStr = "ip=192.168.0.50",
+                        DevConnStr = "ip=192.168.0.140",
                         DeviceName = MacEnumDevice.masktransfer_robot_1.ToString(),
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
                     },
