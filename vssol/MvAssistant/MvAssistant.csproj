@@ -82,12 +82,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLdd.cs" />
-    <Compile Include="DeviceDrive\LelmacLight\MvLelmacLightLdd.cs" />
+    <Compile Include="DeviceDrive\LeimacLight\MvEnumLeimacModel.cs" />
+    <Compile Include="DeviceDrive\LeimacLight\MvLeimacLightLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcMapper.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\SampleMultipleCameras.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\MvOmronSentechCameraLdd.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrab.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrabCallback.cs" />

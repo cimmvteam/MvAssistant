@@ -39,6 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -58,7 +66,7 @@
     <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device\UtLoadPort.cs" />
+    <Compile Include="Device\UtDeviceLoadPort.cs" />
     <Compile Include="Device\UtDeviceDrawer.cs" />
     <Compile Include="Device\UtDeviceLight.cs" />
     <Compile Include="Device\UtDeviceCamera.cs" />

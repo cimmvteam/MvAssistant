@@ -31,7 +31,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
                 // 建立一個裝置物件，並使用系統物件的功能連接到第一次檢測的設備
                 CStDevice device = system.CreateFirstStDevice();
-                
+
                 // 建立資料串流的物件以處理影像串流資訊
                 CStDataStream dataStream = device.CreateStDataStream(0);
 
