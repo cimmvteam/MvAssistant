@@ -1,4 +1,4 @@
-﻿#define OnlyPositionGetter
+﻿//#define OnlyPositionGetter
 //#define DrawerTest
 using MaskCleanerVerify;
 using System;
