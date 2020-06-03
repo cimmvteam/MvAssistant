@@ -73,7 +73,7 @@
             this.LstBxPositionInfo.HorizontalScrollbar = true;
             this.LstBxPositionInfo.ItemHeight = 15;
             this.LstBxPositionInfo.Location = new System.Drawing.Point(8, 25);
-            this.LstBxPositionInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LstBxPositionInfo.Margin = new System.Windows.Forms.Padding(4);
             this.LstBxPositionInfo.Name = "LstBxPositionInfo";
             this.LstBxPositionInfo.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.LstBxPositionInfo.Size = new System.Drawing.Size(1662, 334);
@@ -82,7 +82,7 @@
             // BtnAdd
             // 
             this.BtnAdd.Location = new System.Drawing.Point(4, 97);
-            this.BtnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.BtnAdd.Name = "BtnAdd";
             this.BtnAdd.Size = new System.Drawing.Size(131, 42);
             this.BtnAdd.TabIndex = 1;
@@ -93,7 +93,7 @@
             // BtnDelete
             // 
             this.BtnDelete.Location = new System.Drawing.Point(4, 142);
-            this.BtnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnDelete.Margin = new System.Windows.Forms.Padding(4);
             this.BtnDelete.Name = "BtnDelete";
             this.BtnDelete.Size = new System.Drawing.Size(131, 42);
             this.BtnDelete.TabIndex = 2;
@@ -104,7 +104,7 @@
             // BtnSave
             // 
             this.BtnSave.Location = new System.Drawing.Point(4, 233);
-            this.BtnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnSave.Margin = new System.Windows.Forms.Padding(4);
             this.BtnSave.Name = "BtnSave";
             this.BtnSave.Size = new System.Drawing.Size(131, 42);
             this.BtnSave.TabIndex = 3;
@@ -115,7 +115,7 @@
             // BtnLoad
             // 
             this.BtnLoad.Location = new System.Drawing.Point(4, 51);
-            this.BtnLoad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnLoad.Margin = new System.Windows.Forms.Padding(4);
             this.BtnLoad.Name = "BtnLoad";
             this.BtnLoad.Size = new System.Drawing.Size(131, 42);
             this.BtnLoad.TabIndex = 4;
@@ -128,7 +128,7 @@
             this.CmbBoxDeviceName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbBoxDeviceName.FormattingEnabled = true;
             this.CmbBoxDeviceName.Location = new System.Drawing.Point(69, 25);
-            this.CmbBoxDeviceName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CmbBoxDeviceName.Margin = new System.Windows.Forms.Padding(4);
             this.CmbBoxDeviceName.Name = "CmbBoxDeviceName";
             this.CmbBoxDeviceName.Size = new System.Drawing.Size(680, 23);
             this.CmbBoxDeviceName.TabIndex = 5;
@@ -137,7 +137,7 @@
             // TxtBxDevicePath
             // 
             this.TxtBxDevicePath.Location = new System.Drawing.Point(69, 341);
-            this.TxtBxDevicePath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TxtBxDevicePath.Margin = new System.Windows.Forms.Padding(4);
             this.TxtBxDevicePath.Name = "TxtBxDevicePath";
             this.TxtBxDevicePath.ReadOnly = true;
             this.TxtBxDevicePath.Size = new System.Drawing.Size(1751, 25);
@@ -147,7 +147,7 @@
             // txtBxDeviceIP
             // 
             this.txtBxDeviceIP.Location = new System.Drawing.Point(69, 58);
-            this.txtBxDeviceIP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBxDeviceIP.Margin = new System.Windows.Forms.Padding(4);
             this.txtBxDeviceIP.Name = "txtBxDeviceIP";
             this.txtBxDeviceIP.ReadOnly = true;
             this.txtBxDeviceIP.Size = new System.Drawing.Size(680, 25);
@@ -156,7 +156,7 @@
             // btnGetPosition
             // 
             this.btnGetPosition.Location = new System.Drawing.Point(1698, 19);
-            this.btnGetPosition.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGetPosition.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetPosition.Name = "btnGetPosition";
             this.btnGetPosition.Size = new System.Drawing.Size(131, 42);
             this.btnGetPosition.TabIndex = 9;
@@ -183,7 +183,7 @@
             // 
             this.BtnAddGet.Enabled = false;
             this.BtnAddGet.Location = new System.Drawing.Point(785, 481);
-            this.BtnAddGet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnAddGet.Margin = new System.Windows.Forms.Padding(4);
             this.BtnAddGet.Name = "BtnAddGet";
             this.BtnAddGet.Size = new System.Drawing.Size(65, 68);
             this.BtnAddGet.TabIndex = 13;
@@ -194,7 +194,7 @@
             // BtnDeleteAll
             // 
             this.BtnDeleteAll.Location = new System.Drawing.Point(4, 188);
-            this.BtnDeleteAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnDeleteAll.Margin = new System.Windows.Forms.Padding(4);
             this.BtnDeleteAll.Name = "BtnDeleteAll";
             this.BtnDeleteAll.Size = new System.Drawing.Size(131, 42);
             this.BtnDeleteAll.TabIndex = 14;
@@ -292,7 +292,7 @@
             this.panel2.Controls.Add(this.CmbBoxMotionType);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Location = new System.Drawing.Point(1540, 17);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(280, 65);
             this.panel2.TabIndex = 25;
@@ -321,7 +321,7 @@
             this.LstBxJsonList.FormattingEnabled = true;
             this.LstBxJsonList.ItemHeight = 15;
             this.LstBxJsonList.Location = new System.Drawing.Point(69, 90);
-            this.LstBxJsonList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LstBxJsonList.Margin = new System.Windows.Forms.Padding(4);
             this.LstBxJsonList.Name = "LstBxJsonList";
             this.LstBxJsonList.Size = new System.Drawing.Size(1751, 244);
             this.LstBxJsonList.TabIndex = 20;
@@ -404,7 +404,7 @@
             // BtnResetSN
             // 
             this.BtnResetSN.Location = new System.Drawing.Point(4, 6);
-            this.BtnResetSN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BtnResetSN.Margin = new System.Windows.Forms.Padding(4);
             this.BtnResetSN.Name = "BtnResetSN";
             this.BtnResetSN.Size = new System.Drawing.Size(131, 42);
             this.BtnResetSN.TabIndex = 27;
@@ -422,9 +422,9 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.BtnAddGet);
             this.Font = new System.Drawing.Font("新細明體", 11F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FmRobotPath";
-            this.Text = "FmRobotPath";
+            this.Text = "RobotPathGetter";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FmRobotPath_Load);
             this.groupBox1.ResumeLayout(false);

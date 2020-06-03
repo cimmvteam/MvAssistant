@@ -1,4 +1,4 @@
-﻿#define NO_DEVICE //無裝置可連接時要 define 這個條件
+﻿//#define NO_DEVICE //無裝置可連接時要 define 這個條件
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using System;

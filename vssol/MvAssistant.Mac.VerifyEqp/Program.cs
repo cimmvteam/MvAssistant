@@ -1,4 +1,4 @@
-﻿#define OnlyPositionGetter
+﻿//#define OnlyPositionGetter
 using MaskCleanerVerify;
 using System;
 using System.Collections.Generic;
