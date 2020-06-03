@@ -1,5 +1,5 @@
 ﻿//#define OnlyPositionGetter
-#define DrawerTest
+//#define DrawerTest
 using MaskCleanerVerify;
 using System;
 using System.Collections.Generic;
