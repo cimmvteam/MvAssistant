@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     [Guid("90A5ACB4-3B35-429C-B9B4-DF1E63AF267B")]
     public class MacHalPlcOpenStage : MacHalPlcBase, IMacHalPlcOpenStage
     {
- 
+
 
         public MacHalPlcOpenStage() { }
         public MacHalPlcOpenStage(MacHalPlcContext plc = null)
@@ -105,7 +105,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-        
+
         /// <summary>
         /// 開盒夾爪閉合
         /// </summary>
@@ -153,7 +153,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-        
+
         /// <summary>
         /// 開盒夾爪鬆開
         /// </summary>
@@ -201,7 +201,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-        
+
         /// <summary>
         /// Stage上固定Box的夾具閉合
         /// </summary>
@@ -249,7 +249,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-        
+
         /// <summary>
         /// Stage上固定Box的夾具鬆開
         /// </summary>
@@ -288,7 +288,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-        
+
         /// <summary>
         /// 移到開/關盒鎖的位置
         /// </summary>
@@ -483,9 +483,24 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude)
         {
             var plc = this.m_PlcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
-            Thread.Sleep(100);
+            try
+            {
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
+                Thread.Sleep(100);
+
+                if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可
+                    throw new MvException("Box Transfer Intrude is not allowed");
+                else if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense) != isMTIntrude)//如果MT要入侵但不被許可
+                    throw new MvException("Mask Transfer Intrude is not allowed");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
+                throw ex;
+            }
+
             return new Tuple<bool, bool>(
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense),
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense)
@@ -511,7 +526,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             }
             return Result;
         }
-        
+
         /// <summary>
         /// 讀取Stage上固定Box的夾具位置
         /// </summary>
@@ -525,7 +540,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp2_Position)
                 );
         }
-        
+
         /// <summary>
         /// 讀取Slider的位置
         /// </summary>
@@ -618,6 +633,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                     break;
             }
             return Result;
+        }
+
+        public bool ReadBeenIntruded()
+        {
+            var plc = this.m_PlcContext;
+            return !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude) || !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude);
         }
     }
 }

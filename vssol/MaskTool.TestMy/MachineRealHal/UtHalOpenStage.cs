@@ -40,22 +40,35 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestReadComponentValue()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            try
             {
-                halContext.Load();
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.Load();
 
-                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                    unv.HalConnect();
+                    os.HalConnect();
 
-                os.ReadRobotIntrude(false, false);
-                os.ReadClampStatus();
-                os.ReadSortClampPosition();
-                os.ReadSliderPosition();
-                os.ReadCoverPos();
-                os.ReadCoverSensor();
-                os.ReadBoxDeform();
-                os.ReadWeightOnStage();
-                os.ReadBoxExist();
-                os.ReadOpenStageStatus();
+                    os.ReadRobotIntrude(true, false);
+                    os.ReadRobotIntrude(false, true);
+                    os.ReadRobotIntrude(false, false);
+                    os.ReadClampStatus();
+                    os.ReadSortClampPosition();
+                    os.ReadSliderPosition();
+                    os.ReadCoverPos();
+                    os.ReadCoverSensor();
+                    os.ReadBoxDeform();
+                    os.ReadWeightOnStage();
+                    os.ReadBoxExist();
+                    os.ReadOpenStageStatus();
+                    os.ReadBeenIntruded();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

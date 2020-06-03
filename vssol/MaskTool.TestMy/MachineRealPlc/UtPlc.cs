@@ -327,6 +327,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                         Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
                         Console.WriteLine(plc.OpenStage.ReadBoxExist());
                         Console.WriteLine(plc.OpenStage.ReadOpenStageStatus());
+                        Console.WriteLine(plc.OpenStage.ReadBeenIntruded());
                     }
                     catch (Exception ex)
                     {

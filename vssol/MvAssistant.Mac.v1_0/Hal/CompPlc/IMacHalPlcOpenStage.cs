@@ -53,5 +53,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         bool ReadBoxExist();
 
         string ReadOpenStageStatus();
+
+        bool ReadBeenIntruded();
     }
 }

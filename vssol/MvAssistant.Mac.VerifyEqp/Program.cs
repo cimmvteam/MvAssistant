@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define OnlyPositionGetter
+using MaskCleanerVerify;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +24,11 @@ namespace MvAssistantMacVerifyEqp
 
             ProgMgr = new ProgramMgr();
 
+#if OnlyPositionGetter
+            Application.Run(new FmRobotPath());
+#else
             Application.Run(new FmMain());
+#endif      
         }
     }
 }
