@@ -416,7 +416,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2283, 998);
+            this.ClientSize = new System.Drawing.Size(1924, 998);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -424,7 +424,7 @@
             this.Font = new System.Drawing.Font("新細明體", 11F);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FmRobotPath";
-            this.Text = "RobotPathGetter";
+            this.Text = "RobotPathGetter(V1.0.1)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FmRobotPath_Load);
             this.groupBox1.ResumeLayout(false);
