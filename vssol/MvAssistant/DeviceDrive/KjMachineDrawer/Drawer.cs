@@ -1,4 +1,5 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+﻿using MvAssistant.DeviceDrive.KjMachineDrawer.Exceptions;
+using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             UDPServerIP = udpServerIP;
             DrawerSocket = new DrawerSocket(udpServerIP, udpServerPort);
         }
-        public int SentTo(string message)
-        {
-            var feedBack = DrawerSocket.SentTo(message);
-            return feedBack;
-        }
+       
 
         public void INI()
         {
@@ -37,6 +34,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         
         public void SetMotionSpeed(int speed)
         {
+            if (speed > 100 || speed < 1)
+            { throw new MotionSpeedOutOfRangeException(); }
             var parameter = new SetMotionSpeedParameter { Speed = speed };
             var commandText = new SetMotionSpeed().GetCommandText(parameter);
             DrawerSocket.SentTo(commandText);
@@ -44,6 +43,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         public void SetTimeOut(int timeoutSeconds)
         {
+            if(timeoutSeconds < 1 || timeoutSeconds > 100)
+            {
+                throw new TimeOutSecondOutOfRangeException();
+            }
             var parameter = new SetTimeOutParameter {  Seconds=timeoutSeconds };
             var commandText = new SetTimeOut().GetCommandText(parameter);
             DrawerSocket.SentTo(commandText);

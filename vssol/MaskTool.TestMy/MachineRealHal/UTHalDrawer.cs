@@ -195,13 +195,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void LCDMsg()
         {
           
-            Drawer_01_01.LCDMsg("01\r\n\01");
+            Drawer_01_01.LCDMsg("01_01");
 
            
-            Drawer_01_02.LCDMsg("01\r\n\02");
+            Drawer_01_02.LCDMsg("01_02");
 
 
-            Drawer_01_03.LCDMsg("01\r\n\03");
+            Drawer_01_03.LCDMsg("01_03");
         }
         [TestMethod]
         public void ButtonEvent()

@@ -85,6 +85,9 @@
     <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\BaseCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Drawer.cs" />
