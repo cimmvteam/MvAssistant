@@ -85,6 +85,8 @@
     <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\BaseCommand.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Drawer.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerSocket.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
@@ -92,6 +94,16 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLdd.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\OnReciveMessageEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UdpClientSocket.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BoxDetection.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BrightLED.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\INI.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\PositionRead.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\SetMotionSpeed.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\SetParameter.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\SetTimeOut.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\TrayMotion.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\WriteNetSetting.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\LCDMsg.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UdpServerSocket.cs" />
     <Compile Include="DeviceDrive\LeimacLight\MvEnumLeimacModel.cs" />
     <Compile Include="DeviceDrive\LeimacLight\MvLeimacLightLdd.cs" />

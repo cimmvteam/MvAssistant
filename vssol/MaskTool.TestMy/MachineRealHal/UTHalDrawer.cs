@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
+using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public int ListenPort = 6000;
         public int ClientPort = 5000;
         public string ClientIP_01_01 = "127.0.0.1";
-        public string ClientIP_01_02 = "192.168.0.1";
-        public string ClientIP_01_03 = "192.168.0.2";
+        public string ClientIP_01_02 = "127.0.0.1";
+        public string ClientIP_01_03 = "127.0.0.1";
         public Drawer Drawer_01_01 = null;
         public Drawer Drawer_01_02 = null;
         public Drawer Drawer_01_03 = null;
@@ -64,73 +65,156 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void INI()
         {
 
+            Drawer_01_01.INI();
+            Drawer_01_02.INI();
+            Drawer_01_03.INI();
 
         }
-        [TestMethod]// 60%, 30%
+        [TestMethod]// 20%,15%,10%
         public void SetMotionSpeed()
         {
-
+            Drawer_01_01.SetMotionSpeed(20);
+            Drawer_01_02.SetMotionSpeed(15);
+            Drawer_01_03.SetMotionSpeed(10);
         }
-        [TestMethod] // 30 seconds, 60 seconds
+        [TestMethod] // 30 seconds, 60 seconds,10 seconds
         public void SetTimeOut()
         {
-
+            Drawer_01_01.SetTimeOut(30);
+            Drawer_01_02.SetTimeOut(60);
+            Drawer_01_03.SetTimeOut(10);
         }
+
         [TestMethod] //???
         public void SetParameter()
         {
-
+            Drawer_01_01.SetParameterHomePosition("003");
+            Drawer_01_01.SetParameterOutSidePosition("004");
+            Drawer_01_02.SetParameterInSidePosition("005");
+            Drawer_01_03.SetParameterIPAddress("006");
+            Drawer_01_02.SetParameterSubMask("007");
+            Drawer_01_03.SetParameterGetwayAddress("008");
         }
         [TestMethod]
-        public void TrayMotion_Home()
+        public void TrayMotionHome()
         {
-
+            Drawer_01_01.TrayMotionHome();
+            Drawer_01_02.TrayMotionHome();
+            Drawer_01_03.TrayMotionHome();
         }
         [TestMethod]
-        public void TrayMotion_Out()
+        public void TrayMotionOut()
         {
 
+            Drawer_01_01.TrayMotionOut();
+
+            Drawer_01_02.TrayMotionOut();
+
+            Drawer_01_03.TrayMotionOut();
         }
         [TestMethod]
-        public void TrayMotion_In()
+        public void TrayMotionIn()
+        {
+            Drawer_01_01.TrayMotionIn();
+
+            Drawer_01_02.TrayMotionIn();
+
+            Drawer_01_03.TrayMotionIn();
+        }
+        [TestMethod]
+        public void BrightLEDAllOn()
         {
 
+            Drawer_01_01.BrightLEDAllOn();
+
+            Drawer_01_02.BrightLEDAllOn();
+
+            Drawer_01_03.BrightLEDAllOn();
         }
         [TestMethod]
-        public void BrightLED_AllOn()
-        {
-        }
-        [TestMethod]
-        public void BrightLed_AllOff()
+        public void BrightLedAllOff()
         {
 
+            Drawer_01_01.BrightLedAllOff();
+
+            Drawer_01_02.BrightLedAllOff();
+
+            Drawer_01_03.BrightLedAllOff();
         }
         [TestMethod]
-        public void BrightLED_GreenOn()
+        public void BrightLEDGreenOn()
         {
+           
+            Drawer_01_01.BrightLEDGreenOn();
 
+            Drawer_01_02.BrightLEDGreenOn();
+
+            Drawer_01_03.BrightLEDGreenOn(); ;
         }
         [TestMethod]
-        public void BrightLED_RedOn()
+        public void BrightLEDRedOn()
         {
 
+            Drawer_01_01.BrightLEDRedOn();
+
+            Drawer_01_02.BrightLEDRedOn();
+
+            Drawer_01_03.BrightLEDRedOn();
         }
         [TestMethod]
         public void PositionRead()
         {
+
+            Drawer_01_01.PositionRead();
+
+            Drawer_01_02.PositionRead();
+
+            Drawer_01_03.PositionRead();
         }
         [TestMethod]
         public void BoxDetection()
         {
+           
+            Drawer_01_01.BoxDetection();
 
+            Drawer_01_02.BoxDetection();
+
+            Drawer_01_03.BoxDetection();
         }
         [TestMethod]
         public void WriteNetSetting()
         {
-            
+
+            Drawer_01_01.WriteNetSetting();
+
+            Drawer_01_02.WriteNetSetting();
+
+            Drawer_01_03.WriteNetSetting();
         }
         [TestMethod]
         public void LCDMsg()
+        {
+          
+            Drawer_01_01.LCDMsg("01\r\n\01");
+
+           
+            Drawer_01_02.LCDMsg("01\r\n\02");
+
+
+            Drawer_01_03.LCDMsg("01\r\n\03");
+        }
+        [TestMethod]
+        public void ButtonEvent()
+        {
+
+        }
+        [TestMethod]
+        public void TimeOutEvent()
+        {
+
+        }
+        [TestMethod]
+        public void  SysStartUp()
         {
 
         }

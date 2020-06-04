@@ -120,14 +120,14 @@ namespace MvAssistantMacVerifyEqp
 
     }
 
-    public abstract class BaseDrawerEquipmentToHostCommand : BaseDrawerCommand
+    public abstract class BaseDrawerHostToEquipmentCommand : BaseDrawerCommand
     {
         private DrawerCommand _commandCategory;
-        private BaseDrawerEquipmentToHostCommand()
+        private BaseDrawerHostToEquipmentCommand()
         {
 
         }
-        public BaseDrawerEquipmentToHostCommand(DrawerCommand commandCategory) : this()
+        public BaseDrawerHostToEquipmentCommand(DrawerCommand commandCategory) : this()
         {
             _commandCategory = commandCategory;
         }
@@ -150,14 +150,14 @@ namespace MvAssistantMacVerifyEqp
     public class HostToEquipCommands
     {
 
-        private List<BaseDrawerEquipmentToHostCommand> Commands = null;
+        private List<BaseDrawerHostToEquipmentCommand> Commands = null;
         public HostToEquipCommands()
         {
-            Commands = new List<BaseDrawerEquipmentToHostCommand>();
+            Commands = new List<BaseDrawerHostToEquipmentCommand>();
             Commands.Add(new SetMotionSpeed_HE_Command());
             Commands.Add(new TrayMotion_HE_Command());
         }
-        public BaseDrawerEquipmentToHostCommand GetCommandInst(DrawerCommand commandCategory)
+        public BaseDrawerHostToEquipmentCommand GetCommandInst(DrawerCommand commandCategory)
         {
             var command = Commands.Where(m => m.CommandCategory == commandCategory).FirstOrDefault();
             return command;
@@ -165,26 +165,26 @@ namespace MvAssistantMacVerifyEqp
     }
 
 
-    public class SetMotionSpeed_HE_Command : BaseDrawerEquipmentToHostCommand
+    public class SetMotionSpeed_HE_Command : BaseDrawerHostToEquipmentCommand
     {
         public SetMotionSpeed_HE_Command() : base(DrawerCommand.SetMotionSpeed)
         {
         }
     }
-    public class TrayMotion_HE_Command : BaseDrawerEquipmentToHostCommand
+    public class TrayMotion_HE_Command : BaseDrawerHostToEquipmentCommand
     {
         public TrayMotion_HE_Command() : base(DrawerCommand.TrayMotion)
         {
         }
     }
-    public class BrightLED_HE_Command : BaseDrawerEquipmentToHostCommand
+    public class BrightLED_HE_Command : BaseDrawerHostToEquipmentCommand
     {
         public BrightLED_HE_Command() : base(DrawerCommand.BrightLED)
         {
         }
     }
 
-    public class INI_HE_Command:BaseDrawerEquipmentToHostCommand
+    public class INI_HE_Command:BaseDrawerHostToEquipmentCommand
     {
         public INI_HE_Command() : base(DrawerCommand.INI)
         {
