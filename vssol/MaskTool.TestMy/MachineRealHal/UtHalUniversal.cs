@@ -40,7 +40,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         throw new Exception("Open Stage not allow Box Transfer intrude.");
                     //BT開鎖
                     bt.RobotMoving(false);
-                    SpinWait.SpinUntil(()=>(os.ReadRobotIntrude(false, false).Item1==false && os.ReadRobotIntrude(false, false).Item2==false));
+                    SpinWait.SpinUntil(()=>(os.ReadBeenIntruded()==false));
                     os.Close();
                     os.Clamp();
                     os.Open();
@@ -50,7 +50,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         throw new Exception("Open Stage not allow Mask Transfer intrude.");
                     //MT取mask
                     mt.RobotMoving(false);
-                    SpinWait.SpinUntil(() => (os.ReadRobotIntrude(false, false).Item1 == false && os.ReadRobotIntrude(false, false).Item2 == false));
+                    SpinWait.SpinUntil(() => (os.ReadBeenIntruded() == false));
                     os.Close();
                     os.Unclamp();
                     os.Lock();
@@ -60,7 +60,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         throw new Exception("Open Stage not allow Box Transfer intrude.");
                     //BT開鎖
                     bt.RobotMoving(false);
-                    SpinWait.SpinUntil(() => (os.ReadRobotIntrude(false, false).Item1 == false && os.ReadRobotIntrude(false, false).Item2 == false));
+                    SpinWait.SpinUntil(() => (os.ReadBeenIntruded() == false));
                     os.Vacuum(false);
                 }
             }

@@ -16,7 +16,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
     {
 
         ~MvOmronSentechCameraLdd() { this.Dispose(false); }
-
+        
         // 要取得的影像數量
         const int nCountOfImagesToGrab = 1;
 
@@ -35,6 +35,8 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         List<IStImage> ImageList;
         List<string> imgFileNameList;
         //CStPixelFormatConverter pixelFormatConverter;
+        CStDevice device;
+        CStDataStream m_DataStream;
 
         public void Connect()
         {
@@ -169,6 +171,18 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                             //IStImage[] stImage=new IStImage[1];
                             ImageList.Add(streamBuffer.GetIStImage());
 
+                            {
+                                // JPEG file extension.
+                                string imageFileName = fileNameHeader + ".jpg";
+
+                                // Save the image file in JPEG format.
+                                stillImageFiler.Quality = 75;
+                                Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
+                                stillImageFiler.Save(ImageList[0], eStStillImageFileFormat.JPEG, imgFileNameList[0]);
+                                Console.Write("done" + Environment.NewLine);
+                                ImageList.RemoveAt(0);
+                                imgFileNameList.RemoveAt(0);
+                            }
 
                             //// 顯示接收影像的詳細資訊
                             //Byte[] imageData = stImage.GetByteArray();
@@ -195,78 +209,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                             // 如果取得的資料不含影像資料
                             Console.WriteLine("Image data does not exist.");
                         }
-                        //// The following code shows how to load the saved StApiRaw and process it.
-                        //if (isImageSaved)
-                        //{
-                        //        // Load the image from the StApiRaw file into buffer.
-                        //        Console.Write(Environment.NewLine + "Loading " + fileNameRaw + "... ");
-                        //        stillImageFiler.Load(imageBuffer, fileNameRaw);
-                        //        Console.Write("done" + Environment.NewLine);
-
-                        //        // Convert the image data to BGR8 format.
-                        //        pixelFormatConverter.DestinationPixelFormat = eStPixelFormatNamingConvention.BGR8;
-                        //        pixelFormatConverter.Convert(imageBuffer.GetIStImage(), imageBuffer);
-
-                        //        // Get the IStImage interface to the converted image data.
-                        //        IStImage stImage = imageBuffer.GetIStImage();
-
-                        //        // Save as Bitmap
-                        //        {
-                        //            // Bitmap file extension.
-                        //            string imageFileName = fileNameHeader + ".bmp";
-
-                        //            // Save the image file in Bitmap format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.Bitmap, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        //        // Save as Tiff
-                        //        {
-                        //            // Tiff file extension.
-                        //            string imageFileName = fileNameHeader + ".tif";
-
-                        //            // Save the image file in Tiff format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.TIFF, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        //        // Save as PNG
-                        //        {
-                        //            // PNG file extension.
-                        //            string imageFileName = fileNameHeader + ".png";
-
-                        //            // Save the image file in PNG format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.PNG, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        // Save as JPEG
-                        {
-                            // JPEG file extension.
-                            string imageFileName = fileNameHeader + ".jpg";
-
-                            // Save the image file in JPEG format.
-                            stillImageFiler.Quality = 75;
-                            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                            stillImageFiler.Save(ImageList[intDvcIdx], eStStillImageFileFormat.JPEG, imageFileName);
-                            Console.Write("done" + Environment.NewLine);
-                        }
-
-                        //        // Save as CSV
-                        //        {
-                        //            // CSV file extension.
-                        //            string imageFileName = fileNameHeader + ".csv";
-
-                        //            // Save the image file in CSV format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.CSV, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        //}
                     }
                 }
             }
@@ -385,6 +327,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             }
             return intSavedCnt;
         }
+        
 
         //        public void cameraSample()
         //        {
@@ -470,11 +413,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         //                Console.WriteLine("\r\nPress Enter to exit.");
         //            }
         //        }
-
-
-
-
-
 
 
 

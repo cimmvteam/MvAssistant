@@ -5,6 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Data;
+using System.IO;
+using System.Text;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -19,6 +22,118 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #endregion Device Components
 
         #region Path test, 2020/05/25
+
+
+        Dictionary<string, HalRobotMotion> btPathInfo = new Dictionary<string, HalRobotMotion>();
+
+        DataTable readCSV(string filePath)
+        {
+            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs, Encoding.Default);
+            DataTable dt = new DataTable();
+            string[] aryLine = null;
+            string[] tableHead = null;
+            string strLine = "";
+            int columnCount = 10;
+            bool IsFirst = true;
+            while((strLine=sr.ReadLine())!=null)
+            {
+                if(IsFirst)
+                {
+                    tableHead = strLine.Split(',');
+                    IsFirst = false;
+                    columnCount = tableHead.Length;
+
+                    for(int i=0;i<columnCount;i++)
+                    {
+                        tableHead[i] = tableHead[i].Replace("\"", "");
+                        DataColumn dc = new DataColumn(tableHead[i]);
+                        dt.Columns.Add(dc);
+                    }
+                }
+                else
+                {
+                    aryLine = strLine.Split(',');
+                    DataRow dr = dt.NewRow();
+                    for(int j=0;j<columnCount;j++)
+                    {
+                        dr[j] = aryLine[j].Replace("\"", "");
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+            if(aryLine!=null&&aryLine.Length>0)
+            {
+                dt.DefaultView.Sort = tableHead[2] + "" + "DESC";
+            }
+            sr.Close();
+            fs.Close();
+
+            return dt;
+        }
+
+        /// <summary>
+        /// 使用CSV檔Config Default Position
+        /// </summary>
+        /// <param name="CsvPath"></param>
+        public void ReadPathInfo(string CsvPath)
+        {
+            DataTable pathDt = readCSV(CsvPath);
+            for(int k=1;k<pathDt.Rows.Count-1;k++)
+            {
+                HalRobotMotion robotMotion = new HalRobotMotion();
+                switch(pathDt.Rows[k][10].ToString())
+                {
+                    case "W":
+                        robotMotion.MotionType = HalRobotEnumMotionType.Position;
+                        robotMotion.X = float.Parse(pathDt.Rows[k][2].ToString());
+                        robotMotion.Y = float.Parse(pathDt.Rows[k][3].ToString());
+                        robotMotion.Z = float.Parse(pathDt.Rows[k][4].ToString());
+                        robotMotion.W = float.Parse(pathDt.Rows[k][5].ToString());
+                        robotMotion.P = float.Parse(pathDt.Rows[k][6].ToString());
+                        robotMotion.R = float.Parse(pathDt.Rows[k][7].ToString());
+                        robotMotion.E1 = float.Parse(pathDt.Rows[k][8].ToString());
+                        robotMotion.Speed = int.Parse(pathDt.Rows[k][9].ToString());
+                        btPathInfo.Add(pathDt.Rows[k][1].ToString(), robotMotion);
+                        break;
+                    case "J":
+                        robotMotion.MotionType = HalRobotEnumMotionType.Joint;
+                        robotMotion.J1 = float.Parse(pathDt.Rows[k][2].ToString());
+                        robotMotion.J2 = float.Parse(pathDt.Rows[k][3].ToString());
+                        robotMotion.J3 = float.Parse(pathDt.Rows[k][4].ToString());
+                        robotMotion.J4= float.Parse(pathDt.Rows[k][5].ToString());
+                        robotMotion.J5= float.Parse(pathDt.Rows[k][6].ToString());
+                        robotMotion.J6= float.Parse(pathDt.Rows[k][7].ToString());
+                        robotMotion.J7 = float.Parse(pathDt.Rows[k][8].ToString());
+                        robotMotion.Speed = int.Parse(pathDt.Rows[k][9].ToString());
+                        btPathInfo.Add(pathDt.Rows[k][1].ToString(), robotMotion);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 透過Position Name去對應到Dictionary中的HalRobotMotion物件
+        /// </summary>
+        /// <param name="pName"></param>
+        public void MoveByDefaultPath(string pName)
+        {
+            try
+            {
+                if (btPathInfo.ContainsKey(pName))
+                {
+                    var position = btPathInfo[pName];
+                    this.MoveAsync(position);
+                }
+                else
+                    throw new ArgumentException("Position Name is not in Path csv file!!");
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
 
         /// <summary>回到 Cabinet1 Home</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
