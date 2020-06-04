@@ -61,7 +61,7 @@ namespace MvAssistantMacVerifyEqp
     #region new Type
 
     /// <summary>Host to Equipment Command   </summary>
-    public enum DrawerHostToEquipmentCommandCategory
+    public enum DrawerCommand
     {
         SetMotionSpeed = 0,
         SetTimeOut = 1,
@@ -76,7 +76,7 @@ namespace MvAssistantMacVerifyEqp
     }
 
     /// <summary>Equipment to Host Command</summary>
-    public enum DrawerEquipmentToHostCommandCategory
+    public enum DrawerMessage
     {
         ReplyTrayMotion = 111,
         ReplySetSpeed = 100,
@@ -99,7 +99,7 @@ namespace MvAssistantMacVerifyEqp
         /// <summary>取得 String Code</summary>
         /// <param name="inst"></param>
         /// <returns></returns>
-        public static string GetStringCode(this DrawerHostToEquipmentCommandCategory inst)
+        public static string GetStringCode(this DrawerCommand inst)
         {
             string stringCode = ((int)inst).ToString("000");
             return stringCode;
@@ -122,18 +122,16 @@ namespace MvAssistantMacVerifyEqp
 
     public abstract class BaseDrawerEquipmentToHostCommand : BaseDrawerCommand
     {
-        private DrawerHostToEquipmentCommandCategory _commandCategory;
-
-        public const string ParaneterSignPair = "[]";
+        private DrawerCommand _commandCategory;
         private BaseDrawerEquipmentToHostCommand()
         {
 
         }
-        public BaseDrawerEquipmentToHostCommand(DrawerHostToEquipmentCommandCategory commandCategory) : this()
+        public BaseDrawerEquipmentToHostCommand(DrawerCommand commandCategory) : this()
         {
             _commandCategory = commandCategory;
         }
-        public DrawerHostToEquipmentCommandCategory CommandCategory { get { return _commandCategory; } }
+        public DrawerCommand CommandCategory { get { return _commandCategory; } }
         protected override string GetRawCommandText()
         {
             var stringCode = CommandPrefixText + CommandCategory.GetStringCode() + "," + CommandCategory.ToString() + CommandTextReplaceSignPair + "@";
@@ -159,7 +157,7 @@ namespace MvAssistantMacVerifyEqp
             Commands.Add(new SetMotionSpeed_HE_Command());
             Commands.Add(new TrayMotion_HE_Command());
         }
-        public BaseDrawerEquipmentToHostCommand GetCommandInst(DrawerHostToEquipmentCommandCategory commandCategory)
+        public BaseDrawerEquipmentToHostCommand GetCommandInst(DrawerCommand commandCategory)
         {
             var command = Commands.Where(m => m.CommandCategory == commandCategory).FirstOrDefault();
             return command;
@@ -169,26 +167,26 @@ namespace MvAssistantMacVerifyEqp
 
     public class SetMotionSpeed_HE_Command : BaseDrawerEquipmentToHostCommand
     {
-        public SetMotionSpeed_HE_Command() : base(DrawerHostToEquipmentCommandCategory.SetMotionSpeed)
+        public SetMotionSpeed_HE_Command() : base(DrawerCommand.SetMotionSpeed)
         {
         }
     }
     public class TrayMotion_HE_Command : BaseDrawerEquipmentToHostCommand
     {
-        public TrayMotion_HE_Command() : base(DrawerHostToEquipmentCommandCategory.TrayMotion)
+        public TrayMotion_HE_Command() : base(DrawerCommand.TrayMotion)
         {
         }
     }
     public class BrightLED_HE_Command : BaseDrawerEquipmentToHostCommand
     {
-        public BrightLED_HE_Command() : base(DrawerHostToEquipmentCommandCategory.BrightLED)
+        public BrightLED_HE_Command() : base(DrawerCommand.BrightLED)
         {
         }
     }
 
     public class INI_HE_Command:BaseDrawerEquipmentToHostCommand
     {
-        public INI_HE_Command() : base(DrawerHostToEquipmentCommandCategory.INI)
+        public INI_HE_Command() : base(DrawerCommand.INI)
         {
         }
     }

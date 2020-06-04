@@ -85,7 +85,14 @@
     <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Drawer.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerSocket.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\EquipmentToHostContent.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLdd.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\OnReciveMessageEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UdpClientSocket.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UdpServerSocket.cs" />
     <Compile Include="DeviceDrive\LeimacLight\MvEnumLeimacModel.cs" />
     <Compile Include="DeviceDrive\LeimacLight\MvLeimacLightLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
