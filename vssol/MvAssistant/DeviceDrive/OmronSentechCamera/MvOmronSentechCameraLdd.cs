@@ -169,6 +169,16 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                             //IStImage[] stImage=new IStImage[1];
                             ImageList.Add(streamBuffer.GetIStImage());
 
+                            {
+                                // JPEG file extension.
+                                string imageFileName = fileNameHeader + ".jpg";
+
+                                // Save the image file in JPEG format.
+                                stillImageFiler.Quality = 75;
+                                Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
+                                stillImageFiler.Save(ImageList[intDvcIdx], eStStillImageFileFormat.JPEG, imageFileName);
+                                Console.Write("done" + Environment.NewLine);
+                            }
 
                             //// 顯示接收影像的詳細資訊
                             //Byte[] imageData = stImage.GetByteArray();
@@ -195,78 +205,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                             // 如果取得的資料不含影像資料
                             Console.WriteLine("Image data does not exist.");
                         }
-                        //// The following code shows how to load the saved StApiRaw and process it.
-                        //if (isImageSaved)
-                        //{
-                        //        // Load the image from the StApiRaw file into buffer.
-                        //        Console.Write(Environment.NewLine + "Loading " + fileNameRaw + "... ");
-                        //        stillImageFiler.Load(imageBuffer, fileNameRaw);
-                        //        Console.Write("done" + Environment.NewLine);
-
-                        //        // Convert the image data to BGR8 format.
-                        //        pixelFormatConverter.DestinationPixelFormat = eStPixelFormatNamingConvention.BGR8;
-                        //        pixelFormatConverter.Convert(imageBuffer.GetIStImage(), imageBuffer);
-
-                        //        // Get the IStImage interface to the converted image data.
-                        //        IStImage stImage = imageBuffer.GetIStImage();
-
-                        //        // Save as Bitmap
-                        //        {
-                        //            // Bitmap file extension.
-                        //            string imageFileName = fileNameHeader + ".bmp";
-
-                        //            // Save the image file in Bitmap format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.Bitmap, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        //        // Save as Tiff
-                        //        {
-                        //            // Tiff file extension.
-                        //            string imageFileName = fileNameHeader + ".tif";
-
-                        //            // Save the image file in Tiff format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.TIFF, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        //        // Save as PNG
-                        //        {
-                        //            // PNG file extension.
-                        //            string imageFileName = fileNameHeader + ".png";
-
-                        //            // Save the image file in PNG format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.PNG, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        // Save as JPEG
-                        {
-                            // JPEG file extension.
-                            string imageFileName = fileNameHeader + ".jpg";
-
-                            // Save the image file in JPEG format.
-                            stillImageFiler.Quality = 75;
-                            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                            stillImageFiler.Save(ImageList[intDvcIdx], eStStillImageFileFormat.JPEG, imageFileName);
-                            Console.Write("done" + Environment.NewLine);
-                        }
-
-                        //        // Save as CSV
-                        //        {
-                        //            // CSV file extension.
-                        //            string imageFileName = fileNameHeader + ".csv";
-
-                        //            // Save the image file in CSV format.
-                        //            Console.Write(Environment.NewLine + "Saving " + imageFileName + "... ");
-                        //            stillImageFiler.Save(stImage, eStStillImageFileFormat.CSV, imageFileName);
-                        //            Console.Write("done" + Environment.NewLine);
-                        //        }
-
-                        //}
                     }
                 }
             }
@@ -384,6 +322,131 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 throw ex;
             }
             return intSavedCnt;
+        }
+
+        // Updates the list of available camera devices and create the device.
+        CStDevice CreateStDevice()
+        {
+            CStDevice device = null;
+            IStInterface iInterface = null;
+            IStDeviceInfo deviceInfo = null;
+
+            using (CStDeviceSelectionWnd wnd = new CStDeviceSelectionWnd())
+            {
+                wnd.SetPosition(Left + delta, Top + delta, DeviceSelectionWnd_Width, DeviceSelectionWnd_Height);
+                wnd.RegisterTargetIStSystem(system);
+
+                wnd.Show(eStWindowMode.Modal);
+                wnd.GetSelectedDeviceInfo(out iInterface, out deviceInfo);
+            }
+
+            if (deviceInfo != null)
+            {
+                eDeviceAccessFlags deviceAccessFlags = eDeviceAccessFlags.CONTROL;
+                if (deviceInfo.AccessStatus == eDeviceAccessStatus.READONLY)
+                {
+                    deviceAccessFlags = eDeviceAccessFlags.READONLY;
+                }
+
+                //Device Create
+                device = iInterface.CreateStDevice(deviceInfo.ID, deviceAccessFlags);
+            }
+
+            return device;
+        }
+
+        // Starts the grabbing of images and handles exceptions.
+        void Start()
+        {
+            try
+            {
+                isStopped = false;
+
+                m_DataStream = device.CreateStDataStream(0);
+
+                m_DataStream.RegisterCallbackMethod(OnCallback);
+
+                // Start the image acquisition of the host (local machine) side.
+                m_DataStream.StartAcquisition();
+
+                // Start the image acquisition of the camera side.
+                device.AcquisitionStart();
+
+                // The camera is grabbing. Disable the grab buttons. Enable the stop button.
+                EnableButtons(false, true);
+            }
+            catch (Exception ex)
+            {
+                ShowException(ex);
+            }
+        }
+
+        // Stops the grabbing of images and handles exceptions.
+        void Stop()
+        {
+            // Stop the grabbing.
+            try
+            {
+                isStopped = true;
+
+                // Stop the image acquisition of the camera side.
+                device.AcquisitionStop();
+
+                // Stop the image acquisition of the host side.
+                m_DataStream.StopAcquisition();
+
+                // The camera stopped grabbing. Enable the grab buttons. Disable the stop button.
+                EnableButtons(true, false);
+
+                m_DataStream.Dispose();
+                m_DataStream = null;
+            }
+            catch (Exception ex)
+            {
+                ShowException(ex);
+            }
+        }
+
+        // Closes the camera object and handles exceptions.
+        void DestroyCamera()
+        {
+            // Destroy the camera object.
+            try
+            {
+                if (m_DataStream != null)
+                {
+                    m_DataStream.Dispose();
+                    m_DataStream = null;
+                }
+
+                if (nodeMapDisplayWnd != null)
+                {
+                    nodeMapDisplayWnd.Dispose();
+                    nodeMapDisplayWnd = null;
+                }
+
+                if (device != null)
+                {
+                    device.Dispose();
+                    device = null;
+                }
+
+                if (system != null)
+                {
+                    system.Dispose();
+                    system = null;
+                }
+
+                if (api != null)
+                {
+                    api.Dispose();
+                    api = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowException(ex);
+            }
         }
 
         //        public void cameraSample()
