@@ -14,7 +14,7 @@ namespace MvAssistant.DeviceDrive.LeimacLight
     {
 
         public CtkNonStopTcpClient TcpClient = new CtkNonStopTcpClient();
-        public IPAddress RemoteIp { get { return this.TcpClient.remoteEP.Address; } set { this.TcpClient.remoteEP.Address = value; } }
+        public string RemoteIp { get { return this.TcpClient.remoteEP.Address.ToString(); } set { this.TcpClient.remoteEP.Address = IPAddress.Parse(value); } }
         public int RemotePort { get { return this.TcpClient.remoteEP.Port; } set { this.TcpClient.remoteEP.Port = value; } }
         public MvEnumLeimacModel Model = MvEnumLeimacModel.None;
 
@@ -32,7 +32,7 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             if (this.TcpClient.remoteEP == null)
                 this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse("192.168.0.30"), 1000);
 
-            if (!string.IsNullOrEmpty(ip)) this.RemoteIp = IPAddress.Parse(ip);
+            if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
             if (port.HasValue) this.RemotePort = port.Value;
 
             this.TcpClient.ConnectIfNo();

@@ -12,22 +12,27 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     public abstract class MacHalPlcBase : MacHalComponentBase
     {
 
-        public const string DevConnStr_PlcIp = "ip";
-        public const string DevConnStr_PlcPortId = "port";
+        public const string DevConnStr_Ip = "ip";
+        public const string DevConnStr_PortId = "portid";
 
 
         protected MacHalPlcContext m_PlcContext;
+
+        public int GetPlcContext()
+        {
+            var ip = this.GetDevSetting(DevConnStr_Ip);
+            var port = this.GetDevSettingInt(DevConnStr_PortId);
+            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+            return 0;
+        }
+
 
         #region Hal
 
         public override int HalConnect()
         {
-            var ip = this.GetDevSetting(DevConnStr_PlcIp);
-            var port = this.GetDevSettingInt(DevConnStr_PlcPortId);
-            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
             return 0;
         }
-
 
         public override int HalClose()
         {
@@ -44,11 +49,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public override bool HalIsConnected()
         {
-            throw new NotImplementedException();
+            if (this.m_PlcContext == null) return false;
+            return this.m_PlcContext.ReadPowerON();
         }
+
+
+
+        #endregion
+
     }
 
-    #endregion
+
 
 
 }

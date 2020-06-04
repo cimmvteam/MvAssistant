@@ -12,15 +12,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     {
 
 
-
         public MacHalPlcBoxTransfer() { }
         public MacHalPlcBoxTransfer(MacHalPlcContext plc = null)
         {
             this.m_PlcContext = plc;
         }
-
-
-
 
 
         public string Clamp(uint BoxType)

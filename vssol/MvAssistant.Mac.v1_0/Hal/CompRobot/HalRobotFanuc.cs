@@ -7,7 +7,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using MvAssistant.DeviceDrive.FanucRobot_v42_15;
 
 namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {

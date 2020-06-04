@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
@@ -44,7 +44,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    halContext.Load();
+                    halContext.MvCfLoad();
 
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
                 os.Initial();

@@ -1,15 +1,8 @@
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.Component;
-using MvAssistant.Mac.v1_0.Hal.Component.AirPressure;
-using MvAssistant.Mac.v1_0.Hal.Component.Camera;
+using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -20,25 +13,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(MacEnumDevice.cleanch_plc); } }
-
-
-        public IHalPressureCtrl Clean_air_pressure_controller_1 { get { return (IHalPressureCtrl)this.GetHalDevice(MacEnumDevice.clean_air_pressure_controller_1); } }
-        public IHalDiffPressure Clean_air_pressure_diff_sensor_1 { get { return (IHalDiffPressure)this.GetHalDevice(MacEnumDevice.clean_air_pressure_diff_sensor_1); } }
-        public IHalPressureSensor Clean_air_pressure_sensor_1 { get { return (IHalPressureSensor)this.GetHalDevice(MacEnumDevice.clean_air_pressure_sensor_1); } }
-        public IHalCamera Clean_ccd_particle_1 { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.clean_ccd_particle_1); } }
-        public IHalGasValve Clean_gas_valve_1 { get { return (IHalGasValve)this.GetHalDevice(MacEnumDevice.clean_gas_valve_1); } }
-        public IHalIonizer Clean_iozonier_1 { get { return (IHalIonizer)this.GetHalDevice(MacEnumDevice.clean_ionizer_1); } }
-        public IHalLaser Clean_laser_entry_1 { get { return (IHalLaser)this.GetHalDevice(MacEnumDevice.clean_laser_entry_1); } }
-        public IHalLaser Clean_laser_entry_2 { get { return (IHalLaser)this.GetHalDevice(MacEnumDevice.clean_laser_entry_2); } }
-        public IHalLaser Clean_laser_prevent_collision_1 { get { return (IHalLaser)this.GetHalDevice(MacEnumDevice.clean_laser_prevent_collision_1); } }
-        public IHalLaser Clean_laser_prevent_collision_2 { get { return (IHalLaser)this.GetHalDevice(MacEnumDevice.clean_laser_prevent_collision_2); } }
-        public IHalLaser Clean_laser_prevent_collision_3 { get { return (IHalLaser)this.GetHalDevice(MacEnumDevice.clean_laser_prevent_collision_3); } }
-        public IHalLight Clean_linesource_1 { get { return (IHalLight)this.GetHalDevice(MacEnumDevice.clean_linesource_1); } }
-        public IHalParticleCounter Clean_particle_counter_1 { get { return (IHalParticleCounter)this.GetHalDevice(MacEnumDevice.clean_particle_counter_1); } }
+        public IMacHalLight InspectionSpotLight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.cleanch_inspection_spot_light_001); } }
 
 
 
         #endregion Device Components
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// 空氣閥吹風(BlowTime單位為100ms)

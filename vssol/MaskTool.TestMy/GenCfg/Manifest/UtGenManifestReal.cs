@@ -1,5 +1,8 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.DeviceDrive.LeimacLight;
+using MvAssistant.Mac.v1_0.Hal.CompLight;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System.IO;
 
@@ -44,22 +47,19 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 ID = EnumMachineId.DE_BT_A_ASB.ToString(),
                 DevConnStr = "127.0.0.1;3039",
                 DeviceName = MacEnumDevice.boxtransfer_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.BoxTransfer.ToString(),
                 PositionId = MacEnumPositionId.BoxTrasnfer01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.boxtransfer_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.BoxTransferPlc.ToString(),
                     },
 
                      new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_BT_02.ToString(),
-                        DevConnStr = "ip=192.168.0.51",
+                        DevConnStr = "ip=192.168.0.150",
                         DeviceName = MacEnumDevice.boxtransfer_robot_1.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
                     },
 
@@ -73,18 +73,17 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             {
 
                 ID = EnumMachineId.DE_CB_A_ASB.ToString(),
-                DevConnStr = "127.0.0.1;3039",
+                DevConnStr = null,
                 DeviceName = MacEnumDevice.cabinet_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Cabinet01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.cabinet_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.CabinetPlc.ToString(),
                     },
+
 
                 },
             };
@@ -98,53 +97,29 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 ID = EnumMachineId.DE_CC_A_ASB.ToString(),
                 DevConnStr = "127.0.0.1;3039",
                 DeviceName = MacEnumDevice.clean_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.CleanCh.ToString(),
                 PositionId = MacEnumPositionId.CleanCh01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp, MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.cleanch_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.CleanChPlc.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_CC_A_33.ToString(),
-                        DevConnStr = "DE_PLC_A;CC_laser1",
-                        DeviceName = MacEnumDevice.clean_laser_entry_1.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
-                    },
-                    new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_CC_A_34.ToString(),
-                        DevConnStr = "DE_PLC_A;CC_laser2",
-                        DeviceName = MacEnumDevice.clean_laser_entry_2.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                        MacHalLightLeimac.DevConnStr_Ip,
+                        "192.168.0.129",
+                        MacHalLightLeimac.DevConnStr_Port,
+                        1000,
+                        MacHalLightLeimac.DevConnStr_Model,
+                        MvEnumLeimacModel.IWDV_100S_24,
+                        MacHalLightLeimac.DevConnStr_Channel,
+                        1),
+                        DeviceName = MacEnumDevice.cleanch_inspection_spot_light_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
 
-                    new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_CC_A_35.ToString(),
-                        DevConnStr = "DE_PLC_A;CC_collision_laser_1",
-                        DeviceName = MacEnumDevice.clean_laser_prevent_collision_1.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserCollision_OmronPlc.ToString(),
-                    },
-                    new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_CC_A_36.ToString(),
-                        DevConnStr = "DE_PLC_A;CC_collision_laser_2",
-                        DeviceName = MacEnumDevice.clean_laser_prevent_collision_2.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserCollision_OmronPlc.ToString(),
-                    },
-                    new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_CC_A_37.ToString(),
-                        DevConnStr = "DE_PLC_A;CC_collision_laser_3",
-                        DeviceName = MacEnumDevice.clean_laser_prevent_collision_3.ToString(),
-                        Level = "2",
-                        DriverId = ManifestDriverId.LaserCollision_OmronPlc.ToString(),
-                    },
 
 
                 },
@@ -157,20 +132,70 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             {
 
                 ID = EnumMachineId.DE_IC_A_ASB.ToString(),
-                DevConnStr = "127.0.0.1;3039",
+                DevConnStr = null,
                 DeviceName = MacEnumDevice.inspection_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.InspectionCh.ToString(),
                 PositionId = MacEnumPositionId.InspectionCh01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.inspectionch_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.InspectionChPlc.ToString(),
                     },
-
-
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.160",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
+                        DeviceName = MacEnumDevice.inspectionch_light_circle_defense_top_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.160",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 2),
+                        DeviceName = MacEnumDevice.inspectionch_light_bar_inspection_side_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.160",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 3),
+                        DeviceName = MacEnumDevice.inspectionch_light_bar_denfese_side_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.161",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M2PG_12_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
+                        DeviceName = MacEnumDevice.inspectionch_light_circle_inspection_top_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.162",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IWDV_600M2_24,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
+                        DeviceName = MacEnumDevice.inspectionch_light_spot_inspection_left_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.162",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IWDV_600M2_24,
+                            MacHalLightLeimac.DevConnStr_Channel, 2),
+                        DeviceName = MacEnumDevice.inspectionch_light_spot_inspection_right_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
                 },
             };
             return rs;
@@ -181,19 +206,25 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             {
 
                 ID = EnumMachineId.DE_LP_A_ASB.ToString(),
-                DevConnStr = "127.0.0.1;3038",
+                DevConnStr = null,
                 DeviceName = MacEnumDevice.loadport_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.LoadPort.ToString(),
                 PositionId = MacEnumPositionId.LoadPort01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.LoadPortPlc.ToString(),
                     },
-
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.119",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
+                        DeviceName = MacEnumDevice.loadport_light_bar_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
                 },
             };
             return rs;
@@ -204,19 +235,25 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             {
 
                 ID = EnumMachineId.DE_LP_B_ASB.ToString(),
-                DevConnStr = "127.0.0.1;3039",
+                DevConnStr = null,
                 DeviceName = MacEnumDevice.loadport_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.LoadPort.ToString(),
                 PositionId = MacEnumPositionId.LoadPort02.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.LoadPortPlc.ToString(),
                     },
-
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.119",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 2),
+                        DeviceName = MacEnumDevice.loadport_light_bar_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
                 },
             };
             return rs;
@@ -229,23 +266,20 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 ID = EnumMachineId.DE_MT_A_ASB.ToString(),
                 DevConnStr = "127.0.0.1;3039",
                 DeviceName = MacEnumDevice.masktransfer_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.MaskTransfer.ToString(),
                 PositionId = MacEnumPositionId.MaskTransfer01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.masktransfer_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.MaskTransferPlc.ToString(),
                     },
 
 
                     new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_MT_A_02.ToString(),
-                        DevConnStr = "ip=192.168.0.50",
+                        DevConnStr = "ip=192.168.0.140",
                         DeviceName = MacEnumDevice.masktransfer_robot_1.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
                     },
 
@@ -263,17 +297,33 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             {
 
                 ID = EnumMachineId.DE_OS_A_ASB.ToString(),
-                DevConnStr = "127.0.0.1;3039",
+                DevConnStr = null,
                 DeviceName = MacEnumDevice.openstage_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.OpenStage.ToString(),
                 PositionId = MacEnumPositionId.OpenStage01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.openstage_plc.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.OpenStagePlc.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.139",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
+                        DeviceName = MacEnumDevice.openstage_light_bar_defense_top_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.139",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 2),
+                        DeviceName = MacEnumDevice.openstage_light_bar_defense_side_001.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
                 },
             };
@@ -287,15 +337,13 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 ID = EnumMachineId.DE_UNI_A_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.universal_assembly.ToString(),
-                Level = "1",
                 DriverId = ManifestDriverId.Universal.ToString(),
                 PositionId = null,
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         ID = EnumMachineId.DE_UNI_A_01.ToString(),
-                        DevConnStr = string.Format("ip={0};port={1}", this.plcIp, this.plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.universal_plc_01.ToString(),
-                        Level = "2",
                         DriverId = ManifestDriverId.UniversalPlc.ToString(),
                     },
 

@@ -11,21 +11,17 @@ namespace MvAssistant.Mac.v1_0.Hal
     /// <summary>
     /// HAL assembly, comporot or device resource manager
     /// </summary>
-    public class MacHalContext : IHal, IDisposable
+    public class MacHalContext : IMvContextFlow, IHal, IDisposable
     {
-        MacManifestCfg manifest;
-        public string Path;
-
         public Dictionary<string, HalBase> HalDevices = new Dictionary<string, HalBase>();
-
+        public string Path;
+        MacManifestCfg manifest;
         public MacHalContext(string path = null)
         {
             this.Path = path;
         }
 
-
-
-        void HalCreator(MacManifestDeviceCfg deviceCfg, HalBase hal = null)
+        void HalCreate(MacManifestDeviceCfg deviceCfg, HalBase hal = null)
         {
             var drivers = (from row in this.manifest.Drivers
                            where row.DriverId == deviceCfg.DriverId
@@ -33,9 +29,9 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             //Check driver count
             if (drivers.Count == 0)
-                throw new WrongDriverException("No Driver");
+                throw new MacWrongDriverException("No Driver");
             else if (drivers.Count > 1)
-                throw new WrongDriverException("Duplicate Driver");
+                throw new MacWrongDriverException("Duplicate Driver");
 
             var driver = drivers.FirstOrDefault();
             var type = driver.AssignType;
@@ -45,6 +41,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             inst.HalDeviceCfg = deviceCfg;
             inst.HalDriverCfg = driver;
+            inst.HalContext = this;
 
             if (hal == null)
                 this.HalDevices[deviceCfg.DeviceName] = inst;
@@ -54,16 +51,22 @@ namespace MvAssistant.Mac.v1_0.Hal
             if (deviceCfg.Devices == null) return;
             foreach (var dcv in deviceCfg.Devices)
             {
-                HalCreator(dcv, inst);
+                HalCreate(dcv, inst);
             }
 
 
         }
 
 
-        #region Context Flow
+        #region IMvContextFlow
 
-        public void Load()
+        public int MvCfFree()
+        {
+
+            return 0;
+        }
+        public int MvCfInit() { return 0; }
+        public int MvCfLoad()
         {
             if (!string.IsNullOrEmpty(this.Path))
                 this.manifest = MacManifestCfg.LoadFromXmlFile(this.Path);
@@ -73,47 +76,33 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             foreach (var dcv in this.manifest.Devices)
             {
-                this.HalCreator(dcv);
+                this.HalCreate(dcv);
             }
+
+            return 0;
         }
-
-
-
-
-
-
-
-        public void Unload()
+        public int MvCfUnload()
         {
-
-            foreach (var dcv in this.manifest.Devices)
-            {
-            }
-
+            this.HalClose();
+            return 0;
         }
-
 
         #endregion
 
 
-        #region HAL
 
-
-
-        private void HalConnect(HalBase hal)
-        {
-            hal.HalConnect();
-            foreach (var kv in hal.Hals)
-            {
-                this.HalConnect(kv.Value);
-            }
-
-
-        }
+        #region IHal
 
         public int HalClose()
         {
-            throw new NotImplementedException();
+            foreach (var kv in this.HalDevices)
+            {
+                try { this.HalClose(kv.Value); }
+                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+            }
+
+
+            return 0;
         }
 
         public int HalConnect()
@@ -136,6 +125,31 @@ namespace MvAssistant.Mac.v1_0.Hal
         }
 
 
+
+        #region Recurrsive HAL
+
+        private void HalClose(HalBase hal)
+        {
+            hal.HalClose();
+            foreach (var kv in hal.Hals)
+            {
+                this.HalClose(kv.Value);
+            }
+        }
+
+        private void HalConnect(HalBase hal)
+        {
+            hal.HalConnect();
+            foreach (var kv in hal.Hals)
+            {
+                this.HalConnect(kv.Value);
+            }
+
+
+        }
+        
+        #endregion
+
         #endregion
 
 
@@ -146,8 +160,6 @@ namespace MvAssistant.Mac.v1_0.Hal
         {
             this.CheckDriverId();
         }
-
-
         /// <summary>
         /// Check driver id is unique
         /// </summary>
@@ -174,7 +186,7 @@ namespace MvAssistant.Mac.v1_0.Hal
             if (duplicates.Count != 0)
             {
                 var did = duplicates.FirstOrDefault().Key;
-                throw new WrongDriverException("Exist non-unique driver id " + did);
+                throw new MacWrongDriverException("Exist non-unique driver id " + did);
             }
 
 
@@ -185,21 +197,51 @@ namespace MvAssistant.Mac.v1_0.Hal
         #endregion
 
 
+        #region Resource Manage
+        protected Dictionary<string, IDisposable> Resources = new Dictionary<string, IDisposable>();
+
+      
+        public T ResourceGetOrDefault<T>(string key) where T : IDisposable
+        {
+            lock (this)
+            {
+                if (this.Resources.ContainsKey(key)) return (T)this.Resources[key];
+                return default(T);
+            }
+        }
+
+        public void ResourceRegister<T>(string key, T resource) where T : IDisposable
+        {
+            lock (this)
+            {
+                if (this.Resources.ContainsKey(key)) throw new MacException("Resource key is exist");
+                this.Resources[key] = resource;
+            }
+        }
+
+        public void ResourceDispose()
+        {
+            foreach (var rsc in this.Resources)
+            {
+                try { rsc.Value.Dispose(); }
+                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+            }
+        }
+
+        #endregion
+
+
 
         #region IDisposable
 
-
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
-
-
         // Public implementation of Dispose pattern callable by consumers.
         public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
@@ -219,14 +261,10 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             disposed = true;
         }
-
-
         protected virtual void DisposeSelf()
         {
-
+            this.HalClose();
         }
-
-
 
         #endregion
 

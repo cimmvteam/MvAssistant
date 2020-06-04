@@ -1,10 +1,4 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component;
-using MvAssistant.Mac.v1_0.Hal.Component.Camera;
-using MvAssistant.Mac.v1_0.Hal.Component.E84;
-using MvAssistant.Mac.v1_0.Hal.Component.Identifier;
-using MvAssistant.Mac.v1_0.Hal.Component.Motor;
-using MvAssistant.Mac.v1_0.Hal.Component.Stage;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
@@ -18,14 +12,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(MacEnumDevice.loadport_plc); } }
-
-        public IHalRfidReader RfidReader { get { return (IHalRfidReader)this.GetHalDevice(MacEnumDevice.loadport_rfid_reader_1); } }
-        public IHalPlunger Plunger { get { return (IHalPlunger)this.GetHalDevice(MacEnumDevice.loadport_plunger_1); } }
-        public IHalCamera TopCcd { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadport_ccd_top_1); } }
-        public IHalCamera Sideccd { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadport_ccd_side_1); } }
-        public IHalE84 E84 { get { return (IHalE84)this.GetHalDevice(MacEnumDevice.loadport_e84_1); } }
-        public IHalClamper Clamper { get { return (IHalClamper)this.GetHalDevice(MacEnumDevice.loadport_clamper_1); } }
-        public IHalLoadPortStage Lpstage { get { return (IHalLoadPortStage)this.GetHalDevice(MacEnumDevice.loadport_stage_1); } }
 
 
 

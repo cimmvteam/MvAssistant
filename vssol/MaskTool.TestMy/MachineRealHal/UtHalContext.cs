@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
 
             var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-            halContext.Load();
+            halContext.MvCfLoad();
 
 
             #region Interface context

@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
+namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 {
     [GuidAttribute("A6DDB05A-1D8A-4CC0-8039-0162D6FB4670")]
     public class HalCameraBasler : MacHalComponentBase, IHalCamera
@@ -22,10 +22,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
             throw new NotImplementedException();
         }
 
-        Image IHalCamera.Shot(string imgFolderPath)
-        {
-            throw new NotImplementedException();
-        }
+
 
         void IHalCamera.SetExposureTime(double mseconds)
         {

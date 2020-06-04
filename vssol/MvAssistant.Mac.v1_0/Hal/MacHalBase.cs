@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac
+namespace MvAssistant.Mac.v1_0.Hal
 {
     [GuidAttribute("8592A98B-C7DD-46C3-9965-BFD952A7742A")]
     public abstract class HalBase : IHal, IDisposable
@@ -15,6 +15,7 @@ namespace MvAssistant.Mac
         public MacManifestDeviceCfg HalDeviceCfg;
         public MacManifestDriverCfg HalDriverCfg;
         public Dictionary<string, HalBase> Hals = new Dictionary<string, HalBase>();
+        public MacHalContext HalContext;
 
         ~HalBase() { this.Dispose(false); }
         public string ID { get { return this.HalDeviceCfg.ID; } }
@@ -29,8 +30,8 @@ namespace MvAssistant.Mac
         public HalBase GetHalDevice(string key)
         {
             var hals = (from row in this.Hals
-                            where row.Key == key
-                            select row).ToList();
+                        where row.Key == key
+                        select row).ToList();
 
             if (hals.Count == 0) throw new MacException("No exist machine");
             else if (hals.Count > 1) throw new MacException("Duplicate machine");
@@ -44,23 +45,10 @@ namespace MvAssistant.Mac
 
         #region IHal
 
-        public virtual int HalClose()
-        {
-            return 0;
-            //throw new NotImplementedException();
-        }
-        public virtual int HalConnect()
-        {
-            throw new NotImplementedException();
-        }
-        public virtual bool HalIsConnected()
-        {
-            throw new NotImplementedException();
-        }
-        public int HalStop()
-        {
-            throw new NotImplementedException();
-        }
+        public virtual int HalClose() { throw new NotImplementedException(); }
+        public virtual int HalConnect() { throw new NotImplementedException(); }
+        public virtual bool HalIsConnected() { throw new NotImplementedException(); }
+        public virtual int HalStop() { throw new NotImplementedException(); }
 
         #endregion
 
@@ -79,6 +67,7 @@ namespace MvAssistant.Mac
 
         public int GetDevSettingInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
         public string GetDevSetting(string key) { return this.DevSettings[key.ToLower()]; }
+        public T GetDevSettingEnum<T>(string key) { return MvUtil.EnumParse<T>(this.DevSettings[key] as string); }
 
         private Dictionary<string, string> GetDevSettings()
         {

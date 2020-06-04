@@ -242,19 +242,20 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public List<MacManifestDriverCfg> DriverRealDevice()
         {
             return new MacManifestDriverCfg[]{
-                 new MacManifestDriverCfg(){
-                    Vendor = "Omron",
-                    Product = "Inclinometer MPU6050",
-                    Remark = "Angle Sensor",
-                    AssignType = typeof(Hal.Component.Inclinometer.InclinometerOmronPlc),
-                    DriverId = ManifestDriverId.Inclinometer_OmronPlc.ToString(),
-                    DriverPath =null,
-                },
+
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverRealLight()
         {
             return new MacManifestDriverCfg[]{
+                new MacManifestDriverCfg(){
+                    Vendor = "Leiman",
+                    Product = "Light Controller",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompLight.MacHalLightLeimac),
+                    DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    DriverPath = null,
+                },
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverRealMotion()

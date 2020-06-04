@@ -21,7 +21,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    halContext.Load();
+                    halContext.MvCfLoad();
 
 
                     var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
@@ -88,7 +88,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
@@ -105,7 +105,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
@@ -122,7 +122,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 
@@ -141,7 +141,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
 

@@ -1,13 +1,4 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component;
-using MvAssistant.Mac.v1_0.Hal.Component.AirPressure;
-using MvAssistant.Mac.v1_0.Hal.Component.Camera;
-using MvAssistant.Mac.v1_0.Manifest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {

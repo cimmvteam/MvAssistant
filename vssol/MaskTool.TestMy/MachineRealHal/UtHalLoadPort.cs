@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
                 lp.SetPressureDiffLimit(40, 50);
@@ -26,7 +26,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
                 lp.ReadPressureDiffLimitSrtting();
@@ -38,7 +38,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
                 lp.ReadPressureDiff();
@@ -51,7 +51,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
 
