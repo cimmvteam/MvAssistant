@@ -2,16 +2,16 @@
 using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.Component.Camera
+namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 {
-    [GuidAttribute("90BA4CDC-7A82-454A-8F3F-6FE6413AEF41")]
-    public class HalCameraSenTech : MacHalComponentBase, IHalCamera
+    [GuidAttribute("1BC89ED0-0697-4670-8B67-D6CB8E9F8068")]
+    public class HalCameraiDSU3Cam : MacHalComponentBase, IHalCamera
     {
         int IHal.HalConnect()
         {

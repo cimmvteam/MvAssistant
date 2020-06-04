@@ -1,16 +1,10 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component;
-using MvAssistant.Mac.v1_0.Hal.Component.Camera;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.ComponentFake.Camera
+namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 {
     [GuidAttribute("FC96E705-38E6-4120-98BB-85670EF81AAF")]
     public class HalCameraFake : HalFakeBase, IHalCamera

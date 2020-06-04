@@ -20,27 +20,29 @@ namespace MaskCleanerVerify
     {
         //  Type PotisionType = typeof(HalRobotMotion);
         private MvFanucRobotLdd ldd = new MvFanucRobotLdd();
-        /// <summary>裝置</summary>
-        private IList<DeviceInfo> DeviceInfos = null;
         /// <summary>最後訪問的點位</summary>
         private HalRobotMotion TempCurrentPosition { get; set; }
         /// <summary>準備記錄點位的集合</summary>
         private List<PositionInfo> PositionInstances { get; set; }
 
-        
+        /// <summary>Robot Path 資料的組態</summary>
+        public RobotPathFileConfigSet RobotPathFileConfigSet { get; set; }
+
         public FmRobotPath()
         {
             InitializeComponent();
         }
 
 
+
+
         /// <summary>取得 點位資料中的最大序號</summary>
         /// <returns></returns>
         private int GetPositionInstancesMaxSn()
         {
-            if(PositionInstances==null || !PositionInstances.Any())
+            if (PositionInstances == null || !PositionInstances.Any())
             {
-                return -1;
+                return (int)NumUdpSn.Minimum - 1;
             }
             else
             {
@@ -78,7 +80,7 @@ namespace MaskCleanerVerify
         /// <param name="serNo">序號</param>
         private void RemovePositionBySerialNum(int serNo)
         {
-            if(this.PositionInstances==null || !this.PositionInstances.Any())
+            if (this.PositionInstances == null || !this.PositionInstances.Any())
             {
                 return;
             }
@@ -93,7 +95,7 @@ namespace MaskCleanerVerify
         /// <returns></returns>
         private int GetPositionInstancesNextSn()
         {
-            var rtnV=GetPositionInstancesMaxSn();
+            var rtnV = GetPositionInstancesMaxSn();
             return ++rtnV;
         }
         /// <summary>點選 Add 按鈕</summary>
@@ -109,14 +111,14 @@ namespace MaskCleanerVerify
                         //var motion = saver.GetTargetInstanceFromSourceInstance<MvFanucRobotPosReg, HalRobotMotion>(curr, null, true);
                         var motion = helper.ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPosition, null, true);
                         */
-         
+
             try
             {
 
                 int? sn = GetSnFromController();
-                if (!sn.HasValue)
+                if (!sn.HasValue || (int)sn < 1)
                 {
-                    MessageBox.Show("請將 Serial No 欄位設為整數");
+                    MessageBox.Show("請將 Serial No 欄位設為大於0的整數");
                     return;
                 }
                 DialogResult dialogResult = DialogResult.None;
@@ -150,13 +152,13 @@ namespace MaskCleanerVerify
                 currentMotion.MotionType = GetMotionType();
                 this.TempCurrentPosition = currentMotion;
                 PositionInfo newPositionInfo = GetNewPositionInfo(sn.Value);
-              
+
                 this.PositionInstances.Add(newPositionInfo);
 
                 RefreshPositionInfoList();
                 NumUdpSn.Value = this.GetPositionInstancesNextSn();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -165,7 +167,7 @@ namespace MaskCleanerVerify
         {
             int sn;
             var b = int.TryParse(NumUdpSn.Text, out sn);
-            if (b){return sn;}
+            if (b) { return sn; }
             else { return default(int?); }
         }
 
@@ -176,7 +178,7 @@ namespace MaskCleanerVerify
             var selectedItems = this.LstBxPositionInfo.SelectedItems;
             foreach (var item in selectedItems)
             {
-                var sn = Convert.ToInt32( item.ToString().Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim());
+                var sn = Convert.ToInt32(item.ToString().Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim());
                 var selectedItem = this.PositionInstances.Where(m => m.Sn == sn).FirstOrDefault();
                 if (selectedItem != null)
                 {
@@ -212,20 +214,6 @@ namespace MaskCleanerVerify
         }
 
 
-        /**
-        /// <summary>存檔</summary>
-        public void ToSave()
-        {
-            if (!Directory.Exists(this.CurrentDeviceInfo.Path))
-            {
-                Directory.CreateDirectory(this.CurrentDeviceInfo.Path);
-            }
-            var json = Newtonsoft.Json.JsonConvert.SerializeObject(this.PositionInstances);
-            StreamWriter sw = new StreamWriter(this.CurrentDeviceInfo.FilePath, false, Encoding.Default);
-            sw.Write(json);
-            sw.Flush();
-            sw.Close();
-        }*/
 
 
         /// <summary>按下 Save 鍵</summary>
@@ -238,7 +226,8 @@ namespace MaskCleanerVerify
                 if (this.PositionInstances != null && this.PositionInstances.Any())
                 {
                     //ToSave();
-                    JSonHelper.SaveInstanceToJsonFile(this.PositionInstances, this.CurrentDeviceInfo.Path, this.CurrentDeviceInfo.FilePath);
+                    var currentConfig = this.RobotPathFileConfigSet.GetCurrentConfig(CmbBoxDeviceName.Text);
+                    JSonHelper.SaveInstanceToJsonFile(this.PositionInstances, currentConfig.PositionFileDirectory, TxtBxDevicePath.Text);
                     RefreshPositionInfoList();
                     MessageBox.Show("存檔成功");
                 }
@@ -253,18 +242,14 @@ namespace MaskCleanerVerify
             }
         }
 
+
         /// <summary>載入</summary>
         /// <returns>int, 載入的筆數</returns>
         private int ToLoad()
         {
-            /**
-            StreamReader sr = new StreamReader(this.CurrentDeviceInfo.FilePath, Encoding.Default);
-            var json=sr.ReadToEnd();
-            sr.Close();
-            this.PositionInstances = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PositionInfo>>(json);
-            return this.PositionInstances.Count;*/
+
             this.PositionInstances = new List<PositionInfo>();
-            this.PositionInstances = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(this.CurrentDeviceInfo.FilePath);
+            this.PositionInstances = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(TxtBxDevicePath.Text);
             return this.PositionInstances.Count;
         }
 
@@ -275,7 +260,7 @@ namespace MaskCleanerVerify
         {
             try
             {
-                if (File.Exists(this.CurrentDeviceInfo.FilePath))
+                if (File.Exists(TxtBxDevicePath.Text))
                 {
                     var datas = ToLoad();
                     if (datas > 0)
@@ -290,7 +275,7 @@ namespace MaskCleanerVerify
                 }
                 else
                 {
-                    MessageBox.Show(this.CurrentDeviceInfo.FilePath + " 不存在");
+                    MessageBox.Show(TxtBxDevicePath.Text + " 不存在");
                 }
             }
             catch (Exception ex)
@@ -298,6 +283,8 @@ namespace MaskCleanerVerify
 
             }
         }
+
+        /// <summary>Motion Type 選單初始化,預設停在 Position </summary>
         private void InitialMotionTypeList()
         {
             this.CmbBoxMotionType.Items.Clear();
@@ -306,40 +293,40 @@ namespace MaskCleanerVerify
             this.CmbBoxMotionType.Text = HalRobotEnumMotionType.Position.ToString();
 
         }
+
+
         private void FmRobotPath_Load(object sender, EventArgs e)
         {
-
-            this.DeviceInfos = GetDeviceInfos();
-            this.InitialCmbBoxDeviceName(DeviceInfos);
-            this.InitialMotionTypeList();
-            
-
-        }
-
-        /// <summary>裝置清單及檔案名稱</summary>
-        /// <returns></returns>
-        private IList<DeviceInfo> GetDeviceInfos()
-        {
-
-            var rtnV = new List<DeviceInfo>();
-            rtnV.Add(new DeviceInfo { DeviceName = "Mask Robot", DeviceIP = "192.168.0.50", FileName = "MaskRobotPosition.json" });
-            rtnV.Add(new DeviceInfo { DeviceName = "Box Robot", DeviceIP = "192.168.0.51", FileName = "BoxRobotPosotion.json" });
-            return rtnV;
+            try
+            {
+                this.RobotPathFileConfigSet = RobotPathFileConfigSet.GetInstance();
+                this.InitialCmbBoxDeviceName();
+                this.InitialMotionTypeList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
-        /// <summary>初始化存放 Device Name 的下拉選單</summary>
-        /// <param name="deviceInfos"></param>
-        private void InitialCmbBoxDeviceName(IList<DeviceInfo> deviceInfos)
+
+
+        /// <summary>初始化存放 Device的下拉選單, 預設停在第0項</summary>
+        private void InitialCmbBoxDeviceName()
         {
             CmbBoxDeviceName.Items.Clear();
-            var deviceNames = deviceInfos.Select(m => m.DeviceName).ToList();
+            var deviceNames = this.RobotPathFileConfigSet.RobotConfigSet.Select(m => m.DeviceName).ToList();
             if (deviceNames.Any())
             {
                 CmbBoxDeviceName.Items.AddRange(deviceNames.ToArray());
                 CmbBoxDeviceName.SelectedIndex = 0;
             }
         }
+
+
+
+
 
         /// <summary>選定的 Device Info</summary>
         private DeviceInfo CurrentDeviceInfo
@@ -348,8 +335,9 @@ namespace MaskCleanerVerify
             {
                 if (this.CmbBoxDeviceName.Text != string.Empty)
                 {
-                    var deviceInfo = this.DeviceInfos.Where(m => m.DeviceName == CmbBoxDeviceName.Text).FirstOrDefault();
-                    return deviceInfo;
+                    /////  var deviceInfo = this.DeviceInfos.Where(m => m.DeviceName == CmbBoxDeviceName.Text).FirstOrDefault();
+                    /////   return deviceInfo;
+                    return null;
                 }
                 else
                 {
@@ -361,69 +349,69 @@ namespace MaskCleanerVerify
         /// <summary>顯示目前選用 Device 的IP</summary>
         private void DisplayCurrentDeviceInfoIP()
         {
-            if (this.CurrentDeviceInfo == null)
+            var currentConfig = this.RobotPathFileConfigSet.GetCurrentConfig(CmbBoxDeviceName.Text);
+            if (currentConfig == null)
             {
                 txtBxDeviceIP.Text = "";
             }
             else
             {
-                txtBxDeviceIP.Text = this.CurrentDeviceInfo.DeviceIP;
+                txtBxDeviceIP.Text = currentConfig.DeviceIP;
             }
         }
 
-        /// <summary>顯示目前選用 Device 的對應檔案</summary>
-        private void DisplayCurrentDeviceInfoPath()
+
+
+
+        /// <summary>顯示路徑檔案清單</summary>
+        private void DisplayCurrentPathFileItems()
         {
-            if (this.CurrentDeviceInfo == null)
+            // 現在使用的 Device Config
+            var currentRobotConfig = this.RobotPathFileConfigSet.GetCurrentConfig(CmbBoxDeviceName.Text);
+
+            LstBxJsonList.Items.Clear();
+            var s = currentRobotConfig.ConfigDetail.Select(m => m.ListItemDescription).ToArray();
+            if (currentRobotConfig != null)
             {
-                TxtBxDevicePath.Text = "";
-            }
-            else
-            {
-                this.TxtBxDevicePath.Text = this.CurrentDeviceInfo.FilePath;
+
+                LstBxJsonList.Items.AddRange(s);
             }
         }
-
 
         /// <summary>選用的 Device 選項變動</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CmbBoxDeviceName_SelectedIndexChanged(object sender, EventArgs e)
         {
-         ///   this.Enabled = false;
+
             try
             {
-              
+                // Display Position File I
+                this.DisplayCurrentPathFileItems();
                 // Display Device IP
                 this.DisplayCurrentDeviceInfoIP();
-                // Display Device File Name
-                this.DisplayCurrentDeviceInfoPath();
 #if NO_DEVICE
 #else
+                groupBox1.Enabled = false;
                 ldd = new MvFanucRobotLdd();
-                this.ldd.RobotIp = this.CurrentDeviceInfo.DeviceIP;
+                this.ldd.RobotIp = this.RobotPathFileConfigSet.GetCurrentConfig(CmbBoxDeviceName.Text).DeviceIP;
                 if (ldd.ConnectIfNo() != 0)
                 { throw new Exception("無法連接裝置"); }
                 ldd.ExecutePNS("PNS0101");
+                groupBox1.Enabled = true;
 #endif
-                if (File.Exists(this.CurrentDeviceInfo.FilePath))
-                {
-                    ToLoad();
 
-                }
-                else
-                {
-                    this.PositionInstances = new List<PositionInfo>();
-                }
-                RefreshPositionInfoList();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + " (尚未完初始化,無法繼續操作)");
             }
+            //   NumUdpSn.Value = this.GetPositionInstancesNextSn();
+            //   this.Enabled = true;
+            this.PositionInstances = new List<PositionInfo>();
+            RefreshPositionInfoList();
+            TxtBxDevicePath.Text = string.Empty;
             NumUdpSn.Value = this.GetPositionInstancesNextSn();
-         //   this.Enabled = true;
-
         }
 
         /// <summary>按下 Get 按鈕</summary>
@@ -436,12 +424,12 @@ namespace MaskCleanerVerify
             try
             {
                 // 取得 MvFanucRobotPosReg 物件
-                
-                var speed=GetSpeedFromControlle();
+
+                var speed = GetSpeedFromControlle();
                 var motionType = GetMotionType();
 #if NO_DEVICE
                 var currentPos = Fake_MvFanucRobotPosReg.GetNewInstance();
-               var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
 #else
                 var currentPos = this.GetCurrentPosUf();
                 var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
@@ -461,7 +449,7 @@ namespace MaskCleanerVerify
         private HalRobotEnumMotionType GetMotionType()
         {
             HalRobotEnumMotionType rtnV;
-            var b= Enum.TryParse<HalRobotEnumMotionType>(CmbBoxMotionType.Text, out rtnV);
+            var b = Enum.TryParse<HalRobotEnumMotionType>(CmbBoxMotionType.Text, out rtnV);
             if (!b)
             {
                 rtnV = HalRobotEnumMotionType.Position;
@@ -472,8 +460,8 @@ namespace MaskCleanerVerify
         private int GetSpeedFromControlle()
         {
             int rtnV;
-            var b= int.TryParse(NumUdpSpeed.Text, out rtnV);
-            if(!b) { NumUdpSpeed.Text = "0"; rtnV = 0; }
+            var b = int.TryParse(NumUdpSpeed.Text, out rtnV);
+            if (!b) { NumUdpSpeed.Text = "0"; rtnV = 0; }
             return rtnV;
         }
 
@@ -491,11 +479,11 @@ namespace MaskCleanerVerify
                 {
                     var axisName = property.Name;
                     var value = property.GetValue(instance);
-                    text += axisName + ": " + value.ToString()+", ";
+                    text += axisName + ": " + value.ToString() + ", ";
                 }
             }
             text += "Speed: " + instance.Speed + ", MotionType: " + instance.MotionType.ToString();
-           this.LstBxGetPosition.Items.Add(text);
+            this.LstBxGetPosition.Items.Add(text);
         }
 
         /// <summary>按下 => 鈕</summary>
@@ -505,28 +493,28 @@ namespace MaskCleanerVerify
         {
             PositionInfo newPositionInfo = GetNewPositionInfo();
             if (newPositionInfo == null) { return; }
-            int? sn=GetSnFromController();
-            if ( !sn.HasValue)
+            int? sn = GetSnFromController();
+            if (!sn.HasValue || (int)sn < 1)
             {
-                MessageBox.Show("請將 Serial No 欄位設為整數");
+                MessageBox.Show("請將 Serial No 欄位設為大於0的整數");
                 return;
             }
-            DialogResult dialogResult=DialogResult.None  ;
+            DialogResult dialogResult = DialogResult.None;
             if (IsSnExist(sn.Value))
             {
-                dialogResult= MessageBox.Show( "Serial No : " + sn + " 已經存在，要繼續嗎?\n請按 [是]自動編號、[否]覆蓋原有資料、[取消]重新設定、", "", MessageBoxButtons.YesNoCancel);
+                dialogResult = MessageBox.Show("Serial No : " + sn + " 已經存在，要繼續嗎?\n請按 [是]自動編號、[否]覆蓋原有資料、[取消]重新設定、", "", MessageBoxButtons.YesNoCancel);
             }
-            if(dialogResult==DialogResult.Yes)
+            if (dialogResult == DialogResult.Yes)
             {// 自動編號
                 sn = this.GetPositionInstancesNextSn();
             }
-            else if(dialogResult == DialogResult.No)
+            else if (dialogResult == DialogResult.No)
             {// 覆蓋原有資料
              // 找到原資料刪除之   
 
                 this.RemovePositionBySerialNum(sn.Value);
             }
-            else if(dialogResult == DialogResult.Cancel)
+            else if (dialogResult == DialogResult.Cancel)
             {  // 取消
                 return;
             }
@@ -544,6 +532,7 @@ namespace MaskCleanerVerify
             this.LstBxPositionInfo.Items.Clear();
             this.TempCurrentPosition = null;
             this.LstBxGetPosition.Items.Clear();
+
         }
         private void RefreshPositionInfoList()
         {
@@ -595,41 +584,14 @@ namespace MaskCleanerVerify
 
         private MvFanucRobotPosReg GetCurrentPosUf()
         {
-          
-           // if (ldd.ConnectIfNo() != 0)
-           // { throw new Exception("無法連接裝置"); }
-           // ldd.ExecutePNS("PNS0101");
+
+            // if (ldd.ConnectIfNo() != 0)
+            // { throw new Exception("無法連接裝置"); }
+            // ldd.ExecutePNS("PNS0101");
             var rtnV = ldd.ReadCurPosUf();
             return rtnV;
         }
 
-        /**
-        public class PositionInfo
-        {
-
-            public string PositionID { get; set; }
-            public HalRobotMotion Position { get; set; }
-            public static string GetNewInstID()
-            {
-                DateTime thisTime = DateTime.Now;
-                var rtnV = thisTime.ToString("yyyyMMddHHmmssfff");
-                return rtnV;
-            }
-            public override string ToString()
-            {
-                string text = PositionID + " | ";
-                PropertyInfo[] properties = typeof(HalRobotMotion).GetProperties();
-                foreach(var property in properties)
-                {
-                    if (property.CanRead)
-                    {
-                        text = text+ property.Name +": " + property.GetValue(this.Position).ToString() + ", ";
-                    }
-                }
-                return text;
-            }
-        }
-        */
         public class ClassHelper
         {
             /// <summary>從 TSourceType(來源) 型態的物件複製一份屬性資料到 TTargetType(目標) 型態的物件</summary>
@@ -653,7 +615,7 @@ namespace MaskCleanerVerify
                      string sourcePropertyName = null;
                      if (ignorePropertyNameCase)
                      {   // 大小寫屬性視為相同
-                    sourcePropertyName = sourcePropertyNames.Where(m => m.ToUpper() == propertyName.ToUpper()).FirstOrDefault();
+                         sourcePropertyName = sourcePropertyNames.Where(m => m.ToUpper() == propertyName.ToUpper()).FirstOrDefault();
                      }
                      else
                      {
@@ -748,7 +710,7 @@ namespace MaskCleanerVerify
 
         }
 
-#region 
+        #region 
         public class Fake_MvFanucRobotPosReg
         {
             private static Random RandomInst = null;
@@ -819,7 +781,98 @@ namespace MaskCleanerVerify
         }
 
 
-#endregion
+        #endregion
+        private int GetPositionFileSerialNumber()
+        {
+            var itemTextAry = LstBxJsonList.Text.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+            var serialNumber = Convert.ToInt32(itemTextAry[0]);
+            return serialNumber;
+        }
 
+        private void LstBxJsonList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TxtBxDevicePath.Text = "";
+            try
+            {
+                var serialNumber = GetPositionFileSerialNumber();
+                var deviceName = CmbBoxDeviceName.Text;
+                var configDetail = this.RobotPathFileConfigSet.GetCurrentConfigDetail(deviceName, serialNumber);
+                if (configDetail != null)
+                {
+                    var currentConfig = this.RobotPathFileConfigSet.GetCurrentConfig(deviceName);
+                    // Motion Type,
+                    CmbBoxMotionType.Text = ((HalRobotEnumMotionType)configDetail.MotionType).ToString();
+                    // Speed,
+                    // FileName
+                    TxtBxDevicePath.Text = configDetail.GetPositionFileFullName(currentConfig.PositionFileDirectory);
+                    if (File.Exists(TxtBxDevicePath.Text))
+                    {
+                        ToLoad();
+
+                    }
+                    else
+                    {
+                        this.PositionInstances = new List<PositionInfo>();
+                    }
+                    RefreshPositionInfoList();
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            NumUdpSn.Value = this.GetPositionInstancesNextSn();
+        }
+
+        private void BtnResetSN_Click(object sender, EventArgs e)
+        {
+            if (this.PositionInstances != null && this.PositionInstances.Any())
+            {
+                this.PositionInstances = this.PositionInstances.OrderBy(m => m.Sn).ToList();
+                int sn = 1;
+                foreach (var position in PositionInstances)
+                {
+                    position.Sn = sn++;
+                }
+                RefreshPositionInfoList();
+                NumUdpSn.Value = this.GetPositionInstancesNextSn();
+            }
+        }
+
+        private void LstBxGetPosition_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void TxtBxDevicePath_TextChanged(object sender, EventArgs e)
+        {
+            if (TxtBxDevicePath.Text == string.Empty)
+            {
+                DisableOperateArea();
+            }
+            else
+            {
+                EnableOperateArea();
+            }
+        }
+
+
+        private void SetOperateAreaEnaledProperty(bool enableFlag)
+        {
+            groupBox3.Enabled = BtnAddGet.Enabled = groupBox5.Enabled = enableFlag;
+        }
+        private void EnableOperateArea()
+        {
+            SetOperateAreaEnaledProperty(true);
+        }
+        private void DisableOperateArea()
+        {
+            SetOperateAreaEnaledProperty(false);
+        }
     }
 }

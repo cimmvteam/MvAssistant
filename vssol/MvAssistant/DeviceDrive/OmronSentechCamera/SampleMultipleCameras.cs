@@ -4,7 +4,7 @@ using Sentech.StApiDotNET;
 
 namespace MultipleCameras
 {
-	class MultipleCameras
+	class SampleMultipleCameras
 	{
 		// Counts of images to grab.
 		const int nCountOfImagesToGrab = 10;

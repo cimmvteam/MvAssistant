@@ -5,16 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.LelmacLight
+namespace MvAssistant.DeviceDrive.GudengLoadPort
 {
-    public class MvLelmacLightLdd : IDisposable
+    public class MvGudengLoadPortLdd : IDisposable
     {
 
-        public CtkNonStopTcpClient TcpClient;
 
 
 
-        public MvLelmacLightLdd()
+        public MvGudengLoadPortLdd()
         {
 
         }
@@ -22,8 +21,9 @@ namespace MvAssistant.DeviceDrive.LelmacLight
 
         public int ConnectIfNo(string ip = null, int? port = null)
         {
-            this.TcpClient = new CtkNonStopTcpClient();
-            this.TcpClient.ConnectIfNo();
+
+
+
 
 
 
@@ -33,12 +33,8 @@ namespace MvAssistant.DeviceDrive.LelmacLight
 
         public void Close()
         {
-            try
-            {
-                if (this.TcpClient != null)
-                    using (var obj = this.TcpClient) { obj.Disconnect(); }
-            }
-            catch (Exception ex) { MvLog.WarnNs(this, ex); }
+           
+
         }
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.OmronPlc
 {
-    public class MvOmronPlcMapper
+    public class MvOmronPlcPool
     {
         public static Dictionary<string, MvOmronPlcLdd> PlcMapper = new Dictionary<string, MvOmronPlcLdd>();
 

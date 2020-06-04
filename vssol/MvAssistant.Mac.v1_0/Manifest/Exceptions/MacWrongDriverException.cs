@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Manifest.Exceptions
 {
-    public class WrongDriverException : MacException
+    public class MacWrongDriverException : MacException
     {
-        public WrongDriverException()
+        public MacWrongDriverException()
         {
         }
 
-        public WrongDriverException(string message)
+        public MacWrongDriverException(string message)
             : base(message)
         {
         }
 
-        public WrongDriverException(string message, Exception inner)
+        public MacWrongDriverException(string message, Exception inner)
             : base(message, inner)
         {
         }

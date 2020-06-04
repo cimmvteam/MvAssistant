@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    halContext.Load();
+                    halContext.MvCfLoad();
 
 
                     var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
@@ -52,7 +52,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
@@ -71,7 +71,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    halContext.Load();
+                    halContext.MvCfLoad();
 
                     var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
                     var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -96,7 +96,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
@@ -118,7 +118,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.Load();
+                halContext.MvCfLoad();
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
 
