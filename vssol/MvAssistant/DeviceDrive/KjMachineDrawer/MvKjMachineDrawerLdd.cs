@@ -9,12 +9,26 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
     public class MvKjMachineDrawerLdd : IDisposable
     {
+        public UdpServerSocket UdpServer;
+        public int ListenPort = 6000;
+        public int ClientPort = 5000;
+        public List<Drawer> Drawers = null;
+        private static readonly object Lockobj = new object();
+        public   MvKjMachineDrawerLdd()
+        {
+            Drawers = new List<Drawer>();
+        }
 
-
-        public MvKjMachineDrawerLdd()
+      
+        public Drawer CreateDrawer(int cabinetNo,int drawerNo,string targetIP,int targetPort)
         {
 
+            Drawer drawer = new Drawer(cabinetNo, drawerNo, targetIP, targetPort);
+            Drawers.Add(drawer);
+            return drawer;
+
         }
+
 
 
         public int ConnectIfNo(string ip = null, int? port = null)
