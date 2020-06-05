@@ -38,7 +38,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     IP = IpFrom.Address.ToString(),
                     Message = rcvMessage
                 };
-                OnReceiveMessage?.Invoke(this,args);
+                if (OnReceiveMessage != null)
+                {
+                    OnReceiveMessage.Invoke(this, args);
+                }
+              
             }
         }
 

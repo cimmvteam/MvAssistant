@@ -54,13 +54,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var drawer = ldd.Drawers.Where(m => m.UDPServerIP == ip).FirstOrDefault();
             var cabinet = drawer.CabinetNO;
             var drawerNo = drawer.DrawerNO;
-            ReceiveInfos?.Add(
-                new ReceiveInfo
-                {
-                    Drawer = drawer,
-                    Message = message
-                }
-                );
+            if (ReceiveInfos != null)
+            {
+                ReceiveInfos.Add(
+                    new ReceiveInfo
+                    {
+                        Drawer = drawer,
+                        Message = message
+                    }
+                    );
+            }
         }
         [TestMethod]
         public void INI()
