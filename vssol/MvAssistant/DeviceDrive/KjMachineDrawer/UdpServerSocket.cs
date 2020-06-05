@@ -14,25 +14,20 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         UdpClient UdpClient = null;
         Thread ListenThread = null;
-        public delegate void UdpSocketCallBackMethod(string rtnMessage, string ip);
         public event EventHandler OnReceiveMessage = null;
-        public UdpServerSocket(int serverPort)
+        public UdpServerSocket(int localPort)
         {
-
-            UdpClient = new UdpClient(serverPort);
+            UdpClient = new UdpClient(localPort);
             ListenThread = new Thread(ListenMessage);
-            
             ListenThread.IsBackground = true;
             ListenThread.Start();
         }
-
         public void ListenMessage()
         {
             while (true)
             {
                 IPEndPoint IpFrom = new IPEndPoint(IPAddress.Any, 0);
                 var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpFrom));
-
                 OnReciveMessageEventArgs args = new OnReciveMessageEventArgs
                 {
                     IP = IpFrom.Address.ToString(),

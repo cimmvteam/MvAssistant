@@ -9,14 +9,20 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
     public class DrawerSocket
     {
 
-        /// <summary>Send(Target IP)</summary>
-       // public string ClientIP { get; set; }
-        //public int ClientPort { get; set; }
+        /// <summary></summary>
         private UdpClientSocket UdpClient { get; set; }
-        public DrawerSocket(string serverIP, int serverPort)
+
+        /// <summary></summary>
+        /// <param name="deviceIP">Device IP</param>
+        /// <param name="udpServerPort">Udp Server Port</param>
+        public DrawerSocket(string deviceIP, int udpServerPort)
         {
-            UdpClient = new UdpClientSocket(serverIP, serverPort);
+            UdpClient = new UdpClientSocket(deviceIP, udpServerPort);
         }
+
+        /// <summary>傳送訊息</summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public int SentTo(string message)
         {
             var feedBack = UdpClient.SenTo(message);
