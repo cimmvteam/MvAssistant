@@ -15,6 +15,6 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand
         public const string CommandSplitSign = ",";
         public static string TestStatic = "4";
         protected abstract string GetRawCommandText();
-        public abstract string GetCommandText<T>(T parameterText) where T: IHostToEquipmentCommandParameter;
+       // public abstract string GetCommandText<T>(T parameterText) where T: IHostToEquipmentCommandParameter;
     }
 }

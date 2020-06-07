@@ -44,144 +44,144 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void INI()
         {
-            Drawer_01_01.Command_INI();
-            Drawer_01_02.Command_INI();
-            Drawer_01_03.Command_INI();
+            Drawer_01_01.CommandINI();
+            Drawer_01_02.CommandINI();
+            Drawer_01_03.CommandINI();
             
 
         }
         [TestMethod]// 20%,15%,10%
         public void SetMotionSpeed()
         {
-            Drawer_01_01.Command_SetMotionSpeed(20);
-            Drawer_01_02.Command_SetMotionSpeed(15);
-            Drawer_01_03.Command_SetMotionSpeed(10);
+            Drawer_01_01.CommandSetMotionSpeed(20);
+            Drawer_01_02.CommandSetMotionSpeed(15);
+            Drawer_01_03.CommandSetMotionSpeed(10);
         }
         [TestMethod] // 30 seconds, 60 seconds,10 seconds
         public void SetTimeOut()
         {
-            Drawer_01_01.Command_SetTimeOut(30);
-            Drawer_01_02.Command_SetTimeOut(60);
-            Drawer_01_03.Command_SetTimeOut(10);
+            Drawer_01_01.CommandSetTimeOut(30);
+            Drawer_01_02.CommandSetTimeOut(60);
+            Drawer_01_03.CommandSetTimeOut(10);
         }
 
         [TestMethod] //???
         public void SetParameter()
         {
-            Drawer_01_01.Command_SetParameterHomePosition("003");
-            Drawer_01_01.Command_SetParameterOutSidePosition("004");
-            Drawer_01_02.Command_SetParameterInSidePosition("005");
-            Drawer_01_03.Command_SetParameterIPAddress("006");
-            Drawer_01_02.Command_SetParameterSubMask("007");
-            Drawer_01_03.Command_SetParameterGetwayAddress("008");
+            Drawer_01_01.CommandSetParameterHomePosition("003");
+            Drawer_01_01.CommandSetParameterOutSidePosition("004");
+            Drawer_01_02.CommandSetParameterInSidePosition("005");
+            Drawer_01_03.CommandSetParameterIPAddress("006");
+            Drawer_01_02.CommandSetParameterSubMask("007");
+            Drawer_01_03.CommandSetParameterGetwayAddress("008");
         }
         [TestMethod]
         public void TrayMotionHome()
         {
-            Drawer_01_01.Command_TrayMotionHome();
-            Drawer_01_02.Command_TrayMotionHome();
-            Drawer_01_03.Command_TrayMotionHome();
+            Drawer_01_01.CommandTrayMotionHome();
+            Drawer_01_02.CommandTrayMotionHome();
+            Drawer_01_03.CommandTrayMotionHome();
         }
         [TestMethod]
         public void TrayMotionOut()
         {
 
-            Drawer_01_01.Command_TrayMotionOut();
+            Drawer_01_01.CommandTrayMotionOut();
 
-            Drawer_01_02.Command_TrayMotionOut();
+            Drawer_01_02.CommandTrayMotionOut();
 
-            Drawer_01_03.Command_TrayMotionOut();
+            Drawer_01_03.CommandTrayMotionOut();
         }
         [TestMethod]
         public void TrayMotionIn()
         {
-            Drawer_01_01.Command_TrayMotionIn();
+            Drawer_01_01.CommandTrayMotionIn();
 
-            Drawer_01_02.Command_TrayMotionIn();
+            Drawer_01_02.CommandTrayMotionIn();
 
-            Drawer_01_03.Command_TrayMotionIn();
+            Drawer_01_03.CommandTrayMotionIn();
         }
         [TestMethod]
         public void BrightLEDAllOn()
         {
 
-            Drawer_01_01.Command_BrightLEDAllOn();
+            Drawer_01_01.CommandBrightLEDAllOn();
 
-            Drawer_01_02.Command_BrightLEDAllOn();
+            Drawer_01_02.CommandBrightLEDAllOn();
 
-            Drawer_01_03.Command_BrightLEDAllOn();
+            Drawer_01_03.CommandBrightLEDAllOn();
         }
         [TestMethod]
         public void BrightLedAllOff()
         {
 
-            Drawer_01_01.Command_BrightLedAllOff();
+            Drawer_01_01.CommandBrightLedAllOff();
 
-            Drawer_01_02.Command_BrightLedAllOff();
+            Drawer_01_02.CommandBrightLedAllOff();
 
-            Drawer_01_03.Command_BrightLedAllOff();
+            Drawer_01_03.CommandBrightLedAllOff();
         }
         [TestMethod]
         public void BrightLEDGreenOn()
         {
 
-            Drawer_01_01.Command_BrightLEDGreenOn();
+            Drawer_01_01.CommandBrightLEDGreenOn();
 
-            Drawer_01_02.Command_BrightLEDGreenOn();
+            Drawer_01_02.CommandBrightLEDGreenOn();
 
-            Drawer_01_03.Command_BrightLEDGreenOn(); ;
+            Drawer_01_03.CommandBrightLEDGreenOn(); ;
         }
         [TestMethod]
         public void BrightLEDRedOn()
         {
 
-            Drawer_01_01.Command_BrightLEDRedOn();
+            Drawer_01_01.CommandBrightLEDRedOn();
 
-            Drawer_01_02.Command_BrightLEDRedOn();
+            Drawer_01_02.CommandBrightLEDRedOn();
 
-            Drawer_01_03.Command_BrightLEDRedOn();
+            Drawer_01_03.CommandBrightLEDRedOn();
         }
         [TestMethod]
         public void PositionRead()
         {
 
-            Drawer_01_01.Command_PositionRead();
+            Drawer_01_01.CommandPositionRead();
 
-            Drawer_01_02.Command_PositionRead();
+            Drawer_01_02.CommandPositionRead();
 
-            Drawer_01_03.Command_PositionRead();
+            Drawer_01_03.CommandPositionRead();
         }
         [TestMethod]
         public void BoxDetection()
         {
 
-            Drawer_01_01.Command_BoxDetection();
+            Drawer_01_01.CommandBoxDetection();
 
-            Drawer_01_02.Command_BoxDetection();
+            Drawer_01_02.CommandBoxDetection();
 
-            Drawer_01_03.Command_BoxDetection();
+            Drawer_01_03.CommandBoxDetection();
         }
         [TestMethod]
         public void WriteNetSetting()
         {
 
-            Drawer_01_01.Command_WriteNetSetting();
+            Drawer_01_01.CommandWriteNetSetting();
 
-            Drawer_01_02.Command_WriteNetSetting();
+            Drawer_01_02.CommandWriteNetSetting();
 
-            Drawer_01_03.Command_WriteNetSetting();
+            Drawer_01_03.CommandWriteNetSetting();
         }
         [TestMethod]
         public void LCDMsg()
         {
 
-            Drawer_01_01.Command_LCDMsg("01_01");
+            Drawer_01_01.CommandLCDMsg("01_01");
 
 
-            Drawer_01_02.Command_LCDMsg("01_02");
+            Drawer_01_02.CommandLCDMsg("01_02");
 
 
-            Drawer_01_03.Command_LCDMsg("01_03");
+            Drawer_01_03.CommandLCDMsg("01_03");
         }
         [TestMethod]
         public void ButtonEvent()

@@ -1,4 +1,5 @@
 ﻿using CToolkit.v1_1.Net;
+using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         private void InitialUdpServer()
         {
             UdpServer = new UdpServerSocket(LocalPort);
+
+            // 向 UdpServer註冊收到訊息事件後的處理函式 
             UdpServer.OnReceiveMessage += this.OnReceiveMessage;
         }
 
@@ -43,26 +46,58 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             return drawer;
 
         }
+
+        /// <summary>收到各 Drawer 送回的訊息後的處理函式</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void OnReceiveMessage(object sender, EventArgs args)
         {
             var ip = ((OnReciveMessageEventArgs)args).IP;
             var message = ((OnReciveMessageEventArgs)args).Message;
-            var drawer = Drawers.Where(m => m.DeviceIP == ip).FirstOrDefault();
-            var cabinet = drawer.CabinetNO;
-            var drawerNo = drawer.DrawerNO;
-            if (ReceiveInfos != null)
-            {
-                ReceiveInfos.Add(
-                    new ReceiveInfo
-                    {
-                        Drawer = drawer,
-                        Message = message
-                    }
-                    );
-            }
+            var drawer = this.GetDrawerByDeviceIP(ip);
+            var replyMessage = ParseReplyMessage(message);
+            ExecuteMethodDispatch(drawer, replyMessage);
+            
+           
+        }
+
+        private void ExecuteMethodDispatch(Drawer drawer, ReplyMessage replyMessage)
+        {
+            typeof(Drawer).GetMethod(replyMessage.SringFunc).Invoke(drawer, new object[] { replyMessage });
+        }
+        /// <summary>由IP 取得 Drawer</summary>
+        /// <param name="deviceIP">Drawer IP</param>
+        /// <returns></returns>
+        public Drawer GetDrawerByDeviceIP(string deviceIP)
+        {
+            var drawer = this.Drawers.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
+            return drawer;
+        }
+
+        /// <summary>由編號取得 Drawer </summary>
+        /// <param name="cabinetNo">Cabinet No</param>
+        /// <param name="drawerNo">Drawer No</param>
+        /// <returns></returns>
+        public Drawer GetDrawerByNO(int cabinetNo,int drawerNo)
+        {
+            var drawer = this.Drawers.Where(m => m.CabinetNO==cabinetNo).Where(m=>m.DrawerNO==drawerNo).FirstOrDefault();
+            return drawer;
         }
 
 
+        public ReplyMessage ParseReplyMessage(string rtnMessage)
+        {
+            var message = rtnMessage.Replace(BaseCommand.CommandPostfixText, "").Replace(BaseCommand.CommandPrefixText, "");
+            var messageAry = message.Split(new string[] { BaseCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
+            var replyMessage = new ReplyMessage
+            {
+                StringCode = messageAry[0],
+                SringFunc = messageAry[1],
+                Value = messageAry.Length == 3 ? Convert.ToInt32(messageAry[2]) : default(int?),
+            };
+            return replyMessage;
+
+        }
         public int ConnectIfNo(string ip = null, int? port = null)
         {
         

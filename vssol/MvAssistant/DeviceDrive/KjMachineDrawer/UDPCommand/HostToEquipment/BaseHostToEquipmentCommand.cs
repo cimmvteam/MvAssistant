@@ -23,7 +23,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
             var stringCode = CommandPrefixText + CommandCategory.GetStringCode() + BaseCommand.CommandSplitSign + CommandCategory.ToString() + CommandTextReplaceSignPair + BaseCommand.CommandPostfixText;
             return stringCode;
         }
-        public override string GetCommandText<T>(T parameter) 
+        public  string GetCommandText<T>(T parameter) where T : IHostToEquipmentCommandParameter
         {
             var commandText = GetRawCommandText().Replace(CommandTextReplaceSignPair, parameter.ToParameterText());
             return commandText;
