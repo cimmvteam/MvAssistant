@@ -28,6 +28,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             if (scanner == null)
             {
                 scanner = new MvCameraDeviceScanner();
+                scanner.Connect();
                 scanner.ScanAlldevice();
                 this.HalContext.ResourceRegister(this.resourceKey, scanner);
             }
@@ -35,7 +36,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 
             if (this.ldd == null)
             {
-                this.ldd = scanner.cameras[this.id];
+                if (scanner.cameras.ContainsKey(this.id))
+                    this.ldd = scanner.cameras[this.id];
                 //this.HalContext.ResourceRegister(this.resourceKey, this.ldd);
             }
 
@@ -58,6 +60,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
         public Image Shot()
         {
             throw new NotImplementedException();
+        }
+
+        public void capture()
+        {
+            ldd.Capture();
         }
     }
 }

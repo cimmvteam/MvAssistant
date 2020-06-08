@@ -22,10 +22,10 @@
         <Device DevConnStr="ip=192.168.0.161;port=1000;model=IDGB_50M2PG_12_TP;channel=1" DeviceName="inspectionch_light_circle_inspection_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.162;port=1000;model=IWDV_600M2_24;channel=1" DeviceName="inspectionch_light_spot_inspection_left_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.162;port=1000;model=IWDV_600M2_24;channel=2" DeviceName="inspectionch_light_spot_inspection_right_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="id=00-11-1C-F8-C6-26" DeviceName="inspection_ccd_inspect_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=TXF-MDT1X150-D35" DeviceName="inspection_ccd_inspect_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=00-11-1C-F9-A4-0A" DeviceName="inspection_ccd_defense_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=00-11-1C-F9-A4-0D" DeviceName="inspection_ccd_defense_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00-11-1C-F8-C6-26" DeviceName="inspectionch_camera_inspect_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=TXF-MDT1X150-D35" DeviceName="inspection_camera_inspect_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00-11-1C-F9-A4-0A" DeviceName="inspection_camera_defense_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00-11-1C-F9-A4-0D" DeviceName="inspection_camera_defense_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
       </Devices>
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="clean_assembly" DriverId="c062fa7f-3825-4ea6-8be0-0afa876ba7e4" ID="DE_CC_A_ASB" PositionId="CleanCh01">

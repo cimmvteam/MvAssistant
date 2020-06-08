@@ -92,8 +92,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
 
-                ic.Initial();
                 ic.HalConnect();
+                //ic.Initial();
 
                 ic.InspectionSide();
 

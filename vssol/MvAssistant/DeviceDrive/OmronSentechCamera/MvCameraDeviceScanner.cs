@@ -35,7 +35,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         ////  ID：00-11-1C-F9-A3-46     Name：STC-SBS500POE(19HC603)    OS前，近CC
         public MvCameraDeviceScanner()
         {
-            ScanAlldevice();
+           
         }
         ~MvCameraDeviceScanner() { this.Dispose(false); }
 

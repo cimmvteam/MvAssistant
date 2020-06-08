@@ -8,7 +8,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MvAssistant.DeviceDrive.OmronSentechCamera
 {
@@ -152,6 +152,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 // 開始由相機取得影像
                 device.AcquisitionStart();
                 //StDevice[intDvcIdx].AcquisitionStart();
+                Thread.Sleep(1000);
 
                 //// 循環取得資料並檢查狀態
                 //// 持續執行取得影像直到足夠的幀數
@@ -224,6 +225,19 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 dataStream.StopAcquisition();
             }
         }
+
+        public Image CaptureToImage() { return null; }
+        public IStImage CaptureRaw() { return null; }
+
+        public void CaputreAndSave(string fn, string fType)
+        {
+            var img = this.CaptureRaw();
+            this.SaveImage(img, fn, fType);
+
+        }
+
+
+
 
         //public void Capture(int intDvcIdx)
         //{
@@ -359,6 +373,8 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             }
         }
 
+
+
         public int SaveImage(string sFileType)
         {
             int intSavedCnt = 0;
@@ -369,35 +385,33 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 {
                     while (ImageList.Count > 0)
                     {
+                        string imageFileName = imgFileNameList[0];
                         if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
                         {
-                            string imageFileName = imgFileNameList[0] + ".bmp";
-                            stillImageFiler.Save(ImageList[0], eStStillImageFileFormat.Bitmap, imageFileName);
+                             imageFileName += ".bmp";
                         }
                         else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
                         {
-                            string imageFileName = imgFileNameList[0] + ".tif";
-                            stillImageFiler.Save(ImageList[0], eStStillImageFileFormat.TIFF, imageFileName);
+                            imageFileName +=".tif";
                         }
                         else if (sFT == "png" || sFT == ".png")
                         {
-                            string imageFileName = imgFileNameList[0] + ".png";
-                            stillImageFiler.Save(ImageList[0], eStStillImageFileFormat.PNG, imageFileName);
+                            imageFileName += ".png";
                         }
                         else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
                         {
-                            string imageFileName = imgFileNameList[0] + ".jpg";
+                            imageFileName+= ".jpg";
                             stillImageFiler.Quality = 75;
-                            stillImageFiler.Save(ImageList[0], eStStillImageFileFormat.JPEG, imageFileName);
                         }
                         else if (sFT == "csv" || sFT == ".csv")
                         {
-                            string imageFileName = imgFileNameList[0] + ".csv";
-                            stillImageFiler.Save(ImageList[0], eStStillImageFileFormat.CSV, imageFileName);
-
+                            imageFileName += ".csv";
                         }
                         else //要轉換的檔案格式(副檔名)錯誤
                             return 0;
+
+                        this.SaveImage(ImageList[0], imageFileName, sFT);
+
                         imgFileNameList.RemoveAt(0);
                         ImageList.RemoveAt(0);
                         intSavedCnt++;
@@ -405,6 +419,50 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 }
                 else //沒有照片可以儲存
                     return -1;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return intSavedCnt;
+        }
+
+
+        public int SaveImage(IStImage img, string fn, string sFileType)
+        {
+            int intSavedCnt = 0;
+            string sFT = sFileType.ToLower();
+            try
+            {
+                if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
+                {
+                    stillImageFiler.Save(img, eStStillImageFileFormat.Bitmap, fn);
+                }
+                else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
+                {
+                    stillImageFiler.Save(img, eStStillImageFileFormat.TIFF, fn);
+                }
+                else if (sFT == "png" || sFT == ".png")
+                {
+                    stillImageFiler.Save(img, eStStillImageFileFormat.PNG, fn);
+                }
+                else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
+                {
+                    stillImageFiler.Quality = 75;
+                    stillImageFiler.Save(img, eStStillImageFileFormat.JPEG, fn);
+                }
+                else if (sFT == "csv" || sFT == ".csv")
+                {
+                    stillImageFiler.Save(img, eStStillImageFileFormat.CSV, fn);
+
+                }
+                else //要轉換的檔案格式(副檔名)錯誤
+                    return 0;
+                imgFileNameList.RemoveAt(0);
+                ImageList.RemoveAt(0);
+                intSavedCnt++;
+
+
             }
             catch (Exception ex)
             {
