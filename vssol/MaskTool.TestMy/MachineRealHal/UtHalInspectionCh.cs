@@ -80,5 +80,29 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 ic.WPosition(51);
             }
         }
+
+        [TestMethod]
+        public void TestWork_Inspection()
+        {
+
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.MvCfLoad();
+
+
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+
+                ic.Initial();
+                ic.HalConnect();
+
+                ic.InspectionSide();
+
+
+
+
+            }
+        }
+
+
     }
 }

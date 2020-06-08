@@ -41,7 +41,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
 
         public void TurnOn(int value)
         {
-            throw new NotImplementedException();
+            this.ldd.SetValue(this.channel, value);
         }
 
         public void TurnOff()

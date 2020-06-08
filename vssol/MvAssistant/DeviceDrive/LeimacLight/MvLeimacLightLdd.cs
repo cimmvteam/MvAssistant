@@ -42,6 +42,14 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             return 0;
         }
 
+        public int GetValue(int ch)
+        {
+
+
+            return 0;
+        }
+
+
 
         public int SetValue(int ch, int value)
         {
