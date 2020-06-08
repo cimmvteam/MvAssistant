@@ -14,13 +14,16 @@ namespace MvAssistant.Mac.TestMy.Device
         {
             try
             {
-                using (var camera = new MvCameraDeviceScanner())
+                using (var scanner = new MvCameraDeviceScanner())
                 {
-                    camera.Connect();
-                    camera.ScanAlldevice();
-                    camera.BT_ccd_gripper_1.SingleDeviceCapture();
-                    camera.BT_ccd_gripper_1.SaveImage("jpg");
-                    camera.Close();
+                    scanner.Connect();
+                    scanner.ScanAlldevice();
+                    var camera = scanner.cameras[""];
+                    camera.Capture();
+                    camera.SaveImage("jpg");
+
+
+                    scanner.Close();
 
                 }
             }

@@ -14,22 +14,25 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 {
     public class MvCameraDeviceScanner : IDisposable
     {
-        public MvOmronSentechCameraLdd BT_ccd_gripper_1;
-        public MvOmronSentechCameraLdd CC_ccd_particle_1;
-        public MvOmronSentechCameraLdd IC_ccd_inspect_side_1;
-        public MvOmronSentechCameraLdd IC_ccd_inspect_top_1;
-        public MvOmronSentechCameraLdd IC_ccd_defense_side_1;
-        public MvOmronSentechCameraLdd IC_ccd_defense_top_1;
-        public MvOmronSentechCameraLdd LP_ccd_front_1;
-        public MvOmronSentechCameraLdd LP_ccd_side_1;
-        public MvOmronSentechCameraLdd LP_ccd_top_1;
-        public MvOmronSentechCameraLdd MT_ccd_pellicle_deform_1;
-        public MvOmronSentechCameraLdd MT_ccd_barcode_reader_1;
-        public MvOmronSentechCameraLdd OS_ccd_side_1;
-        public MvOmronSentechCameraLdd OS_ccd_top_1;
-        public MvOmronSentechCameraLdd OS_ccd_front_1;
-        public MvOmronSentechCameraLdd OS_ccd_barcode_1;
+        public Dictionary<string, MvOmronSentechCameraLdd> cameras = new Dictionary<string, MvOmronSentechCameraLdd>();
 
+        //public MvOmronSentechCameraLdd BT_ccd_gripper_1;//  ID：00-11-1C-F9-A3-23     Name：STC-SBS500POE(19HC568)
+        //public MvOmronSentechCameraLdd CC_ccd_particle_1;//  ID：00-11-1C-F9-A4-08     Name：STC-SBS500POE(19HD395)
+        //public MvOmronSentechCameraLdd IC_ccd_inspect_side_1;//  ID：00-11-1C-F8-C6-26     Name：STC-SBA1002POE(17E3004)
+        //public MvOmronSentechCameraLdd IC_ccd_inspect_top_1;//  Name：TXF-MDT1X150-D35
+        //public MvOmronSentechCameraLdd IC_ccd_defense_side_1;//  ID：00-11-1C-F9-A4-0A     Name：STC-SBS500POE(19HD397)
+        //public MvOmronSentechCameraLdd IC_ccd_defense_top_1;//  ID：00-11-1C-F9-A4-0D     Name：STC-SBS500POE(19HD400)
+        //public MvOmronSentechCameraLdd LP_ccd_front_1;
+        //public MvOmronSentechCameraLdd LP_ccd_side_1;
+        //public MvOmronSentechCameraLdd LP_ccd_top_1;
+        //public MvOmronSentechCameraLdd MT_ccd_pellicle_deform_1;
+        //public MvOmronSentechCameraLdd MT_ccd_barcode_reader_1;
+        //public MvOmronSentechCameraLdd OS_ccd_side_1;//  ID：00-11-1C-F9-A3-45     Name：STC-SBS500POE(19HC602)
+        //public MvOmronSentechCameraLdd OS_ccd_top_1;//  ID：00-11-1C-F9-15-E4     Name：STC-SBS1242POE(18G3862)
+        //public MvOmronSentechCameraLdd OS_ccd_front_1;
+        //public MvOmronSentechCameraLdd OS_ccd_barcode_1;
+        ////  ID：00-11-1C-F9-A8-BE     Name：STC-SBS500POE(19JA599)    OS前，近LP
+        ////  ID：00-11-1C-F9-A3-46     Name：STC-SBS500POE(19HC603)    OS前，近CC
         public MvCameraDeviceScanner()
         {
             ScanAlldevice();
@@ -43,8 +46,8 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         CStSystem system;
         CStDevice[] StDevice;
         CStDataStream[] dataStream;
-        CStImageBuffer imageBuffer;
-        CStStillImageFiler stillImageFiler;
+        //CStImageBuffer imageBuffer;
+        //CStStillImageFiler stillImageFiler;
         uint uInterface = 0;
         uint uCamCnt = 0;
         IStInterface StInterface;
@@ -87,118 +90,125 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             if (system != null)
                 system.Dispose();
 
-            if (BT_ccd_gripper_1 != null)
-                BT_ccd_gripper_1.Dispose();
-            if (CC_ccd_particle_1 != null)
-                CC_ccd_particle_1.Dispose();
-            if (IC_ccd_inspect_side_1 != null)
-                IC_ccd_inspect_side_1.Dispose();
-            if (IC_ccd_inspect_top_1 != null)
-                IC_ccd_inspect_top_1.Dispose();
-            if (IC_ccd_defense_side_1 != null)
-                IC_ccd_defense_side_1.Dispose();
-            if (IC_ccd_defense_top_1 != null)
-                IC_ccd_defense_top_1.Dispose();
-            if (LP_ccd_front_1 != null)
-                LP_ccd_front_1.Dispose();
-            if (LP_ccd_side_1 != null)
-                LP_ccd_side_1.Dispose();
-            if (LP_ccd_top_1 != null)
-                LP_ccd_top_1.Dispose();
-            if (MT_ccd_pellicle_deform_1 != null)
-                MT_ccd_pellicle_deform_1.Dispose();
-            if (MT_ccd_barcode_reader_1 != null)
-                MT_ccd_barcode_reader_1.Dispose();
-            if (OS_ccd_side_1 != null)
-                OS_ccd_side_1.Dispose();
-            if (OS_ccd_top_1 != null)
-                OS_ccd_top_1.Dispose();
-            if (OS_ccd_front_1 != null)
-                OS_ccd_front_1.Dispose();
-            if (OS_ccd_barcode_1 != null)
-                OS_ccd_barcode_1.Dispose();
-    }
 
-    public string[] ScanAlldevice()
-    {
-        uInterface = system.InterfaceCount;
-        //comboBox1.Items.Clear();
-        for (uint i = 0; i < uInterface; i++)
-        {
-            StInterface = system.GetIStInterface(i);
-            //IStInterface tmpInterFacePtr = StSystem.GetIStInterface(i);
-            IStInterfaceInfo tmpInterFaceInfoPtr = StInterface.GetIStInterfaceInfo();
-            uint uintDeviceCnt = StInterface.DeviceCount;
-
-            Array.Resize(ref cameraIDStringArray, (int)uCamCnt + (int)uintDeviceCnt);
-            Array.Resize(ref cameraNameStringArray, (int)uCamCnt + (int)uintDeviceCnt);
-            Array.Resize(ref StDevice, (int)uCamCnt + (int)uintDeviceCnt);
-            Array.Resize(ref dataStream, (int)uCamCnt + (int)uintDeviceCnt);
-
-            for (uint j = 0; j < uintDeviceCnt; j++)
+            foreach (var camera in this.cameras)
             {
-                IStDeviceInfo tmpDeviceInfoPtr = StInterface.GetIStDeviceInfo(j);
-                cameraIDStringArray[uCamCnt] = tmpDeviceInfoPtr.ID;
-                cameraNameStringArray[uCamCnt] = tmpDeviceInfoPtr.DisplayName;
-
-                eDeviceAccessFlags deviceAccessFlags = eDeviceAccessFlags.CONTROL;
-                if (tmpDeviceInfoPtr.AccessStatus == eDeviceAccessStatus.READONLY)
-                {
-                    deviceAccessFlags = eDeviceAccessFlags.READONLY;
-                }
-
-                StDevice[uCamCnt] = StInterface.CreateStDevice(cameraIDStringArray[uCamCnt], deviceAccessFlags);
-
-                dataStream[uCamCnt] = StDevice[uCamCnt].CreateStDataStream(0);
-
-                BT_ccd_gripper_1 = new MvOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
-
-                uCamCnt++;
+                camera.Value.Dispose();
             }
+
+            //if (BT_ccd_gripper_1 != null)
+            //    BT_ccd_gripper_1.Dispose();
+            //if (CC_ccd_particle_1 != null)
+            //    CC_ccd_particle_1.Dispose();
+            //if (IC_ccd_inspect_side_1 != null)
+            //    IC_ccd_inspect_side_1.Dispose();
+            //if (IC_ccd_inspect_top_1 != null)
+            //    IC_ccd_inspect_top_1.Dispose();
+            //if (IC_ccd_defense_side_1 != null)
+            //    IC_ccd_defense_side_1.Dispose();
+            //if (IC_ccd_defense_top_1 != null)
+            //    IC_ccd_defense_top_1.Dispose();
+            //if (LP_ccd_front_1 != null)
+            //    LP_ccd_front_1.Dispose();
+            //if (LP_ccd_side_1 != null)
+            //    LP_ccd_side_1.Dispose();
+            //if (LP_ccd_top_1 != null)
+            //    LP_ccd_top_1.Dispose();
+            //if (MT_ccd_pellicle_deform_1 != null)
+            //    MT_ccd_pellicle_deform_1.Dispose();
+            //if (MT_ccd_barcode_reader_1 != null)
+            //    MT_ccd_barcode_reader_1.Dispose();
+            //if (OS_ccd_side_1 != null)
+            //    OS_ccd_side_1.Dispose();
+            //if (OS_ccd_top_1 != null)
+            //    OS_ccd_top_1.Dispose();
+            //if (OS_ccd_front_1 != null)
+            //    OS_ccd_front_1.Dispose();
+            //if (OS_ccd_barcode_1 != null)
+            //    OS_ccd_barcode_1.Dispose();
         }
-        return cameraNameStringArray;
-    }
 
-    #region IDisposable
-    // Flag: Has Dispose already been called?
-    protected bool disposed = false;
-
-    // Public implementation of Dispose pattern callable by consumers.
-    public virtual void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    // Protected implementation of Dispose pattern.
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposed)
-            return;
-
-        if (disposing)
+        public string[] ScanAlldevice()
         {
-            // Free any other managed objects here.
-            //
+            uInterface = system.InterfaceCount;
+            //comboBox1.Items.Clear();
+            for (uint i = 0; i < uInterface; i++)
+            {
+                StInterface = system.GetIStInterface(i);
+                //IStInterface tmpInterFacePtr = StSystem.GetIStInterface(i);
+                IStInterfaceInfo tmpInterFaceInfoPtr = StInterface.GetIStInterfaceInfo();
+                uint uintDeviceCnt = StInterface.DeviceCount;
+
+                Array.Resize(ref cameraIDStringArray, (int)uCamCnt + (int)uintDeviceCnt);
+                Array.Resize(ref cameraNameStringArray, (int)uCamCnt + (int)uintDeviceCnt);
+                Array.Resize(ref StDevice, (int)uCamCnt + (int)uintDeviceCnt);
+                Array.Resize(ref dataStream, (int)uCamCnt + (int)uintDeviceCnt);
+
+                for (uint j = 0; j < uintDeviceCnt; j++)
+                {
+                    IStDeviceInfo tmpDeviceInfoPtr = StInterface.GetIStDeviceInfo(j);
+                    cameraIDStringArray[uCamCnt] = tmpDeviceInfoPtr.ID;
+                    cameraNameStringArray[uCamCnt] = tmpDeviceInfoPtr.DisplayName;
+
+                    eDeviceAccessFlags deviceAccessFlags = eDeviceAccessFlags.CONTROL;
+                    if (tmpDeviceInfoPtr.AccessStatus == eDeviceAccessStatus.READONLY)
+                    {
+                        deviceAccessFlags = eDeviceAccessFlags.READONLY;
+                    }
+
+                    StDevice[uCamCnt] = StInterface.CreateStDevice(cameraIDStringArray[uCamCnt], deviceAccessFlags);
+
+                    dataStream[uCamCnt] = StDevice[uCamCnt].CreateStDataStream(0);
+
+                    this.cameras[tmpDeviceInfoPtr.ID] = new MvOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
+                    //BT_ccd_gripper_1 = new MvOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
+
+                    uCamCnt++;
+                }
+            }
+            return cameraNameStringArray;
         }
 
-        // Free any unmanaged objects here.
-        //
+        #region IDisposable
+        // Flag: Has Dispose already been called?
+        protected bool disposed = false;
 
-        this.DisposeSelf();
+        // Public implementation of Dispose pattern callable by consumers.
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-        disposed = true;
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+
+            this.DisposeSelf();
+
+            disposed = true;
+        }
+
+
+        protected virtual void DisposeSelf()
+        {
+            this.Close();
+        }
+
+
+
+        #endregion
+
     }
-
-
-    protected virtual void DisposeSelf()
-    {
-        this.Close();
-    }
-
-
-
-    #endregion
-
-}
 }
