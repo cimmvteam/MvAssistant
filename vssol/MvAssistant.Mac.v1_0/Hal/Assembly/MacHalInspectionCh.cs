@@ -1,4 +1,6 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
+using MvAssistant.Mac.v1_0.Hal.CompLight;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
@@ -12,10 +14,57 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(MacEnumDevice.inspectionch_plc); } }
+        public IMacHalLight LigthBarInspSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_inspection_side_001); } }
+        public IMacHalLight LigthBarDefenseSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_denfese_side_001); } }
+        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_1); } }
+
 
 
 
         #endregion Device Components
+
+
+
+        public void DefenseCheck()
+        {
+
+
+        }
+
+        public void InspectTop()
+        {
+
+        }
+
+
+        public void InspectionSide()
+        {
+
+            this.Plc.XYPosition(200, 100);
+            this.Plc.ZPosition(-50);
+
+            this.Plc.WPosition(0);
+            this.LigthBarInspSide.TurnOn(255);
+            //TODO: Camera
+
+            this.Plc.WPosition(90);
+            //TODO: Camera
+
+            this.Plc.WPosition(180);
+            //TODO: Camera
+
+            this.Plc.WPosition(270);
+            //TODO: Camera
+
+
+
+        }
+
+
+
+
+
+
 
         /// <summary>
         /// Stage XY軸移動，X:300~-10,Y:250~-10，X軸位置、Y軸位置

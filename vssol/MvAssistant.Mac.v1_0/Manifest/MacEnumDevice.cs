@@ -237,22 +237,22 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_IC_02: Inspection_CCD (Side)
         /// </summary>
-        inspection_ccd_inspect_side_1,
+        inspectionch_camera_inspect_side_1,
 
         /// <summary>
         /// DE_IC_03: Inspection_CCD (Top)
         /// </summary>
-        inspection_ccd_inspect_top_1,
+        inspection_camera_inspect_top_1,
 
         /// <summary>
         /// DE_IC_15: Defense_CCD (Top)
         /// </summary>
-        inspection_ccd_defense_side_1,
+        inspection_camera_defense_side_1,
 
         /// <summary>
         /// DE_IC_21: Defense_CCD (Side)
         /// </summary>
-        inspection_ccd_defense_top_1,
+        inspection_camera_defense_top_1,
 
         inspectionch_light_circle_defense_top_001,
         inspectionch_light_bar_inspection_side_001,
