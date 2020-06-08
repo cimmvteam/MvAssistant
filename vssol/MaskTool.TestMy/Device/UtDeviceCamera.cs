@@ -14,16 +14,12 @@ namespace MvAssistant.Mac.TestMy.Device
         {
             try
             {
-                using (var camera = new MvOmronSentechCameraLdd())
+                using (var camera = new MvCameraDeviceScanner())
                 {
                     camera.Connect();
-                    //camera.cameraSample();
-                    int intCamCnt = camera.SearchAlldevice().Length;
-                    for (int i = 0; i < intCamCnt; i++)
-                    {
-                        camera.Capture(i);
-                    }
-                    camera.SaveImage("jpg");
+                    camera.ScanAlldevice();
+                    camera.BT_ccd_gripper_1.SingleDeviceCapture();
+                    camera.BT_ccd_gripper_1.SaveImage("jpg");
                     camera.Close();
 
                 }

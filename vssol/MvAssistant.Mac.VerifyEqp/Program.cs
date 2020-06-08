@@ -1,5 +1,4 @@
 ﻿//#define OnlyPositionGetter
-//#define DrawerTest
 using MaskCleanerVerify;
 using System;
 using System.Collections.Generic;
@@ -27,8 +26,7 @@ namespace MvAssistantMacVerifyEqp
 
 #if OnlyPositionGetter
             Application.Run(new FmRobotPath());
-#elif DrawerTest
-            Application.Run(new FrmDrawerTest());
+
 #else
             Application.Run(new FmMain());
 #endif      
