@@ -82,7 +82,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortRequestCommand.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AlarmReset.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskBarcodeStatus .cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskClamperStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskLoadportStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskPresentStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\BaseTCPCommand.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskPlacementStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskReticleExistStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskRFIDStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskStagePosition.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskVacuumStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\BaseHostToLoadPortCommand.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\DockRequest.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\InitialRequest.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualClamperLock.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualClamperOPR.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualClamperUnlock.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageDown.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageInspection.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageOPR.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageUp.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOff.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOn.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\UndockRequest.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
