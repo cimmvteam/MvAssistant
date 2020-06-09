@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.LeimacLight;
+using MvAssistant.Mac.v1_0.Hal.CcompDrawer;
 using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
@@ -65,7 +66,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                       new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F9-A3-23",
                         DeviceName = MacEnumDevice.boxtransfer_camera_gripper_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
                 },
             };
@@ -86,6 +87,53 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.cabinet_plc.ToString(),
                         DriverId = ManifestDriverId.CabinetPlc.ToString(),
+                    },
+
+
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalDrawerKjMachine.DevConnStr_Ip, "192.168.0.xxx",
+                            MacHalDrawerKjMachine.DevConnStr_Port, 5000,
+                            MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
+                            MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
+                        DeviceName = MacEnumDevice.cabinet_drawer_001.ToString(),
+                        DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalDrawerKjMachine.DevConnStr_Ip, "192.168.0.xxx",
+                            MacHalDrawerKjMachine.DevConnStr_Port, 5000,
+                            MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
+                            MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
+                        DeviceName = MacEnumDevice.cabinet_drawer_002.ToString(),
+                        DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalDrawerKjMachine.DevConnStr_Ip, "192.168.0.xxx",
+                            MacHalDrawerKjMachine.DevConnStr_Port, 5000,
+                            MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
+                            MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
+                        DeviceName = MacEnumDevice.cabinet_drawer_003.ToString(),
+                        DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalDrawerKjMachine.DevConnStr_Ip, "192.168.0.xxx",
+                            MacHalDrawerKjMachine.DevConnStr_Port, 5000,
+                            MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
+                            MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
+                        DeviceName = MacEnumDevice.cabinet_drawer_004.ToString(),
+                        DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                    },
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalDrawerKjMachine.DevConnStr_Ip, "192.168.0.xxx",
+                            MacHalDrawerKjMachine.DevConnStr_Port, 5000,
+                            MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
+                            MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
+                        DeviceName = MacEnumDevice.cabinet_drawer_005.ToString(),
+                        DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                     },
 
 
@@ -112,14 +160,10 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
-                        MacHalLightLeimac.DevConnStr_Ip,
-                        "192.168.0.129",
-                        MacHalLightLeimac.DevConnStr_Port,
-                        1000,
-                        MacHalLightLeimac.DevConnStr_Model,
-                        MvEnumLeimacModel.IWDV_100S_24,
-                        MacHalLightLeimac.DevConnStr_Channel,
-                        1),
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.129",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IWDV_100S_24,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
                         DeviceName = MacEnumDevice.cleanch_inspection_spot_light_001.ToString(),
                         DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
@@ -127,7 +171,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F9-A4-08",
                         DeviceName = MacEnumDevice.clean_camera_particle_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                 },
@@ -208,25 +252,25 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F8-C6-26",
                         DeviceName = MacEnumDevice.inspectionch_camera_inspect_side_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=TXF-MDT1X150-D35",
                         DeviceName = MacEnumDevice.inspection_camera_inspect_top_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F9-A4-0A",
                         DeviceName = MacEnumDevice.inspection_camera_defense_side_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F9-A4-0D",
                         DeviceName = MacEnumDevice.inspection_camera_defense_top_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
                 },
             };
@@ -360,13 +404,13 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F9-A3-45",
                         DeviceName = MacEnumDevice.openstage_camera_side_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00-11-1C-F9-15-E4",
                         DeviceName = MacEnumDevice.openstage_camera_top_1.ToString(),
-                        DriverId = ManifestDriverId.SentechCamera.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                 },

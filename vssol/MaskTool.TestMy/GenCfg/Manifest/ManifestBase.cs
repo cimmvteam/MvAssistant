@@ -218,14 +218,20 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     Product ="Camera Controller",
                     Remark=null,
                     AssignType=typeof(Hal.CompCamera.HalCameraSenTech),
-                    DriverId=ManifestDriverId.SentechCamera.ToString(),
+                    DriverId=ManifestDriverId.CameraSentech.ToString(),
                 }
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverRealDevice()
         {
             return new MacManifestDriverCfg[]{
-
+                new MacManifestDriverCfg(){
+                    Vendor = "KJ Machine",
+                    Product = "Drawer",
+                    Remark = null,
+                    AssignType = typeof(Hal.CcompDrawer.MacHalDrawerKjMachine),
+                    DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                }
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverRealLight()

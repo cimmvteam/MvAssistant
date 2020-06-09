@@ -75,8 +75,8 @@
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
-    <Compile Include="Hal\CcompDrawer\HalDrawerKjMachine.cs" />
-    <Compile Include="Hal\CcompDrawer\IHalDrawer.cs" />
+    <Compile Include="Hal\CcompDrawer\MacHalDrawerKjMachine.cs" />
+    <Compile Include="Hal\CcompDrawer\IMacHalDrawer.cs" />
     <Compile Include="Hal\CompLight\MacHalLightLeimac.cs" />
     <Compile Include="Hal\CompLight\IMacHalLight.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPath.cs" />
