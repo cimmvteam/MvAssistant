@@ -60,16 +60,16 @@ namespace MvAssistant.Mac.v1_0.Hal
         {
             get
             {
-                if (this.m_DevSettings == null) { this.m_DevSettings = this.GetDevSettings(); }
+                if (this.m_DevSettings == null) { this.m_DevSettings = this.GetDevConnStr(); }
                 return this.m_DevSettings;
             }
         }
 
-        public int GetDevSettingInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
-        public string GetDevSetting(string key) { return this.DevSettings[key.ToLower()]; }
-        public T GetDevSettingEnum<T>(string key) { return MvUtil.EnumParse<T>(this.DevSettings[key] as string); }
+        public int GetDevConnStrInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
+        public string GetDevConnStr(string key) { return this.DevSettings[key.ToLower()]; }
+        public T GetDevConnStrEnum<T>(string key) { return MvUtil.EnumParse<T>(this.DevSettings[key] as string); }
 
-        private Dictionary<string, string> GetDevSettings()
+        protected Dictionary<string, string> GetDevConnStr()
         {
             if (string.IsNullOrEmpty(this.DeviceConnStr)) return new Dictionary<string, string>();
 

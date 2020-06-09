@@ -34,7 +34,6 @@ namespace MvAssistant.DeviceDrive.LeimacLight
         public MvLeimacLightLdd()
         {
 
-
         }
 
 

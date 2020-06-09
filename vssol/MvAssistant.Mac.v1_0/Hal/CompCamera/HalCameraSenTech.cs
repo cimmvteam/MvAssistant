@@ -22,7 +22,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 
         public override int HalConnect()
         {
-            this.id = this.GetDevSetting(DevConnStr_Id);
+            this.id = this.GetDevConnStr(DevConnStr_Id);
 
             var scanner = this.HalContext.ResourceGetOrDefault<MvCameraDeviceScanner>(this.resourceKey);
             if (scanner == null)

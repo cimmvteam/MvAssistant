@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public MvOmronPlcLdd PlcLdd;
         public string PlcIp;
-        public int PlcPort;
+        public int PlcPortId;
         bool m_isConnected = false;
 
         MvCancelTask m_keepConnection;
@@ -54,10 +54,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public void Connect(string ip = null, int? port = null)
         {
             if (ip != null) this.PlcIp = ip;
-            if (port != null) this.PlcPort = port.Value;
+            if (port != null) this.PlcPortId = port.Value;
 
             this.PlcLdd = new MvOmronPlcLdd();
-            this.PlcLdd.NLPLC_Initial(this.PlcIp, this.PlcPort);
+            this.PlcLdd.NLPLC_Initial(this.PlcIp, this.PlcPortId);
         }
 
 
@@ -399,7 +399,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
             var rtn = m_mapper[key];
             rtn.PlcIp = ip;
-            rtn.PlcPort = portid;
+            rtn.PlcPortId = portid;
             return rtn;
         }
 
