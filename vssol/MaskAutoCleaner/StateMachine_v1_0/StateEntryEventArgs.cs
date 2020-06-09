@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaskCleaner.StateMachine_v1_0
+namespace MaskAutoCleaner.StateMachine_v1_0
 {
     public class StateEntryEventArgs : EventArgs
     {

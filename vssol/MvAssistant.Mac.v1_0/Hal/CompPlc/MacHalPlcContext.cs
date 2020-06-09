@@ -389,7 +389,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
 
         #region Singleton Mapper
-
+        /// <summary>
+        /// Design Pattern - Singleton Pattern
+        /// </summary>
         static Dictionary<string, MacHalPlcContext> m_mapper = new Dictionary<string, MacHalPlcContext>();
 
 

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Xml;
 
-namespace MaskCleaner.StateMachine_v1_0
+namespace MaskAutoCleaner.StateMachine_v1_0
 {
     /// <summary>
     /// State類別，名字在SM需要唯一
     /// </summary>
     public class State
     {
-        public readonly string StateName;
+        public readonly string rt;
         public List<Transition> TransitionsInState = new List<Transition>(4);
 
         public Transition timeoutExecuteTransition { get; set; }

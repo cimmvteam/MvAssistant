@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CcompDrawer
+namespace MaskAutoCleaner.Machine
 {
-    public interface IMacHalDrawer: IMacHalComponent
+    public class MacMachineMgrCfg
     {
     }
 }

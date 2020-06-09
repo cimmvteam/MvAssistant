@@ -1,4 +1,4 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CcompDrawer;
+﻿using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;

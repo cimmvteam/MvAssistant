@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant", "MvAssistant\MvAssistant.csproj", "{1F694FA5-2647-4A70-A97D-4E443D5B79EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.TestMy", "MaskTool.TestMy\MvAssistant.Mac.TestMy.csproj", "{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.TestMy", "MaskTool.TestMy\MvAssistant.Mac.v1_0.TestMy.csproj", "{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.v1_0", "MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj", "{1C5A74CE-C1B7-44B6-B09F-59F36C442506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.VerifyEqp", "MvAssistant.Mac.VerifyEqp\MvAssistant.Mac.VerifyEqp.csproj", "{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.Mac.VerifyEqp", "MvAssistant.Mac.VerifyEqp\MvAssistant.Mac.v1_0.VerifyEqp.csproj", "{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_15", "MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj", "{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}"
 EndProject

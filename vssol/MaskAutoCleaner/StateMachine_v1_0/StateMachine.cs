@@ -1,6 +1,6 @@
 ﻿using MvAssistant;
 using MvAssistant.Logging;
-using MaskCleaner.StateMachine_v1_0.SmExp;
+using MaskAutoCleaner.StateMachine_v1_0.SmExp;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-namespace MaskCleaner.StateMachine_v1_0
+namespace MaskAutoCleaner.StateMachine_v1_0
 {
     /// <summary>
     /// 提供State Machine容器實做&與HAL溝通處

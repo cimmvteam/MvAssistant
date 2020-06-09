@@ -229,7 +229,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     Vendor = "KJ Machine",
                     Product = "Drawer",
                     Remark = null,
-                    AssignType = typeof(Hal.CcompDrawer.MacHalDrawerKjMachine),
+                    AssignType = typeof(Hal.CompDrawer.MacHalDrawerKjMachine),
                     DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                 }
             }.ToList();

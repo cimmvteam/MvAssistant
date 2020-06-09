@@ -11,7 +11,7 @@ namespace MaskAutoCleaner
         public double X;
         public double Y;
         public EnumDefectType DefectType;
-        public EnumMaskSide Side;
+        public MacEnumMaskSide Side;
 
         public double Frame_Height;
         public int PurgeTimesLimit;
