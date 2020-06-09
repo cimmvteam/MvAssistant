@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
    public  class AskRFIDStatus:BaseHostToLoadPortCommand
     {
-        public AskRFIDStatus() : base(LoadPortRequestCommand.AskRFIDStatus)
+        public AskRFIDStatus() : base(LoadPortRequestContent.AskRFIDStatus)
         {
 
         }

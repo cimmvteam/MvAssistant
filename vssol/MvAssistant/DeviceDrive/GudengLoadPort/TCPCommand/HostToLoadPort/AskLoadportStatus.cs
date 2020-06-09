@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
    public  class AskLoadportStatus:BaseHostToLoadPortCommand
     {
-        public AskLoadportStatus() : base(LoadPortRequestCommand.AskLoadportStatus)
+        public AskLoadportStatus() : base(LoadPortRequestContent.AskLoadportStatus)
         {
 
         }

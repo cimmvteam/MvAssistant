@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
   public  class UndockRequest:BaseHostToLoadPortCommand
     {
-        public UndockRequest() : base(LoadPortRequestCommand.UndockRequest)
+        public UndockRequest() : base(LoadPortRequestContent.UndockRequest)
         {
 
         }

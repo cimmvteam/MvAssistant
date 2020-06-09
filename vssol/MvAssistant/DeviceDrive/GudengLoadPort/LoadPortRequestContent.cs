@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MvAssistant.DeviceDrive.GudengLoadPort
 {
-    public enum LoadPortRequestCommand
+    public enum LoadPortRequestContent
     {
         DockRequest=100,
         UndockRequest=101,
@@ -36,7 +36,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
     public static class LoadPortRequestCommandExtends
     {
-        public static string GetStringCode(this LoadPortRequestCommand inst)
+        public static string GetStringCode(this LoadPortRequestContent inst)
         {
             var rtnV = ((int)inst).ToString("000");
             return rtnV;

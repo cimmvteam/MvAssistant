@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
   public   class InitialRequest:BaseHostToLoadPortCommand
     {
-        public InitialRequest() : base(LoadPortRequestCommand.InitialRequest)
+        public InitialRequest() : base(LoadPortRequestContent.InitialRequest)
         {
 
         }

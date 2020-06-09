@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
    public  class ManualVacuumOn:BaseHostToLoadPortCommand
     {
-        public ManualVacuumOn() : base(LoadPortRequestCommand.ManualVacuumOn)
+        public ManualVacuumOn() : base(LoadPortRequestContent.ManualVacuumOn)
         {
 
         }

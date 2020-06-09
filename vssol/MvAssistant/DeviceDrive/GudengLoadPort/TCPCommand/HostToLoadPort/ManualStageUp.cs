@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
   public class ManualStageUp:BaseHostToLoadPortCommand
     {
-        public ManualStageUp() : base(LoadPortRequestCommand.ManualStageUp)
+        public ManualStageUp() : base(LoadPortRequestContent.ManualStageUp)
         {
 
         }

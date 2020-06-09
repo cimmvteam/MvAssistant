@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
     public class AlarmReset : BaseHostToLoadPortCommand
     {
-        public  AlarmReset():base(LoadPortRequestCommand.AlarmReset)
+        public  AlarmReset():base(LoadPortRequestContent.AlarmReset)
         {
         }
     }

@@ -8,12 +8,12 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
     public abstract class BaseHostToLoadPortCommand : BaseTCPCommand
     {
-        public LoadPortRequestCommand CommandCategory { get; private set; }
+        public LoadPortRequestContent CommandCategory { get; private set; }
         private BaseHostToLoadPortCommand()
         {
 
         }
-        public BaseHostToLoadPortCommand(LoadPortRequestCommand commandCategory) : this()
+        public BaseHostToLoadPortCommand(LoadPortRequestContent commandCategory) : this()
         {
             CommandCategory = commandCategory;
         }

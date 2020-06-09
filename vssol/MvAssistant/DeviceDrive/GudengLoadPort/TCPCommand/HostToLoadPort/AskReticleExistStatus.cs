@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
     public class AskReticleExistStatus:BaseHostToLoadPortCommand
     {
-        public AskReticleExistStatus() : base(LoadPortRequestCommand.AskReticleExistStatus)
+        public AskReticleExistStatus() : base(LoadPortRequestContent.AskReticleExistStatus)
         {
 
         }

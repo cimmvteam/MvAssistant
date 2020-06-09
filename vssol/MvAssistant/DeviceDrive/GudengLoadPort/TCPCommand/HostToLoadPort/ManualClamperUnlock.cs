@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
     public class ManualClamperUnlock:BaseHostToLoadPortCommand
     {
-        public ManualClamperUnlock() : base(LoadPortRequestCommand.ManualClamperUnlock)
+        public ManualClamperUnlock() : base(LoadPortRequestContent.ManualClamperUnlock)
         {
 
         }

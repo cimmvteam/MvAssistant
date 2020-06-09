@@ -8,7 +8,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
    public class ManualStageInspection:BaseHostToLoadPortCommand
     {
-        public ManualStageInspection() : base(LoadPortRequestCommand.ManualStageInspection)
+        public ManualStageInspection() : base(LoadPortRequestContent.ManualStageInspection)
         {
 
         }
