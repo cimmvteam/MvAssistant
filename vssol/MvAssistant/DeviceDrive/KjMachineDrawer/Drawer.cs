@@ -47,10 +47,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         public void CommandSetTimeOut(int timeoutSeconds)
         {
-            if(timeoutSeconds < 1 || timeoutSeconds > 100)
-            {
-                throw new TimeOutSecondOutOfRangeException();
-            }
+            //if(timeoutSeconds < 1 || timeoutSeconds > 100)
+            //{
+            //    throw new TimeOutSecondOutOfRangeException();
+            //}
             var parameter = new SetTimeOutParameter {  Seconds=timeoutSeconds };
             var commandText = new SetTimeOut().GetCommandText(parameter);
             DrawerSocket.SentTo(commandText);

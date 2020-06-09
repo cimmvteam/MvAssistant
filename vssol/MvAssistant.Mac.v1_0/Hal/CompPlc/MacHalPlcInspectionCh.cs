@@ -21,6 +21,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
 
 
+
+
         //Stage進行XY移動
         public string XYPosition(double? X_Position, double? Y_Position)
         {

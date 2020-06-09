@@ -10,6 +10,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     public class UtHalOpenStage
     {
         [TestMethod]
+        public void TestCamera()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.MvCfLoad();
+
+                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+
+                os.CameraTopCap();
+            }
+        }
+
+        [TestMethod]
         public void TestSetParameter()
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))

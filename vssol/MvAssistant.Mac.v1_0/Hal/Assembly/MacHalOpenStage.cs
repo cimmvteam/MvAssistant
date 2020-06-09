@@ -1,4 +1,6 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.DeviceDrive.OmronSentechCamera;
+using MvAssistant.Mac.v1_0.Hal.CompCamera;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
@@ -14,9 +16,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
+        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
+        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
 
-     
         #endregion Device Components
+        
 
         /// <summary>
         /// 開盒
@@ -186,7 +190,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public bool ReadBoxExist()
         { return Plc.ReadBoxExist(); }
-        
+
         #endregion
+
+        public void CameraTopCap()
+        {
+            CameraTop.Shot();
+        }
     }
 }

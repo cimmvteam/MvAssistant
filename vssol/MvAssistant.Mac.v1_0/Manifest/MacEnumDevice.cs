@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_BT_02: Robot CCD
         /// </summary>
-        boxtransfer_ccd_gripper_1,
+        boxtransfer_camera_gripper_1,
 
         /// <summary>
         /// DE_BT_03: 環形光
@@ -173,7 +173,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_CC_06: Particle Inspection CCD
         /// </summary>
-        clean_ccd_particle_1,
+        clean_camera_particle_1,
 
         /// <summary>
         /// DE_CC_08: 線光源
@@ -445,22 +445,22 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_OS_01: Side CCD
         /// </summary>
-        openstage_ccd_side_1,
+        openstage_camera_side_1,
 
         /// <summary>
         /// DE_OS_03: Top CCD
         /// </summary>
-        openstage_ccd_top_1,
+        openstage_camera_top_1,
 
         /// <summary>
         /// DE_OS_16: Front CCD
         /// </summary>
-        openstage_ccd_front_1,
+        openstage_camera_front_1,
 
         /// <summary>
         /// DE_OS_20: Barcode CCD
         /// </summary>
-        openstage_ccd_barcode_1,
+        openstage_camera_barcode_1,
 
         /// <summary>
         /// DE_OS_18: Light Bar (Top)

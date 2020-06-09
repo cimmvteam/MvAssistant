@@ -23,6 +23,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var ip = this.GetDevSetting(DevConnStr_Ip);
             var port = this.GetDevSettingInt(DevConnStr_PortId);
             this.m_PlcContext = MacHalPlcContext.Get(ip, port);
+
+            //this.HalContext
+
             return 0;
         }
 
@@ -31,6 +34,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public override int HalConnect()
         {
+            this.GetPlcContext();
             return 0;
         }
 

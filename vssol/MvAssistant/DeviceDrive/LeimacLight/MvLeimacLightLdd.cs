@@ -14,7 +14,16 @@ namespace MvAssistant.DeviceDrive.LeimacLight
     {
 
         public CtkNonStopTcpClient TcpClient = new CtkNonStopTcpClient();
-        public string RemoteIp { get { return this.TcpClient.remoteEP.Address.ToString(); } set { this.TcpClient.remoteEP.Address = IPAddress.Parse(value); } }
+
+        IPEndPoint RemoteEp
+        {
+            get
+            {
+                if (this.TcpClient.remoteEP == null) this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);
+                return this.TcpClient.remoteEP;
+            }
+        }
+        public string RemoteIp { get { return this.RemoteEp.Address.ToString(); } set { this.RemoteEp.Address = IPAddress.Parse(value); } }
         public int RemotePort { get { return this.TcpClient.remoteEP.Port; } set { this.TcpClient.remoteEP.Port = value; } }
         public MvEnumLeimacModel Model = MvEnumLeimacModel.None;
 
