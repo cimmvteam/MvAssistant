@@ -130,6 +130,7 @@
     <Compile Include="Hal\CompCamera\HalCameraiDSU3Cam.cs" />
     <Compile Include="Hal\CompCamera\HalCameraSenTech.cs" />
     <Compile Include="Hal\CompCamera\IHalCamera.cs" />
+    <Compile Include="ImgProc\MacImgProcBase.cs" />
     <Compile Include="JSon\BTRobotPath.cs" />
     <Compile Include="JSon\JSonHelper.cs" />
     <Compile Include="JSon\PositionInfo.cs" />

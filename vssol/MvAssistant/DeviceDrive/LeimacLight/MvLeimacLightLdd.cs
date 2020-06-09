@@ -35,6 +35,8 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
             if (port.HasValue) this.RemotePort = port.Value;
 
+            this.TcpClient.EhDataReceive += TcpClient_EhDataReceive;
+
             this.TcpClient.ConnectIfNo();
 
 
@@ -42,8 +44,77 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             return 0;
         }
 
-        public int GetValue(int ch)
+        private void TcpClient_EhDataReceive(object sender, CToolkit.v1_1.Protocol.CtkProtocolEventArgs e)
         {
+            var resp = e.TrxMessage.GetString();
+
+            var cmdType = resp.Substring(0, 3);
+            var data = resp.Substring(3);
+
+            switch (this.Model)
+            {
+                case MvEnumLeimacModel.IWDV_100S_24:
+                    
+
+
+
+                    break;
+
+
+                case MvEnumLeimacModel.IWDV_600M2_24:
+                    break;
+
+
+
+                case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
+                case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                    break;
+
+
+            }
+
+            switch (cmdType)
+            {
+                case "R12":
+                    break;
+
+            }
+
+
+
+        }
+
+
+
+
+        public int[] GetValues()
+        {
+            //需等連線完成
+            if (!MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
+                return null;
+
+
+            var cmdType = "R12";
+            var cmd = "";
+            switch (this.Model)
+            {
+                case MvEnumLeimacModel.IWDV_100S_24:
+                    cmd = string.Format("{0}0000", cmdType);
+                    break;
+                case MvEnumLeimacModel.IWDV_600M2_24:
+                    cmd = string.Format("{0}0000", cmdType);
+                    break;
+                case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
+                case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                    cmdType = "R11";
+                    cmd = string.Format("{0}0000", cmdType);
+                    break;
+                default: throw new MvException("No assign Model.");
+            }
+
+
+            this.TcpClient.WriteMsg(cmd);
+
 
 
             return 0;
@@ -54,7 +125,8 @@ namespace MvAssistant.DeviceDrive.LeimacLight
         public int SetValue(int ch, int value)
         {
             //需等連線完成
-            MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected);
+            if (!MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
+                return -1;
 
 
             if (value > 999) throw new MvException("Light value can not set over 999");

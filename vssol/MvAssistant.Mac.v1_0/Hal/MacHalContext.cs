@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.Mac.v1_0.Hal.CompLight;
+using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.Manifest.Exceptions;
 using System;
 using System.Collections.Generic;
