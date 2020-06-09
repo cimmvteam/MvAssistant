@@ -236,7 +236,13 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public List<MacManifestDriverCfg> DriverRealCamera()
         {
             return new MacManifestDriverCfg[]{
-
+                new MacManifestDriverCfg(){
+                    Vendor="Sentech",
+                    Product ="Camera Controller",
+                    Remark=null,
+                    AssignType=typeof(Hal.CompCamera.HalCameraSenTech),
+                    DriverId=ManifestDriverId.SentechCamera.ToString(),
+                }
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverRealDevice()
