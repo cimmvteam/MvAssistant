@@ -30,6 +30,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public override int HalClose()
         {
+            //可能有其它人在使用 Resource, 不在個別 HAL 裡釋放, 由 HalContext 統一釋放
             using (var obj = this.plcContext)
             {
                 if (plcContext != null)

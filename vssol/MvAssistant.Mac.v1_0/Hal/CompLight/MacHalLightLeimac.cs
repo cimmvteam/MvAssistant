@@ -49,6 +49,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
             throw new NotImplementedException();
         }
 
+        public int GetValue()
+        {
+            if (this.ldd == null) throw new MacException("Deivce drive is not initialize.");
+            return this.ldd.GetValues()[this.channel - 1];
+        }
+
 
 
 
@@ -61,7 +67,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
             this.model = this.GetDevConnStrEnum<MvEnumLeimacModel>(DevConnStr_Model);
             this.channel = this.GetDevConnStrInt(DevConnStr_Channel);
 
-            this.ldd = this.HalContext.ResourceGetOrRegister(this.resourceKey, ()=> new MvLeimacLightLdd()
+            this.ldd = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MvLeimacLightLdd()
             {
                 RemoteIp = this.ip,
                 RemotePort = this.port,

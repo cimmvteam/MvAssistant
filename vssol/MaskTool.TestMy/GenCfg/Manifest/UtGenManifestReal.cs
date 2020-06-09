@@ -45,7 +45,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             {
 
                 ID = EnumMachineId.DE_BT_A_ASB.ToString(),
-                DevConnStr = "127.0.0.1;3039",
+                DevConnStr = null,
                 DeviceName = MacEnumDevice.boxtransfer_assembly.ToString(),
                 DriverId = ManifestDriverId.BoxTransfer.ToString(),
                 PositionId = MacEnumPositionId.BoxTrasnfer01.ToString(),
@@ -57,7 +57,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
                      new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_BT_02.ToString(),
                         DevConnStr = "ip=192.168.0.150",
                         DeviceName = MacEnumDevice.boxtransfer_robot_1.ToString(),
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
@@ -310,7 +309,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
 
                     new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_MT_A_02.ToString(),
                         DevConnStr = "ip=192.168.0.140",
                         DeviceName = MacEnumDevice.masktransfer_robot_1.ToString(),
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
@@ -370,7 +368,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DeviceName = MacEnumDevice.openstage_camera_top_1.ToString(),
                         DriverId = ManifestDriverId.SentechCamera.ToString(),
                     },
-                    
+
                 },
             };
             return rs;
@@ -387,7 +385,6 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 PositionId = null,
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        ID = EnumMachineId.DE_UNI_A_01.ToString(),
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.universal_plc_01.ToString(),
                         DriverId = ManifestDriverId.UniversalPlc.ToString(),

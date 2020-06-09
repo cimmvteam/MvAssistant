@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.Mac.v1_0.Hal.CcompDrawer;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
@@ -11,11 +12,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         #region Device Components
-
         public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(MacEnumDevice.cabinet_plc); } }
-
-
+        public IMacHalDrawer Drawer(int index)
+        {
+            var key = string.Format("{0}_{1:000}", MacEnumDevice.cabinet_drawer, index);
+            return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
+        }
         #endregion Device Components
+
+
 
         #region Set Parameter
         /// <summary>
@@ -32,7 +37,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Valve1">節流閥1</param>
         /// <param name="Valve2">節流閥2</param>
         public void SetExhaustFlow(int? Valve1, int? Valve2)
-        { Plc.SetExhaustFlow(Valve1,Valve2); }
+        { Plc.SetExhaustFlow(Valve1, Valve2); }
         #endregion
 
         #region Read Parameter

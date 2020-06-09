@@ -55,37 +55,14 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
             return new MacManifestDriverCfg[]{
 
 
-                new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Mask Gripper",
-                    Remark = null,
-                    AssignType = typeof(Hal.ComponentFake.Gripper.HalGripperFake),
-                    DriverId = ManifestDriverId.MaskGripperFake.ToString(),
-                    DriverPath = null,
-                },
-                new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Box Gripper",
-                    Remark = null,
-                    AssignType = typeof(Hal.ComponentFake.Gripper.HalGripperFake),
-                    DriverId = ManifestDriverId.BoxGripperFake.ToString(),
-                    DriverPath = null,
-                },
+
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverFakeOpticSensor()
         {
             return new MacManifestDriverCfg[]{
 
-                new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Fake Laser Sensor",
-                    Remark = null,
-                    AssignType = typeof(Hal.ComponentFake.Laser.HalLaserFake),
-                    DriverId = ManifestDriverId.Laser_Fake.ToString(),
-                    DriverPath = null,
-                },
-                }.ToList();
+            }.ToList();
         }
 
 
@@ -255,7 +232,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         {
             return new MacManifestDriverCfg[]{
                 new MacManifestDriverCfg(){
-                    Vendor = "Leiman",
+                    Vendor = "Leimac",
                     Product = "Light Controller",
                     Remark = null,
                     AssignType = typeof(Hal.CompLight.MacHalLightLeimac),
@@ -275,44 +252,13 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     DriverId = ManifestDriverId.FanucRobot.ToString(),
                     DriverPath = null,
                 },
-                new MacManifestDriverCfg(){
-                    Vendor = "NRC",
-                    Product = "Mask Gripper",
-                    Remark = null,
-                    AssignType = typeof(Hal.Component.Gripper.HalPlcOmronCustom01),
-                    DriverId = ManifestDriverId.MaskGripperNrc.ToString(),
-                    DriverPath = null,
-                },
-                new MacManifestDriverCfg(){
-                    Vendor = "Hirata",
-                    Product = "Inspection Stage",
-                    Remark = null,
-                    AssignType = typeof(Hal.Component.Stage.HalStageHirata),
-                    DriverId = ManifestDriverId.InspectionStage_Hirata.ToString(),
-                    DriverPath = null,
-                },
 
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverRealOpticSensor()
         {
             return new MacManifestDriverCfg[]{
-                new MacManifestDriverCfg(){
-                    Vendor = "Omron",
-                    Product = "Laser",
-                    Remark = null,
-                    AssignType = typeof(Hal.Component.Laser.HalLaserOmron),
-                    DriverId = ManifestDriverId.LaserEntry_OmronPlc.ToString(),
-                    DriverPath = null,
-                },
-                new MacManifestDriverCfg(){
-                    Vendor = "Omron",
-                    Product = "Laser",
-                    Remark = null,
-                    AssignType = typeof(Hal.Component.Laser.HalLaserOmron),
-                    DriverId = ManifestDriverId.LaserCollision_OmronPlc.ToString(),
-                    DriverPath = null,
-                },
+
             }.ToList();
         }
     }

@@ -10,7 +10,7 @@ using System.Threading;
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
     [Guid("EEED741C-18BC-465E-9772-99F19DD68BD3")]
-    public class MacHalPlcContext :  IDisposable
+    public class MacHalPlcContext : IDisposable
     {
 
 
@@ -116,8 +116,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public void Close()
         {
-            using (var obj = this.PlcLdd)
+            if (this.PlcLdd != null)
             {
+                using (var obj = this.PlcLdd)
+                {
+                    obj.NLPLC_ClosePort();
+                    this.PlcLdd = null;
+                }
             }
 
             if (this.m_keepConnection != null)
@@ -216,7 +221,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public void ResetAll()
         {
-            string Result = "";
             try
             {
                 this.Write(MacHalPlcEnumVariable.Reset_ALL, false);
@@ -276,7 +280,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
         }
 
-        public Tuple< bool,bool,bool,bool,bool> ReadBCP_EMO()
+        public Tuple<bool, bool, bool, bool, bool> ReadBCP_EMO()
         {
             return new Tuple<bool, bool, bool, bool, bool>(
                 this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO1),
@@ -372,7 +376,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         protected virtual void DisposeSelf()
         {
-            this.Close();
+            this.Close();//若有 Close 呼叫 Close, 若沒有就呼叫 DisposeSelf
         }
 
 

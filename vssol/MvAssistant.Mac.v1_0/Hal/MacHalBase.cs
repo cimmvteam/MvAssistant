@@ -12,11 +12,10 @@ namespace MvAssistant.Mac.v1_0.Hal
     [GuidAttribute("8592A98B-C7DD-46C3-9965-BFD952A7742A")]
     public abstract class HalBase : IHal, IDisposable
     {
+        public MacHalContext HalContext;
         public MacManifestDeviceCfg HalDeviceCfg;
         public MacManifestDriverCfg HalDriverCfg;
         public Dictionary<string, HalBase> Hals = new Dictionary<string, HalBase>();
-        public MacHalContext HalContext;
-
         ~HalBase() { this.Dispose(false); }
         public string ID { get { return this.HalDeviceCfg.ID; } }
 
@@ -45,8 +44,8 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         #region IHal
 
-        public virtual int HalClose() { throw new NotImplementedException(); }
-        public virtual int HalConnect() { throw new NotImplementedException(); }
+        public abstract int HalClose();
+        public abstract int HalConnect();
         public virtual bool HalIsConnected() { throw new NotImplementedException(); }
         public virtual int HalStop() { throw new NotImplementedException(); }
 
@@ -54,7 +53,6 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         #region Device Setting
 
-        protected string DeviceConnStr { get { return this.HalDeviceCfg.DevConnStr; } }
         private Dictionary<string, string> m_DevSettings;
         public Dictionary<string, string> DevSettings
         {
@@ -65,10 +63,12 @@ namespace MvAssistant.Mac.v1_0.Hal
             }
         }
 
-        public int GetDevConnStrInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
+        protected string DeviceConnStr { get { return this.HalDeviceCfg.DevConnStr; } }
         public string GetDevConnStr(string key) { return this.DevSettings[key.ToLower()]; }
+
         public T GetDevConnStrEnum<T>(string key) { return MvUtil.EnumParse<T>(this.DevSettings[key] as string); }
 
+        public int GetDevConnStrInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
         protected Dictionary<string, string> GetDevConnStr()
         {
             if (string.IsNullOrEmpty(this.DeviceConnStr)) return new Dictionary<string, string>();
