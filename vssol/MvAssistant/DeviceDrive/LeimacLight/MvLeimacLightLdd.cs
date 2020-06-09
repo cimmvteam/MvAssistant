@@ -12,8 +12,11 @@ namespace MvAssistant.DeviceDrive.LeimacLight
 {
     public class MvLeimacLightLdd : IDisposable
     {
-
         public CtkNonStopTcpClient TcpClient = new CtkNonStopTcpClient();
+        public DateTime LastSend;
+        public DateTime LastReceive;
+        public int[] Values = new int[4];//目前控制器最多4個channel
+
 
         IPEndPoint RemoteEp
         {
@@ -60,34 +63,40 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             var cmdType = resp.Substring(0, 3);
             var data = resp.Substring(3);
 
-            switch (this.Model)
+            if (cmdType == "R12")
             {
-                case MvEnumLeimacModel.IWDV_100S_24:
-                    
-
-
-
-                    break;
-
-
-                case MvEnumLeimacModel.IWDV_600M2_24:
-                    break;
-
-
-
-                case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
-                case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
-                    break;
-
-
+                switch (this.Model)
+                {
+                    case MvEnumLeimacModel.IWDV_100S_24:
+                    case MvEnumLeimacModel.IWDV_600M2_24:
+                        for (var idx = 0; data.Length > 0; idx++)
+                        {
+                            this.Values[idx] = Int32.Parse(data.Substring(0, 4));
+                            data = data.Substring(4);
+                        }
+                        break;
+                }
             }
 
-            switch (cmdType)
+            if (cmdType == "R11")
             {
-                case "R12":
-                    break;
-
+                switch (this.Model)
+                {
+                    case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
+                    case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                        for (var idx = 0; data.Length > 0; idx++)
+                        {
+                            this.Values[idx] = Int32.Parse(data.Substring(0, 4));
+                            data = data.Substring(4);
+                        }
+                        break;
+                }
             }
+
+            this.LastReceive = DateTime.Now;
+
+
+
 
 
 
@@ -122,11 +131,12 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             }
 
 
+
+            this.LastSend = DateTime.Now;
             this.TcpClient.WriteMsg(cmd);
 
-
-
-            return 0;
+            if (!MvSpinWait.SpinUntil(() => this.LastReceive > this.LastSend, 1000)) return null;
+            return this.Values;
         }
 
 
