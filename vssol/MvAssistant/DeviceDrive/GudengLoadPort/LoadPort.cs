@@ -37,8 +37,10 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         {
             var eventArgs = (OnReceviceRtnFromServerEventArgs)args;
             ReturnFromServer rtnContent = new ReturnFromServer(eventArgs.RtnContent);
-            typeof(LoadPort).GetMethod(rtnContent.StringContent.Replace(" ","_")).Invoke(this, new object[] { rtnContent});
-            
+            var methodName = rtnContent.StringContent.Replace(" ", "_");//.Replace("\0", "");
+            var method = typeof(LoadPort).GetMethod(methodName);
+            method.Invoke(this, new object[] { rtnContent });
+
         }
 
         public void  ListenServer()
@@ -64,6 +66,9 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 byte[] B = new byte[1023];
                 int inLine = ClientSocket.Receive(B);//從Server端回復
                 string rtn = Encoding.Default.GetString(B, 0, inLine);
+
+                //rtn = "~001,Placement,0@\0\0\0\0";
+
                 Debug.WriteLine("[RETURN] " + rtn);
                 if (OnReceviceRtnFromServerHandler != null)
                 {

@@ -15,8 +15,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         MvGudengLoadPortLdd ldd = new MvGudengLoadPortLdd();
       public UtHalLoadPort()
       {
-            //LoadPort1 =  ldd.CreateLoadPort("192.168.0.11", 2013, 1);
-            LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+            LoadPort1 =  ldd.CreateLoadPort("192.168.0.11", 2013, 1);
+            //LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
             LoadPort1.ListenServer();
         }
 
