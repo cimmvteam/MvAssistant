@@ -3,6 +3,7 @@ using MvAssistant.Mac.v1_0.Hal.CompCamera;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -20,7 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
 
         #endregion Device Components
-        
+
 
         /// <summary>
         /// 開盒
@@ -193,9 +194,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion
 
-        public void CameraTopCap()
+        public Bitmap Camera_Top_CapToImg()
         {
-            CameraTop.Shot();
+            return CameraTop.Shot();
+        }
+
+        public void Camera_Side_CapToSave()
+        {
+            Bitmap bmp = CameraSide.Shot();
+            CameraSide.SaveImage(bmp, "D:/", "jpg");
         }
     }
 }

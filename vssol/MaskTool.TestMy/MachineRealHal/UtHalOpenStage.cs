@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
+using System.Drawing;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -17,8 +18,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                os.HalConnect();
 
-                os.CameraTopCap();
+                Bitmap bmp = os.Camera_Top_CapToImg();
+                os.CameraSide.SaveImage(bmp, "D:/", "jpg");
             }
         }
 

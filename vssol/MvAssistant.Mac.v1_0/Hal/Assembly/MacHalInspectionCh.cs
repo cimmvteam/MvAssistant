@@ -27,7 +27,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public void DefenseCheck()
         {
-
+            CameraSide.Shot();
 
         }
 

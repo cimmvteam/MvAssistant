@@ -22,17 +22,17 @@
         <Device DevConnStr="ip=192.168.0.161;port=1000;model=IDGB_50M2PG_12_TP;channel=1" DeviceName="inspectionch_light_circle_inspection_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.162;port=1000;model=IWDV_600M2_24;channel=1" DeviceName="inspectionch_light_spot_inspection_left_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.162;port=1000;model=IWDV_600M2_24;channel=2" DeviceName="inspectionch_light_spot_inspection_right_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="id=00-11-1C-F8-C6-26" DeviceName="inspectionch_camera_inspect_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F8:C6:26" DeviceName="inspectionch_camera_inspect_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
         <Device DevConnStr="id=TXF-MDT1X150-D35" DeviceName="inspection_camera_inspect_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=00-11-1C-F9-A4-0A" DeviceName="inspection_camera_defense_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=00-11-1C-F9-A4-0D" DeviceName="inspection_camera_defense_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:A4:0A" DeviceName="inspection_camera_defense_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:A4:0D" DeviceName="inspection_camera_defense_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
       </Devices>
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="clean_assembly" DriverId="c062fa7f-3825-4ea6-8be0-0afa876ba7e4" ID="DE_CC_A_ASB" PositionId="CleanCh01">
       <Devices>
         <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="cleanch_plc" DriverId="bafa23c0-8fe2-4365-abd6-4d9c51722d8d" />
         <Device DevConnStr="ip=192.168.0.129;port=1000;model=IWDV_100S_24;channel=1" DeviceName="cleanch_inspection_spot_light_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="id=00-11-1C-F9-A4-08" DeviceName="clean_ccd_particle_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:A4:08" DeviceName="clean_camera_particle_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
       </Devices>
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="masktransfer_assembly" DriverId="69fc9c19-9621-4852-82e2-4ad1cf14e642" ID="DE_MT_A_ASB" PositionId="MaskTransfer01">
@@ -51,15 +51,15 @@
         <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="openstage_plc" DriverId="58a26d37-1181-4fc9-8479-0f2451905430" />
         <Device DevConnStr="ip=192.168.0.139;port=1000;model=IDGB_50M4PG_24_TP;channel=1" DeviceName="openstage_light_bar_defense_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.139;port=1000;model=IDGB_50M4PG_24_TP;channel=2" DeviceName="openstage_light_bar_defense_side_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="id=00-11-1C-F9-A3-45" DeviceName="openstage_ccd_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=00-11-1C-F9-15-E4" DeviceName="openstage_ccd_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:A3:45" DeviceName="openstage_camera_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:15:E4" DeviceName="openstage_camera_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
       </Devices>
     </Device>
     <Device DevConnStr="127.0.0.1;3039" DeviceName="boxtransfer_assembly" DriverId="9f102552-22ef-42ad-8f36-edc709808ce8" ID="DE_BT_A_ASB" PositionId="BoxTrasnfer01">
       <Devices>
         <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="boxtransfer_plc" DriverId="56ca482d-90c4-40fd-a045-d11ca1d3168b" />
         <Device DevConnStr="ip=192.168.0.150" DeviceName="boxtransfer_robot_1" DriverId="b2e74fc0-ffa0-467b-8f69-208fe628a693" ID="DE_BT_02" />
-        <Device DevConnStr="id=00-11-1C-F9-A3-23" DeviceName="boxtransfer_ccd_gripper_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:A3:23" DeviceName="boxtransfer_camera_gripper_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
       </Devices>
     </Device>
     <Device DeviceName="universal_assembly" DriverId="5abe148e-4dbc-4c3c-a615-958a817c26ba" ID="DE_UNI_A_ASB">

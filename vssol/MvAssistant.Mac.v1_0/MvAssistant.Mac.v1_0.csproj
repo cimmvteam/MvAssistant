@@ -31,11 +31,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GenApiDotNet20_v3_0, Version=3.0.2.3, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\GenApiDotNet20_v3_0.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StApiDotNet20_v1_0, Version=1.0.8.0, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\StApiDotNet20_v1_0.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />

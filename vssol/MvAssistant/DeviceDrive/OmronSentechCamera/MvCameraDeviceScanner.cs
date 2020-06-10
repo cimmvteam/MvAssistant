@@ -46,8 +46,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         CStSystem system;
         CStDevice[] StDevice;
         CStDataStream[] dataStream;
-        //CStImageBuffer imageBuffer;
-        //CStStillImageFiler stillImageFiler;
         uint uInterface = 0;
         uint uCamCnt = 0;
         IStInterface StInterface;
@@ -70,7 +68,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 // 停止主機取像
                 for (int i = 0; i < uCamCnt; i++)
                 {
-                    dataStream[i].StopAcquisition();
                     dataStream[i].Dispose();
                 }
             }
@@ -80,7 +77,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 // 停止相機取像
                 for (int i = 0; i < uCamCnt; i++)
                 {
-                    StDevice[i].AcquisitionStop();
                     StDevice[i].Dispose();
                 }
             }
@@ -95,37 +91,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             {
                 camera.Value.Dispose();
             }
-
-            //if (BT_ccd_gripper_1 != null)
-            //    BT_ccd_gripper_1.Dispose();
-            //if (CC_ccd_particle_1 != null)
-            //    CC_ccd_particle_1.Dispose();
-            //if (IC_ccd_inspect_side_1 != null)
-            //    IC_ccd_inspect_side_1.Dispose();
-            //if (IC_ccd_inspect_top_1 != null)
-            //    IC_ccd_inspect_top_1.Dispose();
-            //if (IC_ccd_defense_side_1 != null)
-            //    IC_ccd_defense_side_1.Dispose();
-            //if (IC_ccd_defense_top_1 != null)
-            //    IC_ccd_defense_top_1.Dispose();
-            //if (LP_ccd_front_1 != null)
-            //    LP_ccd_front_1.Dispose();
-            //if (LP_ccd_side_1 != null)
-            //    LP_ccd_side_1.Dispose();
-            //if (LP_ccd_top_1 != null)
-            //    LP_ccd_top_1.Dispose();
-            //if (MT_ccd_pellicle_deform_1 != null)
-            //    MT_ccd_pellicle_deform_1.Dispose();
-            //if (MT_ccd_barcode_reader_1 != null)
-            //    MT_ccd_barcode_reader_1.Dispose();
-            //if (OS_ccd_side_1 != null)
-            //    OS_ccd_side_1.Dispose();
-            //if (OS_ccd_top_1 != null)
-            //    OS_ccd_top_1.Dispose();
-            //if (OS_ccd_front_1 != null)
-            //    OS_ccd_front_1.Dispose();
-            //if (OS_ccd_barcode_1 != null)
-            //    OS_ccd_barcode_1.Dispose();
         }
 
         public string[] ScanAlldevice()
@@ -161,7 +126,6 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                     dataStream[uCamCnt] = StDevice[uCamCnt].CreateStDataStream(0);
 
                     this.cameras[tmpDeviceInfoPtr.ID] = new MvOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
-                    //BT_ccd_gripper_1 = new MvOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
 
                     uCamCnt++;
                 }

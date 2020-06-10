@@ -28,11 +28,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             throw new NotImplementedException();
         }
 
-        Image IHalCamera.Shot()
-        {
-            throw new NotImplementedException();
-        }
-
         void IHalCamera.SetExposureTime(double mseconds)
         {
             throw new NotImplementedException();
@@ -58,6 +53,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 
 
         public Image Shot(string imgFolderPath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bitmap Shot()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int SaveImage(Bitmap bmp, string SavePath, string FileType)
         {
             throw new NotImplementedException();
         }

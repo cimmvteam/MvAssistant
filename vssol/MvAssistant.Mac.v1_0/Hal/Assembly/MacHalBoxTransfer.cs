@@ -8,6 +8,7 @@ using System.Threading;
 using System.Data;
 using System.IO;
 using System.Text;
+using MvAssistant.Mac.v1_0.Hal.CompCamera;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -18,7 +19,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(MacEnumDevice.boxtransfer_plc); } }
         public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.boxtransfer_robot_1); } }
-
+        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.boxtransfer_camera_gripper_1); } }
         #endregion Device Components
 
         #region Path test, 2020/05/25
