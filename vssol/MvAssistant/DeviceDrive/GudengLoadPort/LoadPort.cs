@@ -52,12 +52,14 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 byte[] B = new byte[1023];
                 int inLine = ClientSocket.Receive(B);//從Server端回復
                 string message = Encoding.Default.GetString(B, 0, inLine);
+                Debug.WriteLine("[RETURN] " + message);
             }
         }
 
-        private void Send(string sendText)
+        private void Send(string commandText)
         {
-            byte[] B = Encoding.Default.GetBytes(sendText);
+            Debug.WriteLine("[COMMAND] " + commandText);
+            byte[] B = Encoding.Default.GetBytes(commandText);
            ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
         }
         #region Command
@@ -79,7 +81,6 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public void CommandAskClamperStatus()
         {
            var command= new AskClamperStatus().GetCommandText();
-            Debug.WriteLine(command);
             Send(command);
         }
 
