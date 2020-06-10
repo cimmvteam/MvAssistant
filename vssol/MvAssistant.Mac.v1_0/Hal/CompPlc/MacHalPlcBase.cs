@@ -11,50 +11,53 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
     [Guid("22421239-9CEA-4050-AE0C-FF997A872FED")]
     public abstract class MacHalPlcBase : MacHalComponentBase
     {
-
+        #region Const
         public const string DevConnStr_Ip = "ip";
         public const string DevConnStr_PortId = "portid";
+        #endregion
 
+        #region Device Connection Str
+        string ip;
+        int portid;
+        string resourceKey { get { return string.Format("net.tcp://{0}:{1}", this.ip, this.portid); } }
+        #endregion
 
-        protected MacHalPlcContext m_PlcContext;
+        protected MacHalPlcContext plcContext;
 
-        public int GetPlcContext()
-        {
-            var ip = this.GetDevSetting(DevConnStr_Ip);
-            var port = this.GetDevSettingInt(DevConnStr_PortId);
-            this.m_PlcContext = MacHalPlcContext.Get(ip, port);
-
-            //this.HalContext
-
-            return 0;
-        }
 
 
         #region Hal
 
-        public override int HalConnect()
-        {
-            this.GetPlcContext();
-            return 0;
-        }
-
         public override int HalClose()
         {
-            using (var obj = this.m_PlcContext)
+            //可能有其它人在使用 Resource, 不在個別 HAL 裡釋放, 由 HalContext 統一釋放
+            using (var obj = this.plcContext)
             {
-                if (m_PlcContext != null)
+                if (plcContext != null)
                 {
-                    this.m_PlcContext.Close();
-                    this.m_PlcContext = null;
+                    this.plcContext.Close();
+                    this.plcContext = null;
                 }
             }
             return 0;
         }
 
+        public override int HalConnect()
+        {
+            this.ip = this.GetDevConnStr(DevConnStr_Ip);
+            this.portid = this.GetDevConnStrInt(DevConnStr_PortId);
+            this.plcContext = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MacHalPlcContext()
+            {
+                PlcIp = this.ip,
+                PlcPortId = this.portid,
+            });
+
+            return 0;
+        }
         public override bool HalIsConnected()
         {
-            if (this.m_PlcContext == null) return false;
-            return this.m_PlcContext.ReadPowerON();
+            if (this.plcContext == null) return false;
+            return this.plcContext.ReadPowerON();
         }
 
 

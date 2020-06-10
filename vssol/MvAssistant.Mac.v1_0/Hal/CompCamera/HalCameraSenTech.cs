@@ -16,20 +16,29 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
     [GuidAttribute("90BA4CDC-7A82-454A-8F3F-6FE6413AEF41")]
     public class HalCameraSenTech : MacHalComponentBase, IHalCamera
     {
+        #region Const
         public const string DevConnStr_Id = "id";
+        #endregion
+
+        #region DevConnStr
         string id;
-        string resourceKey { get { return "MvCameraDeviceScanner"; } }
+        string resourceKey { get { return "resource://" + typeof(MvOmronSentechCameraScanner).Name; } }
+        #endregion
+
         MvOmronSentechCameraLdd ldd;
 
 
+
+        #region HAL
+
         public override int HalConnect()
         {
-            this.id = this.GetDevSetting(DevConnStr_Id);
+            this.id = this.GetDevConnStr(DevConnStr_Id);
 
-            var scanner = this.HalContext.ResourceGetOrDefault<MvCameraDeviceScanner>(this.resourceKey);
+            var scanner = this.HalContext.ResourceGetOrDefault<MvOmronSentechCameraScanner>(this.resourceKey);
             if (scanner == null)
             {
-                scanner = new MvCameraDeviceScanner();
+                scanner = new MvOmronSentechCameraScanner();
                 scanner.Connect();
                 scanner.ScanAlldevice();
                 this.HalContext.ResourceRegister(this.resourceKey, scanner);
@@ -61,6 +70,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             //可能有其它人在使用 Resource, 不在個別 HAL 裡釋放, 由 HalContext 統一釋放
             return 0;
         }
+
+
+        #endregion
+
 
         public void SetExposureTime(double mseconds)
         {

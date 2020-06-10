@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 
-namespace MaskCleaner.StateMachine_v1_0
+namespace MaskAutoCleaner.StateMachine_v1_0
 {
     public class StateMachineBuilder
     {

@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcCleanCh() { }
         public MacHalPlcCleanCh(MacHalPlcContext plc = null)
         {
-            this.m_PlcContext = plc;
+            this.plcContext = plc;
         }
 
 
@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定各種大小Particle的數量限制
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (L_Limit != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PD_L_Limit, L_Limit);
@@ -41,7 +41,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取各種大小Particle的數量限制
         public Tuple<int, int, int> ReadParticleCntLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<int, int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_CC_PD_L_Limit),
@@ -53,7 +53,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取各種大小Particle的數量
         public Tuple<int, int, int> ReadParticleCount()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<int, int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_PD_L),
@@ -66,7 +66,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Mask水平
         public Tuple<double, double, double> ReadMaskLevel()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_MaskLevel1),
@@ -79,7 +79,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定手臂可侵入的左右區間極限值
         public void SetRobotAboutLimit(double? Limit_L, double? Limit_R)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (Limit_L != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L, Limit_L);
@@ -90,7 +90,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取手臂可侵入的左右區間極限值
         public Tuple<double, double> ReadRobotAboutLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
                         plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_AboutLimit_L),
@@ -101,7 +101,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Robot入侵位置(左右)
         public double ReadRobotPosAbout()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_RobotPosition_About);
         }
@@ -111,7 +111,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定手臂可侵入的上下區間極限值
         public void SetRobotUpDownLimit(double? Limit_U, double? Limit_D)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (Limit_U != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_U, Limit_U);
@@ -122,7 +122,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取手臂可侵入的上下區間極限值
         public Tuple<double, double> ReadRobotUpDownLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
                         plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_Robot_UpDownLimit_U),
@@ -133,7 +133,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Robot入侵位置(上下)
         public double ReadRobotPosUpDown()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_RobotPosition_UpDown);
         }
@@ -143,7 +143,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定壓力表壓差限制
         public void SetPressureDiffLimit(uint PressureLimit)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             plc.Write(MacHalPlcEnumVariable.PC_TO_CC_DP_Limit, PressureLimit);
         }
@@ -151,7 +151,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取壓力表壓差限制設定
         public int ReadPressureDiffLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_CC_DP_Limit);
         }
@@ -159,7 +159,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取實際壓差
         public int ReadPressureDiff()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_DP);
         }
@@ -169,7 +169,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string GasValveBlow(uint BlowTime)
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_CC_BlowTime, BlowTime);
@@ -207,7 +207,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定吹氣壓力值
         public void SetPressureCtrl(double AirPressure)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             plc.Write(MacHalPlcEnumVariable.PC_TO_CC_PressureControl, AirPressure);
         }
@@ -215,7 +215,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取吹氣壓力設定值
         public double ReadPressureCtrlSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.PC_TO_CC_PressureControl);
         }
@@ -223,7 +223,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取實際吹氣壓力
         public Single ReadBlowPressure()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<Single>(MacHalPlcEnumVariable.CC_TO_PC_PressureControl);
         }
@@ -232,7 +232,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取壓力表數值
         public double ReadPressure()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.CC_TO_PC_Pressure);
         }
@@ -240,7 +240,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms
         public Tuple<bool, bool, bool> ReadLightCurtain()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<bool, bool, bool>(
             plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area1),//Right

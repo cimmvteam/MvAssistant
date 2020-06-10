@@ -45,12 +45,12 @@ namespace MvAssistant.Mac.TestMy.Device
                 light.ConnectIfNo("192.168.0.160", 1000);
 
                 //IC2: ch1: Top Inspcetion 環形光 ; ch2: No install
-                light.Model = MvEnumLeimacModel.IDGB_50M2PG_12_TP;
-                light.ConnectIfNo("192.168.0.161", 1000);
+                //light.Model = MvEnumLeimacModel.IDGB_50M2PG_12_TP;
+                //light.ConnectIfNo("192.168.0.161", 1000);
 
                 //IC3: ch1: Left Spot Light ; ch2: Right Spot Light
-                light.Model = MvEnumLeimacModel.IWDV_600M2_24;
-                light.ConnectIfNo("192.168.0.162", 1000);
+                //light.Model = MvEnumLeimacModel.IWDV_600M2_24;
+                //light.ConnectIfNo("192.168.0.162", 1000);
 
 
 

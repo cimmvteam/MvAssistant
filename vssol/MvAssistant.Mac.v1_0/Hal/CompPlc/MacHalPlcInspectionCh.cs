@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcInspectionCh() { }
         public MacHalPlcInspectionCh(MacHalPlcContext plc = null)
         {
-            this.m_PlcContext = plc;
+            this.plcContext = plc;
         }
 
 
@@ -27,7 +27,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string XYPosition(double? X_Position, double? Y_Position)
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 if (X_Position != null)
@@ -82,7 +82,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ZPosition(double Z_Position)
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZPoint, Z_Position);
@@ -134,7 +134,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string WPosition(double W_Position)
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WPoint, W_Position);
@@ -185,7 +185,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Initial()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, false);
@@ -225,7 +225,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             if (StageXYSpeed != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XY_Speed, StageXYSpeed);// (mm/sec)
             if (CcdZSpeed != null)
@@ -237,7 +237,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取速度設定
         public Tuple<double, double, double> ReadSpeedSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_XY_Speed),
@@ -249,7 +249,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Robot入侵
         public bool ReadRobotIntrude(bool isIntrude)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
             Thread.Sleep(100);
             return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense);
@@ -258,7 +258,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取 XY Stage位置
         public Tuple<double, double> ReadXYPosition()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_X),
@@ -269,7 +269,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取 CCD Z軸位置
         public double ReadZPosition()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_Z);
         }
@@ -277,7 +277,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取旋轉位置
         public double ReadWPosition()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_Positon_W);
         }
@@ -286,7 +286,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定手臂可侵入的左右區間極限值
         public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (AboutLimit_R != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R, AboutLimit_R);
@@ -297,7 +297,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取手臂可侵入的左右區間極限值
         public Tuple<double, double> ReadRobotAboutLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R),
@@ -308,7 +308,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Robot侵入位置(左右)
         public double ReadRobotPosAbout()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_RobotPosition_About);
         }
@@ -318,7 +318,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定手臂可侵入的上下區間極限值
         public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (UpDownLimit_U != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_U, UpDownLimit_U);
@@ -329,7 +329,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取手臂可侵入的上下區間極限值
         public Tuple<double, double> ReadRobotUpDownLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_UpDownLimit_U),
@@ -340,7 +340,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Robot侵入位置(上下)
         public double ReadRobotPosUpDown()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return plc.Read<double>(MacHalPlcEnumVariable.IC_TO_PC_RobotPosition_UpDown);
         }
@@ -349,7 +349,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadInspChStatus()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_A06Status))
             {
                 case 1:

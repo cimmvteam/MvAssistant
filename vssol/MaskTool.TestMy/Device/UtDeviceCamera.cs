@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.TestMy.Device
         {
             try
             {
-                using (var scanner = new MvCameraDeviceScanner())
+                using (var scanner = new MvOmronSentechCameraScanner())
                 {
                     scanner.Connect();
                     scanner.ScanAlldevice();

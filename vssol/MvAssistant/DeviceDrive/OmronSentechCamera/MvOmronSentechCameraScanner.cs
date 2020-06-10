@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.OmronSentechCamera
 {
-    public class MvCameraDeviceScanner : IDisposable
+    public class MvOmronSentechCameraScanner : IDisposable
     {
         public Dictionary<string, MvOmronSentechCameraLdd> cameras = new Dictionary<string, MvOmronSentechCameraLdd>();
 
@@ -33,11 +33,11 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         //public MvOmronSentechCameraLdd OS_ccd_barcode_1;
         ////  ID：00-11-1C-F9-A8-BE     Name：STC-SBS500POE(19JA599)    OS前，近LP
         ////  ID：00-11-1C-F9-A3-46     Name：STC-SBS500POE(19HC603)    OS前，近CC
-        public MvCameraDeviceScanner()
+        public MvOmronSentechCameraScanner()
         {
            
         }
-        ~MvCameraDeviceScanner() { this.Dispose(false); }
+        ~MvOmronSentechCameraScanner() { this.Dispose(false); }
 
         // 要取得的影像數量
         const int nCountOfImagesToGrab = 1;
