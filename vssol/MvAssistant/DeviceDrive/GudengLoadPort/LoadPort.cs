@@ -79,8 +79,13 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 Debug.WriteLine("[RETURN] " + rtn);
                 if (OnReceviceRtnFromServerHandler != null)
                 {
-                    var eventArgs = new OnReceviceRtnFromServerEventArgs(rtn);
-                    OnReceviceRtnFromServerHandler.Invoke(this, eventArgs);
+                    // 可能一次會有多個結果
+                    var rtnAry = rtn.Split(new string[] { BaseHostToLoadPortCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var element in rtnAry)
+                    {
+                        var eventArgs = new OnReceviceRtnFromServerEventArgs(element);
+                        OnReceviceRtnFromServerHandler.Invoke(this, eventArgs);
+                    }
                 }
             }
         }
