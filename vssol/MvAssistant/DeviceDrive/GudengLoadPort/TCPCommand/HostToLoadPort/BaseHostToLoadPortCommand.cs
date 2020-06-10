@@ -25,7 +25,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
         }
         public  string GetCommandText()
         {
-            return GetRawCommandText();
+            return GetRawCommandText().Replace(BaseTCPCommand.CommandTextReplaceSignPair,"");
         }
 
 

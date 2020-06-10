@@ -1,6 +1,7 @@
 ﻿using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -78,6 +79,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public void CommandAskClamperStatus()
         {
            var command= new AskClamperStatus().GetCommandText();
+            Debug.WriteLine(command);
             Send(command);
         }
 

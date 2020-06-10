@@ -13,22 +13,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         #region global variables
         private LoadPort Loadport1 = null;
-        private LoadPort Loadport2 = null;
+       // private LoadPort Loadport2 = null;
         #endregion
-        public UtHalLoadPort()
-        {
-        //    Loadport1=  new LoadPort("192.168.0.11", 2013, 1);
-          //  Loadport1.ListenServer();
+      public UtHalLoadPort()
+      {
+            Loadport1=  new LoadPort("192.168.0.11", 2013, 1);
+            Loadport1.ListenServer();
         }
 
         [TestMethod]
-        private void TestCommandAskClamperStatus()
+        public void TestCommandAskClamperStatus()
         {
             if (Loadport1.IsListenServer)
             {
                 Loadport1.CommandAskClamperStatus();
             }
-
+           // string s = "";
         }
 
 
