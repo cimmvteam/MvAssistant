@@ -7,7 +7,7 @@ using System.Threading;
 namespace MaskAutoCleaner.Machine.MaskTransfer
 {
 
-    public partial class MaskTransferAsbl : MachineAsblBase
+    public class MacMaskTransferAsbl : MacMachineBase
     {
         public IMacHalMaskTransfer halMaskTransfer { get { return this.halAssembly as IMacHalMaskTransfer; } }
 

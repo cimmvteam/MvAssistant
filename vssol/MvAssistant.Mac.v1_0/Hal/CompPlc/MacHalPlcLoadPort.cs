@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
         public MacHalPlcLoadPort(MacHalPlcContext plc = null)
         {
-            this.m_PlcContext = plc;
+            this.plcContext = plc;
         }
 
 
@@ -26,7 +26,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定壓差極限值
         public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (Gauge1Limit != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
@@ -37,7 +37,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取壓差極限值
         public Tuple<int, int> ReadPressureDiffLimitSrtting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit),
@@ -48,7 +48,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取實際壓差
         public Tuple<int, int> ReadPressureDiff()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.LP_TO_PC_DP1),
@@ -58,7 +58,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public bool ReadLP_Light_Curtain()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
         }
 

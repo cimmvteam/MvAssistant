@@ -15,13 +15,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcOpenStage() { }
         public MacHalPlcOpenStage(MacHalPlcContext plc = null)
         {
-            this.m_PlcContext = plc;
+            this.plcContext = plc;
         }
 
         public string Open()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, false);
@@ -65,7 +65,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Close()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, false);
@@ -113,7 +113,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Clamp()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, false);
@@ -161,7 +161,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Unclamp()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, false);
@@ -209,7 +209,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string SortClamp()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, false);
@@ -257,7 +257,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string SortUnclamp()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, false);
@@ -296,7 +296,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Lock()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
@@ -345,7 +345,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Vacuum(bool isSuck)
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
@@ -392,7 +392,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Initial()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, false);
@@ -440,7 +440,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="BoxType">BoxType = 1：鐵盒 , 2：水晶盒</param>
         public void SetBoxType(uint BoxType)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BoxType, BoxType);
 
         }
@@ -452,7 +452,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public int ReadBoxTypeSetting()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_BoxType);
         }
 
@@ -462,14 +462,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="Speed"></param>
         public void SetSpeed(uint Speed)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Speed, Speed);
 
         }
 
         public int ReadSpeedSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_Speed);
 
         }
@@ -482,7 +482,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
@@ -514,7 +514,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadClampStatus()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_ClampStatus))
             {
                 case 1:
@@ -533,7 +533,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public Tuple<long, long> ReadSortClampPosition()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<long, long>(
                 plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp1_Position),
@@ -547,7 +547,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public Tuple<long, long> ReadSliderPosition()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<long, long>(
                 plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_Slider1_Position),
@@ -561,7 +561,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public Tuple<double, double> ReadCoverPos()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Cover1_Position),
@@ -575,7 +575,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public Tuple<bool, bool> ReadCoverSensor()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<bool, bool>(
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_CoverSensor_Open),
@@ -589,7 +589,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public double ReadBoxDeform()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_SoundWave);
         }
 
@@ -599,7 +599,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public double ReadWeightOnStage()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Weight_Cruuent);
         }
 
@@ -609,14 +609,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public bool ReadBoxExist()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BoxCheckOK);
         }
 
         public string ReadOpenStageStatus()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_A05Status))
             {
                 case 1:
@@ -637,7 +637,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public bool ReadBeenIntruded()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude) || !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude);
         }
     }

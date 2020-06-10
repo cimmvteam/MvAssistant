@@ -25,10 +25,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
 
-        public void DefenseCheck()
+        public bool DefenseCheck()
         {
+            //TODO: Light tun on
+            //  Camera capture
+            // Algo
+            // Light turn off
 
 
+
+            return false;
         }
 
         public void InspectTop()
@@ -55,7 +61,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
             this.Plc.WPosition(270);
             //TODO: Camera
-
 
 
         }

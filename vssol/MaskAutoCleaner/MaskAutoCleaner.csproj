@@ -71,21 +71,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Framework\MachineMgr.cs" />
+    <Compile Include="Machine\MacMachineMgr.cs" />
+    <Compile Include="Machine\MacMachineMgrCfg.cs" />
     <Compile Include="Inspect\DefectItem.cs" />
     <Compile Include="Inspect\DefectList.cs" />
     <Compile Include="Inspect\EnumDefectStatus.cs" />
     <Compile Include="Inspect\EnumDefectType.cs" />
-    <Compile Include="EnumMaskSide.cs" />
-    <Compile Include="Machine\MachineAsblBase.cs" />
-    <Compile Include="Machine\MachineAsblSmBase.cs" />
-    <Compile Include="Machine\MachineBase.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMaskTransferCmdSet.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMaskTransferState.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMaskTransferTransition.cs" />
-    <Compile Include="Machine\MaskTransfer\MaskTransferAsbl.cs" />
-    <Compile Include="Machine\MaskTransfer\MaskTransferAsblSm.cs" />
-    <Compile Include="Machine\MaskTransfer\MaskTransferCmdParam.cs" />
+    <Compile Include="MacEnumMaskSide.cs" />
+    <Compile Include="Machine\MacMachineBase.cs" />
+    <Compile Include="Machine\MacMachineSmBase.cs" />
+    <Compile Include="Machine\McMaskTransfer\EnumMacMaskTransferCmd.cs" />
+    <Compile Include="Machine\SmMaskTransfer\EnumMacSmMaskTransferState.cs" />
+    <Compile Include="Machine\SmMaskTransfer\EnumMacSmMaskTransferTransition.cs" />
+    <Compile Include="Machine\McMaskTransfer\MacMaskTransferAsbl.cs" />
+    <Compile Include="Machine\SmMaskTransfer\MacSmMaskTransfer.cs" />
+    <Compile Include="Machine\MacMachineMediater.cs" />
     <Compile Include="Msg\EnumAlarmId.cs" />
     <Compile Include="Msg\EnumAlarmLevel.cs" />
     <Compile Include="Msg\EnumCeid.cs" />
@@ -143,9 +143,11 @@
     <Compile Include="StateMachine_v1_0\SmExp\StatemMachineException.cs" />
     <Compile Include="StateMachine_v1_0\Transition.cs" />
     <Compile Include="StateMachine_v1_0\TransitionEvaluation.cs" />
-    <Compile Include="StateMachine_v1_1\State.cs" />
-    <Compile Include="StateMachine_v1_1\StateMachine.cs" />
-    <Compile Include="StateMachine_v1_1\Transition.cs" />
+    <Compile Include="StateMachine_v1_1\MacState.cs" />
+    <Compile Include="StateMachine_v1_1\MacStateMachine.cs" />
+    <Compile Include="StateMachine_v1_1\MacTransition.cs" />
+    <Compile Include="StateMachine_v1_1\MacStateEntryEventArgs.cs" />
+    <Compile Include="StateMachine_v1_1\MacStateExitEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -161,7 +163,16 @@
       <Name>MvAssistant</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Machine\McBoxTransfer\" />
+    <Folder Include="Machine\SmBoxTransfer\" />
+    <Folder Include="Machine\SmCabinet\" />
+    <Folder Include="Machine\SmCleanCh\" />
+    <Folder Include="Machine\SmInspectionCh\" />
+    <Folder Include="Machine\SmLoadPort\" />
+    <Folder Include="Machine\SmOpenStage\" />
+    <Folder Include="Machine\SmUniversal\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

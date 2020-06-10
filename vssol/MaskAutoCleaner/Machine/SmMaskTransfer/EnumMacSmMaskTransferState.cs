@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.Machine.MaskTransfer
+namespace MaskAutoCleaner.Machine.SmMaskTransfer
 {
-    public enum EnumMaskTransferState
+    public enum EnumMacSmMaskTransferState
     {
         Start,
         Initial,

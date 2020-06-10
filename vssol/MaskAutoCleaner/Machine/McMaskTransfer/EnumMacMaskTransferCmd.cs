@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.Machine.MaskTransfer
 {
-    public enum EnumMaskTransferCmdSet
+    public enum EnumMacMaskTransferCmd
     {
         None,
 

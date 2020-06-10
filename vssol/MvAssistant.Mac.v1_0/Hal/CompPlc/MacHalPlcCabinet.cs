@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcCabinet() { }
         public MacHalPlcCabinet(MacHalPlcContext plc = null)
         {
-            this.m_PlcContext = plc;
+            this.plcContext = plc;
         }
 
 
@@ -29,7 +29,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定Cabinet內部與外部環境最大壓差限制
         public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             if (Gauge1Limit != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
             if (Gauge2Limit != null)
@@ -39,7 +39,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Cabinet內部與外部環境最大壓差限制
         public Tuple<int, int> ReadPressureDiffLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit),
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit)
@@ -49,7 +49,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取Cabinet內部與外部環境壓差
         public Tuple<int, int> ReadPressureDiff()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.DB_TO_PC_DP1),
                 plc.Read<int>(MacHalPlcEnumVariable.DB_TO_PC_DP2)
@@ -61,7 +61,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定節流閥開啟大小
         public void SetExhaustFlow(int? Valve1, int? Valve2)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             if (Valve1 != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1, Valve1);
             if (Valve2 != null)
@@ -71,7 +71,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定節流閥開啟大小
         public Tuple<int, int> ReadExhaustFlowSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<int, int>(
             plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1),
             plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2)
@@ -82,7 +82,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取光閘是否遮斷，一排一個 各自獨立，遮斷時True，Reset time 500ms
         public Tuple<bool, bool, bool, bool, bool, bool, bool> ReadLightCurtain()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(
             plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area1),
             plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area2),

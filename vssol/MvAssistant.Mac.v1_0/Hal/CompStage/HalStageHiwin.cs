@@ -37,7 +37,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 
 
         #region IHal
-        int IHal.HalConnect()
+        public override int HalConnect()
         {
             connect_setting.type = ComType.COM_TYPE_TCPIP;
             ComInfo.TCP_IP tcpp = new ComInfo.TCP_IP();
@@ -52,15 +52,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
 
             return api_rtn;
         }
-        public int HalClose()
+        public override int HalClose()
         {
             throw new NotImplementedException();
         }
 
-        public bool HalIsConnected()
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
 
@@ -107,7 +103,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Stage
         }
 
 
-   
+
     }
 
 

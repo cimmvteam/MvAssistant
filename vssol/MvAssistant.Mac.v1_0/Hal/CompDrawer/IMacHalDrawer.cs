@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner
+namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
-    public enum EnumMaskSide
+    public interface IMacHalDrawer: IMacHalComponent
     {
-        Pellicle,
-        Glass,
     }
 }

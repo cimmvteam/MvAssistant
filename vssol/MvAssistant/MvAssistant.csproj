@@ -151,7 +151,7 @@
     <Compile Include="DeviceDrive\LeimacLight\MvLeimacLightLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
     <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcPool.cs" />
-    <Compile Include="DeviceDrive\OmronSentechCamera\MvCameraDeviceScanner.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\MvOmronSentechCameraScanner.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\MvOmronSentechCameraLdd.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrab.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrabCallback.cs" />

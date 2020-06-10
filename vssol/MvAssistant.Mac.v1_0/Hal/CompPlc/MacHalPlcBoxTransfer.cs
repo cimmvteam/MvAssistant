@@ -15,14 +15,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcBoxTransfer() { }
         public MacHalPlcBoxTransfer(MacHalPlcContext plc = null)
         {
-            this.m_PlcContext = plc;
+            this.plcContext = plc;
         }
 
 
         public string Clamp(uint BoxType)
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Box_Type, BoxType);
@@ -65,7 +65,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Unclamp()
         {
             var Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Unclamp, false);
@@ -117,7 +117,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string Initial()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Initial_A03, false);
@@ -156,27 +156,27 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public void SetSpeed(double ClampSpeed)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Speed, ClampSpeed);
         }
 
         public double ReadSpeedSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_Speed);
         }
 
         //讀取軟體記憶的夾爪位置
         public double ReadHandPos()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.BT_TO_PC_HandPosition);
         }
 
         //讀取夾爪前方是否有Box
         public bool ReadBoxDetect()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_LoadSensor);
         }
 
@@ -184,7 +184,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定夾爪間距的極限值
         public void SetHandSpaceLimit(double? Minimum, double? Maximum)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             if (Minimum != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Laser1_FLS, Minimum);//夾爪最小夾距
@@ -195,7 +195,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取夾爪間距的極限值設定
         public Tuple<double, double> ReadHandSpaceLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
 
             return new Tuple<double, double>(
             plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_Laser1_FLS),//夾爪最小夾距
@@ -207,7 +207,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取由雷射檢測的夾爪位置
         public double ReadHandPosByLSR()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.BT_TO_PC_LaserPosition1);
         }
 
@@ -215,21 +215,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定Clamp與Cabinet的最小間距
         public void SetClampToCabinetSpaceLimit(double Minimum)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Laser2_Limit, Minimum);//夾爪夾取Box時與Cabinet的距離限制
         }
 
         //讀取Clamp與Cabinet的最小間距設定值
         public double ReadClampToCabinetSpaceLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_Laser2_Limit);//夾爪夾取Box時與Cabinet的距離限制
         }
 
         //讀取Clamp前方物體距離
         public double ReadClampDistance()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.BT_TO_PC_LaserPosition2);
         }
         #endregion
@@ -238,7 +238,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定XY軸水平Sensor的標準值
         public void SetLevelSensorLimit(double? Level_X, double? Level_Y)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             if (Level_X != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_X, Level_X);
             if (Level_Y != null)
@@ -248,7 +248,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取XY軸水平Sensor的標準值
         public Tuple<double, double> ReadLevelSensorLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<double, double>(
             plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_X),
             plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_Level_Limit_Y)
@@ -258,7 +258,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取XY軸水平Sensor目前數值
         public Tuple<double, double> ReadLevelSensor()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<double, double>(
                 plc.Read<double>(MacHalPlcEnumVariable.BT_TO_PC_Level_X),
                 plc.Read<double>(MacHalPlcEnumVariable.BT_TO_PC_Level_Y)
@@ -268,7 +268,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //重置夾爪XY軸水平
         public bool LevelReset()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Reset, false);
@@ -294,7 +294,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //設定六軸力覺Sensor的壓力極限值
         public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             if (Fx != null)
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fx, Fx);
             if (Fy != null)
@@ -312,7 +312,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取六軸力覺Sensor的壓力極限值設定
         public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<int, int, int, int, int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fx),
                 plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fy),
@@ -326,7 +326,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //讀取六軸力覺Sensor目前數值
         public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<int, int, int, int, int, int>(
                 plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_ForceFx),
                 plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_ForceFy),
@@ -341,14 +341,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //確認Hand吸塵狀態
         public bool ReadHandVacuum()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_Vacuum);
         }
 
         public string ReadBTRobotStatus()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_A03Status))
             {
                 case 1:
@@ -373,7 +373,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="isMoving"></param>
         public void RobotMoving(bool isMoving)
         {
-            var plc = m_PlcContext;
+            var plc = plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_RobotMoving, isMoving);
             Thread.Sleep(1000);
             if (plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_RobotMoving_Reply) != isMoving)

@@ -12,8 +12,11 @@ namespace MvAssistant.DeviceDrive.LeimacLight
 {
     public class MvLeimacLightLdd : IDisposable
     {
-
         public CtkNonStopTcpClient TcpClient = new CtkNonStopTcpClient();
+        public DateTime LastSend;
+        public DateTime LastReceive;
+        public int[] Values = new int[4];//目前控制器最多4個channel
+
 
         IPEndPoint RemoteEp
         {
@@ -31,7 +34,6 @@ namespace MvAssistant.DeviceDrive.LeimacLight
         public MvLeimacLightLdd()
         {
 
-
         }
 
 
@@ -44,6 +46,8 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
             if (port.HasValue) this.RemotePort = port.Value;
 
+            this.TcpClient.EhDataReceive += TcpClient_EhDataReceive;
+
             this.TcpClient.ConnectIfNo();
 
 
@@ -51,11 +55,87 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             return 0;
         }
 
-        public int GetValue(int ch)
+        private void TcpClient_EhDataReceive(object sender, CToolkit.v1_1.Protocol.CtkProtocolEventArgs e)
         {
+            var resp = e.TrxMessage.GetString();
+
+            var cmdType = resp.Substring(0, 3);
+            var data = resp.Substring(3);
+
+            if (cmdType == "R12")
+            {
+                switch (this.Model)
+                {
+                    case MvEnumLeimacModel.IWDV_100S_24:
+                    case MvEnumLeimacModel.IWDV_600M2_24:
+                        for (var idx = 0; data.Length > 0; idx++)
+                        {
+                            this.Values[idx] = Int32.Parse(data.Substring(0, 4));
+                            data = data.Substring(4);
+                        }
+                        break;
+                }
+            }
+
+            if (cmdType == "R11")
+            {
+                switch (this.Model)
+                {
+                    case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
+                    case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                        for (var idx = 0; data.Length > 0; idx++)
+                        {
+                            this.Values[idx] = Int32.Parse(data.Substring(0, 4));
+                            data = data.Substring(4);
+                        }
+                        break;
+                }
+            }
+
+            this.LastReceive = DateTime.Now;
 
 
-            return 0;
+
+
+
+
+        }
+
+
+
+
+        public int[] GetValues()
+        {
+            //需等連線完成
+            if (!MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
+                return null;
+
+
+            var cmdType = "R12";
+            var cmd = "";
+            switch (this.Model)
+            {
+                case MvEnumLeimacModel.IWDV_100S_24:
+                    cmd = string.Format("{0}0000", cmdType);
+                    break;
+                case MvEnumLeimacModel.IWDV_600M2_24:
+                    cmd = string.Format("{0}0000", cmdType);
+                    break;
+                case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
+                case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                    cmdType = "R11";
+                    cmd = string.Format("{0}0000", cmdType);
+                    break;
+                default: throw new MvException("No assign Model.");
+            }
+
+
+
+            this.LastSend = DateTime.Now;
+            this.TcpClient.WriteMsg(cmd);
+
+            if (!MvSpinWait.SpinUntil(() => this.LastReceive > this.LastSend, 1000)) return null;
+            return this.Values;
         }
 
 
@@ -63,7 +143,8 @@ namespace MvAssistant.DeviceDrive.LeimacLight
         public int SetValue(int ch, int value)
         {
             //需等連線完成
-            MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected);
+            if (!MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
+                return -1;
 
 
             if (value > 999) throw new MvException("Light value can not set over 999");
