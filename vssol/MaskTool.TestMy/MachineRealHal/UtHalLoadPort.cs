@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.DeviceDrive.GudengLoadPort;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
@@ -9,6 +10,29 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalLoadPort
     {
+
+        #region global variables
+        private LoadPort Loadport1 = null;
+        private LoadPort Loadport2 = null;
+        #endregion
+        public UtHalLoadPort()
+        {
+        //    Loadport1=  new LoadPort("192.168.0.11", 2013, 1);
+          //  Loadport1.ListenServer();
+        }
+
+        [TestMethod]
+        private void TestCommandAskClamperStatus()
+        {
+            if (Loadport1.IsListenServer)
+            {
+                Loadport1.CommandAskClamperStatus();
+            }
+
+        }
+
+
+
         [TestMethod]
         public void TestSetParameter()
         {
