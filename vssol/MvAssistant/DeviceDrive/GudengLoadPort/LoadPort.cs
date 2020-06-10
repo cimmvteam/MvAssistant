@@ -37,14 +37,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         {
             var eventArgs = (OnReceviceRtnFromServerEventArgs)args;
             ReturnFromServer rtnContent = new ReturnFromServer(eventArgs.RtnContent);
-            if (rtnContent.Parameter.HasValue)
-            {
-                typeof(LoadPort).GetMethod(rtnContent.StringContent).Invoke(this, new object[] { (int)rtnContent.Parameter });
-            }
-            else
-            {
-                typeof(LoadPort).GetMethod(rtnContent.StringContent).Invoke(this, null);
-            }
+            typeof(LoadPort).GetMethod(rtnContent.StringContent.Replace(" ","_")).Invoke(this, new object[] { rtnContent});
+            
         }
 
         public void  ListenServer()
@@ -285,10 +279,227 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         #endregion 
 
-        #region Event & Alarm
+        #region Event 
+        /// <summary> [001)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void Placement(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventPlacementCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("Placement", rtnFromServer.ReturnCode);
+        }
 
+        /// <summary> (002)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void Present(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventPresentCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("Present", rtnFromServer.ReturnCode);
+        }
+
+        /// <summary> (003)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void Clamper(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventClamperCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("Clamper", rtnFromServer.ReturnCode);
+        }
+
+        /// <summary> (004)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void RFID(ReturnFromServer rtnFromServer)
+        {
+            var rfID = rtnFromServer.ReturnCode;
+            InvokeNote("RFID", rtnFromServer.ReturnCode);
+        }
+        /// <summary> (005)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void Barcode_ID(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventPlacementCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            var barcodeID = rtnFromServer.ReturnValue;
+            InvokeNote("Barcode_ID", rtnFromServer.ReturnCode);
+        }
+        /// <summary> (006)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperUnlockComplete(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventClamperUnlockCompleteCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("ClamperUnlockComplete", rtnFromServer.ReturnCode);
+        }
+
+        /// <summary> (007)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void VacuumComplete(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventVacuumCompleteCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("VacuumComplete", rtnFromServer.ReturnCode);
+        }
+
+        /// <summary> (008)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void DockPODStart(ReturnFromServer rtnFromServer)
+        {
+             InvokeNote("VacuumComplete");
+        }
+        /// <summary> (009)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void DockPODComplete_HasReticle(ReturnFromServer rtnFromServer)
+        {
+             InvokeNote("DockPODComplete_HasReticle");
+        }
+        /// <summary> (010)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
+        {
+           
+            InvokeNote("DockPODComplete_Empty");
+        }
+        /// <summary> (011)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void UndockComplete(ReturnFromServer rtnFromServer)
+        {
+           InvokeNote("UndockComplete");
+        }
+        /// <summary> (012)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperLockComplete(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ClamperLockComplete");
+        }
+        /// <summary> (013)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void AlarmResetSuccess(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("AlarmResetSuccess");
+        }
+
+        /// <summary> (014)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void AlarmResetFail(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("AlarmResetFail");
+        }
+        /// <summary> (015)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ExecuteInitialFirst(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ExecuteInitialFirst");
+        }
+        /// <summary> (016)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ExecuteAlarmResetFirst(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ExecuteAlarmResetFirst");
+        }
+
+        /// <summary> (017)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void StagePosition(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventStagePositionCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("StagePosition", rtnFromServer.ReturnCode);
+        }
+
+        /// <summary> (018)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void LoadportStatus(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventLoadportStatusCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            InvokeNote("LoadportStatus", rtnFromServer.ReturnCode);
+        }
+
+        /// <summary> (019]</summary>
+        /// <param name="rtnFromServer"></param>
+        public void InitialComplete(ReturnFromServer rtnFromServer)
+        {
+          
+            InvokeNote("InitialComplete");
+        }
+        #endregion
+        #region Alarm
+        /// <summary>(200)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperActionTimeOut(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ClamperActionTimeOut");
+        }
+        /// <summary>(201)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperUnlockPositionFailed(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ClamperUnlockPositionFailed");
+        }
+        /// <summary>(202)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void VacuumAbnormality(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("VacuumAbnormality");
+        }
+        /// <summary>(203)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void StageMotionTimeout(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("StageMotionTimeout");
+        }
+        /// <summary>(204)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void StageOverUpLimitation(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("StageOverUpLimitation");
+        }
+        /// <summary>(205)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void StageOverDownLimitation(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("StageOverDownLimitation");
+        }
+        /// <summary>(206)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ReticlePositionAbnormality(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ReticlePositionAbnormality");
+        }
+
+        /// <summary>(207)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperLockPositionFailed(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ClamperLockPositionFailed");
+        }
+
+        /// <summary>(208)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void CoverDisappear(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("CoverDisappear");
+        }
+
+        /// <summary>(209)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperMotorAbnormality(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ClamperMotorAbnormality");
+        }
+
+        /// <summary>(210)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void StageMotorAbnormality(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("StageMotorAbnormality");
+        }
         #endregion
 
+
+
+        private void InvokeNote(string methodName)
+        {
+            Debug.WriteLine("Invoke Method: " +  methodName);
+        }
+        private void InvokeNote(string methodName,string parameter)
+        {
+            Debug.WriteLine("Invoke Method: " + methodName + ", Parameter: " + parameter);
+        }
+       
     }
 
     public class OnReceviceRtnFromServerEventArgs : EventArgs
@@ -304,16 +515,25 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
     {
         public string StringCode { get; set; }
         public string StringContent { get; set; }
-        public int? Parameter { get; set; }
+        public string ReturnCode { get; set; }
+        public string ReturnValue { get; set; }
         public ReturnFromServer(string content)
         {
             content = content.Replace(BaseHostToLoadPortCommand.CommandPrefixText, "").Replace(BaseHostToLoadPortCommand.CommandPostfixText, "");
             var contentAry = content.Split(new string[] { BaseHostToLoadPortCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
             StringCode = contentAry[0];
-            StringCode = contentAry[1];
-            if (contentAry.Length == 3)
+            StringContent = contentAry[1];
+            if (contentAry.Length >= 3)
             {
-                Parameter= Convert.ToInt32(contentAry[2]);
+                ReturnCode= contentAry[2];
+                if(contentAry.Length > 3)
+                {
+                    ReturnValue= contentAry[3];
+                }
+            }
+            else
+            {
+                ReturnCode = null;
             }
         }
     }
