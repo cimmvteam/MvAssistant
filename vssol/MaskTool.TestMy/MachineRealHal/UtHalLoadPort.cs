@@ -15,8 +15,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         MvGudengLoadPortLdd ldd = new MvGudengLoadPortLdd();
       public UtHalLoadPort()
       {
-            LoadPort1 =  ldd.CreateLoadPort("192.168.0.11", 2013, 1);
-            //LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+         //  LoadPort1 =  ldd.CreateLoadPort("192.168.0.11", 2013, 1);
+         LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
             LoadPort1.ListenServer();
         }
 
@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         #region TestMethod
         [TestMethod]
-        public void CommandUndockRequest()
+        public void TestCommandUndockRequest()
         {
             LoadPort1.CommandUndockRequest();
         }
@@ -46,7 +46,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
 
         [TestMethod]
-        public void CommandAskPresentStatus()
+        public void TestCommandAskPresentStatus()
         {
            LoadPort1.CommandAskPresentStatus();
         }

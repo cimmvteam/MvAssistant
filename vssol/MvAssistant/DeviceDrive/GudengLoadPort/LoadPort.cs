@@ -38,8 +38,15 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             var eventArgs = (OnReceviceRtnFromServerEventArgs)args;
             ReturnFromServer rtnContent = new ReturnFromServer(eventArgs.RtnContent);
             var methodName = rtnContent.StringContent.Replace(" ", "_");//.Replace("\0", "");
-            var method = typeof(LoadPort).GetMethod(methodName);
-            method.Invoke(this, new object[] { rtnContent });
+            try
+            {
+                var method = typeof(LoadPort).GetMethod(methodName);
+                method.Invoke(this, new object[] { rtnContent });
+            }
+            catch (Exception ex)
+            {
+
+            }
 
         }
 
