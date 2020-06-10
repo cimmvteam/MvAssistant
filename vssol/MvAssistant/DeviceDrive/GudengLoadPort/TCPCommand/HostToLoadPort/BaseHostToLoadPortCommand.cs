@@ -23,15 +23,25 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
             var stringCode = CommandPrefixText + CommandCategory.GetStringCode() + BaseTCPCommand.CommandSplitSign + CommandCategory.ToString() + CommandTextReplaceSignPair + BaseTCPCommand.CommandPostfixText;
             return stringCode;
         }
-        public  string GetCommandText()
+        public  string GetCommandText<T>(T parameter) where T : IHostToLoadPortCommandParameter
         {
-            return GetRawCommandText().Replace(BaseTCPCommand.CommandTextReplaceSignPair,"");
+            if (parameter == null)
+            {
+                return GetRawCommandText().Replace(BaseTCPCommand.CommandTextReplaceSignPair, "");
+            }
+            else
+            {
+                return GetRawCommandText().Replace(BaseTCPCommand.CommandTextReplaceSignPair, parameter.ToParameterText());
+            }
         }
 
 
 
     }
 
-   
+    public interface IHostToLoadPortCommandParameter
+    {
+        string ToParameterText();
+    }
 
 }
