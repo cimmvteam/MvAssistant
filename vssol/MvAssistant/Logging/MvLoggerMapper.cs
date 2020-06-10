@@ -13,7 +13,7 @@ namespace MvAssistant.Logging
 
         ~MvLoggerMapper()
         {
-            MvEventUtil.RemoveEventHandlersFromOwningByFilter(this, (dlgt) => true);
+            MvEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);
         }
 
         public MvLogger Get(String id = "")
