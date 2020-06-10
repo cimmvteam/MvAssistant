@@ -10,15 +10,20 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
     public class MvGudengLoadPortLdd : IDisposable
     {
 
-
-
+        public List<LoadPort> LoadPorts { get; private set; }
 
         public MvGudengLoadPortLdd()
         {
-
+            LoadPorts = new List<LoadPort>();
         }
 
+        public LoadPort CreateLoadPort(string serverIP,int serverPort,int loadportNO)
+        {
+            LoadPort loadport = new LoadPort(serverIP, serverPort, loadportNO);
+            LoadPorts.Add(loadport);
+            return loadport;
 
+        }
         public int ConnectIfNo(string ip = null, int? port = null)
         {
 

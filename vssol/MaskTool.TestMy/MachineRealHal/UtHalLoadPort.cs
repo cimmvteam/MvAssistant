@@ -11,147 +11,146 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     public class UtHalLoadPort
     {
 
-        #region global variables
-        private LoadPort Loadport1 = null;
-       // private LoadPort Loadport2 = null;
-        #endregion
+        LoadPort LoadPort1 = null;
+        MvGudengLoadPortLdd ldd = new MvGudengLoadPortLdd();
       public UtHalLoadPort()
       {
-            Loadport1=  new LoadPort("192.168.0.11", 2013, 1);
-            Loadport1.ListenServer();
+            //LoadPort1 =  ldd.CreateLoadPort("192.168.0.11", 2013, 1);
+            LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+            LoadPort1.ListenServer();
         }
 
         [TestMethod]
         public void TestCommandInitialRequest()
         {
-             Loadport1.CommandInitialRequest();
+             LoadPort1.CommandInitialRequest();
         }
 
         #region TestMethod
         [TestMethod]
         public void CommandUndockRequest()
         {
-            Loadport1.CommandUndockRequest();
+            LoadPort1.CommandUndockRequest();
         }
 
         [TestMethod]
         public void TestCommandDockRequest()
         {
-            Loadport1.CommandDockRequest();
+            LoadPort1.CommandDockRequest();
         }
 
         [TestMethod]
         public void TestCommandAskPlacementStatus()
         {
-           Loadport1.CommandAskPlacementStatus();
+           LoadPort1.CommandAskPlacementStatus();
         }
 
         [TestMethod]
         public void CommandAskPresentStatus()
         {
-           Loadport1.CommandAskPresentStatus();
+           LoadPort1.CommandAskPresentStatus();
         }
 
         [TestMethod]
         public void TestCommandAskClamperStatus()
         {
-             Loadport1.CommandAskClamperStatus();
+             LoadPort1.CommandAskClamperStatus();
         }
 
         [TestMethod]
         public void TestCommandAskRFIDStatus()
         {
-            Loadport1.CommandAskRFIDStatus();
+            LoadPort1.CommandAskRFIDStatus();
         }
 
         [TestMethod]
         public void TestCommandAskBarcodeStatus()
         {
-            Loadport1.CommandAskBarcodeStatus();
+            LoadPort1.CommandAskBarcodeStatus();
         }
 
         [TestMethod]
         public void TestCommandAskVacuumStatus()
         {
-            Loadport1.CommandAskVacuumStatus();
+            LoadPort1.CommandAskVacuumStatus();
         }
 
         [TestMethod]
         public void TestCommandAskReticleExistStatus()
         {
-            Loadport1.CommandAskReticleExistStatus();
+            LoadPort1.CommandAskReticleExistStatus();
         }
 
         [TestMethod]
         public void TestCommandAlarmReset()
         {
-            Loadport1.CommandAlarmReset();
+            LoadPort1.CommandAlarmReset();
         }
 
         [TestMethod]
         public void TestCommandAskStagePosition()
         {
-            Loadport1.CommandAskStagePosition();
+            LoadPort1.CommandAskStagePosition();
         }
 
         [TestMethod]
         public void TestCommandAskLoadportStatus()
         {
-            Loadport1.CommandAskLoadportStatus();
+            LoadPort1.CommandAskLoadportStatus();
         }
 
         [TestMethod]
         public void TestCommandManualClamperLock()
         {
-            Loadport1.CommandManualClamperLock();
+            LoadPort1.CommandManualClamperLock();
         }
 
         [TestMethod]
         public void TestCommandManualClamperUnlock()
         {
-            Loadport1.CommandManualClamperUnlock();
+            LoadPort1.CommandManualClamperUnlock();
         }
 
         [TestMethod]
         public void TestCommandManualClamperOPR()
         {
-            Loadport1.CommandManualClamperOPR();
+            LoadPort1.CommandManualClamperOPR();
         }
 
         [TestMethod]
         public void TestCommandManualStageUp()
         {
-            Loadport1.CommandManualStageUp();
+            LoadPort1.CommandManualStageUp();
         }
 
         [TestMethod]
         public void TestCommandManualStageInspection()
         {
-            Loadport1.CommandManualStageInspection();
+            LoadPort1.CommandManualStageInspection();
         }
 
         [TestMethod]
         public void TestCommandManualStageDown()
         {
-            Loadport1.CommandManualStageDown();
+            LoadPort1.CommandManualStageDown();
         }
 
         [TestMethod]
         public void TestCommandManualStageOPR()
         {
-            Loadport1.CommandManualStageOPR();
+            LoadPort1.CommandManualStageOPR();
         }
 
         [TestMethod]
         public void TestCommandManualVacuumOn()
         {
-            Loadport1.CommandManualVacuumOn();
+            LoadPort1.CommandManualVacuumOn();
         }
 
         [TestMethod]
         public void TestCommandManualVacuumOff()
         {
-            Loadport1.CommandManualVacuumOff();
+            LoadPort1.CommandManualVacuumOff();
         }
         #endregion
 
