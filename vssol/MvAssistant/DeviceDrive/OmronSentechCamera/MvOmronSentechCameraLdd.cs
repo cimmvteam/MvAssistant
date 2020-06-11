@@ -267,19 +267,13 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                         {
                             bmp = new Bitmap(width, height, PixelFormat.Format8bppIndexed);
                             //// 下面的代碼是為了修改生成位圖的索引表，從偽彩修改為灰度  
-                            ColorPalette tempPalette;
-                            using (Bitmap tempBmp = new Bitmap(1, 1, PixelFormat.Format8bppIndexed))
-                            {
-                                tempPalette = tempBmp.Palette;
-                            }
-                            for (int i = 0; i < 256; i++)
-                            {
-                                tempPalette.Entries[i] = Color.FromArgb(i, i, i);
-                            }
-
-                            bmp.Palette = tempPalette;
+                            ColorPalette palette = bmp.Palette;
+                            for (int i = 0; i < 256; i++) palette.Entries[i] = Color.FromArgb(i, i, i);
+                            bmp.Palette = palette;
                         }
+                        // Lock the bits of the bitmap.
                         BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, bmp.PixelFormat);
+                        // Place the pointer to the buffer of the bitmap.
                         IntPtr ptr = bmpData.Scan0;
 
                         // fill in rgbValues
@@ -302,12 +296,12 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
                         //// Lock the bits of the bitmap.
                         //BitmapData bmpData = m_Bitmap.LockBits(new Rectangle(0, 0, m_Bitmap.Width, m_Bitmap.Height), ImageLockMode.WriteOnly, m_Bitmap.PixelFormat);
-                        
+
                         //// Place the pointer to the buffer of the bitmap.
                         //IntPtr ptr = bmpData.Scan0;
                         //Marshal.Copy(buffer, 0, ptr, buffer.Length);
                         //m_Bitmap.UnlockBits(bmpData);
-                        
+
                         //// fill in rgbValues
                         //Marshal.Copy(buffer, 0, ptr, buffer.Length);
                         //m_Bitmap.UnlockBits(bmpData);
