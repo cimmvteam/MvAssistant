@@ -55,6 +55,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                mt.HalConnect();
 
                 mt.SetClampTactileLim(50, 10);
                 mt.SetLevelLimit(10, 11, 12);
@@ -99,6 +102,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                mt.HalConnect();
 
                 mt.ReadCCDSpinDegree();
                 mt.ReadClampGripPos();
@@ -121,6 +127,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                mt.HalConnect();
 
                 mt.Clamp(0);
                 mt.Unclamp();

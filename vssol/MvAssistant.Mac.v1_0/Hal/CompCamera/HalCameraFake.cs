@@ -87,7 +87,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             throw new NotImplementedException();
         }
 
-        public int SaveImage(Bitmap bmp, string SavePath, string FileType)
+        public int ShotToSaveImage( string SavePath, string FileType)
         {
             throw new NotImplementedException();
         }

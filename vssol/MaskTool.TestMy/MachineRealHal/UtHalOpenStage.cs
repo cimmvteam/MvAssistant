@@ -19,9 +19,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
                 os.HalConnect();
-
-                Bitmap bmp = os.Camera_Top_CapToImg();
-                os.CameraSide.SaveImage(bmp, "D:/", "jpg");
+                
+                os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                os.Camera_NearLP_CapToSave("D:/Image/OS/NearLP", "jpg");
+                os.Camera_NearCC_CapToSave("D:/Image/OS/NearCC", "jpg");
             }
         }
 
@@ -96,6 +98,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                os.HalConnect();
+
                 os.Initial();
                 os.SortClamp();
                 os.Vacuum(true);

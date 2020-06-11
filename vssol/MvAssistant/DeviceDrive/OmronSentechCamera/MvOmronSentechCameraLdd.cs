@@ -42,17 +42,11 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
         public void Connect()
         {
-            //api = new CStApiAutoInit();
-            //system = new CStSystem();
-            //StDevice = new CStDevice[0];
-            //StDataStream = new CStDataStream[0];
             // 建立一個站存區儲存來自StApiRaw檔案的影像資料
             imageBuffer = CStApiDotNet.CreateStImageBuffer();
 
             // 建立一個靜止影像的物件來處理靜止影像
             stillImageFiler = new CStStillImageFiler();
-            //ImageList = new List<IStImage>();
-            //imgFileNameList = new List<string>();
             stImage = null;
             image = null;
             bmp = null;
@@ -61,18 +55,10 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         public void Close()
         {
             if (dataStream != null)
-            {
-                // 停止主機取像
-                dataStream.StopAcquisition();
                 dataStream.Dispose();
-            }
 
             if (device != null)
-            {
-                // 停止相機取像
-                device.AcquisitionStop();
                 device.Dispose();
-            }
 
             if (imageBuffer != null)
                 imageBuffer.Dispose();
@@ -87,131 +73,95 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         public string getDeviceID()
         { return device.GetIStDeviceInfo().ID; }
 
-        //public string[] SearchAlldevice()
+        //public void CaptureSaveSyn(string SavePath, string FileType)
         //{
-
-        //    uInterface = system.InterfaceCount;
-        //    for (uint i = 0; i < uInterface; i++)
+        //    try
         //    {
-        //        StInterface = system.GetIStInterface(i);
-        //        IStInterfaceInfo tmpInterFaceInfoPtr = StInterface.GetIStInterfaceInfo();
-        //        uint uintDeviceCnt = StInterface.DeviceCount;
+        //        stImage = null;
+        //        // 顯示裝置名稱
+        //        Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
 
-        //        Array.Resize(ref cameraIDStringArray, (int)uCamCnt + (int)uintDeviceCnt);
-        //        Array.Resize(ref cameraNameStringArray, (int)uCamCnt + (int)uintDeviceCnt);
-        //        Array.Resize(ref StDevice, (int)uCamCnt + (int)uintDeviceCnt);
-        //        Array.Resize(ref StDataStream, (int)uCamCnt + (int)uintDeviceCnt);
+        //        //dataStream.RegisterCallbackMethod(OnCallback);
 
-        //        for (uint j = 0; j < uintDeviceCnt; j++)
+        //        // 主機端獲取影像
+        //        dataStream.StartAcquisition(1);
+
+        //        // 開始由相機取得影像
+        //        device.AcquisitionStart();
+
+        //        // 逾時超過5000ms後，回收儲存影像資料的暫存區
+        //        // 使用 'using' 語法可在不需使用時，自動管理暫存區重新排隊操作
+        //        using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(5000))
         //        {
-        //            IStDeviceInfo tmpDeviceInfoPtr = StInterface.GetIStDeviceInfo(j);
-        //            cameraIDStringArray[uCamCnt] = tmpDeviceInfoPtr.ID;
-        //            cameraNameStringArray[uCamCnt] = tmpDeviceInfoPtr.DisplayName;
-
-        //            eDeviceAccessFlags deviceAccessFlags = eDeviceAccessFlags.CONTROL;
-        //            if (tmpDeviceInfoPtr.AccessStatus == eDeviceAccessStatus.READONLY)
+        //            // 檢查取得的資料是否包含影像資料
+        //            if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
         //            {
-        //                deviceAccessFlags = eDeviceAccessFlags.READONLY;
+        //                string sFT = FileType.ToLower();
+        //                stImage = streamBuffer.GetIStImage();
+        //                SavePath += (@"\" + device.GetIStDeviceInfo().DisplayName + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+        //                if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
+        //                {
+        //                    SavePath += ".jpg";
+        //                }
+        //                else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
+        //                {
+        //                    SavePath += ".tif";
+        //                }
+        //                else if (sFT == "png" || sFT == ".png")
+        //                {
+        //                    SavePath += ".png";
+        //                }
+        //                else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
+        //                {
+        //                    SavePath += ".jpg";
+        //                    stillImageFiler.Quality = 75;
+        //                }
+        //                else if (sFT == "csv" || sFT == ".csv")
+        //                {
+        //                    SavePath += ".csv";
+        //                }
+        //                else //要轉換的檔案格式(副檔名)錯誤
+        //                    throw new Exception("File Type was wrong.");
+
+        //                this.SaveImage(stImage, SavePath, sFT);
+
+        //                device.AcquisitionStop();
+        //                dataStream.StopAcquisition();
+        //                //// 顯示接收影像的詳細資訊
+        //                //Byte[] imageData = stImage.GetByteArray();
+        //                //Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);
+        //                //Console.Write(" Size:" + stImage.ImageWidth + " x " + stImage.ImageHeight);
+        //                //Console.Write(" First byte =" + imageData[0] + Environment.NewLine);
+
+
+        //                //var width = (int)stImage.ImageWidth;
+        //                //var height = (int)stImage.ImageHeight;
+        //                //myimg = new Bitmap(width, height);
+
+        //                ////TODO: https://stackoverflow.com/questions/3474434/set-individual-pixels-in-net-format16bppgrayscale-image
+
+        //                //for (var idx = 0; idx < imageData.Length; idx++)
+        //                //{
+        //                //    var val = imageData[idx];
+        //                //    var color = Color.FromArgb(val, val, val);
+        //                //    myimg.SetPixel(idx % width, idx / width, color);
+        //                //}
         //            }
-        //            StDevice[uCamCnt] = StInterface.CreateStDevice(cameraIDStringArray[uCamCnt], deviceAccessFlags);
-
-        //            StDataStream[uCamCnt] = StDevice[uCamCnt].CreateStDataStream(0);
-
-        //            uCamCnt++;
+        //            else
+        //            {
+        //                // 如果取得的資料不含影像資料
+        //                Console.WriteLine("Image data does not exist.");
+        //            }
         //        }
         //    }
-        //    return cameraNameStringArray;
+        //    catch (Exception ex)
+        //    {
+        //        device.AcquisitionStop();
+        //        dataStream.StopAcquisition();
+
+        //        throw ex;
+        //    }
         //}
-
-        public void CaptureSaveSyn(string SavePath, string FileType)
-        {
-            try
-            {
-                stImage = null;
-                // 顯示裝置名稱
-                Console.WriteLine("Device=" + device.GetIStDeviceInfo().DisplayName);
-
-                //dataStream.RegisterCallbackMethod(OnCallback);
-
-                // 主機端獲取影像
-                dataStream.StartAcquisition(1);
-
-                // 開始由相機取得影像
-                device.AcquisitionStart();
-
-                // 逾時超過5000ms後，回收儲存影像資料的暫存區
-                // 使用 'using' 語法可在不需使用時，自動管理暫存區重新排隊操作
-                using (CStStreamBuffer streamBuffer = dataStream.RetrieveBuffer(5000))
-                {
-                    // 檢查取得的資料是否包含影像資料
-                    if (streamBuffer.GetIStStreamBufferInfo().IsImagePresent)
-                    {
-                        string sFT = FileType.ToLower();
-                        stImage = streamBuffer.GetIStImage();
-                        SavePath += (@"\" + device.GetIStDeviceInfo().DisplayName + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
-                        if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
-                        {
-                            SavePath += ".jpg";
-                        }
-                        else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
-                        {
-                            SavePath += ".tif";
-                        }
-                        else if (sFT == "png" || sFT == ".png")
-                        {
-                            SavePath += ".png";
-                        }
-                        else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
-                        {
-                            SavePath += ".jpg";
-                            stillImageFiler.Quality = 75;
-                        }
-                        else if (sFT == "csv" || sFT == ".csv")
-                        {
-                            SavePath += ".csv";
-                        }
-                        else //要轉換的檔案格式(副檔名)錯誤
-                            throw new Exception("File Type was wrong.");
-
-                        this.SaveImage(stImage, SavePath, sFT);
-
-                        device.AcquisitionStop();
-                        dataStream.StopAcquisition();
-                        //// 顯示接收影像的詳細資訊
-                        //Byte[] imageData = stImage.GetByteArray();
-                        //Console.Write("BlockId=" + streamBuffer.GetIStStreamBufferInfo().FrameID);
-                        //Console.Write(" Size:" + stImage.ImageWidth + " x " + stImage.ImageHeight);
-                        //Console.Write(" First byte =" + imageData[0] + Environment.NewLine);
-
-
-                        //var width = (int)stImage.ImageWidth;
-                        //var height = (int)stImage.ImageHeight;
-                        //myimg = new Bitmap(width, height);
-
-                        ////TODO: https://stackoverflow.com/questions/3474434/set-individual-pixels-in-net-format16bppgrayscale-image
-
-                        //for (var idx = 0; idx < imageData.Length; idx++)
-                        //{
-                        //    var val = imageData[idx];
-                        //    var color = Color.FromArgb(val, val, val);
-                        //    myimg.SetPixel(idx % width, idx / width, color);
-                        //}
-                    }
-                    else
-                    {
-                        // 如果取得的資料不含影像資料
-                        Console.WriteLine("Image data does not exist.");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                device.AcquisitionStop();
-                dataStream.StopAcquisition();
-
-                throw ex;
-            }
-        }
 
         public Bitmap CaptureToImageSyn()
         {
@@ -241,27 +191,27 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                         stImage = streamBuffer.GetIStImage();
 
                         #region 如果取得的影像是彩色，需經過轉換才能得到每Pixel以RGB排列的Byte[]
-                        //bool isColor = CStApiDotNet.GetIStPixelFormatInfo(stImage.ImagePixelFormat).IsColor;
-                        //if (isColor)
-                        //{
-                        //    // Convert the image data to BGR8 format.
-                        //    m_Converter.DestinationPixelFormat = eStPixelFormatNamingConvention.BGR8;
-                        //}
-                        //else
-                        //{
-                        //    // Convert the image data to Mono8 format.
-                        //    m_Converter.DestinationPixelFormat = eStPixelFormatNamingConvention.Mono8;
-                        //}
-                        //m_Converter.Convert(stImage, imageBuffer);
+                        bool isColor = CStApiDotNet.GetIStPixelFormatInfo(stImage.ImagePixelFormat).IsColor;
+                        if (isColor)
+                        {
+                            // Convert the image data to BGR8 format.
+                            m_Converter.DestinationPixelFormat = eStPixelFormatNamingConvention.BGR8;
+                        }
+                        else
+                        {
+                            // Convert the image data to Mono8 format.
+                            m_Converter.DestinationPixelFormat = eStPixelFormatNamingConvention.Mono8;
+                        }
+                        m_Converter.Convert(stImage, imageBuffer);
                         #endregion
-                        Byte[] imageData = stImage.GetByteArray();
-                        //byte[] imageData = imageBuffer.GetIStImage().GetByteArray();
+                        //Byte[] imageData = stImage.GetByteArray();
+                        byte[] imageData = imageBuffer.GetIStImage().GetByteArray();
 
                         var width = (int)stImage.ImageWidth;
                         var height = (int)stImage.ImageHeight;
 
                         //如果影像是彩色的
-                        if (CStApiDotNet.GetIStPixelFormatInfo(stImage.ImagePixelFormat).IsColor)
+                        if (isColor)
                             bmp = new Bitmap(width, height, PixelFormat.Format24bppRgb);
                         else//灰階影像
                         {
@@ -280,47 +230,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                         Marshal.Copy(imageData, 0, ptr, imageData.Length);
                         bmp.UnlockBits(bmpData);
 
-                        ////Sample Code
-                        //Bitmap m_Bitmap = null;
-                        //if (bColorType == true)
-                        //{
-                        //    m_Bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-                        //}
-                        //else
-                        //{
-                        //    m_Bitmap = new Bitmap(width, height, PixelFormat.Format8bppIndexed);
-                        //    ColorPalette palette = m_Bitmap.Palette;
-                        //    for (int i = 0; i < 256; ++i) palette.Entries[i] = Color.FromArgb(i, i, i);
-                        //    m_Bitmap.Palette = palette;
-                        //}
-
-                        //// Lock the bits of the bitmap.
-                        //BitmapData bmpData = m_Bitmap.LockBits(new Rectangle(0, 0, m_Bitmap.Width, m_Bitmap.Height), ImageLockMode.WriteOnly, m_Bitmap.PixelFormat);
-
-                        //// Place the pointer to the buffer of the bitmap.
-                        //IntPtr ptr = bmpData.Scan0;
-                        //Marshal.Copy(buffer, 0, ptr, buffer.Length);
-                        //m_Bitmap.UnlockBits(bmpData);
-
-                        //// fill in rgbValues
-                        //Marshal.Copy(buffer, 0, ptr, buffer.Length);
-                        //m_Bitmap.UnlockBits(bmpData);
-
-
-
-
-                        //TODO: https://stackoverflow.com/questions/3474434/set-individual-pixels-in-net-format16bppgrayscale-image
-                        /*
-                        for (var idx = 0; idx < imageData.Length; idx++)
-                        {
-                            var val = imageData[idx];
-                            var color = Color.FromArgb(val, val, val);
-                            bmp.SetPixel(idx % width, idx / width, color);
-                        }*/
-
-
-
-                        bmp.Save(@"D:/" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".jpg", ImageFormat.Jpeg);
+                        //bmp.Save(@"D:/" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".jpg", ImageFormat.Jpeg);
                     }
                     else
                     {
@@ -339,6 +249,10 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             }
         }
 
+        /// <summary>
+        /// 非同步取得影像的OnCallback函數無法順利執行(目前不使用)
+        /// </summary>
+        /// <returns></returns>
         public Bitmap CaptureToImageAsyn()
         {
             try
@@ -386,6 +300,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             }
             return bmp;
         }
+
         public IStImage CaptureRaw()
         {
             try
@@ -414,12 +329,12 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             return stImage;
         }
 
-        public void CaputreAndSave(string fn, string fType)
-        {
-            var img = this.CaptureRaw();
-            this.SaveImage(img, fn, fType);
+        //public void CaputreAndSave(string fn, string fType)
+        //{
+        //    var img = this.CaptureRaw();
+        //    this.SaveImage(img, fn, fType);
 
-        }
+        //}
 
 
 
@@ -560,83 +475,83 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         }
 
 
-        public int SaveImage(Bitmap bmp, string strSavePath, string strFileType)
-        {
-            int intSavedCnt = 0;
-            string sFT = strFileType.ToLower();
-            try
-            {
-                strSavePath += (@"\" + device.GetIStDeviceInfo().DisplayName + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
-                if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
-                {
-                    strSavePath += ".bmp";
-                    bmp.Save(strSavePath, ImageFormat.Bmp);
-                    intSavedCnt++;
-                }
-                else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
-                {
-                    strSavePath += ".tif";
-                    bmp.Save(strSavePath, ImageFormat.Tiff);
-                    intSavedCnt++;
-                }
-                else if (sFT == "png" || sFT == ".png")
-                {
-                    strSavePath += ".png";
-                    bmp.Save(strSavePath, ImageFormat.Png);
-                    intSavedCnt++;
-                }
-                else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
-                {
-                    strSavePath += ".jpg";
-                    bmp.Save(strSavePath, ImageFormat.Jpeg);
-                    intSavedCnt++;
-                }
-                else //要轉換的檔案格式(副檔名)錯誤
-                    throw new Exception("File Type was wrong.");
+        //public int SaveImage(Bitmap bmp, string strSavePath, string strFileType)
+        //{
+        //    int intSavedCnt = 0;
+        //    string sFT = strFileType.ToLower();
+        //    try
+        //    {
+        //        strSavePath += (@"\" + device.GetIStDeviceInfo().DisplayName + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+        //        if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
+        //        {
+        //            strSavePath += ".bmp";
+        //            bmp.Save(strSavePath, ImageFormat.Bmp);
+        //            intSavedCnt++;
+        //        }
+        //        else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
+        //        {
+        //            strSavePath += ".tif";
+        //            bmp.Save(strSavePath, ImageFormat.Tiff);
+        //            intSavedCnt++;
+        //        }
+        //        else if (sFT == "png" || sFT == ".png")
+        //        {
+        //            strSavePath += ".png";
+        //            bmp.Save(strSavePath, ImageFormat.Png);
+        //            intSavedCnt++;
+        //        }
+        //        else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
+        //        {
+        //            strSavePath += ".jpg";
+        //            bmp.Save(strSavePath, ImageFormat.Jpeg);
+        //            intSavedCnt++;
+        //        }
+        //        else //要轉換的檔案格式(副檔名)錯誤
+        //            throw new Exception("File Type was wrong.");
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return intSavedCnt;
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return intSavedCnt;
+        //}
 
-        public void SaveImage(IStImage img, string fn, string sFileType)
-        {
-            string sFT = sFileType.ToLower();
-            try
-            {
-                if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
-                {
-                    stillImageFiler.Save(img, eStStillImageFileFormat.Bitmap, fn);
-                }
-                else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
-                {
-                    stillImageFiler.Save(img, eStStillImageFileFormat.TIFF, fn);
-                }
-                else if (sFT == "png" || sFT == ".png")
-                {
-                    stillImageFiler.Save(img, eStStillImageFileFormat.PNG, fn);
-                }
-                else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
-                {
-                    stillImageFiler.Quality = 75;
-                    stillImageFiler.Save(img, eStStillImageFileFormat.JPEG, fn);
-                }
-                else if (sFT == "csv" || sFT == ".csv")
-                {
-                    stillImageFiler.Save(img, eStStillImageFileFormat.CSV, fn);
+        //public void SaveImage(IStImage img, string fn, string sFileType)
+        //{
+        //    string sFT = sFileType.ToLower();
+        //    try
+        //    {
+        //        if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
+        //        {
+        //            stillImageFiler.Save(img, eStStillImageFileFormat.Bitmap, fn);
+        //        }
+        //        else if (sFT == "tiff" || sFT == "tif" || sFT == ".tif")
+        //        {
+        //            stillImageFiler.Save(img, eStStillImageFileFormat.TIFF, fn);
+        //        }
+        //        else if (sFT == "png" || sFT == ".png")
+        //        {
+        //            stillImageFiler.Save(img, eStStillImageFileFormat.PNG, fn);
+        //        }
+        //        else if (sFT == "jpeg" || sFT == "jpg" || sFT == ".jpg")
+        //        {
+        //            stillImageFiler.Quality = 75;
+        //            stillImageFiler.Save(img, eStStillImageFileFormat.JPEG, fn);
+        //        }
+        //        else if (sFT == "csv" || sFT == ".csv")
+        //        {
+        //            stillImageFiler.Save(img, eStStillImageFileFormat.CSV, fn);
 
-                }
-                else //要轉換的檔案格式(副檔名)錯誤
-                    throw new Exception("File Type was wrong.");
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        }
+        //        else //要轉換的檔案格式(副檔名)錯誤
+        //            throw new Exception("File Type was wrong.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
 
         #region IDisposable

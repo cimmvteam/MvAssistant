@@ -10,6 +10,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalBoxTransfer
     {
+        [TestMethod]
+        public void TestCamera()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.MvCfLoad();
+                
+                var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                bt.HalConnect();
+
+                bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+            }
+        }
+
         /// <summary>路徑測試</summary>
         /// <remarks>King, 2020/05/25</remarks>
         [TestMethod]
@@ -91,6 +107,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                bt.HalConnect();
 
                 bt.SetSpeed(20);
                 bt.SetHandSpaceLimit(10, 20);
@@ -108,6 +127,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                bt.HalConnect();
 
                 bt.ReadSpeedSetting();
                 bt.ReadHandSpaceLimitSetting();
@@ -125,6 +147,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                bt.HalConnect();
 
                 bt.ReadHandPos();
                 bt.ReadBoxDetect();
@@ -144,6 +169,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                bt.HalConnect();
 
                 bt.Clamp(1);
                 bt.Unclamp();

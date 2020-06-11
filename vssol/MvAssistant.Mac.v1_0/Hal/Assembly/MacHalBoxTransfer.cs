@@ -9,6 +9,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using MvAssistant.Mac.v1_0.Hal.CompCamera;
+using System.Drawing;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -20,6 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(MacEnumDevice.boxtransfer_plc); } }
         public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.boxtransfer_robot_1); } }
         public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.boxtransfer_camera_gripper_1); } }
+
         #endregion Device Components
 
         #region Path test, 2020/05/25
@@ -603,6 +605,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadHandVacuum(); }
         #endregion
 
+        public Bitmap Camera_Cap()
+        {
+            return CameraOnGripper.Shot();
+        }
+
+        public void Camera_CapToSave(string SavePath, string FileType)
+        {
+            CameraOnGripper.ShotToSaveImage(SavePath, FileType);
+        }
     }
 
     /// <summary>Path Test Position Collection</summary>
@@ -617,7 +628,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 var position = new HalRobotMotion
                 { // TODO: 加入實際 World 及 Joint 點位 
-
+                    
                 };
                 return position;
             }
@@ -727,7 +738,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 return position;
             }
         }
-
+        
     }
 
     

@@ -413,6 +413,17 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = "id=00:11:1C:F9:A8:BE",
+                        DeviceName = MacEnumDevice.openstage_camera_front_1.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
+                    },
+
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = "id=00:11:1C:F9:A3:46",
+                        DeviceName = MacEnumDevice.openstage_camera_barcode_1.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
+                    },
                 },
             };
             return rs;

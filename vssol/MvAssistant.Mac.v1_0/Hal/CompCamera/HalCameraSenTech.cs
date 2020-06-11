@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sentech.StApiDotNET;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 {
@@ -91,19 +92,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             //return ldd.CaptureToImageAsyn();
         }
 
-        public void Capture()
-        {
-            IStImage img = ldd.CaptureRaw();
-            ldd.SaveImage(img, Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + @"\" + ldd.getDeviceName() + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"), "jpg");
-        }
+        //public void Capture()
+        //{
+        //    IStImage img = ldd.CaptureRaw();
+        //    ldd.SaveImage(img, Environment.GetFolderPath(Environment.SpecialFolder.MyPictures) + @"\" + ldd.getDeviceName() + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"), "jpg");
+        //}
 
-        public int SaveImage(Bitmap bmp, string strSavePath, string strFileType)
+        public int ShotToSaveImage(string strSavePath, string strFileType)
         {
+            Bitmap bmp = Shot();
             int intSavedCnt = 0;
             string sFT = strFileType.ToLower();
             try
             {
-                strSavePath += (@"\" + ldd.getDeviceName() + @"\" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+                if (!Directory.Exists(strSavePath + "/" + ldd.getDeviceName()))
+                    Directory.CreateDirectory(strSavePath + "/" + ldd.getDeviceName());
+                strSavePath += ("/" + ldd.getDeviceName() + "/" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
                 if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
                 {
                     strSavePath += ".bmp";

@@ -19,7 +19,7 @@ namespace MvAssistant.Mac.TestMy.Device
                     scanner.Connect();
                     scanner.ScanAlldevice();
                     var camera = scanner.cameras[""];
-                    camera.CaptureSaveSyn("D:/","jpg");
+                    //camera.CaptureSaveSyn("D:/","jpg");
 
 
                     scanner.Close();
