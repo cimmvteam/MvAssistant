@@ -3,6 +3,7 @@ using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -16,7 +17,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(MacEnumDevice.inspectionch_plc); } }
         public IMacHalLight LigthBarInspSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_inspection_side_001); } }
         public IMacHalLight LigthBarDefenseSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_denfese_side_001); } }
-        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_1); } }
+        public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_1); } }
+        public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_defense_side_1); } }
+        public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_defense_top_1); } }
 
 
 
@@ -25,10 +28,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
 
-        public void DefenseCheck()
+        public bool DefenseCheck()
         {
+            //TODO: Light tun on
+            //  Camera capture
+            // Algo
+            // Light turn off
 
 
+            return false;
         }
 
         public void InspectTop()
@@ -55,7 +63,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
             this.Plc.WPosition(270);
             //TODO: Camera
-
 
 
         }
@@ -96,7 +103,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public string ReadInspChStatus()
         { return Plc.ReadInspChStatus(); }
-
+        
         #region Set Parameter
         /// <summary>
         /// 設定速度，Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)
@@ -191,5 +198,35 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public double ReadRobotPosUpDown()
         { return Plc.ReadRobotPosUpDown(); }
         #endregion
+
+        public Bitmap Camera_TopDfs_Cap()
+        {
+            return CameraTopDfs.Shot();
+        }
+
+        public void Camera_TopDfs_CapToSave(string SavePath, string FileType)
+        {
+            CameraTopDfs.ShotToSaveImage(SavePath, FileType);
+        }
+
+        public Bitmap Camera_SideDfs_Cap()
+        {
+            return CameraSideDfs.Shot();
+        }
+
+        public void Camera_SideDfs_CapToSave(string SavePath, string FileType)
+        {
+            CameraSideDfs.ShotToSaveImage(SavePath, FileType);
+        }
+
+        public Bitmap Camera_SideInsp_Cap()
+        {
+            return CameraSideInsp.Shot();
+        }
+
+        public void Camera_SideInsp_CapToSave(string SavePath, string FileType)
+        {
+            CameraSideInsp.ShotToSaveImage(SavePath, FileType);
+        }
     }
 }

@@ -16,23 +16,23 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
     [Guid("07C1D790-D3A5-4AB5-8A6E-5EC41045778B")]
     public class MacHalLightLeimac : MacHalComponentBase, IMacHalLight
     {
+        #region Const
         public const string DevConnStr_Ip = "ip";
         public const string DevConnStr_Port = "port";
         public const string DevConnStr_Channel = "channel";
         public const string DevConnStr_Model = "model";
-
-        public MvLeimacLightLdd ldd;
+        #endregion
 
         #region Device Connection String
-
         string ip;
         int port;
         MvEnumLeimacModel model;
         int channel;
         string resourceKey { get { return string.Format("net.tcp://{0}:{1}", this.ip, this.port); } }
-
         #endregion
 
+
+        public MvLeimacLightLdd ldd;
 
         public MacHalLightLeimac()
         {
@@ -49,6 +49,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
             throw new NotImplementedException();
         }
 
+        public int GetValue()
+        {
+            if (this.ldd == null) throw new MacException("Deivce drive is not initialize.");
+            return this.ldd.GetValues()[this.channel - 1];
+        }
+
 
 
 
@@ -56,20 +62,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
 
         public override int HalConnect()
         {
-            this.ip = this.GetDevSetting(DevConnStr_Ip);
-            this.port = this.GetDevSettingInt(DevConnStr_Port);
-            this.model = this.GetDevSettingEnum<MvEnumLeimacModel>(DevConnStr_Model);
-            this.channel = this.GetDevSettingInt(DevConnStr_Channel);
+            this.ip = this.GetDevConnStr(DevConnStr_Ip);
+            this.port = this.GetDevConnStrInt(DevConnStr_Port);
+            this.model = this.GetDevConnStrEnum<MvEnumLeimacModel>(DevConnStr_Model);
+            this.channel = this.GetDevConnStrInt(DevConnStr_Channel);
 
-            this.ldd = this.HalContext.ResourceGetOrDefault<MvLeimacLightLdd>(this.resourceKey);
-            if (this.ldd == null)
+            this.ldd = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MvLeimacLightLdd()
             {
-                this.ldd = new MvLeimacLightLdd();
-                this.ldd.RemoteIp = this.ip;
-                this.ldd.RemotePort = this.port;
-                this.ldd.Model = this.model;
-                this.HalContext.ResourceRegister(this.resourceKey, this.ldd);
-            }
+                RemoteIp = this.ip,
+                RemotePort = this.port,
+                Model = this.model,
+            });
 
             return 0;
         }

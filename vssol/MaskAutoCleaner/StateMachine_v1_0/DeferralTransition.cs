@@ -1,4 +1,4 @@
-﻿using MaskCleaner.StateMachine_v1_0.SmExp;
+﻿using MaskAutoCleaner.StateMachine_v1_0.SmExp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace MaskCleaner.StateMachine_v1_0
+namespace MaskAutoCleaner.StateMachine_v1_0
 {
     public class DeferralTransition : Transition
     {

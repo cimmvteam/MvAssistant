@@ -259,6 +259,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                lp.HalConnect();
+
                 lp.SetPressureDiffLimit(40, 50);
             }
         }
@@ -271,6 +275,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                lp.HalConnect();
+
                 lp.ReadPressureDiffLimitSrtting();
             }
         }
@@ -283,6 +291,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                lp.HalConnect();
+
                 lp.ReadPressureDiff();
                 lp.ReadLP_Light_Curtain();
             }
@@ -296,7 +308,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
-
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                lp.HalConnect();
             }
         }
     }

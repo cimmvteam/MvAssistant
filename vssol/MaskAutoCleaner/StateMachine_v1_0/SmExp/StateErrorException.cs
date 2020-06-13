@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskCleaner.StateMachine_v1_0.SmExp
+namespace MaskAutoCleaner.StateMachine_v1_0.SmExp
 {
     public interface IStateErrorInfo
     {

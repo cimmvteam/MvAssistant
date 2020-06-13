@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public MacHalPlcUniversal() { }
 
         public MacHalPlcUniversal(MacHalPlcContext plc = null)
-        { this.m_PlcContext = plc; }
+        { this.plcContext = plc; }
 
 
         #region MacHalPlcBase
@@ -24,7 +24,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public override int HalConnect()
         {
             var rtn = base.HalConnect();
-            this.m_PlcContext.Connect();
+            this.plcContext.Connect();
             return rtn;
         }
 
@@ -35,7 +35,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //信號燈
         public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Red, Red);
             plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Orange, Orange);
             plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Blue, Blue);
@@ -44,7 +44,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         //蜂鳴器
         public void SetBuzzer(uint BuzzerType)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Buzzer, BuzzerType);
         }
 
@@ -57,7 +57,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string CoverFanCtrl(uint FanID, uint WindSpeed)
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_SetSpeed, WindSpeed);
@@ -96,7 +96,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public List<int> ReadCoverFanSpeed()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             List<int> FanSpeedList = new List<int>();
             FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_1));
             FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_2));
@@ -116,7 +116,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public void ResetAllAlarm()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 plc.Write(MacHalPlcEnumVariable.Reset_ALL, false);
@@ -144,7 +144,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="IC_EMS">Inspection Chamber是否緊急停止</param>
         public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
             plc.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, RT_EMS);
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
@@ -168,7 +168,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Power ON、False：Power OFF</returns>
         public bool ReadPowerON()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_PowerON);
         }
 
@@ -178,7 +178,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Maintenance、False：Auto</returns>
         public bool ReadBCP_Maintenance()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Maintenance);
         }
 
@@ -188,7 +188,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Maintenance、False：Auto</returns>
         public bool ReadCB_Maintenance()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
         }
 
@@ -198,7 +198,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Push、False：Release</returns>
         public Tuple<bool, bool, bool, bool, bool> ReadBCP_EMO()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<bool, bool, bool, bool, bool>(
                 plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO1),
                 plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO2),
@@ -214,7 +214,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Push、False：Release</returns>
         public Tuple<bool, bool, bool> ReadCB_EMO()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return new Tuple<bool, bool, bool>(
                 plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO1),
                 plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO2),
@@ -228,7 +228,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Push、False：Release</returns>
         public bool ReadLP1_EMO()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_EMO);
         }
 
@@ -238,7 +238,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Push、False：Release</returns>
         public bool ReadLP2_EMO()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_EMO);
         }
 
@@ -248,7 +248,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Open、False：Close</returns>
         public bool ReadBCP_Door()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Door);
         }
 
@@ -258,7 +258,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Open、False：Close</returns>
         public bool ReadLP1_Door()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_Door);
         }
 
@@ -268,7 +268,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Open、False：Close</returns>
         public bool ReadLP2_Door()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_Door);
         }
 
@@ -278,7 +278,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns>True：Alarm、False：Normal</returns>
         public bool ReadBCP_Smoke()
         {
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Smoke);
         }
 
@@ -288,7 +288,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_General()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Alarm);
@@ -321,7 +321,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_Cabinet()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Alarm);
@@ -354,7 +354,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_CleanCh()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Alarm);
@@ -395,7 +395,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_BTRobot()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Alarm);
@@ -430,7 +430,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_MTRobot()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Alarm);
@@ -473,7 +473,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_OpenStage()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Alarm);
@@ -522,7 +522,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_InspCh()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Alarm);
@@ -558,7 +558,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_LoadPort()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Alarm);
@@ -592,7 +592,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_CoverFan()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Alarm);
@@ -643,7 +643,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadAlarm_MTClampInsp()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Alarm);
@@ -682,7 +682,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_General()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Warning);
@@ -706,7 +706,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_Cabinet()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Warning);
@@ -730,7 +730,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_CleanCh()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Warning);
@@ -757,7 +757,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_BTRobot()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Warning);
@@ -802,7 +802,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_MTRobot()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Warning);
@@ -843,7 +843,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_OpenStage()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Warning);
@@ -909,7 +909,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_InspCh()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Warning);
@@ -968,7 +968,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_LoadPort()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Warning);
@@ -992,7 +992,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_CoverFan()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Warning);
@@ -1016,7 +1016,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public string ReadWarning_MTClampInsp()
         {
             string Result = "";
-            var plc = this.m_PlcContext;
+            var plc = this.plcContext;
             try
             {
                 var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Warning);

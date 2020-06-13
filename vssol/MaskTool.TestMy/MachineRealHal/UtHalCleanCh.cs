@@ -11,7 +11,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     {
         const string ManifestPath = "GenCfg/Manifest/Manifest.xml.real";
 
+        [TestMethod]
+        public void TestCamera()
+        {
+            using (var halContext = new MacHalContext(ManifestPath))
+            {
+                halContext.MvCfLoad();
 
+                var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                cc.HalConnect();
+
+                cc.Camera_SideInsp_CapToSave("D:/Image/CC/Insp", "jpg");
+            }
+        }
 
         [TestMethod]
         public void TestSetParameter()
@@ -21,6 +35,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                cc.HalConnect();
 
                 cc.SetParticleCntLimit(20, 30, 40);
                 cc.SetRobotAboutLimit(10, 50);
@@ -38,6 +55,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                cc.HalConnect();
 
                 cc.ReadParticleCntLimitSetting();
                 cc.ReadRobotAboutLimitSetting();
@@ -55,6 +75,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                cc.HalConnect();
 
                 cc.ReadParticleCount();
                 cc.ReadMaskLevel();
@@ -75,6 +98,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                cc.HalConnect();
 
                 cc.GasValveBlow(50);
             }
@@ -89,7 +115,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.MvCfLoad();
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
-
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
                 cc.HalConnect();
 
                 cc.InspectionSpotLight.TurnOn(255);

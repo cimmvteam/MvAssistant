@@ -8,10 +8,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
 
         void TurnOn(int value);
         void TurnOff();
-
-
-
-
+        int GetValue();
 
     }
 }

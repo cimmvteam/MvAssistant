@@ -15,9 +15,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
         /// Camera take pictures
         /// </summary>
         /// <returns>Bitmap object</returns>
-        Image Shot();
+        Bitmap Shot();
 
-
+        int ShotToSaveImage(string SavePath,string FileType);
         /// <summary>
         /// 設定CCD曝光時間
         /// </summary>

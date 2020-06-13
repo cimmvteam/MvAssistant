@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.Mac.v1_0.Hal.CompLight;
+using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.Manifest.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,8 @@ namespace MvAssistant.Mac.v1_0.Hal
         {
             this.Path = path;
         }
+
+        ~MacHalContext() { this.Dispose(false); }
 
         void HalCreate(MacManifestDeviceCfg deviceCfg, HalBase hal = null)
         {
@@ -95,11 +98,25 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         public int HalClose()
         {
+
+            //關閉所有HAL
             foreach (var kv in this.HalDevices)
             {
                 try { this.HalClose(kv.Value); }
                 catch (Exception ex) { MvLog.WarnNs(this, ex); }
             }
+
+            //釋放資源
+            foreach (var kv in this.Resources)
+            {
+                try
+                {
+                    if (kv.Value == null) continue;
+                    kv.Value.Dispose();
+                }
+                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+            }
+
 
 
             return 0;
@@ -147,7 +164,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
 
         }
-        
+
         #endregion
 
         #endregion
@@ -200,13 +217,24 @@ namespace MvAssistant.Mac.v1_0.Hal
         #region Resource Manage
         protected Dictionary<string, IDisposable> Resources = new Dictionary<string, IDisposable>();
 
-      
+
         public T ResourceGetOrDefault<T>(string key) where T : IDisposable
         {
             lock (this)
             {
                 if (this.Resources.ContainsKey(key)) return (T)this.Resources[key];
                 return default(T);
+            }
+        }
+
+        public T ResourceGetOrRegister<T>(string key, Func<T> creator) where T : IDisposable
+        {
+            lock (this)
+            {
+                if (this.Resources.ContainsKey(key)) return (T)this.Resources[key];
+                var rsc = creator();
+                this.Resources[key] = rsc;
+                return rsc;
             }
         }
 

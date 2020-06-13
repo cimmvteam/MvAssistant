@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MaskCleaner.StateMachine_v1_0
+namespace MaskAutoCleaner.StateMachine_v1_0
 {
     public abstract class DeviceStateMachine : StateMachine, IStepAnalyzable
     {

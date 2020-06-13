@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     public class UtHalInspectionCh
     {
         [TestMethod]
-        public void TestSetParameter()
+        public void TestCamera()
         {
 
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
@@ -19,6 +19,28 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                ic.HalConnect();
+
+                ic.Camera_SideDfs_CapToSave("D:/Image/IC/SideDfs", "jpg");
+                ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
+                ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
+            }
+        }
+
+        [TestMethod]
+        public void TestSetParameter()
+        {
+
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.MvCfLoad();
+
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                ic.HalConnect();
 
                 ic.SetSpeed(200, 100, 50);
                 ic.SetRobotAboutLimit(10, 100);
@@ -34,8 +56,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.MvCfLoad();
 
-
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                ic.HalConnect();
 
                 ic.ReadSpeedSetting();
                 ic.ReadRobotAboutLimitSetting();
@@ -50,9 +74,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-
-
+                
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                ic.HalConnect();
 
                 ic.ReadRobotIntrude(false);
                 ic.ReadXYPosition();
@@ -70,9 +96,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-
-
+                
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                ic.HalConnect();
 
                 ic.Initial();
                 ic.XYPosition(200, 100);
@@ -88,9 +116,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-
-
+                
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                uni.HalConnect();
+                ic.HalConnect();
 
                 ic.HalConnect();
                 //ic.Initial();
