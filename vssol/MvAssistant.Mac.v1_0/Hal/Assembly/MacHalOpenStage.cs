@@ -3,6 +3,7 @@ using MvAssistant.Mac.v1_0.Hal.CompCamera;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -18,9 +19,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
         public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
         public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
+        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_front_1); } }
+        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_barcode_1); } }
 
         #endregion Device Components
-        
+
 
         /// <summary>
         /// 開盒
@@ -193,9 +196,44 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion
 
-        public void CameraTopCap()
+        public Bitmap Camera_Top_Cap()
         {
-            CameraTop.Shot();
+            return CameraTop.Shot();
+        }
+
+        public void Camera_Top_CapToSave(string SavePath,string FileType)
+        {
+            CameraTop.ShotToSaveImage(SavePath,FileType);
+        }
+
+        public Bitmap Camera_Side_Cap()
+        {
+            return CameraSide.Shot();
+        }
+
+        public void Camera_Side_CapToSave(string SavePath, string FileType)
+        {
+            CameraSide.ShotToSaveImage(SavePath, FileType);
+        }
+
+        public Bitmap Camera_NearLP_Cap()
+        {
+            return CameraNearLP.Shot();
+        }
+
+        public void Camera_NearLP_CapToSave(string SavePath, string FileType)
+        {
+            CameraNearLP.ShotToSaveImage(SavePath, FileType);
+        }
+
+        public Bitmap Camera_NearCC_Cap()
+        {
+            return CameraNearCC.Shot();
+        }
+
+        public void Camera_NearCC_CapToSave(string SavePath, string FileType)
+        {
+            CameraNearCC.ShotToSaveImage(SavePath, FileType);
         }
     }
 }

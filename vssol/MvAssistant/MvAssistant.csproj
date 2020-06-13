@@ -188,6 +188,7 @@
   <ItemGroup>
     <Content Include="_github\github_Clone.txt" />
     <Content Include="_github\github_CommitPull.txt" />
+    <Content Include="_github\github_Pull.txt" />
     <Content Include="_github\github_FetchPull.txt" />
     <Content Include="_github\github_HardResetPull.txt" />
     <Content Include="_github\github_MergeToMaster_Pull.txt" />

@@ -1,7 +1,9 @@
+using MvAssistant.Mac.v1_0.Hal.CompCamera;
 using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -14,7 +16,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(MacEnumDevice.cleanch_plc); } }
         public IMacHalLight InspectionSpotLight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.cleanch_inspection_spot_light_001); } }
-
+        public IHalCamera CameraInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.clean_camera_particle_1); } }
 
 
         #endregion Device Components
@@ -174,5 +176,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLightCurtain(); }
         #endregion
 
+        public Bitmap Camera_Cap()
+        {
+            return CameraInsp.Shot();
+        }
+
+        public void Camera_SideInsp_CapToSave(string SavePath, string FileType)
+        {
+            CameraInsp.ShotToSaveImage(SavePath, FileType);
+        }
     }
 }

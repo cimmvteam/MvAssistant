@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
+    [GuidAttribute("00000000-0000-0000-0000-000000000000")]
     public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
     {
 
@@ -28,7 +30,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public override int HalClose()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return 0;
         }
 
         #endregion

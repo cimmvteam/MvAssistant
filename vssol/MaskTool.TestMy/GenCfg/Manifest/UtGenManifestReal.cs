@@ -64,7 +64,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
                       new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F9-A3-23",
+                        DevConnStr = "id=00:11:1C:F9:A3:23",
                         DeviceName = MacEnumDevice.boxtransfer_camera_gripper_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
@@ -169,7 +169,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F9-A4-08",
+                        DevConnStr = "id=00:11:1C:F9:A4:08",
                         DeviceName = MacEnumDevice.clean_camera_particle_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
@@ -250,7 +250,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F8-C6-26",
+                        DevConnStr = "id=00:11:1C:F8:C6:26",
                         DeviceName = MacEnumDevice.inspectionch_camera_inspect_side_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
@@ -262,13 +262,13 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F9-A4-0A",
+                        DevConnStr = "id=00:11:1C:F9:A4:0A",
                         DeviceName = MacEnumDevice.inspection_camera_defense_side_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F9-A4-0D",
+                        DevConnStr = "id=00:11:1C:F9:A4:0D",
                         DeviceName = MacEnumDevice.inspection_camera_defense_top_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
@@ -402,17 +402,28 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F9-A3-45",
+                        DevConnStr = "id=00:11:1C:F9:A3:45",
                         DeviceName = MacEnumDevice.openstage_camera_side_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00-11-1C-F9-15-E4",
+                        DevConnStr = "id=00:11:1C:F9:15:E4",
                         DeviceName = MacEnumDevice.openstage_camera_top_1.ToString(),
                         DriverId = ManifestDriverId.CameraSentech.ToString(),
                     },
 
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = "id=00:11:1C:F9:A8:BE",
+                        DeviceName = MacEnumDevice.openstage_camera_front_1.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
+                    },
+
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = "id=00:11:1C:F9:A3:46",
+                        DeviceName = MacEnumDevice.openstage_camera_barcode_1.ToString(),
+                        DriverId = ManifestDriverId.CameraSentech.ToString(),
+                    },
                 },
             };
             return rs;

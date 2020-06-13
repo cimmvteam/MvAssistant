@@ -81,5 +81,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
                 return img;
             }
         }
+
+        Bitmap IHalCamera.Shot()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ShotToSaveImage( string SavePath, string FileType)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
