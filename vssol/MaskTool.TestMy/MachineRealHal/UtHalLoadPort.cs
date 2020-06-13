@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.GudengLoadPort;
 using MvAssistant.Mac.v1_0.Hal;
@@ -12,145 +13,241 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     {
 
         LoadPort LoadPort1 = null;
+        LoadPort LoadPort2 = null;
         MvGudengLoadPortLdd ldd = new MvGudengLoadPortLdd();
       public UtHalLoadPort()
       {
          //  LoadPort1 =  ldd.CreateLoadPort("192.168.0.11", 2013, 1);
-         LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+            LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+            LoadPort2 = ldd.CreateLoadPort("192.168.0.21", 1024, 2);
             LoadPort1.ListenServer();
+            LoadPort2.ListenServer();
         }
 
-        [TestMethod]
-        public void TestCommandInitialRequest()
-        {
-             LoadPort1.CommandInitialRequest();
-        }
 
         #region TestMethod
         [TestMethod]
-        public void TestCommandUndockRequest()
+         public void TestCommandInitialRequest()
         {
-            LoadPort1.CommandUndockRequest();
+           // LoadPort2.CommandAlarmReset();
+           // LoadPort2.CommandInitialRequest();
+           // return;
+            // ~109,AlarmReset@
+            LoadPort1.CommandAlarmReset(); //~013,AlarmResetSuccess@
+           
+            //~112,InitialRequest@
+            LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@][~202,VacuumAbnormality@~018,LoadportStatus,3@]
+            // 沒有收到 019,InitialComplete()
+
         }
 
+        /// <summary>(100)</summary>
         [TestMethod]
         public void TestCommandDockRequest()
         {
-            LoadPort1.CommandDockRequest();
+
+           LoadPort1.CommandAlarmReset();  // ~013,AlarmResetSuccess@
+            LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[~202,VacuumAbnormality@~018,LoadportStatus,3@]
+                                              // LoadPort1.CommandAlarmReset();
+
+            // ~100,DockRequest@
+            LoadPort1.CommandDockRequest();// ~015,ExecuteInitialFirst@  有沒有(沒有實際的 POD 無法測)
+
+
         }
+        [TestMethod]
+        public void TestCommandUndockRequest()
+        {
+            LoadPort1.CommandAlarmReset();//~013,AlarmResetSuccess@
+            LoadPort1.CommandInitialRequest();
+            //~101,UndockRequest@
+            LoadPort1.CommandUndockRequest(); //~020,MustInAutoMode@(缺)(若是和前面指令一起連續執行則沒有回覆)
+        }
+
+       
 
         [TestMethod]
         public void TestCommandAskPlacementStatus()
         {
-           LoadPort1.CommandAskPlacementStatus();
+            //  ~102,AskPlacementStatus@
+            LoadPort1.CommandAskPlacementStatus();//~001,Placement,1@
+            LoadPort2.CommandAskPlacementStatus();//~001,Placement,0@
         }
 
         [TestMethod]
         public void TestCommandAskPresentStatus()
         {
-           LoadPort1.CommandAskPresentStatus();
+           // ~103,AskPresentStatus@
+            LoadPort1.CommandAskPresentStatus();//~002,Present,1@
+            LoadPort1.CommandAskPresentStatus();//~002,Present,0@
         }
 
         [TestMethod]
         public void TestCommandAskClamperStatus()
         {
-             LoadPort1.CommandAskClamperStatus();
+            //~104,AskClamperStatus@
+            LoadPort1.CommandAskClamperStatus();//[~003,Clamper,0@],[~006,ClamperLockComplete,0@]
+            LoadPort2.CommandAskClamperStatus();//[~003,Clamper,2@],[~006,ClamperLockComplete,1@]
         }
 
         [TestMethod]
         public void TestCommandAskRFIDStatus()
         {
-            LoadPort1.CommandAskRFIDStatus();
+            // ~105,AskRFIDStatus@
+            LoadPort1.CommandAskRFIDStatus();//~004,RFID,1343833305251403@
+            LoadPort2.CommandAskRFIDStatus();// ~004,RFID,ERROR@
         }
 
         [TestMethod]
         public void TestCommandAskBarcodeStatus()
         {
-            LoadPort1.CommandAskBarcodeStatus();
+            //~106,AskBarcodeStatus@
+            LoadPort1.CommandAskBarcodeStatus();//~005,Barcode ID,0@
+            LoadPort2.CommandAskBarcodeStatus();//没有回覆
         }
 
         [TestMethod]
         public void TestCommandAskVacuumStatus()
         {
-            LoadPort1.CommandAskVacuumStatus();
+            //~107,AskVacuumStatus@
+            LoadPort1.CommandAskVacuumStatus();//~007,VacuumComplete,0@
+            LoadPort2.CommandAskVacuumStatus();//~007,VacuumComplete,0@
         }
 
         [TestMethod]
         public void TestCommandAskReticleExistStatus()
         {
-            LoadPort1.CommandAskReticleExistStatus();
+            //~108,AskReticleExistStatus@
+            LoadPort1.CommandAskReticleExistStatus();//~010,DockPODComplete_Empty@
+            LoadPort2.CommandAskReticleExistStatus();//~010,DockPODComplete_Empty@
         }
 
         [TestMethod]
+        
         public void TestCommandAlarmReset()
         {
-            LoadPort1.CommandAlarmReset();
+            //~109,AlarmReset@
+            LoadPort1.CommandAlarmReset();//~013,AlarmResetSuccess@
+            LoadPort2.CommandAlarmReset();//~013,AlarmResetSuccess@
         }
 
         [TestMethod]
         public void TestCommandAskStagePosition()
         {
-            LoadPort1.CommandAskStagePosition();
+          
+           
+            //~110,AskStagePosition@
+            //LoadPort1.CommandAskStagePosition();// ~017,StagePosition,0@
+            LoadPort2.CommandAskStagePosition();// ~017,StagePosition,3@
         }
 
         [TestMethod]
         public void TestCommandAskLoadportStatus()
         {
-            LoadPort1.CommandAskLoadportStatus();
+            // ~111,AskLoadportStatus@
+            LoadPort1.CommandAskLoadportStatus();//~018,LoadportStatus,4
+            LoadPort2.CommandAskLoadportStatus();//~018,LoadportStatus,1@
         }
 
         [TestMethod]
         public void TestCommandManualClamperLock()
         {
-            LoadPort1.CommandManualClamperLock();
+             //LoadPort2.CommandInitialRequest();
+            //~113,ManualClamperLock@
+            LoadPort1.CommandManualClamperLock();//~003,Clamper,1@(第二次執行時沒有回覆)
+           LoadPort2.CommandManualClamperLock();//POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualClamperUnlock()
         {
-            LoadPort1.CommandManualClamperUnlock();
+            //~114,ManualClamperUnlock@
+            LoadPort1.CommandManualClamperUnlock();//~003,Clamper,0@
+            //LoadPort2.CommandInitialRequest();
+            LoadPort2.CommandManualClamperUnlock();//POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualClamperOPR()
         {
-            LoadPort1.CommandManualClamperOPR();
+            //~115,ManualClamperOPR@
+            LoadPort1.CommandManualClamperOPR();// [RETURN] ~003,Clamper,0@
+            LoadPort2.CommandManualClamperOPR();// [RETURN] ~003,Clamper,0@
         }
 
         [TestMethod]
         public void TestCommandManualStageUp()
         {
-            LoadPort1.CommandManualStageUp();
+            // LoadPort1.CommandAlarmReset();
+            // LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[ ~202,VacuumAbnormality@~018,LoadportStatus,3@]
+            //~116,ManualStageUp@
+             LoadPort1.CommandManualStageUp();//  ~022,ClamperNotLock@
+           // LoadPort2.CommandInitialRequest();
+            LoadPort2.CommandManualStageUp();// POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualStageInspection()
         {
-            LoadPort1.CommandManualStageInspection();
+            //  LoadPort1.CommandAlarmReset();
+            //    LoadPort1.CommandInitialRequest();
+            //~117,ManualStageInspection@
+            LoadPort1.CommandManualStageInspection();// ~022,ClamperNotLock@
+            //LoadPort2.CommandInitialRequest();
+            LoadPort2.CommandManualStageInspection(); //POD Problem
+
         }
 
         [TestMethod]
         public void TestCommandManualStageDown()
         {
-            LoadPort1.CommandManualStageDown();
+
+           // LoadPort1.CommandAlarmReset();
+            /**
+             [RETURN] ~001,Placement,0@~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@
+[INVOKE METHOD] Placement, Parameter: 0
+[INVOKE METHOD] Present, Parameter: 0
+[INVOKE METHOD] Present, Parameter: 1
+[INVOKE METHOD] Present, Parameter: 0
+[INVOKE METHOD] Present, Parameter: 1
+[INVOKE METHOD] Present, Parameter: 0
+[INVOKE METHOD] Present, Parameter: 1
+[INVOKE METHOD] Present, Parameter: 0
+[INVOKE METHOD] Present, Parameter: 1
+[RETURN] ~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~001,Placement,1@~001,Placement,0@
+             */
+           //  LoadPort1.CommandInitialRequest();
+            //~118,ManualStageDown@
+             LoadPort1.CommandManualStageDown();// ~022,ClamperNotLock@
+
+
+            //  LoadPort2.CommandAlarmReset();
+            //                                      LoadPort2.CommandInitialRequest();
+           LoadPort2.CommandManualStageDown();// POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualStageOPR()
         {
-            LoadPort1.CommandManualStageOPR();
+           // ~119,ManualStageOPR@
+            LoadPort1.CommandManualStageOPR();//~022,ClamperNotLock@
+            LoadPort2.CommandManualStageOPR();//POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualVacuumOn()
         {
-            LoadPort1.CommandManualVacuumOn();
+            //~120,ManualVacuumOn@
+           // LoadPort1.CommandManualVacuumOn(); // ~007,VacuumComplete,1@
+            LoadPort2.CommandManualVacuumOn();// ~007,VacuumComplete,1@
         }
 
         [TestMethod]
         public void TestCommandManualVacuumOff()
         {
-            LoadPort1.CommandManualVacuumOff();
+            //~121,ManualVacuumOff@
+            //LoadPort1.CommandManualVacuumOff();// ~007,VacuumComplete,0@
+            LoadPort2.CommandManualVacuumOff();// ~007,VacuumComplete,0@
         }
         #endregion
 

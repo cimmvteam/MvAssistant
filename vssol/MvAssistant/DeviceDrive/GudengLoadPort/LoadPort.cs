@@ -11,26 +11,26 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.GudengLoadPort
 {
-   public class LoadPort
+    public class LoadPort
     {
         public int LoadPortNo { get; private set; }
         public IPEndPoint ServerEndPoint { get; private set; }
-        private Socket ClientSocket = null; 
+        private Socket ClientSocket = null;
         public bool IsListenServer { get; private set; }
         public Thread ThreadClientListen = null;
-        private event EventHandler OnReceviceRtnFromServerHandler=null;
+        private event EventHandler OnReceviceRtnFromServerHandler = null;
         public LoadPort()
         {
             OnReceviceRtnFromServerHandler += ReceiveMessageFromServer;
         }
-        public LoadPort(IPEndPoint serverEndpoint,int loadportNo):this()
+        public LoadPort(IPEndPoint serverEndpoint, int loadportNo) : this()
         {
             ServerEndPoint = serverEndpoint;
             LoadPortNo = loadportNo;
         }
-        public LoadPort(string serverIP,int serverPort,int loadportNo):this(new IPEndPoint(IPAddress.Parse(serverIP),serverPort),loadportNo )
+        public LoadPort(string serverIP, int serverPort, int loadportNo) : this(new IPEndPoint(IPAddress.Parse(serverIP), serverPort), loadportNo)
         {
-            
+
         }
 
         private void ReceiveMessageFromServer(object sender, EventArgs args)
@@ -50,7 +50,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
         }
 
-        public void  ListenServer()
+        public void ListenServer()
         {
             try
             {
@@ -94,9 +94,10 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         {
             Debug.WriteLine("[COMMAND] " + commandText);
             byte[] B = Encoding.Default.GetBytes(commandText);
-           ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
+            ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
         }
         #region Command
+        /// <summary>(112)</summary>
         public void CommandInitialRequest()
         {
             if (IsListenServer)
@@ -106,6 +107,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
         }
 
+        /// <summary>(100)</summary>
         public void CommandDockRequest()
         {
             if (IsListenServer)
@@ -196,7 +198,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
         }
 
-        public  void CommandAskStagePosition()
+        public void CommandAskStagePosition()
         {
             if (IsListenServer)
             {
@@ -356,26 +358,26 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void DockPODStart(ReturnFromServer rtnFromServer)
         {
-             InvokeNote("VacuumComplete");
+            InvokeNote("VacuumComplete");
         }
         /// <summary> (009)</summary>
         /// <param name="rtnFromServer"></param>
         public void DockPODComplete_HasReticle(ReturnFromServer rtnFromServer)
         {
-             InvokeNote("DockPODComplete_HasReticle");
+            InvokeNote("DockPODComplete_HasReticle");
         }
         /// <summary> (010)</summary>
         /// <param name="rtnFromServer"></param>
         public void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
         {
-           
+
             InvokeNote("DockPODComplete_Empty");
         }
         /// <summary> (011)</summary>
         /// <param name="rtnFromServer"></param>
         public void UndockComplete(ReturnFromServer rtnFromServer)
         {
-           InvokeNote("UndockComplete");
+            InvokeNote("UndockComplete");
         }
         /// <summary> (012)</summary>
         /// <param name="rtnFromServer"></param>
@@ -429,9 +431,38 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void InitialComplete(ReturnFromServer rtnFromServer)
         {
-          
+
             InvokeNote("InitialComplete");
         }
+
+
+     
+        /// <summary>(020)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>2020/06/11 new</remarks>
+        public void MustInAutoMode(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("MustInAutoMode");
+
+        }
+
+        /// <summary>(022)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperNotLock(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("ClamperNotLock");
+        }
+
+
+
+        /// <summary>(023)</summary>
+        /// <remarks>2020/06/11 new</remarks>
+        public void PODNotPutProperly(ReturnFromServer rtnFromServer)
+        {
+            InvokeNote("PODNotPutProperly");
+        }
+
+
         #endregion
         #region Alarm
         /// <summary>(200)</summary>
@@ -510,11 +541,11 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
         private void InvokeNote(string methodName)
         {
-            Debug.WriteLine("Invoke Method: " +  methodName);
+            Debug.WriteLine("[INVOKE METHOD] " +  methodName);
         }
         private void InvokeNote(string methodName,string parameter)
         {
-            Debug.WriteLine("Invoke Method: " + methodName + ", Parameter: " + parameter);
+            Debug.WriteLine("[INVOKE METHOD] " + methodName + ", Parameter: " + parameter);
         }
        
     }
