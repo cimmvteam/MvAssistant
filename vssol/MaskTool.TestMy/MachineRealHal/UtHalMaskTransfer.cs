@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+using MvAssistant.Mac.v1_0.JSon;
 using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
@@ -27,7 +30,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
                     }
-
+                    // var Pos = JSonHelper.GetInstanceFromJsonFile<List<HalRobotMotion>>(@"D:\Positions\_MaskRobotPosition.json");
+                    var Pos = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(@"D:\Positions\_MaskRobotPosition.json");
+                    //  Debug.WriteLine("X=" + Pos[0].X);
+                    Debug.WriteLine("X=" + Pos[0].Position.X);
                     mt.RobotMove(mt.HomeToOpenStage());
                     mt.RobotMove(mt.OpenStageToHome());
                     mt.ChangeDirection(mt.PosToInspCh());
