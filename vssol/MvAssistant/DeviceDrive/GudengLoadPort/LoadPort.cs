@@ -13,11 +13,19 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 {
     public class LoadPort
     {
+        private BaseHostToLoadPortCommand CurrentCommand;
+
+        /// <summary>Load Port 編號</summary>
         public int LoadPortNo { get; private set; }
+        /// <summary>Server 端 End point</summary>
         public IPEndPoint ServerEndPoint { get; private set; }
+        /// <summary>本地端要送資料到 Server 端的 Client 物件</summary>
         private Socket ClientSocket = null;
+        /// <summary>是否已監聽 Server </summary>
         public bool IsListenServer { get; private set; }
+        /// <summary>Client(本地端) 端監 Server</summary>
         public Thread ThreadClientListen = null;
+        /// <summary>收到 Server 端傳回資料時的事件處理程序</summary>
         private event EventHandler OnReceviceRtnFromServerHandler = null;
         public LoadPort()
         {

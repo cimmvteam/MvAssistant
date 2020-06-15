@@ -47,7 +47,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
 
            LoadPort1.CommandAlarmReset();  // ~013,AlarmResetSuccess@
-            LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[~202,VacuumAbnormality@~018,LoadportStatus,3@]
+           LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[~202,VacuumAbnormality@~018,LoadportStatus,3@]
                                               // LoadPort1.CommandAlarmReset();
 
             // ~100,DockRequest@
