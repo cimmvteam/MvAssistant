@@ -13,46 +13,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalMaskTransfer
     {
-        [TestMethod]
-        public void TestPathMove()
-        {
-
-            try
-            {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
-                {
-                    halContext.MvCfLoad();
-
-
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-
-                    if (mt.HalConnect() != 0)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Connect Fail");
-                    }
-                    // var Pos = JSonHelper.GetInstanceFromJsonFile<List<HalRobotMotion>>(@"D:\Positions\_MaskRobotPosition.json");
-                    var Pos = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(@"D:\Positions\_MaskRobotPosition.json");
-                    //  Debug.WriteLine("X=" + Pos[0].X);
-                    Debug.WriteLine("X=" + Pos[0].Position.X);
-                    mt.RobotMove(mt.HomeToOpenStage());
-                    mt.RobotMove(mt.OpenStageToHome());
-                    mt.ChangeDirection(mt.PosToInspCh());
-                    mt.RobotMove(mt.FrontSideIntoInspCh());
-                    mt.RobotMove(mt.FrontSideLeaveInspCh());
-                    mt.RobotMove(mt.BackSideIntoInspCh());
-                    mt.RobotMove(mt.BackSideLeaveInspCh());
-                    mt.ChangeDirection(mt.PosToCleanCh());
-                    mt.RobotMove(mt.BackSideClean());
-                    mt.RobotMove(mt.FrontSideClean());
-                    mt.RobotMove(mt.FrontSideCCDTakeImage());
-                    mt.RobotMove(mt.BackSideCCDTakeImage());
-                    mt.ChangeDirection(mt.PosHome());
-                }
-            }
-            catch (Exception ex) { throw ex; }
-
-        }
-
+        #region PLC HAL
         [TestMethod]
         public void TestSetParameter()
         {
@@ -145,5 +106,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 mt.RobotMoving(false);
             }
         }
+        #endregion
     }
 }

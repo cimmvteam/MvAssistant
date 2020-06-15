@@ -1,10 +1,13 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.Mac.v1_0.JSon;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.IO;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -18,80 +21,60 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #endregion Device Components
 
-     
-
         /// <summary>
         /// 給點位清單，依序移動
         /// </summary>
         /// <param name="PathPosition"></param>
-        public void RobotMove(List<HalRobotMotion> PathPosition)
+        public int ExePathMove(string PathFileLocation)
         {
-            //List<HalRobotMotion> PathPosition = HomeToOpenStage();
-
-            var targets = new List<HalRobotMotion>();
-            targets.AddRange(PathPosition);
-            float[] target = new float[6];
-
-            for (int idx = 0; idx < targets.Count; idx++)
-            {
-                var motion = targets[idx];
-                this.Robot.HalMoveStraightAsyn(motion);
-                while (!this.Robot.HalMoveIsComplete())
-                    Thread.Sleep(100);
-                this.Robot.HalMoveEnd();
-
-            }
-
-        }
-
-        /// <summary>
-        /// 給單一點位，進行移動
-        /// </summary>
-        /// <param name="PathPosition"></param>
-        public void RobotMove(HalRobotMotion PathPosition)
-        {
-            this.Robot.HalMoveStraightAsyn(PathPosition);
-            while (!this.Robot.HalMoveIsComplete())
-                Thread.Sleep(100);
-            this.Robot.HalMoveEnd();
+            var PathPosition = Robot.ReadMovePath(PathFileLocation);
+            return Robot.ExePosMove(PathPosition);
         }
 
         /// <summary>
         /// 調整手臂到其他進入Assembly的點位
         /// </summary>
-        /// <param name="PosToAssembly">PosHome, PosToInspCh, PosToCleanCh</param>
-        public void ChangeDirection(HalRobotMotion PosToAssembly)
+        /// <param name="EndPosFileLocation">Jason檔的儲存目錄</param>
+        /// <param name="EndPosition"></param>
+        public void ChangeDirection(string EndPosFileLocation)
         {
             bool Licence = false;
             string StartPosName = "";
             string EndPosName = "";
+            string EndPosFileDirectory = Path.GetDirectoryName(EndPosFileLocation);
+            string EndPosFileName = Path.GetFileName(EndPosFileLocation);
+            var LPHome = Robot.ReadMovePath(EndPosFileDirectory + "/LoadPortHome.json")[0];
+            var ICHome = Robot.ReadMovePath(EndPosFileDirectory + "/InspChHome.json")[0];
+            var CCHome = Robot.ReadMovePath(EndPosFileDirectory + "/CleanChHome.json")[0];
+            List<HalRobotMotion> PosList = new List<HalRobotMotion>();
+
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
             var StasrtPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
-                if (StasrtPosInfo.j1 <= PosHome().J1 + 5 && StasrtPosInfo.j1 >= PosHome().J1 - 5
-                    && StasrtPosInfo.j2 <= PosHome().J2 + 5 && StasrtPosInfo.j2 >= PosHome().J2 - 5
-                    && StasrtPosInfo.j3 <= PosHome().J3 + 5 && StasrtPosInfo.j3 >= PosHome().J3 - 5
-                    && StasrtPosInfo.j4 <= PosHome().J4 + 5 && StasrtPosInfo.j4 >= PosHome().J4 - 5
-                    && StasrtPosInfo.j5 <= PosHome().J5 + 5 && StasrtPosInfo.j5 >= PosHome().J5 - 5
-                    && StasrtPosInfo.j6 <= PosHome().J6 + 5 && StasrtPosInfo.j6 >= PosHome().J6 - 5)
+                if (StasrtPosInfo.j1 <= LPHome.J1 + 5 && StasrtPosInfo.j1 >= LPHome.J1 - 5
+                    && StasrtPosInfo.j2 <= LPHome.J2 + 5 && StasrtPosInfo.j2 >= LPHome.J2 - 5
+                    && StasrtPosInfo.j3 <= LPHome.J3 + 5 && StasrtPosInfo.j3 >= LPHome.J3 - 5
+                    && StasrtPosInfo.j4 <= LPHome.J4 + 5 && StasrtPosInfo.j4 >= LPHome.J4 - 5
+                    && StasrtPosInfo.j5 <= LPHome.J5 + 5 && StasrtPosInfo.j5 >= LPHome.J5 - 5
+                    && StasrtPosInfo.j6 <= LPHome.J6 + 5 && StasrtPosInfo.j6 >= LPHome.J6 - 5)
                 {
-                    Licence = true; StartPosName = "Home";
+                    Licence = true; StartPosName = "Load Port";
                 }
-                else if (StasrtPosInfo.j1 <= PosToInspCh().J1 + 5 && StasrtPosInfo.j1 >= PosToInspCh().J1 - 5
-                    && StasrtPosInfo.j2 <= PosToInspCh().J2 + 5 && StasrtPosInfo.j2 >= PosToInspCh().J2 - 5
-                    && StasrtPosInfo.j3 <= PosToInspCh().J3 + 5 && StasrtPosInfo.j3 >= PosToInspCh().J3 - 5
-                    && StasrtPosInfo.j4 <= PosToInspCh().J4 + 5 && StasrtPosInfo.j4 >= PosToInspCh().J4 - 5
-                    && StasrtPosInfo.j5 <= PosToInspCh().J5 + 5 && StasrtPosInfo.j5 >= PosToInspCh().J5 - 5
-                    && StasrtPosInfo.j6 <= PosToInspCh().J6 + 5 && StasrtPosInfo.j6 >= PosToInspCh().J6 - 5)
+                else if (StasrtPosInfo.j1 <= ICHome.J1 + 5 && StasrtPosInfo.j1 >= ICHome.J1 - 5
+                    && StasrtPosInfo.j2 <= ICHome.J2 + 5 && StasrtPosInfo.j2 >= ICHome.J2 - 5
+                    && StasrtPosInfo.j3 <= ICHome.J3 + 5 && StasrtPosInfo.j3 >= ICHome.J3 - 5
+                    && StasrtPosInfo.j4 <= ICHome.J4 + 5 && StasrtPosInfo.j4 >= ICHome.J4 - 5
+                    && StasrtPosInfo.j5 <= ICHome.J5 + 5 && StasrtPosInfo.j5 >= ICHome.J5 - 5
+                    && StasrtPosInfo.j6 <= ICHome.J6 + 5 && StasrtPosInfo.j6 >= ICHome.J6 - 5)
                 {
                     Licence = true; StartPosName = "Inspection Chamber";
                 }
-                else if (StasrtPosInfo.j1 <= PosToCleanCh().J1 + 5 && StasrtPosInfo.j1 >= PosToCleanCh().J1 - 5
-                    && StasrtPosInfo.j2 <= PosToCleanCh().J2 + 5 && StasrtPosInfo.j2 >= PosToCleanCh().J2 - 5
-                    && StasrtPosInfo.j3 <= PosToCleanCh().J3 + 5 && StasrtPosInfo.j3 >= PosToCleanCh().J3 - 5
-                    && StasrtPosInfo.j4 <= PosToCleanCh().J4 + 5 && StasrtPosInfo.j4 >= PosToCleanCh().J4 - 5
-                    && StasrtPosInfo.j5 <= PosToCleanCh().J5 + 5 && StasrtPosInfo.j5 >= PosToCleanCh().J5 - 5
-                    && StasrtPosInfo.j6 <= PosToCleanCh().J6 + 5 && StasrtPosInfo.j6 >= PosToCleanCh().J6 - 5)
+                else if (StasrtPosInfo.j1 <= CCHome.J1 + 5 && StasrtPosInfo.j1 >= CCHome.J1 - 5
+                    && StasrtPosInfo.j2 <= CCHome.J2 + 5 && StasrtPosInfo.j2 >= CCHome.J2 - 5
+                    && StasrtPosInfo.j3 <= CCHome.J3 + 5 && StasrtPosInfo.j3 >= CCHome.J3 - 5
+                    && StasrtPosInfo.j4 <= CCHome.J4 + 5 && StasrtPosInfo.j4 >= CCHome.J4 - 5
+                    && StasrtPosInfo.j5 <= CCHome.J5 + 5 && StasrtPosInfo.j5 >= CCHome.J5 - 5
+                    && StasrtPosInfo.j6 <= CCHome.J6 + 5 && StasrtPosInfo.j6 >= CCHome.J6 - 5)
                 {
                     Licence = true; StartPosName = "Clean Chamber";
                 }
@@ -99,32 +82,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             #endregion
 
             #region 確認終點
-            if (PosToAssembly.J1 <= PosHome().J1 + 5 && PosToAssembly.J1 >= PosHome().J1 - 5
-                && PosToAssembly.J2 <= PosHome().J2 + 5 && PosToAssembly.J2 >= PosHome().J2 - 5
-                && PosToAssembly.J3 <= PosHome().J3 + 5 && PosToAssembly.J3 >= PosHome().J3 - 5
-                && PosToAssembly.J4 <= PosHome().J4 + 5 && PosToAssembly.J4 >= PosHome().J4 - 5
-                && PosToAssembly.J5 <= PosHome().J5 + 5 && PosToAssembly.J5 >= PosHome().J5 - 5
-                && PosToAssembly.J6 <= PosHome().J6 + 5 && PosToAssembly.J6 >= PosHome().J6 - 5)
-            {
-                EndPosName = "Home";
+            if (EndPosFileName == "LoadPortHome.json")
+            { 
+                EndPosName = "Load Port";
+                PosList.Add(LPHome);
             }
-            else if (PosToAssembly.J1 <= PosToInspCh().J1 + 5 && PosToAssembly.J1 >= PosToInspCh().J1 - 5
-                && PosToAssembly.J2 <= PosToInspCh().J2 + 5 && PosToAssembly.J2 >= PosToInspCh().J2 - 5
-                && PosToAssembly.J3 <= PosToInspCh().J3 + 5 && PosToAssembly.J3 >= PosToInspCh().J3 - 5
-                && PosToAssembly.J4 <= PosToInspCh().J4 + 5 && PosToAssembly.J4 >= PosToInspCh().J4 - 5
-                && PosToAssembly.J5 <= PosToInspCh().J5 + 5 && PosToAssembly.J5 >= PosToInspCh().J5 - 5
-                && PosToAssembly.J6 <= PosToInspCh().J6 + 5 && PosToAssembly.J6 >= PosToInspCh().J6 - 5)
-            {
+            else if (EndPosFileName == "InspChHome.json")
+            { 
                 EndPosName = "Inspection Chamber";
+                PosList.Add(ICHome);
             }
-            else if (PosToAssembly.J1 <= PosToCleanCh().J1 + 5 && PosToAssembly.J1 >= PosToCleanCh().J1 - 5
-                && PosToAssembly.J2 <= PosToCleanCh().J2 + 5 && PosToAssembly.J2 >= PosToCleanCh().J2 - 5
-                && PosToAssembly.J3 <= PosToCleanCh().J3 + 5 && PosToAssembly.J3 >= PosToCleanCh().J3 - 5
-                && PosToAssembly.J4 <= PosToCleanCh().J4 + 5 && PosToAssembly.J4 >= PosToCleanCh().J4 - 5
-                && PosToAssembly.J5 <= PosToCleanCh().J5 + 5 && PosToAssembly.J5 >= PosToCleanCh().J5 - 5
-                && PosToAssembly.J6 <= PosToCleanCh().J6 + 5 && PosToAssembly.J6 >= PosToCleanCh().J6 - 5)
-            {
+            else if (EndPosFileName == "CleanChHome.json")
+            { 
                 EndPosName = "Clean Chamber";
+                PosList.Add(CCHome);
             }
             #endregion
 
@@ -135,15 +106,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
                     if (StartPosName != "Inspection Chamber" && EndPosName != "Inspection Chamber")
                     {
-                        RobotMove(PosToInspCh());
-                        RobotMove(PosToAssembly);
+                        PosList.Insert(0,ICHome);
+                        Robot.ExePosMove(PosList);
                     }
                     else
                     {
-                        RobotMove(PosToAssembly);
+                        Robot.ExePosMove(PosList);
                     }
                 }
-                else if(EndPosName==StartPosName)
+                else if (EndPosName == StartPosName)
                     throw new Exception("End position as same as current position !!");
                 else
                     throw new Exception("Unknown end position !!");
@@ -178,7 +149,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             //TODO: Safety , robot how to initial?
             Plc.Initial();
         }
-        
+
         public string ReadMTRobotStatus()
         { return Plc.ReadMTRobotStatus(); }
 

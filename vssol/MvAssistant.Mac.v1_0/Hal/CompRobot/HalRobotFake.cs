@@ -68,5 +68,15 @@ namespace MvAssistant.Mac.v1_0.Hal.ComponentFake.Robot
         {
             throw new NotImplementedException();
         }
+
+        public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ExePosMove(List<HalRobotMotion> PathPosition)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
