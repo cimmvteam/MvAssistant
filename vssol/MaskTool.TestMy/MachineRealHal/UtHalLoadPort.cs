@@ -21,10 +21,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
          
             LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
             LoadPort2 = ldd.CreateLoadPort("192.168.0.21", 1024, 2);
+            BindEventHandler();
+
             LoadPort1.StartListenServerThread();
             LoadPort2.StartListenServerThread();
         }
-        public void EventHandlerBind()
+        public void BindEventHandler()
         {
             foreach(var loadport in ldd.LoadPorts)
             {
