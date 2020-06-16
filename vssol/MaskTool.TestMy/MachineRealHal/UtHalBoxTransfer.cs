@@ -16,7 +16,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-                
+
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
@@ -31,7 +31,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestPathMove()
         {
-           int boxStartIndex = default(int);
+            int boxStartIndex = default(int);
             int boxEndIndex = default(int);
             try
             {
@@ -41,7 +41,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
 
                     var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                    
+
                     if (bt.HalConnect() != 0)
                     {
                         System.Diagnostics.Debug.WriteLine("Connect Fail");
@@ -61,7 +61,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     }
 
 
-                  
+
 
                     // [ ] 從 Cabinet 1 回到 Cabinet1 Home
                     bt.BackwardFromCabinet1();
@@ -91,13 +91,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     // [ ] 轉向 Cbinet 方向
                     bt.ChangeDirectionToFaceCabinet1();
-  
+
                 }
             }
             catch (Exception ex) { throw ex; }
 
         }
-    
+
 
         [TestMethod]
         public void TestSetParameter()

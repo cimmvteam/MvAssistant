@@ -420,27 +420,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
         #endregion
 
-        public void MoveToDrawer(int number)
+        public int ExePathMove(string PathFileLocation)
         {
-
-
-
-            this.Robot.HalMoveStraightAsyn(new HalRobotMotion()
-            {
-                 X=1,
-                 Y=2,
-                 Z=3,
-                 W=4,
-                 P=5,
-                 R=6,
-                 Speed=20,
-            });
-
+            var PathPosition = Robot.ReadMovePath(PathFileLocation);
+            return Robot.ExePosMove(PathPosition);
         }
-
-
-
-
 
         /// <summary>
         /// 夾取，1：鐵盒、2：水晶盒
