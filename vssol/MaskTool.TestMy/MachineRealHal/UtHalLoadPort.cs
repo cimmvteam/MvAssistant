@@ -5,6 +5,7 @@ using MvAssistant.DeviceDrive.GudengLoadPort;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
+using static MvAssistant.DeviceDrive.GudengLoadPort.LoadPort;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -23,7 +24,47 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             LoadPort1.StartListenServerThread();
             LoadPort2.StartListenServerThread();
         }
+        public void EventHandlerBind()
+        {
+            foreach(var loadport in ldd.LoadPorts)
+            {
+                loadport.OnAlarmResetFailHandler += this.OnAlarmResetFail;//014
+                loadport.OnAlarmResetSuccessHandler += this.OnAlarmResetSuccess;//013
+                loadport.OnBarcode_IDHandler += this.OnBarcode_ID;//005
+                loadport.OnClamperActionTimeOutHandler += this.OnClamperActionTimeOut;// 200
+                loadport.OnClamperHandler += this.OnClamper;//003
+                loadport.OnClamperLockCompleteHandler += this.OnClamperLockComplete;//012
+                loadport.OnClamperLockPositionFailed += this.OnClamperLockPositionFailed;//207
+                loadport.OnClamperMotorAbnormality += this.OnClamperMotorAbnormality;//209
+                loadport.OnClamperNotLockHandler += this.OnClamperNotLock;//022
+                loadport.OnClamperUnlockCompleteHandler += this.OnClamperUnlockComplete;//006
+                loadport.OnClamperUnlockPositionFailedHandler += this.OnClamperUnlockPositionFailed;//201
+                loadport.OnCoverDisappearHandler += this.OnCoverDisappear;//208
+                loadport.OnDockPODComplete_EmptyHandler += this.OnDockPODComplete_Empty;//010
+                loadport.OnDockPODComplete_HasReticleHandler += this.OnDockPODComplete_HasReticle;// 009
+                loadport.OnDockPODStartHandler += this.OnDockPODStart;//008
+                loadport.OnExecuteAlarmResetFirstHandler += this.OnExecuteAlarmResetFirst;// 016
+                loadport.OnExecuteInitialFirstHandler += this.OnExecuteInitialFirst;//015
+                loadport.OnInitialCompleteHandler += this.OnInitialComplete;//019
+                loadport.OnInitialUnCompleteHandler += this.OnInitialUnComplete; // 自訂
+                loadport.OnLoadportStatusHandler += this.OnLoadportStatus;// 018
+                loadport.OnMustInAutoModeHandler += this.OnMustInAutoMode;//020
+                loadport.OnPlacementHandler += this.OnPlacement;//001
+                loadport.OnPODNotPutProperlyHandler += this.OnPODNotPutProperly;//023
+                loadport.OnPresentHandler += this.OnPresent;//002
+                loadport.OnReticlePositionAbnormalityHandler += this.OnReticlePositionAbnormality;//206
+                loadport.OnRFIDHandler += this.OnRFID;//004
+                loadport.OnStageMotionTimeoutHandler += this.OnStageMotionTimeout;//203
+                loadport.OnStageMotorAbnormality += this.OnStageMotorAbnormality;//210
+                loadport.OnStageOverDownLimitationHandler += this.OnStageOverDownLimitation;//205
+                loadport.OnStageOverUpLimitationHandler += this.OnStageOverUpLimitation;//204
+                loadport.OnStagePositionHandler += this.OnStagePosition;//017
+                loadport.OnUndockCompleteHandler += this.OnUndockComplete;//011
+                loadport.OnVacuumAbnormalityHandler += this.OnVacuumAbnormality;//202
+                loadport.OnVacuumCompleteHandler += this.OnVacuumComplete;//007
 
+            }
+        }
 
         #region TestMethod
         [TestMethod]
@@ -40,14 +81,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
               LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@][~202,VacuumAbnormality@~018,LoadportStatus,3@]
               // 沒有收到 019,InitialComplete()
               */
-            EventHandler InitialCompleteHandler = (sender, e)=>{  };
-            EventHandler InitialUnCompleteHandler = (sender, e) =>{ };
-
-            LoadPort1.ResetInitialOnCompleteHandler();
-            LoadPort1.ResetOnInitialUnCompleteHandler();
-            LoadPort1.OnInitialCompleteHandler += InitialCompleteHandler;
-            LoadPort1.OnInitialUnCompleteHandler += InitialUnCompleteHandler;
-
+            
             LoadPort1.CommandInitialRequest();
         }
 
@@ -63,31 +97,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             // ~100,DockRequest@
             LoadPort1.CommandDockRequest();// ~015,ExecuteInitialFirst@  有沒有(沒有實際的 POD 無法測)
             */
-            EventHandler ExecuteAlarmResetFirstHandler = (sender, e)=> {      };
-            EventHandler AlarmResetSuccessHandler = (sender, e) =>{  };
-            EventHandler AlarmResetFailHandler = (sender, e) =>{ };
-            EventHandler ExecuteInitialFirstHandler = (sender, e)=>{};
-            EventHandler InitialCompleteHandler = (sender, e) =>{};
-            EventHandler InitialUnCompleteHandler = (sender, e) => { };
-            EventHandler DockPODStartHandler = (sender, e) =>{};
-
-            LoadPort1.ResetExecuteOnAlarmResetFirstHandler();
-            LoadPort1.OnExecuteAlarmResetFirstHandler += ExecuteAlarmResetFirstHandler;
-            LoadPort1.ResetOnAlarmResetSuccessHandler();
-            LoadPort1.OnAlarmResetSuccessHandler += AlarmResetSuccessHandler;
-            LoadPort1.ResetOnAlarmResetFailHandler();
-            LoadPort1.OnAlarmResetFailHandler += AlarmResetFailHandler;
-            LoadPort1.ResetOnExecuteInitialFirstHandler();
-            LoadPort1.OnExecuteInitialFirstHandler += ExecuteInitialFirstHandler;
-            LoadPort1.ResetInitialOnCompleteHandler();
-            LoadPort1.OnExecuteInitialFirstHandler += ExecuteInitialFirstHandler;
-            LoadPort1.ResetOnInitialUnCompleteHandler();
-            LoadPort1.OnInitialUnCompleteHandler += InitialUnCompleteHandler;
-            LoadPort1.ResetInitialOnCompleteHandler();
-            LoadPort1.OnInitialCompleteHandler += InitialCompleteHandler;
-            LoadPort1.ResetDockOnPODStartHandler();
-            LoadPort1.OnDockPODStartHandler += DockPODStartHandler;
-
+          
             LoadPort1.CommandDockRequest();
         }
 
@@ -101,28 +111,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             //~101,UndockRequest@
             LoadPort1.CommandUndockRequest(); //~020,MustInAutoMode@(缺)(若是和前面指令一起連續執行則沒有回覆)
             */
-            EventHandler ExecuteAlarmResetFirstHandler = (sender, e) => { };
-            EventHandler AlarmResetSuccessHandler = (sender, e) => { };
-            EventHandler AlarmResetFailHandler = (sender, e) => { };
-            EventHandler ExecuteInitialFirstHandler = (sender, e) => { };
-            EventHandler InitialCompleteHandler = (sender, e) => { };
-            EventHandler InitialUnCompleteHandler = (sender, e) => { };
-
-            LoadPort1.ResetExecuteOnAlarmResetFirstHandler();
-            LoadPort1.OnExecuteAlarmResetFirstHandler += ExecuteAlarmResetFirstHandler;
-            LoadPort1.ResetOnAlarmResetSuccessHandler();
-            LoadPort1.OnAlarmResetSuccessHandler += AlarmResetSuccessHandler;
-            LoadPort1.ResetOnAlarmResetFailHandler();
-            LoadPort1.OnAlarmResetFailHandler += AlarmResetFailHandler;
-            LoadPort1.ResetOnExecuteInitialFirstHandler();
-            LoadPort1.OnExecuteInitialFirstHandler += ExecuteInitialFirstHandler;
-            LoadPort1.ResetInitialOnCompleteHandler();
-            LoadPort1.OnExecuteInitialFirstHandler += ExecuteInitialFirstHandler;
-            LoadPort1.ResetOnInitialUnCompleteHandler();
-            LoadPort1.OnInitialUnCompleteHandler += InitialUnCompleteHandler;
-            LoadPort1.ResetInitialOnCompleteHandler();
-            LoadPort1.OnInitialCompleteHandler += InitialCompleteHandler;
-
+            
             LoadPort1.CommandUndockRequest();
         }
 
@@ -395,5 +384,188 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 lp.HalConnect();
             }
         }
+
+        #region Event Handler
+        private void OnPlacement(object sender,EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnPlacementEventArgs)args;
+        }
+
+        private void OnPresent(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnPresentEventArgs)args;
+        }
+
+        private void OnClamper(object sender,EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnPresentEventArgs)args;
+        }
+        private void OnRFID(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnRFIDEventArgs)args;
+        }
+        private void OnBarcode_ID(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnBarcode_IDEventArgs)args;
+        }
+        private void OnClamperUnlockComplete(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnClamperUnlockCompleteEventArgs)args;
+        }
+        private void OnVacuumComplete(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnVacuumCompleteEventArgs)args;
+        }
+        private void OnDockPODStart(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnVacuumCompleteEventArgs)args;
+        }
+
+      
+        private void OnDockPODComplete_HasReticle(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnDockPODComplete_Empty(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+
+        private void OnUndockComplete (object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+
+        private void OnClamperLockComplete(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+
+        private void OnAlarmResetSuccess(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnAlarmResetFail(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnExecuteInitialFirst(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnExecuteAlarmResetFirst(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnStagePosition(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnStagePositionEventArgs)args;
+        }
+        private void OnLoadportStatus(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+            var eventArgs = (OnLoadportStatusEventArgs)args;
+
+        }
+        private void OnInitialComplete(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+           
+
+        }
+
+        private void OnInitialUnComplete(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+
+        }
+        private void OnMustInAutoMode(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+        }
+
+        private void OnClamperNotLock(object sender,EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+        }
+
+        private void OnPODNotPutProperly(object sender,EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+        }
+        private void OnClamperActionTimeOut(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnClamperUnlockPositionFailed(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnVacuumAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnStageMotionTimeout(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnStageOverUpLimitation(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnStageOverDownLimitation(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnReticlePositionAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnClamperLockPositionFailed(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnCoverDisappear(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnClamperMotorAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        private void OnStageMotorAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (LoadPort)sender;
+
+        }
+        #endregion
     }
 }
