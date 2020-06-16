@@ -309,7 +309,21 @@
         "MotionType": 2
       },
       {
+        "SerialNumber": 215,
+        "PositionFileName": "Cabinet_01_Home_Forward_Drawer_01_10_PUT.json",
+        "UsageDescription": "從Cabinet 01 Home 前進到 Cabinet 01 的 Drawer 10(PUT) 各點的集合",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
         "SerialNumber": 220,
+        "PositionFileName": "Cabinet_01_Home_Forward_Drawer_01_11_GET.json",
+        "UsageDescription": "從Cabinet 01 Home 前進到 Cabinet 01 的 Drawer 11(GET) 各點的集合",
+        "PositionFileDescription": "多點位路徑集合",
+        "MotionType": 2
+      },
+      {
+        "SerialNumber": 225,
         "PositionFileName": "Cabinet_01_Home_Forward_Drawer_01_11_PUT.json",
         "UsageDescription": "從Cabinet 01 Home 前進到 Cabinet 01 的 Drawer 11(PUT) 各點的集合",
         "PositionFileDescription": "多點位路徑集合",
@@ -562,20 +576,6 @@
       },
       {
         "SerialNumber": 580,
-        "PositionFileName": "Drawer_01_09_Backward_Cabinet_01_Home_PUT.json",
-        "UsageDescription": "從Cabinet 01 Drawer 09 回到 Cabinet 01 Home(PUT) 各點的集合",
-        "PositionFileDescription": "多點位路徑集合",
-        "MotionType": 2
-      },
-      {
-        "SerialNumber": 590,
-        "PositionFileName": "Drawer_01_09_Backward_Cabinet_01_Home_GET.json",
-        "UsageDescription": "從Cabinet 01 Drawer 09 回到 Cabinet 01 Home(GET) 各點的集合",
-        "PositionFileDescription": "多點位路徑集合",
-        "MotionType": 2
-      },
-      {
-        "SerialNumber": 600,
         "PositionFileName": "Drawer_01_09_Backward_Cabinet_01_Home_PUT.json",
         "UsageDescription": "從Cabinet 01 Drawer 09 回到 Cabinet 01 Home(PUT) 各點的集合",
         "PositionFileDescription": "多點位路徑集合",
