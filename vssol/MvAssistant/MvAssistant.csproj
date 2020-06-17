@@ -132,7 +132,6 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\Drawer.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerSocket.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
-    <Compile Include="DeviceDrive\KjMachineDrawer\EquipmentToHostContent.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLdd.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\OnReciveMessageEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UdpClientSocket.cs" />

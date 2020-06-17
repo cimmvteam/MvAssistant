@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     {
         #region
         // 建一個 Listen 的 Server;
-        public UdpServerSocket UdpServer;
+       // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
         public string ClientIP_01_01 = "192.168.0.42";
         public string ClientIP_01_02 = "192.168.0.54";

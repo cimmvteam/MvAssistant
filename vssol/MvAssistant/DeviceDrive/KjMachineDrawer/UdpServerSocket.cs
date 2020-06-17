@@ -27,7 +27,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             IPEndPoint IpFrom = new IPEndPoint(IPAddress.Any, 0);
             while (true)
             {
-               
+                // 監聽從 Server 端(Drawer) 回送的事件
                 var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpFrom));
                 OnReciveMessageEventArgs args = new OnReciveMessageEventArgs
                 {
