@@ -14,10 +14,18 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 {
     public class LoadPort
     {
-        /**
-        public  delegate void OriginalInvokeMethod() ;
+       
+        public  delegate string OriginalInvokeMethod() ;
       
-        OriginalInvokeMethod DelgateOriginalMethod;
+        private  OriginalInvokeMethod DelgateOriginalMethod=null;
+        public void InvokeOriginalMethod()
+        {
+            if (DelgateOriginalMethod != null)
+            {
+                DelgateOriginalMethod.Invoke();
+            }
+        }
+       /** 
         private bool CommandCascadeMode = false;
         private bool IsCommandCascade
         {
@@ -34,22 +42,16 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         {
             CommandCascadeMode = false;
         }
+        */
         public void ClearOriginalMethod()
         {
             DelgateOriginalMethod = null;
         }
         public void SetOriginalMethod(OriginalInvokeMethod delegateMethod)
         {
-            if (IsCommandCascade)
-            {
                 DelgateOriginalMethod = delegateMethod;
-            }
-            else
-            {
-                DelgateOriginalMethod = null;
-            }
         }
-        private bool HasInvokeOriginalMethod
+        public bool HasInvokeOriginalMethod
         {
             get
             {
@@ -63,7 +65,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 }
             }
         }
-     */
+     
         /*private string OriginalCommandText{get;set;}
         /// <summary>是否有最初指定的 Command</summary>
         private bool HasOriginalCommand
@@ -193,108 +195,111 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
        
         /// <summary>Command DockRequest(100)</summary>
         /// <remarks>Main Event: DockPODStart</remarks>
-        public void CommandDockRequest()
+        public string CommandDockRequest()
         {
-         
+
+            string command = null; 
             if (IsListenServer)
             {
               
-                var command = new DockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                 command = new DockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
                  Send(command);
             }
+            return command;
         }
 
         /// <summary>Command UndockRequest(101)</summary>
         /// <remarks></remarks>
-        public void CommandUndockRequest()
+        public string CommandUndockRequest()
         {
-            
+
+            string command = "";
             if (IsListenServer)
             {
                
-                var command = new UndockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new UndockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskPlacementStatus(102)</summary>
         /// <remarks>Main Event: Placement</remarks>
-        public void CommandAskPlacementStatus()
+        public string CommandAskPlacementStatus()
         {
-           
+            string command = "";
             if (IsListenServer)
             {
              
-                var command = new AskPlacementStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                 command = new AskPlacementStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskPresentStatus(103)</summary>
         /// <remarks>Main Event: Present</remarks>
-        public void CommandAskPresentStatus()
+        public string CommandAskPresentStatus()
         {
-             
+            string command = "";
             if (IsListenServer)
             {
-                
-                var command = new AskPresentStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+               command = new AskPresentStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskClamperStatus(104)</summary>
         /// <remarks>Main Event: Clamper</remarks>
-        public void CommandAskClamperStatus()
+        public string CommandAskClamperStatus()
         {
-          
+            string command = "";
             if (IsListenServer)
             {
-               
-              
-                var command = new AskClamperStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskClamperStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskRFIDStatus(105)</summary>
         /// <remarks>Main Event: RFID</remarks>
-        public void CommandAskRFIDStatus()
+        public string CommandAskRFIDStatus()
         {
-         
+            string command = "";
             if (IsListenServer)
             {
-             
-                var command = new AskRFIDStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskRFIDStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskBarcodeStatus(106)</summary>
         /// <remarks>Main Event: Barcode ID(Invoke: Barcode_ID)</remarks>
-        public void CommandAskBarcodeStatus()
+        public string CommandAskBarcodeStatus()
         {
-          
+            string command = "";
             if (IsListenServer)
             {
-              
-                var command = new AskBarcodeStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskBarcodeStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskVacuumStatus(107)</summary>
         /// <remarks>Main Event: VacuumComplete</remarks>
-        public void CommandAskVacuumStatus()
+        public string CommandAskVacuumStatus()
         {
-
-            
+            string command = "";
             if (IsListenServer)
             {
-              
-                var command = new AskVacuumStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+               command = new AskVacuumStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskReticleExistStatus(108)</summary>
@@ -303,15 +308,15 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <para>DockPODComplete_HasReticle(009)</para><para>.OR.</para>
         /// <para>DockPODComplete_Empty(010)</para>
         /// </remarks>
-        public void CommandAskReticleExistStatus()
+        public string CommandAskReticleExistStatus()
         {
-           
+            string command = "";
             if (IsListenServer)
             {
-              
-                var command = new AskReticleExistStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskReticleExistStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>AlarmReset(109)</summary>
@@ -321,136 +326,153 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <para>.OR.</para>
         /// <para>AlarmResetFail</para>
         /// </remarks>
-        public void CommandAlarmReset()
+        public string CommandAlarmReset()
         {
+            string command = "";
             if (IsListenServer)
             {
-              
-                var command = new AlarmReset().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AlarmReset().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskStagePosition(110)</summary>
         /// <remarks>Main Event: StagePosition</remarks>
-        public void CommandAskStagePosition()
+        public string CommandAskStagePosition()
         {
-         
+            string command = "";
             if (IsListenServer)
             {
-
-              
-                var command = new AskStagePosition().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskStagePosition().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command AskLoadportStatus(111)</summary>
         /// <remarks>Main Event: LoadportStatus</remarks>
-        public void CommandAskLoadportStatus()
+        public string CommandAskLoadportStatus()
         {
-           
+            string command = "";
             if (IsListenServer)
             {
-              
-                var command = new AskLoadportStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskLoadportStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
         /// <summary>Command Initilial Request(112)</summary>
-        public void CommandInitialRequest()
+        public string CommandInitialRequest()
         {
+            string command = "";
             if (IsListenServer)
             {
-               
-                var command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
         /// <summary>Command ManualClamperLock</summary>
         /// <remarks>Main Event: Clamper</remarks>
-        public void CommandManualClamperLock()
+        public string CommandManualClamperLock()
         {
-         
+            string command = "";
             if (IsListenServer)
             {
-               
-                var command = new ManualClamperLock().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualClamperLock().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualClamperUnlock()
+        public string CommandManualClamperUnlock()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualClamperUnlock().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualClamperUnlock().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualClamperOPR()
+        public string CommandManualClamperOPR()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualClamperOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualClamperOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualStageUp()
+        public string CommandManualStageUp()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualStageUp().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualStageUp().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualStageInspection()
+        public string CommandManualStageInspection()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualStageInspection().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualStageInspection().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualStageDown()
+        public string CommandManualStageDown()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualStageDown().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualStageDown().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualStageOPR()
+        public string CommandManualStageOPR()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualStageOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualStageOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualVacuumOn()
+        public string CommandManualVacuumOn()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualVacuumOn().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualVacuumOn().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
 
-        public void CommandManualVacuumOff()
+        public string CommandManualVacuumOff()
         {
+            string command = "";
             if (IsListenServer)
             {
-                var command = new ManualVacuumOff().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new ManualVacuumOff().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
+            return command;
         }
      
 
@@ -588,10 +610,10 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public void ResetOnBarcode_IDHandler() { OnBarcode_IDHandler = null; }
         public class OnBarcode_IDEventArgs : EventArgs
         {
-            public EventPlacementCode ReturnCode { get; private set; }
+            public EventBarcodeIDCode ReturnCode { get; private set; }
             public string BarcodeID { get; private set; }
             private OnBarcode_IDEventArgs() { }
-            public OnBarcode_IDEventArgs(EventPlacementCode rtnCode, string barCodeID) : this() { ReturnCode = rtnCode; BarcodeID = barCodeID; }
+            public OnBarcode_IDEventArgs(EventBarcodeIDCode rtnCode, string barCodeID) : this() { ReturnCode = rtnCode; BarcodeID = barCodeID; }
         }
 
 
