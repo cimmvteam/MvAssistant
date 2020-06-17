@@ -11,7 +11,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         OnAscentPosition=0,
         OnMaskCheckingPosition=1,
         OnDescentPosition = 2,
-        NotOnFixedPlsition=3
+        /// <summary>Stage不在定位需進行初始化</summary>
+        NotOnFixedPlsition = 3
 
     }
 }

@@ -38,7 +38,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="deviceIP">裝置 IP</param>
         /// <param name="udpServerPort">Drawer 內建 UDP Server Port</param>
         /// <returns></returns>
-        public Drawer CreateDrawer(int cabinetNo,int drawerNo,string deviceIP, int udpServerPort)
+        public Drawer CreateDrawer(int cabinetNo,string drawerNo,string deviceIP, int udpServerPort)
         {
 
             Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceIP, udpServerPort);
@@ -78,7 +78,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="cabinetNo">Cabinet No</param>
         /// <param name="drawerNo">Drawer No</param>
         /// <returns></returns>
-        public Drawer GetDrawerByNO(int cabinetNo,int drawerNo)
+        public Drawer GetDrawerByNO(int cabinetNo,string drawerNo)
         {
             var drawer = this.Drawers.Where(m => m.CabinetNO==cabinetNo).Where(m=>m.DrawerNO==drawerNo).FirstOrDefault();
             return drawer;

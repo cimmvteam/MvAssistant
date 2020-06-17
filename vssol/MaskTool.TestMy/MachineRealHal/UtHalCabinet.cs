@@ -30,9 +30,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         private void InitialDrawers()
         {
-            Drawer_01_01 = ldd.CreateDrawer(1, 1, ClientIP_01_01, RemotePort);
-            Drawer_01_02 = ldd.CreateDrawer(1, 2, ClientIP_01_02, RemotePort);
-           Drawer_01_03 = ldd.CreateDrawer(1, 3, ClientIP_01_03, RemotePort);
+            Drawer_01_01 = ldd.CreateDrawer(1,"", ClientIP_01_01, RemotePort);
+            Drawer_01_02 = ldd.CreateDrawer(1, "", ClientIP_01_02, RemotePort);
+           Drawer_01_03 = ldd.CreateDrawer(1, "", ClientIP_01_03, RemotePort);
         }
        
         public UtHalCabinet()
