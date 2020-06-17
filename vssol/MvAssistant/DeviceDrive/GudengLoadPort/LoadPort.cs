@@ -596,7 +596,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         private void Barcode_ID(ReturnFromServer rtnFromServer)
         {
             // rtnCode: 讀取成功或失敗
-            var rtnCode = (EventPlacementCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            var rtnCode = (EventBarcodeIDCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
             // barcodeID: 讀取成功時的 barcode ID  
             var barcodeID = rtnFromServer.ReturnValue;
           

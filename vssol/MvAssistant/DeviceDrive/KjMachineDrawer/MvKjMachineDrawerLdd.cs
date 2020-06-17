@@ -78,7 +78,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="cabinetNo">Cabinet No</param>
         /// <param name="drawerNo">Drawer No</param>
         /// <returns></returns>
-        public Drawer GetDrawerByNO(int cabinetNo,int drawerNo)
+        public Drawer GetDrawerByNO(int cabinetNo,string drawerNo)
         {
             var drawer = this.Drawers.Where(m => m.CabinetNO==cabinetNo).Where(m=>m.DrawerNO==drawerNo).FirstOrDefault();
             return drawer;
