@@ -14,14 +14,14 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>Cabinet 編號</summary>        
         public int CabinetNO { get; private set; }
         /// <summary>Drawer 編號</summary>
-        public int DrawerNO { get; private set; }
+        public string DrawerNO { get; private set; }
         /// <summary>裝置IP</summary>
         public string DeviceIP { get; private set; }
         public DrawerSocket DrawerSocket { get; private set; }
 
         private Drawer() { }
 
-        public Drawer(int cabinetNO, int drawerNO, string deviceIP, int udpServerPort) : this()
+        public Drawer(int cabinetNO, string drawerNO, string deviceIP, int udpServerPort) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
