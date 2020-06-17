@@ -40,6 +40,15 @@ namespace MvAssistant.Mac.v1_0.JSon
             TInstance rtnV = Newtonsoft.Json.JsonConvert.DeserializeObject<TInstance>(json);
             return rtnV;
         }
+
+        /// <summary>讀取特定移定路徑的所有點位資料</summary>
+        /// <param name="pathFileName">移動路徑點位檔案</param>
+        /// <returns></returns>
+        public static List<PositionInfo> GetPositionPathPositionsFromJson(string pathFileName)
+        {
+            return GetInstanceFromJsonFile<List<PositionInfo>>(pathFileName);
+        } 
+
     }
 
    

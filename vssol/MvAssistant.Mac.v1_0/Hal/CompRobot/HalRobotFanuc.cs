@@ -7,6 +7,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using MvAssistant.Mac.v1_0.JSon;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
@@ -81,8 +83,37 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             return this.ldd.StopProgram();
         }
 
+        /// <summary>
+        /// 讀路徑Jason檔，依照清單移動
+        /// </summary>
+        /// <param name="PathFileLocation"></param>
+        public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
+        {
+            var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
+            var PosList = PosInfo.Select(m => m.Position).ToList();
+            return PosList;
+        }
 
+        /// <summary>
+        /// 給點位清單，依序移動
+        /// </summary>
+        /// <param name="PathPosition"></param>
+        public int ExePosMove(List<HalRobotMotion> PathPosition)
+        {
+            var targets = new List<HalRobotMotion>();
+            targets.AddRange(PathPosition);
+            float[] target = new float[6];
 
+            for (int idx = 0; idx < targets.Count; idx++)
+            {
+                var motion = targets[idx];
+                this.HalMoveStraightAsyn(motion);
+                while (!this.ldd.MoveIsComplete())
+                    Thread.Sleep(100);
+                this.ldd.MoveCompeleteReply();
+            }
+            return 0;
+        }
 
         public int HalMoveAsyn()
         {

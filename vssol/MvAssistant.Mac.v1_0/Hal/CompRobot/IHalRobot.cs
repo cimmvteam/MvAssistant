@@ -40,6 +40,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
         float HalDistanceWithCurr(HalRobotPose pose);
 
+        List<HalRobotMotion> ReadMovePath(string PathFileLocation);
 
+        int ExePosMove(List<HalRobotMotion> PathPosition);
     }
 }
