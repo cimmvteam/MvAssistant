@@ -52,13 +52,16 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="args"></param>
         private void OnReceiveMessage(object sender, EventArgs args)
         {
+            // 傳送訊息的IP
             var ip = ((OnReciveMessageEventArgs)args).IP;
+            // 回傳的訊息
             var message = ((OnReciveMessageEventArgs)args).Message;
+            // 對應的Drawer
             var drawer = this.GetDrawerByDeviceIP(ip);
+
             var replyMessage = ParseReplyMessage(message);
             ExecuteMethodDispatch(drawer, replyMessage);
             
-           
         }
 
         private void ExecuteMethodDispatch(Drawer drawer, ReplyMessage replyMessage)
@@ -87,12 +90,14 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         public ReplyMessage ParseReplyMessage(string rtnMessage)
         {
+            // 移除 訊息前後綴符號 ~,@ 
             var message = rtnMessage.Replace(BaseCommand.CommandPostfixText, "").Replace(BaseCommand.CommandPrefixText, "");
+            // 以 ',' 符號將 message 切割 成 2 或 3 個部分 
             var messageAry = message.Split(new string[] { BaseCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
             var replyMessage = new ReplyMessage
             {
-                StringCode = messageAry[0],
-                SringFunc = messageAry[1],
+                StringCode = messageAry[0],// 代碼(111, 100,....)
+                SringFunc = messageAry[1],// function name(ReplySetSpeed,ReplyTrayMotion......)
                 Value = messageAry.Length == 3 ? Convert.ToInt32(messageAry[2]) : default(int?),
             };
             return replyMessage;

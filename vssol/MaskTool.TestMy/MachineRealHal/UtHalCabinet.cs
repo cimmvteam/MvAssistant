@@ -118,7 +118,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BrightLedAllOff()
         {
 
-            Drawer_01_01.CommandBrightLedAllOff();
+            Drawer_01_01.CommandBrightLEDAllOff();
 
             //Drawer_01_02.CommandBrightLedAllOff();
 
