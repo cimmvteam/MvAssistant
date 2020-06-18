@@ -7,6 +7,7 @@ using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
 using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
+using System.Net;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -50,7 +51,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         private void InitialDrawers()
         {
-            Drawer_01_01_01 = ldd.CreateDrawer(1,"", ClientIP_01_01_01, RemotePort);
+            var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
+            var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
+            Drawer_01_01_01 = ldd.CreateDrawer(1,"", deviceEndPoint, localEndPoint);
            // Drawer_01_02 = ldd.CreateDrawer(1, "", ClientIP_01_02, RemotePort);
            //Drawer_01_03 = ldd.CreateDrawer(1, "", ClientIP_01_03, RemotePort);
         }

@@ -40,10 +40,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="deviceIP">裝置 IP</param>
         /// <param name="udpServerPort">Drawer 內建 UDP Server Port</param>
         /// <returns></returns>
-        public Drawer CreateDrawer(int cabinetNo,string drawerNo,string deviceIP, int udpServerPort)
+        public Drawer CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,IPEndPoint localEndPoint)
         {
 
-            Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceIP, udpServerPort);
+            Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, deviceEndpoint);
             Drawers.Add(drawer);
             return drawer;
 
