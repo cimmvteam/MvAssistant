@@ -36,11 +36,13 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             Task.Run(
                 () =>
                   {
-                     System.Net.Sockets.UdpClient uc = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
-                     var ipep = new IPEndPoint(IPAddress.Any, 0);
+                      //System.Net.Sockets.UdpClient uc = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
+                      //var ipep = new IPEndPoint(IPAddress.Any, 0);
+                      UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
                      while (true)
                      {
-                             var rcvMessage = System.Text.Encoding.UTF8.GetString(uc.Receive(ref ipep));
+                          byte[] buffer = new byte[1024];
+                          var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(buffer));
                      }
                   }
                );
