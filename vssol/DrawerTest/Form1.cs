@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
 
 namespace DrawerTest
 {
@@ -24,20 +25,21 @@ namespace DrawerTest
         {
 
             //  UdpClient.SendTo(Encoding.UTF8.GetBytes("~012,BrightLED,3@"), TargetEndpoint);
-           drawer.Send("~012,BrightLED,3@");
+            drawer.Send("~012,BrightLED,3@");
         }
-      
+
         Drawer drawer = null;
         MvKjMachineDrawerLdd ldd;
         private void Form1_Load(object sender, EventArgs e)
         {
             ldd = new MvKjMachineDrawerLdd();
-            var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"),5000);
-            var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"),6000);
-            drawer =ldd.CreateDrawer(1, "", deviceEndPoint, localEndPoint);
-          
-           // UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-           // UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
+            var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
+            var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
+            drawer = ldd.CreateDrawer(1, "", deviceEndPoint, localEndPoint);
+            drawer.OnButtonEventHandler += this.OnBrightLED;
+
+            // UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            // UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
             //Task.Run(
             //    () =>
             //    {
@@ -52,6 +54,22 @@ namespace DrawerTest
             //        }
             //    }
             //    );
+        }
+
+        public void OnBrightLED(object sender, EventArgs args)
+        {
+            var drawer = (Drawer)sender;
+            var eventArgs = (OnReplyBrightLEDEventArgs)args;
+            var result = eventArgs.ReplyResultCode;
+            if (result == ReplyResultCode.Set_Successfully)
+            {
+
+            }
+            else //if (result == ReplyResultCode.Failed)
+            {
+
+            }
+                
         }
     }
 }
