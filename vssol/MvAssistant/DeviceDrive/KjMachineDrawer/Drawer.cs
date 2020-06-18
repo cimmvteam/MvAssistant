@@ -31,27 +31,21 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
             DeviceIP = deviceIP;
-
-
             TargetEndpoint = new IPEndPoint( IPAddress.Parse( DeviceIP), udpServerPort);
             UdpClient= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             Task.Run(
                 () =>
                   {
-                      //System.Net.Sockets.UdpClient uc = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
-                      //var ipep = new IPEndPoint(IPAddress.Any, 0);
                       UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 3000));
-
                       while (true)
-                     {
+                      {
                           byte[] buffer = new byte[1024];
                           UdpClient.Receive(buffer);
                           var msg = Encoding.UTF8.GetString(buffer);
                       }
                   }
                );
-            //  DrawerSocket = new DrawerSocket(deviceIP, udpServerPort);
-        }
+          }
        
        
         /// <summary>Command INI(099)</summary>
