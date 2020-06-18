@@ -22,7 +22,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             Drawers = new List<Drawer>();
             ReceiveInfos = new List<ReceiveInfo>();
-            InitialUdpServer();
+           // InitialUdpServer();
         }
 
         /// <summary>初始化 Udp Server</summary>

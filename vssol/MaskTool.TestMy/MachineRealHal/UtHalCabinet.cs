@@ -59,7 +59,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             ldd = new MvKjMachineDrawerLdd();
             InitialDrawers();
-            BindEvent();
+         //   BindEvent();
         }
 
         #region Test Command

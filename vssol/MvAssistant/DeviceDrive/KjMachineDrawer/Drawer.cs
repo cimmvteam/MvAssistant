@@ -4,6 +4,8 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,16 +19,32 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string DrawerNO { get; private set; }
         /// <summary>裝置IP</summary>
         public string DeviceIP { get; private set; }
-        public DrawerSocket DrawerSocket { get; private set; }
-
-        private Drawer() { }
+        //    public DrawerSocket DrawerSocket { get; private set; }
+        IPEndPoint TargetEndpoint = null;
+        Socket UdpClient = null;
+        private Drawer() {
+           
+        }
 
         public Drawer(int cabinetNO, string drawerNO, string deviceIP, int udpServerPort) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
             DeviceIP = deviceIP;
-            DrawerSocket = new DrawerSocket(deviceIP, udpServerPort);
+            TargetEndpoint = new IPEndPoint( IPAddress.Parse( DeviceIP), udpServerPort);
+            UdpClient= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            Task.Run(
+                () =>
+                  {
+                     System.Net.Sockets.UdpClient uc = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
+                     var ipep = new IPEndPoint(IPAddress.Any, 0);
+                     while (true)
+                     {
+                             var rcvMessage = System.Text.Encoding.UTF8.GetString(uc.Receive(ref ipep));
+                     }
+                  }
+               );
+            //  DrawerSocket = new DrawerSocket(deviceIP, udpServerPort);
         }
        
        
@@ -35,7 +53,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string CommandINI()
         {
             var commandText = new INI().GetCommandText(new INIParameter());
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
         
@@ -49,7 +67,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             */        
             var parameter = new SetMotionSpeedParameter { Speed = speed };
             var commandText = new SetMotionSpeed().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -65,7 +83,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             */
             var parameter = new SetTimeOutParameter {  Seconds=timeoutSeconds };
             var commandText = new SetTimeOut().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -76,7 +94,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new TrayMotionParameter { TrayMotionType = trayMotionType };
             var commandText = new TrayMotion().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -108,7 +126,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new BrightLEDParameter { BrightLEDType = brightLEDType };
             var commandText = new BrightLED().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
+            UdpClient.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -145,7 +164,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter =  new PositionReadParameter();
             var commandText = new PositionRead().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -154,7 +173,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new BoxDetectionParameter();
             var commandText = new BoxDetection().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -163,7 +182,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new WriteNetSettingParameter();
             var commandText = new WriteNetSetting().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -173,7 +192,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new LSDMsgParameter { Message = message };
             var commandText = new LCDMsg().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+           // DrawerSocket.SentTo(commandText);
             return commandText;
         }
 
@@ -184,7 +203,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new SetParameterParameter {  ParameterValue= parameterValue, SetParameterType=setParameterType };
             var commandText = new SetParameter().GetCommandText(parameter);
-            DrawerSocket.SentTo(commandText);
+            //DrawerSocket.SentTo(commandText);
         }
 
         /// <summary>Command SetParameter~ HomePosition(007)</summary>
