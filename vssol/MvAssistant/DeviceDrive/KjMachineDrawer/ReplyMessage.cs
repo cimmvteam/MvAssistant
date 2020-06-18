@@ -11,7 +11,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
    public class ReplyMessage
     {
         public string StringCode { get; set; }
-        public string SringFunc { get; set; }
+        public string StringFunc { get; set; }
         public int? Value { get; set; }
     }
 }

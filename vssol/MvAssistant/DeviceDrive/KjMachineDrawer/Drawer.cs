@@ -47,6 +47,23 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                );
           }
        
+
+        public void InvokeMethod(string rtnMsg)
+        {
+            var msg = rtnMsg.Replace(BaseCommand.CommandPostfixText, "").Replace(BaseCommand.CommandPostfixText,"");
+            var msgArray = msg.Split(new string[] { BaseCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
+            ReplyMessage rplyMsg = new ReplyMessage
+            {
+                StringCode = msgArray[0],
+                StringFunc = msgArray[1],
+                Value = msgArray.Length == 3 ? Convert.ToInt32(msgArray[2]) : default(int?)
+            };
+            var method=this.GetType().GetMethod(rplyMsg.StringFunc);
+            if(method != null)
+            {
+                method.Invoke(this, new object[] { rplyMsg });
+            }
+        }
        
         /// <summary>Command INI(099)</summary>
         /// <returns></returns>

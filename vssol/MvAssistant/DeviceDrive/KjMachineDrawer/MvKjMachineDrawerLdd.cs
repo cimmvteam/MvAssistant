@@ -68,7 +68,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         private void ExecuteMethodDispatch(Drawer drawer, ReplyMessage replyMessage)
         {
-            typeof(Drawer).GetMethod(replyMessage.SringFunc).Invoke(drawer, new object[] { replyMessage });
+            typeof(Drawer).GetMethod(replyMessage.StringFunc).Invoke(drawer, new object[] { replyMessage });
         }
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
@@ -99,7 +99,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             var replyMessage = new ReplyMessage
             {
                 StringCode = messageAry[0],// 代碼(111, 100,....)
-                SringFunc = messageAry[1],// function name(ReplySetSpeed,ReplyTrayMotion......)
+                StringFunc = messageAry[1],// function name(ReplySetSpeed,ReplyTrayMotion......)
                 Value = messageAry.Length == 3 ? Convert.ToInt32(messageAry[2]) : default(int?),
             };
             return replyMessage;
