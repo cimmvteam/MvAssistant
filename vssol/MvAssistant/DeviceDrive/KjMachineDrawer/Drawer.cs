@@ -21,7 +21,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string DeviceIP { get; private set; }
         //    public DrawerSocket DrawerSocket { get; private set; }
         IPEndPoint TargetEndpoint = null;
-        Socket UdpClient = null;
+      public   Socket UdpClient = null;
         private Drawer() {
            
         }
@@ -31,6 +31,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
             DeviceIP = deviceIP;
+
+
             TargetEndpoint = new IPEndPoint( IPAddress.Parse( DeviceIP), udpServerPort);
             UdpClient= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             Task.Run(
@@ -38,12 +40,14 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                   {
                       //System.Net.Sockets.UdpClient uc = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
                       //var ipep = new IPEndPoint(IPAddress.Any, 0);
-                      UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
-                     while (true)
+                      UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 3000));
+
+                      while (true)
                      {
                           byte[] buffer = new byte[1024];
-                          var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(buffer));
-                     }
+                          UdpClient.Receive(buffer);
+                          var msg = Encoding.UTF8.GetString(buffer);
+                      }
                   }
                );
             //  DrawerSocket = new DrawerSocket(deviceIP, udpServerPort);

@@ -23,7 +23,8 @@ namespace DrawerTest
         private void button1_Click(object sender, EventArgs e)
         {
 
-            UdpClient.SendTo(Encoding.UTF8.GetBytes("~012,BrightLED,3@"), TargetEndpoint);
+            //  UdpClient.SendTo(Encoding.UTF8.GetBytes("~012,BrightLED,3@"), TargetEndpoint);
+            drawer.UdpClient.SendTo(Encoding.UTF8.GetBytes("~012,BrightLED,3@"), TargetEndpoint);
         }
         IPEndPoint TargetEndpoint;
         Socket UdpClient = null;
@@ -34,23 +35,23 @@ namespace DrawerTest
         {
             ldd = new MvKjMachineDrawerLdd();
             drawer =ldd.CreateDrawer(1, "", "192.168.0.42", 5000);
-            TargetEndpoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
-            UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
-            Task.Run(
-                () =>
-                {
-                    //System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
-                    //var ipep = new IPEndPoint(IPAddress.Any, 0);
-                    while (true)
-                    {
-                        var buffer = new byte[1024];
-                        UdpClient.Receive(buffer);
+           TargetEndpoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
+           // UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+           // UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
+            //Task.Run(
+            //    () =>
+            //    {
+            //        //System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
+            //        //var ipep = new IPEndPoint(IPAddress.Any, 0);
+            //        while (true)
+            //        {
+            //            var buffer = new byte[1024];
+            //            UdpClient.Receive(buffer);
 
-                        var msg = Encoding.UTF8.GetString(buffer);
-                    }
-                }
-                );
+            //            var msg = Encoding.UTF8.GetString(buffer);
+            //        }
+            //    }
+            //    );
         }
     }
 }
