@@ -340,10 +340,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public void ReplyBrightLED(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
-            var eventArgs = new OnReplySetTimeOutEventArgs(replyResultCode);
-            if (OnReplySetTimeOutHandler != null)
+            var eventArgs = new OnReplyBrightLEDEventArgs(replyResultCode);
+            if (OnReplyBrightLEDHandler != null)
             {
-                OnReplySetTimeOutHandler.Invoke(this, eventArgs);
+                OnReplyBrightLEDHandler.Invoke(this, eventArgs);
             }
         }
         public event EventHandler OnReplyBrightLEDHandler = null;

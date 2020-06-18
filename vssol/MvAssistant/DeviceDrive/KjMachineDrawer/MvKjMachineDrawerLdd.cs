@@ -43,7 +43,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public Drawer CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,IPEndPoint localEndPoint)
         {
 
-            Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, deviceEndpoint);
+            Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, localEndPoint);
             Drawers.Add(drawer);
             return drawer;
 

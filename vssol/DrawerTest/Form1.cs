@@ -36,7 +36,7 @@ namespace DrawerTest
             var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
             var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
             drawer = ldd.CreateDrawer(1, "", deviceEndPoint, localEndPoint);
-            drawer.OnButtonEventHandler += this.OnBrightLED;
+            drawer.OnReplyBrightLEDHandler += this.OnReplyBrightLED;
 
             // UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             // UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
@@ -56,7 +56,7 @@ namespace DrawerTest
             //    );
         }
 
-        public void OnBrightLED(object sender, EventArgs args)
+        private void OnReplyBrightLED(object sender, EventArgs args)
         {
             var drawer = (Drawer)sender;
             var eventArgs = (OnReplyBrightLEDEventArgs)args;
