@@ -24,18 +24,18 @@ namespace DrawerTest
         {
 
             //  UdpClient.SendTo(Encoding.UTF8.GetBytes("~012,BrightLED,3@"), TargetEndpoint);
-            drawer.UdpClient.SendTo(Encoding.UTF8.GetBytes("~012,BrightLED,3@"), TargetEndpoint);
+           drawer.Send("~012,BrightLED,3@");
         }
-        IPEndPoint TargetEndpoint;
-        Socket UdpClient = null;
-
+      
         Drawer drawer = null;
         MvKjMachineDrawerLdd ldd;
         private void Form1_Load(object sender, EventArgs e)
         {
             ldd = new MvKjMachineDrawerLdd();
-            drawer =ldd.CreateDrawer(1, "", "192.168.0.42", 5000);
-           TargetEndpoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
+            var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"),5000);
+            var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"),6000);
+            drawer =ldd.CreateDrawer(1, "", deviceEndPoint, localEndPoint);
+          
            // UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
            // UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
             //Task.Run(

@@ -26,17 +26,17 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
            
         }
 
-        public Drawer(int cabinetNO, string drawerNO, string deviceIP, int udpServerPort) : this()
+        public Drawer(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, IPEndPoint localEndPiont) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
-            DeviceIP = deviceIP;
-            TargetEndpoint = new IPEndPoint( IPAddress.Parse( DeviceIP), udpServerPort);
+           
+            TargetEndpoint = deviceEndpoint;
             UdpClient= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             Task.Run(
                 () =>
                   {
-                      UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 3000));
+                      UdpClient.Bind(localEndPiont);
                       while (true)
                       {
                           byte[] buffer = new byte[1024];
@@ -48,6 +48,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                );
           }
        
+        public int Send(string message)
+        {
+           var len= this.UdpClient.SendTo(Encoding.UTF8.GetBytes(message), TargetEndpoint);
+            return len;
+        }
 
         public void InvokeMethod(string rtnMsg)
         {
