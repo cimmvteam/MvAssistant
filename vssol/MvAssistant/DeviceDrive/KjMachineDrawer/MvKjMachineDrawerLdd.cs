@@ -3,6 +3,7 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
     {
         public UdpServerSocket UdpServer;
         public int LocalPort = 6000;
+        public string LocalIP = "192.168.0.14";
         public List<Drawer> Drawers = null;
         private List<ReceiveInfo> ReceiveInfos = null;
 
@@ -26,7 +28,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>初始化 Udp Server</summary>
         private void InitialUdpServer()
         {
-            UdpServer = new UdpServerSocket(LocalPort);
+            UdpServer = new UdpServerSocket(new IPEndPoint(IPAddress.Parse(LocalIP), LocalPort));
 
             // 向 UdpServer註冊收到訊息事件後的處理函式 
             UdpServer.OnReceiveMessage += this.OnReceiveMessage;

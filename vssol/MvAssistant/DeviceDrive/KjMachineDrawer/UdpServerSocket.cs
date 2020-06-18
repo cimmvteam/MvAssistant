@@ -15,9 +15,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         UdpClient UdpClient = null;
         Thread ListenThread = null;
         public event EventHandler OnReceiveMessage = null;
-        public UdpServerSocket(int localPort)
+        public UdpServerSocket(IPEndPoint localEp)
         {
-            UdpClient = new UdpClient(localPort);
+            UdpClient = new UdpClient(localEp);
            ListenThread = new Thread(ListenMessage);
             ListenThread.IsBackground = true;
             ListenThread.Start();
