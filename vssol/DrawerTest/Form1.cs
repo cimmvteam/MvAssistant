@@ -29,9 +29,11 @@ namespace DrawerTest
         Socket UdpClient = null;
 
         Drawer drawer = null;
-        MvKjMachineDrawerLddl
+        MvKjMachineDrawerLdd ldd;
         private void Form1_Load(object sender, EventArgs e)
         {
+            ldd = new MvKjMachineDrawerLdd();
+            drawer =ldd.CreateDrawer(1, "", "192.168.0.42", 5000);
             TargetEndpoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
             UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));
