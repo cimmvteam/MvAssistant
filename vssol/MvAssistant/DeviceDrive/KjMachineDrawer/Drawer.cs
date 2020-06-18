@@ -475,17 +475,17 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             ReplyErrorCode replyErrorCode = (ReplyErrorCode)((int)reply.Value);
             if (OnErrorHandler != null)
             {
-                var args = new OnErrorHandlerEventArgs(replyErrorCode);
+                var args = new OnErrorEventArgs(replyErrorCode);
                 OnErrorHandler.Invoke(this, args);
             }
         }
         public event EventHandler OnErrorHandler = null;
         public void ResetOnErrorHandler() { OnErrorHandler = null; }
-        public class OnErrorHandlerEventArgs : EventArgs
+        public class OnErrorEventArgs : EventArgs
         {
             public ReplyErrorCode ReplyErrorCode { get; private set; }
-            private OnErrorHandlerEventArgs() { }
-            public OnErrorHandlerEventArgs(ReplyErrorCode replyErrorCode) : this()
+            private OnErrorEventArgs() { }
+            public OnErrorEventArgs(ReplyErrorCode replyErrorCode) : this()
             {
                 ReplyErrorCode = replyErrorCode;
             }

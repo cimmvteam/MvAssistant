@@ -6,149 +6,148 @@ using MvAssistant.DeviceDrive.KjMachineDrawer;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
+using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtHalCabinet
     {
-        #region
+      
         // 建一個 Listen 的 Server;
        // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
-        public string ClientIP_01_01 = "192.168.0.42";
-        public string ClientIP_01_02 = "192.168.0.54";
-         public string ClientIP_01_03 = "192.168.0.34";
-        public Drawer Drawer_01_01 = null;
-       public Drawer Drawer_01_02 = null;
-       public Drawer Drawer_01_03 = null;
+        public string ClientIP_01_01_01 = "192.168.0.42";
+        //public string ClientIP_01_02 = "192.168.0.54";
+        // public string ClientIP_01_03 = "192.168.0.34";
+        public Drawer Drawer_01_01_01 = null;
+       //public Drawer Drawer_01_02 = null;
+       //public Drawer Drawer_01_03 = null;
         private MvKjMachineDrawerLdd ldd = null;
 
-       
+        private void BindEvent()
+        {
+            foreach(var drawer in ldd.Drawers)
+            {
+                drawer.OnReplyTrayMotionHandler += this.OnReplyTrayMotion;
+                drawer.OnReplySetSpeedHandler += this.OnReplySetSpeed;
+                drawer.OnReplySetTimeOutHandler += this.OnReplySetTimeOut;
+                drawer.OnReplyPositionHandler += this.OnReplyPosition;
+                drawer.OnReplyBoxDetection += this.OnReplyBoxDetection;
+                drawer.OnTrayArriveHandler += this.OnTrayArrive;
+                drawer.OnButtonEventHandler += this.OnButtonEvent;
+                drawer.OnTimeOutEventHandler += this.OnTimeOutEvent;
+                drawer.OnTrayMotioningHandler += this.OnTrayMotioning;
+                drawer.OnINIFailedHandler += this.OnINIFailed;
+                drawer.OnTrayMotionErrorHandler += this.OnTryMotionError;
+                drawer.OnErrorHandler += this.OnError;
+                drawer.OnSysStartUpHandler += this.OnSysStartUp;
+            }
+        }
 
 
 
         private void InitialDrawers()
         {
-            Drawer_01_01 = ldd.CreateDrawer(1,"", ClientIP_01_01, RemotePort);
-            Drawer_01_02 = ldd.CreateDrawer(1, "", ClientIP_01_02, RemotePort);
-           Drawer_01_03 = ldd.CreateDrawer(1, "", ClientIP_01_03, RemotePort);
+            Drawer_01_01_01 = ldd.CreateDrawer(1,"", ClientIP_01_01_01, RemotePort);
+           // Drawer_01_02 = ldd.CreateDrawer(1, "", ClientIP_01_02, RemotePort);
+           //Drawer_01_03 = ldd.CreateDrawer(1, "", ClientIP_01_03, RemotePort);
         }
        
         public UtHalCabinet()
         {
             ldd = new MvKjMachineDrawerLdd();
             InitialDrawers();
+            BindEvent();
         }
-       
+
+        #region Test Command
         /// <summary>
         /// 
         /// </summary>
         [TestMethod]//~901,TrayMotioning@~115,TrayArrive,0@
         public void INI()
         {
-           // Drawer_01_01.CommandINI();
-            Drawer_01_02.CommandINI();
-           // Drawer_01_03.CommandINI();
             
+            Drawer_01_01_01.CommandINI();
 
         }
         [TestMethod]// 20%,15%,10% //~100,ReplySetSpeed,1@
         public void SetMotionSpeed()
         {
-            Drawer_01_01.CommandSetMotionSpeed(100);
-           Drawer_01_02.CommandSetMotionSpeed(100);
-          //  Drawer_01_03.CommandSetMotionSpeed(10);
+           
+            Drawer_01_01_01.CommandSetMotionSpeed(100);
         }
         [TestMethod] // 30 seconds, 60 seconds,10 seconds//~101,ReplySetTimeOut,1@
         public void SetTimeOut()
         {
-            Drawer_01_01.CommandSetTimeOut(100);
-           Drawer_01_02.CommandSetTimeOut(100);
-         //   Drawer_01_03.CommandSetTimeOut(10);
+            Drawer_01_01_01.CommandSetTimeOut(100);
+
         }
 
         [TestMethod] //???
         public void SetParameter()
         {
-         //   Drawer_01_01.CommandSetParameterHomePosition("003");
-          //  Drawer_01_01.CommandSetParameterOutSidePosition("004");
-           // Drawer_01_02.CommandSetParameterInSidePosition("005");
-            Drawer_01_01.CommandSetParameterIPAddress("192.168.0.42");
-            //Drawer_01_02.CommandSetParameterSubMask("007");
-          //  Drawer_01_03.CommandSetParameterGetwayAddress("008");
+         
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,0@
         public void TrayMotionHome()
         {
-           Drawer_01_01.CommandTrayMotionHome();
-          // Drawer_01_02.CommandTrayMotionHome();
-           Drawer_01_03.CommandTrayMotionHome();
+            Drawer_01_01_01.CommandTrayMotionHome();
+         
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,1@
         public void TrayMotionOut()
         {
+           
+          Drawer_01_01_01.CommandTrayMotionOut();
 
-           Drawer_01_01.CommandTrayMotionOut();
-
-       //  Drawer_01_02.CommandTrayMotionOut();
-
-         //   Drawer_01_03.CommandTrayMotionOut();
+     
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,2@
         public void TrayMotionIn()
         {
-            Drawer_01_01.CommandTrayMotionIn();
+            Drawer_01_01_01.CommandTrayMotionIn();
 
-          // Drawer_01_02.CommandTrayMotionIn();
-
-         //   Drawer_01_03.CommandTrayMotionIn();
+         
         }
         [TestMethod]//send:V,   Recive: ~112,ReplyBrightLED,1@
         public void BrightLEDAllOn()
         {
 
-            Drawer_01_01.CommandBrightLEDAllOn();
+            Drawer_01_01_01.CommandBrightLEDAllOn();
 
-            //Drawer_01_02.CommandBrightLEDAllOn();
-
-         //   Drawer_01_03.CommandBrightLEDAllOn();
+          
         }
         [TestMethod]//send:V,  Recive: ~112,ReplyBrightLED,1@
         public void BrightLedAllOff()
         {
 
-            Drawer_01_01.CommandBrightLEDAllOff();
+            Drawer_01_01_01.CommandBrightLEDAllOff();
 
-            //Drawer_01_02.CommandBrightLedAllOff();
-
-          //  Drawer_01_03.CommandBrightLedAllOff();
+           
         }
         [TestMethod]//send: 燈號看不出來 ~112,ReplyBrightLED,1@
         public void BrightLEDGreenOn()
         {
 
-            Drawer_01_01.CommandBrightLEDGreenOn();
+            Drawer_01_01_01.CommandBrightLEDGreenOn();
 
-            //Drawer_01_02.CommandBrightLEDGreenOn();
-
-         //   Drawer_01_03.CommandBrightLEDGreenOn(); ;
+           
         }
         [TestMethod]// Send:V Receive:~112,ReplyBrightLED,1@
         public void BrightLEDRedOn()
         {
 
-            Drawer_01_01.CommandBrightLEDRedOn();
+            Drawer_01_01_01.CommandBrightLEDRedOn();
 
-           //Drawer_01_02.CommandBrightLEDRedOn();
-
-         //   Drawer_01_03.CommandBrightLEDRedOn();
+         
         }
         [TestMethod]//Home: ~113,ReplyPosition,7@; ~113,ReplyPosition,1@
         public void PositionRead()
         {
 
-            Drawer_01_01.CommandPositionRead();
+            Drawer_01_01_01.CommandPositionRead();
 
             //Drawer_01_02.CommandPositionRead();
 
@@ -158,7 +157,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BoxDetection()
         {
 
-            Drawer_01_01.CommandBoxDetection();
+            Drawer_01_01_01.CommandBoxDetection();
 
             //Drawer_01_02.CommandBoxDetection();
 
@@ -168,7 +167,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void WriteNetSetting()
         {
 
-            Drawer_01_01.CommandWriteNetSetting();
+            Drawer_01_01_01.CommandWriteNetSetting();
 
             //Drawer_01_02.CommandWriteNetSetting();
 
@@ -178,28 +177,186 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void LCDMsg()
         {
 
-            Drawer_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
+            Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
 
-
-            //Drawer_01_02.CommandLCDMsg("01_02\r\ntest");
-
-
-          //  Drawer_01_03.CommandLCDMsg("01_03");
+           
         }
-        [TestMethod]
-        public void ButtonEvent()
+        #endregion
+
+        #region Event
+
+
+        /// <summary>Event ReplyTrayMotion(111)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnReplyTrayMotion(object sender, EventArgs args)
         {
+            var drawer = (Drawer)sender;
+            var eventArgs = (OnReplyTrayMotionEventArgs)args;
+            if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
+            {  // 成功
+
+            }
+            else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
+            { // 失敗
+
+            }
+        }
+        /// <summary>Event ReplySetSpeed(100)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnReplySetSpeed(object sender,EventArgs args)
+        {
+            var drawer = (Drawer)sender;
+            var eventArgs = (OnReplySetSpeedEventArgs)args;
+            if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
+            {
+
+            }
+            else if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
+            {
+
+            }
+        }
+        /// <summary>Event ReplySetTimeOut(101)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnReplySetTimeOut(object sender,EventArgs args)
+        {
+            var drawer = (Drawer)sender;
+            var eventArgs = (OnReplySetTimeOutEventArgs)args;
+            if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
+            {
+
+            }
+            else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
+            {
+
+            }
+        }
+
+        /// <summary>Event ReplySetBrightLED(112)</summary> 
+        /// <param name="args"></param>
+        /// <param name="sender"></param>
+        private void OnReplyBrightLED(object sender,EventArgs args)
+        {
+            var drawer = (Drawer)sender;
+            var eventArgs = (OnReplyBrightLEDEventArgs)args;
+            if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
+            {
+
+            }
+            else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
+            {
+
+            }
+        }
+
+        /// <summary>Event ReplyPosition(113)</summary>
+        /// <param name="sender"></param>
+        /// <param name=""></param>
+        private void OnReplyPosition(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+            var eventArgs = (OnReplyPositionEventArgs)args;
+            var IHO = eventArgs.IHOStatus;
 
         }
-        [TestMethod]
-        public void TimeOutEvent()
+
+        /// <summary>Event ReplyDetection(114)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnReplyBoxDetection(Object sender, EventArgs args)
         {
+            Drawer drawer = (Drawer)sender;
+            var eventArgs = (OnReplyBoxDetectionEventArgs)args;
+            var hasBox = eventArgs.HasBox;
+        }
+
+        /// <summary>Event TrayArrive(115)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnTrayArrive(object sender,EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+            var eventArgs = (OnTrayArriveEventArgs)args;
+            if (eventArgs.TrayArriveType == TrayArriveType.ArriveHome)
+            {
+
+            }
+            else if(eventArgs.TrayArriveType == TrayArriveType.ArriveIn)
+            {
+
+            }
+            else //if (eventArgs.TrayArriveType == TrayArriveType.ArriveOut)
+            {
+
+            }
+        }
+
+        /// <summary>Event ButtonEvent(120)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnButtonEvent(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+            
+        }
+        /// <summary>Event TimeOutEvent(900)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnTimeOutEvent(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+        }
+
+        /// <summary>Event TrayMotioning(901)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnTrayMotioning(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
 
         }
-        [TestMethod]
-        public void SysStartUp()
-        {
 
+        /// <summary>Event INIFailed(902)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnINIFailed(object sender,EventArgs args )
+        {
+            Drawer drawer = (Drawer)sender;
+        }
+
+        /// <summary>Event TrayMotionError(903)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnTryMotionError(object sender,EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+        }
+
+        /// <summary>Event Error</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnError(object sender,EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+            var eventArgs = (OnErrorEventArgs)args;
+            if (eventArgs.ReplyErrorCode == ReplyErrorCode.Recovery)
+            {
+
+            }
+            else //if (eventArgs.ReplyErrorCode == ReplyErrorCode.Error)
+            {
+
+            }
+        }
+        /// <summary>Even SystemStartUp</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void OnSysStartUp(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
         }
 
         #endregion
