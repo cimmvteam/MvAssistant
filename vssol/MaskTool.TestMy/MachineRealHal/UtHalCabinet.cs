@@ -32,6 +32,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 drawer.OnReplyTrayMotionHandler += this.OnReplyTrayMotion;
                 drawer.OnReplySetSpeedHandler += this.OnReplySetSpeed;
                 drawer.OnReplySetTimeOutHandler += this.OnReplySetTimeOut;
+                drawer.OnReplyBrightLEDHandler += this.OnReplyBrightLED;
                 drawer.OnReplyPositionHandler += this.OnReplyPosition;
                 drawer.OnReplyBoxDetection += this.OnReplyBoxDetection;
                 drawer.OnTrayArriveHandler += this.OnTrayArrive;
