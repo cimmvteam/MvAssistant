@@ -42,6 +42,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                           byte[] buffer = new byte[1024];
                           UdpClient.Receive(buffer);
                           var msg = Encoding.UTF8.GetString(buffer);
+                          InvokeMethod(msg);
                       }
                   }
                );
@@ -331,7 +332,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         //@~112,ReplyBrightLED,1@
         /// <summary>Event ReplyBrightLED(112)</summary>
         /// <param name="reply"></param>
-        private void ReplyBrightLED(ReplyMessage reply)
+        public void ReplyBrightLED(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
             var eventArgs = new OnReplySetTimeOutEventArgs(replyResultCode);
