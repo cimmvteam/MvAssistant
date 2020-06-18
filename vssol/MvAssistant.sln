@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.Fan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.FanucRobot_v42_14", "MvAssistant.DeviceDrive.FanucRobot_v42_14\MvAssistant.DeviceDrive.FanucRobot_v42_14.csproj", "{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawerTest", "DrawerTest\DrawerTest.csproj", "{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.ActiveCfg = Release|Any CPU
 		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.Build.0 = Release|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Debug|x86.Build.0 = Debug|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Release|x86.ActiveCfg = Release|Any CPU
+		{24F9FE8B-E5FB-45DE-8014-7FC321E54A20}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
