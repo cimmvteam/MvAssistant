@@ -273,7 +273,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         #region event
         /// <summary>Event ReplySetSpeed(111)</summary>
         /// <param name="reply"></param>
-        private void ReplyTrayMotion(ReplyMessage reply)
+        public void ReplyTrayMotion(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
             if (OnReplyTrayMotionHandler != null)
@@ -294,7 +294,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event ReplySetSpeed(100)</summary>
         /// <param name="reply"></param>
-        private void ReplySetSpeed(ReplyMessage reply)
+        public void ReplySetSpeed(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
             if (OnReplySetSpeedHandler != null)
@@ -316,7 +316,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event  ReplySetTimeOut(101)</summary>
         /// <param name="reply"></param>
-        private void ReplySetTimeOut(ReplyMessage reply)
+        public void ReplySetTimeOut(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
             var eventArgs = new OnReplySetTimeOutEventArgs(replyResultCode);
@@ -406,7 +406,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event ReplyBoxDetection(114)</summary>
         /// <param name="reply"></param>
-        private void ReplyBoxDetection(ReplyMessage reply)
+        public void ReplyBoxDetection(ReplyMessage reply)
         {
             var hasBox = false;
             if(reply.Value.HasValue && (int)reply.Value == 1)
@@ -451,7 +451,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event ButtonEvent(120)</summary>
         /// <param name="reply"></param>
-        private  void ButtonEvent(ReplyMessage reply)
+        public void ButtonEvent(ReplyMessage reply)
         {
             if (OnButtonEventHandler != null)
             {
@@ -499,7 +499,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event TrayMotionError(903)</summary>
         /// <param name="reply"></param>
-        private void TrayMotionError(ReplyMessage reply)
+        public void TrayMotionError(ReplyMessage reply)
         {
             if (OnTrayMotionErrorHandler != null)
             {
@@ -512,7 +512,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event Error(904)</summary>
         /// <param name="reply"></param>
-        private  void Error(ReplyMessage reply)
+        public void Error(ReplyMessage reply)
         {
             ReplyErrorCode replyErrorCode = (ReplyErrorCode)((int)reply.Value);
             if (OnErrorHandler != null)
@@ -535,7 +535,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>Event SysStartUp(999)</summary>
         /// <param name="reply"></param>
-        private void SysStartUp(ReplyMessage reply)
+        public void SysStartUp(ReplyMessage reply)
         {
             if(OnSysStartUpHandler != null)
             {
