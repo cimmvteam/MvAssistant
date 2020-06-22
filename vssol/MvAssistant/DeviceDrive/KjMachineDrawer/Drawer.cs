@@ -419,7 +419,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
             private OnReplySetSpeedEventArgs() { }
-            public OnReplySetSpeedEventArgs(ReplyResultCode replyResultCode):this() { ReplyResultCode = ReplyResultCode; }
+            public OnReplySetSpeedEventArgs(ReplyResultCode replyResultCode):this() { ReplyResultCode = replyResultCode; }
         }
 
 
@@ -449,7 +449,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
             private OnReplySetTimeOutEventArgs() { }
-            public OnReplySetTimeOutEventArgs(ReplyResultCode replyResultCode) : this() { ReplyResultCode = ReplyResultCode; }
+            public OnReplySetTimeOutEventArgs(ReplyResultCode replyResultCode) : this() { ReplyResultCode = replyResultCode; }
         }
 
         //@~112,ReplyBrightLED,1@
