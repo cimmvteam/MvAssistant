@@ -77,19 +77,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void INI()
         {
             
-            Drawer_01_01_01.CommandINI();
+          string commandText=  Drawer_01_01_01.CommandINI();
 
         }
         [TestMethod]// 20%,15%,10% //~100,ReplySetSpeed,1@
         public void SetMotionSpeed()
         {
-           
-            Drawer_01_01_01.CommandSetMotionSpeed(100);
+
+            string commandText = Drawer_01_01_01.CommandSetMotionSpeed(100);
         }
         [TestMethod] // 30 seconds, 60 seconds,10 seconds//~101,ReplySetTimeOut,1@
         public void SetTimeOut()
         {
-            Drawer_01_01_01.CommandSetTimeOut(100);
+            string commandText = Drawer_01_01_01.CommandSetTimeOut(100);
 
         }
 
@@ -101,21 +101,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,0@
         public void TrayMotionHome()
         {
-            Drawer_01_01_01.CommandTrayMotionHome();
+            string commandText = Drawer_01_01_01.CommandTrayMotionHome();
          
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,1@
         public void TrayMotionOut()
         {
-           
-          Drawer_01_01_01.CommandTrayMotionOut();
+
+            string commandText = Drawer_01_01_01.CommandTrayMotionOut();
 
      
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,2@
         public void TrayMotionIn()
         {
-            Drawer_01_01_01.CommandTrayMotionIn();
+            string commandText = Drawer_01_01_01.CommandTrayMotionIn();
 
          
         }
@@ -123,18 +123,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BrightLEDAllOn()
         {
 
-            Drawer_01_01_01.CommandBrightLEDAllOn();
-            while (true)
-            {
-                System.Threading.Thread.Sleep(100);
-            }
+            string commandText = Drawer_01_01_01.CommandBrightLEDAllOn();
+          
           
         }
         [TestMethod]//send:V,  Recive: ~112,ReplyBrightLED,1@
         public void BrightLedAllOff()
         {
 
-            Drawer_01_01_01.CommandBrightLEDAllOff();
+            string commandText = Drawer_01_01_01.CommandBrightLEDAllOff();
 
            
         }
@@ -142,7 +139,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BrightLEDGreenOn()
         {
 
-            Drawer_01_01_01.CommandBrightLEDGreenOn();
+            string commandText = Drawer_01_01_01.CommandBrightLEDGreenOn();
 
            
         }
@@ -150,7 +147,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BrightLEDRedOn()
         {
 
-            Drawer_01_01_01.CommandBrightLEDRedOn();
+            string commandText = Drawer_01_01_01.CommandBrightLEDRedOn();
 
          
         }
@@ -158,7 +155,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void PositionRead()
         {
 
-            Drawer_01_01_01.CommandPositionRead();
+            string commandText = Drawer_01_01_01.CommandPositionRead();
 
         
         }
@@ -166,7 +163,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BoxDetection()
         {
 
-            Drawer_01_01_01.CommandBoxDetection();
+            string commandText = Drawer_01_01_01.CommandBoxDetection();
 
         
         }
@@ -174,7 +171,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void WriteNetSetting()
         {
 
-            Drawer_01_01_01.CommandWriteNetSetting();
+            string commandText = Drawer_01_01_01.CommandWriteNetSetting();
 
         
         }
@@ -182,7 +179,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void LCDMsg()
         {
 
-            Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
+            string commandText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
 
            
         }

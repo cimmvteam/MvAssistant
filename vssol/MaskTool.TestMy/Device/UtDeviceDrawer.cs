@@ -17,11 +17,11 @@ namespace MvAssistant.Mac.TestMy.Device
         // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
 
-        //public string LocalIP = "192.168.0.14";
-        public string LocalIP = "127.0.0.1";
+        public string LocalIP = "192.168.0.14";
+       // public string LocalIP = "127.0.0.1";
 
-        //public string ClientIP_01_01_01 = "192.168.0.42";
-        public string ClientIP_01_01_01 = "127.0.0.1";
+        public string ClientIP_01_01_01 = "192.168.0.42";
+        //public string ClientIP_01_01_01 = "127.0.0.1";
 
         public Drawer Drawer_01_01_01 = null;
         private MvKjMachineDrawerLdd ldd = null;
@@ -74,19 +74,19 @@ namespace MvAssistant.Mac.TestMy.Device
         public void INI()
         {
 
-            Drawer_01_01_01.CommandINI();
+           string commText=    Drawer_01_01_01.CommandINI();
 
         }
         [TestMethod]// 20%,15%,10% //~100,ReplySetSpeed,1@
         public void SetMotionSpeed()
         {
 
-            Drawer_01_01_01.CommandSetMotionSpeed(100);
+            string commText = Drawer_01_01_01.CommandSetMotionSpeed(100);
         }
         [TestMethod] // 30 seconds, 60 seconds,10 seconds//~101,ReplySetTimeOut,1@
         public void SetTimeOut()
         {
-            Drawer_01_01_01.CommandSetTimeOut(100);
+            string commText = Drawer_01_01_01.CommandSetTimeOut(100);
 
         }
 
@@ -98,21 +98,21 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,0@
         public void TrayMotionHome()
         {
-            Drawer_01_01_01.CommandTrayMotionHome();
+            string commText = Drawer_01_01_01.CommandTrayMotionHome();
 
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,1@
         public void TrayMotionOut()
         {
 
-            Drawer_01_01_01.CommandTrayMotionOut();
+            string commText = Drawer_01_01_01.CommandTrayMotionOut();
 
 
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,2@
         public void TrayMotionIn()
         {
-            Drawer_01_01_01.CommandTrayMotionIn();
+            string commText = Drawer_01_01_01.CommandTrayMotionIn();
 
 
         }
@@ -120,18 +120,13 @@ namespace MvAssistant.Mac.TestMy.Device
         public void BrightLEDAllOn()
         {
 
-            Drawer_01_01_01.CommandBrightLEDAllOn();
-            while (true)
-            {
-                System.Threading.Thread.Sleep(100);
-            }
-
+            string commText = Drawer_01_01_01.CommandBrightLEDAllOn();
         }
         [TestMethod]//send:V,  Recive: ~112,ReplyBrightLED,1@
         public void BrightLedAllOff()
         {
 
-            Drawer_01_01_01.CommandBrightLEDAllOff();
+            string commText = Drawer_01_01_01.CommandBrightLEDAllOff();
 
 
         }
@@ -139,7 +134,7 @@ namespace MvAssistant.Mac.TestMy.Device
         public void BrightLEDGreenOn()
         {
 
-            Drawer_01_01_01.CommandBrightLEDGreenOn();
+            string commText = Drawer_01_01_01.CommandBrightLEDGreenOn();
 
 
         }
@@ -147,7 +142,7 @@ namespace MvAssistant.Mac.TestMy.Device
         public void BrightLEDRedOn()
         {
 
-            Drawer_01_01_01.CommandBrightLEDRedOn();
+            string commText = Drawer_01_01_01.CommandBrightLEDRedOn();
 
 
         }
@@ -155,7 +150,7 @@ namespace MvAssistant.Mac.TestMy.Device
         public void PositionRead()
         {
 
-            Drawer_01_01_01.CommandPositionRead();
+            string commText = Drawer_01_01_01.CommandPositionRead();
 
 
         }
@@ -163,7 +158,7 @@ namespace MvAssistant.Mac.TestMy.Device
         public void BoxDetection()
         {
 
-            Drawer_01_01_01.CommandBoxDetection();
+            string commText = Drawer_01_01_01.CommandBoxDetection();
 
 
         }
@@ -171,7 +166,7 @@ namespace MvAssistant.Mac.TestMy.Device
         public void WriteNetSetting()
         {
 
-            Drawer_01_01_01.CommandWriteNetSetting();
+            string commText = Drawer_01_01_01.CommandWriteNetSetting();
 
 
         }
@@ -179,7 +174,7 @@ namespace MvAssistant.Mac.TestMy.Device
         public void LCDMsg()
         {
 
-            Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
+            string commText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
 
 
         }

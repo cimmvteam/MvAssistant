@@ -153,7 +153,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string CommandINI()
         {
             var commandText = new INI().GetCommandText(new INIParameter());
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
         
@@ -167,7 +167,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             */        
             var parameter = new SetMotionSpeedParameter { Speed = speed };
             var commandText = new SetMotionSpeed().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -183,7 +183,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             */
             var parameter = new SetTimeOutParameter {  Seconds=timeoutSeconds };
             var commandText = new SetTimeOut().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -194,7 +194,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new TrayMotionParameter { TrayMotionType = trayMotionType };
             var commandText = new TrayMotion().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -204,6 +204,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string CommandTrayMotionHome()
         {
             var commandText=CommandTrayMotion(TrayMotionType.Home);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -211,12 +212,14 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string CommandTrayMotionOut()
         {
            var commandText= CommandTrayMotion(TrayMotionType.Out);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
         /// <summary>Command TrayMotion ~ In(011) </summary>
         public string CommandTrayMotionIn()
         {
             var commandText=CommandTrayMotion(TrayMotionType.In);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -226,7 +229,6 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new BrightLEDParameter { BrightLEDType = brightLEDType };
             var commandText = new BrightLED().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
             UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
@@ -274,7 +276,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new BoxDetectionParameter();
             var commandText = new BoxDetection().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -283,7 +285,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new WriteNetSettingParameter();
             var commandText = new WriteNetSetting().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -293,60 +295,67 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             var parameter = new LSDMsgParameter { Message = message };
             var commandText = new LCDMsg().GetCommandText(parameter);
-           // DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
         /// <summary>Command SetParameter(007)</summary>
         /// <param name="setParameterType"></param>
         /// <param name="parameterValue"></param>
-        private void CommandSetParameter(SetParameterType setParameterType, string parameterValue)
+        private string CommandSetParameter(SetParameterType setParameterType, string parameterValue)
         {
             var parameter = new SetParameterParameter {  ParameterValue= parameterValue, SetParameterType=setParameterType };
             var commandText = new SetParameter().GetCommandText(parameter);
-            //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            return commandText;
         }
 
         /// <summary>Command SetParameter~ HomePosition(007)</summary>
         /// <param name="homePosition"></param>
-        public void CommandSetParameterHomePosition(string homePosition)
+        public string CommandSetParameterHomePosition(string homePosition)
         {
-            CommandSetParameter(SetParameterType.Home_position, homePosition);
+            var commandText=  CommandSetParameter(SetParameterType.Home_position, homePosition);
+            return commandText;
         }
 
         /// <summary>Command SetParameter~ OutSidePosition(007)</summary>
         /// <param name="outsidePosition"></param>
-        public void CommandSetParameterOutSidePosition(string outsidePosition)
+        public string CommandSetParameterOutSidePosition(string outsidePosition)
         {
-            CommandSetParameter(SetParameterType.Out_side_position, outsidePosition);
+            var commandText=CommandSetParameter(SetParameterType.Out_side_position, outsidePosition);
+            return commandText;
         }
 
         /// <summary>Command SetParameter~ InSidePosition(007)</summary>
         /// <param name="insidePosition"></param>
-        public void CommandSetParameterInSidePosition(string insidePosition)
+        public string CommandSetParameterInSidePosition(string insidePosition)
         {
-            CommandSetParameter(SetParameterType.In_side_position, insidePosition);
+            var commandText=CommandSetParameter(SetParameterType.In_side_position, insidePosition);
+            return commandText;
         }
 
         /// <summary>Command SetParameter~ IPAddress(007)</summary>
         /// <param name="ipAddress"></param>
-        public void CommandSetParameterIPAddress(string ipAddress)
+        public string CommandSetParameterIPAddress(string ipAddress)
         {
-            CommandSetParameter(SetParameterType.IP_address, ipAddress);
+          var commandText   =CommandSetParameter(SetParameterType.IP_address, ipAddress);
+            return commandText;
         }
 
         /// <summary>Command SetParameter~ SubMask(007)</summary>
         /// <param name="submaskAddress"></param>
-        public void CommandSetParameterSubMask(string submaskAddress)
+        public string CommandSetParameterSubMask(string submaskAddress)
         {
-            CommandSetParameter(SetParameterType.SubMask, submaskAddress);
+            var commandText=CommandSetParameter(SetParameterType.SubMask, submaskAddress);
+            return commandText;
         }
 
         /// <summary>Command SetParameter~ GetwayAddress(007)</summary>
         /// <param name="getwayAddress"></param>
-        public void CommandSetParameterGetwayAddress(string getwayAddress)
+        public string CommandSetParameterGetwayAddress(string getwayAddress)
         {
-            CommandSetParameter(SetParameterType.Gateway_address, getwayAddress);
+           var commandText= CommandSetParameter(SetParameterType.Gateway_address, getwayAddress);
+            return commandText;
         }
 
         #region event
