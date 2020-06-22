@@ -53,11 +53,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         private void InitialDrawers()
         {
              var deviceEndPoint = new IPEndPoint(IPAddress.Parse(ClientIP_01_01_01), RemotePort);
-           // var localIp = "192.168.0.14";
-            //var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
-            Drawer_01_01_01 = ldd.CreateDrawer(1,"01_01", deviceEndPoint, LocalIP);
-           // Drawer_01_02 = ldd.CreateDrawer(1, "", ClientIP_01_02, RemotePort);
-           //Drawer_01_03 = ldd.CreateDrawer(1, "", ClientIP_01_03, RemotePort);
+             Drawer_01_01_01 = ldd.CreateDrawer(1,"01_01", deviceEndPoint, LocalIP);
         }
        
         public UtHalCabinet()

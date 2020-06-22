@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.DeviceDrive.KjMachineDrawer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
     public interface IMacHalDrawer: IMacHalComponent
     {
-
+       
     }
+
+    
 }
