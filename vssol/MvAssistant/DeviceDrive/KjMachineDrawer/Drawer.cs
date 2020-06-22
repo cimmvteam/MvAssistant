@@ -265,6 +265,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             var parameter =  new PositionReadParameter();
             var commandText = new PositionRead().GetCommandText(parameter);
             //DrawerSocket.SentTo(commandText);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
