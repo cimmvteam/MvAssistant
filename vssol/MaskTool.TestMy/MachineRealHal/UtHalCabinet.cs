@@ -8,6 +8,7 @@ using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
 using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
 using System.Net;
+using System.Threading;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -184,6 +185,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
 
            
+        }
+
+        [TestMethod]
+        public void StartUp()
+        {
+            while (true)
+            {
+                Thread.Sleep(100);
+            }
         }
         #endregion
 
