@@ -132,8 +132,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="rtnMsg"></param>
         public void InvokeMethod(string rtnMsgCascade)
         {
-            string[] rtnMsgArray = rtnMsgCascade.Replace("\0","").Split(new string[] { BaseCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
             Debug.WriteLine(rtnMsgCascade);
+            string[] rtnMsgArray = rtnMsgCascade.Replace("\0","").Split(new string[] { BaseCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var rtnMsg in rtnMsgArray)
             {
                 var msg = rtnMsg.Replace(BaseCommand.CommandPrefixText, "");
@@ -492,7 +492,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// </remarks>
         public void  ReplyPosition(ReplyMessage reply)
         {
-            var IHO = "";
+            var IHO = "000";
             switch ((int)reply.Value)
             {    case 0:
                     IHO = "000";

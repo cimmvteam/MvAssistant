@@ -93,14 +93,14 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]// [V] ~100,ReplySetSpeed,1@
         public void SetMotionSpeed()
         {
-
             string commText = Drawer_01_01_01.CommandSetMotionSpeed(100);
+            Repeat(); 
         }
         [TestMethod] // [V]~101,ReplySetTimeOut,1@
         public void SetTimeOut()
         {
             string commText = Drawer_01_01_01.CommandSetTimeOut(100);
-
+            Repeat();
         }
 
         [TestMethod] //???
