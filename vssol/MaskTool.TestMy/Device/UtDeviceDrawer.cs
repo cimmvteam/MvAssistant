@@ -87,6 +87,7 @@ namespace MvAssistant.Mac.TestMy.Device
         {
 
            string commText=    Drawer_01_01_01.CommandINI();
+            Repeat();
 
         }
         [TestMethod]// [V] ~100,ReplySetSpeed,1@
@@ -122,7 +123,7 @@ namespace MvAssistant.Mac.TestMy.Device
             Repeat();
 
         }
-        [TestMethod]//
+        [TestMethod]//[V] 2020/06/23
         public void TrayMotionIn()
         {
             string commText = Drawer_01_01_01.CommandTrayMotionIn();

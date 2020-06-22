@@ -145,7 +145,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     Value = msgArray.Length == 3 ? Convert.ToInt32(msgArray[2]) : default(int?)
                 };
                 // 取得要呼叫方法名稱
-                var method = this.GetType().GetMethod(rplyMsg.StringFunc,System.Reflection.BindingFlags.IgnoreCase);
+                var method = this.GetType().GetMethod(rplyMsg.StringFunc);
                 if (method != null)
                 {
                     // 呼叫方法
@@ -705,7 +705,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <para>1. 函式名稱不得修改</para>
         /// <para>2. 函式不得刪除</para>
         /// </remarks>
-        public void OnTrayMotionSensorOFF(ReplyMessage reply)
+        public void TrayMotionSensorOFF(ReplyMessage reply)
         {
             if (OnTrayMotionErrorHandler != null)
             {
@@ -726,7 +726,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <para>1. 函式名稱不得修改</para>
         /// <para>2. 函式不得刪除</para>
         /// </remarks>
-        public void Error(ReplyMessage reply)
+        public void ERROR(ReplyMessage reply)
         {
             ReplyErrorCode replyErrorCode = (ReplyErrorCode)((int)reply.Value);
             if (OnErrorHandler != null)
@@ -735,6 +735,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnErrorHandler.Invoke(this, args);
             }
         }
+        public void Error(ReplyMessage reply) { ERROR(reply); }
         /// <summary>Error 事件程序</summary>
         public event EventHandler OnErrorHandler = null;
         /// <summary>將Error 事件程序重設為 null</summary>
