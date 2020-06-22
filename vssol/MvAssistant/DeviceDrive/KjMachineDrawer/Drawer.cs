@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
+    /// <summary>Drawer Class</summary>
     public class Drawer
     {
         /// <summary>Cabinet 編號</summary>        
@@ -20,44 +21,56 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string DrawerNO { get; private set; }
         /// <summary>裝置IP</summary>
         public string DeviceIP { get; private set; }
-        //    public DrawerSocket DrawerSocket { get; private set; }
+        
+        /// <summary>目的端點</summary>
         IPEndPoint TargetEndpoint = null;
-        public   Socket UdpSocket = null;
-        private Thread ListenThread;
-        private Drawer() {
-           
-        }
 
+        /// <summary>傳送命令/回收訊息的 Socket</summary>
+        public   Socket UdpSocket = null;
+
+        /// <summary>監聽回復訊息的 Thread</summary>
+        private Thread ListenThread;
+
+        /// <summary>建構式/summary>
+        private Drawer(){  }
+
+        /// <summary>建構式</summary>
+        /// <param name="cabinetNO">Cabinet 編號</param>
+        /// <param name="drawerNO">drawer 編號</param>
+        /// <param name="deviceEndpoint">drawer 的端點</param>
+        /// <param name="localIp">本地IP</param>
+        /// <param name="portTable">本地端 Port 使用狀況</param>
         public Drawer(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, string localIp,IDictionary<int,bool?> portTable) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
             DeviceIP = deviceEndpoint.Address.ToString();
-             TargetEndpoint = deviceEndpoint;
+            TargetEndpoint = deviceEndpoint;
             UdpSocket= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             while (true)
             {
-                var port = 0;
+                // 可用的 port
+                int variablePort = 0;
                 try
                 {
-
                     KeyValuePair<int, bool?> keyValuePair = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
                     if (keyValuePair.Equals(default(KeyValuePair<int, bool?>)))
-                    {
+                    { // 無 Port 可用時
                         // TODO : To Thorw an Exception
                     }
-                    port = keyValuePair.Key;
-                    //port = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
-                    var endPoint = new IPEndPoint(IPAddress.Parse(localIp), port);
+                     
+                    variablePort = keyValuePair.Key;
+                    // Bind 的端點名稱
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(localIp), variablePort);
                     UdpSocket.Bind(endPoint);
-                    portTable.Remove(port);
-                    portTable.Add(port, true);
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, true);
                     break;
                 }
                 catch (Exception ex)
                 {
-                    portTable.Remove(port);
-                    portTable.Add(port, false);
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, false);
                 }
             }
             ListenThread = new Thread(Listen);
@@ -84,7 +97,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                   }
                );*/
           }
-       
+
+        /// <summary>監聽的函式</summary>
         public void Listen()
         {
             try
@@ -92,6 +106,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 while (true)
                 {
                     byte[] buffer = new byte[1024];
+                    // 監聽點
                     UdpSocket.Receive(buffer);
                     var msg = Encoding.UTF8.GetString(buffer);
                     InvokeMethod(msg);
@@ -103,12 +118,17 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
         }
 
-        public int Send(string message)
+        /// <summary>傳送</summary>
+        /// <param name="commandText">Command 內容</param>
+        /// <returns></returns>
+        public int Send(string commandText)
         {
-           var len= this.UdpSocket.SendTo(Encoding.UTF8.GetBytes(message), TargetEndpoint);
+           var len= this.UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return len;
         }
 
+        /// <summary>監聽到回覆訊息時 呼收訊息同名的函式</summary>
+        /// <param name="rtnMsg"></param>
         public void InvokeMethod(string rtnMsg)
         {
             var msg = rtnMsg.Replace(BaseCommand.CommandPostfixText, "").Replace(BaseCommand.CommandPostfixText,"");
@@ -119,9 +139,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 StringFunc = msgArray[1],
                 Value = msgArray.Length == 3 ? Convert.ToInt32(msgArray[2]) : default(int?)
             };
+            // 取得要呼叫方法名稱
             var method=this.GetType().GetMethod(rplyMsg.StringFunc);
             if(method != null)
             {
+                // 呼叫方法
                 method.Invoke(this, new object[] { rplyMsg });
             }
         }
@@ -325,9 +347,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             CommandSetParameter(SetParameterType.Gateway_address, getwayAddress);
         }
+
         #region event
         /// <summary>Event ReplySetSpeed(111)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void ReplyTrayMotion(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
@@ -337,8 +365,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnReplyTrayMotionHandler.Invoke(this, eventArgs);
             };
         }
+        /// <summary>ReplyMotion 事件處理程序</summary>
         public event EventHandler OnReplyTrayMotionHandler = null;
-        public void SetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
+        /// <summary>將ReplyMotion事件程序指向 null</summary>
+        public void ResetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
+        /// <summary>ReplyMotion 事件處理程序的 Event Args </summary>
         public class OnReplyTrayMotionEventArgs : EventArgs
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
@@ -348,7 +379,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
 
         /// <summary>Event ReplySetSpeed(100)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void ReplySetSpeed(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
@@ -358,8 +394,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnReplySetSpeedHandler.Invoke(this, eventArgs);
             }
         }
+        /// <summary>ReplySetSpeed事件程序</summary>
         public event EventHandler OnReplySetSpeedHandler = null;
+        /// <summary>將ReplySetSpeed事件程序重設為null</summary>
         public void ResetOnReplySetSpeedHandler() { OnReplySetSpeedHandler = null; }
+        /// <summary>ReplySetSpeed事件程序的 Event Args</summary>
         public class OnReplySetSpeedEventArgs : EventArgs
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
@@ -370,7 +409,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
 
         /// <summary>Event  ReplySetTimeOut(101)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void ReplySetTimeOut(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
@@ -380,8 +424,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnReplySetTimeOutHandler.Invoke(this, eventArgs);
             }
         }
+        /// <summary>ReplySetTimeOut 事件程序</summary>
         public event EventHandler OnReplySetTimeOutHandler = null;
+        /// <summary>將OnReplySetTimeOut 事件程序設為null</summary>
         public void ResetOnReplySetTimeOutHandler() { OnReplySetTimeOutHandler = null; }
+        /// <summary>ReplySetTimeOut 事件程序</summary>
         public class OnReplySetTimeOutEventArgs : EventArgs
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
@@ -391,7 +438,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         //@~112,ReplyBrightLED,1@
         /// <summary>Event ReplyBrightLED(112)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void ReplyBrightLED(ReplyMessage reply)
         {
             ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
@@ -401,8 +453,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnReplyBrightLEDHandler.Invoke(this, eventArgs);
             }
         }
+        /// <summary>ReplyBrightLED 事件程序</summary>
         public event EventHandler OnReplyBrightLEDHandler = null;
+        /// <summary>將  OnReplyBrightLED 事件程設為null</summary>
         public void ResetOnReplyBrightLEDHandler() { OnReplyBrightLEDHandler = null; }
+        /// <summary> OnReplyBrightLED Evrnt Args</summary>
         public class OnReplyBrightLEDEventArgs : EventArgs
         {
            public ReplyResultCode ReplyResultCode { get; private set; }
@@ -413,7 +468,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
 
         /// <summary>Event ReplyPosition(113) </summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void  ReplyPosition(ReplyMessage reply)
         {
             var IHO = "";
@@ -450,8 +510,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
             }
         }
+        /// <summary>ReplyPosition 事件程序</summary>
         public event EventHandler OnReplyPositionHandler= null;
+        /// <summary>重設ReplyPosition事件程序為 null </summary>
         public void ResetOnReplyPositionHandler() { OnReplyPositionHandler = null; }
+        /// <summary>ReplyPosition 事件程序的 Event Args</summary>
         public class OnReplyPositionEventArgs : EventArgs
         {
             public string IHOStatus { get; private set; }
@@ -460,7 +523,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         }
 
         /// <summary>Event ReplyBoxDetection(114)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void ReplyBoxDetection(ReplyMessage reply)
         {
             var hasBox = false;
@@ -474,8 +542,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnReplyBoxDetection.Invoke(this, args);
             }
         }
+        /// <summary>ReplyBoxDetection 事件程序</summary>
         public event EventHandler OnReplyBoxDetection = null;
+        /// <summary>重設 ReplyBoxDetection 事件程序為 null</summary>
         public void ResetOnReplyBoxDetection() { OnReplyBoxDetection = null; }
+        /// <summary>ReplyBoxDetection事件程序的 Event Args </summary>
         public class OnReplyBoxDetectionEventArgs : EventArgs
         {
             public bool HasBox { get; private set; }
@@ -485,7 +556,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
 
         /// <summary>Event TrayArrive (115)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         private void TrayArrive(ReplyMessage reply)
         {
             TrayArriveType trayArriveType = (TrayArriveType)((int)reply.Value);
@@ -495,8 +571,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTrayArriveHandler.Invoke(this,args);
             }
         }
+        /// <summary>TrayArrive 事件程序</summary>
         public event EventHandler OnTrayArriveHandler = null;
+        /// <summary>將TrayArrive 事件程序重設為 null</summary>
         public void ResetOnTrayArriveHandler() { OnTrayArriveHandler = null; }
+        /// <summary>TrayArrive 事件程序的Event Args</summary>
         public class OnTrayArriveEventArgs : EventArgs
         {
             public TrayArriveType TrayArriveType { get; private set; }
@@ -505,7 +584,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         }
 
         /// <summary>Event ButtonEvent(120)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void ButtonEvent(ReplyMessage reply)
         {
             if (OnButtonEventHandler != null)
@@ -513,11 +597,18 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnButtonEventHandler.Invoke(this, EventArgs.Empty);
             }
         }
+        /// <summary>ButtonEvent 事件程序</summary>
         public event EventHandler OnButtonEventHandler = null;
+        /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
         public void ResetOnButtonEventHandler() { OnButtonEventHandler = null; }
 
         /// <summary>Event TimeOutEvent(900)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         private void TimeOutEvent(ReplyMessage reply)
         {
             if( OnTimeOutEventHandler != null)
@@ -525,11 +616,18 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTimeOutEventHandler.Invoke(this, EventArgs.Empty);
             }
         }
+        /// <summary>TimeOutEvent事件程序</summary>
         public event EventHandler OnTimeOutEventHandler = null;
+        /// <summary>將TimeOutEventk事件程序重設為 null</summary>
         public void ResetOnTimeOutEventHandler() { OnTimeOutEventHandler = null; }
 
         /// <summary>Event TrayMotioning(901)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         private void TrayMotioning(ReplyMessage reply)
         {
             if(OnTrayMotioningHandler != null)
@@ -537,11 +635,18 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTrayMotioningHandler.Invoke(this,EventArgs.Empty);
             }
         }
+        /// <summary>TrayMotioning 事件程序</summary>
         public event EventHandler OnTrayMotioningHandler = null;
+        /// <summary>將TrayMotioning事件程序重設為 null</summary>
         public void ResetOnTrayMotioning() {  OnTrayMotioningHandler = null; }
 
         /// <summary>event INIFailed (902)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         private void INIFailed(ReplyMessage reply)
         {
             if (OnINIFailedHandler != null)
@@ -549,11 +654,19 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                OnINIFailedHandler.Invoke(this, EventArgs.Empty);
             }
         }
+        /// <summary>INIFailed 事件程序</summary>
         public event EventHandler OnINIFailedHandler = null;
+        /// <summary>將INIFailed 事件程序重設為null</summary>
         public void ResetOnINIFailedHandler() { OnINIFailedHandler = null; }
 
+
         /// <summary>Event TrayMotionError(903)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void TrayMotionError(ReplyMessage reply)
         {
             if (OnTrayMotionErrorHandler != null)
@@ -561,12 +674,19 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTrayMotionErrorHandler.Invoke(this, EventArgs.Empty);
             }
         }
+        /// <summary>TrayMotionError 事件程序</summary>
         public event EventHandler OnTrayMotionErrorHandler = null;
+        /// <summary>將TrayMotionError 事件程序重設為0</summary>
         public void ResetOnTrayMotionErrorHandler()
         {    OnTrayMotionErrorHandler = null;}
 
         /// <summary>Event Error(904)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void Error(ReplyMessage reply)
         {
             ReplyErrorCode replyErrorCode = (ReplyErrorCode)((int)reply.Value);
@@ -576,8 +696,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnErrorHandler.Invoke(this, args);
             }
         }
+        /// <summary>Error 事件程序</summary>
         public event EventHandler OnErrorHandler = null;
+        /// <summary>將Error 事件程序重設為 null</summary>
         public void ResetOnErrorHandler() { OnErrorHandler = null; }
+        /// <summary>Error 事件程序的 Event Args</summary>
         public class OnErrorEventArgs : EventArgs
         {
             public ReplyErrorCode ReplyErrorCode { get; private set; }
@@ -588,9 +711,14 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
         }
 
-        
+
         /// <summary>Event SysStartUp(999)</summary>
-        /// <param name="reply"></param>
+        /// <param name="reply">回覆的訊息(執行結果)</param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
         public void SysStartUp(ReplyMessage reply)
         {
             if(OnSysStartUpHandler != null)
@@ -598,7 +726,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnSysStartUpHandler.Invoke(this,EventArgs.Empty);
             }
         }
+        /// <summary>SysStartUp 事件程序</summary>
         public event EventHandler OnSysStartUpHandler = null;
+        /// <summary>將SysStartUp 事件程序重設為 null</summary>
         public void ResetOnSysStartUp(){OnSysStartUpHandler = null;}
         
 

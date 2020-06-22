@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
 {
+    /// <summary>控制端到 Device(Drawer) 指令的基礎類別</summary>
     public abstract class BaseHostToEquipmentCommand : BaseCommand
     {
         public HostToEquipmentContent CommandCategory { get; private set; }

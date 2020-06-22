@@ -10,61 +10,79 @@ using System.Threading.Tasks;
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
 
-
+    /// <summary>Lisent SysStartUp Event 的物件類別</summary>
     public  class SysStartUpEventListener
-   {
-        private int Port;
-        private Thread ListenThread;
-        public UdpClient UdpClient;
+    {
+        /// <summary>Listen Port</summary>
+        private int _listenPort;
+
+        /// <summary>Listen 的Thread</summary>
+        private Thread _listenThread;
+
+        /// <summary>Listen 的物件</summary>
+        public UdpClient UdpClient { get; set; }
+
+        /// <summary>發出訊息的端點</summary>
         private IPEndPoint IpEndPoint;
+
+        /// <summary>建構式</summary>
         private SysStartUpEventListener()
         {
-            ListenThread = new Thread(EventListener);
-            ListenThread.IsBackground = true;
+            _listenThread = new Thread(EventListener);
+            _listenThread.IsBackground = true;
         }
 
+        /// <summary>建構式</summary>
+        /// <param name="port">Listen Port</param>
         public SysStartUpEventListener(int port) : this()
         {
-            this.Port = port;
+            _listenPort = port;
            
         }
+
+        /// <summary>開始監聽</summary>
+        /// <param name="onReciveMessageCallback">監聽到訊息後的回呼函式</param>
         public void Listen(DelOnRcvMessage onReciveMessageCallback)
         {
             this.OnRcvMessageCallBack = onReciveMessageCallback;
-            ListenThread.Start();
+            _listenThread.Start();
         }
+
+        /// <summary>監聽的函式</summary>
         public void EventListener()
         {
-           
-                IpEndPoint = new IPEndPoint(IPAddress.Any, Port);
-                UdpClient = new UdpClient(IpEndPoint.Port);
-                while (true)
+            IpEndPoint = new IPEndPoint(IPAddress.Any, _listenPort);
+            UdpClient = new UdpClient(IpEndPoint.Port);
+            while (true)
+            {
+                try
                 {
-                   try
-                   {
+                    // Listen Point
                     var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpEndPoint));
                     OnRcvMessage(rcvMessage, IpEndPoint);
-                   }
-                   catch(Exception ex)
-                   {
-
-                   }
                 }
-           
+                catch(Exception ex)      {  }
+            }
         }
 
-        public void OnRcvMessage(string message,IPEndPoint ipEndpoint)
+        /// <summary>接到監聽資料時的處理函式</summary>
+        /// <param name="message">收到的訊息</param>
+        /// <param name="ipEndpoint">發出訊號的 端點</param>
+        private void OnRcvMessage(string message,IPEndPoint ipEndpoint)
         {
             var ip = ipEndpoint.Address;
             if(OnRcvMessageCallBack!=null)
             {
                 OnRcvMessageCallBack(message, ipEndpoint);
             }
-
-
         }
+
+        /// <summary>接收到訊號回呼函式的委派型別</summary>
+        /// <param name="message"></param>
+        /// <param name="ipEndpoint"></param>
         public delegate void DelOnRcvMessage(string message, IPEndPoint ipEndpoint);
 
+        /// <summary>回呼函式</summary>
         public DelOnRcvMessage OnRcvMessageCallBack = null;
     }
 }
