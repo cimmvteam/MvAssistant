@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
@@ -21,7 +22,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string DeviceIP { get; private set; }
         //    public DrawerSocket DrawerSocket { get; private set; }
         IPEndPoint TargetEndpoint = null;
-      public   Socket UdpSocket = null;
+        public   Socket UdpSocket = null;
+        private Thread ListenThread;
         private Drawer() {
            
         }
@@ -30,8 +32,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
-           
-            TargetEndpoint = deviceEndpoint;
+            DeviceIP = deviceEndpoint.Address.ToString();
+             TargetEndpoint = deviceEndpoint;
             UdpSocket= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             while (true)
             {
@@ -58,6 +60,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     portTable.Add(port, false);
                 }
             }
+            ListenThread = new Thread(Listen);
+            ListenThread.IsBackground = true;
+            ListenThread.Start();
+            /**
             Task.Run(
                 () =>
                   {
@@ -76,9 +82,27 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
                       }
                   }
-               );
+               );*/
           }
        
+        public void Listen()
+        {
+            try
+            {
+                while (true)
+                {
+                    byte[] buffer = new byte[1024];
+                    UdpSocket.Receive(buffer);
+                    var msg = Encoding.UTF8.GetString(buffer);
+                    InvokeMethod(msg);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         public int Send(string message)
         {
            var len= this.UdpSocket.SendTo(Encoding.UTF8.GetBytes(message), TargetEndpoint);
@@ -564,6 +588,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
         }
 
+        
         /// <summary>Event SysStartUp(999)</summary>
         /// <param name="reply"></param>
         public void SysStartUp(ReplyMessage reply)
@@ -575,7 +600,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         }
         public event EventHandler OnSysStartUpHandler = null;
         public void ResetOnSysStartUp(){OnSysStartUpHandler = null;}
-
+        
 
         #endregion
     }

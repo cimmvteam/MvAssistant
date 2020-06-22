@@ -126,6 +126,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyErrorCode.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyMessage.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyResultCode.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\SysStartUpEventListener.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\TrayArriveType.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\BaseCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />

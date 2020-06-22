@@ -18,13 +18,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         // 建一個 Listen 的 Server;
        // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
+
         //public string LocalIP = "192.168.0.14";
-        public string LocalIP = "192.168.0.11";
+        public string LocalIP = "127.0.0.1";
+        
         //public string ClientIP_01_01_01 = "192.168.0.42";
-        public string ClientIP_01_01_01 = "192.168.0.11";
+        public string ClientIP_01_01_01 = "127.0.0.1";
+
         public Drawer Drawer_01_01_01 = null;
         private MvKjMachineDrawerLdd ldd = null;
-        int PortBegin = 5001;
+        int PortBegin = 5000;
         int PortEnd = 5999;
         private int ListenStartupPort=6000;
         private void BindEvent()
@@ -58,11 +61,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
        
         public UtHalCabinet()
         {
-            ldd = new MvKjMachineDrawerLdd(PortBegin,PortEnd, LocalIP, ListenStartupPort);
+            ldd = new MvKjMachineDrawerLdd(PortBegin,PortEnd, ListenStartupPort);
             InitialDrawers();
             BindEvent();
+            ldd.ListenSystStartUpEvent();
         }
 
+        
         #region Test Command
         /// <summary>
         /// 
@@ -118,7 +123,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
 
             Drawer_01_01_01.CommandBrightLEDAllOn();
-
+            while (true)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
           
         }
         [TestMethod]//send:V,  Recive: ~112,ReplyBrightLED,1@
@@ -151,9 +159,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             Drawer_01_01_01.CommandPositionRead();
 
-            //Drawer_01_02.CommandPositionRead();
-
-          //  Drawer_01_03.CommandPositionRead();
+        
         }
         [TestMethod]//~114,ReplyBoxDetection,0@
         public void BoxDetection()
@@ -161,9 +167,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             Drawer_01_01_01.CommandBoxDetection();
 
-            //Drawer_01_02.CommandBoxDetection();
-
-           // Drawer_01_03.CommandBoxDetection();
+        
         }
         [TestMethod]
         public void WriteNetSetting()
@@ -171,9 +175,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             Drawer_01_01_01.CommandWriteNetSetting();
 
-            //Drawer_01_02.CommandWriteNetSetting();
-
-          //  Drawer_01_03.CommandWriteNetSetting();
+        
         }
         [TestMethod]// send:V, Recieve: ~141,LCDCMsg,1@
         public void LCDMsg()

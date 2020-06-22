@@ -2,6 +2,7 @@
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -11,64 +12,70 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
     public class MvKjMachineDrawerLdd : IDisposable
     {
-        public UdpServerSocket UdpServer;
-        public int BindLocalPort;
-        public string BindLocalIP;
-        public List<Drawer> Drawers = null;
+      public List<Drawer> Drawers = null;
       
-        public IDictionary<int,bool?> DicPortStatusTable { get; private set; }
+        public IDictionary<int,bool?> PortStatusDictionary { get; private set; }
         private List<ReceiveInfo> ReceiveInfos = null;
-
+        public SysStartUpEventListener SysStartUpEventListener;
         /// <summary>建構式</summary>
         public   MvKjMachineDrawerLdd()
         {
             Drawers = new List<Drawer>();
             ReceiveInfos = new List<ReceiveInfo>();
-           // InitialUdpServer();
+           
         }
 
+       
         /// <summary></summary>
         /// <param name="listenDrawerPortMin">監聽 Udp Port 的最小值</param>
         /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
         /// <param name="bindLocalIp">本地端 繫結 的IP</param>
         /// <param name="bindLocalPort">本地端 繫結 的port</param>
-        public MvKjMachineDrawerLdd(int listenDrawerPortMin,int listenDrawerPortMax,string bindLocalIp,int bindLocalPort):this()
+        public MvKjMachineDrawerLdd(int listenDrawerPortMin,int listenDrawerPortMax,int sysStartUpEventListenPort):this()
         {
 
-            Action initialDicPortStatus = () =>{
-                DicPortStatusTable = new Dictionary<int, bool?>();
+            Action initialPortStatusDictionary = () =>{
+                PortStatusDictionary = new Dictionary<int, bool?>();
                 for (int i=listenDrawerPortMin;i<= listenDrawerPortMax; i++)
                 {
-                    DicPortStatusTable.Add(i, default(bool?));
+                    PortStatusDictionary.Add(i, default(bool?));
                 }
             };
-            initialDicPortStatus();
-            BindLocalIP = bindLocalIp;
-            BindLocalPort = bindLocalPort;
+            initialPortStatusDictionary();
+            SysStartUpEventListener = new SysStartUpEventListener(sysStartUpEventListenPort);
+
+
+        }
+
+        public void ListenSystStartUpEvent()
+        {
+            this.SysStartUpEventListener.Listen(OnSysStartUp);
+        }
+
+        public void OnSysStartUp(string message,IPEndPoint endPoint)
+        {
+            Drawer drawer = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
+            if(drawer != null)
+            {
+                drawer.InvokeMethod(message);
+            }
         }
         public int ListenDrawerPortMin
         {
             get
             {
-                return DicPortStatusTable.OrderBy(m => m.Key).First().Key;
+                return PortStatusDictionary.OrderBy(m => m.Key).First().Key;
             }
         }
         public int ListenDrawerportMax
         {
             get
             {
-                return DicPortStatusTable.OrderByDescending(m => m.Key).First().Key;
+                return PortStatusDictionary.OrderByDescending(m => m.Key).First().Key;
             }
          }
 
-        /// <summary>初始化 Udp Server</summary>
-        private void InitialUdpServer()
-        {
-            UdpServer = new UdpServerSocket(new IPEndPoint(IPAddress.Parse(BindLocalIP), BindLocalPort));
-
-            // 向 UdpServer註冊收到訊息事件後的處理函式 
-            UdpServer.OnReceiveMessage += this.OnReceiveMessage;
-        }
+       
 
         /// <summary>產生 Drawer</summary>
         /// <param name="cabinetNo">Cabinet 編號</param>
@@ -82,7 +89,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             try
             {
 
-                Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, localIP, this.DicPortStatusTable);
+                Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
                 Drawers.Add(drawer);
                 return drawer;
             }
@@ -94,45 +101,26 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         }
 
-        /// <summary>收到各 Drawer 送回的訊息後的處理函式</summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void OnReceiveMessage(object sender, EventArgs args)
-        {
-            // 傳送訊息的IP
-            var ip = ((OnReciveMessageEventArgs)args).IP;
-            // 回傳的訊息
-            var message = ((OnReciveMessageEventArgs)args).Message;
-            // 對應的Drawer
-            var drawer = this.GetDrawerByDeviceIP(ip);
+       
 
-            var replyMessage = ParseReplyMessage(message);
-            ExecuteMethodDispatch(drawer, replyMessage);
-            
-        }
-
-        private void ExecuteMethodDispatch(Drawer drawer, ReplyMessage replyMessage)
-        {
-            typeof(Drawer).GetMethod(replyMessage.StringFunc).Invoke(drawer, new object[] { replyMessage });
-        }
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
         /// <returns></returns>
         public Drawer GetDrawerByDeviceIP(string deviceIP)
         {
-            var drawer = this.Drawers.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
-            return drawer;
+            try
+            {
+                var drawer = this.Drawers.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
+                Debug.WriteLine(drawer.DeviceIP);
+                return drawer;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
 
-        /// <summary>由編號取得 Drawer </summary>
-        /// <param name="cabinetNo">Cabinet No</param>
-        /// <param name="drawerNo">Drawer No</param>
-        /// <returns></returns>
-        public Drawer GetDrawerByNO(int cabinetNo,string drawerNo)
-        {
-            var drawer = this.Drawers.Where(m => m.CabinetNO==cabinetNo).Where(m=>m.DrawerNO==drawerNo).FirstOrDefault();
-            return drawer;
-        }
+       
 
 
         public ReplyMessage ParseReplyMessage(string rtnMessage)
