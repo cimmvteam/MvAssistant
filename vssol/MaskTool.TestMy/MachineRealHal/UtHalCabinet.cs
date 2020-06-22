@@ -15,25 +15,26 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalCabinet
     {
-      
+
+
         // 建一個 Listen 的 Server;
-       // public UdpServerSocket UdpServer;
+        // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
 
-        //public string LocalIP = "192.168.0.14";
-        public string LocalIP = "127.0.0.1";
-        
-        //public string ClientIP_01_01_01 = "192.168.0.42";
-        public string ClientIP_01_01_01 = "127.0.0.1";
+        public string LocalIP = "192.168.0.14";
+        // public string LocalIP = "127.0.0.1";
+
+        public string ClientIP_01_01_01 = "192.168.0.42";
+        //public string ClientIP_01_01_01 = "127.0.0.1";
 
         public Drawer Drawer_01_01_01 = null;
         private MvKjMachineDrawerLdd ldd = null;
         int PortBegin = 5000;
         int PortEnd = 5999;
-        private int ListenStartupPort=6000;
+        private int ListenStartupPort = 6000;
         private void BindEvent()
         {
-            foreach(var drawer in ldd.Drawers)
+            foreach (var drawer in ldd.Drawers)
             {
                 drawer.OnReplyTrayMotionHandler += this.OnReplyTrayMotion;
                 drawer.OnReplySetSpeedHandler += this.OnReplySetSpeed;
@@ -49,6 +50,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 drawer.OnTrayMotionErrorHandler += this.OnTryMotionError;
                 drawer.OnErrorHandler += this.OnError;
                 drawer.OnSysStartUpHandler += this.OnSysStartUp;
+                drawer.OnTrayMotionSensorOFFHandler += this.OnTrayMotionSensorOFF;
             }
         }
 
@@ -56,141 +58,149 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         private void InitialDrawers()
         {
-             var deviceEndPoint = new IPEndPoint(IPAddress.Parse(ClientIP_01_01_01), RemotePort);
-             Drawer_01_01_01 = ldd.CreateDrawer(1,"01_01", deviceEndPoint, LocalIP);
+            var deviceEndPoint = new IPEndPoint(IPAddress.Parse(ClientIP_01_01_01), RemotePort);
+            Drawer_01_01_01 = ldd.CreateDrawer(1, "01_01", deviceEndPoint, LocalIP);
         }
-       
+
         public UtHalCabinet()
         {
-            ldd = new MvKjMachineDrawerLdd(PortBegin,PortEnd, ListenStartupPort);
+            ldd = new MvKjMachineDrawerLdd(PortBegin, PortEnd, ListenStartupPort);
             InitialDrawers();
             BindEvent();
             ldd.ListenSystStartUpEvent();
         }
+        void Repeat()
+        {
+            var b = false;
+            while (true)
+            {
+                Thread.Sleep(10);
+                if (b)
+                {
+                    break;
+                }
+            }
+        }
 
-        
         #region Test Command
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod]//~901,TrayMotioning@~115,TrayArrive,0@
+        [TestMethod]//
         public void INI()
         {
-            
-          string commandText=  Drawer_01_01_01.CommandINI();
+
+            string commText = Drawer_01_01_01.CommandINI();
+            Repeat();
 
         }
-        [TestMethod]// 20%,15%,10% //~100,ReplySetSpeed,1@
+        [TestMethod]//
         public void SetMotionSpeed()
         {
-
-            string commandText = Drawer_01_01_01.CommandSetMotionSpeed(100);
+            string commText = Drawer_01_01_01.CommandSetMotionSpeed(100);
+            Repeat();
         }
-        [TestMethod] // 30 seconds, 60 seconds,10 seconds//~101,ReplySetTimeOut,1@
+        [TestMethod] // 
         public void SetTimeOut()
         {
-            string commandText = Drawer_01_01_01.CommandSetTimeOut(100);
-
+            string commText = Drawer_01_01_01.CommandSetTimeOut(100);
+            Repeat();
         }
 
         [TestMethod] //???
         public void SetParameter()
         {
-         
+
         }
-        [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,0@
+        [TestMethod]//
         public void TrayMotionHome()
         {
-            string commandText = Drawer_01_01_01.CommandTrayMotionHome();
-            
+            string commText = Drawer_01_01_01.CommandTrayMotionHome();
+            Repeat();
+
         }
-        [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,1@
+        [TestMethod]//
         public void TrayMotionOut()
         {
 
-            string commandText = Drawer_01_01_01.CommandTrayMotionOut();
+            string commText = Drawer_01_01_01.CommandTrayMotionOut();
+            Repeat();
 
-     
         }
-        [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,2@
+        [TestMethod]//
         public void TrayMotionIn()
         {
-            string commandText = Drawer_01_01_01.CommandTrayMotionIn();
+            string commText = Drawer_01_01_01.CommandTrayMotionIn();
 
-         
+            Repeat();
         }
-        [TestMethod]//send:V,   Recive: ~112,ReplyBrightLED,1@
+        [TestMethod]//
         public void BrightLEDAllOn()
         {
 
-            string commandText = Drawer_01_01_01.CommandBrightLEDAllOn();
-          
-          
+            string commText = Drawer_01_01_01.CommandBrightLEDAllOn();
         }
-        [TestMethod]//send:V,  Recive: ~112,ReplyBrightLED,1@
+        [TestMethod]//
         public void BrightLedAllOff()
         {
 
-            string commandText = Drawer_01_01_01.CommandBrightLEDAllOff();
+            string commText = Drawer_01_01_01.CommandBrightLEDAllOff();
 
-           
+
         }
-        [TestMethod]//send: 燈號看不出來 ~112,ReplyBrightLED,1@
+        [TestMethod]//
         public void BrightLEDGreenOn()
         {
 
-            string commandText = Drawer_01_01_01.CommandBrightLEDGreenOn();
+            string commText = Drawer_01_01_01.CommandBrightLEDGreenOn();
 
-           
+
         }
-        [TestMethod]// Send:V Receive:~112,ReplyBrightLED,1@
+        [TestMethod]// 
         public void BrightLEDRedOn()
         {
 
-            string commandText = Drawer_01_01_01.CommandBrightLEDRedOn();
+            string commText = Drawer_01_01_01.CommandBrightLEDRedOn();
 
-         
+
         }
-        [TestMethod]//Home: ~113,ReplyPosition,7@; ~113,ReplyPosition,1@
+        [TestMethod]// 
         public void PositionRead()
         {
 
-            string commandText = Drawer_01_01_01.CommandPositionRead();
+            string commText = Drawer_01_01_01.CommandPositionRead();
 
-        
+
         }
-        [TestMethod]//~114,ReplyBoxDetection,0@
+        [TestMethod]//
         public void BoxDetection()
         {
 
-            string commandText = Drawer_01_01_01.CommandBoxDetection();
+            string commText = Drawer_01_01_01.CommandBoxDetection();
 
-        
+
         }
         [TestMethod]
         public void WriteNetSetting()
         {
 
-            string commandText = Drawer_01_01_01.CommandWriteNetSetting();
+            string commText = Drawer_01_01_01.CommandWriteNetSetting();
 
-        
+
         }
-        [TestMethod]// send:V, Recieve: ~141,LCDCMsg,1@
+        [TestMethod]// 
         public void LCDMsg()
         {
 
-            string commandText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
+            string commText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
 
-           
+
         }
 
         [TestMethod]
         public void StartUp()
         {
-            while (true)
-            {
-                Thread.Sleep(100);
-            }
+            Repeat();
         }
         #endregion
 
@@ -216,7 +226,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <summary>Event ReplySetSpeed(100)</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnReplySetSpeed(object sender,EventArgs args)
+        private void OnReplySetSpeed(object sender, EventArgs args)
         {
             var drawer = (Drawer)sender;
             var eventArgs = (OnReplySetSpeedEventArgs)args;
@@ -224,7 +234,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
 
             }
-            else if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
+            else if (eventArgs.ReplyResultCode == ReplyResultCode.Failed)
             {
 
             }
@@ -232,7 +242,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <summary>Event ReplySetTimeOut(101)</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnReplySetTimeOut(object sender,EventArgs args)
+        private void OnReplySetTimeOut(object sender, EventArgs args)
         {
             var drawer = (Drawer)sender;
             var eventArgs = (OnReplySetTimeOutEventArgs)args;
@@ -249,7 +259,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <summary>Event ReplySetBrightLED(112)</summary> 
         /// <param name="args"></param>
         /// <param name="sender"></param>
-        private void OnReplyBrightLED(object sender,EventArgs args)
+        private void OnReplyBrightLED(object sender, EventArgs args)
         {
             var drawer = (Drawer)sender;
             var eventArgs = (OnReplyBrightLEDEventArgs)args;
@@ -287,7 +297,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <summary>Event TrayArrive(115)</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnTrayArrive(object sender,EventArgs args)
+        private void OnTrayArrive(object sender, EventArgs args)
         {
             Drawer drawer = (Drawer)sender;
             var eventArgs = (OnTrayArriveEventArgs)args;
@@ -295,7 +305,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
 
             }
-            else if(eventArgs.TrayArriveType == TrayArriveType.ArriveIn)
+            else if (eventArgs.TrayArriveType == TrayArriveType.ArriveIn)
             {
 
             }
@@ -311,7 +321,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         private void OnButtonEvent(object sender, EventArgs args)
         {
             Drawer drawer = (Drawer)sender;
-            
+
         }
         /// <summary>Event TimeOutEvent(900)</summary>
         /// <param name="sender"></param>
@@ -333,7 +343,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <summary>Event INIFailed(902)</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnINIFailed(object sender,EventArgs args )
+        private void OnINIFailed(object sender, EventArgs args)
         {
             Drawer drawer = (Drawer)sender;
         }
@@ -341,15 +351,24 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <summary>Event TrayMotionError(903)</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnTryMotionError(object sender,EventArgs args)
+        private void OnTryMotionError(object sender, EventArgs args)
         {
             Drawer drawer = (Drawer)sender;
         }
 
+        /// <summary>Event TrayMotionError(903)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnTrayMotionSensorOFF(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+        }
+
+
         /// <summary>Event Error</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        private void OnError(object sender,EventArgs args)
+        private void OnError(object sender, EventArgs args)
         {
             Drawer drawer = (Drawer)sender;
             var eventArgs = (OnErrorEventArgs)args;
@@ -371,10 +390,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
 
         #endregion
-
-
-
-
 
 
         [TestMethod]

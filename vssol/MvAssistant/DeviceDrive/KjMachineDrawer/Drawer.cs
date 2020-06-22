@@ -727,9 +727,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public void ResetOnTrayMotionErrorHandler()
         {    OnTrayMotionErrorHandler = null;}
 
-        //~903,TrayMotionSensorOFF@~904,ERROR,0@
 
-        /// <summary>TrayMotionSensorOFF 事件程序</summary>
+        /// <summary>TrayMotionSensorOFF 事件程序(也是903)</summary>
         /// <param name="reply"></param>
         /// <remarks>
         /// <para>除非規格書有異動, 否則</para>
