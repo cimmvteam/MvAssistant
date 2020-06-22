@@ -18,14 +18,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         // 建一個 Listen 的 Server;
        // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
-        public string ClientIP_01_01_01 = "192.168.0.42";
-        //public string ClientIP_01_02 = "192.168.0.54";
-        // public string ClientIP_01_03 = "192.168.0.34";
+        //public string LocalIP = "192.168.0.14";
+        public string LocalIP = "192.168.0.11";
+        //public string ClientIP_01_01_01 = "192.168.0.42";
+        public string ClientIP_01_01_01 = "192.168.0.11";
         public Drawer Drawer_01_01_01 = null;
-       //public Drawer Drawer_01_02 = null;
-       //public Drawer Drawer_01_03 = null;
         private MvKjMachineDrawerLdd ldd = null;
-
+        int PortBegin = 5001;
+        int PortEnd = 5999;
+        private int ListenStartupPort=6000;
         private void BindEvent()
         {
             foreach(var drawer in ldd.Drawers)
@@ -51,16 +52,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         private void InitialDrawers()
         {
-            var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
-            var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
-            Drawer_01_01_01 = ldd.CreateDrawer(1,"", deviceEndPoint, localEndPoint);
+             var deviceEndPoint = new IPEndPoint(IPAddress.Parse(ClientIP_01_01_01), RemotePort);
+           // var localIp = "192.168.0.14";
+            //var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
+            Drawer_01_01_01 = ldd.CreateDrawer(1,"01_01", deviceEndPoint, LocalIP);
            // Drawer_01_02 = ldd.CreateDrawer(1, "", ClientIP_01_02, RemotePort);
            //Drawer_01_03 = ldd.CreateDrawer(1, "", ClientIP_01_03, RemotePort);
         }
        
         public UtHalCabinet()
         {
-            ldd = new MvKjMachineDrawerLdd();
+            ldd = new MvKjMachineDrawerLdd(PortBegin,PortEnd, LocalIP, ListenStartupPort);
             InitialDrawers();
             BindEvent();
         }

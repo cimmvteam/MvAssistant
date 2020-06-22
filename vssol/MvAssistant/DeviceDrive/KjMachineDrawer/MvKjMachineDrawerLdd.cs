@@ -12,9 +12,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
     public class MvKjMachineDrawerLdd : IDisposable
     {
         public UdpServerSocket UdpServer;
-        public int LocalPort = 6000;
-        public string LocalIP = "192.168.0.14";
+        public int BindLocalPort;
+        public string BindLocalIP;
         public List<Drawer> Drawers = null;
+      
+        public IDictionary<int,bool?> DicPortStatusTable { get; private set; }
         private List<ReceiveInfo> ReceiveInfos = null;
 
         /// <summary>建構式</summary>
@@ -25,10 +27,44 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
            // InitialUdpServer();
         }
 
+        /// <summary></summary>
+        /// <param name="listenDrawerPortMin">監聽 Udp Port 的最小值</param>
+        /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
+        /// <param name="bindLocalIp">本地端 繫結 的IP</param>
+        /// <param name="bindLocalPort">本地端 繫結 的port</param>
+        public MvKjMachineDrawerLdd(int listenDrawerPortMin,int listenDrawerPortMax,string bindLocalIp,int bindLocalPort):this()
+        {
+
+            Action initialDicPortStatus = () =>{
+                DicPortStatusTable = new Dictionary<int, bool?>();
+                for (int i=listenDrawerPortMin;i<= listenDrawerPortMax; i++)
+                {
+                    DicPortStatusTable.Add(i, default(bool?));
+                }
+            };
+            initialDicPortStatus();
+            BindLocalIP = bindLocalIp;
+            BindLocalPort = bindLocalPort;
+        }
+        public int ListenDrawerPortMin
+        {
+            get
+            {
+                return DicPortStatusTable.OrderBy(m => m.Key).First().Key;
+            }
+        }
+        public int ListenDrawerportMax
+        {
+            get
+            {
+                return DicPortStatusTable.OrderByDescending(m => m.Key).First().Key;
+            }
+         }
+
         /// <summary>初始化 Udp Server</summary>
         private void InitialUdpServer()
         {
-            UdpServer = new UdpServerSocket(new IPEndPoint(IPAddress.Parse(LocalIP), LocalPort));
+            UdpServer = new UdpServerSocket(new IPEndPoint(IPAddress.Parse(BindLocalIP), BindLocalPort));
 
             // 向 UdpServer註冊收到訊息事件後的處理函式 
             UdpServer.OnReceiveMessage += this.OnReceiveMessage;
@@ -40,12 +76,21 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="deviceIP">裝置 IP</param>
         /// <param name="udpServerPort">Drawer 內建 UDP Server Port</param>
         /// <returns></returns>
-        public Drawer CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,IPEndPoint localEndPoint)
+        public Drawer CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,string localIP)
         {
 
-            Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, localEndPoint);
-            Drawers.Add(drawer);
-            return drawer;
+            try
+            {
+
+                Drawer drawer = new Drawer(cabinetNo, drawerNo, deviceEndpoint, localIP, this.DicPortStatusTable);
+                Drawers.Add(drawer);
+                return drawer;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+           
 
         }
 

@@ -8,5 +8,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
     public interface IMacHalDrawer: IMacHalComponent
     {
+
     }
 }

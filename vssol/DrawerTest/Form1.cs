@@ -32,11 +32,11 @@ namespace DrawerTest
         MvKjMachineDrawerLdd ldd;
         private void Form1_Load(object sender, EventArgs e)
         {
-            ldd = new MvKjMachineDrawerLdd();
+            ldd = new MvKjMachineDrawerLdd(5000,5999,"192.168.0.14",6000);
             var deviceEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.42"), 5000);
             var localEndPoint = new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000);
-            drawer = ldd.CreateDrawer(1, "", deviceEndPoint, localEndPoint);
-            drawer.OnReplyBrightLEDHandler += this.OnReplyBrightLED;
+           // drawer = ldd.CreateDrawer(1, "", deviceEndPoint, localEndPoint);
+           // drawer.OnReplyBrightLEDHandler += this.OnReplyBrightLED;
 
             // UdpClient = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             // UdpClient.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.14"), 6000));

@@ -21,28 +21,59 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string DeviceIP { get; private set; }
         //    public DrawerSocket DrawerSocket { get; private set; }
         IPEndPoint TargetEndpoint = null;
-      public   Socket UdpClient = null;
+      public   Socket UdpSocket = null;
         private Drawer() {
            
         }
 
-        public Drawer(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, IPEndPoint localEndPiont) : this()
+        public Drawer(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, string localIp,IDictionary<int,bool?> portTable) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
            
             TargetEndpoint = deviceEndpoint;
-            UdpClient= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            UdpSocket= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            while (true)
+            {
+                var port = 0;
+                try
+                {
+
+                    KeyValuePair<int, bool?> keyValuePair = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
+                    if (keyValuePair.Equals(default(KeyValuePair<int, bool?>)))
+                    {
+                        // TODO : To Thorw an Exception
+                    }
+                    port = keyValuePair.Key;
+                    //port = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
+                    var endPoint = new IPEndPoint(IPAddress.Parse(localIp), port);
+                    UdpSocket.Bind(endPoint);
+                    portTable.Remove(port);
+                    portTable.Add(port, true);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    portTable.Remove(port);
+                    portTable.Add(port, false);
+                }
+            }
             Task.Run(
                 () =>
                   {
-                      UdpClient.Bind(localEndPiont);
-                      while (true)
+                      try
                       {
-                          byte[] buffer = new byte[1024];
-                          UdpClient.Receive(buffer);
-                          var msg = Encoding.UTF8.GetString(buffer);
-                          InvokeMethod(msg);
+                          while (true)
+                          {
+                              byte[] buffer = new byte[1024];
+                              UdpSocket.Receive(buffer);
+                              var msg = Encoding.UTF8.GetString(buffer);
+                              InvokeMethod(msg);
+                          }
+                      }
+                      catch(Exception ex)
+                      {
+
                       }
                   }
                );
@@ -50,7 +81,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
        
         public int Send(string message)
         {
-           var len= this.UdpClient.SendTo(Encoding.UTF8.GetBytes(message), TargetEndpoint);
+           var len= this.UdpSocket.SendTo(Encoding.UTF8.GetBytes(message), TargetEndpoint);
             return len;
         }
 
@@ -150,7 +181,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             var parameter = new BrightLEDParameter { BrightLEDType = brightLEDType };
             var commandText = new BrightLED().GetCommandText(parameter);
             //DrawerSocket.SentTo(commandText);
-            UdpClient.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
