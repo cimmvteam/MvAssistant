@@ -536,6 +536,37 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             public string IHOStatus { get; private set; }
             private OnReplyPositionEventArgs(){           }
             public OnReplyPositionEventArgs(string ihoStatus) : this() {IHOStatus=ihoStatus; }
+            public bool I
+            {
+                get
+                {
+                    var i = IHOStatus.Substring(0, 1);
+                    var rtnV = false;
+                    if (i == "1") { rtnV = true; }
+                    return rtnV;
+                 }
+                    
+            }
+            public bool H
+            {
+                get
+                {
+                    var h = IHOStatus.Substring(1, 1);
+                    var rtnV = false;
+                    if (h == "1") { rtnV = true; }
+                    return rtnV;
+                }
+            }
+            public bool O
+            {
+                get
+                {
+                    var o = IHOStatus.Substring(2, 1);
+                    var rtnV = false;
+                    if (o == "1") { rtnV = true; }
+                    return rtnV;
+                }
+            }
         }
 
         /// <summary>Event ReplyBoxDetection(114)</summary>
