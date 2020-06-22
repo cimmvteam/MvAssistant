@@ -145,7 +145,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     Value = msgArray.Length == 3 ? Convert.ToInt32(msgArray[2]) : default(int?)
                 };
                 // 取得要呼叫方法名稱
-                var method = this.GetType().GetMethod(rplyMsg.StringFunc);
+                var method = this.GetType().GetMethod(rplyMsg.StringFunc,System.Reflection.BindingFlags.IgnoreCase);
                 if (method != null)
                 {
                     // 呼叫方法
@@ -695,6 +695,29 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>將TrayMotionError 事件程序重設為0</summary>
         public void ResetOnTrayMotionErrorHandler()
         {    OnTrayMotionErrorHandler = null;}
+
+        //~903,TrayMotionSensorOFF@~904,ERROR,0@
+
+        /// <summary>TrayMotionSensorOFF 事件程序</summary>
+        /// <param name="reply"></param>
+        /// <remarks>
+        /// <para>除非規格書有異動, 否則</para>
+        /// <para>1. 函式名稱不得修改</para>
+        /// <para>2. 函式不得刪除</para>
+        /// </remarks>
+        public void OnTrayMotionSensorOFF(ReplyMessage reply)
+        {
+            if (OnTrayMotionErrorHandler != null)
+            {
+                OnTrayMotionErrorHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+        /// <summary>TrayMotionSensorOFF 事件程序</summary>
+        public event EventHandler OnTrayMotionSensorOFFHandler = null;
+        /// <summary>將TrayMotionSensorOFF 事件程序重設為 null</summary>
+        public void ResetOnTrayMotionSensorOFFHandler() { OnTrayMotionSensorOFFHandler = null; }
+
+
 
         /// <summary>Event Error(904)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>

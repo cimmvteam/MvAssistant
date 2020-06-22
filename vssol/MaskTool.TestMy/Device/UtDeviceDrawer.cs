@@ -46,6 +46,7 @@ namespace MvAssistant.Mac.TestMy.Device
                 drawer.OnTrayMotionErrorHandler += this.OnTryMotionError;
                 drawer.OnErrorHandler += this.OnError;
                 drawer.OnSysStartUpHandler += this.OnSysStartUp;
+                drawer.OnTrayMotionSensorOFFHandler += this.OnTrayMotionSensorOFF;
             }
         }
 
@@ -349,6 +350,15 @@ namespace MvAssistant.Mac.TestMy.Device
         {
             Drawer drawer = (Drawer)sender;
         }
+
+        /// <summary>Event TrayMotionError(903)</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnTrayMotionSensorOFF(object sender, EventArgs args)
+        {
+            Drawer drawer = (Drawer)sender;
+        }
+
 
         /// <summary>Event Error</summary>
         /// <param name="sender"></param>
