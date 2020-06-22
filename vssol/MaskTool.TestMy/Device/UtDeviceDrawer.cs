@@ -64,26 +64,37 @@ namespace MvAssistant.Mac.TestMy.Device
             BindEvent();
             ldd.ListenSystStartUpEvent();
         }
-
+        void Repeat()
+        {
+            var b = false;
+            while (true)
+            {
+                Thread.Sleep(10);
+                if(b)
+                {
+                    break;
+                }
+            }
+        }
 
         #region Test Command
         /// <summary>
         /// 
         /// </summary>
-        [TestMethod]//~901,TrayMotioning@~115,TrayArrive,0@
+        [TestMethod]//[V] 2020/06/22
         public void INI()
         {
 
            string commText=    Drawer_01_01_01.CommandINI();
 
         }
-        [TestMethod]// 20%,15%,10% //~100,ReplySetSpeed,1@
+        [TestMethod]// [V] ~100,ReplySetSpeed,1@
         public void SetMotionSpeed()
         {
 
             string commText = Drawer_01_01_01.CommandSetMotionSpeed(100);
         }
-        [TestMethod] // 30 seconds, 60 seconds,10 seconds//~101,ReplySetTimeOut,1@
+        [TestMethod] // [V]~101,ReplySetTimeOut,1@
         public void SetTimeOut()
         {
             string commText = Drawer_01_01_01.CommandSetTimeOut(100);
@@ -95,34 +106,35 @@ namespace MvAssistant.Mac.TestMy.Device
         {
 
         }
-        [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,0@
+        [TestMethod]//[V] 2020/06/23
         public void TrayMotionHome()
         {
             string commText = Drawer_01_01_01.CommandTrayMotionHome();
+            Repeat();
 
         }
-        [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,1@
+        [TestMethod]//[V] 2020/06/23
         public void TrayMotionOut()
         {
 
             string commText = Drawer_01_01_01.CommandTrayMotionOut();
-
+            Repeat();
 
         }
-        [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,2@
+        [TestMethod]//
         public void TrayMotionIn()
         {
             string commText = Drawer_01_01_01.CommandTrayMotionIn();
 
-
+            Repeat();
         }
-        [TestMethod]//send:V,   Recive: ~112,ReplyBrightLED,1@
+        [TestMethod]//[V] 2020/06/22
         public void BrightLEDAllOn()
         {
 
             string commText = Drawer_01_01_01.CommandBrightLEDAllOn();
         }
-        [TestMethod]//send:V,  Recive: ~112,ReplyBrightLED,1@
+        [TestMethod]//[V] 2020/06/22
         public void BrightLedAllOff()
         {
 
@@ -130,7 +142,7 @@ namespace MvAssistant.Mac.TestMy.Device
 
 
         }
-        [TestMethod]//send: 燈號看不出來 ~112,ReplyBrightLED,1@
+        [TestMethod]//[V] 2020/06/22
         public void BrightLEDGreenOn()
         {
 
@@ -138,7 +150,7 @@ namespace MvAssistant.Mac.TestMy.Device
 
 
         }
-        [TestMethod]// Send:V Receive:~112,ReplyBrightLED,1@
+        [TestMethod]// [V] 2020/06/22
         public void BrightLEDRedOn()
         {
 
@@ -146,7 +158,7 @@ namespace MvAssistant.Mac.TestMy.Device
 
 
         }
-        [TestMethod]//Home: ~113,ReplyPosition,7@; ~113,ReplyPosition,1@
+        [TestMethod]// [V] 2020/06/22
         public void PositionRead()
         {
 
@@ -154,7 +166,7 @@ namespace MvAssistant.Mac.TestMy.Device
 
 
         }
-        [TestMethod]//~114,ReplyBoxDetection,0@
+        [TestMethod]//[V] No Box ,2020.06/22; [] Has Box
         public void BoxDetection()
         {
 
@@ -182,10 +194,7 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]
         public void StartUp()
         {
-            while (true)
-            {
-                Thread.Sleep(100);
-            }
+            Repeat();
         }
         #endregion
 

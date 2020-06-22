@@ -3,6 +3,7 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -129,22 +130,27 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>監聽到回覆訊息時 呼收訊息同名的函式</summary>
         /// <param name="rtnMsg"></param>
-        public void InvokeMethod(string rtnMsg)
+        public void InvokeMethod(string rtnMsgCascade)
         {
-            var msg = rtnMsg.Replace(BaseCommand.CommandPostfixText, "").Replace(BaseCommand.CommandPostfixText,"");
-            var msgArray = msg.Split(new string[] { BaseCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
-            ReplyMessage rplyMsg = new ReplyMessage
+            string[] rtnMsgArray = rtnMsgCascade.Replace("\0","").Split(new string[] { BaseCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
+            Debug.WriteLine(rtnMsgCascade);
+            foreach (var rtnMsg in rtnMsgArray)
             {
-                StringCode = msgArray[0],
-                StringFunc = msgArray[1],
-                Value = msgArray.Length == 3 ? Convert.ToInt32(msgArray[2]) : default(int?)
-            };
-            // 取得要呼叫方法名稱
-            var method=this.GetType().GetMethod(rplyMsg.StringFunc);
-            if(method != null)
-            {
-                // 呼叫方法
-                method.Invoke(this, new object[] { rplyMsg });
+                var msg = rtnMsg.Replace(BaseCommand.CommandPrefixText, "");
+                var msgArray = msg.Split(new string[] { BaseCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
+                ReplyMessage rplyMsg = new ReplyMessage
+                {
+                    StringCode = msgArray[0],
+                    StringFunc = msgArray[1],
+                    Value = msgArray.Length == 3 ? Convert.ToInt32(msgArray[2]) : default(int?)
+                };
+                // 取得要呼叫方法名稱
+                var method = this.GetType().GetMethod(rplyMsg.StringFunc);
+                if (method != null)
+                {
+                    // 呼叫方法
+                    method.Invoke(this, new object[] { rplyMsg });
+                }
             }
         }
        
@@ -359,7 +365,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         }
 
         #region event
-        /// <summary>Event ReplySetSpeed(111)</summary>
+        /// <summary>Event ReplyTrayMotion(111)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
         /// <remarks>
         /// <para>除非規格書有異動, 否則</para>
@@ -384,7 +390,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
             private OnReplyTrayMotionEventArgs() { }
-            public OnReplyTrayMotionEventArgs(ReplyResultCode replyResultCode):this() { ReplyResultCode = ReplyResultCode;      }
+            public OnReplyTrayMotionEventArgs(ReplyResultCode replyResultCode):this() { ReplyResultCode = replyResultCode;      }
         }
 
 
@@ -572,7 +578,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <para>1. 函式名稱不得修改</para>
         /// <para>2. 函式不得刪除</para>
         /// </remarks>
-        private void TrayArrive(ReplyMessage reply)
+        public void TrayArrive(ReplyMessage reply)
         {
             TrayArriveType trayArriveType = (TrayArriveType)((int)reply.Value);
             if (OnTrayArriveHandler != null)
@@ -590,7 +596,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             public TrayArriveType TrayArriveType { get; private set; }
             private OnTrayArriveEventArgs() { }
-            public OnTrayArriveEventArgs(TrayArriveType trayArriveType) : this() { TrayArriveType = TrayArriveType; }
+            public OnTrayArriveEventArgs(TrayArriveType trayArriveType) : this() { TrayArriveType =trayArriveType; }
         }
 
         /// <summary>Event ButtonEvent(120)</summary>
@@ -638,7 +644,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <para>1. 函式名稱不得修改</para>
         /// <para>2. 函式不得刪除</para>
         /// </remarks>
-        private void TrayMotioning(ReplyMessage reply)
+        public void TrayMotioning(ReplyMessage reply)
         {
             if(OnTrayMotioningHandler != null)
             {
@@ -657,7 +663,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <para>1. 函式名稱不得修改</para>
         /// <para>2. 函式不得刪除</para>
         /// </remarks>
-        private void INIFailed(ReplyMessage reply)
+        public void INIFailed(ReplyMessage reply)
         {
             if (OnINIFailedHandler != null)
             {

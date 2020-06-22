@@ -102,7 +102,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TrayMotionHome()
         {
             string commandText = Drawer_01_01_01.CommandTrayMotionHome();
-         
+            
         }
         [TestMethod]//~111,ReplyTrayMotion,1@~901,TrayMotioning@~115,TrayArrive,1@
         public void TrayMotionOut()
