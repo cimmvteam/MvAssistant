@@ -1,4 +1,5 @@
-﻿using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
+﻿#define OnlyObserveCommandText
+using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -90,7 +91,16 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <summary>本地端要送資料到 Server 端的 Client 物件</summary>
         private Socket ClientSocket = null;
         /// <summary>是否已監聽 Server </summary>
+#if OnlyObserveCommandText
+
+        public bool IsListenServer
+        {
+            get { return true; }
+            set { }
+        }
+#else
         public bool IsListenServer { get; private set; }
+#endif
         /// <summary>Client(本地端) 端監 Server</summary>
         public Thread ThreadClientListen = null;
         /// <summary>收到 Server 端傳回資料時的事件處理程序</summary>
@@ -189,10 +199,13 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         {
             Debug.WriteLine("[COMMAND] " + commandText);
             byte[] B = Encoding.Default.GetBytes(commandText);
-            ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
+#if OnlyObserveCommandText
+#else
+             ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
+#endif
         }
         #region Command
-       
+
         /// <summary>Command DockRequest(100)</summary>
         /// <remarks>Main Event: DockPODStart</remarks>
         public string CommandDockRequest()
@@ -366,8 +379,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public string CommandInitialRequest()
         {
             string command = "";
-            if (IsListenServer)
             {
+            if (IsListenServer)
                 command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
@@ -944,8 +957,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public void ResetOnPODNotPutProperlyHandler() { OnPODNotPutProperlyHandler = null; }
 
 
-        #endregion
-        #region Alarm
+#endregion
+#region Alarm
         /// <summary>Alarm ClamperActionTimeOut(200)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Clamper馬達運動超時</remarks>
@@ -1077,7 +1090,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnStageMotorAbnormality = null;
         public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormality = null; }
-        #endregion
+#endregion
 
 
 

@@ -15,17 +15,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     {
 
         MvGudengLoadPortLdd LoadPort1 = null;
-        MvGudengLoadPortLdd LoadPort2 = null;
+        //MvGudengLoadPortLdd LoadPort2 = null;
         MvGudengLoadPortCollection ldd = new MvGudengLoadPortCollection();
       public UtHalLoadPort()
       {
          
-            LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
-            LoadPort2 = ldd.CreateLoadPort("192.168.0.21", 1024, 2);
+            //LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+            LoadPort1 = ldd.CreateLoadPort("127.0.0.1", 1024, 1);
+            //LoadPort2 = ldd.CreateLoadPort("192.168.0.21", 1024, 2);
             BindEventHandler();
 
             LoadPort1.StartListenServerThread();
-            LoadPort2.StartListenServerThread();
+            //LoadPort2.StartListenServerThread();
         }
         public void BindEventHandler()
         {
@@ -68,6 +69,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             }
         }
+        void Repeat()
+        {
+            Thread.Sleep(100);
+        }
 
         #region TestMethod
         [TestMethod]
@@ -86,13 +91,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
               */
 
           //  LoadPort1.SetOriginalMethod(LoadPort1.CommandInitialRequest);
-            LoadPort1.CommandInitialRequest();
+           var commandText= LoadPort1.CommandInitialRequest();
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         /// <summary>(100)</summary>
         [TestMethod]
         public void TestCommandDockRequest()
-        {
+        {   //~100,DockRequest@
+            
             /**
            LoadPort1.CommandAlarmReset();  // ~013,AlarmResetSuccess@
            LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[~202,VacuumAbnormality@~018,LoadportStatus,3@]
@@ -102,69 +110,75 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             LoadPort1.CommandDockRequest();// ~015,ExecuteInitialFirst@  有沒有(沒有實際的 POD 無法測)
             */
 
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandDockRequest);
-            LoadPort1.CommandDockRequest();
+            //   LoadPort1.SetOriginalMethod(LoadPort1.CommandDockRequest);
+            var commandText = LoadPort1.CommandDockRequest();
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         /// <summary>(101)</summary>
         [TestMethod]
         public void TestCommandUndockRequest()
-        {
+        { //~101,UndockRequest@
             /**
             LoadPort1.CommandAlarmReset();//~013,AlarmResetSuccess@
             LoadPort1.CommandInitialRequest();
             //~101,UndockRequest@
             LoadPort1.CommandUndockRequest(); //~020,MustInAutoMode@(缺)(若是和前面指令一起連續執行則沒有回覆)
             */
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandUndockRequest);
-            NoteCommand(   LoadPort1.CommandUndockRequest());
+
+            //LoadPort1.SetOriginalMethod(LoadPort1.CommandUndockRequest);
+            var commandText=LoadPort1.CommandUndockRequest();
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
        
 
         [TestMethod]
         public void TestCommandAskPlacementStatus()
-        {
-            //  ~102,AskPlacementStatus@
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandAskPlacementStatus);
-           NoteCommand(LoadPort1.CommandAskPlacementStatus());//~001,Placement,1@
-          //  LoadPort2.CommandAskPlacementStatus();//~001,Placement,0@
+        {  //~102,AskPlacementStatus@
+
+            //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskPlacementStatus);
+            var commandText=LoadPort1.CommandAskPlacementStatus();//~001,Placement,1@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandAskPresentStatus()
-        {
-            // ~103,AskPresentStatus@
+        { // ~103,AskPresentStatus@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskPresentStatus);
-            NoteCommand(LoadPort1.CommandAskPresentStatus());//~002,Present,1@
-           // LoadPort1.CommandAskPresentStatus();//~002,Present,0@
+            var commandText = LoadPort1.CommandAskPresentStatus();
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandAskClamperStatus()
-        {
-            //~104,AskClamperStatus@
+        {  //~104,AskClamperStatus@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskClamperStatus);
-            NoteCommand(LoadPort1.CommandAskClamperStatus());//[~003,Clamper,0@],[~006,ClamperLockComplete,0@]
-           // LoadPort2.CommandAskClamperStatus();//[~003,Clamper,2@],[~006,ClamperLockComplete,1@]
+            var commandText=LoadPort1.CommandAskClamperStatus();//[~003,Clamper,0@],[~006,ClamperLockComplete,0@]
+            NoteCommand(commandText);
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandAskRFIDStatus()
-        {
-            // ~105,AskRFIDStatus@
+        { // ~105,AskRFIDStatus@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskRFIDStatus);
-            NoteCommand(LoadPort1.CommandAskRFIDStatus());//~004,RFID,1343833305251403@
-           // LoadPort2.CommandAskRFIDStatus();// ~004,RFID,ERROR@
+            var commandText = LoadPort1.CommandAskRFIDStatus();//~004,RFID,1343833305251403@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandAskBarcodeStatus()
-        {
-            //~106,AskBarcodeStatus@
+        {  //~106,AskBarcodeStatus@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskBarcodeStatus);
-            NoteCommand(LoadPort1.CommandAskBarcodeStatus());//~005,Barcode ID,0@
-         //   LoadPort2.CommandAskBarcodeStatus();//没有回覆
+            var commandText = LoadPort1.CommandAskBarcodeStatus();//~005,Barcode ID,0@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
@@ -172,8 +186,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             //~107,AskVacuumStatus@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskVacuumStatus);
-            NoteCommand(LoadPort1.CommandAskVacuumStatus());//~007,VacuumComplete,0@
-          //  LoadPort2.CommandAskVacuumStatus();//~007,VacuumComplete,0@
+            var commandText = LoadPort1.CommandAskVacuumStatus();//~007,VacuumComplete,0@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
@@ -181,8 +196,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             //~108,AskReticleExistStatus@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskReticleExistStatus);
-            NoteCommand(LoadPort1.CommandAskReticleExistStatus());//~010,DockPODComplete_Empty@
-         //   LoadPort2.CommandAskReticleExistStatus();//~010,DockPODComplete_Empty@
+            var commandText = LoadPort1.CommandAskReticleExistStatus();//~010,DockPODComplete_Empty@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
@@ -195,53 +211,61 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              LoadPort2.CommandAlarmReset();//~013,AlarmResetSuccess@
             */
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAlarmReset);
-            NoteCommand(LoadPort1.CommandAlarmReset());
+            var commandText = LoadPort1.CommandAlarmReset();
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandAskStagePosition()
-        {
+        {//~110,AskStagePosition@
 
             /**
-             //~110,AskStagePosition@
+             
              //LoadPort2.CommandAskStagePosition();// ~017,StagePosition,0@
              */
 
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskStagePosition);
-            NoteCommand(LoadPort1.CommandAskStagePosition());// ~017,StagePosition,3@
+            var commandText = LoadPort1.CommandAskStagePosition();// ~017,StagePosition,3@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandAskLoadportStatus()
-        {
+        { // ~111,AskLoadportStatus@
             /**
-            // ~111,AskLoadportStatus@
+           
             LoadPort2.CommandAskLoadportStatus();//~018,LoadportStatus,1@
             */
 
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             LoadPort1.SetOriginalMethod(LoadPort1.CommandAskLoadportStatus);
-            NoteCommand(LoadPort1.CommandAskLoadportStatus());//~018,LoadportStatus,4
-          
+            var commandText = LoadPort1.CommandAskLoadportStatus();//~018,LoadportStatus,4
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
+
         }
 
         [TestMethod]
         public void TestCommandManualClamperLock()
-        {
+        { //~113,ManualClamperLock@
             /**
               //LoadPort2.CommandInitialRequest();
-              //~113,ManualClamperLock@
+             
               //LoadPort2.CommandManualClamperLock();//POD Problem
               */
 
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperLock);
-            NoteCommand(LoadPort1.CommandManualClamperLock());//~003,Clamper,1@(第二次執行時沒有回覆)
-           
+            var commandText = LoadPort1.CommandManualClamperLock();//~003,Clamper,1@(第二次執行時沒有回覆)
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
+
         }
 
         [TestMethod]
@@ -249,9 +273,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             //~114,ManualClamperUnlock@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperUnlock);
-            NoteCommand(LoadPort1.CommandManualClamperUnlock());//~003,Clamper,0@
-            //LoadPort2.CommandInitialRequest();
-           // LoadPort2.CommandManualClamperUnlock();//POD Problem
+            var commandText = LoadPort1.CommandManualClamperUnlock();//~003,Clamper,0@
+                                                                //LoadPort2.CommandInitialRequest();
+                                                                // LoadPort2.CommandManualClamperUnlock();//POD Problem
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
@@ -259,38 +285,44 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             //~115,ManualClamperOPR@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperOPR);
-            NoteCommand(LoadPort1.CommandManualClamperOPR());// [RETURN] ~003,Clamper,0@
-           // LoadPort2.CommandManualClamperOPR();// [RETURN] ~003,Clamper,0@
+            var commandText = LoadPort1.CommandManualClamperOPR();// [RETURN] ~003,Clamper,0@
+                                                             // LoadPort2.CommandManualClamperOPR();// [RETURN] ~003,Clamper,0@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandManualStageUp()
-        {
+        {   //~116,ManualStageUp@
             // LoadPort1.CommandAlarmReset();
             // LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[ ~202,VacuumAbnormality@~018,LoadportStatus,3@]
-            //~116,ManualStageUp@
+
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageUp);
-            NoteCommand(LoadPort1.CommandManualStageUp());//  ~022,ClamperNotLock@
-           // LoadPort2.CommandInitialRequest();
-           // LoadPort2.CommandManualStageUp();// POD Problem
+            var commandText = LoadPort1.CommandManualStageUp();//  ~022,ClamperNotLock@
+                                                          // LoadPort2.CommandInitialRequest();
+                                                          // LoadPort2.CommandManualStageUp();// POD Problem
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
         }
 
         [TestMethod]
         public void TestCommandManualStageInspection()
-        {
+        {  //~116,ManualStageUp@
             //  LoadPort1.CommandAlarmReset();
             //    LoadPort1.CommandInitialRequest();
             //~117,ManualStageInspection@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageInspection);
-            NoteCommand(LoadPort1.CommandManualStageInspection());// ~022,ClamperNotLock@
-            //LoadPort2.CommandInitialRequest();
-          //  LoadPort2.CommandManualStageInspection(); //POD Problem
+            var commandText = LoadPort1.CommandManualStageInspection();// ~022,ClamperNotLock@
+                                                                  //LoadPort2.CommandInitialRequest();
+                                                                  //  LoadPort2.CommandManualStageInspection(); //POD Problem
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
 
         }
 
         [TestMethod]
         public void TestCommandManualStageDown()
-        {
+        {   //~118,ManualStageDown@
 
             // LoadPort1.CommandAlarmReset();
             /**
@@ -307,40 +339,46 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 [RETURN] ~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~001,Placement,1@~001,Placement,0@
              */
             //  LoadPort1.CommandInitialRequest();
-            //~118,ManualStageDown@
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageDown);
-            NoteCommand(LoadPort1.CommandManualStageDown());// ~022,ClamperNotLock@
 
+            LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageDown);
+            var commandText = LoadPort1.CommandManualStageDown();// ~022,ClamperNotLock@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
 
             //  LoadPort2.CommandAlarmReset();
             //                                      LoadPort2.CommandInitialRequest();
-          // LoadPort2.CommandManualStageDown();// POD Problem
+            // LoadPort2.CommandManualStageDown();// POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualStageOPR()
-        {
-            // ~119,ManualStageOPR@
+        {  // ~119,ManualStageOPR@
+
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageOPR);
-            NoteCommand(LoadPort1.CommandManualStageOPR());//~022,ClamperNotLock@
-           // LoadPort2.CommandManualStageOPR();//POD Problem
+            var commandText = LoadPort1.CommandManualStageOPR();//~022,ClamperNotLock@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
+            // LoadPort2.CommandManualStageOPR();//POD Problem
         }
 
         [TestMethod]
         public void TestCommandManualVacuumOn()
-        {
-            //~120,ManualVacuumOn@
+        {    //~120,ManualVacuumOn@
+
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOn);
-            NoteCommand(LoadPort1.CommandManualVacuumOn()); // ~007,VacuumComplete,1@
-          //  LoadPort2.CommandManualVacuumOn();// ~007,VacuumComplete,1@
+            var commandText = LoadPort1.CommandManualVacuumOn(); // ~007,VacuumComplete,1@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
+            //  LoadPort2.CommandManualVacuumOn();// ~007,VacuumComplete,1@
         }
 
         [TestMethod]
         public void TestCommandManualVacuumOff()
-        {
-            //~121,ManualVacuumOff@
+        {  //~121,ManualVacuumOff@
             LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOff);
-            NoteCommand(LoadPort1.CommandManualVacuumOff());// ~007,VacuumComplete,0@
+            var commandText = LoadPort1.CommandManualVacuumOff();// ~007,VacuumComplete,0@
+            NoteCommand(commandText);//~002,Present,1@
+            Repeat();
             //LoadPort2.CommandManualVacuumOff();// ~007,VacuumComplete,0@
         }
         #endregion
