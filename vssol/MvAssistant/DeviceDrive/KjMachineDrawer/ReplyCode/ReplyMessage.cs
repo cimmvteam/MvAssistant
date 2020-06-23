@@ -6,10 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode
 {
    public class ReplyMessage
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string StringCode { get; set; }
         public string StringFunc { get; set; }
         public int? Value { get; set; }

@@ -1,4 +1,6 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer.Exceptions;
+﻿using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using MvAssistant.DeviceDrive.KjMachineDrawer.Exceptions;
+using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
@@ -385,14 +387,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnReplyTrayMotionHandler = null;
         /// <summary>將ReplyMotion事件程序指向 null</summary>
         public void ResetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
-        /// <summary>ReplyMotion 事件處理程序的 Event Args </summary>
+       /**
+        /// <summary>ReplyTrayMotion 事件處理程序的 Event Args </summary>
         public class OnReplyTrayMotionEventArgs : EventArgs
         {
             public ReplyResultCode ReplyResultCode { get; private set; }
             private OnReplyTrayMotionEventArgs() { }
             public OnReplyTrayMotionEventArgs(ReplyResultCode replyResultCode):this() { ReplyResultCode = replyResultCode;      }
         }
-
+    */
 
         /// <summary>Event ReplySetSpeed(100)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
@@ -414,6 +417,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnReplySetSpeedHandler = null;
         /// <summary>將ReplySetSpeed事件程序重設為null</summary>
         public void ResetOnReplySetSpeedHandler() { OnReplySetSpeedHandler = null; }
+       
+        /**
         /// <summary>ReplySetSpeed事件程序的 Event Args</summary>
         public class OnReplySetSpeedEventArgs : EventArgs
         {
@@ -421,7 +426,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             private OnReplySetSpeedEventArgs() { }
             public OnReplySetSpeedEventArgs(ReplyResultCode replyResultCode):this() { ReplyResultCode = replyResultCode; }
         }
-
+    */
 
 
         /// <summary>Event  ReplySetTimeOut(101)</summary>
@@ -444,6 +449,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnReplySetTimeOutHandler = null;
         /// <summary>將OnReplySetTimeOut 事件程序設為null</summary>
         public void ResetOnReplySetTimeOutHandler() { OnReplySetTimeOutHandler = null; }
+       /**
         /// <summary>ReplySetTimeOut 事件程序</summary>
         public class OnReplySetTimeOutEventArgs : EventArgs
         {
@@ -451,7 +457,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             private OnReplySetTimeOutEventArgs() { }
             public OnReplySetTimeOutEventArgs(ReplyResultCode replyResultCode) : this() { ReplyResultCode = replyResultCode; }
         }
-
+    */
         //@~112,ReplyBrightLED,1@
         /// <summary>Event ReplyBrightLED(112)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
@@ -473,6 +479,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnReplyBrightLEDHandler = null;
         /// <summary>將  OnReplyBrightLED 事件程設為null</summary>
         public void ResetOnReplyBrightLEDHandler() { OnReplyBrightLEDHandler = null; }
+        /**
         /// <summary> OnReplyBrightLED Evrnt Args</summary>
         public class OnReplyBrightLEDEventArgs : EventArgs
         {
@@ -481,7 +488,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             public OnReplyBrightLEDEventArgs(ReplyResultCode replyResultCode) : this() { ReplyResultCode = replyResultCode; }
 
         }
-
+    */
 
         /// <summary>Event ReplyPosition(113) </summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
@@ -530,6 +537,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnReplyPositionHandler= null;
         /// <summary>重設ReplyPosition事件程序為 null </summary>
         public void ResetOnReplyPositionHandler() { OnReplyPositionHandler = null; }
+      /**
         /// <summary>ReplyPosition 事件程序的 Event Args</summary>
         public class OnReplyPositionEventArgs : EventArgs
         {
@@ -567,7 +575,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     return rtnV;
                 }
             }
-        }
+        }*/
 
         /// <summary>Event ReplyBoxDetection(114)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
@@ -593,13 +601,14 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnReplyBoxDetection = null;
         /// <summary>重設 ReplyBoxDetection 事件程序為 null</summary>
         public void ResetOnReplyBoxDetection() { OnReplyBoxDetection = null; }
+        /**
         /// <summary>ReplyBoxDetection事件程序的 Event Args </summary>
         public class OnReplyBoxDetectionEventArgs : EventArgs
         {
             public bool HasBox { get; private set; }
             private OnReplyBoxDetectionEventArgs() { }
             public OnReplyBoxDetectionEventArgs(bool hasBox) { HasBox = hasBox; }
-        }
+        }*/
 
 
         /// <summary>Event TrayArrive (115)</summary>
@@ -622,13 +631,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnTrayArriveHandler = null;
         /// <summary>將TrayArrive 事件程序重設為 null</summary>
         public void ResetOnTrayArriveHandler() { OnTrayArriveHandler = null; }
+       
+        /**
         /// <summary>TrayArrive 事件程序的Event Args</summary>
         public class OnTrayArriveEventArgs : EventArgs
         {
             public TrayArriveType TrayArriveType { get; private set; }
             private OnTrayArriveEventArgs() { }
             public OnTrayArriveEventArgs(TrayArriveType trayArriveType) : this() { TrayArriveType =trayArriveType; }
-        }
+        }*/
 
         /// <summary>Event ButtonEvent(120)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
@@ -737,9 +748,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// </remarks>
         public void TrayMotionSensorOFF(ReplyMessage reply)
         {
-            if (OnTrayMotionErrorHandler != null)
+            if (OnTrayMotionSensorOFFHandler != null)
             {
-                OnTrayMotionErrorHandler.Invoke(this, EventArgs.Empty);
+                OnTrayMotionSensorOFFHandler.Invoke(this, EventArgs.Empty);
             }
         }
         /// <summary>TrayMotionSensorOFF 事件程序</summary>
@@ -770,6 +781,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnErrorHandler = null;
         /// <summary>將Error 事件程序重設為 null</summary>
         public void ResetOnErrorHandler() { OnErrorHandler = null; }
+       
+        /**
         /// <summary>Error 事件程序的 Event Args</summary>
         public class OnErrorEventArgs : EventArgs
         {
@@ -780,7 +793,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 ReplyErrorCode = replyErrorCode;
             }
         }
-
+    */
 
         /// <summary>Event SysStartUp(999)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>

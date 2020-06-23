@@ -1,4 +1,5 @@
 ﻿using CToolkit.v1_1.Net;
+using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,13 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
       public List<Drawer> Drawers = null;
       
         public IDictionary<int,bool?> PortStatusDictionary { get; private set; }
-        private List<ReceiveInfo> ReceiveInfos = null;
+        //private List<ReceiveInfo> ReceiveInfos = null;
         public SysStartUpEventListener SysStartUpEventListener;
         /// <summary>建構式</summary>
         public   MvKjMachineDrawerLdd()
         {
             Drawers = new List<Drawer>();
-            ReceiveInfos = new List<ReceiveInfo>();
+            //ReceiveInfos = new List<ReceiveInfo>();
            
         }
 
@@ -200,9 +201,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         #endregion
 
     }
+
+    /**
     public class ReceiveInfo
     {
         public Drawer Drawer { get; set; }
         public string Message { get; set; }
-    }
+    }*/
 }

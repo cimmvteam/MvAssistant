@@ -7,6 +7,8 @@ using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 
 namespace MvAssistant.Mac.TestMy.Device
 {

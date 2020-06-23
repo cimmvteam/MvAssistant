@@ -9,6 +9,8 @@ using MvAssistant.Mac.v1_0.Manifest;
 using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
 using System.Net;
 using System.Threading;
+using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
