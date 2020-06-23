@@ -17,12 +17,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     public class SetParameterParameter : IHostToEquipmentCommandParameter
     {
         public SetParameterType SetParameterType { get; set; }
-        public string ExtendText { get; set; }
+        public string ParameterValue { get; set; }
 
         public string ToParameterText()
         {
             var sign = BaseHostToEquipmentCommand.CommandSplitSign;
-            var rtnV = sign + ((int)SetParameterType).ToString() + sign + ExtendText;
+            var rtnV = sign + ((int)SetParameterType).ToString() + sign + ParameterValue;
            return rtnV;
         }
 

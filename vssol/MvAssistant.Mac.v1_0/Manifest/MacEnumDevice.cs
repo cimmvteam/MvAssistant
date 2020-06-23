@@ -156,6 +156,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         cabinet_drawer_019,
         cabinet_drawer_020,
         cabinet_drawer_021,
+        cabinet_drawer_022,
         cabinet_drawer_023,
         cabinet_drawer_024,
         cabinet_drawer_025,

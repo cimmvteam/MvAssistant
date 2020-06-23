@@ -18,6 +18,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             var key = string.Format("{0}_{1:000}", MacEnumDevice.cabinet_drawer, index);
             return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
         }
+
+        public IMacHalDrawer Drawer(string index)
+        {
+            var key = string.Format("{0}_{1}", MacEnumDevice.cabinet_drawer, index);
+            return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
+        }
         #endregion Device Components
 
 
