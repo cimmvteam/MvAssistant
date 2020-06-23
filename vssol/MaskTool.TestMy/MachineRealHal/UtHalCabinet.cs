@@ -6,7 +6,7 @@ using MvAssistant.DeviceDrive.KjMachineDrawer;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
-using static MvAssistant.DeviceDrive.KjMachineDrawer.Drawer;
+using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
 using System.Net;
 using System.Threading;
 using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
@@ -29,8 +29,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public string ClientIP_01_01_01 = "192.168.0.42";
         //public string ClientIP_01_01_01 = "127.0.0.1";
 
-        public Drawer Drawer_01_01_01 = null;
-        private MvKjMachineDrawerLdd ldd = null;
+        public MvKjMachineDrawerLdd Drawer_01_01_01 = null;
+        private MvKjMachineDrawerCollection ldd = null;
         int PortBegin = 5000;
         int PortEnd = 5999;
         private int ListenStartupPort = 6000;
@@ -66,7 +66,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         public UtHalCabinet()
         {
-            ldd = new MvKjMachineDrawerLdd(PortBegin, PortEnd, ListenStartupPort);
+            ldd = new MvKjMachineDrawerCollection(PortBegin, PortEnd, ListenStartupPort);
             InitialDrawers();
             BindEvent();
             ldd.ListenSystStartUpEvent();
@@ -204,6 +204,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             Repeat();
         }
+
+        [TestMethod]
+        public void ButtonEvent()
+        {
+            Repeat();
+        }
         #endregion
 
         #region Event
@@ -214,7 +220,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnReplyTrayMotion(object sender, EventArgs args)
         {
-            var drawer = (Drawer)sender;
+            var drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyTrayMotionEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {  // 成功
@@ -230,7 +236,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnReplySetSpeed(object sender, EventArgs args)
         {
-            var drawer = (Drawer)sender;
+            var drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplySetSpeedEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
@@ -246,7 +252,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnReplySetTimeOut(object sender, EventArgs args)
         {
-            var drawer = (Drawer)sender;
+            var drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplySetTimeOutEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
@@ -263,7 +269,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="sender"></param>
         private void OnReplyBrightLED(object sender, EventArgs args)
         {
-            var drawer = (Drawer)sender;
+            var drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBrightLEDEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
@@ -280,7 +286,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name=""></param>
         private void OnReplyPosition(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyPositionEventArgs)args;
             var IHO = eventArgs.IHOStatus;
 
@@ -291,7 +297,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnReplyBoxDetection(Object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBoxDetectionEventArgs)args;
             var hasBox = eventArgs.HasBox;
         }
@@ -301,7 +307,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnTrayArrive(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnTrayArriveEventArgs)args;
             if (eventArgs.TrayArriveType == TrayArriveType.ArriveHome)
             {
@@ -322,7 +328,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnButtonEvent(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
 
         }
         /// <summary>Event TimeOutEvent(900)</summary>
@@ -330,7 +336,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnTimeOutEvent(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
         }
 
         /// <summary>Event TrayMotioning(901)</summary>
@@ -338,7 +344,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnTrayMotioning(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
 
         }
 
@@ -347,7 +353,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnINIFailed(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
         }
 
         /// <summary>Event TrayMotionError(903)</summary>
@@ -355,7 +361,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnTryMotionError(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
         }
 
         /// <summary>Event TrayMotionError(903)</summary>
@@ -363,7 +369,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnTrayMotionSensorOFF(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
         }
 
 
@@ -372,7 +378,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         private void OnError(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnErrorEventArgs)args;
             if (eventArgs.ReplyErrorCode == ReplyErrorCode.Recovery)
             {
@@ -388,7 +394,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         /// <param name="args"></param>
         public void OnSysStartUp(object sender, EventArgs args)
         {
-            Drawer drawer = (Drawer)sender;
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
         }
 
         #endregion

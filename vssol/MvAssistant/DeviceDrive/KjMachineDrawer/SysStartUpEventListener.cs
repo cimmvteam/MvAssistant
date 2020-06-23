@@ -77,11 +77,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
         }
 
-        /// <summary>接收到訊號回呼函式的委派型別</summary>
-        /// <param name="message"></param>
-        /// <param name="ipEndpoint"></param>
-        public delegate void DelOnRcvMessage(string message, IPEndPoint ipEndpoint);
-
+       
         /// <summary>回呼函式</summary>
         public DelOnRcvMessage OnRcvMessageCallBack = null;
     }
