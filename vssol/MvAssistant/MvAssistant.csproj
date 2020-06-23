@@ -89,10 +89,10 @@
     <Compile Include="DeviceDrive\GudengLoadPort\EventPresentCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\EventStagePositionCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\EventVacuumCompleteCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\LoadPort.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortRequestContent.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortResponseContent.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortCollection.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\EventLoadportStatusCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AlarmReset.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskBarcodeStatus .cs" />

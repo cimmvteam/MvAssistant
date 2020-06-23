@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]
         public void TestMethod1()
         {
-            using (var loadport = new MvGudengLoadPortLdd())
+            using (var loadport = new MvGudengLoadPortCollection())
             {
                 loadport.ConnectIfNo();
 

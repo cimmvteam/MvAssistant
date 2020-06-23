@@ -6,7 +6,7 @@ using MvAssistant.DeviceDrive.GudengLoadPort;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
-using static MvAssistant.DeviceDrive.GudengLoadPort.LoadPort;
+using static MvAssistant.DeviceDrive.GudengLoadPort.MvGudengLoadPortLdd;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -14,9 +14,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     public class UtHalLoadPort
     {
 
-        LoadPort LoadPort1 = null;
-        LoadPort LoadPort2 = null;
-        MvGudengLoadPortLdd ldd = new MvGudengLoadPortLdd();
+        MvGudengLoadPortLdd LoadPort1 = null;
+        MvGudengLoadPortLdd LoadPort2 = null;
+        MvGudengLoadPortCollection ldd = new MvGudengLoadPortCollection();
       public UtHalLoadPort()
       {
          
@@ -411,33 +411,33 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         #region Event Handler
         private void OnPlacement(object sender,EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnPlacementEventArgs)args;
             NoteEventResult("Placement", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
 
         private void OnPresent(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnPresentEventArgs)args;
             NoteEventResult("Present", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
 
         private void OnClamper(object sender,EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnClamperEventArgs)args;
             NoteEventResult("Clamper", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
         private void OnRFID(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnRFIDEventArgs)args;
             NoteEventResult("RFID", "RFID:" +eventArgs.RFID);
         }
         private void OnBarcode_ID(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnBarcode_IDEventArgs)args;
             if (eventArgs.ReturnCode == EventBarcodeIDCode.Success)
             {
@@ -450,19 +450,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         private void OnClamperUnlockComplete(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnClamperUnlockCompleteEventArgs)args;
             NoteEventResult("ClamperUnlockComplete", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
         private void OnVacuumComplete(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnVacuumCompleteEventArgs)args;
             NoteEventResult("VacuumComplete", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
         private void OnDockPODStart(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             
             NoteEventResult("DockPODStart");
         }
@@ -470,30 +470,30 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
       
         private void OnDockPODComplete_HasReticle(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteEventResult("DockPODComplete_HasReticle");
         }
         private void OnDockPODComplete_Empty(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteEventResult("DockPODComplete_Empty");
         }
 
         private void OnUndockComplete (object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteEventResult("UndockComplete");
         }
 
         private void OnClamperLockComplete(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteEventResult("ClamperLockComplete");
         }
 
         private void OnAlarmResetSuccess(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             if (loadport.HasInvokeOriginalMethod)
             {
                 loadport.InvokeOriginalMethod();
@@ -502,13 +502,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         private void OnAlarmResetFail(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteEventResult("AlarmResetFail");
 
         }
         private void OnExecuteInitialFirst(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             if (loadport.HasInvokeOriginalMethod)
             {
                  loadport.CommandInitialRequest();
@@ -517,7 +517,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         private void OnExecuteAlarmResetFirst(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             if (loadport.HasInvokeOriginalMethod)
             {
                 loadport.CommandAlarmReset();
@@ -526,19 +526,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         private void OnStagePosition(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnStagePositionEventArgs)args;
             NoteEventResult("StagePosition", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
         private void OnLoadportStatus(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnLoadportStatusEventArgs)args;
             NoteEventResult("LoadportStatus", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
         private void OnInitialComplete(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             if (loadport.HasInvokeOriginalMethod)
             {
                 loadport.CommandAlarmReset();
@@ -549,27 +549,27 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         private void OnInitialUnComplete(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
 
             NoteEventResult("InitialUnComplete");
         }
         private void OnMustInAutoMode(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
 
             NoteEventResult("MustInAutoMode");
         }
 
         private void OnClamperNotLock(object sender,EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
 
             NoteEventResult("ClamperNotLock");
         }
 
         private void OnPODNotPutProperly(object sender,EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
 
             NoteEventResult("PODNotPutProperly"); 
         }
@@ -578,60 +578,60 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         #region Alarm Handler
         private void OnClamperActionTimeOut(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
 
             NoteAlarmResult("ClamperActionTimeOut");
 
         }
         private void OnClamperUnlockPositionFailed(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
 
             NoteAlarmResult("ClamperUnlockPositionFailed");
         }
         private void OnVacuumAbnormality(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("VacuumAbnormality");
         }
         private void OnStageMotionTimeout(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("StageMotionTimeout");
         }
         private void OnStageOverUpLimitation(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("StageOverUpLimitation");
         }
         private void OnStageOverDownLimitation(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("StageOverDownLimitation");
         }
         private void OnReticlePositionAbnormality(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("ReticlePositionAbnormality");
         }
         private void OnClamperLockPositionFailed(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("ClamperLockPositionFailed");
         }
         private void OnCoverDisappear(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("CoverDisappear");
         }
         private void OnClamperMotorAbnormality(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("ClamperMotorAbnormality");
         }
         private void OnStageMotorAbnormality(object sender, EventArgs args)
         {
-            var loadport = (LoadPort)sender;
+            var loadport = (MvGudengLoadPortLdd)sender;
             NoteAlarmResult("StageMotorAbnormality");
         }
         #endregion
