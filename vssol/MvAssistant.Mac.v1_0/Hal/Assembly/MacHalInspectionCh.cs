@@ -228,5 +228,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             CameraSideInsp.ShotToSaveImage(SavePath, FileType);
         }
+
+        public void LightForSideInspSetValue(int value)
+        {
+            LigthBarInspSide.TurnOn(value);
+        }
+
+        public void LightForSideDfsSetValue(int value)
+        {
+            LigthBarDefenseSide.TurnOn(value);
+        }
     }
 }

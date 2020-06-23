@@ -205,10 +205,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         {
                             mt.RobotMoving(true);
                             mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToClean.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToClean.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCamera.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCamera.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
                             mt.RobotMoving(false);
                         }
                         catch (Exception ex)
@@ -246,7 +254,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                             throw ex;
                         }
                     };
-
+                    
                     Thread BoxGet = new Thread(GetAndOpenBoxThread);
                     Thread BoxStore = new Thread(CloseAndStoreBoxThread);
                     Thread MaskInsp = new Thread(LPGetMaskToInspThread);
@@ -476,10 +484,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         {
                             mt.RobotMoving(true);
                             mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToClean.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToClean.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCamera.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCamera.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
                             mt.RobotMoving(false);
                         }
                         catch (Exception ex)
@@ -717,11 +733,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         try
                         {
                             mt.RobotMoving(true);
-                            mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToClean.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToClean.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCamera.json");
-                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCamera.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
                             mt.RobotMoving(false);
                         }
                         catch (Exception ex)

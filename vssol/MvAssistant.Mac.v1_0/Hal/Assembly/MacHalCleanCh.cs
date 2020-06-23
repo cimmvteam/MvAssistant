@@ -185,5 +185,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             CameraInsp.ShotToSaveImage(SavePath, FileType);
         }
+
+        /// <summary>
+        /// 調整燈光亮度
+        /// </summary>
+        /// <param name="value"></param>
+        public void LightSetValue(int value)
+        {
+            InspectionSpotLight.TurnOn(value);
+        }
     }
 }
