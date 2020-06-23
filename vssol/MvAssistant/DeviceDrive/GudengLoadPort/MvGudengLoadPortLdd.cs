@@ -1,4 +1,4 @@
-﻿#define OnlyObserveCommandText
+﻿//#define OnlyObserveCommandText
 using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
 using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
@@ -691,7 +691,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <para>1. StageDock完畢後</para>
         /// <para>2. 收到AskReticleExistStatus</para>
         /// </remarks>
-        private void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
+        public void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
         {
 
          
@@ -719,7 +719,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
         /// <summary>Event ClamperLockComplete(012)</summary>
         /// <param name="rtnFromServer"></param>
-        private void ClamperLockComplete(ReturnFromServer rtnFromServer)
+        public void ClamperLockComplete(ReturnFromServer rtnFromServer)
         {
         
             if (OnClamperLockCompleteHandler != null)
