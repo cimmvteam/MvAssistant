@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode
 {
    public enum EventPresentCode
     {
-        HasNoPresent=0,
+        NoPresent=0,
         HasPresent=1
     }
 }

@@ -1,4 +1,6 @@
 ﻿#define OnlyObserveCommandText
+using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
 using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
 using System;
 using System.Collections.Generic;
@@ -180,6 +182,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 //rtn = "~001,Placement,0@\0\0\0\0";
 
                 Debug.WriteLine("[RETURN] " + rtn);
+                rtn = rtn.Replace("\0", "");
                 if (OnReceviceRtnFromServerHandler != null)
                 {
                     // 可能一次會有多個結果
@@ -487,8 +490,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
             return command;
         }
-
-
+        #endregion
+        #region event
 
         /// <summary>Event Placement (001)</summary>
         /// <param name="rtnFromServer"></param>
@@ -509,12 +512,9 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnPlacementHandler = null;
         public void ResetOnPlacementHandler() { OnPlacementHandler = null; }
-        public class OnPlacementEventArgs : EventArgs
-        {
-            public EventPlacementCode ReturnCode { get; private set; }
-            private OnPlacementEventArgs() { }
-            public OnPlacementEventArgs(EventPlacementCode rtnCode) : this() { ReturnCode = rtnCode; }
-        }
+        
+
+
 
         /// <summary>Event Present(002)</summary>
         /// <param name="rtnFromServer"></param>
@@ -535,12 +535,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnPresentHandler = null;
         public void ResetOnPresentHandler() { OnPresentHandler = null; }
-        public class OnPresentEventArgs : EventArgs
-        {
-            public EventPresentCode ReturnCode { get; private set; }
-            private OnPresentEventArgs() { }
-            public OnPresentEventArgs(EventPresentCode rtnCode) : this() { ReturnCode = rtnCode; }
-        }
+        
 
 
         /// <summary>Event Clamper(003)</summary>
@@ -562,12 +557,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnClamperHandler = null;
         public void ResetOnClamperHandler() { OnClamperHandler = null; }
-        public class OnClamperEventArgs : EventArgs
-        {
-            public EventClamperCode ReturnCode { get; private set; }
-            private OnClamperEventArgs() { }
-            public OnClamperEventArgs(EventClamperCode rtnCode) : this() { ReturnCode = rtnCode; }
-        }
+        
 
 
         /// <summary>Event RFID(004)</summary>
@@ -591,15 +581,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnRFIDHandler = null;
         public void ResetOnRFIDHandler() { OnRFIDHandler = null; }
-        public class OnRFIDEventArgs : EventArgs
-        {
-            public string RFID { get;private set; }
-            private OnRFIDEventArgs() { }
-            public OnRFIDEventArgs(string rfid):this() { RFID = rfid; }
-        }
-
-
-
+ 
         /// <summary>Event Barcode ID (005)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>
@@ -621,13 +603,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnBarcode_IDHandler = null;
         public void ResetOnBarcode_IDHandler() { OnBarcode_IDHandler = null; }
-        public class OnBarcode_IDEventArgs : EventArgs
-        {
-            public EventBarcodeIDCode ReturnCode { get; private set; }
-            public string BarcodeID { get; private set; }
-            private OnBarcode_IDEventArgs() { }
-            public OnBarcode_IDEventArgs(EventBarcodeIDCode rtnCode, string barCodeID) : this() { ReturnCode = rtnCode; BarcodeID = barCodeID; }
-        }
+        
 
 
         /// <summary>Event ClamperUnlockComplete(006)</summary>
@@ -649,12 +625,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnClamperUnlockCompleteHandler = null;
         public void ResetOnClamperUnlockCompleteHandler()  { OnClamperUnlockCompleteHandler = null; }
-        public class OnClamperUnlockCompleteEventArgs : EventArgs
-        {
-            public EventClamperUnlockCompleteCode ReturnCode { get; private set; }
-            private OnClamperUnlockCompleteEventArgs() { }
-            public OnClamperUnlockCompleteEventArgs(EventClamperUnlockCompleteCode rtnCode) : this() { ReturnCode = rtnCode; }
-        }
+       
 
 
 
@@ -678,12 +649,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnVacuumCompleteHandler = null;
         public void ResetOnVacuumCompleteHandler() { OnVacuumCompleteHandler = null; }
-        public class OnVacuumCompleteEventArgs : EventArgs
-        {
-            public EventVacuumCompleteCode ReturnCode { get; private set; }
-            private OnVacuumCompleteEventArgs() { }
-            public OnVacuumCompleteEventArgs(EventVacuumCompleteCode rtnCode):this() { ReturnCode = rtnCode; }
-        }
+        
 
 
         /// <summary>Event  DockPODStart(008)</summary>
@@ -845,12 +811,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnStagePositionHandler = null;
         public void ResetOnStagePositionHandler() { OnStagePositionHandler = null; }
-        public class OnStagePositionEventArgs : EventArgs
-        {
-            public EventStagePositionCode ReturnCode { get; private set; }
-            private OnStagePositionEventArgs() { }
-            public OnStagePositionEventArgs(EventStagePositionCode rtnCode):this() { ReturnCode = rtnCode; }
-        }
+        
 
 
 
@@ -873,13 +834,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnLoadportStatusHandler = null;
         public void ResetOnLoadportStatusHandler() { OnLoadportStatusHandler = null; }
-        public class OnLoadportStatusEventArgs : EventArgs
-        {
-            public EventLoadportStatusCode ReturnCode { get; private set; }
-            private OnLoadportStatusEventArgs() { }
-            public OnLoadportStatusEventArgs(EventLoadportStatusCode rtnCode) : this() { ReturnCode = rtnCode; }
-
-        }
+       
 
 
         /// <summary>Event Initial Complete(019)</summary>
@@ -1096,42 +1051,9 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
     }
 
-    public class OnReceviceRtnFromServerEventArgs : EventArgs
-    {
-        public string RtnContent { get; private set; }
-        public OnReceviceRtnFromServerEventArgs(string rtnContent)
-        {
-            RtnContent = rtnContent;
-        }
-    }
+   
 
-    public class ReturnFromServer
-    {
-        public string StringCode { get; set; }
-        public string StringContent { get; set; }
-        public string ReturnCode { get; set; }
-        public string ReturnValue { get; set; }
-        //public string LastRequestCommandText { get; set; }
-        public ReturnFromServer(string content)
-        {
-            content = content.Replace(BaseHostToLoadPortCommand.CommandPrefixText, "").Replace(BaseHostToLoadPortCommand.CommandPostfixText, "");
-            var contentAry = content.Split(new string[] { BaseHostToLoadPortCommand.CommandSplitSign }, StringSplitOptions.RemoveEmptyEntries);
-            StringCode = contentAry[0];
-            StringContent = contentAry[1];
-            if (contentAry.Length >= 3)
-            {
-                ReturnCode= contentAry[2];
-                if(contentAry.Length > 3)
-                {
-                    ReturnValue= contentAry[3];
-                }
-            }
-            else
-            {
-                ReturnCode = null;
-            }
-        }
-    }
+   
 
 
   

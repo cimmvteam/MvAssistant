@@ -82,18 +82,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventBarcodeIDCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventClamperCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventClamperUnlockCompleteCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventPlacementCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventPresentCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventStagePositionCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventVacuumCompleteCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnLoadportStatusEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnPlacementEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventBarcodeIDCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperUnlockCompleteCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventPlacementCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventPresentCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventStagePositionCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventVacuumCompleteCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnPresentEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnReceviceRtnFromServerEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnRFIDEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnStagePositionEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnVacuumCompleteEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortRequestContent.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortResponseContent.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortCollection.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\EventLoadportStatusCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventLoadportStatusCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReturnFromServer.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AlarmReset.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskBarcodeStatus .cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskClamperStatus.cs" />

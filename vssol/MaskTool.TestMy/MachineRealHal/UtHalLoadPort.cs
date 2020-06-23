@@ -7,6 +7,8 @@ using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
 using static MvAssistant.DeviceDrive.GudengLoadPort.MvGudengLoadPortLdd;
+using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -20,8 +22,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
       public UtHalLoadPort()
       {
          
-            //LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
-            LoadPort1 = ldd.CreateLoadPort("127.0.0.1", 1024, 1);
+            LoadPort1 = ldd.CreateLoadPort("192.168.0.20", 1024, 1);
+           // LoadPort1 = ldd.CreateLoadPort("127.0.0.1", 1024, 1);
             //LoadPort2 = ldd.CreateLoadPort("192.168.0.21", 1024, 2);
             BindEventHandler();
 
