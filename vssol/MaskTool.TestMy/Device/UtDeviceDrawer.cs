@@ -19,7 +19,7 @@ namespace MvAssistant.Mac.TestMy.Device
         // public UdpServerSocket UdpServer;
         public int RemotePort = 5000;
 
-        public string LocalIP = "192.168.0.14";
+        public string LocalIP = "192.168.0.16";
        // public string LocalIP = "127.0.0.1";
 
         public string ClientIP_01_01_01 = "192.168.0.42";
@@ -49,6 +49,7 @@ namespace MvAssistant.Mac.TestMy.Device
                 drawer.OnErrorHandler += this.OnError;
                 drawer.OnSysStartUpHandler += this.OnSysStartUp;
                 drawer.OnTrayMotionSensorOFFHandler += this.OnTrayMotionSensorOFF;
+                drawer.OnLCDCMsgHandler += this.OnLCDCMsg;
             }
         }
 
@@ -186,22 +187,22 @@ namespace MvAssistant.Mac.TestMy.Device
 
 
         }
-        [TestMethod]// send:V, Recieve: ~141,LCDCMsg,1@
+        [TestMethod]// [V] 2020/06/24
         public void LCDMsg()
         {
 
             string commText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
-
-
+            //"~141,LCDCMsg,1@
+            Repeat();
         }
 
-        [TestMethod]
+        [TestMethod]//[V] 2020/06/24(回到6000 port)
         public void StartUp()
         {
             Repeat();
         }
 
-        [TestMethod]
+        [TestMethod]//[V] 2020/06/24(回到6000 port)
         public void ButtonEvent()
         {
             Repeat();
@@ -325,6 +326,16 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnButtonEvent(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+
+        }
+        //"~141,LCDCMsg,1@
+        public void OnLCDCMsg(object sender,EventArgs args)
+        {
+            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            var eventArgs = (OnLCDCMsgEventArgs)args;
+            if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
+            { }
+            else { }
 
         }
         /// <summary>Event TimeOutEvent(900)</summary>

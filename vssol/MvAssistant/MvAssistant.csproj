@@ -133,6 +133,7 @@
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelOnRcvMessage.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnErrorEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnLCDCMsgEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyBoxDetectionEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyBrightLEDEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyPositionEventArgs.cs" />

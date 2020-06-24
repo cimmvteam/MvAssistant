@@ -96,8 +96,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
               */
 
           //  LoadPort1.SetOriginalMethod(LoadPort1.CommandInitialRequest);
-           var commandText= LoadPort1.CommandInitialRequest();
-            NoteCommand(commandText);//~002,Present,1@
+           var commandText1= LoadPort1.CommandInitialRequest();
+            var commandText2 = LoadPort2.CommandInitialRequest();
+            NoteCommand(commandText1);//~002,Present,1@
+            NoteCommand(commandText2);
             Repeat();
         }
 
@@ -603,7 +605,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 loadport.CommandAlarmReset();
             }
-            NoteEventResult("InitialComplete");
+            NoteEventResult($"IP={loadport.ServerEndPoint.Address.ToString()}, InitialComplete");
 
         }
 

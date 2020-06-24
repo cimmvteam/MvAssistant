@@ -575,6 +575,19 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
         public void ResetOnButtonEventHandler() { OnButtonEventHandler = null; }
 
+        public void LCDCMsg(ReplyMessage reply)
+        {
+            ReplyResultCode replyResultCode = (ReplyResultCode)((int)(reply.Value));
+            var eventArgs = new OnLCDCMsgEventArgs(replyResultCode);
+            if (OnLCDCMsgHandler != null)
+            {
+                OnLCDCMsgHandler.Invoke(this, eventArgs);
+            }
+        }
+        public event EventHandler OnLCDCMsgHandler = null;
+        /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
+        public void ResetOnLCDCMsgHandler() { OnLCDCMsgHandler = null; }
+
         /// <summary>Event TimeOutEvent(900)</summary>
         /// <param name="reply">回覆的訊息(執行結果)</param>
         /// <remarks>
