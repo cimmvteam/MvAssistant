@@ -176,7 +176,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             while (true)
             {
                 byte[] B = new byte[1023];
-                int inLine = ClientSocket.Receive(B);//從Server端回復
+                int inLine = ClientSocket.Receive(B);//從Server端回復(Listen Point)
                 string rtn = Encoding.Default.GetString(B, 0, inLine);
 
                 //rtn = "~001,Placement,0@\0\0\0\0";
@@ -200,7 +200,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <param name="commandText">指令</param>
         private void Send(string commandText)
         {
-            Debug.WriteLine("[COMMAND] " + commandText);
+           // Debug.WriteLine("[COMMAND]" + commandText);
             byte[] B = Encoding.Default.GetBytes(commandText);
 #if OnlyObserveCommandText
 #else
@@ -882,6 +882,19 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnMustInAutoModeHandler = null;
         public void ResetOnMustInAutoModeHandler(){ OnMustInAutoModeHandler = null; }
+
+        //~021,MustInManualMode@
+        public void MustInManualMode(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnMustInManualModeHandler != null)
+            {
+                OnMustInManualModeHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+        public event EventHandler OnMustInManualModeHandler = null;
+        public void ResetMustInManualModeHandler() { OnMustInAutoModeHandler = null; }
+
 
         /// <summary>Event ClamperNotLock(022)</summary>
         /// <param name="rtnFromServer"></param>
