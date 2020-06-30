@@ -84,21 +84,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]//[V].20 2020/06/24, [V].21   2020/06/24
         public void TestCommandInitialRequest()
         {//~112,InitialRequest@
-            /** .20
-             * [
-             * ~018,LoadportStatus,2@ |
-             * ~003,Clamper,1@~012,ClamperUnlockComplete@~019,InitialComplete@
-             * ]
-             */
+         /** .20
+          * [
+          * ~018,LoadportStatus,2@ |
+          * ~003,Clamper,1@~012,ClamperUnlockComplete@~019,InitialComplete@
+          * ]
+          */
             /** .21
             [~018,LoadportStatus,2@ | ~007,VacuumComplete,1@~003,Clamper,1@~012,ClamperUnlockComplete@~019,InitialComplete@~007,VacuumComplete,0@  ]
              */
 
-            //  LoadPort1.SetOriginalMethod(LoadPort1.CommandInitialRequest);
+            // LoadPort1.SetOriginalMethod(LoadPort1.CommandInitialRequest);
             //  var commandText1 = LoadPort1.CommandInitialRequest();
-            var commandText2 = LoadPort2.CommandInitialRequest();
             //   NoteCommand(commandText1);//~002,Present,1@
-            NoteCommand(commandText2);
+            var commandText2 = LoadPort2.CommandInitialRequest();
+             NoteCommand(commandText2);
             Repeat();
         }
 
@@ -115,7 +115,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              */
 
             // var commandText1 = LoadPort1.CommandDockRequest();
-            // NoteCommand(commandText1);
+             //NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandDockRequest();
             NoteCommand(commandText2);
             Repeat();
@@ -156,9 +156,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              * [~001,Placement,1@]
              */
 
-            /** var commandText1 =LoadPort1.CommandAskPlacementStatus();
+             var commandText1 =LoadPort1.CommandAskPlacementStatus();
                 NoteCommand(commandText1);
-            */
+            
             var commandText2 = LoadPort2.CommandAskPlacementStatus();
             NoteCommand(commandText2);
             Repeat();
@@ -196,8 +196,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              * */
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskClamperStatus);
-            var commandText1 =LoadPort1.CommandAskClamperStatus();
-            NoteCommand(commandText1);
+           // var commandText1 =LoadPort1.CommandAskClamperStatus();
+           // NoteCommand(commandText1);
            
             var commandText2 = LoadPort2.CommandAskClamperStatus();
             NoteCommand(commandText2);
@@ -264,8 +264,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              */
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskVacuumStatus);
-            var commandText1 = LoadPort1.CommandAskVacuumStatus();
-            NoteCommand(commandText1);
+          //  var commandText1 = LoadPort1.CommandAskVacuumStatus();
+          //  NoteCommand(commandText1);
 
             var commandText2 = LoadPort2.CommandAskVacuumStatus();
             NoteCommand(commandText2);
@@ -309,8 +309,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              * ]
              */
             //  LoadPort1.SetOriginalMethod(LoadPort1.CommandAlarmReset);
-            var commandText1 = LoadPort1.CommandAlarmReset();
-             NoteCommand(commandText1);
+           // var commandText1 = LoadPort1.CommandAlarmReset();
+           //  NoteCommand(commandText1);
 
             var commandText2 = LoadPort2.CommandAlarmReset();
             NoteCommand(commandText2);
@@ -334,8 +334,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskStagePosition);
-            var commandText1 = LoadPort1.CommandAskStagePosition();
-            NoteCommand(commandText1);
+           // var commandText1 = LoadPort1.CommandAskStagePosition();
+           // NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandAskStagePosition();
            NoteCommand(commandText2);
             Repeat();
@@ -355,8 +355,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandAskLoadportStatus);
-            var commandText1 = LoadPort1.CommandAskLoadportStatus();
-            NoteCommand(commandText1);
+            //var commandText1 = LoadPort1.CommandAskLoadportStatus();
+           // NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandAskLoadportStatus();
            NoteCommand(commandText2);
             Repeat();
@@ -364,9 +364,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
 
         [TestMethod]  //[V].20 2020/06/24,    //[V] .21   2020/06/24
+       
         public void TestCommandManualClamperLock()
         { //~113,ManualClamperLock@
-
+            /** Note
+             *執行前先 執行AskClamperStatus,
+             * 收到 clamper 事件後, 若為 unlock, 再執行本指令
+             */
             /**.20(相同狀態不回覆)
              * [~021,MustInManualMode@]
              * ManualMode:[~003,Clamper,1@]
@@ -388,7 +392,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod] //[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualClamperUnlock()
         {  //~114,ManualClamperUnlock@
-
+           /** Note
+           *執行前先 執行AskClamperStatus,
+           * 收到 clamper 事件後, 若為 lock, 再執行本指令
+           */
             /**.20(相同狀態不回覆)
              * ~021,MustInManualMode@
              * ManualMode:[~003,Clamper,0@]
@@ -410,13 +417,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod] //[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualClamperOPR()
         {  //~115,ManualClamperOPR@
+            /** Note
+             clamper lock 時才有作用, 執行完畢後會 clamper unlock, 觸發 clamper 事件
+             */
            /** .20
             * [~021,MustInManualMode@]
-            * ManualMode:~003,Clamper,0@(Lock 時才會有動作)
+            * ManualMode:~003,Clamper,0@
             */
             /** .21
              * [~021,MustInManualMode@]
-             *  ManualMode:~003,Clamper,0@(Lock 時才會有動作)
+             *  ManualMode:~003,Clamper,0@
            */
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperOPR);
             var commandText1 = LoadPort1.CommandManualClamperOPR();
@@ -431,12 +441,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod] //[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualStageUp()
         {   //~116,ManualStageUp@
-
+            /** Note
+                1. 先將 clamper lock  才可執行
+                2. 執行AskStagePosition , 待 回覆 StagePosition 事件後,若Stage 不是這個位置, 再這個命令
+             */
             /** .20
              *  [~022,ClamperNotLock@]
+             *  [~017,StagePosition,3@ | ~017,StagePosition,0@] 0:Stage於上升位置
              */
             /** .21
              *  [~023,PODNotPutProperly@]
+             *  [~017,StagePosition,3@ | ~017,StagePosition,0@]0:Stage於上升位置
              */
 
 
@@ -444,8 +459,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             // LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[ ~202,VacuumAbnormality@~018,LoadportStatus,3@]
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageUp);
-            var commandText1 = LoadPort1.CommandManualStageUp();
-            NoteCommand(commandText1);
+            //var commandText1 = LoadPort1.CommandManualStageUp();
+            //NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandManualStageUp();
             NoteCommand(commandText2);
             Repeat();
@@ -454,11 +469,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualStageInspection()
         {  //~116,ManualStageUp@
-           /** .20
-            * [~023,PODNotPutProperly@]
+           /** Note 
+            * 先 Ask StatgePosition,待 回覆 StagePosition 事件後,若Stage 不是這個位置, 再下這個命令
             */
+            /** .20
+             * [~023,PODNotPutProperly@]
+               [~017,StagePosition,3@ | ~017,StagePosition,1@] 1: Stage於光罩檢查位置
+             */
             /** .21
              * [~022,ClamperNotLock@]
+               [~017,StagePosition,3@ | ~017,StagePosition,1@] 1: Stage於光罩檢查位置
              **/
 
 
@@ -466,7 +486,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var commandText1 = LoadPort1.CommandManualStageInspection();
             NoteCommand(commandText1);
 
-           var commandText2 = LoadPort2.CommandManualStageInspection();
+            var commandText2 = LoadPort2.CommandManualStageInspection();
             NoteCommand(commandText2);
             Repeat();
 
@@ -475,12 +495,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualStageDown()
         {   //~118,ManualStageDown@
-
+            /** Note 
+           * 先 AskStagePosition,待 回覆 StagePosition 事件後,若Stage 不是這個位置, 再下這個命令
+           */
             /** .20
              * [~023,PODNotPutProperly@]
+             * [~017,StagePosition,3@ |  ~017,StagePosition,2@],2: Stage於下降位置
              */
             /** .21
              * [~022,ClamperNotLock@]
+             * [~017,StagePosition,3@ |  ~017,StagePosition,2@],2: Stage於下降位置
              */
 
             // LoadPort1.CommandAlarmReset();
@@ -490,8 +514,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageDown);
             var commandText1 = LoadPort1.CommandManualStageDown();
             NoteCommand(commandText1);
-            var commandText2 = LoadPort2.CommandManualStageDown();
-           NoteCommand(commandText2);
+           var commandText2 = LoadPort2.CommandManualStageDown();
+          NoteCommand(commandText2);
             Repeat();
 
            
@@ -520,13 +544,25 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,
         public void TestCommandManualVacuumOn()
         {    //~120,ManualVacuumOn@
-             /** .20
-              * [~021,MustInManualMode@]
-              * ManualMode:
-              */
+
+            /** Note. 
+             * 先 執行 AskVacuumStatus, 目前 Vacuum off 的才可以 Vacuumn On
+             *        [Manual Mode]
+             *        (1)20 有盒子, .21 沒有盒子
+                       (2)AskVacuumStatus: .20 沒有真空,  .21 沒有真空
+                       (3) ManualVacuumOn: ~120,ManualVacuumOn@=>  .20:[~007,VacuumComplete,1@], .21:没有回覆
+                        (4)AskVacuumStatus: .20 有真空,  .21 沒有真空
+                        (5)盒子調換後,AskVacuumStatus: .20無真空, .21 無真空
+                        (6)盒子再調換後,AskVacuumStatus: .20有真空, .21 無真空
+                 
+             */
+
+
+            /** .20
+             * [~021,MustInManualMode@]
+               */
             /**.21
              * [~021,MustInManualMode@]
-             * ManualMode:[ ~007,VacuumComplete,1@]
              */
 
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOn);
@@ -542,13 +578,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod] //[V] .20  2020/06/24,   [V] .21  2020/06/24,
         public void TestCommandManualVacuumOff()
         {  //~121,ManualVacuumOff@
-           /** .20
-             * [~021,MustInManualMode@]
-             * ManualMode: 没放盒子時沒回覆
+
+            /** Note.
+            * 先 執行 AskVacuumStatus, 目前 Vacuum On 的才可以 Vacuumn off
+            * Manual Mode:
+                       (1)20 有盒子, .21 沒有盒子
+                       (2)AskVacuumStatus: .20 有真空,  .21 沒有真空
+                       (3) ManualVacuumOff(~121,ManualVacuumOff@)=> .20,    .21
              */
+
+            /** .20
+              * [~021,MustInManualMode@]
+              *
+              */
             /**.21
              * [~021,MustInManualMode@]
-             * ManualMode: 没放盒子時沒回覆
+             * 
              */
 
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOff);
