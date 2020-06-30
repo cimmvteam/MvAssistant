@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Net.Sockets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
 
@@ -18,5 +20,26 @@ namespace MvAssistant.Mac.TestMy.Device
             }
 
         }
+
+
+        [TestMethod]
+        public void TestUdpClient()
+        {
+        
+
+
+        }
+
+        [TestMethod]
+        public void TestUdpSocket()
+        {
+            using (var client = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
+            {
+
+            }
+
+        }
+
+
     }
 }

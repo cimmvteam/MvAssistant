@@ -24,6 +24,9 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         ~MacHalContext() { this.Dispose(false); }
 
+
+
+
         void HalCreate(MacManifestDeviceCfg deviceCfg, HalBase hal = null)
         {
             var drivers = (from row in this.manifest.Drivers
@@ -65,7 +68,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         public int MvCfFree()
         {
-
+            this.DisposeSelf();
             return 0;
         }
         public int MvCfInit() { return 0; }
@@ -209,14 +212,12 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         }
 
-
-
         #endregion
 
 
         #region Resource Manage
-        protected Dictionary<string, IDisposable> Resources = new Dictionary<string, IDisposable>();
 
+        protected Dictionary<string, IDisposable> Resources = new Dictionary<string, IDisposable>();
 
         public T ResourceGetOrDefault<T>(string key) where T : IDisposable
         {
@@ -295,6 +296,22 @@ namespace MvAssistant.Mac.v1_0.Hal
         }
 
         #endregion
+
+
+
+        #region Static - Create
+
+        public static MacHalContext Create(string path)
+        {
+            return new MacHalContext()
+            {
+                Path = path,
+            };
+        }
+
+
+        #endregion
+
 
     }
 }

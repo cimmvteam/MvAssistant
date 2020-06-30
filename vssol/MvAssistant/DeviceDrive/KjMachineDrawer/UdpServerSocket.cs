@@ -18,7 +18,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public UdpServerSocket(int localPort)
         {
             UdpClient = new UdpClient(localPort);
-           ListenThread = new Thread(ListenMessage);
+            ListenThread = new Thread(ListenMessage);
             ListenThread.IsBackground = true;
             ListenThread.Start();
         }
@@ -27,7 +27,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             IPEndPoint IpFrom = new IPEndPoint(IPAddress.Any, 0);
             while (true)
             {
-               
+
                 var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpFrom));
                 OnReciveMessageEventArgs args = new OnReciveMessageEventArgs
                 {
@@ -38,12 +38,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 {
                     OnReceiveMessage.Invoke(this, args);
                 }
-              
+
             }
         }
 
-        
+
 
     }
-   
+
 }
