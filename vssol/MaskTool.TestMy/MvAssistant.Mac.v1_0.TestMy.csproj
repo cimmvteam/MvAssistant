@@ -77,6 +77,8 @@
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
+    <Compile Include="MachineRealHal\UtStressTest.cs" />
+    <Compile Include="MachineRealHal\UtScenario.cs" />
     <Compile Include="MachineRealHal\UtHalBoxTransfer.cs" />
     <Compile Include="MachineRealHal\UtHalLoadPort.cs" />
     <Compile Include="MachineRealHal\UtHalCleanCh.cs" />
