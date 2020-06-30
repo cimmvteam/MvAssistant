@@ -442,7 +442,51 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         #endregion
         #region Deformation Inspection
+        [TestMethod]
+        public void TestRobotICHomeToDeformInsp()
+        {
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.MvCfLoad();
 
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                    unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                    mt.HalConnect();
+                    ic.HalConnect();
+                    
+                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToDeformInsp.json");
+                }
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        [TestMethod]
+        public void TestRobotDeformInspToICHome()
+        {
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.MvCfLoad();
+
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                    unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                    mt.HalConnect();
+                    ic.HalConnect();
+                    
+                    mt.ExePathMove(@"D:\Positions\MTRobot\DeformInspToICHome.json");
+                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                }
+            }
+            catch (Exception ex) { throw ex; }
+        }
         #endregion
         #endregion
         #region Box Robot Move
@@ -634,9 +678,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.HalConnect();
 
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_PUT.json");
                     bt.Unclamp();
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_01_01_Backward_Cabinet_01_Home_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_PUT.json");
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -656,9 +700,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.HalConnect();
 
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
                     bt.Clamp(1);
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_01_01_Backward_Cabinet_01_Home_GET.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
                 }
             }
             catch (Exception ex) { throw ex; }
