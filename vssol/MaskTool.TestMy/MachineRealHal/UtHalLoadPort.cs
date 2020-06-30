@@ -367,11 +367,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TestCommandManualClamperLock()
         { //~113,ManualClamperLock@
 
-            /**.20
+            /**.20(相同狀態不回覆)
              * [~021,MustInManualMode@]
+             * ManualMode:[~003,Clamper,1@]
             */
-            /**.21
+            /**.21(相同狀態不回覆)
              * [~021,MustInManualMode@]
+             * ManualMode:[~003,Clamper,1@]
              */
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperLock);
@@ -387,11 +389,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TestCommandManualClamperUnlock()
         {  //~114,ManualClamperUnlock@
 
-            /**.20
+            /**.20(相同狀態不回覆)
              * ~021,MustInManualMode@
+             * ManualMode:[~003,Clamper,0@]
              */
-            /**.21
+            /**.21(相同狀態不回覆)
              * ~021,MustInManualMode@
+             * ManualMode:[~003,Clamper,0@]
              */
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperUnlock);
@@ -408,9 +412,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {  //~115,ManualClamperOPR@
            /** .20
             * [~021,MustInManualMode@]
+            * ManualMode:~003,Clamper,0@(Lock 時才會有動作)
             */
             /** .21
              * [~021,MustInManualMode@]
+             *  ManualMode:~003,Clamper,0@(Lock 時才會有動作)
            */
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualClamperOPR);
             var commandText1 = LoadPort1.CommandManualClamperOPR();
@@ -445,85 +451,113 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             Repeat();
         }
 
-        [TestMethod]
+        [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualStageInspection()
         {  //~116,ManualStageUp@
-            /**
-             */
-             /**
-              **/ 
+           /** .20
+            * [~023,PODNotPutProperly@]
+            */
+            /** .21
+             * [~022,ClamperNotLock@]
+             **/
 
 
-          //  LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageInspection);
+            //  LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageInspection);
             var commandText1 = LoadPort1.CommandManualStageInspection();
             NoteCommand(commandText1);
 
-            var commandText2 = LoadPort2.CommandManualStageInspection();
+           var commandText2 = LoadPort2.CommandManualStageInspection();
             NoteCommand(commandText2);
             Repeat();
 
         }
 
-        [TestMethod]
+        [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualStageDown()
         {   //~118,ManualStageDown@
 
-            // LoadPort1.CommandAlarmReset();
-            /**
-             [RETURN] ~001,Placement,0@~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@
-[INVOKE METHOD] Placement, Parameter: 0
-[INVOKE METHOD] Present, Parameter: 0
-[INVOKE METHOD] Present, Parameter: 1
-[INVOKE METHOD] Present, Parameter: 0
-[INVOKE METHOD] Present, Parameter: 1
-[INVOKE METHOD] Present, Parameter: 0
-[INVOKE METHOD] Present, Parameter: 1
-[INVOKE METHOD] Present, Parameter: 0
-[INVOKE METHOD] Present, Parameter: 1
-[RETURN] ~002,Present,0@~002,Present,1@~002,Present,0@~002,Present,1@~001,Placement,1@~001,Placement,0@
+            /** .20
+             * [~023,PODNotPutProperly@]
              */
+            /** .21
+             * [~022,ClamperNotLock@]
+             */
+
+            // LoadPort1.CommandAlarmReset();
+
             //  LoadPort1.CommandInitialRequest();
 
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageDown);
-            var commandText = LoadPort1.CommandManualStageDown();// ~022,ClamperNotLock@
-            NoteCommand(commandText);//~002,Present,1@
+            // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageDown);
+            var commandText1 = LoadPort1.CommandManualStageDown();
+            NoteCommand(commandText1);
+            var commandText2 = LoadPort2.CommandManualStageDown();
+           NoteCommand(commandText2);
             Repeat();
 
-            //  LoadPort2.CommandAlarmReset();
-            //                                      LoadPort2.CommandInitialRequest();
-            // LoadPort2.CommandManualStageDown();// POD Problem
+           
         }
 
-        [TestMethod]
+        [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,  
         public void TestCommandManualStageOPR()
         {  // ~119,ManualStageOPR@
+           /** .20
+            * [~022,ClamperNotLock@]
+            */
+            /** .21
+             *  ~023,PODNotPutProperly@
+             * */
 
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageOPR);
-            var commandText = LoadPort1.CommandManualStageOPR();//~022,ClamperNotLock@
-            NoteCommand(commandText);//~002,Present,1@
+
+            //  LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageOPR);
+            var commandText1 = LoadPort1.CommandManualStageOPR();
+            NoteCommand(commandText1);
+            var commandText2 = LoadPort2.CommandManualStageOPR();
+            NoteCommand(commandText2);
             Repeat();
             // LoadPort2.CommandManualStageOPR();//POD Problem
         }
 
-        [TestMethod]
+        [TestMethod]//[V] .20  2020/06/24,   [V] .21  2020/06/24,
         public void TestCommandManualVacuumOn()
         {    //~120,ManualVacuumOn@
+             /** .20
+              * [~021,MustInManualMode@]
+              * ManualMode:
+              */
+            /**.21
+             * [~021,MustInManualMode@]
+             * ManualMode:[ ~007,VacuumComplete,1@]
+             */
 
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOn);
-            var commandText = LoadPort1.CommandManualVacuumOn(); // ~007,VacuumComplete,1@
-            NoteCommand(commandText);//~002,Present,1@
+            // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOn);
+            var commandText1 = LoadPort1.CommandManualVacuumOn(); 
+            NoteCommand(commandText1);
+
+            var commandText2 = LoadPort2.CommandManualVacuumOn();
+            NoteCommand(commandText2);
             Repeat();
             //  LoadPort2.CommandManualVacuumOn();// ~007,VacuumComplete,1@
         }
 
-        [TestMethod]
+        [TestMethod] //[V] .20  2020/06/24,   [V] .21  2020/06/24,
         public void TestCommandManualVacuumOff()
         {  //~121,ManualVacuumOff@
-            LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOff);
-            var commandText = LoadPort1.CommandManualVacuumOff();// ~007,VacuumComplete,0@
-            NoteCommand(commandText);//~002,Present,1@
+           /** .20
+             * [~021,MustInManualMode@]
+             * ManualMode: 没放盒子時沒回覆
+             */
+            /**.21
+             * [~021,MustInManualMode@]
+             * ManualMode: 没放盒子時沒回覆
+             */
+
+            // LoadPort1.SetOriginalMethod(LoadPort1.CommandManualVacuumOff);
+            var commandText1 = LoadPort1.CommandManualVacuumOff();
+            NoteCommand(commandText1);
+           var commandText2 = LoadPort2.CommandManualVacuumOff();
+            NoteCommand(commandText2);
             Repeat();
-            //LoadPort2.CommandManualVacuumOff();// ~007,VacuumComplete,0@
+            
         }
         #endregion
 
