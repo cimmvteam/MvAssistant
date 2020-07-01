@@ -82,7 +82,7 @@ namespace MvAssistant.Mac.TestMy.Device
         #region TestMethod
         [TestMethod]
         public void TestCommandInitialRequest()
-        {
+        {  //~112,InitialRequest@
             var commandText1 = LoadPort1.CommandInitialRequest();
             NoteCommand(commandText1);//~002,Present,1@
             var commandText2 = LoadPort2.CommandInitialRequest();
@@ -93,7 +93,7 @@ namespace MvAssistant.Mac.TestMy.Device
         /// <summary>(100)</summary>
         [TestMethod]
         public void TestCommandDockRequest()
-        {   
+        {    //~100,DockRequest@
             var commandText1 = LoadPort1.CommandDockRequest();
             NoteCommand(commandText1);
            Repeat();
@@ -102,7 +102,7 @@ namespace MvAssistant.Mac.TestMy.Device
         /// <summary>(101)</summary>
         [TestMethod] 
         public void TestCommandUndockRequest()
-        { 
+        { //~101,UndockRequest@
             var commandText2 = LoadPort2.CommandUndockRequest();
             NoteCommand(commandText2);
             Repeat();
