@@ -102,9 +102,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 uni.HalConnect();
                 ic.HalConnect();
 
+                ic.ReadRobotIntrude(false);
                 ic.Initial();
                 ic.XYPosition(200, 100);
-                ic.ZPosition(-50);
+                ic.ZPosition(-30);
                 ic.WPosition(51);
             }
         }
