@@ -88,20 +88,20 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]//[V] 2020/06/22
         public void INI()
         {
-
-           string commText=    Drawer_01_01_01.CommandINI();
+            // ~901,TrayMotioning@~115,TrayArrive,0@
+            string commText =    Drawer_01_01_01.CommandINI();
             Repeat();
 
         }
         [TestMethod]// [V] 2020/06/23
         public void SetMotionSpeed()
-        {
+        {   // ~100,ReplySetSpeed,1@
             string commText = Drawer_01_01_01.CommandSetMotionSpeed(100);
             Repeat(); 
         }
         [TestMethod] // [V]  2020/06/23
         public void SetTimeOut()
-        {
+        {   //~101,ReplySetTimeOut,1@
             string commText = Drawer_01_01_01.CommandSetTimeOut(100);
             Repeat();
         }

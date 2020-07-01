@@ -95,8 +95,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              */
 
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandInitialRequest);
-            //  var commandText1 = LoadPort1.CommandInitialRequest();
-            //   NoteCommand(commandText1);//~002,Present,1@
+              var commandText1 = LoadPort1.CommandInitialRequest();
+               NoteCommand(commandText1);//~002,Present,1@
             var commandText2 = LoadPort2.CommandInitialRequest();
              NoteCommand(commandText2);
             Repeat();
@@ -114,10 +114,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              * | ~202,VacuumAbnormality@~017,StagePosition,3@ |  ~018,LoadportStatus,3@]
              */
 
-            // var commandText1 = LoadPort1.CommandDockRequest();
-             //NoteCommand(commandText1);
-            var commandText2 = LoadPort2.CommandDockRequest();
-            NoteCommand(commandText2);
+             var commandText1 = LoadPort1.CommandDockRequest();
+             NoteCommand(commandText1);
+            //var commandText2 = LoadPort2.CommandDockRequest();
+          //  NoteCommand(commandText2);
             Repeat();
         }
 
@@ -157,7 +157,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              */
 
              var commandText1 =LoadPort1.CommandAskPlacementStatus();
-                NoteCommand(commandText1);
+             NoteCommand(commandText1);
             
             var commandText2 = LoadPort2.CommandAskPlacementStatus();
             NoteCommand(commandText2);
@@ -196,8 +196,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              * */
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskClamperStatus);
-           // var commandText1 =LoadPort1.CommandAskClamperStatus();
-           // NoteCommand(commandText1);
+            var commandText1 =LoadPort1.CommandAskClamperStatus();
+            NoteCommand(commandText1);
            
             var commandText2 = LoadPort2.CommandAskClamperStatus();
             NoteCommand(commandText2);
@@ -264,8 +264,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              */
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskVacuumStatus);
-          //  var commandText1 = LoadPort1.CommandAskVacuumStatus();
-          //  NoteCommand(commandText1);
+            var commandText1 = LoadPort1.CommandAskVacuumStatus();
+            NoteCommand(commandText1);
 
             var commandText2 = LoadPort2.CommandAskVacuumStatus();
             NoteCommand(commandText2);
@@ -309,8 +309,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
              * ]
              */
             //  LoadPort1.SetOriginalMethod(LoadPort1.CommandAlarmReset);
-           // var commandText1 = LoadPort1.CommandAlarmReset();
-           //  NoteCommand(commandText1);
+            var commandText1 = LoadPort1.CommandAlarmReset();
+             NoteCommand(commandText1);
 
             var commandText2 = LoadPort2.CommandAlarmReset();
             NoteCommand(commandText2);
@@ -334,8 +334,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandAskStagePosition);
-           // var commandText1 = LoadPort1.CommandAskStagePosition();
-           // NoteCommand(commandText1);
+            var commandText1 = LoadPort1.CommandAskStagePosition();
+            NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandAskStagePosition();
            NoteCommand(commandText2);
             Repeat();
@@ -355,8 +355,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             // LoadPort1.ReleaseCommandCasadeMode(); ??
             // LoadPort1.SetOriginalMethod(LoadPort1.CommandAskLoadportStatus);
-            //var commandText1 = LoadPort1.CommandAskLoadportStatus();
-           // NoteCommand(commandText1);
+           var commandText1 = LoadPort1.CommandAskLoadportStatus();
+            NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandAskLoadportStatus();
            NoteCommand(commandText2);
             Repeat();
@@ -459,8 +459,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             // LoadPort1.CommandInitialRequest();//[~018,LoadportStatus,2@],[ ~202,VacuumAbnormality@~018,LoadportStatus,3@]
 
             //LoadPort1.SetOriginalMethod(LoadPort1.CommandManualStageUp);
-            //var commandText1 = LoadPort1.CommandManualStageUp();
-            //NoteCommand(commandText1);
+           var commandText1 = LoadPort1.CommandManualStageUp();
+            NoteCommand(commandText1);
             var commandText2 = LoadPort2.CommandManualStageUp();
             NoteCommand(commandText2);
             Repeat();
