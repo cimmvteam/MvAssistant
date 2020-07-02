@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode
 {
-   public enum EventClamperUnlockCompleteCode
+   public enum EventClamperLockCompleteCode
     {
-        Lock=0,
-        Unlock =1
+        /// <summary>Clamper 關閉</summary>
+        Unlock = 0,
+        /// <summary>Clamper 開啟</summary>
+        Lock =1,
+        
     }
 }

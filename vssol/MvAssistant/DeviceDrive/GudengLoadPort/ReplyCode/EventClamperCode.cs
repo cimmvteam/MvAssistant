@@ -8,8 +8,11 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode
 {
    public  enum EventClamperCode
     {
-        Unlock=0,
-        Lock=1,
+        /// <summary>Clamper 關閉</summary>
+        Unlock =0,
+        /// <summary>Clamper 打開</summary>
+        Lock =1,
+        /// <summary>Clamper 不在定位需復歸</summary>
         NotOnFixedPosition=2
     }
 }

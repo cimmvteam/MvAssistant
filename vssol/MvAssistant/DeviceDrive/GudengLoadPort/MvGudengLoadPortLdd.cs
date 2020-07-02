@@ -606,25 +606,25 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         
 
 
-        /// <summary>Event ClamperUnlockComplete(006)</summary>
+        /// <summary>Event ClamperLockComplete(006)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>
         /// <para>1. Load貨完成後開啟Clamper</para>
         /// <para>2. 收到AskClamperStatus</para>
         /// </remarks>
-        public void ClamperUnlockComplete(ReturnFromServer rtnFromServer)
+        public void ClamperLockComplete(ReturnFromServer rtnFromServer)
         {
             // rtnCode: Clamper 關閉/開啟  
-            var rtnCode = (EventClamperUnlockCompleteCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+            var rtnCode = (EventClamperLockCompleteCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
            
-            if (OnClamperUnlockCompleteHandler != null)
+            if (OnClamperLockCompleteHandler != null)
             {
-                var eventArgs = new OnClamperUnlockCompleteEventArgs(rtnCode);
-                OnClamperUnlockCompleteHandler.Invoke(this, eventArgs);
+                var eventArgs = new OnClamperLockCompleteEventArgs(rtnCode);
+                OnClamperLockCompleteHandler.Invoke(this, eventArgs);
             }
         }
-        public event EventHandler OnClamperUnlockCompleteHandler = null;
-        public void ResetOnClamperUnlockCompleteHandler()  { OnClamperUnlockCompleteHandler = null; }
+        public event EventHandler OnClamperLockCompleteHandler = null;
+        public void ResetOnClamperLockCompleteHandler()  { OnClamperLockCompleteHandler = null; }
        
 
 
@@ -717,18 +717,18 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public event EventHandler OnUndockCompleteHandler = null;
         public void ResetOnUndockCompleteHandler() { OnUndockCompleteHandler = null; }
 
-        /// <summary>Event ClamperLockComplete(012)</summary>
+        /// <summary>Event ClamperUnlockComplete(012)</summary>
         /// <param name="rtnFromServer"></param>
-        public void ClamperLockComplete(ReturnFromServer rtnFromServer)
+        public void ClamperUnlockComplete(ReturnFromServer rtnFromServer)
         {
         
-            if (OnClamperLockCompleteHandler != null)
+            if (OnClamperUnlockCompleteHandler != null)
             {
-                OnClamperLockCompleteHandler.Invoke(this, EventArgs.Empty);
+                OnClamperUnlockCompleteHandler.Invoke(this, EventArgs.Empty);
             }
         }
-        public event EventHandler OnClamperLockCompleteHandler = null;
-        public void ResetOnClamperLockCompleteHandler() { OnClamperLockCompleteHandler = null; }
+        public event EventHandler OnClamperUnlockCompleteHandler = null;
+        public void ResetOnClamperUnlockCompleteHandler() { OnClamperUnlockCompleteHandler = null; }
 
 
 
@@ -1027,15 +1027,15 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         public void ResetOnClamperLockPositionFailed() { OnClamperLockPositionFailed = null; }
 
 
-        /// <summary>Alarm CoverDisappear(208)</summary>
+        /// <summary>Alarm PODPresentAbnormality(208)</summary>
         /// <param name="rtnFromServer"></param>
-        /// <remarks>POD上蓋被人員強行取走</remarks>
-        public void CoverDisappear(ReturnFromServer rtnFromServer)
+        /// <remarks>POD上下蓋脫離定位</remarks>
+        public void PODPresentAbnormality(ReturnFromServer rtnFromServer)
         {
-             if (OnCoverDisappearHandler != null) { OnCoverDisappearHandler.Invoke(this, EventArgs.Empty); }
+             if (OnPODPresentAbnormalityHandler != null) { OnPODPresentAbnormalityHandler.Invoke(this, EventArgs.Empty); }
         }
-        public event EventHandler OnCoverDisappearHandler = null;
-        public void ResetOnCoverDisappearHandler() { OnCoverDisappearHandler = null; }
+        public event EventHandler OnPODPresentAbnormalityHandler = null;
+        public void ResetOnPODPresentAbnormalityHandler() { OnPODPresentAbnormalityHandler = null; }
 
         /// <summary>Alarm ClamperMotorAbnormality(209)</summary>
         /// <param name="rtnFromServer"></param>

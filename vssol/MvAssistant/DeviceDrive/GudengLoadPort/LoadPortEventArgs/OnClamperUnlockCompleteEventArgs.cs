@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs
 {
-    public class OnClamperUnlockCompleteEventArgs : EventArgs
+    public class OnClamperLockCompleteEventArgs : EventArgs
     {
-        public EventClamperUnlockCompleteCode ReturnCode { get; private set; }
-        private OnClamperUnlockCompleteEventArgs() { }
-        public OnClamperUnlockCompleteEventArgs(EventClamperUnlockCompleteCode rtnCode) : this() { ReturnCode = rtnCode; }
+        public EventClamperLockCompleteCode ReturnCode { get; private set; }
+        private OnClamperLockCompleteEventArgs() { }
+        public OnClamperLockCompleteEventArgs(EventClamperLockCompleteCode rtnCode) : this() { ReturnCode = rtnCode; }
     }
 }

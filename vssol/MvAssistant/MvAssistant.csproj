@@ -89,7 +89,7 @@
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnPlacementEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventBarcodeIDCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperCode.cs" />
-    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperUnlockCompleteCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperLockCompleteCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventPlacementCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventPresentCode.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventStagePositionCode.cs" />

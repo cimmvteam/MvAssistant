@@ -39,13 +39,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 loadport.OnBarcode_IDHandler += this.OnBarcode_ID;//005
                 loadport.OnClamperActionTimeOutHandler += this.OnClamperActionTimeOut;// 200
                 loadport.OnClamperHandler += this.OnClamper;//003
-                loadport.OnClamperLockCompleteHandler += this.OnClamperLockComplete;//012
+                loadport.OnClamperUnlockCompleteHandler += this.OnClamperLockComplete;//012
                 loadport.OnClamperLockPositionFailed += this.OnClamperLockPositionFailed;//207
                 loadport.OnClamperMotorAbnormality += this.OnClamperMotorAbnormality;//209
                 loadport.OnClamperNotLockHandler += this.OnClamperNotLock;//022
-                loadport.OnClamperUnlockCompleteHandler += this.OnClamperUnlockComplete;//006
+                loadport.OnClamperLockCompleteHandler += this.OnClamperUnlockComplete;//006
                 loadport.OnClamperUnlockPositionFailedHandler += this.OnClamperUnlockPositionFailed;//201
-                loadport.OnCoverDisappearHandler += this.OnCoverDisappear;//208
+                loadport.OnPODPresentAbnormalityHandler += this.OnCoverDisappear;//208
                 loadport.OnDockPODComplete_EmptyHandler += this.OnDockPODComplete_Empty;//010
                 loadport.OnDockPODComplete_HasReticleHandler += this.OnDockPODComplete_HasReticle;// 009
                 loadport.OnDockPODStartHandler += this.OnDockPODStart;//008
@@ -714,7 +714,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         private void OnClamperUnlockComplete(object sender, EventArgs args)
         {
             var loadport = (MvGudengLoadPortLdd)sender;
-            var eventArgs = (OnClamperUnlockCompleteEventArgs)args;
+            var eventArgs = (OnClamperLockCompleteEventArgs)args;
             NoteEventResult($"IP={loadport.ServerEndPoint.Address.ToString()},  ClamperUnlockComplete", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
         }
         private void OnVacuumComplete(object sender, EventArgs args)
