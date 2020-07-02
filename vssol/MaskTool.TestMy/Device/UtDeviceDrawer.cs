@@ -9,6 +9,7 @@ using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using System.Diagnostics;
 
 namespace MvAssistant.Mac.TestMy.Device
 {
@@ -54,7 +55,7 @@ namespace MvAssistant.Mac.TestMy.Device
         }
 
 
-
+        /// <summary>產生 Drawer</summary>
         private void InitialDrawers()
         {
             var deviceEndPoint = new IPEndPoint(IPAddress.Parse(ClientIP_01_01_01), RemotePort);
@@ -89,20 +90,23 @@ namespace MvAssistant.Mac.TestMy.Device
         public void INI()
         {
             // ~901,TrayMotioning@~115,TrayArrive,0@
-            string commText =    Drawer_01_01_01.CommandINI();
+            string commandText =    Drawer_01_01_01.CommandINI();
+            NoteCommand(commandText);
             Repeat();
 
         }
         [TestMethod]// [V] 2020/06/23
         public void SetMotionSpeed()
         {   // ~100,ReplySetSpeed,1@
-            string commText = Drawer_01_01_01.CommandSetMotionSpeed(100);
+            string commandText = Drawer_01_01_01.CommandSetMotionSpeed(100);
+            NoteCommand(commandText);
             Repeat(); 
         }
         [TestMethod] // [V]  2020/06/23
         public void SetTimeOut()
         {   //~101,ReplySetTimeOut,1@
-            string commText = Drawer_01_01_01.CommandSetTimeOut(100);
+            string commandText = Drawer_01_01_01.CommandSetTimeOut(100);
+            NoteCommand(commandText);
             Repeat();
         }
 
@@ -114,7 +118,8 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]//[V] 2020/06/23
         public void TrayMotionHome()
         {
-            string commText = Drawer_01_01_01.CommandTrayMotionHome();
+            string commandText = Drawer_01_01_01.CommandTrayMotionHome();
+            NoteCommand(commandText);
             Repeat();
 
         }
@@ -122,61 +127,63 @@ namespace MvAssistant.Mac.TestMy.Device
         public void TrayMotionOut()
         {
 
-            string commText = Drawer_01_01_01.CommandTrayMotionOut();
+            string commandText = Drawer_01_01_01.CommandTrayMotionOut();
+            NoteCommand(commandText);
             Repeat();
 
         }
         [TestMethod]//[V] 2020/06/23
         public void TrayMotionIn()
         {
-            string commText = Drawer_01_01_01.CommandTrayMotionIn();
-
+            string commandText = Drawer_01_01_01.CommandTrayMotionIn();
+            NoteCommand(commandText);
             Repeat();
         }
         [TestMethod]//[V] 2020/06/22
         public void BrightLEDAllOn()
         {
 
-            string commText = Drawer_01_01_01.CommandBrightLEDAllOn();
+            string commandText = Drawer_01_01_01.CommandBrightLEDAllOn();
+            NoteCommand(commandText);
         }
         [TestMethod]//[V] 2020/06/22
         public void BrightLedAllOff()
         {
 
-            string commText = Drawer_01_01_01.CommandBrightLEDAllOff();
-
+            string commandText = Drawer_01_01_01.CommandBrightLEDAllOff();
+            NoteCommand(commandText);
 
         }
         [TestMethod]//[V] 2020/06/22
         public void BrightLEDGreenOn()
         {
 
-            string commText = Drawer_01_01_01.CommandBrightLEDGreenOn();
-
+            string commandText = Drawer_01_01_01.CommandBrightLEDGreenOn();
+            NoteCommand(commandText);
 
         }
         [TestMethod]// [V] 2020/06/22
         public void BrightLEDRedOn()
         {
 
-            string commText = Drawer_01_01_01.CommandBrightLEDRedOn();
-
+            string commandText = Drawer_01_01_01.CommandBrightLEDRedOn();
+            NoteCommand(commandText);
 
         }
         [TestMethod]// [V] 2020/06/22
         public void PositionRead()
         {
 
-            string commText = Drawer_01_01_01.CommandPositionRead();
-
+            string commandText = Drawer_01_01_01.CommandPositionRead();
+            NoteCommand(commandText);
 
         }
         [TestMethod]//[V] No Box ,2020.06/22; [] Has Box
         public void BoxDetection()
         {
 
-            string commText = Drawer_01_01_01.CommandBoxDetection();
-
+            string commandText = Drawer_01_01_01.CommandBoxDetection();
+            NoteCommand(commandText);
 
         }
         [TestMethod]
@@ -191,7 +198,8 @@ namespace MvAssistant.Mac.TestMy.Device
         public void LCDMsg()
         {
 
-            string commText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
+            string commandText = Drawer_01_01_01.CommandLCDMsg("01_01\r\ntSMC Setting");
+            NoteCommand(commandText);
             //"~141,LCDCMsg,1@
             Repeat();
         }
@@ -221,12 +229,13 @@ namespace MvAssistant.Mac.TestMy.Device
             var eventArgs = (OnReplyTrayMotionEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {  // 成功
-
+              
             }
             else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
             { // 失敗
-
+               
             }
+            NoteEvent(drawer, nameof(OnReplyTrayMotion), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })" );
         }
         /// <summary>Event ReplySetSpeed(100)</summary>
         /// <param name="sender"></param>
@@ -243,6 +252,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
+            NoteEvent(drawer, nameof(OnReplySetSpeed), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
         }
         /// <summary>Event ReplySetTimeOut(101)</summary>
         /// <param name="sender"></param>
@@ -259,6 +269,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
+            NoteEvent(drawer, nameof(OnReplySetTimeOut), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
         }
 
         /// <summary>Event ReplySetBrightLED(112)</summary> 
@@ -276,6 +287,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
+            NoteEvent(drawer, nameof(OnReplyBrightLED), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
         }
 
         /// <summary>Event ReplyPosition(113)</summary>
@@ -286,6 +298,7 @@ namespace MvAssistant.Mac.TestMy.Device
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyPositionEventArgs)args;
             var IHO = eventArgs.IHOStatus;
+            NoteEvent(drawer, nameof(OnReplyPosition), $"I={eventArgs.I}, H={eventArgs.H}, O={eventArgs.O},  IHO={IHO}");
 
         }
 
@@ -297,6 +310,7 @@ namespace MvAssistant.Mac.TestMy.Device
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBoxDetectionEventArgs)args;
             var hasBox = eventArgs.HasBox;
+            NoteEvent(drawer, nameof(OnReplyBoxDetection), $"HasBox={hasBox}");
         }
 
         /// <summary>Event TrayArrive(115)</summary>
@@ -318,6 +332,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
+            NoteEvent(drawer, nameof(OnTrayArrive), $"{eventArgs.TrayArriveType.ToString()}({(int)eventArgs.TrayArriveType})");
         }
 
         /// <summary>Event ButtonEvent(120)</summary>
@@ -326,7 +341,7 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnButtonEvent(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-
+            NoteEvent(drawer, nameof(OnButtonEvent));
         }
         //"~141,LCDCMsg,1@
         public void OnLCDCMsg(object sender,EventArgs args)
@@ -336,7 +351,7 @@ namespace MvAssistant.Mac.TestMy.Device
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             { }
             else { }
-
+            NoteEvent(drawer, nameof(OnLCDCMsg), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode})");
         }
         /// <summary>Event TimeOutEvent(900)</summary>
         /// <param name="sender"></param>
@@ -344,6 +359,7 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTimeOutEvent(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            NoteEvent(drawer, nameof(OnTimeOutEvent));
         }
 
         /// <summary>Event TrayMotioning(901)</summary>
@@ -352,7 +368,8 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTrayMotioning(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-
+            
+            NoteEvent(drawer, nameof(OnTrayMotioning));
         }
 
         /// <summary>Event INIFailed(902)</summary>
@@ -361,6 +378,7 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnINIFailed(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            NoteEvent(drawer, nameof(OnINIFailed));
         }
 
         /// <summary>Event TrayMotionError(903)</summary>
@@ -369,6 +387,8 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTryMotionError(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            NoteEvent(drawer, nameof(OnTryMotionError));
+
         }
 
         /// <summary>Event TrayMotionError(903)</summary>
@@ -377,6 +397,7 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTrayMotionSensorOFF(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
         }
 
 
@@ -395,6 +416,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
+            NoteEvent(drawer, nameof(OnError),$"{eventArgs.ReplyErrorCode.ToString()}({(int)eventArgs.ReplyErrorCode})");
         }
         /// <summary>Even SystemStartUp</summary>
         /// <param name="sender"></param>
@@ -402,12 +424,32 @@ namespace MvAssistant.Mac.TestMy.Device
         public void OnSysStartUp(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            NoteEvent(drawer, nameof(OnSysStartUp));
         }
 
         #endregion
 
+        #region Auxiliary
+        public void NoteCommand(string commandText)
+        {
+            Debug.WriteLine(commandText);
+        }
+        public void NoteEvent(MvKjMachineDrawerLdd drawer, string eventName,string result="")
+        {
+            var endIP = drawer.DeviceIP;
+            eventName = eventName.Replace("On","");
+            if (result == "")
+            {
+                Debug.WriteLine($"IP={endIP}, Event={eventName}");
+            }
+            else
+            {
+                Debug.WriteLine($"IP={endIP}, Event={eventName}, Result={result}");
+            }
+        }
+        #endregion
 
-    [TestMethod]
+        [TestMethod]
         public void TestMethod1()
         {
             using (var drawer = new MvKjMachineDrawerCollection())
