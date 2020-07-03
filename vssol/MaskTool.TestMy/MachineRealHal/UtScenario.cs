@@ -761,14 +761,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BoxTransferPathFile()
         {
             BoxrobotTransferPathFile fileObj = new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
-            var path1 = fileObj.FromOpenStageToCabinet01Home_GET_PathFile();
-            var path2 = fileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
-            var path3 = fileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
-            var path4 = fileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
-            Debug.WriteLine(path1);
-            Debug.WriteLine(path2);
-            Debug.WriteLine(path3);
-            Debug.WriteLine(path4);
+            var OpenStageToCabinet01Home_GET = fileObj.FromOpenStageToCabinet01Home_GET_PathFile();
+            var OpenStageToCabinet01Home_PUT = fileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
+            var Cabinet01HomeToOpenStage_GET = fileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
+            var Cabinet01HomeToOpenStage_PUT = fileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
+            var Cabinet01HomeToDrawer_GET = fileObj.FromCabinet01HomeToDrawer_GET_PathFile(BoxrobotTransferLocation.Drawer_01_01);
+            var Cabinet01HomeToDrawer_PUT= fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
+
         }
         [TestMethod]
         public void MaskTransferPathFile()
