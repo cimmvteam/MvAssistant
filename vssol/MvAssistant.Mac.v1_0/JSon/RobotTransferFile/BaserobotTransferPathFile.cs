@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.JSon.PositionInfoFile
+namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
 {
   public  abstract class BaserobotTransferPathFile
     {
