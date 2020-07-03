@@ -754,6 +754,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             catch (Exception ex) { throw ex; }
         }
         #endregion
+        #region BoxRobot
+
+        #endregion
+
         #endregion
         #region CC Action
         [TestMethod]
