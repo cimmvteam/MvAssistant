@@ -4,6 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using System.Diagnostics;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -754,8 +756,42 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             catch (Exception ex) { throw ex; }
         }
         #endregion
-        #region BoxRobot
-
+        #region TransferPathFile
+        [TestMethod]
+        public void BoxTransferPathFile()
+        {
+            BoxrobotTransferPathFile fileObj = new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
+            var path1 = fileObj.FromOpenStageToCabinet01Home_GET_PathFile();
+            var path2 = fileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
+            var path3 = fileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
+            var path4 = fileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
+            Debug.WriteLine(path1);
+            Debug.WriteLine(path2);
+            Debug.WriteLine(path3);
+            Debug.WriteLine(path4);
+        }
+        [TestMethod]
+        public void MaskTransferPathFile()
+        {
+            MaskrobotTransferPathFile fileObj = new MaskrobotTransferPathFile(@"D:\Positions\MTRobot\");
+            var loadPortHomePath = fileObj.LoadPortHomePathFile();
+            var InspChHomePath = fileObj.InspChHomePathFile();
+            var cleanChHomePath = fileObj.CleanChHomePathFile();
+            var LPHomeToLP1Path = fileObj.FromLPHomeToLP1PathFile();
+            var LPHomeToLP2Path = fileObj.FromLPHomeToLP2PathFile();
+            var LP1ToLPHomePath = fileObj.FromLP1ToLPHomePathFile();
+            var LP2ToLPHomePath = fileObj.FromLP2ToLPHomePathFile();
+            var LPHomeToOSPath = fileObj.FromLPHomeToOSPathFile();
+            var OSToLPHomePath= fileObj.FromOSToLPHomePathFile();
+            var ICHomeFrontSideToICPath = fileObj.FromICHomeFrontSideToICPathFile();
+            var ICHomeBackSideToICPath = fileObj.FromICHomeBackSideToICPathFile();
+            var ICFrontSideToICHomePath = fileObj.FromICFrontSideToICHomePathFile();
+            var ICBackSideToICHomePath = fileObj.FromICBackSideToICHomePathFile();
+            var CCHomeFrontSideToCleanPath = fileObj.FromCCHomeFrontSideToCleanPathFile();
+            var CCHomeFrontSideToCameraPath = fileObj.FromCCHomeFrontSideToCameraPathFile();
+            var CCHomeBackSideToCleanPath = fileObj.FromCCHomeBackSideToCleanPathFile();
+            var CCHomeBackSideToCameraPath = fileObj.FromCCHomeBackSideToCameraPathFile();
+        }
         #endregion
 
         #endregion

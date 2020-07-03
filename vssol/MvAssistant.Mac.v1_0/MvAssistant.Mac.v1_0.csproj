@@ -137,6 +137,7 @@
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferLocation.cs" />
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferActionType.cs" />
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferPathFile.cs" />
+    <Compile Include="JSon\RobotTransferFile\MaskrobotTransferLocation.cs" />
     <Compile Include="JSon\RobotTransferFile\MaskrobotTransferPathFile.cs" />
     <Compile Include="Manifest\MacEnumDevice.cs" />
     <Compile Include="Manifest\MacEnumPositionId.cs" />

@@ -13,7 +13,7 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         /// <summary>前進到 Cabinet</summary>
         Forward,
         /// <summary>回到Home</summary>
-        Backword        
+        Backward        
     }
 
     public static class BoxrobotTransferDirectionExtends

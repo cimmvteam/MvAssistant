@@ -11,9 +11,9 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
     {
         Dontcare=0,
         /// <summary>取</summary>
-        Get ,
+       GET,
         /// <summary>放</summary>
-        Put
+        PUT
     }
     public static class BoxrobotTransferActionTypeExtends
     {
