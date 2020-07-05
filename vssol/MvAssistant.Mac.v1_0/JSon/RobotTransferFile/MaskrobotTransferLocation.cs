@@ -25,7 +25,18 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         CCHomeFrontSide,
         Clean,
         Camera,
-        CCHomeBackSide
+        Capture,
+        CC,
+        CCHomeBackSide,
+        CCFrontSide,
+        CCHome,
+        CCBackSide,
+        DeformInsp,
+        FrontSideCleanFinish,
+        FrontSideCaptureFinish,
+        BackSideCleanFinish,
+        BackSideCapture,
+        
     }
     public static class MaskrobotTransferLocationExtends
     {

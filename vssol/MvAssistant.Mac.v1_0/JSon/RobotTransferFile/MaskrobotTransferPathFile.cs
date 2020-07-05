@@ -62,6 +62,18 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.OS, MaskrobotTransferLocation.LPHome);
         }
+
+        public string FromICHomeToDeformInspPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICHome, MaskrobotTransferLocation.DeformInsp);
+        }
+
+        public string FromDeformInspTICHomeoPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.DeformInsp, MaskrobotTransferLocation.ICHome);
+        }
+
+
         public string FromICHomeFrontSideToICPathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICHomeFrontSide, MaskrobotTransferLocation.IC);
@@ -78,11 +90,64 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICBackSide, MaskrobotTransferLocation.ICHome);
         }
+        public string FromCCHomeFrontSideToCCPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCHomeFrontSide, MaskrobotTransferLocation.CC);
+        }
+
+        public string FromCCFrontSideToCCHomePathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCFrontSide, MaskrobotTransferLocation.CCHome);
+        }
+
+        public string FromCCFrontSideToCleanPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCFrontSide, MaskrobotTransferLocation.Clean);
+        }
+
+        public string FromFrontSideCleanFinishToCCPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.FrontSideCleanFinish, MaskrobotTransferLocation.CC);
+        }
+        public string FromCCFrontSideToCapturePathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCFrontSide, MaskrobotTransferLocation.Capture);
+        }
+        public string FromFrontSideCaptureFinishToCCPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.FrontSideCaptureFinish, MaskrobotTransferLocation.CC);
+        }
+        public string FromCCHomeBackSideToCCPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCHomeBackSide, MaskrobotTransferLocation.CC);
+        }
+        public string FromCCBackSideToCCHomePathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCBackSide, MaskrobotTransferLocation.CCHome);
+        }
+        public string FromCCBackSideToCleanPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCBackSide, MaskrobotTransferLocation.Clean);
+        }
+        public string FromBackSideCleanFinishToCCPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.BackSideCleanFinish, MaskrobotTransferLocation.CC);
+        }
+        public string FromCCBackSideToCapturePathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCBackSide, MaskrobotTransferLocation.Capture);
+        }
+         public string FromBackSideCaptureFinishToCCPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.BackSideCapture, MaskrobotTransferLocation.CC);
+        }
+
+        /**
         public string FromCCHomeFrontSideToCleanPathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCHomeFrontSide, MaskrobotTransferLocation.Clean);
         }
-
+        
         public string FromCCHomeFrontSideToCameraPathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCHomeFrontSide, MaskrobotTransferLocation.Camera);
@@ -95,5 +160,6 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCHomeBackSide, MaskrobotTransferLocation.Camera);
         }
+    */
     }
 }
