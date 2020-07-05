@@ -770,7 +770,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var Cabinet01HomeToDrawer_PUT= fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
 
         }
-        /*
+        
         [TestMethod]
         public void MaskTransferPathFile()
         {
@@ -804,7 +804,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var BackSideCaptureFinishToCCPath = fileObj.FromBackSideCaptureFinishToCCPathFile();  //270
                                                                                   
         }
-    */
+    
         #endregion
 
         #endregion
