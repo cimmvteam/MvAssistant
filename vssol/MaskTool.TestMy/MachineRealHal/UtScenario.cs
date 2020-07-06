@@ -6,6 +6,7 @@ using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System.Diagnostics;
+using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -1067,8 +1068,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                    HalBase drawer;
-                    cabinet.Hals.TryGetValue("cabinet_drawer_0101",out drawer);
+                    HalBase hbaseDrawer;
+                    cabinet.Hals.TryGetValue("cabinet_drawer_01_01",out hbaseDrawer);
+                    MacHalDrawerKjMachine drawer = (MacHalDrawerKjMachine)hbaseDrawer;
                 }
             }
             catch (Exception ex)
