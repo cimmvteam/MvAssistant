@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode
 {
    public  enum EventPlacementCode
     {
-        HasNoPlacemment=0,
+        NoPlacemment=0,
         HasPlacement =1,
     }
 }
