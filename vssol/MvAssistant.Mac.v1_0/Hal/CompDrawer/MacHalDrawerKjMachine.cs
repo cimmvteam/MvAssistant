@@ -51,10 +51,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             Ldd.PositionReadResult += this.PositionReadResult;
             Ldd.SetMotionSpeedResult += this.SetMotionSpeedResult;
             Ldd.SetTimeOutResult += this.SetTimeOutResult;
-            Ldd.TrayMotionHomeResult += this.TrayMotionHomeResult;
-            Ldd.TrayMotionInResult += this.TrayMotionInResult;
-            Ldd.TrayMotionOutResult += this.TrayMotionOutResult;
-           
+            // Ldd.TrayMotionHomeResult += this.TrayMotionHomeResult;
+            // Ldd.TrayMotionInResult += this.TrayMotionInResult;
+            //Ldd.TrayMotionOutResult += this.TrayMotionOutResult;
+            Ldd.TrayArriveResult += this.TrayArriveResult;
+
         }
 
 
@@ -84,132 +85,176 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandINI()
         {
+            this.Tag = nameof(CommandINI);
             var commandText = Ldd.CommandINI();
             return commandText;
         }
 
         public string CommandSetMotionSpeed(int speed)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetMotionSpeed);
+            var commandText = Ldd.CommandSetMotionSpeed(speed);
             return commandText;
         }
 
         public string CommandSetTimeOut(int timeoutSeconds)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetTimeOut);
+            var commandText = Ldd.CommandSetTimeOut(timeoutSeconds);
             return commandText;
         }
 
         public string CommandTrayMotionHome()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandTrayMotionHome);
+            var commandText = Ldd.CommandTrayMotionHome();
             return commandText;
         }
 
         public string CommandTrayMotionOut()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandTrayMotionOut);
+            var commandText = Ldd.CommandTrayMotionOut();
             return commandText;
         }
 
         public string CommandTrayMotionIn()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandTrayMotionIn);
+            var commandText = Ldd.CommandTrayMotionIn();
             return commandText;
         }
 
-        public string CommandBrightLED(BrightLEDType brightLEDType)
-        {
-            var commandText = Ldd.CommandINI();
-            return commandText;
-        }
+        
 
         public string CommandBrightLEDAllOn()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandBrightLEDAllOn);
+            var commandText = Ldd.CommandBrightLEDAllOn();
             return commandText;
         }
 
         public string CommandBrightLEDAllOff()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandBrightLEDAllOff);
+            var commandText = Ldd.CommandBrightLEDAllOff();
             return commandText;
         }
 
         public string CommandBrightLEDGreenOn()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandBrightLEDGreenOn);
+            var commandText = Ldd.CommandBrightLEDGreenOn();
             return commandText;
         }
 
         public string CommandBrightLEDRedOn()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandBrightLEDRedOn);
+            var commandText = Ldd.CommandBrightLEDRedOn();
             return commandText;
         }
 
         public string CommandPositionRead()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandPositionRead);
+            var commandText = Ldd.CommandPositionRead();
             return commandText;
         }
 
         public string CommandBoxDetection()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandBoxDetection);
+            var commandText = Ldd.CommandBoxDetection();
             return commandText;
         }
 
         public string CommandWriteNetSetting()
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandWriteNetSetting);
+            var commandText = Ldd.CommandWriteNetSetting();
             return commandText;
         }
 
         public string CommandLCDMsg(string message)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandLCDMsg);
+          var commandText = Ldd.CommandLCDMsg(message);
             return commandText;
         }
 
         public string CommandSetParameterHomePosition(string homePosition)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetParameterHomePosition);
+            var commandText = Ldd.CommandSetParameterHomePosition(homePosition);
             return commandText;
         }
 
         public string CommandSetParameterOutSidePosition(string outsidePosition)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetParameterOutSidePosition);
+            var commandText = Ldd.CommandSetParameterOutSidePosition(outsidePosition);
             return commandText;
         }
 
         public string CommandSetParameterInSidePosition(string insidePosition)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetParameterInSidePosition);
+            var commandText = Ldd.CommandSetParameterInSidePosition(insidePosition);
             return commandText;
         }
 
         public string CommandSetParameterIPAddress(string ipAddress)
         {
-            var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetParameterIPAddress);
+            var commandText = Ldd.CommandSetParameterIPAddress(ipAddress);
             return commandText;
         }
 
         public string CommandSetParameterSubMask(string submaskAddress)
         {
-             var commandText = Ldd.CommandINI();
+            this.Tag = nameof(CommandSetParameterSubMask);
+            var commandText = Ldd.CommandSetParameterSubMask(submaskAddress);
             return commandText;
         }
-
-        public void INIResult(object sender,bool result)
+        public void TrayArriveResult(object sender, int result)
         {
-            if (result)
+            var arriveType = (TrayArriveType)result;
+            if (this.Tag.ToString() == nameof(CommandINI))
             {
-
+                if (arriveType == TrayArriveType.ArriveHome)
+                {
+                    this.INIResult(sender,true);
+                }
             }
             else
             {
+                if (arriveType == TrayArriveType.ArriveHome)
+                { // 回到 Home
+
+
+                }
+                else if (arriveType == TrayArriveType.ArriveIn)
+                { //  回到 In
+
+                }
+                else// if (arriveType == TrayArriveType.ArriveOut)
+                {  // 回到 Out
+
+                }
+            }
+        }
+
+
+        
+        public void INIResult(object sender,bool result)
+        {
+            if (result)
+            {  // 初始化成功
+                
+            }
+            else
+            { // 初始化失敗
 
             }
         }
@@ -217,11 +262,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public void SetMotionSpeedResult(object sender, bool result)
         {
             if (result)
-            {
+            {  // 速度設定成功
 
             }
             else
-            {
+            {  // 速度設定失敗
 
             }
         }
@@ -229,7 +274,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public void SetTimeOutResult(object sender, bool result)
         {
             if (result)
-            {
+            { // 逾時時間設定成功
 
             }
             else
@@ -238,51 +283,48 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
         }
 
-        public void TrayMotionHomeResult(object sender, bool result)
-        {
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
-        public void TrayMotionOutResult(object sender, bool result)
-        {
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
-        public void TrayMotionInResult(object sender, bool result)
-        {
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
+      
+      
         public void BrightLEDResult(object sender, bool result)
         {
+            var command = this.Tag.ToString();
             if (result)
-            {
+            {    // 成功
+               
+                if(command == nameof(CommandBrightLEDAllOff))
+                { // 關掉所有的 led 
+                }
+                else if (command ==nameof(CommandBrightLEDAllOn))
+                {// 打亮所有的led
 
+                }
+                else if (command == nameof(CommandBrightLEDGreenOn))
+                {  // 打亮綠色LED
+
+                }
+                else 
+                {   // 打亮 紅色LED
+
+                }
             }
-            else
-            {
+            else // 失敗
+            {   
+                if (command == nameof(CommandBrightLEDAllOff))
+                { // 關掉所有的 LED
 
+                }
+                else if (command == nameof(CommandBrightLEDAllOn))
+                { // 打亮所有的LED
+
+                }
+                else if (command == nameof(CommandBrightLEDGreenOn))
+                { //打亮綠色的 LED
+
+                }
+                else 
+                {  // 打亮紅色的 LED
+
+                }
             }
         }
        
@@ -294,7 +336,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
             }
             else
-            {
+            {// result 為IOH
 
             }
         }
@@ -302,7 +344,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public void BoxDetectionResult(object sender, bool result)
         {
             if (result)
-            {
+            {  // 有盒子
 
             }
             else
@@ -311,16 +353,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
         }
 
-        public void CommandLCDMsg(object sender, bool result)
+        public void ErrorResult(object sender,int result)
         {
-            if (result)
-            {
+            var errorResult = (ReplyErrorCode)result;
+            if (errorResult == ReplyErrorCode.Error)
+            { // Error
 
             }
-            else
-            {
+            else //if (errorResult == ReplyErrorCode.Recovery)
+            {// Recovery
 
             }
         }
+        
+        
     }
 }

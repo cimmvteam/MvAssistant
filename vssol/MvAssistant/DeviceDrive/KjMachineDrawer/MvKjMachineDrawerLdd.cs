@@ -407,6 +407,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var eventArgs = new OnReplySetSpeedEventArgs(replyResultCode);
                 OnReplySetSpeedHandler.Invoke(this, eventArgs);
             }
+            if(SetMotionSpeedResult!=null)
+            {
+                SetMotionSpeedResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
+            }
+                    
         }
         /// <summary>ReplySetSpeed事件程序</summary>
         public event EventHandler OnReplySetSpeedHandler = null;
@@ -430,6 +435,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             if (OnReplySetTimeOutHandler != null)
             {
                 OnReplySetTimeOutHandler.Invoke(this, eventArgs);
+            }
+            if(SetTimeOutResult != null)
+            {
+                SetTimeOutResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
             }
         }
         /// <summary>ReplySetTimeOut 事件程序</summary>
@@ -506,6 +515,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnReplyPositionHandler.Invoke(this, eventArgs);
 
             }
+            if (PositionReadResult != null) { PositionReadResult.Invoke(this, IHO); }
         }
         /// <summary>ReplyPosition 事件程序</summary>
         public event EventHandler OnReplyPositionHandler= null;
@@ -532,6 +542,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var args = new OnReplyBoxDetectionEventArgs(hasBox);
                 OnReplyBoxDetection.Invoke(this, args);
             }
+            if (BoxDetectionResult != null)
+            {
+                BoxDetectionResult.Invoke(this, hasBox);
+            }
         }
         /// <summary>ReplyBoxDetection 事件程序</summary>
         public event EventHandler OnReplyBoxDetection = null;
@@ -555,6 +569,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var args = new OnTrayArriveEventArgs(trayArriveType);
                 OnTrayArriveHandler.Invoke(this,args);
             }
+           
+             if (this.TrayArriveResult != null) { this.TrayArriveResult.Invoke(this, (int)trayArriveType); }
+          
         }
         /// <summary>TrayArrive 事件程序</summary>
         public event EventHandler OnTrayArriveHandler = null;
@@ -608,6 +625,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnTimeOutEventHandler.Invoke(this, EventArgs.Empty);
             }
+            
         }
         /// <summary>TimeOutEvent事件程序</summary>
         public event EventHandler OnTimeOutEventHandler = null;
@@ -646,6 +664,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                OnINIFailedHandler.Invoke(this, EventArgs.Empty);
             }
+            if(INIResult != null)
+            {
+                INIResult.Invoke(this, false);
+            }
         }
         /// <summary>INIFailed 事件程序</summary>
         public event EventHandler OnINIFailedHandler = null;
@@ -666,6 +688,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnTrayMotionErrorHandler.Invoke(this, EventArgs.Empty);
             }
+           
         }
         /// <summary>TrayMotionError 事件程序</summary>
         public event EventHandler OnTrayMotionErrorHandler = null;
@@ -744,14 +767,20 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public DelegateDrawerBooleanResult INIResult = null;
         public DelegateDrawerBooleanResult SetMotionSpeedResult = null;
         public DelegateDrawerBooleanResult SetTimeOutResult = null;
-        public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
-        public DelegateDrawerBooleanResult TrayMotionOutResult =null;
-        public DelegateDrawerBooleanResult TrayMotionInResult=null;
+       // public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
+      //  public DelegateDrawerBooleanResult TrayMotionOutResult =null;
+      //  public DelegateDrawerBooleanResult TrayMotionInResult=null;
        
        
         public DelegateDrawerBooleanResult BrightLEDResult = null;
         public DelegateDrawerStringResult PositionReadResult = null;
         public DelegateDrawerBooleanResult BoxDetectionResult = null;
+
+        //public DelegateDrawerBooleanResult TrayArriveHomeResult = null;
+        //public DelegateDrawerBooleanResult TrayArriveInResult = null;
+        //public DelegateDrawerBooleanResult TrayArriveOutResult = null;
+        public DelegateDrawerIntResult TrayArriveResult = null;
+       
 
     }
 }

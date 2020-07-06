@@ -26,13 +26,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         void SetTimeOutResult(object sender, bool result);
 
         string CommandTrayMotionHome();
-        void TrayMotionHomeResult(object sender, bool result);
+       // void TrayMotionHomeResult(object sender, bool result);
 
         string CommandTrayMotionOut();
-        void TrayMotionOutResult(object sender, bool result);
+        //void TrayMotionOutResult(object sender, bool result);
 
         string CommandTrayMotionIn();
-        void TrayMotionInResult(object sender, bool result);
+        //void TrayMotionInResult(object sender, bool result);
        
         string CommandBrightLEDAllOn();
         string CommandBrightLEDAllOff();
