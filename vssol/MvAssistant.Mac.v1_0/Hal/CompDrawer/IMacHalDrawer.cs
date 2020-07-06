@@ -33,16 +33,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         void TrayMotionInResult(object sender, bool result);
        
         string CommandBrightLEDAllOn();
-        void BrightLEDAllOnResult(object sender, bool result);
-
         string CommandBrightLEDAllOff();
-        void BrightLEDAllOffResult(object sender, bool result);
-
         string CommandBrightLEDGreenOn();
-        void BrightLEDGreenOnResult(object sender, bool result);
-
         string CommandBrightLEDRedOn();
-        void BrightLEDRedOnResult(object sender, bool result);
+        void BrightLEDResult(object sender, bool result);
 
         string CommandPositionRead();
         void PositionReadResult(object sender, string result);

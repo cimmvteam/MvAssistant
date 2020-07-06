@@ -45,10 +45,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public void BindResult()
         {
             Ldd.BoxDetectionResult += this.BoxDetectionResult;
-            Ldd.BrightLEDAllOffResult += this.BrightLEDAllOffResult;
-            Ldd.BrightLEDAllOnResult += this.BrightLEDAllOnResult;
-            Ldd.BrightLEDGreenOnResult += this.BrightLEDGreenOnResult;
-            Ldd.BrightLEDRedOnResult += this.BrightLEDRedOnResult;
+            // Ldd.BrightLEDAllOffResult += this.BrightLEDAllOffResult;
+            //Ldd.BrightLEDAllOnResult += this.BrightLEDAllOnResult;
+            //Ldd.BrightLEDGreenOnResult += this.BrightLEDGreenOnResult;
+            //Ldd.BrightLEDRedOnResult += this.BrightLEDRedOnResult;
+            Ldd.BrightLEDResult = this.BrightLEDResult;
             Ldd.INIResult += this.INIResult;
             Ldd.PositionReadResult += this.PositionReadResult;
             Ldd.SetMotionSpeedResult += this.SetMotionSpeedResult;
@@ -276,7 +277,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
         }
 
-        public void BrightLEDAllOnResult(object sender, bool result)
+        public void BrightLEDResult(object sender, bool result)
         {
             if (result)
             {
@@ -287,42 +288,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
             }
         }
-
-        public void BrightLEDAllOffResult(object sender, bool result)
-        {
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
-        public void BrightLEDGreenOnResult(object sender, bool result)
-        {
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
-
-        public void BrightLEDRedOnResult(object sender, bool result)
-        {
-            if (result)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
+       
 
         public void PositionReadResult(object sender, string result)
         {

@@ -452,6 +452,10 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnReplyBrightLEDHandler.Invoke(this, eventArgs);
             }
+            if (this.BrightLEDResult!=null)
+            {
+                this.BrightLEDResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
+            }
         }
         /// <summary>ReplyBrightLED 事件程序</summary>
         public event EventHandler OnReplyBrightLEDHandler = null;
@@ -742,10 +746,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
         public DelegateDrawerBooleanResult TrayMotionOutResult =null;
         public DelegateDrawerBooleanResult TrayMotionInResult=null;
-        public DelegateDrawerBooleanResult BrightLEDAllOnResult=null;
-        public DelegateDrawerBooleanResult BrightLEDAllOffResult=null;
-        public DelegateDrawerBooleanResult BrightLEDGreenOnResult = null;
-        public DelegateDrawerBooleanResult BrightLEDRedOnResult =null;
+        //public DelegateDrawerBooleanResult BrightLEDAllOnResult=null;
+        //public DelegateDrawerBooleanResult BrightLEDAllOffResult=null;
+        //public DelegateDrawerBooleanResult BrightLEDGreenOnResult = null;
+        //public DelegateDrawerBooleanResult BrightLEDRedOnResult =null;
+       
+        public DelegateDrawerBooleanResult BrightLEDResult = null;
         public DelegateDrawerStringResult PositionReadResult = null;
         public DelegateDrawerBooleanResult BoxDetectionResult = null;
 
