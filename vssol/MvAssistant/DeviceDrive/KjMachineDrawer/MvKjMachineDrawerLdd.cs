@@ -19,9 +19,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
     public class MvKjMachineDrawerLdd
     {
         /// <summary>Cabinet 編號</summary>        
-        public int CabinetNO { get; private set; }
+        private int CabinetNO { get;  set; }
         /// <summary>Drawer 編號</summary>
-        public string DrawerNO { get; private set; }
+        private string DrawerNO { get;  set; }
         /// <summary>裝置IP</summary>
         public string DeviceIP { get; private set; }
         
@@ -29,7 +29,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         IPEndPoint TargetEndpoint = null;
 
         /// <summary>傳送命令/回收訊息的 Socket</summary>
-        public   Socket UdpSocket = null;
+        private   Socket UdpSocket = null;
 
         /// <summary>監聽回復訊息的 Thread</summary>
         private Thread ListenThread;
@@ -102,7 +102,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
           }
 
         /// <summary>監聽的函式</summary>
-        public void Listen()
+        private void Listen()
         {
             try
             {
@@ -178,6 +178,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
+
+      
 
         /// <summary>Command SetTimeOut(001)</summary>
         /// <param name="timeoutSeconds"></param>
@@ -310,7 +312,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>Command SetParameter(007)</summary>
         /// <param name="setParameterType"></param>
         /// <param name="parameterValue"></param>
-        private string CommandSetParameter(SetParameterType setParameterType, string parameterValue)
+       private string CommandSetParameter(SetParameterType setParameterType, string parameterValue)
         {
             var parameter = new SetParameterParameter {  ParameterValue= parameterValue, SetParameterType=setParameterType };
             var commandText = new SetParameter().GetCommandText(parameter);
@@ -730,8 +732,22 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnSysStartUpHandler = null;
         /// <summary>將SysStartUp 事件程序重設為 null</summary>
         public void ResetOnSysStartUp(){OnSysStartUpHandler = null;}
-        
+
 
         #endregion
+
+        public DelegateDrawerBooleanResult INIResult = null;
+        public DelegateDrawerBooleanResult SetMotionSpeedResult = null;
+        public DelegateDrawerBooleanResult SetTimeOutResult = null;
+        public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
+        public DelegateDrawerBooleanResult TrayMotionOutResult =null;
+        public DelegateDrawerBooleanResult TrayMotionInResult=null;
+        public DelegateDrawerBooleanResult BrightLEDAllOnResult=null;
+        public DelegateDrawerBooleanResult BrightLEDAllOffResult=null;
+        public DelegateDrawerBooleanResult BrightLEDGreenOnResult = null;
+        public DelegateDrawerBooleanResult BrightLEDRedOnResult =null;
+        public DelegateDrawerStringResult PositionReadResult = null;
+        public DelegateDrawerBooleanResult BoxDetectionResult = null;
+
     }
 }

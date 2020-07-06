@@ -1052,5 +1052,30 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             catch (Exception ex) { throw ex; }
         }
         #endregion
+
+        #region Cabinet Action
+
+#region Drawer
+        [TestMethod]
+        public void DrawerLightAllOn()
+        {
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.MvCfLoad();
+
+                   // var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var drawers = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalMaskTransfer;
+                    //var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+#endregion
+        #endregion
     }
 }

@@ -1,4 +1,6 @@
 ﻿using MvAssistant.DeviceDrive.KjMachineDrawer;
+using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,56 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
     public interface IMacHalDrawer: IMacHalComponent
     {
-       
-    }
+#region command
+        string DeviceIP { get; set; }
+        string CommandINI();
+        void  INIResult(object sender,bool result);
 
+        string CommandSetMotionSpeed(int speed);
+        void SetMotionSpeedResult(object sender, bool result);
+
+        string CommandSetTimeOut(int timeoutSeconds);
+        void SetTimeOutResult(object sender, bool result);
+
+        string CommandTrayMotionHome();
+        void TrayMotionHomeResult(object sender, bool result);
+
+        string CommandTrayMotionOut();
+        void TrayMotionOutResult(object sender, bool result);
+
+        string CommandTrayMotionIn();
+        void TrayMotionInResult(object sender, bool result);
+       
+        string CommandBrightLEDAllOn();
+        void BrightLEDAllOnResult(object sender, bool result);
+
+        string CommandBrightLEDAllOff();
+        void BrightLEDAllOffResult(object sender, bool result);
+
+        string CommandBrightLEDGreenOn();
+        void BrightLEDGreenOnResult(object sender, bool result);
+
+        string CommandBrightLEDRedOn();
+        void BrightLEDRedOnResult(object sender, bool result);
+
+        string CommandPositionRead();
+        void PositionReadResult(object sender, string result);
+
+        string CommandBoxDetection();
+        void BoxDetectionResult(object sender, bool result);
+
+        string CommandWriteNetSetting();
+        string CommandLCDMsg(string message);
+
+        string CommandSetParameterHomePosition(string homePosition);
+        string CommandSetParameterOutSidePosition(string outsidePosition);
+        string CommandSetParameterInSidePosition(string insidePosition);
+        string CommandSetParameterIPAddress(string ipAddress);
+        string CommandSetParameterSubMask(string submaskAddress);
+        #endregion
+        
+    }
+    /**
     public class Drawer : IMacHalDrawer
     {
 
@@ -41,5 +90,5 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             throw new NotImplementedException();
         }
-    }
+    }*/
 }
