@@ -24,6 +24,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             var key = string.Format("{0}_{1}", MacEnumDevice.cabinet_drawer, index);
             return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
         }
+        public object CreateDrawer(object param)
+        {
+            throw new NotImplementedException();
+        }
         #endregion Device Components
 
 
@@ -76,6 +80,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public Tuple<bool, bool, bool, bool, bool, bool, bool> ReadLightCurtain()
         { return Plc.ReadLightCurtain(); }
+
+      
         #endregion
 
 
