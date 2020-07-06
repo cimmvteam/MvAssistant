@@ -26,7 +26,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
 
        
-        MvKjMachineDrawerLdd Ldd { get; set; }
+        public  MvKjMachineDrawerLdd Ldd { get; set; }
         public string DeviceIP { get; set; }
 
 
