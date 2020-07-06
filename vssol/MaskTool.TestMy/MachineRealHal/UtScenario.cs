@@ -1073,12 +1073,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                   //  var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                     HalBase hbaseDrawer;
-                    cabinet.Hals.TryGetValue(MacEnumDevice.cabinet_drawer_01_01.ToString(), out hbaseDrawer);
+                    //cabinet.Hals.TryGetValue(MacEnumDevice.cabinet_drawer_01_01.ToString(), out hbaseDrawer);
+                    hbaseDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()];
                     MacHalDrawerKjMachine drawer = (MacHalDrawerKjMachine)hbaseDrawer;
                     drawer.Index = MacEnumDevice.cabinet_drawer_01_01.ToString();
                     if (manager == null)
                     {
-                        manager = new MvKjMachineDrawerManager(Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["local_port"]));
+                        // manager = new MvKjMachineDrawerManager(Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["local_port"]));
+                        var cabinet_plc = cabinet.Hals[MacEnumDevice.cabinet_plc.ToString()];
+                        var startPort = Convert.ToInt32(cabinet_plc.DevSettings["startport"]);
+                        var endPort = Convert.ToInt32(cabinet_plc.DevSettings["endport"]);
+                        var localPort = Convert.ToInt32(cabinet_plc.DevSettings["local_port"]);
+                        manager = new MvKjMachineDrawerManager(startPort,endPort, localPort);
                         manager.ListenSystStartUpEvent();
                     }
                     var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer.DevSettings["ip"]), Convert.ToInt32(drawer.DevSettings["port"]));
