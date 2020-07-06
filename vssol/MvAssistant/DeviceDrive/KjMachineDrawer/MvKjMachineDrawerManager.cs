@@ -89,8 +89,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
             try
             {
-
+                
                 MvKjMachineDrawerLdd drawer = new MvKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
+                
                 Drawers.Add(drawer);
                 return drawer;
             }

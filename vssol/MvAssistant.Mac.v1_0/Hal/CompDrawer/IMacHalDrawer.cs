@@ -12,6 +12,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
     public interface IMacHalDrawer: IMacHalComponent
     {
+        object Tag { get; set; }
+        string Index { get; set; }
 #region command
         string DeviceIP { get; set; }
         string CommandINI();

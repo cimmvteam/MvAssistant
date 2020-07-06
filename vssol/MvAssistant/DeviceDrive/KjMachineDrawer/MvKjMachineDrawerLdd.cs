@@ -246,6 +246,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>Command BrightLED~All on(012)</summary>
         public string CommandBrightLEDAllOn()
         {
+          
             var commandText=CommandBrightLED(BrightLEDType.AllOn);
             return commandText;
         }
@@ -746,10 +747,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
         public DelegateDrawerBooleanResult TrayMotionOutResult =null;
         public DelegateDrawerBooleanResult TrayMotionInResult=null;
-        //public DelegateDrawerBooleanResult BrightLEDAllOnResult=null;
-        //public DelegateDrawerBooleanResult BrightLEDAllOffResult=null;
-        //public DelegateDrawerBooleanResult BrightLEDGreenOnResult = null;
-        //public DelegateDrawerBooleanResult BrightLEDRedOnResult =null;
+       
        
         public DelegateDrawerBooleanResult BrightLEDResult = null;
         public DelegateDrawerStringResult PositionReadResult = null;

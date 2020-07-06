@@ -9,6 +9,7 @@ using System.Diagnostics;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
 using System.Net;
+using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -1074,7 +1075,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     HalBase hbaseDrawer;
                     cabinet.Hals.TryGetValue(MacEnumDevice.cabinet_drawer_01_01.ToString(), out hbaseDrawer);
                     MacHalDrawerKjMachine drawer = (MacHalDrawerKjMachine)hbaseDrawer;
-                   
+                    drawer.Index = MacEnumDevice.cabinet_drawer_01_01.ToString();
                     if (manager == null)
                     {
                         manager = new MvKjMachineDrawerManager(Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["local_port"]));
@@ -1083,8 +1084,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         
                     }
                     var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer.DevSettings["ip"]), Convert.ToInt32(drawer.DevSettings["port"]));
-                    drawer.Ldd = manager.CreateDrawer(0, "", deviceEndPoint, drawer.DevSettings["local_ip"]);
+                    drawer.Ldd = manager.CreateDrawer(0, drawer.Index, deviceEndPoint, drawer.DevSettings["local_ip"]);
                     drawer.BindResult();
+                    drawer.Tag = BrightLEDType.AllOn;
                     drawer.Ldd.CommandBrightLEDAllOn();
                 }
             }

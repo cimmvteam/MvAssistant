@@ -40,15 +40,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             //throw new NotImplementedException();
             return 0;
         }
-
-
+        public object Tag { get; set; }
+        public string Index { get; set; }
         public void BindResult()
         {
             Ldd.BoxDetectionResult += this.BoxDetectionResult;
-            // Ldd.BrightLEDAllOffResult += this.BrightLEDAllOffResult;
-            //Ldd.BrightLEDAllOnResult += this.BrightLEDAllOnResult;
-            //Ldd.BrightLEDGreenOnResult += this.BrightLEDGreenOnResult;
-            //Ldd.BrightLEDRedOnResult += this.BrightLEDRedOnResult;
+           
             Ldd.BrightLEDResult = this.BrightLEDResult;
             Ldd.INIResult += this.INIResult;
             Ldd.PositionReadResult += this.PositionReadResult;
@@ -57,7 +54,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             Ldd.TrayMotionHomeResult += this.TrayMotionHomeResult;
             Ldd.TrayMotionInResult += this.TrayMotionInResult;
             Ldd.TrayMotionOutResult += this.TrayMotionOutResult;
-            //Ldd.
+           
         }
 
 
