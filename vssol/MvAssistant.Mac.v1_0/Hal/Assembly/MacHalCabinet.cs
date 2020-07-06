@@ -3,6 +3,8 @@ using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
+using MvAssistant.DeviceDrive.KjMachineDrawer;
+using System.Collections.Generic;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
@@ -13,6 +15,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #region Device Components
         public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(MacEnumDevice.cabinet_plc); } }
+
+        public Dictionary<string, IMacHalDrawer> Drawers { get; set; }
+        public IMacHalDrawer CreateDrawer(object param)
+        {
+            throw new NotImplementedException();
+        }
         public IMacHalDrawer Drawer(int index)
         {
             var key = string.Format("{0}_{1:000}", MacEnumDevice.cabinet_drawer, index);
@@ -21,12 +29,17 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public IMacHalDrawer Drawer(string index)
         {
-            var key = string.Format("{0}_{1}", MacEnumDevice.cabinet_drawer, index);
-            return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
-        }
-        public object CreateDrawer(object param)
-        {
-            throw new NotImplementedException();
+            //  var key = string.Format("{0}_{1}", MacEnumDevice.cabinet_drawer, index);
+            // return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
+            try
+            {
+                var drawer = Drawers[index];
+                return drawer;
+            }
+            catch(Exception ex)
+            {
+                return default(IMacHalDrawer);
+            }
         }
         #endregion Device Components
 
@@ -82,6 +95,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLightCurtain(); }
 
       
+
+
+
+
+
+
         #endregion
 
 
