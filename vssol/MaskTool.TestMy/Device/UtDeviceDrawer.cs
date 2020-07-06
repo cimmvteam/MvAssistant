@@ -27,7 +27,7 @@ namespace MvAssistant.Mac.TestMy.Device
         //public string ClientIP_01_01_01 = "127.0.0.1";
 
         public MvKjMachineDrawerLdd Drawer_01_01_01 = null;
-        private MvKjMachineDrawerCollection ldd = null;
+        private MvKjMachineDrawerManager ldd = null;
         int PortBegin = 5000;
         int PortEnd = 5999;
         private int ListenStartupPort = 6000;
@@ -64,7 +64,7 @@ namespace MvAssistant.Mac.TestMy.Device
 
         public UtDeviceDrawer()
         {
-            ldd = new MvKjMachineDrawerCollection(PortBegin, PortEnd, ListenStartupPort);
+            ldd = new MvKjMachineDrawerManager(PortBegin, PortEnd, ListenStartupPort);
             InitialDrawers();
             BindEvent();
             ldd.ListenSystStartUpEvent();
@@ -454,7 +454,7 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]
         public void TestMethod1()
         {
-            using (var drawer = new MvKjMachineDrawerCollection())
+            using (var drawer = new MvKjMachineDrawerManager())
             {
                 drawer.ConnectIfNo();
 

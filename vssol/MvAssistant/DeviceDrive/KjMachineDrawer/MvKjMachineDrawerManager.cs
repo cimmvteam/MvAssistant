@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
-    public class MvKjMachineDrawerCollection : IDisposable
+    public class MvKjMachineDrawerManager : IDisposable
     {
       public List<MvKjMachineDrawerLdd> Drawers = null;
       
@@ -19,7 +19,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         //private List<ReceiveInfo> ReceiveInfos = null;
         public SysStartUpEventListener SysStartUpEventListener;
         /// <summary>建構式</summary>
-        public   MvKjMachineDrawerCollection()
+        public   MvKjMachineDrawerManager()
         {
             Drawers = new List<MvKjMachineDrawerLdd>();
             //ReceiveInfos = new List<ReceiveInfo>();
@@ -32,7 +32,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
         /// <param name="bindLocalIp">本地端 繫結 的IP</param>
         /// <param name="bindLocalPort">本地端 繫結 的port</param>
-        public MvKjMachineDrawerCollection(int listenDrawerPortMin,int listenDrawerPortMax,int sysStartUpEventListenPort):this()
+        public MvKjMachineDrawerManager(int listenDrawerPortMin,int listenDrawerPortMax,int sysStartUpEventListenPort):this()
         {
 
             Action initialPortStatusDictionary = () =>{
