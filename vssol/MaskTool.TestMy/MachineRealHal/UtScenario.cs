@@ -1065,9 +1065,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 {
                     halContext.MvCfLoad();
 
-                   // var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
-                    var drawers = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalMaskTransfer;
-                    //var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+                    HalBase drawer;
+                    cabinet.Hals.TryGetValue("cabinet_drawer_0101",out drawer);
                 }
             }
             catch (Exception ex)
