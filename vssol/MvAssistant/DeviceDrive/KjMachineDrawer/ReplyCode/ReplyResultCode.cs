@@ -6,11 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode
 {
+    /// <summary>回傳資料的代碼</summary>
     public enum ReplyResultCode
     {
-        Failed=0,
+        /// <summary>動作失敗</summary>
+        Failed =0,
+        /// <summary>動作成功</summary>
         Set_Successfully=1
     }
 }

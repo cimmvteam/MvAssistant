@@ -5,10 +5,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
+namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 {
-    [Guid("AE0A6C92-6B34-495A-B591-93AE4DF65976")]
-    public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
+
+    [Guid("92529F08-AC00-47CB-9587-6DE72BB2304A")]
+    public class MacHalLoadPortCellGudeng : MacHalComponentBase, IMacHalLoadPortCell
     {
 
         #region Const
@@ -35,6 +36,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         }
 
         #endregion
+
 
     }
 }

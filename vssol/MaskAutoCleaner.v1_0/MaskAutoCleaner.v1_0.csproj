@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\MacMachineMap.cs" />
     <Compile Include="Machine\MacMachineMgr.cs" />
     <Compile Include="Machine\MacMachineMgrCfg.cs" />
     <Compile Include="Inspect\DefectItem.cs" />

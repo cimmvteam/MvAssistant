@@ -14,6 +14,25 @@ namespace MaskAutoCleaner.v1_0.Machine
         public string ManifestCfgPath;
 
 
+        [XmlIgnore] public Dictionary<Type, Type> MachineHalMap = new Dictionary<Type, Type>();
+
+
+        public List<MacMachineMap> MachineHalMapList
+        {
+            get
+            {
+                return (from row in MachineHalMap.ToList()
+                        select new MacMachineMap()
+                        {
+                            HalType = row.Key,
+                            CtrlMachineType = row.Value,
+                        }).ToList();
+            }
+        }
+
+
+
+
 
 
 
@@ -23,14 +42,14 @@ namespace MaskAutoCleaner.v1_0.Machine
         public void SaveToXmlFile(string fn) { MvUtil.SaveToXmlFile(this, fn); }
 
         #region static function
-     
-        
+
+
         /// <summary>
         /// deserialize (反序列化) MachineManifest object from xml file
         /// </summary>
         /// <param name="filePath">xml file path for loading</param>
         /// <returns></returns>
-        public static MacMachineMgrCfg LoadFromXmlFile(string filePath="MacMachineMgr.config") { return MvUtil.LoadFromXmlFile<MacMachineMgrCfg>(filePath); }
+        public static MacMachineMgrCfg LoadFromXmlFile(string filePath = "MacMachineMgr.config") { return MvUtil.LoadFromXmlFile<MacMachineMgrCfg>(filePath); }
         /// <summary>
         /// serialize (序列化) manifest object, and save as xml file
         /// </summary>

@@ -27,8 +27,13 @@ namespace MaskAutoCleaner.v1_0.Machine
         public int MvCfInit()
         {
             this.Mediater = new MacMachineMediater();
-            this.Config = MacMachineMgrCfg.LoadFromXmlFile();
-            this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);
+
+            
+            this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
+            this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
+
+
+
 
 
 

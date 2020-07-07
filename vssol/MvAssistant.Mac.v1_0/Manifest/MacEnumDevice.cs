@@ -156,6 +156,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         cabinet_drawer_019,
         cabinet_drawer_020,
         cabinet_drawer_021,
+        cabinet_drawer_022,
         cabinet_drawer_023,
         cabinet_drawer_024,
         cabinet_drawer_025,
@@ -318,7 +319,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_LP_23: LoadPort Stage
         /// </summary>
-        loadport_stage_1,
+        loadport_cell_001,
 
         /// <summary>
         /// DE_LP_01: Entry Point紅外線(Side)
@@ -355,20 +356,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// </summary>
         loadport_clamper_1,
 
-        /// <summary>
-        /// DE_LP_24: E84 Sensor
-        /// </summary>
-        loadport_e84_1,
 
-        /// <summary>
-        /// DE_LP_26: POD RFID Reader
-        /// </summary>
-        loadport_rfid_reader_1,
-
-        /// <summary>
-        /// DE_LP_27: Plunger
-        /// </summary>
-        loadport_plunger_1,
         #endregion Load Port
 
 

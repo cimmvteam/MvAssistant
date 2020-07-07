@@ -79,7 +79,6 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             this.Check();
 
-
             foreach (var dcv in this.manifest.Devices)
             {
                 this.HalCreate(dcv);
