@@ -149,6 +149,11 @@ namespace MvAssistantMacVerifyEqp
             this.txtBxDetectDrawerC_Click(null, null);
             this.txtBxDetectDrawerD_Click(null, null);
         }
+
+        private void BtnReleaseAllComp_Click(object sender, EventArgs e)
+        {
+            this.grpDrawerAComp.Enabled = this.grpDrawerBComp.Enabled = this.grpDrawerCComp.Enabled = this.grpDrawerDComp.Enabled = true;
+        }
     }
 
 

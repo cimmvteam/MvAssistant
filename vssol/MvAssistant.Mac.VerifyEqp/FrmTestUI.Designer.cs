@@ -31,6 +31,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPageDrawers = new System.Windows.Forms.TabPage();
             this.GrpDrawer = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtDrawerBoxNum = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnInitialAllDrawer = new System.Windows.Forms.Button();
+            this.btnDetectAllDrawers = new System.Windows.Forms.Button();
+            this.btnMoveAllDrawersHome = new System.Windows.Forms.Button();
             this.GrpDrawerD = new System.Windows.Forms.GroupBox();
             this.grpDrawerDComp = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -69,15 +75,11 @@
             this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.btnInitialAllDrawer = new System.Windows.Forms.Button();
-            this.btnMoveAllDrawersHome = new System.Windows.Forms.Button();
-            this.btnDetectAllDrawers = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtDrawerBoxNum = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.BtnReleaseAllComp = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawers.SuspendLayout();
             this.GrpDrawer.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.GrpDrawerD.SuspendLayout();
             this.grpDrawerDComp.SuspendLayout();
             this.GrpDrawerC.SuspendLayout();
@@ -86,7 +88,6 @@
             this.grpDrawerBComp.SuspendLayout();
             this.GrpDrawerA.SuspendLayout();
             this.grpDrawerAComp.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -113,6 +114,7 @@
             // 
             // GrpDrawer
             // 
+            this.GrpDrawer.Controls.Add(this.BtnReleaseAllComp);
             this.GrpDrawer.Controls.Add(this.label5);
             this.GrpDrawer.Controls.Add(this.txtDrawerBoxNum);
             this.GrpDrawer.Controls.Add(this.groupBox1);
@@ -126,6 +128,66 @@
             this.GrpDrawer.TabIndex = 1;
             this.GrpDrawer.TabStop = false;
             this.GrpDrawer.Text = "Drawers";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(675, 424);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 12);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Box  數量:";
+            // 
+            // txtDrawerBoxNum
+            // 
+            this.txtDrawerBoxNum.Location = new System.Drawing.Point(736, 421);
+            this.txtDrawerBoxNum.Name = "txtDrawerBoxNum";
+            this.txtDrawerBoxNum.ReadOnly = true;
+            this.txtDrawerBoxNum.Size = new System.Drawing.Size(31, 22);
+            this.txtDrawerBoxNum.TabIndex = 7;
+            this.txtDrawerBoxNum.Text = "0";
+            this.txtDrawerBoxNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnInitialAllDrawer);
+            this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
+            this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
+            this.groupBox1.Location = new System.Drawing.Point(808, 395);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(440, 55);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            // 
+            // btnInitialAllDrawer
+            // 
+            this.btnInitialAllDrawer.Location = new System.Drawing.Point(6, 21);
+            this.btnInitialAllDrawer.Name = "btnInitialAllDrawer";
+            this.btnInitialAllDrawer.Size = new System.Drawing.Size(126, 23);
+            this.btnInitialAllDrawer.TabIndex = 4;
+            this.btnInitialAllDrawer.Text = "Initial All Drawers";
+            this.btnInitialAllDrawer.UseVisualStyleBackColor = true;
+            this.btnInitialAllDrawer.Click += new System.EventHandler(this.btnInitialAllDrawer_Click);
+            // 
+            // btnDetectAllDrawers
+            // 
+            this.btnDetectAllDrawers.Location = new System.Drawing.Point(310, 21);
+            this.btnDetectAllDrawers.Name = "btnDetectAllDrawers";
+            this.btnDetectAllDrawers.Size = new System.Drawing.Size(115, 23);
+            this.btnDetectAllDrawers.TabIndex = 6;
+            this.btnDetectAllDrawers.Text = "Detect All Drawers";
+            this.btnDetectAllDrawers.UseVisualStyleBackColor = true;
+            this.btnDetectAllDrawers.Click += new System.EventHandler(this.btnDetectAllDrawers_Click);
+            // 
+            // btnMoveAllDrawersHome
+            // 
+            this.btnMoveAllDrawersHome.Location = new System.Drawing.Point(141, 21);
+            this.btnMoveAllDrawersHome.Name = "btnMoveAllDrawersHome";
+            this.btnMoveAllDrawersHome.Size = new System.Drawing.Size(162, 23);
+            this.btnMoveAllDrawersHome.TabIndex = 5;
+            this.btnMoveAllDrawersHome.Text = "Move All Drawers Home";
+            this.btnMoveAllDrawersHome.UseVisualStyleBackColor = true;
+            this.btnMoveAllDrawersHome.Click += new System.EventHandler(this.btnMoveAllDrawersHome_Click);
             // 
             // GrpDrawerD
             // 
@@ -520,65 +582,15 @@
             this.tabPage1.Text = "BoxTransfer";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // btnInitialAllDrawer
+            // BtnReleaseAllComp
             // 
-            this.btnInitialAllDrawer.Location = new System.Drawing.Point(6, 21);
-            this.btnInitialAllDrawer.Name = "btnInitialAllDrawer";
-            this.btnInitialAllDrawer.Size = new System.Drawing.Size(126, 23);
-            this.btnInitialAllDrawer.TabIndex = 4;
-            this.btnInitialAllDrawer.Text = "Initial All Drawers";
-            this.btnInitialAllDrawer.UseVisualStyleBackColor = true;
-            this.btnInitialAllDrawer.Click += new System.EventHandler(this.btnInitialAllDrawer_Click);
-            // 
-            // btnMoveAllDrawersHome
-            // 
-            this.btnMoveAllDrawersHome.Location = new System.Drawing.Point(141, 21);
-            this.btnMoveAllDrawersHome.Name = "btnMoveAllDrawersHome";
-            this.btnMoveAllDrawersHome.Size = new System.Drawing.Size(162, 23);
-            this.btnMoveAllDrawersHome.TabIndex = 5;
-            this.btnMoveAllDrawersHome.Text = "Move All Drawers Home";
-            this.btnMoveAllDrawersHome.UseVisualStyleBackColor = true;
-            this.btnMoveAllDrawersHome.Click += new System.EventHandler(this.btnMoveAllDrawersHome_Click);
-            // 
-            // btnDetectAllDrawers
-            // 
-            this.btnDetectAllDrawers.Location = new System.Drawing.Point(310, 21);
-            this.btnDetectAllDrawers.Name = "btnDetectAllDrawers";
-            this.btnDetectAllDrawers.Size = new System.Drawing.Size(115, 23);
-            this.btnDetectAllDrawers.TabIndex = 6;
-            this.btnDetectAllDrawers.Text = "Detect All Drawers";
-            this.btnDetectAllDrawers.UseVisualStyleBackColor = true;
-            this.btnDetectAllDrawers.Click += new System.EventHandler(this.btnDetectAllDrawers_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnInitialAllDrawer);
-            this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
-            this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
-            this.groupBox1.Location = new System.Drawing.Point(808, 395);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(440, 55);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            // 
-            // txtDrawerBoxNum
-            // 
-            this.txtDrawerBoxNum.Location = new System.Drawing.Point(736, 421);
-            this.txtDrawerBoxNum.Name = "txtDrawerBoxNum";
-            this.txtDrawerBoxNum.ReadOnly = true;
-            this.txtDrawerBoxNum.Size = new System.Drawing.Size(31, 22);
-            this.txtDrawerBoxNum.TabIndex = 7;
-            this.txtDrawerBoxNum.Text = "0";
-            this.txtDrawerBoxNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(675, 424);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 12);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Box  數量:";
+            this.BtnReleaseAllComp.Location = new System.Drawing.Point(17, 413);
+            this.BtnReleaseAllComp.Name = "BtnReleaseAllComp";
+            this.BtnReleaseAllComp.Size = new System.Drawing.Size(186, 23);
+            this.BtnReleaseAllComp.TabIndex = 7;
+            this.BtnReleaseAllComp.Text = "Release All Drawer Component";
+            this.BtnReleaseAllComp.UseVisualStyleBackColor = true;
+            this.BtnReleaseAllComp.Click += new System.EventHandler(this.BtnReleaseAllComp_Click);
             // 
             // FrmTestUI
             // 
@@ -593,6 +605,7 @@
             this.TabPageDrawers.ResumeLayout(false);
             this.GrpDrawer.ResumeLayout(false);
             this.GrpDrawer.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.GrpDrawerD.ResumeLayout(false);
             this.grpDrawerDComp.ResumeLayout(false);
             this.grpDrawerDComp.PerformLayout();
@@ -605,7 +618,6 @@
             this.GrpDrawerA.ResumeLayout(false);
             this.grpDrawerAComp.ResumeLayout(false);
             this.grpDrawerAComp.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -659,5 +671,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.TextBox txtDrawerBoxNum;
+        private System.Windows.Forms.Button BtnReleaseAllComp;
     }
 }
