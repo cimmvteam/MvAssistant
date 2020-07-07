@@ -1,4 +1,7 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer;
+﻿using MvAssistant.DeviceDrive.GudengLoadPort;
+using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
+using MvAssistant.DeviceDrive.KjMachineDrawer;
 using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
 using System;
@@ -423,8 +426,316 @@ namespace MvAssistantMacVerifyEqp
         }
 
     }
-    public class TestLoadPort
+    public class TestLoadPorts
     {
-        
+        private FrmTestUI MyForm = null;
+        public  MvGudengLoadPortLdd LoadPort1 = null;
+       public MvGudengLoadPortLdd LoadPort2 = null;
+        MvGudengLoadPortCollection ldd = new MvGudengLoadPortCollection();
+        string LoadPortAIP = "192.168.0.20";
+        int LoadPportAPort = 1024;
+        string LoadPortBIP = "192.168.0.21";
+        int LoadportBPort = 1024;
+        private TestLoadPorts()
+        {
+
+            LoadPort1 = ldd.CreateLoadPort(LoadPortAIP, LoadPportAPort, 1);
+            // LoadPort1 = ldd.CreateLoadPort("127.0.0.1", 1024, 1);
+            LoadPort2 = ldd.CreateLoadPort(LoadPortBIP, LoadportBPort, 2);
+            BindEventHandler();
+
+            LoadPort1.StartListenServerThread();
+            LoadPort2.StartListenServerThread();
+        }
+
+        public TestLoadPorts(FrmTestUI myForm) : this()
+        {
+            MyForm = myForm;
+        }
+        public void BindEventHandler()
+        {
+            foreach (var loadport in ldd.LoadPorts)
+            {
+                loadport.OnAlarmResetFailHandler += this.OnAlarmResetFail;//014
+                loadport.OnAlarmResetSuccessHandler += this.OnAlarmResetSuccess;//013
+                loadport.OnBarcode_IDHandler += this.OnBarcode_ID;//005
+                loadport.OnClamperActionTimeOutHandler += this.OnClamperActionTimeOut;// 200
+                loadport.OnClamperHandler += this.OnClamper;//003
+                loadport.OnClamperUnlockCompleteHandler += this.OnClamperUnlockComplete;//012
+                loadport.OnClamperLockPositionFailed += this.OnClamperLockPositionFailed;//207
+                loadport.OnClamperMotorAbnormality += this.OnClamperMotorAbnormality;//209
+                loadport.OnClamperNotLockHandler += this.OnClamperNotLock;//022
+                loadport.OnClamperLockCompleteHandler += this.OnClamperLockComplete;//006
+                loadport.OnClamperUnlockPositionFailedHandler += this.OnClamperUnlockPositionFailed;//201
+                loadport.OnPODPresentAbnormalityHandler += this.OnPODPresentAbnormality;//208
+                loadport.OnDockPODComplete_EmptyHandler += this.OnDockPODComplete_Empty;//010
+                loadport.OnDockPODComplete_HasReticleHandler += this.OnDockPODComplete_HasReticle;// 009
+                loadport.OnDockPODStartHandler += this.OnDockPODStart;//008
+                loadport.OnExecuteAlarmResetFirstHandler += this.OnExecuteAlarmResetFirst;// 016
+                loadport.OnExecuteInitialFirstHandler += this.OnExecuteInitialFirst;//015
+                loadport.OnInitialCompleteHandler += this.OnInitialComplete;//019
+                loadport.OnInitialUnCompleteHandler += this.OnInitialUnComplete; // 自訂
+                loadport.OnLoadportStatusHandler += this.OnLoadportStatus;// 018
+                loadport.OnMustInAutoModeHandler += this.OnMustInAutoMode;//020
+                loadport.OnPlacementHandler += this.OnPlacement;//001
+                loadport.OnPODNotPutProperlyHandler += this.OnPODNotPutProperly;//023
+                loadport.OnPresentHandler += this.OnPresent;//002
+                loadport.OnReticlePositionAbnormalityHandler += this.OnReticlePositionAbnormality;//206
+                loadport.OnRFIDHandler += this.OnRFID;//004
+                loadport.OnStageMotionTimeoutHandler += this.OnStageMotionTimeout;//203
+                loadport.OnStageMotorAbnormality += this.OnStageMotorAbnormality;//210
+                loadport.OnStageOverDownLimitationHandler += this.OnStageOverDownLimitation;//205
+                loadport.OnStageOverUpLimitationHandler += this.OnStageOverUpLimitation;//204
+                loadport.OnStagePositionHandler += this.OnStagePosition;//017
+                loadport.OnUndockCompleteHandler += this.OnUndockComplete;//011
+                loadport.OnVacuumAbnormalityHandler += this.OnVacuumAbnormality;//202
+                loadport.OnVacuumCompleteHandler += this.OnVacuumComplete;//007
+                loadport.OnMustInManualModeHandler += this.OnMustInManualMode;// 021
+
+            }
+        }
+
+        #region Event Handler
+        private void OnPlacement(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnPlacementEventArgs)args;
+            //NoteEventResult($"IP={loadport.ServerEndPoint},Event={nameof(OnPlacement).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+
+        private void OnPresent(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnPresentEventArgs)args;
+            //NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnPresent).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+
+        private void OnClamper(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnClamperEventArgs)args;
+            //NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnClamper).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+        private void OnRFID(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnRFIDEventArgs)args;
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnRFID).Replace("On", "")}", "RFID:" + eventArgs.RFID);
+        }
+        private void OnBarcode_ID(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnBarcode_IDEventArgs)args;
+            if (eventArgs.ReturnCode == EventBarcodeIDCode.Success)
+            {
+                //NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnBarcode_ID).Replace("On", "")}", "Barcode ID:" + eventArgs.BarcodeID);
+            }
+            else
+            {
+                // NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnBarcode_ID).Replace("On", "")}", "請取 Barcode ID失敗");
+            }
+        }
+        private void OnClamperLockComplete(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            // var s = nameof(OnClamperLockComplete);
+            var eventArgs = (OnClamperLockCompleteEventArgs)args;
+            // NoteEventResult($"IP={loadport.ServerEndPoint},   Event={nameof(OnClamperLockComplete).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+        private void OnVacuumComplete(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnVacuumCompleteEventArgs)args;
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnVacuumComplete).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+        private void OnDockPODStart(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnDockPODStart).Replace("On", "")}");
+        }
+
+
+        private void OnDockPODComplete_HasReticle(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnDockPODComplete_HasReticle).Replace("On", "")}");
+        }
+        private void OnDockPODComplete_Empty(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnDockPODComplete_Empty).Replace("On", "")}");
+        }
+
+        private void OnUndockComplete(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnUndockComplete).Replace("On", "")}");
+        }
+
+        private void OnClamperUnlockComplete(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnClamperUnlockComplete).Replace("On", "")}");
+        }
+
+        private void OnAlarmResetSuccess(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            if (loadport.HasInvokeOriginalMethod)
+            {
+                loadport.InvokeOriginalMethod();
+            }
+            // NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnAlarmResetSuccess).Replace("On", "")}");
+        }
+        private void OnAlarmResetFail(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnAlarmResetFail).Replace("On", "")}");
+
+        }
+        private void OnExecuteInitialFirst(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            /**
+            if (loadport.HasInvokeOriginalMethod)
+            {
+                loadport.CommandInitialRequest();
+            }
+    */
+            // NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnExecuteInitialFirst).Replace("On", "")}");
+        }
+        private void OnExecuteAlarmResetFirst(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            /**
+            if (loadport.HasInvokeOriginalMethod)
+            {
+                loadport.CommandAlarmReset();
+            }*/
+            //  NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnExecuteAlarmResetFirst).Replace("On", "")}");
+        }
+        private void OnStagePosition(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnStagePositionEventArgs)args;
+            //  NoteEventResult($"IP={loadport.ServerEndPoint},   Event={nameof(OnStagePosition).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+        private void OnLoadportStatus(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            var eventArgs = (OnLoadportStatusEventArgs)args;
+            // NoteEventResult($"IP={loadport.ServerEndPoint},   Event={nameof(OnLoadportStatus).Replace("On", "")}", eventArgs.ReturnCode.ToString() + "(" + (int)eventArgs.ReturnCode + ")");
+        }
+        private void OnInitialComplete(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            /**
+            if (loadport.HasInvokeOriginalMethod)
+            {
+                loadport.CommandAlarmReset();
+            }*/
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnInitialComplete).Replace("On", "")}");
+
+        }
+
+        /// <summary>自訂的未完成初始事件</summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void OnInitialUnComplete(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnInitialUnComplete).Replace("On", "")}");
+        }
+        private void OnMustInAutoMode(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            //  NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnMustInAutoMode).Replace("On", "")}");
+        }
+
+        private void OnMustInManualMode(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnMustInManualMode).Replace("On", "")}");
+        }
+
+        private void OnClamperNotLock(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnClamperNotLock).Replace("On", "")}");
+        }
+
+        private void OnPODNotPutProperly(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            //  NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnPODNotPutProperly).Replace("On", "")}");
+        }
+        #endregion
+
+        #region Alarm Handler
+        private void OnClamperActionTimeOut(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            // NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnClamperActionTimeOut).Replace("On", "")}");
+
+        }
+        private void OnClamperUnlockPositionFailed(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+
+            // NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnClamperUnlockPositionFailed).Replace("On", "")}");
+        }
+        private void OnVacuumAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnVacuumAbnormality).Replace("On", "")}");
+        }
+        private void OnStageMotionTimeout(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnStageMotionTimeout).Replace("On", "")}");
+        }
+        private void OnStageOverUpLimitation(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            // NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnStageOverUpLimitation).Replace("On", "")}");
+        }
+        private void OnStageOverDownLimitation(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnStageOverDownLimitation).Replace("On", "")}");
+        }
+        private void OnReticlePositionAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnReticlePositionAbnormality).Replace("On", "")}");
+        }
+        private void OnClamperLockPositionFailed(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            // NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnClamperLockPositionFailed).Replace("On", "")}");
+        }
+        private void OnPODPresentAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnPODPresentAbnormality).Replace("On", "")}");
+        }
+        private void OnClamperMotorAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnClamperMotorAbnormality).Replace("On", "")}");
+        }
+        private void OnStageMotorAbnormality(object sender, EventArgs args)
+        {
+            var loadport = (MvGudengLoadPortLdd)sender;
+            //  NoteAlarmResult($"IP={loadport.ServerEndPoint},  Alarm={nameof(OnStageMotorAbnormality).Replace("On", "")}");
+        }
+        #endregion
     }
 }

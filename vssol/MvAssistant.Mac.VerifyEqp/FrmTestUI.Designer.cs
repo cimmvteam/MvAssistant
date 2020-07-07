@@ -73,9 +73,20 @@
             this.btnInitialDrawerA = new System.Windows.Forms.Button();
             this.chkBoxDrawerAHasbox = new System.Windows.Forms.CheckBox();
             this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.TabLoadPorts = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.BtnReleaseAllComp = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpLoadPorts = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.grpLoadportB = new System.Windows.Forms.GroupBox();
+            this.btnLoadportBBarcode = new System.Windows.Forms.Button();
+            this.btnLoadportBRFID = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.btnLoadPortBAlarmReset = new System.Windows.Forms.Button();
+            this.txtBxLoadPortBRFID = new System.Windows.Forms.TextBox();
+            this.txtBxLoadPortBBarcode = new System.Windows.Forms.TextBox();
+            this.txtBxLoportBResult = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawers.SuspendLayout();
             this.GrpDrawer.SuspendLayout();
@@ -88,35 +99,38 @@
             this.grpDrawerBComp.SuspendLayout();
             this.GrpDrawerA.SuspendLayout();
             this.grpDrawerAComp.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.grpLoadPorts.SuspendLayout();
+            this.grpLoadportB.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.TabPageDrawers);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.TabLoadPorts);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1567, 739);
+            this.tabControl1.Size = new System.Drawing.Size(1399, 739);
             this.tabControl1.TabIndex = 4;
             // 
             // TabPageDrawers
             // 
+            this.TabPageDrawers.Controls.Add(this.grpLoadPorts);
             this.TabPageDrawers.Controls.Add(this.GrpDrawer);
             this.TabPageDrawers.Location = new System.Drawing.Point(4, 22);
             this.TabPageDrawers.Name = "TabPageDrawers";
             this.TabPageDrawers.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageDrawers.Size = new System.Drawing.Size(1559, 713);
+            this.TabPageDrawers.Size = new System.Drawing.Size(1391, 713);
             this.TabPageDrawers.TabIndex = 0;
-            this.TabPageDrawers.Text = "Drawers";
+            this.TabPageDrawers.Text = "Drawers & LoadPorts";
             this.TabPageDrawers.UseVisualStyleBackColor = true;
             // 
             // GrpDrawer
             // 
+            this.GrpDrawer.Controls.Add(this.groupBox2);
             this.GrpDrawer.Controls.Add(this.BtnReleaseAllComp);
-            this.GrpDrawer.Controls.Add(this.label5);
-            this.GrpDrawer.Controls.Add(this.txtDrawerBoxNum);
             this.GrpDrawer.Controls.Add(this.groupBox1);
             this.GrpDrawer.Controls.Add(this.GrpDrawerD);
             this.GrpDrawer.Controls.Add(this.GrpDrawerC);
@@ -124,7 +138,7 @@
             this.GrpDrawer.Controls.Add(this.GrpDrawerA);
             this.GrpDrawer.Location = new System.Drawing.Point(6, 6);
             this.GrpDrawer.Name = "GrpDrawer";
-            this.GrpDrawer.Size = new System.Drawing.Size(1260, 475);
+            this.GrpDrawer.Size = new System.Drawing.Size(1260, 438);
             this.GrpDrawer.TabIndex = 1;
             this.GrpDrawer.TabStop = false;
             this.GrpDrawer.Text = "Drawers";
@@ -132,7 +146,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(675, 424);
+            this.label5.Location = new System.Drawing.Point(6, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 12);
             this.label5.TabIndex = 8;
@@ -140,7 +154,7 @@
             // 
             // txtDrawerBoxNum
             // 
-            this.txtDrawerBoxNum.Location = new System.Drawing.Point(736, 421);
+            this.txtDrawerBoxNum.Location = new System.Drawing.Point(67, 15);
             this.txtDrawerBoxNum.Name = "txtDrawerBoxNum";
             this.txtDrawerBoxNum.ReadOnly = true;
             this.txtDrawerBoxNum.Size = new System.Drawing.Size(31, 22);
@@ -153,7 +167,7 @@
             this.groupBox1.Controls.Add(this.btnInitialAllDrawer);
             this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
             this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
-            this.groupBox1.Location = new System.Drawing.Point(808, 395);
+            this.groupBox1.Location = new System.Drawing.Point(808, 372);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(440, 55);
             this.groupBox1.TabIndex = 7;
@@ -194,7 +208,7 @@
             this.GrpDrawerD.Controls.Add(this.grpDrawerDComp);
             this.GrpDrawerD.Location = new System.Drawing.Point(637, 205);
             this.GrpDrawerD.Name = "GrpDrawerD";
-            this.GrpDrawerD.Size = new System.Drawing.Size(613, 169);
+            this.GrpDrawerD.Size = new System.Drawing.Size(613, 163);
             this.GrpDrawerD.TabIndex = 3;
             this.GrpDrawerD.TabStop = false;
             this.GrpDrawerD.Text = "D(192.168.0.54)";
@@ -287,7 +301,7 @@
             this.GrpDrawerC.Controls.Add(this.grpDrawerCComp);
             this.GrpDrawerC.Location = new System.Drawing.Point(6, 205);
             this.GrpDrawerC.Name = "GrpDrawerC";
-            this.GrpDrawerC.Size = new System.Drawing.Size(613, 169);
+            this.GrpDrawerC.Size = new System.Drawing.Size(613, 163);
             this.GrpDrawerC.TabIndex = 2;
             this.GrpDrawerC.TabStop = false;
             this.GrpDrawerC.Text = "C(192.168.0.50)";
@@ -301,7 +315,7 @@
             this.grpDrawerCComp.Controls.Add(this.btnInitialDrawerC);
             this.grpDrawerCComp.Controls.Add(this.chkBoxDrawerCHasbox);
             this.grpDrawerCComp.Controls.Add(this.txtBxDetectDrawerC);
-            this.grpDrawerCComp.Location = new System.Drawing.Point(11, 17);
+            this.grpDrawerCComp.Location = new System.Drawing.Point(11, 9);
             this.grpDrawerCComp.Name = "grpDrawerCComp";
             this.grpDrawerCComp.Size = new System.Drawing.Size(593, 146);
             this.grpDrawerCComp.TabIndex = 9;
@@ -562,15 +576,15 @@
             this.txtBxDetectDrawerA.UseVisualStyleBackColor = true;
             this.txtBxDetectDrawerA.Click += new System.EventHandler(this.txtBxDetectDrawerA_Click);
             // 
-            // tabPage2
+            // TabLoadPorts
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1559, 713);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.TabLoadPorts.Location = new System.Drawing.Point(4, 22);
+            this.TabLoadPorts.Name = "TabLoadPorts";
+            this.TabLoadPorts.Padding = new System.Windows.Forms.Padding(3);
+            this.TabLoadPorts.Size = new System.Drawing.Size(1391, 713);
+            this.TabLoadPorts.TabIndex = 1;
+            this.TabLoadPorts.Text = "LoadPorts";
+            this.TabLoadPorts.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -584,13 +598,121 @@
             // 
             // BtnReleaseAllComp
             // 
-            this.BtnReleaseAllComp.Location = new System.Drawing.Point(17, 413);
+            this.BtnReleaseAllComp.Location = new System.Drawing.Point(5, 380);
             this.BtnReleaseAllComp.Name = "BtnReleaseAllComp";
             this.BtnReleaseAllComp.Size = new System.Drawing.Size(186, 23);
             this.BtnReleaseAllComp.TabIndex = 7;
             this.BtnReleaseAllComp.Text = "Release All Drawer Component";
             this.BtnReleaseAllComp.UseVisualStyleBackColor = true;
             this.BtnReleaseAllComp.Click += new System.EventHandler(this.BtnReleaseAllComp_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.txtDrawerBoxNum);
+            this.groupBox2.Location = new System.Drawing.Point(683, 372);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(119, 55);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            // 
+            // grpLoadPorts
+            // 
+            this.grpLoadPorts.Controls.Add(this.grpLoadportB);
+            this.grpLoadPorts.Controls.Add(this.groupBox3);
+            this.grpLoadPorts.Location = new System.Drawing.Point(6, 459);
+            this.grpLoadPorts.Name = "grpLoadPorts";
+            this.grpLoadPorts.Size = new System.Drawing.Size(1260, 235);
+            this.grpLoadPorts.TabIndex = 2;
+            this.grpLoadPorts.TabStop = false;
+            this.grpLoadPorts.Text = "LoadPorts";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Location = new System.Drawing.Point(3, 18);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(200, 189);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // grpLoadportB
+            // 
+            this.grpLoadportB.Controls.Add(this.txtBxLoportBResult);
+            this.grpLoadportB.Controls.Add(this.txtBxLoadPortBBarcode);
+            this.grpLoadportB.Controls.Add(this.txtBxLoadPortBRFID);
+            this.grpLoadportB.Controls.Add(this.btnLoadPortBAlarmReset);
+            this.grpLoadportB.Controls.Add(this.button3);
+            this.grpLoadportB.Controls.Add(this.btnLoadportBRFID);
+            this.grpLoadportB.Controls.Add(this.btnLoadportBBarcode);
+            this.grpLoadportB.Location = new System.Drawing.Point(475, 21);
+            this.grpLoadportB.Name = "grpLoadportB";
+            this.grpLoadportB.Size = new System.Drawing.Size(361, 208);
+            this.grpLoadportB.TabIndex = 0;
+            this.grpLoadportB.TabStop = false;
+            this.grpLoadportB.Text = "Load port B(192.168.0.21)";
+            // 
+            // btnLoadportBBarcode
+            // 
+            this.btnLoadportBBarcode.Location = new System.Drawing.Point(6, 114);
+            this.btnLoadportBBarcode.Name = "btnLoadportBBarcode";
+            this.btnLoadportBBarcode.Size = new System.Drawing.Size(138, 23);
+            this.btnLoadportBBarcode.TabIndex = 0;
+            this.btnLoadportBBarcode.Text = "Load Port B Barcode";
+            this.btnLoadportBBarcode.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadportBRFID
+            // 
+            this.btnLoadportBRFID.Location = new System.Drawing.Point(6, 177);
+            this.btnLoadportBRFID.Name = "btnLoadportBRFID";
+            this.btnLoadportBRFID.Size = new System.Drawing.Size(138, 23);
+            this.btnLoadportBRFID.TabIndex = 1;
+            this.btnLoadportBRFID.Text = "Load Port B RFID";
+            this.btnLoadportBRFID.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(162, 179);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(180, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Initial Load port B";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadPortBAlarmReset
+            // 
+            this.btnLoadPortBAlarmReset.Location = new System.Drawing.Point(162, 149);
+            this.btnLoadPortBAlarmReset.Name = "btnLoadPortBAlarmReset";
+            this.btnLoadPortBAlarmReset.Size = new System.Drawing.Size(180, 23);
+            this.btnLoadPortBAlarmReset.TabIndex = 3;
+            this.btnLoadPortBAlarmReset.Text = "Alarm Reset Load Port B";
+            this.btnLoadPortBAlarmReset.UseVisualStyleBackColor = true;
+            this.btnLoadPortBAlarmReset.Click += new System.EventHandler(this.btnLoadPortBAlarmReset_Click);
+            // 
+            // txtBxLoadPortBRFID
+            // 
+            this.txtBxLoadPortBRFID.Location = new System.Drawing.Point(6, 149);
+            this.txtBxLoadPortBRFID.Name = "txtBxLoadPortBRFID";
+            this.txtBxLoadPortBRFID.ReadOnly = true;
+            this.txtBxLoadPortBRFID.Size = new System.Drawing.Size(138, 22);
+            this.txtBxLoadPortBRFID.TabIndex = 4;
+            // 
+            // txtBxLoadPortBBarcode
+            // 
+            this.txtBxLoadPortBBarcode.Location = new System.Drawing.Point(6, 86);
+            this.txtBxLoadPortBBarcode.Name = "txtBxLoadPortBBarcode";
+            this.txtBxLoadPortBBarcode.ReadOnly = true;
+            this.txtBxLoadPortBBarcode.Size = new System.Drawing.Size(138, 22);
+            this.txtBxLoadPortBBarcode.TabIndex = 5;
+            // 
+            // txtBxLoportBResult
+            // 
+            this.txtBxLoportBResult.Location = new System.Drawing.Point(162, 21);
+            this.txtBxLoportBResult.Multiline = true;
+            this.txtBxLoportBResult.Name = "txtBxLoportBResult";
+            this.txtBxLoportBResult.ReadOnly = true;
+            this.txtBxLoportBResult.Size = new System.Drawing.Size(180, 116);
+            this.txtBxLoportBResult.TabIndex = 6;
             // 
             // FrmTestUI
             // 
@@ -604,7 +726,6 @@
             this.tabControl1.ResumeLayout(false);
             this.TabPageDrawers.ResumeLayout(false);
             this.GrpDrawer.ResumeLayout(false);
-            this.GrpDrawer.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.GrpDrawerD.ResumeLayout(false);
             this.grpDrawerDComp.ResumeLayout(false);
@@ -618,6 +739,11 @@
             this.GrpDrawerA.ResumeLayout(false);
             this.grpDrawerAComp.ResumeLayout(false);
             this.grpDrawerAComp.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.grpLoadPorts.ResumeLayout(false);
+            this.grpLoadportB.ResumeLayout(false);
+            this.grpLoadportB.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -631,7 +757,7 @@
         private System.Windows.Forms.GroupBox GrpDrawerC;
         private System.Windows.Forms.GroupBox GrpDrawerB;
         private System.Windows.Forms.GroupBox GrpDrawerA;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage TabLoadPorts;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox txtBxDrawerIPA;
         private System.Windows.Forms.Label label1;
@@ -672,5 +798,16 @@
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.TextBox txtDrawerBoxNum;
         private System.Windows.Forms.Button BtnReleaseAllComp;
+        private System.Windows.Forms.GroupBox grpLoadPorts;
+        private System.Windows.Forms.GroupBox grpLoadportB;
+        private System.Windows.Forms.Button btnLoadPortBAlarmReset;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnLoadportBRFID;
+        private System.Windows.Forms.Button btnLoadportBBarcode;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtBxLoadPortBBarcode;
+        private System.Windows.Forms.TextBox txtBxLoadPortBRFID;
+        private System.Windows.Forms.TextBox txtBxLoportBResult;
     }
 }

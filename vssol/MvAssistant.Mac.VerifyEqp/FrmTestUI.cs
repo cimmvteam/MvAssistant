@@ -14,6 +14,7 @@ namespace MvAssistantMacVerifyEqp
     {
        
         TestDrawers drawers;
+        TestLoadPorts loadPorts;
         public FrmTestUI()
         {
             InitializeComponent();
@@ -25,6 +26,7 @@ namespace MvAssistantMacVerifyEqp
         {
             Control.CheckForIllegalCrossThreadCalls = false;
             drawers = new TestDrawers(this);
+            loadPorts = new TestLoadPorts(this);
         }
 
         private void btnInitialDrawerA_Click(object sender, EventArgs e)
@@ -153,6 +155,11 @@ namespace MvAssistantMacVerifyEqp
         private void BtnReleaseAllComp_Click(object sender, EventArgs e)
         {
             this.grpDrawerAComp.Enabled = this.grpDrawerBComp.Enabled = this.grpDrawerCComp.Enabled = this.grpDrawerDComp.Enabled = true;
+        }
+
+        private void btnLoadPortBAlarmReset_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 
