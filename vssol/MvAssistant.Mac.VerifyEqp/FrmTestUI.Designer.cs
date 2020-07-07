@@ -32,22 +32,52 @@
             this.TabPageDrawers = new System.Windows.Forms.TabPage();
             this.GrpDrawer = new System.Windows.Forms.GroupBox();
             this.GrpDrawerD = new System.Windows.Forms.GroupBox();
+            this.grpDrawerDComp = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBxDrawerDResult = new System.Windows.Forms.TextBox();
+            this.txtBxDrawerIPD = new System.Windows.Forms.TextBox();
+            this.btnMoveDrawerDHome = new System.Windows.Forms.Button();
+            this.btnInitialDrawerD = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.txtBxDetectDrawerD = new System.Windows.Forms.Button();
             this.GrpDrawerC = new System.Windows.Forms.GroupBox();
+            this.grpDrawerCComp = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtBxDrawerCResult = new System.Windows.Forms.TextBox();
+            this.txtBxDrawerIPC = new System.Windows.Forms.TextBox();
+            this.btnMoveDrawerCHome = new System.Windows.Forms.Button();
+            this.btnInitialDrawerC = new System.Windows.Forms.Button();
+            this.chkBoxDrawerCHasbox = new System.Windows.Forms.CheckBox();
+            this.txtBxDetectDrawerC = new System.Windows.Forms.Button();
             this.GrpDrawerB = new System.Windows.Forms.GroupBox();
+            this.grpDrawerBComp = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBxDrawerBResult = new System.Windows.Forms.TextBox();
+            this.txtBxDrawerIPB = new System.Windows.Forms.TextBox();
+            this.btnMoveDrawerBHome = new System.Windows.Forms.Button();
+            this.btnInitialDrawerB = new System.Windows.Forms.Button();
+            this.chkBoxDrawerBHasbox = new System.Windows.Forms.CheckBox();
+            this.txtBxDetectDrawerB = new System.Windows.Forms.Button();
             this.GrpDrawerA = new System.Windows.Forms.GroupBox();
+            this.grpDrawerAComp = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBxDrawerAResult = new System.Windows.Forms.TextBox();
+            this.txtBxDrawerIPA = new System.Windows.Forms.TextBox();
+            this.btnMoveDrawerAHome = new System.Windows.Forms.Button();
+            this.btnInitialDrawerA = new System.Windows.Forms.Button();
+            this.chkBoxDrawerAHasbox = new System.Windows.Forms.CheckBox();
+            this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.txtBxDrawerIPA = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnInitialDrawer1 = new System.Windows.Forms.Button();
-            this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
-            this.chkBoxDrawerAHasbox = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtBxDrawerAResult = new System.Windows.Forms.TextBox();
-            this.grpDrawerAComp = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawers.SuspendLayout();
             this.GrpDrawer.SuspendLayout();
+            this.GrpDrawerD.SuspendLayout();
+            this.grpDrawerDComp.SuspendLayout();
+            this.GrpDrawerC.SuspendLayout();
+            this.grpDrawerCComp.SuspendLayout();
+            this.GrpDrawerB.SuspendLayout();
+            this.grpDrawerBComp.SuspendLayout();
             this.GrpDrawerA.SuspendLayout();
             this.grpDrawerAComp.SuspendLayout();
             this.SuspendLayout();
@@ -89,41 +119,372 @@
             // 
             // GrpDrawerD
             // 
-            this.GrpDrawerD.Location = new System.Drawing.Point(1210, 375);
+            this.GrpDrawerD.Controls.Add(this.grpDrawerDComp);
+            this.GrpDrawerD.Location = new System.Drawing.Point(637, 205);
             this.GrpDrawerD.Name = "GrpDrawerD";
-            this.GrpDrawerD.Size = new System.Drawing.Size(233, 265);
+            this.GrpDrawerD.Size = new System.Drawing.Size(613, 169);
             this.GrpDrawerD.TabIndex = 3;
             this.GrpDrawerD.TabStop = false;
             this.GrpDrawerD.Text = "D(192.168.0.54)";
             // 
+            // grpDrawerDComp
+            // 
+            this.grpDrawerDComp.Controls.Add(this.label4);
+            this.grpDrawerDComp.Controls.Add(this.txtBxDrawerDResult);
+            this.grpDrawerDComp.Controls.Add(this.txtBxDrawerIPD);
+            this.grpDrawerDComp.Controls.Add(this.btnMoveDrawerDHome);
+            this.grpDrawerDComp.Controls.Add(this.btnInitialDrawerD);
+            this.grpDrawerDComp.Controls.Add(this.checkBox2);
+            this.grpDrawerDComp.Controls.Add(this.txtBxDetectDrawerD);
+            this.grpDrawerDComp.Location = new System.Drawing.Point(10, 11);
+            this.grpDrawerDComp.Name = "grpDrawerDComp";
+            this.grpDrawerDComp.Size = new System.Drawing.Size(593, 146);
+            this.grpDrawerDComp.TabIndex = 10;
+            this.grpDrawerDComp.TabStop = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 18);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(55, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Drawer IP:";
+            // 
+            // txtBxDrawerDResult
+            // 
+            this.txtBxDrawerDResult.Location = new System.Drawing.Point(308, 17);
+            this.txtBxDrawerDResult.Multiline = true;
+            this.txtBxDrawerDResult.Name = "txtBxDrawerDResult";
+            this.txtBxDrawerDResult.ReadOnly = true;
+            this.txtBxDrawerDResult.Size = new System.Drawing.Size(272, 116);
+            this.txtBxDrawerDResult.TabIndex = 6;
+            // 
+            // txtBxDrawerIPD
+            // 
+            this.txtBxDrawerIPD.Location = new System.Drawing.Point(65, 17);
+            this.txtBxDrawerIPD.Name = "txtBxDrawerIPD";
+            this.txtBxDrawerIPD.ReadOnly = true;
+            this.txtBxDrawerIPD.Size = new System.Drawing.Size(196, 22);
+            this.txtBxDrawerIPD.TabIndex = 0;
+            this.txtBxDrawerIPD.Text = "192.168.0.54";
+            // 
+            // btnMoveDrawerDHome
+            // 
+            this.btnMoveDrawerDHome.Location = new System.Drawing.Point(89, 87);
+            this.btnMoveDrawerDHome.Name = "btnMoveDrawerDHome";
+            this.btnMoveDrawerDHome.Size = new System.Drawing.Size(88, 23);
+            this.btnMoveDrawerDHome.TabIndex = 5;
+            this.btnMoveDrawerDHome.Text = "Move D Home";
+            this.btnMoveDrawerDHome.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerDHome.Click += new System.EventHandler(this.btnMoveDrawerDHome_Click);
+            // 
+            // btnInitialDrawerD
+            // 
+            this.btnInitialDrawerD.Location = new System.Drawing.Point(8, 87);
+            this.btnInitialDrawerD.Name = "btnInitialDrawerD";
+            this.btnInitialDrawerD.Size = new System.Drawing.Size(75, 23);
+            this.btnInitialDrawerD.TabIndex = 2;
+            this.btnInitialDrawerD.Text = "Initial  D";
+            this.btnInitialDrawerD.UseVisualStyleBackColor = true;
+            this.btnInitialDrawerD.Click += new System.EventHandler(this.btnInitialDrawerD_Click);
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(8, 54);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(64, 16);
+            this.checkBox2.TabIndex = 4;
+            this.checkBox2.Text = "Has Box";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // txtBxDetectDrawerD
+            // 
+            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(183, 87);
+            this.txtBxDetectDrawerD.Name = "txtBxDetectDrawerD";
+            this.txtBxDetectDrawerD.Size = new System.Drawing.Size(91, 23);
+            this.txtBxDetectDrawerD.TabIndex = 3;
+            this.txtBxDetectDrawerD.Text = "Detect  D";
+            this.txtBxDetectDrawerD.UseVisualStyleBackColor = true;
+            this.txtBxDetectDrawerD.Click += new System.EventHandler(this.txtBxDetectDrawerD_Click);
+            // 
             // GrpDrawerC
             // 
-            this.GrpDrawerC.Location = new System.Drawing.Point(1124, 375);
+            this.GrpDrawerC.Controls.Add(this.grpDrawerCComp);
+            this.GrpDrawerC.Location = new System.Drawing.Point(6, 205);
             this.GrpDrawerC.Name = "GrpDrawerC";
-            this.GrpDrawerC.Size = new System.Drawing.Size(69, 265);
+            this.GrpDrawerC.Size = new System.Drawing.Size(613, 169);
             this.GrpDrawerC.TabIndex = 2;
             this.GrpDrawerC.TabStop = false;
             this.GrpDrawerC.Text = "C(192.168.0.50)";
             // 
+            // grpDrawerCComp
+            // 
+            this.grpDrawerCComp.Controls.Add(this.label3);
+            this.grpDrawerCComp.Controls.Add(this.txtBxDrawerCResult);
+            this.grpDrawerCComp.Controls.Add(this.txtBxDrawerIPC);
+            this.grpDrawerCComp.Controls.Add(this.btnMoveDrawerCHome);
+            this.grpDrawerCComp.Controls.Add(this.btnInitialDrawerC);
+            this.grpDrawerCComp.Controls.Add(this.chkBoxDrawerCHasbox);
+            this.grpDrawerCComp.Controls.Add(this.txtBxDetectDrawerC);
+            this.grpDrawerCComp.Location = new System.Drawing.Point(11, 17);
+            this.grpDrawerCComp.Name = "grpDrawerCComp";
+            this.grpDrawerCComp.Size = new System.Drawing.Size(593, 146);
+            this.grpDrawerCComp.TabIndex = 9;
+            this.grpDrawerCComp.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(55, 12);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Drawer IP:";
+            // 
+            // txtBxDrawerCResult
+            // 
+            this.txtBxDrawerCResult.Location = new System.Drawing.Point(308, 17);
+            this.txtBxDrawerCResult.Multiline = true;
+            this.txtBxDrawerCResult.Name = "txtBxDrawerCResult";
+            this.txtBxDrawerCResult.ReadOnly = true;
+            this.txtBxDrawerCResult.Size = new System.Drawing.Size(272, 116);
+            this.txtBxDrawerCResult.TabIndex = 6;
+            // 
+            // txtBxDrawerIPC
+            // 
+            this.txtBxDrawerIPC.Location = new System.Drawing.Point(65, 17);
+            this.txtBxDrawerIPC.Name = "txtBxDrawerIPC";
+            this.txtBxDrawerIPC.ReadOnly = true;
+            this.txtBxDrawerIPC.Size = new System.Drawing.Size(196, 22);
+            this.txtBxDrawerIPC.TabIndex = 0;
+            this.txtBxDrawerIPC.Text = "192.168.0.50";
+            // 
+            // btnMoveDrawerCHome
+            // 
+            this.btnMoveDrawerCHome.Location = new System.Drawing.Point(89, 87);
+            this.btnMoveDrawerCHome.Name = "btnMoveDrawerCHome";
+            this.btnMoveDrawerCHome.Size = new System.Drawing.Size(88, 23);
+            this.btnMoveDrawerCHome.TabIndex = 5;
+            this.btnMoveDrawerCHome.Text = "Move C Home";
+            this.btnMoveDrawerCHome.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerCHome.Click += new System.EventHandler(this.btnMoveDrawerCHome_Click);
+            // 
+            // btnInitialDrawerC
+            // 
+            this.btnInitialDrawerC.Location = new System.Drawing.Point(8, 87);
+            this.btnInitialDrawerC.Name = "btnInitialDrawerC";
+            this.btnInitialDrawerC.Size = new System.Drawing.Size(75, 23);
+            this.btnInitialDrawerC.TabIndex = 2;
+            this.btnInitialDrawerC.Text = "Initial  C";
+            this.btnInitialDrawerC.UseVisualStyleBackColor = true;
+            this.btnInitialDrawerC.Click += new System.EventHandler(this.btnInitialDrawerC_Click);
+            // 
+            // chkBoxDrawerCHasbox
+            // 
+            this.chkBoxDrawerCHasbox.AutoSize = true;
+            this.chkBoxDrawerCHasbox.Location = new System.Drawing.Point(8, 54);
+            this.chkBoxDrawerCHasbox.Name = "chkBoxDrawerCHasbox";
+            this.chkBoxDrawerCHasbox.Size = new System.Drawing.Size(64, 16);
+            this.chkBoxDrawerCHasbox.TabIndex = 4;
+            this.chkBoxDrawerCHasbox.Text = "Has Box";
+            this.chkBoxDrawerCHasbox.UseVisualStyleBackColor = true;
+            // 
+            // txtBxDetectDrawerC
+            // 
+            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(183, 87);
+            this.txtBxDetectDrawerC.Name = "txtBxDetectDrawerC";
+            this.txtBxDetectDrawerC.Size = new System.Drawing.Size(91, 23);
+            this.txtBxDetectDrawerC.TabIndex = 3;
+            this.txtBxDetectDrawerC.Text = "Detect  C";
+            this.txtBxDetectDrawerC.UseVisualStyleBackColor = true;
+            this.txtBxDetectDrawerC.Click += new System.EventHandler(this.txtBxDetectDrawerC_Click);
+            // 
             // GrpDrawerB
             // 
-            this.GrpDrawerB.Location = new System.Drawing.Point(1210, 21);
+            this.GrpDrawerB.Controls.Add(this.grpDrawerBComp);
+            this.GrpDrawerB.Location = new System.Drawing.Point(637, 21);
             this.GrpDrawerB.Name = "GrpDrawerB";
-            this.GrpDrawerB.Size = new System.Drawing.Size(233, 265);
+            this.GrpDrawerB.Size = new System.Drawing.Size(613, 169);
             this.GrpDrawerB.TabIndex = 1;
             this.GrpDrawerB.TabStop = false;
             this.GrpDrawerB.Text = "B(192.168.0.42)";
+            // 
+            // grpDrawerBComp
+            // 
+            this.grpDrawerBComp.Controls.Add(this.label2);
+            this.grpDrawerBComp.Controls.Add(this.txtBxDrawerBResult);
+            this.grpDrawerBComp.Controls.Add(this.txtBxDrawerIPB);
+            this.grpDrawerBComp.Controls.Add(this.btnMoveDrawerBHome);
+            this.grpDrawerBComp.Controls.Add(this.btnInitialDrawerB);
+            this.grpDrawerBComp.Controls.Add(this.chkBoxDrawerBHasbox);
+            this.grpDrawerBComp.Controls.Add(this.txtBxDetectDrawerB);
+            this.grpDrawerBComp.Location = new System.Drawing.Point(11, 17);
+            this.grpDrawerBComp.Name = "grpDrawerBComp";
+            this.grpDrawerBComp.Size = new System.Drawing.Size(591, 146);
+            this.grpDrawerBComp.TabIndex = 8;
+            this.grpDrawerBComp.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 18);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Drawer IP:";
+            // 
+            // txtBxDrawerBResult
+            // 
+            this.txtBxDrawerBResult.Location = new System.Drawing.Point(308, 17);
+            this.txtBxDrawerBResult.Multiline = true;
+            this.txtBxDrawerBResult.Name = "txtBxDrawerBResult";
+            this.txtBxDrawerBResult.ReadOnly = true;
+            this.txtBxDrawerBResult.Size = new System.Drawing.Size(270, 116);
+            this.txtBxDrawerBResult.TabIndex = 6;
+            // 
+            // txtBxDrawerIPB
+            // 
+            this.txtBxDrawerIPB.Location = new System.Drawing.Point(65, 17);
+            this.txtBxDrawerIPB.Name = "txtBxDrawerIPB";
+            this.txtBxDrawerIPB.ReadOnly = true;
+            this.txtBxDrawerIPB.Size = new System.Drawing.Size(196, 22);
+            this.txtBxDrawerIPB.TabIndex = 0;
+            this.txtBxDrawerIPB.Text = "192.168.0.42";
+            // 
+            // btnMoveDrawerBHome
+            // 
+            this.btnMoveDrawerBHome.Location = new System.Drawing.Point(89, 87);
+            this.btnMoveDrawerBHome.Name = "btnMoveDrawerBHome";
+            this.btnMoveDrawerBHome.Size = new System.Drawing.Size(88, 23);
+            this.btnMoveDrawerBHome.TabIndex = 5;
+            this.btnMoveDrawerBHome.Text = "Move B Home";
+            this.btnMoveDrawerBHome.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerBHome.Click += new System.EventHandler(this.btnMoveDrawerBHome_Click);
+            // 
+            // btnInitialDrawerB
+            // 
+            this.btnInitialDrawerB.Location = new System.Drawing.Point(8, 87);
+            this.btnInitialDrawerB.Name = "btnInitialDrawerB";
+            this.btnInitialDrawerB.Size = new System.Drawing.Size(75, 23);
+            this.btnInitialDrawerB.TabIndex = 2;
+            this.btnInitialDrawerB.Text = "Initial  B";
+            this.btnInitialDrawerB.UseVisualStyleBackColor = true;
+            this.btnInitialDrawerB.Click += new System.EventHandler(this.btnInitialDrawerB_Click);
+            // 
+            // chkBoxDrawerBHasbox
+            // 
+            this.chkBoxDrawerBHasbox.AutoSize = true;
+            this.chkBoxDrawerBHasbox.Location = new System.Drawing.Point(8, 54);
+            this.chkBoxDrawerBHasbox.Name = "chkBoxDrawerBHasbox";
+            this.chkBoxDrawerBHasbox.Size = new System.Drawing.Size(64, 16);
+            this.chkBoxDrawerBHasbox.TabIndex = 4;
+            this.chkBoxDrawerBHasbox.Text = "Has Box";
+            this.chkBoxDrawerBHasbox.UseVisualStyleBackColor = true;
+            // 
+            // txtBxDetectDrawerB
+            // 
+            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(183, 87);
+            this.txtBxDetectDrawerB.Name = "txtBxDetectDrawerB";
+            this.txtBxDetectDrawerB.Size = new System.Drawing.Size(91, 23);
+            this.txtBxDetectDrawerB.TabIndex = 3;
+            this.txtBxDetectDrawerB.Text = "Detect  B";
+            this.txtBxDetectDrawerB.UseVisualStyleBackColor = true;
+            this.txtBxDetectDrawerB.Click += new System.EventHandler(this.txtBxDetectDrawerB_Click);
             // 
             // GrpDrawerA
             // 
             this.GrpDrawerA.Controls.Add(this.grpDrawerAComp);
             this.GrpDrawerA.Location = new System.Drawing.Point(6, 21);
             this.GrpDrawerA.Name = "GrpDrawerA";
-            this.GrpDrawerA.Size = new System.Drawing.Size(772, 520);
+            this.GrpDrawerA.Size = new System.Drawing.Size(613, 169);
             this.GrpDrawerA.TabIndex = 0;
             this.GrpDrawerA.TabStop = false;
             this.GrpDrawerA.Text = "A(192.168.0.34)";
             this.GrpDrawerA.Enter += new System.EventHandler(this.GrpDrawerA_Enter);
+            // 
+            // grpDrawerAComp
+            // 
+            this.grpDrawerAComp.Controls.Add(this.label1);
+            this.grpDrawerAComp.Controls.Add(this.txtBxDrawerAResult);
+            this.grpDrawerAComp.Controls.Add(this.txtBxDrawerIPA);
+            this.grpDrawerAComp.Controls.Add(this.btnMoveDrawerAHome);
+            this.grpDrawerAComp.Controls.Add(this.btnInitialDrawerA);
+            this.grpDrawerAComp.Controls.Add(this.chkBoxDrawerAHasbox);
+            this.grpDrawerAComp.Controls.Add(this.txtBxDetectDrawerA);
+            this.grpDrawerAComp.Location = new System.Drawing.Point(8, 12);
+            this.grpDrawerAComp.Name = "grpDrawerAComp";
+            this.grpDrawerAComp.Size = new System.Drawing.Size(591, 146);
+            this.grpDrawerAComp.TabIndex = 7;
+            this.grpDrawerAComp.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(55, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Drawer IP:";
+            // 
+            // txtBxDrawerAResult
+            // 
+            this.txtBxDrawerAResult.Location = new System.Drawing.Point(308, 17);
+            this.txtBxDrawerAResult.Multiline = true;
+            this.txtBxDrawerAResult.Name = "txtBxDrawerAResult";
+            this.txtBxDrawerAResult.ReadOnly = true;
+            this.txtBxDrawerAResult.Size = new System.Drawing.Size(270, 116);
+            this.txtBxDrawerAResult.TabIndex = 6;
+            // 
+            // txtBxDrawerIPA
+            // 
+            this.txtBxDrawerIPA.Location = new System.Drawing.Point(65, 17);
+            this.txtBxDrawerIPA.Name = "txtBxDrawerIPA";
+            this.txtBxDrawerIPA.ReadOnly = true;
+            this.txtBxDrawerIPA.Size = new System.Drawing.Size(196, 22);
+            this.txtBxDrawerIPA.TabIndex = 0;
+            this.txtBxDrawerIPA.Text = "192.168.0.34";
+            // 
+            // btnMoveDrawerAHome
+            // 
+            this.btnMoveDrawerAHome.Location = new System.Drawing.Point(89, 87);
+            this.btnMoveDrawerAHome.Name = "btnMoveDrawerAHome";
+            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(88, 23);
+            this.btnMoveDrawerAHome.TabIndex = 5;
+            this.btnMoveDrawerAHome.Text = "Move A Home";
+            this.btnMoveDrawerAHome.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerAHome.Click += new System.EventHandler(this.btnMoveDrawerAHome_Click);
+            // 
+            // btnInitialDrawerA
+            // 
+            this.btnInitialDrawerA.Location = new System.Drawing.Point(8, 87);
+            this.btnInitialDrawerA.Name = "btnInitialDrawerA";
+            this.btnInitialDrawerA.Size = new System.Drawing.Size(75, 23);
+            this.btnInitialDrawerA.TabIndex = 2;
+            this.btnInitialDrawerA.Text = "Initial  A";
+            this.btnInitialDrawerA.UseVisualStyleBackColor = true;
+            this.btnInitialDrawerA.Click += new System.EventHandler(this.btnInitialDrawerA_Click);
+            // 
+            // chkBoxDrawerAHasbox
+            // 
+            this.chkBoxDrawerAHasbox.AutoSize = true;
+            this.chkBoxDrawerAHasbox.Location = new System.Drawing.Point(8, 54);
+            this.chkBoxDrawerAHasbox.Name = "chkBoxDrawerAHasbox";
+            this.chkBoxDrawerAHasbox.Size = new System.Drawing.Size(64, 16);
+            this.chkBoxDrawerAHasbox.TabIndex = 4;
+            this.chkBoxDrawerAHasbox.Text = "Has Box";
+            this.chkBoxDrawerAHasbox.UseVisualStyleBackColor = true;
+            // 
+            // txtBxDetectDrawerA
+            // 
+            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(183, 87);
+            this.txtBxDetectDrawerA.Name = "txtBxDetectDrawerA";
+            this.txtBxDetectDrawerA.Size = new System.Drawing.Size(91, 23);
+            this.txtBxDetectDrawerA.TabIndex = 3;
+            this.txtBxDetectDrawerA.Text = "Detect  A";
+            this.txtBxDetectDrawerA.UseVisualStyleBackColor = true;
+            this.txtBxDetectDrawerA.Click += new System.EventHandler(this.txtBxDetectDrawerA_Click);
             // 
             // tabPage2
             // 
@@ -145,87 +506,6 @@
             this.tabPage1.Text = "BoxTransfer";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // txtBxDrawerIPA
-            // 
-            this.txtBxDrawerIPA.Location = new System.Drawing.Point(65, 17);
-            this.txtBxDrawerIPA.Name = "txtBxDrawerIPA";
-            this.txtBxDrawerIPA.ReadOnly = true;
-            this.txtBxDrawerIPA.Size = new System.Drawing.Size(196, 22);
-            this.txtBxDrawerIPA.TabIndex = 0;
-            this.txtBxDrawerIPA.Text = "192.168.0.34";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Drawer IP:";
-            // 
-            // btnInitialDrawer1
-            // 
-            this.btnInitialDrawer1.Location = new System.Drawing.Point(8, 87);
-            this.btnInitialDrawer1.Name = "btnInitialDrawer1";
-            this.btnInitialDrawer1.Size = new System.Drawing.Size(75, 23);
-            this.btnInitialDrawer1.TabIndex = 2;
-            this.btnInitialDrawer1.Text = "Initial  A";
-            this.btnInitialDrawer1.UseVisualStyleBackColor = true;
-            this.btnInitialDrawer1.Click += new System.EventHandler(this.btnInitialDrawerA_Click);
-            // 
-            // txtBxDetectDrawerA
-            // 
-            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(183, 87);
-            this.txtBxDetectDrawerA.Name = "txtBxDetectDrawerA";
-            this.txtBxDetectDrawerA.Size = new System.Drawing.Size(91, 23);
-            this.txtBxDetectDrawerA.TabIndex = 3;
-            this.txtBxDetectDrawerA.Text = "Detect  A";
-            this.txtBxDetectDrawerA.UseVisualStyleBackColor = true;
-            // 
-            // chkBoxDrawerAHasbox
-            // 
-            this.chkBoxDrawerAHasbox.AutoSize = true;
-            this.chkBoxDrawerAHasbox.Location = new System.Drawing.Point(8, 54);
-            this.chkBoxDrawerAHasbox.Name = "chkBoxDrawerAHasbox";
-            this.chkBoxDrawerAHasbox.Size = new System.Drawing.Size(64, 16);
-            this.chkBoxDrawerAHasbox.TabIndex = 4;
-            this.chkBoxDrawerAHasbox.Text = "Has Box";
-            this.chkBoxDrawerAHasbox.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(89, 87);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Move A Home";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txtBxDrawerAResult
-            // 
-            this.txtBxDrawerAResult.Location = new System.Drawing.Point(308, 17);
-            this.txtBxDrawerAResult.Multiline = true;
-            this.txtBxDrawerAResult.Name = "txtBxDrawerAResult";
-            this.txtBxDrawerAResult.ReadOnly = true;
-            this.txtBxDrawerAResult.Size = new System.Drawing.Size(374, 116);
-            this.txtBxDrawerAResult.TabIndex = 6;
-            // 
-            // grpDrawerAComp
-            // 
-            this.grpDrawerAComp.Controls.Add(this.label1);
-            this.grpDrawerAComp.Controls.Add(this.txtBxDrawerAResult);
-            this.grpDrawerAComp.Controls.Add(this.txtBxDrawerIPA);
-            this.grpDrawerAComp.Controls.Add(this.button1);
-            this.grpDrawerAComp.Controls.Add(this.btnInitialDrawer1);
-            this.grpDrawerAComp.Controls.Add(this.chkBoxDrawerAHasbox);
-            this.grpDrawerAComp.Controls.Add(this.txtBxDetectDrawerA);
-            this.grpDrawerAComp.Location = new System.Drawing.Point(8, 23);
-            this.grpDrawerAComp.Name = "grpDrawerAComp";
-            this.grpDrawerAComp.Size = new System.Drawing.Size(691, 146);
-            this.grpDrawerAComp.TabIndex = 7;
-            this.grpDrawerAComp.TabStop = false;
-            // 
             // FrmTestUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -238,6 +518,15 @@
             this.tabControl1.ResumeLayout(false);
             this.TabPageDrawers.ResumeLayout(false);
             this.GrpDrawer.ResumeLayout(false);
+            this.GrpDrawerD.ResumeLayout(false);
+            this.grpDrawerDComp.ResumeLayout(false);
+            this.grpDrawerDComp.PerformLayout();
+            this.GrpDrawerC.ResumeLayout(false);
+            this.grpDrawerCComp.ResumeLayout(false);
+            this.grpDrawerCComp.PerformLayout();
+            this.GrpDrawerB.ResumeLayout(false);
+            this.grpDrawerBComp.ResumeLayout(false);
+            this.grpDrawerBComp.PerformLayout();
             this.GrpDrawerA.ResumeLayout(false);
             this.grpDrawerAComp.ResumeLayout(false);
             this.grpDrawerAComp.PerformLayout();
@@ -258,11 +547,35 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox txtBxDrawerIPA;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnInitialDrawer1;
+        private System.Windows.Forms.Button btnInitialDrawerA;
         private System.Windows.Forms.Button txtBxDetectDrawerA;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnMoveDrawerAHome;
         private System.Windows.Forms.CheckBox chkBoxDrawerAHasbox;
         public System.Windows.Forms.TextBox txtBxDrawerAResult;
         public System.Windows.Forms.GroupBox grpDrawerAComp;
+        public System.Windows.Forms.GroupBox grpDrawerBComp;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox txtBxDrawerBResult;
+        private System.Windows.Forms.TextBox txtBxDrawerIPB;
+        private System.Windows.Forms.Button btnMoveDrawerBHome;
+        private System.Windows.Forms.Button btnInitialDrawerB;
+        private System.Windows.Forms.CheckBox chkBoxDrawerBHasbox;
+        private System.Windows.Forms.Button txtBxDetectDrawerB;
+        public System.Windows.Forms.GroupBox grpDrawerCComp;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox txtBxDrawerCResult;
+        private System.Windows.Forms.TextBox txtBxDrawerIPC;
+        private System.Windows.Forms.Button btnMoveDrawerCHome;
+        private System.Windows.Forms.Button btnInitialDrawerC;
+        private System.Windows.Forms.CheckBox chkBoxDrawerCHasbox;
+        private System.Windows.Forms.Button txtBxDetectDrawerC;
+        public System.Windows.Forms.GroupBox grpDrawerDComp;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox txtBxDrawerDResult;
+        private System.Windows.Forms.TextBox txtBxDrawerIPD;
+        private System.Windows.Forms.Button btnMoveDrawerDHome;
+        private System.Windows.Forms.Button btnInitialDrawerD;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.Button txtBxDetectDrawerD;
     }
 }

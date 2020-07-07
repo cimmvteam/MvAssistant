@@ -82,22 +82,80 @@ namespace MvAssistantMacVerifyEqp
             {
                 MyFORM.txtBxDrawerAResult.Clear();
             }
-
+            else if(drawer.DrawerNO == "B")
+            {
+                MyFORM.txtBxDrawerBResult.Clear();
+            }
+            else if(drawer.DrawerNO == "C")
+            {
+                MyFORM.txtBxDrawerCResult.Clear();
+            }
+            else //if(drawer.DrawerNO == "D")
+            {
+                MyFORM.txtBxDrawerDResult.Clear();
+            }
         }
         public void DisableDrawerComps(MvKjMachineDrawerLdd drawer)
         {
+          
             if (drawer.DrawerNO == "A")
             {
                 MyFORM.grpDrawerAComp.Enabled = false;
+            }
+            else if (drawer.DrawerNO == "B")
+            {
+                MyFORM.grpDrawerBComp.Enabled = false;
+            }
+            else if (drawer.DrawerNO == "C")
+            {
+                MyFORM.grpDrawerCComp.Enabled = false;
+            }
+            else //if(drawer.DrawerNO == "D")
+            {
+                MyFORM.grpDrawerDComp.Enabled = false;
             }
 
         }
         public void EnableDrawerComps(MvKjMachineDrawerLdd drawer)
         {
+           if (drawer.DrawerNO == "A")
+            {
+                MyFORM.grpDrawerAComp.Enabled = true;
+            }
+            else if (drawer.DrawerNO == "B")
+            {
+                MyFORM.grpDrawerBComp.Enabled = true;
+            }
+            else if (drawer.DrawerNO == "C")
+            {
+                MyFORM.grpDrawerCComp.Enabled = true;
+            }
+            else //if(drawer.DrawerNO == "D")
+            {
+                MyFORM.grpDrawerDComp.Enabled = true;
+            }
+        }
+
+        public void SetResult(MvKjMachineDrawerLdd drawer,string text)
+        {
+            TextBox textBox;
             if (drawer.DrawerNO == "A")
             {
-                MyFORM.grpDrawerAComp.Enabled = true; ;
+                textBox = MyFORM.txtBxDrawerAResult;
             }
+            else if (drawer.DrawerNO == "B")
+            {
+                textBox = MyFORM.txtBxDrawerBResult;
+            }
+            else if (drawer.DrawerNO == "C")
+            {
+                textBox = MyFORM.txtBxDrawerCResult;
+            }
+            else //if(drawer.DrawerNO == "D")
+            {
+                textBox = MyFORM.txtBxDrawerDResult;
+            }
+            textBox.Text = textBox.Text + "\r\n" + text;
         }
         /// <summary>Event ReplyTrayMotion(111)</summary>
         /// <param name="sender"></param>
@@ -108,11 +166,11 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnReplyTrayMotionEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {  // 成功
-
+                SetResult(drawer, "開始移動 Drawer [" + DrawerA.DrawerNO + "] Tray"   );
             }
             else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
             { // 失敗
-
+                SetResult(drawer, "無法移動 Drawer [" + DrawerA.DrawerNO + "] Tray");
             }
            // NoteEvent(drawer, nameof(OnReplyTrayMotion), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
         }
@@ -189,6 +247,14 @@ namespace MvAssistantMacVerifyEqp
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBoxDetectionEventArgs)args;
             var hasBox = eventArgs.HasBox;
+            if (hasBox)
+            {
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] 有Box");
+            }
+            else
+            {
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] 沒有Box");
+            }
           //  NoteEvent(drawer, nameof(OnReplyBoxDetection), $"HasBox={hasBox}");
         }
 
@@ -201,15 +267,15 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnTrayArriveEventArgs)args;
             if (eventArgs.TrayArriveType == TrayArriveType.ArriveHome)
             {
-
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 到達Home 點");
             }
             else if (eventArgs.TrayArriveType == TrayArriveType.ArriveIn)
             {
-
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 到達 In ");
             }
             else //if (eventArgs.TrayArriveType == TrayArriveType.ArriveOut)
             {
-
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 到達 Out ");
             }
           //  NoteEvent(drawer, nameof(OnTrayArrive), $"{eventArgs.TrayArriveType.ToString()}({(int)eventArgs.TrayArriveType})");
         }
@@ -247,8 +313,8 @@ namespace MvAssistantMacVerifyEqp
         private void OnTrayMotioning(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-
-          //  NoteEvent(drawer, nameof(OnTrayMotioning));
+            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 開始移動 ");
+            //  NoteEvent(drawer, nameof(OnTrayMotioning));
         }
 
         /// <summary>Event INIFailed(902)</summary>
@@ -257,7 +323,8 @@ namespace MvAssistantMacVerifyEqp
         private void OnINIFailed(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-          //  NoteEvent(drawer, nameof(OnINIFailed));
+            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] 初始化失敗 ");
+            //  NoteEvent(drawer, nameof(OnINIFailed));
         }
 
         /// <summary>Event TrayMotionError(903)</summary>
@@ -266,7 +333,8 @@ namespace MvAssistantMacVerifyEqp
         private void OnTryMotionError(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-          //  NoteEvent(drawer, nameof(OnTryMotionError));
+            //  NoteEvent(drawer, nameof(OnTryMotionError));
+            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 移動失敗 ");
 
         }
 
@@ -276,7 +344,8 @@ namespace MvAssistantMacVerifyEqp
         private void OnTrayMotionSensorOFF(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-          //  NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
+            //  NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
+            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Motion SenserOFF ");
         }
 
 
@@ -289,11 +358,11 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnErrorEventArgs)args;
             if (eventArgs.ReplyErrorCode == ReplyErrorCode.Recovery)
             {
-
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Recovery ");
             }
             else //if (eventArgs.ReplyErrorCode == ReplyErrorCode.Error)
             {
-
+                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Error ");
             }
          //   NoteEvent(drawer, nameof(OnError), $"{eventArgs.ReplyErrorCode.ToString()}({(int)eventArgs.ReplyErrorCode})");
         }
