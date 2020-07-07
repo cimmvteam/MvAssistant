@@ -28,7 +28,7 @@ namespace MvAssistantMacVerifyEqp
             Application.Run(new FmRobotPath());
 
 #else
-            Application.Run(new FmMain());
+            Application.Run(new FrmTestUI());
 #endif      
         }
     }
