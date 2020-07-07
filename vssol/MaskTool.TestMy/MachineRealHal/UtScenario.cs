@@ -420,10 +420,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                             throw new Exception("Open Stage not allowed to be MT intrude!!");
                     }
                     mt.RobotMoving(true);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.Unclamp();
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     mt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -457,7 +457,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     ic.HalConnect();
-                    
+
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToDeformInsp.json");
                 }
@@ -480,7 +480,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     ic.HalConnect();
-                    
+
                     mt.ExePathMove(@"D:\Positions\MTRobot\DeformInspToICHome.json");
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                 }
@@ -508,6 +508,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     os.HalConnect();
                     bool BTIntrude = false;
 
+                    os.Initial();
                     for (int i = 0; i < 2; i++)
                     {
                         BTIntrude = os.ReadRobotIntrude(true, false).Item1;
@@ -565,7 +566,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet1_Home_Forward_OpenStage_GET.json");
-                    bt.Clamp(1);
+                    bt.Clamp(2);
                     bt.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet1_Home_GET.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
@@ -664,7 +665,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         #endregion
         #region Cabinet1
         [TestMethod]
-        public void TestRobotCB1HomePutBoxToCB_01_01()
+        public void TestRobotCB1HomePutBoxToCB_02_04()
         {
             try
             {
@@ -685,8 +686,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
             catch (Exception ex) { throw ex; }
         }
+
         [TestMethod]
-        public void TestRobotCB1HomeGetBoxFromCB_01_01()
+        public void TestRobotCB1HomeGetBoxFromCB_02_04()
         {
             try
             {
@@ -701,7 +703,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
-                    bt.Clamp(1);
+                    Console.WriteLine(bt.Clamp(2));
                     bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
                 }
             }
@@ -813,7 +815,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     ic.HalConnect();
 
-                    ic.XYPosition(100,100);
+                    ic.XYPosition(100, 100);
                     ic.WPosition(51);
                     ic.LightForSideInspSetValue(100);
                     //TODO：Camera Link Capture Image
@@ -920,11 +922,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.HalConnect();
                     os.HalConnect();
                     bool BTIntrude = false;
-
-                    os.SetBoxType(1);
-                    os.SortClamp();
+                    
+                    os.SetBoxType(2);
+                    Console.Write(os.SortClamp());
                     os.Vacuum(true);
-                    os.SortUnclamp();
                     os.Lock();
                     for (int i = 0; i < 2; i++)
                     {
@@ -945,6 +946,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
                             throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                     }
+                    os.SortUnclamp();
                     os.Close();
                     os.Clamp();
                     os.Open();

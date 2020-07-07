@@ -46,6 +46,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                     case 3:
                         Result = "No box";
                         break;
+                    case 4:
+                        Result = "";
+                        break;
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Clamp, false);
