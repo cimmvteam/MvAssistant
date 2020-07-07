@@ -12,7 +12,7 @@ namespace MvAssistantMacVerifyEqp
 {
     public partial class FrmTestUI : Form
     {
-
+       
         TestDrawers drawers;
         public FrmTestUI()
         {
@@ -23,6 +23,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void FrmTestUI_Load(object sender, EventArgs e)
         {
+            Control.CheckForIllegalCrossThreadCalls = false;
             drawers = new TestDrawers(this);
         }
 
@@ -47,6 +48,8 @@ namespace MvAssistantMacVerifyEqp
 
         private void txtBxDetectDrawerA_Click(object sender, EventArgs e)
         {
+            if (sender != null) { drawers.countDrawerBox = false; }
+            chkBoxDrawerAHasbox.Checked = false;
             drawers.InitialDRawer(drawers.DrawerA);
             drawers.DisableDrawerComps(drawers.DrawerA);
             drawers.DrawerA.CommandBoxDetection();
@@ -68,6 +71,8 @@ namespace MvAssistantMacVerifyEqp
 
         private void txtBxDetectDrawerB_Click(object sender, EventArgs e)
         {
+            if (sender != null) { drawers.countDrawerBox = false; }
+            chkBoxDrawerBHasbox.Checked = false;
             drawers.InitialDRawer(drawers.DrawerB);
             drawers.DisableDrawerComps(drawers.DrawerB);
             drawers.DrawerB.CommandBoxDetection();
@@ -89,6 +94,8 @@ namespace MvAssistantMacVerifyEqp
 
         private void txtBxDetectDrawerC_Click(object sender, EventArgs e)
         {
+            if (sender != null) { drawers.countDrawerBox = false; }
+            chkBoxDrawerCHasbox.Checked = false;
             drawers.InitialDRawer(drawers.DrawerC);
             drawers.DisableDrawerComps(drawers.DrawerC);
             drawers.DrawerC.CommandBoxDetection();
@@ -98,7 +105,7 @@ namespace MvAssistantMacVerifyEqp
         {
             drawers.InitialDRawer(drawers.DrawerD);
             drawers.DisableDrawerComps(drawers.DrawerD);
-            drawers.DrawerC.CommandINI();
+            drawers.DrawerD.CommandINI();
         }
 
         private void btnMoveDrawerDHome_Click(object sender, EventArgs e)
@@ -110,9 +117,37 @@ namespace MvAssistantMacVerifyEqp
 
         private void txtBxDetectDrawerD_Click(object sender, EventArgs e)
         {
+            if (sender != null) { drawers.countDrawerBox = false; }
+            chkBoxDrawerDHasbox.Checked = false;
             drawers.InitialDRawer(drawers.DrawerD);
             drawers.DisableDrawerComps(drawers.DrawerD);
             drawers.DrawerD.CommandBoxDetection();
+        }
+
+        private void btnInitialAllDrawer_Click(object sender, EventArgs e)
+        {
+            this.btnInitialDrawerA_Click(null, null);
+            this.btnInitialDrawerB_Click(null, null);
+            this.btnInitialDrawerC_Click(null, null);
+            this.btnInitialDrawerD_Click(null, null);
+        }
+
+        private void btnMoveAllDrawersHome_Click(object sender, EventArgs e)
+        {
+            this.btnMoveDrawerAHome_Click(null, null);
+            this.btnMoveDrawerBHome_Click(null, null);
+            this.btnMoveDrawerCHome_Click(null, null);
+            this.btnMoveDrawerDHome_Click(null, null);
+        }
+
+        private void btnDetectAllDrawers_Click(object sender, EventArgs e)
+        {
+            txtDrawerBoxNum.Text = "0";
+            drawers.countDrawerBox = true;
+            this.txtBxDetectDrawerA_Click(null, null);
+            this.txtBxDetectDrawerB_Click(null, null);
+            this.txtBxDetectDrawerC_Click(null, null);
+            this.txtBxDetectDrawerD_Click(null, null);
         }
     }
 

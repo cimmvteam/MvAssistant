@@ -14,8 +14,11 @@ namespace MvAssistantMacVerifyEqp
     public class UiTestClass
     {
     }
+   
     public class TestDrawers
     {
+        private static object countBoxobject = new object();
+        public bool countDrawerBox = false;
         public FrmTestUI MyFORM = null;
         public TestDrawers(FrmTestUI myFrom):this()
         {
@@ -29,7 +32,7 @@ namespace MvAssistantMacVerifyEqp
             ldd.ListenSystStartUpEvent();
         }
         public const int RemotePort = 5000;
-        public const string LocalIP = "192.168.0.16";
+        public const string LocalIP = "192.168.0.14";
         public const string ClientIP_A = "192.168.0.34";
         public const string ClientIP_B = "192.168.0.42";
         public const string ClientIP_C = "192.168.0.50";
@@ -64,6 +67,16 @@ namespace MvAssistantMacVerifyEqp
                 drawer.OnLCDCMsgHandler += this.OnLCDCMsg;
             }
         }
+
+        void SetDisplayDrawersBoxNum()
+        {
+            lock(countBoxobject)
+            {
+                var n = Convert.ToInt32(MyFORM.txtDrawerBoxNum.Text);
+                n++;
+                MyFORM.txtDrawerBoxNum.Text = n.ToString();
+            }
+        } 
         /// <summary>產生 Drawer</summary>
         private void InitialDrawers()
         {
@@ -76,6 +89,26 @@ namespace MvAssistantMacVerifyEqp
             deviceEndPoint = new IPEndPoint(IPAddress.Parse(ClientIP_D), RemotePort);
             DrawerD = ldd.CreateDrawer(1, "D", deviceEndPoint, LocalIP);
         }
+        private void SetDetectDrawerBoxResult(MvKjMachineDrawerLdd drawer,bool result)
+        {
+            if (drawer.DrawerNO == "A")
+            {
+                MyFORM.chkBoxDrawerAHasbox.Checked = result;
+            }
+            else if (drawer.DrawerNO == "B")
+            {
+                MyFORM.chkBoxDrawerBHasbox.Checked = result;
+            }
+            else if (drawer.DrawerNO == "C")
+            {
+                MyFORM.chkBoxDrawerCHasbox.Checked = result;
+            }
+            else //if(drawer.DrawerNO == "D")
+            {
+                MyFORM.chkBoxDrawerDHasbox.Checked = result;
+            }
+        }
+       
         public void InitialDRawer(MvKjMachineDrawerLdd drawer)
         {
             if (drawer.DrawerNO == "A")
@@ -166,12 +199,13 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnReplyTrayMotionEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {  // 成功
-                SetResult(drawer, "開始移動 Drawer [" + DrawerA.DrawerNO + "] Tray"   );
+                SetResult(drawer, "開始移動 Drawer [" + drawer.DrawerNO + "] Tray"   );
             }
             else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
             { // 失敗
-                SetResult(drawer, "無法移動 Drawer [" + DrawerA.DrawerNO + "] Tray");
+                SetResult(drawer, "無法移動 Drawer [" + drawer.DrawerNO + "] Tray");
             }
+            EnableDrawerComps(drawer);
            // NoteEvent(drawer, nameof(OnReplyTrayMotion), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
         }
         /// <summary>Event ReplySetSpeed(100)</summary>
@@ -249,13 +283,20 @@ namespace MvAssistantMacVerifyEqp
             var hasBox = eventArgs.HasBox;
             if (hasBox)
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] 有Box");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] 有Box");
             }
             else
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] 沒有Box");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] 沒有Box");
             }
-          //  NoteEvent(drawer, nameof(OnReplyBoxDetection), $"HasBox={hasBox}");
+            EnableDrawerComps(drawer);
+            SetDetectDrawerBoxResult(drawer, hasBox);
+            if (hasBox && countDrawerBox )
+            {
+                SetDisplayDrawersBoxNum();
+            }
+
+            //  NoteEvent(drawer, nameof(OnReplyBoxDetection), $"HasBox={hasBox}");
         }
 
         /// <summary>Event TrayArrive(115)</summary>
@@ -267,17 +308,18 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnTrayArriveEventArgs)args;
             if (eventArgs.TrayArriveType == TrayArriveType.ArriveHome)
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 到達Home 點");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 到達Home 點");
             }
             else if (eventArgs.TrayArriveType == TrayArriveType.ArriveIn)
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 到達 In ");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 到達 In ");
             }
             else //if (eventArgs.TrayArriveType == TrayArriveType.ArriveOut)
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 到達 Out ");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 到達 Out ");
             }
-          //  NoteEvent(drawer, nameof(OnTrayArrive), $"{eventArgs.TrayArriveType.ToString()}({(int)eventArgs.TrayArriveType})");
+            EnableDrawerComps(drawer);
+            //  NoteEvent(drawer, nameof(OnTrayArrive), $"{eventArgs.TrayArriveType.ToString()}({(int)eventArgs.TrayArriveType})");
         }
 
         /// <summary>Event ButtonEvent(120)</summary>
@@ -313,7 +355,8 @@ namespace MvAssistantMacVerifyEqp
         private void OnTrayMotioning(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 開始移動 ");
+            SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 開始移動 ");
+
             //  NoteEvent(drawer, nameof(OnTrayMotioning));
         }
 
@@ -323,7 +366,8 @@ namespace MvAssistantMacVerifyEqp
         private void OnINIFailed(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] 初始化失敗 ");
+            SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] 初始化失敗 ");
+            EnableDrawerComps(drawer);
             //  NoteEvent(drawer, nameof(OnINIFailed));
         }
 
@@ -334,7 +378,8 @@ namespace MvAssistantMacVerifyEqp
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             //  NoteEvent(drawer, nameof(OnTryMotionError));
-            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Tray 移動失敗 ");
+            SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 移動失敗 ");
+            EnableDrawerComps(drawer);
 
         }
 
@@ -345,7 +390,8 @@ namespace MvAssistantMacVerifyEqp
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             //  NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
-            SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Motion SenserOFF ");
+            SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Motion SenserOFF ");
+            EnableDrawerComps(drawer);
         }
 
 
@@ -358,13 +404,14 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnErrorEventArgs)args;
             if (eventArgs.ReplyErrorCode == ReplyErrorCode.Recovery)
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Recovery ");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Recovery ");
             }
             else //if (eventArgs.ReplyErrorCode == ReplyErrorCode.Error)
             {
-                SetResult(drawer, "Drawer [" + DrawerA.DrawerNO + "] Error ");
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Error ");
             }
-         //   NoteEvent(drawer, nameof(OnError), $"{eventArgs.ReplyErrorCode.ToString()}({(int)eventArgs.ReplyErrorCode})");
+            EnableDrawerComps(drawer);
+            //   NoteEvent(drawer, nameof(OnError), $"{eventArgs.ReplyErrorCode.ToString()}({(int)eventArgs.ReplyErrorCode})");
         }
         /// <summary>Even SystemStartUp</summary>
         /// <param name="sender"></param>
