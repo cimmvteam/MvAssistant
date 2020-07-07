@@ -202,6 +202,7 @@
             // chkBoxDrawerDHasbox
             // 
             this.chkBoxDrawerDHasbox.AutoSize = true;
+            this.chkBoxDrawerDHasbox.Enabled = false;
             this.chkBoxDrawerDHasbox.Location = new System.Drawing.Point(8, 54);
             this.chkBoxDrawerDHasbox.Name = "chkBoxDrawerDHasbox";
             this.chkBoxDrawerDHasbox.Size = new System.Drawing.Size(64, 16);
@@ -294,6 +295,7 @@
             // chkBoxDrawerCHasbox
             // 
             this.chkBoxDrawerCHasbox.AutoSize = true;
+            this.chkBoxDrawerCHasbox.Enabled = false;
             this.chkBoxDrawerCHasbox.Location = new System.Drawing.Point(8, 54);
             this.chkBoxDrawerCHasbox.Name = "chkBoxDrawerCHasbox";
             this.chkBoxDrawerCHasbox.Size = new System.Drawing.Size(64, 16);
@@ -386,6 +388,7 @@
             // chkBoxDrawerBHasbox
             // 
             this.chkBoxDrawerBHasbox.AutoSize = true;
+            this.chkBoxDrawerBHasbox.Enabled = false;
             this.chkBoxDrawerBHasbox.Location = new System.Drawing.Point(8, 54);
             this.chkBoxDrawerBHasbox.Name = "chkBoxDrawerBHasbox";
             this.chkBoxDrawerBHasbox.Size = new System.Drawing.Size(64, 16);
@@ -479,6 +482,7 @@
             // chkBoxDrawerAHasbox
             // 
             this.chkBoxDrawerAHasbox.AutoSize = true;
+            this.chkBoxDrawerAHasbox.Enabled = false;
             this.chkBoxDrawerAHasbox.Location = new System.Drawing.Point(8, 54);
             this.chkBoxDrawerAHasbox.Name = "chkBoxDrawerAHasbox";
             this.chkBoxDrawerAHasbox.Size = new System.Drawing.Size(64, 16);
