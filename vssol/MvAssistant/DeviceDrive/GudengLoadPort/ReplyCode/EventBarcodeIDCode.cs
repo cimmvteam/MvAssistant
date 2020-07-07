@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode
 {
-   public enum EventPresentCode
+    public enum EventBarcodeIDCode
     {
-        HasNoPresent=0,
-        HasPresent=1
+        Failed=0,
+        Success=1
     }
 }

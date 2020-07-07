@@ -297,19 +297,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "PC Not Reset CheckClock, ";
+                            Result += "General:PC Not Reset CheckClock, ";
                         else if (i == 1)
-                            Result += "PLC Error, ";
+                            Result += "General:PLC Error, ";
                         else if (i == 2)
-                            Result += "EIP Error, ";
+                            Result += "General:EIP Error, ";
                         else if (i == 3)
-                            Result += "EtherCat Error, ";
+                            Result += "General:EtherCat Error, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "General Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -330,19 +330,31 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "DP1 TCP net error, ";
+                            Result += "Cabinet:DP1 TCP net error, ";
                         else if (i == 1)
-                            Result += "DP2 TCP net error, ";
+                            Result += "Cabinet:DP2 TCP net error, ";
                         else if (i == 2)
-                            Result += "DP1 Out range, ";
+                            Result += "Cabinet:DP1 Out range, ";
                         else if (i == 3)
-                            Result += "DP2 Out range, ";
+                            Result += "Cabinet:DP2 Out range, ";
+                        else if (i == 4)
+                            Result += "Cabinet:DP1 Inexecutable mode error, ";
+                        else if (i == 5)
+                            Result += "Cabinet:DP1 Sensor error, ";
+                        else if (i == 6)
+                            Result += "Cabinet:DP2 Inexecutable mode error, ";
+                        else if (i == 7)
+                            Result += "Cabinet:DP2 Sensor error, ";
+                        else if (i == 8)
+                            Result += "Cabinet:DP1 未知異常, ";
+                        else if (i == 9)
+                            Result += "Cabinet:DP2 未知異常, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Cabinet Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -363,27 +375,27 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "PD skt error, ";
+                            Result += "CC:PD skt error, ";
                         else if (i == 1)
-                            Result += "DP skt error, ";
+                            Result += "CC:DP skt error, ";
                         else if (i == 2)
-                            Result += "DP out range, ";
+                            Result += "CC:DP out range, ";
                         else if (i == 3)
-                            Result += "PD-S out range, ";
+                            Result += "CC:PD-S out range, ";
                         else if (i == 4)
-                            Result += "PD-M out range, ";
+                            Result += "CC:PD-M out range, ";
                         else if (i == 5)
-                            Result += "PD-L out range, ";
+                            Result += "CC:PD-L out range, ";
                         else if (i == 6)
-                            Result += "About laser sensor open circuit, ";
+                            Result += "CC:About laser sensor open circuit, ";
                         else if (i == 7)
-                            Result += "UpDown laser sensor open circuit, ";
+                            Result += "CC:UpDown laser sensor open circuit, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Clean Chamber Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -404,21 +416,27 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "BT servo error, ";
+                            Result += "BT:servo error, ";
                         else if (i == 1)
-                            Result += "Hand point laser sensor open circuit, ";
+                            Result += "BT:Hand point laser sensor open circuit, ";
                         else if (i == 2)
-                            Result += "Prevent collision laser sensor open circuit, ";
+                            Result += "BT:Prevent collision laser sensor open circuit, ";
                         else if (i == 3)
-                            Result += "Level sensor X open circuit, ";
+                            Result += "BT:Level sensor X open circuit, ";
                         else if (i == 4)
-                            Result += "Level sensor Y open circuit, ";
+                            Result += "BT:Level sensor Y open circuit, ";
+                        else if (i == 5)
+                            Result += "BT:Level limit out X, ";
+                        else if (i == 6)
+                            Result += "BT:Level limit out Y, ";
+                        else if (i == 7)
+                            Result += "BT:Hand動作逾時, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Box Transfer Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -439,29 +457,37 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "Up定位誤差過大, ";
+                            Result += "MT:Up定位誤差過大, ";
                         else if (i == 1)
-                            Result += "Down定位誤差過大, ";
+                            Result += "MT:Down定位誤差過大, ";
                         else if (i == 2)
-                            Result += "Left定位誤差過大, ";
+                            Result += "MT:Left定位誤差過大, ";
                         else if (i == 3)
-                            Result += "Right定位誤差過大, ";
+                            Result += "MT:Right定位誤差過大, ";
                         else if (i == 4)
-                            Result += "Up Move Error, ";
+                            Result += "MT:Up Move Error, ";
                         else if (i == 5)
-                            Result += "Down Move Error, ";
+                            Result += "MT:Down Move Error, ";
                         else if (i == 6)
-                            Result += "Left Move Error, ";
+                            Result += "MT:Left Move Error, ";
                         else if (i == 7)
-                            Result += "Right Move Error, ";
+                            Result += "MT:Right Move Error, ";
                         else if (i == 8)
-                            Result += "Tactile out range, ";
+                            Result += "MT:Tactile out range, ";
+                        else if (i == 9)
+                            Result += "MT:Up動作逾時, ";
+                        else if (i == 10)
+                            Result += "MT:Down動作逾時, ";
+                        else if (i == 11)
+                            Result += "MT:Left動作逾時, ";
+                        else if (i == 12)
+                            Result += "MT:Right動作逾時, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Mask Transfer Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -482,35 +508,49 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "Clamp步進馬達Alarm, ";
+                            Result += "OS:Clamp步進馬達Alarm, ";
                         else if (i == 1)
-                            Result += "Cover1 servo alarm, ";
+                            Result += "OS:Cover1 servo alarm, ";
                         else if (i == 2)
-                            Result += "Cover2 servo alarm, ";
+                            Result += "OS:Cover2 servo alarm, ";
                         else if (i == 3)
-                            Result += "整定電動缸1Alarm, ";
+                            Result += "OS:整定電動缸1Alarm, ";
                         else if (i == 4)
-                            Result += "整定電動缸2Alarm, ";
+                            Result += "OS:整定電動缸2Alarm, ";
                         else if (i == 5)
-                            Result += "滑台1Alarm, ";
+                            Result += "OS:滑台1Alarm, ";
                         else if (i == 6)
-                            Result += "滑台2Alarm, ";
+                            Result += "OS:滑台2Alarm, ";
                         else if (i == 7)
-                            Result += "Slider未同步做動, ";
+                            Result += "OS:Slider未同步做動, ";
                         else if (i == 8)
-                            Result += "Clamp扭力錯誤, ";
+                            Result += "OS:Clamp扭力錯誤, ";
                         else if (i == 9)
-                            Result += "氣壓不足, ";
+                            Result += "OS:氣壓不足, ";
                         else if (i == 10)
-                            Result += "Cover1 Deviation is too large, ";
+                            Result += "OS:動作中破真空, ";
                         else if (i == 11)
-                            Result += "Cover2 Deviation is too large, ";
+                            Result += "OS:Open Sensor Timeout, ";
+                        else if (i == 12)
+                            Result += "OS:Close Sensor Timeout, ";
+                        else if (i == 13)
+                            Result += "OS:翻蓋動作逾時, ";
+                        else if (i == 14)
+                            Result += "OS:滑台動作逾時, ";
+                        else if (i == 15)
+                            Result += "OS:整定動作逾時, ";
+                        else if (i == 16)
+                            Result += "OS:夾爪動作逾時, ";
+                        else if (i == 17)
+                            Result += "OS:Cover1 Deviation is too large, ";
+                        else if (i == 18)
+                            Result += "OS:Cover2 Deviation is too large, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Open Stage Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -532,21 +572,27 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 1)
-                            Result += "X 驅動器Alarm, ";
+                            Result += "IC:X 驅動器Alarm, ";
                         else if (i == 2)
-                            Result += "Y 驅動器Alarm, ";
+                            Result += "IC:Y 驅動器Alarm, ";
                         else if (i == 3)
-                            Result += "Z 驅動器Alarm, ";
+                            Result += "IC:Z 驅動器Alarm, ";
                         else if (i == 4)
-                            Result += "W 驅動器Alarm, ";
+                            Result += "IC:W 驅動器Alarm, ";
                         else if (i == 5)
-                            Result += "動作中 Robot侵入, ";
+                            Result += "IC:動作中 Robot侵入, ";
+                        else if (i == 6)
+                            Result += "IC:W動作逾時, ";
+                        else if (i == 7)
+                            Result += "IC:Z動作逾時, ";
+                        else if (i == 8)
+                            Result += "IC:XY動作逾時, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Inspection Chamber Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -567,20 +613,32 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "DP1 TCP Error, ";
+                            Result += "LP:DP1 TCP Error, ";
                         else if (i == 1)
-                            Result += "DP2 TCP Error, ";
+                            Result += "LP:DP2 TCP Error, ";
                         else if (i == 2)
-                            Result += "DP1 Out Range, ";
+                            Result += "LP:DP1 Out Range, ";
                         else if (i == 3)
-                            Result += "DP2 Out Range, ";
+                            Result += "LP:DP2 Out Range, ";
+                        else if (i == 4)
+                            Result += "LP:DP1 Inexecutable mode error, ";
+                        else if (i == 5)
+                            Result += "LP:DP1 Sensor error, ";
+                        else if (i == 6)
+                            Result += "LP:DP2 Inexecutable mode error, ";
+                        else if (i == 7)
+                            Result += "LP:DP2 Sensor error, ";
+                        else if (i == 8)
+                            Result += "LP:DP1 未知異常, ";
+                        else if (i == 9)
+                            Result += "LP:DP2 未知異常, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Load Port Unknown Alarm Signal, ";
                 }
 
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -601,37 +659,37 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "FFU1 Error, ";
+                            Result += "Outer Cover Fans:FFU1 Error, ";
                         else if (i == 1)
-                            Result += "FFU2 Error, ";
+                            Result += "Outer Cover Fans:FFU2 Error, ";
                         else if (i == 2)
-                            Result += "FFU3 Error, ";
+                            Result += "Outer Cover Fans:FFU3 Error, ";
                         else if (i == 3)
-                            Result += "FFU4 Error, ";
+                            Result += "Outer Cover Fans:FFU4 Error, ";
                         else if (i == 4)
-                            Result += "FFU5 Error, ";
+                            Result += "Outer Cover Fans:FFU5 Error, ";
                         else if (i == 5)
-                            Result += "FFU6 Error, ";
+                            Result += "Outer Cover Fans:FFU6 Error, ";
                         else if (i == 6)
-                            Result += "FFU7 Error, ";
+                            Result += "Outer Cover Fans:FFU7 Error, ";
                         else if (i == 7)
-                            Result += "FFU8 Error, ";
+                            Result += "Outer Cover Fans:FFU8 Error, ";
                         else if (i == 8)
-                            Result += "FFU9 Error, ";
+                            Result += "Outer Cover Fans:FFU9 Error, ";
                         else if (i == 9)
-                            Result += "FFU10 Error, ";
+                            Result += "Outer Cover Fans:FFU10 Error, ";
                         else if (i == 10)
-                            Result += "FFU11 Error, ";
+                            Result += "Outer Cover Fans:FFU11 Error, ";
                         else if (i == 11)
-                            Result += "FFU12 Error, ";
+                            Result += "Outer Cover Fans:FFU12 Error, ";
                         else if (i == 12)
-                            Result += "RS485 Error, ";
+                            Result += "Outer Cover Fans:RS485 Error, ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Outer Cover Fans Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -652,23 +710,23 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "Laser1 Error (Signal disconnection ), ";
+                            Result += "Deform Insp:Laser1 Error (Signal disconnection ), ";
                         else if (i == 1)
-                            Result += "Laser2 Error (Signal disconnection ), ";
+                            Result += "Deform Insp:Laser2 Error (Signal disconnection ), ";
                         else if (i == 2)
-                            Result += "Laser3 Error (Signal disconnection ), ";
+                            Result += "Deform Insp:Laser3 Error (Signal disconnection ), ";
                         else if (i == 3)
-                            Result += "Laser4 Error (Signal disconnection ), ";
+                            Result += "Deform Insp:Laser4 Error (Signal disconnection ), ";
                         else if (i == 4)
-                            Result += "Laser5 Error (Signal disconnection ), ";
+                            Result += "Deform Insp:Laser5 Error (Signal disconnection ), ";
                         else if (i == 5)
-                            Result += "Laser6 Error (Signal disconnection ), ";
+                            Result += "Deform Insp:Laser6 Error (Signal disconnection ), ";
                         else
-                            Result += "Unknown Alarm Signal, ";
+                            Result += "Deform Inspection Unknown Alarm Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -690,11 +748,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        Result += "Unknown Warning Signal, ";
+                        Result += "General Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -714,11 +772,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        Result += "Unknown Warning Signal, ";
+                        Result += "Cabinet Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -739,13 +797,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (WarningList[i])
                         if (i == 0)
-                            Result += "Clean T3 Timeout, ";
+                            Result += "CC:Clean T3 Timeout, ";
                         else
-                            Result += "Unknown Warning Signal, ";
+                            Result += "Clean Chamber Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -766,31 +824,55 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (WarningList[i])
                         if (i == 0)
-                            Result += "Under maintenance, ";
+                            Result += "BT:Under maintenance, ";
                         else if (i == 1)
-                            Result += "Clamp T3 Timeout, ";
+                            Result += "BT:Clamp T3 Timeout, ";
                         else if (i == 2)
-                            Result += "Unclamp T3 Timeout, ";
+                            Result += "BT:Unclamp T3 Timeout, ";
                         else if (i == 3)
-                            Result += "動作中Command訊號消失, ";
+                            Result += "BT:動作中Command訊號消失, ";
                         else if (i == 4)
-                            Result += "No Power ON, ";
+                            Result += "BT:No Power ON, ";
                         else if (i == 5)
-                            Result += "Please Initial, ";
+                            Result += "BT:Please Initial, ";
                         else if (i == 6)
-                            Result += "RS422 Error, ";
+                            Result += "BT:RS422 Error, ";
                         else if (i == 7)
-                            Result += "Setting speed out range, ";
+                            Result += "BT:Setting speed out range, ";
                         else if (i == 8)
-                            Result += "Clamp T1 Timeout, ";
+                            Result += "BT:Clamp T1 Timeout, ";
                         else if (i == 9)
-                            Result += "Unclamp T1 Timeout, ";
+                            Result += "BT:Unclamp T1 Timeout, ";
+                        else if (i == 10)
+                            Result += "BT:Force positive limit out Fx, ";
+                        else if (i == 11)
+                            Result += "BT:Force positive limit out Fy, ";
+                        else if (i == 12)
+                            Result += "BT:Force positive limit out Fz, ";
+                        else if (i == 13)
+                            Result += "BT:Force positive limit out Mx, ";
+                        else if (i == 14)
+                            Result += "BT:Force positive limit out My, ";
+                        else if (i == 15)
+                            Result += "BT:Force positive limit out Mz, ";
+                        else if (i == 16)
+                            Result += "BT:Force negative limit out Fx, ";
+                        else if (i == 17)
+                            Result += "BT:Force negative limit out Fy, ";
+                        else if (i == 18)
+                            Result += "BT:Force negative limit out Fz, ";
+                        else if (i == 19)
+                            Result += "BT:Force negative limit out Mx, ";
+                        else if (i == 20)
+                            Result += "BT:Force negative limit out My, ";
+                        else if (i == 21)
+                            Result += "BT:Force negative limit out Mz, ";
                         else
-                            Result += "Unknown Warning Signal, ";
+                            Result += "Box Transfer Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -811,27 +893,51 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (WarningList[i])
                         if (i == 0)
-                            Result += "RS422 Error, ";
+                            Result += "MT:RS422 Error, ";
                         else if (i == 1)
-                            Result += "RS232 Error, ";
+                            Result += "MT:RS232 Error, ";
                         else if (i == 2)
-                            Result += "Initial T1 Timeout, ";
+                            Result += "MT:Initial T1 Timeout, ";
                         else if (i == 3)
-                            Result += "Clamp T1 Timeout, ";
+                            Result += "MT:Clamp T1 Timeout, ";
                         else if (i == 4)
-                            Result += "Unclamp T1 Timeout, ";
+                            Result += "MT:Unclamp T1 Timeout, ";
                         else if (i == 5)
-                            Result += "Initial T3 Timeout, ";
+                            Result += "MT:Initial T3 Timeout, ";
                         else if (i == 6)
-                            Result += "Clamp T3 Timeout, ";
+                            Result += "MT:Clamp T3 Timeout, ";
                         else if (i == 7)
-                            Result += "Unclamp T3 Timeout, ";
+                            Result += "MT:Unclamp T3 Timeout, ";
+                        else if (i == 8)
+                            Result += "MT:Force positive limit out Fx, ";
+                        else if (i == 9)
+                            Result += "MT:Force positive limit out Fy, ";
+                        else if (i == 10)
+                            Result += "MT:Force positive limit out Fz, ";
+                        else if (i == 11)
+                            Result += "MT:Force positive limit out Mx, ";
+                        else if (i == 12)
+                            Result += "MT:Force positive limit out My, ";
+                        else if (i == 13)
+                            Result += "MT:Force positive limit out Mz, ";
+                        else if (i == 14)
+                            Result += "MT:Force negative limit out Fx, ";
+                        else if (i == 15)
+                            Result += "MT:Force negative limit out Fy, ";
+                        else if (i == 16)
+                            Result += "MT:Force negative limit out Fz, ";
+                        else if (i == 17)
+                            Result += "MT:Force negative limit out Mx, ";
+                        else if (i == 18)
+                            Result += "MT:Force negative limit out My, ";
+                        else if (i == 19)
+                            Result += "MT:Force negative limit out Mz, ";
                         else
-                            Result += "Unknown Warning Signal, ";
+                            Result += "Mask Transfer Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -852,51 +958,51 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (WarningList[i])
                         if (i == 0)
-                            Result += "Robot 侵入中不可執行Command, ";
+                            Result += "OS:Robot 侵入中不可執行Command, ";
                         else if (i == 1)
-                            Result += "Please initial, ";
+                            Result += "OS:Please initial, ";
                         else if (i == 2)
-                            Result += "SortClamp T1 Timeout, ";
+                            Result += "OS:SortClamp T1 Timeout, ";
                         else if (i == 3)
-                            Result += "SortUnclamp T1 Timeout, ";
+                            Result += "OS:SortUnclamp T1 Timeout, ";
                         else if (i == 4)
-                            Result += "Vacuum T1 Timeout, ";
+                            Result += "OS:Vacuum T1 Timeout, ";
                         else if (i == 5)
-                            Result += "Clamp T1 Timeout, ";
+                            Result += "OS:Clamp T1 Timeout, ";
                         else if (i == 6)
-                            Result += "Unclamp T1 Timeout, ";
+                            Result += "OS:Unclamp T1 Timeout, ";
                         else if (i == 7)
-                            Result += "Open T1 Timeout, ";
+                            Result += "OS:Open T1 Timeout, ";
                         else if (i == 8)
-                            Result += "Close T1 Timeout, ";
+                            Result += "OS:Close T1 Timeout, ";
                         else if (i == 9)
-                            Result += "Lock T1 Timeout, ";
+                            Result += "OS:Lock T1 Timeout, ";
                         else if (i == 10)
-                            Result += "Initial T1 Timeout, ";
+                            Result += "OS:Initial T1 Timeout, ";
                         else if (i == 11)
-                            Result += "SortClamp T3 Timeout, ";
+                            Result += "OS:SortClamp T3 Timeout, ";
                         else if (i == 12)
-                            Result += "SortUnclamp T3 Timeout, ";
+                            Result += "OS:SortUnclamp T3 Timeout, ";
                         else if (i == 13)
-                            Result += "Vacuum T3 Timeout, ";
+                            Result += "OS:Vacuum T3 Timeout, ";
                         else if (i == 14)
-                            Result += "Clamp T3 Timeout, ";
+                            Result += "OS:Clamp T3 Timeout, ";
                         else if (i == 15)
-                            Result += "Unclamp T3 Timeout, ";
+                            Result += "OS:Unclamp T3 Timeout, ";
                         else if (i == 16)
-                            Result += "Open T3 Timeout, ";
+                            Result += "OS:Open T3 Timeout, ";
                         else if (i == 17)
-                            Result += "Close T3 Timeout, ";
+                            Result += "OS:Close T3 Timeout, ";
                         else if (i == 18)
-                            Result += "Lock T3 Timeout, ";
+                            Result += "OS:Lock T3 Timeout, ";
                         else if (i == 19)
-                            Result += "Initial T3 Timeout, ";
+                            Result += "OS:Initial T3 Timeout, ";
                         else
-                            Result += "Unknown Warning Signal, ";
+                            Result += "Open Stage Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
 
             }
             catch (Exception ex)
@@ -918,45 +1024,45 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (WarningList[i])
                         if (i == 0)
-                            Result += "X軸 驅動器Warning, ";
+                            Result += "IC:X軸 驅動器Warning, ";
                         else if (i == 1)
-                            Result += "Y軸 驅動器Warning, ";
+                            Result += "IC:Y軸 驅動器Warning, ";
                         else if (i == 2)
-                            Result += "Z軸 驅動器Warning, ";
+                            Result += "IC:Z軸 驅動器Warning, ";
                         else if (i == 3)
-                            Result += "W軸 驅動器Warning, ";
+                            Result += "IC:W軸 驅動器Warning, ";
                         else if (i == 4)
-                            Result += "動作中Jog Command下達, ";
+                            Result += "IC:動作中Jog Command下達, ";
                         else if (i == 5)
-                            Result += "動作中下達W Command, ";
+                            Result += "IC:動作中下達W Command, ";
                         else if (i == 6)
-                            Result += "動作中下達Z Command, ";
+                            Result += "IC:動作中下達Z Command, ";
                         else if (i == 7)
-                            Result += "動作中下達XY Command, ";
+                            Result += "IC:動作中下達XY Command, ";
                         else if (i == 8)
-                            Result += "Robot侵入中不可做動, ";
+                            Result += "IC:Robot侵入中不可做動, ";
                         else if (i == 9)
-                            Result += "Initial T1 Timeout, ";
+                            Result += "IC:Initial T1 Timeout, ";
                         else if (i == 10)
-                            Result += "Z T1 Timeout, ";
+                            Result += "IC:Z T1 Timeout, ";
                         else if (i == 11)
-                            Result += "XY T1 Timeout, ";
+                            Result += "IC:XY T1 Timeout, ";
                         else if (i == 12)
-                            Result += "W T1 Timeout, ";
+                            Result += "IC:W T1 Timeout, ";
                         else if (i == 13)
-                            Result += "Initial T3 Timeout, ";
+                            Result += "IC:Initial T3 Timeout, ";
                         else if (i == 14)
-                            Result += "Z T3 Timeout, ";
+                            Result += "IC:Z T3 Timeout, ";
                         else if (i == 15)
-                            Result += "XY T3 Timeout, ";
+                            Result += "IC:XY T3 Timeout, ";
                         else if (i == 16)
-                            Result += "W T3 Timeout, ";
+                            Result += "IC:W T3 Timeout, ";
                         else
-                            Result += "Unknown Warning Signal, ";
+                            Result += "Inspection Chamber Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -976,11 +1082,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        Result += "Unknown Warning Signal, ";
+                        Result += "Load Port Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -1000,11 +1106,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        Result += "Unknown Warning Signal, ";
+                        Result += "Outer Cover Fans Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
@@ -1024,11 +1130,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        Result += "Unknown Warning Signal, ";
+                        Result += "Deform Inspection Unknown Warning Signal, ";
                 }
 
-                if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
-                    Result = Result.Substring(0, Result.Length - 2);
+                //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")
+                //    Result = Result.Substring(0, Result.Length - 2);
             }
             catch (Exception ex)
             {
