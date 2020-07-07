@@ -36,6 +36,7 @@
             this.GrpDrawerC = new System.Windows.Forms.GroupBox();
             this.GrpDrawerB = new System.Windows.Forms.GroupBox();
             this.GrpDrawerA = new System.Windows.Forms.GroupBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.txtBxIpA.SuspendLayout();
             this.GrpDrawer.SuspendLayout();
@@ -45,6 +46,7 @@
             // 
             this.tabControl1.Controls.Add(this.txtBxIpA);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -121,6 +123,16 @@
             this.GrpDrawerA.TabStop = false;
             this.GrpDrawerA.Text = "A(192.168.0.34)";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1559, 713);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "BoxTransfer";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // FrmTestUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -147,5 +159,6 @@
         private System.Windows.Forms.GroupBox GrpDrawerB;
         private System.Windows.Forms.GroupBox GrpDrawerA;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage1;
     }
 }
