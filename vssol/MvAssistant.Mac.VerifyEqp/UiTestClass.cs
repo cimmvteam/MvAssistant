@@ -355,7 +355,7 @@ namespace MvAssistantMacVerifyEqp
         private void OnTrayMotioning(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 開始移動 ");
+            SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] Tray 移動中 ");
 
             //  NoteEvent(drawer, nameof(OnTrayMotioning));
         }
