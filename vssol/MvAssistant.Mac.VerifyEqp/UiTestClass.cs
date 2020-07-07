@@ -494,6 +494,52 @@ namespace MvAssistantMacVerifyEqp
 
             }
         }
+        void SetResult(MvGudengLoadPortLdd loadport, string text)
+        {
+            TextBox textBox = null;
+            if (loadport.LoadPortNo == 1)
+            {
+
+            }
+            else if (loadport.LoadPortNo == 2)
+            {
+                textBox = MyForm.txtBxLoportBResult;
+            }
+            textBox.Text = textBox.Text + "\r\n" + text;
+        }
+        public void ResetResult(MvGudengLoadPortLdd loadport)
+        {
+            if (loadport.LoadPortNo == 1) { }
+            else if (loadport.LoadPortNo == 2)
+            {
+                MyForm.txtBxLoportBResult.Clear();
+            }
+        }
+        public void DisableLoadportOperate(MvGudengLoadPortLdd loadport)
+        {
+           if(loadport.LoadPortNo==1)
+            {
+
+            }
+            else if (loadport.LoadPortNo == 2)
+            {
+                MyForm.grpLoadportB.Enabled = false;
+            }
+        }
+
+        public void EnableLoadportOperate(MvGudengLoadPortLdd loadport)
+        {
+            if (loadport.LoadPortNo == 1)
+            {
+
+            }
+            else if (loadport.LoadPortNo == 2)
+            {
+                MyForm.grpLoadportB.Enabled = true;
+            }
+        }
+
+
 
         #region Event Handler
         private void OnPlacement(object sender, EventArgs args)
@@ -578,19 +624,19 @@ namespace MvAssistantMacVerifyEqp
             var loadport = (MvGudengLoadPortLdd)sender;
             //  NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnClamperUnlockComplete).Replace("On", "")}");
         }
-
+        
         private void OnAlarmResetSuccess(object sender, EventArgs args)
         {
             var loadport = (MvGudengLoadPortLdd)sender;
-            if (loadport.HasInvokeOriginalMethod)
-            {
-                loadport.InvokeOriginalMethod();
-            }
+            SetResult(loadport,"Alarm Reset OK");
+            this.EnableLoadportOperate(loadport);
             // NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnAlarmResetSuccess).Replace("On", "")}");
         }
         private void OnAlarmResetFail(object sender, EventArgs args)
         {
             var loadport = (MvGudengLoadPortLdd)sender;
+            SetResult(loadport, "Alarm Reset Failed");
+            this.EnableLoadportOperate(loadport);
             //NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnAlarmResetFail).Replace("On", "")}");
 
         }
