@@ -104,21 +104,23 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>監聽的函式</summary>
         public void Listen()
         {
-            try
-            {
+           
                 while (true)
                 {
-                    byte[] buffer = new byte[1024];
+                   try
+                   {
+                     byte[] buffer = new byte[1024];
                     // 監聽點
                     UdpSocket.Receive(buffer);
                     var msg = Encoding.UTF8.GetString(buffer);
                     InvokeMethod(msg);
-                }
-            }
-            catch (Exception ex)
-            {
+                   }
+                  catch(Exception ex)
+                  {
 
-            }
+                  }
+                }
+           
         }
 
         /// <summary>傳送</summary>
