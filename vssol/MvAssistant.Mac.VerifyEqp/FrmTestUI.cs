@@ -17,6 +17,8 @@ namespace MvAssistantMacVerifyEqp
         TestLoadPorts loadPorts;
         public FrmTestUI()
         {
+
+            //
             InitializeComponent();
         }
 
