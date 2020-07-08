@@ -1059,6 +1059,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         #region Cabinet Action
 
+        void Repeat()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(100);
+           }
+        }
           #region Drawer
         [TestMethod]
         public void DrawerLightAllOn()
@@ -1096,8 +1103,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer.Ldd = cabinet.LddManager.CreateLdd(0, drawer.Index, deviceEndPoint, drawer.DevSettings["local_ip"]);
                     drawer.BindResult();
                     drawer.Tag = BrightLEDType.AllOn;
-                    drawer.Ldd.CommandBrightLEDAllOn();
-                   
+                    drawer.CommandBrightLEDAllOn();
+                    Repeat();
                 }
             }
             catch (Exception ex)

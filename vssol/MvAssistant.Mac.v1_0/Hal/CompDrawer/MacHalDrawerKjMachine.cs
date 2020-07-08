@@ -287,12 +287,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
       
         public void BrightLEDResult(object sender, bool result)
         {
+            MvKjMachineDrawerLdd Ldd = (MvKjMachineDrawerLdd)sender;
             var command = this.Tag.ToString();
             if (result)
             {    // 成功
                
                 if(command == nameof(CommandBrightLEDAllOff))
                 { // 關掉所有的 led 
+                    
                 }
                 else if (command ==nameof(CommandBrightLEDAllOn))
                 {// 打亮所有的led
