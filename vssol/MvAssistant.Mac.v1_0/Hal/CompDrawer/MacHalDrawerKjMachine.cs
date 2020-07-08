@@ -9,6 +9,7 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System.Diagnostics;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
+using MvAssistant.DeviceDrive;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
@@ -26,7 +27,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
 
        
-        public  MvKjMachineDrawerLdd Ldd { get; set; }
+        public  IDrawerLdd Ldd { get; set; }
         public string DeviceIP { get; set; }
 
 

@@ -130,6 +130,7 @@
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOn.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\UndockRequest.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
+    <Compile Include="DeviceDrive\IDrawerLdd.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerBooleanResult.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerStringResult.cs" />

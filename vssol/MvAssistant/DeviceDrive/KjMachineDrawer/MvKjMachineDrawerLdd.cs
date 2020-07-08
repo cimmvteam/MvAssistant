@@ -16,14 +16,14 @@ using System.Threading.Tasks;
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
     /// <summary>Drawer Class</summary>
-    public class MvKjMachineDrawerLdd
+    public class MvKjMachineDrawerLdd:IDisposable,IDrawerLdd
     {
         /// <summary>Cabinet 編號</summary>        
         private int CabinetNO { get;  set; }
         /// <summary>Drawer 編號</summary>
         private string DrawerNO { get;  set; }
         /// <summary>裝置IP</summary>
-        public string DeviceIP { get; private set; }
+        public string DeviceIP { get;  set; }
         
         /// <summary>目的端點</summary>
         IPEndPoint TargetEndpoint = null;
@@ -390,7 +390,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             };
         }
         /// <summary>ReplyMotion 事件處理程序</summary>
-        public event EventHandler OnReplyTrayMotionHandler = null;
+        public event EventHandler OnReplyTrayMotionHandler=null;
         /// <summary>將ReplyMotion事件程序指向 null</summary>
         public void ResetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
        
@@ -445,7 +445,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
         }
         /// <summary>ReplySetTimeOut 事件程序</summary>
-        public event EventHandler OnReplySetTimeOutHandler = null;
+        public event EventHandler OnReplySetTimeOutHandler =null;
         /// <summary>將OnReplySetTimeOut 事件程序設為null</summary>
         public void ResetOnReplySetTimeOutHandler() { OnReplySetTimeOutHandler = null; }
     
@@ -764,26 +764,61 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>將SysStartUp 事件程序重設為 null</summary>
         public void ResetOnSysStartUp(){OnSysStartUpHandler = null;}
 
+       
+
 
         #endregion
 
-        public DelegateDrawerBooleanResult INIResult = null;
-        public DelegateDrawerBooleanResult SetMotionSpeedResult = null;
-        public DelegateDrawerBooleanResult SetTimeOutResult = null;
+        public DelegateDrawerBooleanResult INIResult { get; set; } = null;
+        public DelegateDrawerBooleanResult SetMotionSpeedResult { get; set; } = null;
+        public DelegateDrawerBooleanResult SetTimeOutResult  { get; set; } = null;
        // public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
       //  public DelegateDrawerBooleanResult TrayMotionOutResult =null;
       //  public DelegateDrawerBooleanResult TrayMotionInResult=null;
        
        
-        public DelegateDrawerBooleanResult BrightLEDResult = null;
-        public DelegateDrawerStringResult PositionReadResult = null;
-        public DelegateDrawerBooleanResult BoxDetectionResult = null;
+        public DelegateDrawerBooleanResult BrightLEDResult  { get; set; } = null;
+        public DelegateDrawerStringResult PositionReadResult { get; set; } = null;
+        public DelegateDrawerBooleanResult BoxDetectionResult { get; set; } = null;
 
         //public DelegateDrawerBooleanResult TrayArriveHomeResult = null;
         //public DelegateDrawerBooleanResult TrayArriveInResult = null;
         //public DelegateDrawerBooleanResult TrayArriveOutResult = null;
-        public DelegateDrawerIntResult TrayArriveResult = null;
-       
+        public DelegateDrawerIntResult TrayArriveResult { get; set; } = null;
 
+        protected bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+
+            this.DisposeSelf();
+
+            disposed = true;
+        }
+
+
+        protected virtual void DisposeSelf()
+        {
+           
+        }
     }
 }

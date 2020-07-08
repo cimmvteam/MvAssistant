@@ -44,7 +44,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             };
             initialPortStatusDictionary();
             SysStartUpEventListener = new SysStartUpEventListener(sysStartUpEventListenPort);
-
+            ListenSystStartUpEvent();
 
         }
 
@@ -100,7 +100,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
            
         }
-        public MvKjMachineDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
+        public IDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
         {
 
             try

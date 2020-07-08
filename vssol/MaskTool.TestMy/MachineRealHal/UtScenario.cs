@@ -1098,9 +1098,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         var startPort = Convert.ToInt32(cabinet_plc.DevSettings["startport"]);
                         var endPort = Convert.ToInt32(cabinet_plc.DevSettings["endport"]);
                         var localPort = Convert.ToInt32(cabinet_plc.DevSettings["local_port"]);
-                        cabinet.LddManager = new MvKjMachineDrawerManager(startPort,endPort, localPort);
-                        cabinet.LddManager.ListenSystStartUpEvent();
-                    }
+                        cabinet.LddManager = new MvKjMachineDrawerManager(startPort, endPort, localPort);
+                    }  
                    
                     var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer1.DevSettings["ip"]), Convert.ToInt32(drawer1.DevSettings["port"]));
                     drawer1.Ldd = cabinet.LddManager.CreateLdd(0, drawer1.Index, deviceEndPoint, drawer1.DevSettings["local_ip"]);
