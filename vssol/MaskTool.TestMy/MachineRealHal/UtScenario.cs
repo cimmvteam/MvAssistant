@@ -1063,36 +1063,41 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void DrawerLightAllOn()
         {
-            MvKjMachineDrawerManager manager = null;
+           
             try
             {
+               
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
-                  
-                  //  var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+               
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                    HalBase hbaseDrawer;
-                    //cabinet.Hals.TryGetValue(MacEnumDevice.cabinet_drawer_01_01.ToString(), out hbaseDrawer);
-                    hbaseDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()];
-                    MacHalDrawerKjMachine drawer = (MacHalDrawerKjMachine)hbaseDrawer;
-                    drawer.Index = MacEnumDevice.cabinet_drawer_01_01.ToString();
-                    if (manager == null)
+                   // HalBase hbaseDrawer;
+
+
+                    cabinet.CreateDrawers<MacHalDrawerKjMachine>(cabinet.Hals);
+
+                    //hbaseDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()];
+                    // MacHalDrawerKjMachine drawer = (MacHalDrawerKjMachine)hbaseDrawer;
+                    //drawer.Index = MacEnumDevice.cabinet_drawer_01_01.ToString();
+                    var drawer = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_01.ToString());
+                    if (cabinet.LddManager == null)
                     {
                         // manager = new MvKjMachineDrawerManager(Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["local_port"]));
                         var cabinet_plc = cabinet.Hals[MacEnumDevice.cabinet_plc.ToString()];
                         var startPort = Convert.ToInt32(cabinet_plc.DevSettings["startport"]);
                         var endPort = Convert.ToInt32(cabinet_plc.DevSettings["endport"]);
                         var localPort = Convert.ToInt32(cabinet_plc.DevSettings["local_port"]);
-                        manager = new MvKjMachineDrawerManager(startPort,endPort, localPort);
-                        manager.ListenSystStartUpEvent();
+                        cabinet.LddManager = new MvKjMachineDrawerManager(startPort,endPort, localPort);
+                        cabinet.LddManager.ListenSystStartUpEvent();
                     }
+                   
                     var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer.DevSettings["ip"]), Convert.ToInt32(drawer.DevSettings["port"]));
-                    drawer.Ldd = manager.CreateDrawer(0, drawer.Index, deviceEndPoint, drawer.DevSettings["local_ip"]);
+                    drawer.Ldd = cabinet.LddManager.CreateLdd(0, drawer.Index, deviceEndPoint, drawer.DevSettings["local_ip"]);
                     drawer.BindResult();
                     drawer.Tag = BrightLEDType.AllOn;
                     drawer.Ldd.CommandBrightLEDAllOn();
-                    
+                   
                 }
             }
             catch (Exception ex)

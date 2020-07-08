@@ -86,7 +86,6 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <returns></returns>
         public MvKjMachineDrawerLdd CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,string localIP)
         {
-
             try
             {
                 
@@ -100,10 +99,25 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 return null;
             }
            
+        }
+        public MvKjMachineDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
+        {
+
+            try
+            {
+
+                MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
+
+                return ldd;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
 
         }
 
-       
 
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
