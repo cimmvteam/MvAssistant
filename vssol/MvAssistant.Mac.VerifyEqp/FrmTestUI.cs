@@ -108,7 +108,7 @@ namespace MvAssistantMacVerifyEqp
             drawers.DrawerC.CommandBoxDetection();
         }
             
-        }
+        //}
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
@@ -197,6 +197,7 @@ namespace MvAssistantMacVerifyEqp
             drawers.InitialDRawer(drawers.DrawerD);
             drawers.DisableDrawerComps(drawers.DrawerD);
             drawers.DrawerD.CommandINI();
+        }
         private void Unlock_Click(object sender, EventArgs e)
         {
             try
