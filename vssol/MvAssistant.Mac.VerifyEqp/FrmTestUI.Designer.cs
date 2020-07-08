@@ -217,6 +217,7 @@
             this.btnLoadportBBarcode.TabIndex = 0;
             this.btnLoadportBBarcode.Text = "Load Port B Barcode";
             this.btnLoadportBBarcode.UseVisualStyleBackColor = true;
+            this.btnLoadportBBarcode.Click += new System.EventHandler(this.btnLoadportBBarcode_Click);
             // 
             // groupBox3
             // 

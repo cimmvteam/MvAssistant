@@ -574,7 +574,8 @@ namespace MvAssistantMacVerifyEqp
         {
             var loadport = (MvGudengLoadPortLdd)sender;
             var eventArgs = (OnRFIDEventArgs)args;
-
+            SetResult(loadport, "RFID [] =" + eventArgs.RFID);
+            this.EnableLoadportOperate(loadport);
             // NoteEventResult($"IP={loadport.ServerEndPoint}, Event={nameof(OnRFID).Replace("On", "")}", "RFID:" + eventArgs.RFID);
         }
         private void OnBarcode_ID(object sender, EventArgs args)
@@ -584,11 +585,14 @@ namespace MvAssistantMacVerifyEqp
             if (eventArgs.ReturnCode == EventBarcodeIDCode.Success)
             {
                 //NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnBarcode_ID).Replace("On", "")}", "Barcode ID:" + eventArgs.BarcodeID);
+                SetResult(loadport, "Barcode ID [] =" + eventArgs.ReturnCode.ToString());
             }
             else
             {
                 // NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnBarcode_ID).Replace("On", "")}", "請取 Barcode ID失敗");
+                SetResult(loadport, "無法讀取 Barcode ID [] ");
             }
+            this.EnableLoadportOperate(loadport);
         }
         private void OnClamperLockComplete(object sender, EventArgs args)
         {
