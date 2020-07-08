@@ -186,6 +186,35 @@ namespace MvAssistantMacVerifyEqp
             this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort2);
             loadPorts.LoadPort2.CommandAskBarcodeStatus();
         }
+
+        private void btnLoadportABarcode_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort1);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
+            loadPorts.LoadPort1.CommandAskBarcodeStatus();
+        }
+
+        private void btnLoadportARFID_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort1);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
+            loadPorts.LoadPort1.CommandAskBarcodeStatus();
+        }
+
+        private void btnLoadPortAAlarmReset_Click(object sender, EventArgs e)
+        {
+
+            this.loadPorts.ResetResult(loadPorts.LoadPort1);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
+            loadPorts.LoadPort1.CommandAlarmReset();
+        }
+
+        private void btnInitialLoadportA_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort1);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
+            loadPorts.LoadPort1.CommandInitialRequest();
+        }
     }
 
 

@@ -511,7 +511,9 @@ namespace MvAssistantMacVerifyEqp
         }
         public void ResetResult(MvGudengLoadPortLdd loadport)
         {
-            if (loadport.LoadPortNo == 1) { }
+            if (loadport.LoadPortNo == 1) {
+                MyForm.txtBxLoportAResult.Clear();
+            }
             else if (loadport.LoadPortNo == 2)
             {
                 MyForm.txtBxLoportBResult.Clear();
@@ -521,7 +523,7 @@ namespace MvAssistantMacVerifyEqp
         {
            if(loadport.LoadPortNo==1)
             {
-
+                MyForm.grpLoadportA.Enabled = false;
             }
             else if (loadport.LoadPortNo == 2)
             {
@@ -533,7 +535,7 @@ namespace MvAssistantMacVerifyEqp
         {
             if (loadport.LoadPortNo == 1)
             {
-
+                MyForm.grpLoadportA.Enabled = true;
             }
             else if (loadport.LoadPortNo == 2)
             {
