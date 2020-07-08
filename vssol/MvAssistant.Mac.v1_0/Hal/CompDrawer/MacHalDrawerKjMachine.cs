@@ -221,7 +221,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             var arriveType = (TrayArriveType)result;
             if (this.Tag.ToString() == nameof(CommandINI))
-            {
+            {   // 如果當時是發 initial 指令, 視為 初始化成功
                 if (arriveType == TrayArriveType.ArriveHome)
                 {
                     this.INIResult(sender,true);
@@ -229,18 +229,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
             else
             {
+                var ldd = (MvKjMachineDrawerLdd)sender;
                 if (arriveType == TrayArriveType.ArriveHome)
                 { // 回到 Home
 
-
+                    DebugLog(ldd, "已經回到 Home");
                 }
                 else if (arriveType == TrayArriveType.ArriveIn)
                 { //  回到 In
-
+                    DebugLog(ldd, "已經回到 In");
                 }
                 else// if (arriveType == TrayArriveType.ArriveOut)
                 {  // 回到 Out
-
+                    DebugLog(ldd, "已經回到 Out");
                 }
             }
         }
@@ -249,37 +250,40 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         
         public void INIResult(object sender,bool result)
         {
+            var ldd = (MvKjMachineDrawerLdd)sender;
             if (result)
             {  // 初始化成功
-                
+                DebugLog(ldd, "初始化成功");
             }
             else
             { // 初始化失敗
-
+                DebugLog(ldd, "初始化失敗");
             }
         }
 
         public void SetMotionSpeedResult(object sender, bool result)
         {
+            var ldd = (MvKjMachineDrawerLdd)sender;
             if (result)
             {  // 速度設定成功
-
+                DebugLog(ldd, "設定速度成功");
             }
             else
             {  // 速度設定失敗
-
+                DebugLog(ldd, "設定速度失敗");
             }
         }
 
         public void SetTimeOutResult(object sender, bool result)
         {
+            var ldd = (MvKjMachineDrawerLdd)sender;
             if (result)
             { // 逾時時間設定成功
-
+                DebugLog(ldd, "設定Time Out成功");
             }
             else
             {
-
+                DebugLog(ldd, "設定Time Out 失敗");
             }
         }
 
@@ -287,45 +291,45 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
       
         public void BrightLEDResult(object sender, bool result)
         {
-            MvKjMachineDrawerLdd Ldd = (MvKjMachineDrawerLdd)sender;
+            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
             var command = this.Tag.ToString();
             if (result)
             {    // 成功
                
                 if(command == nameof(CommandBrightLEDAllOff))
                 { // 關掉所有的 led 
-                    
+                    DebugLog(ldd, "所有 LED off OK");
                 }
                 else if (command ==nameof(CommandBrightLEDAllOn))
                 {// 打亮所有的led
-
+                    DebugLog(ldd, "所有 LED On OK");
                 }
                 else if (command == nameof(CommandBrightLEDGreenOn))
                 {  // 打亮綠色LED
-
+                    DebugLog(ldd, "綠色 LED On OK");
                 }
                 else 
                 {   // 打亮 紅色LED
-
+                    DebugLog(ldd, "紅色 LED On OK");
                 }
             }
             else // 失敗
-            {   
+            {
                 if (command == nameof(CommandBrightLEDAllOff))
-                { // 關掉所有的 LED
-
+                { // 關掉所有的 led 
+                    DebugLog(ldd, "所有 LED off Fail");
                 }
                 else if (command == nameof(CommandBrightLEDAllOn))
-                { // 打亮所有的LED
-
+                {// 打亮所有的led
+                    DebugLog(ldd, "所有 LED On Fail");
                 }
                 else if (command == nameof(CommandBrightLEDGreenOn))
-                { //打亮綠色的 LED
-
+                {  // 打亮綠色LED
+                    DebugLog(ldd, "綠色 LED On Fail");
                 }
-                else 
-                {  // 打亮紅色的 LED
-
+                else
+                {   // 打亮 紅色LED
+                    DebugLog(ldd, "紅色 LED On Fail");
                 }
             }
         }
@@ -333,41 +337,49 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public void PositionReadResult(object sender, string result)
         {
+            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
             if (string.IsNullOrEmpty(result))
             {
-
+                DebugLog(ldd, " PositionRead Error");
             }
             else
             {// result 為IOH
-
+                DebugLog(ldd, $"IOH={result}");
             }
         }
 
         public void BoxDetectionResult(object sender, bool result)
         {
+            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
             if (result)
             {  // 有盒子
-
+                DebugLog(ldd, "有盒子");
             }
             else
             {
-
+                DebugLog(ldd, "没有盒子");
             }
         }
 
         public void ErrorResult(object sender,int result)
         {
+            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
             var errorResult = (ReplyErrorCode)result;
             if (errorResult == ReplyErrorCode.Error)
             { // Error
 
+                DebugLog(ldd, "Error");
             }
             else //if (errorResult == ReplyErrorCode.Recovery)
             {// Recovery
-
+                DebugLog(ldd, "Recovery");
             }
         }
         
-        
+        void DebugLog(MvKjMachineDrawerLdd ldd, string text)
+        {
+            string str = $"Ldd={ldd.DeviceIP}, Text={text}";
+            Debug.WriteLine(str);
+        }
     }
 }
