@@ -500,6 +500,7 @@ namespace MvAssistantMacVerifyEqp
             string index = "";
             if (loadport.LoadPortNo == 1)
             {
+                textBox = MyForm.txtBxLoportAResult;
                 index = "A";
             }
             else if (loadport.LoadPortNo == 2)

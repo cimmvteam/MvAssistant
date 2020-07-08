@@ -198,7 +198,7 @@ namespace MvAssistantMacVerifyEqp
         {
             this.loadPorts.ResetResult(loadPorts.LoadPort1);
             this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
-            loadPorts.LoadPort1.CommandAskBarcodeStatus();
+            loadPorts.LoadPort1.CommandAskRFIDStatus();
         }
 
         private void btnLoadPortAAlarmReset_Click(object sender, EventArgs e)
