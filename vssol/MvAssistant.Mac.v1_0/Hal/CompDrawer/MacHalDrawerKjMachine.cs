@@ -82,6 +82,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                 }
             }
         }
+        
 
         public string CommandINI()
         {
@@ -379,7 +380,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         void DebugLog(MvKjMachineDrawerLdd ldd, string text)
         {
             string str = $"Ldd={ldd.DeviceIP}, Text={text}";
-            Debug.WriteLine(str);
+            Debug.WriteLine("\r\n"+ str);
         }
     }
 }
