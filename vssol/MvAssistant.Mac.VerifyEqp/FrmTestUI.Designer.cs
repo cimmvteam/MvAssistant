@@ -131,9 +131,9 @@
             this.TabPageDrawers.Controls.Add(this.grpLoadPorts);
             this.TabPageDrawers.Controls.Add(this.GrpDrawer);
             this.TabPageDrawers.Location = new System.Drawing.Point(4, 22);
-            this.TabPageDrawers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabPageDrawers.Margin = new System.Windows.Forms.Padding(2);
             this.TabPageDrawers.Name = "TabPageDrawers";
-            this.TabPageDrawers.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TabPageDrawers.Padding = new System.Windows.Forms.Padding(2);
             this.TabPageDrawers.Size = new System.Drawing.Size(1559, 713);
             this.TabPageDrawers.TabIndex = 0;
             this.TabPageDrawers.Text = "Drawers & LoadPorts";
@@ -144,9 +144,9 @@
             this.grpLoadPorts.Controls.Add(this.grpLoadportA);
             this.grpLoadPorts.Controls.Add(this.grpLoadportB);
             this.grpLoadPorts.Location = new System.Drawing.Point(4, 367);
-            this.grpLoadPorts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLoadPorts.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadPorts.Name = "grpLoadPorts";
-            this.grpLoadPorts.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLoadPorts.Padding = new System.Windows.Forms.Padding(2);
             this.grpLoadPorts.Size = new System.Drawing.Size(833, 188);
             this.grpLoadPorts.TabIndex = 2;
             this.grpLoadPorts.TabStop = false;
@@ -160,9 +160,9 @@
             this.grpLoadportA.Controls.Add(this.btnLoadportARFID);
             this.grpLoadportA.Controls.Add(this.btnLoadportABarcode);
             this.grpLoadportA.Location = new System.Drawing.Point(19, 14);
-            this.grpLoadportA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLoadportA.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportA.Name = "grpLoadportA";
-            this.grpLoadportA.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLoadportA.Padding = new System.Windows.Forms.Padding(2);
             this.grpLoadportA.Size = new System.Drawing.Size(289, 166);
             this.grpLoadportA.TabIndex = 1;
             this.grpLoadportA.TabStop = false;
@@ -171,7 +171,7 @@
             // txtBxLoportAResult
             // 
             this.txtBxLoportAResult.Location = new System.Drawing.Point(4, 17);
-            this.txtBxLoportAResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxLoportAResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxLoportAResult.Multiline = true;
             this.txtBxLoportAResult.Name = "txtBxLoportAResult";
             this.txtBxLoportAResult.ReadOnly = true;
@@ -182,7 +182,7 @@
             // btnLoadPortAAlarmReset
             // 
             this.btnLoadPortAAlarmReset.Location = new System.Drawing.Point(4, 119);
-            this.btnLoadPortAAlarmReset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadPortAAlarmReset.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadPortAAlarmReset.Name = "btnLoadPortAAlarmReset";
             this.btnLoadPortAAlarmReset.Size = new System.Drawing.Size(135, 18);
             this.btnLoadPortAAlarmReset.TabIndex = 3;
@@ -193,7 +193,7 @@
             // btnInitialLoadportA
             // 
             this.btnInitialLoadportA.Location = new System.Drawing.Point(144, 119);
-            this.btnInitialLoadportA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialLoadportA.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialLoadportA.Name = "btnInitialLoadportA";
             this.btnInitialLoadportA.Size = new System.Drawing.Size(135, 18);
             this.btnInitialLoadportA.TabIndex = 2;
@@ -204,7 +204,7 @@
             // btnLoadportARFID
             // 
             this.btnLoadportARFID.Location = new System.Drawing.Point(144, 143);
-            this.btnLoadportARFID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadportARFID.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportARFID.Name = "btnLoadportARFID";
             this.btnLoadportARFID.Size = new System.Drawing.Size(135, 18);
             this.btnLoadportARFID.TabIndex = 1;
@@ -215,7 +215,7 @@
             // btnLoadportABarcode
             // 
             this.btnLoadportABarcode.Location = new System.Drawing.Point(4, 142);
-            this.btnLoadportABarcode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadportABarcode.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportABarcode.Name = "btnLoadportABarcode";
             this.btnLoadportABarcode.Size = new System.Drawing.Size(135, 18);
             this.btnLoadportABarcode.TabIndex = 0;
@@ -231,9 +231,9 @@
             this.grpLoadportB.Controls.Add(this.btnLoadportBRFID);
             this.grpLoadportB.Controls.Add(this.btnLoadportBBarcode);
             this.grpLoadportB.Location = new System.Drawing.Point(526, 14);
-            this.grpLoadportB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLoadportB.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportB.Name = "grpLoadportB";
-            this.grpLoadportB.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpLoadportB.Padding = new System.Windows.Forms.Padding(2);
             this.grpLoadportB.Size = new System.Drawing.Size(295, 166);
             this.grpLoadportB.TabIndex = 0;
             this.grpLoadportB.TabStop = false;
@@ -242,7 +242,7 @@
             // txtBxLoportBResult
             // 
             this.txtBxLoportBResult.Location = new System.Drawing.Point(8, 17);
-            this.txtBxLoportBResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxLoportBResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxLoportBResult.Multiline = true;
             this.txtBxLoportBResult.Name = "txtBxLoportBResult";
             this.txtBxLoportBResult.ReadOnly = true;
@@ -253,7 +253,7 @@
             // btnLoadPortBAlarmReset
             // 
             this.btnLoadPortBAlarmReset.Location = new System.Drawing.Point(8, 119);
-            this.btnLoadPortBAlarmReset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadPortBAlarmReset.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadPortBAlarmReset.Name = "btnLoadPortBAlarmReset";
             this.btnLoadPortBAlarmReset.Size = new System.Drawing.Size(135, 18);
             this.btnLoadPortBAlarmReset.TabIndex = 3;
@@ -264,7 +264,7 @@
             // btnInitialLoadportB
             // 
             this.btnInitialLoadportB.Location = new System.Drawing.Point(148, 119);
-            this.btnInitialLoadportB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialLoadportB.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialLoadportB.Name = "btnInitialLoadportB";
             this.btnInitialLoadportB.Size = new System.Drawing.Size(135, 18);
             this.btnInitialLoadportB.TabIndex = 2;
@@ -275,7 +275,7 @@
             // btnLoadportBRFID
             // 
             this.btnLoadportBRFID.Location = new System.Drawing.Point(148, 142);
-            this.btnLoadportBRFID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadportBRFID.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportBRFID.Name = "btnLoadportBRFID";
             this.btnLoadportBRFID.Size = new System.Drawing.Size(135, 18);
             this.btnLoadportBRFID.TabIndex = 1;
@@ -286,7 +286,7 @@
             // btnLoadportBBarcode
             // 
             this.btnLoadportBBarcode.Location = new System.Drawing.Point(8, 142);
-            this.btnLoadportBBarcode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLoadportBBarcode.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportBBarcode.Name = "btnLoadportBBarcode";
             this.btnLoadportBBarcode.Size = new System.Drawing.Size(135, 18);
             this.btnLoadportBBarcode.TabIndex = 0;
@@ -305,8 +305,8 @@
             this.GrpDrawer.Controls.Add(this.GrpDrawerA);
             this.GrpDrawer.Location = new System.Drawing.Point(6, 6);
             this.GrpDrawer.Name = "GrpDrawer";
-            this.GrpDrawer.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.GrpDrawer.Size = new System.Drawing.Size(1027, 350);
+            this.GrpDrawer.Padding = new System.Windows.Forms.Padding(2);
+            this.GrpDrawer.Size = new System.Drawing.Size(1106, 350);
             this.GrpDrawer.TabIndex = 1;
             this.GrpDrawer.TabStop = false;
             this.GrpDrawer.Text = "Drawers";
@@ -316,9 +316,9 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtDrawerBoxNum);
             this.groupBox2.Location = new System.Drawing.Point(512, 298);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(89, 44);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
@@ -336,7 +336,7 @@
             // txtDrawerBoxNum
             // 
             this.txtDrawerBoxNum.Location = new System.Drawing.Point(63, 12);
-            this.txtDrawerBoxNum.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtDrawerBoxNum.Margin = new System.Windows.Forms.Padding(2);
             this.txtDrawerBoxNum.Name = "txtDrawerBoxNum";
             this.txtDrawerBoxNum.ReadOnly = true;
             this.txtDrawerBoxNum.Size = new System.Drawing.Size(24, 22);
@@ -347,7 +347,7 @@
             // BtnReleaseAllComp
             // 
             this.BtnReleaseAllComp.Location = new System.Drawing.Point(4, 304);
-            this.BtnReleaseAllComp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BtnReleaseAllComp.Margin = new System.Windows.Forms.Padding(2);
             this.BtnReleaseAllComp.Name = "BtnReleaseAllComp";
             this.BtnReleaseAllComp.Size = new System.Drawing.Size(140, 18);
             this.BtnReleaseAllComp.TabIndex = 7;
@@ -361,9 +361,9 @@
             this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
             this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
             this.groupBox1.Location = new System.Drawing.Point(606, 298);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(330, 44);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
@@ -371,7 +371,7 @@
             // btnInitialAllDrawer
             // 
             this.btnInitialAllDrawer.Location = new System.Drawing.Point(4, 17);
-            this.btnInitialAllDrawer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialAllDrawer.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialAllDrawer.Name = "btnInitialAllDrawer";
             this.btnInitialAllDrawer.Size = new System.Drawing.Size(94, 18);
             this.btnInitialAllDrawer.TabIndex = 4;
@@ -382,7 +382,7 @@
             // btnDetectAllDrawers
             // 
             this.btnDetectAllDrawers.Location = new System.Drawing.Point(232, 17);
-            this.btnDetectAllDrawers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDetectAllDrawers.Margin = new System.Windows.Forms.Padding(2);
             this.btnDetectAllDrawers.Name = "btnDetectAllDrawers";
             this.btnDetectAllDrawers.Size = new System.Drawing.Size(86, 18);
             this.btnDetectAllDrawers.TabIndex = 6;
@@ -393,7 +393,7 @@
             // btnMoveAllDrawersHome
             // 
             this.btnMoveAllDrawersHome.Location = new System.Drawing.Point(106, 17);
-            this.btnMoveAllDrawersHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveAllDrawersHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveAllDrawersHome.Name = "btnMoveAllDrawersHome";
             this.btnMoveAllDrawersHome.Size = new System.Drawing.Size(122, 18);
             this.btnMoveAllDrawersHome.TabIndex = 5;
@@ -404,11 +404,11 @@
             // GrpDrawerD
             // 
             this.GrpDrawerD.Controls.Add(this.grpDrawerDComp);
-            this.GrpDrawerD.Location = new System.Drawing.Point(478, 164);
-            this.GrpDrawerD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GrpDrawerD.Location = new System.Drawing.Point(554, 164);
+            this.GrpDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerD.Name = "GrpDrawerD";
-            this.GrpDrawerD.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.GrpDrawerD.Size = new System.Drawing.Size(460, 130);
+            this.GrpDrawerD.Padding = new System.Windows.Forms.Padding(2);
+            this.GrpDrawerD.Size = new System.Drawing.Size(533, 130);
             this.GrpDrawerD.TabIndex = 3;
             this.GrpDrawerD.TabStop = false;
             this.GrpDrawerD.Text = "D(192.168.0.54)";
@@ -423,10 +423,10 @@
             this.grpDrawerDComp.Controls.Add(this.chkBoxDrawerDHasbox);
             this.grpDrawerDComp.Controls.Add(this.txtBxDetectDrawerD);
             this.grpDrawerDComp.Location = new System.Drawing.Point(8, 9);
-            this.grpDrawerDComp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpDrawerDComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerDComp.Name = "grpDrawerDComp";
-            this.grpDrawerDComp.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpDrawerDComp.Size = new System.Drawing.Size(445, 117);
+            this.grpDrawerDComp.Padding = new System.Windows.Forms.Padding(2);
+            this.grpDrawerDComp.Size = new System.Drawing.Size(510, 117);
             this.grpDrawerDComp.TabIndex = 10;
             this.grpDrawerDComp.TabStop = false;
             // 
@@ -442,8 +442,8 @@
             // 
             // txtBxDrawerDResult
             // 
-            this.txtBxDrawerDResult.Location = new System.Drawing.Point(231, 14);
-            this.txtBxDrawerDResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerDResult.Location = new System.Drawing.Point(291, 14);
+            this.txtBxDrawerDResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerDResult.Multiline = true;
             this.txtBxDrawerDResult.Name = "txtBxDrawerDResult";
             this.txtBxDrawerDResult.ReadOnly = true;
@@ -453,19 +453,19 @@
             // txtBxDrawerIPD
             // 
             this.txtBxDrawerIPD.Location = new System.Drawing.Point(68, 14);
-            this.txtBxDrawerIPD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerIPD.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerIPD.Name = "txtBxDrawerIPD";
             this.txtBxDrawerIPD.ReadOnly = true;
-            this.txtBxDrawerIPD.Size = new System.Drawing.Size(148, 22);
+            this.txtBxDrawerIPD.Size = new System.Drawing.Size(188, 22);
             this.txtBxDrawerIPD.TabIndex = 0;
             this.txtBxDrawerIPD.Text = "192.168.0.54";
             // 
             // btnMoveDrawerDHome
             // 
             this.btnMoveDrawerDHome.Location = new System.Drawing.Point(67, 70);
-            this.btnMoveDrawerDHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveDrawerDHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerDHome.Name = "btnMoveDrawerDHome";
-            this.btnMoveDrawerDHome.Size = new System.Drawing.Size(66, 18);
+            this.btnMoveDrawerDHome.Size = new System.Drawing.Size(117, 18);
             this.btnMoveDrawerDHome.TabIndex = 5;
             this.btnMoveDrawerDHome.Text = "Move D Home";
             this.btnMoveDrawerDHome.UseVisualStyleBackColor = true;
@@ -474,7 +474,7 @@
             // btnInitialDrawerD
             // 
             this.btnInitialDrawerD.Location = new System.Drawing.Point(6, 70);
-            this.btnInitialDrawerD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerD.Name = "btnInitialDrawerD";
             this.btnInitialDrawerD.Size = new System.Drawing.Size(56, 18);
             this.btnInitialDrawerD.TabIndex = 2;
@@ -487,7 +487,7 @@
             this.chkBoxDrawerDHasbox.AutoSize = true;
             this.chkBoxDrawerDHasbox.Enabled = false;
             this.chkBoxDrawerDHasbox.Location = new System.Drawing.Point(6, 43);
-            this.chkBoxDrawerDHasbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDrawerDHasbox.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDrawerDHasbox.Name = "chkBoxDrawerDHasbox";
             this.chkBoxDrawerDHasbox.Size = new System.Drawing.Size(64, 16);
             this.chkBoxDrawerDHasbox.TabIndex = 4;
@@ -496,8 +496,8 @@
             // 
             // txtBxDetectDrawerD
             // 
-            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(137, 70);
-            this.txtBxDetectDrawerD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(188, 68);
+            this.txtBxDetectDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerD.Name = "txtBxDetectDrawerD";
             this.txtBxDetectDrawerD.Size = new System.Drawing.Size(68, 18);
             this.txtBxDetectDrawerD.TabIndex = 3;
@@ -509,10 +509,10 @@
             // 
             this.GrpDrawerC.Controls.Add(this.grpDrawerCComp);
             this.GrpDrawerC.Location = new System.Drawing.Point(4, 164);
-            this.GrpDrawerC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GrpDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerC.Name = "GrpDrawerC";
-            this.GrpDrawerC.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.GrpDrawerC.Size = new System.Drawing.Size(460, 130);
+            this.GrpDrawerC.Padding = new System.Windows.Forms.Padding(2);
+            this.GrpDrawerC.Size = new System.Drawing.Size(518, 130);
             this.GrpDrawerC.TabIndex = 2;
             this.GrpDrawerC.TabStop = false;
             this.GrpDrawerC.Text = "C(192.168.0.50)";
@@ -527,10 +527,10 @@
             this.grpDrawerCComp.Controls.Add(this.chkBoxDrawerCHasbox);
             this.grpDrawerCComp.Controls.Add(this.txtBxDetectDrawerC);
             this.grpDrawerCComp.Location = new System.Drawing.Point(8, 7);
-            this.grpDrawerCComp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpDrawerCComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerCComp.Name = "grpDrawerCComp";
-            this.grpDrawerCComp.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpDrawerCComp.Size = new System.Drawing.Size(445, 117);
+            this.grpDrawerCComp.Padding = new System.Windows.Forms.Padding(2);
+            this.grpDrawerCComp.Size = new System.Drawing.Size(490, 117);
             this.grpDrawerCComp.TabIndex = 9;
             this.grpDrawerCComp.TabStop = false;
             // 
@@ -546,8 +546,8 @@
             // 
             // txtBxDrawerCResult
             // 
-            this.txtBxDrawerCResult.Location = new System.Drawing.Point(231, 14);
-            this.txtBxDrawerCResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerCResult.Location = new System.Drawing.Point(267, 16);
+            this.txtBxDrawerCResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerCResult.Multiline = true;
             this.txtBxDrawerCResult.Name = "txtBxDrawerCResult";
             this.txtBxDrawerCResult.ReadOnly = true;
@@ -557,19 +557,19 @@
             // txtBxDrawerIPC
             // 
             this.txtBxDrawerIPC.Location = new System.Drawing.Point(62, 14);
-            this.txtBxDrawerIPC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerIPC.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerIPC.Name = "txtBxDrawerIPC";
             this.txtBxDrawerIPC.ReadOnly = true;
-            this.txtBxDrawerIPC.Size = new System.Drawing.Size(148, 22);
+            this.txtBxDrawerIPC.Size = new System.Drawing.Size(182, 22);
             this.txtBxDrawerIPC.TabIndex = 0;
             this.txtBxDrawerIPC.Text = "192.168.0.50";
             // 
             // btnMoveDrawerCHome
             // 
             this.btnMoveDrawerCHome.Location = new System.Drawing.Point(67, 70);
-            this.btnMoveDrawerCHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveDrawerCHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerCHome.Name = "btnMoveDrawerCHome";
-            this.btnMoveDrawerCHome.Size = new System.Drawing.Size(66, 18);
+            this.btnMoveDrawerCHome.Size = new System.Drawing.Size(105, 18);
             this.btnMoveDrawerCHome.TabIndex = 5;
             this.btnMoveDrawerCHome.Text = "Move C Home";
             this.btnMoveDrawerCHome.UseVisualStyleBackColor = true;
@@ -578,7 +578,7 @@
             // btnInitialDrawerC
             // 
             this.btnInitialDrawerC.Location = new System.Drawing.Point(6, 70);
-            this.btnInitialDrawerC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerC.Name = "btnInitialDrawerC";
             this.btnInitialDrawerC.Size = new System.Drawing.Size(56, 18);
             this.btnInitialDrawerC.TabIndex = 2;
@@ -591,7 +591,7 @@
             this.chkBoxDrawerCHasbox.AutoSize = true;
             this.chkBoxDrawerCHasbox.Enabled = false;
             this.chkBoxDrawerCHasbox.Location = new System.Drawing.Point(6, 43);
-            this.chkBoxDrawerCHasbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDrawerCHasbox.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDrawerCHasbox.Name = "chkBoxDrawerCHasbox";
             this.chkBoxDrawerCHasbox.Size = new System.Drawing.Size(64, 16);
             this.chkBoxDrawerCHasbox.TabIndex = 4;
@@ -600,8 +600,8 @@
             // 
             // txtBxDetectDrawerC
             // 
-            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(137, 70);
-            this.txtBxDetectDrawerC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(176, 70);
+            this.txtBxDetectDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerC.Name = "txtBxDetectDrawerC";
             this.txtBxDetectDrawerC.Size = new System.Drawing.Size(68, 18);
             this.txtBxDetectDrawerC.TabIndex = 3;
@@ -612,11 +612,11 @@
             // GrpDrawerB
             // 
             this.GrpDrawerB.Controls.Add(this.grpDrawerBComp);
-            this.GrpDrawerB.Location = new System.Drawing.Point(478, 17);
-            this.GrpDrawerB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GrpDrawerB.Location = new System.Drawing.Point(554, 17);
+            this.GrpDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerB.Name = "GrpDrawerB";
-            this.GrpDrawerB.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.GrpDrawerB.Size = new System.Drawing.Size(460, 135);
+            this.GrpDrawerB.Padding = new System.Windows.Forms.Padding(2);
+            this.GrpDrawerB.Size = new System.Drawing.Size(533, 135);
             this.GrpDrawerB.TabIndex = 1;
             this.GrpDrawerB.TabStop = false;
             this.GrpDrawerB.Text = "B(192.168.0.42)";
@@ -631,10 +631,10 @@
             this.grpDrawerBComp.Controls.Add(this.chkBoxDrawerBHasbox);
             this.grpDrawerBComp.Controls.Add(this.txtBxDetectDrawerB);
             this.grpDrawerBComp.Location = new System.Drawing.Point(8, 14);
-            this.grpDrawerBComp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpDrawerBComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerBComp.Name = "grpDrawerBComp";
-            this.grpDrawerBComp.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpDrawerBComp.Size = new System.Drawing.Size(443, 117);
+            this.grpDrawerBComp.Padding = new System.Windows.Forms.Padding(2);
+            this.grpDrawerBComp.Size = new System.Drawing.Size(510, 117);
             this.grpDrawerBComp.TabIndex = 8;
             this.grpDrawerBComp.TabStop = false;
             // 
@@ -650,8 +650,8 @@
             // 
             // txtBxDrawerBResult
             // 
-            this.txtBxDrawerBResult.Location = new System.Drawing.Point(231, 14);
-            this.txtBxDrawerBResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerBResult.Location = new System.Drawing.Point(289, 14);
+            this.txtBxDrawerBResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerBResult.Multiline = true;
             this.txtBxDrawerBResult.Name = "txtBxDrawerBResult";
             this.txtBxDrawerBResult.ReadOnly = true;
@@ -661,19 +661,19 @@
             // txtBxDrawerIPB
             // 
             this.txtBxDrawerIPB.Location = new System.Drawing.Point(68, 14);
-            this.txtBxDrawerIPB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerIPB.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerIPB.Name = "txtBxDrawerIPB";
             this.txtBxDrawerIPB.ReadOnly = true;
-            this.txtBxDrawerIPB.Size = new System.Drawing.Size(148, 22);
+            this.txtBxDrawerIPB.Size = new System.Drawing.Size(188, 22);
             this.txtBxDrawerIPB.TabIndex = 0;
             this.txtBxDrawerIPB.Text = "192.168.0.42";
             // 
             // btnMoveDrawerBHome
             // 
             this.btnMoveDrawerBHome.Location = new System.Drawing.Point(67, 70);
-            this.btnMoveDrawerBHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveDrawerBHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerBHome.Name = "btnMoveDrawerBHome";
-            this.btnMoveDrawerBHome.Size = new System.Drawing.Size(66, 18);
+            this.btnMoveDrawerBHome.Size = new System.Drawing.Size(117, 18);
             this.btnMoveDrawerBHome.TabIndex = 5;
             this.btnMoveDrawerBHome.Text = "Move B Home";
             this.btnMoveDrawerBHome.UseVisualStyleBackColor = true;
@@ -682,7 +682,7 @@
             // btnInitialDrawerB
             // 
             this.btnInitialDrawerB.Location = new System.Drawing.Point(6, 70);
-            this.btnInitialDrawerB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerB.Name = "btnInitialDrawerB";
             this.btnInitialDrawerB.Size = new System.Drawing.Size(56, 18);
             this.btnInitialDrawerB.TabIndex = 2;
@@ -695,7 +695,7 @@
             this.chkBoxDrawerBHasbox.AutoSize = true;
             this.chkBoxDrawerBHasbox.Enabled = false;
             this.chkBoxDrawerBHasbox.Location = new System.Drawing.Point(6, 43);
-            this.chkBoxDrawerBHasbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDrawerBHasbox.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDrawerBHasbox.Name = "chkBoxDrawerBHasbox";
             this.chkBoxDrawerBHasbox.Size = new System.Drawing.Size(64, 16);
             this.chkBoxDrawerBHasbox.TabIndex = 4;
@@ -704,8 +704,8 @@
             // 
             // txtBxDetectDrawerB
             // 
-            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(137, 70);
-            this.txtBxDetectDrawerB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(188, 69);
+            this.txtBxDetectDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerB.Name = "txtBxDetectDrawerB";
             this.txtBxDetectDrawerB.Size = new System.Drawing.Size(68, 18);
             this.txtBxDetectDrawerB.TabIndex = 3;
@@ -717,10 +717,10 @@
             // 
             this.GrpDrawerA.Controls.Add(this.grpDrawerAComp);
             this.GrpDrawerA.Location = new System.Drawing.Point(4, 17);
-            this.GrpDrawerA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GrpDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerA.Name = "GrpDrawerA";
-            this.GrpDrawerA.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.GrpDrawerA.Size = new System.Drawing.Size(460, 135);
+            this.GrpDrawerA.Padding = new System.Windows.Forms.Padding(2);
+            this.GrpDrawerA.Size = new System.Drawing.Size(518, 135);
             this.GrpDrawerA.TabIndex = 0;
             this.GrpDrawerA.TabStop = false;
             this.GrpDrawerA.Text = "A(192.168.0.34)";
@@ -736,10 +736,10 @@
             this.grpDrawerAComp.Controls.Add(this.chkBoxDrawerAHasbox);
             this.grpDrawerAComp.Controls.Add(this.txtBxDetectDrawerA);
             this.grpDrawerAComp.Location = new System.Drawing.Point(6, 10);
-            this.grpDrawerAComp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpDrawerAComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerAComp.Name = "grpDrawerAComp";
-            this.grpDrawerAComp.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.grpDrawerAComp.Size = new System.Drawing.Size(443, 117);
+            this.grpDrawerAComp.Padding = new System.Windows.Forms.Padding(2);
+            this.grpDrawerAComp.Size = new System.Drawing.Size(492, 117);
             this.grpDrawerAComp.TabIndex = 7;
             this.grpDrawerAComp.TabStop = false;
             // 
@@ -755,8 +755,8 @@
             // 
             // txtBxDrawerAResult
             // 
-            this.txtBxDrawerAResult.Location = new System.Drawing.Point(231, 14);
-            this.txtBxDrawerAResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerAResult.Location = new System.Drawing.Point(270, 14);
+            this.txtBxDrawerAResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerAResult.Multiline = true;
             this.txtBxDrawerAResult.Name = "txtBxDrawerAResult";
             this.txtBxDrawerAResult.ReadOnly = true;
@@ -766,19 +766,19 @@
             // txtBxDrawerIPA
             // 
             this.txtBxDrawerIPA.Location = new System.Drawing.Point(67, 14);
-            this.txtBxDrawerIPA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDrawerIPA.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerIPA.Name = "txtBxDrawerIPA";
             this.txtBxDrawerIPA.ReadOnly = true;
-            this.txtBxDrawerIPA.Size = new System.Drawing.Size(148, 22);
+            this.txtBxDrawerIPA.Size = new System.Drawing.Size(179, 22);
             this.txtBxDrawerIPA.TabIndex = 0;
             this.txtBxDrawerIPA.Text = "192.168.0.34";
             // 
             // btnMoveDrawerAHome
             // 
             this.btnMoveDrawerAHome.Location = new System.Drawing.Point(67, 70);
-            this.btnMoveDrawerAHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMoveDrawerAHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerAHome.Name = "btnMoveDrawerAHome";
-            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(66, 18);
+            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(107, 18);
             this.btnMoveDrawerAHome.TabIndex = 5;
             this.btnMoveDrawerAHome.Text = "Move A Home";
             this.btnMoveDrawerAHome.UseVisualStyleBackColor = true;
@@ -787,7 +787,7 @@
             // btnInitialDrawerA
             // 
             this.btnInitialDrawerA.Location = new System.Drawing.Point(6, 70);
-            this.btnInitialDrawerA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnInitialDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerA.Name = "btnInitialDrawerA";
             this.btnInitialDrawerA.Size = new System.Drawing.Size(56, 18);
             this.btnInitialDrawerA.TabIndex = 2;
@@ -800,7 +800,7 @@
             this.chkBoxDrawerAHasbox.AutoSize = true;
             this.chkBoxDrawerAHasbox.Enabled = false;
             this.chkBoxDrawerAHasbox.Location = new System.Drawing.Point(6, 43);
-            this.chkBoxDrawerAHasbox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDrawerAHasbox.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDrawerAHasbox.Name = "chkBoxDrawerAHasbox";
             this.chkBoxDrawerAHasbox.Size = new System.Drawing.Size(64, 16);
             this.chkBoxDrawerAHasbox.TabIndex = 4;
@@ -809,8 +809,8 @@
             // 
             // txtBxDetectDrawerA
             // 
-            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(137, 70);
-            this.txtBxDetectDrawerA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(178, 70);
+            this.txtBxDetectDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerA.Name = "txtBxDetectDrawerA";
             this.txtBxDetectDrawerA.Size = new System.Drawing.Size(68, 18);
             this.txtBxDetectDrawerA.TabIndex = 3;
@@ -830,7 +830,7 @@
             this.tabPage1.Controls.Add(this.BTGetDR_0204);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1559, 713);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "BoxTransfer";
@@ -840,7 +840,7 @@
             // Lock
             // 
             this.Lock.Location = new System.Drawing.Point(437, 109);
-            this.Lock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Lock.Margin = new System.Windows.Forms.Padding(2);
             this.Lock.Name = "Lock";
             this.Lock.Size = new System.Drawing.Size(168, 38);
             this.Lock.TabIndex = 7;
@@ -851,7 +851,7 @@
             // Unlock
             // 
             this.Unlock.Location = new System.Drawing.Point(437, 55);
-            this.Unlock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Unlock.Margin = new System.Windows.Forms.Padding(2);
             this.Unlock.Name = "Unlock";
             this.Unlock.Size = new System.Drawing.Size(168, 38);
             this.Unlock.TabIndex = 6;
@@ -862,7 +862,7 @@
             // BTGetOS
             // 
             this.BTGetOS.Location = new System.Drawing.Point(226, 109);
-            this.BTGetOS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTGetOS.Margin = new System.Windows.Forms.Padding(2);
             this.BTGetOS.Name = "BTGetOS";
             this.BTGetOS.Size = new System.Drawing.Size(165, 38);
             this.BTGetOS.TabIndex = 5;
@@ -873,7 +873,7 @@
             // BTPutOS
             // 
             this.BTPutOS.Location = new System.Drawing.Point(226, 55);
-            this.BTPutOS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTPutOS.Margin = new System.Windows.Forms.Padding(2);
             this.BTPutOS.Name = "BTPutOS";
             this.BTPutOS.Size = new System.Drawing.Size(165, 39);
             this.BTPutOS.TabIndex = 4;
@@ -894,7 +894,7 @@
             // txtBoxType
             // 
             this.txtBoxType.Location = new System.Drawing.Point(79, 20);
-            this.txtBoxType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBoxType.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxType.Name = "txtBoxType";
             this.txtBoxType.Size = new System.Drawing.Size(97, 22);
             this.txtBoxType.TabIndex = 2;
@@ -905,7 +905,7 @@
             // BTPutDR_0204
             // 
             this.BTPutDR_0204.Location = new System.Drawing.Point(16, 109);
-            this.BTPutDR_0204.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTPutDR_0204.Margin = new System.Windows.Forms.Padding(2);
             this.BTPutDR_0204.Name = "BTPutDR_0204";
             this.BTPutDR_0204.Size = new System.Drawing.Size(159, 38);
             this.BTPutDR_0204.TabIndex = 1;
@@ -916,7 +916,7 @@
             // BTGetDR_0204
             // 
             this.BTGetDR_0204.Location = new System.Drawing.Point(16, 55);
-            this.BTGetDR_0204.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.BTGetDR_0204.Margin = new System.Windows.Forms.Padding(2);
             this.BTGetDR_0204.Name = "BTGetDR_0204";
             this.BTGetDR_0204.Size = new System.Drawing.Size(159, 40);
             this.BTGetDR_0204.TabIndex = 0;
