@@ -208,6 +208,7 @@
             this.btnLoadportBRFID.TabIndex = 1;
             this.btnLoadportBRFID.Text = "Load Port B RFID";
             this.btnLoadportBRFID.UseVisualStyleBackColor = true;
+            this.btnLoadportBRFID.Click += new System.EventHandler(this.btnLoadportBRFID_Click);
             // 
             // btnLoadportBBarcode
             // 
