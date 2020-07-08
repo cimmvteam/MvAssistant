@@ -23,10 +23,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public const string DevConnStr_LocalIp = "local_ip";
         public const string DevConnStr_LocalPort = "local_port";
+
+        public event EventHandler OnBoxDetectionResultHandler;
         #endregion
 
 
-       
+
         public  IDrawerLdd Ldd { get; set; }
         public string DeviceIP { get; set; }
 
@@ -356,12 +358,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             if (result)
             {  // 有盒子
                 DebugLog(ldd, "有盒子");
+                
             }
             else
             {
                 DebugLog(ldd, "没有盒子");
             }
+            if (OnBoxDetectionResultHandler != null)
+            {
+                OnBoxDetectionResultHandler.Invoke(this, new HalDrawerBoxDetectReturnCode { HasBox = result });
+            }
         }
+        public class HalDrawerBoxDetectReturnCode:EventArgs
+        {
+            public bool? HasBox { get; set; }
+        }
+
 
         public void ErrorResult(object sender,int result)
         {

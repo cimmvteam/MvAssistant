@@ -10,10 +10,11 @@ using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
 using System.Net;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
-  
+
     [TestClass]
     public class UtScenario
     {
@@ -427,10 +428,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                             throw new Exception("Open Stage not allowed to be MT intrude!!");
                     }
                     mt.RobotMoving(true);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.Unclamp();
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     mt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -464,7 +465,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     ic.HalConnect();
-                    
+
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToDeformInsp.json");
                 }
@@ -487,7 +488,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     ic.HalConnect();
-                    
+
                     mt.ExePathMove(@"D:\Positions\MTRobot\DeformInspToICHome.json");
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                 }
@@ -771,10 +772,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var Cabinet01HomeToOpenStage_GET = fileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
             var Cabinet01HomeToOpenStage_PUT = fileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
             var Cabinet01HomeToDrawer_GET = fileObj.FromCabinet01HomeToDrawer_GET_PathFile(BoxrobotTransferLocation.Drawer_01_01);
-            var Cabinet01HomeToDrawer_PUT= fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
+            var Cabinet01HomeToDrawer_PUT = fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
 
         }
-        
+
         [TestMethod]
         public void MaskTransferPathFile()
         {
@@ -787,7 +788,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var LP1ToLPHomePath = fileObj.FromLP1ToLPHomePathFile();//V  60
             var LP2ToLPHomePath = fileObj.FromLP2ToLPHomePathFile();//V  70
             var LPHomeToOSPath = fileObj.FromLPHomeToOSPathFile();//V   80
-            var OSToLPHomePath= fileObj.FromOSToLPHomePathFile();//V  90
+            var OSToLPHomePath = fileObj.FromOSToLPHomePathFile();//V  90
             var ICHomeToDeformInspPath = fileObj.FromICHomeToDeformInspPathFile();//100
             var DeformInspToICHomePath = fileObj.FromDeformInspTICHomeoPathFile();//110
             var ICHomeFrontSideToICPath = fileObj.FromICHomeFrontSideToICPathFile();//V //120
@@ -806,9 +807,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var BackSideCleanFinishToCCPath = fileObj.FromBackSideCleanFinishToCCPathFile(); //250
             var CCBackSideToCapturePath = fileObj.FromCCBackSideToCapturePathFile();      //260
             var BackSideCaptureFinishToCCPath = fileObj.FromBackSideCaptureFinishToCCPathFile();  //270
-                                                                                  
+
         }
-    
+
         #endregion
 
         #endregion
@@ -870,7 +871,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     ic.HalConnect();
 
-                    ic.XYPosition(100,100);
+                    ic.XYPosition(100, 100);
                     ic.WPosition(51);
                     ic.LightForSideInspSetValue(100);
                     //TODO：Camera Link Capture Image
@@ -1064,22 +1065,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             while (true)
             {
                 System.Threading.Thread.Sleep(100);
-           }
+            }
         }
-          #region Drawer
+        #region Drawer
         [TestMethod]
         public void DrawerTest()
         {
-           
+
             try
             {
-               
+
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
-               
+
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                   // HalBase hbaseDrawer;
+                    // HalBase hbaseDrawer;
 
 
                     cabinet.CreateDrawers<MacHalDrawerKjMachine>(cabinet.Hals);
@@ -1099,12 +1100,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         var endPort = Convert.ToInt32(cabinet_plc.DevSettings["endport"]);
                         var localPort = Convert.ToInt32(cabinet_plc.DevSettings["local_port"]);
                         cabinet.LddManager = new MvKjMachineDrawerManager(startPort, endPort, localPort);
-                    }  
-                   
+                    }
+
                     var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer1.DevSettings["ip"]), Convert.ToInt32(drawer1.DevSettings["port"]));
                     drawer1.Ldd = cabinet.LddManager.CreateLdd(0, drawer1.Index, deviceEndPoint, drawer1.DevSettings["local_ip"]);
                     drawer1.BindResult();
-                   
+
                     deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer2.DevSettings["ip"]), Convert.ToInt32(drawer2.DevSettings["port"]));
                     drawer2.Ldd = cabinet.LddManager.CreateLdd(0, drawer2.Index, deviceEndPoint, drawer2.DevSettings["local_ip"]);
                     drawer2.BindResult();
@@ -1113,9 +1114,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer3.Ldd = cabinet.LddManager.CreateLdd(0, drawer3.Index, deviceEndPoint, drawer3.DevSettings["local_ip"]);
                     drawer3.BindResult();
 
-                      deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer4.DevSettings["ip"]), Convert.ToInt32(drawer4.DevSettings["port"]));
-                      drawer4.Ldd = cabinet.LddManager.CreateLdd(0, drawer4.Index, deviceEndPoint, drawer4.DevSettings["local_ip"]);
-                      drawer4.BindResult();
+                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer4.DevSettings["ip"]), Convert.ToInt32(drawer4.DevSettings["port"]));
+                    drawer4.Ldd = cabinet.LddManager.CreateLdd(0, drawer4.Index, deviceEndPoint, drawer4.DevSettings["local_ip"]);
+                    drawer4.BindResult();
 
 
 
@@ -1165,6 +1166,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     */
                     /**              CommandBoxDetection*/
                     drawer1.CommandBoxDetection();
+                    drawer1.OnBoxDetectionResultHandler += OnDetectDrawerBoxResult;
                     drawer2.CommandBoxDetection();
                     drawer3.CommandBoxDetection();
                     drawer4.CommandBoxDetection();
@@ -1175,9 +1177,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
 
             }
-           
+
         }
-       
+        void  OnDetectDrawerBoxResult(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+            var eventArgs = (HalDrawerBoxDetectReturnCode)e;
+
+            if (eventArgs.HasBox.HasValue)
+            {
+                Debug.WriteLine(drawer.DeviceIP + " Has Box=" + ((bool)eventArgs.HasBox.HasValue));
+            }
+            else
+            {
+
+            }
+        }
 
         #endregion
         #endregion

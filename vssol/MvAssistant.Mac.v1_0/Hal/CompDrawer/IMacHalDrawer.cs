@@ -39,12 +39,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         string CommandBrightLEDGreenOn();
         string CommandBrightLEDRedOn();
         void BrightLEDResult(object sender, bool result);
+        
 
         string CommandPositionRead();
         void PositionReadResult(object sender, string result);
 
         string CommandBoxDetection();
         void BoxDetectionResult(object sender, bool result);
+        event EventHandler OnBoxDetectionResultHandler;
+
 
         string CommandWriteNetSetting();
         string CommandLCDMsg(string message);
