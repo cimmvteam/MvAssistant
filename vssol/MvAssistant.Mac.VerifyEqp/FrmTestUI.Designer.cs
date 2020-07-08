@@ -88,7 +88,6 @@
             this.btnInitialDrawerA = new System.Windows.Forms.Button();
             this.chkBoxDrawerAHasbox = new System.Windows.Forms.CheckBox();
             this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
-            this.TabLoadPorts = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawers.SuspendLayout();
@@ -111,7 +110,6 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.TabPageDrawers);
-            this.tabControl1.Controls.Add(this.TabLoadPorts);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -137,7 +135,7 @@
             this.grpLoadPorts.Controls.Add(this.grpLoadportB);
             this.grpLoadPorts.Location = new System.Drawing.Point(6, 459);
             this.grpLoadPorts.Name = "grpLoadPorts";
-            this.grpLoadPorts.Size = new System.Drawing.Size(1260, 235);
+            this.grpLoadPorts.Size = new System.Drawing.Size(1111, 235);
             this.grpLoadPorts.TabIndex = 2;
             this.grpLoadPorts.TabStop = false;
             this.grpLoadPorts.Text = "LoadPorts";
@@ -739,16 +737,6 @@
             this.txtBxDetectDrawerA.UseVisualStyleBackColor = true;
             this.txtBxDetectDrawerA.Click += new System.EventHandler(this.txtBxDetectDrawerA_Click);
             // 
-            // TabLoadPorts
-            // 
-            this.TabLoadPorts.Location = new System.Drawing.Point(4, 22);
-            this.TabLoadPorts.Name = "TabLoadPorts";
-            this.TabLoadPorts.Padding = new System.Windows.Forms.Padding(3);
-            this.TabLoadPorts.Size = new System.Drawing.Size(1391, 713);
-            this.TabLoadPorts.TabIndex = 1;
-            this.TabLoadPorts.Text = "LoadPorts";
-            this.TabLoadPorts.UseVisualStyleBackColor = true;
-            // 
             // tabPage1
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -804,7 +792,6 @@
         private System.Windows.Forms.GroupBox GrpDrawerC;
         private System.Windows.Forms.GroupBox GrpDrawerB;
         private System.Windows.Forms.GroupBox GrpDrawerA;
-        private System.Windows.Forms.TabPage TabLoadPorts;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox txtBxDrawerIPA;
         private System.Windows.Forms.Label label1;
