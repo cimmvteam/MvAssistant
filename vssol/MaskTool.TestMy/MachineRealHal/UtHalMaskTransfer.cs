@@ -28,9 +28,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 mt.SetClampTactileLim(50, 10);
                 mt.SetLevelLimit(10, 11, 12);
-                mt.SetSixAxisSensorUpperLimit(10, 20, 30, 40, 50, 60);
-                mt.SetSixAxisSensorLowerLimit(1, 2, 3, 4, 5, 6);
-                mt.SetSpeed(50, 60);
+                mt.SetSixAxisSensorUpperLimit(10.1, 20.2, 30.3, 40.4, 50.5, 60.6);
+                mt.SetSixAxisSensorLowerLimit(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
+                mt.SetSpeed(5, 1000);
                 mt.SetStaticElecLimit(50, 20);
             }
         }
@@ -102,7 +102,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 mt.Clamp(0);
                 mt.Unclamp();
-                //mt.CCDSpin(50);
+                mt.CCDSpin(2000);
                 mt.Initial();
                 mt.ReadMTRobotStatus();
                 mt.RobotMoving(false);

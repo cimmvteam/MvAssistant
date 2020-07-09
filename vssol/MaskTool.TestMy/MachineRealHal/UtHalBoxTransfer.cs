@@ -115,8 +115,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 bt.SetHandSpaceLimit(10, 20);
                 bt.SetClampToCabinetSpaceLimit(50);
                 bt.SetLevelSensorLimit(5, 6);
-                bt.SetSixAxisSensorUpperLimit(10, 20, 30, 40, 50, 60);
-                bt.SetSixAxisSensorLowerLimit(1, 2, 3, 4, 5, 6);
+                bt.SetSixAxisSensorUpperLimit(10.1, 20.2, 30.3, 40.4, 50.5, 60.6);
+                bt.SetSixAxisSensorLowerLimit(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
             }
         }
 

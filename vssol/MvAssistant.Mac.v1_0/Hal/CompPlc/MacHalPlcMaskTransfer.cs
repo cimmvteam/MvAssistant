@@ -167,7 +167,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// </summary>
         /// <param name="ClampSpeed">(1~10mm/S)</param>
         /// <param name="CCDSpinSpeed"> * 0.01(deg/S)</param>
-        public void SetSpeed(double? ClampSpeed, int? CCDSpinSpeed)
+        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed)
         {
             var plc = plcContext;
             if (ClampSpeed != null)
@@ -180,12 +180,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 讀取速度設定
         /// </summary>
         /// <returns>夾爪速度 , CCD旋轉速度</returns>
-        public Tuple<double, int> ReadSpeedSetting()
+        public Tuple<double, long> ReadSpeedSetting()
         {
             var plc = plcContext;
-            return new Tuple<double, int>(
+            return new Tuple<double, long>(
                   plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_Speed),
-                  plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed)
+                  plc.Read<long>(MacHalPlcEnumVariable.PC_TO_MT_Spin_Speed)
                 );
         }
         #endregion
@@ -261,7 +261,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorUpperLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
         {
             var plc = this.plcContext;
             if (Fx != null)
@@ -287,7 +287,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorLowerLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        public void SetSixAxisSensorLowerLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
         {
             var plc = this.plcContext;
             if (Fx != null)
@@ -308,16 +308,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 讀取六軸力覺Sensor的壓力值上限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorUpperLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
         {
             var plc = this.plcContext;
-            return new Tuple<int, int, int, int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Fx),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Fy),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Fz),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Mx),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_My),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Mz)
+            return new Tuple<double, double, double, double, double, double>(
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Fx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Fy),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Fz),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Mx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_My),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitP_Mz)
                 );
         }
 
@@ -325,16 +325,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 讀取六軸力覺Sensor的壓力值下限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLowerLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
         {
             var plc = this.plcContext;
-            return new Tuple<int, int, int, int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Fx),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Fy),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Fz),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Mx),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_My),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Mz)
+            return new Tuple<double, double, double, double, double, double>(
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Fx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Fy),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Fz),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Mx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_My),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_MT_ForceLimitN_Mz)
                 );
         }
 
