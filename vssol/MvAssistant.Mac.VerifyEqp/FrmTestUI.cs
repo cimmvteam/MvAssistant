@@ -467,6 +467,42 @@ namespace MvAssistantMacVerifyEqp
             this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
             loadPorts.LoadPort1.CommandInitialRequest();
         }
+
+        private void btnMoveDrawerCIn_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerC);
+            drawers.DisableDrawerComps(drawers.DrawerC);
+            drawers.DrawerC.CommandTrayMotionIn();
+        }
+
+        private void btnMoveDrawerAIn_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerA);
+            drawers.DisableDrawerComps(drawers.DrawerA);
+            drawers.DrawerA.CommandTrayMotionIn();
+        }
+
+        private void btnMoveDrawerBIn_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerB);
+            drawers.DisableDrawerComps(drawers.DrawerB);
+            drawers.DrawerB.CommandTrayMotionIn();
+        }
+
+        private void btnMoveDrawerDIn_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerD);
+            drawers.DisableDrawerComps(drawers.DrawerD);
+            drawers.DrawerD.CommandTrayMotionIn();
+        }
+
+        private void btnMoveAllDrawersIn_Click(object sender, EventArgs e)
+        {
+            this.btnMoveDrawerAIn_Click(null, null);
+            this.btnMoveDrawerBIn_Click(null, null);
+            this.btnMoveDrawerCIn_Click(null, null);
+            this.btnMoveDrawerDIn_Click(null, null);
+        }
     }
 
 
