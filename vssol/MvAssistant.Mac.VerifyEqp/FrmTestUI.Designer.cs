@@ -107,6 +107,9 @@
             this.btnLoadPortBUnDock = new System.Windows.Forms.Button();
             this.btnLoadPortBDock = new System.Windows.Forms.Button();
             this.btnMoveDrawerCOut = new System.Windows.Forms.Button();
+            this.btnMoveDrawerDOut = new System.Windows.Forms.Button();
+            this.btnMoveDrawerAOut = new System.Windows.Forms.Button();
+            this.btnMoveDrawerBOut = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -450,17 +453,18 @@
             // GrpDrawerD
             // 
             this.GrpDrawerD.Controls.Add(this.grpDrawerDComp);
-            this.GrpDrawerD.Location = new System.Drawing.Point(554, 164);
+            this.GrpDrawerD.Location = new System.Drawing.Point(554, 198);
             this.GrpDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerD.Name = "GrpDrawerD";
             this.GrpDrawerD.Padding = new System.Windows.Forms.Padding(2);
-            this.GrpDrawerD.Size = new System.Drawing.Size(533, 130);
+            this.GrpDrawerD.Size = new System.Drawing.Size(533, 164);
             this.GrpDrawerD.TabIndex = 3;
             this.GrpDrawerD.TabStop = false;
             this.GrpDrawerD.Text = "D(192.168.0.54)";
             // 
             // grpDrawerDComp
             // 
+            this.grpDrawerDComp.Controls.Add(this.btnMoveDrawerDOut);
             this.grpDrawerDComp.Controls.Add(this.btnMoveDrawerDIn);
             this.grpDrawerDComp.Controls.Add(this.label4);
             this.grpDrawerDComp.Controls.Add(this.txtBxDrawerDResult);
@@ -473,15 +477,15 @@
             this.grpDrawerDComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerDComp.Name = "grpDrawerDComp";
             this.grpDrawerDComp.Padding = new System.Windows.Forms.Padding(2);
-            this.grpDrawerDComp.Size = new System.Drawing.Size(510, 117);
+            this.grpDrawerDComp.Size = new System.Drawing.Size(510, 147);
             this.grpDrawerDComp.TabIndex = 10;
             this.grpDrawerDComp.TabStop = false;
             // 
             // btnMoveDrawerDIn
             // 
-            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(70, 90);
+            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(67, 123);
             this.btnMoveDrawerDIn.Name = "btnMoveDrawerDIn";
-            this.btnMoveDrawerDIn.Size = new System.Drawing.Size(114, 19);
+            this.btnMoveDrawerDIn.Size = new System.Drawing.Size(117, 19);
             this.btnMoveDrawerDIn.TabIndex = 8;
             this.btnMoveDrawerDIn.Text = "Move D In";
             this.btnMoveDrawerDIn.UseVisualStyleBackColor = true;
@@ -504,7 +508,7 @@
             this.txtBxDrawerDResult.Multiline = true;
             this.txtBxDrawerDResult.Name = "txtBxDrawerDResult";
             this.txtBxDrawerDResult.ReadOnly = true;
-            this.txtBxDrawerDResult.Size = new System.Drawing.Size(205, 94);
+            this.txtBxDrawerDResult.Size = new System.Drawing.Size(205, 128);
             this.txtBxDrawerDResult.TabIndex = 6;
             // 
             // txtBxDrawerIPD
@@ -519,7 +523,7 @@
             // 
             // btnMoveDrawerDHome
             // 
-            this.btnMoveDrawerDHome.Location = new System.Drawing.Point(67, 70);
+            this.btnMoveDrawerDHome.Location = new System.Drawing.Point(67, 103);
             this.btnMoveDrawerDHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerDHome.Name = "btnMoveDrawerDHome";
             this.btnMoveDrawerDHome.Size = new System.Drawing.Size(117, 18);
@@ -530,7 +534,7 @@
             // 
             // btnInitialDrawerD
             // 
-            this.btnInitialDrawerD.Location = new System.Drawing.Point(6, 70);
+            this.btnInitialDrawerD.Location = new System.Drawing.Point(6, 103);
             this.btnInitialDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerD.Name = "btnInitialDrawerD";
             this.btnInitialDrawerD.Size = new System.Drawing.Size(56, 18);
@@ -553,7 +557,7 @@
             // 
             // txtBxDetectDrawerD
             // 
-            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(188, 68);
+            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(188, 101);
             this.txtBxDetectDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerD.Name = "txtBxDetectDrawerD";
             this.txtBxDetectDrawerD.Size = new System.Drawing.Size(68, 18);
@@ -649,7 +653,7 @@
             this.btnInitialDrawerC.Location = new System.Drawing.Point(4, 114);
             this.btnInitialDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerC.Name = "btnInitialDrawerC";
-            this.btnInitialDrawerC.Size = new System.Drawing.Size(56, 18);
+            this.btnInitialDrawerC.Size = new System.Drawing.Size(63, 18);
             this.btnInitialDrawerC.TabIndex = 2;
             this.btnInitialDrawerC.Text = "Initial  C";
             this.btnInitialDrawerC.UseVisualStyleBackColor = true;
@@ -685,13 +689,14 @@
             this.GrpDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerB.Name = "GrpDrawerB";
             this.GrpDrawerB.Padding = new System.Windows.Forms.Padding(2);
-            this.GrpDrawerB.Size = new System.Drawing.Size(533, 135);
+            this.GrpDrawerB.Size = new System.Drawing.Size(533, 170);
             this.GrpDrawerB.TabIndex = 1;
             this.GrpDrawerB.TabStop = false;
             this.GrpDrawerB.Text = "B(192.168.0.42)";
             // 
             // grpDrawerBComp
             // 
+            this.grpDrawerBComp.Controls.Add(this.btnMoveDrawerBOut);
             this.grpDrawerBComp.Controls.Add(this.btnMoveDrawerBIn);
             this.grpDrawerBComp.Controls.Add(this.label2);
             this.grpDrawerBComp.Controls.Add(this.txtBxDrawerBResult);
@@ -704,13 +709,13 @@
             this.grpDrawerBComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerBComp.Name = "grpDrawerBComp";
             this.grpDrawerBComp.Padding = new System.Windows.Forms.Padding(2);
-            this.grpDrawerBComp.Size = new System.Drawing.Size(510, 117);
+            this.grpDrawerBComp.Size = new System.Drawing.Size(510, 147);
             this.grpDrawerBComp.TabIndex = 8;
             this.grpDrawerBComp.TabStop = false;
             // 
             // btnMoveDrawerBIn
             // 
-            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(67, 93);
+            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(67, 121);
             this.btnMoveDrawerBIn.Name = "btnMoveDrawerBIn";
             this.btnMoveDrawerBIn.Size = new System.Drawing.Size(117, 19);
             this.btnMoveDrawerBIn.TabIndex = 8;
@@ -735,7 +740,7 @@
             this.txtBxDrawerBResult.Multiline = true;
             this.txtBxDrawerBResult.Name = "txtBxDrawerBResult";
             this.txtBxDrawerBResult.ReadOnly = true;
-            this.txtBxDrawerBResult.Size = new System.Drawing.Size(204, 94);
+            this.txtBxDrawerBResult.Size = new System.Drawing.Size(217, 129);
             this.txtBxDrawerBResult.TabIndex = 6;
             // 
             // txtBxDrawerIPB
@@ -750,7 +755,7 @@
             // 
             // btnMoveDrawerBHome
             // 
-            this.btnMoveDrawerBHome.Location = new System.Drawing.Point(67, 70);
+            this.btnMoveDrawerBHome.Location = new System.Drawing.Point(67, 98);
             this.btnMoveDrawerBHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerBHome.Name = "btnMoveDrawerBHome";
             this.btnMoveDrawerBHome.Size = new System.Drawing.Size(117, 18);
@@ -761,7 +766,7 @@
             // 
             // btnInitialDrawerB
             // 
-            this.btnInitialDrawerB.Location = new System.Drawing.Point(6, 70);
+            this.btnInitialDrawerB.Location = new System.Drawing.Point(6, 98);
             this.btnInitialDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerB.Name = "btnInitialDrawerB";
             this.btnInitialDrawerB.Size = new System.Drawing.Size(56, 18);
@@ -784,7 +789,7 @@
             // 
             // txtBxDetectDrawerB
             // 
-            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(188, 69);
+            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(188, 97);
             this.txtBxDetectDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerB.Name = "txtBxDetectDrawerB";
             this.txtBxDetectDrawerB.Size = new System.Drawing.Size(68, 18);
@@ -800,7 +805,7 @@
             this.GrpDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerA.Name = "GrpDrawerA";
             this.GrpDrawerA.Padding = new System.Windows.Forms.Padding(2);
-            this.GrpDrawerA.Size = new System.Drawing.Size(518, 135);
+            this.GrpDrawerA.Size = new System.Drawing.Size(518, 170);
             this.GrpDrawerA.TabIndex = 0;
             this.GrpDrawerA.TabStop = false;
             this.GrpDrawerA.Text = "A(192.168.0.34)";
@@ -808,6 +813,7 @@
             // 
             // grpDrawerAComp
             // 
+            this.grpDrawerAComp.Controls.Add(this.btnMoveDrawerAOut);
             this.grpDrawerAComp.Controls.Add(this.btnMoveDrawerAIn);
             this.grpDrawerAComp.Controls.Add(this.label1);
             this.grpDrawerAComp.Controls.Add(this.txtBxDrawerAResult);
@@ -820,13 +826,13 @@
             this.grpDrawerAComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerAComp.Name = "grpDrawerAComp";
             this.grpDrawerAComp.Padding = new System.Windows.Forms.Padding(2);
-            this.grpDrawerAComp.Size = new System.Drawing.Size(492, 117);
+            this.grpDrawerAComp.Size = new System.Drawing.Size(492, 156);
             this.grpDrawerAComp.TabIndex = 7;
             this.grpDrawerAComp.TabStop = false;
             // 
             // btnMoveDrawerAIn
             // 
-            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(70, 90);
+            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(67, 132);
             this.btnMoveDrawerAIn.Name = "btnMoveDrawerAIn";
             this.btnMoveDrawerAIn.Size = new System.Drawing.Size(103, 19);
             this.btnMoveDrawerAIn.TabIndex = 8;
@@ -851,7 +857,7 @@
             this.txtBxDrawerAResult.Multiline = true;
             this.txtBxDrawerAResult.Name = "txtBxDrawerAResult";
             this.txtBxDrawerAResult.ReadOnly = true;
-            this.txtBxDrawerAResult.Size = new System.Drawing.Size(204, 94);
+            this.txtBxDrawerAResult.Size = new System.Drawing.Size(204, 137);
             this.txtBxDrawerAResult.TabIndex = 6;
             // 
             // txtBxDrawerIPA
@@ -866,10 +872,10 @@
             // 
             // btnMoveDrawerAHome
             // 
-            this.btnMoveDrawerAHome.Location = new System.Drawing.Point(67, 70);
+            this.btnMoveDrawerAHome.Location = new System.Drawing.Point(64, 107);
             this.btnMoveDrawerAHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerAHome.Name = "btnMoveDrawerAHome";
-            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(107, 18);
+            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(106, 18);
             this.btnMoveDrawerAHome.TabIndex = 5;
             this.btnMoveDrawerAHome.Text = "Move A Home";
             this.btnMoveDrawerAHome.UseVisualStyleBackColor = true;
@@ -877,7 +883,7 @@
             // 
             // btnInitialDrawerA
             // 
-            this.btnInitialDrawerA.Location = new System.Drawing.Point(6, 70);
+            this.btnInitialDrawerA.Location = new System.Drawing.Point(6, 107);
             this.btnInitialDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerA.Name = "btnInitialDrawerA";
             this.btnInitialDrawerA.Size = new System.Drawing.Size(56, 18);
@@ -900,7 +906,7 @@
             // 
             // txtBxDetectDrawerA
             // 
-            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(178, 70);
+            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(178, 107);
             this.txtBxDetectDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerA.Name = "txtBxDetectDrawerA";
             this.txtBxDetectDrawerA.Size = new System.Drawing.Size(68, 18);
@@ -1044,6 +1050,36 @@
             this.btnMoveDrawerCOut.UseVisualStyleBackColor = true;
             this.btnMoveDrawerCOut.Click += new System.EventHandler(this.btnMoveDrawerCOut_Click);
             // 
+            // btnMoveDrawerDOut
+            // 
+            this.btnMoveDrawerDOut.Location = new System.Drawing.Point(67, 79);
+            this.btnMoveDrawerDOut.Name = "btnMoveDrawerDOut";
+            this.btnMoveDrawerDOut.Size = new System.Drawing.Size(117, 19);
+            this.btnMoveDrawerDOut.TabIndex = 9;
+            this.btnMoveDrawerDOut.Text = "Move D Out";
+            this.btnMoveDrawerDOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerDOut.Click += new System.EventHandler(this.btnMoveDrawerDOut_Click);
+            // 
+            // btnMoveDrawerAOut
+            // 
+            this.btnMoveDrawerAOut.Location = new System.Drawing.Point(67, 83);
+            this.btnMoveDrawerAOut.Name = "btnMoveDrawerAOut";
+            this.btnMoveDrawerAOut.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerAOut.TabIndex = 10;
+            this.btnMoveDrawerAOut.Text = "Move A Out";
+            this.btnMoveDrawerAOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerAOut.Click += new System.EventHandler(this.btnMoveDrawerAOut_Click);
+            // 
+            // btnMoveDrawerBOut
+            // 
+            this.btnMoveDrawerBOut.Location = new System.Drawing.Point(67, 74);
+            this.btnMoveDrawerBOut.Name = "btnMoveDrawerBOut";
+            this.btnMoveDrawerBOut.Size = new System.Drawing.Size(117, 19);
+            this.btnMoveDrawerBOut.TabIndex = 11;
+            this.btnMoveDrawerBOut.Text = "Move B Out";
+            this.btnMoveDrawerBOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerBOut.Click += new System.EventHandler(this.btnMoveDrawerBOut_Click);
+            // 
             // FrmTestUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1163,5 +1199,8 @@
         private System.Windows.Forms.Button btnLoadPortBUnDock;
         private System.Windows.Forms.Button btnLoadPortBDock;
         private System.Windows.Forms.Button btnMoveDrawerCOut;
+        private System.Windows.Forms.Button btnMoveDrawerDOut;
+        private System.Windows.Forms.Button btnMoveDrawerAOut;
+        private System.Windows.Forms.Button btnMoveDrawerBOut;
     }
 }

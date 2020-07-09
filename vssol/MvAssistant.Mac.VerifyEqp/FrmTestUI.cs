@@ -540,6 +540,27 @@ namespace MvAssistantMacVerifyEqp
             drawers.DisableDrawerComps(drawers.DrawerC);
             drawers.DrawerC.CommandTrayMotionOut();
         }
+
+        private void btnMoveDrawerDOut_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerD);
+            drawers.DisableDrawerComps(drawers.DrawerD);
+            drawers.DrawerD.CommandTrayMotionOut();
+        }
+
+        private void btnMoveDrawerAOut_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerA);
+            drawers.DisableDrawerComps(drawers.DrawerA);
+            drawers.DrawerA.CommandTrayMotionOut();
+        }
+
+        private void btnMoveDrawerBOut_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerB);
+            drawers.DisableDrawerComps(drawers.DrawerB);
+            drawers.DrawerB.CommandTrayMotionOut();
+        }
     }
 
 
