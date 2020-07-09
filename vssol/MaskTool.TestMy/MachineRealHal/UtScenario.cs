@@ -1090,10 +1090,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     //hbaseDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()];
                     // MacHalDrawerKjMachine drawer = (MacHalDrawerKjMachine)hbaseDrawer;
                     //drawer.Index = MacEnumDevice.cabinet_drawer_01_01.ToString();
-                    var drawer1 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_01.ToString());
-                    var drawer2 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_02.ToString());
-                    var drawer3 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_03.ToString());
-                    var drawer4 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_04.ToString());
+                  //  var drawer_01_01 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_01.ToString());
+                   // var drawer_01_02 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_02.ToString());
+                    //var drawer_01_03 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_03.ToString());
+                    //var drawer_01_04 = (MacHalDrawerKjMachine)cabinet.GetDrawer(MacEnumDevice.cabinet_drawer_01_04.ToString());
+                    var drawer_01_01 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+                    var drawer_01_02 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+                    var drawer_01_03 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+                    var drawer_01_04 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+
                     if (cabinet.LddManager == null)
                     {
                         // manager = new MvKjMachineDrawerManager(Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["startport"]), Convert.ToInt32(drawer.DevSettings["local_port"]));
@@ -1104,21 +1109,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         cabinet.LddManager = new MvKjMachineDrawerManager(startPort, endPort, localPort);
                     }
 
-                    var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer1.DevSettings["ip"]), Convert.ToInt32(drawer1.DevSettings["port"]));
-                    drawer1.Ldd = cabinet.LddManager.CreateLdd(0, drawer1.Index, deviceEndPoint, drawer1.DevSettings["local_ip"]);
-                    drawer1.BindResult();
+                    var deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer_01_01.DevSettings["ip"]), Convert.ToInt32(drawer_01_01.DevSettings["port"]));
+                    drawer_01_01.Ldd = cabinet.LddManager.CreateLdd(0, drawer_01_01.Index, deviceEndPoint, drawer_01_01.DevSettings["local_ip"]);
+                    drawer_01_01.BindResult();
 
-                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer2.DevSettings["ip"]), Convert.ToInt32(drawer2.DevSettings["port"]));
-                    drawer2.Ldd = cabinet.LddManager.CreateLdd(0, drawer2.Index, deviceEndPoint, drawer2.DevSettings["local_ip"]);
-                    drawer2.BindResult();
+                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer_01_02.DevSettings["ip"]), Convert.ToInt32(drawer_01_02.DevSettings["port"]));
+                    drawer_01_02.Ldd = cabinet.LddManager.CreateLdd(0, drawer_01_02.Index, deviceEndPoint, drawer_01_02.DevSettings["local_ip"]);
+                    drawer_01_02.BindResult();
 
-                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer3.DevSettings["ip"]), Convert.ToInt32(drawer3.DevSettings["port"]));
-                    drawer3.Ldd = cabinet.LddManager.CreateLdd(0, drawer3.Index, deviceEndPoint, drawer3.DevSettings["local_ip"]);
-                    drawer3.BindResult();
+                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer_01_03.DevSettings["ip"]), Convert.ToInt32(drawer_01_03.DevSettings["port"]));
+                    drawer_01_03.Ldd = cabinet.LddManager.CreateLdd(0, drawer_01_03.Index, deviceEndPoint, drawer_01_03.DevSettings["local_ip"]);
+                    drawer_01_03.BindResult();
 
-                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer4.DevSettings["ip"]), Convert.ToInt32(drawer4.DevSettings["port"]));
-                    drawer4.Ldd = cabinet.LddManager.CreateLdd(0, drawer4.Index, deviceEndPoint, drawer4.DevSettings["local_ip"]);
-                    drawer4.BindResult();
+                    deviceEndPoint = new IPEndPoint(IPAddress.Parse(drawer_01_04.DevSettings["ip"]), Convert.ToInt32(drawer_01_04.DevSettings["port"]));
+                    drawer_01_04.Ldd = cabinet.LddManager.CreateLdd(0, drawer_01_04.Index, deviceEndPoint, drawer_01_04.DevSettings["local_ip"]);
+                    drawer_01_04.BindResult();
 
 
 
@@ -1167,8 +1172,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer4.CommandPositionRead();
                     */
                     /**              CommandBoxDetection*/
-                    drawer1.CommandBoxDetection();
-                    drawer1.OnBoxDetectionResultHandler += OnDetectDrawerBoxResult;
+                    drawer_01_01.CommandBoxDetection();
+                    drawer_01_01.OnBoxDetectionResultHandler += OnDetectDrawerBoxResult;
                     drawer2.CommandBoxDetection();
                     drawer3.CommandBoxDetection();
                     drawer4.CommandBoxDetection();
@@ -1222,10 +1227,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var loadport2 = cabinet.Hals[MacEnumDevice.loadport_2.ToString()] as MacHalGudengLoadPort;
                     loadport1.HalConnect();
                     loadport2.HalConnect();
-                    loadport1.CommandAlarmReset();
-                    loadport2.CommandAlarmReset();
                     BindLoadPortEvent(loadport1);
                     BindLoadPortEvent(loadport2);
+                    loadport1.CommandAlarmReset();
+                    loadport2.CommandAlarmReset();
+
+                   
                 }
             }
             catch (Exception ex)
