@@ -19,7 +19,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
     {
        
         public  delegate string OriginalInvokeMethod() ;
-      
+       public string Index { get; set; }
         private  OriginalInvokeMethod DelgateOriginalMethod=null;
         public void InvokeOriginalMethod()
         {
@@ -133,6 +133,11 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
         }
 
+        public MvGudengLoadPortLdd(string serverIP, int serverPort, string index) : this()
+        {
+            ServerEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
+            Index = index;
+        }
         /// <summary>Client(本地)端 Listen 收到 Server 端回傳資料後引發的事件程序</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
@@ -154,7 +159,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         }
 
         /// <summary>啟動監聽 Server 端的 Thread</summary>
-        public void StartListenServerThread()
+        public bool StartListenServerThread()
         {
             try
             {
@@ -166,8 +171,9 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
             catch (Exception ex)
             {
-
+                IsListenServer = false;
             }
+            return IsListenServer;
         }
 
         /// <summary>監聽 Server 的Method</summary>

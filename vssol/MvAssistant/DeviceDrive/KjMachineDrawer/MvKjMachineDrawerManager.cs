@@ -100,7 +100,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
            
         }
-        public IDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
+        public MvKjMachineDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
         {
 
             try

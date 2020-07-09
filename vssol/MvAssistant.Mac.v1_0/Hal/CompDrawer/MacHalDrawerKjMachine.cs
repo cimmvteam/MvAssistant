@@ -29,7 +29,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
 
 
-        public  IDrawerLdd Ldd { get; set; }
+        public MvKjMachineDrawerLdd Ldd { get; set; }
         public string DeviceIP { get; set; }
 
 
@@ -366,13 +366,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
             if (OnBoxDetectionResultHandler != null)
             {
-                OnBoxDetectionResultHandler.Invoke(this, new HalDrawerBoxDetectReturnCode { HasBox = result });
+                OnBoxDetectionResultHandler.Invoke(this, new HalDrawerBoxDetectReturn { HasBox = result });
             }
         }
-        public class HalDrawerBoxDetectReturnCode:EventArgs
-        {
-            public bool? HasBox { get; set; }
-        }
+      
 
 
         public void ErrorResult(object sender,int result)

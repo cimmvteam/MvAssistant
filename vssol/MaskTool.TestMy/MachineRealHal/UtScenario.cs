@@ -11,6 +11,7 @@ using MvAssistant.DeviceDrive.KjMachineDrawer;
 using System.Net;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
+using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -1182,19 +1183,53 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         void  OnDetectDrawerBoxResult(object sender, EventArgs e)
         {
             var drawer = (MacHalDrawerKjMachine)sender;
-            var eventArgs = (HalDrawerBoxDetectReturnCode)e;
+            var eventArgs = (HalDrawerBoxDetectReturn)e;
 
             if (eventArgs.HasBox.HasValue)
             {
-                Debug.WriteLine(drawer.DeviceIP + " Has Box=" + ((bool)eventArgs.HasBox.HasValue));
+                if((bool)eventArgs.HasBox.HasValue)
+                {
+                    Debug.WriteLine($"{nameof(OnDetectDrawerBoxResult)}: 有盒子" );
+                }
+                else
+                {
+                    Debug.WriteLine($"{nameof(OnDetectDrawerBoxResult)}: 没有盒子");
+                }
             }
             else
             {
-
+                Debug.WriteLine($"{nameof(OnDetectDrawerBoxResult)}: 無法判定");
             }
         }
 
         #endregion
+        #endregion
+
+        #region Load port 
+
+        [TestMethod]
+        public void TestLoadPort()
+        {
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.MvCfLoad();
+
+                    var cabinet = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                    var loadport1 = cabinet.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                    var loadport2 = cabinet.Hals[MacEnumDevice.loadport_2.ToString()] as MacHalGudengLoadPort;
+                    loadport1.HalConnect();
+                    loadport2.HalConnect();
+                    loadport1.CommandAlarmReset();
+                    loadport2.CommandAlarmReset();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        } 
         #endregion
     }
 }

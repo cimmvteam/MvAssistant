@@ -1,0 +1,15 @@
+﻿using MvAssistant.DeviceDrive;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
+{
+    public interface IMacHalLoadPortComp: IMacHalComponent
+    {
+         bool IsConnected { get; }
+        string CommandAlarmReset();
+    }
+}

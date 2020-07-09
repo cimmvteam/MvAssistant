@@ -47,8 +47,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         string CommandBoxDetection();
         void BoxDetectionResult(object sender, bool result);
         event EventHandler OnBoxDetectionResultHandler;
-
-
         string CommandWriteNetSetting();
         string CommandLCDMsg(string message);
 

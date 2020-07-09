@@ -370,6 +370,10 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// DE_LP_27: Plunger
         /// </summary>
         loadport_plunger_1,
+
+        loadport_1,
+        loadport_2,
+
         #endregion Load Port
 
 

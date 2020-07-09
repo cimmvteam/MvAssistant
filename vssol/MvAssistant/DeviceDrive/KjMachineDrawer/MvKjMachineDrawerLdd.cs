@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
     /// <summary>Drawer Class</summary>
-    public class MvKjMachineDrawerLdd:IDisposable,IDrawerLdd
+    public class MvKjMachineDrawerLdd:IDisposable
     {
         /// <summary>Cabinet 編號</summary>        
         private int CabinetNO { get;  set; }
