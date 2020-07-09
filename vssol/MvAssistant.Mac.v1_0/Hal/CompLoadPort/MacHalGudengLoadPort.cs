@@ -144,7 +144,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             _ldd.OnDockPODComplete_EmptyHandler += this.OnDockPODComplete_EmptyHandler;
             _ldd.OnUndockCompleteHandler += this.OnUndockCompleteHandler;
             _ldd.OnClamperUnlockCompleteHandler += this.OnClamperUnlockCompleteHandler;
-            _ldd.OnAlarmResetSuccessHandler += this.OnAlarmResetSuccessHandler;
+            _ldd.OnAlarmResetSuccessHandler += this.OnAlarmResetSuccess;
             _ldd.OnAlarmResetFailHandler += this.OnAlarmResetFailHandler;
             _ldd.OnExecuteInitialFirstHandler += this.OnExecuteInitialFirstHandler;
             _ldd.OnExecuteAlarmResetFirstHandler += this.OnExecuteAlarmResetFirstHandler;
@@ -313,113 +313,113 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         }
         public void OnPresent(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnPresentHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnPresentHandler.Invoke(this, e);
 
             }
         }
         public void OnClamper(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnClamperHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnClamperHandler.Invoke(this, e);
 
             }
         }
         public void OnRFID(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnRFIDHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnRFIDHandler.Invoke(this, e);
 
             }
         }
         public void OnBarcode_ID(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnBarcode_IDHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnBarcode_IDHandler.Invoke(this, e);
 
             }
         }
         public void OnClamperLockComplete(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnClamperLockCompleteHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnClamperLockCompleteHandler.Invoke(this, e);
 
             }
         }
         public void OnVacuumComplete(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnVacuumCompleteHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnVacuumCompleteHandler.Invoke(this, e);
 
             }
         }
         public void OnDockPODStart(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnDockPODStartHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnDockPODStartHandler.Invoke(this, e);
 
             }
         }
         public void OnDockPODComplete_HasReticle(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnDockPODComplete_HasReticleHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnDockPODComplete_HasReticleHandler.Invoke(this, e);
 
             }
         }
         public void OnDockPODComplete_Empty(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnDockPODComplete_EmptyHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnDockPODComplete_EmptyHandler.Invoke(this, e);
 
             }
         }
         public void OnUndockComplete(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnUndockCompleteHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnUndockCompleteHandler.Invoke(this, e);
 
             }
         }
         public void OnClamperUnlockComplete(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnClamperUnlockCompleteHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnClamperUnlockCompleteHandler.Invoke(this, e);
 
             }
         }
         public void OnAlarmResetSuccess(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnAlarmResetSuccessHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnAlarmResetSuccessHandler.Invoke(this, e);
 
             }
         }
         public void OnAlarmResetFail(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnAlarmResetFailHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnAlarmResetFailHandler.Invoke(this, e);
 
             }
         }
         public void OnExecuteInitialFirst(object sender, EventArgs e)
         {
-            if (OnPlacementHandler != null)
+            if (OnExecuteInitialFirstHandler != null)
             {
-                OnPlacementHandler.Invoke(this, e);
+                OnExecuteInitialFirstHandler.Invoke(this, e);
 
             }
         }

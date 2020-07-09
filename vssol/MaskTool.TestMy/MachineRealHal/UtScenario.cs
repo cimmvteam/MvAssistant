@@ -1223,15 +1223,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     halContext.MvCfLoad();
 
                     var cabinet = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
-                    var loadport1 = cabinet.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                    //var loadport1 = cabinet.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                     var loadport2 = cabinet.Hals[MacEnumDevice.loadport_2.ToString()] as MacHalGudengLoadPort;
-                    loadport1.HalConnect();
+                    //loadport1.HalConnect();
+                  //loadport2.HalConnect();
+                 //   BindLoadPortEvent(loadport1);
+                   BindLoadPortEvent(loadport2);
+                    // loadport1.CommandAlarmReset();
                     loadport2.HalConnect();
-                    BindLoadPortEvent(loadport1);
-                    BindLoadPortEvent(loadport2);
-                    loadport1.CommandAlarmReset();
                     loadport2.CommandAlarmReset();
-
+                    Repeat();
                    
                 }
             }
