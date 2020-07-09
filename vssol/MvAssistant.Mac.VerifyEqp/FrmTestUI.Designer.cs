@@ -32,6 +32,8 @@
             this.TabPageDrawerAndLoadPort = new System.Windows.Forms.TabPage();
             this.grpLoadPorts = new System.Windows.Forms.GroupBox();
             this.grpLoadportA = new System.Windows.Forms.GroupBox();
+            this.btnLoadPortAUnDock = new System.Windows.Forms.Button();
+            this.btnLoadPortADock = new System.Windows.Forms.Button();
             this.txtBxLoportAResult = new System.Windows.Forms.TextBox();
             this.btnLoadPortAAlarmReset = new System.Windows.Forms.Button();
             this.btnInitialLoadportA = new System.Windows.Forms.Button();
@@ -102,8 +104,8 @@
             this.txtBoxType = new System.Windows.Forms.TextBox();
             this.BTPutDR_0204 = new System.Windows.Forms.Button();
             this.BTGetDR_0204 = new System.Windows.Forms.Button();
-            this.btnLoadPortADock = new System.Windows.Forms.Button();
-            this.btnLoadPortAUnDock = new System.Windows.Forms.Button();
+            this.btnLoadPortBUnDock = new System.Windows.Forms.Button();
+            this.btnLoadPortBDock = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -177,6 +179,26 @@
             this.grpLoadportA.TabStop = false;
             this.grpLoadportA.Text = "Load port A(192.168.0.20)";
             // 
+            // btnLoadPortAUnDock
+            // 
+            this.btnLoadPortAUnDock.Location = new System.Drawing.Point(144, 166);
+            this.btnLoadPortAUnDock.Name = "btnLoadPortAUnDock";
+            this.btnLoadPortAUnDock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortAUnDock.TabIndex = 8;
+            this.btnLoadPortAUnDock.Text = "Load Port A UnDock";
+            this.btnLoadPortAUnDock.UseVisualStyleBackColor = true;
+            this.btnLoadPortAUnDock.Click += new System.EventHandler(this.btnLoadPortAUnDock_Click);
+            // 
+            // btnLoadPortADock
+            // 
+            this.btnLoadPortADock.Location = new System.Drawing.Point(5, 165);
+            this.btnLoadPortADock.Name = "btnLoadPortADock";
+            this.btnLoadPortADock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortADock.TabIndex = 7;
+            this.btnLoadPortADock.Text = "Load Port A Dock";
+            this.btnLoadPortADock.UseVisualStyleBackColor = true;
+            this.btnLoadPortADock.Click += new System.EventHandler(this.btnLoadPortADock_Click);
+            // 
             // txtBxLoportAResult
             // 
             this.txtBxLoportAResult.Location = new System.Drawing.Point(4, 17);
@@ -234,6 +256,8 @@
             // 
             // grpLoadportB
             // 
+            this.grpLoadportB.Controls.Add(this.btnLoadPortBUnDock);
+            this.grpLoadportB.Controls.Add(this.btnLoadPortBDock);
             this.grpLoadportB.Controls.Add(this.txtBxLoportBResult);
             this.grpLoadportB.Controls.Add(this.btnLoadPortBAlarmReset);
             this.grpLoadportB.Controls.Add(this.btnInitialLoadportB);
@@ -243,7 +267,7 @@
             this.grpLoadportB.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportB.Name = "grpLoadportB";
             this.grpLoadportB.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLoadportB.Size = new System.Drawing.Size(295, 229);
+            this.grpLoadportB.Size = new System.Drawing.Size(295, 194);
             this.grpLoadportB.TabIndex = 0;
             this.grpLoadportB.TabStop = false;
             this.grpLoadportB.Text = "Load port B(192.168.0.21)";
@@ -988,25 +1012,25 @@
             this.BTGetDR_0204.UseVisualStyleBackColor = true;
             this.BTGetDR_0204.Click += new System.EventHandler(this.BTGetDR_0204_Click);
             // 
-            // btnLoadPortADock
+            // btnLoadPortBUnDock
             // 
-            this.btnLoadPortADock.Location = new System.Drawing.Point(5, 165);
-            this.btnLoadPortADock.Name = "btnLoadPortADock";
-            this.btnLoadPortADock.Size = new System.Drawing.Size(134, 18);
-            this.btnLoadPortADock.TabIndex = 7;
-            this.btnLoadPortADock.Text = "Load Port A Dock";
-            this.btnLoadPortADock.UseVisualStyleBackColor = true;
-            this.btnLoadPortADock.Click += new System.EventHandler(this.btnLoadPortADock_Click);
+            this.btnLoadPortBUnDock.Location = new System.Drawing.Point(147, 166);
+            this.btnLoadPortBUnDock.Name = "btnLoadPortBUnDock";
+            this.btnLoadPortBUnDock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortBUnDock.TabIndex = 10;
+            this.btnLoadPortBUnDock.Text = "Load Port B UnDock";
+            this.btnLoadPortBUnDock.UseVisualStyleBackColor = true;
+            this.btnLoadPortBUnDock.Click += new System.EventHandler(this.btnLoadPortBUnDock_Click);
             // 
-            // btnLoadPortAUnDock
+            // btnLoadPortBDock
             // 
-            this.btnLoadPortAUnDock.Location = new System.Drawing.Point(144, 166);
-            this.btnLoadPortAUnDock.Name = "btnLoadPortAUnDock";
-            this.btnLoadPortAUnDock.Size = new System.Drawing.Size(134, 18);
-            this.btnLoadPortAUnDock.TabIndex = 8;
-            this.btnLoadPortAUnDock.Text = "Load Port A UnDock";
-            this.btnLoadPortAUnDock.UseVisualStyleBackColor = true;
-            this.btnLoadPortAUnDock.Click += new System.EventHandler(this.btnLoadPortAUnDock_Click);
+            this.btnLoadPortBDock.Location = new System.Drawing.Point(8, 165);
+            this.btnLoadPortBDock.Name = "btnLoadPortBDock";
+            this.btnLoadPortBDock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortBDock.TabIndex = 9;
+            this.btnLoadPortBDock.Text = "Load Port B Dock";
+            this.btnLoadPortBDock.UseVisualStyleBackColor = true;
+            this.btnLoadPortBDock.Click += new System.EventHandler(this.btnLoadPortBDock_Click);
             // 
             // FrmTestUI
             // 
@@ -1124,5 +1148,7 @@
         private System.Windows.Forms.Button btnMoveAllDrawersIn;
         private System.Windows.Forms.Button btnLoadPortAUnDock;
         private System.Windows.Forms.Button btnLoadPortADock;
+        private System.Windows.Forms.Button btnLoadPortBUnDock;
+        private System.Windows.Forms.Button btnLoadPortBDock;
     }
 }

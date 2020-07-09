@@ -519,6 +519,20 @@ namespace MvAssistantMacVerifyEqp
             this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
             loadPorts.LoadPort1.CommandUndockRequest();
         }
+
+        private void btnLoadPortBDock_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort2);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort2);
+            loadPorts.LoadPort2.CommandDockRequest();
+        }
+
+        private void btnLoadPortBUnDock_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort2);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort2);
+            loadPorts.LoadPort2.CommandUndockRequest();
+        }
     }
 
 
