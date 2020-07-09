@@ -561,8 +561,86 @@ namespace MvAssistantMacVerifyEqp
             drawers.DisableDrawerComps(drawers.DrawerB);
             drawers.DrawerB.CommandTrayMotionOut();
         }
+
+        private void btnTurnOnDrawerAAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerA);
+            drawers.DisableDrawerComps(drawers.DrawerA);
+            drawers.DrawerA.CommandBrightLEDAllOn();
+        }
+
+        private void btnTurnOffDrawerAAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerA);
+            drawers.DisableDrawerComps(drawers.DrawerA);
+            drawers.DrawerA.CommandBrightLEDAllOff();
+        }
+
+        private void btnTurnOffDrawerBAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerB);
+            drawers.DisableDrawerComps(drawers.DrawerB);
+            drawers.DrawerB.CommandBrightLEDAllOff();
+        }
+
+        private void btnTurnOnDrawerBAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerB);
+            drawers.DisableDrawerComps(drawers.DrawerB);
+            drawers.DrawerB.CommandBrightLEDAllOn();
+        }
+
+        private void btnTurnOffDrawerCAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerC);
+            drawers.DisableDrawerComps(drawers.DrawerC);
+            drawers.DrawerC.CommandBrightLEDAllOff();
+        }
+
+        private void btnTurnOnDrawerCAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerC);
+            drawers.DisableDrawerComps(drawers.DrawerC);
+            drawers.DrawerC.CommandBrightLEDAllOn();
+        }
+
+        private void btnTurnOnDrawerDAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerD);
+            drawers.DisableDrawerComps(drawers.DrawerD);
+            drawers.DrawerD.CommandBrightLEDAllOn();
+        }
+
+        private void btnTurnOffDrawerDAllLeds_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerD);
+            drawers.DisableDrawerComps(drawers.DrawerD);
+            drawers.DrawerD.CommandBrightLEDAllOff();
+        }
+
+        private void btnMoveAllDrawersOut_Click(object sender, EventArgs e)
+        {
+            this.btnMoveDrawerAOut_Click(null,null);
+            this.btnMoveDrawerBOut_Click(null, null);
+            this.btnMoveDrawerCOut_Click(null, null);
+            this.btnMoveDrawerDOut_Click(null, null);
+        }
+
+        private void btnTurnOnAllLeds_Click(object sender, EventArgs e)
+        {
+            this.btnTurnOnDrawerAAllLeds_Click(null,null);
+            this.btnTurnOnDrawerBAllLeds_Click(null, null);
+            this.btnTurnOnDrawerCAllLeds_Click(null, null);
+            this.btnTurnOnDrawerDAllLeds_Click(null, null);
+        }
+
+        private void btnTurnOffAllLeds_Click(object sender, EventArgs e)
+        {
+            this.btnTurnOffDrawerAAllLeds_Click(null, null);
+            this.btnTurnOffDrawerBAllLeds_Click(null, null);
+            this.btnTurnOffDrawerCAllLeds_Click(null, null);
+            this.btnTurnOffDrawerDAllLeds_Click(null, null);
+        }
     }
-
-
     
 }

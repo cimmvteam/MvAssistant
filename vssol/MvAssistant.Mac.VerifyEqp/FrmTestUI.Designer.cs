@@ -110,6 +110,17 @@
             this.btnMoveDrawerDOut = new System.Windows.Forms.Button();
             this.btnMoveDrawerAOut = new System.Windows.Forms.Button();
             this.btnMoveDrawerBOut = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerAAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOnDrawerAAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOnDrawerBAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerBAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOnDrawerCAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerCAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOnDrawerDAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerDAllLeds = new System.Windows.Forms.Button();
+            this.btnMoveAllDrawersOut = new System.Windows.Forms.Button();
+            this.btnTurnOnAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffAllLeds = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -352,7 +363,7 @@
             // 
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtDrawerBoxNum);
-            this.groupBox2.Location = new System.Drawing.Point(512, 362);
+            this.groupBox2.Location = new System.Drawing.Point(139, 366);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -363,7 +374,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(4, 14);
+            this.label5.Location = new System.Drawing.Point(4, 17);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(58, 12);
@@ -383,32 +394,35 @@
             // 
             // BtnReleaseAllComp
             // 
-            this.BtnReleaseAllComp.Location = new System.Drawing.Point(4, 368);
+            this.BtnReleaseAllComp.Location = new System.Drawing.Point(4, 376);
             this.BtnReleaseAllComp.Margin = new System.Windows.Forms.Padding(2);
             this.BtnReleaseAllComp.Name = "BtnReleaseAllComp";
-            this.BtnReleaseAllComp.Size = new System.Drawing.Size(140, 18);
+            this.BtnReleaseAllComp.Size = new System.Drawing.Size(120, 18);
             this.BtnReleaseAllComp.TabIndex = 7;
-            this.BtnReleaseAllComp.Text = "Release All Drawer Component";
+            this.BtnReleaseAllComp.Text = "Enable All Frames ";
             this.BtnReleaseAllComp.UseVisualStyleBackColor = true;
             this.BtnReleaseAllComp.Click += new System.EventHandler(this.BtnReleaseAllComp_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnTurnOffAllLeds);
+            this.groupBox1.Controls.Add(this.btnTurnOnAllLeds);
+            this.groupBox1.Controls.Add(this.btnMoveAllDrawersOut);
             this.groupBox1.Controls.Add(this.btnMoveAllDrawersIn);
             this.groupBox1.Controls.Add(this.btnInitialAllDrawer);
             this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
             this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
-            this.groupBox1.Location = new System.Drawing.Point(606, 362);
+            this.groupBox1.Location = new System.Drawing.Point(232, 362);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(481, 44);
+            this.groupBox1.Size = new System.Drawing.Size(855, 44);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
             // btnMoveAllDrawersIn
             // 
-            this.btnMoveAllDrawersIn.Location = new System.Drawing.Point(245, 17);
+            this.btnMoveAllDrawersIn.Location = new System.Drawing.Point(102, 17);
             this.btnMoveAllDrawersIn.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveAllDrawersIn.Name = "btnMoveAllDrawersIn";
             this.btnMoveAllDrawersIn.Size = new System.Drawing.Size(132, 18);
@@ -430,7 +444,7 @@
             // 
             // btnDetectAllDrawers
             // 
-            this.btnDetectAllDrawers.Location = new System.Drawing.Point(391, 17);
+            this.btnDetectAllDrawers.Location = new System.Drawing.Point(765, 14);
             this.btnDetectAllDrawers.Margin = new System.Windows.Forms.Padding(2);
             this.btnDetectAllDrawers.Name = "btnDetectAllDrawers";
             this.btnDetectAllDrawers.Size = new System.Drawing.Size(86, 18);
@@ -441,7 +455,7 @@
             // 
             // btnMoveAllDrawersHome
             // 
-            this.btnMoveAllDrawersHome.Location = new System.Drawing.Point(106, 17);
+            this.btnMoveAllDrawersHome.Location = new System.Drawing.Point(238, 16);
             this.btnMoveAllDrawersHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveAllDrawersHome.Name = "btnMoveAllDrawersHome";
             this.btnMoveAllDrawersHome.Size = new System.Drawing.Size(132, 18);
@@ -464,6 +478,8 @@
             // 
             // grpDrawerDComp
             // 
+            this.grpDrawerDComp.Controls.Add(this.btnTurnOnDrawerDAllLeds);
+            this.grpDrawerDComp.Controls.Add(this.btnTurnOffDrawerDAllLeds);
             this.grpDrawerDComp.Controls.Add(this.btnMoveDrawerDOut);
             this.grpDrawerDComp.Controls.Add(this.btnMoveDrawerDIn);
             this.grpDrawerDComp.Controls.Add(this.label4);
@@ -477,13 +493,13 @@
             this.grpDrawerDComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerDComp.Name = "grpDrawerDComp";
             this.grpDrawerDComp.Padding = new System.Windows.Forms.Padding(2);
-            this.grpDrawerDComp.Size = new System.Drawing.Size(510, 147);
+            this.grpDrawerDComp.Size = new System.Drawing.Size(521, 147);
             this.grpDrawerDComp.TabIndex = 10;
             this.grpDrawerDComp.TabStop = false;
             // 
             // btnMoveDrawerDIn
             // 
-            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(67, 123);
+            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(75, 123);
             this.btnMoveDrawerDIn.Name = "btnMoveDrawerDIn";
             this.btnMoveDrawerDIn.Size = new System.Drawing.Size(117, 19);
             this.btnMoveDrawerDIn.TabIndex = 8;
@@ -503,12 +519,12 @@
             // 
             // txtBxDrawerDResult
             // 
-            this.txtBxDrawerDResult.Location = new System.Drawing.Point(291, 14);
+            this.txtBxDrawerDResult.Location = new System.Drawing.Point(341, 14);
             this.txtBxDrawerDResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerDResult.Multiline = true;
             this.txtBxDrawerDResult.Name = "txtBxDrawerDResult";
             this.txtBxDrawerDResult.ReadOnly = true;
-            this.txtBxDrawerDResult.Size = new System.Drawing.Size(205, 128);
+            this.txtBxDrawerDResult.Size = new System.Drawing.Size(173, 128);
             this.txtBxDrawerDResult.TabIndex = 6;
             // 
             // txtBxDrawerIPD
@@ -523,7 +539,7 @@
             // 
             // btnMoveDrawerDHome
             // 
-            this.btnMoveDrawerDHome.Location = new System.Drawing.Point(67, 103);
+            this.btnMoveDrawerDHome.Location = new System.Drawing.Point(74, 103);
             this.btnMoveDrawerDHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerDHome.Name = "btnMoveDrawerDHome";
             this.btnMoveDrawerDHome.Size = new System.Drawing.Size(117, 18);
@@ -534,10 +550,10 @@
             // 
             // btnInitialDrawerD
             // 
-            this.btnInitialDrawerD.Location = new System.Drawing.Point(6, 103);
+            this.btnInitialDrawerD.Location = new System.Drawing.Point(4, 103);
             this.btnInitialDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerD.Name = "btnInitialDrawerD";
-            this.btnInitialDrawerD.Size = new System.Drawing.Size(56, 18);
+            this.btnInitialDrawerD.Size = new System.Drawing.Size(67, 18);
             this.btnInitialDrawerD.TabIndex = 2;
             this.btnInitialDrawerD.Text = "Initial  D";
             this.btnInitialDrawerD.UseVisualStyleBackColor = true;
@@ -557,7 +573,7 @@
             // 
             // txtBxDetectDrawerD
             // 
-            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(188, 101);
+            this.txtBxDetectDrawerD.Location = new System.Drawing.Point(3, 123);
             this.txtBxDetectDrawerD.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerD.Name = "txtBxDetectDrawerD";
             this.txtBxDetectDrawerD.Size = new System.Drawing.Size(68, 18);
@@ -580,6 +596,8 @@
             // 
             // grpDrawerCComp
             // 
+            this.grpDrawerCComp.Controls.Add(this.btnTurnOnDrawerCAllLeds);
+            this.grpDrawerCComp.Controls.Add(this.btnTurnOffDrawerCAllLeds);
             this.grpDrawerCComp.Controls.Add(this.btnMoveDrawerCOut);
             this.grpDrawerCComp.Controls.Add(this.btnMoveDrawerCIn);
             this.grpDrawerCComp.Controls.Add(this.label3);
@@ -599,9 +617,9 @@
             // 
             // btnMoveDrawerCIn
             // 
-            this.btnMoveDrawerCIn.Location = new System.Drawing.Point(71, 137);
+            this.btnMoveDrawerCIn.Location = new System.Drawing.Point(74, 135);
             this.btnMoveDrawerCIn.Name = "btnMoveDrawerCIn";
-            this.btnMoveDrawerCIn.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerCIn.Size = new System.Drawing.Size(106, 19);
             this.btnMoveDrawerCIn.TabIndex = 7;
             this.btnMoveDrawerCIn.Text = "Move C In";
             this.btnMoveDrawerCIn.UseVisualStyleBackColor = true;
@@ -619,12 +637,12 @@
             // 
             // txtBxDrawerCResult
             // 
-            this.txtBxDrawerCResult.Location = new System.Drawing.Point(267, 16);
+            this.txtBxDrawerCResult.Location = new System.Drawing.Point(312, 16);
             this.txtBxDrawerCResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerCResult.Multiline = true;
             this.txtBxDrawerCResult.Name = "txtBxDrawerCResult";
             this.txtBxDrawerCResult.ReadOnly = true;
-            this.txtBxDrawerCResult.Size = new System.Drawing.Size(205, 140);
+            this.txtBxDrawerCResult.Size = new System.Drawing.Size(175, 140);
             this.txtBxDrawerCResult.TabIndex = 6;
             // 
             // txtBxDrawerIPC
@@ -639,7 +657,7 @@
             // 
             // btnMoveDrawerCHome
             // 
-            this.btnMoveDrawerCHome.Location = new System.Drawing.Point(71, 114);
+            this.btnMoveDrawerCHome.Location = new System.Drawing.Point(75, 112);
             this.btnMoveDrawerCHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerCHome.Name = "btnMoveDrawerCHome";
             this.btnMoveDrawerCHome.Size = new System.Drawing.Size(105, 18);
@@ -653,7 +671,7 @@
             this.btnInitialDrawerC.Location = new System.Drawing.Point(4, 114);
             this.btnInitialDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerC.Name = "btnInitialDrawerC";
-            this.btnInitialDrawerC.Size = new System.Drawing.Size(63, 18);
+            this.btnInitialDrawerC.Size = new System.Drawing.Size(68, 18);
             this.btnInitialDrawerC.TabIndex = 2;
             this.btnInitialDrawerC.Text = "Initial  C";
             this.btnInitialDrawerC.UseVisualStyleBackColor = true;
@@ -673,7 +691,7 @@
             // 
             // txtBxDetectDrawerC
             // 
-            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(180, 114);
+            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(4, 135);
             this.txtBxDetectDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerC.Name = "txtBxDetectDrawerC";
             this.txtBxDetectDrawerC.Size = new System.Drawing.Size(68, 18);
@@ -696,6 +714,8 @@
             // 
             // grpDrawerBComp
             // 
+            this.grpDrawerBComp.Controls.Add(this.btnTurnOnDrawerBAllLeds);
+            this.grpDrawerBComp.Controls.Add(this.btnTurnOffDrawerBAllLeds);
             this.grpDrawerBComp.Controls.Add(this.btnMoveDrawerBOut);
             this.grpDrawerBComp.Controls.Add(this.btnMoveDrawerBIn);
             this.grpDrawerBComp.Controls.Add(this.label2);
@@ -709,13 +729,13 @@
             this.grpDrawerBComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerBComp.Name = "grpDrawerBComp";
             this.grpDrawerBComp.Padding = new System.Windows.Forms.Padding(2);
-            this.grpDrawerBComp.Size = new System.Drawing.Size(510, 147);
+            this.grpDrawerBComp.Size = new System.Drawing.Size(521, 147);
             this.grpDrawerBComp.TabIndex = 8;
             this.grpDrawerBComp.TabStop = false;
             // 
             // btnMoveDrawerBIn
             // 
-            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(67, 121);
+            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(75, 121);
             this.btnMoveDrawerBIn.Name = "btnMoveDrawerBIn";
             this.btnMoveDrawerBIn.Size = new System.Drawing.Size(117, 19);
             this.btnMoveDrawerBIn.TabIndex = 8;
@@ -735,12 +755,12 @@
             // 
             // txtBxDrawerBResult
             // 
-            this.txtBxDrawerBResult.Location = new System.Drawing.Point(289, 14);
+            this.txtBxDrawerBResult.Location = new System.Drawing.Point(341, 14);
             this.txtBxDrawerBResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerBResult.Multiline = true;
             this.txtBxDrawerBResult.Name = "txtBxDrawerBResult";
             this.txtBxDrawerBResult.ReadOnly = true;
-            this.txtBxDrawerBResult.Size = new System.Drawing.Size(217, 129);
+            this.txtBxDrawerBResult.Size = new System.Drawing.Size(173, 129);
             this.txtBxDrawerBResult.TabIndex = 6;
             // 
             // txtBxDrawerIPB
@@ -755,7 +775,7 @@
             // 
             // btnMoveDrawerBHome
             // 
-            this.btnMoveDrawerBHome.Location = new System.Drawing.Point(67, 98);
+            this.btnMoveDrawerBHome.Location = new System.Drawing.Point(74, 98);
             this.btnMoveDrawerBHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerBHome.Name = "btnMoveDrawerBHome";
             this.btnMoveDrawerBHome.Size = new System.Drawing.Size(117, 18);
@@ -769,7 +789,7 @@
             this.btnInitialDrawerB.Location = new System.Drawing.Point(6, 98);
             this.btnInitialDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerB.Name = "btnInitialDrawerB";
-            this.btnInitialDrawerB.Size = new System.Drawing.Size(56, 18);
+            this.btnInitialDrawerB.Size = new System.Drawing.Size(68, 18);
             this.btnInitialDrawerB.TabIndex = 2;
             this.btnInitialDrawerB.Text = "Initial  B";
             this.btnInitialDrawerB.UseVisualStyleBackColor = true;
@@ -789,7 +809,7 @@
             // 
             // txtBxDetectDrawerB
             // 
-            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(188, 97);
+            this.txtBxDetectDrawerB.Location = new System.Drawing.Point(6, 121);
             this.txtBxDetectDrawerB.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerB.Name = "txtBxDetectDrawerB";
             this.txtBxDetectDrawerB.Size = new System.Drawing.Size(68, 18);
@@ -813,6 +833,8 @@
             // 
             // grpDrawerAComp
             // 
+            this.grpDrawerAComp.Controls.Add(this.btnTurnOnDrawerAAllLeds);
+            this.grpDrawerAComp.Controls.Add(this.btnTurnOffDrawerAAllLeds);
             this.grpDrawerAComp.Controls.Add(this.btnMoveDrawerAOut);
             this.grpDrawerAComp.Controls.Add(this.btnMoveDrawerAIn);
             this.grpDrawerAComp.Controls.Add(this.label1);
@@ -832,7 +854,7 @@
             // 
             // btnMoveDrawerAIn
             // 
-            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(67, 132);
+            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(72, 132);
             this.btnMoveDrawerAIn.Name = "btnMoveDrawerAIn";
             this.btnMoveDrawerAIn.Size = new System.Drawing.Size(103, 19);
             this.btnMoveDrawerAIn.TabIndex = 8;
@@ -852,12 +874,12 @@
             // 
             // txtBxDrawerAResult
             // 
-            this.txtBxDrawerAResult.Location = new System.Drawing.Point(270, 14);
+            this.txtBxDrawerAResult.Location = new System.Drawing.Point(314, 14);
             this.txtBxDrawerAResult.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDrawerAResult.Multiline = true;
             this.txtBxDrawerAResult.Name = "txtBxDrawerAResult";
             this.txtBxDrawerAResult.ReadOnly = true;
-            this.txtBxDrawerAResult.Size = new System.Drawing.Size(204, 137);
+            this.txtBxDrawerAResult.Size = new System.Drawing.Size(172, 137);
             this.txtBxDrawerAResult.TabIndex = 6;
             // 
             // txtBxDrawerIPA
@@ -872,10 +894,10 @@
             // 
             // btnMoveDrawerAHome
             // 
-            this.btnMoveDrawerAHome.Location = new System.Drawing.Point(64, 107);
+            this.btnMoveDrawerAHome.Location = new System.Drawing.Point(71, 107);
             this.btnMoveDrawerAHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerAHome.Name = "btnMoveDrawerAHome";
-            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(106, 18);
+            this.btnMoveDrawerAHome.Size = new System.Drawing.Size(103, 18);
             this.btnMoveDrawerAHome.TabIndex = 5;
             this.btnMoveDrawerAHome.Text = "Move A Home";
             this.btnMoveDrawerAHome.UseVisualStyleBackColor = true;
@@ -883,10 +905,10 @@
             // 
             // btnInitialDrawerA
             // 
-            this.btnInitialDrawerA.Location = new System.Drawing.Point(6, 107);
+            this.btnInitialDrawerA.Location = new System.Drawing.Point(3, 107);
             this.btnInitialDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerA.Name = "btnInitialDrawerA";
-            this.btnInitialDrawerA.Size = new System.Drawing.Size(56, 18);
+            this.btnInitialDrawerA.Size = new System.Drawing.Size(64, 18);
             this.btnInitialDrawerA.TabIndex = 2;
             this.btnInitialDrawerA.Text = "Initial  A";
             this.btnInitialDrawerA.UseVisualStyleBackColor = true;
@@ -906,7 +928,7 @@
             // 
             // txtBxDetectDrawerA
             // 
-            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(178, 107);
+            this.txtBxDetectDrawerA.Location = new System.Drawing.Point(1, 133);
             this.txtBxDetectDrawerA.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerA.Name = "txtBxDetectDrawerA";
             this.txtBxDetectDrawerA.Size = new System.Drawing.Size(68, 18);
@@ -1042,9 +1064,9 @@
             // 
             // btnMoveDrawerCOut
             // 
-            this.btnMoveDrawerCOut.Location = new System.Drawing.Point(71, 90);
+            this.btnMoveDrawerCOut.Location = new System.Drawing.Point(74, 90);
             this.btnMoveDrawerCOut.Name = "btnMoveDrawerCOut";
-            this.btnMoveDrawerCOut.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerCOut.Size = new System.Drawing.Size(106, 19);
             this.btnMoveDrawerCOut.TabIndex = 8;
             this.btnMoveDrawerCOut.Text = "Move C Out";
             this.btnMoveDrawerCOut.UseVisualStyleBackColor = true;
@@ -1052,7 +1074,7 @@
             // 
             // btnMoveDrawerDOut
             // 
-            this.btnMoveDrawerDOut.Location = new System.Drawing.Point(67, 79);
+            this.btnMoveDrawerDOut.Location = new System.Drawing.Point(75, 81);
             this.btnMoveDrawerDOut.Name = "btnMoveDrawerDOut";
             this.btnMoveDrawerDOut.Size = new System.Drawing.Size(117, 19);
             this.btnMoveDrawerDOut.TabIndex = 9;
@@ -1062,7 +1084,7 @@
             // 
             // btnMoveDrawerAOut
             // 
-            this.btnMoveDrawerAOut.Location = new System.Drawing.Point(67, 83);
+            this.btnMoveDrawerAOut.Location = new System.Drawing.Point(71, 83);
             this.btnMoveDrawerAOut.Name = "btnMoveDrawerAOut";
             this.btnMoveDrawerAOut.Size = new System.Drawing.Size(103, 19);
             this.btnMoveDrawerAOut.TabIndex = 10;
@@ -1072,13 +1094,123 @@
             // 
             // btnMoveDrawerBOut
             // 
-            this.btnMoveDrawerBOut.Location = new System.Drawing.Point(67, 74);
+            this.btnMoveDrawerBOut.Location = new System.Drawing.Point(74, 74);
             this.btnMoveDrawerBOut.Name = "btnMoveDrawerBOut";
             this.btnMoveDrawerBOut.Size = new System.Drawing.Size(117, 19);
             this.btnMoveDrawerBOut.TabIndex = 11;
             this.btnMoveDrawerBOut.Text = "Move B Out";
             this.btnMoveDrawerBOut.UseVisualStyleBackColor = true;
             this.btnMoveDrawerBOut.Click += new System.EventHandler(this.btnMoveDrawerBOut_Click);
+            // 
+            // btnTurnOffDrawerAAllLeds
+            // 
+            this.btnTurnOffDrawerAAllLeds.Location = new System.Drawing.Point(177, 133);
+            this.btnTurnOffDrawerAAllLeds.Name = "btnTurnOffDrawerAAllLeds";
+            this.btnTurnOffDrawerAAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerAAllLeds.TabIndex = 11;
+            this.btnTurnOffDrawerAAllLeds.Text = "Turn Off A All Leds";
+            this.btnTurnOffDrawerAAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerAAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerAAllLeds_Click);
+            // 
+            // btnTurnOnDrawerAAllLeds
+            // 
+            this.btnTurnOnDrawerAAllLeds.Location = new System.Drawing.Point(179, 106);
+            this.btnTurnOnDrawerAAllLeds.Name = "btnTurnOnDrawerAAllLeds";
+            this.btnTurnOnDrawerAAllLeds.Size = new System.Drawing.Size(115, 20);
+            this.btnTurnOnDrawerAAllLeds.TabIndex = 12;
+            this.btnTurnOnDrawerAAllLeds.Text = "Turn On A All Leds";
+            this.btnTurnOnDrawerAAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerAAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerAAllLeds_Click);
+            // 
+            // btnTurnOnDrawerBAllLeds
+            // 
+            this.btnTurnOnDrawerBAllLeds.Location = new System.Drawing.Point(196, 96);
+            this.btnTurnOnDrawerBAllLeds.Name = "btnTurnOnDrawerBAllLeds";
+            this.btnTurnOnDrawerBAllLeds.Size = new System.Drawing.Size(118, 20);
+            this.btnTurnOnDrawerBAllLeds.TabIndex = 14;
+            this.btnTurnOnDrawerBAllLeds.Text = "Turn On B All Leds";
+            this.btnTurnOnDrawerBAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerBAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerBAllLeds_Click);
+            // 
+            // btnTurnOffDrawerBAllLeds
+            // 
+            this.btnTurnOffDrawerBAllLeds.Location = new System.Drawing.Point(197, 123);
+            this.btnTurnOffDrawerBAllLeds.Name = "btnTurnOffDrawerBAllLeds";
+            this.btnTurnOffDrawerBAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerBAllLeds.TabIndex = 13;
+            this.btnTurnOffDrawerBAllLeds.Text = "Turn Off B All Leds";
+            this.btnTurnOffDrawerBAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerBAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerBAllLeds_Click);
+            // 
+            // btnTurnOnDrawerCAllLeds
+            // 
+            this.btnTurnOnDrawerCAllLeds.Location = new System.Drawing.Point(186, 111);
+            this.btnTurnOnDrawerCAllLeds.Name = "btnTurnOnDrawerCAllLeds";
+            this.btnTurnOnDrawerCAllLeds.Size = new System.Drawing.Size(115, 20);
+            this.btnTurnOnDrawerCAllLeds.TabIndex = 14;
+            this.btnTurnOnDrawerCAllLeds.Text = "Turn On C All Leds";
+            this.btnTurnOnDrawerCAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerCAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerCAllLeds_Click);
+            // 
+            // btnTurnOffDrawerCAllLeds
+            // 
+            this.btnTurnOffDrawerCAllLeds.Location = new System.Drawing.Point(184, 135);
+            this.btnTurnOffDrawerCAllLeds.Name = "btnTurnOffDrawerCAllLeds";
+            this.btnTurnOffDrawerCAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerCAllLeds.TabIndex = 13;
+            this.btnTurnOffDrawerCAllLeds.Text = "Turn Off C All Leds";
+            this.btnTurnOffDrawerCAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerCAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerCAllLeds_Click);
+            // 
+            // btnTurnOnDrawerDAllLeds
+            // 
+            this.btnTurnOnDrawerDAllLeds.Location = new System.Drawing.Point(196, 101);
+            this.btnTurnOnDrawerDAllLeds.Name = "btnTurnOnDrawerDAllLeds";
+            this.btnTurnOnDrawerDAllLeds.Size = new System.Drawing.Size(118, 20);
+            this.btnTurnOnDrawerDAllLeds.TabIndex = 16;
+            this.btnTurnOnDrawerDAllLeds.Text = "Turn On D All Leds";
+            this.btnTurnOnDrawerDAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerDAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerDAllLeds_Click);
+            // 
+            // btnTurnOffDrawerDAllLeds
+            // 
+            this.btnTurnOffDrawerDAllLeds.Location = new System.Drawing.Point(197, 125);
+            this.btnTurnOffDrawerDAllLeds.Name = "btnTurnOffDrawerDAllLeds";
+            this.btnTurnOffDrawerDAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerDAllLeds.TabIndex = 15;
+            this.btnTurnOffDrawerDAllLeds.Text = "Turn Off D All Leds";
+            this.btnTurnOffDrawerDAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerDAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerDAllLeds_Click);
+            // 
+            // btnMoveAllDrawersOut
+            // 
+            this.btnMoveAllDrawersOut.Location = new System.Drawing.Point(375, 16);
+            this.btnMoveAllDrawersOut.Name = "btnMoveAllDrawersOut";
+            this.btnMoveAllDrawersOut.Size = new System.Drawing.Size(127, 18);
+            this.btnMoveAllDrawersOut.TabIndex = 8;
+            this.btnMoveAllDrawersOut.Text = "Move All Drawers Out";
+            this.btnMoveAllDrawersOut.UseVisualStyleBackColor = true;
+            this.btnMoveAllDrawersOut.Click += new System.EventHandler(this.btnMoveAllDrawersOut_Click);
+            // 
+            // btnTurnOnAllLeds
+            // 
+            this.btnTurnOnAllLeds.Location = new System.Drawing.Point(505, 17);
+            this.btnTurnOnAllLeds.Name = "btnTurnOnAllLeds";
+            this.btnTurnOnAllLeds.Size = new System.Drawing.Size(115, 18);
+            this.btnTurnOnAllLeds.TabIndex = 15;
+            this.btnTurnOnAllLeds.Text = "Turn On All Leds";
+            this.btnTurnOnAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnAllLeds.Click += new System.EventHandler(this.btnTurnOnAllLeds_Click);
+            // 
+            // btnTurnOffAllLeds
+            // 
+            this.btnTurnOffAllLeds.Location = new System.Drawing.Point(623, 16);
+            this.btnTurnOffAllLeds.Name = "btnTurnOffAllLeds";
+            this.btnTurnOffAllLeds.Size = new System.Drawing.Size(115, 18);
+            this.btnTurnOffAllLeds.TabIndex = 16;
+            this.btnTurnOffAllLeds.Text = "Turn Off All Leds";
+            this.btnTurnOffAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffAllLeds.Click += new System.EventHandler(this.btnTurnOffAllLeds_Click);
             // 
             // FrmTestUI
             // 
@@ -1202,5 +1334,16 @@
         private System.Windows.Forms.Button btnMoveDrawerDOut;
         private System.Windows.Forms.Button btnMoveDrawerAOut;
         private System.Windows.Forms.Button btnMoveDrawerBOut;
+        private System.Windows.Forms.Button btnTurnOnDrawerAAllLeds;
+        private System.Windows.Forms.Button btnTurnOffDrawerAAllLeds;
+        private System.Windows.Forms.Button btnTurnOnDrawerBAllLeds;
+        private System.Windows.Forms.Button btnTurnOffDrawerBAllLeds;
+        private System.Windows.Forms.Button btnTurnOnDrawerCAllLeds;
+        private System.Windows.Forms.Button btnTurnOffDrawerCAllLeds;
+        private System.Windows.Forms.Button btnTurnOnDrawerDAllLeds;
+        private System.Windows.Forms.Button btnTurnOffDrawerDAllLeds;
+        private System.Windows.Forms.Button btnMoveAllDrawersOut;
+        private System.Windows.Forms.Button btnTurnOffAllLeds;
+        private System.Windows.Forms.Button btnTurnOnAllLeds;
     }
 }
