@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
-    [GuidAttribute("00000000-0000-0000-0000-000000000000")]
+    [Guid("AE0A6C92-6B34-495A-B591-93AE4DF65976")]
     public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
     {
 

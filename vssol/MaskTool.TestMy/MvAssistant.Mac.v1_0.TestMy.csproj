@@ -73,6 +73,7 @@
     <Compile Include="Device\UtDeviceCamera.cs" />
     <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
+    <Compile Include="GenCfg\Machine\UtGenMachineMgrCfg.cs" />
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
@@ -108,6 +109,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MaskAutoCleaner.v1_0\MaskAutoCleaner.v1_0.csproj">
+      <Project>{6170a960-30f6-48cf-b50a-7533d0d749b1}</Project>
+      <Name>MaskAutoCleaner.v1_0</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj">
       <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
       <Name>MvAssistant.DeviceDrive.FanucRobot_v42_15</Name>

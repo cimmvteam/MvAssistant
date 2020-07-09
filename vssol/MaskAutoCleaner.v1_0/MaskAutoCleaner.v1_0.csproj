@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6170A960-30F6-48CF-B50A-7533D0D749B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MaskAutoCleaner.v1_0</RootNamespace>
+    <AssemblyName>MaskAutoCleaner.v1_0</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CodeExpress.v1_0.Fw">
+      <HintPath>..\DLL\CodeExpress.v1_0\CodeExpress.v1_0.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeExpress.v1_0.Std">
+      <HintPath>..\DLL\CodeExpress.v1_0\CodeExpress.v1_0.Std.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\MacMachineMap.cs" />
+    <Compile Include="Machine\MacMachineMgr.cs" />
+    <Compile Include="Machine\MacMachineMgrCfg.cs" />
+    <Compile Include="Inspect\DefectItem.cs" />
+    <Compile Include="Inspect\DefectList.cs" />
+    <Compile Include="Inspect\EnumDefectStatus.cs" />
+    <Compile Include="Inspect\EnumDefectType.cs" />
+    <Compile Include="EnumMacMaskSide.cs" />
+    <Compile Include="Machine\MacMachineCtrlBase.cs" />
+    <Compile Include="Machine\MacMachineStateBase.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacCmMaskTransferCmd.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacSmMaskTransferState.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacSmMaskTransferTransition.cs" />
+    <Compile Include="Machine\MaskTransfer\MacCmMaskTransfer.cs" />
+    <Compile Include="Machine\MaskTransfer\MacSmMaskTransfer.cs" />
+    <Compile Include="Machine\MacMachineMediater.cs" />
+    <Compile Include="Msg\EnumMacAlarmId.cs" />
+    <Compile Include="Msg\EnumMacAlarmLevel.cs" />
+    <Compile Include="Msg\EnumCeid.cs" />
+    <Compile Include="Msg\EnumEcid.cs" />
+    <Compile Include="Msg\EnumJobNotify.cs" />
+    <Compile Include="Msg\EnumSvid.cs" />
+    <Compile Include="Msg\IMsg.cs" />
+    <Compile Include="Msg\IMsgProcessable.cs" />
+    <Compile Include="Msg\MsgBase.cs" />
+    <Compile Include="Msg\MsgDeviceCmd.cs" />
+    <Compile Include="Msg\MsgJobNotify.cs" />
+    <Compile Include="Msg\MsgRecipe.cs" />
+    <Compile Include="Msg\MsgSecs.cs" />
+    <Compile Include="Msg\MsgSecsCeid.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\EnumNotifyParameters.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnActiveMaskProcessInitial.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnBtDockComplete.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnBtFinalBoxProcessEnd.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnBtReadBoxInfo.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\JnDrWaitBoxProc.cs" />
+    <Compile Include="Msg\PrescribedJobNotify\PrescribedJobNotifyBase.cs" />
+    <Compile Include="Msg\PrescribedSecs\PrescribedSecsBase.cs" />
+    <Compile Include="Msg\PrescribedSecs\S1F3QuerySvid.cs" />
+    <Compile Include="Msg\PrescribedSecs\S3F17CreateJob.cs" />
+    <Compile Include="Msg\PrescribedSecs\S3F17DockStart.cs" />
+    <Compile Include="Msg\PrescribedSecs\S3F17Undock.cs" />
+    <Compile Include="Msg\PrescribedSecs\S6F11.cs" />
+    <Compile Include="Msg\PrescribedSecs\S6F11DockComplete.cs" />
+    <Compile Include="StateMachineAlpha\DeferralTransition.cs" />
+    <Compile Include="StateMachineAlpha\DeviceStateMachine.cs" />
+    <Compile Include="StateMachineAlpha\ExceptionState.cs" />
+    <Compile Include="StateMachineAlpha\IStateMachineAlarmHandler.cs" />
+    <Compile Include="StateMachineAlpha\InternalTransition.cs" />
+    <Compile Include="StateMachineAlpha\IStateMachinePersist.cs" />
+    <Compile Include="StateMachineAlpha\IStateMachineResettable.cs" />
+    <Compile Include="StateMachineAlpha\IStateParam.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\EnumAlarmAction.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\PluralTriggerSameTimeException.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StateErrorException.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StateMachineAlterFailException.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StateMachineFatelException.cs" />
+    <Compile Include="StateMachineAlpha\StateEntryEventArgs.cs" />
+    <Compile Include="StateMachineAlpha\StateExitEventArgs.cs" />
+    <Compile Include="StateMachineAlpha\StateParameter.cs" />
+    <Compile Include="StateMachineAlpha\IStepAnalyzable.cs" />
+    <Compile Include="StateMachineAlpha\EnumStateMachineMsgType.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\NotCurrentStateException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachineAlpha\State.cs" />
+    <Compile Include="StateMachineAlpha\StateMachine.cs" />
+    <Compile Include="StateMachineAlpha\StateMachineBuilder.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StatemMachineException.cs" />
+    <Compile Include="StateMachineAlpha\Transition.cs" />
+    <Compile Include="StateMachineAlpha\TransitionEvaluation.cs" />
+    <Compile Include="StateMachineBeta\MacState.cs" />
+    <Compile Include="StateMachineBeta\MacStateMachine.cs" />
+    <Compile Include="StateMachineBeta\MacTransition.cs" />
+    <Compile Include="StateMachineBeta\MacStateEntryEventArgs.cs" />
+    <Compile Include="StateMachineBeta\MacStateExitEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj">
+      <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
+      <Name>MvAssistant.Mac.v1_0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
+      <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
+      <Name>MvAssistant</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Machine\BoxTransfer\" />
+    <Folder Include="Machine\Cabinet\" />
+    <Folder Include="Machine\CleanCh\" />
+    <Folder Include="Machine\InspectionCh\" />
+    <Folder Include="Machine\LoadPort\" />
+    <Folder Include="Machine\OpenStage\" />
+    <Folder Include="Machine\Universal\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
