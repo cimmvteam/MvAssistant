@@ -79,79 +79,7 @@ namespace MvAssistant
 
         }
 
-        /// <summary>
-        /// 取得電腦顯示的第一個IP
-        /// </summary>
-        /// <returns></returns>
-        public static IPAddress GetFirstIp()
-        {
-            string strHostName = Dns.GetHostName();
-            var iphostentry = Dns.GetHostEntry(strHostName);
-            return iphostentry.AddressList.FirstOrDefault();
-        }
 
-        public static IPAddress GetLikelyIp(string target_ip, string setting_ip)
-        {
-            IPAddress localIp = null;
-            if (string.IsNullOrEmpty(target_ip))
-            {
-                IPAddress.TryParse(setting_ip, out localIp);
-                return localIp;
-            }
-
-
-            var remoteEndPoint = IPAddress.Parse(target_ip);
-
-            //if (String.IsNullOrEmpty(setting_ip))
-            {
-                string strHostName = Dns.GetHostName();
-                var iphostentry = Dns.GetHostEntry(strHostName);
-                var likelyCount = -1;
-                foreach (IPAddress ipaddress in iphostentry.AddressList)
-                {
-                    var localIpBytes = ipaddress.GetAddressBytes();
-                    var remoteIpBytes = remoteEndPoint.GetAddressBytes();
-                    int idx = 0;
-                    for (idx = 0; idx < localIpBytes.Length; idx++)
-                        if (localIpBytes[idx] != remoteIpBytes[idx])
-                            break;
-
-                    if (idx > likelyCount)
-                    {
-                        likelyCount = idx;
-                        localIp = ipaddress;
-                    }
-                }
-            }
-
-            return localIp;
-        }
-
-        public static IPAddress GetLikelyOr127Ip(string target_ip = null, string setting_ip = null)
-        {
-            var ipaddr = GetLikelyIp(target_ip, setting_ip);
-            if (ipaddr == null)
-                ipaddr = IPAddress.Parse("127.0.0.1");
-
-            return ipaddr;
-        }
-
-        public static IPAddress GetLikelyOrFirstIp(string target_ip = null, string setting_ip = null)
-        {
-            var ipaddr = GetLikelyIp(target_ip, setting_ip);
-            if (ipaddr == null)
-                ipaddr = GetFirstIp();
-            return ipaddr;
-        }
-
-        public static IPAddress GetLikelyOrLocalIp(string target_ip = null, string setting_ip = null)
-        {
-            var ipaddr = GetLikelyIp(target_ip, setting_ip);
-            if (ipaddr == null)
-                ipaddr = IPAddress.Parse("localhost");
-
-            return ipaddr;
-        }
 
         /// <summary>
         /// 使用此方法取得成員名稱, 方便重新命名時, 不會遺漏
@@ -370,6 +298,61 @@ namespace MvAssistant
                 return (T)obj;
             }
         }
+
+
+        #region Dispose
+
+        public static void DisposeObj(IDisposable obj)
+        {
+            if (obj == null) return;
+            obj.Dispose();
+        }
+        public static void DisposeObjTry(IDisposable obj, Action<Exception> exceptionHandler = null)
+        {
+            try
+            {
+                if (obj == null) return;
+                obj.Dispose();
+            }
+            catch (Exception ex)
+            {
+                if (exceptionHandler == null) exceptionHandler(ex);
+                else MvLog.Write(ex);
+            }
+
+        }
+        public static void DisposeObjTry(IEnumerable<IDisposable> objs, Action<Exception> exceptionHandler = null)
+        {
+            foreach (var obj in objs) DisposeObjTry(obj, exceptionHandler);
+        }
+        public static void DisposeObj(IEnumerable<IDisposable> objs)
+        {
+            foreach (var obj in objs) DisposeObj(obj);
+        }
+
+        #endregion
+
+        #region Foreach
+
+        public static void Foreach<T>(IEnumerable<T> list, Action<T> act)
+        {
+            foreach (var obj in list) act(obj);
+        }
+        public static void ForeachTry<T>(IEnumerable<T> list, Action<T> act, Action<Exception> exceptionHandler = null)
+        {
+            foreach (var obj in list)
+            {
+                try { act(obj); }
+                catch (Exception ex)
+                {
+                    if (exceptionHandler == null) exceptionHandler(ex);
+                    else MvLog.Write(ex);
+                }
+            }
+        }
+
+        #endregion
+
 
 
 

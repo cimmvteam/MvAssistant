@@ -20,7 +20,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         void SetHandSpaceLimit(double? Minimum, double? Maximum);
         void SetClampToCabinetSpaceLimit(double Minimum);
         void SetLevelSensorLimit(double? Level_X, double? Level_Y);
-        void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
+        void SetSixAxisSensorUpperLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
+        void SetSixAxisSensorLowerLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
         #endregion
 
         #region Read Parameter
@@ -28,7 +29,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         Tuple<double, double> ReadHandSpaceLimitSetting();
         double ReadClampToCabinetSpaceLimitSetting();
         Tuple<double, double> ReadLevelSensorLimitSetting();
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting();
+        Tuple<int, int, int, int, int, int> ReadSixAxisSensorUpperLimitSetting();
+        Tuple<int, int, int, int, int, int> ReadSixAxisSensorLowerLimitSetting();
         #endregion
 
         #region Read Component Value

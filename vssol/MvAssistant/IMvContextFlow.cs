@@ -8,10 +8,25 @@ namespace MvAssistant
 {
     public interface IMvContextFlow
     {
-
+        /// <summary>
+        /// 初始化資源/參數
+        /// </summary>
+        /// <returns></returns>
         int MvCfInit();
+        /// <summary>
+        /// 載入資源
+        /// </summary>
+        /// <returns></returns>
         int MvCfLoad();
+        /// <summary>
+        /// 御載資源
+        /// </summary>
+        /// <returns></returns>
         int MvCfUnload();
+        /// <summary>
+        /// 釋放資源
+        /// </summary>
+        /// <returns></returns>
         int MvCfFree();
 
     }
