@@ -16,6 +16,7 @@ namespace MvAssistantMacVerifyEqp
     public partial class FrmTestUI : Form
     {
        
+
         TestDrawers drawers;
         TestLoadPorts loadPorts;
         public FrmTestUI()
@@ -564,6 +565,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void btnTurnOnDrawerAAllLeds_Click(object sender, EventArgs e)
         {
+            
             drawers.InitialDRawer(drawers.DrawerA);
             drawers.DisableDrawerComps(drawers.DrawerA);
             drawers.DrawerA.CommandBrightLEDAllOn();
@@ -585,6 +587,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void btnTurnOnDrawerBAllLeds_Click(object sender, EventArgs e)
         {
+           
             drawers.InitialDRawer(drawers.DrawerB);
             drawers.DisableDrawerComps(drawers.DrawerB);
             drawers.DrawerB.CommandBrightLEDAllOn();

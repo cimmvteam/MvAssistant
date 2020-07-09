@@ -20,6 +20,10 @@ namespace MvAssistantMacVerifyEqp
    
     public class TestDrawers
     {
+       public string ALight = "";
+       public string BLight = "";
+       public string CLight = "";
+        string DLight = "";
         private static object countBoxobject = new object();
         public bool countDrawerBox = false;
         public FrmTestUI MyFORM = null;
@@ -255,13 +259,15 @@ namespace MvAssistantMacVerifyEqp
             var eventArgs = (OnReplyBrightLEDEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
-
+                 SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] LED 完成設定");
+         
             }
             else //if(eventArgs.ReplyResultCode == ReplyResultCode.Failed)
             {
-
+                SetResult(drawer, "Drawer [" + drawer.DrawerNO + "] LED 無法設定");
             }
-          //  NoteEvent(drawer, nameof(OnReplyBrightLED), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+            EnableDrawerComps(drawer);
+            //  NoteEvent(drawer, nameof(OnReplyBrightLED), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
         }
 
         /// <summary>Event ReplyPosition(113)</summary>
