@@ -893,14 +893,13 @@
             // 
             // txtBoxType
             // 
-            this.txtBoxType.Location = new System.Drawing.Point(79, 20);
+            this.txtBoxType.Location = new System.Drawing.Point(86, 21);
             this.txtBoxType.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxType.Name = "txtBoxType";
             this.txtBoxType.Size = new System.Drawing.Size(97, 22);
             this.txtBoxType.TabIndex = 2;
             this.txtBoxType.Text = "1:鐵盒; 2:水晶盒";
             this.txtBoxType.Click += new System.EventHandler(this.txtBoxType_Click);
-            this.txtBoxType.TextChanged += new System.EventHandler(this.txtBoxType_TextChanged);
             // 
             // BTPutDR_0204
             // 

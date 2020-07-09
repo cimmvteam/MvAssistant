@@ -120,16 +120,12 @@ namespace MvAssistantMacVerifyEqp
             txtBoxType.Text = "";
         }
 
-        private void txtBoxType_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                MessageBox.Show("請輸入數字1或2");
-        }
-
         private void BTGetDR_0204_Click(object sender, EventArgs e)
         {
             try
             {
+                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -152,6 +148,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
+                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -202,6 +200,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
+                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -250,6 +250,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
+                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -272,6 +274,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
+                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -315,6 +319,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
+                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
