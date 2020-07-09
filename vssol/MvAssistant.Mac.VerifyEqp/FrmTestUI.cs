@@ -134,7 +134,8 @@ namespace MvAssistantMacVerifyEqp
                     var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     bt.HalConnect();
-                    
+
+                    bt.Initial();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
                     Console.WriteLine(bt.Clamp(Convert.ToUInt32(txtBoxType.Text)));
@@ -162,6 +163,7 @@ namespace MvAssistantMacVerifyEqp
                     os.HalConnect();
                     bool BTIntrude = false;
 
+                    BTIntrude = os.ReadRobotIntrude(false, false).Item1;
                     os.Initial();
                     for (int i = 0; i < 2; i++)
                     {
@@ -287,7 +289,7 @@ namespace MvAssistantMacVerifyEqp
                     bt.HalConnect();
                     os.HalConnect();
                     bool BTIntrude = false;
-
+                    
                     for (int i = 0; i < 2; i++)
                     {
                         BTIntrude = os.ReadRobotIntrude(true, false).Item1;

@@ -1312,7 +1312,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var cts = new CancellationTokenSource();
                     var token = cts.Token;
                     //var tasks=new ConcurrentBag<Task>();
-                    
+                    Console.WriteLine( unv.ReadAllAlarmMessage());
                     Action<MacHalUniversal> PLCSignalAlarm = (unv1) =>
                     {
                         while (true)
