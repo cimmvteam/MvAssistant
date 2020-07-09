@@ -106,6 +106,7 @@
             this.BTGetDR_0204 = new System.Windows.Forms.Button();
             this.btnLoadPortBUnDock = new System.Windows.Forms.Button();
             this.btnLoadPortBDock = new System.Windows.Forms.Button();
+            this.btnMoveDrawerCOut = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -152,7 +153,7 @@
             // 
             this.grpLoadPorts.Controls.Add(this.grpLoadportA);
             this.grpLoadPorts.Controls.Add(this.grpLoadportB);
-            this.grpLoadPorts.Location = new System.Drawing.Point(4, 367);
+            this.grpLoadPorts.Location = new System.Drawing.Point(6, 427);
             this.grpLoadPorts.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadPorts.Name = "grpLoadPorts";
             this.grpLoadPorts.Padding = new System.Windows.Forms.Padding(2);
@@ -339,7 +340,7 @@
             this.GrpDrawer.Location = new System.Drawing.Point(6, 6);
             this.GrpDrawer.Name = "GrpDrawer";
             this.GrpDrawer.Padding = new System.Windows.Forms.Padding(2);
-            this.GrpDrawer.Size = new System.Drawing.Size(1106, 350);
+            this.GrpDrawer.Size = new System.Drawing.Size(1106, 416);
             this.GrpDrawer.TabIndex = 1;
             this.GrpDrawer.TabStop = false;
             this.GrpDrawer.Text = "Drawers";
@@ -348,7 +349,7 @@
             // 
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtDrawerBoxNum);
-            this.groupBox2.Location = new System.Drawing.Point(512, 298);
+            this.groupBox2.Location = new System.Drawing.Point(512, 362);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -379,7 +380,7 @@
             // 
             // BtnReleaseAllComp
             // 
-            this.BtnReleaseAllComp.Location = new System.Drawing.Point(4, 304);
+            this.BtnReleaseAllComp.Location = new System.Drawing.Point(4, 368);
             this.BtnReleaseAllComp.Margin = new System.Windows.Forms.Padding(2);
             this.BtnReleaseAllComp.Name = "BtnReleaseAllComp";
             this.BtnReleaseAllComp.Size = new System.Drawing.Size(140, 18);
@@ -394,7 +395,7 @@
             this.groupBox1.Controls.Add(this.btnInitialAllDrawer);
             this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
             this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
-            this.groupBox1.Location = new System.Drawing.Point(606, 298);
+            this.groupBox1.Location = new System.Drawing.Point(606, 362);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -564,17 +565,18 @@
             // GrpDrawerC
             // 
             this.GrpDrawerC.Controls.Add(this.grpDrawerCComp);
-            this.GrpDrawerC.Location = new System.Drawing.Point(4, 164);
+            this.GrpDrawerC.Location = new System.Drawing.Point(4, 191);
             this.GrpDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.GrpDrawerC.Name = "GrpDrawerC";
             this.GrpDrawerC.Padding = new System.Windows.Forms.Padding(2);
-            this.GrpDrawerC.Size = new System.Drawing.Size(518, 130);
+            this.GrpDrawerC.Size = new System.Drawing.Size(518, 171);
             this.GrpDrawerC.TabIndex = 2;
             this.GrpDrawerC.TabStop = false;
             this.GrpDrawerC.Text = "C(192.168.0.50)";
             // 
             // grpDrawerCComp
             // 
+            this.grpDrawerCComp.Controls.Add(this.btnMoveDrawerCOut);
             this.grpDrawerCComp.Controls.Add(this.btnMoveDrawerCIn);
             this.grpDrawerCComp.Controls.Add(this.label3);
             this.grpDrawerCComp.Controls.Add(this.txtBxDrawerCResult);
@@ -587,13 +589,13 @@
             this.grpDrawerCComp.Margin = new System.Windows.Forms.Padding(2);
             this.grpDrawerCComp.Name = "grpDrawerCComp";
             this.grpDrawerCComp.Padding = new System.Windows.Forms.Padding(2);
-            this.grpDrawerCComp.Size = new System.Drawing.Size(490, 117);
+            this.grpDrawerCComp.Size = new System.Drawing.Size(490, 160);
             this.grpDrawerCComp.TabIndex = 9;
             this.grpDrawerCComp.TabStop = false;
             // 
             // btnMoveDrawerCIn
             // 
-            this.btnMoveDrawerCIn.Location = new System.Drawing.Point(69, 93);
+            this.btnMoveDrawerCIn.Location = new System.Drawing.Point(71, 137);
             this.btnMoveDrawerCIn.Name = "btnMoveDrawerCIn";
             this.btnMoveDrawerCIn.Size = new System.Drawing.Size(103, 19);
             this.btnMoveDrawerCIn.TabIndex = 7;
@@ -618,7 +620,7 @@
             this.txtBxDrawerCResult.Multiline = true;
             this.txtBxDrawerCResult.Name = "txtBxDrawerCResult";
             this.txtBxDrawerCResult.ReadOnly = true;
-            this.txtBxDrawerCResult.Size = new System.Drawing.Size(205, 94);
+            this.txtBxDrawerCResult.Size = new System.Drawing.Size(205, 140);
             this.txtBxDrawerCResult.TabIndex = 6;
             // 
             // txtBxDrawerIPC
@@ -633,7 +635,7 @@
             // 
             // btnMoveDrawerCHome
             // 
-            this.btnMoveDrawerCHome.Location = new System.Drawing.Point(67, 70);
+            this.btnMoveDrawerCHome.Location = new System.Drawing.Point(71, 114);
             this.btnMoveDrawerCHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveDrawerCHome.Name = "btnMoveDrawerCHome";
             this.btnMoveDrawerCHome.Size = new System.Drawing.Size(105, 18);
@@ -644,7 +646,7 @@
             // 
             // btnInitialDrawerC
             // 
-            this.btnInitialDrawerC.Location = new System.Drawing.Point(6, 70);
+            this.btnInitialDrawerC.Location = new System.Drawing.Point(4, 114);
             this.btnInitialDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialDrawerC.Name = "btnInitialDrawerC";
             this.btnInitialDrawerC.Size = new System.Drawing.Size(56, 18);
@@ -667,7 +669,7 @@
             // 
             // txtBxDetectDrawerC
             // 
-            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(176, 70);
+            this.txtBxDetectDrawerC.Location = new System.Drawing.Point(180, 114);
             this.txtBxDetectDrawerC.Margin = new System.Windows.Forms.Padding(2);
             this.txtBxDetectDrawerC.Name = "txtBxDetectDrawerC";
             this.txtBxDetectDrawerC.Size = new System.Drawing.Size(68, 18);
@@ -1032,6 +1034,16 @@
             this.btnLoadPortBDock.UseVisualStyleBackColor = true;
             this.btnLoadPortBDock.Click += new System.EventHandler(this.btnLoadPortBDock_Click);
             // 
+            // btnMoveDrawerCOut
+            // 
+            this.btnMoveDrawerCOut.Location = new System.Drawing.Point(71, 90);
+            this.btnMoveDrawerCOut.Name = "btnMoveDrawerCOut";
+            this.btnMoveDrawerCOut.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerCOut.TabIndex = 8;
+            this.btnMoveDrawerCOut.Text = "Move C Out";
+            this.btnMoveDrawerCOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerCOut.Click += new System.EventHandler(this.btnMoveDrawerCOut_Click);
+            // 
             // FrmTestUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1150,5 +1162,6 @@
         private System.Windows.Forms.Button btnLoadPortADock;
         private System.Windows.Forms.Button btnLoadPortBUnDock;
         private System.Windows.Forms.Button btnLoadPortBDock;
+        private System.Windows.Forms.Button btnMoveDrawerCOut;
     }
 }

@@ -533,6 +533,13 @@ namespace MvAssistantMacVerifyEqp
             this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort2);
             loadPorts.LoadPort2.CommandUndockRequest();
         }
+
+        private void btnMoveDrawerCOut_Click(object sender, EventArgs e)
+        {
+            drawers.InitialDRawer(drawers.DrawerC);
+            drawers.DisableDrawerComps(drawers.DrawerC);
+            drawers.DrawerC.CommandTrayMotionOut();
+        }
     }
 
 
