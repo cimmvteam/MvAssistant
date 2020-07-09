@@ -174,14 +174,14 @@
             this.grpLoadportA.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportA.Name = "grpLoadportA";
             this.grpLoadportA.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLoadportA.Size = new System.Drawing.Size(289, 194);
+            this.grpLoadportA.Size = new System.Drawing.Size(289, 247);
             this.grpLoadportA.TabIndex = 1;
             this.grpLoadportA.TabStop = false;
             this.grpLoadportA.Text = "Load port A(192.168.0.20)";
             // 
             // btnLoadPortAUnDock
             // 
-            this.btnLoadPortAUnDock.Location = new System.Drawing.Point(144, 166);
+            this.btnLoadPortAUnDock.Location = new System.Drawing.Point(144, 221);
             this.btnLoadPortAUnDock.Name = "btnLoadPortAUnDock";
             this.btnLoadPortAUnDock.Size = new System.Drawing.Size(134, 18);
             this.btnLoadPortAUnDock.TabIndex = 8;
@@ -191,7 +191,7 @@
             // 
             // btnLoadPortADock
             // 
-            this.btnLoadPortADock.Location = new System.Drawing.Point(5, 165);
+            this.btnLoadPortADock.Location = new System.Drawing.Point(5, 220);
             this.btnLoadPortADock.Name = "btnLoadPortADock";
             this.btnLoadPortADock.Size = new System.Drawing.Size(134, 18);
             this.btnLoadPortADock.TabIndex = 7;
@@ -207,12 +207,12 @@
             this.txtBxLoportAResult.Name = "txtBxLoportAResult";
             this.txtBxLoportAResult.ReadOnly = true;
             this.txtBxLoportAResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBxLoportAResult.Size = new System.Drawing.Size(278, 94);
+            this.txtBxLoportAResult.Size = new System.Drawing.Size(278, 153);
             this.txtBxLoportAResult.TabIndex = 6;
             // 
             // btnLoadPortAAlarmReset
             // 
-            this.btnLoadPortAAlarmReset.Location = new System.Drawing.Point(4, 119);
+            this.btnLoadPortAAlarmReset.Location = new System.Drawing.Point(4, 174);
             this.btnLoadPortAAlarmReset.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadPortAAlarmReset.Name = "btnLoadPortAAlarmReset";
             this.btnLoadPortAAlarmReset.Size = new System.Drawing.Size(135, 18);
@@ -223,7 +223,7 @@
             // 
             // btnInitialLoadportA
             // 
-            this.btnInitialLoadportA.Location = new System.Drawing.Point(144, 119);
+            this.btnInitialLoadportA.Location = new System.Drawing.Point(144, 174);
             this.btnInitialLoadportA.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialLoadportA.Name = "btnInitialLoadportA";
             this.btnInitialLoadportA.Size = new System.Drawing.Size(135, 18);
@@ -234,7 +234,7 @@
             // 
             // btnLoadportARFID
             // 
-            this.btnLoadportARFID.Location = new System.Drawing.Point(144, 143);
+            this.btnLoadportARFID.Location = new System.Drawing.Point(144, 198);
             this.btnLoadportARFID.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportARFID.Name = "btnLoadportARFID";
             this.btnLoadportARFID.Size = new System.Drawing.Size(135, 18);
@@ -245,7 +245,7 @@
             // 
             // btnLoadportABarcode
             // 
-            this.btnLoadportABarcode.Location = new System.Drawing.Point(4, 142);
+            this.btnLoadportABarcode.Location = new System.Drawing.Point(4, 197);
             this.btnLoadportABarcode.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportABarcode.Name = "btnLoadportABarcode";
             this.btnLoadportABarcode.Size = new System.Drawing.Size(135, 18);
@@ -267,7 +267,7 @@
             this.grpLoadportB.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportB.Name = "grpLoadportB";
             this.grpLoadportB.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLoadportB.Size = new System.Drawing.Size(295, 194);
+            this.grpLoadportB.Size = new System.Drawing.Size(295, 247);
             this.grpLoadportB.TabIndex = 0;
             this.grpLoadportB.TabStop = false;
             this.grpLoadportB.Text = "Load port B(192.168.0.21)";
@@ -280,12 +280,12 @@
             this.txtBxLoportBResult.Name = "txtBxLoportBResult";
             this.txtBxLoportBResult.ReadOnly = true;
             this.txtBxLoportBResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtBxLoportBResult.Size = new System.Drawing.Size(278, 94);
+            this.txtBxLoportBResult.Size = new System.Drawing.Size(278, 153);
             this.txtBxLoportBResult.TabIndex = 6;
             // 
             // btnLoadPortBAlarmReset
             // 
-            this.btnLoadPortBAlarmReset.Location = new System.Drawing.Point(8, 119);
+            this.btnLoadPortBAlarmReset.Location = new System.Drawing.Point(8, 175);
             this.btnLoadPortBAlarmReset.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadPortBAlarmReset.Name = "btnLoadPortBAlarmReset";
             this.btnLoadPortBAlarmReset.Size = new System.Drawing.Size(135, 18);
@@ -296,7 +296,7 @@
             // 
             // btnInitialLoadportB
             // 
-            this.btnInitialLoadportB.Location = new System.Drawing.Point(148, 119);
+            this.btnInitialLoadportB.Location = new System.Drawing.Point(148, 175);
             this.btnInitialLoadportB.Margin = new System.Windows.Forms.Padding(2);
             this.btnInitialLoadportB.Name = "btnInitialLoadportB";
             this.btnInitialLoadportB.Size = new System.Drawing.Size(135, 18);
@@ -307,7 +307,7 @@
             // 
             // btnLoadportBRFID
             // 
-            this.btnLoadportBRFID.Location = new System.Drawing.Point(148, 142);
+            this.btnLoadportBRFID.Location = new System.Drawing.Point(148, 198);
             this.btnLoadportBRFID.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportBRFID.Name = "btnLoadportBRFID";
             this.btnLoadportBRFID.Size = new System.Drawing.Size(135, 18);
@@ -318,7 +318,7 @@
             // 
             // btnLoadportBBarcode
             // 
-            this.btnLoadportBBarcode.Location = new System.Drawing.Point(8, 142);
+            this.btnLoadportBBarcode.Location = new System.Drawing.Point(8, 198);
             this.btnLoadportBBarcode.Margin = new System.Windows.Forms.Padding(2);
             this.btnLoadportBBarcode.Name = "btnLoadportBBarcode";
             this.btnLoadportBBarcode.Size = new System.Drawing.Size(135, 18);
@@ -1014,7 +1014,7 @@
             // 
             // btnLoadPortBUnDock
             // 
-            this.btnLoadPortBUnDock.Location = new System.Drawing.Point(147, 166);
+            this.btnLoadPortBUnDock.Location = new System.Drawing.Point(147, 222);
             this.btnLoadPortBUnDock.Name = "btnLoadPortBUnDock";
             this.btnLoadPortBUnDock.Size = new System.Drawing.Size(134, 18);
             this.btnLoadPortBUnDock.TabIndex = 10;
@@ -1024,7 +1024,7 @@
             // 
             // btnLoadPortBDock
             // 
-            this.btnLoadPortBDock.Location = new System.Drawing.Point(8, 165);
+            this.btnLoadPortBDock.Location = new System.Drawing.Point(8, 221);
             this.btnLoadPortBDock.Name = "btnLoadPortBDock";
             this.btnLoadPortBDock.Size = new System.Drawing.Size(134, 18);
             this.btnLoadPortBDock.TabIndex = 9;
