@@ -181,23 +181,30 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         {
             while (true)
             {
-                byte[] B = new byte[1023];
-                int inLine = ClientSocket.Receive(B);//從Server端回復(Listen Point)
-                string rtn = Encoding.Default.GetString(B, 0, inLine);
-
-                //rtn = "~001,Placement,0@\0\0\0\0";
-
-                Debug.WriteLine("[RETURN] " + rtn);
-                rtn = rtn.Replace("\0", "");
-                if (OnReceviceRtnFromServerHandler != null)
+                try
                 {
-                    // 可能一次會有多個結果
-                    var rtnAry = rtn.Split(new string[] { BaseHostToLoadPortCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var element in rtnAry)
+                    byte[] B = new byte[1023];
+                    int inLine = ClientSocket.Receive(B);//從Server端回復(Listen Point)
+                    string rtn = Encoding.Default.GetString(B, 0, inLine);
+
+                    //rtn = "~001,Placement,0@\0\0\0\0";
+
+                    Debug.WriteLine("[RETURN] " + rtn);
+                    rtn = rtn.Replace("\0", "");
+                    if (OnReceviceRtnFromServerHandler != null)
                     {
-                        var eventArgs = new OnReceviceRtnFromServerEventArgs(element);
-                        OnReceviceRtnFromServerHandler.Invoke(this, eventArgs);
+                        // 可能一次會有多個結果
+                        var rtnAry = rtn.Split(new string[] { BaseHostToLoadPortCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var element in rtnAry)
+                        {
+                            var eventArgs = new OnReceviceRtnFromServerEventArgs(element);
+                            OnReceviceRtnFromServerHandler.Invoke(this, eventArgs);
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+
                 }
             }
         }
@@ -497,6 +504,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
         #endregion
+
+
         #region event
 
         /// <summary>Event Placement (001)</summary>
@@ -1027,10 +1036,10 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <remarks>ClamerLock完成後位置錯誤</remarks>
         public void ClamperLockPositionFailed(ReturnFromServer rtnFromServer)
         {
-            if (OnClamperLockPositionFailed != null) { OnClamperLockPositionFailed.Invoke(this, EventArgs.Empty); }
+            if (OnClamperLockPositionFailedHandler != null) { OnClamperLockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
         }
-        public event EventHandler OnClamperLockPositionFailed = null;
-        public void ResetOnClamperLockPositionFailed() { OnClamperLockPositionFailed = null; }
+        public event EventHandler OnClamperLockPositionFailedHandler = null;
+        public void ResetOnClamperLockPositionFailed() { OnClamperLockPositionFailedHandler = null; }
 
 
         /// <summary>Alarm PODPresentAbnormality(208)</summary>
@@ -1048,11 +1057,11 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <remarks>Clamper開合馬達驅動器異常</remarks>
         public void ClamperMotorAbnormality(ReturnFromServer rtnFromServer)
         {
-            if (OnClamperMotorAbnormality != null) { OnClamperMotorAbnormality.Invoke(this, EventArgs.Empty); }
+            if (OnClamperMotorAbnormalityHandler != null) { OnClamperMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
         }
-        public event EventHandler OnClamperMotorAbnormality = null;
+        public event EventHandler OnClamperMotorAbnormalityHandler = null;
         public void ResetOnClamperMotorAbnormality()
-        { OnClamperMotorAbnormality = null; }
+        { OnClamperMotorAbnormalityHandler = null; }
 
 
         /// <summary>Alarm StageMotorAbnormality(210)</summary>
@@ -1060,10 +1069,10 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <remarks>Stage升降馬達驅動器異常</remarks>
         public void StageMotorAbnormality(ReturnFromServer rtnFromServer)
         {
-            if (OnStageMotorAbnormality != null) { OnStageMotorAbnormality.Invoke(this, EventArgs.Empty); }
+            if (OnStageMotorAbnormalityHandler != null) { OnStageMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
         }
-        public event EventHandler OnStageMotorAbnormality = null;
-        public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormality = null; }
+        public event EventHandler OnStageMotorAbnormalityHandler = null;
+        public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormalityHandler = null; }
 #endregion
 
 

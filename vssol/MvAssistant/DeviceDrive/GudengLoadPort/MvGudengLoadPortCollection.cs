@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.GudengLoadPort
 {
-    [Obsolete()]
+    [Obsolete]
     public class MvGudengLoadPortCollection : IDisposable
     {
 
