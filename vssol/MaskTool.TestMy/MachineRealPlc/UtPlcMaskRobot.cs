@@ -17,7 +17,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.Connect("192.168.0.200", 2);
                 plc.MaskRobot.SetSpeed(10,null);
                 plc.MaskRobot.SetStaticElecLimit(20, 10);
-                plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
+                plc.MaskRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
                 plc.MaskRobot.SetClampTactileLim(15,10);
                 plc.MaskRobot.SetLevelLimit(15, 10, 5);
             }
@@ -31,7 +31,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.Connect("192.168.0.200", 2);
                 Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
                 Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
-                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
+                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimitSetting());
                 Console.WriteLine(plc.MaskRobot.ReadClampTactileLimSetting());
                 Console.WriteLine(plc.MaskRobot.ReadLevelLimitSetting());
             }

@@ -40,6 +40,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public static Guid LightLeimac = new Guid("DA521B12-E343-4DED-867E-E4B773235BE5");
         public static Guid CameraSentech = new Guid("A8A79E52-1626-484C-B06E-0CF9D4A0AB63");
         public static Guid DrawerKjMachine = new Guid("80E11398-67B2-4991-A071-89C893BCAD4C");
+        public static Guid LoadPortCellGudeng = new Guid("D870183B-836C-48D3-9024-D746C23D7398");
 
 
 

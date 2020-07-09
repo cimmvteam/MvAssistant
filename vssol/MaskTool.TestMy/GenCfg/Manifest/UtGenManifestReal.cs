@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.LeimacLight;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.Mac.v1_0.Hal.CompLight;
+using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System.IO;
@@ -292,6 +293,17 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
                         DriverId = ManifestDriverId.LoadPortPlc.ToString(),
                     },
+
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLoadPortCellGudeng.DevConnStr_Ip, "192.168.0.119",
+                            MacHalLoadPortCellGudeng.DevConnStr_Port, 1000,
+                            MacHalLoadPortCellGudeng.DevConnStr_LocalIp, null,
+                            MacHalLoadPortCellGudeng.DevConnStr_LocalPort, 0),
+                        DeviceName = MacEnumDevice.loadport_cell_001.ToString(),
+                        DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
+                    },
+
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
                             MacHalLightLeimac.DevConnStr_Ip, "192.168.0.119",
@@ -321,6 +333,19 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
                         DriverId = ManifestDriverId.LoadPortPlc.ToString(),
                     },
+
+
+                    new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLoadPortCellGudeng.DevConnStr_Ip, "192.168.0.119",
+                            MacHalLoadPortCellGudeng.DevConnStr_Port, 1000,
+                            MacHalLoadPortCellGudeng.DevConnStr_LocalIp, null,
+                            MacHalLoadPortCellGudeng.DevConnStr_LocalPort, 0),
+                        DeviceName = MacEnumDevice.loadport_cell_001.ToString(),
+                        DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
+                    },
+
+
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
                             MacHalLightLeimac.DevConnStr_Ip, "192.168.0.119",

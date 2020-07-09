@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CToolkit.v1_1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,7 +14,7 @@ namespace MvAssistant.Logging
 
         ~MvLoggerMapper()
         {
-            MvEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);
+            CtkEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);
         }
 
         public MvLogger Get(String id = "")
@@ -35,7 +36,7 @@ namespace MvAssistant.Logging
 
         public void RegisterAllLogger(EventHandler<MvLoggerEventArgs> evt, Func<string, bool> filter = null)
         {
-            MvLoggerMapper.Singleton.evtCreated += delegate(object ss, MvLoggerMapperEventArgs ee)
+            MvLoggerMapper.Singleton.evtCreated += delegate (object ss, MvLoggerMapperEventArgs ee)
             {
                 if (filter != null && !filter(ee.LoggerId)) return;
                 ee.Logger.EhLogWrite += evt;

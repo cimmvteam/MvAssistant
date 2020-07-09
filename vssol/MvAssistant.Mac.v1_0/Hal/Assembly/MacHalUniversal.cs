@@ -180,6 +180,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public string ReadAlarm_MTClampInsp()
         { return plc_01.ReadAlarm_MTClampInsp(); }
+
+        public string ReadAllAlarmMessage()
+        {
+            string Result = "";
+            Result += plc_01.ReadAlarm_General();
+            Result += plc_01.ReadAlarm_Cabinet();
+            Result += plc_01.ReadAlarm_CleanCh();
+            Result += plc_01.ReadAlarm_BTRobot();
+            Result += plc_01.ReadAlarm_MTRobot();
+            Result += plc_01.ReadAlarm_OpenStage();
+            Result += plc_01.ReadAlarm_InspCh();
+            Result += plc_01.ReadAlarm_LoadPort();
+            Result += plc_01.ReadAlarm_CoverFan();
+            Result += plc_01.ReadAlarm_MTClampInsp();
+            return Result;
+        }
         #endregion
 
         #region PLC warning signal
@@ -212,6 +228,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public string ReadWarning_MTClampInsp()
         { return plc_01.ReadWarning_MTClampInsp(); }
+
+        public string ReadAllWarningMessage()
+        {
+            string Result = "";
+            Result += plc_01.ReadWarning_General();
+            Result += plc_01.ReadWarning_Cabinet();
+            Result += plc_01.ReadWarning_CleanCh();
+            Result += plc_01.ReadWarning_BTRobot();
+            Result += plc_01.ReadWarning_MTRobot();
+            Result += plc_01.ReadWarning_OpenStage();
+            Result += plc_01.ReadWarning_InspCh();
+            Result += plc_01.ReadWarning_LoadPort();
+            Result += plc_01.ReadWarning_CoverFan();
+            Result += plc_01.ReadWarning_MTClampInsp();
+            return Result;
+        }
         #endregion
     }
 }

@@ -39,15 +39,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             string strLine = "";
             int columnCount = 10;
             bool IsFirst = true;
-            while((strLine=sr.ReadLine())!=null)
+            while ((strLine = sr.ReadLine()) != null)
             {
-                if(IsFirst)
+                if (IsFirst)
                 {
                     tableHead = strLine.Split(',');
                     IsFirst = false;
                     columnCount = tableHead.Length;
 
-                    for(int i=0;i<columnCount;i++)
+                    for (int i = 0; i < columnCount; i++)
                     {
                         tableHead[i] = tableHead[i].Replace("\"", "");
                         DataColumn dc = new DataColumn(tableHead[i]);
@@ -58,14 +58,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 {
                     aryLine = strLine.Split(',');
                     DataRow dr = dt.NewRow();
-                    for(int j=0;j<columnCount;j++)
+                    for (int j = 0; j < columnCount; j++)
                     {
                         dr[j] = aryLine[j].Replace("\"", "");
                     }
                     dt.Rows.Add(dr);
                 }
             }
-            if(aryLine!=null&&aryLine.Length>0)
+            if (aryLine != null && aryLine.Length > 0)
             {
                 dt.DefaultView.Sort = tableHead[2] + "" + "DESC";
             }
@@ -82,10 +82,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public void ReadPathInfo(string CsvPath)
         {
             DataTable pathDt = readCSV(CsvPath);
-            for(int k=1;k<pathDt.Rows.Count-1;k++)
+            for (int k = 1; k < pathDt.Rows.Count - 1; k++)
             {
                 HalRobotMotion robotMotion = new HalRobotMotion();
-                switch(pathDt.Rows[k][10].ToString())
+                switch (pathDt.Rows[k][10].ToString())
                 {
                     case "W":
                         robotMotion.MotionType = HalRobotEnumMotionType.Position;
@@ -104,9 +104,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         robotMotion.J1 = float.Parse(pathDt.Rows[k][2].ToString());
                         robotMotion.J2 = float.Parse(pathDt.Rows[k][3].ToString());
                         robotMotion.J3 = float.Parse(pathDt.Rows[k][4].ToString());
-                        robotMotion.J4= float.Parse(pathDt.Rows[k][5].ToString());
-                        robotMotion.J5= float.Parse(pathDt.Rows[k][6].ToString());
-                        robotMotion.J6= float.Parse(pathDt.Rows[k][7].ToString());
+                        robotMotion.J4 = float.Parse(pathDt.Rows[k][5].ToString());
+                        robotMotion.J5 = float.Parse(pathDt.Rows[k][6].ToString());
+                        robotMotion.J6 = float.Parse(pathDt.Rows[k][7].ToString());
                         robotMotion.J7 = float.Parse(pathDt.Rows[k][8].ToString());
                         robotMotion.Speed = int.Parse(pathDt.Rows[k][9].ToString());
                         btPathInfo.Add(pathDt.Rows[k][1].ToString(), robotMotion);
@@ -132,7 +132,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     throw new ArgumentException("Position Name is not in Path csv file!!");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -142,11 +142,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackCabinet1Home()
         {
-            var position = new BoxTransferPathPasitions().Cabinet1Home ;
+            var position = new BoxTransferPathPasitions().Cabinet1Home;
             this.MoveAsync(position);
         }
 
-       
+
 
         /// <summary>轉到面對 Cabinet 1 的方向</summary>
         public void ChangeDirectionToFaceCabinet1()
@@ -161,13 +161,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <summary>轉向面對指定的 Cabinet</summary>
         /// <param name="cabinetIndex">cabinet index</param>
         private void ChangeDirectionToFaceCabinet(int cabinetIndex)
-        { 
+        {
             var position = default(HalRobotMotion);
             if (cabinetIndex == 1)
             {
                 position = new BoxTransferPathPasitions().Cabinet1Home;
             }
-            else if(cabinetIndex == 2)
+            else if (cabinetIndex == 2)
             {
                 position = new BoxTransferPathPasitions().Cabinet2Home;
             }
@@ -294,7 +294,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                         this.MoveAsync(targetPosition);
                     }
 
-                   
+
                 }
                 else
                     throw new Exception("Unknown end position !!");
@@ -322,34 +322,34 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="cabinetIndex">Drawer index</param>
         /// <param name="boxIndex">Box index</param>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        private void ForwardToCabinet(int cabinetIndex,int boxIndex)
+        private void ForwardToCabinet(int cabinetIndex, int boxIndex)
         {
             Func<HalRobotMotion> GetBoxPosition = () =>
             {
-                HalRobotMotion halRobotMotion=null;
-                if ( cabinetIndex==1)
-                { 
-                // 終點 
-                //  TODO: 要獲得實際的 Position
-               halRobotMotion = new HalRobotMotion
+                HalRobotMotion halRobotMotion = null;
+                if (cabinetIndex == 1)
                 {
-                    X=3.3f,
-                    Y= -438.782349f,
-                    Z= 140.75882f,
-                    W= 90.0f,
-                    P= -90.0f,
-                    R=0.0f,
-                    E1= 517.0209f,
-                    J1= -90.0f,
-                    J2= 1.134951f,
-                    J3= -50.0000153f,
-                    J4=0.0f,
-                    J5=50.000002f,
-                    J6=0.0f,
-                    J7= 517.0209f,
-                    Speed=60,
-                    MotionType=HalRobotEnumMotionType.Position
-                };
+                    // 終點 
+                    //  TODO: 要獲得實際的 Position
+                    halRobotMotion = new HalRobotMotion
+                    {
+                        X = 3.3f,
+                        Y = -438.782349f,
+                        Z = 140.75882f,
+                        W = 90.0f,
+                        P = -90.0f,
+                        R = 0.0f,
+                        E1 = 517.0209f,
+                        J1 = -90.0f,
+                        J2 = 1.134951f,
+                        J3 = -50.0000153f,
+                        J4 = 0.0f,
+                        J5 = 50.000002f,
+                        J6 = 0.0f,
+                        J7 = 517.0209f,
+                        Speed = 60,
+                        MotionType = HalRobotEnumMotionType.Position
+                    };
                 }
                 else
                 {
@@ -361,7 +361,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             this.MoveAsync(positions);
         }
 
- public void GotoStage1()
+        public void GotoStage1()
         {
             var position = new BoxTransferPathPasitions().CabinetHomeToOpenStage01;
             this.MoveAsync(position);
@@ -385,7 +385,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             var position = new BoxTransferPathPasitions().OpenStage;
             this.MoveAsync(position);
-            
+
         }
 
 
@@ -402,7 +402,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         private void MoveAsync(HalRobotMotion targetPosition)
         {
-           this.Robot.HalMoveStraightAsyn(targetPosition);
+            this.Robot.HalMoveStraightAsyn(targetPosition);
             while (!this.Robot.HalMoveIsComplete())
             { Thread.Sleep(100); }
             this.Robot.HalMoveEnd();
@@ -413,10 +413,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         private void MoveAsync(List<HalRobotMotion> targetPositions)
         {
-          foreach(var position in targetPositions)
-          {
+            foreach (var position in targetPositions)
+            {
                 this.MoveAsync(position);
-          }
+            }
         }
         #endregion
 
@@ -489,7 +489,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { Plc.SetLevelSensorLimit(Level_X, Level_Y); }
 
         /// <summary>
-        /// 設定六軸力覺Sensor的壓力極限值
+        /// 設定六軸力覺Sensor的壓力值上限
         /// </summary>
         /// <param name="Fx"></param>
         /// <param name="Fy"></param>
@@ -497,8 +497,42 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
-        { Plc.SetSixAxisSensorLimit(Fx, Fy, Fz, Mx, My, Mz); }
+        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
+        {
+            Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadSixAxisSensorUpperLimitSetting();
+            if ((Fx != null && SetResult.Item1 != Fx)
+                || (Fy != null && SetResult.Item2 != Fy)
+                || (Fz != null && SetResult.Item3 != Fz)
+                || (Mx != null && SetResult.Item4 != Mx)
+                || (My != null && SetResult.Item5 != My)
+                || (Mz != null && SetResult.Item6 != Mz))
+                throw new Exception("BT six axis sensor upper limit setting error !");
+        }
+
+        /// <summary>
+        /// 設定六軸力覺Sensor的壓力值下限
+        /// </summary>
+        /// <param name="Fx"></param>
+        /// <param name="Fy"></param>
+        /// <param name="Fz"></param>
+        /// <param name="Mx"></param>
+        /// <param name="My"></param>
+        /// <param name="Mz"></param>
+        public void SetSixAxisSensorLowerLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
+        {
+            Plc.SetSixAxisSensorLowerLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadSixAxisSensorLowerLimitSetting();
+            if ((Fx != null && SetResult.Item1 != Fx)
+                || (Fy != null && SetResult.Item2 != Fy)
+                || (Fz != null && SetResult.Item3 != Fz)
+                || (Mx != null && SetResult.Item4 != Mx)
+                || (My != null && SetResult.Item5 != My)
+                || (Mz != null && SetResult.Item6 != Mz))
+                throw new Exception("BT six axis sensor lower limit setting error !");
+        }
         #endregion
 
         #region Read Parameter
@@ -531,11 +565,18 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLevelSensorLimitSetting(); }
 
         /// <summary>
-        /// 讀取六軸力覺Sensor的壓力極限值設定
+        /// 讀取六軸力覺Sensor的壓力值上限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
-        { return Plc.ReadSixAxisSensorLimitSetting(); }
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
+        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
+
+        /// <summary>
+        /// 讀取六軸力覺Sensor的壓力值下限設定
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
+        { return Plc.ReadSixAxisSensorLowerLimitSetting(); }
         #endregion
 
         #region Read Component Value
@@ -612,7 +653,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 var position = new HalRobotMotion
                 { // TODO: 加入實際 World 及 Joint 點位 
-                    
+
                 };
                 return position;
             }
@@ -626,22 +667,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 var position = new HalRobotMotion
                 { // TODO: 加入實際 World 及 Joint 點位
-                    X= 527.898438f,
-                    Y= -9.219327f,
-                    Z= 38.3116455f,
-                    W= 147.213242f,
-                    P= -86.85704f,
-                    R= 32.5399f,
-                    E1= 414.897583f,
-                    J1= -1.15107226f,
-                    J2= 22.9280548f,
-                    J3= -64.14249f,
-                    J4= 0.983132958f,
-                    J5= 61.5038452f,
-                    J6= 1.27394938f,
-                    J7= 414.897583f,
-                     Speed=60,
-                     MotionType=HalRobotEnumMotionType.Position
+                    X = 527.898438f,
+                    Y = -9.219327f,
+                    Z = 38.3116455f,
+                    W = 147.213242f,
+                    P = -86.85704f,
+                    R = 32.5399f,
+                    E1 = 414.897583f,
+                    J1 = -1.15107226f,
+                    J2 = 22.9280548f,
+                    J3 = -64.14249f,
+                    J4 = 0.983132958f,
+                    J5 = 61.5038452f,
+                    J6 = 1.27394938f,
+                    J7 = 414.897583f,
+                    Speed = 60,
+                    MotionType = HalRobotEnumMotionType.Position
                 };
                 return position;
             }
@@ -652,7 +693,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             get
             {
-                var position = new HalRobotMotion {
+                var position = new HalRobotMotion
+                {
                     // TODO: 加上 World 座標資料 
                     J1 = -89.99923f,
                     J2 = 0.000476679532f,
@@ -661,13 +703,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     J5 = 49.9995537f,
                     J6 = -0.00238952623f,
                     J7 = 517.0201f,
-                    X= 0.00552143529f,
-                    Y= -438.778259f,
-                    Z= 140.748138f,
-                    W= -126.767067f,
-                    P= -89.99678f,
-                    R= -143.2324f,
-                    E1= 517.0201f,
+                    X = 0.00552143529f,
+                    Y = -438.778259f,
+                    Z = 140.748138f,
+                    W = -126.767067f,
+                    P = -89.99678f,
+                    R = -143.2324f,
+                    E1 = 517.0201f,
                     Speed = 50,
                     MotionType = HalRobotEnumMotionType.Joint,
 
@@ -677,7 +719,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 return position;
             }
         }
-        
+
 
         public List<HalRobotMotion> CabinetHomeToOpenStage01
         {
@@ -690,23 +732,23 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 position.Add(
                     new HalRobotMotion
                     {
-                         X= -380.6985f,
-                         Y= -690.6075f,
-                         Z= 181.8245f,
-                         W= -0.563894749f,
-                         P= -88.21404f,
-                         R= 25.5681438f,
-                         E1= 517.0209f,
-                         J1= -114.525215f,
-                         J2= 39.1008873f,
-                         J3= -27.4424839f,
-                         J4= -59.767025f,
-                         J5= 48.666275f,
-                         J6= 50.079895f,
-                         J7= 517.0209f,
-                         MotionType=HalRobotEnumMotionType.Position,
-                         Speed=60,
-                    } );
+                        X = -380.6985f,
+                        Y = -690.6075f,
+                        Z = 181.8245f,
+                        W = -0.563894749f,
+                        P = -88.21404f,
+                        R = 25.5681438f,
+                        E1 = 517.0209f,
+                        J1 = -114.525215f,
+                        J2 = 39.1008873f,
+                        J3 = -27.4424839f,
+                        J4 = -59.767025f,
+                        J5 = 48.666275f,
+                        J6 = 50.079895f,
+                        J7 = 517.0209f,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 60,
+                    });
                 return position;
             }
         }
@@ -722,8 +764,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 return position;
             }
         }
-        
+
     }
 
-    
+
 }
