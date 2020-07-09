@@ -1174,9 +1174,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     /**              CommandBoxDetection*/
                     drawer_01_01.CommandBoxDetection();
                     drawer_01_01.OnBoxDetectionResultHandler += OnDetectDrawerBoxResult;
-                    drawer2.CommandBoxDetection();
-                    drawer3.CommandBoxDetection();
-                    drawer4.CommandBoxDetection();
+                    drawer_01_02.CommandBoxDetection();
+                    drawer_01_03.CommandBoxDetection();
+                    drawer_01_04.CommandBoxDetection();
                     Repeat();
                 }
             }
