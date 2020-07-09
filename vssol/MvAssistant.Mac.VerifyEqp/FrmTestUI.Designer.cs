@@ -1006,7 +1006,7 @@
             this.btnLoadPortAUnDock.TabIndex = 8;
             this.btnLoadPortAUnDock.Text = "Load Port A UnDock";
             this.btnLoadPortAUnDock.UseVisualStyleBackColor = true;
-            this.btnLoadPortAUnDock.Click += new System.EventHandler(this.button2_Click);
+            this.btnLoadPortAUnDock.Click += new System.EventHandler(this.btnLoadPortAUnDock_Click);
             // 
             // FrmTestUI
             // 
