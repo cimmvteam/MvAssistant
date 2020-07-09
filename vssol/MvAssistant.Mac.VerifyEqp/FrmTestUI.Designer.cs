@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.TabPageDrawers = new System.Windows.Forms.TabPage();
+            this.TabPageDrawerAndLoadPort = new System.Windows.Forms.TabPage();
             this.grpLoadPorts = new System.Windows.Forms.GroupBox();
             this.grpLoadportA = new System.Windows.Forms.GroupBox();
             this.txtBxLoportAResult = new System.Windows.Forms.TextBox();
@@ -49,11 +49,13 @@
             this.txtDrawerBoxNum = new System.Windows.Forms.TextBox();
             this.BtnReleaseAllComp = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnMoveAllDrawersIn = new System.Windows.Forms.Button();
             this.btnInitialAllDrawer = new System.Windows.Forms.Button();
             this.btnDetectAllDrawers = new System.Windows.Forms.Button();
             this.btnMoveAllDrawersHome = new System.Windows.Forms.Button();
             this.GrpDrawerD = new System.Windows.Forms.GroupBox();
             this.grpDrawerDComp = new System.Windows.Forms.GroupBox();
+            this.btnMoveDrawerDIn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtBxDrawerDResult = new System.Windows.Forms.TextBox();
             this.txtBxDrawerIPD = new System.Windows.Forms.TextBox();
@@ -73,6 +75,7 @@
             this.txtBxDetectDrawerC = new System.Windows.Forms.Button();
             this.GrpDrawerB = new System.Windows.Forms.GroupBox();
             this.grpDrawerBComp = new System.Windows.Forms.GroupBox();
+            this.btnMoveDrawerBIn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBxDrawerBResult = new System.Windows.Forms.TextBox();
             this.txtBxDrawerIPB = new System.Windows.Forms.TextBox();
@@ -82,6 +85,7 @@
             this.txtBxDetectDrawerB = new System.Windows.Forms.Button();
             this.GrpDrawerA = new System.Windows.Forms.GroupBox();
             this.grpDrawerAComp = new System.Windows.Forms.GroupBox();
+            this.btnMoveDrawerAIn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtBxDrawerAResult = new System.Windows.Forms.TextBox();
             this.txtBxDrawerIPA = new System.Windows.Forms.TextBox();
@@ -98,12 +102,10 @@
             this.txtBoxType = new System.Windows.Forms.TextBox();
             this.BTPutDR_0204 = new System.Windows.Forms.Button();
             this.BTGetDR_0204 = new System.Windows.Forms.Button();
-            this.btnMoveDrawerAIn = new System.Windows.Forms.Button();
-            this.btnMoveDrawerBIn = new System.Windows.Forms.Button();
-            this.btnMoveDrawerDIn = new System.Windows.Forms.Button();
-            this.btnMoveAllDrawersIn = new System.Windows.Forms.Button();
+            this.btnLoadPortADock = new System.Windows.Forms.Button();
+            this.btnLoadPortAUnDock = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.TabPageDrawers.SuspendLayout();
+            this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
             this.grpLoadportA.SuspendLayout();
             this.grpLoadportB.SuspendLayout();
@@ -123,7 +125,7 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.TabPageDrawers);
+            this.tabControl1.Controls.Add(this.TabPageDrawerAndLoadPort);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
@@ -131,18 +133,18 @@
             this.tabControl1.Size = new System.Drawing.Size(1567, 739);
             this.tabControl1.TabIndex = 4;
             // 
-            // TabPageDrawers
+            // TabPageDrawerAndLoadPort
             // 
-            this.TabPageDrawers.Controls.Add(this.grpLoadPorts);
-            this.TabPageDrawers.Controls.Add(this.GrpDrawer);
-            this.TabPageDrawers.Location = new System.Drawing.Point(4, 22);
-            this.TabPageDrawers.Margin = new System.Windows.Forms.Padding(2);
-            this.TabPageDrawers.Name = "TabPageDrawers";
-            this.TabPageDrawers.Padding = new System.Windows.Forms.Padding(2);
-            this.TabPageDrawers.Size = new System.Drawing.Size(1559, 713);
-            this.TabPageDrawers.TabIndex = 0;
-            this.TabPageDrawers.Text = "Drawers & LoadPorts";
-            this.TabPageDrawers.UseVisualStyleBackColor = true;
+            this.TabPageDrawerAndLoadPort.Controls.Add(this.grpLoadPorts);
+            this.TabPageDrawerAndLoadPort.Controls.Add(this.GrpDrawer);
+            this.TabPageDrawerAndLoadPort.Location = new System.Drawing.Point(4, 22);
+            this.TabPageDrawerAndLoadPort.Margin = new System.Windows.Forms.Padding(2);
+            this.TabPageDrawerAndLoadPort.Name = "TabPageDrawerAndLoadPort";
+            this.TabPageDrawerAndLoadPort.Padding = new System.Windows.Forms.Padding(2);
+            this.TabPageDrawerAndLoadPort.Size = new System.Drawing.Size(1559, 713);
+            this.TabPageDrawerAndLoadPort.TabIndex = 0;
+            this.TabPageDrawerAndLoadPort.Text = "Drawers & LoadPorts";
+            this.TabPageDrawerAndLoadPort.UseVisualStyleBackColor = true;
             // 
             // grpLoadPorts
             // 
@@ -152,23 +154,25 @@
             this.grpLoadPorts.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadPorts.Name = "grpLoadPorts";
             this.grpLoadPorts.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLoadPorts.Size = new System.Drawing.Size(833, 188);
+            this.grpLoadPorts.Size = new System.Drawing.Size(833, 282);
             this.grpLoadPorts.TabIndex = 2;
             this.grpLoadPorts.TabStop = false;
             this.grpLoadPorts.Text = "LoadPorts";
             // 
             // grpLoadportA
             // 
+            this.grpLoadportA.Controls.Add(this.btnLoadPortAUnDock);
+            this.grpLoadportA.Controls.Add(this.btnLoadPortADock);
             this.grpLoadportA.Controls.Add(this.txtBxLoportAResult);
             this.grpLoadportA.Controls.Add(this.btnLoadPortAAlarmReset);
             this.grpLoadportA.Controls.Add(this.btnInitialLoadportA);
             this.grpLoadportA.Controls.Add(this.btnLoadportARFID);
             this.grpLoadportA.Controls.Add(this.btnLoadportABarcode);
-            this.grpLoadportA.Location = new System.Drawing.Point(19, 14);
+            this.grpLoadportA.Location = new System.Drawing.Point(20, 31);
             this.grpLoadportA.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportA.Name = "grpLoadportA";
             this.grpLoadportA.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLoadportA.Size = new System.Drawing.Size(289, 166);
+            this.grpLoadportA.Size = new System.Drawing.Size(289, 194);
             this.grpLoadportA.TabIndex = 1;
             this.grpLoadportA.TabStop = false;
             this.grpLoadportA.Text = "Load port A(192.168.0.20)";
@@ -235,11 +239,11 @@
             this.grpLoadportB.Controls.Add(this.btnInitialLoadportB);
             this.grpLoadportB.Controls.Add(this.btnLoadportBRFID);
             this.grpLoadportB.Controls.Add(this.btnLoadportBBarcode);
-            this.grpLoadportB.Location = new System.Drawing.Point(526, 14);
+            this.grpLoadportB.Location = new System.Drawing.Point(525, 31);
             this.grpLoadportB.Margin = new System.Windows.Forms.Padding(2);
             this.grpLoadportB.Name = "grpLoadportB";
             this.grpLoadportB.Padding = new System.Windows.Forms.Padding(2);
-            this.grpLoadportB.Size = new System.Drawing.Size(295, 166);
+            this.grpLoadportB.Size = new System.Drawing.Size(295, 229);
             this.grpLoadportB.TabIndex = 0;
             this.grpLoadportB.TabStop = false;
             this.grpLoadportB.Text = "Load port B(192.168.0.21)";
@@ -374,6 +378,17 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
+            // btnMoveAllDrawersIn
+            // 
+            this.btnMoveAllDrawersIn.Location = new System.Drawing.Point(245, 17);
+            this.btnMoveAllDrawersIn.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMoveAllDrawersIn.Name = "btnMoveAllDrawersIn";
+            this.btnMoveAllDrawersIn.Size = new System.Drawing.Size(132, 18);
+            this.btnMoveAllDrawersIn.TabIndex = 7;
+            this.btnMoveAllDrawersIn.Text = "Move All Drawers In";
+            this.btnMoveAllDrawersIn.UseVisualStyleBackColor = true;
+            this.btnMoveAllDrawersIn.Click += new System.EventHandler(this.btnMoveAllDrawersIn_Click);
+            // 
             // btnInitialAllDrawer
             // 
             this.btnInitialAllDrawer.Location = new System.Drawing.Point(4, 17);
@@ -436,6 +451,16 @@
             this.grpDrawerDComp.Size = new System.Drawing.Size(510, 117);
             this.grpDrawerDComp.TabIndex = 10;
             this.grpDrawerDComp.TabStop = false;
+            // 
+            // btnMoveDrawerDIn
+            // 
+            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(70, 90);
+            this.btnMoveDrawerDIn.Name = "btnMoveDrawerDIn";
+            this.btnMoveDrawerDIn.Size = new System.Drawing.Size(114, 19);
+            this.btnMoveDrawerDIn.TabIndex = 8;
+            this.btnMoveDrawerDIn.Text = "Move D In";
+            this.btnMoveDrawerDIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerDIn.Click += new System.EventHandler(this.btnMoveDrawerDIn_Click);
             // 
             // label4
             // 
@@ -657,6 +682,16 @@
             this.grpDrawerBComp.TabIndex = 8;
             this.grpDrawerBComp.TabStop = false;
             // 
+            // btnMoveDrawerBIn
+            // 
+            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(67, 93);
+            this.btnMoveDrawerBIn.Name = "btnMoveDrawerBIn";
+            this.btnMoveDrawerBIn.Size = new System.Drawing.Size(117, 19);
+            this.btnMoveDrawerBIn.TabIndex = 8;
+            this.btnMoveDrawerBIn.Text = "Move B In";
+            this.btnMoveDrawerBIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerBIn.Click += new System.EventHandler(this.btnMoveDrawerBIn_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -762,6 +797,16 @@
             this.grpDrawerAComp.Size = new System.Drawing.Size(492, 117);
             this.grpDrawerAComp.TabIndex = 7;
             this.grpDrawerAComp.TabStop = false;
+            // 
+            // btnMoveDrawerAIn
+            // 
+            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(70, 90);
+            this.btnMoveDrawerAIn.Name = "btnMoveDrawerAIn";
+            this.btnMoveDrawerAIn.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerAIn.TabIndex = 8;
+            this.btnMoveDrawerAIn.Text = "Move A In";
+            this.btnMoveDrawerAIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerAIn.Click += new System.EventHandler(this.btnMoveDrawerAIn_Click);
             // 
             // label1
             // 
@@ -943,46 +988,25 @@
             this.BTGetDR_0204.UseVisualStyleBackColor = true;
             this.BTGetDR_0204.Click += new System.EventHandler(this.BTGetDR_0204_Click);
             // 
-            // btnMoveDrawerAIn
+            // btnLoadPortADock
             // 
-            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(70, 90);
-            this.btnMoveDrawerAIn.Name = "btnMoveDrawerAIn";
-            this.btnMoveDrawerAIn.Size = new System.Drawing.Size(103, 19);
-            this.btnMoveDrawerAIn.TabIndex = 8;
-            this.btnMoveDrawerAIn.Text = "Move A In";
-            this.btnMoveDrawerAIn.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerAIn.Click += new System.EventHandler(this.btnMoveDrawerAIn_Click);
+            this.btnLoadPortADock.Location = new System.Drawing.Point(5, 165);
+            this.btnLoadPortADock.Name = "btnLoadPortADock";
+            this.btnLoadPortADock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortADock.TabIndex = 7;
+            this.btnLoadPortADock.Text = "Load Port A Dock";
+            this.btnLoadPortADock.UseVisualStyleBackColor = true;
+            this.btnLoadPortADock.Click += new System.EventHandler(this.btnLoadPortADock_Click);
             // 
-            // btnMoveDrawerBIn
+            // btnLoadPortAUnDock
             // 
-            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(67, 93);
-            this.btnMoveDrawerBIn.Name = "btnMoveDrawerBIn";
-            this.btnMoveDrawerBIn.Size = new System.Drawing.Size(117, 19);
-            this.btnMoveDrawerBIn.TabIndex = 8;
-            this.btnMoveDrawerBIn.Text = "Move B In";
-            this.btnMoveDrawerBIn.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerBIn.Click += new System.EventHandler(this.btnMoveDrawerBIn_Click);
-            // 
-            // btnMoveDrawerDIn
-            // 
-            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(70, 90);
-            this.btnMoveDrawerDIn.Name = "btnMoveDrawerDIn";
-            this.btnMoveDrawerDIn.Size = new System.Drawing.Size(114, 19);
-            this.btnMoveDrawerDIn.TabIndex = 8;
-            this.btnMoveDrawerDIn.Text = "Move D In";
-            this.btnMoveDrawerDIn.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerDIn.Click += new System.EventHandler(this.btnMoveDrawerDIn_Click);
-            // 
-            // btnMoveAllDrawersIn
-            // 
-            this.btnMoveAllDrawersIn.Location = new System.Drawing.Point(245, 17);
-            this.btnMoveAllDrawersIn.Margin = new System.Windows.Forms.Padding(2);
-            this.btnMoveAllDrawersIn.Name = "btnMoveAllDrawersIn";
-            this.btnMoveAllDrawersIn.Size = new System.Drawing.Size(132, 18);
-            this.btnMoveAllDrawersIn.TabIndex = 7;
-            this.btnMoveAllDrawersIn.Text = "Move All Drawers In";
-            this.btnMoveAllDrawersIn.UseVisualStyleBackColor = true;
-            this.btnMoveAllDrawersIn.Click += new System.EventHandler(this.btnMoveAllDrawersIn_Click);
+            this.btnLoadPortAUnDock.Location = new System.Drawing.Point(144, 166);
+            this.btnLoadPortAUnDock.Name = "btnLoadPortAUnDock";
+            this.btnLoadPortAUnDock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortAUnDock.TabIndex = 8;
+            this.btnLoadPortAUnDock.Text = "Load Port A UnDock";
+            this.btnLoadPortAUnDock.UseVisualStyleBackColor = true;
+            this.btnLoadPortAUnDock.Click += new System.EventHandler(this.button2_Click);
             // 
             // FrmTestUI
             // 
@@ -994,7 +1018,7 @@
             this.Text = "FrmTestUI";
             this.Load += new System.EventHandler(this.FrmTestUI_Load);
             this.tabControl1.ResumeLayout(false);
-            this.TabPageDrawers.ResumeLayout(false);
+            this.TabPageDrawerAndLoadPort.ResumeLayout(false);
             this.grpLoadPorts.ResumeLayout(false);
             this.grpLoadportA.ResumeLayout(false);
             this.grpLoadportA.PerformLayout();
@@ -1025,7 +1049,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage TabPageDrawers;
+        private System.Windows.Forms.TabPage TabPageDrawerAndLoadPort;
         private System.Windows.Forms.GroupBox GrpDrawer;
         private System.Windows.Forms.GroupBox GrpDrawerD;
         private System.Windows.Forms.GroupBox GrpDrawerC;
@@ -1098,5 +1122,7 @@
         private System.Windows.Forms.Button btnMoveDrawerBIn;
         private System.Windows.Forms.Button btnMoveDrawerAIn;
         private System.Windows.Forms.Button btnMoveAllDrawersIn;
+        private System.Windows.Forms.Button btnLoadPortAUnDock;
+        private System.Windows.Forms.Button btnLoadPortADock;
     }
 }

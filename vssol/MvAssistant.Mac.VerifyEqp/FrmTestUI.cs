@@ -505,6 +505,20 @@ namespace MvAssistantMacVerifyEqp
             this.btnMoveDrawerCIn_Click(null, null);
             this.btnMoveDrawerDIn_Click(null, null);
         }
+
+        private void btnLoadPortADock_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort1);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
+            loadPorts.LoadPort1.CommandDockRequest();
+        }
+
+        private void btnLoadPortAUnDock_Click(object sender, EventArgs e)
+        {
+            this.loadPorts.ResetResult(loadPorts.LoadPort1);
+            this.loadPorts.DisableLoadportOperate(loadPorts.LoadPort1);
+            loadPorts.LoadPort1.CommandUndockRequest();
+        }
     }
 
 
