@@ -63,6 +63,7 @@
             this.txtBxDetectDrawerD = new System.Windows.Forms.Button();
             this.GrpDrawerC = new System.Windows.Forms.GroupBox();
             this.grpDrawerCComp = new System.Windows.Forms.GroupBox();
+            this.btnMoveDrawerCIn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBxDrawerCResult = new System.Windows.Forms.TextBox();
             this.txtBxDrawerIPC = new System.Windows.Forms.TextBox();
@@ -97,6 +98,10 @@
             this.txtBoxType = new System.Windows.Forms.TextBox();
             this.BTPutDR_0204 = new System.Windows.Forms.Button();
             this.BTGetDR_0204 = new System.Windows.Forms.Button();
+            this.btnMoveDrawerAIn = new System.Windows.Forms.Button();
+            this.btnMoveDrawerBIn = new System.Windows.Forms.Button();
+            this.btnMoveDrawerDIn = new System.Windows.Forms.Button();
+            this.btnMoveAllDrawersIn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawers.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -357,6 +362,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnMoveAllDrawersIn);
             this.groupBox1.Controls.Add(this.btnInitialAllDrawer);
             this.groupBox1.Controls.Add(this.btnDetectAllDrawers);
             this.groupBox1.Controls.Add(this.btnMoveAllDrawersHome);
@@ -364,7 +370,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(330, 44);
+            this.groupBox1.Size = new System.Drawing.Size(481, 44);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
@@ -381,7 +387,7 @@
             // 
             // btnDetectAllDrawers
             // 
-            this.btnDetectAllDrawers.Location = new System.Drawing.Point(232, 17);
+            this.btnDetectAllDrawers.Location = new System.Drawing.Point(391, 17);
             this.btnDetectAllDrawers.Margin = new System.Windows.Forms.Padding(2);
             this.btnDetectAllDrawers.Name = "btnDetectAllDrawers";
             this.btnDetectAllDrawers.Size = new System.Drawing.Size(86, 18);
@@ -395,7 +401,7 @@
             this.btnMoveAllDrawersHome.Location = new System.Drawing.Point(106, 17);
             this.btnMoveAllDrawersHome.Margin = new System.Windows.Forms.Padding(2);
             this.btnMoveAllDrawersHome.Name = "btnMoveAllDrawersHome";
-            this.btnMoveAllDrawersHome.Size = new System.Drawing.Size(122, 18);
+            this.btnMoveAllDrawersHome.Size = new System.Drawing.Size(132, 18);
             this.btnMoveAllDrawersHome.TabIndex = 5;
             this.btnMoveAllDrawersHome.Text = "Move All Drawers Home";
             this.btnMoveAllDrawersHome.UseVisualStyleBackColor = true;
@@ -415,6 +421,7 @@
             // 
             // grpDrawerDComp
             // 
+            this.grpDrawerDComp.Controls.Add(this.btnMoveDrawerDIn);
             this.grpDrawerDComp.Controls.Add(this.label4);
             this.grpDrawerDComp.Controls.Add(this.txtBxDrawerDResult);
             this.grpDrawerDComp.Controls.Add(this.txtBxDrawerIPD);
@@ -519,6 +526,7 @@
             // 
             // grpDrawerCComp
             // 
+            this.grpDrawerCComp.Controls.Add(this.btnMoveDrawerCIn);
             this.grpDrawerCComp.Controls.Add(this.label3);
             this.grpDrawerCComp.Controls.Add(this.txtBxDrawerCResult);
             this.grpDrawerCComp.Controls.Add(this.txtBxDrawerIPC);
@@ -533,6 +541,16 @@
             this.grpDrawerCComp.Size = new System.Drawing.Size(490, 117);
             this.grpDrawerCComp.TabIndex = 9;
             this.grpDrawerCComp.TabStop = false;
+            // 
+            // btnMoveDrawerCIn
+            // 
+            this.btnMoveDrawerCIn.Location = new System.Drawing.Point(69, 93);
+            this.btnMoveDrawerCIn.Name = "btnMoveDrawerCIn";
+            this.btnMoveDrawerCIn.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerCIn.TabIndex = 7;
+            this.btnMoveDrawerCIn.Text = "Move C In";
+            this.btnMoveDrawerCIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerCIn.Click += new System.EventHandler(this.btnMoveDrawerCIn_Click);
             // 
             // label3
             // 
@@ -623,6 +641,7 @@
             // 
             // grpDrawerBComp
             // 
+            this.grpDrawerBComp.Controls.Add(this.btnMoveDrawerBIn);
             this.grpDrawerBComp.Controls.Add(this.label2);
             this.grpDrawerBComp.Controls.Add(this.txtBxDrawerBResult);
             this.grpDrawerBComp.Controls.Add(this.txtBxDrawerIPB);
@@ -728,6 +747,7 @@
             // 
             // grpDrawerAComp
             // 
+            this.grpDrawerAComp.Controls.Add(this.btnMoveDrawerAIn);
             this.grpDrawerAComp.Controls.Add(this.label1);
             this.grpDrawerAComp.Controls.Add(this.txtBxDrawerAResult);
             this.grpDrawerAComp.Controls.Add(this.txtBxDrawerIPA);
@@ -924,6 +944,47 @@
             this.BTGetDR_0204.UseVisualStyleBackColor = true;
             this.BTGetDR_0204.Click += new System.EventHandler(this.BTGetDR_0204_Click);
             // 
+            // btnMoveDrawerAIn
+            // 
+            this.btnMoveDrawerAIn.Location = new System.Drawing.Point(70, 90);
+            this.btnMoveDrawerAIn.Name = "btnMoveDrawerAIn";
+            this.btnMoveDrawerAIn.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerAIn.TabIndex = 8;
+            this.btnMoveDrawerAIn.Text = "Move A In";
+            this.btnMoveDrawerAIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerAIn.Click += new System.EventHandler(this.btnMoveDrawerAIn_Click);
+            // 
+            // btnMoveDrawerBIn
+            // 
+            this.btnMoveDrawerBIn.Location = new System.Drawing.Point(67, 93);
+            this.btnMoveDrawerBIn.Name = "btnMoveDrawerBIn";
+            this.btnMoveDrawerBIn.Size = new System.Drawing.Size(117, 19);
+            this.btnMoveDrawerBIn.TabIndex = 8;
+            this.btnMoveDrawerBIn.Text = "Move B In";
+            this.btnMoveDrawerBIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerBIn.Click += new System.EventHandler(this.btnMoveDrawerBIn_Click);
+            // 
+            // btnMoveDrawerDIn
+            // 
+            this.btnMoveDrawerDIn.Location = new System.Drawing.Point(70, 90);
+            this.btnMoveDrawerDIn.Name = "btnMoveDrawerDIn";
+            this.btnMoveDrawerDIn.Size = new System.Drawing.Size(114, 19);
+            this.btnMoveDrawerDIn.TabIndex = 8;
+            this.btnMoveDrawerDIn.Text = "Move D In";
+            this.btnMoveDrawerDIn.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerDIn.Click += new System.EventHandler(this.btnMoveDrawerDIn_Click);
+            // 
+            // btnMoveAllDrawersIn
+            // 
+            this.btnMoveAllDrawersIn.Location = new System.Drawing.Point(245, 17);
+            this.btnMoveAllDrawersIn.Margin = new System.Windows.Forms.Padding(2);
+            this.btnMoveAllDrawersIn.Name = "btnMoveAllDrawersIn";
+            this.btnMoveAllDrawersIn.Size = new System.Drawing.Size(132, 18);
+            this.btnMoveAllDrawersIn.TabIndex = 7;
+            this.btnMoveAllDrawersIn.Text = "Move All Drawers In";
+            this.btnMoveAllDrawersIn.UseVisualStyleBackColor = true;
+            this.btnMoveAllDrawersIn.Click += new System.EventHandler(this.btnMoveAllDrawersIn_Click);
+            // 
             // FrmTestUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1033,5 +1094,10 @@
         private System.Windows.Forms.Button Unlock;
         private System.Windows.Forms.Button BTGetOS;
         private System.Windows.Forms.Button BTPutOS;
+        private System.Windows.Forms.Button btnMoveDrawerCIn;
+        private System.Windows.Forms.Button btnMoveDrawerDIn;
+        private System.Windows.Forms.Button btnMoveDrawerBIn;
+        private System.Windows.Forms.Button btnMoveDrawerAIn;
+        private System.Windows.Forms.Button btnMoveAllDrawersIn;
     }
 }
