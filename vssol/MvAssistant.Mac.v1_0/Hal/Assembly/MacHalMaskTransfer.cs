@@ -196,7 +196,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
         /// <summary>
-        /// 設定六軸力覺Sensor的壓力極限值
+        /// 設定六軸力覺Sensor的壓力值上限
         /// </summary>
         /// <param name="Fx"></param>
         /// <param name="Fy"></param>
@@ -204,18 +204,41 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        public void SetSixAxisSensorUpperLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
         {
-            Plc.SetSixAxisSensorLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadLevelLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorUpperLimitSetting();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
-                || (Mx != null && SetResult.Item1 != Mx)
-                || (My != null && SetResult.Item1 != My)
-                || (Mz != null && SetResult.Item1 != Mz))
-                throw new Exception("MT six axis sensor limit setting error !");
+                || (Mx != null && SetResult.Item4 != Mx)
+                || (My != null && SetResult.Item5 != My)
+                || (Mz != null && SetResult.Item6 != Mz))
+                throw new Exception("MT six axis sensor upper limit setting error !");
+        }
+
+        /// <summary>
+        /// 設定六軸力覺Sensor的壓力值下限
+        /// </summary>
+        /// <param name="Fx"></param>
+        /// <param name="Fy"></param>
+        /// <param name="Fz"></param>
+        /// <param name="Mx"></param>
+        /// <param name="My"></param>
+        /// <param name="Mz"></param>
+        public void SetSixAxisSensorLowerLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        {
+            Plc.SetSixAxisSensorLowerLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadSixAxisSensorLowerLimitSetting();
+            if ((Fx != null && SetResult.Item1 != Fx)
+                || (Fy != null && SetResult.Item2 != Fy)
+                || (Fz != null && SetResult.Item3 != Fz)
+                || (Mx != null && SetResult.Item4 != Mx)
+                || (My != null && SetResult.Item5 != My)
+                || (Mz != null && SetResult.Item6 != Mz))
+                throw new Exception("MT six axis sensor lower limit setting error !");
         }
 
         /// <summary>
@@ -270,11 +293,18 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLevelLimitSetting(); }
 
         /// <summary>
-        /// 讀取六軸力覺Sensor的壓力極限值設定，Fx、Fy、Fz、Mx、My、Mz
+        /// 讀取六軸力覺Sensor的壓力值上限設定，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
-        { return Plc.ReadSixAxisSensorLimitSetting(); }
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorUpperLimitSetting()
+        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
+
+        /// <summary>
+        /// 讀取六軸力覺Sensor的壓力值下限設定，Fx、Fy、Fz、Mx、My、Mz
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLowerLimitSetting()
+        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
 
         /// <summary>
         /// 讀取速度設定，夾爪速度、CCD旋轉速度

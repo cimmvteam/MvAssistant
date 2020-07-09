@@ -25,9 +25,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         long ReadCCDSpinDegree();
 
-        void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
+        void SetSixAxisSensorUpperLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
 
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting();
+        void SetSixAxisSensorLowerLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
+
+        Tuple<int, int, int, int, int, int> ReadSixAxisSensorUpperLimitSetting();
+
+        Tuple<int, int, int, int, int, int> ReadSixAxisSensorLowerLimitSetting();
 
         Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
 
