@@ -20,10 +20,16 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
     {
         /// <summary>Cabinet 編號</summary>        
         private int CabinetNO { get;  set; }
+        
         /// <summary>Drawer 編號</summary>
+        [Obsolete]
         private string DrawerNO { get;  set; }
+
+        /// <summary>對應的 Drawer Index</summary>
+        public string DrawerIndex { get; set; }
+       
         /// <summary>裝置IP</summary>
-        public string DeviceIP { get;  set; }
+        public string DeviceIP { get; set; }
         
         /// <summary>目的端點</summary>
         IPEndPoint TargetEndpoint = null;
@@ -43,11 +49,13 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="deviceEndpoint">drawer 的端點</param>
         /// <param name="localIp">本地IP</param>
         /// <param name="portTable">本地端 Port 使用狀況</param>
+        [Obsolete]
         public MvKjMachineDrawerLdd(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, string localIp,IDictionary<int,bool?> portTable) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
             DeviceIP = deviceEndpoint.Address.ToString();
+
             TargetEndpoint = deviceEndpoint;
             UdpSocket= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             while (true)
@@ -79,27 +87,52 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             ListenThread = new Thread(Listen);
             ListenThread.IsBackground = true;
             ListenThread.Start();
-            /**
-            Task.Run(
-                () =>
-                  {
-                      try
-                      {
-                          while (true)
-                          {
-                              byte[] buffer = new byte[1024];
-                              UdpSocket.Receive(buffer);
-                              var msg = Encoding.UTF8.GetString(buffer);
-                              InvokeMethod(msg);
-                          }
-                      }
-                      catch(Exception ex)
-                      {
-
-                      }
-                  }
-               );*/
+          
           }
+
+        /// <summary></summary>
+        /// <param name="drawerIndex"></param>
+        /// <param name="deviceEndpoint"></param>
+        /// <param name="localIp"></param>
+        /// <param name="portTable"></param>
+        public MvKjMachineDrawerLdd( string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
+        {
+            DrawerIndex = drawerIndex;
+            TargetEndpoint = deviceEndpoint;
+            DeviceIP = deviceEndpoint.Address.ToString();
+          
+            UdpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            while (true)
+            {
+                // 可用的 port
+                int variablePort = 0;
+                try
+                {
+                    KeyValuePair<int, bool?> keyValuePair = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
+                    if (keyValuePair.Equals(default(KeyValuePair<int, bool?>)))
+                    { // 無 Port 可用時
+                        // TODO : To Thorw an Exception
+                    }
+
+                    variablePort = keyValuePair.Key;
+                    // Bind 的端點名稱
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(localIp), variablePort);
+                    UdpSocket.Bind(endPoint);
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, true);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, false);
+                }
+            }
+            ListenThread = new Thread(Listen);
+            ListenThread.IsBackground = true;
+            ListenThread.Start();
+
+        }
 
         /// <summary>監聽的函式</summary>
         private void Listen()
@@ -387,10 +420,28 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 var eventArgs = new OnReplyTrayMotionEventArgs(replyResultCode);
                 OnReplyTrayMotionHandler.Invoke(this, eventArgs);
-            };
+            }
+            if(replyResultCode== ReplyResultCode.Set_Successfully)
+            {
+                if (OnTrayMotionOKHandler != null)
+                {
+                    OnTrayMotionOKHandler.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+               if( OnTrayMotionFailedHandler != null)
+                {
+                    OnTrayMotionFailedHandler.Invoke(this, EventArgs.Empty);
+                }
+
+            }
         }
         /// <summary>ReplyMotion 事件處理程序</summary>
+        [Obsolete]
         public event EventHandler OnReplyTrayMotionHandler=null;
+        public event EventHandler OnTrayMotionFailedHandler = null;
+        public event EventHandler OnTrayMotionOKHandler = null;
         /// <summary>將ReplyMotion事件程序指向 null</summary>
         public void ResetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
        
@@ -414,10 +465,29 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 SetMotionSpeedResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
             }
+            if (replyResultCode == ReplyResultCode.Set_Successfully)
+            {
+                if (OnSetSpeedOKHandler != null)
+                {
+                    OnSetSpeedOKHandler.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                if (OnSetSpeedFailedHandler != null)
+                {
+                    OnSetSpeedFailedHandler.Invoke(this, EventArgs.Empty);
+                }
+            }
+            
                     
         }
         /// <summary>ReplySetSpeed事件程序</summary>
+        [Obsolete]
         public event EventHandler OnReplySetSpeedHandler = null;
+        public event EventHandler OnSetSpeedFailedHandler = null;
+        public event EventHandler OnSetSpeedOKHandler = null;
+        
         /// <summary>將ReplySetSpeed事件程序重設為null</summary>
         public void ResetOnReplySetSpeedHandler() { OnReplySetSpeedHandler = null; }
        

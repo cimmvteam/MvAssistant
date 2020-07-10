@@ -57,7 +57,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 try
                 {
-                    // Listen Point
+                    // [Listen Point]
                     var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpEndPoint));
                     OnRcvMessage(rcvMessage, IpEndPoint);
                 }

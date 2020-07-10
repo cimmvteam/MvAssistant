@@ -10,13 +10,17 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System.Diagnostics;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using MvAssistant.DeviceDrive;
+using System.Net;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
-    [GuidAttribute("D0F66AC7-5CD9-42FB-8B05-AAA31C647979")]
+    [Guid("D0F66AC7-5CD9-42FB-8B05-AAA31C647979")]
       public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
     {
 
+        MvKjMachineDrawerLddPool LddPool;
+       
+        
         #region Const
         public const string DevConnStr_Ip = "ip";
         public const string DevConnStr_Port = "port";
@@ -28,14 +32,108 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         #endregion
 
 
-
-        public MvKjMachineDrawerLdd Ldd { get; set; }
-        public string DeviceIP { get; set; }
-
-
-        public override int HalConnect()
+        public string DeviceIndex
         {
-            throw new NotImplementedException();
+            get
+            {
+                return this.DevSettings["index"];
+            }
+        } 
+        public MvKjMachineDrawerLdd Ldd { get; set; }
+    
+
+        /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(起始) </summary>
+        public int HostListenDrawerPortRangeStart
+        {
+            get {
+                
+                return Convert.ToInt32(this.DevSettings["startport"]);
+            }
+        }
+        /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(結束) </summary>
+        public int HostListenDrawerPortRangeEnd
+        {
+            get
+            {
+                return Convert.ToInt32(this.DevSettings["endport"]);
+            }
+        }
+
+        /// <summary>Host 監聽Drawer 系統事件的 port(Host 上的)</summary>
+        public int HostListenDrawerSysEventPort
+        {
+            get
+            {
+                return Convert.ToInt32(this.DevSettings["local_port"]);
+            }
+        }
+
+        /// <summary>硬體裝置 的IP </summary>
+        public string DeviceIP
+        {
+            get
+            {
+                return this.DevSettings["ip"];
+            }
+        }
+        /// <summary>硬體裝置的 Listen Port</summary>
+        public int DevicePort
+        {
+            get
+            {
+                return  Convert.ToInt32( this.DevSettings["port"]);
+            }
+        }
+
+        /// <summary>硬體裝置的 Listen Port</summary>
+        public IPEndPoint DeviceEndPoint
+        {
+            get
+            {
+                return new IPEndPoint(IPAddress.Parse(DeviceIP), DevicePort);
+            }
+        }
+
+        public string HostIP
+        {
+            get
+            {
+                return this.DevSettings["local_ip"];
+            }
+        }
+         
+        public override int HalConnect()
+        {  // LddPool
+            var connected = false;
+            try
+            {
+
+                LddPool = MvKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart,HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
+                if (LddPool == null)
+                {
+                    connected = false;
+
+                }
+                else
+                {
+                    Ldd = LddPool.CreateLdd(DeviceIndex, DeviceEndPoint, HostIP);
+                }
+                if (Ldd == null || LddPool==null)
+                {
+                    connected = false;
+                }
+                else
+                {
+                    BindLddEvent();
+                    connected = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                connected = false;
+            }
+            return connected ? 1:0;
         }
 
         public override int HalClose()
@@ -85,8 +183,32 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                 }
             }
         }
-        
 
+        public  event EventHandler OnTrayMotionFailedHandler;
+        public   event EventHandler OnTrayMotionOKHandler;
+        void BindLddEvent()
+        {
+            Ldd.OnTrayMotionFailedHandler += OnTrayMotionFailed;
+            Ldd.OnTrayMotionOKHandler += OnTrayMotionOK;
+        }
+        #region   Event
+        public void OnTrayMotionFailed(object sender,EventArgs e)
+        {
+            if(OnTrayMotionFailedHandler!=null)
+            {
+                OnTrayMotionFailedHandler.Invoke(this, e);
+            }
+        }
+        public void OnTrayMotionOK(object sender, EventArgs e)
+        {
+            if (OnTrayMotionOKHandler != null)
+            {
+                OnTrayMotionOKHandler.Invoke(this, e);
+            }
+        }
+        #endregion
+
+        #region command
         public string CommandINI()
         {
             this.Tag = nameof(CommandINI);
@@ -221,6 +343,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             var commandText = Ldd.CommandSetParameterSubMask(submaskAddress);
             return commandText;
         }
+        #endregion
+        #region Result
         public void TrayArriveResult(object sender, int result)
         {
             var arriveType = (TrayArriveType)result;
@@ -386,11 +510,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                 DebugLog(ldd, "Recovery");
             }
         }
-        
+
+#endregion
         void DebugLog(MvKjMachineDrawerLdd ldd, string text)
         {
             string str = $"Ldd={ldd.DeviceIP}, Text={text}";
             Debug.WriteLine("\r\n"+ str);
         }
+
     }
 }

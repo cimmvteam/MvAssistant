@@ -1,5 +1,4 @@
-﻿using CToolkit.v1_1.Net;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
+﻿using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
@@ -11,56 +10,84 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
-    /// <summary></summary>
-    [Obsolete]
-    public class MvKjMachineDrawerManager : IDisposable
+   public  class MvKjMachineDrawerLddPool:IDisposable
     {
-      public List<MvKjMachineDrawerLdd> Drawers = null;
-      
-        public IDictionary<int,bool?> PortStatusDictionary { get; private set; }
-        //private List<ReceiveInfo> ReceiveInfos = null;
-        public SysStartUpEventListener SysStartUpEventListener;
-        /// <summary>建構式</summary>
-        public   MvKjMachineDrawerManager()
+        /// <summary>這個物件的實體</summary>
+        private static MvKjMachineDrawerLddPool _instance;
+        /// <summary></summary>
+        private static object lockGetInstanceObj = new object();
+        /// <summary>存放 Ldd 的容器</summary>
+        public List<MvKjMachineDrawerLdd> _ldd = null;
+        /// <summary>存放可用 port 的 Dictionary</summary>
+        public IDictionary<int, bool?> PortStatusDictionary { get; private set; }
+        /// <summary>接收到Drawer 硬體發送的 SysStartUp以 及 OnButton 事件時 須Invoke 的方法 </summary>
+        public SysStartUpEventListener SysEventListener;
+        public void SetSysStartUpEventListener(SysStartUpEventListener listener)
         {
-            Drawers = new List<MvKjMachineDrawerLdd>();
+            SysEventListener=  listener;
+        }
+        public static MvKjMachineDrawerLddPool GetInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
+        {
+            try
+            {
+                if (_instance == null)
+                {
+                    lock (lockGetInstanceObj)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new MvKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort);
+                        }
+                    }
+                }
+                return _instance;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+        /// <summary>建構式</summary>
+        private MvKjMachineDrawerLddPool()
+        {
+            _ldd = new List<MvKjMachineDrawerLdd>();
             //ReceiveInfos = new List<ReceiveInfo>();
-           
+
         }
 
-       
+
         /// <summary></summary>
         /// <param name="listenDrawerPortMin">監聽 Udp Port 的最小值</param>
         /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
         /// <param name="bindLocalIp">本地端 繫結 的IP</param>
         /// <param name="bindLocalPort">本地端 繫結 的port</param>
-        public MvKjMachineDrawerManager(int listenDrawerPortMin,int listenDrawerPortMax,int sysStartUpEventListenPort):this()
+        public  MvKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort):this()
         {
 
-            Action initialPortStatusDictionary = () =>{
+            Action initialPortStatusDictionary = () => {
                 PortStatusDictionary = new Dictionary<int, bool?>();
-                for (int i=listenDrawerPortMin;i<= listenDrawerPortMax; i++)
+                for (int i = listenDrawerPortMin; i <= listenDrawerPortMax; i++)
                 {
                     PortStatusDictionary.Add(i, default(bool?));
                 }
             };
             initialPortStatusDictionary();
-            SysStartUpEventListener = new SysStartUpEventListener(sysStartUpEventListenPort);
+            SysEventListener = new SysStartUpEventListener(sysStartUpEventListenPort);
             ListenSystStartUpEvent();
 
         }
 
         public void ListenSystStartUpEvent()
         {
-            this.SysStartUpEventListener.Listen(OnSysStartUp);
+            this.SysEventListener.Listen(OnSysStartUp);
         }
 
-        public void OnSysStartUp(string message,IPEndPoint endPoint)
+        public void OnSysStartUp(string message, IPEndPoint endPoint)
         {
-            MvKjMachineDrawerLdd drawer = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
-            if(drawer != null)
+            MvKjMachineDrawerLdd ldd = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
+            if (ldd != null)
             {
-                drawer.InvokeMethod(message);
+                ldd.InvokeMethod(message);
             }
         }
         public int ListenDrawerPortMin
@@ -76,40 +103,16 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 return PortStatusDictionary.OrderByDescending(m => m.Key).First().Key;
             }
-         }
-
-       
-
-        /// <summary>產生 Drawer</summary>
-        /// <param name="cabinetNo">Cabinet 編號</param>
-        /// <param name="drawerNo">Drawer 編號</param>
-        /// <param name="deviceIP">裝置 IP</param>
-        /// <param name="udpServerPort">Drawer 內建 UDP Server Port</param>
-        /// <returns></returns>
-        public MvKjMachineDrawerLdd CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,string localIP)
-        {
-            try
-            {
-                
-                MvKjMachineDrawerLdd drawer = new MvKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
-                
-                Drawers.Add(drawer);
-                return drawer;
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
-           
         }
-        public MvKjMachineDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
+
+        public MvKjMachineDrawerLdd CreateLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
         {
 
             try
             {
 
-                MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
-
+                MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd( drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
+                _ldd.Add(ldd);
                 return ldd;
             }
             catch (Exception ex)
@@ -120,6 +123,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         }
 
+     
 
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
@@ -128,18 +132,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         {
             try
             {
-                var drawer = this.Drawers.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
+                var drawer = _ldd.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
                 Debug.WriteLine(drawer.DeviceIP);
                 return drawer;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
         }
-
-       
-
 
         public ReplyMessage ParseReplyMessage(string rtnMessage)
         {
@@ -158,7 +159,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         }
         public int ConnectIfNo(string ip = null, int? port = null)
         {
-        
+
 
 
 
@@ -218,11 +219,4 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         #endregion
 
     }
-
-    /**
-    public class ReceiveInfo
-    {
-        public Drawer Drawer { get; set; }
-        public string Message { get; set; }
-    }*/
 }

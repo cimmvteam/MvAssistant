@@ -148,6 +148,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLddPool.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyErrorCode.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyMessage.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyResultCode.cs" />
