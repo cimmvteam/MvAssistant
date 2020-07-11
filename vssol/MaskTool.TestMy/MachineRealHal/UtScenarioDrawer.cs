@@ -106,6 +106,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             drawer.OnTrayMotionFailedHandler += this.OnTrayMotionFailed;
             drawer.OnTrayMotionOKHandler += this.OnTrayMotionOK;
+            drawer.OnSetSpeedFailedHandler += OnSetSpeedFailed;
+            drawer.OnSetSpeedOKHandler += this.OnSetSpeedOK;
         } 
 
         void OnTrayMotionFailed(object sender,EventArgs e)
@@ -117,7 +119,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             var drawer = (MacHalDrawerKjMachine)sender;
         }
-
+        void OnSetSpeedFailed(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
+        void OnSetSpeedOK(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
 
         void OnDetectDrawerBoxResult(object sender, EventArgs e)
         {

@@ -185,7 +185,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         }
 
         public  event EventHandler OnTrayMotionFailedHandler;
-        public   event EventHandler OnTrayMotionOKHandler;
+        public  event EventHandler OnTrayMotionOKHandler;
+        public event EventHandler OnSetSpeedFailedHandler;
+        public event EventHandler OnSetSpeedOKHandler;
         void BindLddEvent()
         {
             Ldd.OnTrayMotionFailedHandler += OnTrayMotionFailed;
@@ -206,6 +208,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                 OnTrayMotionOKHandler.Invoke(this, e);
             }
         }
+        public void OnSetSpeedOK(Object sender, EventArgs e)
+        {
+            if (OnSetSpeedOKHandler != null)
+            {
+                OnSetSpeedOKHandler.Invoke(this ,e);
+            }
+        }
+        public void OnSetSpeedFailed(Object sender, EventArgs e)
+        {
+            if(OnSetSpeedFailedHandler != null)
+            {
+                OnSetSpeedFailedHandler.Invoke(this, e);
+            }
+        }
+
         #endregion
 
         #region command
