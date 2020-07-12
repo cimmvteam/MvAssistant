@@ -48,10 +48,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandSetMotionSpeed(100);
                     drawer_01_02.CommandSetMotionSpeed(100);
                    */
-                    /**CommandPositionRead*/
+                    /**CommandPositionRead
                     drawer_01_02.CommandPositionRead();
                     drawer_01_01.CommandPositionRead();
-                     
+                     */
 
 
 
