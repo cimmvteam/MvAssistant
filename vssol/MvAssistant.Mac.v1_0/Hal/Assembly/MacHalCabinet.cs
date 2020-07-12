@@ -13,12 +13,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     public class MacHalCabinet : MacHalAssemblyBase, IMacHalCabinet
     {
 
-        public MvKjMachineDrawerManager LddManager = null;
+      //  public MvKjMachineDrawerManager LddManager = null;
 
         #region Device Components
         public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(MacEnumDevice.cabinet_plc); } }
 
-        public Dictionary<string, IMacHalDrawer> Drawers { get; set; }
+      //  public Dictionary<string, IMacHalDrawer> Drawers { get; set; }
        
         public IMacHalDrawer Drawer(int index)
         {
@@ -26,6 +26,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
         }
 
+        /*
         public IMacHalDrawer GetDrawer(string index)
         {
             //  var key = string.Format("{0}_{1}", MacEnumDevice.cabinet_drawer, index);
@@ -40,7 +41,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 return default(IMacHalDrawer);
             }
         }
-
+        */
+       /*
         public void CreateDrawers<T>(Dictionary<string, HalBase> hals) where T: HalBase,IMacHalDrawer, new()
         {
             Drawers = new Dictionary<string, IMacHalDrawer>();
@@ -59,7 +61,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 }
                 index++;
             }
-        }
+        }*/
         #endregion Device Components
 
 

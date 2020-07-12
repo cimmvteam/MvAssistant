@@ -443,6 +443,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public event EventHandler OnTrayMotionFailedHandler = null;
         public event EventHandler OnTrayMotionOKHandler = null;
         /// <summary>將ReplyMotion事件程序指向 null</summary>
+        [Obsolete]
         public void ResetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
        
 
@@ -467,16 +468,16 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
             if (replyResultCode == ReplyResultCode.Set_Successfully)
             {
-                if (OnSetSpeedOKHandler != null)
+                if (OnSetMotionSpeedOKHandler != null)
                 {
-                    OnSetSpeedOKHandler.Invoke(this, EventArgs.Empty);
+                    OnSetMotionSpeedOKHandler.Invoke(this, EventArgs.Empty);
                 }
             }
             else
             {
-                if (OnSetSpeedFailedHandler != null)
+                if (OnSetMotionSpeedFailedHandler != null)
                 {
-                    OnSetSpeedFailedHandler.Invoke(this, EventArgs.Empty);
+                    OnSetMotionSpeedFailedHandler.Invoke(this, EventArgs.Empty);
                 }
             }
             
@@ -485,10 +486,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>ReplySetSpeed事件程序</summary>
         [Obsolete]
         public event EventHandler OnReplySetSpeedHandler = null;
-        public event EventHandler OnSetSpeedFailedHandler = null;
-        public event EventHandler OnSetSpeedOKHandler = null;
-        
+        public event EventHandler OnSetMotionSpeedFailedHandler = null;
+        public event EventHandler OnSetMotionSpeedOKHandler = null;
+
         /// <summary>將ReplySetSpeed事件程序重設為null</summary>
+        [Obsolete]
         public void ResetOnReplySetSpeedHandler() { OnReplySetSpeedHandler = null; }
        
      
@@ -513,10 +515,23 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 SetTimeOutResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
             }
+            if(OnSetTimeOutOKHandler!=null && replyResultCode==ReplyResultCode.Set_Successfully)
+            {
+                OnSetTimeOutOKHandler.Invoke(this,EventArgs.Empty);
+            }
+            if (OnSetTimeOutFailedHandler != null && replyResultCode == ReplyResultCode.Failed)
+            {
+                OnSetTimeOutFailedHandler.Invoke(this, EventArgs.Empty);
+            }
         }
+        public event EventHandler OnSetTimeOutOKHandler = null;
+        public event EventHandler OnSetTimeOutFailedHandler = null;
+
         /// <summary>ReplySetTimeOut 事件程序</summary>
+        [Obsolete]
         public event EventHandler OnReplySetTimeOutHandler =null;
         /// <summary>將OnReplySetTimeOut 事件程序設為null</summary>
+        [Obsolete]
         public void ResetOnReplySetTimeOutHandler() { OnReplySetTimeOutHandler = null; }
     
         //@~112,ReplyBrightLED,1@
@@ -539,10 +554,24 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 this.BrightLEDResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
             }
+            if(OnBrightLEDOKHandler!=null && replyResultCode == ReplyResultCode.Set_Successfully)
+            {
+                OnBrightLEDOKHandler.Invoke(this, EventArgs.Empty);
+            }
+            if(OnBrightLEDFailedHandler!=null && replyResultCode == ReplyResultCode.Failed)
+            {
+                OnBrightLEDFailedHandler.Invoke(this, EventArgs.Empty);
+            }
+
         }
+        public event EventHandler OnBrightLEDOKHandler;
+        public event EventHandler OnBrightLEDFailedHandler;
+
+        [Obsolete]
         /// <summary>ReplyBrightLED 事件程序</summary>
         public event EventHandler OnReplyBrightLEDHandler = null;
         /// <summary>將  OnReplyBrightLED 事件程設為null</summary>
+        [Obsolete]
         public void ResetOnReplyBrightLEDHandler() { OnReplyBrightLEDHandler = null; }
        
 
@@ -582,17 +611,28 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     IHO = "111";
                     break;
             }
+            var eventArgs = new OnReplyPositionEventArgs(IHO);
             if (OnReplyPositionHandler != null)
             {
-                var eventArgs = new OnReplyPositionEventArgs(IHO);
+             
                 OnReplyPositionHandler.Invoke(this, eventArgs);
 
             }
             if (PositionReadResult != null) { PositionReadResult.Invoke(this, IHO); }
+            if(OnPositionStatusHandler!=null)
+            {
+                OnPositionStatusHandler.Invoke(this, eventArgs);
+
+            }
         }
+
+
+        public event EventHandler OnPositionStatusHandler = null;
+        [Obsolete]
         /// <summary>ReplyPosition 事件程序</summary>
         public event EventHandler OnReplyPositionHandler= null;
         /// <summary>重設ReplyPosition事件程序為 null </summary>
+        [Obsolete]
         public void ResetOnReplyPositionHandler() { OnReplyPositionHandler = null; }
      
 
@@ -619,10 +659,24 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 BoxDetectionResult.Invoke(this, hasBox);
             }
+
+            if(OnDetectedHasBoxHandler != null && hasBox)
+            {
+                OnDetectedHasBoxHandler.Invoke(this, EventArgs.Empty);
+            }
+            if (OnDetectedEmptyBoxHandler != null && !hasBox)
+            {
+                OnDetectedEmptyBoxHandler.Invoke(this, EventArgs.Empty);
+            }
         }
+
+        public event EventHandler OnDetectedHasBoxHandler;
+        public event EventHandler OnDetectedEmptyBoxHandler;
+        [Obsolete]
         /// <summary>ReplyBoxDetection 事件程序</summary>
         public event EventHandler OnReplyBoxDetection = null;
         /// <summary>重設 ReplyBoxDetection 事件程序為 null</summary>
+        [Obsolete]
         public void ResetOnReplyBoxDetection() { OnReplyBoxDetection = null; }
        
 
@@ -643,12 +697,29 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTrayArriveHandler.Invoke(this,args);
             }
            
-             if (this.TrayArriveResult != null) { this.TrayArriveResult.Invoke(this, (int)trayArriveType); }
-          
+            if (this.TrayArriveResult != null) { this.TrayArriveResult.Invoke(this, (int)trayArriveType); }
+            if(OnTrayArriveHomeHandler != null && trayArriveType== TrayArriveType.ArriveHome)
+            {
+                OnTrayArriveHomeHandler.Invoke(this,EventArgs.Empty);
+            }
+            if(OnTrayArriveInHandler !=null && trayArriveType == TrayArriveType.ArriveIn)
+            {
+                OnTrayArriveInHandler.Invoke(this, EventArgs.Empty);
+            }
+            if (OnTrayArriveOutHandler != null && trayArriveType == TrayArriveType.ArriveOut)
+            {
+                OnTrayArriveOutHandler.Invoke(this, EventArgs.Empty);
+            }
+         //   OnTrayArriveHomeHandler.Invoke(this, EventArgs.Empty);
         }
+        public event EventHandler OnTrayArriveHomeHandler;
+        public event EventHandler OnTrayArriveInHandler;
+        public event EventHandler OnTrayArriveOutHandler;
+
         /// <summary>TrayArrive 事件程序</summary>
         public event EventHandler OnTrayArriveHandler = null;
         /// <summary>將TrayArrive 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTrayArriveHandler() { OnTrayArriveHandler = null; }
        
      
@@ -670,6 +741,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>ButtonEvent 事件程序</summary>
         public event EventHandler OnButtonEventHandler = null;
         /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnButtonEventHandler() { OnButtonEventHandler = null; }
 
         public void LCDCMsg(ReplyMessage reply)
@@ -680,9 +752,21 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnLCDCMsgHandler.Invoke(this, eventArgs);
             }
+            if(OnLCDCMsgOKHandler!=null && replyResultCode== ReplyResultCode.Set_Successfully)
+            {
+                OnLCDCMsgOKHandler.Invoke(this, EventArgs.Empty);
+            }
+            if (OnLCDCMsgFailedHandler != null && replyResultCode == ReplyResultCode.Failed)
+            {
+                OnLCDCMsgFailedHandler.Invoke(this, EventArgs.Empty);
+            }
         }
+        public event EventHandler OnLCDCMsgOKHandler = null;
+        public event EventHandler OnLCDCMsgFailedHandler = null;
+        [Obsolete]
         public event EventHandler OnLCDCMsgHandler = null;
         /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnLCDCMsgHandler() { OnLCDCMsgHandler = null; }
 
         /// <summary>Event TimeOutEvent(900)</summary>
@@ -703,6 +787,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>TimeOutEvent事件程序</summary>
         public event EventHandler OnTimeOutEventHandler = null;
         /// <summary>將TimeOutEventk事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTimeOutEventHandler() { OnTimeOutEventHandler = null; }
 
         /// <summary>Event TrayMotioning(901)</summary>
@@ -719,9 +804,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTrayMotioningHandler.Invoke(this,EventArgs.Empty);
             }
         }
+
+
         /// <summary>TrayMotioning 事件程序</summary>
         public event EventHandler OnTrayMotioningHandler = null;
         /// <summary>將TrayMotioning事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTrayMotioning() {  OnTrayMotioningHandler = null; }
 
         /// <summary>event INIFailed (902)</summary>
@@ -745,6 +833,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>INIFailed 事件程序</summary>
         public event EventHandler OnINIFailedHandler = null;
         /// <summary>將INIFailed 事件程序重設為null</summary>
+        [Obsolete]
         public void ResetOnINIFailedHandler() { OnINIFailedHandler = null; }
 
 
@@ -763,9 +852,13 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             }
            
         }
+    
+
+        [Obsolete]
         /// <summary>TrayMotionError 事件程序</summary>
         public event EventHandler OnTrayMotionErrorHandler = null;
         /// <summary>將TrayMotionError 事件程序重設為0</summary>
+        [Obsolete]
         public void ResetOnTrayMotionErrorHandler()
         {    OnTrayMotionErrorHandler = null;}
 
@@ -787,6 +880,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>TrayMotionSensorOFF 事件程序</summary>
         public event EventHandler OnTrayMotionSensorOFFHandler = null;
         /// <summary>將TrayMotionSensorOFF 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTrayMotionSensorOFFHandler() { OnTrayMotionSensorOFFHandler = null; }
 
 
@@ -806,11 +900,26 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var args = new OnErrorEventArgs(replyErrorCode);
                 OnErrorHandler.Invoke(this, args);
             }
+            if(OnERRORRecoveryHandler!=null && replyErrorCode == ReplyErrorCode.Recovery)
+            {
+                OnERRORRecoveryHandler.Invoke(this, EventArgs.Empty);
+            }
+            if(OnERRORErrorHandler!=null && replyErrorCode == ReplyErrorCode.Error)
+            {
+                OnERRORErrorHandler.Invoke(this,EventArgs.Empty);
+            }
         }
+
         public void Error(ReplyMessage reply) { ERROR(reply); }
+
+        public event EventHandler OnERRORRecoveryHandler=null;
+        public event EventHandler OnERRORErrorHandler = null;
+        
+        [Obsolete]
         /// <summary>Error 事件程序</summary>
         public event EventHandler OnErrorHandler = null;
         /// <summary>將Error 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnErrorHandler() { OnErrorHandler = null; }
        
      
@@ -832,6 +941,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>SysStartUp 事件程序</summary>
         public event EventHandler OnSysStartUpHandler = null;
         /// <summary>將SysStartUp 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnSysStartUp(){OnSysStartUpHandler = null;}
 
        

@@ -11,6 +11,7 @@ using System.Diagnostics;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using MvAssistant.DeviceDrive;
 using System.Net;
+using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
@@ -125,6 +126,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                 else
                 {
                     BindLddEvent();
+                    
                     connected = true;
                 }
 
@@ -152,10 +154,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             Ldd.PositionReadResult += this.PositionReadResult;
             Ldd.SetMotionSpeedResult += this.SetMotionSpeedResult;
             Ldd.SetTimeOutResult += this.SetTimeOutResult;
-            // Ldd.TrayMotionHomeResult += this.TrayMotionHomeResult;
-            // Ldd.TrayMotionInResult += this.TrayMotionInResult;
-            //Ldd.TrayMotionOutResult += this.TrayMotionOutResult;
-            Ldd.TrayArriveResult += this.TrayArriveResult;
+           Ldd.TrayArriveResult += this.TrayArriveResult;
 
         }
 
@@ -186,43 +185,317 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public  event EventHandler OnTrayMotionFailedHandler;
         public  event EventHandler OnTrayMotionOKHandler;
-        public event EventHandler OnSetSpeedFailedHandler;
-        public event EventHandler OnSetSpeedOKHandler;
+        public event EventHandler OnSetMotionSpeedFailedHandler;
+        public event EventHandler OnSetMotionSpeedOKHandler;
+        public  event EventHandler OnSetTimeOutOKHandler;
+        public event EventHandler OnSetTimeOutFailedHandler;
+      
+        public event EventHandler OnTrayArriveHomeHandler;
+        public event EventHandler OnTrayArriveInHandler;
+        public event EventHandler OnTrayArriveOutHandler;
+        public event EventHandler OnTrayMotioningHandler;
+        public event EventHandler OnPositionStatusHandler;
+        
+
+        public event EventHandler OnDetectedHasBoxHandler;
+        public event EventHandler OnDetectedEmptyBoxHandler;
+        public event EventHandler OnTrayMothingSensorOFFHandler;
+        public event EventHandler OnERRORREcoveryHandler;
+        public event EventHandler OnERRORErrorHandler;
+
+        public event EventHandler OnSysStartUpHandler;
+        public event EventHandler OnButtonEventHandler;
+
+       public event EventHandler OnBrightLEDOKHandler;
+       public event EventHandler OnBrightLEDFailedHandler;
+
+        public event EventHandler OnLCDCMsgOKHandler;
+        public event EventHandler OnLCDCMsgFailedHandler;
+
+        public  event EventHandler OnINIFailedHandler;
         void BindLddEvent()
         {
             Ldd.OnTrayMotionFailedHandler += OnTrayMotionFailed;
             Ldd.OnTrayMotionOKHandler += OnTrayMotionOK;
+            Ldd.OnSetMotionSpeedFailedHandler += OnSetMotionSpeedFailed;
+            Ldd.OnSetMotionSpeedOKHandler += OnSetMotionSpeedOK;
+
+            Ldd.OnSetTimeOutOKHandler += OnSetTimeOutOK;
+            Ldd.OnSetTimeOutFailedHandler+= OnSetTimeOutFailed;
+
+            Ldd.OnTrayArriveHomeHandler += OnTrayArriveHome;
+            Ldd.OnTrayArriveOutHandler += OnTrayArriveOut;
+            Ldd.OnTrayArriveInHandler += OnTrayArriveIn;
+            Ldd.OnTrayMotioningHandler += OnTrayMotioning;
+            Ldd.OnPositionStatusHandler += OnPositionStatus;
+            Ldd.OnDetectedHasBoxHandler += OnDetectedHasBox;
+            Ldd.OnDetectedEmptyBoxHandler += OnDetectedEmptyBox;
+            Ldd.OnTrayMotionSensorOFFHandler += OnTrayMothingSensorOFF;
+
+            Ldd.OnERRORErrorHandler += OnERRORError;
+            Ldd.OnERRORRecoveryHandler += OnERRORREcovery;
+
+            Ldd.OnBrightLEDFailedHandler += this.OnBrightLEDFailed;
+            Ldd.OnBrightLEDOKHandler += this.OnBrightLEDOK;
+
+            Ldd.OnLCDCMsgOKHandler += this.OnLCDCMsgOK;
+            Ldd.OnLCDCMsgFailedHandler += this.OnLCDCMsgFailed;
+            Ldd.OnINIFailedHandler += OnINIFailed;
+
+            Ldd.OnButtonEventHandler += OnButtonEvent;
+            Ldd.OnSysStartUpHandler += OnSysStartUp;
         }
         #region   Event
-        public void OnTrayMotionFailed(object sender,EventArgs e)
+
+
+        private void OnButtonEvent(object sender, EventArgs e)
+        {
+            if (OnButtonEventHandler != null)
+            {
+                OnButtonEventHandler.Invoke(this, e);
+            }
+        }
+        private void OnSysStartUp(object sender, EventArgs e)
+        {
+            if (OnSysStartUpHandler != null)
+            {
+                OnSysStartUpHandler.Invoke(this, e);
+            }
+        }
+
+        private void OnINIFailed(object sender, EventArgs e)
+        {
+            if (OnINIFailedHandler != null)
+            {
+                OnINIFailedHandler.Invoke(this, e);
+            }
+        }
+
+       
+        private void OnLCDCMsgOK(object sender, EventArgs e)
+        {
+            if(OnLCDCMsgOKHandler != null)
+            {
+                OnLCDCMsgOKHandler.Invoke(this, e);
+            }
+        }
+        private void OnLCDCMsgFailed(object sender, EventArgs e)
+        {
+            if (OnLCDCMsgFailedHandler != null)
+            {
+                OnLCDCMsgFailedHandler.Invoke(this, e);
+            }
+
+        }
+
+      
+        private void OnBrightLEDOK(object sender,EventArgs e)
+        {
+            if (OnBrightLEDOKHandler != null)
+            {
+                OnBrightLEDOKHandler.Invoke(this, e);
+            }
+        }
+        private void OnBrightLEDFailed(object sender,EventArgs e)
+        {
+            if (OnBrightLEDFailedHandler != null)
+            {
+                OnBrightLEDFailedHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary> OnTrayMotionFailedHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMotionFailed(object sender,EventArgs e)
         {
             if(OnTrayMotionFailedHandler!=null)
             {
                 OnTrayMotionFailedHandler.Invoke(this, e);
             }
         }
-        public void OnTrayMotionOK(object sender, EventArgs e)
+
+        /// <summary>OnTrayMotionOKHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSetMotionSpeedOK(Object sender, EventArgs e)
+        {
+            if (OnSetMotionSpeedOKHandler != null)
+            {
+                OnSetMotionSpeedOKHandler.Invoke(this ,e);
+            }
+        }
+        /// <summary>OnSetMotionSpeedFailedHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e">OnSetMotionSpeedOKHandler</param>
+        private void OnSetMotionSpeedFailed(Object sender, EventArgs e)
+        {
+            if(OnSetMotionSpeedFailedHandler != null)
+            {
+                OnSetMotionSpeedFailedHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnSetTimeOutOKHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSetTimeOutOK(Object sender,EventArgs e)
+        {
+            if(OnSetTimeOutOKHandler != null)
+            {
+                OnSetTimeOutOKHandler.Invoke(this, e);
+            }
+        }
+        /// <summary>OnSetTimeOutFailedHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSetTimeOutFailed(Object sender, EventArgs e)
+        {
+            if (OnSetTimeOutFailedHandler != null)
+            {
+                OnSetTimeOutFailedHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnTrayArriveHomeHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayArriveHome(object sender, EventArgs e)
+        {
+            if (OnTrayArriveHomeHandler != null)
+            {
+                OnTrayArriveHomeHandler.Invoke(this, e);
+            }
+        }
+        /// <summary>OnTrayArriveOutHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayArriveOut(object sender, EventArgs e)
+        {
+            if (OnTrayArriveOutHandler != null)
+            {
+                OnTrayArriveOutHandler.Invoke(this, e);
+            }
+        }
+        /// <summary>OnTrayArriveInHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayArriveIn(object sender, EventArgs e)
+        {
+            if (OnTrayArriveInHandler != null)
+            {
+                OnTrayArriveInHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnTrayMotioningHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMotioning(object sender,EventArgs e)
+        {
+            if (OnTrayMotioningHandler != null)
+            {
+                OnTrayMotioningHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnPositionStatusHandler </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">typeof(OnReplyPositionEventArgs)</param>
+        private void OnPositionStatus(object sender ,EventArgs e)
+        {
+            var args= (OnReplyPositionEventArgs)e;
+            if (OnPositionStatusHandler !=null)
+            {
+                OnPositionStatusHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnDetectedHasBoxHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDetectedHasBox(object sender, EventArgs e)
+        {
+            if(OnDetectedHasBoxHandler != null)
+            {
+                OnDetectedHasBoxHandler.Invoke(this, e);
+            }
+           
+        }
+        /// <summary>OnDetectedHasBoxHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnDetectedEmptyBox(object sender, EventArgs e)
+        {
+            if(OnDetectedEmptyBoxHandler != null)
+            {
+                OnDetectedEmptyBoxHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnTrayMotionOKHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMotionOK(object sender, EventArgs e)
         {
             if (OnTrayMotionOKHandler != null)
             {
                 OnTrayMotionOKHandler.Invoke(this, e);
             }
         }
-        public void OnSetSpeedOK(Object sender, EventArgs e)
+
+
+        /// <summary>OnTrayMothingSensorOFFHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMothingSensorOFF(object sender, EventArgs e)
         {
-            if (OnSetSpeedOKHandler != null)
+            if (OnTrayMothingSensorOFFHandler!= null)
             {
-                OnSetSpeedOKHandler.Invoke(this ,e);
-            }
-        }
-        public void OnSetSpeedFailed(Object sender, EventArgs e)
-        {
-            if(OnSetSpeedFailedHandler != null)
-            {
-                OnSetSpeedFailedHandler.Invoke(this, e);
+                OnTrayMothingSensorOFFHandler.Invoke(this, e);
             }
         }
 
+        /// <summary></summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnERRORREcovery(object sender, EventArgs e)
+        {
+            if (OnERRORREcoveryHandler != null)
+            {
+                OnERRORREcoveryHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary></summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnERRORError(object sender, EventArgs e)
+        {
+            if (OnERRORErrorHandler!=null)
+            {
+                OnERRORErrorHandler.Invoke(this, e);
+            }
+        }
+
+       /**
+        //event EventHandler OnSysStartUpHandler;
+        public void OnSysStartUp(Object sender, EventArgs e)
+        {
+            if(OnSysStartUpHandler != null)
+            {
+                OnSysStartUpHandler.Invoke(this, e);
+            }
+        }
+        //event EventHandler OnButtonHandler;
+        public void OnButtonEvent(object sender,EventArgs e)
+        {
+            if (OnButtonEventHandler != null)
+            {
+                OnButtonEventHandler.Invoke(this, e);
+            }
+        }
+    */
         #endregion
 
         #region command

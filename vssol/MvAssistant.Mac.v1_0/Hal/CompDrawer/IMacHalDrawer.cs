@@ -12,12 +12,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
     public interface IMacHalDrawer: IMacHalComponent
     {
-        object Tag { get; set; }
-        string DeviceIndex { get; }
-        string Index { get; set; }
-
-        string DeviceIP { get; }
-
+      string DeviceIndex { get; }
+      
     #region command
         string CommandINI();
         string CommandSetMotionSpeed(int speed);
@@ -25,23 +21,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         string CommandTrayMotionHome();
         string CommandTrayMotionOut();
         string CommandTrayMotionIn();
-
         string CommandBrightLEDAllOn();
         string CommandBrightLEDAllOff();
         string CommandBrightLEDGreenOn();
         string CommandBrightLEDRedOn();
-       
-        
-
         string CommandPositionRead();
-        
-
         string CommandBoxDetection();
-     
-       
         string CommandWriteNetSetting();
         string CommandLCDMsg(string message);
-
         string CommandSetParameterHomePosition(string homePosition);
         string CommandSetParameterOutSidePosition(string outsidePosition);
         string CommandSetParameterInSidePosition(string insidePosition);
@@ -49,22 +36,55 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         string CommandSetParameterSubMask(string submaskAddress);
         #endregion
         #region Event Handler
-       
-        event EventHandler OnTrayMotionFailedHandler;
-        event EventHandler OnTrayMotionOKHandler;
-        event EventHandler OnSetSpeedFailedHandler;
-        event EventHandler OnSetSpeedOKHandler;
 
+        event EventHandler OnTrayMotionOKHandler;
+        event EventHandler OnTrayMotionFailedHandler;
+
+
+        event EventHandler OnSetMotionSpeedOKHandler;
+        event EventHandler OnSetMotionSpeedFailedHandler;
+
+        event EventHandler OnSetTimeOutOKHandler;
+        event EventHandler OnSetTimeOutFailedHandler;
+
+        event EventHandler OnTrayArriveHomeHandler;
+        event EventHandler OnTrayArriveInHandler;
+        event EventHandler OnTrayArriveOutHandler;
+       
+      event EventHandler OnTrayMotioningHandler;
+
+      event EventHandler OnPositionStatusHandler;
+
+        event EventHandler OnDetectedHasBoxHandler;
+        event EventHandler OnDetectedEmptyBoxHandler;
+
+       event EventHandler OnTrayMothingSensorOFFHandler;// TrayMotionError(903)
+       event EventHandler OnERRORREcoveryHandler;
+       event EventHandler OnERRORErrorHandler;
+
+      event EventHandler OnSysStartUpHandler;
+      event EventHandler OnButtonEventHandler;
+
+        event EventHandler OnBrightLEDOKHandler;
+        event EventHandler OnBrightLEDFailedHandler;
+
+         event EventHandler OnLCDCMsgOKHandler;
+         event EventHandler OnLCDCMsgFailedHandler ;
+
+        event EventHandler OnINIFailedHandler;
         #endregion
 
+
         #region Result Delegate
+        /**
         void INIResult(object sender, bool result);
         void SetMotionSpeedResult(object sender, bool result);
         void BrightLEDResult(object sender, bool result);
         void PositionReadResult(object sender, string result);
         void BoxDetectionResult(object sender, bool result);
         void SetTimeOutResult(object sender, bool result);
-        #endregion
+    */    
+    #endregion
 
     }
    
