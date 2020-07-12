@@ -72,8 +72,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                      drawer_01_01.CommandBrightLEDRedOn();
                      drawer_01_02.CommandBrightLEDRedOn();
                     */
-
-                        Repeat();
+                    /** CommandINI() */
+                    drawer_01_01.CommandINI();
+                    drawer_01_02.CommandINI();
+                    Repeat();
                 }
             }
             catch (Exception ex)
@@ -91,7 +93,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnDetectedHasBoxHandler += OnDetectedHasBox;
             drawer.OnBrightLEDFailedHandler += OnBrightLEDFailed;
             drawer.OnBrightLEDOKHandler += OnBrightLEDOK;
+            drawer.OnTrayMotioningHandler += OnTrayMotioning;
+            drawer.OnTrayArriveHomeHandler += OnTrayArriveHome;
         } 
+        void OnTrayArriveHome(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
+
+        void OnTrayMotioning(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
+
         void OnBrightLEDOK(object sender, EventArgs e)
         {
             var drawer = (MacHalDrawerKjMachine)sender;
