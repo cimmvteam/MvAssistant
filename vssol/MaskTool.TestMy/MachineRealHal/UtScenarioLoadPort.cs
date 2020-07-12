@@ -15,6 +15,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public   class UtScenarioLoadPort
     {
+        void Repeat()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
         #region Load port 
 
         [TestMethod]
@@ -36,7 +43,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     // loadport1.CommandAlarmReset();
                     loadport2.HalConnect();
                     loadport2.CommandAlarmReset();
-                    //Repeat();
+                    Repeat();
 
                 }
             }

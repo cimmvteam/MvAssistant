@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
+using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
@@ -30,10 +31,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void DrawerTest()
         {
-
             try
             {
-
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -41,14 +40,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var drawer_01_01 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                     var drawer_01_02 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
                     drawer_01_01.HalConnect();
-                  //  drawer_01_02.HalConnect();
+                    drawer_01_02.HalConnect();
+                    BindEvents(drawer_01_01);
+                    BindEvents(drawer_01_02);
+
+                    /**  CommandSetMotionSpeed
+                    drawer_01_01.CommandSetMotionSpeed(100);
+                    drawer_01_02.CommandSetMotionSpeed(100);
+                   */
+                    /**CommandPositionRead*/
+                    drawer_01_02.CommandPositionRead();
+                    drawer_01_01.CommandPositionRead();
+                     
 
 
 
-                 
 
-
-                  
                     Repeat();
                 }
             }
@@ -60,10 +67,25 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         void BindEvents(MacHalDrawerKjMachine drawer)
         {
-           
+            drawer.OnSetMotionSpeedFailedHandler += OnSetMotionSpeedFailed;
+            drawer.OnSetMotionSpeedOKHandler += OnSetMotionSpeedOK;
+            drawer.OnPositionStatusHandler += OnPosionStatus;
         } 
 
- 
+        void OnSetMotionSpeedFailed(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+
+        }
+        void OnSetMotionSpeedOK(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
+        void OnPosionStatus(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+            var eventArgs=(OnReplyPositionEventArgs)e;
+        }
         #endregion
         #endregion
     }
