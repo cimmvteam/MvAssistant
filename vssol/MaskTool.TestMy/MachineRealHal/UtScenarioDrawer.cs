@@ -68,7 +68,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandBrightLEDGreenOn();
                     drawer_01_02.CommandBrightLEDGreenOn();
                     */
-                    Repeat();
+                    /** CommandBrightLEDRedOn()
+                     drawer_01_01.CommandBrightLEDRedOn();
+                     drawer_01_02.CommandBrightLEDRedOn();
+                    */
+
+                        Repeat();
                 }
             }
             catch (Exception ex)
