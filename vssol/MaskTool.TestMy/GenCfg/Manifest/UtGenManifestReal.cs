@@ -97,7 +97,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                             MacHalDrawerKjMachine.DevConnStr_Port, 5000,
                             MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
                             MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
-                        DeviceName = MacEnumDevice.cabinet_drawer_001.ToString(),
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_01.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -106,7 +106,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                             MacHalDrawerKjMachine.DevConnStr_Port, 5000,
                             MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
                             MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
-                        DeviceName = MacEnumDevice.cabinet_drawer_002.ToString(),
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_02.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -115,7 +115,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                             MacHalDrawerKjMachine.DevConnStr_Port, 5000,
                             MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
                             MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
-                        DeviceName = MacEnumDevice.cabinet_drawer_003.ToString(),
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_03.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -124,7 +124,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                             MacHalDrawerKjMachine.DevConnStr_Port, 5000,
                             MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
                             MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
-                        DeviceName = MacEnumDevice.cabinet_drawer_004.ToString(),
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_04.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -133,7 +133,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                             MacHalDrawerKjMachine.DevConnStr_Port, 5000,
                             MacHalDrawerKjMachine.DevConnStr_LocalIp, "",
                             MacHalDrawerKjMachine.DevConnStr_LocalPort, 6000),
-                        DeviceName = MacEnumDevice.cabinet_drawer_005.ToString(),
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_05.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                     },
 

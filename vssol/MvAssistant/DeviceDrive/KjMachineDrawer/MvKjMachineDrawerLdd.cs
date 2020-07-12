@@ -16,20 +16,26 @@ using System.Threading.Tasks;
 namespace MvAssistant.DeviceDrive.KjMachineDrawer
 {
     /// <summary>Drawer Class</summary>
-    public class MvKjMachineDrawerLdd
+    public class MvKjMachineDrawerLdd:IDisposable
     {
         /// <summary>Cabinet 編號</summary>        
-        public int CabinetNO { get; private set; }
+        private int CabinetNO { get;  set; }
+        
         /// <summary>Drawer 編號</summary>
-        public string DrawerNO { get; private set; }
+        [Obsolete]
+        private string DrawerNO { get;  set; }
+
+        /// <summary>對應的 Drawer Index</summary>
+        public string DrawerIndex { get; set; }
+       
         /// <summary>裝置IP</summary>
-        public string DeviceIP { get; private set; }
+        public string DeviceIP { get; set; }
         
         /// <summary>目的端點</summary>
         IPEndPoint TargetEndpoint = null;
 
         /// <summary>傳送命令/回收訊息的 Socket</summary>
-        public   Socket UdpSocket = null;
+        private   Socket UdpSocket = null;
 
         /// <summary>監聽回復訊息的 Thread</summary>
         private Thread ListenThread;
@@ -43,11 +49,13 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="deviceEndpoint">drawer 的端點</param>
         /// <param name="localIp">本地IP</param>
         /// <param name="portTable">本地端 Port 使用狀況</param>
+        [Obsolete]
         public MvKjMachineDrawerLdd(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, string localIp,IDictionary<int,bool?> portTable) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
             DeviceIP = deviceEndpoint.Address.ToString();
+
             TargetEndpoint = deviceEndpoint;
             UdpSocket= new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             while (true)
@@ -79,46 +87,74 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             ListenThread = new Thread(Listen);
             ListenThread.IsBackground = true;
             ListenThread.Start();
-            /**
-            Task.Run(
-                () =>
-                  {
-                      try
-                      {
-                          while (true)
-                          {
-                              byte[] buffer = new byte[1024];
-                              UdpSocket.Receive(buffer);
-                              var msg = Encoding.UTF8.GetString(buffer);
-                              InvokeMethod(msg);
-                          }
-                      }
-                      catch(Exception ex)
-                      {
-
-                      }
-                  }
-               );*/
+          
           }
 
-        /// <summary>監聽的函式</summary>
-        public void Listen()
+        /// <summary></summary>
+        /// <param name="drawerIndex"></param>
+        /// <param name="deviceEndpoint"></param>
+        /// <param name="localIp"></param>
+        /// <param name="portTable"></param>
+        public MvKjMachineDrawerLdd( string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
         {
-            try
+            DrawerIndex = drawerIndex;
+            TargetEndpoint = deviceEndpoint;
+            DeviceIP = deviceEndpoint.Address.ToString();
+          
+            UdpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            while (true)
             {
+                // 可用的 port
+                int variablePort = 0;
+                try
+                {
+                    KeyValuePair<int, bool?> keyValuePair = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
+                    if (keyValuePair.Equals(default(KeyValuePair<int, bool?>)))
+                    { // 無 Port 可用時
+                        // TODO : To Thorw an Exception
+                    }
+
+                    variablePort = keyValuePair.Key;
+                    // Bind 的端點名稱
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(localIp), variablePort);
+                    UdpSocket.Bind(endPoint);
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, true);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, false);
+                }
+            }
+            ListenThread = new Thread(Listen);
+            ListenThread.IsBackground = true;
+            ListenThread.Start();
+
+        }
+
+        /// <summary>監聽的函式</summary>
+        private void Listen()
+        {
+            
                 while (true)
                 {
+                   try
+                   {
+
                     byte[] buffer = new byte[1024];
                     // 監聽點
                     UdpSocket.Receive(buffer);
                     var msg = Encoding.UTF8.GetString(buffer);
                     InvokeMethod(msg);
-                }
-            }
-            catch (Exception ex)
-            {
+                   }
+                    catch(Exception ex)
+                    {
 
-            }
+                    }
+                }
+           
         }
 
         /// <summary>傳送</summary>
@@ -178,6 +214,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
+
+      
 
         /// <summary>Command SetTimeOut(001)</summary>
         /// <param name="timeoutSeconds"></param>
@@ -244,6 +282,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>Command BrightLED~All on(012)</summary>
         public string CommandBrightLEDAllOn()
         {
+          
             var commandText=CommandBrightLED(BrightLEDType.AllOn);
             return commandText;
         }
@@ -310,7 +349,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>Command SetParameter(007)</summary>
         /// <param name="setParameterType"></param>
         /// <param name="parameterValue"></param>
-        private string CommandSetParameter(SetParameterType setParameterType, string parameterValue)
+       private string CommandSetParameter(SetParameterType setParameterType, string parameterValue)
         {
             var parameter = new SetParameterParameter {  ParameterValue= parameterValue, SetParameterType=setParameterType };
             var commandText = new SetParameter().GetCommandText(parameter);
@@ -381,11 +420,30 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 var eventArgs = new OnReplyTrayMotionEventArgs(replyResultCode);
                 OnReplyTrayMotionHandler.Invoke(this, eventArgs);
-            };
+            }
+            if(replyResultCode== ReplyResultCode.Set_Successfully)
+            {
+                if (OnTrayMotionOKHandler != null)
+                {
+                    OnTrayMotionOKHandler.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+               if( OnTrayMotionFailedHandler != null)
+                {
+                    OnTrayMotionFailedHandler.Invoke(this, EventArgs.Empty);
+                }
+
+            }
         }
         /// <summary>ReplyMotion 事件處理程序</summary>
-        public event EventHandler OnReplyTrayMotionHandler = null;
+        [Obsolete]
+        public event EventHandler OnReplyTrayMotionHandler=null;
+        public event EventHandler OnTrayMotionFailedHandler = null;
+        public event EventHandler OnTrayMotionOKHandler = null;
         /// <summary>將ReplyMotion事件程序指向 null</summary>
+        [Obsolete]
         public void ResetOnReplyTrayMotionHandler() { OnReplyTrayMotionHandler = null; }
        
 
@@ -404,10 +462,35 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var eventArgs = new OnReplySetSpeedEventArgs(replyResultCode);
                 OnReplySetSpeedHandler.Invoke(this, eventArgs);
             }
+            if(SetMotionSpeedResult!=null)
+            {
+                SetMotionSpeedResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
+            }
+            if (replyResultCode == ReplyResultCode.Set_Successfully)
+            {
+                if (OnSetMotionSpeedOKHandler != null)
+                {
+                    OnSetMotionSpeedOKHandler.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                if (OnSetMotionSpeedFailedHandler != null)
+                {
+                    OnSetMotionSpeedFailedHandler.Invoke(this, EventArgs.Empty);
+                }
+            }
+            
+                    
         }
         /// <summary>ReplySetSpeed事件程序</summary>
+        [Obsolete]
         public event EventHandler OnReplySetSpeedHandler = null;
+        public event EventHandler OnSetMotionSpeedFailedHandler = null;
+        public event EventHandler OnSetMotionSpeedOKHandler = null;
+
         /// <summary>將ReplySetSpeed事件程序重設為null</summary>
+        [Obsolete]
         public void ResetOnReplySetSpeedHandler() { OnReplySetSpeedHandler = null; }
        
      
@@ -428,10 +511,27 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnReplySetTimeOutHandler.Invoke(this, eventArgs);
             }
+            if(SetTimeOutResult != null)
+            {
+                SetTimeOutResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
+            }
+            if(OnSetTimeOutOKHandler!=null && replyResultCode==ReplyResultCode.Set_Successfully)
+            {
+                OnSetTimeOutOKHandler.Invoke(this,EventArgs.Empty);
+            }
+            if (OnSetTimeOutFailedHandler != null && replyResultCode == ReplyResultCode.Failed)
+            {
+                OnSetTimeOutFailedHandler.Invoke(this, EventArgs.Empty);
+            }
         }
+        public event EventHandler OnSetTimeOutOKHandler = null;
+        public event EventHandler OnSetTimeOutFailedHandler = null;
+
         /// <summary>ReplySetTimeOut 事件程序</summary>
-        public event EventHandler OnReplySetTimeOutHandler = null;
+        [Obsolete]
+        public event EventHandler OnReplySetTimeOutHandler =null;
         /// <summary>將OnReplySetTimeOut 事件程序設為null</summary>
+        [Obsolete]
         public void ResetOnReplySetTimeOutHandler() { OnReplySetTimeOutHandler = null; }
     
         //@~112,ReplyBrightLED,1@
@@ -450,10 +550,28 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnReplyBrightLEDHandler.Invoke(this, eventArgs);
             }
+            if (this.BrightLEDResult!=null)
+            {
+                this.BrightLEDResult.Invoke(this, replyResultCode == ReplyResultCode.Set_Successfully ? true : false);
+            }
+            if(OnBrightLEDOKHandler!=null && replyResultCode == ReplyResultCode.Set_Successfully)
+            {
+                OnBrightLEDOKHandler.Invoke(this, EventArgs.Empty);
+            }
+            if(OnBrightLEDFailedHandler!=null && replyResultCode == ReplyResultCode.Failed)
+            {
+                OnBrightLEDFailedHandler.Invoke(this, EventArgs.Empty);
+            }
+
         }
+        public event EventHandler OnBrightLEDOKHandler;
+        public event EventHandler OnBrightLEDFailedHandler;
+
+        [Obsolete]
         /// <summary>ReplyBrightLED 事件程序</summary>
         public event EventHandler OnReplyBrightLEDHandler = null;
         /// <summary>將  OnReplyBrightLED 事件程設為null</summary>
+        [Obsolete]
         public void ResetOnReplyBrightLEDHandler() { OnReplyBrightLEDHandler = null; }
        
 
@@ -493,16 +611,28 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     IHO = "111";
                     break;
             }
+            var eventArgs = new OnReplyPositionEventArgs(IHO);
             if (OnReplyPositionHandler != null)
             {
-                var eventArgs = new OnReplyPositionEventArgs(IHO);
+             
                 OnReplyPositionHandler.Invoke(this, eventArgs);
 
             }
+            if (PositionReadResult != null) { PositionReadResult.Invoke(this, IHO); }
+            if(OnPositionStatusHandler!=null)
+            {
+                OnPositionStatusHandler.Invoke(this, eventArgs);
+
+            }
         }
+
+
+        public event EventHandler OnPositionStatusHandler = null;
+        [Obsolete]
         /// <summary>ReplyPosition 事件程序</summary>
         public event EventHandler OnReplyPositionHandler= null;
         /// <summary>重設ReplyPosition事件程序為 null </summary>
+        [Obsolete]
         public void ResetOnReplyPositionHandler() { OnReplyPositionHandler = null; }
      
 
@@ -525,10 +655,28 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var args = new OnReplyBoxDetectionEventArgs(hasBox);
                 OnReplyBoxDetection.Invoke(this, args);
             }
+            if (BoxDetectionResult != null)
+            {
+                BoxDetectionResult.Invoke(this, hasBox);
+            }
+
+            if(OnDetectedHasBoxHandler != null && hasBox)
+            {
+                OnDetectedHasBoxHandler.Invoke(this, EventArgs.Empty);
+            }
+            if (OnDetectedEmptyBoxHandler != null && !hasBox)
+            {
+                OnDetectedEmptyBoxHandler.Invoke(this, EventArgs.Empty);
+            }
         }
+
+        public event EventHandler OnDetectedHasBoxHandler;
+        public event EventHandler OnDetectedEmptyBoxHandler;
+        [Obsolete]
         /// <summary>ReplyBoxDetection 事件程序</summary>
         public event EventHandler OnReplyBoxDetection = null;
         /// <summary>重設 ReplyBoxDetection 事件程序為 null</summary>
+        [Obsolete]
         public void ResetOnReplyBoxDetection() { OnReplyBoxDetection = null; }
        
 
@@ -548,10 +696,30 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var args = new OnTrayArriveEventArgs(trayArriveType);
                 OnTrayArriveHandler.Invoke(this,args);
             }
+           
+            if (this.TrayArriveResult != null) { this.TrayArriveResult.Invoke(this, (int)trayArriveType); }
+            if(OnTrayArriveHomeHandler != null && trayArriveType== TrayArriveType.ArriveHome)
+            {
+                OnTrayArriveHomeHandler.Invoke(this,EventArgs.Empty);
+            }
+            if(OnTrayArriveInHandler !=null && trayArriveType == TrayArriveType.ArriveIn)
+            {
+                OnTrayArriveInHandler.Invoke(this, EventArgs.Empty);
+            }
+            if (OnTrayArriveOutHandler != null && trayArriveType == TrayArriveType.ArriveOut)
+            {
+                OnTrayArriveOutHandler.Invoke(this, EventArgs.Empty);
+            }
+         //   OnTrayArriveHomeHandler.Invoke(this, EventArgs.Empty);
         }
+        public event EventHandler OnTrayArriveHomeHandler;
+        public event EventHandler OnTrayArriveInHandler;
+        public event EventHandler OnTrayArriveOutHandler;
+
         /// <summary>TrayArrive 事件程序</summary>
         public event EventHandler OnTrayArriveHandler = null;
         /// <summary>將TrayArrive 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTrayArriveHandler() { OnTrayArriveHandler = null; }
        
      
@@ -573,6 +741,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>ButtonEvent 事件程序</summary>
         public event EventHandler OnButtonEventHandler = null;
         /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnButtonEventHandler() { OnButtonEventHandler = null; }
 
         public void LCDCMsg(ReplyMessage reply)
@@ -583,9 +752,21 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnLCDCMsgHandler.Invoke(this, eventArgs);
             }
+            if(OnLCDCMsgOKHandler!=null && replyResultCode== ReplyResultCode.Set_Successfully)
+            {
+                OnLCDCMsgOKHandler.Invoke(this, EventArgs.Empty);
+            }
+            if (OnLCDCMsgFailedHandler != null && replyResultCode == ReplyResultCode.Failed)
+            {
+                OnLCDCMsgFailedHandler.Invoke(this, EventArgs.Empty);
+            }
         }
+        public event EventHandler OnLCDCMsgOKHandler = null;
+        public event EventHandler OnLCDCMsgFailedHandler = null;
+        [Obsolete]
         public event EventHandler OnLCDCMsgHandler = null;
         /// <summary>將 ButtonEvent 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnLCDCMsgHandler() { OnLCDCMsgHandler = null; }
 
         /// <summary>Event TimeOutEvent(900)</summary>
@@ -601,10 +782,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnTimeOutEventHandler.Invoke(this, EventArgs.Empty);
             }
+            
         }
         /// <summary>TimeOutEvent事件程序</summary>
         public event EventHandler OnTimeOutEventHandler = null;
         /// <summary>將TimeOutEventk事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTimeOutEventHandler() { OnTimeOutEventHandler = null; }
 
         /// <summary>Event TrayMotioning(901)</summary>
@@ -621,9 +804,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 OnTrayMotioningHandler.Invoke(this,EventArgs.Empty);
             }
         }
+
+
         /// <summary>TrayMotioning 事件程序</summary>
         public event EventHandler OnTrayMotioningHandler = null;
         /// <summary>將TrayMotioning事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTrayMotioning() {  OnTrayMotioningHandler = null; }
 
         /// <summary>event INIFailed (902)</summary>
@@ -639,10 +825,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                OnINIFailedHandler.Invoke(this, EventArgs.Empty);
             }
+            if(INIResult != null)
+            {
+                INIResult.Invoke(this, false);
+            }
         }
         /// <summary>INIFailed 事件程序</summary>
         public event EventHandler OnINIFailedHandler = null;
         /// <summary>將INIFailed 事件程序重設為null</summary>
+        [Obsolete]
         public void ResetOnINIFailedHandler() { OnINIFailedHandler = null; }
 
 
@@ -659,10 +850,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             {
                 OnTrayMotionErrorHandler.Invoke(this, EventArgs.Empty);
             }
+           
         }
+    
+
+        [Obsolete]
         /// <summary>TrayMotionError 事件程序</summary>
         public event EventHandler OnTrayMotionErrorHandler = null;
         /// <summary>將TrayMotionError 事件程序重設為0</summary>
+        [Obsolete]
         public void ResetOnTrayMotionErrorHandler()
         {    OnTrayMotionErrorHandler = null;}
 
@@ -684,6 +880,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>TrayMotionSensorOFF 事件程序</summary>
         public event EventHandler OnTrayMotionSensorOFFHandler = null;
         /// <summary>將TrayMotionSensorOFF 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnTrayMotionSensorOFFHandler() { OnTrayMotionSensorOFFHandler = null; }
 
 
@@ -703,11 +900,26 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 var args = new OnErrorEventArgs(replyErrorCode);
                 OnErrorHandler.Invoke(this, args);
             }
+            if(OnERRORRecoveryHandler!=null && replyErrorCode == ReplyErrorCode.Recovery)
+            {
+                OnERRORRecoveryHandler.Invoke(this, EventArgs.Empty);
+            }
+            if(OnERRORErrorHandler!=null && replyErrorCode == ReplyErrorCode.Error)
+            {
+                OnERRORErrorHandler.Invoke(this,EventArgs.Empty);
+            }
         }
+
         public void Error(ReplyMessage reply) { ERROR(reply); }
+
+        public event EventHandler OnERRORRecoveryHandler=null;
+        public event EventHandler OnERRORErrorHandler = null;
+        
+        [Obsolete]
         /// <summary>Error 事件程序</summary>
         public event EventHandler OnErrorHandler = null;
         /// <summary>將Error 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnErrorHandler() { OnErrorHandler = null; }
        
      
@@ -729,9 +941,64 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <summary>SysStartUp 事件程序</summary>
         public event EventHandler OnSysStartUpHandler = null;
         /// <summary>將SysStartUp 事件程序重設為 null</summary>
+        [Obsolete]
         public void ResetOnSysStartUp(){OnSysStartUpHandler = null;}
-        
+
+       
+
 
         #endregion
+
+        public DelegateDrawerBooleanResult INIResult { get; set; } = null;
+        public DelegateDrawerBooleanResult SetMotionSpeedResult { get; set; } = null;
+        public DelegateDrawerBooleanResult SetTimeOutResult  { get; set; } = null;
+       // public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
+      //  public DelegateDrawerBooleanResult TrayMotionOutResult =null;
+      //  public DelegateDrawerBooleanResult TrayMotionInResult=null;
+       
+       
+        public DelegateDrawerBooleanResult BrightLEDResult  { get; set; } = null;
+        public DelegateDrawerStringResult PositionReadResult { get; set; } = null;
+        public DelegateDrawerBooleanResult BoxDetectionResult { get; set; } = null;
+
+        //public DelegateDrawerBooleanResult TrayArriveHomeResult = null;
+        //public DelegateDrawerBooleanResult TrayArriveInResult = null;
+        //public DelegateDrawerBooleanResult TrayArriveOutResult = null;
+        public DelegateDrawerIntResult TrayArriveResult { get; set; } = null;
+
+        protected bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+
+            this.DisposeSelf();
+
+            disposed = true;
+        }
+
+
+        protected virtual void DisposeSelf()
+        {
+           
+        }
     }
 }

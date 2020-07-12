@@ -8,10 +8,17 @@ using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System.Diagnostics;
+using MvAssistant.Mac.v1_0.Hal.CompDrawer;
+using MvAssistant.DeviceDrive.KjMachineDrawer;
+using System.Net;
+using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
+using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
+using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
-  
+
     [TestClass]
     public class UtScenario
     {
@@ -891,10 +898,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var Cabinet01HomeToOpenStage_GET = fileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
             var Cabinet01HomeToOpenStage_PUT = fileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
             var Cabinet01HomeToDrawer_GET = fileObj.FromCabinet01HomeToDrawer_GET_PathFile(BoxrobotTransferLocation.Drawer_01_01);
-            var Cabinet01HomeToDrawer_PUT= fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
+            var Cabinet01HomeToDrawer_PUT = fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
 
         }
-        
+
         [TestMethod]
         public void MaskTransferPathFile()
         {
@@ -907,7 +914,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var LP1ToLPHomePath = fileObj.FromLP1ToLPHomePathFile();//V  60
             var LP2ToLPHomePath = fileObj.FromLP2ToLPHomePathFile();//V  70
             var LPHomeToOSPath = fileObj.FromLPHomeToOSPathFile();//V   80
-            var OSToLPHomePath= fileObj.FromOSToLPHomePathFile();//V  90
+            var OSToLPHomePath = fileObj.FromOSToLPHomePathFile();//V  90
             var ICHomeToDeformInspPath = fileObj.FromICHomeToDeformInspPathFile();//100
             var DeformInspToICHomePath = fileObj.FromDeformInspTICHomeoPathFile();//110
             var ICHomeFrontSideToICPath = fileObj.FromICHomeFrontSideToICPathFile();//V //120
@@ -926,9 +933,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var BackSideCleanFinishToCCPath = fileObj.FromBackSideCleanFinishToCCPathFile(); //250
             var CCBackSideToCapturePath = fileObj.FromCCBackSideToCapturePathFile();      //260
             var BackSideCaptureFinishToCCPath = fileObj.FromBackSideCaptureFinishToCCPathFile();  //270
-                                                                                  
+
         }
-    
+
         #endregion
 
         #endregion
@@ -1367,5 +1374,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             catch (Exception ex) { throw ex; }
         }
         #endregion
+        
     }
 }
