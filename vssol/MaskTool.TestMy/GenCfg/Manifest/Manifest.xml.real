@@ -133,7 +133,7 @@
     <Driver DriverId="1b96119d-4945-4e41-a722-a216e5a6d3ab" Vendor="Hirata" Product="Load Port PLC" HalImpId="17793D56-17D7-4DFD-850B-EEB443CE9231" HalImpRefName="MacHalPlcLoadPort" />
     <Driver DriverId="88321fa1-2883-453c-8205-a9e48670b235" Vendor="Hirata" Product="Mask Transfer PLC" HalImpId="DFD72153-DCC6-4949-85DB-B5D7CED91E2E" HalImpRefName="MacHalPlcMaskTransfer" />
     <Driver DriverId="58a26d37-1181-4fc9-8479-0f2451905430" Vendor="Hirata" Product="Open Stage PLC" HalImpId="90A5ACB4-3B35-429C-B9B4-DF1E63AF267B" HalImpRefName="MacHalPlcOpenStage" />
-    <Driver DriverId="80e11398-67b2-4991-a071-89c893bcad4c" Vendor="KJ Machine" Product="Drawer" HalImpId="D0F66AC7-5CD9-42FB-8B05-AAA31C647979" HalImpRefName="MacHalDrawerKjMachine" />
+  <!--  <Driver DriverId="80e11398-67b2-4991-a071-89c893bcad4c" Vendor="KJ Machine" Product="Drawer" HalImpId="D0F66AC7-5CD9-42FB-8B05-AAA31C647979" HalImpRefName="MacHalDrawerKjMachine" />-->
    
     <Driver DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" Vendor="" Product="Load Port" HalImpId="F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6" HalImpRefName="MacHalGudengLoadPort" />
     
