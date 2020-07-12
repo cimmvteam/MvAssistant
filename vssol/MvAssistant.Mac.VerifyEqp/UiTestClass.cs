@@ -594,7 +594,7 @@ namespace MvAssistantMacVerifyEqp
             if (eventArgs.ReturnCode == EventBarcodeIDCode.Success)
             {
                 //NoteEventResult($"IP={loadport.ServerEndPoint},  Event={nameof(OnBarcode_ID).Replace("On", "")}", "Barcode ID:" + eventArgs.BarcodeID);
-                SetResult(loadport, "Barcode ID [] =" + eventArgs.ReturnCode.ToString());
+                SetResult(loadport, "Barcode ID [] =" + eventArgs.BarcodeID.ToString());
             }
             else
             {
