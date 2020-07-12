@@ -60,10 +60,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                    drawer_01_01.CommandBrightLEDAllOn();
                    drawer_01_02.CommandBrightLEDAllOn();
                    */
-
-                    drawer_01_01.CommandBrightLEDAllOff();
-                    drawer_01_02.CommandBrightLEDAllOff();
-
+                    /**CommandBrightLEDAllOff()
+                     drawer_01_01.CommandBrightLEDAllOff();
+                     drawer_01_02.CommandBrightLEDAllOff();
+                    */
+                    /** CommandBrightLEDGreenOn()
+                    drawer_01_01.CommandBrightLEDGreenOn();
+                    drawer_01_02.CommandBrightLEDGreenOn();
+                    */
                     Repeat();
                 }
             }
