@@ -231,6 +231,13 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     Remark = null,
                     AssignType = typeof(Hal.CompDrawer.MacHalDrawerKjMachine),
                     DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                },
+                new MacManifestDriverCfg(){
+                    Vendor = "Gudeng",
+                    Product = "Load Port",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortCellGudeng),
+                    DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
                 }
             }.ToList();
         }

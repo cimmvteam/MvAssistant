@@ -15,9 +15,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         string Initial();
 
-        void SetSpeed(double? ClampSpeed, int? CCDSpinSpeed);
+        void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed);
 
-        Tuple<double, int> ReadSpeedSetting();
+        Tuple<double, long> ReadSpeedSetting();
 
         Tuple<double, double, double, double> ReadClampGripPos();
 
@@ -25,9 +25,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         long ReadCCDSpinDegree();
 
-        void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz);
+        void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz);
 
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting();
+        void SetSixAxisSensorLowerLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz);
+
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting();
+
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting();
 
         Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
 

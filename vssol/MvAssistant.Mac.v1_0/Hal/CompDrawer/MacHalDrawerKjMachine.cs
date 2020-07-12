@@ -15,8 +15,9 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
-    [Guid("D0F66AC7-5CD9-42FB-8B05-AAA31C647979")]
-      public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
+    // [Guid("D0F66AC7-5CD9-42FB-8B05-AAA31C647979")]
+    [Guid("AE0A6C92-6B34-495A-B591-93AE4DF65976")]
+    public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
     {
 
         MvKjMachineDrawerLddPool LddPool;

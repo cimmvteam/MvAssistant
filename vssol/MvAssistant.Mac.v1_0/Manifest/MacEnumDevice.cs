@@ -319,7 +319,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_LP_23: LoadPort Stage
         /// </summary>
-        loadport_stage_1,
+        loadport_cell_001,
 
         /// <summary>
         /// DE_LP_01: Entry Point紅外線(Side)
@@ -356,10 +356,6 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// </summary>
         loadport_clamper_1,
 
-        /// <summary>
-        /// DE_LP_24: E84 Sensor
-        /// </summary>
-        loadport_e84_1,
 
         /// <summary>
         /// DE_LP_26: POD RFID Reader

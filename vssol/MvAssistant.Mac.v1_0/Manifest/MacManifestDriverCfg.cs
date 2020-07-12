@@ -55,7 +55,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
             {
                 var guid = value.ToUpper();
                 this.m_TypeGuid = Guid.Parse(guid);
-                var type = TypeMapper.Get(guid);
+                var type = MvTypeMapper.Get(guid);
 
                 this.m_AssignType = type;
             }
