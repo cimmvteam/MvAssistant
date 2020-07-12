@@ -48,14 +48,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandSetMotionSpeed(100);
                     drawer_01_02.CommandSetMotionSpeed(100);
                    */
-                    /**CommandPositionRead
+                    /** CommandPositionRead
                     drawer_01_02.CommandPositionRead();
                     drawer_01_01.CommandPositionRead();
                     */
+                    /** CommandBoxDetection
                     drawer_01_01.CommandBoxDetection();
                     drawer_01_02.CommandBoxDetection();
+                     */
 
-
+                    drawer_01_01.CommandBrightLEDAllOn();
+                    drawer_01_02.CommandBrightLEDAllOn();
 
 
                     Repeat();
@@ -74,7 +77,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnPositionStatusHandler += OnPosionStatus;
             drawer.OnDetectedEmptyBoxHandler += OnDetectedEmptyBox;
             drawer.OnDetectedHasBoxHandler += OnDetectedHasBox;
+            drawer.OnBrightLEDFailedHandler += OnBrightLEDFailed;
+            drawer.OnBrightLEDOKHandler += OnBrightLEDOK;
         } 
+        void OnBrightLEDOK(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
+        void OnBrightLEDFailed(object sender, EventArgs e)
+        {
+            var drawer = (MacHalDrawerKjMachine)sender;
+        }
         void OnDetectedEmptyBox(object sender,EventArgs e)
         {
             var drawer = (MacHalDrawerKjMachine)sender;
