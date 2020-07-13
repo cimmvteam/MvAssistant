@@ -53,7 +53,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
         }
         #region Loadport Event Handler
-        void BindLoadPortEvent<T>(T loadport) where T : IMacHalLoadPortComp
+        void BindLoadPortEvent(IMacHalLoadPortComp loadport)
         {
             loadport.OnPlacementHandler += this.OnLoadPortPlacementHandler;
             loadport.OnPresentHandler += OnLoadPortPresentHandler;

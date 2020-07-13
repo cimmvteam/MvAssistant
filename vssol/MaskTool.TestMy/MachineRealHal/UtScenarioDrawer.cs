@@ -90,7 +90,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
 
         }
-        void BindEvents(MacHalDrawerKjMachine drawer)
+        void BindEvents(IMacHalDrawer drawer)
         {
             drawer.OnSetMotionSpeedFailedHandler += OnSetMotionSpeedFailed;
             drawer.OnSetMotionSpeedOKHandler += OnSetMotionSpeedOK;
@@ -106,51 +106,51 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         } 
         void SetTimeOutFailed(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
         void SetTimeOutOK(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
 
         void OnTrayArriveHome(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
 
         void OnTrayMotioning(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
 
         void OnBrightLEDOK(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
         void OnBrightLEDFailed(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
         void OnDetectedEmptyBox(object sender,EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
         void OnDetectedHasBox(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
         void OnSetMotionSpeedFailed(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
 
         }
         void OnSetMotionSpeedOK(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
         }
         void OnPosionStatus(object sender, EventArgs e)
         {
-            var drawer = (MacHalDrawerKjMachine)sender;
+            var drawer = (IMacHalDrawer)sender;
             var eventArgs=(OnReplyPositionEventArgs)e;
         }
         #endregion
