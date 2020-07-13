@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
     public interface IMacHalLoadPortComp: IMacHalComponent
     {
          bool IsConnected { get; }
-         string Index { get; }
+         string DeviceIndex { get; }
         
         string CommandDockRequest();
         string CommandUndockRequest();

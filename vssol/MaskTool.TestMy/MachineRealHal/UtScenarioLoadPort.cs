@@ -6,6 +6,7 @@ using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +25,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         #region Load port 
 
+        #region CommandTest
         [TestMethod]
-        public void TestLoadPort()
+        public void LoadPortCommandTest()
         {
             try
             {
@@ -34,15 +36,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     halContext.MvCfLoad();
 
                     var loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
-                    //var loadport1 = cabinet.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
-                    var loadport2 = loportAssembly.Hals[MacEnumDevice.loadport_2.ToString()] as MacHalGudengLoadPort;
-                    //loadport1.HalConnect();
-                    //loadport2.HalConnect();
+                   
+                    var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_2.ToString()] as MacHalGudengLoadPort;
+                    testLoadPort.HalConnect();
                     //   BindLoadPortEvent(loadport1);
-                    BindLoadPortEvent(loadport2);
-                    // loadport1.CommandAlarmReset();
-                    loadport2.HalConnect();
-                    loadport2.CommandAlarmReset();
+                    BindLoadPortEvent(testLoadPort);
+                    testLoadPort.CommandAlarmReset();
+                    testLoadPort.CommandInitialRequest();
                     Repeat();
 
                 }
@@ -116,134 +116,165 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         void OnLoadPortBarcode_IDHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
             var args = (OnBarcode_IDEventArgs)e;
         }
         void OnLoadPortClamperLockCompleteHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
             var args = (OnClamperLockCompleteEventArgs)e;
         }
         void OnLoadPortVacuumCompleteHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
             var args = (OnVacuumCompleteEventArgs)e;
         }
         void OnLoadPortDockPODStartHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortDockPODComplete_HasReticleHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortDockPODComplete_EmptyHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortUndockCompleteHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortClamperUnlockCompleteHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortAlarmResetSuccessHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
+            Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortInitialCompleteHandler)}");
         }
         void OnLoadPortAlarmResetFailHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
+            Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortInitialCompleteHandler)}");
         }
         void OnLoadPortExecuteInitialFirstHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortExecuteAlarmResetFirstHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortStagePositionHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
             var args = (OnStagePositionEventArgs)e;
         }
         void OnLoadportStatusHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
             var args = (OnLoadportStatusEventArgs)e;
         }
         void OnLoadPortInitialCompleteHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
+            Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortInitialCompleteHandler)}");
         }
         void OnLoadPortInitialUnCompleteHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortMustInAutoModeHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortMustInManualModeHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortClamperNotLockHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortPODNotPutProperlyHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortClamperActionTimeOutHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortClamperUnlockPositionFailedHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortVacuumAbnormalityHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortStageMotionTimeoutHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortStageOverUpLimitationHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortStageOverDownLimitationHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortReticlePositionAbnormalityHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortClamperLockPositionFailed(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortPODPresentAbnormalityHandler(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortClamperMotorAbnormality(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         void OnLoadPortStageMotorAbnormality(object sender, EventArgs e)
         {
-            var loadport = (MacHalGudengLoadPort)sender;
+            var loadport = (IMacHalLoadPortComp)sender;
         }
         #endregion
         #endregion
+        #endregion
+
+        [TestMethod]
+        public void LoadPortDock()
+        {
+            MacHalContext halContext = null;
+            MacHalLoadPort loportAssembly = null;
+            MacHalGudengLoadPort TestLoadport = null;
+            try
+            {
+                halContext.MvCfLoad();
+                halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                TestLoadport= loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                BindLoadPortEvent(TestLoadport);
+                TestLoadport.CommandDockRequest();
+                Repeat();
+            }
+            catch(Exception ex)
+            {
+
+            }
+            finally
+            {
+
+            }
+
+        }
     }
 }

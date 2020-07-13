@@ -272,6 +272,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     halContext.MvCfLoad();
                     cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                     testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                    testDrawer.HalConnect();
                     testDrawer.OnTrayMotionFailedHandler += (sender, e) =>
                       {
                           IMacHalDrawer drawer = (IMacHalDrawer)sender;
@@ -370,7 +371,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext.MvCfLoad();
                 cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                 testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
-
+                testDrawer.HalConnect();
                 testDrawer.OnTrayMotionFailedHandler += (sender, e) =>
                 {
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
@@ -434,6 +435,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     Debug.Write($"Index={drawer.DeviceIndex}, Drawer沒有盒子, 已經退回 Out , 請重新裝入盒子");
                 };
                 testDrawer.CommandTrayMotionHome();
+                Repeat();
             }
             catch(Exception ex)
             {
