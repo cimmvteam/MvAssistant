@@ -167,6 +167,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             _ldd.OnPODPresentAbnormalityHandler += this.OnPODPresentAbnormality;
             _ldd.OnClamperMotorAbnormalityHandler += this.OnClamperMotorAbnormality;
             _ldd.OnStageMotorAbnormalityHandler += this.OnStageMotorAbnormality;
+            _ldd.OnRFIDHandler += this.OnRFID;
         }
 
         public string CommandAlarmReset()
