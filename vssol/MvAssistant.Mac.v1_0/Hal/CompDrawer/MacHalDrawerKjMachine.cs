@@ -200,7 +200,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public event EventHandler OnDetectedHasBoxHandler;
         public event EventHandler OnDetectedEmptyBoxHandler;
-        public event EventHandler OnTrayMothingSensorOFFHandler;
+        public event EventHandler OnTrayMotionSensorOFFHandler;
         public event EventHandler OnERRORREcoveryHandler;
         public event EventHandler OnERRORErrorHandler;
 
@@ -214,7 +214,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public event EventHandler OnLCDCMsgFailedHandler;
 
         public  event EventHandler OnINIFailedHandler;
-        public event EventHandler OnINIOkHandler;
+        public event EventHandler OnINIOKHandler;
        
         void BindLddEvent()
         {
@@ -372,9 +372,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             if (this.IsCommandINI)
             {
                 this.IsCommandINI = false;
-                if(this.OnINIOkHandler!=null)
+                if(this.OnINIOKHandler!=null)
                 {
-                    OnINIOkHandler.Invoke(this,e);
+                    OnINIOKHandler.Invoke(this,e);
                 }
             }
         }
@@ -461,9 +461,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayMothingSensorOFF(object sender, EventArgs e)
         {
-            if (OnTrayMothingSensorOFFHandler!= null)
+            if (OnTrayMotionSensorOFFHandler!= null)
             {
-                OnTrayMothingSensorOFFHandler.Invoke(this, e);
+                OnTrayMotionSensorOFFHandler.Invoke(this, e);
             }
         }
 
@@ -489,24 +489,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
         }
 
-       /**
-        //event EventHandler OnSysStartUpHandler;
-        public void OnSysStartUp(Object sender, EventArgs e)
-        {
-            if(OnSysStartUpHandler != null)
-            {
-                OnSysStartUpHandler.Invoke(this, e);
-            }
-        }
-        //event EventHandler OnButtonHandler;
-        public void OnButtonEvent(object sender,EventArgs e)
-        {
-            if (OnButtonEventHandler != null)
-            {
-                OnButtonEventHandler.Invoke(this, e);
-            }
-        }
-    */
+     
         #endregion
 
         #region command

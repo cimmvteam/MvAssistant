@@ -18,18 +18,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass ]
     public class UtScenarioDrawer
     {
-        #region Cabinet Action
-
+        
         void Repeat()
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(10);
             }
         }
-        #region Drawer
+        
+        /// <summary>指令測試</summary>
         [TestMethod]
-        public void DrawerTest()
+        public void DrawerCommandTest()
         {
             try
             {
@@ -119,7 +119,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnSetTimeOutFailedHandler += OnSetTimeOutFailed;
             drawer.OnSetTimeOutOKHandler += OnSetTimeOutOK;
             drawer.OnINIFailedHandler += OnINIFailed;
-            drawer.OnINIOkHandler += OnINIOK;
+            drawer.OnINIOKHandler += OnINIOK;
            
             drawer.OnTrayArriveInHandler += OnTrayArriveIn;
             drawer.OnTrayArriveOutHandler += OnTrayArriveOut;
@@ -127,7 +127,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnTrayMotionFailedHandler += OnTrayMotionFailed;
             drawer.OnTrayMotionOKHandler += OnTrayMotionOK;
 
-            drawer.OnTrayMothingSensorOFFHandler += TrayMotionSensorOFF;
+            drawer.OnTrayMotionSensorOFFHandler += TrayMotionSensorOFF;
             drawer.OnERRORErrorHandler += OnERRORError;
             drawer.OnERRORREcoveryHandler += OnERRORRecovery;
 
@@ -137,6 +137,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnLCDCMsgOKHandler += OnLCDCMsgOK;
 
         }
+        #region invoke Event
         void OnSysStartUp(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
@@ -249,6 +250,204 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var eventArgs=(OnReplyPositionEventArgs)e;
         }
         #endregion
-        #endregion
+
+        /// <summary>
+        /// Put outside box and load
+        /// Move box to inside and unload
+        /// </summary>
+        [TestMethod]
+        public void OutSideLoadToInSideUnload()
+        { // [假設 Tray 移到 In, 並已放入 盒子]
+          // 1. Tray 移到 Home,
+          // 2. 檢查有沒有 Box,
+          // 3. (1) 沒有盒子=> 退回In 並 警示
+          //    (2) 有盒子=> 移到 Out   
+
+            MacHalDrawerKjMachine testDrawer = null;
+            MacHalCabinet cabinet = null;
+            MacHalContext halContext = null;
+            try
+            {
+                    halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                    halContext.MvCfLoad();
+                    cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+                    testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                    testDrawer.OnTrayMotionFailedHandler += (sender, e) =>
+                      {
+                          IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                          Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionFailedHandler)} 事件");
+                      };
+                    testDrawer.OnTrayMotionOKHandler += (sender, e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionOKHandler)} 事件");
+                    };
+                    testDrawer.OnTrayMotionSensorOFFHandler += (sender, e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionSensorOFFHandler)} 事件");
+                    };
+                    testDrawer.OnERRORErrorHandler += (sender, e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORErrorHandler)} 事件");
+                    };
+                    testDrawer.OnERRORREcoveryHandler += (sender, e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORREcoveryHandler)} 事件");
+                    };
+                    testDrawer.OnTrayMotioningHandler += (sender, e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotioningHandler)} 事件");
+                    };
+                    /**到逹 Home*/
+                    testDrawer.OnTrayArriveHomeHandler += ( sender,  e) => 
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 檢查有沒有放盒子");
+                        drawer.CommandBoxDetection();
+                    };
+                    /**檢查沒有盒子 */
+                    testDrawer.OnDetectedEmptyBoxHandler += ( sender,  e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 沒有盒子");
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 將 Drawer 送回 In");
+                        drawer.CommandTrayMotionIn();
+                    };
+                    /**檢查有盒子 */
+                    testDrawer.OnDetectedHasBoxHandler += ( sender,  e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.Write($"Indexx={drawer.DeviceIndex}, 有放盒子, 將 Drawer 送往 Out");
+                        drawer.CommandTrayMotionOut();
+                    };
+                    testDrawer.OnTrayArriveOutHandler += (sender, e) =>
+                    {
+                        IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                        Debug.WriteLine($"Index={drawer.DeviceIndex}, 已經到達 Out ");
+                    };
+                    testDrawer.OnTrayArriveInHandler += ( sender,  e) =>
+                     {
+                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                         Debug.Write($"Index={drawer.DeviceIndex}, Drawer沒有盒子, 已經退回 In , 請重新裝入盒子");
+                     };
+                   
+
+                    testDrawer.CommandTrayMotionHome();
+
+
+                    Repeat();
+              
+            }
+            catch(Exception ex)
+            {
+                var deviceIndex = testDrawer == null ? "" : testDrawer.DeviceIndex;
+                Debug.WriteLine($"Index={deviceIndex},  Exception={ex.Message}");
+            }
+            finally
+            {
+                if (halContext != null) { halContext.Dispose(); }
+            }
+        }
+
+        [TestMethod]
+        public void InSideLoadToOutSideUnload()
+        {
+            // [假設 Tray 移到 Out, 並已放入 盒子]
+            // 1. Tray 移到 Home,
+            // 2. 檢查有沒有 Box,
+            // 3. (1) 沒有盒子=> 退回Out 並 警示
+            //    (2) 有盒子=> 移到 In  
+            MacHalDrawerKjMachine testDrawer = null;
+            MacHalCabinet cabinet = null;
+            MacHalContext halContext = null;
+            try
+            {
+                halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                halContext.MvCfLoad();
+                cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+                testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+
+                testDrawer.OnTrayMotionFailedHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionFailedHandler)} 事件");
+                };
+                testDrawer.OnTrayMotionOKHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionOKHandler)} 事件");
+                };
+                testDrawer.OnTrayMotionSensorOFFHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionSensorOFFHandler)} 事件");
+                };
+                testDrawer.OnERRORErrorHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORErrorHandler)} 事件");
+                };
+                testDrawer.OnERRORREcoveryHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORREcoveryHandler)} 事件");
+                };
+                testDrawer.OnTrayMotioningHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotioningHandler)} 事件");
+                };
+                /**到逹 Home*/
+                testDrawer.OnTrayArriveHomeHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 檢查有沒有放盒子");
+                    drawer.CommandBoxDetection();
+                };
+                /**檢查沒有盒子 */
+                testDrawer.OnDetectedEmptyBoxHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 沒有盒子");
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 將 Drawer 送回 Out");
+                    drawer.CommandTrayMotionOut();
+                };
+                /**檢查有盒子 */
+                testDrawer.OnDetectedHasBoxHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.Write($"Index={drawer.DeviceIndex}, 有放盒子, 將 Drawer 送往 In");
+                    drawer.CommandTrayMotionIn();
+                };
+                testDrawer.OnTrayArriveInHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.WriteLine($"Index={drawer.DeviceIndex}, 已經到達 In ");
+                };
+                testDrawer.OnTrayArriveOutHandler += (sender, e) =>
+                {
+                    IMacHalDrawer drawer = (IMacHalDrawer)sender;
+                    Debug.Write($"Index={drawer.DeviceIndex}, Drawer沒有盒子, 已經退回 Out , 請重新裝入盒子");
+                };
+                testDrawer.CommandTrayMotionHome();
+            }
+            catch(Exception ex)
+            {
+                var deviceIndex = testDrawer == null ? "" : testDrawer.DeviceIndex;
+                Debug.WriteLine($"Index={deviceIndex},  Exception={ex.Message}");
+            }
+            finally
+            {
+                if(halContext != null)
+                {
+                    halContext.Dispose();
+                }
+            }
+
+        }
     }
 }
