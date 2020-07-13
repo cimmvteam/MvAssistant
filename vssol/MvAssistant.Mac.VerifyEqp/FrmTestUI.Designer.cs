@@ -40,6 +40,8 @@
             this.btnLoadportARFID = new System.Windows.Forms.Button();
             this.btnLoadportABarcode = new System.Windows.Forms.Button();
             this.grpLoadportB = new System.Windows.Forms.GroupBox();
+            this.btnLoadPortBUnDock = new System.Windows.Forms.Button();
+            this.btnLoadPortBDock = new System.Windows.Forms.Button();
             this.txtBxLoportBResult = new System.Windows.Forms.TextBox();
             this.btnLoadPortBAlarmReset = new System.Windows.Forms.Button();
             this.btnInitialLoadportB = new System.Windows.Forms.Button();
@@ -51,12 +53,18 @@
             this.txtDrawerBoxNum = new System.Windows.Forms.TextBox();
             this.BtnReleaseAllComp = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnTurnOffAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOnAllLeds = new System.Windows.Forms.Button();
+            this.btnMoveAllDrawersOut = new System.Windows.Forms.Button();
             this.btnMoveAllDrawersIn = new System.Windows.Forms.Button();
             this.btnInitialAllDrawer = new System.Windows.Forms.Button();
             this.btnDetectAllDrawers = new System.Windows.Forms.Button();
             this.btnMoveAllDrawersHome = new System.Windows.Forms.Button();
             this.GrpDrawerD = new System.Windows.Forms.GroupBox();
             this.grpDrawerDComp = new System.Windows.Forms.GroupBox();
+            this.btnTurnOnDrawerDAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerDAllLeds = new System.Windows.Forms.Button();
+            this.btnMoveDrawerDOut = new System.Windows.Forms.Button();
             this.btnMoveDrawerDIn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtBxDrawerDResult = new System.Windows.Forms.TextBox();
@@ -67,6 +75,9 @@
             this.txtBxDetectDrawerD = new System.Windows.Forms.Button();
             this.GrpDrawerC = new System.Windows.Forms.GroupBox();
             this.grpDrawerCComp = new System.Windows.Forms.GroupBox();
+            this.btnTurnOnDrawerCAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerCAllLeds = new System.Windows.Forms.Button();
+            this.btnMoveDrawerCOut = new System.Windows.Forms.Button();
             this.btnMoveDrawerCIn = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBxDrawerCResult = new System.Windows.Forms.TextBox();
@@ -77,6 +88,9 @@
             this.txtBxDetectDrawerC = new System.Windows.Forms.Button();
             this.GrpDrawerB = new System.Windows.Forms.GroupBox();
             this.grpDrawerBComp = new System.Windows.Forms.GroupBox();
+            this.btnTurnOnDrawerBAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerBAllLeds = new System.Windows.Forms.Button();
+            this.btnMoveDrawerBOut = new System.Windows.Forms.Button();
             this.btnMoveDrawerBIn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBxDrawerBResult = new System.Windows.Forms.TextBox();
@@ -87,6 +101,9 @@
             this.txtBxDetectDrawerB = new System.Windows.Forms.Button();
             this.GrpDrawerA = new System.Windows.Forms.GroupBox();
             this.grpDrawerAComp = new System.Windows.Forms.GroupBox();
+            this.btnTurnOnDrawerAAllLeds = new System.Windows.Forms.Button();
+            this.btnTurnOffDrawerAAllLeds = new System.Windows.Forms.Button();
+            this.btnMoveDrawerAOut = new System.Windows.Forms.Button();
             this.btnMoveDrawerAIn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtBxDrawerAResult = new System.Windows.Forms.TextBox();
@@ -96,31 +113,18 @@
             this.chkBoxDrawerAHasbox = new System.Windows.Forms.CheckBox();
             this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtDrawerRow = new System.Windows.Forms.TextBox();
+            this.txtDrawerColumn = new System.Windows.Forms.TextBox();
+            this.lblDrawer = new System.Windows.Forms.Label();
             this.Lock = new System.Windows.Forms.Button();
             this.Unlock = new System.Windows.Forms.Button();
             this.BTGetOS = new System.Windows.Forms.Button();
             this.BTPutOS = new System.Windows.Forms.Button();
             this.lblBoxType = new System.Windows.Forms.Label();
             this.txtBoxType = new System.Windows.Forms.TextBox();
-            this.BTPutDR_0204 = new System.Windows.Forms.Button();
-            this.BTGetDR_0204 = new System.Windows.Forms.Button();
-            this.btnLoadPortBUnDock = new System.Windows.Forms.Button();
-            this.btnLoadPortBDock = new System.Windows.Forms.Button();
-            this.btnMoveDrawerCOut = new System.Windows.Forms.Button();
-            this.btnMoveDrawerDOut = new System.Windows.Forms.Button();
-            this.btnMoveDrawerAOut = new System.Windows.Forms.Button();
-            this.btnMoveDrawerBOut = new System.Windows.Forms.Button();
-            this.btnTurnOffDrawerAAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOnDrawerAAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOnDrawerBAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOffDrawerBAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOnDrawerCAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOffDrawerCAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOnDrawerDAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOffDrawerDAllLeds = new System.Windows.Forms.Button();
-            this.btnMoveAllDrawersOut = new System.Windows.Forms.Button();
-            this.btnTurnOnAllLeds = new System.Windows.Forms.Button();
-            this.btnTurnOffAllLeds = new System.Windows.Forms.Button();
+            this.BTPutDR = new System.Windows.Forms.Button();
+            this.BTGetDR = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -287,6 +291,26 @@
             this.grpLoadportB.TabStop = false;
             this.grpLoadportB.Text = "Load port B(192.168.0.21)";
             // 
+            // btnLoadPortBUnDock
+            // 
+            this.btnLoadPortBUnDock.Location = new System.Drawing.Point(147, 222);
+            this.btnLoadPortBUnDock.Name = "btnLoadPortBUnDock";
+            this.btnLoadPortBUnDock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortBUnDock.TabIndex = 10;
+            this.btnLoadPortBUnDock.Text = "Load Port B UnDock";
+            this.btnLoadPortBUnDock.UseVisualStyleBackColor = true;
+            this.btnLoadPortBUnDock.Click += new System.EventHandler(this.btnLoadPortBUnDock_Click);
+            // 
+            // btnLoadPortBDock
+            // 
+            this.btnLoadPortBDock.Location = new System.Drawing.Point(8, 221);
+            this.btnLoadPortBDock.Name = "btnLoadPortBDock";
+            this.btnLoadPortBDock.Size = new System.Drawing.Size(134, 18);
+            this.btnLoadPortBDock.TabIndex = 9;
+            this.btnLoadPortBDock.Text = "Load Port B Dock";
+            this.btnLoadPortBDock.UseVisualStyleBackColor = true;
+            this.btnLoadPortBDock.Click += new System.EventHandler(this.btnLoadPortBDock_Click);
+            // 
             // txtBxLoportBResult
             // 
             this.txtBxLoportBResult.Location = new System.Drawing.Point(8, 17);
@@ -420,6 +444,36 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             // 
+            // btnTurnOffAllLeds
+            // 
+            this.btnTurnOffAllLeds.Location = new System.Drawing.Point(623, 16);
+            this.btnTurnOffAllLeds.Name = "btnTurnOffAllLeds";
+            this.btnTurnOffAllLeds.Size = new System.Drawing.Size(115, 18);
+            this.btnTurnOffAllLeds.TabIndex = 16;
+            this.btnTurnOffAllLeds.Text = "Turn Off All Leds";
+            this.btnTurnOffAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffAllLeds.Click += new System.EventHandler(this.btnTurnOffAllLeds_Click);
+            // 
+            // btnTurnOnAllLeds
+            // 
+            this.btnTurnOnAllLeds.Location = new System.Drawing.Point(505, 17);
+            this.btnTurnOnAllLeds.Name = "btnTurnOnAllLeds";
+            this.btnTurnOnAllLeds.Size = new System.Drawing.Size(115, 18);
+            this.btnTurnOnAllLeds.TabIndex = 15;
+            this.btnTurnOnAllLeds.Text = "Turn On All Leds";
+            this.btnTurnOnAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnAllLeds.Click += new System.EventHandler(this.btnTurnOnAllLeds_Click);
+            // 
+            // btnMoveAllDrawersOut
+            // 
+            this.btnMoveAllDrawersOut.Location = new System.Drawing.Point(375, 16);
+            this.btnMoveAllDrawersOut.Name = "btnMoveAllDrawersOut";
+            this.btnMoveAllDrawersOut.Size = new System.Drawing.Size(127, 18);
+            this.btnMoveAllDrawersOut.TabIndex = 8;
+            this.btnMoveAllDrawersOut.Text = "Move All Drawers Out";
+            this.btnMoveAllDrawersOut.UseVisualStyleBackColor = true;
+            this.btnMoveAllDrawersOut.Click += new System.EventHandler(this.btnMoveAllDrawersOut_Click);
+            // 
             // btnMoveAllDrawersIn
             // 
             this.btnMoveAllDrawersIn.Location = new System.Drawing.Point(102, 17);
@@ -496,6 +550,36 @@
             this.grpDrawerDComp.Size = new System.Drawing.Size(521, 147);
             this.grpDrawerDComp.TabIndex = 10;
             this.grpDrawerDComp.TabStop = false;
+            // 
+            // btnTurnOnDrawerDAllLeds
+            // 
+            this.btnTurnOnDrawerDAllLeds.Location = new System.Drawing.Point(196, 101);
+            this.btnTurnOnDrawerDAllLeds.Name = "btnTurnOnDrawerDAllLeds";
+            this.btnTurnOnDrawerDAllLeds.Size = new System.Drawing.Size(118, 20);
+            this.btnTurnOnDrawerDAllLeds.TabIndex = 16;
+            this.btnTurnOnDrawerDAllLeds.Text = "Turn On D All Leds";
+            this.btnTurnOnDrawerDAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerDAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerDAllLeds_Click);
+            // 
+            // btnTurnOffDrawerDAllLeds
+            // 
+            this.btnTurnOffDrawerDAllLeds.Location = new System.Drawing.Point(197, 125);
+            this.btnTurnOffDrawerDAllLeds.Name = "btnTurnOffDrawerDAllLeds";
+            this.btnTurnOffDrawerDAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerDAllLeds.TabIndex = 15;
+            this.btnTurnOffDrawerDAllLeds.Text = "Turn Off D All Leds";
+            this.btnTurnOffDrawerDAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerDAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerDAllLeds_Click);
+            // 
+            // btnMoveDrawerDOut
+            // 
+            this.btnMoveDrawerDOut.Location = new System.Drawing.Point(75, 81);
+            this.btnMoveDrawerDOut.Name = "btnMoveDrawerDOut";
+            this.btnMoveDrawerDOut.Size = new System.Drawing.Size(117, 19);
+            this.btnMoveDrawerDOut.TabIndex = 9;
+            this.btnMoveDrawerDOut.Text = "Move D Out";
+            this.btnMoveDrawerDOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerDOut.Click += new System.EventHandler(this.btnMoveDrawerDOut_Click);
             // 
             // btnMoveDrawerDIn
             // 
@@ -615,6 +699,36 @@
             this.grpDrawerCComp.TabIndex = 9;
             this.grpDrawerCComp.TabStop = false;
             // 
+            // btnTurnOnDrawerCAllLeds
+            // 
+            this.btnTurnOnDrawerCAllLeds.Location = new System.Drawing.Point(186, 111);
+            this.btnTurnOnDrawerCAllLeds.Name = "btnTurnOnDrawerCAllLeds";
+            this.btnTurnOnDrawerCAllLeds.Size = new System.Drawing.Size(115, 20);
+            this.btnTurnOnDrawerCAllLeds.TabIndex = 14;
+            this.btnTurnOnDrawerCAllLeds.Text = "Turn On C All Leds";
+            this.btnTurnOnDrawerCAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerCAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerCAllLeds_Click);
+            // 
+            // btnTurnOffDrawerCAllLeds
+            // 
+            this.btnTurnOffDrawerCAllLeds.Location = new System.Drawing.Point(184, 135);
+            this.btnTurnOffDrawerCAllLeds.Name = "btnTurnOffDrawerCAllLeds";
+            this.btnTurnOffDrawerCAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerCAllLeds.TabIndex = 13;
+            this.btnTurnOffDrawerCAllLeds.Text = "Turn Off C All Leds";
+            this.btnTurnOffDrawerCAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerCAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerCAllLeds_Click);
+            // 
+            // btnMoveDrawerCOut
+            // 
+            this.btnMoveDrawerCOut.Location = new System.Drawing.Point(74, 90);
+            this.btnMoveDrawerCOut.Name = "btnMoveDrawerCOut";
+            this.btnMoveDrawerCOut.Size = new System.Drawing.Size(106, 19);
+            this.btnMoveDrawerCOut.TabIndex = 8;
+            this.btnMoveDrawerCOut.Text = "Move C Out";
+            this.btnMoveDrawerCOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerCOut.Click += new System.EventHandler(this.btnMoveDrawerCOut_Click);
+            // 
             // btnMoveDrawerCIn
             // 
             this.btnMoveDrawerCIn.Location = new System.Drawing.Point(74, 135);
@@ -732,6 +846,36 @@
             this.grpDrawerBComp.Size = new System.Drawing.Size(521, 147);
             this.grpDrawerBComp.TabIndex = 8;
             this.grpDrawerBComp.TabStop = false;
+            // 
+            // btnTurnOnDrawerBAllLeds
+            // 
+            this.btnTurnOnDrawerBAllLeds.Location = new System.Drawing.Point(196, 96);
+            this.btnTurnOnDrawerBAllLeds.Name = "btnTurnOnDrawerBAllLeds";
+            this.btnTurnOnDrawerBAllLeds.Size = new System.Drawing.Size(118, 20);
+            this.btnTurnOnDrawerBAllLeds.TabIndex = 14;
+            this.btnTurnOnDrawerBAllLeds.Text = "Turn On B All Leds";
+            this.btnTurnOnDrawerBAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerBAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerBAllLeds_Click);
+            // 
+            // btnTurnOffDrawerBAllLeds
+            // 
+            this.btnTurnOffDrawerBAllLeds.Location = new System.Drawing.Point(197, 123);
+            this.btnTurnOffDrawerBAllLeds.Name = "btnTurnOffDrawerBAllLeds";
+            this.btnTurnOffDrawerBAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerBAllLeds.TabIndex = 13;
+            this.btnTurnOffDrawerBAllLeds.Text = "Turn Off B All Leds";
+            this.btnTurnOffDrawerBAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerBAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerBAllLeds_Click);
+            // 
+            // btnMoveDrawerBOut
+            // 
+            this.btnMoveDrawerBOut.Location = new System.Drawing.Point(74, 74);
+            this.btnMoveDrawerBOut.Name = "btnMoveDrawerBOut";
+            this.btnMoveDrawerBOut.Size = new System.Drawing.Size(117, 19);
+            this.btnMoveDrawerBOut.TabIndex = 11;
+            this.btnMoveDrawerBOut.Text = "Move B Out";
+            this.btnMoveDrawerBOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerBOut.Click += new System.EventHandler(this.btnMoveDrawerBOut_Click);
             // 
             // btnMoveDrawerBIn
             // 
@@ -852,6 +996,36 @@
             this.grpDrawerAComp.TabIndex = 7;
             this.grpDrawerAComp.TabStop = false;
             // 
+            // btnTurnOnDrawerAAllLeds
+            // 
+            this.btnTurnOnDrawerAAllLeds.Location = new System.Drawing.Point(179, 106);
+            this.btnTurnOnDrawerAAllLeds.Name = "btnTurnOnDrawerAAllLeds";
+            this.btnTurnOnDrawerAAllLeds.Size = new System.Drawing.Size(115, 20);
+            this.btnTurnOnDrawerAAllLeds.TabIndex = 12;
+            this.btnTurnOnDrawerAAllLeds.Text = "Turn On A All Leds";
+            this.btnTurnOnDrawerAAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOnDrawerAAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerAAllLeds_Click);
+            // 
+            // btnTurnOffDrawerAAllLeds
+            // 
+            this.btnTurnOffDrawerAAllLeds.Location = new System.Drawing.Point(177, 133);
+            this.btnTurnOffDrawerAAllLeds.Name = "btnTurnOffDrawerAAllLeds";
+            this.btnTurnOffDrawerAAllLeds.Size = new System.Drawing.Size(117, 18);
+            this.btnTurnOffDrawerAAllLeds.TabIndex = 11;
+            this.btnTurnOffDrawerAAllLeds.Text = "Turn Off A All Leds";
+            this.btnTurnOffDrawerAAllLeds.UseVisualStyleBackColor = true;
+            this.btnTurnOffDrawerAAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerAAllLeds_Click);
+            // 
+            // btnMoveDrawerAOut
+            // 
+            this.btnMoveDrawerAOut.Location = new System.Drawing.Point(71, 83);
+            this.btnMoveDrawerAOut.Name = "btnMoveDrawerAOut";
+            this.btnMoveDrawerAOut.Size = new System.Drawing.Size(103, 19);
+            this.btnMoveDrawerAOut.TabIndex = 10;
+            this.btnMoveDrawerAOut.Text = "Move A Out";
+            this.btnMoveDrawerAOut.UseVisualStyleBackColor = true;
+            this.btnMoveDrawerAOut.Click += new System.EventHandler(this.btnMoveDrawerAOut_Click);
+            // 
             // btnMoveDrawerAIn
             // 
             this.btnMoveDrawerAIn.Location = new System.Drawing.Point(72, 132);
@@ -939,14 +1113,18 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.txtDrawerRow);
+            this.tabPage1.Controls.Add(this.txtDrawerColumn);
+            this.tabPage1.Controls.Add(this.lblDrawer);
             this.tabPage1.Controls.Add(this.Lock);
             this.tabPage1.Controls.Add(this.Unlock);
             this.tabPage1.Controls.Add(this.BTGetOS);
             this.tabPage1.Controls.Add(this.BTPutOS);
             this.tabPage1.Controls.Add(this.lblBoxType);
             this.tabPage1.Controls.Add(this.txtBoxType);
-            this.tabPage1.Controls.Add(this.BTPutDR_0204);
-            this.tabPage1.Controls.Add(this.BTGetDR_0204);
+            this.tabPage1.Controls.Add(this.BTPutDR);
+            this.tabPage1.Controls.Add(this.BTGetDR);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -955,6 +1133,38 @@
             this.tabPage1.Text = "BoxTransfer";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(123, 22);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(9, 12);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "-";
+            // 
+            // txtDrawerRow
+            // 
+            this.txtDrawerRow.Location = new System.Drawing.Point(138, 17);
+            this.txtDrawerRow.Name = "txtDrawerRow";
+            this.txtDrawerRow.Size = new System.Drawing.Size(46, 22);
+            this.txtDrawerRow.TabIndex = 12;
+            // 
+            // txtDrawerColumn
+            // 
+            this.txtDrawerColumn.Location = new System.Drawing.Point(70, 17);
+            this.txtDrawerColumn.Name = "txtDrawerColumn";
+            this.txtDrawerColumn.Size = new System.Drawing.Size(46, 22);
+            this.txtDrawerColumn.TabIndex = 11;
+            // 
+            // lblDrawer
+            // 
+            this.lblDrawer.AutoSize = true;
+            this.lblDrawer.Location = new System.Drawing.Point(19, 23);
+            this.lblDrawer.Name = "lblDrawer";
+            this.lblDrawer.Size = new System.Drawing.Size(51, 12);
+            this.lblDrawer.TabIndex = 9;
+            this.lblDrawer.Text = "Drawer：";
             // 
             // Lock
             // 
@@ -1003,7 +1213,7 @@
             // lblBoxType
             // 
             this.lblBoxType.AutoSize = true;
-            this.lblBoxType.Location = new System.Drawing.Point(22, 24);
+            this.lblBoxType.Location = new System.Drawing.Point(230, 24);
             this.lblBoxType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBoxType.Name = "lblBoxType";
             this.lblBoxType.Size = new System.Drawing.Size(60, 12);
@@ -1012,7 +1222,7 @@
             // 
             // txtBoxType
             // 
-            this.txtBoxType.Location = new System.Drawing.Point(86, 21);
+            this.txtBoxType.Location = new System.Drawing.Point(291, 19);
             this.txtBoxType.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxType.Name = "txtBoxType";
             this.txtBoxType.Size = new System.Drawing.Size(97, 22);
@@ -1020,197 +1230,27 @@
             this.txtBoxType.Text = "1:鐵盒; 2:水晶盒";
             this.txtBoxType.Click += new System.EventHandler(this.txtBoxType_Click);
             // 
-            // BTPutDR_0204
+            // BTPutDR
             // 
-            this.BTPutDR_0204.Location = new System.Drawing.Point(16, 109);
-            this.BTPutDR_0204.Margin = new System.Windows.Forms.Padding(2);
-            this.BTPutDR_0204.Name = "BTPutDR_0204";
-            this.BTPutDR_0204.Size = new System.Drawing.Size(159, 38);
-            this.BTPutDR_0204.TabIndex = 1;
-            this.BTPutDR_0204.Text = "BT put to drawer_02_04";
-            this.BTPutDR_0204.UseVisualStyleBackColor = true;
-            this.BTPutDR_0204.Click += new System.EventHandler(this.BTPutDR_0204_Click);
+            this.BTPutDR.Location = new System.Drawing.Point(16, 109);
+            this.BTPutDR.Margin = new System.Windows.Forms.Padding(2);
+            this.BTPutDR.Name = "BTPutDR";
+            this.BTPutDR.Size = new System.Drawing.Size(159, 38);
+            this.BTPutDR.TabIndex = 1;
+            this.BTPutDR.Text = "BT put to drawer";
+            this.BTPutDR.UseVisualStyleBackColor = true;
+            this.BTPutDR.Click += new System.EventHandler(this.BTPutDR_Click);
             // 
-            // BTGetDR_0204
+            // BTGetDR
             // 
-            this.BTGetDR_0204.Location = new System.Drawing.Point(16, 55);
-            this.BTGetDR_0204.Margin = new System.Windows.Forms.Padding(2);
-            this.BTGetDR_0204.Name = "BTGetDR_0204";
-            this.BTGetDR_0204.Size = new System.Drawing.Size(159, 40);
-            this.BTGetDR_0204.TabIndex = 0;
-            this.BTGetDR_0204.Text = "BT get from drawer_02_04";
-            this.BTGetDR_0204.UseVisualStyleBackColor = true;
-            this.BTGetDR_0204.Click += new System.EventHandler(this.BTGetDR_0204_Click);
-            // 
-            // btnLoadPortBUnDock
-            // 
-            this.btnLoadPortBUnDock.Location = new System.Drawing.Point(147, 222);
-            this.btnLoadPortBUnDock.Name = "btnLoadPortBUnDock";
-            this.btnLoadPortBUnDock.Size = new System.Drawing.Size(134, 18);
-            this.btnLoadPortBUnDock.TabIndex = 10;
-            this.btnLoadPortBUnDock.Text = "Load Port B UnDock";
-            this.btnLoadPortBUnDock.UseVisualStyleBackColor = true;
-            this.btnLoadPortBUnDock.Click += new System.EventHandler(this.btnLoadPortBUnDock_Click);
-            // 
-            // btnLoadPortBDock
-            // 
-            this.btnLoadPortBDock.Location = new System.Drawing.Point(8, 221);
-            this.btnLoadPortBDock.Name = "btnLoadPortBDock";
-            this.btnLoadPortBDock.Size = new System.Drawing.Size(134, 18);
-            this.btnLoadPortBDock.TabIndex = 9;
-            this.btnLoadPortBDock.Text = "Load Port B Dock";
-            this.btnLoadPortBDock.UseVisualStyleBackColor = true;
-            this.btnLoadPortBDock.Click += new System.EventHandler(this.btnLoadPortBDock_Click);
-            // 
-            // btnMoveDrawerCOut
-            // 
-            this.btnMoveDrawerCOut.Location = new System.Drawing.Point(74, 90);
-            this.btnMoveDrawerCOut.Name = "btnMoveDrawerCOut";
-            this.btnMoveDrawerCOut.Size = new System.Drawing.Size(106, 19);
-            this.btnMoveDrawerCOut.TabIndex = 8;
-            this.btnMoveDrawerCOut.Text = "Move C Out";
-            this.btnMoveDrawerCOut.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerCOut.Click += new System.EventHandler(this.btnMoveDrawerCOut_Click);
-            // 
-            // btnMoveDrawerDOut
-            // 
-            this.btnMoveDrawerDOut.Location = new System.Drawing.Point(75, 81);
-            this.btnMoveDrawerDOut.Name = "btnMoveDrawerDOut";
-            this.btnMoveDrawerDOut.Size = new System.Drawing.Size(117, 19);
-            this.btnMoveDrawerDOut.TabIndex = 9;
-            this.btnMoveDrawerDOut.Text = "Move D Out";
-            this.btnMoveDrawerDOut.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerDOut.Click += new System.EventHandler(this.btnMoveDrawerDOut_Click);
-            // 
-            // btnMoveDrawerAOut
-            // 
-            this.btnMoveDrawerAOut.Location = new System.Drawing.Point(71, 83);
-            this.btnMoveDrawerAOut.Name = "btnMoveDrawerAOut";
-            this.btnMoveDrawerAOut.Size = new System.Drawing.Size(103, 19);
-            this.btnMoveDrawerAOut.TabIndex = 10;
-            this.btnMoveDrawerAOut.Text = "Move A Out";
-            this.btnMoveDrawerAOut.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerAOut.Click += new System.EventHandler(this.btnMoveDrawerAOut_Click);
-            // 
-            // btnMoveDrawerBOut
-            // 
-            this.btnMoveDrawerBOut.Location = new System.Drawing.Point(74, 74);
-            this.btnMoveDrawerBOut.Name = "btnMoveDrawerBOut";
-            this.btnMoveDrawerBOut.Size = new System.Drawing.Size(117, 19);
-            this.btnMoveDrawerBOut.TabIndex = 11;
-            this.btnMoveDrawerBOut.Text = "Move B Out";
-            this.btnMoveDrawerBOut.UseVisualStyleBackColor = true;
-            this.btnMoveDrawerBOut.Click += new System.EventHandler(this.btnMoveDrawerBOut_Click);
-            // 
-            // btnTurnOffDrawerAAllLeds
-            // 
-            this.btnTurnOffDrawerAAllLeds.Location = new System.Drawing.Point(177, 133);
-            this.btnTurnOffDrawerAAllLeds.Name = "btnTurnOffDrawerAAllLeds";
-            this.btnTurnOffDrawerAAllLeds.Size = new System.Drawing.Size(117, 18);
-            this.btnTurnOffDrawerAAllLeds.TabIndex = 11;
-            this.btnTurnOffDrawerAAllLeds.Text = "Turn Off A All Leds";
-            this.btnTurnOffDrawerAAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOffDrawerAAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerAAllLeds_Click);
-            // 
-            // btnTurnOnDrawerAAllLeds
-            // 
-            this.btnTurnOnDrawerAAllLeds.Location = new System.Drawing.Point(179, 106);
-            this.btnTurnOnDrawerAAllLeds.Name = "btnTurnOnDrawerAAllLeds";
-            this.btnTurnOnDrawerAAllLeds.Size = new System.Drawing.Size(115, 20);
-            this.btnTurnOnDrawerAAllLeds.TabIndex = 12;
-            this.btnTurnOnDrawerAAllLeds.Text = "Turn On A All Leds";
-            this.btnTurnOnDrawerAAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOnDrawerAAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerAAllLeds_Click);
-            // 
-            // btnTurnOnDrawerBAllLeds
-            // 
-            this.btnTurnOnDrawerBAllLeds.Location = new System.Drawing.Point(196, 96);
-            this.btnTurnOnDrawerBAllLeds.Name = "btnTurnOnDrawerBAllLeds";
-            this.btnTurnOnDrawerBAllLeds.Size = new System.Drawing.Size(118, 20);
-            this.btnTurnOnDrawerBAllLeds.TabIndex = 14;
-            this.btnTurnOnDrawerBAllLeds.Text = "Turn On B All Leds";
-            this.btnTurnOnDrawerBAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOnDrawerBAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerBAllLeds_Click);
-            // 
-            // btnTurnOffDrawerBAllLeds
-            // 
-            this.btnTurnOffDrawerBAllLeds.Location = new System.Drawing.Point(197, 123);
-            this.btnTurnOffDrawerBAllLeds.Name = "btnTurnOffDrawerBAllLeds";
-            this.btnTurnOffDrawerBAllLeds.Size = new System.Drawing.Size(117, 18);
-            this.btnTurnOffDrawerBAllLeds.TabIndex = 13;
-            this.btnTurnOffDrawerBAllLeds.Text = "Turn Off B All Leds";
-            this.btnTurnOffDrawerBAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOffDrawerBAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerBAllLeds_Click);
-            // 
-            // btnTurnOnDrawerCAllLeds
-            // 
-            this.btnTurnOnDrawerCAllLeds.Location = new System.Drawing.Point(186, 111);
-            this.btnTurnOnDrawerCAllLeds.Name = "btnTurnOnDrawerCAllLeds";
-            this.btnTurnOnDrawerCAllLeds.Size = new System.Drawing.Size(115, 20);
-            this.btnTurnOnDrawerCAllLeds.TabIndex = 14;
-            this.btnTurnOnDrawerCAllLeds.Text = "Turn On C All Leds";
-            this.btnTurnOnDrawerCAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOnDrawerCAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerCAllLeds_Click);
-            // 
-            // btnTurnOffDrawerCAllLeds
-            // 
-            this.btnTurnOffDrawerCAllLeds.Location = new System.Drawing.Point(184, 135);
-            this.btnTurnOffDrawerCAllLeds.Name = "btnTurnOffDrawerCAllLeds";
-            this.btnTurnOffDrawerCAllLeds.Size = new System.Drawing.Size(117, 18);
-            this.btnTurnOffDrawerCAllLeds.TabIndex = 13;
-            this.btnTurnOffDrawerCAllLeds.Text = "Turn Off C All Leds";
-            this.btnTurnOffDrawerCAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOffDrawerCAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerCAllLeds_Click);
-            // 
-            // btnTurnOnDrawerDAllLeds
-            // 
-            this.btnTurnOnDrawerDAllLeds.Location = new System.Drawing.Point(196, 101);
-            this.btnTurnOnDrawerDAllLeds.Name = "btnTurnOnDrawerDAllLeds";
-            this.btnTurnOnDrawerDAllLeds.Size = new System.Drawing.Size(118, 20);
-            this.btnTurnOnDrawerDAllLeds.TabIndex = 16;
-            this.btnTurnOnDrawerDAllLeds.Text = "Turn On D All Leds";
-            this.btnTurnOnDrawerDAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOnDrawerDAllLeds.Click += new System.EventHandler(this.btnTurnOnDrawerDAllLeds_Click);
-            // 
-            // btnTurnOffDrawerDAllLeds
-            // 
-            this.btnTurnOffDrawerDAllLeds.Location = new System.Drawing.Point(197, 125);
-            this.btnTurnOffDrawerDAllLeds.Name = "btnTurnOffDrawerDAllLeds";
-            this.btnTurnOffDrawerDAllLeds.Size = new System.Drawing.Size(117, 18);
-            this.btnTurnOffDrawerDAllLeds.TabIndex = 15;
-            this.btnTurnOffDrawerDAllLeds.Text = "Turn Off D All Leds";
-            this.btnTurnOffDrawerDAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOffDrawerDAllLeds.Click += new System.EventHandler(this.btnTurnOffDrawerDAllLeds_Click);
-            // 
-            // btnMoveAllDrawersOut
-            // 
-            this.btnMoveAllDrawersOut.Location = new System.Drawing.Point(375, 16);
-            this.btnMoveAllDrawersOut.Name = "btnMoveAllDrawersOut";
-            this.btnMoveAllDrawersOut.Size = new System.Drawing.Size(127, 18);
-            this.btnMoveAllDrawersOut.TabIndex = 8;
-            this.btnMoveAllDrawersOut.Text = "Move All Drawers Out";
-            this.btnMoveAllDrawersOut.UseVisualStyleBackColor = true;
-            this.btnMoveAllDrawersOut.Click += new System.EventHandler(this.btnMoveAllDrawersOut_Click);
-            // 
-            // btnTurnOnAllLeds
-            // 
-            this.btnTurnOnAllLeds.Location = new System.Drawing.Point(505, 17);
-            this.btnTurnOnAllLeds.Name = "btnTurnOnAllLeds";
-            this.btnTurnOnAllLeds.Size = new System.Drawing.Size(115, 18);
-            this.btnTurnOnAllLeds.TabIndex = 15;
-            this.btnTurnOnAllLeds.Text = "Turn On All Leds";
-            this.btnTurnOnAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOnAllLeds.Click += new System.EventHandler(this.btnTurnOnAllLeds_Click);
-            // 
-            // btnTurnOffAllLeds
-            // 
-            this.btnTurnOffAllLeds.Location = new System.Drawing.Point(623, 16);
-            this.btnTurnOffAllLeds.Name = "btnTurnOffAllLeds";
-            this.btnTurnOffAllLeds.Size = new System.Drawing.Size(115, 18);
-            this.btnTurnOffAllLeds.TabIndex = 16;
-            this.btnTurnOffAllLeds.Text = "Turn Off All Leds";
-            this.btnTurnOffAllLeds.UseVisualStyleBackColor = true;
-            this.btnTurnOffAllLeds.Click += new System.EventHandler(this.btnTurnOffAllLeds_Click);
+            this.BTGetDR.Location = new System.Drawing.Point(16, 55);
+            this.BTGetDR.Margin = new System.Windows.Forms.Padding(2);
+            this.BTGetDR.Name = "BTGetDR";
+            this.BTGetDR.Size = new System.Drawing.Size(159, 40);
+            this.BTGetDR.TabIndex = 0;
+            this.BTGetDR.Text = "BT get from drawer";
+            this.BTGetDR.UseVisualStyleBackColor = true;
+            this.BTGetDR.Click += new System.EventHandler(this.BTGetDR_Click);
             // 
             // FrmTestUI
             // 
@@ -1313,8 +1353,8 @@
         private System.Windows.Forms.Button btnInitialLoadportA;
         private System.Windows.Forms.Button btnLoadportARFID;
         private System.Windows.Forms.Button btnLoadportABarcode;
-        private System.Windows.Forms.Button BTPutDR_0204;
-        private System.Windows.Forms.Button BTGetDR_0204;
+        private System.Windows.Forms.Button BTPutDR;
+        private System.Windows.Forms.Button BTGetDR;
         private System.Windows.Forms.Label lblBoxType;
         private System.Windows.Forms.TextBox txtBoxType;
         private System.Windows.Forms.Button Lock;
@@ -1345,5 +1385,9 @@
         private System.Windows.Forms.Button btnMoveAllDrawersOut;
         private System.Windows.Forms.Button btnTurnOffAllLeds;
         private System.Windows.Forms.Button btnTurnOnAllLeds;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtDrawerRow;
+        private System.Windows.Forms.TextBox txtDrawerColumn;
+        private System.Windows.Forms.Label lblDrawer;
     }
 }

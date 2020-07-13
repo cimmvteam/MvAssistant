@@ -15,10 +15,11 @@ namespace MvAssistantMacVerifyEqp
 {
     public partial class FrmTestUI : Form
     {
-       
+
 
         TestDrawers drawers;
         TestLoadPorts loadPorts;
+
         public FrmTestUI()
         {
 
@@ -108,7 +109,7 @@ namespace MvAssistantMacVerifyEqp
             drawers.DisableDrawerComps(drawers.DrawerC);
             drawers.DrawerC.CommandBoxDetection();
         }
-            
+
         //}
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -121,12 +122,29 @@ namespace MvAssistantMacVerifyEqp
             txtBoxType.Text = "";
         }
 
-        private void BTGetDR_0204_Click(object sender, EventArgs e)
+        public bool CheckPara()
+        {
+            bool result = false;
+            string BoxType = txtBoxType.Text;
+            string DwColumn = txtDrawerColumn.Text.PadLeft(2, '0');
+            string DwRow = txtDrawerRow.Text.PadLeft(2, '0');
+            if (BoxType != "1" && BoxType != "2")
+                MessageBox.Show("Box Type請輸入數字1或2");
+            else if (DwColumn != "01" && DwColumn != "02" && DwColumn != "03" && DwColumn != "04" && DwColumn != "05" && DwColumn != "06" && DwColumn != "07")
+                MessageBox.Show("Drawer請輸入數字1-1 ~ 7-5之間的數值");
+            else if (DwRow != "01" && DwRow != "02" && DwRow != "03" && DwRow != "04" && DwRow != "05")
+                MessageBox.Show("Drawer請輸入數字1-1 ~ 7-5之間的數值");
+            else
+                result = true;
+            return result;
+        }
+
+        private void BTGetDR_Click(object sender, EventArgs e)
         {
             try
             {
-                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+                if (CheckPara() == false)
+                    return;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -137,10 +155,20 @@ namespace MvAssistantMacVerifyEqp
                     bt.HalConnect();
 
                     bt.Initial();
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
-                    Console.WriteLine(bt.Clamp(Convert.ToUInt32(txtBoxType.Text)));
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
+                    if (Convert.ToInt16(txtDrawerColumn.Text) >= 1 && Convert.ToInt16(txtDrawerColumn.Text) <= 3)
+                    {
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_GET.json");
+                        Console.WriteLine(bt.Clamp(Convert.ToUInt32(txtBoxType.Text)));
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_Backward_Cabinet_01_Home_GET.json");
+                    }
+                    else if (Convert.ToInt16(txtDrawerColumn.Text) >= 4 && Convert.ToInt16(txtDrawerColumn.Text) <= 7)
+                    {
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_GET.json");
+                        Console.WriteLine(bt.Clamp(Convert.ToUInt32(txtBoxType.Text)));
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_Backward_Cabinet_02_Home_GET.json");
+                    }
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -150,8 +178,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
-                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+                if (CheckPara() == false)
+                    return;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -203,8 +231,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
-                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+                if (CheckPara() == false)
+                    return;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -216,7 +244,7 @@ namespace MvAssistantMacVerifyEqp
                     bt.HalConnect();
                     os.HalConnect();
                     bool BTIntrude = false;
-                    
+
                     os.SetBoxType(Convert.ToUInt32(txtBoxType.Text));
                     os.SortClamp();
                     os.Vacuum(true);
@@ -233,7 +261,11 @@ namespace MvAssistantMacVerifyEqp
                             os.Initial();
                     }
                     bt.RobotMoving(true);
-                    bt.ExePathMove(@"D:\Positions\BTRobot\UnlockBox.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                    if (txtBoxType.Text == "1")
+                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                    else if (txtBoxType.Text == "2")
+                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -249,12 +281,12 @@ namespace MvAssistantMacVerifyEqp
             catch (Exception ex) { throw ex; }
         }
 
-        private void BTPutDR_0204_Click(object sender, EventArgs e)
+        private void BTPutDR_Click(object sender, EventArgs e)
         {
             try
             {
-                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+                if (CheckPara() == false)
+                    return;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -264,10 +296,20 @@ namespace MvAssistantMacVerifyEqp
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     bt.HalConnect();
 
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_PUT.json");
-                    bt.Unclamp();
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_PUT.json");
+                    if (Convert.ToInt16(txtDrawerColumn.Text) >= 1 && Convert.ToInt16(txtDrawerColumn.Text) <= 3)
+                    {
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_PUT.json");
+                        Console.WriteLine(bt.Clamp(Convert.ToUInt32(txtBoxType.Text)));
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_Backward_Cabinet_01_Home_PUT.json");
+                    }
+                    else if (Convert.ToInt16(txtDrawerColumn.Text) >= 4 && Convert.ToInt16(txtDrawerColumn.Text) <= 7)
+                    {
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_PUT.json");
+                        Console.WriteLine(bt.Clamp(Convert.ToUInt32(txtBoxType.Text)));
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + txtDrawerColumn.Text.PadLeft(2, '0') + "_" + txtDrawerRow.Text.PadLeft(2, '0') + "_Backward_Cabinet_02_Home_PUT.json");
+                    }
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -277,8 +319,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
-                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+                if (CheckPara() == false)
+                    return;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -290,7 +332,7 @@ namespace MvAssistantMacVerifyEqp
                     bt.HalConnect();
                     os.HalConnect();
                     bool BTIntrude = false;
-                    
+
                     for (int i = 0; i < 2; i++)
                     {
                         BTIntrude = os.ReadRobotIntrude(true, false).Item1;
@@ -322,8 +364,8 @@ namespace MvAssistantMacVerifyEqp
         {
             try
             {
-                if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
-                { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+                if (CheckPara() == false)
+                    return;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -335,7 +377,7 @@ namespace MvAssistantMacVerifyEqp
                     bt.HalConnect();
                     os.HalConnect();
                     bool BTIntrude = false;
-                    
+
                     os.Close();
                     os.Unclamp();
                     os.Lock();
@@ -351,7 +393,10 @@ namespace MvAssistantMacVerifyEqp
                     }
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\LockBox.json");
+                    if (txtBoxType.Text == "1")
+                        bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                    else if (txtBoxType.Text == "2")
+                        bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -565,7 +610,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void btnTurnOnDrawerAAllLeds_Click(object sender, EventArgs e)
         {
-            
+
             drawers.InitialDRawer(drawers.DrawerA);
             drawers.DisableDrawerComps(drawers.DrawerA);
             drawers.DrawerA.CommandBrightLEDAllOn();
@@ -587,7 +632,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void btnTurnOnDrawerBAllLeds_Click(object sender, EventArgs e)
         {
-           
+
             drawers.InitialDRawer(drawers.DrawerB);
             drawers.DisableDrawerComps(drawers.DrawerB);
             drawers.DrawerB.CommandBrightLEDAllOn();
@@ -623,7 +668,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void btnMoveAllDrawersOut_Click(object sender, EventArgs e)
         {
-            this.btnMoveDrawerAOut_Click(null,null);
+            this.btnMoveDrawerAOut_Click(null, null);
             this.btnMoveDrawerBOut_Click(null, null);
             this.btnMoveDrawerCOut_Click(null, null);
             this.btnMoveDrawerDOut_Click(null, null);
@@ -631,7 +676,7 @@ namespace MvAssistantMacVerifyEqp
 
         private void btnTurnOnAllLeds_Click(object sender, EventArgs e)
         {
-            this.btnTurnOnDrawerAAllLeds_Click(null,null);
+            this.btnTurnOnDrawerAAllLeds_Click(null, null);
             this.btnTurnOnDrawerBAllLeds_Click(null, null);
             this.btnTurnOnDrawerCAllLeds_Click(null, null);
             this.btnTurnOnDrawerDAllLeds_Click(null, null);
@@ -645,5 +690,5 @@ namespace MvAssistantMacVerifyEqp
             this.btnTurnOffDrawerDAllLeds_Click(null, null);
         }
     }
-    
+
 }
