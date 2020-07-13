@@ -21,7 +21,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             while (true)
             {
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(10);
             }
         }
         #region Load port 
@@ -305,10 +305,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             MacHalGudengLoadPort TestLoadport = null;
             try
             {
-                halContext.MvCfLoad();
                 halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                halContext.MvCfLoad();
+               
                 loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
                 TestLoadport= loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                TestLoadport.HalConnect();
                 BindLoadPortEvent(TestLoadport);
                 TestLoadport.CommandDockRequest();
                 Repeat();
@@ -319,7 +321,42 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
             finally
             {
+                if (halContext != null)
+                {
+                    halContext.Dispose();
+                }
+            }
 
+        }
+
+        [TestMethod]
+        public void LoadPortUnDock()
+        {
+            MacHalContext halContext = null;
+            MacHalLoadPort loportAssembly = null;
+            MacHalGudengLoadPort TestLoadport = null;
+            try
+            {
+                halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                halContext.MvCfLoad();
+
+                loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                TestLoadport = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                TestLoadport.HalConnect();
+                BindLoadPortEvent(TestLoadport);
+                TestLoadport.CommandUndockRequest();
+                Repeat();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (halContext != null)
+                {
+                    halContext.Dispose();
+                }
             }
 
         }
