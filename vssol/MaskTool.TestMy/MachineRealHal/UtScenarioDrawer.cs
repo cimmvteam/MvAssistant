@@ -76,10 +76,25 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandINI();
                     drawer_01_02.CommandINI();
                      */
-                    /** CommandINI()  */
+                    /** CommandSetTimeOut() 
                     drawer_01_01.CommandSetTimeOut(100);
                     drawer_01_02.CommandSetTimeOut(100);
-                  
+                  */
+
+                    /** CommandTrayMotionHome()   
+                    drawer_01_01.CommandTrayMotionHome();
+                    drawer_01_02.CommandTrayMotionHome();
+                    */
+                    /** CommandTrayMotionHome()  
+                    drawer_01_01.CommandTrayMotionIn();
+                    drawer_01_02.CommandTrayMotionIn();
+                     */
+                    /** CommandTrayMotionHome()  
+                    drawer_01_01.CommandTrayMotionOut();
+                    drawer_01_01.CommandTrayMotionOut();
+                    */
+
+                    //drawer_01_01.OnERRORErrorHandler
                     Repeat();
 
                 }
@@ -101,14 +116,30 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnBrightLEDOKHandler += OnBrightLEDOK;
             drawer.OnTrayMotioningHandler += OnTrayMotioning;
             drawer.OnTrayArriveHomeHandler += OnTrayArriveHome;
-            drawer.OnSetTimeOutFailedHandler += SetTimeOutFailed;
-            drawer.OnSetTimeOutOKHandler += SetTimeOutOK;
-        } 
-        void SetTimeOutFailed(object sender, EventArgs e)
+            drawer.OnSetTimeOutFailedHandler += OnSetTimeOutFailed;
+            drawer.OnSetTimeOutOKHandler += OnSetTimeOutOK;
+            drawer.OnINIFailedHandler += OnINIFailed;
+            drawer.OnINIOkHandler += OnINIOK;
+           
+            drawer.OnTrayArriveInHandler += OnTrayArriveIn;
+            drawer.OnTrayArriveOutHandler += OnTrayArriveOut;
+
+            drawer.OnTrayMotionFailedHandler += OnTrayMotionFailed;
+            drawer.OnTrayMotionOKHandler += OnTrayMotionOK;
+
+            drawer.OnTrayMothingSensorOFFHandler += TrayMotionSensorOFF;
+
+        }
+        void TrayMotionSensorOFF(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
         }
-        void SetTimeOutOK(object sender, EventArgs e)
+
+        void OnTrayMotionOK(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnTrayMotionFailed(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
         }
@@ -117,6 +148,34 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             var drawer = (IMacHalDrawer)sender;
         }
+
+        void OnTrayArriveIn(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnTrayArriveOut(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnINIOK(object sender,EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnINIFailed(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        
+        void OnSetTimeOutFailed(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnSetTimeOutOK(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+
+     
 
         void OnTrayMotioning(object sender, EventArgs e)
         {

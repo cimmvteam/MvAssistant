@@ -21,7 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     {
 
         MvKjMachineDrawerLddPool LddPool;
-       
+        private bool IsCommandINI = false; 
         
         #region Const
         public const string DevConnStr_Ip = "ip";
@@ -144,8 +144,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             //throw new NotImplementedException();
             return 0;
         }
-        public object Tag { get; set; }
-        public string Index { get; set; }
+       // public object Tag { get; set; }
+        //public string Index { get; set; }
         public void BindResult()
         {
             Ldd.BoxDetectionResult += this.BoxDetectionResult;
@@ -214,6 +214,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public event EventHandler OnLCDCMsgFailedHandler;
 
         public  event EventHandler OnINIFailedHandler;
+        public event EventHandler OnINIOkHandler;
+       
         void BindLddEvent()
         {
             Ldd.OnTrayMotionFailedHandler += OnTrayMotionFailed;
@@ -367,6 +369,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             {
                 OnTrayArriveHomeHandler.Invoke(this, e);
             }
+            if (this.IsCommandINI)
+            {
+                this.IsCommandINI = false;
+                if(this.OnINIOkHandler!=null)
+                {
+                    OnINIOkHandler.Invoke(this,e);
+                }
+            }
         }
         /// <summary>OnTrayArriveOutHandler</summary>
         /// <param name="sender"></param>
@@ -502,42 +512,42 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         #region command
         public string CommandINI()
         {
-            this.Tag = nameof(CommandINI);
+            this.IsCommandINI = true;
             var commandText = Ldd.CommandINI();
             return commandText;
         }
 
         public string CommandSetMotionSpeed(int speed)
         {
-            this.Tag = nameof(CommandSetMotionSpeed);
+           
             var commandText = Ldd.CommandSetMotionSpeed(speed);
             return commandText;
         }
 
         public string CommandSetTimeOut(int timeoutSeconds)
         {
-            this.Tag = nameof(CommandSetTimeOut);
+           
             var commandText = Ldd.CommandSetTimeOut(timeoutSeconds);
             return commandText;
         }
 
         public string CommandTrayMotionHome()
         {
-            this.Tag = nameof(CommandTrayMotionHome);
+           
             var commandText = Ldd.CommandTrayMotionHome();
             return commandText;
         }
 
         public string CommandTrayMotionOut()
         {
-            this.Tag = nameof(CommandTrayMotionOut);
+          
             var commandText = Ldd.CommandTrayMotionOut();
             return commandText;
         }
 
         public string CommandTrayMotionIn()
         {
-            this.Tag = nameof(CommandTrayMotionIn);
+          
             var commandText = Ldd.CommandTrayMotionIn();
             return commandText;
         }
@@ -546,91 +556,91 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandBrightLEDAllOn()
         {
-            this.Tag = nameof(CommandBrightLEDAllOn);
+          
             var commandText = Ldd.CommandBrightLEDAllOn();
             return commandText;
         }
 
         public string CommandBrightLEDAllOff()
         {
-            this.Tag = nameof(CommandBrightLEDAllOff);
+           
             var commandText = Ldd.CommandBrightLEDAllOff();
             return commandText;
         }
 
         public string CommandBrightLEDGreenOn()
         {
-            this.Tag = nameof(CommandBrightLEDGreenOn);
+          
             var commandText = Ldd.CommandBrightLEDGreenOn();
             return commandText;
         }
 
         public string CommandBrightLEDRedOn()
         {
-            this.Tag = nameof(CommandBrightLEDRedOn);
+         
             var commandText = Ldd.CommandBrightLEDRedOn();
             return commandText;
         }
 
         public string CommandPositionRead()
         {
-            this.Tag = nameof(CommandPositionRead);
+           
             var commandText = Ldd.CommandPositionRead();
             return commandText;
         }
 
         public string CommandBoxDetection()
         {
-            this.Tag = nameof(CommandBoxDetection);
+           
             var commandText = Ldd.CommandBoxDetection();
             return commandText;
         }
 
         public string CommandWriteNetSetting()
         {
-            this.Tag = nameof(CommandWriteNetSetting);
+         
             var commandText = Ldd.CommandWriteNetSetting();
             return commandText;
         }
 
         public string CommandLCDMsg(string message)
         {
-            this.Tag = nameof(CommandLCDMsg);
+        
           var commandText = Ldd.CommandLCDMsg(message);
             return commandText;
         }
 
         public string CommandSetParameterHomePosition(string homePosition)
         {
-            this.Tag = nameof(CommandSetParameterHomePosition);
+          
             var commandText = Ldd.CommandSetParameterHomePosition(homePosition);
             return commandText;
         }
 
         public string CommandSetParameterOutSidePosition(string outsidePosition)
         {
-            this.Tag = nameof(CommandSetParameterOutSidePosition);
+          
             var commandText = Ldd.CommandSetParameterOutSidePosition(outsidePosition);
             return commandText;
         }
 
         public string CommandSetParameterInSidePosition(string insidePosition)
         {
-            this.Tag = nameof(CommandSetParameterInSidePosition);
+         
             var commandText = Ldd.CommandSetParameterInSidePosition(insidePosition);
             return commandText;
         }
 
         public string CommandSetParameterIPAddress(string ipAddress)
         {
-            this.Tag = nameof(CommandSetParameterIPAddress);
+           
             var commandText = Ldd.CommandSetParameterIPAddress(ipAddress);
             return commandText;
         }
 
         public string CommandSetParameterSubMask(string submaskAddress)
         {
-            this.Tag = nameof(CommandSetParameterSubMask);
+           
             var commandText = Ldd.CommandSetParameterSubMask(submaskAddress);
             return commandText;
         }

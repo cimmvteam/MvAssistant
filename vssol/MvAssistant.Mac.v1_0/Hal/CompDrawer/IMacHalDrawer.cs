@@ -72,6 +72,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
          event EventHandler OnLCDCMsgFailedHandler ;
 
         event EventHandler OnINIFailedHandler;
+        event EventHandler OnINIOkHandler;
         #endregion
 
 
