@@ -144,7 +144,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             //throw new NotImplementedException();
             return 0;
         }
-       // public object Tag { get; set; }
+        public object Tag { get; set; }
         //public string Index { get; set; }
         public void BindResult()
         {
