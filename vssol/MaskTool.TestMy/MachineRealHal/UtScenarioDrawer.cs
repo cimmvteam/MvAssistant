@@ -94,7 +94,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandTrayMotionOut();
                     */
 
-                    //drawer_01_01.OnERRORErrorHandler
+                  
                     Repeat();
 
                 }
@@ -128,8 +128,44 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             drawer.OnTrayMotionOKHandler += OnTrayMotionOK;
 
             drawer.OnTrayMothingSensorOFFHandler += TrayMotionSensorOFF;
+            drawer.OnERRORErrorHandler += OnERRORError;
+            drawer.OnERRORREcoveryHandler += OnERRORRecovery;
+
+            drawer.OnSysStartUpHandler += OnSysStartUp;
+            drawer.OnButtonEventHandler += OnButtonEvent;
+            drawer.OnLCDCMsgFailedHandler += OnLCDCMsgFailed;
+            drawer.OnLCDCMsgOKHandler += OnLCDCMsgOK;
 
         }
+        void OnSysStartUp(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnButtonEvent(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnLCDCMsgFailed(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+
+        void OnLCDCMsgOK(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+
+
+
+        void OnERRORError(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+        void OnERRORRecovery(object sender, EventArgs e)
+        {
+            var drawer = (IMacHalDrawer)sender;
+        }
+
         void TrayMotionSensorOFF(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
