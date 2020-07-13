@@ -137,6 +137,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return result;
         }
 
+        /// <summary>
+        /// CCD旋轉(單位 0.01 Degree)
+        /// </summary>
+        /// <param name="SpinDegree"></param>
+        /// <returns></returns>
         public string CCDSpin(int SpinDegree)
         {
             string result = "";
@@ -204,7 +209,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorUpperLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
         {
             Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
@@ -227,7 +232,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Mx"></param>
         /// <param name="My"></param>
         /// <param name="Mz"></param>
-        public void SetSixAxisSensorLowerLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        public void SetSixAxisSensorLowerLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
         {
             Plc.SetSixAxisSensorLowerLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
@@ -246,7 +251,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="ClampSpeed">(mm/sec)</param>
         /// <param name="CCDSpinSpeed">(0.01 deg/sec)</param>
-        public void SetSpeed(double? ClampSpeed, int? CCDSpinSpeed)
+        public void SetSpeed(double? ClampSpeed,long? CCDSpinSpeed)
         {
             if (ClampSpeed < 1.0 || ClampSpeed > 10.0)
                 throw new Exception("MT clamp speed setting only between 1.0 ~ 10.0 (mm/sec) !");
@@ -296,21 +301,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// 讀取六軸力覺Sensor的壓力值上限設定，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorUpperLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
         { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
 
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值下限設定，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLowerLimitSetting()
-        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
+        { return Plc.ReadSixAxisSensorLowerLimitSetting(); }
 
         /// <summary>
         /// 讀取速度設定，夾爪速度、CCD旋轉速度
         /// </summary>
         /// <returns>夾爪速度、CCD旋轉速度</returns>
-        public Tuple<double, int> ReadSpeedSetting()
+        public Tuple<double, long> ReadSpeedSetting()
         { return Plc.ReadSpeedSetting(); }
 
         /// <summary>
@@ -323,7 +328,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         #region Read Component Value
         /// <summary>
-        /// 讀取CCD旋轉角度
+        /// 讀取CCD旋轉角度(單位 0.01 Degree)
         /// </summary>
         /// <returns></returns>
         public long ReadCCDSpinDegree()
