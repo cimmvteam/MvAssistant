@@ -48,22 +48,40 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
             return fullFileName;
         }
 
-        /// <summary>LockBox 的 點位檔案</summary>
+        /// <summary>LockCrystalBox(水晶盒) 的點位檔案</summary>
         /// <returns></returns>
-        public string LockBoxPathFile()
+        public string LockCrystalBoxPathFile()
         {
-            var fileName = $"LockBox{this.ExetendedFileName}";
+            var fileName = $"LockCrystalBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
             return fullFileName;
         }
-        /// <summary>UnlockBox的點位檔案</summary>
+        /// <summary>UnlockCrystalBox(水晶盒)的點位檔案</summary>
         /// <returns></returns>
-        public string UnlockBoxPathFile()
+        public string UnlockCrystalBoxPathFile()
         {
-            var fileName = $"UnlockBox{this.ExetendedFileName}";
+            var fileName = $"UnlockCrystalBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
             return fullFileName;
         }
+        /// <summary>LockCrystalBox(鐵盒) 的點位檔案</summary>
+        /// <returns></returns>
+        public string LockIronBoxPathFile()
+        {
+            var fileName = $"LockIronBox{this.ExetendedFileName}";
+            var fullFileName = $"{this.FilePath}{fileName}";
+            return fullFileName;
+        }
+        /// <summary>UnlockCrystalBox(鐵盒)的點位檔案</summary>
+        /// <returns></returns>
+        public string UnlockIronBoxPathFile()
+        {
+            var fileName = $"UnlockIronBox{this.ExetendedFileName}";
+            var fullFileName = $"{this.FilePath}{fileName}";
+            return fullFileName;
+        }
+
+
 
         /// <summary>Cabinet 01 Home 的點位檔案</summary>
         /// <returns></returns>

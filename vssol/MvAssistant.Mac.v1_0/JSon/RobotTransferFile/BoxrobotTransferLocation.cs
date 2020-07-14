@@ -19,6 +19,8 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         Drawer_05_01,Drawer_05_02,Drawer_05_03,Drawer_05_04,Drawer_05_05,
         Drawer_06_01,Drawer_06_02,Drawer_06_03,Drawer_06_04,Drawer_06_05,
         Drawer_07_01,Drawer_07_02,Drawer_07_03,Drawer_07_04,Drawer_07_05,
+        LockCrystalBox,UnlockCrystalBox,
+        LockIronBox,UnlockIronBox
     }
 
     

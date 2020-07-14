@@ -893,13 +893,42 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void BoxTransferPathFile()
         {
             BoxrobotTransferPathFile fileObj = new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
+            // OpenStage 到 Cabitnet01Home, Get 的路徑檔案
             var OpenStageToCabinet01Home_GET = fileObj.FromOpenStageToCabinet01Home_GET_PathFile();
+            // OpenStage 到 Cabinet01Home, Put 的路徑檔案
             var OpenStageToCabinet01Home_PUT = fileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
+            // Cabinet01Home 到 OpenStage, Get
             var Cabinet01HomeToOpenStage_GET = fileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
+            // Cabitnet01Home 到 OpenStage, Put
             var Cabinet01HomeToOpenStage_PUT = fileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
+            // Cabinet01Home  
+            var Cabinet01Home = fileObj.Cabinet01HomePathFile();
+            // Cabinet02Hime
+            var Cabinet02Home = fileObj.Cabinet02HomePathFile();
+            // 水晶盒 Lock 的路徑檔案
+            var LockCrystalBox = fileObj.LockCrystalBoxPathFile();
+            // 水晶盒 Unlock 的路徑檔案
+            var UnLockCrystalBox = fileObj.UnlockCrystalBoxPathFile();
+            // 鐵盒 Lock 的路徑檔案
+            var LockIronBox = fileObj.LockIronBoxPathFile();
+            // 鐵盒 Unlock 的路徑檔案
+            var UnlockIronBox = fileObj.UnlockIronBoxPathFile();
+            // 從Cabnet01Home 到指定 Drawer(Drawer_01_01) ,Get 的的路徑檔案
             var Cabinet01HomeToDrawer_GET = fileObj.FromCabinet01HomeToDrawer_GET_PathFile(BoxrobotTransferLocation.Drawer_01_01);
+            // 從Cabnet01Home 到指定 Drawer(Drawer_01_01) ,Put 的的路徑檔案
             var Cabinet01HomeToDrawer_PUT = fileObj.FromCabinet01HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_01_01);
-
+            // 從Cabnet02Home 到指定 Drawer(Drawer_05_01) ,Get 的的路徑檔案
+            var Cabinet02HomeToDrawer_GET = fileObj.FromCabinet02HomeToDrawer_GET_PathFile(BoxrobotTransferLocation.Drawer_05_01);
+            // 從Cabnet02Home 到指定 Drawer(Drawer_05_01) ,Put 的的路徑檔案
+            var Cabinet02HomeToDrawer_PUT = fileObj.FromCabinet02HomeToDrawer_PUT_PathFile(BoxrobotTransferLocation.Drawer_05_01);
+            // 從指定 Drawer(Drawer_02_03) 到 Cabinet01Home, Get  的的路徑檔案
+            var DrawerToCabinet01Home_GET = fileObj.FromDrawerToCabinet01Home_GET_PathFile(BoxrobotTransferLocation.Drawer_02_03);
+            // 從指定 Drawer(Drawer_02_03) 到 Cabinet01Home,  Put  的的路徑檔案
+            var DrawerToCabinet01Home_PUT = fileObj.FromDrawerToCabinet01Home_PUT_PathFile(BoxrobotTransferLocation.Drawer_02_03);
+            // 從指定 Drawer(Drawer_06_02) 到 Cabinet02Home, Get  的的路徑檔案
+            var DrawerToCabinet02Home_GET = fileObj.FromDrawerToCabinet02Home_GET_PathFile(BoxrobotTransferLocation.Drawer_06_02);
+            // 從指定 Drawer(Drawer_06_02) 到 Cabinet02Home, Put  的的路徑檔案
+            var DrawerToCabinet02Home_PUT = fileObj.FromDrawerToCabinet02Home_PUT_PathFile(BoxrobotTransferLocation.Drawer_06_02);
         }
 
         [TestMethod]
