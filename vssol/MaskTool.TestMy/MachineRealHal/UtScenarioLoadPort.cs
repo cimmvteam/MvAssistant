@@ -28,6 +28,33 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
         #region CommandTest
         [TestMethod]
+        public void LoadPortBasicTest()
+        {
+            try
+            {
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.MvCfLoad();
+
+                    var loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+
+                    var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                    testLoadPort.HalConnect();
+                    //   BindLoadPortEvent(loadport1);
+                    BindLoadPortEvent(testLoadPort);
+                  
+                    Repeat();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+
+        [TestMethod]
         public void LoadPortCommandTest()
         {
             try
@@ -38,7 +65,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     var loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
 
-                    var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_2.ToString()] as MacHalGudengLoadPort;
+                    var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                     testLoadPort.HalConnect();
                     //   BindLoadPortEvent(loadport1);
                     BindLoadPortEvent(testLoadPort);
