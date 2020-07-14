@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvCameraLinkLdd.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
