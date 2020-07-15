@@ -582,10 +582,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
             }
         }
+
+
+        /// <summary>如果 Loadport 的TCP Server 忽然斷線</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnHostLostTcpServer(object sender, EventArgs e)
         {
             IsConnected = false;
-           
+            _ldd = null;
             if (OnHostLostLoadPortConnectionHandler !=null)
             {
                 OnHostLostLoadPortConnectionHandler.Invoke(this, e);

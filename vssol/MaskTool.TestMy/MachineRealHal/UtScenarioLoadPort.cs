@@ -39,7 +39,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
 
                     var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
-                    testLoadPort.HalConnect();
+                    var connected = testLoadPort.HalConnect();
+                    if (connected == 0)
+                    {
+                        throw new Exception($"無法連接到 {testLoadPort.DeviceIndex} ");
+                    }
                     //   BindLoadPortEvent(loadport1);
                     BindLoadPortEvent(testLoadPort);
                   
@@ -49,7 +53,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.Message);
             }
         }
 
@@ -125,7 +129,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             var loadport = (IMacHalLoadPortComp)sender;
             //loadport
-
+            loadport.HalConnect();
         }
 
         void OnLoadPortPlacementHandler(object sender, EventArgs e)

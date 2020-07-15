@@ -101,8 +101,17 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             set { }
         }
 #else
+        ///<summary>是否已完成監聽, 這個變數為 false 時, 均無法送出指令 </summary>
         public bool IsListenServer { get; private set; }
+
 #endif
+
+
+
+
+
+
+
         /// <summary>Client(本地端) 端監 Server</summary>
         public Thread ThreadClientListen = null;
         /// <summary>收到 Server 端傳回資料時的事件處理程序</summary>
@@ -196,7 +205,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                   
                     if (string.IsNullOrEmpty(rtn) )
                     {  // 忽然斷線(將一直收到空白 50 次視為遺失連線)
-                        if (OnHostLostTcpServerHandler == null && ++rtnEmptyCount >50 )
+                        if (++rtnEmptyCount > 50 && OnHostLostTcpServerHandler != null  )
                         {
                             OnHostLostTcpServerHandler.Invoke(this, EventArgs.Empty);
                             break;
@@ -226,8 +235,9 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
         }
 
-        /// <summary>連線後遺失和 TCP Server 間的連線</summary>
+        /// <summary>連線後遺失Host 和 TCP Server 間的連線</summary>
         public event EventHandler OnHostLostTcpServerHandler;
+     //   public event EventHandler OnHostCannotConnectToTcpServerHandler;
 
         /// <summary>送出 指令</summary>
         /// <param name="commandText">指令</param>
