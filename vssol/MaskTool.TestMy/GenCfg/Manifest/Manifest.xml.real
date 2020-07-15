@@ -6,8 +6,8 @@
         <Device DevConnStr="ip=192.168.0.200;port=2" DeviceName="loadport_plc" DriverId="1b96119d-4945-4e41-a722-a216e5a6d3ab" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;local_ip=;local_port=0" DeviceName="loadport_cell_001" DriverId="d870183b-836c-48d3-9024-d746c23d7398" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;model=IDGB_50M4PG_24_TP;channel=1" DeviceName="loadport_light_bar_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="ip=127.0.0.1;port=1024" DeviceName="loadport_1" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
-        <Device DevConnStr="ip=127.0.0.1;port=1024" DeviceName="loadport_2" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
+        <Device DevConnStr="ip=192.168.0.120;port=1024" DeviceName="loadport_1" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
+        <Device DevConnStr="ip=192.168.0.121;port=1024" DeviceName="loadport_2" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
       </Devices>
     </Device>
     <Device DeviceName="loadport_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_B_ASB" PositionId="LoadPort02">
@@ -15,8 +15,8 @@
         <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="loadport_plc" DriverId="1b96119d-4945-4e41-a722-a216e5a6d3ab" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;local_ip=;local_port=0" DeviceName="loadport_cell_001" DriverId="d870183b-836c-48d3-9024-d746c23d7398" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;model=IDGB_50M4PG_24_TP;channel=2" DeviceName="loadport_light_bar_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="ip=127.0.0.1;port=1024" DeviceName="loadport_1" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
-        <Device DevConnStr="ip=127.0.0.1;port=1024" DeviceName="loadport_2" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
+        <Device DevConnStr="ip=192.168.0.120;port=1024" DeviceName="loadport_1" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
+        <Device DevConnStr="ip=192.168.0.121;port=1024" DeviceName="loadport_2" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
       </Devices>
     </Device>
     
@@ -54,7 +54,7 @@
  
       <Devices>
         <Device DevConnStr="ip=192.168.0.200;portid=2;startPort=5001;endPort=5999;local_port=6000" DeviceName="cabinet_plc" DriverId="33943026-dad4-4763-92bb-0515bd373fdc" />
-        <Device DevConnStr="ip=127.0.0.1;port=5000;local_ip=127.0.0.1;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01"  DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
+        <Device DevConnStr="ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01"  DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
         <Device DevConnStr="ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02" DeviceName="cabinet_drawer_01_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
         <Device DevConnStr="ip=192.168.0.50;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03" DeviceName="cabinet_drawer_01_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
         <Device DevConnStr="ip=192.168.0.54;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04" DeviceName="cabinet_drawer_01_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />

@@ -61,13 +61,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                     var drawer_01_01 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                     var drawer_01_02 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
-                    drawer_01_01.HalConnect();
+                   var isConnected= drawer_01_01.HalConnect();
+                    Debug.WriteLine($"IsConnected={isConnected}");
                     drawer_01_02.HalConnect();
                     BindEvents(drawer_01_01);
                     BindEvents(drawer_01_02);
 
-                    /**  CommandSetMotionSpeed
                     drawer_01_01.CommandSetMotionSpeed(100);
+                    /**  CommandSetMotionSpeed
+                    
                     drawer_01_02.CommandSetMotionSpeed(100);
                    */
                     /** CommandPositionRead
@@ -116,7 +118,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandTrayMotionOut();
                     */
 
-                  
+
                     Repeat();
 
                 }
