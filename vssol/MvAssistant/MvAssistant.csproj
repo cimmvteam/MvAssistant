@@ -205,7 +205,8 @@
     <Compile Include="Tasking\MvSpinSleep.cs" />
     <Compile Include="Tasking\MvSpinWait.cs" />
     <Compile Include="Tasking\MvTask.cs" />
-    <Compile Include="TypeMap\MvTypeMapper.cs" />
+    <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
+    <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="_github\github_Clone.txt" />

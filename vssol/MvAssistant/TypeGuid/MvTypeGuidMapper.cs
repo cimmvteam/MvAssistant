@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CToolkit.v1_1;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,15 +7,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.TypeMap
+namespace MvAssistant.TypeGuid
 {
-    public class MvTypeMapper
+    public class MvTypeGuidMapper
     {
-        static MvTypeMapper m_Singleton;
-        SortedDictionary<string, Type> mapper;
+        static MvTypeGuidMapper m_Singleton;
+        SortedDictionary<Guid, Type> mapper;
 
 
-        public SortedDictionary<string, Type> GetCollector()
+        public SortedDictionary<Guid, Type> GetCollector()
         {
             if (this.mapper == null) this.mapper = LoadTypeMap();
             return this.mapper;
@@ -23,19 +24,19 @@ namespace MvAssistant.TypeMap
 
         #region Static
 
-        public static MvTypeMapper Singleton { get { if (m_Singleton == null) { m_Singleton = new MvTypeMapper(); } return m_Singleton; } }
+        public static MvTypeGuidMapper Singleton { get { if (m_Singleton == null) { m_Singleton = new MvTypeGuidMapper(); } return m_Singleton; } }
 
-        public static Type Get(string guid)
+
+        public static Type Get(Guid guid)
         {
             var coll = Singleton.GetCollector();
             return coll[guid];
         }
+        public static Type Get(string guid) { return Get(Guid.Parse(guid)); }
 
-        public static Type Get(Guid guid) { return Get(guid.ToString()); }
-
-        public static SortedDictionary<string, Type> LoadTypeMap(Func<string, bool> filter = null)
+        public static SortedDictionary<Guid, Type> LoadTypeMap(Func<string, bool> filter = null)
         {
-            var collector = new SortedDictionary<string, Type>();
+            var collector = new SortedDictionary<Guid, Type>();
             var qAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
 
@@ -52,16 +53,11 @@ namespace MvAssistant.TypeMap
                     //Console.WriteLine(fullname);
 
                     var guid_attrs = t.GetCustomAttributes(typeof(GuidAttribute), false);
-                    var guid = guid_attrs.FirstOrDefault() as GuidAttribute;
-                    if (guid == null)
-                    {
-                        //throw new Exception(string.Format("Type {0} is no Guid Attribute", t.FullName));
-                        continue;
-                    }
-
+                    var guid = CtkUtilFw.TypeGuid(t);
+                    if (guid == null) continue;
                     if (collector.ContainsKey(guid.Value))
                     {
-                        var t2 = collector[guid.Value];
+                        //var t2 = collector[guid.Value];
                         //throw new Exception(string.Format("Type {0} and {1} have same Guid", t.FullName, t2.FullName));
                     }
 

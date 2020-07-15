@@ -223,7 +223,7 @@ namespace MvAssistant
 
         public static void SaveToXmlFile<T>(T obj, String fn)
         {
-            var seri = new System.Xml.Serialization.XmlSerializer(typeof(T));
+            var seri = new XmlSerializer(typeof(T));
             var fi = new FileInfo(fn);
 
             if (!fi.Directory.Exists) fi.Directory.Create();

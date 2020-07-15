@@ -1,4 +1,4 @@
-﻿using MvAssistant.TypeMap;
+﻿using MvAssistant.TypeGuid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,7 +55,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
             {
                 var guid = value.ToUpper();
                 this.m_TypeGuid = Guid.Parse(guid);
-                var type = MvTypeMapper.Get(guid);
+                var type = MvTypeGuidMapper.Get(guid);
 
                 this.m_AssignType = type;
             }
