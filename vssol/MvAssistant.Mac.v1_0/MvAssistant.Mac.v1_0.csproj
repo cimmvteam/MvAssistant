@@ -61,12 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawer_SocketComm\AsyncClient.cs" />
-    <Compile Include="Drawer_SocketComm\AsyncHost.cs" />
-    <Compile Include="Drawer_SocketComm\EnumSocketCMDList.cs" />
-    <Compile Include="Drawer_SocketComm\SocketMsgTranslator.cs" />
-    <Compile Include="Drawer_SocketComm\StateObject.cs" />
-    <Compile Include="Drawer_SocketComm\UDPSocket.cs" />
+    <Compile Include="DrawerSocketTest\AsyncClient.cs" />
+    <Compile Include="DrawerSocketTest\AsyncHost.cs" />
+    <Compile Include="DrawerSocketTest\EnumSocketCMDList.cs" />
+    <Compile Include="DrawerSocketTest\SocketMsgTranslator.cs" />
+    <Compile Include="DrawerSocketTest\StateObject.cs" />
+    <Compile Include="DrawerSocketTest\UDPSocket.cs" />
     <Compile Include="Hal\Assembly\IMacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\IMacHalCleanCh.cs" />

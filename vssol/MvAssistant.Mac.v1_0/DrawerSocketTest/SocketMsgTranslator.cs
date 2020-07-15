@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.Mac.Drawer_SocketComm
+namespace MvAssistant.Mac.DrawerSocketTest
 {
     public class SocketMsgTranslator
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.Mac.Drawer_SocketComm;
+using MvAssistant.Mac.DrawerSocketTest;
 using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
 
 namespace MvAssistantMacVerifyEqp
