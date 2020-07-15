@@ -39,8 +39,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 loadport.OnClamperActionTimeOutHandler += this.OnClamperActionTimeOut;// 200
                 loadport.OnClamperHandler += this.OnClamper;//003
                 loadport.OnClamperUnlockCompleteHandler += this.OnClamperLockComplete;//012
-                loadport.OnClamperLockPositionFailed += this.OnClamperLockPositionFailed;//207
-                loadport.OnClamperMotorAbnormality += this.OnClamperMotorAbnormality;//209
+                loadport.OnClamperLockPositionFailedHandler += this.OnClamperLockPositionFailed;//207
+                loadport.OnClamperMotorAbnormalityHandler += this.OnClamperMotorAbnormality;//209
                 loadport.OnClamperNotLockHandler += this.OnClamperNotLock;//022
                 loadport.OnClamperLockCompleteHandler += this.OnClamperUnlockComplete;//006
                 loadport.OnClamperUnlockPositionFailedHandler += this.OnClamperUnlockPositionFailed;//201
@@ -60,7 +60,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 loadport.OnReticlePositionAbnormalityHandler += this.OnReticlePositionAbnormality;//206
                 loadport.OnRFIDHandler += this.OnRFID;//004
                 loadport.OnStageMotionTimeoutHandler += this.OnStageMotionTimeout;//203
-                loadport.OnStageMotorAbnormality += this.OnStageMotorAbnormality;//210
+                loadport.OnStageMotorAbnormalityHandler += this.OnStageMotorAbnormality;//210
                 loadport.OnStageOverDownLimitationHandler += this.OnStageOverDownLimitation;//205
                 loadport.OnStageOverUpLimitationHandler += this.OnStageOverUpLimitation;//204
                 loadport.OnStagePositionHandler += this.OnStagePosition;//017

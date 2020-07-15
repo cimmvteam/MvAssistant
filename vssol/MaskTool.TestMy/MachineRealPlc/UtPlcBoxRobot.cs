@@ -53,7 +53,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 plc.BoxRobot.SetHandSpaceLimit(10, 20);
                 plc.BoxRobot.SetClampToCabinetSpaceLimit(10);
                 plc.BoxRobot.SetLevelSensorLimit(10, 15);
-                plc.BoxRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
+                plc.BoxRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
                 Console.WriteLine(plc.BoxRobot.LevelReset());
             }
         }
@@ -68,7 +68,7 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.BoxRobot.ReadHandSpaceLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadClampToCabinetSpaceLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensorLimitSetting());
-                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorLimitSetting());
+                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimitSetting());
             }
         }
 

@@ -1,51 +1,18 @@
-﻿using CToolkit.v1_1.Net;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using Euresys.MultiCam;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.DeviceDrive.CameraLink
 {
-    [Obsolete]
-    public class MvGudengLoadPortCollection : IDisposable
+    class MvCameraLinkLdd:IDisposable
     {
-
-        public List<MvGudengLoadPortLdd> LoadPorts { get; private set; }
-
-        public MvGudengLoadPortCollection()
-        {
-            LoadPorts = new List<MvGudengLoadPortLdd>();
-        }
-
-        public MvGudengLoadPortLdd CreateLoadPort(string serverIP,int serverPort,int loadportNO)
-        {
-            MvGudengLoadPortLdd loadport = new MvGudengLoadPortLdd(serverIP, serverPort, loadportNO);
-            LoadPorts.Add(loadport);
-            return loadport;
-
-        }
-        public int ConnectIfNo(string ip = null, int? port = null)
-        {
-
-
-
-
-
-
-            return 0;
-        }
-
-
         public void Close()
         {
-           
 
         }
-
-
-
-
 
         #region IDisposable
         // Flag: Has Dispose already been called?
@@ -87,6 +54,5 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
 
         #endregion
-
     }
 }

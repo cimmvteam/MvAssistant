@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvCameraLinkLdd.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
@@ -130,7 +131,11 @@
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOn.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\UndockRequest.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
+    <Compile Include="DeviceDrive\IDrawerLdd.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerBooleanResult.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerStringResult.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerIntResult.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelOnRcvMessage.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnErrorEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnLCDCMsgEventArgs.cs" />
@@ -144,6 +149,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLddPool.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyErrorCode.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyMessage.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyResultCode.cs" />
@@ -153,7 +159,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLdd.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
-    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerCollection.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerManager.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BoxDetection.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BrightLED.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\INI.cs" />

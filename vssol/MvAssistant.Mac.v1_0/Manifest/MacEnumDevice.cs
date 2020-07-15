@@ -135,41 +135,41 @@ namespace MvAssistant.Mac.v1_0.Manifest
         cabinet_plc,
 
         cabinet_drawer,//無編號版
-        cabinet_drawer_001,
-        cabinet_drawer_002,
-        cabinet_drawer_003,
-        cabinet_drawer_004,
-        cabinet_drawer_005,
-        cabinet_drawer_006,
-        cabinet_drawer_007,
-        cabinet_drawer_008,
-        cabinet_drawer_009,
-        cabinet_drawer_010,
-        cabinet_drawer_011,
-        cabinet_drawer_012,
-        cabinet_drawer_013,
-        cabinet_drawer_014,
-        cabinet_drawer_015,
-        cabinet_drawer_016,
-        cabinet_drawer_017,
-        cabinet_drawer_018,
-        cabinet_drawer_019,
-        cabinet_drawer_020,
-        cabinet_drawer_021,
-        cabinet_drawer_022,
-        cabinet_drawer_023,
-        cabinet_drawer_024,
-        cabinet_drawer_025,
-        cabinet_drawer_026,
-        cabinet_drawer_027,
-        cabinet_drawer_028,
-        cabinet_drawer_029,
-        cabinet_drawer_030,
-        cabinet_drawer_031,
-        cabinet_drawer_032,
-        cabinet_drawer_033,
-        cabinet_drawer_034,
-        cabinet_drawer_035,
+        cabinet_drawer_01_01,
+        cabinet_drawer_01_02,
+        cabinet_drawer_01_03,
+        cabinet_drawer_01_04,
+        cabinet_drawer_01_05,
+        cabinet_drawer_02_01,
+        cabinet_drawer_02_02,
+        cabinet_drawer_02_03,
+        cabinet_drawer_02_04,
+        cabinet_drawer_02_05,
+        cabinet_drawer_03_01,
+        cabinet_drawer_03_02,
+        cabinet_drawer_03_03,
+        cabinet_drawer_03_04,
+        cabinet_drawer_03_05,
+        cabinet_drawer_04_01,
+        cabinet_drawer_04_02,
+        cabinet_drawer_04_03,
+        cabinet_drawer_04_04,
+        cabinet_drawer_04_05,
+        cabinet_drawer_05_01,
+        cabinet_drawer_05_02,
+        cabinet_drawer_05_03,
+        cabinet_drawer_05_04,
+        cabinet_drawer_05_05,
+        cabinet_drawer_06_01,
+        cabinet_drawer_06_02,
+        cabinet_drawer_06_03,
+        cabinet_drawer_06_04,
+        cabinet_drawer_06_05,
+        cabinet_drawer_07_01,
+        cabinet_drawer_07_02,
+        cabinet_drawer_07_03,
+        cabinet_drawer_07_04,
+        cabinet_drawer_07_05,
 
         #endregion
 
@@ -356,6 +356,19 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// </summary>
         loadport_clamper_1,
 
+
+        /// <summary>
+        /// DE_LP_26: POD RFID Reader
+        /// </summary>
+        loadport_rfid_reader_1,
+
+        /// <summary>
+        /// DE_LP_27: Plunger
+        /// </summary>
+        loadport_plunger_1,
+
+        loadport_1,
+        loadport_2,
 
         #endregion Load Port
 

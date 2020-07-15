@@ -156,8 +156,8 @@ namespace MaskTool.TestMy.MachineRealPlc
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensorLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensor());
                 Console.WriteLine(plc.BoxRobot.LevelReset());
-                plc.BoxRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
-                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorLimitSetting());
+                plc.BoxRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
+                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
                 Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
@@ -269,8 +269,8 @@ namespace MaskTool.TestMy.MachineRealPlc
                     Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
                     plc.MaskRobot.CCDSpin(1000);  // 待測  已拆除(討論要移除)
                     Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
-                    plc.MaskRobot.SetSixAxisSensorLimit(10, 20, 30, 10, 10, 10);
-                    Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorLimitSetting());
+                    plc.MaskRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
+                    Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimitSetting());
                     Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
                     plc.MaskRobot.SetClampTactileLim(15, 10);// OK
                     Console.WriteLine(plc.MaskRobot.ReadClampTactileLimSetting());// OK

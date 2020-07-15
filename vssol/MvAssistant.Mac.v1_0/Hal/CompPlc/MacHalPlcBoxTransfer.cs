@@ -46,6 +46,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                     case 3:
                         Result = "No box";
                         break;
+                    case 4:
+                        Result = "";
+                        break;
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Clamp, false);
@@ -291,35 +294,65 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         #endregion
 
         #region 六軸Sensor
-        //設定六軸力覺Sensor的壓力極限值
-        public void SetSixAxisSensorLimit(uint? Fx, uint? Fy, uint? Fz, uint? Mx, uint? My, uint? Mz)
+        //設定六軸力覺Sensor的壓力值上限
+        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
         {
             var plc = this.plcContext;
             if (Fx != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fx, Fx);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Fx, Fx);
             if (Fy != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fy, Fy);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Fy, Fy);
             if (Fz != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fz, Fz);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Fz, Fz);
             if (Mx != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mx, Mx);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Mx, Mx);
             if (My != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_My, My);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_My, My);
             if (Mz != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mz, Mz);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Mz, Mz);
+        }
+
+        public void SetSixAxisSensorLowerLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
+        {
+            var plc = this.plcContext;
+            if (Fx != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Fx, Fx);
+            if (Fy != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Fy, Fy);
+            if (Fz != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Fz, Fz);
+            if (Mx != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Mx, Mx);
+            if (My != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_My, My);
+            if (Mz != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Mz, Mz);
         }
 
         //讀取六軸力覺Sensor的壓力極限值設定
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensorLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
         {
             var plc = this.plcContext;
-            return new Tuple<int, int, int, int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fx),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fy),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Fz),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mx),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_My),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimit_Mz)
+            return new Tuple<double, double, double, double, double, double>(
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Fx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Fy),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Fz),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Mx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_My),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitP_Mz)
+                );
+        }
+
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
+        {
+            var plc = this.plcContext;
+            return new Tuple<double, double, double, double, double, double>(
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Fx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Fy),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Fz),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Mx),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_My),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_ForceLimitN_Mz)
                 );
         }
 
