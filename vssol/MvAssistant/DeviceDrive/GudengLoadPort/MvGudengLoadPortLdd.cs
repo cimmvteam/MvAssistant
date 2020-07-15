@@ -94,7 +94,6 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         private Socket ClientSocket = null;
         /// <summary>是否已監聽 Server </summary>
 #if OnlyObserveCommandText
-
         public bool IsListenServer
         {
             get { return true; }
@@ -490,6 +489,8 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
             return command;
         }
+       
+        
         #endregion
         #region event
 

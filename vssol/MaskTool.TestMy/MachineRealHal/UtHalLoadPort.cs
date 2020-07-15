@@ -6,7 +6,6 @@ using MvAssistant.DeviceDrive.GudengLoadPort;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
-using static MvAssistant.DeviceDrive.GudengLoadPort.MvGudengLoadPortLdd;
 using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
 
