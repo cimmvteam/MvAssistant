@@ -118,8 +118,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             loadport.OnPODPresentAbnormalityHandler += this.OnLoadPortPODPresentAbnormalityHandler;
             loadport.OnClamperMotorAbnormalityHandler += this.OnLoadPortClamperMotorAbnormality;
             loadport.OnStageMotorAbnormalityHandler += this.OnLoadPortStageMotorAbnormality;
-        }
 
+            loadport.OnHostLostLoadPortConnectionHandler += OnHostLostLoadPortConnection;
+        }
+        void OnHostLostLoadPortConnection(object sender,EventArgs e)
+        {
+            var loadport = (IMacHalLoadPortComp)sender;
+            //loadport
+
+        }
 
         void OnLoadPortPlacementHandler(object sender, EventArgs e)
         {
@@ -370,6 +377,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
                 TestLoadport = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                 TestLoadport.HalConnect();
+                
                 BindLoadPortEvent(TestLoadport);
                 TestLoadport.CommandUndockRequest();
                 Repeat();

@@ -179,6 +179,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <summary>監聽 Server 的Method</summary>
         private void ListenFromServer()
         {
+            int rtnEmptyCount = 0;
             while (true)
             {
                 try
@@ -190,7 +191,23 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                     //rtn = "~001,Placement,0@\0\0\0\0";
 
                     Debug.WriteLine("[RETURN] " + rtn);
+                    
                     rtn = rtn.Replace("\0", "");
+                  
+                    if (string.IsNullOrEmpty(rtn) )
+                    {  // 忽然斷線(將一直收到空白 50 次視為遺失連線)
+                        if (OnHostLostTcpServerHandler == null && ++rtnEmptyCount >50 )
+                        {
+                            OnHostLostTcpServerHandler.Invoke(this, EventArgs.Empty);
+                            break;
+                        }
+                        System.Threading.Thread.Sleep(100);
+                        continue;
+                    }
+                    else
+                    {
+                        rtnEmptyCount = 0;
+                    }
                     if (OnReceviceRtnFromServerHandler != null)
                     {
                         // 可能一次會有多個結果
@@ -208,6 +225,9 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 }
             }
         }
+
+        /// <summary>連線後遺失和 TCP Server 間的連線</summary>
+        public event EventHandler OnHostLostTcpServerHandler;
 
         /// <summary>送出 指令</summary>
         /// <param name="commandText">指令</param>
