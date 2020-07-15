@@ -112,6 +112,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     if (keyValuePair.Equals(default(KeyValuePair<int, bool?>)))
                     { // 無 Port 可用時
                         // TODO : To Thorw an Exception
+                        throw new OutOfListenPortsException();
                     }
 
                     variablePort = keyValuePair.Key;
@@ -124,8 +125,15 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 }
                 catch (Exception ex)
                 {
-                    portTable.Remove(variablePort);
-                    portTable.Add(variablePort, false);
+                    if (ex.GetType() == typeof(OutOfListenPortsException))
+                    {
+                        throw ex;
+                    }
+                    else
+                    {
+                        portTable.Remove(variablePort);
+                        portTable.Add(variablePort, false);
+                    }
                 }
             }
             ListenThread = new Thread(Listen);

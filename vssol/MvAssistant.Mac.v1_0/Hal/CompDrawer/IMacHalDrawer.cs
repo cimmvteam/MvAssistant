@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
-    public interface IMacHalDrawer: IMacHalComponent
+    public interface IMacHalDrawer : IMacHalComponent
     {
-      string DeviceIndex { get; }
+        string DeviceIndex { get; }
       
     #region command
         string CommandINI();
