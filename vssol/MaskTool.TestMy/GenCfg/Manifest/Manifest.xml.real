@@ -45,14 +45,6 @@
     </Device>
     <Device DeviceName="cabinet_assembly" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_ASB" PositionId="Cabinet01">
       <Devices>
-<<<<<<< HEAD
-        <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="cabinet_plc" DriverId="33943026-dad4-4763-92bb-0515bd373fdc" />
-        <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=;local_port=6000" DeviceName="cabinet_drawer_01_01" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
-        <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=;local_port=6000" DeviceName="cabinet_drawer_01_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
-        <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=;local_port=6000" DeviceName="cabinet_drawer_01_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
-        <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=;local_port=6000" DeviceName="cabinet_drawer_01_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
-        <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=;local_port=6000" DeviceName="cabinet_drawer_01_05" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
-=======
         <Device DevConnStr="ip=192.168.0.200;portid=2;startPort=5001;endPort=5999;local_port=6000" DeviceName="cabinet_plc" DriverId="33943026-dad4-4763-92bb-0515bd373fdc" />
         <Device DevConnStr="ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01"  DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
         <Device DevConnStr="ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02" DeviceName="cabinet_drawer_01_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
@@ -89,7 +81,6 @@
         <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=192.168.0.14;local_port=6000" DeviceName="cabinet_drawer_07_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
         <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=192.168.0.14;local_port=6000" DeviceName="cabinet_drawer_07_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
         <Device DevConnStr="ip=192.168.0.xxx;port=5000;local_ip=192.168.0.14;local_port=6000" DeviceName="cabinet_drawer_07_05" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" />
->>>>>>> 3d1694ed16ebe58ccb194a113ac4d21bc5188da6
       </Devices>
     </Device>
     <Device DeviceName="openstage_assembly" DriverId="a6a5eb63-ab45-4c91-bc04-417825b927ab" ID="DE_OS_A_ASB" PositionId="OpenStage01">
