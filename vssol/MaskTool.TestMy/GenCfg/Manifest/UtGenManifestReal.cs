@@ -259,7 +259,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=TXF-MDT1X150-D35",
                         DeviceName = MacEnumDevice.inspection_camera_inspect_top_1.ToString(),
-                        DriverId = ManifestDriverId.CameraSentech.ToString(),
+                        DriverId = ManifestDriverId.CameraLink.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){

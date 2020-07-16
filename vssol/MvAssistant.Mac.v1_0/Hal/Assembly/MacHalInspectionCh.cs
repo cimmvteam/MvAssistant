@@ -20,8 +20,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_1); } }
         public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_defense_side_1); } }
         public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_defense_top_1); } }
-
-
+        public IHalCamera CameraLink { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_inspect_top_1); } }
 
 
         #endregion Device Components
@@ -103,7 +102,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public string ReadInspChStatus()
         { return Plc.ReadInspChStatus(); }
-        
+
         #region Set Parameter
         /// <summary>
         /// 設定速度，Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)
@@ -198,6 +197,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public double ReadRobotPosUpDown()
         { return Plc.ReadRobotPosUpDown(); }
         #endregion
+
+        public Bitmap Camera_TopInsp_Cap()
+        {
+            return CameraLink.Shot();
+        }
+
+        public void Camera_TopInsp_CapToSave(string SavePath, string FileType)
+        {
+            CameraLink.ShotToSaveImage(SavePath, FileType);
+        }
 
         public Bitmap Camera_TopDfs_Cap()
         {

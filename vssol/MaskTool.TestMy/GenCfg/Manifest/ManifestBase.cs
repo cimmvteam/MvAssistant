@@ -217,8 +217,15 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     Vendor="Sentech",
                     Product ="Camera Controller",
                     Remark=null,
-                    AssignType=typeof(Hal.CompCamera.HalCameraSenTech),
+                    AssignType=typeof(Hal.CompCamera.MacHalCameraSenTech),
                     DriverId=ManifestDriverId.CameraSentech.ToString(),
+                },
+                new MacManifestDriverCfg(){
+                    Vendor="Sentech",
+                    Product ="Camera Link",
+                    Remark=null,
+                    AssignType=typeof(Hal.CompCamera.MacHalCameraLink),
+                    DriverId=ManifestDriverId.CameraLink.ToString(),
                 }
             }.ToList();
         }
