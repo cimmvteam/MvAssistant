@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
 
-namespace MvAssistant.Mac.Drawer_SocketComm
+namespace MvAssistant.Mac.DrawerSocketTest
 {
     public class UDPSocket
     {

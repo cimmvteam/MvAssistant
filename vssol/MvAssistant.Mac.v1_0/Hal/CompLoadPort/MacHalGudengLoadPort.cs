@@ -68,7 +68,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
                 return port;
             }
         }
-        public string Index { get { return HalDeviceCfg.DeviceName; } }
+        public string DeviceIndex { get { return HalDeviceCfg.DeviceName; } }
 
         public bool IsConnected {
             get
@@ -110,7 +110,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
                     {
                         if (_ldd == null)
                         {
-                            _ldd = new MvGudengLoadPortLdd(DeviceIP, DevicePort, Index);
+                            _ldd = new MvGudengLoadPortLdd(DeviceIP, DevicePort, DeviceIndex);
                             this.BindEvents();
                             connected = _ldd.StartListenServerThread();
 
@@ -167,6 +167,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             _ldd.OnPODPresentAbnormalityHandler += this.OnPODPresentAbnormality;
             _ldd.OnClamperMotorAbnormalityHandler += this.OnClamperMotorAbnormality;
             _ldd.OnStageMotorAbnormalityHandler += this.OnStageMotorAbnormality;
+            _ldd.OnRFIDHandler += this.OnRFID;
         }
 
         public string CommandAlarmReset()

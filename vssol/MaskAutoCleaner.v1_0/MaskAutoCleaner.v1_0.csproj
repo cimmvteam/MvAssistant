@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
-    <Compile Include="Machine\MacMachineMap.cs" />
+    <Compile Include="Machine\MacMachineCtrlCfg.cs" />
     <Compile Include="Machine\MacMachineMgr.cs" />
     <Compile Include="Machine\MacMachineMgrCfg.cs" />
     <Compile Include="Inspect\DefectItem.cs" />
@@ -96,11 +96,11 @@
     <Compile Include="EnumMacMaskSide.cs" />
     <Compile Include="Machine\MacMachineCtrlBase.cs" />
     <Compile Include="Machine\MacMachineStateBase.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMacCmMaskTransferCmd.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMacSmMaskTransferState.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMacSmMaskTransferTransition.cs" />
-    <Compile Include="Machine\MaskTransfer\MacCmMaskTransfer.cs" />
-    <Compile Include="Machine\MaskTransfer\MacSmMaskTransfer.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMcMaskTransferCmd.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMsMaskTransferState.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMsMaskTransferTransition.cs" />
+    <Compile Include="Machine\MaskTransfer\MacMcMaskTransfer.cs" />
+    <Compile Include="Machine\MaskTransfer\MacMsMaskTransfer.cs" />
     <Compile Include="Machine\MacMachineMediater.cs" />
     <Compile Include="Msg\EnumMacAlarmId.cs" />
     <Compile Include="Msg\EnumMacAlarmLevel.cs" />

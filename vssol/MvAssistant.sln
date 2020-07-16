@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.DeviceDrive.Fan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskAutoCleaner.v1_0", "MaskAutoCleaner.v1_0\MaskAutoCleaner.v1_0.csproj", "{6170A960-30F6-48CF-B50A-7533D0D749B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaskAutoCleaner.v1_0.TestMy", "MaskAutoCleaner.v1_0.TestMy\MaskAutoCleaner.v1_0.TestMy.csproj", "{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,14 @@ Global
 		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.ActiveCfg = Release|x86
 		{6170A960-30F6-48CF-B50A-7533D0D749B1}.Release|x86.Build.0 = Release|x86
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Debug|x86.Build.0 = Debug|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Release|x86.ActiveCfg = Release|Any CPU
+		{01A5A755-1F4C-4E1D-BCC4-8C589DAA09E2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

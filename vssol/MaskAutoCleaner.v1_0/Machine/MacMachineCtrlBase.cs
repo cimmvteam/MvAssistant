@@ -10,10 +10,13 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine
 {
+    /// <summary>
+    /// Machine Controller Base
+    /// </summary>
     public abstract class MacMachineCtrlBase : IMvContextFlow, IDisposable
     {
         protected MacHalAssemblyBase halAssembly;
-        protected MacMachineStateBase smAssembly;
+        protected MacMachineStateBase msAssembly;
 
         ~MacMachineCtrlBase() { this.Dispose(false); }
 

@@ -58,7 +58,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         event EventHandler OnDetectedHasBoxHandler;
         event EventHandler OnDetectedEmptyBoxHandler;
 
-       event EventHandler OnTrayMothingSensorOFFHandler;// TrayMotionError(903)
+       event EventHandler OnTrayMotionSensorOFFHandler;// TrayMotionError(903)
        event EventHandler OnERRORREcoveryHandler;
        event EventHandler OnERRORErrorHandler;
 
@@ -72,6 +72,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
          event EventHandler OnLCDCMsgFailedHandler ;
 
         event EventHandler OnINIFailedHandler;
+        event EventHandler OnINIOKHandler;
         #endregion
 
 
