@@ -30,7 +30,12 @@ namespace MvAssistant.DeviceDrive.CameraLink
 
         public void Connect()
         {
+            // Open MultiCam driver
+            MC.OpenDriver();
 
+            // Create a channel and associate it with the first connector on the first board
+            MC.Create("CHANNEL", out channel);
+            MC.SetParam(channel, "DriverIndex", 0);
         }
 
         public void Close()
@@ -43,8 +48,7 @@ namespace MvAssistant.DeviceDrive.CameraLink
             try
             {
                 image = null;
-                // Open MultiCam driver
-                MC.OpenDriver();
+                
 
                 // Enable error logging
                 MC.SetParam(MC.CONFIGURATION, "ErrorLog", "error.log");
@@ -57,9 +61,7 @@ namespace MvAssistant.DeviceDrive.CameraLink
                 // Set the board topology to support 10 taps mode (only with a Grablink Full)
                 // MC.SetParam(MC.BOARD + 0, "BoardTopology", "MONO_DECA");
 
-                // Create a channel and associate it with the first connector on the first board
-                MC.Create("CHANNEL", out channel);
-                MC.SetParam(channel, "DriverIndex", 0);
+               
 
                 // In order to use single camera on connector A
                 // MC_Connector must be set to A for Grablink DualBase
@@ -71,7 +73,7 @@ namespace MvAssistant.DeviceDrive.CameraLink
                 //MC.SetParam(channel, "Connector", "A");
 
                 // Choose the CAM file
-                MC.SetParam(channel, "CamFile", "STC-CL25M_8T freerun");
+                MC.SetParam(channel, "CamFile", "../../UserData/STC-CL25M_8T freerun");
                 // Choose the camera expose duration
                 MC.SetParam(channel, "Expose_us", 20000);
                 // Choose the pixel color format

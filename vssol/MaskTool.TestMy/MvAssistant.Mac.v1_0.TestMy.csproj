@@ -108,6 +108,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="UserData\STC-CL25M_8T freerun.cam" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaskAutoCleaner.v1_0\MaskAutoCleaner.v1_0.csproj">

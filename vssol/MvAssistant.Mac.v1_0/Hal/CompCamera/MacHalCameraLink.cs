@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MvAssistant.DeviceDrive.CameraLink;
 using MvAssistant.DeviceDrive.OmronSentechCamera;
