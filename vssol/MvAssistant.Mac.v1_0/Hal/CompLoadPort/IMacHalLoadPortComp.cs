@@ -69,5 +69,6 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         event EventHandler OnPODPresentAbnormalityHandler;
         event EventHandler OnClamperMotorAbnormalityHandler;
         event EventHandler OnStageMotorAbnormalityHandler;
+        event EventHandler OnHostLostLoadPortConnectionHandler;
     }
 }

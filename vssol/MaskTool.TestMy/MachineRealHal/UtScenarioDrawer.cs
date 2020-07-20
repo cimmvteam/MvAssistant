@@ -27,6 +27,28 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
         }
         
+        [TestMethod]
+        public void DrawerBasicTest()
+        {
+            try
+            {
+                var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                halContext.MvCfLoad();
+                var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+                var drawer= cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                var connected=drawer.HalConnect();
+                var isConnected = drawer.HalIsConnected();
+                Debug.WriteLine($"IsConnected={isConnected}");
+                BindEvents(drawer);
+
+                Repeat();
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
         /// <summary>指令測試</summary>
         [TestMethod]
         public void DrawerCommandTest()
@@ -39,13 +61,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                     var drawer_01_01 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                     var drawer_01_02 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
-                    drawer_01_01.HalConnect();
+                   var isConnected= drawer_01_01.HalConnect();
+                    Debug.WriteLine($"IsConnected={isConnected}");
                     drawer_01_02.HalConnect();
                     BindEvents(drawer_01_01);
                     BindEvents(drawer_01_02);
 
                     /**  CommandSetMotionSpeed    */
-                    drawer_01_01.CommandSetMotionSpeed(100);
+                    
                     drawer_01_02.CommandSetMotionSpeed(100);
                
                     /** CommandPositionRead
@@ -94,7 +117,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     drawer_01_01.CommandTrayMotionOut();
                     */
 
-                  
+
                     Repeat();
 
                 }
@@ -145,6 +168,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         void OnButtonEvent(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
+            Debug.WriteLine($"DeviceIndex={drawer.DeviceIndex}");
         }
         void OnLCDCMsgFailed(object sender, EventArgs e)
         {
@@ -222,10 +246,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         void OnBrightLEDOK(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
+            Debug.WriteLine($"DeviceIndex={drawer.DeviceIndex},Invoke={nameof(OnBrightLEDOK)}");
         }
         void OnBrightLEDFailed(object sender, EventArgs e)
         {
             var drawer = (IMacHalDrawer)sender;
+            Debug.WriteLine($"DeviceIndex={drawer.DeviceIndex},Invoke={nameof(OnBrightLEDFailed)}");
         }
         void OnDetectedEmptyBox(object sender,EventArgs e)
         {

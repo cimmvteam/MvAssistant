@@ -40,7 +40,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             {
                 return this.DevSettings["index"];
             }
-        } 
+        }
+        public override bool HalIsConnected()
+        {
+            if (LddPool == null) { return false; }
+            if (Ldd == null) { return false; }
+
+            return true;
+        }
         public MvKjMachineDrawerLdd Ldd { get; set; }
     
 

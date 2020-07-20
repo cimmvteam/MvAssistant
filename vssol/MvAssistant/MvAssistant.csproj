@@ -148,6 +148,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyTrayMotionEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnTrayArriveEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\OutOfListenPortsException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLddPool.cs" />

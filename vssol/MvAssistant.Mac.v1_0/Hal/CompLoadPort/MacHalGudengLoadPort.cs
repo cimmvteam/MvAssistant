@@ -50,7 +50,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         public event EventHandler OnPODPresentAbnormalityHandler;
         public event EventHandler OnClamperMotorAbnormalityHandler;
         public event EventHandler OnStageMotorAbnormalityHandler;
-
+        public event EventHandler OnHostLostLoadPortConnectionHandler;
         public string DeviceIP
         {
             get
@@ -70,20 +70,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         }
         public string DeviceIndex { get { return HalDeviceCfg.DeviceName; } }
 
-        public bool IsConnected {
-            get
-            {
-                if (_ldd == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
 
-        }
+        
+        public bool IsConnected { get; private set; }
 
         public override int HalClose()
         {
@@ -97,6 +86,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             {
                 return 0;
             }
+        }
+       public override bool HalIsConnected()
+       {
+            return this.IsConnected;
         }
 
         public override int HalConnect()
@@ -117,6 +110,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
                             if (!connected)
                             {
                                 _ldd = null;
+                                IsConnected = true;
                             }
                         }
                     }
@@ -126,6 +120,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             catch (Exception ex)
             {
                 _ldd = null;
+                IsConnected = false;
                 return 0;
             }
         }
@@ -168,7 +163,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             _ldd.OnClamperMotorAbnormalityHandler += this.OnClamperMotorAbnormality;
             _ldd.OnStageMotorAbnormalityHandler += this.OnStageMotorAbnormality;
             _ldd.OnRFIDHandler += this.OnRFID;
+            _ldd.OnHostLostTcpServerHandler += this.OnHostLostTcpServer;
         }
+
+
 
         public string CommandAlarmReset()
         {
@@ -582,6 +580,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             {
                 OnStageMotorAbnormalityHandler.Invoke(this, e);
 
+            }
+        }
+
+
+        /// <summary>如果 Loadport 的TCP Server 忽然斷線</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void OnHostLostTcpServer(object sender, EventArgs e)
+        {
+            IsConnected = false;
+            _ldd = null;
+            if (OnHostLostLoadPortConnectionHandler !=null)
+            {
+                OnHostLostLoadPortConnectionHandler.Invoke(this, e);
             }
         }
 

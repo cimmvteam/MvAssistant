@@ -100,8 +100,17 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             set { }
         }
 #else
+        ///<summary>是否已完成監聽, 這個變數為 false 時, 均無法送出指令 </summary>
         public bool IsListenServer { get; private set; }
+
 #endif
+
+
+
+
+
+
+
         /// <summary>Client(本地端) 端監 Server</summary>
         public Thread ThreadClientListen = null;
         /// <summary>收到 Server 端傳回資料時的事件處理程序</summary>
@@ -178,6 +187,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
         /// <summary>監聽 Server 的Method</summary>
         private void ListenFromServer()
         {
+            int rtnEmptyCount = 0;
             while (true)
             {
                 try
@@ -189,7 +199,23 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                     //rtn = "~001,Placement,0@\0\0\0\0";
 
                     Debug.WriteLine("[RETURN] " + rtn);
+                    
                     rtn = rtn.Replace("\0", "");
+                  
+                    if (string.IsNullOrEmpty(rtn) )
+                    {  // 忽然斷線(將一直收到空白 50 次視為遺失連線)
+                        if (++rtnEmptyCount > 50 && OnHostLostTcpServerHandler != null  )
+                        {
+                            OnHostLostTcpServerHandler.Invoke(this, EventArgs.Empty);
+                            break;
+                        }
+                        System.Threading.Thread.Sleep(100);
+                        continue;
+                    }
+                    else
+                    {
+                        rtnEmptyCount = 0;
+                    }
                     if (OnReceviceRtnFromServerHandler != null)
                     {
                         // 可能一次會有多個結果
@@ -207,6 +233,10 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
                 }
             }
         }
+
+        /// <summary>連線後遺失Host 和 TCP Server 間的連線</summary>
+        public event EventHandler OnHostLostTcpServerHandler;
+     //   public event EventHandler OnHostCannotConnectToTcpServerHandler;
 
         /// <summary>送出 指令</summary>
         /// <param name="commandText">指令</param>
