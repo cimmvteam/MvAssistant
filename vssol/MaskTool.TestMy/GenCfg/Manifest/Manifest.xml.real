@@ -6,6 +6,8 @@
         <Device DevConnStr="ip=192.168.0.200;port=2" DeviceName="loadport_plc" DriverId="1b96119d-4945-4e41-a722-a216e5a6d3ab" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;local_ip=;local_port=0" DeviceName="loadport_cell_001" DriverId="d870183b-836c-48d3-9024-d746c23d7398" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;model=IDGB_50M4PG_24_TP;channel=1" DeviceName="loadport_light_bar_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
+        <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
+        <Device DevConnStr="ip=192.168.0.21;port=1024" DeviceName="loadport_2" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
       </Devices>
     </Device>
     <Device DeviceName="loadport_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_B_ASB" PositionId="LoadPort02">
@@ -13,6 +15,8 @@
         <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="loadport_plc" DriverId="1b96119d-4945-4e41-a722-a216e5a6d3ab" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;local_ip=;local_port=0" DeviceName="loadport_cell_001" DriverId="d870183b-836c-48d3-9024-d746c23d7398" />
         <Device DevConnStr="ip=192.168.0.119;port=1000;model=IDGB_50M4PG_24_TP;channel=2" DeviceName="loadport_light_bar_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
+        <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
+        <Device DevConnStr="ip=192.168.0.21;port=1024" DeviceName="loadport_2" DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" />
       </Devices>
     </Device>
     <Device DeviceName="inspection_assembly" DriverId="f19eb7b5-bb07-4a53-9e70-8616812a4f02" ID="DE_IC_A_ASB" PositionId="InspectionCh01">
@@ -130,5 +134,6 @@
     <Driver DriverId="6887e53e-4914-444a-a099-6bd30da27396" Vendor="Sentech" Product="Camera Link" HalImpId="BF1D88C3-AEF5-4B2E-B161-336623A21804" HalImpRefName="HalCameraLink" />
     <Driver DriverId="b2e74fc0-ffa0-467b-8f69-208fe628a693" Vendor="Fanuc" Product="Fanuc Robot LR Mate 200iD" HalImpId="5EDFE42F-A27A-42B5-9702-11FC84208D74" HalImpRefName="HalRobotFanuc" />
     <Driver DriverId="da521b12-e343-4ded-867e-e4b773235be5" Vendor="Leimac" Product="Light Controller" HalImpId="07C1D790-D3A5-4AB5-8A6E-5EC41045778B" HalImpRefName="MacHalLightLeimac" />
+    <Driver DriverId="C525E6CF-ED3C-4286-9E54-B5CF414DB04A" Vendor="" Product="Load Port" HalImpId="F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6" HalImpRefName="MacHalGudengLoadPort" />
   </Drivers>
 </Manifest>

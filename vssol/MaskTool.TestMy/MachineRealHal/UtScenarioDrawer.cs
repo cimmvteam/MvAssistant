@@ -44,10 +44,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     BindEvents(drawer_01_01);
                     BindEvents(drawer_01_02);
 
-                    /**  CommandSetMotionSpeed
+                    /**  CommandSetMotionSpeed    */
                     drawer_01_01.CommandSetMotionSpeed(100);
                     drawer_01_02.CommandSetMotionSpeed(100);
-                   */
+               
                     /** CommandPositionRead
                     drawer_01_02.CommandPositionRead();
                     drawer_01_01.CommandPositionRead();
