@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 {
-    public interface IMacHalLoadPortComp: IMacHalComponent
+    public interface IMacHalLoadPortUnit: IMacHalComponent
     {
          bool IsConnected { get; }
          string DeviceIndex { get; }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 {
     [Guid("F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6")]
-    public class MacHalGudengLoadPort : MacHalComponentBase, IMacHalLoadPortComp
+    public class MacHalGudengLoadPort : MacHalComponentBase, IMacHalLoadPortUnit
     {
         private static object getLddObject = new object();
         private MvGudengLoadPortLdd _ldd;
