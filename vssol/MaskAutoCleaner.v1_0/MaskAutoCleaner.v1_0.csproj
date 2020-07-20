@@ -86,6 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMsLoadPortState.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMsLoadPortTransition.cs" />
+    <Compile Include="Machine\LoadPort\MacMcLoadPort.cs" />
     <Compile Include="Machine\LoadPort\MacMsLoadPort.cs" />
     <Compile Include="Machine\MacMachineCtrlCfg.cs" />
     <Compile Include="Machine\MacMachineMgr.cs" />
