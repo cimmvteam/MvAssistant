@@ -86,6 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
+    <Compile Include="Machine\Cabinet\MacMsDrawer.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMsLoadPortState.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMsLoadPortTransition.cs" />
@@ -183,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Machine\BoxTransfer\" />
-    <Folder Include="Machine\Cabinet\" />
     <Folder Include="Machine\CleanCh\" />
     <Folder Include="Machine\InspectionCh\" />
     <Folder Include="Machine\OpenStage\" />

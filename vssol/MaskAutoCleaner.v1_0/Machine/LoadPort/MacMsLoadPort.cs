@@ -13,7 +13,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
-        public IMacHalLoadPortUnit HalMaskLoadPort { get { return this.halAssembly as IMacHalLoadPortUnit; } }
+        public IMacHalLoadPortUnit HalLoadPortUnit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
 
         public override void LoadStateMachine()
         {
