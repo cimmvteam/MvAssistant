@@ -7,44 +7,25 @@ using System.Threading.Tasks;
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
     /// <summary>狀態</summary>
+    /// <remarks>
+    /// Postfix:
+    /// 完成: Complete
+    /// 無法完成: Failed
+    /// </remarks>
     public enum  EnumMacMsLoadPortState
     {
-        /** Postfix
-         * 完成: Complete,
-         * 無法完成: Failed
-         */ 
+  
 
-
-        AlarmReset=0,
-        AlarmResetComplete,
-        AlarmResetFailed,
-
-        Initial=100,
-        InitialComplete,
-        InitialFailed,
-
-        IdleLoadOK=200,
-        DockStart=201,
-        ExecuteAlarmResetFirstWhenDocking,
-        ExecuteInitialFirstWhenDocking,
-        Docking,
-        DockFailed,
+        IdleReadyToDock,
+        DockStart,
         DockComplete,
 
+        IdleReadyToUndock,
+        UndockStart,
+        UndockComplete,
 
-        IdleReadyToUndock=300,
-        UnDockStart =301,
-        ExecuteAlarmResetFirstWhenUndocking,
-        ExecuteInitialFirstWhenUndocking,
-        Undocking,
-        UndockFiled,
-        UnDockComplete,
         IdleReadyToUnload,
-
-
-
-
-
+        UnloadExecuted,
 
     }
 }
