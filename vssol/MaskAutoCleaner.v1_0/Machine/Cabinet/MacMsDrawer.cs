@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
-    [Guid("00000000-0000-0000-0000-000000000000")]
+    [Guid("204025E5-D96E-467B-A60A-C9997F8B1563")]
     public class MacMsDrawer : MacMachineStateBase
     {
         public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }

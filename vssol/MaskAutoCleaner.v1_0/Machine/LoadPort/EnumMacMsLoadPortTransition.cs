@@ -8,8 +8,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
     public enum EnumMacMsLoadPortTransition
     {
-        NormalReset,
-        NormalInitial,
+       Reset,
+       Initial,
         Dock,
        ReadyToUndock,
        Undock,

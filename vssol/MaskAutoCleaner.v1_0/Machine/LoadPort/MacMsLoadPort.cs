@@ -20,16 +20,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             #region State
 
             // Reset
-            MacState sWaitReset = NewState(EnumMacMsLoadPortState.WaitReset);// TODO: Event
-            MacState sResetStart = NewState(EnumMacMsLoadPortState.ResetStart);// TODO: Event
-            MacState sReseting = NewState(EnumMacMsLoadPortState.Reseting);// TODO: Event
-            MacState sResetComplete = NewState(EnumMacMsLoadPortState.ResetComplete);// TODO: Event
+            MacState sWaitReset = NewState(EnumMacMsLoadPortState.WaitReset);
+            MacState sResetStart = NewState(EnumMacMsLoadPortState.ResetStart);
+            MacState sReseting = NewState(EnumMacMsLoadPortState.Reseting);
+            MacState sResetComplete = NewState(EnumMacMsLoadPortState.ResetComplete);
 
             // Initial
-            MacState sWaitInitial= NewState(EnumMacMsLoadPortState.WaitInitial);// TODO: Event
-            MacState sInitialStart = NewState(EnumMacMsLoadPortState.InitialStart);// TODO: Event
-            MacState sNormalInitialing = NewState(EnumMacMsLoadPortState.Initialing);// TODO: Event
-            MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);// TODO: Event
+            MacState sWaitInitial= NewState(EnumMacMsLoadPortState.WaitInitial);
+            MacState sInitialStart = NewState(EnumMacMsLoadPortState.InitialStart);
+            MacState sNormalInitialing = NewState(EnumMacMsLoadPortState.Initialing);
+            MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);
          
             
 
@@ -314,19 +314,19 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             #region Transition 
             // Normal Reset
-            MacTransition tWaitNormalReset_NomalResetStart = NewTransition(sWaitReset, sResetStart, EnumMacMsLoadPortTransition.NormalReset);
-            MacTransition tNomalResetStart_NomalReseting = NewTransition(sResetStart, sReseting, EnumMacMsLoadPortTransition.NormalReset);
-            MacTransition tNomalReseting_NomalResetComplete = NewTransition(sReseting, sResetComplete, EnumMacMsLoadPortTransition.NormalReset);
+            MacTransition tWaitReset_ResetStart = NewTransition(sWaitReset, sResetStart, EnumMacMsLoadPortTransition.Reset);
+            MacTransition tResetStart_Reseting = NewTransition(sResetStart, sReseting, EnumMacMsLoadPortTransition.Reset);
+            MacTransition tReseting_ResetComplete = NewTransition(sReseting, sResetComplete, EnumMacMsLoadPortTransition.Reset);
           
 
 
             // Normal Initial
-            MacTransition tWaitNormalInitial_NomalInitialStart = NewTransition(sWaitInitial, sInitialStart, EnumMacMsLoadPortTransition.NormalInitial);
-            MacTransition tNomalInitialStart_NomalInitialing = NewTransition(sInitialStart, sNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
+            MacTransition tInitial_InitialStart = NewTransition(sWaitInitial, sInitialStart, EnumMacMsLoadPortTransition.Initial);
+            MacTransition tInitialStart_Initialing = NewTransition(sInitialStart, sNormalInitialing, EnumMacMsLoadPortTransition.Initial);
             /**
               MacTransition tNomalInitialing_MustResetDuringInitialing = NewTransition(sNormalInitialing, sMustResetDuringNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
             */
-            MacTransition tNomalInitialing_NomalInitialComplete = NewTransition(sNormalInitialing, sInitialComplete, EnumMacMsLoadPortTransition.NormalInitial);
+            MacTransition tInitialing_InitialComplete = NewTransition(sNormalInitialing, sInitialComplete, EnumMacMsLoadPortTransition.Initial);
            
 
 
