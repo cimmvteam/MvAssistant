@@ -19,54 +19,60 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             #region State
 
-            // Normal Reset
-            MacState sWaitNormalReset = NewState(EnumMacMsLoadPortState.WaitNormalReset);// TODO: Event
-            MacState sNormalResetStart = NewState(EnumMacMsLoadPortState.NormalResetStart);// TODO: Event
-            MacState sNormalReseting = NewState(EnumMacMsLoadPortState.NormalReseting);// TODO: Event
-            MacState sNormalResetComplete = NewState(EnumMacMsLoadPortState.NormalResetComplete);// TODO: Event
+            // Reset
+            MacState sWaitReset = NewState(EnumMacMsLoadPortState.WaitReset);// TODO: Event
+            MacState sResetStart = NewState(EnumMacMsLoadPortState.ResetStart);// TODO: Event
+            MacState sReseting = NewState(EnumMacMsLoadPortState.Reseting);// TODO: Event
+            MacState sResetComplete = NewState(EnumMacMsLoadPortState.ResetComplete);// TODO: Event
 
-            // Normal Initial
-            MacState sWaitNormalInitial= NewState(EnumMacMsLoadPortState.WaitNormalInitial);// TODO: Event
-            MacState sNormalInitialStart = NewState(EnumMacMsLoadPortState.NormalInitialStart);// TODO: Event
-            MacState sNormalInitialing = NewState(EnumMacMsLoadPortState.NormalInitialing);// TODO: Event
-            MacState sMustResetDuringNormalInitialing = NewState(EnumMacMsLoadPortState.MustResetDuringNormalInitialing);// TODO: Event
-            MacState sNormalInitialComplete = NewState(EnumMacMsLoadPortState.NormalInitialComplete);// TODO: Event
+            // Initial
+            MacState sWaitInitial= NewState(EnumMacMsLoadPortState.WaitInitial);// TODO: Event
+            MacState sInitialStart = NewState(EnumMacMsLoadPortState.InitialStart);// TODO: Event
+            MacState sNormalInitialing = NewState(EnumMacMsLoadPortState.Initialing);// TODO: Event
+            MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);// TODO: Event
          
             
 
 
 
-            // IdleReadyToDock
+            // dock
             MacState sIdleReadyToDock = NewState(EnumMacMsLoadPortState.IdleReadyToDock);
-            // DockStart 
             MacState sDockStart = NewState(EnumMacMsLoadPortState.DockStart);
-          
-            // Docking
             MacState sDocking= NewState(EnumMacMsLoadPortState.Docking);
-            MacState sMustResetDuringDucking = NewState(EnumMacMsLoadPortState.MustResetDuringDocking);// TODO: Event
-            MacState sMustInitialDuringDucking = NewState(EnumMacMsLoadPortState.MustInitialDuringDocking);// TODO: Event
-            // DockComplete
             MacState sDockComplete = NewState(EnumMacMsLoadPortState.DockComplete);
-            // IdleReadyToUndock 
+
+            // undock
             MacState sIdleReadyToUndock = NewState(EnumMacMsLoadPortState.IdleReadyToUndock);
-            // UndockStart
             MacState sUndockStart = NewState(EnumMacMsLoadPortState.UndockStart);
-          
-            // Undocking
             MacState sUndocking= NewState(EnumMacMsLoadPortState.Undocking);
-            MacState sMustResetDuringUndocking = NewState(EnumMacMsLoadPortState.MustResetDuringUndocking); // TODO: Event
-            MacState sMustInitialDuringUndocking = NewState(EnumMacMsLoadPortState.MustInitialDuringUndocking); // TODO: Event
-
-
-            // UndockComplete
             MacState sUndockComplete = NewState(EnumMacMsLoadPortState.UndockComplete);
-            // IdleReadyToUnload
+            
+            // unload
             MacState sIdleReadyToUnload = NewState(EnumMacMsLoadPortState.IdleReadyToUnload);
             MacState sUnloadExecuted = NewState(EnumMacMsLoadPortState.UnloadExecuted);
 
+            // Exception
+            MacState sExpMustReset = NewState(EnumMacMsLoadPortState.ExpMustReset);
+            MacState sExpResetTimeout = NewState(EnumMacMsLoadPortState.ExpResetTimeout);
+            MacState sExpResetFail = NewState(EnumMacMsLoadPortState.ExpResetFail);
+            MacState sExpMustInitial = NewState(EnumMacMsLoadPortState.ExpMustInitial);
+            MacState sExpInitialFail = NewState(EnumMacMsLoadPortState.ExpInitialFail);
+            MacState sExpInitialTimeout = NewState(EnumMacMsLoadPortState.ExpInitialTimeout);
+            MacState sExpDockTimeout = NewState(EnumMacMsLoadPortState.ExpDockTimeout);
+            MacState sExpUndockTimeout = NewState(EnumMacMsLoadPortState.ExpUndockTimeOut);
             #endregion State
 
             #region  Register OnEntry Event Handler
+
+            sWaitReset.OnEntry += sWaitReset_OnEntry;
+            sResetStart.OnEntry += sResetStart_OnEntry;
+            sReseting.OnEntry += sReseting_OnEntry;
+            sResetComplete.OnEntry += sResetComplete_OnEntry;
+            sWaitInitial.OnEntry += sWaitInitial_OnEntry;
+            sInitialStart.OnEntry += sInitialStart_OnEntry;
+            sNormalInitialing.OnEntry += sNormalInitialing_OnEntry;
+            sInitialComplete.OnEntry += sInitialComplete_OnEntry;
+  
             sIdleReadyToDock.OnEntry += sIdleReadyToDock_OnEntry;
             sDockStart.OnEntry += sDockStart_OnEntry;
             sDocking.OnEntry += sDocking_OnEntry;
@@ -77,9 +83,29 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockComplete.OnEntry += sUndockComplete_OnEntry;
             sIdleReadyToUnload.OnEntry += sIdleReadyToUnload_OnEntry;
             sUnloadExecuted.OnEntry += sUnloadExecuted_OnEntry;
+
+            sExpMustReset.OnEntry += sExpMustReset_OnEntry;
+            sExpResetTimeout.OnEntry += sExpResetTimeout_OnEntry;
+            sExpResetFail.OnEntry += sExpResetFail_OnEntry;
+            sExpMustInitial.OnEntry += sExpMustInitial_OnEntry;
+            sExpInitialFail.OnEntry += sExpInitialFail_OnEntry;
+            sExpInitialTimeout.OnEntry += sExpInitialTimeout_OnEntry;
+            sExpDockTimeout.OnEntry += sExpDockTimeout_OnEntry;
+            sExpUndockTimeout.OnEntry += sExpUndockTimeout_OnEntry;
+
             #endregion
 
             #region Register OnExit Event Handler
+
+            sWaitReset.OnExit += sWaitReset_OnExit;
+            sResetStart.OnExit += sResetStart_OnExit;
+            sReseting.OnExit += sReseting_OnExit;
+            sResetComplete.OnExit += sResetComplete_OnExit;
+            sWaitInitial.OnExit += sWaitInitial_OnExit;
+            sInitialStart.OnExit += sInitialStart_OnExit;
+            sNormalInitialing.OnExit += sNormalInitialing_OnExit;
+            sInitialComplete.OnExit += sInitialComplete_OnExit;
+
             sIdleReadyToDock.OnExit += sIdleReadyToDock_OnExit;
             sDockStart.OnExit += sDockStart_OnExit;
             sDocking.OnExit += sDocking_OnExit;
@@ -90,11 +116,58 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockComplete.OnExit += sUndockComplete_OnExit;
             sIdleReadyToUnload.OnExit += sIdleReadyToUnload_OnExit;
             sUnloadExecuted.OnExit += sUnloadExecuted_OnExit;
+
+            sExpMustReset.OnExit += sExpMustReset_OnExit;
+            sExpResetTimeout.OnExit += sExpResetTimeout_OnExit;
+            sExpResetFail.OnExit += sExpResetFail_OnExit;
+            sExpMustInitial.OnExit += sExpMustInitial_OnExit;
+            sExpInitialFail.OnExit += sExpInitialFail_OnExit;
+            sExpInitialTimeout.OnExit += sExpInitialTimeout_OnExit;
+            sExpDockTimeout.OnExit += sExpDockTimeout_OnExit;
+            sExpUndockTimeout.OnExit += sExpUndockTimeout_OnExit;
             #endregion
 
 
 
             #region OnEntry  Method
+            void sWaitReset_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+            void sResetStart_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+            void sReseting_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+            void sResetComplete_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+
+           void  sWaitInitial_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+            void sInitialStart_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+            void sNormalInitialing_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+            void sInitialComplete_OnEntry(object sender, MacStateEntryEventArgs e)
+            {
+
+            }
+
+
+
+
+
             void sIdleReadyToDock_OnEntry(object sender, MacStateEntryEventArgs e)
             {
                // sIdleReadyToDock.DoExit(null);
@@ -135,9 +208,56 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
 
             }
+
+
+            void sExpMustReset_OnEntry(object sender, MacStateEntryEventArgs e){ }
+            void sExpResetTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpResetFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpMustInitial_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpInitialTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpDockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpUndockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
             #endregion
 
             #region OnExit Method
+            void sWaitReset_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+            void sResetStart_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+            void sReseting_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+            void sResetComplete_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+
+            void sWaitInitial_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+            void sInitialStart_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+            void sNormalInitialing_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+            void sInitialComplete_OnExit(object sender, MacStateExitEventArgs e)
+            {
+
+            }
+
+
+
+
             void sIdleReadyToDock_OnExit(object sender, MacStateExitEventArgs e)
             {
 
@@ -178,23 +298,35 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
 
             }
+
+
+            void sExpMustReset_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpResetTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpResetFail_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpMustInitial_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpInitialTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpDockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpUndockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
             #endregion
 
 
 
             #region Transition 
             // Normal Reset
-            MacTransition tWaitNormalReset_NomalResetStart = NewTransition(sWaitNormalReset, sNormalResetStart, EnumMacMsLoadPortTransition.NormalReset);
-            MacTransition tNomalResetStart_NomalReseting = NewTransition(sNormalResetStart, sNormalReseting, EnumMacMsLoadPortTransition.NormalReset);
-            MacTransition tNomalReseting_NomalResetComplete = NewTransition(sNormalReseting, sNormalResetComplete, EnumMacMsLoadPortTransition.NormalReset);
+            MacTransition tWaitNormalReset_NomalResetStart = NewTransition(sWaitReset, sResetStart, EnumMacMsLoadPortTransition.NormalReset);
+            MacTransition tNomalResetStart_NomalReseting = NewTransition(sResetStart, sReseting, EnumMacMsLoadPortTransition.NormalReset);
+            MacTransition tNomalReseting_NomalResetComplete = NewTransition(sReseting, sResetComplete, EnumMacMsLoadPortTransition.NormalReset);
           
 
 
             // Normal Initial
-            MacTransition tWaitNormalInitial_NomalInitialStart = NewTransition(sWaitNormalInitial, sNormalInitialStart, EnumMacMsLoadPortTransition.NormalInitial);
-            MacTransition tNomalInitialStart_NomalInitialing = NewTransition(sNormalInitialStart, sNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
-            MacTransition tNomalInitialing_MustResetDuringInitialing = NewTransition(sNormalInitialing, sMustResetDuringNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
-            MacTransition tNomalInitialing_NomalInitialComplete = NewTransition(sNormalInitialing, sNormalInitialComplete, EnumMacMsLoadPortTransition.NormalInitial);
+            MacTransition tWaitNormalInitial_NomalInitialStart = NewTransition(sWaitInitial, sInitialStart, EnumMacMsLoadPortTransition.NormalInitial);
+            MacTransition tNomalInitialStart_NomalInitialing = NewTransition(sInitialStart, sNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
+            /**
+              MacTransition tNomalInitialing_MustResetDuringInitialing = NewTransition(sNormalInitialing, sMustResetDuringNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
+            */
+            MacTransition tNomalInitialing_NomalInitialComplete = NewTransition(sNormalInitialing, sInitialComplete, EnumMacMsLoadPortTransition.NormalInitial);
            
 
 
