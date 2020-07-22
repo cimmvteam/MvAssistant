@@ -48,7 +48,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoInComplete,
         UnloadComplete,
         IdleReadyForUnloadBoxAtIn= UnloadComplete,
-        UnloadBoxAtInComplete
+        UnloadBoxAtInComplete,
 
+        ExpInitialFail,
+        ExpInitialTimeout,
+        ExpGotoInFail,
+        ExpGotoInTimeout,
+        ExpGotoHomeFail,
+        ExpGotoHomeTimeout,
+        ExpGotoOutFail,
+        ExpGotoOutTimeout
     }
 }

@@ -65,6 +65,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacState sIdleReadyForUnloadBoxAtIn = NewState(EnumMacDrawerState.IdleReadyForUnloadBoxAtIn);
             MacState sUnloadBoxAtInComplete = NewState(EnumMacDrawerState.UnloadBoxAtInComplete);
 
+            // Exception
+            MacState sExpInitialFail = NewState(EnumMacDrawerState.ExpInitialFail);
+            MacState sExpInitialTimeout = NewState(EnumMacDrawerState.ExpInitialTimeout);
+            MacState sExpGotoInTimeout = NewState(EnumMacDrawerState.ExpGotoInTimeout);
+            MacState sExpGotoInFail = NewState(EnumMacDrawerState.ExpGotoInFail);
+            MacState sExpGotoHomeTimeout = NewState(EnumMacDrawerState.ExpGotoHomeTimeout);
+            MacState sExpGotoHomeFail = NewState(EnumMacDrawerState.ExpGotoHomeFail);
+            MacState sExpGotoOutTimeout = NewState(EnumMacDrawerState.ExpGotoOutTimeout);
+            MacState sExpGotoOutFail = NewState(EnumMacDrawerState.ExpGotoOutFail);
+
             #endregion State
 
             #region delegates of Event OnEntry
@@ -74,6 +84,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             void sInitialIng_OnEntry(object sender, MacStateEntryEventArgs e) { }
             void sInitialComplete_OnEntry(object sender, MacStateEntryEventArgs e) { }
 
+
+            void sLoadAnyState_OnEntry(object sender, MacStateEntryEventArgs e) { }
             void sLoadGotoInStart_OnEntry(object sender, MacStateEntryEventArgs e) { }
             void sLoadGotoInIng_OnEntry(object sender, MacStateEntryEventArgs e) { }
             void sLoadGotoInComplete_OnEntry(object sender, MacStateEntryEventArgs e) { }
@@ -106,6 +118,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             void sIdleReadyForUnloadBoxAtIn_OnEntry(object sender, MacStateEntryEventArgs e) { }
             void sUnloadBoxAtInComplete_OnEntry(object sender, MacStateEntryEventArgs e) { }
 
+            void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpInitialTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpGotoInTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpGotoInFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpGotoHomeTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpGotoHomeFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpGotoOutTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+            void sExpGotoOutFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+
             #endregion delegates of Event OnEntry
             #region  Event OnEntry
             sAnyState.OnEntry += sAnyState_OnEntry;
@@ -114,6 +135,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sInitialIng.OnEntry += sInitialIng_OnEntry;
             sInitialComplete.OnEntry += sInitialComplete_OnEntry;
 
+
+            sLoadAnyState.OnEntry += sLoadAnyState_OnEntry;
             sLoadGotoInStart.OnEntry += sLoadGotoInStart_OnEntry;
             sLoadGotoInIng.OnEntry += sLoadGotoInIng_OnEntry;
             sLoadGotoInComplete.OnEntry += sLoadGotoInComplete_OnEntry;
@@ -145,6 +168,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sUnloadComplete.OnEntry += sUnloadComplete_OnEntry;
             sIdleReadyForUnloadBoxAtIn.OnEntry += sIdleReadyForUnloadBoxAtIn_OnEntry;
             sUnloadBoxAtInComplete.OnEntry += sUnloadBoxAtInComplete_OnEntry;
+
+
+            sExpInitialFail.OnEntry += sExpInitialFail_OnEntry;
+            sExpInitialTimeout.OnEntry += sExpInitialTimeout_OnEntry;
+            sExpGotoInTimeout.OnEntry += sExpGotoInTimeout_OnEntry;
+            sExpGotoInFail.OnEntry += sExpGotoInFail_OnEntry;
+            sExpGotoHomeTimeout.OnEntry += sExpGotoHomeTimeout_OnEntry;
+            sExpGotoHomeFail.OnEntry += sExpGotoHomeFail_OnEntry;
+            sExpGotoOutTimeout.OnEntry += sExpGotoOutTimeout_OnEntry;
+            sExpGotoOutFail.OnEntry += sExpGotoOutFail_OnEntry;
+
             #endregion   Event OnEntry
 
 
@@ -156,6 +190,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             void sInitialIng_OnExit(object sender, MacStateExitEventArgs e) { }
             void sInitialComplete_OnExit(object sender, MacStateExitEventArgs e) { }
 
+            void sLoadAnyState_OnExit(object sender, MacStateExitEventArgs e) { }
             void sLoadGotoInStart_OnExit(object sender, MacStateExitEventArgs e) { }
             void sLoadGotoInIng_OnExit(object sender, MacStateExitEventArgs e) { }
             void sLoadGotoInComplete_OnExit(object sender, MacStateExitEventArgs e) { }
@@ -188,15 +223,26 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             void sIdleReadyForUnloadBoxAtIn_OnExit(object sender, MacStateExitEventArgs e) { }
             void sUnloadBoxAtInComplete_OnExit(object sender, MacStateExitEventArgs e) { }
 
+
+            void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpInitialTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpGotoInTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpGotoInFail_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpGotoHomeTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpGotoHomeFail_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpGotoOutTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+            void sExpGotoOutFail_OnExit(object sender, MacStateExitEventArgs e) { }
+
             #endregion delegates of Event OnEntry
 
-            #region Event OnExit
+            #region Register Event OnExit
             sAnyState.OnExit += sAnyState_OnExit;
             sWaitInitial.OnExit += sWaitInitial_OnExit;
             sInitialStart.OnExit += sInitialStart_OnExit;
             sInitialIng.OnExit += sInitialIng_OnExit;
             sInitialComplete.OnExit += sInitialComplete_OnExit;
 
+            sLoadAnyState.OnExit += sLoadAnyState_OnExit;
             sLoadGotoInStart.OnExit += sLoadGotoInStart_OnExit;
             sLoadGotoInIng.OnExit += sLoadGotoInIng_OnExit;
             sLoadGotoInComplete.OnExit += sLoadGotoInComplete_OnExit;
@@ -233,13 +279,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sIdleReadyForUnloadBoxAtIn.OnExit += sIdleReadyForUnloadBoxAtIn_OnExit;
             sUnloadBoxAtInComplete.OnExit += sUnloadBoxAtInComplete_OnExit;
 
+
+            sExpInitialFail.OnExit += sExpInitialFail_OnExit;
+            sExpInitialTimeout.OnExit += sExpInitialTimeout_OnExit;
+            sExpGotoInTimeout.OnExit += sExpGotoInTimeout_OnExit;
+            sExpGotoInFail.OnExit += sExpGotoInFail_OnExit;
+            sExpGotoHomeTimeout.OnExit += sExpGotoHomeTimeout_OnExit;
+            sExpGotoHomeFail.OnExit += sExpGotoHomeFail_OnExit;
+            sExpGotoOutTimeout.OnExit += sExpGotoOutTimeout_OnExit;
+            sExpGotoOutFail.OnExit += sExpGotoOutFail_OnExit;
             #endregion  Event OnExit
 
             #region Transition
 
             // Initial,
-            MacTransition tAnyState_InitialStart = NewTransition(sAnyState,sWaitInitial,EnumMacDrawerTransition.Initial);
-            MacTransition tInitialStart_InitialIng = NewTransition(sWaitInitial,sInitialIng, EnumMacDrawerTransition.Initial);
+            MacTransition tAnyState_WaitInitial = NewTransition(sAnyState,sWaitInitial,EnumMacDrawerTransition.Initial);
+            MacTransition tWaitInitial_InitialStart = NewTransition(sWaitInitial, sInitialStart, EnumMacDrawerTransition.Initial);
+            MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacDrawerTransition.Initial);
             MacTransition tInitialStart_InitialComplete = NewTransition(sInitialIng, sInitialComplete, EnumMacDrawerTransition.Initial);
 
             // Load
