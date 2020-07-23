@@ -499,32 +499,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         #region Open Stage
         private void sMovingToOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+            HalMaskTransfer.RobotMoving(false);
         }
 
         private void sOpenStageClamping_OnEntry(object sender, MacStateEntryEventArgs e)
         {
+            var MaskType = (uint)e.Parameter;
+            HalMaskTransfer.Clamp(MaskType);
         }
 
         private void sMovingToLPHomeClampedFromOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+            HalMaskTransfer.RobotMoving(false);
         }
 
         private void sMovingOpenStageForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+            HalMaskTransfer.RobotMoving(false);
         }
 
         private void sOpenStagReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.Unclamp();
         }
 
         private void sMovingToLPHomeFromOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+            HalMaskTransfer.RobotMoving(false);
         }
         #endregion
 
         #region Barcode Reader
         private void sMovingToBarcodeReaderClamped_OnEntry(Object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.RobotMoving(true);
+            
+            HalMaskTransfer.RobotMoving(false);
         }
 
         private void sBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
@@ -533,6 +551,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         private void sMovingToLPHomeClampedFromBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
         {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
         }
         #endregion
 
