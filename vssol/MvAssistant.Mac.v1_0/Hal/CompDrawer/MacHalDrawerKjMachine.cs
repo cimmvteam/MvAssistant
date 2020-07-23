@@ -12,6 +12,7 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
 using MvAssistant.DeviceDrive;
 using System.Net;
 using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 {
@@ -21,8 +22,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     {
 
         MvKjMachineDrawerLddPool LddPool;
-        private bool IsCommandINI = false; 
-        
+       // private bool IsCommandINI = false;
+        /// <summary>工作狀態</summary>
+        public DrawerWorkState CurrentWorkState { get; private set; }
+        /// <summary>設定工作狀態</summary>
+        /// <param name="state"></param>
+        public void SetDrawerWorkState(DrawerWorkState state)
+        {
+            CurrentWorkState = state;
+        }
+        /// <summary>將工作狀態設為 AnyState</summary>
+        public void ResetCurrentWorkState()
+        {
+            CurrentWorkState = DrawerWorkState.AnyState;
+        }
+
         #region Const
         public const string DevConnStr_Ip = "ip";
         public const string DevConnStr_Port = "port";
@@ -372,10 +386,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayArriveHome(object sender, EventArgs e)
         {
+            Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtHome);
+
             if (OnTrayArriveHomeHandler != null)
             {
                 OnTrayArriveHomeHandler.Invoke(this, e);
             }
+            /*
             if (this.IsCommandINI)
             {
                 this.IsCommandINI = false;
@@ -384,6 +402,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                     OnINIOKHandler.Invoke(this,e);
                 }
             }
+            */
         }
         /// <summary>OnTrayArriveOutHandler</summary>
         /// <param name="sender"></param>
@@ -400,6 +419,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayArriveIn(object sender, EventArgs e)
         {
+            Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.TrayArraiveAtIn);
             if (OnTrayArriveInHandler != null)
             {
                 OnTrayArriveInHandler.Invoke(this, e);
@@ -500,10 +521,18 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         #endregion
 
         #region command
+        private void Sleep100msecs()
+        {
+            Thread.Sleep(100);
+        }
+
         public string CommandINI()
         {
-            this.IsCommandINI = true;
+            //IsCommandINI=true
+            this.SetDrawerWorkState(DrawerWorkState.InitialStart);
+            Sleep100msecs();
             var commandText = Ldd.CommandINI();
+            this.SetDrawerWorkState(DrawerWorkState.InitialIng);
             return commandText;
         }
 
@@ -523,22 +552,28 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandTrayMotionHome()
         {
-           
+            this.SetDrawerWorkState(DrawerWorkState.TrayMoveToHomeStart);
+            Sleep100msecs();
             var commandText = Ldd.CommandTrayMotionHome();
+            this.SetDrawerWorkState(DrawerWorkState.TrayMoveToHomeIng);
             return commandText;
         }
 
         public string CommandTrayMotionOut()
         {
-          
+            this.SetDrawerWorkState(DrawerWorkState.TrayMoveToOutStart);
+            Sleep100msecs();
             var commandText = Ldd.CommandTrayMotionOut();
+            this.SetDrawerWorkState(DrawerWorkState.TrayMoveToOutIng);
             return commandText;
         }
 
         public string CommandTrayMotionIn()
         {
-          
+            this.SetDrawerWorkState(DrawerWorkState.TrayMoveToInStart);
+            Sleep100msecs();
             var commandText = Ldd.CommandTrayMotionIn();
+            this.SetDrawerWorkState(DrawerWorkState.TrayMoveToInIng);
             return commandText;
         }
 

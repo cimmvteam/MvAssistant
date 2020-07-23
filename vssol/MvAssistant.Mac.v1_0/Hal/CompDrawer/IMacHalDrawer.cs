@@ -13,8 +13,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     public interface IMacHalDrawer : IMacHalComponent
     {
         string DeviceIndex { get; }
-      
-    #region command
+        
+        void SetDrawerWorkState(DrawerWorkState state);
+        void ResetCurrentWorkState();
+        DrawerWorkState CurrentWorkState { get; }
+
+
+        #region command
         string CommandINI();
         string CommandSetMotionSpeed(int speed);
         string CommandSetTimeOut(int timeoutSeconds);
@@ -89,4 +94,31 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
     }
    
+
+    public enum DrawerWorkState
+    {
+        /// <summary>任何狀態</summary>
+        AnyState,
+        /// <summary>準備可以 Initial</summary>
+        ReadyToInitial,
+        /// <summary>已經送出 Initial 指令</summary>
+        InitialStart,
+        /// <summary>Initial 中</summary>
+        InitialIng,
+       
+        
+        TrayMoveToHomeStart,
+        TrayMoveToHomeIng,
+        TrayArriveAtHome,
+
+        TrayMoveToOutStart,
+        TrayMoveToOutIng,
+        TrayArriveAtOut,
+
+        TrayMoveToInStart,
+        TrayMoveToInIng,
+        TrayArraiveAtIn,
+
+
+    }
 }

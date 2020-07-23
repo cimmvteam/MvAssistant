@@ -129,186 +129,6 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
 
 
-            #region OnEntry  Method
-            void sWaitReset_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sResetStart_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sReseting_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sResetComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-
-           void  sWaitInitial_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sInitialStart_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sNormalInitialing_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sInitialComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-
-
-
-
-
-            void sIdleReadyToDock_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-               // sIdleReadyToDock.DoExit(null);
-            }
-            void sDockStart_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-                // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-            }
-            void sDocking_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-                // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-            }
-            void sDockComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sIdleReadyToUndock_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sUndockStart_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sUndocking_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sUndockComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sIdleReadyToUnload_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-            void sUnloadExecuted_OnEntry(object sender, MacStateEntryEventArgs e)
-            {
-
-            }
-
-
-            void sExpMustReset_OnEntry(object sender, MacStateEntryEventArgs e){ }
-            void sExpResetTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            void sExpResetFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            void sExpMustInitial_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            void sExpInitialTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            void sExpDockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            void sExpUndockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-            #endregion
-
-            #region OnExit Method
-            void sWaitReset_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sResetStart_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sReseting_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sResetComplete_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-
-            void sWaitInitial_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sInitialStart_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sNormalInitialing_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sInitialComplete_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-
-
-
-
-            void sIdleReadyToDock_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sDockStart_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sDocking_OnExit(object sender, MacStateExitEventArgs e)
-            {
-                // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-            }
-            void sDockComplete_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sIdleReadyToUndock_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sUndockStart_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sUndocking_OnExit(object sender, MacStateExitEventArgs e)
-            {
-                // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-            }
-            void sUndockComplete_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sIdleReadyToUnload_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-            void sUnloadExecuted_OnExit(object sender, MacStateExitEventArgs e)
-            {
-
-            }
-
-
-            void sExpMustReset_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpResetTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpResetFail_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpMustInitial_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpInitialTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpDockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-            void sExpUndockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-            #endregion
 
 
 
@@ -350,5 +170,187 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             #endregion
 
         }
+
+
+        #region OnEntry  Method
+        void sWaitReset_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sResetStart_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sReseting_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sResetComplete_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+
+        void sWaitInitial_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sInitialStart_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sNormalInitialing_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sInitialComplete_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+
+
+
+
+
+        void sIdleReadyToDock_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            // sIdleReadyToDock.DoExit(null);
+        }
+        void sDockStart_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
+        }
+        void sDocking_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
+        }
+        void sDockComplete_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sIdleReadyToUndock_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sUndockStart_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sUndocking_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sUndockComplete_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sIdleReadyToUnload_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+        void sUnloadExecuted_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+
+
+        void sExpMustReset_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpResetTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpResetFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpMustInitial_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpInitialTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpDockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        void sExpUndockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        #endregion
+
+        #region OnExit Method
+        void sWaitReset_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sResetStart_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sReseting_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sResetComplete_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+
+        void sWaitInitial_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sInitialStart_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sNormalInitialing_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sInitialComplete_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+
+
+
+
+        void sIdleReadyToDock_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sDockStart_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sDocking_OnExit(object sender, MacStateExitEventArgs e)
+        {
+            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
+        }
+        void sDockComplete_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sIdleReadyToUndock_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sUndockStart_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sUndocking_OnExit(object sender, MacStateExitEventArgs e)
+        {
+            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
+        }
+        void sUndockComplete_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sIdleReadyToUnload_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+        void sUnloadExecuted_OnExit(object sender, MacStateExitEventArgs e)
+        {
+
+        }
+
+
+        void sExpMustReset_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpResetTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpResetFail_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpMustInitial_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpInitialTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpDockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+        void sExpUndockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+        #endregion
     }
 }
