@@ -83,17 +83,17 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
             #region 確認終點
             if (EndPosFileName == "LoadPortHome.json")
-            { 
+            {
                 EndPosName = "Load Port";
                 PosList.Add(LPHome);
             }
             else if (EndPosFileName == "InspChHome.json")
-            { 
+            {
                 EndPosName = "Inspection Chamber";
                 PosList.Add(ICHome);
             }
             else if (EndPosFileName == "CleanChHome.json")
-            { 
+            {
                 EndPosName = "Clean Chamber";
                 PosList.Add(CCHome);
             }
@@ -106,7 +106,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     //如果目前位置不在InspCh且要移動的目的地也不是InspCh，則需要先經過InspCh點位再移動到目的地
                     if (StartPosName != "Inspection Chamber" && EndPosName != "Inspection Chamber")
                     {
-                        PosList.Insert(0,ICHome);
+                        PosList.Insert(0, ICHome);
                         Robot.ExePosMove(PosList);
                     }
                     else
@@ -115,7 +115,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                     }
                 }
                 else if (EndPosName == StartPosName)
-                    throw new Exception("End position as same as current position !!");
+                    return;//throw new Exception("End position as same as current position !!");
                 else
                     throw new Exception("Unknown end position !!");
             }
@@ -251,7 +251,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="ClampSpeed">(mm/sec)</param>
         /// <param name="CCDSpinSpeed">(0.01 deg/sec)</param>
-        public void SetSpeed(double? ClampSpeed,long? CCDSpinSpeed)
+        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed)
         {
             if (ClampSpeed < 1.0 || ClampSpeed > 10.0)
                 throw new Exception("MT clamp speed setting only between 1.0 ~ 10.0 (mm/sec) !");

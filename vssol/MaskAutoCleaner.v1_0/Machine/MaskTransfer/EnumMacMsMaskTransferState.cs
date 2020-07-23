@@ -10,27 +10,64 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     {
         Start,
         Initial,
-        Home,
 
-        MovingToLoadPort,
+        #region Position
+        /// <summary>
+        /// Load Port Home(Idle)
+        /// </summary>
+        LPHome,
+        LPHomeClamped,
+        /// <summary>
+        /// Inspection  Chamber Home(Idle)
+        /// </summary>
+        ICHome,
+        ICHomeClamped,
+        #endregion
+
+        #region Moving path
+        MovingToLoadPortA,
+        MovingToLoadPortB,
         MovingToInspectionCh,
         MovingToInspectionChGlass,
         MovingToOpenStage,
 
-        LoadPortClamping,
+        MovingToLPHomeFromLoadPortA,
+        MovingToLPHomeFromLoadPortB,
+        MovingToICHomeFromInspectionCh,
+        MovingToICHomeFromInspectionChGlass,
+        MovingToLPHomeFromOpenStage,
+
+        //夾著 Mask 到 Assembly
+        MovingToLoadPortAForRelease,
+        MovingToLoadPortBForRelease,
+        MovingInspectionChForRelease,
+        MovingInspectionChGlassForRelease,
+        MovingOpenStageForRelease,
+
+        //夾著 Mask 回 LPHome 或 ICHome
+        MovingToLPHomeClampedFromLoadPortA,
+        MovingToLPHomeClampedFromLoadPortB,
+        MovingToICHomeClampedFromInspectionCh,
+        MovingToICHomeClampedFromInspectionChGlass,
+        MovingToLPHomeClampedFromOpenStage,
+        #endregion
+
+        #region Gripper action
+        LoadPortAClamping,
+        LoadPortBClamping,
         InspectionChClamping,
         InspectionChGlassClamping,
         OpenStageClamping,
+        
+        //ReadyToRelease,
 
-        GripperClamp,
+        LoadPortAReleasing,
+        LoadPortBReleasing,
+        InspectionChReleasing,
+        InspectionChGlassReleasing,
+        OpenStageReleasing,
+        #endregion
 
-        MovingToHomeClampedFromLoadPort,
-        MovingToHomeClampedFromInspectionCh,
-        MovingToHomeClampedFromInspectionChGlass,
-        MovingToHomeClampedFromOpenStage,
-
-        HomeClamped,
-        ReadyToRelease,
 
         //Clean
         CleanReady,
@@ -42,36 +79,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         //Barcode
         MovingToBarcodeReader,
         BarcodeReader,
-        MovingToHomeClampedFromBarcodeReader,
+        MovingToLPHomeClampedFromBarcodeReader,
 
-        MovingToLoadPortForRelease,
-        MovingInspectionChForRelease,
-        MovingInspectionChGlassForRelease,
-        MovingOpenStageForRelease,
-
-        LoadPortReleasing,
-        InspectionChReleasing,
-        InspectionChGlassReleasing,
-        OpenStageReleasing,
-
-        GripperRelease,
-
-        MovingToHomeFromLoadPort,
-        MovingToHomeFromInspectionCh,
-        MovingToHomeFromInspectionChGlass,
-        MovingToHomeFromOpenStage,
-
-
-
-
-
-
-
-
-
-        WaitAckHome,
-
-
+        //WaitAckHome,
 
         ExpRobotPositioningError,
         ExpCalibrationFail,

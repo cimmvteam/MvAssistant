@@ -10,6 +10,22 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     {
         PowerOn,
         CompleteInitial,
+
+        //Load Port
+        ReadyToMoveToLoadPortA,
+        ReadyToClampInLoadPortA,
+        ReadyToReleaseInLoadPortA,
+        ReadyToMoveToLPHomeFromLoadPortA,
+        ReadyToStandbyAtLPHome,
+
+        ReadyToMoveToLoadPortB,
+        ReadyToClampInLoadPortB,
+        ReadyToReleaseInLoadPortB,
+        ReadyToMoveToLPHomeFromLoadPortB,
+        
+
+
+
         ReceiveTransferMask,
         CompleteCalibration,
         CompleteClamped,

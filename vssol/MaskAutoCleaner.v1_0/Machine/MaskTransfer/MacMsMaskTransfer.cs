@@ -19,39 +19,46 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     {
         public IMacHalMaskTransfer HalMaskTransfer { get { return this.halAssembly as IMacHalMaskTransfer; } }
 
+        public MacMsMaskTransfer() { LoadStateMachine(); }
+
         public override void LoadStateMachine()
         {
             //--- Declare State ---
 
             MacState sStart = NewState(EnumMacMsMaskTransferState.Start);
             MacState sDeviceInitial = NewState(EnumMacMsMaskTransferState.Initial);
-            MacState sHome = NewState(EnumMacMsMaskTransferState.Home);
+            MacState sLPHome = NewState(EnumMacMsMaskTransferState.LPHome);
+            MacState sICHome = NewState(EnumMacMsMaskTransferState.ICHome);
 
             //To Target Clamp - Move
-            MacState sMovingToLoadPort = NewState(EnumMacMsMaskTransferState.MovingToLoadPort);
+            MacState sMovingToLoadPortA = NewState(EnumMacMsMaskTransferState.MovingToLoadPortA);
+            MacState sMovingToLoadPortB = NewState(EnumMacMsMaskTransferState.MovingToLoadPortB);
             MacState sMovingToInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToInspectionCh);
             MacState sMovingToInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToInspectionChGlass);
             MacState sMovingToOpenStage = NewState(EnumMacMsMaskTransferState.MovingToOpenStage);
             //To Target Clamp - Calibration
-            MacState sLoadPortClamping = NewState(EnumMacMsMaskTransferState.LoadPortClamping);
+            MacState sLoadPortAClamping = NewState(EnumMacMsMaskTransferState.LoadPortAClamping);
+            MacState sLoadPortBClamping = NewState(EnumMacMsMaskTransferState.LoadPortBClamping);
             MacState sInspectionChClamping = NewState(EnumMacMsMaskTransferState.InspectionChClamping);
             MacState sInspectionChGlassClamping = NewState(EnumMacMsMaskTransferState.InspectionChGlassClamping);
             MacState sOpenStageClamping = NewState(EnumMacMsMaskTransferState.OpenStageClamping);
 
             //Clamped Back - Move
-            MacState sMovingToHomeClampedFromLoadPort = NewState(EnumMacMsMaskTransferState.MovingToHomeClampedFromLoadPort);
-            MacState sMovingToHomeClampedFromInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToHomeClampedFromInspectionCh);
-            MacState sMovingToHomeClampedFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToHomeClampedFromInspectionChGlass);
-            MacState sMovingToHomeClampedFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToHomeClampedFromOpenStage);
+            MacState sMovingToLPHomeClampedFromLoadPortA = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromLoadPortA);
+            MacState sMovingToLPHomeClampedFromLoadPortB = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromLoadPortB);
+            MacState sMovingToICHomeClampedFromInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionCh);
+            MacState sMovingToICHomeClampedFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionChGlass);
+            MacState sMovingToLPHomeClampedFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromOpenStage);
 
             //Clamped Back - Home
-            MacState sHomeClamped = NewState(EnumMacMsMaskTransferState.HomeClamped);
-            MacState sReadyToRelease = NewState(EnumMacMsMaskTransferState.ReadyToRelease);
+            MacState sLPHomeClamped = NewState(EnumMacMsMaskTransferState.LPHomeClamped);
+            MacState sICHomeClamped = NewState(EnumMacMsMaskTransferState.ICHomeClamped);
+            //MacState sReadyToRelease = NewState(EnumMacMsMaskTransferState.ReadyToRelease);
 
             //Barcode Reader
-            MacState sMovingToBarcodeReader = NewState(EnumMacMsMaskTransferState.MovingToBarcodeReader);
+            MacState sMovingToBarcodeReaderClamped = NewState(EnumMacMsMaskTransferState.MovingToBarcodeReader);
             MacState sBarcodeReader = NewState(EnumMacMsMaskTransferState.BarcodeReader);
-            MacState sMovingToHomeClampedFromBarcodeReader = NewState(EnumMacMsMaskTransferState.MovingToHomeClampedFromBarcodeReader);
+            MacState sMovingToLPHomeClampedFromBarcodeReader = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromBarcodeReader);
 
 
 
@@ -65,23 +72,26 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
             //To Target
-            MacState sMovingToLoadPortForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortForRelease);
+            MacState sMovingToLoadPortAForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortAForRelease);
+            MacState sMovingToLoadPortBForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortBForRelease);
             MacState sMovingInspectionChForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChForRelease);
             MacState sMovingInspectionChGlassForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChGlassForRelease);
             MacState sMovingOpenStageForRelease = NewState(EnumMacMsMaskTransferState.MovingOpenStageForRelease);
 
-            MacState sLoadPortReleasing = NewState(EnumMacMsMaskTransferState.LoadPortReleasing);
+            MacState sLoadPortAReleasing = NewState(EnumMacMsMaskTransferState.LoadPortAReleasing);
+            MacState sLoadPortBReleasing = NewState(EnumMacMsMaskTransferState.LoadPortBReleasing);
             MacState sInspectionChReleasing = NewState(EnumMacMsMaskTransferState.InspectionChReleasing);
             MacState sInspectionChGlassReleasing = NewState(EnumMacMsMaskTransferState.InspectionChGlassReleasing);
             MacState sOpenStageReleasing = NewState(EnumMacMsMaskTransferState.OpenStageReleasing);
 
 
-            MacState sMovingToHomeFromLoadPort = NewState(EnumMacMsMaskTransferState.MovingToHomeFromLoadPort);
-            MacState sMovingToHomeFromInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToHomeFromInspectionCh);
-            MacState sMovingToHomeFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToHomeFromInspectionChGlass);
-            MacState sMovingToHomeFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToHomeFromOpenStage);
+            MacState sMovingToLPHomeFromLoadPortA = NewState(EnumMacMsMaskTransferState.MovingToLPHomeFromLoadPortA);
+            MacState sMovingToLPHomeFromLoadPortB = NewState(EnumMacMsMaskTransferState.MovingToLPHomeFromLoadPortB);
+            MacState sMovingToICHomeFromInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToICHomeFromInspectionCh);
+            MacState sMovingToICHomeFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToICHomeFromInspectionChGlass);
+            MacState sMovingToLPHomeFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToLPHomeFromOpenStage);
 
-            MacState sWaitAckHome = NewState(EnumMacMsMaskTransferState.WaitAckHome);
+            //MacState sWaitAckHome = NewState(EnumMacMsMaskTransferState.WaitAckHome);
 
 
 
@@ -90,42 +100,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //Normal Entry
             sStart.OnEntry += sStart_OnEntry;
             sDeviceInitial.OnEntry += sDeviceInitial_OnEntry;
-            sHome.OnEntry += sHome_OnEntry;
-            sMovingToLoadPort.OnEntry += sMovingToLoadPort_OnEntry;
+            sLPHome.OnEntry += sLPHome_OnEntry;
+            sICHome.OnEntry += sICHome_OnEntry;
+            sMovingToLoadPortA.OnEntry += sMovingToLoadPortA_OnEntry;
+            sMovingToLoadPortB.OnEntry += sMovingToLoadPortB_OnEntry;
             sMovingToInspectionCh.OnEntry += sMovingToInspectionCh_OnEntry;
             sMovingToInspectionChGlass.OnEntry += sMovingToInspectionChGlass_OnEntry;
             sMovingToOpenStage.OnEntry += sMovingToOpenStage_OnEntry;
-            sLoadPortClamping.OnEntry += sLoadPortCalibration_OnEntry;
-            sInspectionChClamping.OnEntry += sInspectionChCalibration_OnEntry;
-            sInspectionChGlassClamping.OnEntry += sInspectionChGlassCalibration_OnEntry;
-            sOpenStageClamping.OnEntry += sOpenStageCalibration_OnEntry;
-            sMovingToHomeClampedFromLoadPort.OnEntry += sMovingToHomeClampedFromLoadPort_OnEntry;
-            sMovingToHomeClampedFromInspectionCh.OnEntry += sMovingToHomeClampedFromInspectionCh_OnEntry;
-            sMovingToHomeClampedFromInspectionChGlass.OnEntry += sMovingToHomeClampedFromInspectionChGlass_OnEntry;
-            sMovingToHomeClampedFromOpenStage.OnEntry += sMovingToHomeClampedFromOpenStage_OnEntry;
-            sHomeClamped.OnEntry += sHomeClamped_OnEntry;
-            sReadyToRelease.OnEntry += sReadyToRelease_OnEntry;
+            sLoadPortAClamping.OnEntry += sLoadPortAClamping_OnEntry;
+            sLoadPortBClamping.OnEntry += sLoadPortBClamping_OnEntry;
+            sInspectionChClamping.OnEntry += sInspectionChClamping_OnEntry;
+            sInspectionChGlassClamping.OnEntry += sInspectionChGlassClamping_OnEntry;
+            sOpenStageClamping.OnEntry += sOpenStageClamping_OnEntry;
+            sMovingToLPHomeClampedFromLoadPortA.OnEntry += sMovingToLPHomeClampedFromLoadPortA_OnEntry;
+            sMovingToLPHomeClampedFromLoadPortB.OnEntry += sMovingToLPHomeClampedFromLoadPortB_OnEntry;
+            sMovingToICHomeClampedFromInspectionCh.OnEntry += sMovingToICHomeClampedFromInspectionCh_OnEntry;
+            sMovingToICHomeClampedFromInspectionChGlass.OnEntry += sMovingToICHomeClampedFromInspectionChGlass_OnEntry;
+            sMovingToLPHomeClampedFromOpenStage.OnEntry += sMovingToLPHomeClampedFromOpenStage_OnEntry;
+            sLPHomeClamped.OnEntry += sLPHomeClamped_OnEntry;
+            sICHomeClamped.OnEntry += sICHomeClamped_OnEntry;
+            //sReadyToRelease.OnEntry += sReadyToRelease_OnEntry;
             sCleanReady.OnEntry += sCleanReady_OnEntry;
             sCleanMovingStart.OnEntry += sCleanMovingStart_OnEntry;
             sCleanMovingReturn.OnEntry += sCleanMovingReturn_OnEntry;
             sCleanChMoving.OnEntry += sCleanChMoving_OnEntry;
             sCleanChWaitAckMove.OnEntry += sCleanChWaitAckMove_OnEntry;
-            sMovingToLoadPortForRelease.OnEntry += sMovingToLoadPortForRelease_OnEntry;
-            sMovingToBarcodeReader.OnEntry += sMovingToBarcodeReader_OnEntry;
+            sMovingToLoadPortAForRelease.OnEntry += sMovingToLoadPortAForRelease_OnEntry;
+            sMovingToLoadPortBForRelease.OnEntry += sMovingToLoadPortBForRelease_OnEntry;
+            sMovingToBarcodeReaderClamped.OnEntry += sMovingToBarcodeReaderClamped_OnEntry;
             sBarcodeReader.OnEntry += sBarcodeReader_OnEntry;
-            sMovingToHomeClampedFromBarcodeReader.OnEntry += sMovingToHomeClampedFromBarcodeReader_OnEntry;
+            sMovingToLPHomeClampedFromBarcodeReader.OnEntry += sMovingToLPHomeClampedFromBarcodeReader_OnEntry;
             sMovingInspectionChForRelease.OnEntry += sMovingInspectionChForRelease_OnEntry;
             sMovingInspectionChGlassForRelease.OnEntry += sMovingInspectionChGlassForRelease_OnEntry;
             sMovingOpenStageForRelease.OnEntry += sMovingOpenStageForRelease_OnEntry;
-            sLoadPortReleasing.OnEntry += sLoadPortCalibrationForRelease_OnEntry;
-            sInspectionChReleasing.OnEntry += sInspectionChCalibrationForRelease_OnEntry;
-            sInspectionChGlassReleasing.OnEntry += sInspectionChGlassCalibrationForRelease_OnEntry;
-            sOpenStageReleasing.OnEntry += sOpenStageCalibrationForRelease_OnEntry;
-            sMovingToHomeFromLoadPort.OnEntry += sMovingToHomeFromLoadPort_OnEntry;
-            sMovingToHomeFromInspectionCh.OnEntry += sMovingToHomeFromInspectionCh_OnEntry;
-            sMovingToHomeFromInspectionChGlass.OnEntry += sMovingToHomeFromInspectionChGlass_OnEntry;
-            sMovingToHomeFromOpenStage.OnEntry += sMovingToHomeFromOpenStage_OnEntry;
-            sWaitAckHome.OnEntry += sWaitAckHome_OnEntry;
+            sLoadPortAReleasing.OnEntry += sLoadPortAReleasing_OnEntry;
+            sLoadPortBReleasing.OnEntry += sLoadPortBReleasing_OnEntry;
+            sInspectionChReleasing.OnEntry += sInspectionChReleasing_OnEntry;
+            sInspectionChGlassReleasing.OnEntry += sInspectionChGlassReleasing_OnEntry;
+            sOpenStageReleasing.OnEntry += sOpenStagReleasing_OnEntry;
+            sMovingToLPHomeFromLoadPortA.OnEntry += sMovingToLPHomeFromLoadPortA_OnEntry;
+            sMovingToLPHomeFromLoadPortB.OnEntry += sMovingToLPHomeFromLoadPortB_OnEntry;
+            sMovingToICHomeFromInspectionCh.OnEntry += sMovingToICHomeFromInspectionCh_OnEntry;
+            sMovingToICHomeFromInspectionChGlass.OnEntry += sMovingToICHomeFromInspectionChGlass_OnEntry;
+            sMovingToLPHomeFromOpenStage.OnEntry += sMovingToLPHomeFromOpenStage_OnEntry;
+            //sWaitAckHome.OnEntry += sWaitAckHome_OnEntry;
 
 
 
@@ -134,42 +152,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //Normal Exit
             sStart.OnExit += sStart_OnExit;
             sDeviceInitial.OnExit += sDeviceInitial_OnExit;
-            sHome.OnExit += sHome_OnExit;
-            sMovingToLoadPort.OnExit += sMovingToLoadPortA_OnExit;
+            sLPHome.OnExit += sLPHome_OnExit;
+            sICHome.OnExit += sICHome_OnExit;
+            sMovingToLoadPortA.OnExit += sMovingToLoadPortA_OnExit;
+            sMovingToLoadPortB.OnExit += sMovingToLoadPortB_OnExit;
             sMovingToInspectionCh.OnExit += sMovingToInspectionCh_OnExit;
             sMovingToInspectionChGlass.OnExit += sMovingToInspectionChGlass_OnExit;
             sMovingToOpenStage.OnExit += sMovingToOpenStage_OnExit;
-            sLoadPortClamping.OnExit += sLoadPortACalibration_OnExit;
+            sLoadPortAClamping.OnExit += sLoadPortAClamping_OnExit;
+            sLoadPortBClamping.OnExit += sLoadPortBClamping_OnExit;
             sInspectionChClamping.OnExit += sInspectionChCalibration_OnExit;
             sInspectionChGlassClamping.OnExit += sInspectionChGlassCalibration_OnExit;
             sOpenStageClamping.OnExit += sOpenStageCalibration_OnExit;
-            sMovingToHomeClampedFromLoadPort.OnExit += sMovingToHomeClampedFromLoadPortA_OnExit;
-            sMovingToHomeClampedFromInspectionCh.OnExit += sMovingToHomeClampedFromInspectionCh_OnExit;
-            sMovingToHomeClampedFromInspectionChGlass.OnExit += sMovingToHomeClampedFromInspectionChGlas_OnExit;
-            sMovingToHomeClampedFromOpenStage.OnExit += sMovingToHomeClampedFromOpenStage_OnExit;
-            sHomeClamped.OnExit += sHomeClamped_OnExit;
-            sReadyToRelease.OnExit += sReadyToRelease_OnExit;
+            sMovingToLPHomeClampedFromLoadPortA.OnExit += sMovingToLPHomeClampedFromLoadPortA_OnExit;
+            sMovingToLPHomeClampedFromLoadPortB.OnExit += sMovingToLPHomeClampedFromLoadPortB_OnExit;
+            sMovingToICHomeClampedFromInspectionCh.OnExit += sMovingToICHomeClampedFromInspectionCh_OnExit;
+            sMovingToICHomeClampedFromInspectionChGlass.OnExit += sMovingToICHomeClampedFromInspectionChGlas_OnExit;
+            sMovingToLPHomeClampedFromOpenStage.OnExit += sMovingToLPHomeClampedFromOpenStage_OnExit;
+            sLPHomeClamped.OnExit += sLPHomeClamped_OnExit;
+            sICHomeClamped.OnExit += sICHomeClamped_OnExit;
+            //sReadyToRelease.OnExit += sReadyToRelease_OnExit;
             sCleanReady.OnExit += sCleanReady_OnExit;
             sCleanMovingStart.OnExit += sCleanMovingStart_OnExit;
             sCleanMovingReturn.OnExit += sCleanMovingReturn_OnExit;
             sCleanChMoving.OnExit += sCleanChMoving_OnExit;
             sCleanChWaitAckMove.OnExit += sCleanChWaitAckMove_OnExit;
-            sMovingToBarcodeReader.OnExit += sMovingToBarcodeReader_OnExit;
+            sMovingToBarcodeReaderClamped.OnExit += sMovingToBarcodeReader_OnExit;
             sBarcodeReader.OnExit += sBarcodeReader_OnExit;
-            sMovingToHomeClampedFromBarcodeReader.OnExit += sMovingToHomeClampedFromBarcodeReader_OnExit;
-            sMovingToLoadPortForRelease.OnExit += sMovingToLoadPortAForRelease_OnExit;
+            sMovingToLPHomeClampedFromBarcodeReader.OnExit += sMovingToLPHomeClampedFromBarcodeReader_OnExit;
+            sMovingToLoadPortAForRelease.OnExit += sMovingToLoadPortAForRelease_OnExit;
+            sMovingToLoadPortBForRelease.OnExit += sMovingToLoadPortBForRelease_OnExit;
             sMovingInspectionChForRelease.OnExit += sMovingInspectionChForRelease_OnExit;
             sMovingInspectionChGlassForRelease.OnExit += sMovingInspectionChGlassForRelease_OnExit;
             sMovingOpenStageForRelease.OnExit += sMovingOpenStageForRelease_OnExit;
-            sLoadPortReleasing.OnExit += sLoadPortACalibrationForRelease_OnExit;
+            sLoadPortAReleasing.OnExit += sLoadPortAReleasing_OnExit;
+            sLoadPortBReleasing.OnExit += sLoadPortBReleasing_OnExit;
             sInspectionChReleasing.OnExit += sInspectionChCalibrationForRelease_OnExit;
             sInspectionChGlassReleasing.OnExit += sInspectionChGlassCalibrationForRelease_OnExit;
             sOpenStageReleasing.OnExit += sOpenStageCalibrationForRelease_OnExit;
-            sMovingToHomeFromLoadPort.OnExit += sMovingToHomeFromLoadPortA_OnExit;
-            sMovingToHomeFromInspectionCh.OnExit += sMovingToHomeFromInspectionCh_OnExit;
-            sMovingToHomeFromInspectionChGlass.OnExit += sMovingToHomeFromInspectionChGlass_OnExit;
-            sMovingToHomeFromOpenStage.OnExit += sMovingToHomeFromOpenStage_OnExit;
-            sWaitAckHome.OnExit += sWaitAckHome_OnExit;
+            sMovingToLPHomeFromLoadPortA.OnExit += sMovingToLPHomeFromLoadPortA_OnExit;
+            sMovingToLPHomeFromLoadPortB.OnExit += sMovingToLPHomeFromLoadPortB_OnExit;
+            sMovingToICHomeFromInspectionCh.OnExit += sMovingToICHomeFromInspectionCh_OnExit;
+            sMovingToICHomeFromInspectionChGlass.OnExit += sMovingToICHomeFromInspectionChGlass_OnExit;
+            sMovingToLPHomeFromOpenStage.OnExit += sMovingToHomeFromOpenStage_OnExit;
+            //sWaitAckHome.OnExit += sWaitAckHome_OnExit;
 
 
             #endregion State Register OnEntry OnExit
@@ -177,81 +203,87 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //--- Transition ---
 
             MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.PowerOn);
-            MacTransition tDeviceInitial_Home = NewTransition(sDeviceInitial, sHome, EnumMacMsMaskTransferTransition.CompleteInitial);
+            MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.CompleteInitial);
 
             //Receive Transfer From Home
-            MacTransition tHome_MovingToLoadPort = NewTransition(sHome, sMovingToLoadPort, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
-            MacTransition tHome_MovingToInspectionCh = NewTransition(sHome, sMovingToInspectionCh, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
-            MacTransition tHome_MovingToInspectionChGlass = NewTransition(sHome, sMovingToInspectionChGlass, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
-            MacTransition tHome_MovingToOpenStage = NewTransition(sHome, sMovingToOpenStage, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
+            MacTransition tLPHome_MovingToLoadPortA = NewTransition(sLPHome, sMovingToLoadPortA, EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortA);
+            MacTransition tLPHome_MovingToLoadPortB = NewTransition(sLPHome, sMovingToLoadPortB, EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortB);
+            MacTransition tICHome_MovingToInspectionCh = NewTransition(sICHome, sMovingToInspectionCh, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
+            MacTransition tICHome_MovingToInspectionChGlass = NewTransition(sICHome, sMovingToInspectionChGlass, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
+            MacTransition tLPHome_MovingToOpenStage = NewTransition(sLPHome, sMovingToOpenStage, EnumMacMsMaskTransferTransition.ReceiveTransferMask);
 
             //Complete Move
-            MacTransition tMovingToLoadPort_LoadPortClamping = NewTransition(sMovingToLoadPort, sLoadPortClamping, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingToLoadPortA_LoadPortAClamping = NewTransition(sMovingToLoadPortA, sLoadPortAClamping, EnumMacMsMaskTransferTransition.ReadyToClampInLoadPortA);
+            MacTransition tMovingToLoadPortB_LoadPortBClamping = NewTransition(sMovingToLoadPortB, sLoadPortBClamping, EnumMacMsMaskTransferTransition.ReadyToClampInLoadPortB);
             MacTransition tMovingToInspectionCh_InspectionChClamping = NewTransition(sMovingToInspectionCh, sInspectionChClamping, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tMovingToInspectionChGlass_InspectionChGlassClamping = NewTransition(sMovingToInspectionChGlass, sInspectionChGlassClamping, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tMovingToOpenStage_OpenStageClamping = NewTransition(sMovingToOpenStage, sOpenStageClamping, EnumMacMsMaskTransferTransition.CleanMoveComplete);
 
             //Compelte Clamped -> 準備移回Home_Clamped
-            MacTransition tLoadPortClamping_MovingToHomeClampedFromLoadPort = NewTransition(sLoadPortClamping, sMovingToHomeClampedFromLoadPort, EnumMacMsMaskTransferTransition.CompleteClamped);
-            MacTransition tInspectionChClamping_MovingToHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToHomeClampedFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteClamped);
-            MacTransition tInspectionChGlassClamping_MovingToHomeClampedFromInspectionChGlass = NewTransition(sInspectionChGlassClamping, sMovingToHomeClampedFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteClamped);
-            MacTransition tOpenStageClamping_MovingToHomeClampedFromOpenStage = NewTransition(sOpenStageClamping, sMovingToHomeClampedFromOpenStage, EnumMacMsMaskTransferTransition.CompleteClamped);
+            MacTransition tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA = NewTransition(sLoadPortAClamping, sMovingToLPHomeClampedFromLoadPortA, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortA);
+            MacTransition tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB = NewTransition(sLoadPortBClamping, sMovingToLPHomeClampedFromLoadPortB, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortB);
+            MacTransition tInspectionChClamping_MovingToICHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToICHomeClampedFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteClamped);
+            MacTransition tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass = NewTransition(sInspectionChGlassClamping, sMovingToICHomeClampedFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteClamped);
+            MacTransition tOpenStageClamping_MovingToLPHomeClampedFromOpenStage = NewTransition(sOpenStageClamping, sMovingToLPHomeClampedFromOpenStage, EnumMacMsMaskTransferTransition.CompleteClamped);
 
             //Complete Move
-            MacTransition tMovingToHomeClampedFromLoadPortA_HomeClamped = NewTransition(sMovingToHomeClampedFromLoadPort, sHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tMovingToHomeClampedFromInspectionCh_HomeClamped = NewTransition(sMovingToHomeClampedFromInspectionCh, sHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tMovingToHomeClampedFromInspectionChGlass_HomeClamped = NewTransition(sMovingToHomeClampedFromInspectionChGlass, sHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tMovingToHomeClampedFromOpenStage_HomeClamped = NewTransition(sMovingToHomeClampedFromOpenStage, sHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortA, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToStandbyAtLPHome);
+            MacTransition tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortB, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToStandbyAtLPHome);
+            MacTransition tMovingToICHomeClampedFromInspectionCh_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionCh, sICHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionChGlass, sICHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingToLPHomeClampedFromOpenStage_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromOpenStage, sLPHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
 
 
             //Is Ready to Release
-            MacTransition tHomeClamped_ReadyToRelease = NewTransition(sHomeClamped, sReadyToRelease, EnumMacMsMaskTransferTransition.IsReady);
-            MacTransition tHomeClamped_MovingToBarcodeReader = NewTransition(sHomeClamped, sMovingToBarcodeReader, EnumMacMsMaskTransferTransition.IsReady);
+            //MacTransition tLPHomeClamped_ReadyToRelease = NewTransition(sLPHomeClamped, sReadyToRelease, EnumMacMsMaskTransferTransition.IsReady);
+            MacTransition tLPHomeClamped_MovingToBarcodeReader = NewTransition(sLPHomeClamped, sMovingToBarcodeReaderClamped, EnumMacMsMaskTransferTransition.IsReady);
 
             //Barcode Reader
-            MacTransition tMovingToBarcodeReader_BarcodeReader = NewTransition(sMovingToBarcodeReader, sBarcodeReader, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tBarcodeReader_MovingToHomeClampedFromBarcodeReader = NewTransition(sBarcodeReader, sMovingToHomeClampedFromBarcodeReader, EnumMacMsMaskTransferTransition.CompleteRead);
-            MacTransition tMovingToHomeClampedFromBarcodeReader_HomeClamped = NewTransition(sMovingToHomeClampedFromBarcodeReader, sHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingToBarcodeReader_BarcodeReader = NewTransition(sMovingToBarcodeReaderClamped, sBarcodeReader, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tBarcodeReader_MovingToLPHomeClampedFromBarcodeReader = NewTransition(sBarcodeReader, sMovingToLPHomeClampedFromBarcodeReader, EnumMacMsMaskTransferTransition.CompleteRead);
+            MacTransition tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromBarcodeReader, sLPHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
 
 
             //--- Clean Start
-            MacTransition tReadyToRelease_CleanMovingStart = NewTransition(sReadyToRelease, sCleanMovingStart, EnumMacMsMaskTransferTransition.CleanStart);
+            //MacTransition tReadyToRelease_CleanMovingStart = NewTransition(sReadyToRelease, sCleanMovingStart, EnumMacMsMaskTransferTransition.CleanStart);
             MacTransition tCleanMovingStart_CleanReady = NewTransition(sCleanMovingStart, sCleanReady, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tCleanReady_CleanMovingReturn = NewTransition(sCleanReady, sCleanMovingReturn, EnumMacMsMaskTransferTransition.CleanProcessComplete);//觸發回Home點:ReadyToRelease應讓Recipe控制, 避免其它Device衝突
-            MacTransition tCleanMovingReturn_ReadyToRelease = NewTransition(sCleanMovingReturn, sReadyToRelease, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            //MacTransition tCleanMovingReturn_ReadyToRelease = NewTransition(sCleanMovingReturn, sReadyToRelease, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tCleanReady_CleanChMoving = NewTransition(sCleanReady, sCleanChMoving, EnumMacMsMaskTransferTransition.CleanReceiveMove);
             MacTransition tCleanChMoving_CleanChWaitAckMove = NewTransition(sCleanChMoving, sCleanChWaitAckMove, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tCleanChWaitAckMove_CleanReady = NewTransition(sCleanChWaitAckMove, sCleanReady, EnumMacMsMaskTransferTransition.CleanMoveAck);
 
 
             //Complete or No Clean Job
-            MacTransition tReadyToRelease_MovingToLoadPortForRelease = NewTransition(sReadyToRelease, sMovingToLoadPortForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
-            MacTransition tReadyToRelease_MovingInspectionChForRelease = NewTransition(sReadyToRelease, sMovingInspectionChForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
-            MacTransition tReadyToRelease_MovingInspectionChGlassForRelease = NewTransition(sReadyToRelease, sMovingInspectionChGlassForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
-            MacTransition tReadyToRelease_MovingOpenStageForRelease = NewTransition(sReadyToRelease, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
+            //MacTransition tReadyToRelease_MovingToLoadPortForRelease = NewTransition(sReadyToRelease, sMovingToLoadPortForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
+            //MacTransition tReadyToRelease_MovingInspectionChForRelease = NewTransition(sReadyToRelease, sMovingInspectionChForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
+            //MacTransition tReadyToRelease_MovingInspectionChGlassForRelease = NewTransition(sReadyToRelease, sMovingInspectionChGlassForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
+            //MacTransition tReadyToRelease_MovingOpenStageForRelease = NewTransition(sReadyToRelease, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.NoCleanJob);
 
 
             //Complete Move
-            MacTransition tMovingToLoadPortForRelease_LoadPortReleasing = NewTransition(sMovingToLoadPortForRelease, sLoadPortReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingToLoadPortAForRelease_LoadPortAReleasing = NewTransition(sMovingToLoadPortAForRelease, sLoadPortAReleasing, EnumMacMsMaskTransferTransition.ReadyToReleaseInLoadPortA);
+            MacTransition tMovingToLoadPortBForRelease_LoadPortBReleasing = NewTransition(sMovingToLoadPortBForRelease, sLoadPortBReleasing, EnumMacMsMaskTransferTransition.ReadyToReleaseInLoadPortB);
             MacTransition tMovingInspectionChForRelease_InspectionChReleasing = NewTransition(sMovingInspectionChForRelease, sInspectionChReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tMovingInspectionChGlassForRelease_InspectionChGlassReleasing = NewTransition(sMovingInspectionChGlassForRelease, sInspectionChGlassReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tMovingOpenStageForRelease_OpenStageReleasing = NewTransition(sMovingOpenStageForRelease, sOpenStageReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
 
 
             //Complete Clamp
-            MacTransition tLoadPortReleasing_MovingToHomeFromLoadPort = NewTransition(sLoadPortReleasing, sMovingToHomeFromLoadPort, EnumMacMsMaskTransferTransition.CompleteReleased);
-            MacTransition tInspectionChReleasing_MovingToHomeFromInspectionCh = NewTransition(sInspectionChReleasing, sMovingToHomeFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteReleased);
-            MacTransition tInspectionChGlassReleasing_MovingToHomeFromInspectionChGlass = NewTransition(sInspectionChGlassReleasing, sMovingToHomeFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteReleased);
-            MacTransition tOpenStageReleasing_MovingToHomeFromOpenStage = NewTransition(sOpenStageReleasing, sMovingToHomeFromOpenStage, EnumMacMsMaskTransferTransition.CompleteReleased);
+            MacTransition tLoadPortAReleasing_MovingToLPHomeFromLoadPortA = NewTransition(sLoadPortAReleasing, sMovingToLPHomeFromLoadPortA, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortA);
+            MacTransition tLoadPortBReleasing_MovingToLPHomeFromLoadPortB = NewTransition(sLoadPortBReleasing, sMovingToLPHomeFromLoadPortB, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortB);
+            MacTransition tInspectionChReleasing_MovingToICHomeFromInspectionCh = NewTransition(sInspectionChReleasing, sMovingToICHomeFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteReleased);
+            MacTransition tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass = NewTransition(sInspectionChGlassReleasing, sMovingToICHomeFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteReleased);
+            MacTransition tOpenStageReleasing_MovingToLPHomeFromOpenStage = NewTransition(sOpenStageReleasing, sMovingToLPHomeFromOpenStage, EnumMacMsMaskTransferTransition.CompleteReleased);
 
 
             //Complete Move
-            MacTransition tMovingToHomeFromLoadPort_WaitAckHome = NewTransition(sMovingToHomeFromLoadPort, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tMovingToHomeFromInspectionCh_WaitAckHome = NewTransition(sMovingToHomeFromInspectionCh, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tMovingToHomeFromInspectionChGlass_WaitAckHome = NewTransition(sMovingToHomeFromInspectionChGlass, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tMovingToHomeFromOpenStage_WaitAckHome = NewTransition(sMovingToHomeFromOpenStage, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            //MacTransition tMovingToLPHomeFromLoadPort_WaitAckHome = NewTransition(sMovingToLPHomeFromLoadPort, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            //MacTransition tMovingToICHomeFromInspectionCh_WaitAckHome = NewTransition(sMovingToICHomeFromInspectionCh, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            //MacTransition tMovingToICHomeFromInspectionChGlass_WaitAckHome = NewTransition(sMovingToICHomeFromInspectionChGlass, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            //MacTransition tMovingToLPHomeFromOpenStage_WaitAckHome = NewTransition(sMovingToLPHomeFromOpenStage, sWaitAckHome, EnumMacMsMaskTransferTransition.CleanMoveComplete);
 
-            MacTransition tWaitAckHome_Home = NewTransition(sWaitAckHome, sHome, EnumMacMsMaskTransferTransition.ReceiveAckHome);
+            //MacTransition tWaitAckHome_LPHome = NewTransition(sWaitAckHome, sLPHome, EnumMacMsMaskTransferTransition.ReceiveAckHome);
 
             //--- Exception Transition ---
 
@@ -262,18 +294,196 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
         #region State OnEntry
-
-
-
-        private void sBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
+        private void sStart_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
+        private void sDeviceInitial_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.Initial();
+        }
+
+        private void sLPHome_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+
+        private void sLPHomeClamped_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+
+        private void sICHome_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+
+        }
+
+        private void sICHomeClamped_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+
+        #region Load Port A
+        private void sMovingToLoadPortA_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sLoadPortAClamping_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            var MaskType = (uint)e.Parameter;
+            HalMaskTransfer.Clamp(MaskType);
+        }
+
+        private void sMovingToLPHomeClampedFromLoadPortA_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sMovingToLoadPortAForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sLoadPortAReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.Unclamp();
+        }
+
+        private void sMovingToLPHomeFromLoadPortA_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+            HalMaskTransfer.RobotMoving(true);
+        }
+        #endregion
+
+        #region Load Port B
+        private void sMovingToLoadPortB_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sLoadPortBClamping_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            var MaskType = (uint)e.Parameter;
+            HalMaskTransfer.Clamp(MaskType);
+        }
+
+        private void sMovingToLPHomeClampedFromLoadPortB_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sMovingToLoadPortBForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sLoadPortBReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.Unclamp();
+        }
+
+        private void sMovingToLPHomeFromLoadPortB_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+            HalMaskTransfer.RobotMoving(false);
+        }
+        #endregion
+
+        #region Inspection Chamber
+        private void sMovingToInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+            
+            HalMaskTransfer.RobotMoving(false);
+        }
+        
+        private void sInspectionChClamping_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+
+        private void sMovingToICHomeClampedFromInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sMovingInspectionChForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sInspectionChReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+
+        private void sMovingToICHomeFromInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+
+
+        private void sMovingToInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sInspectionChGlassClamping_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+
+        private void sMovingToICHomeClampedFromInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sMovingInspectionChGlassForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+
+        private void sInspectionChGlassReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+        
+        private void sMovingToICHomeFromInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            HalMaskTransfer.RobotMoving(true);
+
+            HalMaskTransfer.RobotMoving(false);
+        }
+        #endregion
+
+        #region Clean Chamber
         private void sCleanChMoving_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
-        void sCleanMovingStart_OnEntry(object sender, MacStateEntryEventArgs e)
+        private void sCleanMovingStart_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
@@ -284,53 +494,18 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sCleanReady_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
+        #endregion
 
-        private void sCleanChWaitAckMove_OnEntry(object sender, MacStateEntryEventArgs e)
+        #region Open Stage
+        private void sMovingToOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
-        private void sDeviceInitial_OnEntry(object sender, MacStateEntryEventArgs e)
+        private void sOpenStageClamping_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
-        private void sHome_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-
-        private void sHomeClamped_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sInspectionChCalibration_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sInspectionChCalibrationForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sInspectionChGlassCalibration_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sInspectionChGlassCalibrationForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sLoadPortCalibration_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sLoadPortCalibrationForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingInspectionChForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingInspectionChGlassForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
+        private void sMovingToLPHomeClampedFromOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
@@ -338,80 +513,37 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         {
         }
 
-        private void sMovingToBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
+        private void sOpenStagReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
 
-        private void sMovingToHomeClampedFromBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
+        private void sMovingToLPHomeFromOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+        }
+        #endregion
+
+        #region Barcode Reader
+        private void sMovingToBarcodeReaderClamped_OnEntry(Object sender, MacStateEntryEventArgs e)
         {
         }
 
-        private void sMovingToHomeClampedFromInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
+        private void sBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
         {
         }
 
-        private void sMovingToHomeClampedFromInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
+        private void sMovingToLPHomeClampedFromBarcodeReader_OnEntry(Object sender, MacStateEntryEventArgs e)
         {
         }
+        #endregion
 
-        private void sMovingToHomeClampedFromLoadPort_OnEntry(object sender, MacStateEntryEventArgs e)
+        private void sCleanChWaitAckMove_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
-
-        private void sMovingToHomeClampedFromOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
+        
+        private void sReadyToRelease_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
-
-        private void sMovingToHomeFromInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToHomeFromInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToHomeFromLoadPort_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToHomeFromOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToLoadPort_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToLoadPortForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sMovingToOpenStage_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sOpenStageCalibration_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        private void sOpenStageCalibrationForRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-
-        void sReadyToRelease_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
-        private void sStart_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-        }
+        
         private void sWaitAckHome_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
@@ -438,30 +570,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sCleanReady_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sCleanChWaitAckMove_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sDeviceInitial_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sHome_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sHomeClamped_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLPHome_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sICHome_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLPHomeClamped_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sICHomeClamped_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sInspectionChCalibration_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sInspectionChCalibrationForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sInspectionChGlassCalibration_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sInspectionChGlassCalibrationForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sLoadPortACalibration_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sLoadPortACalibrationForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sLoadPortBCalibration_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sLoadPortBCalibrationForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLoadPortAClamping_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLoadPortAReleasing_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLoadPortBClamping_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLoadPortBReleasing_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingInspectionChForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingInspectionChGlassForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingOpenStageForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingToBarcodeReader_OnExit(Object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeClampedFromBarcodeReader_OnExit(Object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeClampedFromInspectionCh_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeClampedFromInspectionChGlas_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeClampedFromLoadPortA_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeClampedFromLoadPortB_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeClampedFromOpenStage_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeFromInspectionCh_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeFromInspectionChGlass_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeFromLoadPortA_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sMovingToHomeFromLoadPortB_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToLPHomeClampedFromBarcodeReader_OnExit(Object sender, MacStateExitEventArgs e) { }
+        private void sMovingToICHomeClampedFromInspectionCh_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToICHomeClampedFromInspectionChGlas_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToLPHomeClampedFromLoadPortA_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToLPHomeClampedFromLoadPortB_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToLPHomeClampedFromOpenStage_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToICHomeFromInspectionCh_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToICHomeFromInspectionChGlass_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToLPHomeFromLoadPortA_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sMovingToLPHomeFromLoadPortB_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingToHomeFromOpenStage_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingToInspectionCh_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingToInspectionChGlass_OnExit(object sender, MacStateExitEventArgs e) { }
