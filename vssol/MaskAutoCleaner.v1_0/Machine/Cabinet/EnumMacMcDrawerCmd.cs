@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
-    class EnumMacMcDrawerCmd
+    public enum EnumMacMcDrawerCmd
     {
+        Initial,
+        LoadPrework1,
+        LoadPreWork2,
+        LoadMain,
+        LoadPostWork,
+        UnloadPreWork1,
+        UnloadPreWork2,
+        UnLoadMain,
+        UnLoadPostWork,
     }
 }

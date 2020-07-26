@@ -15,6 +15,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     {
         public IMacHalDrawer HalDrawer { get { return this.halAssembly  as IMacHalDrawer; } }
         private TimeOutController timeoutObj = new TimeOutController();
+        
         #region Temp
         public void Initial()
         {
