@@ -21,6 +21,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
+        public void Initial()
+        {
+            this.States[EnumMacMsMaskTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+        }
+
         public override void LoadStateMachine()
         {
             //--- Declare State ---
