@@ -23,11 +23,14 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
         public void SetDrawerWorkState(EnumMacMsMaskTransferState state)
-        { }
-        public void ResetCurrentWorkState()
-        { }
+        { CurrentWorkState = state; }
 
-        EnumMacMsMaskTransferState CurrentWorkState { get; }
+        public void ResetCurrentWorkState()
+        { CurrentWorkState = EnumMacMsMaskTransferState.Initial; }
+
+        EnumMacMsMaskTransferState CurrentWorkState { get; set; }
+
+        TimeOutController timeoutObj = new TimeOutController();
 
         public void Initial()
         {
@@ -233,15 +236,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToOpenStage_OpenStageClamping = NewTransition(sMovingToOpenStage, sOpenStageClamping, EnumMacMsMaskTransferTransition.CleanMoveComplete);
 
             //Compelte Clamped -> 準備移回Home_Clamped
-            MacTransition tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA = NewTransition(sLoadPortAClamping, sMovingToLPHomeClampedFromLoadPortA, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortA);
-            MacTransition tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB = NewTransition(sLoadPortBClamping, sMovingToLPHomeClampedFromLoadPortB, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortB);
+            MacTransition tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA = NewTransition(sLoadPortAClamping, sMovingToLPHomeClampedFromLoadPortA, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeClampedFromLoadPortA);
+            MacTransition tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB = NewTransition(sLoadPortBClamping, sMovingToLPHomeClampedFromLoadPortB, EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeClampedFromLoadPortB);
             MacTransition tInspectionChClamping_MovingToICHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToICHomeClampedFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteClamped);
             MacTransition tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass = NewTransition(sInspectionChGlassClamping, sMovingToICHomeClampedFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteClamped);
             MacTransition tOpenStageClamping_MovingToLPHomeClampedFromOpenStage = NewTransition(sOpenStageClamping, sMovingToLPHomeClampedFromOpenStage, EnumMacMsMaskTransferTransition.CompleteClamped);
 
             //Complete Move
-            MacTransition tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortA, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToStandbyAtLPHome);
-            MacTransition tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortB, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToStandbyAtLPHome);
+            MacTransition tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortA, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToStandbyAtLPHomeClamped);
+            MacTransition tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortB, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToStandbyAtLPHomeClamped);
             MacTransition tMovingToICHomeClampedFromInspectionCh_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionCh, sICHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionChGlass, sICHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tMovingToLPHomeClampedFromOpenStage_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromOpenStage, sLPHomeClamped, EnumMacMsMaskTransferTransition.CleanMoveComplete);
@@ -320,7 +323,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 while (true)
                 {
-                    var isGuard = HalMaskTransfer.CurrentWorkState == DrawerWorkState.TrayArraiveAtIn;
+                    var isGuard = CurrentWorkState == EnumMacMsMaskTransferState.Initial;
                     if (isGuard)
                     {
                         thisState.DoExit(new MacStateExitEventArgs());
@@ -640,7 +643,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             var nextState = thisTransition.StateTo;
             nextState.DoEntry(new MacStateEntryEventArgs(null));
         }
-        private void sLoadPortAReleasing_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLoadPortAReleasing_OnExit(object sender, MacStateExitEventArgs e)
+        {
+            var thisState = (MacState)sender;
+            var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortA.ToString()];
+            var nextState = thisTransition.StateTo;
+            nextState.DoEntry(new MacStateEntryEventArgs(null));
+        }
         private void sLoadPortBClamping_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sLoadPortBReleasing_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sMovingInspectionChForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
