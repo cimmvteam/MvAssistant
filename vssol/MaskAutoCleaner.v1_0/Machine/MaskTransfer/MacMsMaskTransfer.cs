@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 {
@@ -306,6 +307,27 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sDeviceInitial_OnEntry(object sender, MacStateEntryEventArgs e)
         {
             HalMaskTransfer.Initial();
+            var thisState = (MacState)sender;
+            DateTime thisTime = DateTime.Now;
+            Action guard = () =>
+            {
+                while (true)
+                {
+                    var isGuard = HalMaskTransfer.CurrentWorkState == DrawerWorkState.TrayArraiveAtIn;
+                    if (isGuard)
+                    {
+                        thisState.DoExit(new MacStateExitEventArgs());
+                        break;
+                    }
+                    if (timeoutObj.IsTimeOut(thisTime))
+                    {
+                        // TODO: to throw a time out Exception 
+                    }
+                    Thread.Sleep(10);
+                }
+            };
+            new Task(guard).Start();
+
         }
 
         private void sLPHome_OnEntry(object sender, MacStateEntryEventArgs e)
@@ -411,10 +433,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sMovingToInspectionCh_OnEntry(object sender, MacStateEntryEventArgs e)
         {
             HalMaskTransfer.RobotMoving(true);
-            
+
             HalMaskTransfer.RobotMoving(false);
         }
-        
+
         private void sInspectionChClamping_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
@@ -474,7 +496,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sInspectionChGlassReleasing_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
-        
+
         private void sMovingToICHomeFromInspectionChGlass_OnEntry(object sender, MacStateEntryEventArgs e)
         {
             HalMaskTransfer.RobotMoving(true);
@@ -546,7 +568,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sMovingToBarcodeReaderClamped_OnEntry(Object sender, MacStateEntryEventArgs e)
         {
             HalMaskTransfer.RobotMoving(true);
-            
+
             HalMaskTransfer.RobotMoving(false);
         }
 
@@ -565,11 +587,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sCleanChWaitAckMove_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
-        
+
         private void sReadyToRelease_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
-        
+
         private void sWaitAckHome_OnEntry(object sender, MacStateEntryEventArgs e)
         {
         }
@@ -604,7 +626,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sInspectionChCalibrationForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sInspectionChGlassCalibration_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sInspectionChGlassCalibrationForRelease_OnExit(object sender, MacStateExitEventArgs e) { }
-        private void sLoadPortAClamping_OnExit(object sender, MacStateExitEventArgs e) { }
+        private void sLoadPortAClamping_OnExit(object sender, MacStateExitEventArgs e)
+        {
+            var thisState = (MacState)sender;
+            var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLPHomeFromLoadPortA.ToString()];
+            var nextState = thisTransition.StateTo;
+            nextState.DoEntry(new MacStateEntryEventArgs(null));
+        }
         private void sLoadPortAReleasing_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sLoadPortBClamping_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sLoadPortBReleasing_OnExit(object sender, MacStateExitEventArgs e) { }
@@ -637,7 +665,27 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sWaitAckHome_OnExit(object sender, MacStateExitEventArgs e) { }
         #endregion State Exit
 
+        public class TimeOutController
+        {
+            public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
+            {
+                var thisTime = DateTime.Now;
+                var diff = thisTime.Subtract(startTime).TotalSeconds;
+                if (diff >= targetDiffSecs)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
+            public bool IsTimeOut(DateTime startTime)
+            {
+                return IsTimeOut(startTime, 20);
+            }
+        }
 
 
 
