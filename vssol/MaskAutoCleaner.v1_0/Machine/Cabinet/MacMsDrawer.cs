@@ -14,7 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     public class MacMsDrawer : MacMachineStateBase
     {
         public IMacHalDrawer HalDrawer { get { return this.halAssembly  as IMacHalDrawer; } }
-        private TimeOutController timeoutObj = new TimeOutController();
+        private MacDrawerStateTimeOutController timeoutObj = new MacDrawerStateTimeOutController();
         
         #region Temp
         public void Initial()
@@ -74,6 +74,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacState sInitialStart = NewState(EnumMacDrawerState.InitialStart);
             MacState sInitialIng = NewState(EnumMacDrawerState.InitialIng);
             MacState sInitialComplete = NewState(EnumMacDrawerState.InitialComplete);
+          
+
 
             // Load Prework1
             MacState sLoadAnyState = NewState(EnumMacDrawerState.LoadAnyState);
@@ -120,8 +122,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacState sUnloadBoxAtInComplete = NewState(EnumMacDrawerState.UnloadBoxAtInComplete);
 
             // Exception
+            // 
             MacState sExpInitialFail = NewState(EnumMacDrawerState.ExpInitialFail);
-            MacState sExpInitialTimeout = NewState(EnumMacDrawerState.ExpInitialTimeout);
+            MacState sExpInitialTimeOut = NewState(EnumMacDrawerState.ExpInitialTimeout);
             MacState sExpGotoInTimeout = NewState(EnumMacDrawerState.ExpGotoInTimeout);
             MacState sExpGotoInFail = NewState(EnumMacDrawerState.ExpGotoInFail);
             MacState sExpGotoHomeTimeout = NewState(EnumMacDrawerState.ExpGotoHomeTimeout);
@@ -131,6 +134,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             #endregion State
 
+
          
             #region  Register Event OnEntry
             sAnyState.OnEntry += sAnyState_OnEntry;
@@ -138,6 +142,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sInitialStart.OnEntry += sInitialStart_OnEntry;
             sInitialIng.OnEntry += sInitialIng_OnEntry;
             sInitialComplete.OnEntry += sInitialComplete_OnEntry;
+            sExpInitialTimeOut.OnEntry += sExpInitialTimeOut_OnEntry;
+            sExpInitialFail.OnEntry += sExpInitialFail_OnEntry;
 
 
             sLoadAnyState.OnEntry += sLoadAnyState_OnEntry;
@@ -175,7 +181,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
 
             sExpInitialFail.OnEntry += sExpInitialFail_OnEntry;
-            sExpInitialTimeout.OnEntry += sExpInitialTimeout_OnEntry;
+            sExpInitialTimeOut.OnEntry += sExpInitialTimeOut_OnEntry;
             sExpGotoInTimeout.OnEntry += sExpGotoInTimeout_OnEntry;
             sExpGotoInFail.OnEntry += sExpGotoInFail_OnEntry;
             sExpGotoHomeTimeout.OnEntry += sExpGotoHomeTimeout_OnEntry;
@@ -195,6 +201,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sInitialStart.OnExit += sInitialStart_OnExit;
             sInitialIng.OnExit += sInitialIng_OnExit;
             sInitialComplete.OnExit += sInitialComplete_OnExit;
+            sExpInitialTimeOut.OnExit += null;
+            sExpInitialFail.OnExit += null;
 
             sLoadAnyState.OnExit += sLoadAnyState_OnExit;
             sLoadGotoInStart.OnExit += sLoadGotoInStart_OnExit;
@@ -235,7 +243,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
 
             sExpInitialFail.OnExit += sExpInitialFail_OnExit;
-            sExpInitialTimeout.OnExit += sExpInitialTimeout_OnExit;
+            sExpInitialTimeOut.OnExit += sExpInitialTimeOut_OnExit;
             sExpGotoInTimeout.OnExit += sExpGotoInTimeout_OnExit;
             sExpGotoInFail.OnExit += sExpGotoInFail_OnExit;
             sExpGotoHomeTimeout.OnExit += sExpGotoHomeTimeout_OnExit;
@@ -251,6 +259,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacTransition tWaitInitial_InitialStart = NewTransition(sWaitInitial, sInitialStart, EnumMacDrawerTransition.WaitInitial_InitialStart);
             MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacDrawerTransition.InitialStart_InitialIng);
             MacTransition tInitialing_InitialComplete = NewTransition(sInitialIng, sInitialComplete, EnumMacDrawerTransition.Initialing_InitialComplete);
+            MacTransition tInitial_InitialFail = NewTransition(sInitialIng, sExpInitialFail, EnumMacDrawerTransition.Initial_ExpInitialFail);
+            MacTransition tInitial_InitialTimeOut = NewTransition(sInitialIng, sExpInitialTimeOut, EnumMacDrawerTransition.Initial_ExpInitialTimeOut);
 
             // Load-Prework1(將 Tray 移到 定位~ Home的位置 )
             MacTransition tLoadAnyState_LoadGotoInStart = NewTransition(sLoadAnyState, sLoadGotoInStart, EnumMacDrawerTransition.LoadAnyState_LoadGotoInStart);
@@ -309,21 +319,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region Event OnEntry Target
         void sAnyState_OnEntry(object sender, MacStateEntryEventArgs e)
         {
-            var thisState= (MacState)sender;
+            var state= (MacState)sender;
             Action guard = () =>
             {
-                var startTime = DateTime.Now;
                 while (true)
                 {
-                    var isGuard = (HalDrawer.CurrentWorkState == DrawerWorkState.ReadyToInitial);
-                    if (isGuard)
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.ReadyToInitial)
                     {// Drawer 目前為
-                        thisState.DoExit(new MacStateExitEventArgs());
+                        state.DoExit(new MacStateExitEventArgs());
                         break;
-                    }
-                    if(timeoutObj.IsTimeOut(startTime))
-                    {
-                        // TODO: Throw 逾時
                     }
                     Thread.Sleep(10);
                 }
@@ -334,21 +338,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         void sWaitInitial_OnEntry(object sender, MacStateEntryEventArgs e)
         {
-            var thisState = (MacState)sender;
-            var startTime = DateTime.Now;
+            var state = (MacState)sender;
+           
             Action guard = () =>
             {
-                var isGuard = HalDrawer.CurrentWorkState == DrawerWorkState.InitialStart;
                 while (true)
                 {
-                    if (isGuard)
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.InitialStart)
                     {
-                        thisState.DoExit(new MacStateExitEventArgs());
+                        state.DoExit(new MacStateExitEventArgs());
                         break;
-                    }
-                    if(timeoutObj.IsTimeOut(startTime))
-                    {
-                        // TODO: to Throw a Time out Exception; 
                     }
                     Thread.Sleep(10);
                 }
@@ -359,21 +358,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         void sInitialStart_OnEntry(object sender, MacStateEntryEventArgs e)
         {
-            var thisState = (MacState)sender;
-            var startTime = DateTime.Now;
+            var state = (MacState)sender;
             Action guard = () =>
             {
-                var isGuard = HalDrawer.CurrentWorkState == DrawerWorkState.InitialIng;
                 while (true)
                 {
-                    if (isGuard)
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.InitialIng)
                     {
-                        thisState.DoExit(new MacStateExitEventArgs());
+                        state.DoExit(new MacStateExitEventArgs());
                         break;
-                    }
-                    if (timeoutObj.IsTimeOut(startTime)) 
-                    {
-                        // TODO: to Throw a Time Out Exception
                     }
                     Thread.Sleep(10);
                 }
@@ -382,21 +375,27 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         void sInitialIng_OnEntry(object sender, MacStateEntryEventArgs e)
         {
-            var thisState = (MacState)sender;
+            var state = (MacState)sender;
             var startTime = DateTime.Now;
             Action guard = () =>
             {
                 while (true)
                 {
-                    var isGuard = HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome;
-                    if (isGuard)
-                    {
-                        thisState.DoExit(new MacStateExitEventArgs());
+                  
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                    {  // Initial  Complete
+                        state.DoExit(new MacDrawerInitialStateExitEventArgs(MacDrawerStateInitialResult.Complete));
                         break;
                     }
-                    if (timeoutObj.IsTimeOut(startTime))
+                    else if(HalDrawer.CurrentWorkState == DrawerWorkState.InitialFailed)
+                    {  // Initial Failed
+                        state.DoExit(new MacDrawerInitialStateExitEventArgs(MacDrawerStateInitialResult.Failed));
+                        break;
+                    }
+                    else if  (timeoutObj.IsTimeOut(startTime))
                     {
-                        // TODO: to Throw a Time Out  Exception
+                        state.DoExit(new MacDrawerInitialStateExitEventArgs(MacDrawerStateInitialResult.TimeOut));
+                        break;
                     }
                     Thread.Sleep(10);
                 }
@@ -406,7 +405,12 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         void sInitialComplete_OnEntry(object sender, MacStateEntryEventArgs e)
         {
-          //Final State of Initial
+            //Final State of Initial
+            var state = (MacState)sender;
+            // TODO: 依實際狀況加 Code
+
+            state.DoExit(new MacStateExitEventArgs());
+           
         }
 
 
@@ -825,8 +829,21 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         void sIdleReadyForUnloadBoxAtIn_OnEntry(object sender, MacStateEntryEventArgs e) { }
         void sUnloadBoxAtInComplete_OnEntry(object sender, MacStateEntryEventArgs e) { }
 
-        void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpInitialTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
+        
+        void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e)
+        {
+            // Initial Fail  Entry的處理函式
+            var thisState = (MacState)sender;
+            // TODO: 補上實作
+            thisState.DoExit(new MacStateExitEventArgs());
+        }
+        void sExpInitialTimeOut_OnEntry(object sender, MacStateEntryEventArgs e)
+        {   // Initial TimeOut Entry 的處理函式
+            var thisState = (MacState)sender;
+            // TODO:  補上實作
+
+            thisState.DoExit(new MacStateExitEventArgs());
+        }
         void sExpGotoInTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
         void sExpGotoInFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
         void sExpGotoHomeTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
@@ -843,7 +860,6 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             var thisTransition = this.Transitions[EnumMacDrawerTransition.AnyState_WaitInitial.ToString()];
             var nextState = thisTransition.StateTo;
             nextState.DoEntry(new MacStateEntryEventArgs(null));
-          
         }
         void sWaitInitial_OnExit(object sender, MacStateExitEventArgs e)
         {
@@ -861,14 +877,32 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         void sInitialIng_OnExit(object sender, MacStateExitEventArgs e)
         {
+            var args = (MacDrawerInitialStateExitEventArgs)e;
             var thisState = (MacState)sender;
-            var thisTransition = this.Transitions[EnumMacDrawerTransition.Initialing_InitialComplete.ToString()];
-            var nextState = thisTransition.StateTo;
-            nextState.DoEntry(new MacStateEntryEventArgs(null));
+            if (args.InitialResult== MacDrawerStateInitialResult.Complete)
+            {  // Initial Complete
+                var thisTransition = this.Transitions[EnumMacDrawerTransition.Initialing_InitialComplete.ToString()];
+                var nextState = thisTransition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            }
+            else if(args.InitialResult == MacDrawerStateInitialResult.TimeOut)
+            {  // Initial Timeout
+                var thisTransition = this.Transitions[EnumMacDrawerTransition.Initial_ExpInitialTimeOut.ToString()];
+                var nextState = thisTransition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            }
+            else // if (args.InitialResult == MacDrawerStateInitialResult.Failed)
+            {  // Initial Failed
+                var thisTransition = this.Transitions[EnumMacDrawerTransition.Initial_ExpInitialFail.ToString()];
+                var nextState = thisTransition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            }
         }
         void sInitialComplete_OnExit(object sender, MacStateExitEventArgs e)
         {
             // Final State of Initial
+            var state = (MacState)sender;
+            // TODO: 依實際狀況補上Code
         }
 
         void sLoadAnyState_OnExit(object sender, MacStateExitEventArgs e)
@@ -1001,8 +1035,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         void sUnloadBoxAtInComplete_OnExit(object sender, MacStateExitEventArgs e) { }
 
 
-        void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpInitialTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
+        /// <summary>Initial Fail</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e)
+        {  // Initial Fail Exit 的處理函式
+            var thisState = (MacState)sender;
+            // TODO: 看實務上如何處理 Initial Fail再補上程式碼
+        }
+        /// <summary>Initial TimeOut</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void sExpInitialTimeOut_OnExit(object sender, MacStateExitEventArgs e)
+        {
+            // Initial Timeout Exit 的處理函式
+            var thisState = (MacState)sender;
+            // TODO: 看實務上如何處理 Initial Timeout再補上程式碼
+        }
         void sExpGotoInTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
         void sExpGotoInFail_OnExit(object sender, MacStateExitEventArgs e) { }
         void sExpGotoHomeTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
@@ -1012,7 +1061,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         #endregion delegates of Event OnEntry
     }
-    public class TimeOutController
+    public class MacDrawerStateTimeOutController
     {
         public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
         {

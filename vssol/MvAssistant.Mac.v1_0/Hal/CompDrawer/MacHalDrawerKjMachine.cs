@@ -375,6 +375,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnSetTimeOutFailed(Object sender, EventArgs e)
         {
+            Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.InitialFailed);
+
             if (OnSetTimeOutFailedHandler != null)
             {
                 OnSetTimeOutFailedHandler.Invoke(this, e);

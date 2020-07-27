@@ -204,9 +204,30 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <returns></returns>
         public string CommandINI()
         {
-            var commandText = new INI().GetCommandText(new INIParameter());
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
-            return commandText;
+            var c = 0;
+            while (true)
+            {
+               try
+               {
+                    c++;
+                    var commandText = new INI().GetCommandText(new INIParameter());
+                    UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+                    return commandText;
+               }
+               catch (Exception e)
+               {
+                    if (c >= 3)
+                    {
+                        return string.Empty;
+                    }
+                    else
+                    {
+                        Thread.Sleep(100);
+                    }
+                    
+                }
+                
+            }
         }
         
         /// <summary>Command SetMotionSpeed(000)</summary>

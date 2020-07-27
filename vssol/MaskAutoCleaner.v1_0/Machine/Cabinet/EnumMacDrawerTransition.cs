@@ -14,6 +14,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         WaitInitial_InitialStart,
         InitialStart_InitialIng,
         Initialing_InitialComplete,
+        Initial_ExpInitialTimeOut,
+        Initial_ExpInitialFail,
         #endregion Initial
 
 

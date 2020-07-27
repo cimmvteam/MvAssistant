@@ -105,6 +105,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         InitialStart,
         /// <summary>Initial 中</summary>
         InitialIng,
+        /// <summary>Initial Failed</summary>
+        InitialFailed,
        
         
         TrayMoveToHomeStart,
