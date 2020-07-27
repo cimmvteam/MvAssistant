@@ -15,12 +15,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         InitialStart,
         InitialIng,
         InitialComplete,
+        InitialFail,
+        InitialTimeout,
 
         LoadAnyState,
         LoadGotoInStart,
         LoadGotoInIng,
         LoadGotoInComplete,
-        IdleReadyForLoadBoxAtIn=LoadGotoInComplete,
+        LoadPrework1Fail,
+        LoadPrework1TimeOut,
+
+        IdleReadyForLoadBoxAtIn ,
         LoadBoxAtInComplete,
 
         LoadGotoHomeStart,
@@ -30,6 +35,12 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoOutIng,
         LoadGotoOutComplete,
         LoadComplete,
+        LoadMainworkGotoHomeFail,
+        LoadMainworkGotoHomeTimeOut,
+        LoadMainworkGotoOutFail,
+        LoadMainworkGotoOutTimeOut,
+
+
         IdleReadyForGet,
         LoadBoxGetAtOut,
 
@@ -37,26 +48,34 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoOutStart,
         UnloadGotoOutIng,
         UnloadGotoOutComplete,
+        UnloadPrework1Fail,
+        UnloadPrework1TimeOut,
+
         IdleReadyForUnloadBoxAtOut,
         UnloadBoxPutAtOut,
 
         UnloadGotoHomeStart,
         UnloadGotoHomeIng,
         UnloadGotoHomeComplete,
+        UnloadMainworkGotoHomeFail,
+        UnloadMainworkGotoHomeTimeOut,
+
         UnloadGotoInStart,
         UnloadGotoInIng,
         UnloadGotoInComplete,
         UnloadComplete,
-        IdleReadyForUnloadBoxAtIn= UnloadComplete,
+        UnloadMainworkGotoInFail,
+        UnloadMainworkGotoInTimeOut,
+
+        IdleReadyForUnloadBoxAtIn,
         UnloadBoxAtInComplete,
 
-        ExpInitialFail,
-        ExpInitialTimeout,
-        ExpGotoInFail,
-        ExpGotoInTimeout,
-        ExpGotoHomeFail,
-        ExpGotoHomeTimeout,
-        ExpGotoOutFail,
-        ExpGotoOutTimeout
+       
+
+       
+
+      //  ExpGotoInFail,
+       // ExpGotoInTimeout,
+      
     }
 }

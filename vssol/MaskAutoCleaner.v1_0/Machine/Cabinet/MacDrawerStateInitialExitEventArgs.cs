@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
-    public class MacDrawerInitialStateExitEventArgs: MacStateExitEventArgs
+    public class MacDrawerStateInitialExitEventArgs: MacStateExitEventArgs
     {
       
-        public MacDrawerStateInitialResult InitialResult { get; private set; }
+        public MacDrawerStateInitialResult Result { get; private set; }
 
-        private MacDrawerInitialStateExitEventArgs() { }
+        private MacDrawerStateInitialExitEventArgs() { }
 
-        public MacDrawerInitialStateExitEventArgs(MacDrawerStateInitialResult result):this() 
+        public MacDrawerStateInitialExitEventArgs(MacDrawerStateInitialResult result):this() 
         {
-            InitialResult = result;
+            Result = result;
 
         }
     }

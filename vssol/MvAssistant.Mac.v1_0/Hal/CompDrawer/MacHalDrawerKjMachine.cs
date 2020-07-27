@@ -289,6 +289,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         private void OnINIFailed(object sender, EventArgs e)
         {
+            Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.InitialFailed);
             if (OnINIFailedHandler != null)
             {
                 OnINIFailedHandler.Invoke(this, e);
@@ -333,7 +335,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayMotionFailed(object sender,EventArgs e)
         {
-            if(OnTrayMotionFailedHandler!=null)
+            Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.TrayMotionFailed);
+            if (OnTrayMotionFailedHandler!=null)
             {
                 OnTrayMotionFailedHandler.Invoke(this, e);
             }
@@ -375,8 +379,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnSetTimeOutFailed(Object sender, EventArgs e)
         {
-            Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.InitialFailed);
+          
 
             if (OnSetTimeOutFailedHandler != null)
             {

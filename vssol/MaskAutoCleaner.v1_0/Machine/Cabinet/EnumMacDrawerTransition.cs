@@ -14,8 +14,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         WaitInitial_InitialStart,
         InitialStart_InitialIng,
         Initialing_InitialComplete,
-        Initial_ExpInitialTimeOut,
-        Initial_ExpInitialFail,
+        Initial_InitialTimeOut,
+        Initial_InitialFail,
         #endregion Initial
 
 
@@ -24,6 +24,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadAnyState_LoadGotoInStart,
         LoadGotoInStart_LoadGotoInIng,
         LoadGotoInIng_LoadGotoInComplete,
+        LoadPrework1_LoadPrework1TimeOut,
+        LoadPrework1_LoadPrework1Fail,
+
 
         // Load Prework2 (將盒子放到 Tray)
         LoadGotoInComplete_IdleReadyForLoadBoxAtIn,
@@ -33,11 +36,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadBoxAtInComplete_LoadGotoHomeStart,
         LoadGotoHomeStart_LoadGotoHomeIng,
         LoadGotoHomeIng_LoadGotoHomeComplete,
+        LoadMainwork_LoadGotoHomeTimeOut,
+        LoadMainwork_LoadGotoHomeFail,
 
         // Load02(將 Tray 從Home 移到 Out)
         LoadGotoHomeComplete_LoadGotoOutStart,
         LoadGotoOutStart_LoadGotoOutIng,
         LoadGotoOutIng_LoadGotoOutComplete,
+        LoadMainwork_LoadGotoOutTimeOut,
+        LoadMainwork_LoadGotoOutFail,
 
         // Load Postwork(將 Box 移開)
         LoadGotoOutComplete_IdleReadyForGetBox,
@@ -49,6 +56,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadAnyState_UnloadGotoOutStart,
         UnloadGotoOutStart_UnloadGotoOutIng,
         UnloadGotoOutIng_UnloadGotoOutComplete,
+        UnLoadPrework1_UnLoadPrework1TimeOut,
+        UnLoadPrework1_UnLoadPrework1Fail,
+
 
         // UnLoad Prework02(放入 Box)
         UnloadGotoOutComplete_IdleReadyForUnloadBoxAtOut,
@@ -58,11 +68,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadBoxAtOutComplete_UnloadGotoHomeStart,
         UnloadGotoHomeStart_UnloadGotoHomeIng,
         UnloadGotoHomeIng_UnloadGotoHomeComplete,
+        UnloadMainwork_UnloadGotoHomeTimeOut,
+        UnloadMainwork_UnloadGotoHomeFail,
 
         // Unload02(將 Tray 由Home 移到 In)
         UnloadGotoHomeComplete_UnloadGotoInStart,
         UnloadGotoInStart_UnloadGotoInIng,
         UnloadGotoInIng_UnloadGotoInComplete,
+        UnloadMainwork_UnloadGotoInTimeOut,
+        UnloadMainwork_UnloadGotoInFail,
 
         // Unload PostWork(移走 Box)
         UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,

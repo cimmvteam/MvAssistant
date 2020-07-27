@@ -89,7 +89,11 @@
     <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
     <Compile Include="Machine\Cabinet\EnumMacMcDrawerCmd.cs" />
-    <Compile Include="Machine\Cabinet\MacDrawerInitialStateExitEventArgs.cs" />
+    <Compile Include="Machine\Cabinet\MacDrawerStateInitialExitEventArgs.cs" />
+    <Compile Include="Machine\Cabinet\MacDrawerStateLoadMainworkExitEventArgs.cs" />
+    <Compile Include="Machine\Cabinet\MacDrawerStateLoadPrework1ExitEventArgs.cs" />
+    <Compile Include="Machine\Cabinet\MacDrawerStateUnloadMainworkExitEventArgs.cs" />
+    <Compile Include="Machine\Cabinet\MacDrawerStateUnloadPrework1ExitEventArgs.cs" />
     <Compile Include="Machine\Cabinet\MacMcDrawer.cs" />
     <Compile Include="Machine\Cabinet\MacMsDrawer.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
