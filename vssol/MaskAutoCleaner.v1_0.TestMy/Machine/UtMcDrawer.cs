@@ -23,8 +23,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
             machine.Initial();
-            
-        }
+         }
+
+
+
 
         [TestMethod]
         public void TestLoadPreWork1()

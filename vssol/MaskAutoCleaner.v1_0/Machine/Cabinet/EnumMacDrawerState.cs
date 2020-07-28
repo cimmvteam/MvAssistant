@@ -8,22 +8,19 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
     public enum EnumMacDrawerState
     {
-        AnyState,
-     
-
-        WaitInitial,
+       
         InitialStart,
         InitialIng,
         InitialComplete,
         InitialFail,
         InitialTimeout,
 
-        LoadAnyState,
+      
         LoadGotoInStart,
         LoadGotoInIng,
         LoadGotoInComplete,
-        LoadPrework1Fail,
-        LoadPrework1TimeOut,
+        LoadGotoInFail,
+        LoadGotoInTimeOut,
 
         IdleReadyForLoadBoxAtIn ,
         LoadBoxAtInComplete,
@@ -34,22 +31,21 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoOutStart,
         LoadGotoOutIng,
         LoadGotoOutComplete,
-        LoadComplete,
-        LoadMainworkGotoHomeFail,
-        LoadMainworkGotoHomeTimeOut,
-        LoadMainworkGotoOutFail,
-        LoadMainworkGotoOutTimeOut,
+  
+        LoadGotoHomeFail,
+        LoadGotoHomeTimeOut,
+        LoadGotoOutFail,
+        LoadGotoOutTimeOut,
 
 
         IdleReadyForGet,
         LoadBoxGetAtOut,
-
-        UnloadAnyState,
+      
         UnloadGotoOutStart,
         UnloadGotoOutIng,
         UnloadGotoOutComplete,
-        UnloadPrework1Fail,
-        UnloadPrework1TimeOut,
+        UnloadGotoOutFail,
+        UnloadGotoOutTimeOut,
 
         IdleReadyForUnloadBoxAtOut,
         UnloadBoxPutAtOut,
@@ -57,15 +53,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoHomeStart,
         UnloadGotoHomeIng,
         UnloadGotoHomeComplete,
-        UnloadMainworkGotoHomeFail,
-        UnloadMainworkGotoHomeTimeOut,
+        UnloadGotoHomeFail,
+        UnloadGotoHomeTimeOut,
 
         UnloadGotoInStart,
         UnloadGotoInIng,
         UnloadGotoInComplete,
-        UnloadComplete,
-        UnloadMainworkGotoInFail,
-        UnloadMainworkGotoInTimeOut,
+       
+        UnloadGotoInFail,
+        UnloadGotoInTimeOut,
 
         IdleReadyForUnloadBoxAtIn,
         UnloadBoxAtInComplete,

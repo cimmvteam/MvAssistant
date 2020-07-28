@@ -534,7 +534,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandINI()
         {
-            //IsCommandINI=true
+         
             this.SetDrawerWorkState(DrawerWorkState.InitialStart);
             Sleep100msecs();
             var commandText = Ldd.CommandINI();
