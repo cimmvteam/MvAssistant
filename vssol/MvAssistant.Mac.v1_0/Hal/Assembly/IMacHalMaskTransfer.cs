@@ -17,6 +17,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="EndPosFileLocation">Jason檔的儲存目錄</param>
         /// <param name="EndPosition"></param>
         void ChangeDirection(string EndPosFileLocation);
+        /// <summary>
+        /// 檢查當前位置與目標位置是否一致，點位允許誤差 ±5 
+        /// </summary>
+        /// <param name="PosFileLocation"></param>
+        /// <returns></returns>
+        bool CheckPosition(string PosFileLocation);
         string Clamp(uint MaskType);
         string Unclamp();
         /// <summary>

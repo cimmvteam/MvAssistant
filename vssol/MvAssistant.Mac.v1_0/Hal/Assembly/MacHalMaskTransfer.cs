@@ -123,6 +123,31 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
+        /// <summary>
+        /// 檢查當前位置與目標位置是否一致，點位允許誤差 ±5 
+        /// </summary>
+        /// <param name="PosFileLocation"></param>
+        /// <returns></returns>
+        public bool CheckPosition(string PosFileLocation)
+        {
+            var TargetPos = Robot.ReadMovePath(PosFileLocation)[0];
+            
+            var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
+            {
+                if (CurrentPosInfo.x <= TargetPos.X + 5 && CurrentPosInfo.x >= TargetPos.X - 5
+                    && CurrentPosInfo.y <= TargetPos.Y + 5 && CurrentPosInfo.y >= TargetPos.Y - 5
+                    && CurrentPosInfo.z <= TargetPos.Z + 5 && CurrentPosInfo.z >= TargetPos.Z - 5
+                    && CurrentPosInfo.w <= TargetPos.W + 5 && CurrentPosInfo.w >= TargetPos.W - 5
+                    && CurrentPosInfo.p <= TargetPos.P + 5 && CurrentPosInfo.p >= TargetPos.P - 5
+                    && CurrentPosInfo.r <= TargetPos.R + 5 && CurrentPosInfo.r >= TargetPos.R - 5)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
         public string Clamp(uint MaskType)
         {
             string result = "";

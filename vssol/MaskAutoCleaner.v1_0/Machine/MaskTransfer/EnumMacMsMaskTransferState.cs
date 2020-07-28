@@ -77,8 +77,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         CleanChWaitAckMove,
 
         //Barcode
-        MovingToBarcodeReader,
-        BarcodeReader,
+        MovingToBarcodeReaderClamped,
+        WaitingForBarcodeReader,
         MovingToLPHomeClampedFromBarcodeReader,
 
         //WaitAckHome,

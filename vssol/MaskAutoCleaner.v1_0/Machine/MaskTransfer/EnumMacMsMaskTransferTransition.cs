@@ -15,20 +15,54 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         ReadyToMoveToLoadPortA,
         ReadyToClampInLoadPortA,
         ReadyToMoveToLPHomeClampedFromLoadPortA,
-        ReadyToMoveToLoadPortAClamped,
+        ReadyToMoveToLoadPortAForRelease,
         ReadyToReleaseInLoadPortA,
         ReadyToMoveToLPHomeFromLoadPortA,
-
-        ReadyToStandbyAtLPHome,
-        ReadyToStandbyAtLPHomeClamped,
+        ReadyToStandbyAtLPHomeFromLoadPortA,
+        ReadyToStandbyAtLPHomeClampedFromLoadPortA,
 
         ReadyToMoveToLoadPortB,
         ReadyToClampInLoadPortB,
         ReadyToMoveToLPHomeClampedFromLoadPortB,
-        ReadyToMoveToLoadPortBClamped,
+        ReadyToMoveToLoadPortBForRelease,
         ReadyToReleaseInLoadPortB,
         ReadyToMoveToLPHomeFromLoadPortB,
-        
+        ReadyToStandbyAtLPHomeFromLoadPortB,
+        ReadyToStandbyAtLPHomeClampedFromLoadPortB,
+
+        //Inspection Chamber
+        ReadyToMoveToInspectionCh,
+        ReadyToMoveToInspectionChGlass,
+        ReadyToClampInInspectionCh,
+        ReadyToClampInInspectionChGlass,
+        ReadyToMoveToICHomeClampedFromInspectionCh,
+        ReadyToMoveToICHomeClampedFromInspectionChGlass,
+        ReadyToMoveInspectionChForRelease,
+        ReadyToMoveInspectionChGlassForRelease,
+        ReadyToReleaseInInspectionCh,
+        ReadyToReleaseInInspectionChGlass,
+        ReadyToMoveToICHomeFromInspectionCh,
+        ReadyToMoveToICHomeFromInspectionChGlass,
+        ReadyToStandbyAtICHomeFromInspectionCh,
+        ReadyToStandbyAtICHomeClampedFromInspectionCh,
+        ReadyToStandbyAtICHomeFromInspectionChGlass,
+        ReadyToStandbyAtICHomeClampedFromInspectionChGlass,
+
+        //Open Stage
+        ReadyToMoveToOpenStage,
+        ReadyToClampInOpenStage,
+        ReadyToMoveToLPHomeClampedFromOpenStage,
+        ReadyToMoveToOpenStageForRelease,
+        ReadyToReleaseInOpenStage,
+        ReadyToMoveToLPHomeFromOpenStage,
+        ReadyToStandbyAtLPHomeFromOpenStage,
+        ReadyToStandbyAtLPHomeClampedFromOpenStage,
+
+        //Barcode Reader
+        ReadyToMoveToBarcodeReaderClamped,
+        ReadyToWaitForBarcodeReader,
+        ReadyToMoveToLPHomeClampedFromBarcodeReader,
+        ReadyToStandbyAtLPHomeClampedFromBarcodeReader,
 
 
 
