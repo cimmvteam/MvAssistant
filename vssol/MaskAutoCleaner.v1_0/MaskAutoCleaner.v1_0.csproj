@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\InspectionCh\EnumMacMsInspectionChState.cs" />
     <Compile Include="Machine\MacMachineCtrlCfg.cs" />
     <Compile Include="Machine\MacMachineMgr.cs" />
     <Compile Include="Machine\MacMachineMgrCfg.cs" />
@@ -180,7 +181,6 @@
     <Folder Include="Machine\BoxTransfer\" />
     <Folder Include="Machine\Cabinet\" />
     <Folder Include="Machine\CleanCh\" />
-    <Folder Include="Machine\InspectionCh\" />
     <Folder Include="Machine\LoadPort\" />
     <Folder Include="Machine\OpenStage\" />
     <Folder Include="Machine\Universal\" />
