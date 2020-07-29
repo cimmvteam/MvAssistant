@@ -10,6 +10,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     {
         PowerOn,
         CompleteInitial,
+        ReadyToReceiveTriggerAtLPHome,
+        ReadyToReceiveTriggerAtLPHomeClamped,
 
         //Load Port
         ReadyToMoveToLoadPortA,
@@ -37,8 +39,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         ReadyToClampInInspectionChGlass,
         ReadyToMoveToICHomeClampedFromInspectionCh,
         ReadyToMoveToICHomeClampedFromInspectionChGlass,
-        ReadyToMoveInspectionChForRelease,
-        ReadyToMoveInspectionChGlassForRelease,
+        ReadyToMoveToInspectionChForRelease,
+        ReadyToMoveToInspectionChGlassForRelease,
         ReadyToReleaseInInspectionCh,
         ReadyToReleaseInInspectionChGlass,
         ReadyToMoveToICHomeFromInspectionCh,

@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
     <Compile Include="Machine\InspectionCh\EnumMacMsInspectionChState.cs" />
+    <Compile Include="Machine\InspectionCh\MacMsInspectionCh.cs" />
     <Compile Include="Machine\MacMachineCtrlCfg.cs" />
     <Compile Include="Machine\MacMachineMgr.cs" />
     <Compile Include="Machine\MacMachineMgrCfg.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Machine\MaskTransfer\EnumMacMcMaskTransferCmd.cs" />
     <Compile Include="Machine\MaskTransfer\EnumMacMsMaskTransferState.cs" />
     <Compile Include="Machine\MaskTransfer\EnumMacMsMaskTransferTransition.cs" />
+    <Compile Include="Machine\MaskTransfer\MacMaskTransferCommonExitEventArgs.cs" />
     <Compile Include="Machine\MaskTransfer\MacMcMaskTransfer.cs" />
     <Compile Include="Machine\MaskTransfer\MacMsMaskTransfer.cs" />
     <Compile Include="Machine\MacMachineMediater.cs" />

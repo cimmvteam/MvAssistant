@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.Msg;
+﻿using MaskAutoCleaner.v1_0.Machine.InspectionCh;
+using MaskAutoCleaner.v1_0.Msg;
 using MaskAutoCleaner.v1_0.Msg.PrescribedSecs;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -168,7 +169,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //Normal Exit
             sStart.OnExit += sStart_OnExit;
             sDeviceInitial.OnExit += sDeviceInitial_OnExit;
-            sLPHome.OnExit += sLPHome_OnExit;
+            sLPHome.OnExit += (sender, e) =>
+            {
+                var args = (MacMaskTransferCommonExitEventArgs)e;
+                MacTransition transition = null;
+                MacState nextState = null;
+                if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToLoadPortA)
+                {
+                    transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortA.ToString()];
+                    nextState = transition.StateTo;
+                    nextState.DoEntry(new MacStateEntryEventArgs(0));
+                }
+                else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToLoadPortB)
+                {
+                    transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortB.ToString()];
+                    nextState = transition.StateTo;
+                    nextState.DoEntry(new MacStateEntryEventArgs(0));
+                }
+                else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToInspectionCh)
+                {
+                    transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToInspectionCh.ToString()];
+                    nextState = transition.StateTo;
+                    nextState.DoEntry(new MacStateEntryEventArgs(0));
+                }
+                else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToOpenStage)
+                {
+                    transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToOpenStage.ToString()];
+                    nextState = transition.StateTo;
+                    nextState.DoEntry(new MacStateEntryEventArgs(0));
+                }
+                else if (args.Result == MacMaskTransferCommonResult.Wait)
+                {
+                    transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHome.ToString()];
+                    nextState = transition.StateTo;
+                    nextState.DoEntry(new MacStateEntryEventArgs(0));
+                }
+                else if (args.Result == MacMaskTransferCommonResult.Fail)
+                {
+                    // TODO
+                }
+                else if (args.Result == MacMaskTransferCommonResult.TimeOut)
+                {
+                    // TODO
+                }
+            };
             sICHome.OnExit += sICHome_OnExit;
             sMovingToLoadPortA.OnExit += sMovingToLoadPortA_OnExit;
             sMovingToLoadPortB.OnExit += sMovingToLoadPortB_OnExit;
@@ -220,6 +264,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.PowerOn);
             MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.CompleteInitial);
+            MacTransition tLPHome_LPHome = NewTransition(sLPHome,sLPHome, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHome);
+            MacTransition tLPHomeClamped_LPHomeClamped = NewTransition(sLPHomeClamped, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHomeClamped);
 
             //Receive Transfer From Home
             MacTransition tLPHome_MovingToLoadPortA = NewTransition(sLPHome, sMovingToLoadPortA, EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortA);
@@ -323,16 +369,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 while (true)
                 {
-                    var isGuard = CurrentWorkState == EnumMacMsMaskTransferState.Initial;
-                    if (isGuard)
+                    if (CurrentWorkState == EnumMacMsMaskTransferState.Initial)
                     {
                         HalMaskTransfer.Initial();
-                        thisState.DoExit(new MacStateExitEventArgs());
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.Complete));
                         break;
                     }
-                    if (timeoutObj.IsTimeOut(thisTime))
+                    else if (timeoutObj.IsTimeOut(thisTime))
                     {
-                        // TODO: to throw a time out Exception 
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.TimeOut));
+                        break;
                     }
                     Thread.Sleep(10);
                 }
@@ -348,16 +394,24 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 while (true)
                 {
-                    var isGuard = CurrentWorkState == EnumMacMsMaskTransferState.LPHome;
-                    if (isGuard)
+                    var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
+                    // TODO: Get Other Components State
+                    if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
                     {
-                        thisState.DoExit(new MacStateExitEventArgs());
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.ReadyToMoveToInspectionCh));
                         break;
                     }
-                    if (timeoutObj.IsTimeOut(thisTime))
+                    else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHome)
                     {
-                        // TODO: to throw a time out Exception 
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.Wait));
+                        break;
                     }
+                    else if(timeoutObj.IsTimeOut(thisTime))
+                    {
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.TimeOut));
+                        break;
+                    }
+                    // TODO: Other Components State Check
                     Thread.Sleep(10);
                 }
             };
@@ -372,16 +426,24 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 while (true)
                 {
-                    var isGuard = CurrentWorkState == EnumMacMsMaskTransferState.LPHomeClamped;
-                    if (isGuard)
+                    var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
+                    // TODO: Get Other Components State
+                    if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForPutIntoMask)
                     {
-                        thisState.DoExit(new MacStateExitEventArgs());
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.ReadyToMoveToInspectionChForRelease));
                         break;
                     }
-                    if (timeoutObj.IsTimeOut(thisTime))
+                    else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHomeClamped)
                     {
-                        // TODO: to throw a time out Exception 
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.Wait));
+                        break;
                     }
+                    else if (timeoutObj.IsTimeOut(thisTime))
+                    {
+                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.TimeOut));
+                        break;
+                    }
+                    // TODO: Other Components State Check
                     Thread.Sleep(10);
                 }
             };
@@ -1519,22 +1581,47 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private void sDeviceInitial_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sLPHome_OnExit(object sender, MacStateExitEventArgs e)
         {
-            var thisState = (MacState)sender;
-            var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortA.ToString()];
-            //var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortB.ToString()];
-            //var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToOpenStage.ToString()];
-            var nextState = thisTransition.StateTo;
-            nextState.DoEntry(new MacStateEntryEventArgs(null));
+            
         }
         private void sICHome_OnExit(object sender, MacStateExitEventArgs e) { }
         private void sLPHomeClamped_OnExit(object sender, MacStateExitEventArgs e)
         {
-            var thisState = (MacState)sender;
-            var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortAForRelease.ToString()];
-            //var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortBForRelease.ToString()];
-            //var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToOpenStageForRelease.ToString()];
-            //var thisTransition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToBarcodeReaderClamped.ToString()];
-            var nextState = thisTransition.StateTo;
+            var args = (MacMaskTransferCommonExitEventArgs)e;
+            MacTransition transition = null;
+            MacState nextState = null;
+            if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToLoadPortAForRelease)
+            {
+                transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortAForRelease.ToString()];
+            }
+            else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToLoadPortBForRelease)
+            {
+                transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToLoadPortBForRelease.ToString()];
+            }
+            else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToInspectionChForRelease)
+            {
+                transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToInspectionChForRelease.ToString()];
+            }
+            else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToOpenStageForRelease)
+            {
+                transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToOpenStageForRelease.ToString()];
+            }
+            else if (args.Result == MacMaskTransferCommonResult.ReadyToMoveToBarcodeReaderClamped)
+            {
+                transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToMoveToBarcodeReaderClamped.ToString()];
+            }
+            else if (args.Result == MacMaskTransferCommonResult.Wait)
+            {
+                transition = this.Transitions[EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHomeClamped.ToString()];
+            }
+            else if (args.Result == MacMaskTransferCommonResult.Fail)
+            {
+                // TODO
+            }
+            else if (args.Result == MacMaskTransferCommonResult.TimeOut)
+            {
+                // TODO
+            }
+            nextState = transition.StateTo;
             nextState.DoEntry(new MacStateEntryEventArgs(null));
         }
         private void sICHomeClamped_OnExit(object sender, MacStateExitEventArgs e) { }
