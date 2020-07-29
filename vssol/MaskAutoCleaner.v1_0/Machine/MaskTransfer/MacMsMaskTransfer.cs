@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
-        private void SetDrawerWorkState(EnumMacMsMaskTransferState state)
+        private void SetWorkState(EnumMacMsMaskTransferState state)
         { CurrentWorkState = state; }
 
         private void ResetCurrentWorkState()
