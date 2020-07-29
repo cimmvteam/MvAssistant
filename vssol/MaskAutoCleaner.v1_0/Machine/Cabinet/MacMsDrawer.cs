@@ -22,36 +22,36 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             this.States[EnumMacDrawerState.InitialStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
-        public void LoadPreWork1()
+        public void Load_TrayGotoIn()
         {
-            this.States[EnumMacDrawerState.LoadGotoInIng.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacDrawerState.LoadGotoInStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
-        public void LoadPreWork2()
+        public void Load_PutBox()
         {
 
         }
 
 
-        public void LoadMain()
+        public void Load_TrayGotoOut()
         {
             this.States[EnumMacDrawerState.LoadGotoHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
-        public void LoadPostWork()
+        public void Load_GetBox()
         {
 
         }
 
-        public void UnloadPreWork1()
+        public void Unload_TrayGotoOut()
         {
             this.States[EnumMacDrawerState.UnloadGotoOutStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
-        public void UnloadPreWork2()
+        public void Unload_PutBox()
         {
         }
 
-        public void UnLoadMain()
+        public void Unload_TrayGotoIn()
         {
             this.States[EnumMacDrawerState.UnloadGotoHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
@@ -257,7 +257,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sInitialFail.OnExit += (sender, e) =>
             {
-                var thisState = (MacState)sender;
+                var state = (MacState)sender;
                 // TODO: 看實務上如何處理 Initial Fail再補上程式碼
                 //
             };

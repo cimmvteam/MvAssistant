@@ -34,7 +34,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
             var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-            machine.LoadPreWork1();
+            machine.Load_TrayGotoIn();
         }
         [TestMethod]
         public void TestLoadPreWork2()
@@ -48,7 +48,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
             var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-            machine.LoadMain();
+            machine.Load_TrayGotoOut();
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
             var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-            machine.UnloadPreWork1();
+            machine.Unload_TrayGotoOut();
         }
 
 
