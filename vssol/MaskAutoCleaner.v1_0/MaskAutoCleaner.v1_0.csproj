@@ -160,6 +160,7 @@
     <Compile Include="StateMachineAlpha\Transition.cs" />
     <Compile Include="StateMachineAlpha\TransitionEvaluation.cs" />
     <Compile Include="StateMachineBeta\MacState.cs" />
+    <Compile Include="StateMachineBeta\MacStateExitWithTransitionEventArgs.cs" />
     <Compile Include="StateMachineBeta\MacStateMachine.cs" />
     <Compile Include="StateMachineBeta\MacTransition.cs" />
     <Compile Include="StateMachineBeta\MacStateEntryEventArgs.cs" />

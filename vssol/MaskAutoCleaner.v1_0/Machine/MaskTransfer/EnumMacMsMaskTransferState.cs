@@ -22,9 +22,17 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// </summary>
         ICHome,
         ICHomeClamped,
+        CCHomeClamped,
         #endregion
 
         #region Moving path
+
+        ChangingDirectionToLPHome,
+        ChangingDirectionToLPHomeClamped,
+        ChangingDirectionToICHome,
+        ChangingDirectionToICHomeClamped,
+        ChangingDirectionToCCHomeClamped,
+
         MovingToLoadPortA,
         MovingToLoadPortB,
         MovingToInspectionCh,
