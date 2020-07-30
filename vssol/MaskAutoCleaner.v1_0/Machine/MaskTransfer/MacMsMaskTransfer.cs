@@ -105,113 +105,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //MacState sWaitAckHome = NewState(EnumMacMsMaskTransferState.WaitAckHome);
             #endregion
 
-
-            #region State Register OnEntry OnExit
-            //Normal Entry
-            #region Entry
-            sStart.OnEntry += sStart_OnEntry;
-            sDeviceInitial.OnEntry += sDeviceInitial_OnEntry;
-            sLPHome.OnEntry += sLPHome_OnEntry;
-            sICHome.OnEntry += sICHome_OnEntry;
-            sMovingToLoadPortA.OnEntry += sMovingToLoadPortA_OnEntry;
-            sMovingToLoadPortB.OnEntry += sMovingToLoadPortB_OnEntry;
-            sMovingToInspectionCh.OnEntry += sMovingToInspectionCh_OnEntry;
-            sMovingToInspectionChGlass.OnEntry += sMovingToInspectionChGlass_OnEntry;
-            sMovingToOpenStage.OnEntry += sMovingToOpenStage_OnEntry;
-            sLoadPortAClamping.OnEntry += sLoadPortAClamping_OnEntry;
-            sLoadPortBClamping.OnEntry += sLoadPortBClamping_OnEntry;
-            sInspectionChClamping.OnEntry += sInspectionChClamping_OnEntry;
-            sInspectionChGlassClamping.OnEntry += sInspectionChGlassClamping_OnEntry;
-            sOpenStageClamping.OnEntry += sOpenStageClamping_OnEntry;
-            sMovingToLPHomeClampedFromLoadPortA.OnEntry += sMovingToLPHomeClampedFromLoadPortA_OnEntry;
-            sMovingToLPHomeClampedFromLoadPortB.OnEntry += sMovingToLPHomeClampedFromLoadPortB_OnEntry;
-            sMovingToICHomeClampedFromInspectionCh.OnEntry += sMovingToICHomeClampedFromInspectionCh_OnEntry;
-            sMovingToICHomeClampedFromInspectionChGlass.OnEntry += sMovingToICHomeClampedFromInspectionChGlass_OnEntry;
-            sMovingToLPHomeClampedFromOpenStage.OnEntry += sMovingToLPHomeClampedFromOpenStage_OnEntry;
-            sLPHomeClamped.OnEntry += sLPHomeClamped_OnEntry;
-            sICHomeClamped.OnEntry += sICHomeClamped_OnEntry;
-            //sReadyToRelease.OnEntry += sReadyToRelease_OnEntry;
-            sCleanReady.OnEntry += sCleanReady_OnEntry;
-            sCleanMovingStart.OnEntry += sCleanMovingStart_OnEntry;
-            sCleanMovingReturn.OnEntry += sCleanMovingReturn_OnEntry;
-            sCleanChMoving.OnEntry += sCleanChMoving_OnEntry;
-            sCleanChWaitAckMove.OnEntry += sCleanChWaitAckMove_OnEntry;
-            sMovingToLoadPortAForRelease.OnEntry += sMovingToLoadPortAForRelease_OnEntry;
-            sMovingToLoadPortBForRelease.OnEntry += sMovingToLoadPortBForRelease_OnEntry;
-            sMovingToBarcodeReaderClamped.OnEntry += sMovingToBarcodeReaderClamped_OnEntry;
-            sWaitingForBarcodeReader.OnEntry += sWaitingForBarcodeReader_OnEntry;
-            sMovingToLPHomeClampedFromBarcodeReader.OnEntry += sMovingToLPHomeClampedFromBarcodeReader_OnEntry;
-            sMovingInspectionChForRelease.OnEntry += sMovingInspectionChForRelease_OnEntry;
-            sMovingInspectionChGlassForRelease.OnEntry += sMovingInspectionChGlassForRelease_OnEntry;
-            sMovingOpenStageForRelease.OnEntry += sMovingOpenStageForRelease_OnEntry;
-            sLoadPortAReleasing.OnEntry += sLoadPortAReleasing_OnEntry;
-            sLoadPortBReleasing.OnEntry += sLoadPortBReleasing_OnEntry;
-            sInspectionChReleasing.OnEntry += sInspectionChReleasing_OnEntry;
-            sInspectionChGlassReleasing.OnEntry += sInspectionChGlassReleasing_OnEntry;
-            sOpenStageReleasing.OnEntry += sOpenStagReleasing_OnEntry;
-            sMovingToLPHomeFromLoadPortA.OnEntry += sMovingToLPHomeFromLoadPortA_OnEntry;
-            sMovingToLPHomeFromLoadPortB.OnEntry += sMovingToLPHomeFromLoadPortB_OnEntry;
-            sMovingToICHomeFromInspectionCh.OnEntry += sMovingToICHomeFromInspectionCh_OnEntry;
-            sMovingToICHomeFromInspectionChGlass.OnEntry += sMovingToICHomeFromInspectionChGlass_OnEntry;
-            sMovingToLPHomeFromOpenStage.OnEntry += sMovingToLPHomeFromOpenStage_OnEntry;
-            //sWaitAckHome.OnEntry += sWaitAckHome_OnEntry;
-            #endregion
-
-            //Normal Exit
-            #region Exit
-            sStart.OnExit += sStart_OnExit;
-            sDeviceInitial.OnExit += sDeviceInitial_OnExit;
-            sLPHome.OnExit += sLPHome_OnExit;
-            sICHome.OnExit += sICHome_OnExit;
-            sMovingToLoadPortA.OnExit += sMovingToLoadPortA_OnExit;
-            sMovingToLoadPortB.OnExit += sMovingToLoadPortB_OnExit;
-            sMovingToInspectionCh.OnExit += sMovingToInspectionCh_OnExit;
-            sMovingToInspectionChGlass.OnExit += sMovingToInspectionChGlass_OnExit;
-            sMovingToOpenStage.OnExit += sMovingToOpenStage_OnExit;
-            sLoadPortAClamping.OnExit += sLoadPortAClamping_OnExit;
-            sLoadPortBClamping.OnExit += sLoadPortBClamping_OnExit;
-            sInspectionChClamping.OnExit += sInspectionChClamping_OnExit;
-            sInspectionChGlassClamping.OnExit += sInspectionChGlassClamping_OnExit;
-            sOpenStageClamping.OnExit += sOpenStageClamping_OnExit;
-            sMovingToLPHomeClampedFromLoadPortA.OnExit += sMovingToLPHomeClampedFromLoadPortA_OnExit;
-            sMovingToLPHomeClampedFromLoadPortB.OnExit += sMovingToLPHomeClampedFromLoadPortB_OnExit;
-            sMovingToICHomeClampedFromInspectionCh.OnExit += sMovingToICHomeClampedFromInspectionCh_OnExit;
-            sMovingToICHomeClampedFromInspectionChGlass.OnExit += sMovingToICHomeClampedFromInspectionChGlas_OnExit;
-            sMovingToLPHomeClampedFromOpenStage.OnExit += sMovingToLPHomeClampedFromOpenStage_OnExit;
-            sLPHomeClamped.OnExit += sLPHomeClamped_OnExit;
-            sICHomeClamped.OnExit += sICHomeClamped_OnExit;
-            //sReadyToRelease.OnExit += sReadyToRelease_OnExit;
-            sCleanReady.OnExit += sCleanReady_OnExit;
-            sCleanMovingStart.OnExit += sCleanMovingStart_OnExit;
-            sCleanMovingReturn.OnExit += sCleanMovingReturn_OnExit;
-            sCleanChMoving.OnExit += sCleanChMoving_OnExit;
-            sCleanChWaitAckMove.OnExit += sCleanChWaitAckMove_OnExit;
-            sMovingToBarcodeReaderClamped.OnExit += sMovingToBarcodeReader_OnExit;
-            sWaitingForBarcodeReader.OnExit += sWaitingForBarcodeReader_OnExit;
-            sMovingToLPHomeClampedFromBarcodeReader.OnExit += sMovingToLPHomeClampedFromBarcodeReader_OnExit;
-            sMovingToLoadPortAForRelease.OnExit += sMovingToLoadPortAForRelease_OnExit;
-            sMovingToLoadPortBForRelease.OnExit += sMovingToLoadPortBForRelease_OnExit;
-            sMovingInspectionChForRelease.OnExit += sMovingInspectionChForRelease_OnExit;
-            sMovingInspectionChGlassForRelease.OnExit += sMovingInspectionChGlassForRelease_OnExit;
-            sMovingOpenStageForRelease.OnExit += sMovingOpenStageForRelease_OnExit;
-            sLoadPortAReleasing.OnExit += sLoadPortAReleasing_OnExit;
-            sLoadPortBReleasing.OnExit += sLoadPortBReleasing_OnExit;
-            sInspectionChReleasing.OnExit += sInspectionChReleasing_OnExit;
-            sInspectionChGlassReleasing.OnExit += sInspectionChGlassReleasing_OnExit;
-            sOpenStageReleasing.OnExit += sOpenStageReleasing_OnExit;
-            sMovingToLPHomeFromLoadPortA.OnExit += sMovingToLPHomeFromLoadPortA_OnExit;
-            sMovingToLPHomeFromLoadPortB.OnExit += sMovingToLPHomeFromLoadPortB_OnExit;
-            sMovingToICHomeFromInspectionCh.OnExit += sMovingToICHomeFromInspectionCh_OnExit;
-            sMovingToICHomeFromInspectionChGlass.OnExit += sMovingToICHomeFromInspectionChGlass_OnExit;
-            sMovingToLPHomeFromOpenStage.OnExit += sMovingToHomeFromOpenStage_OnExit;
-            //sWaitAckHome.OnExit += sWaitAckHome_OnExit;
-            #endregion
-            #endregion State Register OnEntry OnExit
-
             //--- Transition ---
             #region Transition
-            MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.tStart_DeviceInitial);
-            MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.tDeviceInitial_LPHome);
+            MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.PowerON);
+            MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.Initial);
             MacTransition tLPHome_LPHome = NewTransition(sLPHome, sLPHome, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHome);
             MacTransition tLPHomeClamped_LPHomeClamped = NewTransition(sLPHomeClamped, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHomeClamped);
             MacTransition tWaitingForBarcodeReader_WaitingForBarcodeReader = NewTransition(sWaitingForBarcodeReader, sWaitingForBarcodeReader, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtBarcodeReader);
@@ -298,6 +195,221 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //MacTransition tWaitAckHome_LPHome = NewTransition(sWaitAckHome, sLPHome, EnumMacMsMaskTransferTransition.ReceiveAckHome);
             #endregion
 
+            #region State Register OnEntry OnExit
+            //Normal Entry
+            #region Entry
+            sStart.OnEntry += sStart_OnEntry;
+
+
+            sDeviceInitial.OnEntry += (sender, e) =>
+                {
+                    var thisState = (MacState)sender;
+                    MacTransition transition = null;
+                    DateTime thisTime = DateTime.Now;
+                    Action guard = () =>
+                    {
+                        while (true)
+                        {
+                            if (CurrentWorkState == EnumMacMsMaskTransferState.Initial)
+                            {
+                                HalMaskTransfer.Initial();
+                                transition = tDeviceInitial_LPHome;
+                                break;
+                            }
+                            if (timeoutObj.IsTimeOut(thisTime))
+                            {
+                                // TODO
+                                break;
+                            }
+                            Thread.Sleep(10);
+                        }
+                    };
+                    new Task(guard).Start();
+                };
+            sDeviceInitial.OnExit += (sender,e)=>
+            {
+                var args = (MacMaskTransferCommonExitEventArgs)e;
+                var nextState = args.Transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sLPHome.OnEntry += (sender, e) =>
+            {
+                var thisState = (MacState)sender;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
+                                                              // TODO: Get Other Components State
+                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
+                        {
+                            thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.ReadyToMoveToInspectionCh));
+                            break;
+                        }
+                        else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHome)
+                        {
+                            thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.Wait));
+                            break;
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime))
+                        {
+                            thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.TimeOut));
+                            break;
+                        }
+                        // TODO: Other Components State Check
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
+            sLPHome.OnExit += sLPHome_OnExit;
+
+            sLPHomeClamped.OnEntry += sLPHomeClamped_OnEntry;
+            sLPHomeClamped.OnExit += sLPHomeClamped_OnExit;
+
+            sICHome.OnEntry += sICHome_OnEntry;
+            sICHome.OnExit += sICHome_OnExit;
+
+            sICHomeClamped.OnEntry += sICHomeClamped_OnEntry;
+            sICHomeClamped.OnExit += sICHomeClamped_OnExit;
+
+            #region Load PortA
+            sMovingToLoadPortA.OnEntry += sMovingToLoadPortA_OnEntry;
+            sMovingToLoadPortA.OnExit += sMovingToLoadPortA_OnExit;
+
+            sLoadPortAClamping.OnEntry += sLoadPortAClamping_OnEntry;
+            sLoadPortAClamping.OnExit += sLoadPortAClamping_OnExit;
+
+            sMovingToLPHomeClampedFromLoadPortA.OnEntry += sMovingToLPHomeClampedFromLoadPortA_OnEntry;
+            sMovingToLPHomeClampedFromLoadPortA.OnExit += sMovingToLPHomeClampedFromLoadPortA_OnExit;
+
+            sMovingToLoadPortAForRelease.OnEntry += sMovingToLoadPortAForRelease_OnEntry;
+            sMovingToLoadPortAForRelease.OnExit += sMovingToLoadPortAForRelease_OnExit;
+
+            sLoadPortAReleasing.OnEntry += sLoadPortAReleasing_OnEntry;
+            sLoadPortAReleasing.OnExit += sLoadPortAReleasing_OnExit;
+
+            sMovingToLPHomeFromLoadPortA.OnEntry += sMovingToLPHomeFromLoadPortA_OnEntry;
+            sMovingToLPHomeFromLoadPortA.OnExit += sMovingToLPHomeFromLoadPortA_OnExit;
+            #endregion
+
+            #region Load PortB
+            sMovingToLoadPortB.OnEntry += sMovingToLoadPortB_OnEntry;
+            sMovingToLoadPortB.OnExit += sMovingToLoadPortB_OnExit;
+
+            sLoadPortBClamping.OnEntry += sLoadPortBClamping_OnEntry;
+            sLoadPortBClamping.OnExit += sLoadPortBClamping_OnExit;
+
+            sMovingToLPHomeClampedFromLoadPortB.OnEntry += sMovingToLPHomeClampedFromLoadPortB_OnEntry;
+            sMovingToLPHomeClampedFromLoadPortB.OnExit += sMovingToLPHomeClampedFromLoadPortB_OnExit;
+
+            sMovingToLoadPortBForRelease.OnEntry += sMovingToLoadPortBForRelease_OnEntry;
+            sMovingToLoadPortBForRelease.OnExit += sMovingToLoadPortBForRelease_OnExit;
+
+            sLoadPortBReleasing.OnEntry += sLoadPortBReleasing_OnEntry;
+            sLoadPortBReleasing.OnExit += sLoadPortBReleasing_OnExit;
+
+            sMovingToLPHomeFromLoadPortB.OnEntry += sMovingToLPHomeFromLoadPortB_OnEntry;
+            sMovingToLPHomeFromLoadPortB.OnExit += sMovingToLPHomeFromLoadPortB_OnExit;
+            #endregion
+
+            #region Inspection Ch
+            sMovingToInspectionCh.OnEntry += sMovingToInspectionCh_OnEntry;
+            sMovingToInspectionCh.OnExit += sMovingToInspectionCh_OnExit;
+
+            sInspectionChClamping.OnEntry += sInspectionChClamping_OnEntry;
+            sInspectionChClamping.OnExit += sInspectionChClamping_OnExit;
+
+            sMovingToICHomeClampedFromInspectionCh.OnEntry += sMovingToICHomeClampedFromInspectionCh_OnEntry;
+            sMovingToICHomeClampedFromInspectionCh.OnExit += sMovingToICHomeClampedFromInspectionCh_OnExit;
+
+            sMovingInspectionChForRelease.OnEntry += sMovingInspectionChForRelease_OnEntry;
+            sMovingInspectionChForRelease.OnExit += sMovingInspectionChForRelease_OnExit;
+
+            sInspectionChReleasing.OnEntry += sInspectionChReleasing_OnEntry;
+            sInspectionChReleasing.OnExit += sInspectionChReleasing_OnExit;
+
+            sMovingToICHomeFromInspectionCh.OnEntry += sMovingToICHomeFromInspectionCh_OnEntry;
+            sMovingToICHomeFromInspectionCh.OnExit += sMovingToICHomeFromInspectionCh_OnExit;
+
+
+
+            sMovingToInspectionChGlass.OnEntry += sMovingToInspectionChGlass_OnEntry;
+            sMovingToInspectionChGlass.OnExit += sMovingToInspectionChGlass_OnExit;
+
+            sInspectionChGlassClamping.OnEntry += sInspectionChGlassClamping_OnEntry;
+            sInspectionChGlassClamping.OnExit += sInspectionChGlassClamping_OnExit;
+
+            sMovingToICHomeClampedFromInspectionChGlass.OnEntry += sMovingToICHomeClampedFromInspectionChGlass_OnEntry;
+            sMovingToICHomeClampedFromInspectionChGlass.OnExit += sMovingToICHomeClampedFromInspectionChGlas_OnExit;
+
+            sMovingInspectionChGlassForRelease.OnEntry += sMovingInspectionChGlassForRelease_OnEntry;
+            sMovingInspectionChGlassForRelease.OnExit += sMovingInspectionChGlassForRelease_OnExit;
+
+            sInspectionChGlassReleasing.OnEntry += sInspectionChGlassReleasing_OnEntry;
+            sInspectionChGlassReleasing.OnExit += sInspectionChGlassReleasing_OnExit;
+
+            sMovingToICHomeFromInspectionChGlass.OnEntry += sMovingToICHomeFromInspectionChGlass_OnEntry;
+            sMovingToICHomeFromInspectionChGlass.OnExit += sMovingToICHomeFromInspectionChGlass_OnExit;
+            #endregion
+
+            #region Clean Ch
+            sCleanReady.OnEntry += sCleanReady_OnEntry;
+            sCleanReady.OnExit += sCleanReady_OnExit;
+
+            sCleanMovingStart.OnEntry += sCleanMovingStart_OnEntry;
+            sCleanMovingStart.OnExit += sCleanMovingStart_OnExit;
+
+            sCleanMovingReturn.OnEntry += sCleanMovingReturn_OnEntry;
+            sCleanMovingReturn.OnExit += sCleanMovingReturn_OnExit;
+
+            sCleanChMoving.OnEntry += sCleanChMoving_OnEntry;
+            sCleanChMoving.OnExit += sCleanChMoving_OnExit;
+
+            sCleanChWaitAckMove.OnEntry += sCleanChWaitAckMove_OnEntry;
+            sCleanChWaitAckMove.OnExit += sCleanChWaitAckMove_OnExit;
+            #endregion
+
+            #region OpenStage
+            sMovingToOpenStage.OnEntry += sMovingToOpenStage_OnEntry;
+            sMovingToOpenStage.OnExit += sMovingToOpenStage_OnExit;
+
+            sOpenStageClamping.OnEntry += sOpenStageClamping_OnEntry;
+            sOpenStageClamping.OnExit += sOpenStageClamping_OnExit;
+
+            sMovingToLPHomeClampedFromOpenStage.OnEntry += sMovingToLPHomeClampedFromOpenStage_OnEntry;
+            sMovingToLPHomeClampedFromOpenStage.OnExit += sMovingToLPHomeClampedFromOpenStage_OnExit;
+
+            sMovingOpenStageForRelease.OnEntry += sMovingOpenStageForRelease_OnEntry;
+            sMovingOpenStageForRelease.OnExit += sMovingOpenStageForRelease_OnExit;
+
+            sOpenStageReleasing.OnEntry += sOpenStagReleasing_OnEntry;
+            sOpenStageReleasing.OnExit += sOpenStageReleasing_OnExit;
+
+            sMovingToLPHomeFromOpenStage.OnEntry += sMovingToLPHomeFromOpenStage_OnEntry;
+            sMovingToLPHomeFromOpenStage.OnExit += sMovingToHomeFromOpenStage_OnExit;
+            #endregion
+
+            #region Barcode Reader
+            sMovingToBarcodeReaderClamped.OnEntry += sMovingToBarcodeReaderClamped_OnEntry;
+            sMovingToBarcodeReaderClamped.OnExit += sMovingToBarcodeReader_OnExit;
+
+            sWaitingForBarcodeReader.OnEntry += sWaitingForBarcodeReader_OnEntry;
+            sWaitingForBarcodeReader.OnExit += sWaitingForBarcodeReader_OnExit;
+
+            sMovingToLPHomeClampedFromBarcodeReader.OnEntry += sMovingToLPHomeClampedFromBarcodeReader_OnEntry;
+            sMovingToLPHomeClampedFromBarcodeReader.OnExit += sMovingToLPHomeClampedFromBarcodeReader_OnExit;
+            #endregion
+
+            #endregion
+            
+            #endregion State Register OnEntry OnExit
+
+
+            
+
             //--- Exception Transition ---
 
         }
@@ -311,61 +423,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         {
         }
 
-        private void sDeviceInitial_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-            var thisState = (MacState)sender;
-            DateTime thisTime = DateTime.Now;
-            Action guard = () =>
-            {
-                while (true)
-                {
-                    if (CurrentWorkState == EnumMacMsMaskTransferState.Initial)
-                    {
-                        HalMaskTransfer.Initial();
-                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.Complete));
-                        break;
-                    }
-                    if (timeoutObj.IsTimeOut(thisTime))
-                    {
-                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.TimeOut));
-                        break;
-                    }
-                    Thread.Sleep(10);
-                }
-            };
-            new Task(guard).Start();
-        }
-
         private void sLPHome_OnEntry(object sender, MacStateEntryEventArgs e)
         {
-            var thisState = (MacState)sender;
-            DateTime thisTime = DateTime.Now;
-            Action guard = () =>
-            {
-                while (true)
-                {
-                    var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
-                    // TODO: Get Other Components State
-                    if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
-                    {
-                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.ReadyToMoveToInspectionCh));
-                        break;
-                    }
-                    else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHome)
-                    {
-                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.Wait));
-                        break;
-                    }
-                    if (timeoutObj.IsTimeOut(thisTime))
-                    {
-                        thisState.DoExit(new MacMaskTransferCommonExitEventArgs(MacMaskTransferCommonResult.TimeOut));
-                        break;
-                    }
-                    // TODO: Other Components State Check
-                    Thread.Sleep(10);
-                }
-            };
-            new Task(guard).Start();
+
         }
 
         private void sLPHomeClamped_OnEntry(object sender, MacStateEntryEventArgs e)
@@ -2227,8 +2287,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             nextState.DoEntry(new MacStateEntryEventArgs(null));
         }
         #endregion
-
-        private void sDeviceInitial_OnExit(object sender, MacStateExitEventArgs e) { }
+        
         private void sLPHome_OnExit(object sender, MacStateExitEventArgs e)
         {
             var args = (MacMaskTransferCommonExitEventArgs)e;
