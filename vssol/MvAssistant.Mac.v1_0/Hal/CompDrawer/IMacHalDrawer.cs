@@ -99,27 +99,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     {
         /// <summary>任何狀態</summary>
         AnyState,
-        /// <summary>準備可以 Initial</summary>
-        ReadyToInitial,
-        /// <summary>已經送出 Initial 指令</summary>
-        InitialStart,
-        /// <summary>Initial 中</summary>
-        InitialIng,
+        
         /// <summary>Initial Failed</summary>
         InitialFailed,
        
         TrayMotionFailed,
 
-        TrayMoveToHomeStart,
-        TrayMoveToHomeIng,
+
         TrayArriveAtHome,
 
-        TrayMoveToOutStart,
-        TrayMoveToOutIng,
+   
         TrayArriveAtOut,
 
-        TrayMoveToInStart,
-        TrayMoveToInIng,
+   
         TrayArraiveAtIn,
 
 

@@ -24,14 +24,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoInIng_LoadGotoInComplete,
         LoadGotoInIng_LoadGotoInTimeOut,
         LoadGotoInIng_LoadGotoInFail,
-
-
-        // Load  (將盒子放到 Tray)
-        LoadGotoInComplete_IdleReadyForLoadBoxAtIn,
-        IdleReadyForLoadBoxAtIn_LoadBoxAtInComplete,
+        LoadGotoInComplete_IdleForPutBoxOnTrayAtIn,
 
         // Load (將 Tray 從In 移到 Home )
-        LoadBoxAtInComplete_LoadGotoHomeStart,
         LoadGotoHomeStart_LoadGotoHomeIng,
         LoadGotoHomeIng_LoadGotoHomeComplete,
         LoadGotoHomeIng_LoadGotoHomeTimeOut,
@@ -43,11 +38,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoOutIng_LoadGotoOutComplete,
         LoadGotoOutIng_LoadGotoOutTimeOut,
         LoadGotoOutIng_LoadGotoOutFail,
-
         // Load(將 Box 移開)
-        LoadGotoOutComplete_IdleReadyForGetBox,
-        IdleReadyForGetBox_LoadBoxGetAtOut,
-        #endregion Load
+        LoadGotoOutComplete_IdleForGetBoxOnTrayAtOut,
+       #endregion Load
 
         #region unload
         // Unload(將 Tray 移到 Out)
@@ -56,14 +49,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoOutIng_UnloadGotoOutComplete,
         UnloadGotoOutIng_UnloadGotoOutTimeOut,
         UnloadGotoOutIng_UnloadGotoOutFail,
+        UnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut,
 
-
-        // UnLoad(放入 Box)
-        UnloadGotoOutComplete_IdleReadyForUnloadBoxAtOut,
-        IdleReadyForUnloadBoxAtOut_UnloadBoxAtOutComplete,
-
-        // Unload(將 Tray 由Out 移到 Home)
-        UnloadBoxAtOutComplete_UnloadGotoHomeStart,
+        // Unload(將 Tray 由Out 移到 Home) Main
         UnloadGotoHomeStart_UnloadGotoHomeIng,
         UnloadGotoHomeIng_UnloadGotoHomeComplete,
         UnloadGotoHomeIng_UnloadGotoHomeTimeOut,
@@ -76,8 +64,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoInIng_UnloadGotoInTimeOut,
         UnloadGotoInIng_UnloadGotoInFail,
 
+        UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn,
         // Unload (移走 Box)
-        UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,
+        //UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,
         
         #endregion unload
 

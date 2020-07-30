@@ -13,7 +13,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
          string DeviceIndex { get; }
          LoadPortWorkState CurrentWorkState { get; }
          void ResetWorkState();
-         void SetWorkState(LoadPortWorkState stste);
+         void SetWorkState(LoadPortWorkState state);
 
         string CommandDockRequest();
         string CommandUndockRequest();

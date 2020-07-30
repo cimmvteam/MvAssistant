@@ -63,6 +63,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);
             MacState sInitialTimeOut = NewState(EnumMacMsLoadPortState.InitialTimeOut);
             MacState sInitialMustReset= NewState(EnumMacMsLoadPortState.InitialMustReset);
+            MacState sIdleForPutPOD = NewState(EnumMacMsLoadPortState.IdleForPutPOD);
 
             // Dock Idle
             // TODO: Dock Idle state
@@ -75,9 +76,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacState sDockComplete = NewState(EnumMacMsLoadPortState.DockComplete);
             MacState sDockTimeOut = NewState(EnumMacMsLoadPortState.DockTimeOut);
 
-            // Undock Idle
-            // TODO: Undock Idle state
-
+            // dock 等待Robot 夾取光置
+            MacState sIdleForGetMask = NewState(EnumMacMsLoadPortState.IdleForGetMask);
+            
             // undock
             MacState sUndockStart = NewState(EnumMacMsLoadPortState.UndockStart);
             MacState sUndockIng= NewState(EnumMacMsLoadPortState.UndockIng);
@@ -86,46 +87,49 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacState sUndockComplete = NewState(EnumMacMsLoadPortState.UndockComplete);
             MacState sUndockTimeOut = NewState(EnumMacMsLoadPortState.UndockTimeOut);
 
+            // Undock 等待POD 被取走
+            MacState sIdleForGetPOD = NewState(EnumMacMsLoadPortState.IdleForGetPOD);
+
 
             #endregion State
 
 
             #region Transition 
             // Reset
-            MacTransition tResetStart_Reseting = NewTransition(sResetStart, sResetIng, EnumMacMsLoadPortTransition.ResetStart_ResetIng);
-            MacTransition tReseting_ResetComplete = NewTransition(sResetIng, sResetComplete, EnumMacMsLoadPortTransition.ResetIng_ResetComplete);
-            MacTransition tReseting_ResetFail = NewTransition(sResetIng, sResetFail, EnumMacMsLoadPortTransition.ResetIng_ResetFail);
-            MacTransition tReseting_ResetTimeOut = NewTransition(sResetIng, sResetTimeOut, EnumMacMsLoadPortTransition.ResetIng_ResetTimeOut);
+            MacTransition tResetStart_ResetIng = NewTransition(sResetStart, sResetIng, EnumMacMsLoadPortTransition.ResetStart_ResetIng);
+            MacTransition tResetIng_ResetComplete = NewTransition(sResetIng, sResetComplete, EnumMacMsLoadPortTransition.ResetIng_ResetComplete);
+            MacTransition tResetIng_ResetFail = NewTransition(sResetIng, sResetFail, EnumMacMsLoadPortTransition.ResetIng_ResetFail);
+            MacTransition tResetIng_ResetTimeOut = NewTransition(sResetIng, sResetTimeOut, EnumMacMsLoadPortTransition.ResetIng_ResetTimeOut);
 
 
             //Initial
             MacTransition tInitialStart_Initialing = NewTransition(sInitialStart, sInitialing, EnumMacMsLoadPortTransition.InitialStart_Initialing);
-            MacTransition tInitialing_InitialComplete = NewTransition(sInitialing, sInitialComplete, EnumMacMsLoadPortTransition.Initialing_InitialComplete);
-            MacTransition tInitialing_InitialTimeOut = NewTransition(sInitialing, sInitialTimeOut, EnumMacMsLoadPortTransition.Initialing_InitialTimeOut);
-            MacTransition tInitialing_InitialMustReset = NewTransition(sInitialing, sInitialMustReset, EnumMacMsLoadPortTransition.Initialing_InitialMustReset);
-
+            MacTransition tInitialIng_InitialComplete = NewTransition(sInitialing, sInitialComplete, EnumMacMsLoadPortTransition.InitialIng_InitialComplete);
+            MacTransition tInitialIng_InitialTimeOut = NewTransition(sInitialing, sInitialTimeOut, EnumMacMsLoadPortTransition.InitialIng_InitialTimeOut);
+            MacTransition tInitialIng_InitialMustReset = NewTransition(sInitialing, sInitialMustReset, EnumMacMsLoadPortTransition.InitialIng_InitialMustReset);
+            MacTransition tInitialComplete_IdleForPutPOD= NewTransition(sInitialComplete, sIdleForPutPOD, EnumMacMsLoadPortTransition.InitialComplete_IdleForPutPOD);
 
             // Dock Idle
             // TODO: Dock Idle Transitions
 
             // Dock
-            MacTransition tDockStart_Docking = NewTransition(sDockStart, sDockIng, EnumMacMsLoadPortTransition.DockStart_DockIng);
+            MacTransition tDockStart_DockIng = NewTransition(sDockStart, sDockIng, EnumMacMsLoadPortTransition.DockStart_DockIng);
             MacTransition tDockIng_DockComplete = NewTransition(sDockIng, sDockComplete, EnumMacMsLoadPortTransition.DockIng_DockComplete);
             MacTransition tDockIng_DockTimeOut = NewTransition(sDockIng, sDockTimeOut, EnumMacMsLoadPortTransition.DockIng_DockTimeOut);
             MacTransition tDockIng_DockMustReset = NewTransition(sDockIng, sDockMustReset, EnumMacMsLoadPortTransition.DockIng_DockMustReset);
             MacTransition tDockIng_DockMustInitial = NewTransition(sDockIng, sDockMustInitial, EnumMacMsLoadPortTransition.DockIng_DockMustInitial);
-
+            MacTransition tDockComplete_IdleForGetMask= NewTransition(sDockComplete, sIdleForGetMask, EnumMacMsLoadPortTransition.DockComplete_IdleForGetMask);
 
             // Undock Idle
             // TODO: Undock Idel Transitions
 
             // Undock
-            MacTransition tUndockStart_Undocking = NewTransition(sUndockStart, sUndockIng, EnumMacMsLoadPortTransition.UndockStart_UndockIng);
-            MacTransition tUndocking_UndockComplete = NewTransition(sUndockIng, sUndockComplete, EnumMacMsLoadPortTransition.UndockIng_UndockComplete);
-            MacTransition tUndocking_UndockMustInitial = NewTransition(sUndockIng, sUndockMustInitial, EnumMacMsLoadPortTransition.UndockIng_UndockMustInitial);
-            MacTransition tUndocking_UndockTimeOut = NewTransition(sUndockIng, sUndockTimeOut, EnumMacMsLoadPortTransition.UndockIng_UndockTimeOut);
-            MacTransition tUndocking_UndockMustReset = NewTransition(sUndockIng, sUndockMustReset, EnumMacMsLoadPortTransition.UndockIng_UndockMustReset);
-
+            MacTransition tUndockStart_UndockIng = NewTransition(sUndockStart, sUndockIng, EnumMacMsLoadPortTransition.UndockStart_UndockIng);
+            MacTransition tUndockIng_UndockComplete = NewTransition(sUndockIng, sUndockComplete, EnumMacMsLoadPortTransition.UndockIng_UndockComplete);
+            MacTransition tUndockIng_UndockMustInitial = NewTransition(sUndockIng, sUndockMustInitial, EnumMacMsLoadPortTransition.UndockIng_UndockMustInitial);
+            MacTransition tUndockIng_UndockTimeOut = NewTransition(sUndockIng, sUndockTimeOut, EnumMacMsLoadPortTransition.UndockIng_UndockTimeOut);
+            MacTransition tUndockIng_UndockMustReset = NewTransition(sUndockIng, sUndockMustReset, EnumMacMsLoadPortTransition.UndockIng_UndockMustReset);
+            MacTransition tUndockComplete_IdleForGetPOD= NewTransition(sUndockComplete, sIdleForGetPOD, EnumMacMsLoadPortTransition.UndockComplete_IdleForGetPOD);
 
             #endregion
 
@@ -135,25 +139,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sResetStart.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
-                Action guard = () =>
-                {
-                    while (true)
-                    {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.ResetIng)
-                        {
-                            state.DoExit(new MacStateExitEventArgs());
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
-                };
-                new Task(guard).Start();
                 this.HalLoadPortUnit.CommandAlarmReset();
+                state.DoExit(new MacStateExitEventArgs());
             };
             sResetStart.OnExit += (sender, e) =>
             {
-                var transition = this.Transitions[EnumMacMsLoadPortTransition.ResetStart_ResetIng.ToString()];
-                var nextState = transition.StateTo;
+                //var transition = this.Transitions[EnumMacMsLoadPortTransition.ResetStart_ResetIng.ToString()];
+                var nextState = tResetStart_ResetIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -161,7 +153,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 var state = (MacState)sender;
                 var startTime = DateTime.Now;
-                var dicTransition = this.Transitions;
+               // var dicTransition = this.Transitions;
                
                 Action guard = () =>
                 {
@@ -170,15 +162,15 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         MacTransition transition = null;
                         if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.ResetComplete)
                         { // 成功
-                            transition = dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetComplete.ToString()];
+                            transition = tResetIng_ResetComplete;// dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetComplete.ToString()];
 ;                        }
                         else if(this.HalLoadPortUnit.CurrentWorkState==LoadPortWorkState.ResetFail)
                         { // 失敗
-                            transition = dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetFail.ToString()];
+                            transition = tResetIng_ResetFail;// dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetFail.ToString()];
                         }
                         else if(new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime))
                         { // 逾時
-                            transition = dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetTimeOut.ToString()];
+                            transition = tResetIng_ResetTimeOut;// dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetTimeOut.ToString()];
                         }
                         if(transition!=null)
                         {
@@ -194,8 +186,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sResetIng.OnExit += (sender, e) => 
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
-                MacTransition transition = args.Transition;
-                var nextState = transition.StateTo;
+               // MacTransition transition = args.Transition;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -232,26 +224,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sInitialStart.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
-                Action guard = () =>
-                {
-                    while (true)
-                    {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialIng)
-                        {
-                            state.DoExit(new MacStateExitEventArgs());
-                            break;
-                        }
-
-                        Thread.Sleep(10);
-                    }
-                };
-                new Task(guard).Start();
                 this.HalLoadPortUnit.CommandInitialRequest();
+                state.DoExit(new MacStateExitEventArgs());
             };
             sInitialStart.OnExit += (sender, e) =>
             {
-                MacTransition transition = this.Transitions[EnumMacMsLoadPortTransition.InitialStart_Initialing.ToString()];
-                var nextState = transition.StateTo;
+                //MacTransition transition = this.Transitions[EnumMacMsLoadPortTransition.InitialStart_Initialing.ToString()];
+                var nextState = tInitialStart_Initialing.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -259,7 +238,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 var state = (MacState)sender;
                 DateTime startTime = DateTime.Now;
-                var dicTransition = this.Transitions;
+              //  var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
@@ -267,19 +246,17 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         MacTransition transition = null;
                         if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
                         {
-                            transition = dicTransition[EnumMacMsLoadPortTransition.Initialing_InitialComplete.ToString()];
+                            transition = tInitialIng_InitialComplete;// dicTransition[EnumMacMsLoadPortTransition.InitialIng_InitialComplete.ToString()];
                         }
                         else if (HalLoadPortUnit.CurrentWorkState ==LoadPortWorkState.MustResetFirst)
                         {
                             // 必須先Reset
-                            transition = dicTransition[EnumMacMsLoadPortTransition.Initialing_InitialMustReset.ToString()];
-                            
+                            transition = tInitialIng_InitialMustReset;//dicTransition[EnumMacMsLoadPortTransition.InitialIng_InitialMustReset.ToString()];
                         }
                         else if (new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime))
                         {
                             // 逾時(因為没有回傳)
-                            transition = dicTransition[EnumMacMsLoadPortTransition.Initialing_InitialTimeOut.ToString()];
-
+                            transition = tInitialIng_InitialTimeOut;// dicTransition[EnumMacMsLoadPortTransition.InitialIng_InitialTimeOut.ToString()];
                         }
                         if(transition != null)
                         {
@@ -295,8 +272,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sInitialing.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
-                MacTransition transition = args.Transition;
-                var nextState = transition.StateTo;
+               // MacTransition transition = args.Transition;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -307,7 +284,18 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sInitialComplete.OnExit += (sender, e) =>
             {
-                // Terminal State of Initial Complete
+                var nextState = tInitialComplete_IdleForPutPOD.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sIdleForPutPOD.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sIdleForPutPOD.OnExit += (sender, e) =>
+            {
+                // TODO: Depends On,......
             };
 
             sInitialTimeOut.OnEntry += (sender, e) =>
@@ -334,26 +322,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sDockStart.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
-                Action guard = () =>
-                {
-                    while (true)
-                    {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.DockIng)
-                        {
-                            state.DoExit(new MacStateExitEventArgs());
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
-                };
-                new Task(guard).Start();
                 this.HalLoadPortUnit.CommandDockRequest();
-
+                state.DoExit(new MacStateExitEventArgs()); 
             };
             sDockStart.OnExit += (sender, e) =>
             {
-                var transition = this.Transitions[EnumMacMsLoadPortTransition.DockStart_DockIng.ToString()];
-                var nextState = transition.StateTo;
+                //var transition = this.Transitions[EnumMacMsLoadPortTransition.DockStart_DockIng.ToString()];
+                var nextState = tDockStart_DockIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -361,7 +336,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 var state = (MacState)sender;
                 var startTime = DateTime.Now;
-                var dicTransition = this.Transitions;
+               // var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
@@ -369,19 +344,19 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         MacTransition transition = null;
                         if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
                         {
-                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockComplete.ToString()];
+                            transition = tDockIng_DockComplete;// dicTransition[EnumMacMsLoadPortTransition.DockIng_DockComplete.ToString()];
                         }
                         else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
                         {
-                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockMustInitial.ToString()];
+                            transition = tDockIng_DockMustInitial;// dicTransition[EnumMacMsLoadPortTransition.DockIng_DockMustInitial.ToString()];
                         }
                         else if(this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
                         {
-                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockMustReset.ToString()];
+                            transition = tDockIng_DockMustReset;//dicTransition[EnumMacMsLoadPortTransition.DockIng_DockMustReset.ToString()];
                         }
                         else if(new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime))
                         {
-                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockTimeOut.ToString()];
+                            transition = tDockIng_DockTimeOut;// dicTransition[EnumMacMsLoadPortTransition.DockIng_DockTimeOut.ToString()];
                         }
                         if(transition !=null)
                         {
@@ -397,7 +372,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockIng.OnExit += (sender, e) =>
             {
-                var args = (MacStateExitWithTransitionEventArgs)e;
+               var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
@@ -410,7 +385,18 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockComplete.OnExit+= (sender, e) =>
             {
-                // Terminal State Of Dock Complete
+                var nextState = tDockComplete_IdleForGetMask.StateTo;
+                nextState.DoExit(new MacStateExitEventArgs());
+            };
+
+            sIdleForGetMask.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sIdleForGetMask.OnExit += (sender, e) =>
+            {
+                // TODO: Depends on,......
             };
 
             sDockMustInitial.OnEntry += (sender, e) =>
@@ -448,25 +434,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockStart.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
-                Action guard = () =>
-                {
-                    while (true)
-                    {
-                        if (this.HalLoadPortUnit.CurrentWorkState ==LoadPortWorkState.UndockIng)
-                        {
-                            state.DoExit(new MacStateExitEventArgs());
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
-                };
-                new Task(guard).Start();
                 this.HalLoadPortUnit.CommandUndockRequest();
+                state.DoExit(new MacStateExitEventArgs());
             };
             sUndockStart.OnExit += (sender, e) =>
             {
-                var transition = this.Transitions[EnumMacMsLoadPortTransition.DockStart_DockIng.ToString()];
-                var nextState = transition.StateTo;
+                //var transition =  this.Transitions[EnumMacMsLoadPortTransition.DockStart_DockIng.ToString()];
+                var nextState = tDockStart_DockIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -474,7 +448,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 var state = (MacState)sender;
                 DateTime startTime = DateTime.Now;
-                var dicTransitions = this.Transitions;
+              //  var dicTransitions = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
@@ -482,20 +456,20 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         MacTransition transition = null;
                         if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete)
                         {
-                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockComplete.ToString()];
+                            transition = tUndockIng_UndockComplete;// dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockComplete.ToString()];
                            
                         }
                         else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
                         {
-                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockMustInitial.ToString()];
+                            transition = tUndockIng_UndockMustInitial;// dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockMustInitial.ToString()];
                         }
                         else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
                         {
-                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockMustReset.ToString()];
+                            transition = tUndockIng_UndockMustReset;// dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockMustReset.ToString()];
                         }
                         else if (new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime)) 
                         {
-                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockTimeOut.ToString()];
+                            transition = tUndockIng_UndockTimeOut;// dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockTimeOut.ToString()];
                         }
                         if(transition != null)
                         {
@@ -551,12 +525,21 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockComplete.OnExit += (sender, e) =>
             {
-                // Terminal State of undock Complete
+                var nextState = tUndockComplete_IdleForGetPOD.StateTo;
+                nextState.DoExit(new MacStateExitEventArgs());
             };
-
+            sIdleForGetPOD.OnExit += (sender, e) =>
+            {
+                // TODO: Depends on,......
+            };
+            sIdleForGetPOD.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
             #endregion
 
-         
+
         }
     }
     public class MacLoadPortUnitStateTimeOutController

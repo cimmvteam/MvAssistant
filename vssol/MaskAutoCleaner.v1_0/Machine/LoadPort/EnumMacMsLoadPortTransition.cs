@@ -14,9 +14,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         ResetIng_ResetTimeOut,
         
         InitialStart_Initialing,
-        Initialing_InitialComplete,
-        Initialing_InitialTimeOut,
-        Initialing_InitialMustReset,
+        InitialIng_InitialComplete,
+        InitialIng_InitialTimeOut,
+        InitialIng_InitialMustReset,
 
      //   IdleReadyToDock_DockStart,
 
@@ -33,6 +33,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         UndockIng_UndockMustInitial,
         UndockIng_UndockMustReset,
         UndockIng_UndockTimeOut,
-       
+        InitialComplete_IdleForPutPOD,
+        DockComplete_IdleForGetMask,
+        UndockComplete_IdleForGetPOD,
     }
 }

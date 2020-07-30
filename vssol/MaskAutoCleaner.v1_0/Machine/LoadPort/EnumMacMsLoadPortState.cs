@@ -48,5 +48,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         InitialComplete,
         InitialTimeOut,
         InitialMustReset,
+        IdleForGetMask,
+        IdleForGetPOD,
+        IdleForPutPOD,
     }
 }

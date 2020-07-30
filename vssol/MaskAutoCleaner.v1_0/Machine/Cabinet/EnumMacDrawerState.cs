@@ -21,9 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoInComplete,
         LoadGotoInFail,
         LoadGotoInTimeOut,
-
-        IdleReadyForLoadBoxAtIn ,
-        LoadBoxAtInComplete,
+        IdleForPutBoxOnTrayAtIn,
 
         LoadGotoHomeStart,
         LoadGotoHomeIng,
@@ -36,19 +34,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoHomeTimeOut,
         LoadGotoOutFail,
         LoadGotoOutTimeOut,
-
-
-        IdleReadyForGet,
-        LoadBoxGetAtOut,
+        IdleForGetBoxOnTrayAtOut,
       
         UnloadGotoOutStart,
         UnloadGotoOutIng,
         UnloadGotoOutComplete,
         UnloadGotoOutFail,
         UnloadGotoOutTimeOut,
-
-        IdleReadyForUnloadBoxAtOut,
-        UnloadBoxPutAtOut,
+        IdleForPutBoxOnTrayAtOut,
+        IdleForGetBoxOnTrayAtIn,
+     
 
         UnloadGotoHomeStart,
         UnloadGotoHomeIng,
@@ -59,19 +54,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoInStart,
         UnloadGotoInIng,
         UnloadGotoInComplete,
-       
         UnloadGotoInFail,
         UnloadGotoInTimeOut,
-
-        IdleReadyForUnloadBoxAtIn,
-        UnloadBoxAtInComplete,
-
-       
-
-       
-
-      //  ExpGotoInFail,
-       // ExpGotoInTimeout,
-      
     }
 }
