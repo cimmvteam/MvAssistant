@@ -12,6 +12,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         CompleteInitial,
         ReadyToReceiveTriggerAtLPHome,
         ReadyToReceiveTriggerAtLPHomeClamped,
+        ReadyToReceiveTriggerAtBarcodeReader,
 
         //Load Port
         ReadyToMoveToLoadPortA,
