@@ -8,8 +8,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 {
     public enum EnumMacMsMaskTransferTransition
     {
-        PowerOn,
-        CompleteInitial,
+        tStart_DeviceInitial,
+        tDeviceInitial_LPHome,
         ReadyToReceiveTriggerAtLPHome,
         ReadyToReceiveTriggerAtLPHomeClamped,
         ReadyToReceiveTriggerAtBarcodeReader,

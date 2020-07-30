@@ -210,8 +210,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             //--- Transition ---
             #region Transition
-            MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.PowerOn);
-            MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.CompleteInitial);
+            MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.tStart_DeviceInitial);
+            MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.tDeviceInitial_LPHome);
             MacTransition tLPHome_LPHome = NewTransition(sLPHome, sLPHome, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHome);
             MacTransition tLPHomeClamped_LPHomeClamped = NewTransition(sLPHomeClamped, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtLPHomeClamped);
             MacTransition tWaitingForBarcodeReader_WaitingForBarcodeReader = NewTransition(sWaitingForBarcodeReader, sWaitingForBarcodeReader, EnumMacMsMaskTransferTransition.ReadyToReceiveTriggerAtBarcodeReader);
