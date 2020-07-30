@@ -11,7 +11,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
     {
          bool IsConnected { get; }
          string DeviceIndex { get; }
-        
+         LoadPortWorkState CurrentWorkState { get; }
+         void ResetWorkState();
+         void SetWorkState(LoadPortWorkState stste);
+
         string CommandDockRequest();
         string CommandUndockRequest();
         string CommandAskPlacementStatus();
@@ -70,5 +73,30 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         event EventHandler OnClamperMotorAbnormalityHandler;
         event EventHandler OnStageMotorAbnormalityHandler;
         event EventHandler OnHostLostLoadPortConnectionHandler;
+    }
+    public enum LoadPortWorkState
+    {
+        AnyState,
+        MustResetFirst,
+        MustInitialFirst,
+
+        ResetStart,
+        ResetIng,
+        ResetComplete,
+        ResetFail,
+
+        InitialStart,
+        InitialIng,
+        InitialComplete,
+
+
+        DockStart,
+        DockIng,
+        DockComplete,
+      
+        UndockStart,
+        UndockIng,
+        UndockComplete
+       
     }
 }

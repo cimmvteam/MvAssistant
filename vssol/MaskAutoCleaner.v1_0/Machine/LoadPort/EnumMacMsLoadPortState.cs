@@ -16,37 +16,37 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     {
   
 
-        IdleReadyToDock,
+        //IdleReadyToDock,
         DockStart,
-        Docking,
+        DockIng,
+        DockMustReset,
+        DockMustInitial,
         DockComplete,
+        DockTimeOut,
 
-        IdleReadyToUndock,
+        //IdleReadyToUndock,
         UndockStart,
-        Undocking,
+        UndockIng,
+        UndockMustReset,
+        UndockMustInitial,
         UndockComplete,
+        UndockTimeOut,
 
-        IdleReadyToUnload,
-        UnloadExecuted,
+        //IdleReadyToUnload,
+        //UnloadExecuted,
 
-        WaitReset,
+       // WaitReset,
         ResetStart,
-        Reseting,
+        ResetIng,
         ResetComplete,
+        ResetFail,
+        ResetTimeOut,
 
-        WaitInitial,
+        //WaitInitial,
         InitialStart,
         Initialing,
         InitialComplete,
-
-        ExpMustReset,
-        ExpResetFail,
-        ExpResetTimeout,
-        ExpMustInitial,
-        ExpInitialFail,
-        ExpInitialTimeout,
-        ExpDockTimeout,
-        ExpUndockTimeOut,
-        
+        InitialTimeOut,
+        InitialMustReset,
     }
 }

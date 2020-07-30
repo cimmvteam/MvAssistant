@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using MaskAutoCleaner.v1_0.StateMachineAlpha;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
@@ -15,342 +17,568 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     {
         public IMacHalLoadPortUnit HalLoadPortUnit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
 
+
+        #region  Command
+        public void Reset()
+        {
+            var state = this.States[EnumMacMsLoadPortState.ResetStart.ToString()];
+            state.DoEntry(new MacStateEntryEventArgs(null));
+        }
+
+        public void Inintial()
+        {
+            var state = this.States[EnumMacMsLoadPortState.InitialStart.ToString()];
+            state.DoEntry(new MacStateEntryEventArgs(null));
+        }
+
+
+        public void Dock()
+        {
+            var state = this.States[EnumMacMsLoadPortState.DockStart.ToString()];
+            state.DoEntry(new MacStateEntryEventArgs(null));
+        }
+         
+        public void Undock()
+        {
+
+            var state = this.States[EnumMacMsLoadPortState.UndockStart.ToString()];
+            state.DoEntry(new MacStateEntryEventArgs(null));
+        }
+        #endregion command
+
         public override void LoadStateMachine()
         {
             #region State
 
             // Reset
-            MacState sWaitReset = NewState(EnumMacMsLoadPortState.WaitReset);
             MacState sResetStart = NewState(EnumMacMsLoadPortState.ResetStart);
-            MacState sReseting = NewState(EnumMacMsLoadPortState.Reseting);
+            MacState sResetIng = NewState(EnumMacMsLoadPortState.ResetIng);
             MacState sResetComplete = NewState(EnumMacMsLoadPortState.ResetComplete);
+            MacState sResetFail=NewState(EnumMacMsLoadPortState.ResetFail);
+            MacState sResetTimeOut = NewState(EnumMacMsLoadPortState.ResetTimeOut);
 
             // Initial
-            MacState sWaitInitial= NewState(EnumMacMsLoadPortState.WaitInitial);
             MacState sInitialStart = NewState(EnumMacMsLoadPortState.InitialStart);
-            MacState sNormalInitialing = NewState(EnumMacMsLoadPortState.Initialing);
+            MacState sInitialing = NewState(EnumMacMsLoadPortState.Initialing);
             MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);
-         
-            
+            MacState sInitialTimeOut = NewState(EnumMacMsLoadPortState.InitialTimeOut);
+            MacState sInitialMustReset= NewState(EnumMacMsLoadPortState.InitialMustReset);
 
-
+            // Dock Idle
+            // TODO: Dock Idle state
 
             // dock
-            MacState sIdleReadyToDock = NewState(EnumMacMsLoadPortState.IdleReadyToDock);
             MacState sDockStart = NewState(EnumMacMsLoadPortState.DockStart);
-            MacState sDocking= NewState(EnumMacMsLoadPortState.Docking);
+            MacState sDockIng= NewState(EnumMacMsLoadPortState.DockIng);
+            MacState sDockMustReset= NewState(EnumMacMsLoadPortState.DockMustReset);
+            MacState sDockMustInitial = NewState(EnumMacMsLoadPortState.DockMustInitial);
             MacState sDockComplete = NewState(EnumMacMsLoadPortState.DockComplete);
+            MacState sDockTimeOut = NewState(EnumMacMsLoadPortState.DockTimeOut);
+
+            // Undock Idle
+            // TODO: Undock Idle state
 
             // undock
-            MacState sIdleReadyToUndock = NewState(EnumMacMsLoadPortState.IdleReadyToUndock);
             MacState sUndockStart = NewState(EnumMacMsLoadPortState.UndockStart);
-            MacState sUndocking= NewState(EnumMacMsLoadPortState.Undocking);
+            MacState sUndockIng= NewState(EnumMacMsLoadPortState.UndockIng);
+            MacState sUndockMustReset = NewState(EnumMacMsLoadPortState.UndockMustReset);
+            MacState sUndockMustInitial = NewState(EnumMacMsLoadPortState.UndockMustInitial);
             MacState sUndockComplete = NewState(EnumMacMsLoadPortState.UndockComplete);
-            
-            // unload
-            MacState sIdleReadyToUnload = NewState(EnumMacMsLoadPortState.IdleReadyToUnload);
-            MacState sUnloadExecuted = NewState(EnumMacMsLoadPortState.UnloadExecuted);
+            MacState sUndockTimeOut = NewState(EnumMacMsLoadPortState.UndockTimeOut);
 
-            // Exception
-            MacState sExpMustReset = NewState(EnumMacMsLoadPortState.ExpMustReset);
-            MacState sExpResetTimeout = NewState(EnumMacMsLoadPortState.ExpResetTimeout);
-            MacState sExpResetFail = NewState(EnumMacMsLoadPortState.ExpResetFail);
-            MacState sExpMustInitial = NewState(EnumMacMsLoadPortState.ExpMustInitial);
-            MacState sExpInitialFail = NewState(EnumMacMsLoadPortState.ExpInitialFail);
-            MacState sExpInitialTimeout = NewState(EnumMacMsLoadPortState.ExpInitialTimeout);
-            MacState sExpDockTimeout = NewState(EnumMacMsLoadPortState.ExpDockTimeout);
-            MacState sExpUndockTimeout = NewState(EnumMacMsLoadPortState.ExpUndockTimeOut);
+
             #endregion State
-
-            #region  Register OnEntry Event Handler
-
-            sWaitReset.OnEntry += sWaitReset_OnEntry;
-            sResetStart.OnEntry += sResetStart_OnEntry;
-            sReseting.OnEntry += sReseting_OnEntry;
-            sResetComplete.OnEntry += sResetComplete_OnEntry;
-            sWaitInitial.OnEntry += sWaitInitial_OnEntry;
-            sInitialStart.OnEntry += sInitialStart_OnEntry;
-            sNormalInitialing.OnEntry += sNormalInitialing_OnEntry;
-            sInitialComplete.OnEntry += sInitialComplete_OnEntry;
-  
-            sIdleReadyToDock.OnEntry += sIdleReadyToDock_OnEntry;
-            sDockStart.OnEntry += sDockStart_OnEntry;
-            sDocking.OnEntry += sDocking_OnEntry;
-            sDockComplete.OnEntry += sDockComplete_OnEntry;
-            sIdleReadyToUndock.OnEntry += sIdleReadyToUndock_OnEntry;
-            sUndockStart.OnEntry += sUndockStart_OnEntry;
-            sUndocking.OnEntry += sUndocking_OnEntry;
-            sUndockComplete.OnEntry += sUndockComplete_OnEntry;
-            sIdleReadyToUnload.OnEntry += sIdleReadyToUnload_OnEntry;
-            sUnloadExecuted.OnEntry += sUnloadExecuted_OnEntry;
-
-            sExpMustReset.OnEntry += sExpMustReset_OnEntry;
-            sExpResetTimeout.OnEntry += sExpResetTimeout_OnEntry;
-            sExpResetFail.OnEntry += sExpResetFail_OnEntry;
-            sExpMustInitial.OnEntry += sExpMustInitial_OnEntry;
-            sExpInitialFail.OnEntry += sExpInitialFail_OnEntry;
-            sExpInitialTimeout.OnEntry += sExpInitialTimeout_OnEntry;
-            sExpDockTimeout.OnEntry += sExpDockTimeout_OnEntry;
-            sExpUndockTimeout.OnEntry += sExpUndockTimeout_OnEntry;
-
-            #endregion
-
-            #region Register OnExit Event Handler
-
-            sWaitReset.OnExit += sWaitReset_OnExit;
-            sResetStart.OnExit += sResetStart_OnExit;
-            sReseting.OnExit += sReseting_OnExit;
-            sResetComplete.OnExit += sResetComplete_OnExit;
-            sWaitInitial.OnExit += sWaitInitial_OnExit;
-            sInitialStart.OnExit += sInitialStart_OnExit;
-            sNormalInitialing.OnExit += sNormalInitialing_OnExit;
-            sInitialComplete.OnExit += sInitialComplete_OnExit;
-
-            sIdleReadyToDock.OnExit += sIdleReadyToDock_OnExit;
-            sDockStart.OnExit += sDockStart_OnExit;
-            sDocking.OnExit += sDocking_OnExit;
-            sDockComplete.OnExit += sDockComplete_OnExit;
-            sIdleReadyToUndock.OnExit += sIdleReadyToUndock_OnExit;
-            sUndockStart.OnExit += sUndockStart_OnExit;
-            sUndocking.OnExit += sUndocking_OnExit;
-            sUndockComplete.OnExit += sUndockComplete_OnExit;
-            sIdleReadyToUnload.OnExit += sIdleReadyToUnload_OnExit;
-            sUnloadExecuted.OnExit += sUnloadExecuted_OnExit;
-
-            sExpMustReset.OnExit += sExpMustReset_OnExit;
-            sExpResetTimeout.OnExit += sExpResetTimeout_OnExit;
-            sExpResetFail.OnExit += sExpResetFail_OnExit;
-            sExpMustInitial.OnExit += sExpMustInitial_OnExit;
-            sExpInitialFail.OnExit += sExpInitialFail_OnExit;
-            sExpInitialTimeout.OnExit += sExpInitialTimeout_OnExit;
-            sExpDockTimeout.OnExit += sExpDockTimeout_OnExit;
-            sExpUndockTimeout.OnExit += sExpUndockTimeout_OnExit;
-            #endregion
-
-
-
-
 
 
             #region Transition 
-            // Normal Reset
-            MacTransition tWaitReset_ResetStart = NewTransition(sWaitReset, sResetStart, EnumMacMsLoadPortTransition.Reset);
-            MacTransition tResetStart_Reseting = NewTransition(sResetStart, sReseting, EnumMacMsLoadPortTransition.Reset);
-            MacTransition tReseting_ResetComplete = NewTransition(sReseting, sResetComplete, EnumMacMsLoadPortTransition.Reset);
-          
+            // Reset
+            MacTransition tResetStart_Reseting = NewTransition(sResetStart, sResetIng, EnumMacMsLoadPortTransition.ResetStart_ResetIng);
+            MacTransition tReseting_ResetComplete = NewTransition(sResetIng, sResetComplete, EnumMacMsLoadPortTransition.ResetIng_ResetComplete);
+            MacTransition tReseting_ResetFail = NewTransition(sResetIng, sResetFail, EnumMacMsLoadPortTransition.ResetIng_ResetFail);
+            MacTransition tReseting_ResetTimeOut = NewTransition(sResetIng, sResetTimeOut, EnumMacMsLoadPortTransition.ResetIng_ResetTimeOut);
 
 
-            // Normal Initial
-            MacTransition tInitial_InitialStart = NewTransition(sWaitInitial, sInitialStart, EnumMacMsLoadPortTransition.Initial);
-            MacTransition tInitialStart_Initialing = NewTransition(sInitialStart, sNormalInitialing, EnumMacMsLoadPortTransition.Initial);
-            /**
-              MacTransition tNomalInitialing_MustResetDuringInitialing = NewTransition(sNormalInitialing, sMustResetDuringNormalInitialing, EnumMacMsLoadPortTransition.NormalInitial);
-            */
-            MacTransition tInitialing_InitialComplete = NewTransition(sNormalInitialing, sInitialComplete, EnumMacMsLoadPortTransition.Initial);
-           
+            //Initial
+            MacTransition tInitialStart_Initialing = NewTransition(sInitialStart, sInitialing, EnumMacMsLoadPortTransition.InitialStart_Initialing);
+            MacTransition tInitialing_InitialComplete = NewTransition(sInitialing, sInitialComplete, EnumMacMsLoadPortTransition.Initialing_InitialComplete);
+            MacTransition tInitialing_InitialTimeOut = NewTransition(sInitialing, sInitialTimeOut, EnumMacMsLoadPortTransition.Initialing_InitialTimeOut);
+            MacTransition tInitialing_InitialMustReset = NewTransition(sInitialing, sInitialMustReset, EnumMacMsLoadPortTransition.Initialing_InitialMustReset);
 
 
+            // Dock Idle
+            // TODO: Dock Idle Transitions
 
-            // Dock;
-            MacTransition tIdleReadyToDock_DockStart = NewTransition(sIdleReadyToDock, sDockStart, EnumMacMsLoadPortTransition.Dock);
-            MacTransition tDocStart_Docking = NewTransition(sDockStart, sDocking, EnumMacMsLoadPortTransition.Dock);
-            MacTransition tDocking_DockComplete = NewTransition(sDocking, sDockComplete, EnumMacMsLoadPortTransition.Dock);
+            // Dock
+            MacTransition tDockStart_Docking = NewTransition(sDockStart, sDockIng, EnumMacMsLoadPortTransition.DockStart_DockIng);
+            MacTransition tDockIng_DockComplete = NewTransition(sDockIng, sDockComplete, EnumMacMsLoadPortTransition.DockIng_DockComplete);
+            MacTransition tDockIng_DockTimeOut = NewTransition(sDockIng, sDockTimeOut, EnumMacMsLoadPortTransition.DockIng_DockTimeOut);
+            MacTransition tDockIng_DockMustReset = NewTransition(sDockIng, sDockMustReset, EnumMacMsLoadPortTransition.DockIng_DockMustReset);
+            MacTransition tDockIng_DockMustInitial = NewTransition(sDockIng, sDockMustInitial, EnumMacMsLoadPortTransition.DockIng_DockMustInitial);
 
-            MacTransition tDockComplete_IdleReadyToUndock = NewTransition(sDockComplete, sIdleReadyToUndock, EnumMacMsLoadPortTransition.ReadyToUndock);
-            
+
+            // Undock Idle
+            // TODO: Undock Idel Transitions
+
             // Undock
-            MacTransition tIdleReadyToUndock_UndockStart= NewTransition(sIdleReadyToUndock, sUndockStart, EnumMacMsLoadPortTransition.Undock);
-            MacTransition tUndockStart_Undocking = NewTransition(sUndockStart, sUndocking, EnumMacMsLoadPortTransition.Undock);
-            MacTransition tUndocking_UndockComplete = NewTransition(sUndocking, sUndockComplete,EnumMacMsLoadPortTransition.Undock);
+            MacTransition tUndockStart_Undocking = NewTransition(sUndockStart, sUndockIng, EnumMacMsLoadPortTransition.UndockStart_UndockIng);
+            MacTransition tUndocking_UndockComplete = NewTransition(sUndockIng, sUndockComplete, EnumMacMsLoadPortTransition.UndockIng_UndockComplete);
+            MacTransition tUndocking_UndockMustInitial = NewTransition(sUndockIng, sUndockMustInitial, EnumMacMsLoadPortTransition.UndockIng_UndockMustInitial);
+            MacTransition tUndocking_UndockTimeOut = NewTransition(sUndockIng, sUndockTimeOut, EnumMacMsLoadPortTransition.UndockIng_UndockTimeOut);
+            MacTransition tUndocking_UndockMustReset = NewTransition(sUndockIng, sUndockMustReset, EnumMacMsLoadPortTransition.UndockIng_UndockMustReset);
 
-            MacTransition tUndockComplete_IdelReadyToUnload = NewTransition(sUndockComplete, sIdleReadyToUnload, EnumMacMsLoadPortTransition.ReadyToUnload);
 
-
-            MacTransition tIdelReadyToUnload_Unload = NewTransition(sIdleReadyToUnload, sUnloadExecuted, EnumMacMsLoadPortTransition.Unload);
             #endregion
 
+
+            #region  Register OnEntry, OnExit Event Handler
+
+            sResetStart.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.ResetIng)
+                        {
+                            state.DoExit(new MacStateExitEventArgs());
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+                this.HalLoadPortUnit.CommandAlarmReset();
+            };
+            sResetStart.OnExit += (sender, e) =>
+            {
+                var transition = this.Transitions[EnumMacMsLoadPortTransition.ResetStart_ResetIng.ToString()];
+                var nextState = transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sResetIng.OnEntry += (sender, e) => 
+            {
+                var state = (MacState)sender;
+                var startTime = DateTime.Now;
+                var dicTransition = this.Transitions;
+               
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        MacTransition transition = null;
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.ResetComplete)
+                        { // 成功
+                            transition = dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetComplete.ToString()];
+;                        }
+                        else if(this.HalLoadPortUnit.CurrentWorkState==LoadPortWorkState.ResetFail)
+                        { // 失敗
+                            transition = dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetFail.ToString()];
+                        }
+                        else if(new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime))
+                        { // 逾時
+                            transition = dicTransition[EnumMacMsLoadPortTransition.ResetIng_ResetTimeOut.ToString()];
+                        }
+                        if(transition!=null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
+            sResetIng.OnExit += (sender, e) => 
+            {
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                MacTransition transition = args.Transition;
+                var nextState = transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sResetComplete.OnEntry += (sender, e) => 
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sResetComplete.OnExit += (sender, e) => 
+            {
+                // Reset Complete, Terminal State
+            };
+
+            sResetFail.OnEntry +=(sender,e)=> 
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sResetFail.OnExit +=(sender,e)=> 
+            {
+                // Reset Fail, Terminal State
+            };
+
+            sResetTimeOut.OnEntry += (sender, e) => 
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sResetTimeOut.OnExit += (sender,e)=>
+            {
+                // Reset Time Out, Terminal State
+            };
+
+            sInitialStart.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialIng)
+                        {
+                            state.DoExit(new MacStateExitEventArgs());
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+                this.HalLoadPortUnit.CommandInitialRequest();
+            };
+            sInitialStart.OnExit += (sender, e) =>
+            {
+                MacTransition transition = this.Transitions[EnumMacMsLoadPortTransition.InitialStart_Initialing.ToString()];
+                var nextState = transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sInitialing.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                DateTime startTime = DateTime.Now;
+                var dicTransition = this.Transitions;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        MacTransition transition = null;
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                        {
+                            transition = dicTransition[EnumMacMsLoadPortTransition.Initialing_InitialComplete.ToString()];
+                        }
+                        else if (HalLoadPortUnit.CurrentWorkState ==LoadPortWorkState.MustResetFirst)
+                        {
+                            // 必須先Reset
+                            transition = dicTransition[EnumMacMsLoadPortTransition.Initialing_InitialMustReset.ToString()];
+                            
+                        }
+                        else if (new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime))
+                        {
+                            // 逾時(因為没有回傳)
+                            transition = dicTransition[EnumMacMsLoadPortTransition.Initialing_InitialTimeOut.ToString()];
+
+                        }
+                        if(transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
+            sInitialing.OnExit += (sender, e) =>
+            {
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                MacTransition transition = args.Transition;
+                var nextState = transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sInitialComplete.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sInitialComplete.OnExit += (sender, e) =>
+            {
+                // Terminal State of Initial Complete
+            };
+
+            sInitialTimeOut.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sInitialTimeOut.OnExit += (sender, e) =>
+            {
+                // Terminal State of Initial  TimeOut 
+            };
+
+            sInitialMustReset.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sInitialMustReset.OnExit += (sender,e)=>
+            {
+                // Terminal State of Initial TimeOut
+                // TODO: 確定是否去做 Reset ?
+            };
+           
+            sDockStart.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.DockIng)
+                        {
+                            state.DoExit(new MacStateExitEventArgs());
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+                this.HalLoadPortUnit.CommandDockRequest();
+
+            };
+            sDockStart.OnExit += (sender, e) =>
+            {
+                var transition = this.Transitions[EnumMacMsLoadPortTransition.DockStart_DockIng.ToString()];
+                var nextState = transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sDockIng.OnEntry += (sender,e)=>
+            {
+                var state = (MacState)sender;
+                var startTime = DateTime.Now;
+                var dicTransition = this.Transitions;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        MacTransition transition = null;
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
+                        {
+                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockComplete.ToString()];
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                        {
+                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockMustInitial.ToString()];
+                        }
+                        else if(this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockMustReset.ToString()];
+                        }
+                        else if(new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime))
+                        {
+                            transition = dicTransition[EnumMacMsLoadPortTransition.DockIng_DockTimeOut.ToString()];
+                        }
+                        if(transition !=null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                    
+                };
+                new Task(guard).Start();
+            };
+            sDockIng.OnExit += (sender, e) =>
+            {
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            
+            sDockComplete.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sDockComplete.OnExit+= (sender, e) =>
+            {
+                // Terminal State Of Dock Complete
+            };
+
+            sDockMustInitial.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sDockMustInitial.OnExit += (sender, e) =>
+            {
+                // Terminal State of Dock Must Initial first 
+            };
+
+            sDockMustReset.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sDockMustReset.OnExit += (sender, e) =>
+            {
+                // Terminal State of Dock Must Reset first 
+            };
+
+            sDockTimeOut.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sDockTimeOut.OnExit += (sender, e) =>
+            {
+                // Terminal State of Dock Time out 
+            };
+
+
+
+            sUndockStart.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState ==LoadPortWorkState.UndockIng)
+                        {
+                            state.DoExit(new MacStateExitEventArgs());
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+                this.HalLoadPortUnit.CommandUndockRequest();
+            };
+            sUndockStart.OnExit += (sender, e) =>
+            {
+                var transition = this.Transitions[EnumMacMsLoadPortTransition.DockStart_DockIng.ToString()];
+                var nextState = transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sUndockIng.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                DateTime startTime = DateTime.Now;
+                var dicTransitions = this.Transitions;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        MacTransition transition = null;
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete)
+                        {
+                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockComplete.ToString()];
+                           
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                        {
+                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockMustInitial.ToString()];
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockMustReset.ToString()];
+                        }
+                        else if (new MacLoadPortUnitStateTimeOutController().IsTimeOut(startTime)) 
+                        {
+                            transition = dicTransitions[EnumMacMsLoadPortTransition.UndockIng_UndockTimeOut.ToString()];
+                        }
+                        if(transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+            };
+            sUndockIng.OnExit += (sender, e) =>
+            {
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sUndockTimeOut.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sUndockTimeOut.OnExit += (sender, e) =>
+            {
+                // Terminal State of undock Must Initial First
+            };
+
+            sUndockMustReset.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sUndockMustReset.OnExit += (sender, e) =>
+            {
+                // Terminal State of undock Must Reset First
+            };
+
+            sUndockMustInitial.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sUndockMustInitial.OnExit += (sender, e) =>
+            {
+                // Terminal State of undock Must Initial First
+            };
+
+            sUndockComplete.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sUndockComplete.OnExit += (sender, e) =>
+            {
+                // Terminal State of undock Complete
+            };
+
+            #endregion
+
+         
         }
-
-
-        #region OnEntry  Method
-        void sWaitReset_OnEntry(object sender, MacStateEntryEventArgs e)
+    }
+    public class MacLoadPortUnitStateTimeOutController
+    {
+        const int defTimeOutSec = 20;
+        public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
         {
-
+            var thisTime = DateTime.Now;
+            var diff = thisTime.Subtract(startTime).TotalSeconds;
+            if (diff >= targetDiffSecs)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        void sResetStart_OnEntry(object sender, MacStateEntryEventArgs e)
+
+        public bool IsTimeOut(DateTime startTime)
         {
-
+            return IsTimeOut(startTime, defTimeOutSec);
         }
-        void sReseting_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sResetComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-
-        void sWaitInitial_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sInitialStart_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sNormalInitialing_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sInitialComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-
-
-
-
-
-        void sIdleReadyToDock_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-            // sIdleReadyToDock.DoExit(null);
-        }
-        void sDockStart_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-        }
-        void sDocking_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-        }
-        void sDockComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sIdleReadyToUndock_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sUndockStart_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sUndocking_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sUndockComplete_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sIdleReadyToUnload_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-        void sUnloadExecuted_OnEntry(object sender, MacStateEntryEventArgs e)
-        {
-
-        }
-
-
-        void sExpMustReset_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpResetTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpResetFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpMustInitial_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpInitialFail_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpInitialTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpDockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        void sExpUndockTimeout_OnEntry(object sender, MacStateEntryEventArgs e) { }
-        #endregion
-
-        #region OnExit Method
-        void sWaitReset_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sResetStart_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sReseting_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sResetComplete_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-
-        void sWaitInitial_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sInitialStart_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sNormalInitialing_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sInitialComplete_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-
-
-
-
-        void sIdleReadyToDock_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sDockStart_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sDocking_OnExit(object sender, MacStateExitEventArgs e)
-        {
-            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-        }
-        void sDockComplete_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sIdleReadyToUndock_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sUndockStart_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sUndocking_OnExit(object sender, MacStateExitEventArgs e)
-        {
-            // 檢查 Flag, 如果 Flag 為 DockComplete , 跳到下一個 State 
-        }
-        void sUndockComplete_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sIdleReadyToUnload_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-        void sUnloadExecuted_OnExit(object sender, MacStateExitEventArgs e)
-        {
-
-        }
-
-
-        void sExpMustReset_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpResetTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpResetFail_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpMustInitial_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpInitialFail_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpInitialTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpDockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-        void sExpUndockTimeout_OnExit(object sender, MacStateExitEventArgs e) { }
-        #endregion
     }
 }

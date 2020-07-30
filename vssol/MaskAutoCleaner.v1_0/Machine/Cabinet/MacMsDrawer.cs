@@ -136,10 +136,73 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             #endregion State
 
+            #region Transition
+
+            // Initial,
+
+            MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacDrawerTransition.InitialStart_InitialIng);
+            MacTransition tInitialing_InitialComplete = NewTransition(sInitialIng, sInitialComplete, EnumMacDrawerTransition.Initialing_InitialComplete);
+            MacTransition tInitialing_InitialFail = NewTransition(sInitialIng, sInitialFail, EnumMacDrawerTransition.Initialing_InitialFail);
+            MacTransition tInitialing_InitialTimeOut = NewTransition(sInitialIng, sInitialTimeOut, EnumMacDrawerTransition.Initialing_InitialTimeOut);
+
+            // Load(將 Tray 移到 定位~ Home的位置 )
+            MacTransition tLoadGotoInStart_LoadGotoInIng = NewTransition(sLoadGotoInStart, sLoadGotoInIng, EnumMacDrawerTransition.LoadGotoInStart_LoadGotoInIng);
+            MacTransition tLoadGotoInIng_LoadGotoInComplete = NewTransition(sLoadGotoInIng, sLoadGotoInComplete, EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInComplete);
+            MacTransition tLoadGotoIn_LoadGotoInTimeOut = NewTransition(sLoadGotoInIng, sLoadGotoInTimeOut, EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInTimeOut);
+            MacTransition tLoadGotoIn_LoadGotoInFail = NewTransition(sLoadGotoInIng, sLoadGotoInFail, EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInFail);
+
+
+            // Load(放入 Box)
+            MacTransition tLoadGotoInComplete_IdleReadyForLoadBoxAtIn = NewTransition(sLoadGotoInComplete, sIdleReadyForLoadBoxAtIn, EnumMacDrawerTransition.LoadGotoInComplete_IdleReadyForLoadBoxAtIn);
+            MacTransition tIdleReadyForLoadBoxAtIn_LoadBoxAtInComplete = NewTransition(sIdleReadyForLoadBoxAtIn, sLoadBoxAtInComplete, EnumMacDrawerTransition.IdleReadyForLoadBoxAtIn_LoadBoxAtInComplete);
+
+
+            // Load (將 Tray 從 In 移到 Home) 
+            MacTransition tLoadBoxAtInComplete_LoadGotoHomeStart = NewTransition(sLoadBoxAtInComplete, sLoadGotoHomeStart, EnumMacDrawerTransition.LoadBoxAtInComplete_LoadGotoHomeStart);
+            MacTransition tLoaGotoHomeStart_LoadGotoHomeIng = NewTransition(sLoadGotoHomeStart, sLoadGotoHomeIng, EnumMacDrawerTransition.LoadGotoHomeStart_LoadGotoHomeIng);
+            MacTransition tLoadGotoHomeIng_LoadGotoHomeComplete = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeComplete, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeComplete);
+            MacTransition tLoadGotoHome_LoadGotoToHomeTimeOut = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeTimeOut, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeTimeOut);
+            MacTransition tLoadGotoHome_LoadGotoToHomeFail = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeTimeOut, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeFail);
+            // Load (將 Tray 從 Home 移到 Out)
+            MacTransition tLoadGotoHomeComplete_LoadGotoOutStart = NewTransition(sLoadGotoHomeIng, sLoadGotoOutStart, EnumMacDrawerTransition.LoadGotoHomeComplete_LoadGotoOutStart);
+            MacTransition tLoadGotoOutStart_LoadGotoOutIng = NewTransition(sLoadGotoOutStart, sLoadGotoOutIng, EnumMacDrawerTransition.LoadGotoOutStart_LoadGotoOutIng);
+            MacTransition tLoadGotoOutIng_LoadGotoOutComplete = NewTransition(sLoadGotoOutIng, sLoadGotoOutComplete, EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutComplete);
+            MacTransition tLoadGotoOut_LoadGotoOutTimeOut = NewTransition(sLoadGotoOutIng, sLoadGotoOutTimeOut, EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutTimeOut);
+            MacTransition tLoadGotoOut_LoadGotoOutFail = NewTransition(sLoadGotoOutIng, sLoadGotoOutFail, EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutFail);
+            // Load (將 Box 移開)
+            MacTransition tLoadGotoOutComplete_IdleReadyForGetBox = NewTransition(sLoadGotoHomeComplete, sIdleReadyForGetBox, EnumMacDrawerTransition.LoadGotoOutComplete_IdleReadyForGetBox);
+            MacTransition tIdleReadyForGetBox_LoadBoxGetAtOut = NewTransition(sIdleReadyForGetBox, sLoadBoxGetAtOut, EnumMacDrawerTransition.IdleReadyForGetBox_LoadBoxGetAtOut);
+
+
+            // Unload (將 Tray 移到 Out 位置)
+            MacTransition tUnloadGotoOutStart_UnloadGotoOutIng = NewTransition(sUnloadGotoOutStart, sUnloadGotoOutIng, EnumMacDrawerTransition.UnloadGotoOutStart_UnloadGotoOutIng);
+            MacTransition tUnloadGotoOutIng_UnloadGotoOutComplete = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutComplete, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete);
+            MacTransition tUnloadPrework1_UnloadPrework1Fail = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutFail, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutFail);
+            MacTransition tUnloadPrework1_UnloadPrework1TimeOut = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutTimeOut, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutTimeOut);
+
+            // Unload (放入 Box)
+            MacTransition tUnloadGotoOutComplete_IdleReadyForUnloadBoxAtOut = NewTransition(sUnloadGotoOutComplete, sIdleReadyForUnloadBoxAtOut, EnumMacDrawerTransition.UnloadGotoOutComplete_IdleReadyForUnloadBoxAtOut);
+            MacTransition tIdleReadyForUnloadBoxAtOut_UnloadBoxAtOutComplete = NewTransition(sIdleReadyForUnloadBoxAtOut, sUnloadBoxAtOutComplete, EnumMacDrawerTransition.IdleReadyForUnloadBoxAtOut_UnloadBoxAtOutComplete);
+
+            // UnLoad(將Tray 移到 Home) 
+            MacTransition tUnloadBoxAtOutComplete_UnloadGotoHomeStart = NewTransition(sUnloadBoxAtOutComplete, sUnloadGotoHomeStart, EnumMacDrawerTransition.UnloadBoxAtOutComplete_UnloadGotoHomeStart);
+            MacTransition tUnloadGotoHomeStart_UnloadGotoHomeIng = NewTransition(sUnloadGotoHomeStart, sUnloadGotoHomeIng, EnumMacDrawerTransition.UnloadGotoHomeStart_UnloadGotoHomeIng);
+            MacTransition tUnloadGotoHomeIng_UnloadGotoHomeComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete);
+            MacTransition tUnloadGotoHome_UnloadGotoHomeTimeOut = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeTimeOut, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeTimeOut);
+            MacTransition tUnloadGotoHome_UnloadGotoHomeFail = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeFail, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeFail);
+
+            // Unload(將 Tray 移到 In)
+            MacTransition tUnloadGotoHomeComplete_UnloadGotoInStart = NewTransition(sUnloadGotoHomeComplete, sUnloadGotoInStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadGotoInStart);
+            MacTransition tUnloadGotoInStart_UnloadGotoInIng = NewTransition(sUnloadGotoInStart, sUnloadGotoInIng, EnumMacDrawerTransition.UnloadGotoInStart_UnloadGotoInIng);
+            MacTransition tUnloadGotoInIng_UnloadGotoInComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInComplete);
+
+            // Unload PostWork(取走 Box)
+            MacTransition tUnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn = NewTransition(sUnloadGotoHomeComplete, sIdleReadyForUnloadBoxAtIn, EnumMacDrawerTransition.UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn);
+            #endregion
 
 
             #region  Event
-            
+
             sInitialStart.OnEntry+= ( sender,  e)=>
              {
                 var state = (MacState)sender;
@@ -170,24 +233,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var state = (MacState)sender;
                 var startTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
-
+                        MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
                         {  // Initial  Complete
-                            state.DoExit(new MacDrawerStateInitialExitEventArgs(MacDrawerStateInitialResult.Complete));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.Initialing_InitialComplete.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.InitialFailed)
                         {  // Initial Failed
-                            state.DoExit(new MacDrawerStateInitialExitEventArgs(MacDrawerStateInitialResult.Failed));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.Initialing_InitialFail.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(startTime))
                         {  // 逾時
-                            state.DoExit(new MacDrawerStateInitialExitEventArgs(MacDrawerStateInitialResult.TimeOut));
+                            transition = dicTransition[EnumMacDrawerTransition.Initialing_InitialTimeOut.ToString()];
+                        }
+                        if (transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -198,26 +265,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sInitialIng.OnExit += (sender, e) =>
             {
-                var args = (MacDrawerStateInitialExitEventArgs)e;
-                // var state = (MacState)sender;
-                if (args.Result == MacDrawerStateInitialResult.Complete)
-                {  // Initial Complete
-                    var thisTransition = this.Transitions[EnumMacDrawerTransition.Initialing_InitialComplete.ToString()];
-                    var nextState = thisTransition.StateTo;
-                    nextState.DoEntry(new MacStateEntryEventArgs(null));
-                }
-                else if (args.Result == MacDrawerStateInitialResult.TimeOut)
-                {  // Initial Timeout
-                    var thisTransition = this.Transitions[EnumMacDrawerTransition.Initialing_InitialTimeOut.ToString()];
-                    var nextState = thisTransition.StateTo;
-                    nextState.DoEntry(new MacStateEntryEventArgs(null));
-                }
-                else // if (args.InitialResult == MacDrawerStateInitialResult.Failed)
-                {  // Initial Failed
-                    var thisTransition = this.Transitions[EnumMacDrawerTransition.Initialing_InitialFail.ToString()];
-                    var nextState = thisTransition.StateTo;
-                    nextState.DoEntry(new MacStateEntryEventArgs(null));
-                }
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
             sInitialComplete.OnEntry += (sender, e)=>
@@ -292,25 +342,32 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
+                        MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArraiveAtIn)
                         {// Complete
-                            state.DoExit(new MacDrawerStateLoadPrework1ExitEventArgs(MacDrawerStateLoadPrework1Result.Complete));
-                            break;
-                        }
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInComplete.ToString()];
+                       }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {   // Failed
-                            state.DoExit(new MacDrawerStateLoadPrework1ExitEventArgs(MacDrawerStateLoadPrework1Result.Failed));
-                            break;
+                          transition = dicTransition[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInFail.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
                         {    // Time Out
-                            state.DoExit(new MacDrawerStateLoadPrework1ExitEventArgs(MacDrawerStateLoadPrework1Result.TimeOut));
+                            transition = this.Transitions[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInTimeOut.ToString()];
+
+                        }
+                        if (transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
+
                         Thread.Sleep(10);
                     }
                 };
@@ -318,22 +375,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sLoadGotoInIng.OnExit += (sender, e)=>
             {
-                var args = (MacDrawerStateLoadPrework1ExitEventArgs)e;
-                MacTransition transition = null;
-                if (args.Result == MacDrawerStateLoadPrework1Result.Complete)
-                {   // 完成
-                    transition = this.Transitions[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInComplete.ToString()];
-
-                }
-                else if (args.Result == MacDrawerStateLoadPrework1Result.Failed)
-                {   // 失敗
-                    transition = this.Transitions[EnumMacDrawerTransition.LoadGotoIn_LoadGotoInFail.ToString()];
-                }
-                else //if(args.InitialResult == MacDrawerStateLoadPrework1Result.TimeOut)
-                {   // 逾時
-                    transition = this.Transitions[EnumMacDrawerTransition.LoadGotoIn_LoadGotoInTimeOut.ToString()];
-                }
-                var nextState = transition.StateTo;
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -428,25 +471,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
-                       
+                        MacTransition transition=null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
-                        {
-                            // Complete
-                            state.DoExit(new MacDrawerStateLoadMainworkExitEventArgs(MacDrawerStateLoadMainworkResult.GotoHomeComplete));
-                            break;
+                        {  // Complete
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeComplete.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            state.DoExit(new MacDrawerStateLoadMainworkExitEventArgs(MacDrawerStateLoadMainworkResult.GotoHomeTimeOut));
-                            break;
+                        {  // 逾時
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeTimeOut.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {
-                            state.DoExit(new MacDrawerStateLoadMainworkExitEventArgs(MacDrawerStateLoadMainworkResult.GotoHomeFail));
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeFail.ToString()];
+                        }
+                        if (transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -456,23 +502,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sLoadGotoHomeIng.OnExit += (sender, e) =>
               {
-                  MacTransition transition = null;
-                  var args = (MacDrawerStateLoadMainworkExitEventArgs)e;
-                  if (args.Result == MacDrawerStateLoadMainworkResult.GotoHomeComplete)
-                  {
-                      transition = this.Transitions[EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeComplete.ToString()];
-                  }
-                  else if (args.Result == MacDrawerStateLoadMainworkResult.GotoHomeTimeOut)
-                  {
-                      transition = this.Transitions[EnumMacDrawerTransition.LoadGotoHome_LoadGotoHomeTimeOut.ToString()];
-                  }
-                  else //if(args.Result==MacDrawerStateLoadMainworkResult.GotoOutFail)
-                  {
-                      transition = this.Transitions[EnumMacDrawerTransition.LoadGotoHome_LoadGotoHomeFail.ToString()];
-                  }
-
-                  var nextState = transition.StateTo;
-                  nextState.DoEntry(new MacStateEntryEventArgs(null));
+                  var args = (MacStateExitWithTransitionEventArgs)e;
+                  var nextState = args.Transition.StateTo;
+                  nextState.DoEntry(new MacStateEntryEventArgs(args));
               };
             
             sLoadGotoHomeComplete.OnEntry += (sender, e) =>
@@ -550,26 +582,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
+                        MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtOut)
-                        {
-                            // 完成
-                            state.DoExit(new MacDrawerStateLoadMainworkExitEventArgs(MacDrawerStateLoadMainworkResult.GotoOutComplete));
-                            break;
+                        {   // 完成
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutComplete.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // 逾時
-                            state.DoExit(new MacDrawerStateLoadMainworkExitEventArgs(MacDrawerStateLoadMainworkResult.GotoOutTimeOut));
-                            break;
+                        {   // 逾時
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutTimeOut.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                        {   // 無法完成
+                            transition = dicTransition[EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutFail.ToString()];
+                        }
+                        if (transition != null)
                         {
-                            // 無法完成
-                            state.DoExit(new MacDrawerStateLoadMainworkExitEventArgs(MacDrawerStateLoadMainworkResult.GotoOutFail));
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -579,22 +613,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sLoadGotoOutIng.OnExit += (sender, e) =>
             {
-                var args = (MacDrawerStateLoadMainworkExitEventArgs)e;
-                MacTransition transition = null;
-                if (args.Result == MacDrawerStateLoadMainworkResult.GotoOutComplete)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutComplete.ToString()];
-                }
-                else if (args.Result == MacDrawerStateLoadMainworkResult.GotoOutFail)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOut_LoadGotoOutFail.ToString()];
-                }
-                else// if (args.Result == MacDrawerStateLoadMainworkResult.GotoHomeTimeOut)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOut_LoadGotoOutTimeOut.ToString()];
-                }
-
-                var nextState = transition.StateTo;
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -675,27 +695,30 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
-
+                        MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtOut)
-                        {
-                            // 完成
-                            state.DoExit(new MacDrawerStateUnloadPrework1ExitEventArgs(MacDrawerStateUnloadPrework1Result.Complete));
-                            break;
+                        {   // 完成
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
                         {
                             // 逾時
-                            state.DoExit(new MacDrawerStateUnloadPrework1ExitEventArgs(MacDrawerStateUnloadPrework1Result.TimeOut));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutTimeOut.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {
                             // 執行不成功
-                            state.DoExit(new MacDrawerStateUnloadPrework1ExitEventArgs(MacDrawerStateUnloadPrework1Result.Failed));
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutFail.ToString()];
+                        }
+                        if (transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -705,22 +728,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sUnloadGotoOutIng.OnExit += (sender, e) =>
             {
-                var args = (MacDrawerStateUnloadPrework1ExitEventArgs)e;
-                MacTransition transition = null;
-                if (args.Result == MacDrawerStateUnloadPrework1Result.Complete)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete.ToString()];
-                }
-                else if (args.Result == MacDrawerStateUnloadPrework1Result.Failed)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOut_UnloadGotoOutFail.ToString()];
-                }
-                else if (args.Result == MacDrawerStateUnloadPrework1Result.TimeOut)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOut_UnloadGotoOutTimeOut.ToString()];
-                }
-
-                var nextState = transition.StateTo;
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -805,25 +814,30 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             sUnloadGotoHomeIng.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
+                var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
+                        MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
                         {
-                            thisState.DoExit(new MacDrawerStateUnloadMainworkExitEventArgs(MacDrawerStateUnloadMainworkResult.GotoHomeComplete));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {
-                            thisState.DoExit(new MacDrawerStateUnloadMainworkExitEventArgs(MacDrawerStateUnloadMainworkResult.GotoHomeFail));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeFail.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
                         {
-                            thisState.DoExit(new MacDrawerStateUnloadMainworkExitEventArgs(MacDrawerStateUnloadMainworkResult.GotoHomeTimeOut));
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeTimeOut.ToString()];
+                        }
+                        if(transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -833,21 +847,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
              };
              sUnloadGotoHomeIng.OnExit += (sender, e) =>
              {
-                var args = (MacDrawerStateUnloadMainworkExitEventArgs)e;
-                MacTransition transition = null;
-                if (args.Result == MacDrawerStateUnloadMainworkResult.GotoHomeComplete)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete.ToString()];
-                }
-                else if (args.Result == MacDrawerStateUnloadMainworkResult.GotoHomeFail)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoHome_UnloadGotoHomeFail.ToString()];
-                }
-                else //if(args.Result== MacDrawerStateUnloadMainworkResult.GotoHomeTimeOut)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoHome_UnloadGotoHomeTimeOut.ToString()];
-                }
-                var nextState = transition.StateTo;
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
              };
 
@@ -933,23 +934,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
+                var dicTransition = this.Transitions;
                 Action guard = () =>
                 {
                     while (true)
                     {
+                        MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArraiveAtIn)
                         {
-                            state.DoExit(new MacDrawerStateUnloadMainworkExitEventArgs(MacDrawerStateUnloadMainworkResult.GotoInComplete));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInComplete.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {
-                            state.DoExit(new MacDrawerStateUnloadMainworkExitEventArgs(MacDrawerStateUnloadMainworkResult.GotoInFail));
-                            break;
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInFail.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
                         {
-                            state.DoExit(new MacDrawerStateUnloadMainworkExitEventArgs(MacDrawerStateUnloadMainworkResult.GotoInTimeOut));
+                            transition = dicTransition[EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInTimeOut.ToString()];
+                        }
+                        if (transition != null)
+                        {
+                            var eventArgs = new MacStateExitWithTransitionEventArgs(transition);
+                            state.DoExit(eventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -959,21 +965,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             sUnloadGotoInIng.OnExit += (sender, e) =>
             {
-                var args = (MacDrawerStateUnloadMainworkExitEventArgs)e;
-                MacTransition transition = null;
-                if (args.Result == MacDrawerStateUnloadMainworkResult.GotoInComplete)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInComplete.ToString()];
-                }
-                else if (args.Result == MacDrawerStateUnloadMainworkResult.GotoInTimeOut)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoIn_UnloadGotoInFail.ToString()];
-                }
-                else //if (args.Result == MacDrawerStateUnloadMainworkResult.GotoInFail)
-                {
-                    transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoIn_UnloadGotoInTimeOut.ToString()];
-                }
-                var nextState = transition.StateTo;
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -1028,70 +1021,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             #endregion   Register Event 
             
 
-            #region Transition
-
-            // Initial,
-
-            MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacDrawerTransition.InitialStart_InitialIng);
-            MacTransition tInitialing_InitialComplete = NewTransition(sInitialIng, sInitialComplete, EnumMacDrawerTransition.Initialing_InitialComplete);
-            MacTransition tInitialing_InitialFail = NewTransition(sInitialIng, sInitialFail, EnumMacDrawerTransition.Initialing_InitialFail);
-            MacTransition tInitialing_InitialTimeOut = NewTransition(sInitialIng, sInitialTimeOut, EnumMacDrawerTransition.Initialing_InitialTimeOut);
-
-            // Load(將 Tray 移到 定位~ Home的位置 )
-            MacTransition tLoadGotoInStart_LoadGotoInIng = NewTransition(sLoadGotoInStart, sLoadGotoInIng, EnumMacDrawerTransition.LoadGotoInStart_LoadGotoInIng);
-            MacTransition tLoadGotoInIng_LoadGotoInComplete = NewTransition(sLoadGotoInIng, sLoadGotoInComplete, EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInComplete);
-            MacTransition tLoadGotoIn_LoadGotoInTimeOut = NewTransition(sLoadGotoInIng, sLoadGotoInTimeOut, EnumMacDrawerTransition.LoadGotoIn_LoadGotoInTimeOut);
-            MacTransition tLoadGotoIn_LoadGotoInFail = NewTransition(sLoadGotoInIng, sLoadGotoInFail, EnumMacDrawerTransition.LoadGotoIn_LoadGotoInFail);
-
-
-            // Load(放入 Box)
-            MacTransition tLoadGotoInComplete_IdleReadyForLoadBoxAtIn = NewTransition(sLoadGotoInComplete, sIdleReadyForLoadBoxAtIn, EnumMacDrawerTransition.LoadGotoInComplete_IdleReadyForLoadBoxAtIn);
-            MacTransition tIdleReadyForLoadBoxAtIn_LoadBoxAtInComplete = NewTransition(sIdleReadyForLoadBoxAtIn, sLoadBoxAtInComplete, EnumMacDrawerTransition.IdleReadyForLoadBoxAtIn_LoadBoxAtInComplete);
-
-
-            // Load (將 Tray 從 In 移到 Home) 
-            MacTransition tLoadBoxAtInComplete_LoadGotoHomeStart = NewTransition(sLoadBoxAtInComplete, sLoadGotoHomeStart, EnumMacDrawerTransition.LoadBoxAtInComplete_LoadGotoHomeStart);
-            MacTransition tLoaGotoHomeStart_LoadGotoHomeIng = NewTransition(sLoadGotoHomeStart, sLoadGotoHomeIng, EnumMacDrawerTransition.LoadGotoHomeStart_LoadGotoHomeIng);
-            MacTransition tLoadGotoHomeIng_LoadGotoHomeComplete = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeComplete, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeComplete);
-            MacTransition tLoadGotoHome_LoadGotoToHomeTimeOut = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeTimeOut, EnumMacDrawerTransition.LoadGotoHome_LoadGotoHomeTimeOut);
-            MacTransition tLoadGotoHome_LoadGotoToHomeFail = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeTimeOut, EnumMacDrawerTransition.LoadGotoHome_LoadGotoHomeFail);
-            // Load (將 Tray 從 Home 移到 Out)
-            MacTransition tLoadGotoHomeComplete_LoadGotoOutStart = NewTransition(sLoadGotoHomeIng, sLoadGotoOutStart, EnumMacDrawerTransition.LoadGotoHomeComplete_LoadGotoOutStart);
-            MacTransition tLoadGotoOutStart_LoadGotoOutIng = NewTransition(sLoadGotoOutStart, sLoadGotoOutIng, EnumMacDrawerTransition.LoadGotoOutStart_LoadGotoOutIng);
-            MacTransition tLoadGotoOutIng_LoadGotoOutComplete = NewTransition(sLoadGotoOutIng, sLoadGotoOutComplete, EnumMacDrawerTransition.LoadGotoOutIng_LoadGotoOutComplete);
-            MacTransition tLoadGotoOut_LoadGotoOutTimeOut= NewTransition(sLoadGotoOutIng, sLoadGotoOutTimeOut, EnumMacDrawerTransition.LoadGotoOut_LoadGotoOutTimeOut);
-            MacTransition tLoadGotoOut_LoadGotoOutFail = NewTransition(sLoadGotoOutIng, sLoadGotoOutFail, EnumMacDrawerTransition.LoadGotoOut_LoadGotoOutFail);
-            // Load (將 Box 移開)
-            MacTransition tLoadGotoOutComplete_IdleReadyForGetBox = NewTransition(sLoadGotoHomeComplete, sIdleReadyForGetBox, EnumMacDrawerTransition.LoadGotoOutComplete_IdleReadyForGetBox);
-            MacTransition tIdleReadyForGetBox_LoadBoxGetAtOut = NewTransition(sIdleReadyForGetBox, sLoadBoxGetAtOut, EnumMacDrawerTransition.IdleReadyForGetBox_LoadBoxGetAtOut);
-
-
-            // Unload (將 Tray 移到 Out 位置)
-            MacTransition tUnloadGotoOutStart_UnloadGotoOutIng = NewTransition(sUnloadGotoOutStart, sUnloadGotoOutIng, EnumMacDrawerTransition.UnloadGotoOutStart_UnloadGotoOutIng);
-            MacTransition tUnloadGotoOutIng_UnloadGotoOutComplete = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutComplete, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete);
-            MacTransition tUnloadPrework1_UnloadPrework1Fail= NewTransition(sUnloadGotoOutIng, sUnloadGotoOutFail, EnumMacDrawerTransition.UnloadGotoOut_UnloadGotoOutFail);
-            MacTransition tUnloadPrework1_UnloadPrework1TimeOut = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutTimeOut, EnumMacDrawerTransition.UnloadGotoOut_UnloadGotoOutTimeOut);
-
-            // Unload (放入 Box)
-            MacTransition tUnloadGotoOutComplete_IdleReadyForUnloadBoxAtOut = NewTransition(sUnloadGotoOutComplete, sIdleReadyForUnloadBoxAtOut, EnumMacDrawerTransition.UnloadGotoOutComplete_IdleReadyForUnloadBoxAtOut);
-            MacTransition tIdleReadyForUnloadBoxAtOut_UnloadBoxAtOutComplete = NewTransition(sIdleReadyForUnloadBoxAtOut, sUnloadBoxAtOutComplete, EnumMacDrawerTransition.IdleReadyForUnloadBoxAtOut_UnloadBoxAtOutComplete);
-
-            // UnLoad(將Tray 移到 Home) 
-            MacTransition tUnloadBoxAtOutComplete_UnloadGotoHomeStart = NewTransition(sUnloadBoxAtOutComplete, sUnloadGotoHomeStart, EnumMacDrawerTransition.UnloadBoxAtOutComplete_UnloadGotoHomeStart);
-            MacTransition tUnloadGotoHomeStart_UnloadGotoHomeIng = NewTransition(sUnloadGotoHomeStart, sUnloadGotoHomeIng, EnumMacDrawerTransition.UnloadGotoHomeStart_UnloadGotoHomeIng);
-            MacTransition tUnloadGotoHomeIng_UnloadGotoHomeComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete);
-            MacTransition tUnloadGotoHome_UnloadGotoHomeTimeOut = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeTimeOut, EnumMacDrawerTransition.UnloadGotoHome_UnloadGotoHomeTimeOut);
-            MacTransition tUnloadGotoHome_UnloadGotoHomeFail = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeFail, EnumMacDrawerTransition.UnloadGotoHome_UnloadGotoHomeFail);
-            
-            // Unload(將 Tray 移到 In)
-            MacTransition tUnloadGotoHomeComplete_UnloadGotoInStart = NewTransition(sUnloadGotoHomeComplete, sUnloadGotoInStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadGotoInStart);
-            MacTransition tUnloadGotoInStart_UnloadGotoInIng = NewTransition(sUnloadGotoInStart, sUnloadGotoInIng, EnumMacDrawerTransition.UnloadGotoInStart_UnloadGotoInIng);
-            MacTransition tUnloadGotoInIng_UnloadGotoInComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInComplete);
-
-            // Unload PostWork(取走 Box)
-            MacTransition tUnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn = NewTransition(sUnloadGotoHomeComplete, sIdleReadyForUnloadBoxAtIn, EnumMacDrawerTransition.UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn);
-            #endregion
-
+      
 
 
 
@@ -1101,6 +1031,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
      }
     public class MacDrawerStateTimeOutController
     {
+        const int defTimeOutSec = 20;
         public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
         {
             var thisTime = DateTime.Now;
@@ -1117,7 +1048,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public bool IsTimeOut(DateTime startTime)
         {
-            return IsTimeOut(startTime, 20);
+            return IsTimeOut(startTime, defTimeOutSec);
         }
     }
 }

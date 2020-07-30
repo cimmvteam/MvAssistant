@@ -22,8 +22,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
        
         LoadGotoInStart_LoadGotoInIng,
         LoadGotoInIng_LoadGotoInComplete,
-        LoadGotoIn_LoadGotoInTimeOut,
-        LoadGotoIn_LoadGotoInFail,
+        LoadGotoInIng_LoadGotoInTimeOut,
+        LoadGotoInIng_LoadGotoInFail,
 
 
         // Load  (將盒子放到 Tray)
@@ -34,15 +34,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadBoxAtInComplete_LoadGotoHomeStart,
         LoadGotoHomeStart_LoadGotoHomeIng,
         LoadGotoHomeIng_LoadGotoHomeComplete,
-        LoadGotoHome_LoadGotoHomeTimeOut,
-        LoadGotoHome_LoadGotoHomeFail,
+        LoadGotoHomeIng_LoadGotoHomeTimeOut,
+        LoadGotoHomeIng_LoadGotoHomeFail,
 
         // Load(將 Tray 從Home 移到 Out)
         LoadGotoHomeComplete_LoadGotoOutStart,
         LoadGotoOutStart_LoadGotoOutIng,
         LoadGotoOutIng_LoadGotoOutComplete,
-        LoadGotoOut_LoadGotoOutTimeOut,
-        LoadGotoOut_LoadGotoOutFail,
+        LoadGotoOutIng_LoadGotoOutTimeOut,
+        LoadGotoOutIng_LoadGotoOutFail,
 
         // Load(將 Box 移開)
         LoadGotoOutComplete_IdleReadyForGetBox,
@@ -54,8 +54,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
       
         UnloadGotoOutStart_UnloadGotoOutIng,
         UnloadGotoOutIng_UnloadGotoOutComplete,
-        UnloadGotoOut_UnloadGotoOutTimeOut,
-        UnloadGotoOut_UnloadGotoOutFail,
+        UnloadGotoOutIng_UnloadGotoOutTimeOut,
+        UnloadGotoOutIng_UnloadGotoOutFail,
 
 
         // UnLoad(放入 Box)
@@ -66,15 +66,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadBoxAtOutComplete_UnloadGotoHomeStart,
         UnloadGotoHomeStart_UnloadGotoHomeIng,
         UnloadGotoHomeIng_UnloadGotoHomeComplete,
-        UnloadGotoHome_UnloadGotoHomeTimeOut,
-        UnloadGotoHome_UnloadGotoHomeFail,
+        UnloadGotoHomeIng_UnloadGotoHomeTimeOut,
+        UnloadGotoHomeIng_UnloadGotoHomeFail,
 
         // Unload(將 Tray 由Home 移到 In)
         UnloadGotoHomeComplete_UnloadGotoInStart,
         UnloadGotoInStart_UnloadGotoInIng,
         UnloadGotoInIng_UnloadGotoInComplete,
-        UnloadGotoIn_UnloadGotoInTimeOut,
-        UnloadGotoIn_UnloadGotoInFail,
+        UnloadGotoInIng_UnloadGotoInTimeOut,
+        UnloadGotoInIng_UnloadGotoInFail,
 
         // Unload (移走 Box)
         UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,
