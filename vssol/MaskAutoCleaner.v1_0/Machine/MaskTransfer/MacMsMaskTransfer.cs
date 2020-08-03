@@ -316,7 +316,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     {
                         var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
                                                               // TODO: Get Other Components State
-                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForPutIntoMask)
+                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
                         {
                             transition = tLPHomeClamped_ChangingDirectionToICHomeClamped;
                             break;
