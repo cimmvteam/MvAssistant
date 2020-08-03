@@ -26,6 +26,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoHomeStart,
         LoadGotoHomeIng,
         LoadGotoHomeComplete,
+
+        /// <summary>在Home 點 檢查 盒子在不在?</summary><remarks>2020/08/03 new, King</remarks>
+        LoadCheckBoxExistenceAtHome,
+
+        /// <summary>在Home 位置檢查盒子存在</summary><remarks>2020/08/03 new, King</remarks>
+        LoadBoxExistAtHome,
+        /// <summary>在Home 位置檢查盒子不存在</summary><remarks>2020/08/03 new, King</remarks>
+        LoadBoxNotExistAtHome,
+        /// <summary>在Home 位置檢查盒子存在與否時逾時</summary><remarks>2020/08/03 new, King</remarks>
+        LoadCheckBoxExistenceAtHomeTimeOut,
+
+        /// <summary>Load 時因為没有 Box 而退回到 In (Start)</summary> <remarks>2020/08/03 new, King</remarks>       
+        LoadNoBoxRejectToInFromHomeStart,
+        /// <summary>Load 時因為没有 Box 而退回到 In (Ing)</summary>  <remarks>2020/08/03 new, King</remarks>      
+        LoadNoBoxRejectToInFromHomeIng,
+        /// <summary>Load 時因為没有 Box 而退回到 In (OK)</summary>   <remarks>2020/08/03 new, King</remarks>
+        LoadNoBoxRejectToInFromHomeComplete,
+        /// <summary>Load 時因為没有 Box 而退回到 In (失敗)</summary>   <remarks>2020/08/03 new, King</remarks>
+        LoadNoBoxRejectToInFromHomeFail,
+        /// <summary>Load 時因為没有 Box 而退回到 In (逾時)</summary>   <remarks>2020/08/03 new, King</remarks>
+        LoadNoBoxRejectToInFromHomeTimeOut,
+
         LoadGotoOutStart,
         LoadGotoOutIng,
         LoadGotoOutComplete,
@@ -56,5 +78,14 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoInComplete,
         UnloadGotoInFail,
         UnloadGotoInTimeOut,
+        UnloadCheckBoxExistenceAtHome,
+        UnloadBoxExistAtHome,
+        UnloadBoxNotExistAtHome,
+        UnloadCheckBoxExistenceAtHomeTimeOut,
+        UnloadNoBoxRejectToInFromHomeStart,
+        UnloadNoBoxRejectToInFromHomeIng,
+        UnloadNoBoxRejectToInFromHomeComplete,
+        UnloadNoBoxRejectToInFromHomeFail,
+        UnloadNoBoxRejectToInFromHomeTimeOut,
     }
 }

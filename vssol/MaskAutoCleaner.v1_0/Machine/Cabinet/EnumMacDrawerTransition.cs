@@ -32,8 +32,29 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadGotoHomeIng_LoadGotoHomeTimeOut,
         LoadGotoHomeIng_LoadGotoHomeFail,
 
+        // Load, Tray 移到 Home 之後, 檢查Box 是否存在
+        /// <summary>Box 存在</summary><remarks>2020/08/03 King Add</remarks>
+        LoadGotoHomeComplete_LoadCheckBoxExistenceAtHome,
+
+        LoadCheckBoxExistenceAtHome_LoadBoxExistAtHome,
+        /// <summary>Box 不存在</summary><remarks>2020/08/03 King Add</remarks>
+        LoadCheckBoxExistenceAtHome_LoadBoxNotExistAtHome,
+        /// <summary>檢查逾時</summary><remarks>2020/08/03 King Add</remarks>
+        LoadCheckBoxExistenceAtHome_LoadCheckBoxExistenceAtHomeTimeOut,
+        /// <summary>檢查合格再回到 LoadGotoHomeComplete</summary>
+        LoadBoxExistAtHome_LoadGotoHomeComplete,
+        /// <summary>檢查不合格再回到 LoadGotoHomeComplete</summary>
+        LoadBoxNotExistAtHome_LoadGotoHomeComplete,
+
+        LoadGotoHomeComplete_LoadNoBoxRejectToInFromHomeStart,
+        UnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToInFromHomeIng,
+        LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeComplete,
+        LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeFail,
+        LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeTimeOut,
+        LoadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn,
+
         // Load(將 Tray 從Home 移到 Out)
-        LoadGotoHomeComplete_LoadGotoOutStart,
+        LoadGotoHomeComplete_LoadGotoOutStart,//TODO: =>
         LoadGotoOutStart_LoadGotoOutIng,
         LoadGotoOutIng_LoadGotoOutComplete,
         LoadGotoOutIng_LoadGotoOutTimeOut,
@@ -65,11 +86,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoInIng_UnloadGotoInFail,
 
         UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn,
+        UnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome,
+        UnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome,
+        UnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome,
+        UnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut,
+        UnloadBoxExistAtHome_UnloadGotoHomeComplete,
+        UnloadBoxNotExistAtHome_UnloadGotoHomeComplete,
+        UnloadGotoHomeComplete_UnloadNoBoxRejectToInFromHomeStart,
+        UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeComplete,
+        UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeFail,
+        UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeTimeOut,
+        UnloadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn,
+        // LoadGotoHomeComplete_LoadRejectToInFromHomeStart,
         // Unload (移走 Box)
         //UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,
-        
+
         #endregion unload
 
-        
+
     }
 }

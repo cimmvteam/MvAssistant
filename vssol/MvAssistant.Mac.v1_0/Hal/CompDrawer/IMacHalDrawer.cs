@@ -114,6 +114,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
    
         TrayArraiveAtIn,
 
+        /// <summary>有盒子</summary>
+        BoxExist,
+
+        /// <summary>没有盒子</summary>
+        BoxNotExist,
+
 
     }
 }

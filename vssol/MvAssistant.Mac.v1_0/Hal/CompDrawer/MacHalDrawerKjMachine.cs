@@ -454,7 +454,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnDetectedHasBox(object sender, EventArgs e)
         {
-            if(OnDetectedHasBoxHandler != null)
+            SetDrawerWorkState(DrawerWorkState.BoxExist);
+            if (OnDetectedHasBoxHandler != null)
             {
                 OnDetectedHasBoxHandler.Invoke(this, e);
             }
@@ -465,7 +466,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnDetectedEmptyBox(object sender, EventArgs e)
         {
-            if(OnDetectedEmptyBoxHandler != null)
+            SetDrawerWorkState(DrawerWorkState.BoxNotExist);
+            if (OnDetectedEmptyBoxHandler != null)
             {
                 OnDetectedEmptyBoxHandler.Invoke(this, e);
             }
@@ -609,7 +611,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandBoxDetection()
         {
-           
+            ResetCurrentWorkState();
             var commandText = Ldd.CommandBoxDetection();
             return commandText;
         }

@@ -73,8 +73,27 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacState sLoadGotoHomeStart = NewState(EnumMacDrawerState.LoadGotoHomeStart);
             MacState sLoadGotoHomeIng = NewState(EnumMacDrawerState.LoadGotoHomeIng);
             MacState sLoadGotoHomeComplete = NewState(EnumMacDrawerState.LoadGotoHomeComplete);
+        
+
             MacState sLoadGotoHomeTimeOut = NewState(EnumMacDrawerState.LoadGotoHomeTimeOut);
             MacState sLoadGotoHomeFail = NewState(EnumMacDrawerState.LoadGotoHomeFail);
+
+
+            // Load, 在HOme 點檢查Tray 上是否有盒子
+            MacState sLoadCheckBoxExistenceAtHome = NewState(EnumMacDrawerState.LoadCheckBoxExistenceAtHome);
+            // Load, 在Home 點檢查 是否有盒子=> 有, 2020/08/03 King Liu Add New 
+            MacState sLoadBoxExistAtHome = NewState(EnumMacDrawerState.LoadBoxExistAtHome);
+            // Load, 在Home 點查 是否有 盒子=> 没有, 2020/08/03 King Liu Add New 
+            MacState sLoadBoxNotExistAtHome = NewState(EnumMacDrawerState.LoadBoxNotExistAtHome);
+            // Load, 在Home 點檢查是否有盒子時逾時,2020/08/03 King Liu Add New  
+            MacState sLoadCheckBoxExistenceAtHomeTimeOut = NewState(EnumMacDrawerState.LoadCheckBoxExistenceAtHomeTimeOut);
+          
+            // Load, 在Home時被檢出没有盒子, 回退到 In 
+            MacState sLoadNoBoxRejectToInFromHomeStart = NewState(EnumMacDrawerState.LoadNoBoxRejectToInFromHomeStart);
+            MacState sLoadNoBoxRejectToInFromHomeIng = NewState(EnumMacDrawerState.LoadNoBoxRejectToInFromHomeIng);
+            MacState sLoadNoBoxRejectToInFromHomeComplete = NewState(EnumMacDrawerState.LoadNoBoxRejectToInFromHomeComplete);
+            MacState sLoadNoBoxRejectToInFromHomeFail = NewState(EnumMacDrawerState.LoadNoBoxRejectToInFromHomeFail);
+            MacState sLoadNoBoxRejectToInFromHomeTimeOut = NewState(EnumMacDrawerState.LoadNoBoxRejectToInFromHomeTimeOut);
 
             // Load, Move tray to Out from Home
             MacState sLoadGotoOutStart = NewState(EnumMacDrawerState.LoadGotoOutStart);
@@ -103,6 +122,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacState sUnloadGotoHomeComplete = NewState(EnumMacDrawerState.UnloadGotoHomeComplete);
             MacState sUnloadGotoHomeFail = NewState(EnumMacDrawerState.UnloadGotoHomeFail);
             MacState sUnloadGotoHomeTimeOut = NewState(EnumMacDrawerState.UnloadGotoHomeTimeOut);
+
+            // Load, 在HOme 點檢查Tray 上是否有盒子
+            MacState sUnloadCheckBoxExistenceAtHome = NewState(EnumMacDrawerState.UnloadCheckBoxExistenceAtHome);
+            // Load, 在Home 點檢查 是否有盒子=> 有, 2020/08/03 King Liu Add New 
+            MacState sUnloadBoxExistAtHome = NewState(EnumMacDrawerState.UnloadBoxExistAtHome);
+            // Load, 在Home 點查 是否有 盒子=> 没有, 2020/08/03 King Liu Add New 
+            MacState sUnloadBoxNotExistAtHome = NewState(EnumMacDrawerState.UnloadBoxNotExistAtHome);
+            // Load, 在Home 點檢查是否有盒子時逾時,2020/08/03 King Liu Add New  
+            MacState sUnloadCheckBoxExistenceAtHomeTimeOut = NewState(EnumMacDrawerState.UnloadCheckBoxExistenceAtHomeTimeOut);
+
+            // Load, 在Home時被檢出没有盒子, 回退到 In 
+            MacState sUnloadNoBoxRejectToInFromHomeStart = NewState(EnumMacDrawerState.UnloadNoBoxRejectToInFromHomeStart);
+            MacState sUnloadNoBoxRejectToInFromHomeIng = NewState(EnumMacDrawerState.UnloadNoBoxRejectToInFromHomeIng);
+            MacState sUnloadNoBoxRejectToInFromHomeComplete = NewState(EnumMacDrawerState.UnloadNoBoxRejectToInFromHomeComplete);
+            MacState sUnloadNoBoxRejectToInFromHomeFail = NewState(EnumMacDrawerState.UnloadNoBoxRejectToInFromHomeFail);
+            MacState sUnloadNoBoxRejectToInFromHomeTimeOut = NewState(EnumMacDrawerState.UnloadNoBoxRejectToInFromHomeTimeOut);
+
 
             // move tray to In from Home
             MacState sUnloadGotoInStart = NewState(EnumMacDrawerState.UnloadGotoInStart);
@@ -139,6 +175,24 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacTransition tLoadGotoHomeIng_LoadGotoHomeComplete = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeComplete, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeComplete);
             MacTransition tLoadGotoHomeIng_LoadGotoHomeTimeOut = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeTimeOut, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeTimeOut);
             MacTransition tLoadGotoHomeIng_LoadGotoHomeFail = NewTransition(sLoadGotoHomeIng, sLoadGotoHomeTimeOut, EnumMacDrawerTransition.LoadGotoHomeIng_LoadGotoHomeFail);
+
+            // Load(將 Tray 移到 Home之後,檢查Box
+            MacTransition tLoadGotoHomeComplete_LoadCheckBoxExistenceAtHome = NewTransition(sLoadGotoHomeComplete, sLoadCheckBoxExistenceAtHome, EnumMacDrawerTransition.LoadGotoHomeComplete_LoadCheckBoxExistenceAtHome);
+            MacTransition tLoadCheckBoxExistenceAtHome_LoadBoxExistAtHome = NewTransition(sLoadCheckBoxExistenceAtHome,sLoadBoxExistAtHome, EnumMacDrawerTransition.LoadCheckBoxExistenceAtHome_LoadBoxExistAtHome);
+            MacTransition tLoadCheckBoxExistenceAtHome_LoadBoxNotExistAtHome = NewTransition(sLoadCheckBoxExistenceAtHome, sLoadBoxExistAtHome, EnumMacDrawerTransition.LoadCheckBoxExistenceAtHome_LoadBoxNotExistAtHome);
+            MacTransition tLoadCheckBoxExistenceAtHome_LoadCheckBoxExistenceAtHomeTimeOut = NewTransition(sLoadCheckBoxExistenceAtHome, sLoadBoxExistAtHome, EnumMacDrawerTransition.LoadCheckBoxExistenceAtHome_LoadCheckBoxExistenceAtHomeTimeOut);
+
+            // Load (檢查有盒子之後再回 LoadGotoHomeComplete)
+            MacTransition tLoadBoxExistAtHome_LoadGotoHomeComplete = NewTransition(sLoadBoxExistAtHome, sLoadGotoHomeComplete, EnumMacDrawerTransition.LoadBoxExistAtHome_LoadGotoHomeComplete);
+            // Load (檢查没有盒子後再回 LoadGotoHomeComplete)
+            MacTransition tLoadBoxNotExistAtHome_LoadGotoHomeComplete = NewTransition(sLoadBoxNotExistAtHome, sLoadGotoHomeComplete, EnumMacDrawerTransition.LoadBoxNotExistAtHome_LoadGotoHomeComplete);
+            MacTransition tLoadGotoHomeComplete_LoadNoBoxRejectToInFromHomeStart = NewTransition(sLoadGotoHomeComplete, sLoadNoBoxRejectToInFromHomeStart,EnumMacDrawerTransition.LoadGotoHomeComplete_LoadNoBoxRejectToInFromHomeStart);
+            MacTransition tLoadNoBoxRejectToInFromHomeStart_LoadNoBoxRejectToInFromHomeIng = NewTransition(sLoadNoBoxRejectToInFromHomeStart, sLoadNoBoxRejectToInFromHomeIng, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToInFromHomeIng);
+            MacTransition tLoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeComplete = NewTransition(sLoadNoBoxRejectToInFromHomeIng, sLoadNoBoxRejectToInFromHomeComplete, EnumMacDrawerTransition.LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeComplete);
+            MacTransition tLoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeFail= NewTransition(sLoadNoBoxRejectToInFromHomeIng, sLoadNoBoxRejectToInFromHomeFail, EnumMacDrawerTransition.LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeFail);
+            MacTransition tLoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeTimeOut = NewTransition(sLoadNoBoxRejectToInFromHomeIng, sLoadNoBoxRejectToInFromHomeTimeOut, EnumMacDrawerTransition.LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeTimeOut);
+            MacTransition tLoadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn = NewTransition(sLoadNoBoxRejectToInFromHomeComplete, sIdleForPutBoxOnTrayAtIn, EnumMacDrawerTransition.LoadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn);
+
             // Load (將 Tray 從 Home 移到 Out)
             MacTransition tLoadGotoHomeComplete_LoadGotoOutStart = NewTransition(sLoadGotoHomeIng, sLoadGotoOutStart, EnumMacDrawerTransition.LoadGotoHomeComplete_LoadGotoOutStart);
             MacTransition tLoadGotoOutStart_LoadGotoOutIng = NewTransition(sLoadGotoOutStart, sLoadGotoOutIng, EnumMacDrawerTransition.LoadGotoOutStart_LoadGotoOutIng);
@@ -161,6 +215,25 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacTransition tUnloadGotoHomeIng_UnloadGotoHomeComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete);
             MacTransition tUnloadGotoHomeIng_UnloadGotoHomeTimeOut = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeTimeOut, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeTimeOut);
             MacTransition tUnloadGotoHomeIng_UnloadGotoHomeFail = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeFail, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeFail);
+
+            // Load(將 Tray 移到 Home之後,檢查Box
+            MacTransition tUnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome = NewTransition(sUnloadGotoHomeComplete, sUnloadCheckBoxExistenceAtHome, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome);
+            MacTransition tUnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome = NewTransition(sUnloadCheckBoxExistenceAtHome, sUnloadBoxExistAtHome, EnumMacDrawerTransition.UnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome);
+            MacTransition tUnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome = NewTransition(sUnloadCheckBoxExistenceAtHome, sUnloadBoxExistAtHome, EnumMacDrawerTransition.UnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome);
+            MacTransition tUnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut = NewTransition(sUnloadCheckBoxExistenceAtHome, sUnloadBoxExistAtHome, EnumMacDrawerTransition.UnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut);
+
+            // Load (檢查有盒子之後再回 LoadGotoHomeComplete)
+            MacTransition tUnloadBoxExistAtHome_UnloadGotoHomeComplete = NewTransition(sUnloadBoxExistAtHome, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadBoxExistAtHome_UnloadGotoHomeComplete);
+            // Load (檢查没有盒子後再回 LoadGotoHomeComplete)
+            MacTransition tUnloadBoxNotExistAtHome_UnloadGotoHomeComplete = NewTransition(sUnloadBoxNotExistAtHome, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadBoxNotExistAtHome_UnloadGotoHomeComplete);
+            MacTransition tUnloadGotoHomeComplete_UnloadNoBoxRejectToInFromHomeStart = NewTransition(sUnloadGotoHomeComplete, sUnloadNoBoxRejectToInFromHomeStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadNoBoxRejectToInFromHomeStart);
+            MacTransition tUnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToInFromHomeIng = NewTransition(sUnloadNoBoxRejectToInFromHomeStart, sUnloadNoBoxRejectToInFromHomeIng, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToInFromHomeIng);
+            MacTransition tUnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeComplete = NewTransition(sUnloadNoBoxRejectToInFromHomeIng, sUnloadNoBoxRejectToInFromHomeComplete, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeComplete);
+            MacTransition tUnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeFail = NewTransition(sUnloadNoBoxRejectToInFromHomeIng, sUnloadNoBoxRejectToInFromHomeFail, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeFail);
+            MacTransition tUnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeTimeOut = NewTransition(sUnloadNoBoxRejectToInFromHomeIng, sUnloadNoBoxRejectToInFromHomeTimeOut, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToInFromHomeTimeOut);
+            MacTransition tUnloadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn = NewTransition(sUnloadNoBoxRejectToInFromHomeComplete, sIdleForPutBoxOnTrayAtIn, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn);
+
+
 
             // Unload(將 Tray 移到 In)
             MacTransition tUnloadGotoHomeComplete_UnloadGotoInStart = NewTransition(sUnloadGotoHomeComplete, sUnloadGotoInStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadGotoInStart);
@@ -433,18 +506,41 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
               {
                   var args = (MacStateExitWithTransitionEventArgs)e;
                   var nextState = args.Transition.StateTo;
-                  nextState.DoEntry(new MacStateEntryEventArgs(args));
+                  nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerLoadToHomeCompleteSource.GotoHomeIng));
               };
             
             sLoadGotoHomeComplete.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
-                state.DoExit(new MacStateExitEventArgs());
+                var args = (MacStateEntryEventArgs)e;
+                EnumMacDrawerLoadToHomeCompleteSource source;
+                MacTransition transition = null; //tLoadGotoHomeComplete_LoadCheckBoxExistenceAtHome;
+                if (args.Parameter != null)
+                {                    
+                    source = (EnumMacDrawerLoadToHomeCompleteSource)(args.Parameter);
+                    if(source== EnumMacDrawerLoadToHomeCompleteSource.GotoHomeIng)
+                    {    // 從 GomeIng 到 GotoHomeComplete=> 去檢查合子在不在
+                        transition = tLoadGotoHomeComplete_LoadCheckBoxExistenceAtHome;
+                    }
+                  
+                    else if (source == EnumMacDrawerLoadToHomeCompleteSource.LoadCheckBoxNotExist)
+                    {   // 檢查完, 盒子不存在回退至 In
+                        transition = tLoadGotoHomeComplete_LoadNoBoxRejectToInFromHomeStart;
+
+                    }
+                    else if (source == EnumMacDrawerLoadToHomeCompleteSource.LoadCheckBoxExist)
+                    {    // 檢查完盒子存在=> 將盒子移到 Out 
+                        transition = tLoadGotoHomeComplete_LoadGotoOutStart;
+                    }
+                }
+                
+                state.DoExit(new MacStateExitWithTransitionEventArgs(transition));
             };
             sLoadGotoHomeComplete.OnExit += (sender, e) =>
             {
-              //  var transition = this.Transitions[EnumMacDrawerTransition.LoadGotoHomeComplete_LoadGotoOutStart.ToString()];
-                var nextState = tLoadGotoHomeComplete_LoadGotoOutStart.StateTo;
+              
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
@@ -467,6 +563,167 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 //Load 主要工作, 將 Tray 移到 Home 時失敗
             };
+
+            sLoadCheckBoxExistenceAtHome.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                var startTime = DateTime.Now;
+                MacTransition transition = null;
+                // guard
+                Action guard = () =>
+                {
+                   while (true)
+                    {
+                        if(HalDrawer.CurrentWorkState== DrawerWorkState.BoxExist)
+                        {   // 有盒子 
+                            transition = tLoadCheckBoxExistenceAtHome_LoadBoxExistAtHome;
+                        }
+                        else if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxNotExist)
+                        {   // 没盒子
+                            transition = tLoadCheckBoxExistenceAtHome_LoadBoxNotExistAtHome;
+                        }
+                        else if(new MacDrawerStateTimeOutController().IsTimeOut(startTime))
+                        {   // 逾時
+                            transition = tLoadCheckBoxExistenceAtHome_LoadCheckBoxExistenceAtHomeTimeOut;
+                        }
+
+                        if(transition != null)
+                        {
+                            state.DoExit(new MacStateExitWithTransitionEventArgs(transition));
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+
+                new Task(guard).Start();
+                HalDrawer.CommandBoxDetection();
+                state.DoExit(new MacStateExitWithTransitionEventArgs(null));
+            };
+            sLoadCheckBoxExistenceAtHome.OnExit += (sender, e) =>
+            {
+                var args = (MacStateExitWithTransitionEventArgs)e;
+                var nextState = args.Transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sLoadBoxExistAtHome.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sLoadBoxExistAtHome.OnExit += (sender, e) =>
+            {
+                //var transition = tLoadBoxExistAtHome_LoadGotoHomeComplete;
+                var nextState = tLoadBoxExistAtHome_LoadGotoHomeComplete.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerLoadToHomeCompleteSource.LoadCheckBoxExist));
+            };
+
+            sLoadBoxNotExistAtHome.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sLoadBoxNotExistAtHome.OnExit += (sender, e) =>
+            {
+                //var transition = tLoadBoxNotExistAtHome_LoadGotoHomeComplete;
+                var nextState = tLoadBoxNotExistAtHome_LoadGotoHomeComplete.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerLoadToHomeCompleteSource.LoadCheckBoxNotExist));
+            };
+
+            sLoadCheckBoxExistenceAtHomeTimeOut.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sLoadCheckBoxExistenceAtHomeTimeOut.OnExit += (sender, e) =>
+            {
+                // TODO: Tray 到達 Home 之後, 檢查Box 是否存在時, 逾時
+            };
+
+            sLoadNoBoxRejectToInFromHomeStart.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sLoadNoBoxRejectToInFromHomeStart.OnExit += (sender, e) =>
+            {
+                var nextState = tLoadNoBoxRejectToInFromHomeStart_LoadNoBoxRejectToInFromHomeIng.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+                
+            };
+
+            sLoadNoBoxRejectToInFromHomeIng.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                DateTime startTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    MacTransition transition = null;
+                    while (true)
+                    {
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                        {
+                            transition = tLoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeFail;
+                        }
+                        else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArraiveAtIn)
+                        {
+                            transition = tLoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeComplete;
+                        }
+                        else if(new MacDrawerStateTimeOutController().IsTimeOut(startTime))
+                        {
+                            transition = tLoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeTimeOut;
+                        }
+                        if (transition != null)
+                        {
+                            state.DoExit(new MacStateExitWithTransitionEventArgs(transition) );
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+                HalDrawer.CommandTrayMotionIn();
+            };
+            sLoadNoBoxRejectToInFromHomeIng.OnExit += (sender, e) =>
+            {
+                var nextState = ((MacStateExitWithTransitionEventArgs)e).Transition.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sLoadNoBoxRejectToInFromHomeComplete.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs() );
+            };
+            sLoadNoBoxRejectToInFromHomeComplete.OnExit += (sender, e) =>
+            {
+                var nextState = tLoadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn.StateTo;
+                nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+
+            sLoadNoBoxRejectToInFromHomeFail.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sLoadNoBoxRejectToInFromHomeFail.OnExit += (sender, e) =>
+            {
+                // Load 時, Tray 移到 Home 檢查没有Box, 回退到 In 時 無法移動
+                // 此為 無法移動的最後一個狀態
+            };
+
+            sLoadNoBoxRejectToInFromHomeTimeOut.OnEntry += (sender, e) =>
+            {
+                var state = (MacState)sender;
+                state.DoExit(new MacStateExitEventArgs());
+            };
+            sLoadNoBoxRejectToInFromHomeTimeOut.OnExit += (sender, e) =>
+            {
+                // Load 時, Tray 移到 Home 檢查没有Box, 回退到 In 時 逾時未到達 In
+                // 此為 逾時的最後一個狀態
+            };
+
 
             sLoadGotoOutStart.OnEntry += (sender, e) =>
             {
@@ -721,6 +978,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sUnloadGotoHomeComplete.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
+                var args = (MacStateEntryEventArgs)e;
+                if(args.Parameter != null)
+                {
+                    var source = (EnumMacDrawerUnloadToHomeCompleteSource)(args.Parameter);
+                    if (source == EnumMacDrawerUnloadToHomeCompleteSource.GotoHomeIng) { }
+                   
+                }
                 state.DoExit(new MacStateExitEventArgs());
                
             };
@@ -759,7 +1023,115 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 // TODO: Transition ?
             };
 
-           sUnloadGotoInStart.OnEntry += (sender, e) => 
+            sUnloadCheckBoxExistenceAtHome.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadCheckBoxExistenceAtHome.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadBoxExistAtHome.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadBoxExistAtHome.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadBoxNotExistAtHome.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadBoxNotExistAtHome.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadCheckBoxExistenceAtHomeTimeOut.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadCheckBoxExistenceAtHomeTimeOut.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadNoBoxRejectToInFromHomeStart.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadNoBoxRejectToInFromHomeStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadNoBoxRejectToInFromHomeIng.OnEntry += (sender, e) =>
+              {
+
+              };
+            sUnloadNoBoxRejectToInFromHomeIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadNoBoxRejectToInFromHomeComplete.OnEntry += (sender, e) =>
+              {
+
+              };
+            sUnloadNoBoxRejectToInFromHomeComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadNoBoxRejectToInFromHomeComplete.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadNoBoxRejectToInFromHomeComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadNoBoxRejectToInFromHomeFail.OnEntry += (sender, e) =>
+              {
+
+              };
+            sUnloadNoBoxRejectToInFromHomeFail.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadNoBoxRejectToInFromHomeTimeOut.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUnloadNoBoxRejectToInFromHomeTimeOut.OnExit += (sender, e) =>
+            {
+
+            };
+            // Load, 在HOme 點檢查Tray 上是否有盒子
+            /*
+           
+            // Load, 在Home 點檢查 是否有盒子=> 有, 2020/08/03 King Liu Add New 
+           
+            // Load, 在Home 點查 是否有 盒子=> 没有, 2020/08/03 King Liu Add New 
+           
+            // Load, 在Home 點檢查是否有盒子時逾時,2020/08/03 King Liu Add New  
+            
+
+            // Load, 在Home時被檢出没有盒子, 回退到 In 
+          
+            
+           
+          
+           
+            */
+
+
+            sUnloadGotoInStart.OnEntry += (sender, e) => 
             {
                 var state = (MacState)sender;
                 HalDrawer.CommandTrayMotionIn();
