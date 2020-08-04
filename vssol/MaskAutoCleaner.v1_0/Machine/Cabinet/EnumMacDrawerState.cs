@@ -82,10 +82,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadBoxExistAtHome,
         UnloadBoxNotExistAtHome,
         UnloadCheckBoxExistenceAtHomeTimeOut,
-        UnloadNoBoxRejectToInFromHomeStart,
-        UnloadNoBoxRejectToInFromHomeIng,
-        UnloadNoBoxRejectToInFromHomeComplete,
-        UnloadNoBoxRejectToInFromHomeFail,
-        UnloadNoBoxRejectToInFromHomeTimeOut,
+        UnloadNoBoxRejectToOutFromHomeStart,
+        UnloadNoBoxRejectToOutFromHomeIng,
+        UnloadNoBoxRejectToOutFromHomeComplete,
+        UnloadNoBoxRejectToOutFromHomeFail,
+        UnloadNoBoxRejectToOutFromHomeTimeOut,
     }
 }
