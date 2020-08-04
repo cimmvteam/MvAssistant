@@ -114,6 +114,8 @@
     <Compile Include="Machine\MaskTransfer\MacMcMaskTransfer.cs" />
     <Compile Include="Machine\MaskTransfer\MacMsMaskTransfer.cs" />
     <Compile Include="Machine\MacMachineMediater.cs" />
+    <Compile Include="Machine\StateExceptions\StateException.cs" />
+    <Compile Include="Machine\StateExceptions\TimeoutException.cs" />
     <Compile Include="Msg\EnumMacAlarmId.cs" />
     <Compile Include="Msg\EnumMacAlarmLevel.cs" />
     <Compile Include="Msg\EnumCeid.cs" />

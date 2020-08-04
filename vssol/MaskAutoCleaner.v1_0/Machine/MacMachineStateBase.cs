@@ -42,5 +42,26 @@ namespace MaskAutoCleaner.v1_0.Machine
             return transition;
         }
 
+        public void TriggerAsync(Func<bool> guard, Action action)
+        {
+
+        }
+
+        public void Trigger(Func<bool> guard, Action action)
+        {
+            try
+            {
+
+
+            }
+            catch(Exception ex)
+            {
+
+            } 
+        }
+        public void Trigger(Action action)
+        {
+
+        }
     }
 }
