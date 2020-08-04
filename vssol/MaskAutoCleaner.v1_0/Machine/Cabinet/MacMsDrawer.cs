@@ -361,7 +361,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 };
                 Func<StateGuardRtns> guard = () =>
                 {
-                    return null;
+                    var rtnV = new StateGuardRtns
+                    {
+                        EntryEventArgs = new MacStateEntryEventArgs(null),
+                        ExitEventArgs = new MacStateExitEventArgs(),
+                        Transition=tLoadGotoInStart_LoadGotoInIng,
+                    };
+                    return rtnV;
                 };
                 this.Trigger(guard, action, null, exceptionHandler);
             };
