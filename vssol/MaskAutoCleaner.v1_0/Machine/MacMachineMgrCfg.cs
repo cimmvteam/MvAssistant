@@ -14,28 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         public string ManifestCfgPath;
 
 
-        [XmlIgnore] public Dictionary<Type, Type> MachineHalMap = new Dictionary<Type, Type>();
-
-
-        public List<MacMachineMap> MachineHalMapList
-        {
-            get
-            {
-                return (from row in MachineHalMap.ToList()
-                        select new MacMachineMap()
-                        {
-                            HalType = row.Key,
-                            CtrlMachineType = row.Value,
-                        }).ToList();
-            }
-        }
-
-
-
-
-
-
-
+        public List<MacMachineCtrlCfg> MachineCtrls = new List<MacMachineCtrlCfg>();
 
 
 

@@ -8,14 +8,14 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using Sentech.StApiDotNET;
+//using Sentech.StApiDotNET;
 using System.Drawing.Imaging;
 using System.IO;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 {
     [GuidAttribute("90BA4CDC-7A82-454A-8F3F-6FE6413AEF41")]
-    public class HalCameraSenTech : MacHalComponentBase, IHalCamera
+    public class MacHalCameraSenTech : MacHalComponentBase, IHalCamera
     {
         #region Const
         public const string DevConnStr_Id = "id";

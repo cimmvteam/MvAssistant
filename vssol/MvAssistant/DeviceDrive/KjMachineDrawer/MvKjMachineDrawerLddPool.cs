@@ -64,6 +64,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public  MvKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort):this()
         {
 
+            /**設定可用 Port 的最初狀況狀*/
             Action initialPortStatusDictionary = () => {
                 PortStatusDictionary = new Dictionary<int, bool?>();
                 for (int i = listenDrawerPortMin; i <= listenDrawerPortMax; i++)

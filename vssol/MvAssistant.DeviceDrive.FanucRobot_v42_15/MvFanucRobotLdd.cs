@@ -1,6 +1,7 @@
 ﻿using MvAssistant;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -747,6 +748,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             {
                 if (robotInfo.ValidC != 0)  //Valid Cartesian values
                 {
+                    LogInfo("Move Type：Position，Get X~R Value_" + DateTime.Now.ToString());
                     for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.XyzwpreArrary.Length; idx++)
                         robotInfo.PosReg.XyzwpreArrary.SetValue(TargetPos.GetValue(idx), idx);  //X_position
                 }
@@ -759,6 +761,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             {
                 if (robotInfo.ValidJ != 0)  //Valid Cartesian values
                 {
+                    LogInfo("Move Type：Joint，Get J1~J6 Value_" + DateTime.Now.ToString());
                     for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.JointArray.Length; idx++)
                         robotInfo.PosReg.JointArray.SetValue(TargetPos.GetValue(idx), idx);  //X_position
                 }
@@ -784,6 +787,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 
             this.mobjDataTable.Refresh();
 
+            LogInfo("Start move_" + DateTime.Now.ToString());
             this.SetRegIntValues(1, new int[] { 1, 1 });//R[1]=1 is start program
 
             return 0;
@@ -938,7 +942,24 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
         }
         #endregion
 
-
+        #region LogInfo()
+        public void LogInfo(string pMessage)
+        {
+            string tFilePath = @"D:\Logg.txt";
+            StreamWriter tStreamWriter = null;
+            try
+            {
+                if (!File.Exists(tFilePath)) File.Create(tFilePath);
+                tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
+                tStreamWriter.WriteLine(pMessage);
+            }
+            catch (Exception e) { }
+            finally
+            {
+                if (tStreamWriter != null) tStreamWriter.Close();
+            }
+        }
+        #endregion
 
 
         #region IDisposable

@@ -61,12 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawer_SocketComm\AsyncClient.cs" />
-    <Compile Include="Drawer_SocketComm\AsyncHost.cs" />
-    <Compile Include="Drawer_SocketComm\EnumSocketCMDList.cs" />
-    <Compile Include="Drawer_SocketComm\SocketMsgTranslator.cs" />
-    <Compile Include="Drawer_SocketComm\StateObject.cs" />
-    <Compile Include="Drawer_SocketComm\UDPSocket.cs" />
+    <Compile Include="DrawerSocketTest\AsyncClient.cs" />
+    <Compile Include="DrawerSocketTest\AsyncHost.cs" />
+    <Compile Include="DrawerSocketTest\EnumSocketCMDList.cs" />
+    <Compile Include="DrawerSocketTest\SocketMsgTranslator.cs" />
+    <Compile Include="DrawerSocketTest\StateObject.cs" />
+    <Compile Include="DrawerSocketTest\UDPSocket.cs" />
     <Compile Include="Hal\Assembly\IMacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\IMacHalCleanCh.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
+    <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
     <Compile Include="Hal\CompDrawer\HalDrawerBoxDetectReturn.cs" />
     <Compile Include="Hal\CompDrawer\MacHalDrawerKjMachine.cs" />
     <Compile Include="Hal\CompDrawer\IMacHalDrawer.cs" />
@@ -131,7 +132,7 @@
     <Compile Include="Hal\CompRobotTest\MacHalMaskRobotFanuc.cs" />
     <Compile Include="Hal\CompRobotTest\MacHalRobotMotionInfo.cs" />
     <Compile Include="Hal\CompCamera\HalCameraFake.cs" />
-    <Compile Include="Hal\CompCamera\HalCameraSenTech.cs" />
+    <Compile Include="Hal\CompCamera\MacHalCameraSenTech.cs" />
     <Compile Include="Hal\CompCamera\IHalCamera.cs" />
     <Compile Include="ImgProc\MacImgProcBase.cs" />
     <Compile Include="JSon\BTRobotPath.cs" />

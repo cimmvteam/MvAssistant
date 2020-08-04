@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace MaskAutoCleaner.v1_0.Machine
 {
     /// <summary>ta
+    /// Machine State Object Base
     /// Design Pattern - State Pattern
-    /// State Machine 基底
     /// </summary>
     public abstract class MacMachineStateBase : MacStateMachine
     {

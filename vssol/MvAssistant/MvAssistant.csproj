@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MultiCam.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvCameraLinkLdd.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyTrayMotionEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnTrayArriveEventArgs.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\OutOfListenPortsException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLddPool.cs" />
@@ -204,7 +207,8 @@
     <Compile Include="Tasking\MvSpinSleep.cs" />
     <Compile Include="Tasking\MvSpinWait.cs" />
     <Compile Include="Tasking\MvTask.cs" />
-    <Compile Include="TypeMap\MvTypeMapper.cs" />
+    <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
+    <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="_github\github_Clone.txt" />
