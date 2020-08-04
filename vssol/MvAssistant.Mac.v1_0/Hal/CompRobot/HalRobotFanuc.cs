@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MvAssistant.Mac.v1_0.JSon;
 using System.Threading;
+using System.IO;
 
 namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 {
@@ -108,6 +109,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             {
                 var motion = targets[idx];
                 this.HalMoveStraightAsyn(motion);
+                this.ldd.LogInfo("Read Position[ " + idx + " ]，" + DateTime.Now.ToString());
                 while (!this.ldd.MoveIsComplete())
                     Thread.Sleep(100);
                 this.ldd.MoveCompeleteReply();
@@ -207,7 +209,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
 
 
         #endregion
-
 
 
 

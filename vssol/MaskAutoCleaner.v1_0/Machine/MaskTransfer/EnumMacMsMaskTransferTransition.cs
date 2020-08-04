@@ -12,6 +12,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         Initial,
         ReceiveTriggerAtLPHome,
         ReceiveTriggerAtLPHomeClamped,
+        ReceiveTriggerAtICHome,
+        ReceiveTriggerAtICHomeClamped,
         ReceiveTriggerAtBarcodeReader,
 
         //Change Direction

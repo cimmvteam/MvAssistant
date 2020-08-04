@@ -1,4 +1,6 @@
-﻿using MaskAutoCleaner.v1_0.Machine.InspectionCh;
+﻿using MaskAutoCleaner.v1_0.Machine.CleanCh;
+using MaskAutoCleaner.v1_0.Machine.InspectionCh;
+using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Msg;
 using MaskAutoCleaner.v1_0.Msg.PrescribedSecs;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
@@ -37,9 +39,14 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //--- Declare State ---
             #region State
             MacState sStart = NewState(EnumMacMsMaskTransferState.Start);
-            MacState sDeviceInitial = NewState(EnumMacMsMaskTransferState.Initial);
+            MacState sInitial = NewState(EnumMacMsMaskTransferState.Initial);
+
+            // Position
             MacState sLPHome = NewState(EnumMacMsMaskTransferState.LPHome);
             MacState sICHome = NewState(EnumMacMsMaskTransferState.ICHome);
+            MacState sLPHomeClamped = NewState(EnumMacMsMaskTransferState.LPHomeClamped);
+            MacState sICHomeClamped = NewState(EnumMacMsMaskTransferState.ICHomeClamped);
+            MacState sCCHomeClamped = NewState(EnumMacMsMaskTransferState.CCHomeClamped);
 
             // Change Direction
             MacState sChangingDirectionToLPHome = NewState(EnumMacMsMaskTransferState.ChangingDirectionToLPHome);
@@ -54,6 +61,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToInspectionCh);
             MacState sMovingToInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToInspectionChGlass);
             MacState sMovingToOpenStage = NewState(EnumMacMsMaskTransferState.MovingToOpenStage);
+
             //To Target Clamp - Calibration
             MacState sLoadPortAClamping = NewState(EnumMacMsMaskTransferState.LoadPortAClamping);
             MacState sLoadPortBClamping = NewState(EnumMacMsMaskTransferState.LoadPortBClamping);
@@ -67,19 +75,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToICHomeClampedFromInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionCh);
             MacState sMovingToICHomeClampedFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionChGlass);
             MacState sMovingToLPHomeClampedFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromOpenStage);
-
-            //Clamped Back - Home
-            MacState sLPHomeClamped = NewState(EnumMacMsMaskTransferState.LPHomeClamped);
-            MacState sICHomeClamped = NewState(EnumMacMsMaskTransferState.ICHomeClamped);
-            MacState sCCHomeClamped = NewState(EnumMacMsMaskTransferState.CCHomeClamped);
-            //MacState sReadyToRelease = NewState(EnumMacMsMaskTransferState.ReadyToRelease);
+            
 
             //Barcode Reader
             MacState sMovingToBarcodeReaderClamped = NewState(EnumMacMsMaskTransferState.MovingToBarcodeReaderClamped);
             MacState sWaitingForBarcodeReader = NewState(EnumMacMsMaskTransferState.WaitingForBarcodeReader);
             MacState sMovingToLPHomeClampedFromBarcodeReader = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromBarcodeReader);
-
-
+            
 
             //Clean
             MacState sCleanMovingStart = NewState(EnumMacMsMaskTransferState.CleanMovingStart);//前往CleanCh
@@ -87,14 +89,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sCleanMovingReturn = NewState(EnumMacMsMaskTransferState.CleanMovingReturn);//離開CleanCh
             MacState sCleanChMoving = NewState(EnumMacMsMaskTransferState.CleanChMoving);
             MacState sCleanChWaitAckMove = NewState(EnumMacMsMaskTransferState.CleanChWaitAckMove);
-
-
+            
 
             //To Target
             MacState sMovingToLoadPortAForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortAForRelease);
             MacState sMovingToLoadPortBForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortBForRelease);
-            MacState sMovingInspectionChForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChForRelease);
-            MacState sMovingInspectionChGlassForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChGlassForRelease);
+            MacState sMovingToInspectionChForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChForRelease);
+            MacState sMovingToInspectionChGlassForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChGlassForRelease);
             MacState sMovingOpenStageForRelease = NewState(EnumMacMsMaskTransferState.MovingOpenStageForRelease);
 
             MacState sLoadPortAReleasing = NewState(EnumMacMsMaskTransferState.LoadPortAReleasing);
@@ -115,10 +116,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             //--- Transition ---
             #region Transition
-            MacTransition tStart_DeviceInitial = NewTransition(sStart, sDeviceInitial, EnumMacMsMaskTransferTransition.PowerON);
-            MacTransition tDeviceInitial_LPHome = NewTransition(sDeviceInitial, sLPHome, EnumMacMsMaskTransferTransition.Initial);
+            MacTransition tStart_DeviceInitial = NewTransition(sStart, sInitial, EnumMacMsMaskTransferTransition.PowerON);
+            MacTransition tDeviceInitial_LPHome = NewTransition(sInitial, sLPHome, EnumMacMsMaskTransferTransition.Initial);
             MacTransition tLPHome_LPHome = NewTransition(sLPHome, sLPHome, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHome);
             MacTransition tLPHomeClamped_LPHomeClamped = NewTransition(sLPHomeClamped, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeClamped);
+            MacTransition tICHome_ICHome = NewTransition(sICHome, sICHome, EnumMacMsMaskTransferTransition.ReceiveTriggerAtICHome);
+            MacTransition tICHomeClamped_ICHomeClamped = NewTransition(sICHomeClamped, sICHomeClamped, EnumMacMsMaskTransferTransition.ReceiveTriggerAtICHomeClamped);
             MacTransition tWaitingForBarcodeReader_WaitingForBarcodeReader = NewTransition(sWaitingForBarcodeReader, sWaitingForBarcodeReader, EnumMacMsMaskTransferTransition.ReceiveTriggerAtBarcodeReader);
 
             #region Change Direction
@@ -164,8 +167,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToInspectionCh_InspectionChClamping = NewTransition(sMovingToInspectionCh, sInspectionChClamping, EnumMacMsMaskTransferTransition.ClampInInspectionCh);
             MacTransition tInspectionChClamping_MovingToICHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToICHomeClampedFromInspectionCh, EnumMacMsMaskTransferTransition.MoveToICHomeClampedFromInspectionCh);
             MacTransition tMovingToICHomeClampedFromInspectionCh_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionCh, sICHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtICHomeClampedFromInspectionCh);
-            MacTransition tICHomeClamped_MovingInspectionChForRelease = NewTransition(sICHomeClamped, sMovingInspectionChForRelease, EnumMacMsMaskTransferTransition.MoveToInspectionChForRelease);
-            MacTransition tMovingInspectionChForRelease_InspectionChReleasing = NewTransition(sMovingInspectionChForRelease, sInspectionChReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tICHomeClamped_MovingToInspectionChForRelease = NewTransition(sICHomeClamped, sMovingToInspectionChForRelease, EnumMacMsMaskTransferTransition.MoveToInspectionChForRelease);
+            MacTransition tMovingInspectionChForRelease_InspectionChReleasing = NewTransition(sMovingToInspectionChForRelease, sInspectionChReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tInspectionChReleasing_MovingToICHomeFromInspectionCh = NewTransition(sInspectionChReleasing, sMovingToICHomeFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteReleased);
             MacTransition tMovingToICHomeFromInspectionCh_ICHome = NewTransition(sMovingToICHomeFromInspectionCh, sICHome, EnumMacMsMaskTransferTransition.StandbyAtICHomeFromInspectionCh);
 
@@ -173,8 +176,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToInspectionChGlass_InspectionChGlassClamping = NewTransition(sMovingToInspectionChGlass, sInspectionChGlassClamping, EnumMacMsMaskTransferTransition.ClampInInspectionChGlass);
             MacTransition tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass = NewTransition(sInspectionChGlassClamping, sMovingToICHomeClampedFromInspectionChGlass, EnumMacMsMaskTransferTransition.MoveToICHomeClampedFromInspectionChGlass);
             MacTransition tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionChGlass, sICHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtICHomeClampedFromInspectionChGlass);
-            MacTransition tICHomeClamped_MovingInspectionChGlassForRelease = NewTransition(sICHomeClamped, sMovingInspectionChGlassForRelease, EnumMacMsMaskTransferTransition.MoveToInspectionChGlassForRelease);
-            MacTransition tMovingInspectionChGlassForRelease_InspectionChGlassReleasing = NewTransition(sMovingInspectionChGlassForRelease, sInspectionChGlassReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tICHomeClamped_MovingToInspectionChGlassForRelease = NewTransition(sICHomeClamped, sMovingToInspectionChGlassForRelease, EnumMacMsMaskTransferTransition.MoveToInspectionChGlassForRelease);
+            MacTransition tMovingInspectionChGlassForRelease_InspectionChGlassReleasing = NewTransition(sMovingToInspectionChGlassForRelease, sInspectionChGlassReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass = NewTransition(sInspectionChGlassReleasing, sMovingToICHomeFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteReleased);
             MacTransition tMovingToICHomeFromInspectionChGlass_ICHome = NewTransition(sMovingToICHomeFromInspectionChGlass, sICHome, EnumMacMsMaskTransferTransition.StandbyAtICHomeFromInspectionChGlass);
             #endregion Inspection Ch
@@ -184,7 +187,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToOpenStage_OpenStageClamping = NewTransition(sMovingToOpenStage, sOpenStageClamping, EnumMacMsMaskTransferTransition.ClampInOpenStage);
             MacTransition tOpenStageClamping_MovingToLPHomeClampedFromOpenStage = NewTransition(sOpenStageClamping, sMovingToLPHomeClampedFromOpenStage, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromOpenStage);
             MacTransition tMovingToLPHomeClampedFromOpenStage_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromOpenStage, sLPHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtLPHomeClampedFromOpenStage);
-            MacTransition tLPHomeClamped_MovingOpenStageForRelease = NewTransition(sLPHomeClamped, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
+            MacTransition tLPHomeClamped_MovingToOpenStageForRelease = NewTransition(sLPHomeClamped, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
             MacTransition tMovingOpenStageForRelease_OpenStageReleasing = NewTransition(sMovingOpenStageForRelease, sOpenStageReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
             MacTransition tOpenStageReleasing_MovingToLPHomeFromOpenStage = NewTransition(sOpenStageReleasing, sMovingToLPHomeFromOpenStage, EnumMacMsMaskTransferTransition.CompleteReleased);
             MacTransition tMovingToLPHomeFromOpenStage_LPHome = NewTransition(sMovingToLPHomeFromOpenStage, sLPHome, EnumMacMsMaskTransferTransition.StandbyAtLPHomeFromOpenStage);
@@ -232,8 +235,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sStart.OnEntry += (sender, e) =>
             { };
+            sStart.OnExit += (sender, e) =>
+            { };
 
-            sDeviceInitial.OnEntry += (sender, e) =>
+            sInitial.OnEntry += (sender, e) =>
                 {
                     var thisState = (MacState)sender;
                     MacTransition transition = null;
@@ -258,7 +263,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     };
                     new Task(guard).Start();
                 };
-            sDeviceInitial.OnExit += (sender, e) =>
+            sInitial.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
@@ -274,11 +279,24 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     while (true)
                     {
-                        var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
+                        // TODO: Get Load Port A/B State
+                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                        var CCState = new MacMsCleanCh();
+                        var OSState = new MacMsOpenStage();
                         // TODO: Get Other Components State
                         if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
                         {
                             transition = tLPHome_ChangingDirectionToICHome;
+                            break;
+                        }
+                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
+                        {
+                            transition = tLPHome_ChangingDirectionToICHome;
+                            break;
+                        }
+                        else if (OSState.CurrentWorkState==EnumMacMsOpenStageState.WaitingForReleaseMask)
+                        {
+                            transition = tLPHome_MovingToOpenStage;
                             break;
                         }
                         // TODO: Other Components State Check
@@ -314,13 +332,27 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     while (true)
                     {
-                        var ICState = new MacMsInspectionCh();// TODO: Get InspectionCh State
-                                                              // TODO: Get Other Components State
+                        // TODO: Get Load Port A/B State
+                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                        var CCState = new MacMsCleanCh();
+                        var OSState = new MacMsOpenStage();
+                        // TODO: Get Other Components State
                         if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
                         {
                             transition = tLPHomeClamped_ChangingDirectionToICHomeClamped;
                             break;
                         }
+                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
+                        {
+                            transition = tLPHomeClamped_ChangingDirectionToICHomeClamped;
+                            break;
+                        }
+                        else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
+                        {
+                            transition = tLPHomeClamped_MovingToOpenStageForRelease;
+                            break;
+                        }
+                        // TODO: Other Components State Check
                         else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHomeClamped)
                         {
                             transition = tLPHomeClamped_LPHomeClamped;//Wait
@@ -331,7 +363,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             // TODO
                             break;
                         }
-                        // TODO: Other Components State Check
                         Thread.Sleep(10);
                     }
                 };
@@ -345,7 +376,51 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
 
             sICHome.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        // TODO: Get Load Port A/B State
+                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                        var CCState = new MacMsCleanCh();
+                        var OSState = new MacMsOpenStage();
+                        // TODO: Get Other Components State
+                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
+                        {
+                            transition = tICHome_MovingToInspectionCh;
+                            break;
+                        }
+                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
+                        {
+                            transition = tICHome_MovingToInspectionChGlass;
+                            break;
+                        }
+                        else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForReleaseMask)
+                        {
+                            transition = tICHome_ChangingDirectionToLPHome;
+                            break;
+                        }
+                        // TODO: Other Components State Check
+                        else if (CurrentWorkState == EnumMacMsMaskTransferState.ICHome)
+                        {
+                            transition = tICHome_ICHome;//Wait
+                            break;
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime))
+                        {
+                            // TODO
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sICHome.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
@@ -354,7 +429,51 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
 
             sICHomeClamped.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        // TODO: Get Load Port A/B State
+                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                        var CCState = new MacMsCleanCh();
+                        var OSState = new MacMsOpenStage();
+                        // TODO: Get Other Components State
+                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
+                        {
+                            transition = tICHomeClamped_MovingToInspectionChForRelease;
+                            break;
+                        }
+                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
+                        {
+                            transition = tICHomeClamped_MovingToInspectionChGlassForRelease;
+                            break;
+                        }
+                        else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
+                        {
+                            transition = tICHomeClamped_ChangingDirectionToLPHomeClamped;
+                            break;
+                        }
+                        // TODO: Other Components State Check
+                        else if (CurrentWorkState == EnumMacMsMaskTransferState.ICHomeClamped)
+                        {
+                            transition = tICHomeClamped_ICHomeClamped;//Wait
+                            break;
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime))
+                        {
+                            // TODO
+                            break;
+                        }
+
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sICHomeClamped.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
@@ -1222,7 +1341,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sMovingInspectionChForRelease.OnEntry += (sender, e) =>
+            sMovingToInspectionChForRelease.OnEntry += (sender, e) =>
             {
                 var thisState = (MacState)sender;
                 MacTransition transition = null;
@@ -1258,7 +1377,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 };
                 new Task(guard).Start();
             };
-            sMovingInspectionChForRelease.OnExit += (sender, e) =>
+            sMovingToInspectionChForRelease.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
@@ -1477,7 +1596,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sMovingInspectionChGlassForRelease.OnEntry += (sender, e) =>
+            sMovingToInspectionChGlassForRelease.OnEntry += (sender, e) =>
             {
                 var thisState = (MacState)sender;
                 MacTransition transition = null;
@@ -1513,7 +1632,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 };
                 new Task(guard).Start();
             };
-            sMovingInspectionChGlassForRelease.OnExit += (sender, e) =>
+            sMovingToInspectionChGlassForRelease.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
