@@ -1,9 +1,11 @@
-﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
+using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine
@@ -42,26 +44,78 @@ namespace MaskAutoCleaner.v1_0.Machine
             return transition;
         }
 
-        public void TriggerAsync(Func<bool> guard, Action action)
+
+        /// <summary></summary>
+        /// <param name="guard">guard</param>
+        /// <param name="action">action</param>
+        /// <param name="actionParameter">action Parameter</param>
+        /// <param name="exceptionHandler">Exception Handler</param>
+        public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action,object actionParameter,Action<Exception> exceptionHandler)
         {
+            Action trigger = () =>
+            {
+                try
+                {
+                    DateTime startTime = DateTime.Now;
+                    while (true)
+                    {
+                        StateGuardRtns rtn = guard(startTime);
+                        if (rtn != null)
+                        {
+                            if (action != null)
+                            {
+                                
+                                action.Invoke(actionParameter);
+                            }
+                            var State = rtn.Transition.StateFrom;
+                            var nextState = rtn.Transition.StateTo;
+                            State.DoExit(rtn.ExitEventArgs);
+                            nextState.DoEntry(rtn.EntryEventArgs);
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                }
+               catch(Exception ex)
+                {
+                    if(exceptionHandler != null)
+                    {
+                        exceptionHandler.Invoke(ex);
+                    }
+                }
+            };
+            new Task(trigger).Start();
 
         }
 
-        public void Trigger(Func<bool> guard, Action action)
+        public void Trigger(Func<StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHndler)
         {
             try
             {
-
-
+                var guardRtns = guard();
+                if (guardRtns != null)
+                {
+                    if (action != null)
+                    {
+                        action(actionParameter);
+                    }
+                    var state = guardRtns.Transition.StateFrom;
+                    var nextState = guardRtns.Transition.StateTo;
+                    var stateExitArgs = guardRtns.ExitEventArgs;
+                    var nextStateEntryArgs = guardRtns.EntryEventArgs;
+                    state.DoExit(stateExitArgs);
+                    nextState.DoEntry(nextStateEntryArgs);
+                }
             }
             catch(Exception ex)
             {
-
-            } 
+                if(exceptionHndler != null)
+                {
+                    exceptionHndler.Invoke(ex);
+                }
+            }
         }
-        public void Trigger(Action action)
-        {
 
-        }
+       
     }
 }

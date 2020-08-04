@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.StateExceptions
 {
-   public class TimeoutException:StateException
+    public class StateFailException:StateException
     {
-        public TimeoutException() : base()
+        public StateFailException() : base()
         {
 
         }
-        public TimeoutException(string message) : base(message)
+        public StateFailException(string message) : base(message)
         {
 
         }

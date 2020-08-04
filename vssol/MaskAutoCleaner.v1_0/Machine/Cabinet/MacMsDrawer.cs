@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
+using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
@@ -349,6 +350,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             sLoadGotoInStart.OnEntry += (sender, e) =>
             {
+                Action<Exception> exceptionHandler = (ex) =>
+                {
+                    throw ex;
+                };
+                Action<object> action = (parameter) =>
+                {
+
+                    HalDrawer.CommandTrayMotionIn();
+                };
+                Func<StateGuardRtns> guard = () =>
+                {
+                    return null;
+                };
+                this.Trigger(guard, action, null, exceptionHandler);
+            };
+            sLoadGotoInStart.OnExit += (sender, e) =>
+            {
+
+            };
+            /**  Guard
+            sLoadGotoInStart.OnEntry += (sender, e) =>
+            {
                 var state = (MacState)sender;
                 HalDrawer.CommandTrayMotionIn();
                 state.DoExit(new MacStateExitEventArgs());
@@ -359,7 +382,55 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 var nextState = tLoadGotoInStart_LoadGotoInIng.StateTo;
                  nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
-
+         */
+            sLoadGotoInIng.OnEntry += (sender, e) =>
+            {
+                Action<Exception> exceptionHandler=(ex)=>
+                {
+                    throw ex;
+                };
+                
+                Func<DateTime , StateGuardRtns> guard = (startTime) =>
+                {
+                    MacTransition transition = null;
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArraiveAtIn)
+                    {// Complete
+                        transition = tLoadGotoInIng_LoadGotoInComplete;// dicTransition[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInComplete.ToString()];
+                    }
+                    else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                    {   // Failed
+                       // transition = tLoadGotoInIng_LoadGotoInFail;//dicTransition[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInFail.ToString()];
+                        throw new StateFailException();
+                    }
+                    else if (timeoutObj.IsTimeOut(startTime))
+                    {    // Time Out
+                         // transition = tLoadGotoInIng_LoadGotoInTimeOut;// this.Transitions[EnumMacDrawerTransition.LoadGotoInIng_LoadGotoInTimeOut.ToString()];
+                        throw new StateTimeoutException();
+                    }
+                    if(transition !=null)
+                    {
+                        var rtnV = new StateGuardRtns
+                        {
+                            Transition = transition,
+                            EntryEventArgs = new MacStateEntryEventArgs(null),
+                            ExitEventArgs = new MacStateExitEventArgs(), 
+                        };
+                        return rtnV;
+                    }
+                    else
+                    {
+                        return default(StateGuardRtns);
+                    }
+                };
+                this.TriggerAsync(guard, null,null, exceptionHandler);
+            };
+            sLoadGotoInIng.OnExit += (sender, e) =>
+            {
+               // var args = (MacStateExitWithTransitionEventArgs)e;
+               // var nextState = args.Transition.StateTo;
+                //nextState.DoEntry(new MacStateEntryEventArgs(null));
+            };
+            /**
             sLoadGotoInIng.OnEntry += (sender, e)=>
             {
                 var state = (MacState)sender;
@@ -401,7 +472,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
-
+         */
             sLoadGotoInComplete.OnEntry += (sender, e) =>
             {
                 
@@ -447,6 +518,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 var state = (MacState)sender;
                 // TODO: 補上實作 
                 state.DoExit(new MacStateExitEventArgs());
+                
             };
             sLoadGotoInTimeOut.OnExit += (sender, e) =>
             {
