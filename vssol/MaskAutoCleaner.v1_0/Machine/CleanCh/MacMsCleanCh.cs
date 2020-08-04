@@ -35,6 +35,38 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             MacTransition tIdle_InspectingGlass = NewTransition(sIdle, sInspectingGlass, EnumMacMsCleanChTransition.InspectGlass);
             MacTransition tInspectingGlass_Idle = NewTransition(sInspectingGlass, sIdle, EnumMacMsCleanChTransition.ReturnToIdleWithGlassInspected);
             #endregion Transition
+
+            #region State Register OnEntry OnExit
+            sStart.OnEntry += (sender, e) =>
+            { };
+            sStart.OnExit += (sender, e) =>
+            { };
+            sInitial.OnEntry += (sender, e) =>
+            { };
+            sInitial.OnExit += (sender, e) =>
+            { };
+
+            sIdle.OnEntry += (sender, e) =>
+            { };
+            sIdle.OnExit += (sender, e) =>
+            { };
+            sCleaningMask.OnEntry += (sender, e) =>
+            { };
+            sCleaningMask.OnExit += (sender, e) =>
+            { };
+            sInspectingMask.OnEntry += (sender, e) =>
+            { };
+            sInspectingMask.OnExit += (sender, e) =>
+            { };
+            sCleaningGlass.OnEntry += (sender, e) =>
+            { };
+            sCleaningGlass.OnExit += (sender, e) =>
+            { };
+            sInspectingGlass.OnEntry += (sender, e) =>
+            { };
+            sInspectingGlass.OnExit += (sender, e) =>
+            { };
+            #endregion State Register OnEntry OnExit
         }
 
         public class TimeOutController

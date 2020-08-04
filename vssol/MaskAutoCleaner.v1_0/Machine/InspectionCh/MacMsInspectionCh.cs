@@ -52,6 +52,71 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition tGlassOnStageInspected_WaitingForReleaseGlass = NewTransition(sGlassOnStageInspected, sWaitingForReleaseGlass, EnumMacMsInspectionChTransition.WaitForReleaseGlass);
             MacTransition tWaitingForReleaseGlass_Idle = NewTransition(sWaitingForReleaseGlass, sIdle, EnumMacMsInspectionChTransition.ReturnToIdleFromReleaseGlass);
             #endregion Transition
+
+            #region State Register OnEntry OnExit
+            sStart.OnEntry += (sender, e) =>
+            { };
+            sStart.OnExit += (sender, e) =>
+            { };
+            sInitial.OnEntry += (sender, e) =>
+            { };
+            sInitial.OnExit += (sender, e) =>
+            { };
+
+            sIdle.OnEntry += (sender, e) =>
+            { };
+            sIdle.OnExit += (sender, e) =>
+            { };
+            sWaitingForPutIntoMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForPutIntoMask.OnExit += (sender, e) =>
+            { };
+            sMaskOnStage.OnEntry += (sender, e) =>
+            { };
+            sMaskOnStage.OnExit += (sender, e) =>
+            { };
+            sDefensingMask.OnEntry += (sender, e) =>
+            { };
+            sDefensingMask.OnExit += (sender, e) =>
+            { };
+            sInspectingMask.OnEntry += (sender, e) =>
+            { };
+            sInspectingMask.OnExit += (sender, e) =>
+            { };
+            sMaskOnStageInspected.OnEntry += (sender, e) =>
+            { };
+            sMaskOnStageInspected.OnExit += (sender, e) =>
+            { };
+            sWaitingForReleaseMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForReleaseMask.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForPutIntoGlass.OnEntry += (sender, e) =>
+            { };
+            sWaitingForPutIntoGlass.OnExit += (sender, e) =>
+            { };
+            sGlassOnStage.OnEntry += (sender, e) =>
+            { };
+            sGlassOnStage.OnExit += (sender, e) =>
+            { };
+            sDefensingGlass.OnEntry += (sender, e) =>
+            { };
+            sDefensingGlass.OnExit += (sender, e) =>
+            { };
+            sInspectingGlass.OnEntry += (sender, e) =>
+            { };
+            sInspectingGlass.OnExit += (sender, e) =>
+            { };
+            sGlassOnStageInspected.OnEntry += (sender, e) =>
+            { };
+            sGlassOnStageInspected.OnExit += (sender, e) =>
+            { };
+            sWaitingForReleaseGlass.OnEntry += (sender, e) =>
+            { };
+            sWaitingForReleaseGlass.OnExit += (sender, e) =>
+            { };
+            #endregion State Register OnEntry OnExit
         }
 
         public class TimeOutController

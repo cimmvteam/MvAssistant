@@ -67,6 +67,94 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             MacTransition tClosedBox_WaitingForReleaseBox = NewTransition(sClosedBox, sWaitingForReleaseBox, EnumMacMsOpenStageTransition.WaitForReleaseBox);
             MacTransition tWaitingForReleaseBox_Idle = NewTransition(sWaitingForReleaseBox, sIdle, EnumMacMsOpenStageTransition.ReturnToIdleFromClosedBox);
             #endregion Transition
+
+            #region State Register OnEntry OnExit
+            sStart.OnEntry += (sender, e) =>
+            { };
+            sStart.OnExit += (sender, e) =>
+            { };
+            sInitial.OnEntry += (sender, e) =>
+            { };
+            sInitial.OnExit += (sender, e) =>
+            { };
+
+            sIdle.OnEntry += (sender, e) =>
+            { };
+            sIdle.OnExit += (sender, e) =>
+            { };
+            sWaitingForInputBox.OnEntry += (sender, e) =>
+            { };
+            sWaitingForInputBox.OnExit += (sender, e) =>
+            { };
+            sWaitingForReleaseBox.OnEntry += (sender, e) =>
+            { };
+            sWaitingForReleaseBox.OnExit += (sender, e) =>
+            { };
+            sClosedBox.OnEntry += (sender, e) =>
+            { };
+            sClosedBox.OnExit += (sender, e) =>
+            { };
+            sWaitingForUnlock.OnEntry += (sender, e) =>
+            { };
+            sWaitingForUnlock.OnExit += (sender, e) =>
+            { };
+            sOpeningBox.OnEntry += (sender, e) =>
+            { };
+            sOpeningBox.OnExit += (sender, e) =>
+            { };
+            sWaitingForLock.OnEntry += (sender, e) =>
+            { };
+            sWaitingForLock.OnExit += (sender, e) =>
+            { };
+            sClosingBox.OnEntry += (sender, e) =>
+            { };
+            sClosingBox.OnExit += (sender, e) =>
+            { };
+            sOpenedBox.OnEntry += (sender, e) =>
+            { };
+            sOpenedBox.OnExit += (sender, e) =>
+            { };
+            sWaitingForInputMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForInputMask.OnExit += (sender, e) =>
+            { };
+            sWaitingForReleaseMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForReleaseMask.OnExit += (sender, e) =>
+            { };
+            sOpenedBoxWithMask.OnEntry += (sender, e) =>
+            { };
+            sOpenedBoxWithMask.OnExit += (sender, e) =>
+            { };
+            sClosingBoxWithMask.OnEntry += (sender, e) =>
+            { };
+            sClosingBoxWithMask.OnExit += (sender, e) =>
+            { };
+            sWaitingForLockWithMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForLockWithMask.OnExit += (sender, e) =>
+            { };
+            sWaitingForUnlickWithMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForUnlickWithMask.OnExit += (sender, e) =>
+            { };
+            sOpeningBoxWithMask.OnEntry += (sender, e) =>
+            { };
+            sOpeningBoxWithMask.OnExit += (sender, e) =>
+            { };
+            sClosedBoxWithMask.OnEntry += (sender, e) =>
+            { };
+            sClosedBoxWithMask.OnExit += (sender, e) =>
+            { };
+            sWaitingForReleaseBoxWithMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForReleaseBoxWithMask.OnExit += (sender, e) =>
+            { };
+            sWaitingForInputBoxWithMask.OnEntry += (sender, e) =>
+            { };
+            sWaitingForInputBoxWithMask.OnExit += (sender, e) =>
+            { };
+            #endregion State Register OnEntry OnExit
         }
 
         public class TimeOutController
