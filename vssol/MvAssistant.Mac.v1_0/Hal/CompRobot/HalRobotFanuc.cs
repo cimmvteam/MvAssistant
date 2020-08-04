@@ -113,6 +113,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
                 while (!this.ldd.MoveIsComplete())
                     Thread.Sleep(100);
                 this.ldd.MoveCompeleteReply();
+                this.ldd.LogInfo("Position[ " + idx + " ] Complete，" + DateTime.Now.ToString());
             }
             return 0;
         }
