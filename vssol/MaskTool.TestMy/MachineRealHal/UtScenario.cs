@@ -511,7 +511,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
-                    
+
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
                     var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
@@ -696,10 +696,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     //Action BTAction = () =>
                     //{
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_PUT.json");
-                        bt.Unclamp();
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_PUT.json");
+                    bt.Unclamp();
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_PUT.json");
                     //};
                     //Action PLCSignalAlarm = () =>
                     //{
@@ -772,17 +772,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     bt.HalConnect();
-                    
+
                     //var cts = new CancellationTokenSource();
                     //var token = cts.Token;
                     ////var tasks=new ConcurrentBag<Task>();
 
                     //Action BTAction = () =>
                     //{
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
-                        Console.WriteLine(bt.Clamp(2));
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
+                    Console.WriteLine(bt.Clamp(2));
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
                     //    };
                     //    Action PLCSignalAlarm = () =>
                     //    {
@@ -982,7 +982,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     cc.HalConnect();
-                   
+
                     cc.SetPressureCtrl(100);
                     cc.GasValveBlow(30);
                 }
@@ -1140,33 +1140,33 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     //Action OSAndBTAction = () =>
                     //{
-                        os.SetBoxType(2);
-                        os.SortClamp();
-                        os.Vacuum(true);
-                        os.SortUnclamp();
-                        os.Lock();
-                        for (int i = 0; i < 2; i++)
-                        {
-                            BTIntrude = os.ReadRobotIntrude(true, false).Item1;
-                            if (BTIntrude == true)
-                                break;
-                            else if (i == 1 && BTIntrude == false)
-                                throw new Exception("Open Stage not allowed to be BT intrude!!");
-                            else
-                                os.Initial();
-                        }
-                        bt.RobotMoving(true);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockBox.json");
-                        bt.RobotMoving(false);
-                        for (int i = 0; i < 2; i++)
-                        {
-                            BTIntrude = os.ReadRobotIntrude(false, false).Item1;
-                            if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
-                                throw new Exception("Open Stage has been BT intrude,can net execute command!!");
-                        }
-                        os.Close();
-                        os.Clamp();
-                        os.Open();
+                    os.SetBoxType(2);
+                    os.SortClamp();
+                    os.Vacuum(true);
+                    os.SortUnclamp();
+                    os.Lock();
+                    for (int i = 0; i < 2; i++)
+                    {
+                        BTIntrude = os.ReadRobotIntrude(true, false).Item1;
+                        if (BTIntrude == true)
+                            break;
+                        else if (i == 1 && BTIntrude == false)
+                            throw new Exception("Open Stage not allowed to be BT intrude!!");
+                        else
+                            os.Initial();
+                    }
+                    bt.RobotMoving(true);
+                    bt.ExePathMove(@"D:\Positions\BTRobot\UnlockBox.json");
+                    bt.RobotMoving(false);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        BTIntrude = os.ReadRobotIntrude(false, false).Item1;
+                        if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
+                            throw new Exception("Open Stage has been BT intrude,can net execute command!!");
+                    }
+                    os.Close();
+                    os.Clamp();
+                    os.Open();
                     //};
                     //Action PLCSignalAlarm = () =>
                     //{
@@ -1245,33 +1245,33 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     //var cts = new CancellationTokenSource();
                     //var token = cts.Token;
 
-                    
+
                     //Action OSAndBTAction = () =>
                     //{
-                        os.Close();
-                        os.Unclamp();
-                        os.Lock();
-                        for (int i = 0; i < 2; i++)
-                        {
-                            BTIntrude = os.ReadRobotIntrude(true, false).Item1;
-                            if (BTIntrude == true)
-                                break;
-                            else if (i == 1 && BTIntrude == false)
-                                throw new Exception("Open Stage not allowed to be BT intrude!!");
-                            else
-                                os.Initial();
-                        }
-                        bt.RobotMoving(true);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                        bt.ExePathMove(@"D:\Positions\BTRobot\LockBox.json");
-                        bt.RobotMoving(false);
-                        for (int i = 0; i < 2; i++)
-                        {
-                            BTIntrude = os.ReadRobotIntrude(false, false).Item1;
-                            if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
-                                throw new Exception("Open Stage has been BT intrude,can net execute command!!");
-                        }
-                        os.Vacuum(false);
+                    os.Close();
+                    os.Unclamp();
+                    os.Lock();
+                    for (int i = 0; i < 2; i++)
+                    {
+                        BTIntrude = os.ReadRobotIntrude(true, false).Item1;
+                        if (BTIntrude == true)
+                            break;
+                        else if (i == 1 && BTIntrude == false)
+                            throw new Exception("Open Stage not allowed to be BT intrude!!");
+                        else
+                            os.Initial();
+                    }
+                    bt.RobotMoving(true);
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\LockBox.json");
+                    bt.RobotMoving(false);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        BTIntrude = os.ReadRobotIntrude(false, false).Item1;
+                        if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
+                            throw new Exception("Open Stage has been BT intrude,can net execute command!!");
+                    }
+                    os.Vacuum(false);
                     //};
                     //Action PLCSignalAlarm = () =>
                     //{
@@ -1348,7 +1348,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     var cts = new CancellationTokenSource();
                     var token = cts.Token;
                     //var tasks=new ConcurrentBag<Task>();
-                    
+
                     Action<MacHalUniversal> PLCSignalAlarm = (unv1) =>
                     {
                         while (true)
@@ -1403,6 +1403,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             catch (Exception ex) { throw ex; }
         }
         #endregion
-        
+
     }
 }
