@@ -11,5 +11,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         public MacStateEntryEventArgs NextStateEntryEventArgs { get; set; }
         public MacStateExitEventArgs ThisStateExitEventArgs { get; set; }
         public MacTransition Transition { get; set; }
+        public MacState ThisState { get { return Transition.StateFrom; } }
+        public MacState NextState { get { return Transition.StateTo; } }
     }
 }

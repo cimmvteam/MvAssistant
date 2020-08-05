@@ -67,8 +67,8 @@ namespace MaskAutoCleaner.v1_0.Machine
                                 
                                 action.Invoke(actionParameter);
                             }
-                            var State = rtn.Transition.StateFrom;
-                            var nextState = rtn.Transition.StateTo;
+                            var State = rtn.ThisState;
+                            var nextState = rtn.NextState;
                             State.DoExit(rtn.ThisStateExitEventArgs);
                             nextState.DoEntry(rtn.NextStateEntryEventArgs);
                             break;
