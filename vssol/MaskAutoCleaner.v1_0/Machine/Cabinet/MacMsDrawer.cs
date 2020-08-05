@@ -11,6 +11,14 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
+    /** Initial
+        1. 進入State Machine 前先設定Dtawer 狀態為InitialStart,
+        2. 進入 InitialStart 後, 檢查Drawer 狀態是否為 Initial Start,
+           如果是Initial Start 則下 Initial 指令, 下指令前,Drawer 狀態會調整為 InitialIng,
+           如果不是 Initial Start , 等到為 Initial Start 為止
+           
+     */
+
     [Guid("204025E5-D96E-467B-A60A-C9997F8B1563")]
     public class MacMsDrawer : MacMachineStateBase
     {
