@@ -119,7 +119,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         /// <summary>没有盒子</summary>
         BoxNotExist,
-
-
+        TrayMoveToInStart,
+        TrayMoveToOutStart,
+        TrayMoveToHomeStart,
     }
 }

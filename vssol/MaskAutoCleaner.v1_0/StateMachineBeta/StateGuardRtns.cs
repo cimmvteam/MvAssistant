@@ -8,8 +8,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
 {
    public class StateGuardRtns
     {
-        public MacStateEntryEventArgs EntryEventArgs { get; set; }
-        public MacStateExitEventArgs ExitEventArgs { get; set; }
+        public MacStateEntryEventArgs NextStateEntryEventArgs { get; set; }
+        public MacStateExitEventArgs ThisStateExitEventArgs { get; set; }
         public MacTransition Transition { get; set; }
     }
 }

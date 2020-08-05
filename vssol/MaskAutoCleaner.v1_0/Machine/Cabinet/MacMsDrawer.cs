@@ -25,6 +25,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void Load_TrayGotoIn()
         {
+            HalDrawer.SetDrawerWorkState(DrawerWorkState.TrayMoveToInStart);
             this.States[EnumMacDrawerState.LoadGotoInStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
@@ -33,6 +34,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void Load_TrayGotoOut()
         {
+          //  HalDrawer.SetDrawerWorkState(DrawerWorkState.)
             this.States[EnumMacDrawerState.LoadGotoHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
@@ -363,8 +365,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 {
                     var rtnV = new StateGuardRtns
                     {
-                        EntryEventArgs = new MacStateEntryEventArgs(null),
-                        ExitEventArgs = new MacStateExitEventArgs(),
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
                         Transition=tLoadGotoInStart_LoadGotoInIng,
                     };
                     return rtnV;
@@ -418,8 +420,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         var rtnV = new StateGuardRtns
                         {
                             Transition = transition,
-                            EntryEventArgs = new MacStateEntryEventArgs(null),
-                            ExitEventArgs = new MacStateExitEventArgs(), 
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(), 
                         };
                         return rtnV;
                     }

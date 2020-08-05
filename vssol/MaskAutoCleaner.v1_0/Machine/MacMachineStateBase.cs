@@ -46,10 +46,10 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
         /// <summary></summary>
-        /// <param name="guard">guard</param>
-        /// <param name="action">action</param>
-        /// <param name="actionParameter">action Parameter</param>
-        /// <param name="exceptionHandler">Exception Handler</param>
+        /// <param name="guard">guard (Func delegate) </param>
+        /// <param name="action">action(Action delegate)</param>
+        /// <param name="actionParameter">action Parameter (Object)</param>
+        /// <param name="exceptionHandler">Exception Handler(Action delegate)</param>
         public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action,object actionParameter,Action<Exception> exceptionHandler)
         {
             Action trigger = () =>
@@ -69,8 +69,8 @@ namespace MaskAutoCleaner.v1_0.Machine
                             }
                             var State = rtn.Transition.StateFrom;
                             var nextState = rtn.Transition.StateTo;
-                            State.DoExit(rtn.ExitEventArgs);
-                            nextState.DoEntry(rtn.EntryEventArgs);
+                            State.DoExit(rtn.ThisStateExitEventArgs);
+                            nextState.DoEntry(rtn.NextStateEntryEventArgs);
                             break;
                         }
                         Thread.Sleep(10);
@@ -88,6 +88,11 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         }
 
+        /// <summary></summary>
+        /// <param name="guard">guard (Func delegate)</param>
+        /// <param name="action">action (Action delegate)</param>
+        /// <param name="actionParameter">action parameter(object)</param>
+        /// <param name="exceptionHndler">Exception Handler (Action delegate)</param>
         public void Trigger(Func<StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHndler)
         {
             try
@@ -101,8 +106,8 @@ namespace MaskAutoCleaner.v1_0.Machine
                     }
                     var state = guardRtns.Transition.StateFrom;
                     var nextState = guardRtns.Transition.StateTo;
-                    var stateExitArgs = guardRtns.ExitEventArgs;
-                    var nextStateEntryArgs = guardRtns.EntryEventArgs;
+                    var stateExitArgs = guardRtns.ThisStateExitEventArgs;
+                    var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
                     state.DoExit(stateExitArgs);
                     nextState.DoEntry(nextStateEntryArgs);
                 }
