@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -20,13 +21,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
-                //uni.HalConnect();
+                uni.HalConnect();
                 ic.HalConnect();
 
-                ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");
-                ic.Camera_SideDfs_CapToSave("D:/Image/IC/SideDfs", "jpg");
-                ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
-                ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
+                for (double i = -43; i > -46; i-=0.01)
+                {
+                    ic.ZPosition(i);
+                    Thread.Sleep(1000);
+                    ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
+                    Thread.Sleep(2000);
+                }
+                //ic.Camera_SideDfs_CapToSave("D:/Image/IC/SideDfs", "jpg");
+                //ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
+                //ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
             }
         }
 

@@ -21,8 +21,8 @@
     </Device>
     <Device DeviceName="inspection_assembly" DriverId="f19eb7b5-bb07-4a53-9e70-8616812a4f02" ID="DE_IC_A_ASB" PositionId="InspectionCh01">
       <Devices>
-        <!--<Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="inspectionch_plc" DriverId="ad6a4dbb-b706-4628-a132-ec6ec65d61bd" />
-        <Device DevConnStr="ip=192.168.0.160;port=1000;model=IDGB_50M4PG_24_TP;channel=1" DeviceName="inspectionch_light_circle_defense_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
+        <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="inspectionch_plc" DriverId="ad6a4dbb-b706-4628-a132-ec6ec65d61bd" />
+        <!--<Device DevConnStr="ip=192.168.0.160;port=1000;model=IDGB_50M4PG_24_TP;channel=1" DeviceName="inspectionch_light_circle_defense_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.160;port=1000;model=IDGB_50M4PG_24_TP;channel=2" DeviceName="inspectionch_light_bar_inspection_side_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.160;port=1000;model=IDGB_50M4PG_24_TP;channel=3" DeviceName="inspectionch_light_bar_denfese_side_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.161;port=1000;model=IDGB_50M2PG_12_TP;channel=1" DeviceName="inspectionch_light_circle_inspection_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
