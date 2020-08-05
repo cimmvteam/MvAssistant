@@ -534,6 +534,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Unclamp();
                     bt.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");
                     bt.RobotMoving(false);
@@ -578,6 +580,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Clamp(2);
                     bt.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_GET.json");
                     bt.RobotMoving(false);
@@ -698,6 +702,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     //{
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_PUT.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Unclamp();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_PUT.json");
                     //};
@@ -779,8 +785,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     //Action BTAction = () =>
                     //{
+                    bt.Initial();
+                    bt.LevelReset();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     Console.WriteLine(bt.Clamp(2));
                     bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
                     //    };
@@ -859,6 +869,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_04_01_PUT.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Unclamp();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_04_01_Backward_Cabinet_02_Home_PUT.json");
                 }
@@ -879,8 +891,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     bt.HalConnect();
 
+                    bt.Initial();
+                    bt.LevelReset();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_04_01_GET.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Clamp(2);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_04_01_Backward_Cabinet_02_Home_GET.json");
                 }
