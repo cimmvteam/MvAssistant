@@ -748,7 +748,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             {
                 if (robotInfo.ValidC != 0)  //Valid Cartesian values
                 {
-                    LogInfo("Move Type：Position，Get X~R Value_" + DateTime.Now.ToString());
+                    LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "__Move Type：Position，Get X~R Value");
                     for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.XyzwpreArrary.Length; idx++)
                         robotInfo.PosReg.XyzwpreArrary.SetValue(TargetPos.GetValue(idx), idx);  //X_position
                 }
@@ -761,7 +761,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             {
                 if (robotInfo.ValidJ != 0)  //Valid Cartesian values
                 {
-                    LogInfo("Move Type：Joint，Get J1~J6 Value_" + DateTime.Now.ToString());
+                    LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "__Move Type：Joint，Get J1~J6 Value");
                     for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.JointArray.Length; idx++)
                         robotInfo.PosReg.JointArray.SetValue(TargetPos.GetValue(idx), idx);  //X_position
                 }
@@ -787,7 +787,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 
             this.mobjDataTable.Refresh();
 
-            LogInfo("Start move_" + DateTime.Now.ToString());
+            LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss")+"__Start move");
             this.SetRegIntValues(1, new int[] { 1, 1 });//R[1]=1 is start program
 
             return 0;
