@@ -167,7 +167,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadCoverPos(); }
 
         /// <summary>
-        /// 讀取盒蓋開闔
+        /// 讀取盒蓋開闔， Open ; Close
         /// </summary>
         /// <returns></returns>
         public Tuple<bool, bool> ReadCoverSensor()
@@ -216,22 +216,22 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             CameraSide.ShotToSaveImage(SavePath, FileType);
         }
 
-        public Bitmap Camera_NearLP_Cap()
+        public Bitmap Camera_FrontNearLP_Cap()
         {
             return CameraNearLP.Shot();
         }
 
-        public void Camera_NearLP_CapToSave(string SavePath, string FileType)
+        public void Camera_FrontNearLP_CapToSave(string SavePath, string FileType)
         {
             CameraNearLP.ShotToSaveImage(SavePath, FileType);
         }
 
-        public Bitmap Camera_NearCC_Cap()
+        public Bitmap Camera_FrontNearCC_Cap()
         {
             return CameraNearCC.Shot();
         }
 
-        public void Camera_NearCC_CapToSave(string SavePath, string FileType)
+        public void Camera_FrontNearCC_CapToSave(string SavePath, string FileType)
         {
             CameraNearCC.ShotToSaveImage(SavePath, FileType);
         }

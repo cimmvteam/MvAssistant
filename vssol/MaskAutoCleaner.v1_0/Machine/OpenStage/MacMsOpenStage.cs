@@ -1,8 +1,10 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.OpenStage
@@ -10,6 +12,12 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
     public class MacMsOpenStage : MacMachineStateBase
     {
         public EnumMacMsOpenStageState CurrentWorkState { get; set; }
+
+        private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
+
+        public MacMsOpenStage() { LoadStateMachine(); }
+
+        TimeOutController timeoutObj = new TimeOutController();
         public override void LoadStateMachine()
         {
             #region State
@@ -74,7 +82,38 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sStart.OnExit += (sender, e) =>
             { };
             sInitial.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputBox)
+                        {
+                            try
+                            {
+                                HalOpenStage.Initial();
+                                transition = tInitial_Idle;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sInitial.OnExit += (sender, e) =>
             { };
 
@@ -99,7 +138,40 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sWaitingForUnlock.OnExit += (sender, e) =>
             { };
             sOpeningBox.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsOpenStageState.OpeningBox)
+                        {
+                            try
+                            {
+                                HalOpenStage.Close();
+                                HalOpenStage.Clamp();
+                                HalOpenStage.Open();
+                                transition = tInitial_Idle;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sOpeningBox.OnExit += (sender, e) =>
             { };
             sWaitingForLock.OnEntry += (sender, e) =>
@@ -107,7 +179,40 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sWaitingForLock.OnExit += (sender, e) =>
             { };
             sClosingBox.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsOpenStageState.OpeningBox)
+                        {
+                            try
+                            {
+                                HalOpenStage.Close();
+                                HalOpenStage.Unclamp();
+                                HalOpenStage.Lock();
+                                transition = tInitial_Idle;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sClosingBox.OnExit += (sender, e) =>
             { };
             sOpenedBox.OnEntry += (sender, e) =>
@@ -127,7 +232,40 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sOpenedBoxWithMask.OnExit += (sender, e) =>
             { };
             sClosingBoxWithMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsOpenStageState.OpeningBox)
+                        {
+                            try
+                            {
+                                HalOpenStage.Close();
+                                HalOpenStage.Unclamp();
+                                HalOpenStage.Lock();
+                                transition = tInitial_Idle;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sClosingBoxWithMask.OnExit += (sender, e) =>
             { };
             sWaitingForLockWithMask.OnEntry += (sender, e) =>
@@ -139,7 +277,40 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sWaitingForUnlickWithMask.OnExit += (sender, e) =>
             { };
             sOpeningBoxWithMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsOpenStageState.OpeningBoxWithMask)
+                        {
+                            try
+                            {
+                                HalOpenStage.Close();
+                                HalOpenStage.Clamp();
+                                HalOpenStage.Open();
+                                transition = tInitial_Idle;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sOpeningBoxWithMask.OnExit += (sender, e) =>
             { };
             sClosedBoxWithMask.OnEntry += (sender, e) =>
