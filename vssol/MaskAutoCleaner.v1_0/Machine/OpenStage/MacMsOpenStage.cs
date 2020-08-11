@@ -36,10 +36,10 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             MacState sWaitingForLockWithMask = NewState(EnumMacMsOpenStageState.WaitingForLockWithMask);
             MacState sClosedBoxWithMaskForRelease = NewState(EnumMacMsOpenStageState.ClosedBoxWithMaskForRelease);
             MacState sWaitingForReleaseBoxWithMask = NewState(EnumMacMsOpenStageState.WaitingForReleaseBoxWithMask);
-            
+
             MacState sWaitingForInputBoxWithMask = NewState(EnumMacMsOpenStageState.WaitingForInputBoxWithMask);
             MacState sClosedBoxWithMask = NewState(EnumMacMsOpenStageState.ClosedBoxWithMask);
-            MacState sWaitingForUnlickWithMask = NewState(EnumMacMsOpenStageState.WaitingForUnlickWithMask);
+            MacState sWaitingForUnlockWithMask = NewState(EnumMacMsOpenStageState.WaitingForUnlickWithMask);
             MacState sOpeningBoxWithMask = NewState(EnumMacMsOpenStageState.OpeningBoxWithMask);
             MacState sOpenedBoxWithMask = NewState(EnumMacMsOpenStageState.OpenedBoxWithMask);
             MacState sWaitingForReleaseMask = NewState(EnumMacMsOpenStageState.WaitingForReleaseMask);
@@ -48,7 +48,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             MacState sWaitingForLock = NewState(EnumMacMsOpenStageState.WaitingForLock);
             MacState sClosedBoxForRelease = NewState(EnumMacMsOpenStageState.ClosedBoxForRelease);
             MacState sWaitingForReleaseBox = NewState(EnumMacMsOpenStageState.WaitingForReleaseBox);
-            
+
             #endregion State
 
             #region Transition
@@ -56,7 +56,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsOpenStageTransition.Initial);
 
             MacTransition tIdle_WaitingForInputBox = NewTransition(sIdle, sWaitingForInputBox, EnumMacMsOpenStageTransition.WaitForInputBox);
-            MacTransition tWaitingForInputBox_CloseedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacMsOpenStageTransition.StandbyAtClosedBoxFromIdle);
+            MacTransition tWaitingForInputBox_ClosedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacMsOpenStageTransition.StandbyAtClosedBoxFromIdle);
             MacTransition tClosedBox_WaitingForUnlock = NewTransition(sClosedBox, sWaitingForUnlock, EnumMacMsOpenStageTransition.WaitForUnlock);
             MacTransition tWaitingForUnlock_OpeningBox = NewTransition(sWaitingForUnlock, sOpeningBox, EnumMacMsOpenStageTransition.OpenBox);
             MacTransition tOpeningBox_OpenedBox = NewTransition(sOpeningBox, sOpenedBox, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxFromClosedBox);
@@ -70,8 +70,8 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
             MacTransition tIdle_WaitingForInputBoxWithMask = NewTransition(sIdle, sWaitingForInputBoxWithMask, EnumMacMsOpenStageTransition.WaitForInputBoxWithMask);
             MacTransition tWaitingForInputBoxWithMask_ClosedBoxWithMask = NewTransition(sWaitingForInputBoxWithMask, sClosedBoxWithMask, EnumMacMsOpenStageTransition.StandbyAtClosedBoxWithMaskFromIdle);
-            MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlickWithMask, EnumMacMsOpenStageTransition.WaitForUnlockWithMask);
-            MacTransition tWaitingForUnlickWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlickWithMask, sOpeningBoxWithMask, EnumMacMsOpenStageTransition.OpenBoxWithMask);
+            MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlockWithMask, EnumMacMsOpenStageTransition.WaitForUnlockWithMask);
+            MacTransition tWaitingForUnlockWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlockWithMask, sOpeningBoxWithMask, EnumMacMsOpenStageTransition.OpenBoxWithMask);
             MacTransition tOpeningBoxWithMask_OpenedBoxWithMask = NewTransition(sOpeningBoxWithMask, sOpenedBoxWithMask, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxWithMaskFromClosedBoxWithMask);
             MacTransition tOpenedBoxWithMask_WaitingForReleaseMask = NewTransition(sOpenedBoxWithMask, sWaitingForReleaseMask, EnumMacMsOpenStageTransition.WaitForReleaseMask);
             MacTransition tWaitingForReleaseMask_OpenedBoxForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxForClose, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxFromOpenedBoxWithMask);
@@ -128,7 +128,33 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sIdle.OnExit += (sender, e) =>
             { };
             sWaitingForInputBox.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+                            if (BoxWeight > 285)
+                            {
+                                transition = tWaitingForInputBox_ClosedBox;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForInputBox.OnExit += (sender, e) =>
             { };
             sClosedBox.OnEntry += (sender, e) =>
@@ -180,7 +206,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sClosedBox.OnExit += (sender, e) =>
             { };
             sWaitingForUnlock.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被解開
+                            {
+                                transition = tWaitingForUnlock_OpeningBox;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForUnlock.OnExit += (sender, e) =>
             { };
             sOpeningBox.OnEntry += (sender, e) =>
@@ -257,7 +308,33 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sOpenedBox.OnExit += (sender, e) =>
             { };
             sWaitingForInputMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+                            if ((BoxWeight >= 1102 && BoxWeight <= 1104) || (BoxWeight >= 918 && BoxWeight <= 920))
+                            {
+                                transition = tWaitingForInputBox_ClosedBox;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForInputMask.OnExit += (sender, e) =>
             { };
             sOpenedBoxWithMaskForClose.OnEntry += (sender, e) =>
@@ -334,7 +411,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sClosingBoxWithMask.OnExit += (sender, e) =>
             { };
             sWaitingForLockWithMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被鎖上
+                            {
+                                transition = tWaitingForLockWithMask_ClosedBoxWithMaskForRelease;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForLockWithMask.OnExit += (sender, e) =>
             { };
             sClosedBoxWithMaskForRelease.OnEntry += (sender, e) =>
@@ -386,14 +488,66 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sClosedBoxWithMaskForRelease.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseBoxWithMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+                            if (BoxWeight <= 285)
+                            {
+                                transition = tWaitingForReleaseBoxWithMask_Idle;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForReleaseBoxWithMask.OnExit += (sender, e) =>
             { };
 
 
 
             sWaitingForInputBoxWithMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+                            if (BoxWeight > 285)
+                            {
+                                transition = tWaitingForInputBoxWithMask_ClosedBoxWithMask;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForInputBoxWithMask.OnExit += (sender, e) =>
             { };
             sClosedBoxWithMask.OnEntry += (sender, e) =>
@@ -444,9 +598,34 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             };
             sClosedBoxWithMask.OnExit += (sender, e) =>
             { };
-            sWaitingForUnlickWithMask.OnEntry += (sender, e) =>
-            { };
-            sWaitingForUnlickWithMask.OnExit += (sender, e) =>
+            sWaitingForUnlockWithMask.OnEntry += (sender, e) =>
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被解開
+                            {
+                                transition = tWaitingForUnlockWithMask_OpeningBoxWithMask;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
+            sWaitingForUnlockWithMask.OnExit += (sender, e) =>
             { };
             sOpeningBoxWithMask.OnEntry += (sender, e) =>
             {
@@ -522,7 +701,33 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sOpenedBoxWithMask.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseMask.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+                            if (BoxWeight <= 285)
+                            {
+                                transition = tWaitingForReleaseMask_OpenedBoxForClose;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForReleaseMask.OnExit += (sender, e) =>
             { };
             sOpenedBoxForClose.OnEntry += (sender, e) =>
@@ -599,7 +804,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sClosingBox.OnExit += (sender, e) =>
             { };
             sWaitingForLock.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被鎖上
+                            {
+                                transition = tWaitingForLock_ClosedBoxForRelease;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForLock.OnExit += (sender, e) =>
             { };
             sClosedBoxForRelease.OnEntry += (sender, e) =>
@@ -651,7 +881,33 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sClosedBoxForRelease.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseBox.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+                            if (BoxWeight <= 285)
+                            {
+                                transition = tWaitingForReleaseBox_Idle;
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sWaitingForReleaseBox.OnExit += (sender, e) =>
             { };
             #endregion State Register OnEntry OnExit

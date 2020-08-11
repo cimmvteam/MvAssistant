@@ -31,98 +31,118 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestRobotReliability()
         {
-            try
+            for (int times = 0; times < 10; times++)
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                try
                 {
-                    halContext.MvCfLoad();
-
-                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
-                    var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
-                    unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
-                    mt.HalConnect();
-                    os.HalConnect();
-                    ic.HalConnect();
-                    bool MTIntrude = false;
-
-                    //Get mask from Open Stage 
-                    for (int i = 0; i < 2; i++)
+                    using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                     {
-                        MTIntrude = os.ReadRobotIntrude(false, true).Item2;
-                        if (MTIntrude == true)
-                            break;
-                        else if (i == 1 && MTIntrude == false)
-                            throw new Exception("Open Stage not allowed to be MT intrude!!");
-                    }
-                    mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                    mt.Clamp(0);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                    mt.RobotMoving(false);
-                    for (int i = 0; i < 2; i++)
-                    {
-                        MTIntrude = os.ReadRobotIntrude(false, false).Item2;
-                        if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
-                            throw new Exception("Open Stage has been MT intrude,can net execute command!!");
-                    }
+                        halContext.MvCfLoad();
 
-                    //Put glass side into Inspection Chamber
-                    //ic.XYPosition(100,200);
-                    //ic.WPosition(51);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                    mt.Unclamp();
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                        var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                        var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                        var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                        unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                        mt.HalConnect();
+                        os.HalConnect();
+                        ic.HalConnect();
+                        bool MTIntrude = false;
 
-                    //Get glass side from Inspection Chamber
-                    //ic.XYPosition(100,200);
-                    //ic.WPosition(51);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                    mt.Clamp(0);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        //Get mask from Open Stage 
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                            if (MTIntrude == true)
+                                break;
+                            else if (i == 1 && MTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        }
+                        mt.RobotMoving(true);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.Clamp(0);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        }
 
-                    //ic.XYPosition(100,200);
-                    //ic.WPosition(51);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
-                    mt.Unclamp();
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        //Put glass side into Inspection Chamber
+                        ic.Initial();
+                        ic.XYPosition(0, 0);
+                        ic.WPosition(0);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
 
-                    //ic.XYPosition(100,200);
-                    //ic.WPosition(51);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
-                    mt.Clamp(0);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        //Get glass side from Inspection Chamber
+                        ic.ZPosition(-29.6);
+                        for (int i = 158; i < 296; i += 23)
+                        {
+                            for (int j = 123; j < 261; j += 23)
+                            {
+                                ic.XYPosition(i, j);
+                                ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");
+                            }
+                        }
+                        ic.XYPosition(246, 208);
+                        for (int i = 0; i < 360; i += 90)
+                        {
+                            ic.WPosition(i);
+                            ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
+                        }
 
-                    //Release mask to Open Stage
-                    for (int i = 0; i < 2; i++)
-                    {
-                        MTIntrude = os.ReadRobotIntrude(false, true).Item2;
-                        if (MTIntrude == true)
-                            break;
-                        else if (i == 1 && MTIntrude == false)
-                            throw new Exception("Open Stage not allowed to be MT intrude!!");
-                    }
-                    mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                    mt.Unclamp();
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                    mt.RobotMoving(false);
-                    for (int i = 0; i < 2; i++)
-                    {
-                        MTIntrude = os.ReadRobotIntrude(false, false).Item2;
-                        if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
-                            throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        ic.XYPosition(0, 0);
+                        ic.WPosition(0);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Clamp(0);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        /*
+                        //ic.XYPosition(100,200);
+                        //ic.WPosition(51);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+
+                        //ic.XYPosition(100,200);
+                        //ic.WPosition(51);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                        mt.Clamp(0);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        */
+                        //Release mask to Open Stage
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                            if (MTIntrude == true)
+                                break;
+                            else if (i == 1 && MTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        }
+                        mt.RobotMoving(true);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        }
                     }
                 }
+                catch (Exception ex) { Debug.WriteLine("Projram was wrong when " +times +" times."); throw ex; }
             }
-            catch (Exception ex) { throw ex; }
         }
         #endregion Clamp test
         #region Change Direction

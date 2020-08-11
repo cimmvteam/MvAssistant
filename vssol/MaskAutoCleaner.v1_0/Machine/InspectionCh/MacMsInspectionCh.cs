@@ -27,14 +27,14 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sWaitingForPutIntoMask = NewState(EnumMacMsInspectionChState.WaitingForInputMask);
+            MacState sWaitingForInputMask = NewState(EnumMacMsInspectionChState.WaitingForInputMask);
             MacState sMaskOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
             MacState sDefensingMask = NewState(EnumMacMsInspectionChState.DefensingMask);
             MacState sInspectingMask = NewState(EnumMacMsInspectionChState.InspectingMask);
             MacState sMaskOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
             MacState sWaitingForReleaseMask = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
 
-            MacState sWaitingForPutIntoGlass = NewState(EnumMacMsInspectionChState.WaitingForInputGlass);
+            MacState sWaitingForInputGlass = NewState(EnumMacMsInspectionChState.WaitingForInputGlass);
             MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
             MacState sDefensingGlass = NewState(EnumMacMsInspectionChState.DefensingGlass);
             MacState sInspectingGlass = NewState(EnumMacMsInspectionChState.InspectingGlass);
@@ -46,16 +46,16 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacMsInspectionChTransition.PowerON);
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsInspectionChTransition.Initial);
 
-            MacTransition tIdle_WaitingForPutIntoMask = NewTransition(sIdle, sWaitingForPutIntoMask, EnumMacMsInspectionChTransition.WaitForInputMask);
-            MacTransition tWaitingForPutIntoMask_MaskOnStage = NewTransition(sWaitingForPutIntoMask, sMaskOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithMask);
+            MacTransition tIdle_WaitingForInputMask = NewTransition(sIdle, sWaitingForInputMask, EnumMacMsInspectionChTransition.WaitForInputMask);
+            MacTransition tWaitingForInputMask_MaskOnStage = NewTransition(sWaitingForInputMask, sMaskOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithMask);
             MacTransition tMaskOnStage_DefensingMask = NewTransition(sMaskOnStage, sDefensingMask, EnumMacMsInspectionChTransition.DefenseMask);
             MacTransition tDefensingMask_InspectingMask = NewTransition(sDefensingMask, sInspectingMask, EnumMacMsInspectionChTransition.InspectMask);
             MacTransition tInspectingMask_MaskOnStageInspected = NewTransition(sInspectingMask, sMaskOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithMaskInspected);
             MacTransition tMaskOnStageInspected_WaitingForReleaseMask = NewTransition(sMaskOnStageInspected, sWaitingForReleaseMask, EnumMacMsInspectionChTransition.WaitForReleaseMask);
             MacTransition tWaitingForReleaseMask_Idle = NewTransition(sWaitingForReleaseMask, sIdle, EnumMacMsInspectionChTransition.ReturnToIdleFromReleaseMask);
 
-            MacTransition tIdle_WaitingForPutIntoGlass = NewTransition(sIdle, sWaitingForPutIntoGlass, EnumMacMsInspectionChTransition.WaitForInputGlass);
-            MacTransition tWaitingForPutIntoGlass_GlassOnStage = NewTransition(sWaitingForPutIntoGlass, sGlassOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithGlass);
+            MacTransition tIdle_WaitingForInputGlass = NewTransition(sIdle, sWaitingForInputGlass, EnumMacMsInspectionChTransition.WaitForInputGlass);
+            MacTransition tWaitingForInputGlass_GlassOnStage = NewTransition(sWaitingForInputGlass, sGlassOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithGlass);
             MacTransition tGlassOnStage_DefensingGlass = NewTransition(sGlassOnStage, sDefensingGlass, EnumMacMsInspectionChTransition.DefenseGlass);
             MacTransition tDefensingGlass_InspectingGlass = NewTransition(sDefensingGlass, sInspectingGlass, EnumMacMsInspectionChTransition.InspectGlass);
             MacTransition tInspectingGlass_GlassOnStageInspected = NewTransition(sInspectingGlass, sGlassOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithGlassInspected);
@@ -104,16 +104,48 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sInitial.OnExit += (sender, e) =>
             { };
 
+
             sIdle.OnEntry += (sender, e) =>
             { };
             sIdle.OnExit += (sender, e) =>
             { };
-            sWaitingForPutIntoMask.OnEntry += (sender, e) =>
+            sWaitingForInputMask.OnEntry += (sender, e) =>
             { };
-            sWaitingForPutIntoMask.OnExit += (sender, e) =>
+            sWaitingForInputMask.OnExit += (sender, e) =>
             { };
             sMaskOnStage.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsInspectionChState.MaskOnStage)
+                        {
+                            try
+                            {
+                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
+                                transition = tMaskOnStage_DefensingMask;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sMaskOnStage.OnExit += (sender, e) =>
             { };
             sDefensingMask.OnEntry += (sender, e) =>
@@ -206,7 +238,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                         {
                             try
                             {
-                                HalInspectionCh.XYPosition(10, 20);// TODO: 移到放入Mask的位置
+                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
                                 transition = tMaskOnStageInspected_WaitingForReleaseMask;
                                 break;
                             }
@@ -216,7 +248,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                                 break;
                             }
                         }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        if (timeoutObj.IsTimeOut(thisTime))
                         {
                             // TODO
                             break;
@@ -233,12 +265,44 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sWaitingForReleaseMask.OnExit += (sender, e) =>
             { };
 
-            sWaitingForPutIntoGlass.OnEntry += (sender, e) =>
+
+            sWaitingForInputGlass.OnEntry += (sender, e) =>
             { };
-            sWaitingForPutIntoGlass.OnExit += (sender, e) =>
+            sWaitingForInputGlass.OnExit += (sender, e) =>
             { };
             sGlassOnStage.OnEntry += (sender, e) =>
-            { };
+            {
+                var thisState = (MacState)sender;
+                MacTransition transition = null;
+                DateTime thisTime = DateTime.Now;
+                Action guard = () =>
+                {
+                    while (true)
+                    {
+                        if (CurrentWorkState == EnumMacMsInspectionChState.GlassOnStage)
+                        {
+                            try
+                            {
+                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
+                                transition = tGlassOnStage_DefensingGlass;
+                                break;
+                            }
+                            catch (Exception)
+                            {
+                                // TODO
+                                break;
+                            }
+                        }
+                        if (timeoutObj.IsTimeOut(thisTime))
+                        {
+                            // TODO
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                };
+                new Task(guard).Start();
+            };
             sGlassOnStage.OnExit += (sender, e) =>
             { };
             sDefensingGlass.OnEntry += (sender, e) =>
@@ -331,7 +395,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                         {
                             try
                             {
-                                HalInspectionCh.XYPosition(10, 20);// TODO: 移到放入Mask的位置
+                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
                                 transition = tGlassOnStageInspected_WaitingForReleaseGlass;
                                 break;
                             }
@@ -341,7 +405,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                                 break;
                             }
                         }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
+                        if (timeoutObj.IsTimeOut(thisTime))
                         {
                             // TODO
                             break;
