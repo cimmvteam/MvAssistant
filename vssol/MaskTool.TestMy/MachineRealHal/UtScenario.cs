@@ -22,7 +22,129 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtScenario
     {
+        public uint BoxType = 2;//  1:鐵盒   2:水晶盒
+        public string Column = "01";// 左至右位於第幾欄， 01 ~ 07
+        public string Row = "05";// 上至下位於第幾列， 01 ~ 05
+
         #region Mask Robot Move
+        #region Clamp test
+        [TestMethod]
+        public void TestRobotReliability()
+        {
+            for (int times = 0; times < 10; times++)
+            {
+                try
+                {
+                    using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                    {
+                        halContext.MvCfLoad();
+
+                        var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                        var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                        var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                        var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                        unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                        mt.HalConnect();
+                        os.HalConnect();
+                        ic.HalConnect();
+                        bool MTIntrude = false;
+
+                        //Get mask from Open Stage 
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                            if (MTIntrude == true)
+                                break;
+                            else if (i == 1 && MTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        }
+                        mt.RobotMoving(true);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.Clamp(0);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        }
+
+                        //Put glass side into Inspection Chamber
+                        ic.Initial();
+                        ic.XYPosition(0, 0);
+                        ic.WPosition(0);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+
+                        //Get glass side from Inspection Chamber
+                        ic.ZPosition(-29.6);
+                        for (int i = 158; i < 296; i += 23)
+                        {
+                            for (int j = 123; j < 261; j += 23)
+                            {
+                                ic.XYPosition(i, j);
+                                ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");
+                            }
+                        }
+                        ic.XYPosition(246, 208);
+                        for (int i = 0; i < 360; i += 90)
+                        {
+                            ic.WPosition(i);
+                            ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
+                        }
+
+                        ic.XYPosition(0, 0);
+                        ic.WPosition(0);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Clamp(0);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        /*
+                        //ic.XYPosition(100,200);
+                        //ic.WPosition(51);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+
+                        //ic.XYPosition(100,200);
+                        //ic.WPosition(51);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                        mt.Clamp(0);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        */
+                        //Release mask to Open Stage
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                            if (MTIntrude == true)
+                                break;
+                            else if (i == 1 && MTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        }
+                        mt.RobotMoving(true);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        }
+                    }
+                }
+                catch (Exception ex) { Debug.WriteLine("Projram was wrong when " +times +" times."); throw ex; }
+            }
+        }
+        #endregion Clamp test
         #region Change Direction
         [TestMethod]
         public void TestRobotCangeDirection()
@@ -534,6 +656,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Unclamp();
                     bt.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");
                     bt.RobotMoving(false);
@@ -578,7 +702,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json");
-                    bt.Clamp(2);
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
+                    bt.Clamp(BoxType);
                     bt.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_GET.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
@@ -621,7 +747,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     }
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\UnlockBox.json");
+                    if (BoxType == 1)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                    else if (BoxType == 2)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -662,7 +791,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                             os.Initial();
                     }
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\LockBox.json");
+                    if (BoxType == 1)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                    else if (BoxType == 2)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -677,7 +809,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         #endregion
         #region Cabinet1
         [TestMethod]
-        public void TestRobotCB1HomePutBoxToCB_02_04()
+        public void TestRobotCB1HomePutBoxToCB1Drawer()
         {
             try
             {
@@ -697,9 +829,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     //Action BTAction = () =>
                     //{
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_" + Column + "_" + Row + "_PUT.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Unclamp();
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + Column + "_" + Row + "_Backward_Cabinet_01_Home_PUT.json");
                     //};
                     //Action PLCSignalAlarm = () =>
                     //{
@@ -760,7 +894,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
 
         [TestMethod]
-        public void TestRobotCB1HomeGetBoxFromCB_02_04()
+        public void TestRobotCB1HomeGetBoxFromCB1Drawer()
         {
             try
             {
@@ -779,10 +913,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     //Action BTAction = () =>
                     //{
+                    bt.Initial();
+                    bt.LevelReset();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_02_04_GET.json");
-                    Console.WriteLine(bt.Clamp(2));
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_02_04_Backward_Cabinet_01_Home_GET.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_" + Column + "_" + Row + "_GET.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
+                    Console.WriteLine(bt.Clamp(BoxType));
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + Column + "_" + Row + "_Backward_Cabinet_01_Home_GET.json");
                     //    };
                     //    Action PLCSignalAlarm = () =>
                     //    {
@@ -844,7 +982,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         #endregion
         #region Cabinet2
         [TestMethod]
-        public void TestRobotCB2HomePutBoxToCB_04_01()
+        public void TestRobotCB2HomePutBoxToCB2Drawer()
         {
             try
             {
@@ -858,15 +996,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     bt.HalConnect();
 
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_04_01_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_" + Column + "_" + Row + "_PUT.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
                     bt.Unclamp();
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_04_01_Backward_Cabinet_02_Home_PUT.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + Column + "_" + Row + "_Backward_Cabinet_02_Home_PUT.json");
                 }
             }
             catch (Exception ex) { throw ex; }
         }
         [TestMethod]
-        public void TestRobotCB2HomeGetBoxFromCB_04_01()
+        public void TestRobotCB2HomeGetBoxFromCB2Drawer()
         {
             try
             {
@@ -879,10 +1019,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     bt.HalConnect();
 
+                    bt.Initial();
+                    bt.LevelReset();
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_04_01_GET.json");
-                    bt.Clamp(2);
-                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_04_01_Backward_Cabinet_02_Home_GET.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_" + Column + "_" + Row + "_GET.json");
+                    if (bt.ReadLevelSensor().Item1 >= 1 || bt.ReadLevelSensor().Item1 <= -1 || bt.ReadLevelSensor().Item2 >= 1 || bt.ReadLevelSensor().Item2 <= -1)
+                        throw new Exception("Box Transfer Level was out of range");
+                    bt.Clamp(BoxType);
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Drawer_" + Column + "_" + Row + "_Backward_Cabinet_02_Home_GET.json");
                 }
             }
             catch (Exception ex) { throw ex; }
@@ -1140,11 +1284,24 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     //Action OSAndBTAction = () =>
                     //{
-                    os.SetBoxType(2);
+                    os.SetBoxType(BoxType);
                     os.SortClamp();
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
+                    var BoxWeight = os.ReadWeightOnStage();
+                    if (BoxType == 1)
+                    {
+                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
+                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
+                    }
+                    else if (BoxType == 2)
+                    {
+                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
+                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
+                    }
+                    if (os.ReadCoverSensor().Item2 == false)
+                        throw new Exception("Box status was not closed");
                     for (int i = 0; i < 2; i++)
                     {
                         BTIntrude = os.ReadRobotIntrude(true, false).Item1;
@@ -1156,7 +1313,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                             os.Initial();
                     }
                     bt.RobotMoving(true);
-                    bt.ExePathMove(@"D:\Positions\BTRobot\UnlockBox.json");
+                    bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                    if (BoxType == 1)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                    else if (BoxType == 2)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {
@@ -1167,6 +1328,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     os.Close();
                     os.Clamp();
                     os.Open();
+                    if (os.ReadCoverSensor().Item1 == false)
+                        throw new Exception("Box status was not opened");
                     //};
                     //Action PLCSignalAlarm = () =>
                     //{
@@ -1248,8 +1411,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     //Action OSAndBTAction = () =>
                     //{
+                    if (os.ReadCoverSensor().Item1 == false)
+                        throw new Exception("Box status was not opened");
                     os.Close();
                     os.Unclamp();
+                    if (os.ReadCoverSensor().Item2 == false)
+                        throw new Exception("Box status was not closed");
                     os.Lock();
                     for (int i = 0; i < 2; i++)
                     {
@@ -1263,7 +1430,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     }
                     bt.RobotMoving(true);
                     bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                    bt.ExePathMove(@"D:\Positions\BTRobot\LockBox.json");
+                    if (BoxType == 1)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                    else if (BoxType == 2)
+                        bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
                     bt.RobotMoving(false);
                     for (int i = 0; i < 2; i++)
                     {

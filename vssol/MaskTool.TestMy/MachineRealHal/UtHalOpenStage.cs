@@ -22,8 +22,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 
                 os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
                 os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
-                os.Camera_NearLP_CapToSave("D:/Image/OS/NearLP", "jpg");
-                os.Camera_NearCC_CapToSave("D:/Image/OS/NearCC", "jpg");
+                os.Camera_FrontNearLP_CapToSave("D:/Image/OS/NearLP", "jpg");
+                os.Camera_FrontNearCC_CapToSave("D:/Image/OS/NearCC", "jpg");
             }
         }
 

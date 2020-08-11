@@ -17,6 +17,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         WaitingForReleaseBox,
 
         ClosedBox,
+        ClosedBoxForRelease,
 
         WaitingForUnlock,
         OpeningBox,
@@ -24,11 +25,13 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         ClosingBox,
 
         OpenedBox,
+        OpenedBoxForClose,
 
         WaitingForInputMask,
         WaitingForReleaseMask,
 
         OpenedBoxWithMask,
+        OpenedBoxWithMaskForClose,
 
         ClosingBoxWithMask,
         WaitingForLockWithMask,
@@ -36,6 +39,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         WaitingForUnlickWithMask,
         
         ClosedBoxWithMask,
+        ClosedBoxWithMaskForRelease,
 
         WaitingForReleaseBoxWithMask,
         WaitingForInputBoxWithMask
