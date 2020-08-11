@@ -31,24 +31,44 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestRobotReliability()
         {
-            for (int times = 0; times < 10; times++)
+            int times = 0;
+            try
             {
-                try
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                    halContext.MvCfLoad();
+
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                    var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                    unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                    mt.HalConnect();
+                    os.HalConnect();
+                    ic.HalConnect();
+                    bool MTIntrude = false;
+                    if (false)
                     {
-                        halContext.MvCfLoad();
+                        os.Initial();
+                        mt.Initial();
+                        ic.ReadRobotIntrude(false);
+                        ic.Initial();
 
-                        var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
-                        var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                        var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
-                        var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
-                        unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
-                        mt.HalConnect();
-                        os.HalConnect();
-                        ic.HalConnect();
-                        bool MTIntrude = false;
-
+                        os.SetBoxType(2);
+                        os.SortClamp();
+                        Thread.Sleep(1000);
+                        os.SortUnclamp();
+                        os.SortClamp();
+                        Thread.Sleep(1000);
+                        os.Vacuum(true);
+                        os.SortUnclamp();
+                        os.Lock();
+                        os.Close();
+                        os.Clamp();
+                        os.Open();
+                    }
+                    for (times = 1; times <= 10; times++)
+                    {
                         //Get mask from Open Stage 
                         for (int i = 0; i < 2; i++)
                         {
@@ -61,7 +81,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         mt.RobotMoving(true);
                         mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                         mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.Clamp(0);
+                        mt.Clamp(1);
                         mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                         mt.RobotMoving(false);
                         for (int i = 0; i < 2; i++)
@@ -72,14 +92,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         }
 
                         //Put glass side into Inspection Chamber
-                        ic.Initial();
+                        //ic.Initial();
+                        ic.ReadRobotIntrude(false);
                         ic.XYPosition(0, 0);
                         ic.WPosition(0);
+                        ic.ReadRobotIntrude(true);
                         mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                         mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
                         mt.Unclamp();
                         mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-
+                        ic.ReadRobotIntrude(false);
                         //Get glass side from Inspection Chamber
                         ic.ZPosition(-29.6);
                         for (int i = 158; i < 296; i += 23)
@@ -88,6 +110,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                             {
                                 ic.XYPosition(i, j);
                                 ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");
+                                Thread.Sleep(500);
                             }
                         }
                         ic.XYPosition(246, 208);
@@ -95,29 +118,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         {
                             ic.WPosition(i);
                             ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
+                            Thread.Sleep(500);
                         }
 
                         ic.XYPosition(0, 0);
                         ic.WPosition(0);
+                        ic.ReadRobotIntrude(true);
                         mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                         mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                        mt.Clamp(0);
+                        mt.Clamp(1);
                         mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                        /*
-                        //ic.XYPosition(100,200);
-                        //ic.WPosition(51);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-
-                        //ic.XYPosition(100,200);
-                        //ic.WPosition(51);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
-                        mt.Clamp(0);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                        */
+                        ic.ReadRobotIntrude(false);
+                        
                         //Release mask to Open Stage
                         for (int i = 0; i < 2; i++)
                         {
@@ -141,8 +153,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                         }
                     }
                 }
-                catch (Exception ex) { Debug.WriteLine("Projram was wrong when " +times +" times."); throw ex; }
             }
+            catch (Exception ex) { Debug.WriteLine("Projram was wrong when " + times + " times."); throw ex; }
+
         }
         #endregion Clamp test
         #region Change Direction

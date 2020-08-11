@@ -247,6 +247,11 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
 
                 throw ex;
             }
+            finally
+            {
+                device.AcquisitionStop();
+                dataStream.StopAcquisition();
+            }
         }
 
         /// <summary>
