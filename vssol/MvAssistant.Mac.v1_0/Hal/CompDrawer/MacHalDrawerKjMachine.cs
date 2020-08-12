@@ -407,7 +407,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         private void OnTrayArriveOut(object sender, EventArgs e)
         {
             //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtOut);
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
             if (OnTrayArriveOutHandler != null)
             {
                 OnTrayArriveOutHandler.Invoke(this, e);
@@ -419,7 +419,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         private void OnTrayArriveIn(object sender, EventArgs e)
         {
             //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArraiveAtIn);
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
             if (OnTrayArriveInHandler != null)
             {
                 OnTrayArriveInHandler.Invoke(this, e);
@@ -530,8 +530,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public string CommandINI()
         {
 
-            ResetCurrentWorkState();
+            this.SetDrawerWorkState(DrawerWorkState.InitialIng);
             var commandText = Ldd.CommandINI();
+
             return commandText;
         }
 
@@ -551,15 +552,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandTrayMotionHome()
         {
-            ResetCurrentWorkState();
+            //ResetCurrentWorkState();
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
             var commandText = Ldd.CommandTrayMotionHome();
            
             return commandText;
         }
 
+        private void SetDrawerWorkState(object moveTrayToPositionHomeIng)
+        {
+            throw new NotImplementedException();
+        }
+
         public string CommandTrayMotionOut()
         {
-            ResetCurrentWorkState();
+            //ResetCurrentWorkState();
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutIng);
             var commandText = Ldd.CommandTrayMotionOut();
             return commandText;
         }

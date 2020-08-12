@@ -20,47 +20,47 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region Load
         // Load  (將 Tray 移到 In 的位置)
        
-        LoadGotoInStart_LoadGotoInIng,
-        LoadGotoInIng_LoadGotoInComplete,
-        LoadGotoInIng_LoadGotoInTimeOut,
-        LoadGotoInIng_LoadGotoInFail,
-        LoadGotoInComplete_IdleForPutBoxOnTrayAtIn,
+        LoadMoveTrayToPositionOutStart_LoadMoveTrayToPositionOutIng,
+        LoadMoveTrayToPositionOutIng_LoadMoveTrayToPositionOutComplete,
+        LoadMoveTrayToPositionOutIng_LoadMoveTrayToPositionOutTimeOut,
+        LoadMoveTrayToPositionOutIng_LoadMoveTrayToPositionOutFail,
+        LoadMoveTrayToPositionOutComplete_IdleForPutBoxOnTrayAtPositionOut,
 
         // Load (將 Tray 從In 移到 Home )
-        LoadGotoHomeStart_LoadGotoHomeIng,
-        LoadGotoHomeIng_LoadGotoHomeComplete,
-        LoadGotoHomeIng_LoadGotoHomeTimeOut,
-        LoadGotoHomeIng_LoadGotoHomeFail,
+        LoadMoveTrayToPositionHomeStart_LoadMoveTrayToPositionHomeIng,
+        LoadMoveTrayToPositionHomeIng_LoadMoveTrayToPositionHomeComplete,
+        LoadMoveTrayToPositionHomeIng_LoadMoveTrayToPositionHomeTimeOut,
+        LoadMoveTrayToPositionHomeIng_LoadMoveTrayToPositionHomeFail,
 
         // Load, Tray 移到 Home 之後, 檢查Box 是否存在
         /// <summary>Box 存在</summary><remarks>2020/08/03 King Add</remarks>
-        LoadGotoHomeComplete_LoadCheckBoxExistenceAtHome,
+        LoadMoveTrayToPositionHomeComplete_LoadCheckBoxExistenceAtPositionHome,
 
-        LoadCheckBoxExistenceAtHome_LoadBoxExistAtHome,
+        LoadCheckBoxExistenceAtPositionHome_LoadBoxExistAtPositionHome,
         /// <summary>Box 不存在</summary><remarks>2020/08/03 King Add</remarks>
-        LoadCheckBoxExistenceAtHome_LoadBoxNotExistAtHome,
+        LoadCheckBoxExistenceAtPositionHome_LoadBoxNotExistAtPositionHome,
         /// <summary>檢查逾時</summary><remarks>2020/08/03 King Add</remarks>
-        LoadCheckBoxExistenceAtHome_LoadCheckBoxExistenceAtHomeTimeOut,
+        LoadCheckBoxExistenceAtPositionHome_LoadCheckBoxExistenceAtPositionHomeTimeOut,
         /// <summary>檢查合格再回到 LoadGotoHomeComplete</summary>
-        LoadBoxExistAtHome_LoadGotoHomeComplete,
+        LoadBoxExistAtPositionHome_LoadMoveTrayToPositionHomeComplete,
         /// <summary>檢查不合格再回到 LoadGotoHomeComplete</summary>
-        LoadBoxNotExistAtHome_LoadGotoHomeComplete,
+        LoadBoxNotExistAtPositionHome_LoadMoveTrayToPositionHomeComplete,
 
-        LoadGotoHomeComplete_LoadNoBoxRejectToInFromHomeStart,
+        LoadMoveToPositionHomeComplete_LoadNoBoxRejectToPositionOutFromPositionHomeStart,
         UnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToOutFromHomeIng,
-        LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeComplete,
-        LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeFail,
-        LoadNoBoxRejectToInFromHomeIng_LoadNoBoxRejectToInFromHomeTimeOut,
-        LoadNoBoxRejectToInFromHomeComplete_IdleForPutBoxOnTrayAtIn,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeComplete,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToOutFromPositionHomeFail,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeComplete_IdleForPutBoxOnTrayAtPositionOut,
 
         // Load(將 Tray 從Home 移到 Out)
-        LoadGotoHomeComplete_LoadGotoOutStart,//TODO: =>
-        LoadGotoOutStart_LoadGotoOutIng,
-        LoadGotoOutIng_LoadGotoOutComplete,
-        LoadGotoOutIng_LoadGotoOutTimeOut,
-        LoadGotoOutIng_LoadGotoOutFail,
+        LoadMoveTrayToPositionHomeComplete_LoadMoveTrayToPositionInStart,//TODO: =>
+        LoadMoveTrayToPositionInStart_LoadMoveTrayToPositionInIng,
+        LoadMoveTrayToPositionInIng_LoadMoveTrayToPositionInComplete,
+        LoadMoveTrayToPositionInIng_LoadMoveTrayToPositionInTimeOut,
+        LoadMoveTrayToPositionInIng_LoadMoveTrayToPositionInFail,
         // Load(將 Box 移開)
-        LoadGotoOutComplete_IdleForGetBoxOnTrayAtOut,
+        LoadMoveTrayToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn,
        #endregion Load
 
         #region unload
@@ -97,6 +97,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeFail,
         UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeTimeOut,
         UnloadNoBoxRejectToOutFromHomeComplete_IdleForPutBoxOnTrayAtOut,
+        InitialComplete_NULL,
+        IdleForPutBoxOnTrayAtPositionOut_NULL,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeStart_LoadNoBoxRejectTrayToPositionOutFromHomeIng,
+        IdleForGetBoxOnTrayAtPositionIn_NULL,
         // LoadGotoHomeComplete_LoadRejectToInFromHomeStart,
         // Unload (移走 Box)
         //UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,

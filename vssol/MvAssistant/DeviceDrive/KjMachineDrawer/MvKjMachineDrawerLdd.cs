@@ -204,19 +204,19 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <returns></returns>
         public string CommandINI()
         {
-            var c = 0;
+            var tryCounter = 0;
             while (true)
             {
                try
                {
-                    c++;
+                    tryCounter++;
                     var commandText = new INI().GetCommandText(new INIParameter());
                     UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
                     return commandText;
                }
                catch (Exception e)
                {
-                    if (c >= 3)
+                    if (tryCounter >= 3)
                     {
                         return string.Empty;
                     }

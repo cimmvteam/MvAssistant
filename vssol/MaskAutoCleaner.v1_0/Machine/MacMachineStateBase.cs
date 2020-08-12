@@ -70,7 +70,10 @@ namespace MaskAutoCleaner.v1_0.Machine
                             var State = rtn.ThisState;
                             var nextState = rtn.NextState;
                             State.DoExit(rtn.ThisStateExitEventArgs);
-                            nextState.DoEntry(rtn.NextStateEntryEventArgs);
+                            if (nextState != null)
+                            {
+                                nextState.DoEntry(rtn.NextStateEntryEventArgs);
+                            }
                             break;
                         }
                         Thread.Sleep(10);
@@ -98,19 +101,24 @@ namespace MaskAutoCleaner.v1_0.Machine
             try
             {
                 var guardRtns = guard();
-                if (guardRtns != null)
-                {
-                    if (action != null)
+              
+                    if (guardRtns != null)
                     {
-                        action(actionParameter);
+                        if (action != null)
+                        {
+                            action(actionParameter);
+                        }
+                        var state = guardRtns.ThisState;
+                        var nextState = guardRtns.NextState;
+                        var stateExitArgs = guardRtns.ThisStateExitEventArgs;
+                        var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
+                        state.DoExit(stateExitArgs);
+                        if (nextState != null)
+                        {
+                            nextState.DoEntry(nextStateEntryArgs);
+                        }
                     }
-                    var state = guardRtns.Transition.StateFrom;
-                    var nextState = guardRtns.Transition.StateTo;
-                    var stateExitArgs = guardRtns.ThisStateExitEventArgs;
-                    var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
-                    state.DoExit(stateExitArgs);
-                    nextState.DoEntry(nextStateEntryArgs);
-                }
+                
             }
             catch(Exception ex)
             {

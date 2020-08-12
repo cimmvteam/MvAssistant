@@ -16,47 +16,47 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         InitialTimeout,
 
       
-        LoadGotoInStart,
-        LoadGotoInIng,
-        LoadGotoInComplete,
-        LoadGotoInFail,
-        LoadGotoInTimeOut,
+        LoadMoveTrayToPositionOutStart,
+        LoadMoveTrayToPositionOutIng,
+        LoadMoveTrayToPositionOutComplete,
+        LoadMoveTrayToPositionOutFail,
+        LoadMoveTrayToPositionOutTimeOut,
         IdleForPutBoxOnTrayAtIn,
 
-        LoadGotoHomeStart,
-        LoadGotoHomeIng,
-        LoadGotoHomeComplete,
+        LoadMoveTrayToPositionHomeStart,
+        LoadMoveTrayToPositionHomeIng,
+        LoadMoveTrayToPositionHomeComplete,
 
         /// <summary>在Home 點 檢查 盒子在不在?</summary><remarks>2020/08/03 new, King</remarks>
-        LoadCheckBoxExistenceAtHome,
+        LoadCheckBoxExistenceAtPositionHome,
 
         /// <summary>在Home 位置檢查盒子存在</summary><remarks>2020/08/03 new, King</remarks>
-        LoadBoxExistAtHome,
+        LoadBoxExistAtPositionHome,
         /// <summary>在Home 位置檢查盒子不存在</summary><remarks>2020/08/03 new, King</remarks>
-        LoadBoxNotExistAtHome,
+        LoadBoxNotExistAtPositionHome,
         /// <summary>在Home 位置檢查盒子存在與否時逾時</summary><remarks>2020/08/03 new, King</remarks>
-        LoadCheckBoxExistenceAtHomeTimeOut,
+        LoadCheckBoxExistenceAtPositionHomeTimeOut,
 
         /// <summary>Load 時因為没有 Box 而退回到 In (Start)</summary> <remarks>2020/08/03 new, King</remarks>       
-        LoadNoBoxRejectToInFromHomeStart,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeStart,
         /// <summary>Load 時因為没有 Box 而退回到 In (Ing)</summary>  <remarks>2020/08/03 new, King</remarks>      
-        LoadNoBoxRejectToInFromHomeIng,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng,
         /// <summary>Load 時因為没有 Box 而退回到 In (OK)</summary>   <remarks>2020/08/03 new, King</remarks>
-        LoadNoBoxRejectToInFromHomeComplete,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeComplete,
         /// <summary>Load 時因為没有 Box 而退回到 In (失敗)</summary>   <remarks>2020/08/03 new, King</remarks>
-        LoadNoBoxRejectToInFromHomeFail,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeFail,
         /// <summary>Load 時因為没有 Box 而退回到 In (逾時)</summary>   <remarks>2020/08/03 new, King</remarks>
-        LoadNoBoxRejectToInFromHomeTimeOut,
+        LoadNoBoxRejectToPositionOutFromPositionHomeTimeOut,
 
-        LoadGotoOutStart,
-        LoadGotoOutIng,
-        LoadGotoOutComplete,
+        LoadMoveTrayToPositionInStart,
+        LoadMoveTrayToPositionInIng,
+        LoadMoveTrayToPositionInComplete,
   
-        LoadGotoHomeFail,
-        LoadGotoHomeTimeOut,
-        LoadGotoOutFail,
-        LoadGotoOutTimeOut,
-        IdleForGetBoxOnTrayAtOut,
+        LoadMoveTrayToPositionHomeFail,
+        LoadMoveTrayToPositionHomeTimeOut,
+        LoadMoveTrayToPositionInFail,
+        LoadMoveTrayToPositionInTimeOut,
+        IdleForGetBoxOnTrayAtPositionIn,
       
         UnloadGotoOutStart,
         UnloadGotoOutIng,
@@ -87,5 +87,6 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadNoBoxRejectToOutFromHomeComplete,
         UnloadNoBoxRejectToOutFromHomeFail,
         UnloadNoBoxRejectToOutFromHomeTimeOut,
+        IdleForPutBoxOnTrayAtPositionOut,
     }
 }

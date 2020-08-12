@@ -99,7 +99,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     {
         /// <summary>任何狀態</summary>
         AnyState,
-        
+
+        /// <summary>開始 Initial Start</summary>
+        InitialStart,
+
+        /// <summary>Intial 進行中</summary>
+        InitialIng,
+
         /// <summary>Initial Failed</summary>
         InitialFailed,
        
@@ -109,18 +115,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         TrayArriveAtHome,
 
    
-        TrayArriveAtOut,
+        TrayArriveAtPositionOut,
 
    
-        TrayArraiveAtIn,
+        TrayArriveAtPositionIn,
 
         /// <summary>有盒子</summary>
         BoxExist,
 
         /// <summary>没有盒子</summary>
         BoxNotExist,
-        TrayMoveToInStart,
+        MoveTrayToPositionOutStart,
         TrayMoveToOutStart,
         TrayMoveToHomeStart,
+        MoveTrayToPositionHomeStart,
+        MoveTrayToPositionOutIng,
+        MoveTrayToPositionHomeIng,
     }
 }
