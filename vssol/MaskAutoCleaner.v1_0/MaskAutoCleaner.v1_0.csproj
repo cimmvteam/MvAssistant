@@ -86,6 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacDrawerLoadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacDrawerUnloadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacMcDrawerCmd.cs" />
+    <Compile Include="Machine\Cabinet\MacMcDrawer.cs" />
+    <Compile Include="Machine\Cabinet\MacMsDrawer.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMsLoadPortState.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMsLoadPortTransition.cs" />
+    <Compile Include="Machine\LoadPort\MacMcLoadPort.cs" />
+    <Compile Include="Machine\LoadPort\MacMsLoadPort.cs" />
     <Compile Include="Machine\CleanCh\EnumMacMsCleanChState.cs" />
     <Compile Include="Machine\CleanCh\EnumMacMsCleanChTransition.cs" />
     <Compile Include="Machine\CleanCh\MacMsCleanCh.cs" />
@@ -112,6 +124,9 @@
     <Compile Include="Machine\OpenStage\EnumMacMsOpenStageState.cs" />
     <Compile Include="Machine\OpenStage\EnumMacMsOpenStageTransition.cs" />
     <Compile Include="Machine\OpenStage\MacMsOpenStage.cs" />
+    <Compile Include="Machine\StateExceptions\StateException.cs" />
+    <Compile Include="Machine\StateExceptions\StateFailException.cs" />
+    <Compile Include="Machine\StateExceptions\StateTimeoutException.cs" />
     <Compile Include="Msg\EnumMacAlarmId.cs" />
     <Compile Include="Msg\EnumMacAlarmLevel.cs" />
     <Compile Include="Msg\EnumCeid.cs" />
@@ -172,6 +187,7 @@
     <Compile Include="StateMachineBeta\MacTransition.cs" />
     <Compile Include="StateMachineBeta\MacStateEntryEventArgs.cs" />
     <Compile Include="StateMachineBeta\MacStateExitEventArgs.cs" />
+    <Compile Include="StateMachineBeta\StateGuardRtns.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -191,6 +207,9 @@
     <Folder Include="Machine\BoxTransfer\" />
     <Folder Include="Machine\Cabinet\" />
     <Folder Include="Machine\LoadPort\" />
+    <Folder Include="Machine\CleanCh\" />
+    <Folder Include="Machine\InspectionCh\" />
+    <Folder Include="Machine\OpenStage\" />
     <Folder Include="Machine\Universal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

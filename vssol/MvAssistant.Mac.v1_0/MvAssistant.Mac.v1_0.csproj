@@ -89,7 +89,7 @@
     <Compile Include="Hal\CompDrawer\IMacHalDrawer.cs" />
     <Compile Include="Hal\CompLight\MacHalLightLeimac.cs" />
     <Compile Include="Hal\CompLight\IMacHalLight.cs" />
-    <Compile Include="Hal\CompLoadPort\IMacHalLoadPortComp.cs" />
+    <Compile Include="Hal\CompLoadPort\IMacHalLoadPortUnit.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalGudengLoadPort.cs" />
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortCell.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortCellGudeng.cs" />
