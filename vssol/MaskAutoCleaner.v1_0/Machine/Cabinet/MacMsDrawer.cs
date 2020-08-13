@@ -302,7 +302,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacTransition tLoadMoveTrayToPositionInIng_LoadMoveTrayToPositionInFail = NewTransition(sLoadMoveTrayToPositionInIng, sLoadMoveTrayToPositionInFail, 
                                                                                           EnumMacDrawerTransition.LoadMoveTrayToPositionInIng_LoadMoveTrayToPositionInFail);
             // 完成=> 等待夾走
-            MacTransition tLoadMoveToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn = NewTransition(sLoadMoveTrayToPositionInComplete, sIdleForGetBoxOnTrayAtPositionIn, 
+            MacTransition tLoadMoveTrayToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn = NewTransition(sLoadMoveTrayToPositionInComplete, sIdleForGetBoxOnTrayAtPositionIn, 
                                                                                           EnumMacDrawerTransition.LoadMoveTrayToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn);
             // 等待夾走
             MacTransition tIdleForGetBoxOnTrayAtPositionIn_NULL = NewTransition(sIdleForGetBoxOnTrayAtPositionIn, null,
@@ -780,7 +780,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     exceptionHandler = exceptionHandlerFromCheckHasNoBox;
                 }
                 Trigger(guard, action, actionParameter, exceptionHandler);                
-                /**
+                /** Original
                 var state = (MacState)sender;
                 var args = (MacStateEntryEventArgs)e;
                 EnumMacDrawerLoadToHomeCompleteSource source;
@@ -832,7 +832,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 
             };
-
+            // Load 時, 在 Home 點檢查有没有盒子
             sLoadCheckBoxExistenceAtPositionHome.OnEntry += (sender, e) =>
             {
 
@@ -912,7 +912,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                */
             };
 
-            // 檢查有盒子
+            
+
+            // Load 時在 HOME 點檢查有盒子
             sLoadBoxExistAtPositionHome.OnEntry += (sender, e) =>
             {
                 Func<StateGuardRtns> guard = () =>
@@ -943,7 +945,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 */        
             };
 
-            // 檢查没盒子
+            // Load 時在 Home 點檢查没盒子
             sLoadBoxNotExistAtPositionHome.OnEntry += (sender, e) =>
             {
                 Func<StateGuardRtns> guard = () =>
@@ -975,7 +977,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 */
             };
 
-            // 逾時 to Throw an Exception 
+            // Load 時在 Home 點檢查有没有盒子, 逾時無結果 to Throw an Exception 
             sLoadCheckBoxExistenceAtPositionHomeTimeOut.OnEntry += (sender, e) =>
             {
                 
@@ -990,7 +992,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 // TODO: Tray 到達 Home 之後, 檢查Box 是否存在時, 逾時
             };
 
-            // 没有盒子, 將 Tray 回退到 Home
+            // Load 時, 在 Home 點檢查没有盒子, 將 Tray 回退到 Home, 開始
             sLoadNoBoxRejectTrayToPositionOutFromPositionHomeStart.OnEntry += (sender, e) =>
             {
                 Func<StateGuardRtns> guard = () =>
@@ -1023,7 +1025,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 */
             };
 
-            // 移到 Home 時没有盒子,  將Tray 回退到 Out,移動中
+            // Load 時, 在Home 點檢查時没有盒子,  將Tray 回退到 Out,Tray 移動中
             sLoadNoBoxRejectTrayToPositionOutFromPositionHomeIng.OnEntry += (sender, e) =>
             {
                 Func<DateTime, StateGuardRtns> guard=(startTime) =>
@@ -1095,6 +1097,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 */
             };
 
+            // Load 時, 在 Home 點檢查没有盒子, 將 Tray 回退到 Out, 完成
             sLoadNoBoxRejectTrayToPositionOutFromPositionHomeComplete.OnEntry += (sender, e) =>
             {
                 Func<StateGuardRtns> guard = () =>
@@ -1125,7 +1128,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 */
             };
 
-            // 無法回退到 Out, to Throw an Exception 
+            // Load, 没有盒子時無法回退到 Out, to Throw an Exception 
             sLoadNoBoxRejectTrayToPositionOutFromPositionHomeFail.OnEntry += (sender, e) =>
             {
                 /** Original
@@ -1139,7 +1142,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 // 此為 無法移動的最後一個狀態
             };
 
-            // 回退逾時, to throw an Exception
+            // Load, 没有盒子回退逾時, to throw an Exception
             sLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
@@ -1151,22 +1154,73 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 // 此為 逾時的最後一個狀態
             };
 
-
+            // Load 時, 檢查 有盒子之後, 將Tray 移到  Position In, 動作開始
             sLoadMoveTrayToPositionInStart.OnEntry += (sender, e) =>
             {
-                var state = (MacState)sender;
-                HalDrawer.CommandTrayMotionOut();
-                state.DoExit(new MacStateExitEventArgs());
+                Action<object> action = (parameter) =>
+                {
+                    HalDrawer.CommandTrayMotionOut();
+                };
+                Func<StateGuardRtns> guard = () =>
+                {
+                    StateGuardRtns rtn = new StateGuardRtns
+                    {
+                        Transition = tLoadMoveTrayToPositionInStart_LoadMoveTrayToPositionInIng,
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs=new MacStateExitEventArgs(),
+                    };
+                    return rtn;
+                };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = null;
+                Trigger(guard, action, actionParameter, exceptionHandler);
+
+                /** Original
+                  var state = (MacState)sender;
+                  HalDrawer.CommandTrayMotionOut();
+                  state.DoExit(new MacStateExitEventArgs());
+               */
             };
             sLoadMoveTrayToPositionInStart.OnExit += (sender, e) =>
             {
-               // var transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOutStart_LoadGotoOutIng.ToString()];
+              /** Nothing
+                // var transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOutStart_LoadGotoOutIng.ToString()];
                 var nextState = tLoadMoveTrayToPositionInStart_LoadMoveTrayToPositionInIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
+               */
             };
 
+            // Load 時, 檢查 有盒子之後, 將Tray 移到  Position In, 動作中 
             sLoadMoveTrayToPositionInIng.OnEntry += (sender, e) =>
             {
+                Func<DateTime, StateGuardRtns> guard = (startTime) =>
+                 {
+                     StateGuardRtns rtn = null;
+                     if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionIn)
+                     {
+                         rtn = new StateGuardRtns
+                         {
+                             NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                             ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                             Transition = tLoadMoveTrayToPositionInIng_LoadMoveTrayToPositionInComplete,
+                         };
+                         
+                     }
+                     else if(HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                     {
+                         throw new StateFailException();
+                     }
+                     else if (timeoutObj.IsTimeOut(startTime))
+                     {
+                         throw new StateTimeoutException();
+                     }
+                     return rtn;
+                 };
+                Action<object> action = null;
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) => { throw ex; };
+                this.TriggerAsync(guard, action, actionParameter, exceptionHandler);
+                /** Original
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
                // var dicTransition = this.Transitions;
@@ -1197,45 +1251,87 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     }
                 };
                 new Task(guard).Start();
+              */
             };
             sLoadMoveTrayToPositionInIng.OnExit += (sender, e) =>
             {
+                /** Original, Nothing
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
+               */        
             };
 
             sLoadMoveTrayToPositionInComplete.OnEntry += (sender, e) =>
             {
+                Func<StateGuardRtns> guard = () =>
+                {
+                    StateGuardRtns rtn = new StateGuardRtns
+                    {
+                        Transition = tLoadMoveTrayToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn,
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs=new MacStateExitEventArgs()
+
+                    };
+                    return rtn;
+                };
+                Action<object> action = null;
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = null;
+                this.Trigger(guard,action,actionParameter,exceptionHandler);
+                /** Original
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
+               */
             };
             sLoadMoveTrayToPositionInComplete.OnExit += (sender, e) =>
             {
-               // var transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOutComplete_IdleForGetBoxOnTrayAtOut.ToString()];
-                var nextState = tLoadMoveToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn.StateTo;
+               /** Original, Nothing
+                // var transition = this.Transitions[EnumMacDrawerTransition.LoadGotoOutComplete_IdleForGetBoxOnTrayAtOut.ToString()];
+                var nextState = tLoadMoveTrayToPositionInComplete_IdleForGetBoxOnTrayAtPositionIn.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
+                */
             };
             sIdleForGetBoxOnTrayAtPositionIn.OnEntry += (sender, e) =>
             {
-                var state = (MacState)sender;
-                state.DoExit(new MacStateExitEventArgs());
+                Func<StateGuardRtns> guard = () =>
+                {
+                    var rtn = new StateGuardRtns
+                    {
+                        Transition = tIdleForGetBoxOnTrayAtPositionIn_NULL,
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                         ThisStateExitEventArgs=new MacStateExitEventArgs(),
+                    };
+                    return rtn; ;
+                };
+                Action<object> action = null;
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>
+                {
+                    throw ex;
+                };
+                Trigger(guard, action, actionParameter, exceptionHandler);
+                
             };
             sIdleForGetBoxOnTrayAtPositionIn.OnExit += (sender, e) =>
             {
-                 // Load  Tray 到達 Out 位置, 等待將盒子取走 
+                //  Nothing, Load  Tray 到達 Out 位置, 等待將盒子取走 
             };
 
+            // Load, 移到 Position 時逾時, Throw an Exception
             sLoadMoveTrayToPositionInTimeOut.OnEntry += (sender, e) =>
             {
+                /** Original
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
+                */
             };
             sLoadMoveTrayToPositionInTimeOut.OnExit += (sender, e) =>
             {
-                // TODO: Transition ?
+                // Nothing 
             };
 
+            // Load, 無法移動 Tray 到 Position In, Throw an Exception
             sLoadMoveTrayToPositionInFail.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
