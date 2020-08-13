@@ -66,11 +66,11 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region unload
         // Unload(將 Tray 移到 Out)
       
-        UnloadGotoOutStart_UnloadGotoOutIng,
-        UnloadGotoOutIng_UnloadGotoOutComplete,
-        UnloadGotoOutIng_UnloadGotoOutTimeOut,
-        UnloadGotoOutIng_UnloadGotoOutFail,
-        UnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut,
+        UnloadMoveTrayToPositionInStart_UnloadMoveTrayToPosiotionInIng,
+        UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInComplete,
+        UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInTimeOut,
+        UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPOsitionInFail,
+        UnloadMoveTrayToInComplete_IdleForPutBoxOnTrayAtPositionIn,
 
         // Unload(將 Tray 由Out 移到 Home) Main
         UnloadGotoHomeStart_UnloadGotoHomeIng,
@@ -101,6 +101,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         IdleForPutBoxOnTrayAtPositionOut_NULL,
         LoadNoBoxRejectTrayToPositionOutFromPositionHomeStart_LoadNoBoxRejectTrayToPositionOutFromHomeIng,
         IdleForGetBoxOnTrayAtPositionIn_NULL,
+        IdleForPutBoxOnTrayAtPositionIn_NULL,
         // LoadGotoHomeComplete_LoadRejectToInFromHomeStart,
         // Unload (移走 Box)
         //UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,
