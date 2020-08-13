@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
         public MacMsInspectionCh() { LoadStateMachine(); }
 
-        TimeOutController timeoutObj = new TimeOutController();
+        MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
         public override void LoadStateMachine()
         {
             #region State
@@ -424,8 +424,9 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             #endregion State Register OnEntry OnExit
         }
 
-        public class TimeOutController
+        public class MacInspectionChUnitStateTimeOutController
         {
+            const int defTimeOutSec = 20;
             public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
             {
                 var thisTime = DateTime.Now;
@@ -442,7 +443,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
             public bool IsTimeOut(DateTime startTime)
             {
-                return IsTimeOut(startTime, 20);
+                return IsTimeOut(startTime, defTimeOutSec);
             }
         }
     }

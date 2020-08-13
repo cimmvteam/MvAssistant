@@ -108,12 +108,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             for (int idx = 0; idx < targets.Count; idx++)
             {
                 var motion = targets[idx];
-                this.ldd.LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "__Read Position[ " + idx + " ]");
                 this.HalMoveStraightAsyn(motion);
                 while (!this.ldd.MoveIsComplete())
                     Thread.Sleep(100);
                 this.ldd.MoveCompeleteReply();
-                this.ldd.LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "__Position[ " + idx + " ] Complete");
             }
             return 0;
         }

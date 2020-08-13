@@ -1,6 +1,7 @@
 ﻿using MaskAutoCleaner.v1_0.Machine.CleanCh;
 using MaskAutoCleaner.v1_0.Machine.InspectionCh;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
+using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.Msg;
 using MaskAutoCleaner.v1_0.Msg.PrescribedSecs;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
@@ -27,7 +28,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         EnumMacMsMaskTransferState CurrentWorkState { get; set; }
 
-        TimeOutController timeoutObj = new TimeOutController();
+        MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
         public void Initial()
         {
@@ -75,13 +76,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToICHomeClampedFromInspectionCh = NewState(EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionCh);
             MacState sMovingToICHomeClampedFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionChGlass);
             MacState sMovingToLPHomeClampedFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromOpenStage);
-            
+
 
             //Barcode Reader
             MacState sMovingToBarcodeReaderClamped = NewState(EnumMacMsMaskTransferState.MovingToBarcodeReaderClamped);
             MacState sWaitingForBarcodeReader = NewState(EnumMacMsMaskTransferState.WaitingForBarcodeReader);
             MacState sMovingToLPHomeClampedFromBarcodeReader = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromBarcodeReader);
-            
+
 
             //Clean
             MacState sCleanMovingStart = NewState(EnumMacMsMaskTransferState.CleanMovingStart);//前往CleanCh
@@ -89,7 +90,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sCleanMovingReturn = NewState(EnumMacMsMaskTransferState.CleanMovingReturn);//離開CleanCh
             MacState sCleanChMoving = NewState(EnumMacMsMaskTransferState.CleanChMoving);
             MacState sCleanChWaitAckMove = NewState(EnumMacMsMaskTransferState.CleanChWaitAckMove);
-            
+
 
             //To Target
             MacState sMovingToLoadPortAForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortAForRelease);
@@ -234,472 +235,641 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region State Register OnEntry OnExit
 
             sStart.OnEntry += (sender, e) =>
-            { };
+            {
+                Func<StateGuardRtns> guard = () =>
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tStart_DeviceInitial,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Action<object> action = null;
+                object actionParameter = null;
+                Trigger(guard, action, actionParameter, exceptionHandler);
+            };
             sStart.OnExit += (sender, e) =>
             { };
 
             sInitial.OnEntry += (sender, e) =>
-                {
-                    var thisState = (MacState)sender;
-                    MacTransition transition = null;
-                    DateTime thisTime = DateTime.Now;
-                    Action guard = () =>
-                    {
-                        while (true)
-                        {
-                            if (CurrentWorkState == EnumMacMsMaskTransferState.Initial)
-                            {
-                                HalMaskTransfer.Initial();
-                                transition = tDeviceInitial_LPHome;
-                                break;
-                            }
-                            if (timeoutObj.IsTimeOut(thisTime))
-                            {
-                                // TODO
-                                break;
-                            }
-                            Thread.Sleep(10);
-                        }
-                    };
-                    new Task(guard).Start();
-                };
-            sInitial.OnExit += (sender, e) =>
             {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
+                Func<StateGuardRtns> guard = () =>
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tDeviceInitial_LPHome,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Action<object> action = (parameter) => { HalMaskTransfer.Initial(); };
+                object actionParameter = null;
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
+            sInitial.OnExit += (sender, e) =>
+            { };
 
             sLPHome.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = null;
+                Action<object> action = null;
+                Action<object> actionMoveToICHome = null;
+                Action<object> actionMoveToOS = null;
+                Action<object> actionWait = null;
+                object actionParameter = null;
+                object actionParameterMoveToICHome = null;
+                object actionParameterMoveToOS = null;
+                object actionParameterWait = null;
+                Action<Exception> exceptionHandler = null;
+                Action<Exception> exceptionHandlerMoveToICHome = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerMoveToOS = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
+                Func<StateGuardRtns> guardMoveToICHome = () =>//需要轉向去IC夾取
                 {
-                    while (true)
+                    StateGuardRtns rtn = null;
+                    try
                     {
-                        // TODO: Get Load Port A/B State
-                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                        var CCState = new MacMsCleanCh();
-                        var OSState = new MacMsOpenStage();
-                        // TODO: Get Other Components State
-                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
+                        rtn = new StateGuardRtns
                         {
-                            transition = tLPHome_ChangingDirectionToICHome;
-                            break;
-                        }
-                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
-                        {
-                            transition = tLPHome_ChangingDirectionToICHome;
-                            break;
-                        }
-                        else if (OSState.CurrentWorkState==EnumMacMsOpenStageState.WaitingForReleaseMask)
-                        {
-                            transition = tLPHome_MovingToOpenStage;
-                            break;
-                        }
-                        // TODO: Other Components State Check
-                        else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHome)
-                        {
-                            transition = tLPHome_LPHome;//Wait
-                            break;
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-
-                        Thread.Sleep(10);
+                            Transition = tLPHome_ChangingDirectionToICHome,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
                     }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Func<StateGuardRtns> guardMoveToOS = () =>//移動到Open Stage夾取
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tLPHome_MovingToOpenStage,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Func<StateGuardRtns> guardWait = () =>//保持原狀態
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tLPHome_LPHome,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+
+                // TODO: Get Load Port A/B State
+                var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                var CCState = new MacMsCleanCh();
+                var OSState = new MacMsOpenStage();
+                // TODO: Get Other Components State
+                if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
+                {
+                    guard = guardMoveToICHome;
+                    action = actionMoveToICHome;
+                    actionParameter = actionParameterMoveToICHome;
+                    exceptionHandler = exceptionHandlerMoveToICHome;
+                }
+                else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
+                {
+                    guard = guardMoveToICHome;
+                    action = actionMoveToICHome;
+                    actionParameter = actionParameterMoveToICHome;
+                    exceptionHandler = exceptionHandlerMoveToICHome;
+                }
+                else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForReleaseMask)
+                {
+                    guard = guardMoveToOS;
+                    action = actionMoveToOS;
+                    actionParameter = actionParameterMoveToOS;
+                    exceptionHandler = exceptionHandlerMoveToOS;
+                }
+                // TODO: Other Components State Check
+                else
+                {
+                    guard = guardWait;
+                    action = actionWait;
+                    actionParameter = actionParameterWait;
+                    exceptionHandler = exceptionHandlerWait;
+                }
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
             sLPHome.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sLPHomeClamped.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = null;
+                Action<object> action = null;
+                Action<object> actionMoveToICHomeClamped = null;
+                Action<object> actionMoveToOSForRelease = null;
+                Action<object> actionWait = null;
+                object actionParameter = null;
+                object actionParameterMoveToICHomeClamped = null;
+                object actionParameterMoveToOSForRelease = null;
+                object actionParameterWait = null;
+                Action<Exception> exceptionHandler = null;
+                Action<Exception> exceptionHandlerMoveToICHomeClamped = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerMoveToOSForRelease = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
+                Func<StateGuardRtns> guardMoveToICHomeClamped = () =>//需要轉向去IC放置
                 {
-                    while (true)
+                    StateGuardRtns rtn = null;
+                    try
                     {
-                        // TODO: Get Load Port A/B State
-                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                        var CCState = new MacMsCleanCh();
-                        var OSState = new MacMsOpenStage();
-                        // TODO: Get Other Components State
-                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
+                        rtn = new StateGuardRtns
                         {
-                            transition = tLPHomeClamped_ChangingDirectionToICHomeClamped;
-                            break;
-                        }
-                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
-                        {
-                            transition = tLPHomeClamped_ChangingDirectionToICHomeClamped;
-                            break;
-                        }
-                        else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
-                        {
-                            transition = tLPHomeClamped_MovingToOpenStageForRelease;
-                            break;
-                        }
-                        // TODO: Other Components State Check
-                        else if (CurrentWorkState == EnumMacMsMaskTransferState.LPHomeClamped)
-                        {
-                            transition = tLPHomeClamped_LPHomeClamped;//Wait
-                            break;
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
+                            Transition = tLPHomeClamped_ChangingDirectionToICHomeClamped,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
                     }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Func<StateGuardRtns> guardMoveToOSForRelease = () =>//移動到Open Stage放置
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tLPHomeClamped_MovingToOpenStageForRelease,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Func<StateGuardRtns> guardWait = () =>//保持原狀態
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tLPHomeClamped_LPHomeClamped,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+
+                // TODO: Get Load Port A/B State
+                var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                var CCState = new MacMsCleanCh();
+                var OSState = new MacMsOpenStage();
+                // TODO: Get Other Components State
+                if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
+                {
+                    guard = guardMoveToICHomeClamped;
+                    action = actionMoveToICHomeClamped;
+                    actionParameter = actionParameterMoveToICHomeClamped;
+                    exceptionHandler = exceptionHandlerMoveToICHomeClamped;
+                }
+                else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
+                {
+                    guard = guardMoveToICHomeClamped;
+                    action = actionMoveToICHomeClamped;
+                    actionParameter = actionParameterMoveToICHomeClamped;
+                    exceptionHandler = exceptionHandlerMoveToICHomeClamped;
+                }
+                else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
+                {
+                    guard = guardMoveToOSForRelease;
+                    action = actionMoveToOSForRelease;
+                    actionParameter = actionParameterMoveToOSForRelease;
+                    exceptionHandler = exceptionHandlerMoveToOSForRelease;
+                }
+                // TODO: Other Components State Check
+                else
+                {
+                    guard = guardWait;
+                    action = actionWait;
+                    actionParameter = actionParameterWait;
+                    exceptionHandler = exceptionHandlerWait;
+                }
             };
             sLPHomeClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sICHome.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = null;
+                Action<object> action = null;
+                Action<object> actionMoveToLPHome = null;
+                Action<object> actionMoveToICGetMask = null;
+                Action<object> actionMoveToICGetGlass = null;
+                Action<object> actionWait = null;
+                object actionParameter = null;
+                object actionParameterMoveToLPHome = null;
+                object actionParameterMoveToICGetMask = null;
+                object actionParameterMoveToICGetGlass = null;
+                object actionParameterWait = null;
+                Action<Exception> exceptionHandler = null;
+                Action<Exception> exceptionHandlerMoveToLPHome = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerMoveToICGetMask = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerMoveToICGetGlass = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
+                Func<StateGuardRtns> guardMoveToLPHome = () =>//需要轉向去LP夾取
                 {
-                    while (true)
+                    StateGuardRtns rtn = null;
+                    try
                     {
-                        // TODO: Get Load Port A/B State
-                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                        var CCState = new MacMsCleanCh();
-                        var OSState = new MacMsOpenStage();
-                        // TODO: Get Other Components State
-                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
+                        rtn = new StateGuardRtns
                         {
-                            transition = tICHome_MovingToInspectionCh;
-                            break;
-                        }
-                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
-                        {
-                            transition = tICHome_MovingToInspectionChGlass;
-                            break;
-                        }
-                        else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForReleaseMask)
-                        {
-                            transition = tICHome_ChangingDirectionToLPHome;
-                            break;
-                        }
-                        // TODO: Other Components State Check
-                        else if (CurrentWorkState == EnumMacMsMaskTransferState.ICHome)
-                        {
-                            transition = tICHome_ICHome;//Wait
-                            break;
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-
-                        Thread.Sleep(10);
+                            Transition = tICHome_ChangingDirectionToLPHome,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
                     }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Func<StateGuardRtns> guardMoveToICGetMask = () =>//移動到IC夾取Mask(在IC裡面Pellicle朝上)
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tICHome_MovingToInspectionCh,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Func<StateGuardRtns> guardMoveToICGetGlass = () =>//移動到IC夾取Mask(在IC裡面Glass朝上)
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tICHome_MovingToInspectionChGlass,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Func<StateGuardRtns> guardWait = () =>//保持原狀態
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tICHome_ICHome,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+
+                // TODO: Get Load Port A/B State
+                var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                var CCState = new MacMsCleanCh();
+                var OSState = new MacMsOpenStage();
+                // TODO: Get Other Components State
+                if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
+                {
+                    guard = guardMoveToICGetMask;
+                    action = actionMoveToICGetMask;
+                    actionParameter = actionParameterMoveToICGetMask;
+                    exceptionHandler = exceptionHandlerMoveToICGetMask;
+                }
+                else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
+                {
+                    guard = guardMoveToICGetGlass;
+                    action = actionMoveToICGetGlass;
+                    actionParameter = actionParameterMoveToICGetGlass;
+                    exceptionHandler = exceptionHandlerMoveToICGetGlass;
+                }
+                else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForReleaseMask)
+                {
+                    guard = guardMoveToLPHome;
+                    action = actionMoveToLPHome;
+                    actionParameter = actionParameterMoveToLPHome;
+                    exceptionHandler = exceptionHandlerMoveToLPHome;
+                }
+                // TODO: Other Components State Check
+                else
+                {
+                    guard = guardWait;
+                    action = actionWait;
+                    actionParameter = actionParameterWait;
+                    exceptionHandler = exceptionHandlerWait;
+                }
             };
             sICHome.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sICHomeClamped.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = null;
+                Action<object> action = null;
+                Action<object> actionMoveToLPHome = null;
+                Action<object> actionMoveToICForReleaseMask = null;
+                Action<object> actionMoveToICForReleaseGlass = null;
+                Action<object> actionWait = null;
+                object actionParameter = null;
+                object actionParameterMoveToLPHome = null;
+                object actionParameterMoveToICForReleaseMask = null;
+                object actionParameterMoveToICForReleaseGlass = null;
+                object actionParameterWait = null;
+                Action<Exception> exceptionHandler = null;
+                Action<Exception> exceptionHandlerMoveToLPHome = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerMoveToICForReleaseMask = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerMoveToICForReleaseGlass = (ex) => { throw ex; };
+                Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
+                Func<StateGuardRtns> guardMoveToLPHome = () =>//需要轉向去LP放置
                 {
-                    while (true)
+                    StateGuardRtns rtn = null;
+                    try
                     {
-                        // TODO: Get Load Port A/B State
-                        var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                        var CCState = new MacMsCleanCh();
-                        var OSState = new MacMsOpenStage();
-                        // TODO: Get Other Components State
-                        if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
+                        rtn = new StateGuardRtns
                         {
-                            transition = tICHomeClamped_MovingToInspectionChForRelease;
-                            break;
-                        }
-                        else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
-                        {
-                            transition = tICHomeClamped_MovingToInspectionChGlassForRelease;
-                            break;
-                        }
-                        else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
-                        {
-                            transition = tICHomeClamped_ChangingDirectionToLPHomeClamped;
-                            break;
-                        }
-                        // TODO: Other Components State Check
-                        else if (CurrentWorkState == EnumMacMsMaskTransferState.ICHomeClamped)
-                        {
-                            transition = tICHomeClamped_ICHomeClamped;//Wait
-                            break;
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-
-                        Thread.Sleep(10);
+                            Transition = tICHomeClamped_ChangingDirectionToLPHomeClamped,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
                     }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Func<StateGuardRtns> guardMoveToICForReleaseMask = () =>//移動到IC放置Mask(在IC裡面Pellicle朝上)
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tICHomeClamped_MovingToInspectionChForRelease,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Func<StateGuardRtns> guardMoveToICForReleaseGlass = () =>//移動到IC放置Mask(在IC裡面Glass朝上)
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tICHomeClamped_MovingToInspectionChGlassForRelease,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+                Func<StateGuardRtns> guardWait = () =>//保持原狀態
+                {
+                    StateGuardRtns rtn = null;
+                    try
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tICHomeClamped_ICHomeClamped,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        };
+                    }
+                    catch (Exception)
+                    { throw new StateFailException(); }
+                    return rtn;
+                };
+
+                // TODO: Get Load Port A/B State
+                var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
+                var CCState = new MacMsCleanCh();
+                var OSState = new MacMsOpenStage();
+                // TODO: Get Other Components State
+                if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
+                {
+                    guard = guardMoveToICForReleaseMask;
+                    action = actionMoveToICForReleaseMask;
+                    actionParameter = actionParameterMoveToICForReleaseMask;
+                    exceptionHandler = exceptionHandlerMoveToICForReleaseMask;
+                }
+                else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
+                {
+                    guard = guardMoveToICForReleaseGlass;
+                    action = actionMoveToICForReleaseGlass;
+                    actionParameter = actionParameterMoveToICForReleaseGlass;
+                    exceptionHandler = exceptionHandlerMoveToICForReleaseGlass;
+                }
+                else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
+                {
+                    guard = guardMoveToLPHome;
+                    action = actionMoveToLPHome;
+                    actionParameter = actionParameterMoveToLPHome;
+                    exceptionHandler = exceptionHandlerMoveToLPHome;
+                }
+                // TODO: Other Components State Check
+                else
+                {
+                    guard = guardWait;
+                    action = actionWait;
+                    actionParameter = actionParameterWait;
+                    exceptionHandler = exceptionHandlerWait;
+                }
             };
             sICHomeClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sCCHomeClamped.OnEntry += (sender, e) =>
             { };
             sCCHomeClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             #region Change Direction
             sChangingDirectionToLPHome.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = () =>
                 {
-                    while (true)
+                    var rtn = new StateGuardRtns
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.ChangingDirectionToLPHome)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tChangingDirectionToLPHome_LPHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        Transition = tChangingDirectionToLPHome_LPHome,
+                    };
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Action<object> action = (parameter) =>
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
             sChangingDirectionToLPHome.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sChangingDirectionToLPHomeClamped.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = () =>
                 {
-                    while (true)
+                    var rtn = new StateGuardRtns
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.ChangingDirectionToLPHomeClamped)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tChangingDirectionToLPHomeClamped_LPHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        Transition = tChangingDirectionToLPHomeClamped_LPHomeClamped,
+                    };
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Action<object> action = (parameter) =>
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
             sChangingDirectionToLPHomeClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sChangingDirectionToICHome.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = () =>
                 {
-                    while (true)
+                    var rtn = new StateGuardRtns
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.ChangingDirectionToICHome)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tChangingDirectionToICHome_ICHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        Transition = tChangingDirectionToICHome_ICHome,
+                    };
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Action<object> action = (parameter) =>
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
             sChangingDirectionToICHome.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sChangingDirectionToICHomeClamped.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = () =>
                 {
-                    while (true)
+                    var rtn = new StateGuardRtns
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.ChangingDirectionToICHomeClamped)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tChangingDirectionToICHomeClamped_ICHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        Transition = tChangingDirectionToICHomeClamped_ICHomeClamped,
+                    };
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Action<object> action = (parameter) =>
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
             sChangingDirectionToICHomeClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sChangingDirectionToCCHomeClamped.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                Func<StateGuardRtns> guard = () =>
                 {
-                    while (true)
+                    var rtn = new StateGuardRtns
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.ChangingDirectionToCCHomeClamped)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tChangingDirectionToCCHomeClamped_CCHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        Transition = tChangingDirectionToCCHomeClamped_CCHomeClamped,
+                    };
+                    return rtn;
                 };
-                new Task(guard).Start();
+                Action<object> action = (parameter) =>
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>
+                { throw ex; };
+                Trigger(guard, action, actionParameter, exceptionHandler);
             };
             sChangingDirectionToCCHomeClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
             #endregion Change Direction
 
             #region Load PortA
@@ -740,11 +910,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLoadPortA.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(0));// TODO: How to get mask type
-            };
+            { };
 
             sLoadPortAClamping.OnEntry += (sender, e) =>
             {
@@ -781,11 +947,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sLoadPortAClamping.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeClampedFromLoadPortA.OnEntry += (sender, e) =>
             {
@@ -824,11 +986,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeClampedFromLoadPortA.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLoadPortAForRelease.OnEntry += (sender, e) =>
             {
@@ -867,11 +1025,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLoadPortAForRelease.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sLoadPortAReleasing.OnEntry += (sender, e) =>
             {
@@ -907,11 +1061,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sLoadPortAReleasing.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeFromLoadPortA.OnEntry += (sender, e) =>
             {
@@ -950,11 +1100,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeFromLoadPortA.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
             #endregion Load PortA
 
             #region Load PortB
@@ -995,11 +1141,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLoadPortB.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(0));// TODO: How to get mask type
-            };
+            { };
 
             sLoadPortBClamping.OnEntry += (sender, e) =>
             {
@@ -1036,11 +1178,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sLoadPortBClamping.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeClampedFromLoadPortB.OnEntry += (sender, e) =>
             {
@@ -1079,11 +1217,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeClampedFromLoadPortB.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLoadPortBForRelease.OnEntry += (sender, e) =>
             {
@@ -1122,11 +1256,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLoadPortBForRelease.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sLoadPortBReleasing.OnEntry += (sender, e) =>
             {
@@ -1162,11 +1292,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sLoadPortBReleasing.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeFromLoadPortB.OnEntry += (sender, e) =>
             {
@@ -1205,11 +1331,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeFromLoadPortB.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
             #endregion Load PortB
 
             #region Inspection Ch
@@ -1251,11 +1373,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToInspectionCh.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(0));// TODO: How to get mask type
-            };
+            { };
 
             sInspectionChClamping.OnEntry += (sender, e) =>
             {
@@ -1292,11 +1410,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sInspectionChClamping.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToICHomeClampedFromInspectionCh.OnEntry += (sender, e) =>
             {
@@ -1335,11 +1449,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToICHomeClampedFromInspectionCh.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToInspectionChForRelease.OnEntry += (sender, e) =>
             {
@@ -1378,11 +1488,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToInspectionChForRelease.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sInspectionChReleasing.OnEntry += (sender, e) =>
             {
@@ -1418,11 +1524,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sInspectionChReleasing.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToICHomeFromInspectionCh.OnEntry += (sender, e) =>
             {
@@ -1461,11 +1563,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToICHomeFromInspectionCh.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
 
 
@@ -1506,11 +1604,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToInspectionChGlass.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(0));// TODO: How to get mask type
-            };
+            { };
 
             sInspectionChGlassClamping.OnEntry += (sender, e) =>
             {
@@ -1547,11 +1641,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sInspectionChGlassClamping.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToICHomeClampedFromInspectionChGlass.OnEntry += (sender, e) =>
             {
@@ -1590,11 +1680,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToICHomeClampedFromInspectionChGlass.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToInspectionChGlassForRelease.OnEntry += (sender, e) =>
             {
@@ -1633,11 +1719,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToInspectionChGlassForRelease.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sInspectionChGlassReleasing.OnEntry += (sender, e) =>
             {
@@ -1674,11 +1756,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sInspectionChGlassReleasing.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToICHomeFromInspectionChGlass.OnEntry += (sender, e) =>
             {
@@ -1717,11 +1795,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToICHomeFromInspectionChGlass.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
             #endregion
 
             #region Clean Ch
@@ -1789,11 +1863,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToOpenStage.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(0));// TODO: How to get mask type
-            };
+            { };
 
             sOpenStageClamping.OnEntry += (sender, e) =>
             {
@@ -1830,11 +1900,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sOpenStageClamping.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeClampedFromOpenStage.OnEntry += (sender, e) =>
             {
@@ -1873,11 +1939,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeClampedFromOpenStage.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingOpenStageForRelease.OnEntry += (sender, e) =>
             {
@@ -1916,11 +1978,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingOpenStageForRelease.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sOpenStageReleasing.OnEntry += (sender, e) =>
             {
@@ -1956,11 +2014,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sOpenStageReleasing.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeFromOpenStage.OnEntry += (sender, e) =>
             {
@@ -1999,11 +2053,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeFromOpenStage.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
             #endregion
 
             #region Barcode Reader
@@ -2046,11 +2096,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToBarcodeReaderClamped.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sWaitingForBarcodeReader.OnEntry += (sender, e) =>
             {
@@ -2085,11 +2131,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sWaitingForBarcodeReader.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
 
             sMovingToLPHomeClampedFromBarcodeReader.OnEntry += (sender, e) =>
             {
@@ -2128,11 +2170,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 new Task(guard).Start();
             };
             sMovingToLPHomeClampedFromBarcodeReader.OnExit += (sender, e) =>
-            {
-                var args = (MacStateExitWithTransitionEventArgs)e;
-                var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(null));
-            };
+            { };
             #endregion
 
 
@@ -2144,10 +2182,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //--- Exception Transition ---
 
         }
-        
 
-        public class TimeOutController
+
+        public class MacMaskTransferUnitStateTimeOutController
         {
+            const int defTimeOutSec = 20;
             public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
             {
                 var thisTime = DateTime.Now;
@@ -2164,7 +2203,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             public bool IsTimeOut(DateTime startTime)
             {
-                return IsTimeOut(startTime, 20);
+                return IsTimeOut(startTime, defTimeOutSec);
             }
         }
 

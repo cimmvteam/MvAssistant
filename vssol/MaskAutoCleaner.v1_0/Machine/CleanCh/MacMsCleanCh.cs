@@ -69,8 +69,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             #endregion State Register OnEntry OnExit
         }
 
-        public class TimeOutController
+        public class MacCleanChUnitStateTimeOutController
         {
+            const int defTimeOutSec = 20;
             public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
             {
                 var thisTime = DateTime.Now;
@@ -87,7 +88,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
 
             public bool IsTimeOut(DateTime startTime)
             {
-                return IsTimeOut(startTime, 20);
+                return IsTimeOut(startTime, defTimeOutSec);
             }
         }
     }

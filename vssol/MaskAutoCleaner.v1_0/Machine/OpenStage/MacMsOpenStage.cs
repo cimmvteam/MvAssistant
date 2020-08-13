@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
         public MacMsOpenStage() { LoadStateMachine(); }
 
-        TimeOutController timeoutObj = new TimeOutController();
+        MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();
         public override void LoadStateMachine()
         {
             #region State
@@ -913,8 +913,9 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             #endregion State Register OnEntry OnExit
         }
 
-        public class TimeOutController
+        public class MacOpenStageUnitStateTimeOutController
         {
+            const int defTimeOutSec = 20;
             public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
             {
                 var thisTime = DateTime.Now;
@@ -931,7 +932,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
             public bool IsTimeOut(DateTime startTime)
             {
-                return IsTimeOut(startTime, 20);
+                return IsTimeOut(startTime, defTimeOutSec);
             }
         }
     }
