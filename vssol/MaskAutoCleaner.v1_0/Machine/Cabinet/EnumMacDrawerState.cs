@@ -46,7 +46,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <summary>Load 時因為没有 Box 而退回到 In (失敗)</summary>   <remarks>2020/08/03 new, King</remarks>
         LoadNoBoxRejectTrayToPositionOutFromPositionHomeFail,
         /// <summary>Load 時因為没有 Box 而退回到 In (逾時)</summary>   <remarks>2020/08/03 new, King</remarks>
-        LoadNoBoxRejectToPositionOutFromPositionHomeTimeOut,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut,
 
         LoadMoveTrayToPositionInStart,
         LoadMoveTrayToPositionInIng,
@@ -73,20 +73,20 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadMoveTrayToPositionHomeFail,
         UnloadMoveTrayToPositionHomeTimeOut,
 
-        UnloadGotoInStart,
-        UnloadGotoInIng,
-        UnloadGotoInComplete,
-        UnloadGotoInFail,
-        UnloadGotoInTimeOut,
+        UnloadMoveTrayToPositionOutStart,
+        UnloadMoveTrayToPositionOutIng,
+        UnloadMoveTrayToPositionOutComplete,
+        UnloadMoveTrayToPositionInFail,
+        UnloadMoveTrayToPositionOutTimeOut,
         UnloadCheckBoxExistenceAtPositionHome,
         UnloadBoxExistAtPositionHome,
         UnloadBoxNotExistAtPositionHome,
         UnloadCheckBoxExistenceAtPositionHomeTimeOut,
-        UnloadNoBoxRejectToOutFromHomeStart,
-        UnloadNoBoxRejectToOutFromHomeIng,
-        UnloadNoBoxRejectToOutFromHomeComplete,
-        UnloadNoBoxRejectToOutFromHomeFail,
-        UnloadNoBoxRejectToOutFromHomeTimeOut,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail,
+        UnloadNoBoxRejectTrayToPositionInFromPOsitionHomeTimeOut,
         IdleForPutBoxOnTrayAtPositionOut,
     }
 }
