@@ -422,12 +422,12 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             // Unload 可以將 Box 從 位於 In 的Tray 取走
             MacTransition tUnloadGotoInComplete_IdleForGetBoxOnTrayAtIn = NewTransition(sUnloadMoveTrayToPositionOutFromPositionHomeComplete, sIdleForGetBoxOnTrayAtOut, EnumMacDrawerTransition.UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn);
 
-            
-               #endregion
+
+            #endregion
 
 
             #region  Event
-
+            /**Templete
             sInitialStart.OnEntry+= ( sender,  e)=>
              {
                  Func<StateGuardRtns> guard = () =>
@@ -450,7 +450,28 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                  };
                  object actionParameter = null;
                  Trigger(guard, action, actionParameter, exceptionHandler);
-             };
+             };*/
+
+            sInitialStart.OnEntry += (sender, e) =>
+            {
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = (parameter) =>
+                    {
+                        HalDrawer.CommandINI();
+                    },
+                    ActionParameter=null,
+                    ExceptionHandler = (ex) =>
+                    {
+                        
+                    }
+                };
+                tInitialStart_InitialIng.SetTriggerFileds(triggerMember);
+            };
             sInitialStart.OnExit += (sender, e) =>
             {
                // Nothing

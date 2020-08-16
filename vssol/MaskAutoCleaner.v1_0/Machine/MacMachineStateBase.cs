@@ -1,5 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineException;
 using MvAssistant.Mac.v1_0.Hal;
 using System;
 using System.Collections.Generic;
@@ -88,6 +89,44 @@ namespace MaskAutoCleaner.v1_0.Machine
                 }
             };
             new Task(trigger).Start();
+
+        }
+
+        public void Trigger(MacTransition transition)
+        {
+            TriggerMember triggerMember = (TriggerMember)transition.TriggerMembers;
+            try
+            {
+              
+                if (triggerMember.Guard())
+                {
+                    if (triggerMember.Action != null)
+                    {
+                        triggerMember.Action(triggerMember.ActionParameter);
+                    }
+                    var thisState = transition.StateFrom;
+                    var nextState = transition.StateTo;
+                    thisState.DoExit(triggerMember.ThisStateExitEventArgs);
+                    nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
+                }
+                else
+                {
+                    if(triggerMember.NotGuardException != null)
+                    {
+                        throw triggerMember.NotGuardException;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if(triggerMember.ExceptionHandler !=null)
+                {
+                    triggerMember.ExceptionHandler.Invoke(ex);
+                }
+            }
+        }
+        public void TriggerAsync(MacTransition transition)
+        {
 
         }
 

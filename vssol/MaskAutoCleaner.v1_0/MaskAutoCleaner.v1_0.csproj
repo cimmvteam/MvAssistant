@@ -86,6 +86,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="StateMachineException\BoxTransferStateMachineException\BoxTransferException.cs" />
+    <Compile Include="StateMachineException\BoxTransferStateMachineException\BoxTransferInitialFailException.cs" />
+    <Compile Include="StateMachineException\EnumStateMachineExceptionCode.cs" />
+    <Compile Include="StateMachineException\StateMachineExceptionBase.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerLoadToHomeCompleteSource.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
@@ -205,12 +209,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Machine\BoxTransfer\" />
-    <Folder Include="Machine\Cabinet\" />
-    <Folder Include="Machine\LoadPort\" />
-    <Folder Include="Machine\CleanCh\" />
-    <Folder Include="Machine\InspectionCh\" />
-    <Folder Include="Machine\OpenStage\" />
     <Folder Include="Machine\Universal\" />
+    <Folder Include="StateMachineException\DrawerStateMachineException\" />
+    <Folder Include="StateMachineException\LoadportStateMachineException\" />
+    <Folder Include="StateMachineException\MaskTransferStateMachineException\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
