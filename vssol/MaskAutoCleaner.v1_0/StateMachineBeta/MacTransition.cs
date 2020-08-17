@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         public MacState StateTo { get; protected set; }
 
         public TriggerMemberBase TriggerMembers{ get; private set; }
-        public void SetTriggerFileds(TriggerMemberBase triggerMembers)
+        public void SetTriggerMembers(TriggerMemberBase triggerMembers)
         {
             TriggerMembers = triggerMembers;
         }
@@ -36,8 +36,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
           public Action<object> Action { get; set; }
           public object ActionParameter { get; set; }
           public Action<Exception> ExceptionHandler { get; set; }
-          public MacStateEntryEventArgs NextStateEntryEventArgs { get; private set; }
-          public MacStateExitEventArgs ThisStateExitEventArgs { get; private set; }   
+          public MacStateEntryEventArgs NextStateEntryEventArgs { get;  set; }
+          public MacStateExitEventArgs ThisStateExitEventArgs { get;  set; }   
         
     }
 
@@ -48,6 +48,6 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
     }
     public class TriggerMemberAsync : TriggerMemberBase
     {
-        public Func<DateTime?, bool> Guard { get; set; }
+        public Func<DateTime, bool> Guard { get; set; }
     }    
 }

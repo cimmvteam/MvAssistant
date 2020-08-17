@@ -1,5 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineException.DrawerStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
@@ -464,19 +465,56 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         HalDrawer.CommandINI();
                     },
-                    ActionParameter=null,
+                    ActionParameter = null,
                     ExceptionHandler = (ex) =>
                     {
-                        
-                    }
+                        throw ex;
+                    },
+                    NotGuardException = new DrawerInitialFailException(),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs=new MacStateExitEventArgs(),
+
                 };
-                tInitialStart_InitialIng.SetTriggerFileds(triggerMember);
+                tInitialStart_InitialIng.SetTriggerMembers(triggerMember);
+                Trigger(tInitialStart_InitialIng);
             };
             sInitialStart.OnExit += (sender, e) =>
             {
                // Nothing
             };
 
+            sInitialIng.OnEntry += (sender, e) =>
+            {
+                TriggerMemberAsync triggerMember = new TriggerMemberAsync
+                {
+                    Guard = (startTime) =>
+                    {
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        {
+                            return true;
+                        }
+                        else if (HalDrawer.CurrentWorkState == DrawerWorkState.InitialFailed)
+                        {
+                            throw new DrawerInitialFailException();
+                        }
+                        else if (timeoutObj.IsTimeOut(startTime))
+                        {
+                            throw new DrawerInitialFailException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (ex) => { throw ex; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                tInitialing_InitialComplete.SetTriggerMembers(triggerMember);
+            };
+            /**
             sInitialIng.OnEntry += (sender, e) =>
             {
                 Func<DateTime, StateGuardRtns> guard = (startTime) =>
@@ -507,7 +545,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 object actionParemeter = null;
                 TriggerAsync(guard, action, actionParemeter, exceptionHandler);
                               
-            };
+            };*/
             sInitialIng.OnExit += (sender, e) =>
             {
                // Nothing 

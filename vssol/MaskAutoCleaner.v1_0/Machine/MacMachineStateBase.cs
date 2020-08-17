@@ -95,6 +95,8 @@ namespace MaskAutoCleaner.v1_0.Machine
         public void Trigger(MacTransition transition)
         {
             TriggerMember triggerMember = (TriggerMember)transition.TriggerMembers;
+            var thisState = transition.StateFrom;
+            var nextState = transition.StateTo;
             try
             {
               
@@ -104,10 +106,12 @@ namespace MaskAutoCleaner.v1_0.Machine
                     {
                         triggerMember.Action(triggerMember.ActionParameter);
                     }
-                    var thisState = transition.StateFrom;
-                    var nextState = transition.StateTo;
+                    
                     thisState.DoExit(triggerMember.ThisStateExitEventArgs);
-                    nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
+                    if (nextState != null)
+                    {
+                        nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
+                    }
                 }
                 else
                 {
@@ -117,6 +121,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                     }
                 }
             }
+           
             catch (Exception ex)
             {
                 if(triggerMember.ExceptionHandler !=null)
@@ -127,9 +132,40 @@ namespace MaskAutoCleaner.v1_0.Machine
         }
         public void TriggerAsync(MacTransition transition)
         {
+            TriggerMemberAsync triggerMemberAsync = (TriggerMemberAsync)transition.TriggerMembers;
+            DateTime startTime = DateTime.Now;
+            var thisState = transition.StateFrom;
+            var nextState = transition.StateTo;
+            Action Trigger = () =>
+            {
+                try
+                {
+                    while (true)
+                    {
+                        if (triggerMemberAsync.Guard(startTime))
+                        {
+                            break;
+                        }
+                    }
+                    if (triggerMemberAsync.Action != null)
+                    {
+                        triggerMemberAsync.Action(triggerMemberAsync.ActionParameter);
+                    }
+                    thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
+                    nextState.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
 
+                }
+                catch (Exception ex)
+                {
+                    if (triggerMemberAsync.ExceptionHandler != null)
+                    {
+                        triggerMemberAsync.ExceptionHandler.Invoke(ex);
+                    }
+
+                }
+            };
+            new Task(Trigger).Start();
         }
-
         /// <summary></summary>
         /// <param name="guard">guard (Func delegate)</param>
         /// <param name="action">action (Action delegate)</param>
