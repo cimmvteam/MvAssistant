@@ -8,7 +8,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineException.BoxTransferStateMachineExce
 {
    public class BoxTransferInitialFailException:StateMachineExceptionBase
     {
-        public BoxTransferInitialFailException(string message):base(EnumStateMachineExceptionCode.BoxTransferMustInitialException,message)
+        public BoxTransferInitialFailException(string message):base(EnumStateMachineExceptionCode.BoxTransferInitialFailException,message)
         {
 
         }
