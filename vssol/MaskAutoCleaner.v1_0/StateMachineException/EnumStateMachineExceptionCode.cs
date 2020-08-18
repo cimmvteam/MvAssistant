@@ -57,32 +57,5 @@ namespace MaskAutoCleaner.v1_0.StateMachineException
 
     }
 
-    /// <summary>State machine例外分類</summary>
-    public enum EnumStateMAchineExceptionCategory
-    {
-        /// <summary>系統類</summary>
-        System =0,
-        /// <summary>Mask Transfer</summary>
-        MaskTransfer = 1,
-        /// <summary>Box Transfer</summary>
-        BoxTransfer = 2,
-        /// <summary>Load port</summary>
-        Loadport = 3,
-        /// <summary>Drawer</summary>
-        Drawer = 4,
-    }
-
-    /// <summary>EnumStateMachineExceptionCode 的擴充方法</summary>
-    public static class EnumStateMachineExceptionCodeExtends
-    {
-        /// <summary>轉成錯誤代碼</summary>
-        /// <param name="instance"></param>
-        /// <returns></returns>
-        public static string ToErroeCode(this EnumStateMachineExceptionCode instance)
-        {
-            var intCode = (int)instance;
-            var stringCode = intCode.ToString("000000");
-            return stringCode;
-        }
-    }
+   
 }

@@ -96,7 +96,9 @@
     <Compile Include="StateMachineException\DrawerStateMachineException\DrawerInitialTimeOutException.cs" />
     <Compile Include="StateMachineException\DrawerStateMachineException\DrawerMustInitialException.cs" />
     <Compile Include="StateMachineException\DrawerStateMachineException\DrawerMustResetException.cs" />
+    <Compile Include="StateMachineException\EnumStateMAchineExceptionCategory.cs" />
     <Compile Include="StateMachineException\EnumStateMachineExceptionCode.cs" />
+    <Compile Include="StateMachineException\EnumStateMachineExceptionCodeExtends.cs" />
     <Compile Include="StateMachineException\LoadportStateMachineException\LoadportException.cs" />
     <Compile Include="StateMachineException\LoadportStateMachineException\LoadportInitialFailException.cs" />
     <Compile Include="StateMachineException\LoadportStateMachineException\LoadportInitialTimeOutException.cs" />
