@@ -17,12 +17,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// </summary>
         LPHome,
         LPHomeClamped,
+        LPHomeInspected,
+        LPHomeCleaned,
         /// <summary>
         /// Inspection  Chamber Home(Idle)
         /// </summary>
         ICHome,
         ICHomeClamped,
+        ICHomeInspected,
         CCHomeClamped,
+        CCHomeCleaned,
         #endregion
 
         #region Moving path
