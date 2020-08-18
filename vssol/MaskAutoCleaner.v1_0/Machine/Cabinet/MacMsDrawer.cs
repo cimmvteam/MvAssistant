@@ -428,9 +428,30 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
 
             #region  Event
-            /**Templete
+           
             sInitialStart.OnEntry+= ( sender,  e)=>
-             {
+             { // Not Async
+                 var transition = tInitialStart_InitialIng;
+                 TriggerMember triggerMember = new TriggerMember
+                 {
+                     Guard = () =>  true,
+                     Action = (parameter) =>
+                     {
+                         HalDrawer.CommandINI();
+                     },
+                     ActionParameter = null,
+                     ExceptionHandler = (state, ex) =>
+                     {
+                         // TODO: Do Something
+                     },
+                     NotGuardException = new DrawerInitialFailException(),
+                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
+
+                 };
+                 transition.SetTriggerMembers(triggerMember);
+                 Trigger(transition);
+                 /** original
                  Func<StateGuardRtns> guard = () =>
                  {
                      StateGuardRtns rtn = new StateGuardRtns
@@ -451,42 +472,18 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                  };
                  object actionParameter = null;
                  Trigger(guard, action, actionParameter, exceptionHandler);
-             };*/
-
-            sInitialStart.OnEntry += (sender, e) =>
-            {
-                var transition = tInitialStart_InitialIng;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = (parameter) =>
-                    {
-                        HalDrawer.CommandINI();
-                    },
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState,ex) =>
-                    {
-                        // TODO: Do Something
-                    },
-                    NotGuardException = new DrawerInitialFailException(),
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs=new MacStateExitEventArgs(),
-
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(tInitialStart_InitialIng);
-            };
+                 */
+             };
+            
             sInitialStart.OnExit += (sender, e) =>
             {
-               // Nothing
+               // 視需要加上 Code,
             };
 
-            sInitialIng.OnEntry += (sender, e) =>
-            {
-                TriggerMemberAsync triggerMember = new TriggerMemberAsync
+           sInitialIng.OnEntry += (sender, e) =>
+            {// Async
+                var transition = tInitialing_InitialComplete;
+                TriggerMemberAsync triggerMemberAsync = new TriggerMemberAsync
                 {
                     Guard = (startTime) =>
                     {
@@ -500,7 +497,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         }
                         else if (timeoutObj.IsTimeOut(startTime))
                         {
-                            throw new DrawerInitialFailException();
+                            throw new DrawerInitialTimeOutException();
                         }
                         else
                         {
@@ -509,19 +506,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     },
                     Action = null,
                     ActionParameter = null,
-                    ExceptionHandler = (thisState,ex) => 
+                    ExceptionHandler = (state, ex) =>
                     {
                         // TODO: do something
                     },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
-                tInitialing_InitialComplete.SetTriggerMembers(triggerMember);
-                TriggerAsync(tInitialing_InitialComplete);
-            };
-            /**
-            sInitialIng.OnEntry += (sender, e) =>
-            {
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+                /** Original
                 Func<DateTime, StateGuardRtns> guard = (startTime) =>
                 {
                     StateGuardRtns rtn = null;
@@ -549,15 +543,29 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 Action<object> action = null;
                 object actionParemeter = null;
                 TriggerAsync(guard, action, actionParemeter, exceptionHandler);
-                              
-            };*/
+                   */
+            };
             sInitialIng.OnExit += (sender, e) =>
             {
-               // Nothing 
+               // 視需要加上 Code
             };
 
             sInitialComplete.OnEntry += (sender, e)=>
-            {
+            {  // Not Async
+                var transition = tInitialComplete_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => true,
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = null,
+                    NextStateEntryEventArgs = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                    NotGuardException = null
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+                /**  Original
                 Func<StateGuardRtns> guard = () =>
                 {
                     return new StateGuardRtns
@@ -571,14 +579,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 object actionParameter = null;
                 Action<Exception> exceptionHandler = null;
                 Trigger(guard, action, actionParameter, exceptionHandler);
-
+                */
             };
             
             sInitialComplete.OnExit += (sender, e) =>
             {
-               // Nothing
+                // 視需要加上 Code
             };
 
+          /** 等待移除
             // 初始化逾時, throw an Exception
             sInitialTimeOut.OnEntry += (sender, e) =>
             {
@@ -599,9 +608,33 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 
             };
+            */
 
+            
             sLoadMoveTrayToPositionOutStart.OnEntry += (sender, e) =>
-            {
+            { // Not Async
+                var transition = tLoadMoveTrayToPositionOutStart_LoadMoveTrayToPositionOutIng;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>true,
+                    Action = (parameter) =>
+                    {
+                        HalDrawer.CommandTrayMotionOut();
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler =(state,ex)=> 
+                    {
+                        // TODO: Do Something
+                    },
+                    NotGuardException = new DrawerLoadMoveTrayToPositionOutFailException(),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+                /** Original
                 Action<Exception> exceptionHandler = (ex) =>
                 {
                     throw ex;
@@ -622,15 +655,50 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 };
                 object actionParameter = null; 
                 this.Trigger(guard, action, actionParameter, exceptionHandler);
+                */
             };
             sLoadMoveTrayToPositionOutStart.OnExit += (sender, e) =>
             {
-                // Nothing
+                // 視需要加上 Code
             };
             
 
             sLoadMoveTrayToPositionOutIng.OnEntry += (sender, e) =>
-            {
+            {   //async
+                var transition = tLoadMoveTrayToPositionOutIng_LoadMoveTrayToPositionOutComplete;
+                TriggerMemberAsync triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: Do Something
+                    },
+                    Guard = (startTime) =>
+                    {
+                        bool rtnV = false;
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionOut)
+                        {
+                            rtnV = true;
+                        }
+                        else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                        {
+                            throw new DrawerLoadMoveTrayToPositionOutFailException();
+                        }
+                        else if (timeoutObj.IsTimeOut(startTime))
+                        {
+                            throw new DrawerLoadMoveTrayToPositionOutTimeOutException();
+                        }
+                        return rtnV;
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                     
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+
+                /** Original
                 Action<Exception> exceptionHandler=(ex)=>
                 {
                     throw ex;
@@ -663,14 +731,30 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 Action<object> action = null;
                 object actionParameter = null;
                 this.TriggerAsync(guard, action, actionParameter, exceptionHandler);
+                */
             };
             sLoadMoveTrayToPositionOutIng.OnExit += (sender, e) =>
             {
-               // Nothing
+               // 視需要加上 Code
             };
         
             sLoadMoveTrayToPositionOutComplete.OnEntry += (sender, e) =>
-            {
+            {    // Not Async
+                var transition = tLoadMoveTrayToPositionOutComplete_LoadIdleForPutBoxOnTrayAtPositionOut;
+                var triggerMember = new TriggerMember
+                {
+                    Guard = () => true,
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler =null,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                    NotGuardException = null,
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+                /** Original
+                 * 
                 Func<StateGuardRtns> guard = () =>
                   {
                       StateGuardRtns rtn = new StateGuardRtns
@@ -685,14 +769,29 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 object actionParameter = null;
                 Action<Exception> exceptionHandler = null;
                 this.Trigger(guard,action,actionParameter,exceptionHandler);
+                */
             };
             sLoadMoveTrayToPositionOutComplete.OnExit += (sender, e) =>
             {
-                // Nothing
+                // 視需要加上 Code
             };
            
             sIdleForPutBoxOnTrayAtPositionOut.OnEntry += (sender, e) =>
-              {
+              {// Not Async
+                  var transition = tIdleForPutBoxOnTrayAtPositionOut_NULL;
+                  TriggerMember triggerMember = new TriggerMember
+                  {
+                      Guard = () => true,
+                      Action = null,
+                      ActionParameter = null,
+                      ExceptionHandler = null,
+                      NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                      ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                      NotGuardException = null
+                  };
+                  transition.SetTriggerMembers(triggerMember);
+                  Trigger(transition);
+                  /** Original
                   Func<StateGuardRtns> guard = () =>
                   {
                       StateGuardRtns rtn = new StateGuardRtns
@@ -707,7 +806,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                   object actionParameter = null;
                   Action<Exception> ExceptionHandler = null;
                   this.Trigger(guard,action,actionParameter,ExceptionHandler);
-
+                  */
               };
             sIdleForPutBoxOnTrayAtPositionOut.OnExit += (sender, e) =>
             {
