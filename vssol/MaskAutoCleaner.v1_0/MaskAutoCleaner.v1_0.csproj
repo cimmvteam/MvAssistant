@@ -86,6 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="StateMachineBeta\TriggerMember.cs" />
+    <Compile Include="StateMachineBeta\TriggerMemberAsync.cs" />
+    <Compile Include="StateMachineBeta\TriggerMemberBase.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferException.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialFailException.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialTimeOutException.cs" />
