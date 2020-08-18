@@ -1,5 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineExceptions;
 using MvAssistant.Mac.v1_0.Hal;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace MaskAutoCleaner.v1_0.Machine
     /// </summary>
     public abstract class MacMachineStateBase : MacStateMachine
     {
+     
+        
         //不需實作IMvContextFlow, 因為只有初始化StateMachine, 沒有其它作業
         //不需實作IDisposable, 因為沒有
 
@@ -101,34 +104,128 @@ namespace MaskAutoCleaner.v1_0.Machine
             try
             {
                 var guardRtns = guard();
-              
-                    if (guardRtns != null)
+
+                if (guardRtns != null)
+                {
+                    if (action != null)
                     {
-                        if (action != null)
-                        {
-                            action(actionParameter);
-                        }
-                        var state = guardRtns.ThisState;
-                        var nextState = guardRtns.NextState;
-                        var stateExitArgs = guardRtns.ThisStateExitEventArgs;
-                        var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
-                        state.DoExit(stateExitArgs);
-                        if (nextState != null)
-                        {
-                            nextState.DoEntry(nextStateEntryArgs);
-                        }
+                        action(actionParameter);
                     }
-                
+                    var state = guardRtns.ThisState;
+                    var nextState = guardRtns.NextState;
+                    var stateExitArgs = guardRtns.ThisStateExitEventArgs;
+                    var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
+                    state.DoExit(stateExitArgs);
+                    if (nextState != null)
+                    {
+                        nextState.DoEntry(nextStateEntryArgs);
+                    }
+                }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if(exceptionHndler != null)
+                if (exceptionHndler != null)
                 {
                     exceptionHndler.Invoke(ex);
                 }
             }
         }
 
+        public void Trigger(MacTransition transition)
+        {
+            TriggerMember triggerMember = (TriggerMember)transition.TriggerMembers;
+            var thisState = transition.StateFrom;
+            thisState.ClearException();
+            var nextState = transition.StateTo;
+            var hasDoExit = false;
+            try
+            {
+              
+                if (triggerMember.Guard())
+                {
+                    if (triggerMember.Action != null)
+                    {
+                        triggerMember.Action(triggerMember.ActionParameter);
+                    }
+                    
+                    thisState.DoExit(triggerMember.ThisStateExitEventArgs);
+                    hasDoExit = true;
+                }
+                else
+                {
+                    if(triggerMember.NotGuardException != null)
+                    {
+                        throw triggerMember.NotGuardException;
+                    }
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                if(triggerMember.ExceptionHandler !=null)
+                {
+                    thisState.SetException(ex);
+                    triggerMember.ExceptionHandler.Invoke(thisState,ex);
+                }
+            }
+            if(hasDoExit)
+            {
+                if (nextState != null)
+                {
+                    nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
+                }
+            }
+        }
+        public void TriggerAsync(MacTransition transition)
+        {
+            TriggerMemberAsync triggerMemberAsync = (TriggerMemberAsync)transition.TriggerMembers;
+            DateTime startTime = DateTime.Now;
+            var thisState = transition.StateFrom;
+            var nextState = transition.StateTo;
+            thisState.ClearException();
+            var hasDoExit = false;
+            Action Trigger = () =>
+            {
+                try
+                {
+                    while (true)
+                    {
+                        if (triggerMemberAsync.Guard(startTime))
+                        {
+                            break;
+                        }
+                    }
+                    if (triggerMemberAsync.Action != null)
+                    {
+                        triggerMemberAsync.Action(triggerMemberAsync.ActionParameter);
+                    }
+                    thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
+                    hasDoExit = true;
+                   
+
+                }
+                catch (Exception ex)
+                {
+                    thisState.SetException(ex);
+                    if (triggerMemberAsync.ExceptionHandler != null)
+                    {
+                        thisState.SetException(ex);
+                        //triggerMemberAsync.ExceptionHandler.Invoke(thisState,ex);
+                    }
+
+                }
+                if (hasDoExit)
+                {
+                    if (nextState !=null)
+                    {
+                        nextState.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
+                    }
+                }
+            };
+            new Task(Trigger).Start();
+        }
+      
        
     }
 }

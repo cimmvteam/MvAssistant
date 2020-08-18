@@ -47,9 +47,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         LoadBoxNotExistAtPositionHome_LoadMoveTrayToPositionHomeComplete,
 
         LoadMoveToPositionHomeComplete_LoadNoBoxRejectToPositionOutFromPositionHomeStart,
-        UnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToOutFromHomeIng,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart_UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng,
         LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeComplete,
-        LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToOutFromPositionHomeFail,
+        LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeFail,
         LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut,
         LoadNoBoxRejectTrayToPositionOutFromPositionHomeComplete_IdleForPutBoxOnTrayAtPositionOut,
 
@@ -66,17 +66,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region unload
         // Unload(將 Tray 移到 Out)
       
-        UnloadGotoOutStart_UnloadGotoOutIng,
-        UnloadGotoOutIng_UnloadGotoOutComplete,
-        UnloadGotoOutIng_UnloadGotoOutTimeOut,
-        UnloadGotoOutIng_UnloadGotoOutFail,
-        UnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut,
+        UnloadMoveTrayToPositionInStart_UnloadMoveTrayToPosiotionInIng,
+        UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInComplete,
+        UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInTimeOut,
+        UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPOsitionInFail,
+        UnloadMoveTrayToInComplete_IdleForPutBoxOnTrayAtPositionIn,
 
         // Unload(將 Tray 由Out 移到 Home) Main
-        UnloadGotoHomeStart_UnloadGotoHomeIng,
-        UnloadGotoHomeIng_UnloadGotoHomeComplete,
-        UnloadGotoHomeIng_UnloadGotoHomeTimeOut,
-        UnloadGotoHomeIng_UnloadGotoHomeFail,
+        UnloadMoveTrayToPositionHomeStart_UnloadMoveTrayToPositionHomeIng,
+        UnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeComplete,
+        UnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeTimeOut,
+        UnloadMoveTrayToPOsitionHomeIng_UnloadMoveTrayToPositionHomeFail,
 
         // Unload(將 Tray 由Home 移到 In)
         UnloadGotoHomeComplete_UnloadGotoInStart,
@@ -86,21 +86,22 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadGotoInIng_UnloadGotoInFail,
 
         UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn,
-        UnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome,
-        UnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome,
-        UnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome,
-        UnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut,
-        UnloadBoxExistAtHome_UnloadGotoHomeComplete,
-        UnloadBoxNotExistAtHome_UnloadGotoHomeComplete,
-        UnloadGotoHomeComplete_UnloadNoBoxRejectToOutFromHomeStart,
-        UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeComplete,
-        UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeFail,
-        UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeTimeOut,
-        UnloadNoBoxRejectToOutFromHomeComplete_IdleForPutBoxOnTrayAtOut,
+        UnloadMoveTrayToPositionHomeComplete_UnloadCheckBoxExistenceAtPositionHome,
+        UnloadCheckBoxExistenceAtPositionHome_UnloadBoxExistAtPositionHome,
+        UnloadCheckBoxExistenceAtPositionHome_UnloadBoxNotExistAtPositionHome,
+        UnloadCheckBoxExistenceAtPositionHome_UnloadCheckBoxExistenceAtPositionHomeTimeOut,
+        UnloadBoxExistAtPositionHome_UnloadMoveTrayToHomeComplete,
+        UnloadBoxNotExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete,
+        UnloadMoveTrayToPositionHomeComplete_UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut,
+        UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete_IdleForPutBoxOnTrayAtPositionIn,
         InitialComplete_NULL,
         IdleForPutBoxOnTrayAtPositionOut_NULL,
         LoadNoBoxRejectTrayToPositionOutFromPositionHomeStart_LoadNoBoxRejectTrayToPositionOutFromHomeIng,
         IdleForGetBoxOnTrayAtPositionIn_NULL,
+        IdleForPutBoxOnTrayAtPositionIn_NULL,
         // LoadGotoHomeComplete_LoadRejectToInFromHomeStart,
         // Unload (移走 Box)
         //UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,

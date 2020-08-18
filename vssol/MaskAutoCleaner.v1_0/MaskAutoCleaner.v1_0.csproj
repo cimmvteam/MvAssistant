@@ -86,6 +86,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="StateMachineBeta\TriggerMember.cs" />
+    <Compile Include="StateMachineBeta\TriggerMemberAsync.cs" />
+    <Compile Include="StateMachineBeta\TriggerMemberBase.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCategory.cs" />
+    <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCode.cs" />
+    <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCodeExtends.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\StateMachineExceptionBase.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerLoadToHomeCompleteSource.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
@@ -205,11 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Machine\BoxTransfer\" />
-    <Folder Include="Machine\Cabinet\" />
-    <Folder Include="Machine\LoadPort\" />
-    <Folder Include="Machine\CleanCh\" />
-    <Folder Include="Machine\InspectionCh\" />
-    <Folder Include="Machine\OpenStage\" />
     <Folder Include="Machine\Universal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

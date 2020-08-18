@@ -574,7 +574,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandTrayMotionIn()
         {
-            ResetCurrentWorkState();
+            // ResetCurrentWorkState();
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
             var commandText = Ldd.CommandTrayMotionIn();
            
             return commandText;

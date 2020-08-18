@@ -1,5 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineExceptions.DrawerStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         ///    有Box => 繼續移到 In
         ///    没有 Box => 回退到 Out
         /// </remarks>
-        public void Load_MoveTrayToPositionInFromPositionIn()
+        public void Load_MoveTrayToPositionInFromPositionOut()
         {
             HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeStart);
             this.States[EnumMacDrawerState.LoadMoveTrayToPositionHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
@@ -55,18 +56,21 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
       
 
-        public void Unload_TrayGotoOut()
+        public void Unload_MoveTrayToPositionInFromAnywhere()
         {
-            this.States[EnumMacDrawerState.UnloadGotoOutStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart);
+            //this.States[EnumMacDrawerState.LoadMoveTrayToPositionOutStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacDrawerState.UnloadMoveTrayToPositionInStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         
-        public void Unload_TrayGotoIn()
+        public void Unload_MoveTrayToPositionIn()
         {
-            this.States[EnumMacDrawerState.UnloadGotoHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInStart);
+            this.States[EnumMacDrawerState.UnloadMoveTrayToPositionHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
-        
-        #endregion Temp
+
+        #endregion State Instruction
         public override void LoadStateMachine()
         {
             #region State
@@ -97,7 +101,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             // 等待放盒子
             MacState sIdleForPutBoxOnTrayAtPositionOut = NewState(EnumMacDrawerState.IdleForPutBoxOnTrayAtPositionOut);
 
-            /* Load,將托盤移到 Home */
+            /** Load,將托盤移到 Home **/
             // 開始
             MacState sLoadMoveTrayToPositionHomeStart = NewState(EnumMacDrawerState.LoadMoveTrayToPositionHomeStart);
             // 進行中
@@ -129,7 +133,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             // 失敗
             MacState sLoadNoBoxRejectTrayToPositionOutFromPositionHomeFail = NewState(EnumMacDrawerState.LoadNoBoxRejectTrayToPositionOutFromPositionHomeFail);
             // 逾時未完成
-            MacState sLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut = NewState(EnumMacDrawerState.LoadNoBoxRejectToPositionOutFromPositionHomeTimeOut);
+            MacState sLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut = NewState(EnumMacDrawerState.LoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut);
 
 
             /** Load, 將Tray 自Home 移到 In **/
@@ -147,49 +151,69 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacState sIdleForGetBoxOnTrayAtPositionIn = NewState(EnumMacDrawerState.IdleForGetBoxOnTrayAtPositionIn);
 
 
-            // Unload
-            // Move tray to out from anywhere
-            MacState sUnloadGotoOutStart = NewState(EnumMacDrawerState.UnloadGotoOutStart);
-            MacState sUnloadGotoOutIng = NewState(EnumMacDrawerState.UnloadGotoOutIng);
-            MacState sUnloadGotoOutComplete = NewState(EnumMacDrawerState.UnloadGotoOutComplete);
-            MacState sUnloadGotoOutFail= NewState(EnumMacDrawerState.UnloadGotoOutFail);
-            MacState sUnloadGotoOutTimeOut = NewState(EnumMacDrawerState.UnloadGotoOutTimeOut);
-            // 等待盒子放進來
-            MacState sIdleForPutBoxOnTrayAtOut = NewState(EnumMacDrawerState.IdleForPutBoxOnTrayAtOut);
+            /** Unload **/
+            /** 將 Tray 從任何地移到 Position In */
+            // 開始
+            MacState sUnloadMoveTrayToPositionInStart = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionInStart);
+            // 移動中
+            MacState sUnloadMoveTrayToPositionInIng = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionInIng);
+            // 完成
+            MacState sUnloadMoveTrayToPositionInComplete = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionInComplete);
+            // 無法移動=> 改為 Throw an Exception
+            MacState sUnloadMoveTrayToPositionInFail= NewState(EnumMacDrawerState.UnloadMoveTrayToPOsitionInFail);
+            // 逾時未到, 改為 Throw an Exception,
+            MacState sUnloadMoveTrayToPositionInTimeOut = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionInTimeOut);
+            // 等待盒子放進來 
+            MacState sIdleForPutBoxOnTrayAtPositionIn = NewState(EnumMacDrawerState.IdleForPutBoxOnTrayAtPositionIn);
 
 
-            // move tray to Home from Out
-            MacState sUnloadGotoHomeStart = NewState(EnumMacDrawerState.UnloadGotoHomeStart);
-            MacState sUnloadGotoHomeIng = NewState(EnumMacDrawerState.UnloadGotoHomeIng);
-            MacState sUnloadGotoHomeComplete = NewState(EnumMacDrawerState.UnloadGotoHomeComplete);
-            MacState sUnloadGotoHomeFail = NewState(EnumMacDrawerState.UnloadGotoHomeFail);
-            MacState sUnloadGotoHomeTimeOut = NewState(EnumMacDrawerState.UnloadGotoHomeTimeOut);
+            /**將 Tray 從 Position In 移到 Home(檢查盒子) => Out*/
+            // 將 Tray 移向 Home, 開始 
+            MacState sUnloadMoveTrayToPositionHomeStart = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionHomeStart);
+            // 將 Tray 移向 Home, 移動中
+            MacState sUnloadMoveTrayToPositionHomeIng = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionHomeIng);
+            // 將Tray 移向 Home 完成 
+            MacState sUnloadMoveTrayToPositionHomeComplete = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionHomeComplete);
+            // 將 Tray 移向 Home 失敗
+            MacState sUnloadMoveTrayToPositionHomeFail = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionHomeFail);
+            // 將 Tray 移向 Home 逾時未完成
+            MacState sUnloadMoveTrayToPositionHomeTimeOut = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionHomeTimeOut);
 
             // UnLoad, 在HOme 點檢查Tray 上是否有盒子
-            MacState sUnloadCheckBoxExistenceAtHome = NewState(EnumMacDrawerState.UnloadCheckBoxExistenceAtHome);
+            MacState sUnloadCheckBoxExistenceAtPositionHome = NewState(EnumMacDrawerState.UnloadCheckBoxExistenceAtPositionHome);
             // UnLoad, 在Home 點檢查 是否有盒子=> 有, 2020/08/03 King Liu Add New 
-            MacState sUnloadBoxExistAtHome = NewState(EnumMacDrawerState.UnloadBoxExistAtHome);
+            MacState sUnloadBoxExistAtPositionHome = NewState(EnumMacDrawerState.UnloadBoxExistAtPositionHome);
             // UnLoad, 在Home 點查 是否有 盒子=> 没有, 2020/08/03 King Liu Add New 
-            MacState sUnloadBoxNotExistAtHome = NewState(EnumMacDrawerState.UnloadBoxNotExistAtHome);
+            MacState sUnloadBoxNotExistAtPositionHome = NewState(EnumMacDrawerState.UnloadBoxNotExistAtPositionHome);
             // UnLoad, 在Home 點檢查是否有盒子時逾時,2020/08/03 King Liu Add New  
-            MacState sUnloadCheckBoxExistenceAtHomeTimeOut = NewState(EnumMacDrawerState.UnloadCheckBoxExistenceAtHomeTimeOut);
+            MacState sUnloadCheckBoxExistenceAtHomeTimeOut = NewState(EnumMacDrawerState.UnloadCheckBoxExistenceAtPositionHomeTimeOut);
 
-            // UnLoad, 在Home時被檢出没有盒子, 回退到 Out 
-            MacState sUnloadNoBoxRejectToOutFromHomeStart = NewState(EnumMacDrawerState.UnloadNoBoxRejectToOutFromHomeStart);
-            MacState sUnloadNoBoxRejectToOutFromHomeIng = NewState(EnumMacDrawerState.UnloadNoBoxRejectToOutFromHomeIng);
-            MacState sUnloadNoBoxRejectToOutFromHomeComplete = NewState(EnumMacDrawerState.UnloadNoBoxRejectToOutFromHomeComplete);
-            MacState sUnloadNoBoxRejectToOutFromHomeFail = NewState(EnumMacDrawerState.UnloadNoBoxRejectToOutFromHomeFail);
-            MacState sUnloadNoBoxRejectToOutFromHomeTimeOut = NewState(EnumMacDrawerState.UnloadNoBoxRejectToOutFromHomeTimeOut);
+            /** UnLoad, 在Home時被檢出没有盒子, 回退到 In */
+            // 回退到Home 開始
+            MacState sUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart = NewState(EnumMacDrawerState.UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart);
+            // 回退到 Home 移動中
+            MacState sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng = NewState(EnumMacDrawerState.UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng);
+            // 回退到In 完成
+            MacState sUnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete = NewState(EnumMacDrawerState.UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete);
+            // 回退到In 失敗
+            MacState sUnloadNoBoxRejectTrayToPositionInFromPositionHomeFail = NewState(EnumMacDrawerState.UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail);
+            // 回退到 In 逾時
+            MacState sUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut = NewState(EnumMacDrawerState.UnloadNoBoxRejectTrayToPositionInFromPOsitionHomeTimeOut);
 
 
-            // move tray to In from Home
-            MacState sUnloadGotoInStart = NewState(EnumMacDrawerState.UnloadGotoInStart);
-            MacState sUnloadGotoInIng = NewState(EnumMacDrawerState.UnloadGotoInIng);
-            MacState sUnloadGotoInComplete = NewState(EnumMacDrawerState.UnloadGotoInComplete);
-            MacState sUnloadGotoInFail=NewState(EnumMacDrawerState.UnloadGotoInFail);
-            MacState sUnloadGotoInTimeOut = NewState(EnumMacDrawerState.UnloadGotoInTimeOut);
+            /**Unload, 將 Tray 從 Home 移到 Out*/
+            // 開始
+            MacState sUnloadMoveTrayToPositionOutFromPositionHomeStart = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionOutStart);
+            // 移動中
+            MacState sUnloadMoveTrayToPositionOutFromPositionHomeIng = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionOutIng);
+            // 完成 
+            MacState sUnloadMoveTrayToPositionOutFromPositionHomeComplete = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionOutComplete);
+            // 移動失敗
+            MacState sUnloadMoveTrayToPositionOutFromPositionHomeFail=NewState(EnumMacDrawerState.UnloadMoveTrayToPositionInFail);
+            // 逾時未到達定位 
+            MacState sUnloadMoveTrayToPositionOutFromPositionHomeTimeOut = NewState(EnumMacDrawerState.UnloadMoveTrayToPositionOutTimeOut);
             // 等待將盒子取走
-            MacState sIdleForGetBoxOnTrayAtIn = NewState(EnumMacDrawerState.IdleForGetBoxOnTrayAtIn);
+            MacState sIdleForGetBoxOnTrayAtOut = NewState(EnumMacDrawerState.IdleForGetBoxOnTrayAtIn);
 
         
 
@@ -261,7 +285,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                                                                                             EnumMacDrawerTransition.LoadBoxNotExistAtPositionHome_LoadMoveTrayToPositionHomeComplete);
             /**到達 Home 之後, 經檢查没有盒子, 回退到 Out**/
             // 到達Home=> 回退到 Out 開始 
-            MacTransition tLoadMoveTrayToPositionHomeComplete_LoadNoBoxRejectToPositionOutFromPositionHomeStart = NewTransition(sLoadMoveTrayToPositionHomeComplete, sLoadNoBoxRejectTrayToPositionOutFromPositionHomeStart,
+            MacTransition tLoadMoveTrayToPositionHomeComplete_LoadNoBoxRejectTrayToPositionOutFromPositionHomeStart = NewTransition(sLoadMoveTrayToPositionHomeComplete, sLoadNoBoxRejectTrayToPositionOutFromPositionHomeStart,
                                                                                             EnumMacDrawerTransition.LoadMoveToPositionHomeComplete_LoadNoBoxRejectToPositionOutFromPositionHomeStart);
             // 回退到 Home 開始=>回退中
             MacTransition tLoadNoBoxRejectTrayToPositionOutFromPositionHomeStart_LoadNoBoxRejectTrayToPositionOutFromHomeIng =
@@ -274,7 +298,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             // 回退中=>失敗
             MacTransition tLoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeFail= 
                                                                                            NewTransition(sLoadNoBoxRejectTrayToPositionOutFromPositionHomeIng, sLoadNoBoxRejectTrayToPositionOutFromPositionHomeFail, 
-                                                                                           EnumMacDrawerTransition.LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToOutFromPositionHomeFail);
+                                                                                           EnumMacDrawerTransition.LoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeFail);
             // 回退中 => 逾時 
             MacTransition tLoadNoBoxRejectTrayToPositionOutFromPositionHomeIng_LoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut = 
                                                                                            NewTransition(sLoadNoBoxRejectTrayToPositionOutFromPositionHomeIng, sLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOut, 
@@ -308,54 +332,103 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacTransition tIdleForGetBoxOnTrayAtPositionIn_NULL = NewTransition(sIdleForGetBoxOnTrayAtPositionIn, null,
                                                                                           EnumMacDrawerTransition.IdleForGetBoxOnTrayAtPositionIn_NULL);
 
-            // Unload (將 Tray 移到 Out 位置)
-            MacTransition tUnloadGotoOutStart_UnloadGotoOutIng = NewTransition(sUnloadGotoOutStart, sUnloadGotoOutIng, EnumMacDrawerTransition.UnloadGotoOutStart_UnloadGotoOutIng);
-            MacTransition tUnloadGotoOutIng_UnloadGotoOutComplete = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutComplete, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete);
-            MacTransition tUnloadGotoOutIng_UnloadGotoOutFail = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutFail, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutFail);
-            MacTransition tUnloadGotoOutIng_UnloadGotoOutTimeOut = NewTransition(sUnloadGotoOutIng, sUnloadGotoOutTimeOut, EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutTimeOut);
+            /**Unload**/
+            /**將 Tray 移到  Poisition In */
+            // 開始=> 移動中
+            MacTransition tUnloadMoveTrayToPositionInStart_UnloadMoveTrayToPositionInIng = NewTransition(sUnloadMoveTrayToPositionInStart, sUnloadMoveTrayToPositionInIng, 
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionInStart_UnloadMoveTrayToPosiotionInIng);
+            // 移動中=> 完成
+            MacTransition tUnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInComplete  = NewTransition(sUnloadMoveTrayToPositionInIng, sUnloadMoveTrayToPositionInComplete,
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInComplete);
+            // 移動中=>失敗
+            MacTransition tUnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInFail = NewTransition(sUnloadMoveTrayToPositionInIng, sUnloadMoveTrayToPositionInFail, 
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPOsitionInFail);
+            // 移動中=>逾時 
+            MacTransition tUnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInTimeOut = NewTransition(sUnloadMoveTrayToPositionInIng, sUnloadMoveTrayToPositionInTimeOut,
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInTimeOut);
             // Unload 可以放進盒子
-            MacTransition tUnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut = NewTransition(sUnloadGotoOutComplete, sIdleForPutBoxOnTrayAtOut, EnumMacDrawerTransition.UnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut);
-            
-            // UnLoad(將Tray 移到 Home) 
-            MacTransition tUnloadGotoHomeStart_UnloadGotoHomeIng = NewTransition(sUnloadGotoHomeStart, sUnloadGotoHomeIng, EnumMacDrawerTransition.UnloadGotoHomeStart_UnloadGotoHomeIng);
-            MacTransition tUnloadGotoHomeIng_UnloadGotoHomeComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete);
-            MacTransition tUnloadGotoHomeIng_UnloadGotoHomeTimeOut = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeTimeOut, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeTimeOut);
-            MacTransition tUnloadGotoHomeIng_UnloadGotoHomeFail = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeFail, EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeFail);
+            MacTransition tUnloadMoveTrayToPositionInComplete_IdleForPutBoxOnTrayAtPositionIn = NewTransition(sUnloadMoveTrayToPositionInComplete, sIdleForPutBoxOnTrayAtPositionIn, 
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToInComplete_IdleForPutBoxOnTrayAtPositionIn);
+            MacTransition tIdleForPutBoxOnTrayAtPositionIn_NULL = NewTransition(sIdleForPutBoxOnTrayAtPositionIn, null, EnumMacDrawerTransition.IdleForPutBoxOnTrayAtPositionIn_NULL);
 
-            // Load(將 Tray 移到 Home之後,檢查Box
-            MacTransition tUnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome = NewTransition(sUnloadGotoHomeComplete, sUnloadCheckBoxExistenceAtHome, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome);
-            MacTransition tUnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome = NewTransition(sUnloadCheckBoxExistenceAtHome, sUnloadBoxExistAtHome, EnumMacDrawerTransition.UnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome);
-            MacTransition tUnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome = NewTransition(sUnloadCheckBoxExistenceAtHome, sUnloadBoxExistAtHome, EnumMacDrawerTransition.UnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome);
-            MacTransition tUnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut = NewTransition(sUnloadCheckBoxExistenceAtHome, sUnloadBoxExistAtHome, EnumMacDrawerTransition.UnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut);
 
-            // Load (檢查有盒子之後再回 LoadGotoHomeComplete)
-            MacTransition tUnloadBoxExistAtHome_UnloadGotoHomeComplete = NewTransition(sUnloadBoxExistAtHome, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadBoxExistAtHome_UnloadGotoHomeComplete);
-            // Load (檢查没有盒子後再回 LoadGotoHomeComplete)
-            MacTransition tUnloadBoxNotExistAtHome_UnloadGotoHomeComplete = NewTransition(sUnloadBoxNotExistAtHome, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadBoxNotExistAtHome_UnloadGotoHomeComplete);
-            MacTransition tUnloadGotoHomeComplete_UnloadNoBoxRejectToOutFromHomeStart = NewTransition(sUnloadGotoHomeComplete, sUnloadNoBoxRejectToOutFromHomeStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadNoBoxRejectToOutFromHomeStart);
-            MacTransition tUnloadNoBoxRejectToOutFromHomeStart_UnloadNoBoxRejectToOutFromHomeIng = NewTransition(sUnloadNoBoxRejectToOutFromHomeStart, sUnloadNoBoxRejectToOutFromHomeIng, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeStart_UnloadNoBoxRejectToOutFromHomeIng);
-            MacTransition tUnloadNoBoxRejectToOutFromHomeIng_UnloadNoBoxRejectToOutFromHomeComplete = NewTransition(sUnloadNoBoxRejectToOutFromHomeIng, sUnloadNoBoxRejectToOutFromHomeComplete, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeComplete);
-            MacTransition tUnloadNoBoxRejectToOutFromHomeIng_UnloadNoBoxRejectToOutFromHomeFail = NewTransition(sUnloadNoBoxRejectToOutFromHomeIng, sUnloadNoBoxRejectToOutFromHomeFail, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeFail);
-            MacTransition tUnloadNoBoxRejectToOutFromHomeIng_UnloadNoBoxRejectToOutFromHomeTimeOut = NewTransition(sUnloadNoBoxRejectToOutFromHomeIng, sUnloadNoBoxRejectToOutFromHomeTimeOut, EnumMacDrawerTransition.UnloadNoBoxRejectToInFromHomeIng_UnloadNoBoxRejectToOutFromHomeTimeOut);
-            MacTransition tUnloadNoBoxRejectToOutFromHomeComplete_IdleForPutBoxOnTrayAtOut = NewTransition(sUnloadNoBoxRejectToOutFromHomeComplete, sIdleForPutBoxOnTrayAtOut, EnumMacDrawerTransition.UnloadNoBoxRejectToOutFromHomeComplete_IdleForPutBoxOnTrayAtOut);
+            /** UnLoad(將Tray 移到 Home)*/
+            // unload 開始移動 Tray 到 Home=> 移動中
+            MacTransition tUnloadMoveTrayToPositionHomeStart_UnloadMoveTrayToPositionHomeIng = NewTransition(sUnloadMoveTrayToPositionHomeStart, sUnloadMoveTrayToPositionHomeIng,
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionHomeStart_UnloadMoveTrayToPositionHomeIng);
+            // unload, Tray 移動中=>完成
+            MacTransition tUnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeComplete = NewTransition(sUnloadMoveTrayToPositionHomeIng,sUnloadMoveTrayToPositionHomeComplete, 
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeComplete);
+            // unload, Tray 移動中=> 逾時
+            MacTransition tUnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeTimeOut = NewTransition(sUnloadMoveTrayToPositionHomeIng, sUnloadMoveTrayToPositionHomeTimeOut, 
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeTimeOut);
+            // unload, Tray 移動中=> 失敗
+            MacTransition tUnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomFail = NewTransition(sUnloadMoveTrayToPositionHomeIng, sUnloadMoveTrayToPositionHomeFail, 
+                                                                                           EnumMacDrawerTransition.UnloadMoveTrayToPOsitionHomeIng_UnloadMoveTrayToPositionHomeFail);
+
+            /** Load(將 Tray 移到 Home之後,檢查Box*/
+            // 移到 Position Home OK => 檢查 有没有盒子
+            MacTransition tUnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceAtPositionHome = NewTransition(sUnloadMoveTrayToPositionHomeComplete, sUnloadCheckBoxExistenceAtPositionHome, 
+                                                                                         EnumMacDrawerTransition.UnloadMoveTrayToPositionHomeComplete_UnloadCheckBoxExistenceAtPositionHome);
+            // 檢查有没有 盒子=> 有盒子
+            MacTransition tUnloadCheckBoxExistenceAtPositionHome_UnloadBoxExistAtPositionHome = NewTransition(sUnloadCheckBoxExistenceAtPositionHome, sUnloadBoxExistAtPositionHome,
+                                                                                         EnumMacDrawerTransition.UnloadCheckBoxExistenceAtPositionHome_UnloadBoxExistAtPositionHome);
+            // 檢查有没有盒子=> 没盒子
+            MacTransition tUnloadCheckBoxExistenceAtPositionHome_UnloadBoxNotExistAtPositionHome = NewTransition(sUnloadCheckBoxExistenceAtPositionHome, sUnloadBoxExistAtPositionHome, 
+                                                                                          EnumMacDrawerTransition.UnloadCheckBoxExistenceAtPositionHome_UnloadBoxNotExistAtPositionHome);
+            // 檢查有没有盒子=>逾時
+            MacTransition tUnloadCheckBoxExistenceAtPositionHome_UnloadCheckBoxExistenceAtPositionHomeTimeOut = NewTransition(sUnloadCheckBoxExistenceAtPositionHome, sUnloadBoxExistAtPositionHome, 
+                                                                                          EnumMacDrawerTransition.UnloadCheckBoxExistenceAtPositionHome_UnloadCheckBoxExistenceAtPositionHomeTimeOut);
+
+            // 檢查有盒子之後再回 到 Home 完成狀態 
+            MacTransition tUnloadBoxExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete = NewTransition(sUnloadBoxExistAtPositionHome, sUnloadMoveTrayToPositionHomeComplete, 
+                                                                                          EnumMacDrawerTransition.UnloadBoxExistAtPositionHome_UnloadMoveTrayToHomeComplete);
+            // 檢查没有盒子後再回 到Home 完成狀態
+            MacTransition tUnloadBoxNotExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete = 
+                                                                            NewTransition(sUnloadBoxNotExistAtPositionHome, sUnloadMoveTrayToPositionHomeComplete, 
+                                                                   EnumMacDrawerTransition.UnloadBoxNotExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete);
+            // Home 完成=>回退到 Position In 開始 
+            MacTransition tUnloadMoveTrayToPositionHomeComplete_UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart = 
+                                                                            NewTransition(sUnloadMoveTrayToPositionHomeComplete,sUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart, 
+                                                                   EnumMacDrawerTransition.UnloadMoveTrayToPositionHomeComplete_UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart);
+            // 回退到 In 開始=> 回退到 In 移動中
+            MacTransition tUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart_UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng =
+                                                                            NewTransition(sUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart,sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng, 
+                                                                   EnumMacDrawerTransition.UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart_UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng);
+            // 回退到In 移動中 => 到達 In
+            MacTransition tUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete = 
+                                                                            NewTransition(sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng, sUnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete, 
+                                                                     EnumMacDrawerTransition.UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete);
+            // 回退到In 移動中 =>無法移動
+            MacTransition tUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail = 
+                                                                             NewTransition(sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng,sUnloadNoBoxRejectTrayToPositionInFromPositionHomeFail,
+                                                                     EnumMacDrawerTransition.UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail);
+            //回退到In 移動中 =>逾時
+            MacTransition tUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut = 
+                                                                            NewTransition(sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng, sUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut,
+                                                                     EnumMacDrawerTransition.UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut);
+            // 回退到達In => 等待放置盒子
+            MacTransition tUnloadNoBoxRejectTrayToPOsitionInFromPositionHomeComplete_IdleForPutBoxOnTrayAtPositionIn = 
+                                                                            NewTransition(sUnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete, sIdleForPutBoxOnTrayAtPositionIn, 
+                                                                     EnumMacDrawerTransition.UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete_IdleForPutBoxOnTrayAtPositionIn);
 
 
 
             // Unload(將 Tray 移到 In)
-            MacTransition tUnloadGotoHomeComplete_UnloadGotoInStart = NewTransition(sUnloadGotoHomeComplete, sUnloadGotoInStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadGotoInStart);
-            MacTransition tUnloadGotoInStart_UnloadGotoInIng = NewTransition(sUnloadGotoInStart, sUnloadGotoInIng, EnumMacDrawerTransition.UnloadGotoInStart_UnloadGotoInIng);
-            MacTransition tUnloadGotoInIng_UnloadGotoInComplete = NewTransition(sUnloadGotoHomeIng, sUnloadGotoHomeComplete, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInComplete);
-            MacTransition tUnloadGotoInIng_UnloadGotoInFail = NewTransition(sUnloadGotoInIng, sUnloadGotoInFail, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInFail);
-            MacTransition tUnloadGotoInIng_UnloadGotoInTimeOut = NewTransition(sUnloadGotoInIng, sUnloadGotoInTimeOut, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInTimeOut);
+            MacTransition tUnloadMoveTrayToPositionHomeComplete_UnloadMoveTrayToPositionInStart = NewTransition(sUnloadMoveTrayToPositionHomeComplete, sUnloadMoveTrayToPositionOutFromPositionHomeStart, EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadGotoInStart);
+            MacTransition tUnloadGotoInStart_UnloadGotoInIng = NewTransition(sUnloadMoveTrayToPositionOutFromPositionHomeStart, sUnloadMoveTrayToPositionInIng, EnumMacDrawerTransition.UnloadGotoInStart_UnloadGotoInIng);
+            MacTransition tUnloadGotoInIng_UnloadGotoInComplete = NewTransition(sUnloadMoveTrayToPositionHomeIng, sUnloadMoveTrayToPositionHomeComplete, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInComplete);
+            MacTransition tUnloadGotoInIng_UnloadGotoInFail = NewTransition(sUnloadMoveTrayToPositionInIng, sUnloadMoveTrayToPositionOutFromPositionHomeFail, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInFail);
+            MacTransition tUnloadGotoInIng_UnloadGotoInTimeOut = NewTransition(sUnloadMoveTrayToPositionInIng, sUnloadMoveTrayToPositionOutFromPositionHomeTimeOut, EnumMacDrawerTransition.UnloadGotoInIng_UnloadGotoInTimeOut);
             // Unload 可以將 Box 從 位於 In 的Tray 取走
-            MacTransition tUnloadGotoInComplete_IdleForGetBoxOnTrayAtIn = NewTransition(sUnloadGotoInComplete, sIdleForGetBoxOnTrayAtIn, EnumMacDrawerTransition.UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn);
+            MacTransition tUnloadGotoInComplete_IdleForGetBoxOnTrayAtIn = NewTransition(sUnloadMoveTrayToPositionOutFromPositionHomeComplete, sIdleForGetBoxOnTrayAtOut, EnumMacDrawerTransition.UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn);
 
-            
-               #endregion
+
+            #endregion
 
 
             #region  Event
-
+            /**Templete
             sInitialStart.OnEntry+= ( sender,  e)=>
              {
                  Func<StateGuardRtns> guard = () =>
@@ -378,12 +451,75 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                  };
                  object actionParameter = null;
                  Trigger(guard, action, actionParameter, exceptionHandler);
-             };
+             };*/
+
+            sInitialStart.OnEntry += (sender, e) =>
+            {
+                var transition = tInitialStart_InitialIng;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = (parameter) =>
+                    {
+                        HalDrawer.CommandINI();
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState,ex) =>
+                    {
+                        // TODO: Do Something
+                    },
+                    NotGuardException = new DrawerInitialFailException(),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs=new MacStateExitEventArgs(),
+
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(tInitialStart_InitialIng);
+            };
             sInitialStart.OnExit += (sender, e) =>
             {
                // Nothing
             };
 
+            sInitialIng.OnEntry += (sender, e) =>
+            {
+                TriggerMemberAsync triggerMember = new TriggerMemberAsync
+                {
+                    Guard = (startTime) =>
+                    {
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        {
+                            return true;
+                        }
+                        else if (HalDrawer.CurrentWorkState == DrawerWorkState.InitialFailed)
+                        {
+                            throw new DrawerInitialFailException();
+                        }
+                        else if (timeoutObj.IsTimeOut(startTime))
+                        {
+                            throw new DrawerInitialFailException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState,ex) => 
+                    {
+                        // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                tInitialing_InitialComplete.SetTriggerMembers(triggerMember);
+                TriggerAsync(tInitialing_InitialComplete);
+            };
+            /**
             sInitialIng.OnEntry += (sender, e) =>
             {
                 Func<DateTime, StateGuardRtns> guard = (startTime) =>
@@ -414,7 +550,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 object actionParemeter = null;
                 TriggerAsync(guard, action, actionParemeter, exceptionHandler);
                               
-            };
+            };*/
             sInitialIng.OnExit += (sender, e) =>
             {
                // Nothing 
@@ -741,7 +877,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                             NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                             ThisStateExitEventArgs = new MacStateExitEventArgs(),
                             // 下個 State: 將 Tray 回退到 Out
-                            Transition = tLoadMoveTrayToPositionHomeComplete_LoadNoBoxRejectToPositionOutFromPositionHomeStart,
+                            Transition = tLoadMoveTrayToPositionHomeComplete_LoadNoBoxRejectTrayToPositionOutFromPositionHomeStart,
                         };
                       return rtn;
                 };
@@ -1342,22 +1478,70 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 // TODO: Transition ?
             };
 
-
-            sUnloadGotoOutStart.OnEntry += (sender, e) =>
+            /**Uuload**/
+            // 將Tray 移到 Position In 開始
+            sUnloadMoveTrayToPositionInStart.OnEntry += (sender, e) =>
             {
+                Func<StateGuardRtns> guard = () =>
+                {
+                    StateGuardRtns rtn = new StateGuardRtns
+                    {
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs=new MacStateExitEventArgs(),
+                         Transition=tUnloadMoveTrayToPositionInStart_UnloadMoveTrayToPositionInIng,
+                    };
+                
+                    return rtn;
+                };
+                Action<object> action = (parameter) => { HalDrawer.CommandTrayMotionIn(); };
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) => { throw ex; };
+                this.Trigger(guard, action, actionParameter, exceptionHandler);
+                /** Original
                 var state = (MacState)sender;
                 HalDrawer.CommandTrayMotionOut();
                 state.DoExit(new MacStateExitEventArgs());
+                 */
             };
-            sUnloadGotoOutStart.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionInStart.OnExit += (sender, e) =>
             {
-               // var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOutStart_UnloadGotoOutIng.ToString()];
-                var nextState = tUnloadGotoOutStart_UnloadGotoOutIng.StateTo;
+                /** Original, Nothing 
+                // var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOutStart_UnloadGotoOutIng.ToString()];
+                var nextState = tUnloadMoveTrayToPositionInStart_UnloadMoveTrayToPositionInIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
+                */
             };
 
-            sUnloadGotoOutIng.OnEntry += (sender, e) =>
+            // 將Tray 移到Position In, 移動中
+            sUnloadMoveTrayToPositionInIng.OnEntry += (sender, e) =>
             {
+                Func<DateTime,StateGuardRtns> guard = (startTime) =>
+                {
+                    StateGuardRtns rtn = null;
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionIn)
+                    {
+                        rtn = new StateGuardRtns
+                        {
+                            Transition = tUnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInComplete,
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                            ThisStateExitEventArgs = new MacStateExitEventArgs()
+                        };
+                    }
+                    else if(HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                    {
+                        throw new StateFailException();
+                    }
+                    else if (timeoutObj.IsTimeOut(startTime)) 
+                    {
+                        throw new StateTimeoutException();
+                    }
+                    return rtn;
+                };
+                Action<object> action = null;
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = (ex) =>{ throw ex;           };
+                TriggerAsync(guard,action,actionParameter,exceptionHandler);
+                /** Original
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
               //  var dicTransition = this.Transitions;
@@ -1368,7 +1552,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionOut)
                         {   // 完成
-                            transition = tUnloadGotoOutIng_UnloadGotoOutComplete;// dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete.ToString()];
+                            transition = tUnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInComplete;// dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutComplete.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
                         {
@@ -1378,7 +1562,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {
                             // 執行不成功
-                            transition = tUnloadGotoOutIng_UnloadGotoOutFail;//dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutFail.ToString()];
+                            transition = tUnloadMoveTrayToPositionInIng_UnloadMoveTrayToPositionInFail;//dicTransition[EnumMacDrawerTransition.UnloadGotoOutIng_UnloadGotoOutFail.ToString()];
                         }
                         if (transition != null)
                         {
@@ -1389,55 +1573,99 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         Thread.Sleep(10);
                     }
                 };
-                new Task(guard).Start();
+                new Task(guard).Start();*/
             };
-            sUnloadGotoOutIng.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionInIng.OnExit += (sender, e) =>
             {
+                /** Nothing
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
+                */
             };
-
-            sUnloadGotoOutComplete.OnEntry += (sender, e) =>
+            
+            // UnLad, Tray 到達 In
+            sUnloadMoveTrayToPositionInComplete.OnEntry += (sender, e) =>
             {
+                Func<StateGuardRtns> guard = () =>
+                {
+                    var rtnv = new StateGuardRtns
+                    {
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        Transition = tUnloadMoveTrayToPositionInComplete_IdleForPutBoxOnTrayAtPositionIn
+                    };
+                    return rtnv;
+                };
+                Action<object> action = null;
+                object actionParameter = null;
+                Action<Exception> exceptionHandler = null;
+                this.Trigger(guard,action,actionParameter,exceptionHandler);
+                /** Original
                 // Final State of Unload Prework1
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
-
+                */
             };
-            sUnloadGotoOutComplete.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionInComplete.OnExit += (sender, e) =>
             {
-               // var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut.ToString()];
-                var nextState = tUnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut.StateTo;
+                
+                /** Original, Nothing 
+                // var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoOutComplete_IdleForPutBoxOnTrayAtOut.ToString()];
+                var nextState = tUnloadMoveTrayToPositionInComplete_IdleForPutBoxOnTrayAtPositionIn.StateTo;
                 nextState.DoExit(new MacStateExitEventArgs());
+              */
             };
-            sIdleForPutBoxOnTrayAtOut.OnEntry += (sender, e) =>
+
+            //  等待將 Box 放到Tray 內
+            sIdleForPutBoxOnTrayAtPositionIn.OnEntry += (sender, e) =>
             {
+                Func<StateGuardRtns> guard = () =>
+                {
+                    StateGuardRtns rtn = new StateGuardRtns
+                    {
+                        Transition =    tIdleForPutBoxOnTrayAtPositionIn_NULL,
+                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                        ThisStateExitEventArgs = new MacStateExitEventArgs()
+                    };
+                    return rtn;
+                };
+                Action<object> action = null;
+                object actionParameter = null;
+                Action<Exception> ExceptionHandler = (ex) => throw ex;
+                Trigger(guard,action,actionParameter,ExceptionHandler);
+                /**
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
+               */
             };
-            sIdleForPutBoxOnTrayAtOut.OnExit += (sender, e) =>
+            sIdleForPutBoxOnTrayAtPositionIn.OnExit += (sender, e) =>
             {
+                // Nothing
                 // Unload, Tray 己經移到 Out 的位置, 等待將盒子到 Tray
             };
 
-            sUnloadGotoOutFail.OnEntry += (sender, e)=>
+            // Unload,  移到 Position In 失敗, Throw an Exception 
+            sUnloadMoveTrayToPositionInFail.OnEntry += (sender, e)=>
             {
-                var state = (MacState)sender;
-                state.DoExit(new MacStateExitEventArgs());
+                /** Original
+                  var state = (MacState)sender;
+                  state.DoExit(new MacStateExitEventArgs());
+                */
             };
-            sUnloadGotoOutFail.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionInFail.OnExit += (sender, e) =>
             {
                 // Unload 預置工作1 未完成
                 // TODO: 按實際操作再補上程式碼
             };
 
-            sUnloadGotoOutTimeOut.OnEntry += (sender, e) =>
+            // Unload, 移到 Position Time Out, Throw an Exception
+            sUnloadMoveTrayToPositionInTimeOut.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoOutTimeOut.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionInTimeOut.OnExit += (sender, e) =>
             {
                 // Unload 前置工作1 逾時
                 // TODO: 按實際工作再補上程式碼
@@ -1445,20 +1673,20 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
           
 
-            sUnloadGotoHomeStart.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeStart.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 HalDrawer.CommandTrayMotionHome();
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoHomeStart.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeStart.OnExit += (sender, e) =>
             {
                // var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoHomeStart_UnloadGotoHomeIng.ToString()];
-                var nextState = tUnloadGotoHomeStart_UnloadGotoHomeIng.StateTo;
+                var nextState = tUnloadMoveTrayToPositionHomeStart_UnloadMoveTrayToPositionHomeIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sUnloadGotoHomeIng.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeIng.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
@@ -1470,15 +1698,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         MacTransition transition = null;
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
                         {
-                            transition = tUnloadGotoHomeIng_UnloadGotoHomeComplete;// dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete.ToString()];
+                            transition = tUnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeComplete;// dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeComplete.ToString()];
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                         {
-                            transition = tUnloadGotoHomeIng_UnloadGotoHomeFail;//dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeFail.ToString()];
+                            //transition = tUnloadGotoHomeIng_UnloadGotoHomeFail;//dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeFail.ToString()];
                         }
                         else if (timeoutObj.IsTimeOut(thisTime))
                         {
-                            transition = tUnloadGotoHomeIng_UnloadGotoHomeTimeOut;//dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeTimeOut.ToString()];
+                            transition = tUnloadMoveTrayToPositionHomeIng_UnloadMoveTrayToPositionHomeTimeOut;//dicTransition[EnumMacDrawerTransition.UnloadGotoHomeIng_UnloadGotoHomeTimeOut.ToString()];
                         }
                         if(transition != null)
                         {
@@ -1491,14 +1719,14 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 };
                 new Task(guard).Start();
              };
-             sUnloadGotoHomeIng.OnExit += (sender, e) =>
+             sUnloadMoveTrayToPositionHomeIng.OnExit += (sender, e) =>
              {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
-                nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerUnloadToHomeCompleteSource.GotoHomeIng));
+                nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerUnloadToHomeCompleteSource.MoveTrayToPositionHomeIng));
              };
 
-            sUnloadGotoHomeComplete.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeComplete.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 var args = (MacStateEntryEventArgs)e;
@@ -1506,59 +1734,59 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 {
                     MacTransition transition = null;
                     var source = (EnumMacDrawerUnloadToHomeCompleteSource)(args.Parameter);
-                    if (source == EnumMacDrawerUnloadToHomeCompleteSource.GotoHomeIng)
+                    if (source == EnumMacDrawerUnloadToHomeCompleteSource.MoveTrayToPositionHomeIng)
                     {  // 從 正移動到 Home 完成, 下個Transition 為 檢查有没有盒子 
-                        transition = tUnloadGotoHomeComplete_UnloadCheckBoxExistenceAtHome;  
+                        transition = tUnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceAtPositionHome;  
                     }
                     else if(source== EnumMacDrawerUnloadToHomeCompleteSource.UnloadCheckBoxExist)
                     {   //  檢查有盒子之後回到 Home 完成, 要開始移向 In
-                        transition = tUnloadGotoHomeComplete_UnloadGotoInStart;
+                        transition = tUnloadMoveTrayToPositionHomeComplete_UnloadMoveTrayToPositionInStart;
                     }
                     else //if(source == EnumMacDrawerUnloadToHomeCompleteSource.UnloadCheckBoxNotExist)
                     {  // 檢查結果, 没有盒子, 回退到 Out
-                        transition = tUnloadGotoHomeComplete_UnloadNoBoxRejectToOutFromHomeStart;
+                        transition = tUnloadMoveTrayToPositionHomeComplete_UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart;
                     }
                    
                 }
                 state.DoExit(new MacStateExitEventArgs());
                
             };
-            sUnloadGotoHomeComplete.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeComplete.OnExit += (sender, e) =>
             {
                //var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoHomeComplete_UnloadGotoInStart.ToString()];
-                var nextState = tUnloadGotoHomeComplete_UnloadGotoInStart.StateTo;
+                var nextState = tUnloadMoveTrayToPositionHomeComplete_UnloadMoveTrayToPositionInStart.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-           sUnloadGotoHomeFail.OnEntry += (sender, e) =>
+           sUnloadMoveTrayToPositionHomeFail.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 // Unload 從 out 走到 In 時失敗
                 // TODO: 待實際動作確認之後再加上程式碼
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoHomeFail.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeFail.OnExit += (sender, e) =>
             {
                 // Unload 由Out 位置回到 Home 時移動失敗
                 // TODO: 依實際動作再補上其他 Code
                 // TODO: Transition ?
             };
 
-            sUnloadGotoHomeTimeOut.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeTimeOut.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 // Unload 從 out 走到 In 時失敗
                 // TODO: 待實際動作確認之後再加上程式碼
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoHomeTimeOut.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionHomeTimeOut.OnExit += (sender, e) =>
             {
                 // Unload 由Out 位置回到 Home 時逾時
                 // TODO: 依實際動作再補上其他 Code
                 // TODO: Transition ?
             };
 
-            sUnloadCheckBoxExistenceAtHome.OnEntry += (sender, e) =>
+            sUnloadCheckBoxExistenceAtPositionHome.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 var startTime = DateTime.Now;
@@ -1570,15 +1798,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
                         {   // 有盒子 
-                            transition = tUnloadCheckBoxExistenceAtHome_UnloadBoxExistAtHome;
+                            transition = tUnloadCheckBoxExistenceAtPositionHome_UnloadBoxExistAtPositionHome;
                         }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxNotExist)
                         {   // 没盒子
-                            transition = tUnloadCheckBoxExistenceAtHome_UnloadBoxNotExistAtHome;
+                            transition = tUnloadCheckBoxExistenceAtPositionHome_UnloadBoxNotExistAtPositionHome;
                         }
                         else if (new MacDrawerStateTimeOutController().IsTimeOut(startTime))
                         {   // 逾時
-                            transition = tUnloadCheckBoxExistenceAtHome_UnloadCheckBoxExistenceAtHomeTimeOut;
+                            transition = tUnloadCheckBoxExistenceAtPositionHome_UnloadCheckBoxExistenceAtPositionHomeTimeOut;
                         }
 
                         if (transition != null)
@@ -1594,32 +1822,32 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 HalDrawer.CommandBoxDetection();
                 state.DoExit(new MacStateExitWithTransitionEventArgs(null));
             };
-            sUnloadCheckBoxExistenceAtHome.OnExit += (sender, e) =>
+            sUnloadCheckBoxExistenceAtPositionHome.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sUnloadBoxExistAtHome.OnEntry += (sender, e) =>
+            sUnloadBoxExistAtPositionHome.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadBoxExistAtHome.OnExit += (sender, e) =>
+            sUnloadBoxExistAtPositionHome.OnExit += (sender, e) =>
             {
-                var nextState = tUnloadBoxExistAtHome_UnloadGotoHomeComplete.StateTo;
+                var nextState = tUnloadBoxExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerUnloadToHomeCompleteSource.UnloadCheckBoxExist));
             };
 
-            sUnloadBoxNotExistAtHome.OnEntry += (sender, e) =>
+            sUnloadBoxNotExistAtPositionHome.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadBoxNotExistAtHome.OnExit += (sender, e) =>
+            sUnloadBoxNotExistAtPositionHome.OnExit += (sender, e) =>
             {
-                var nextState = tUnloadBoxExistAtHome_UnloadGotoHomeComplete.StateTo;
+                var nextState = tUnloadBoxExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(EnumMacDrawerUnloadToHomeCompleteSource.UnloadCheckBoxNotExist));
             };
 
@@ -1633,18 +1861,18 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                // TODO: 後續動作, 再討論
             };
 
-            sUnloadNoBoxRejectToOutFromHomeStart.OnEntry += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart.OnEntry += (sender, e) =>
             {  // Unload, 檢查到没有盒子時要回將Tray回退到 Out的位置
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadNoBoxRejectToOutFromHomeStart.OnExit += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart.OnExit += (sender, e) =>
             {
-                var nextState = tUnloadNoBoxRejectToOutFromHomeStart_UnloadNoBoxRejectToOutFromHomeIng.StateTo;
+                var nextState = tUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart_UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sUnloadNoBoxRejectToOutFromHomeIng.OnEntry += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng.OnEntry += (sender, e) =>
              {
                  var state = (MacState)sender;
                  var startTime = DateTime.Now;
@@ -1655,15 +1883,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                          MacTransition transition = null;
                          if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionIn)
                          {
-                             transition = tUnloadNoBoxRejectToOutFromHomeIng_UnloadNoBoxRejectToOutFromHomeComplete;
+                             transition = tUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete;
                          }
                          else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
                          {
-                             transition = tUnloadNoBoxRejectToOutFromHomeIng_UnloadNoBoxRejectToOutFromHomeFail;
+                             transition = tUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail;
                          }
                          else if(new MacDrawerStateTimeOutController().IsTimeOut(startTime))
                          {
-                             transition = tUnloadNoBoxRejectToOutFromHomeIng_UnloadNoBoxRejectToOutFromHomeTimeOut;
+                             transition = tUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng_UnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut;
                          }
                          if (transition != null)
                          {
@@ -1676,42 +1904,42 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                  new Task(guard).Start();
                  HalDrawer.CommandTrayMotionOut();
              };
-            sUnloadNoBoxRejectToOutFromHomeIng.OnExit += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeIng.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sUnloadNoBoxRejectToOutFromHomeComplete.OnEntry += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadNoBoxRejectToOutFromHomeComplete.OnExit += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeComplete.OnExit += (sender, e) =>
             {
-                var nextState = tUnloadNoBoxRejectToOutFromHomeComplete_IdleForPutBoxOnTrayAtOut.StateTo;
+                var nextState = tUnloadNoBoxRejectTrayToPOsitionInFromPositionHomeComplete_IdleForPutBoxOnTrayAtPositionIn.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
          
 
-            sUnloadNoBoxRejectToOutFromHomeFail.OnEntry += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeFail.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadNoBoxRejectToOutFromHomeFail.OnExit += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeFail.OnExit += (sender, e) =>
             {  // UNload 時, 在 Home 位置檢查不到 Box, 將Tray 回退到 Out 失敗 
                 // TODO: 下一步待討論
             };
 
-            sUnloadNoBoxRejectToOutFromHomeTimeOut.OnEntry += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadNoBoxRejectToOutFromHomeTimeOut.OnExit += (sender, e) =>
+            sUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOut.OnExit += (sender, e) =>
             {
                 // UNload 時, 在 Home 位置檢查不到 Box, 將Tray 回退到逾時 
                 // TODO: 下一步待討論
@@ -1719,20 +1947,20 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             
 
 
-            sUnloadGotoInStart.OnEntry += (sender, e) => 
+            sUnloadMoveTrayToPositionOutFromPositionHomeStart.OnEntry += (sender, e) => 
             {
                 var state = (MacState)sender;
                 HalDrawer.CommandTrayMotionIn();
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoInStart.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionOutFromPositionHomeStart.OnExit += (sender, e) =>
             {
              //   var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoInStart_UnloadGotoInIng.ToString()];
                 var nextState = tUnloadGotoInStart_UnloadGotoInIng.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sUnloadGotoInIng.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionInIng.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 DateTime thisTime = DateTime.Now;
@@ -1765,52 +1993,52 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 };
                 new Task(guard).Start();
             };
-            sUnloadGotoInIng.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionInIng.OnExit += (sender, e) =>
             {
                 var args = (MacStateExitWithTransitionEventArgs)e;
                 var nextState = args.Transition.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-           sUnloadGotoInComplete.OnEntry+=(sender,e)=>
+           sUnloadMoveTrayToPositionOutFromPositionHomeComplete.OnEntry+=(sender,e)=>
             {
                 // final State of Unload MAin
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoInComplete.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionOutFromPositionHomeComplete.OnExit += (sender, e) =>
             {
                 //var transition = this.Transitions[EnumMacDrawerTransition.UnloadGotoInComplete_IdleForGetBoxOnTrayAtIn.ToString()];
                 var nextState = tUnloadGotoInComplete_IdleForGetBoxOnTrayAtIn.StateTo;
                 nextState.DoEntry(new MacStateEntryEventArgs(null));
             };
 
-            sIdleForGetBoxOnTrayAtIn.OnEntry += (sender, e) =>
+            sIdleForGetBoxOnTrayAtOut.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sIdleForGetBoxOnTrayAtIn.OnExit += (sender, e) =>
+            sIdleForGetBoxOnTrayAtOut.OnExit += (sender, e) =>
             {
                 // Unload, Tray 已經移到 In, 可以將Box取走
             };
 
-            sUnloadGotoInFail.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionOutFromPositionHomeFail.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoInFail.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionOutFromPositionHomeFail.OnExit += (sender, e) =>
             {
                 // TODO: Transition ?
             };
 
-            sUnloadGotoInTimeOut.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToPositionOutFromPositionHomeTimeOut.OnEntry += (sender, e) =>
             {
                 var state = (MacState)sender;
                 state.DoExit(new MacStateExitEventArgs());
             };
-            sUnloadGotoInTimeOut.OnExit += (sender, e) =>
+            sUnloadMoveTrayToPositionOutFromPositionHomeTimeOut.OnExit += (sender, e) =>
             {
                 // TODO: Transition ?
             };
