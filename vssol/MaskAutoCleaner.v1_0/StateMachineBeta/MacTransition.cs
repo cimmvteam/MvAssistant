@@ -21,7 +21,10 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         public MacState StateFrom { get; protected set; }
         public MacState StateTo { get; protected set; }
 
+        /// <summary>Trigger 所需的成員</summary>
         public TriggerMemberBase TriggerMembers{ get; private set; }
+        /// <summary>設定Trigger 所需成員的函式</summary>
+        /// <param name="triggerMembers"></param>
         public void SetTriggerMembers(TriggerMemberBase triggerMembers)
         {
             TriggerMembers = triggerMembers;
