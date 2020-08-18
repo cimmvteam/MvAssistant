@@ -28,24 +28,24 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         }
     }
 
-    /// <summary></summary>
-    /// <remarks>For Trigger</remarks>
+    /// <summary>Base Class of TriggerMember & TriggerMemberAsync</summary>
     public abstract class TriggerMemberBase
     {
-         // public Func<DateTime?,bool> Guard { get; set; }
           public Action<object> Action { get; set; }
           public object ActionParameter { get; set; }
-          public Action<Exception> ExceptionHandler { get; set; }
+          public Action<MacState,Exception> ExceptionHandler { get; set; }
           public MacStateEntryEventArgs NextStateEntryEventArgs { get;  set; }
           public MacStateExitEventArgs ThisStateExitEventArgs { get;  set; }   
         
     }
 
+    /// <summary>Transition Member for Trigger </summary>
     public class TriggerMember : TriggerMemberBase
     {
            public Func<bool> Guard { get; set; }
            public StateMachineExceptionBase NotGuardException { get; set; }
     }
+    /// <summary>Transition Member for TriggerAsync</summary>
     public class TriggerMemberAsync : TriggerMemberBase
     {
         public Func<DateTime, bool> Guard { get; set; }

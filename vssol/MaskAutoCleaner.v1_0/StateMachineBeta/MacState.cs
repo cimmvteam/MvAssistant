@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaskAutoCleaner.v1_0.StateMachineException;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,5 +32,33 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
             this.OnEntry(this, seea);
         }
         #endregion
+
+        public bool? IsStateMachineException
+        {
+            get
+            {
+                if (StateException == null)
+                {
+                    return default(bool?);
+                }
+                else if (StateException.GetType().IsSubclassOf(typeof(StateMachineExceptionBase)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+          }
+        public Exception StateException { get; set; }
+        public void ClearException()
+        {
+            StateException = null;
+        }
+        public void SetException(Exception ex)
+        {
+
+        }
     }
 }

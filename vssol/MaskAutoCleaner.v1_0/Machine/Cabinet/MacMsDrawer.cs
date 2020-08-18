@@ -455,6 +455,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             sInitialStart.OnEntry += (sender, e) =>
             {
+                var transition = tInitialStart_InitialIng;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -466,16 +467,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         HalDrawer.CommandINI();
                     },
                     ActionParameter = null,
-                    ExceptionHandler = (ex) =>
+                    ExceptionHandler = (thisState,ex) =>
                     {
-                        throw ex;
+                        // TODO: Do Something
                     },
                     NotGuardException = new DrawerInitialFailException(),
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs=new MacStateExitEventArgs(),
 
                 };
-                tInitialStart_InitialIng.SetTriggerMembers(triggerMember);
+                transition.SetTriggerMembers(triggerMember);
                 Trigger(tInitialStart_InitialIng);
             };
             sInitialStart.OnExit += (sender, e) =>
@@ -508,11 +509,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     },
                     Action = null,
                     ActionParameter = null,
-                    ExceptionHandler = (ex) => { throw ex; },
+                    ExceptionHandler = (thisState,ex) => 
+                    {
+                        // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 tInitialing_InitialComplete.SetTriggerMembers(triggerMember);
+                TriggerAsync(tInitialing_InitialComplete);
             };
             /**
             sInitialIng.OnEntry += (sender, e) =>

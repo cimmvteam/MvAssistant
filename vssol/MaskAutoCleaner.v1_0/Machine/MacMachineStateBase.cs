@@ -17,6 +17,8 @@ namespace MaskAutoCleaner.v1_0.Machine
     /// </summary>
     public abstract class MacMachineStateBase : MacStateMachine
     {
+     
+        
         //不需實作IMvContextFlow, 因為只有初始化StateMachine, 沒有其它作業
         //不需實作IDisposable, 因為沒有
 
@@ -92,11 +94,51 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         }
 
+        /// <summary></summary>
+        /// <param name="guard">guard (Func delegate)</param>
+        /// <param name="action">action (Action delegate)</param>
+        /// <param name="actionParameter">action parameter(object)</param>
+        /// <param name="exceptionHndler">Exception Handler (Action delegate)</param>
+        public void Trigger(Func<StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHndler)
+        {
+            try
+            {
+                var guardRtns = guard();
+
+                if (guardRtns != null)
+                {
+                    if (action != null)
+                    {
+                        action(actionParameter);
+                    }
+                    var state = guardRtns.ThisState;
+                    var nextState = guardRtns.NextState;
+                    var stateExitArgs = guardRtns.ThisStateExitEventArgs;
+                    var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
+                    state.DoExit(stateExitArgs);
+                    if (nextState != null)
+                    {
+                        nextState.DoEntry(nextStateEntryArgs);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                if (exceptionHndler != null)
+                {
+                    exceptionHndler.Invoke(ex);
+                }
+            }
+        }
+
         public void Trigger(MacTransition transition)
         {
             TriggerMember triggerMember = (TriggerMember)transition.TriggerMembers;
             var thisState = transition.StateFrom;
+            thisState.ClearException();
             var nextState = transition.StateTo;
+            var hasDoExit = false;
             try
             {
               
@@ -108,10 +150,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                     }
                     
                     thisState.DoExit(triggerMember.ThisStateExitEventArgs);
-                    if (nextState != null)
-                    {
-                        nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
-                    }
+                    hasDoExit = true;
                 }
                 else
                 {
@@ -120,13 +159,20 @@ namespace MaskAutoCleaner.v1_0.Machine
                         throw triggerMember.NotGuardException;
                     }
                 }
+               
             }
-           
             catch (Exception ex)
             {
                 if(triggerMember.ExceptionHandler !=null)
                 {
-                    triggerMember.ExceptionHandler.Invoke(ex);
+                    triggerMember.ExceptionHandler.Invoke(thisState,ex);
+                }
+            }
+            if(hasDoExit)
+            {
+                if (nextState != null)
+                {
+                    nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
                 }
             }
         }
@@ -136,6 +182,8 @@ namespace MaskAutoCleaner.v1_0.Machine
             DateTime startTime = DateTime.Now;
             var thisState = transition.StateFrom;
             var nextState = transition.StateTo;
+            thisState.ClearException();
+            var hasDoExit = false;
             Action Trigger = () =>
             {
                 try
@@ -152,58 +200,30 @@ namespace MaskAutoCleaner.v1_0.Machine
                         triggerMemberAsync.Action(triggerMemberAsync.ActionParameter);
                     }
                     thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
-                    nextState.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
+                    hasDoExit = true;
+                   
 
                 }
                 catch (Exception ex)
                 {
+                    thisState.SetException(ex);
                     if (triggerMemberAsync.ExceptionHandler != null)
                     {
-                        triggerMemberAsync.ExceptionHandler.Invoke(ex);
+                        triggerMemberAsync.ExceptionHandler.Invoke(thisState,ex);
                     }
 
+                }
+                if (hasDoExit)
+                {
+                    if (nextState !=null)
+                    {
+                        nextState.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
+                    }
                 }
             };
             new Task(Trigger).Start();
         }
-        /// <summary></summary>
-        /// <param name="guard">guard (Func delegate)</param>
-        /// <param name="action">action (Action delegate)</param>
-        /// <param name="actionParameter">action parameter(object)</param>
-        /// <param name="exceptionHndler">Exception Handler (Action delegate)</param>
-        public void Trigger(Func<StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHndler)
-        {
-            try
-            {
-                var guardRtns = guard();
-              
-                    if (guardRtns != null)
-                    {
-                        if (action != null)
-                        {
-                            action(actionParameter);
-                        }
-                        var state = guardRtns.ThisState;
-                        var nextState = guardRtns.NextState;
-                        var stateExitArgs = guardRtns.ThisStateExitEventArgs;
-                        var nextStateEntryArgs = guardRtns.NextStateEntryEventArgs;
-                        state.DoExit(stateExitArgs);
-                        if (nextState != null)
-                        {
-                            nextState.DoEntry(nextStateEntryArgs);
-                        }
-                    }
-                
-            }
-            catch(Exception ex)
-            {
-                if(exceptionHndler != null)
-                {
-                    exceptionHndler.Invoke(ex);
-                }
-            }
-        }
-
+      
        
     }
 }
