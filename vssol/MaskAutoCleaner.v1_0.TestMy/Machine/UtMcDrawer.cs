@@ -53,7 +53,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
             var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-            machine.Unload_TrayGotoOut();
+           // machine.Unload_TrayGotoOut();
         }
 
 
@@ -63,7 +63,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
             var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-            machine.Unload_TrayGotoIn();
+           // machine.Unload_TrayGotoIn();
         }
 
 

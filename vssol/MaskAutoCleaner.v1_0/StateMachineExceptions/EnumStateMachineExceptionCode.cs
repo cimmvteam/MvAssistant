@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.StateMachineException
+namespace MaskAutoCleaner.v1_0.StateMachineExceptions
 {
     /// <summary>State Machine Exception 代碼</summary>
     public enum EnumStateMachineExceptionCode
@@ -36,9 +36,9 @@ namespace MaskAutoCleaner.v1_0.StateMachineException
         /// <summary>Load port 無法再分類的例外</summary>
         LoadportException = 30000,
         /// <summary>Load port  Initial 失敗的例外</summary>
-        LoadportInitialException = 30001,
+        LoadportInitialFailException = 30001,
         /// <summary>Load port Initial 逾時的例外</summary>
-        LoadportInitialTimeoutEXception = 30002,
+        LoadportInitialTimeOutException = 30002,
         /// <summary>Load port 必須先 Reset 的例外</summary>
         LoadportMustResetException = 30003,
         /// <summary>Load port 必須先 Initial的例外</summary>

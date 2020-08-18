@@ -1,4 +1,4 @@
-﻿using MaskAutoCleaner.v1_0.StateMachineException;
+﻿using MaskAutoCleaner.v1_0.StateMachineExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

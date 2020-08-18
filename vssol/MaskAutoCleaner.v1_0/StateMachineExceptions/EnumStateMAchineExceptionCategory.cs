@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.StateMachineException
+namespace MaskAutoCleaner.v1_0.StateMachineExceptions
 {
     /// <summary>State machine例外分類</summary>
     public enum EnumStateMAchineExceptionCategory
