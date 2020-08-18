@@ -33,6 +33,11 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         }
         #endregion
 
+        /// <summary>
+        /// <para>是不是 StateMachine 發出的例外</para>
+        /// <para>true: 是</para><para>false: 不是</para>
+        /// <para>null: 没有列外</para>
+        /// </summary>
         public bool? IsStateMachineException
         {
             get
@@ -51,14 +56,15 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
                 }
             }
           }
+        /// <summary>發出的例外</summary>
         public Exception StateException { get; set; }
+        /// <summary>清除例外資料</summary>
         public void ClearException()
         {
             StateException = null;
         }
-        public void SetException(Exception ex)
-        {
-
-        }
+        /// <summary>設定例外物件</summary>
+        /// <param name="ex">例外的物件</param>
+        public void SetException(Exception ex){ this.StateException = ex; }
     }
 }

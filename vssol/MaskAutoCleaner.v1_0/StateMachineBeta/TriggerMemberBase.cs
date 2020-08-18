@@ -19,6 +19,5 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         public MacStateEntryEventArgs NextStateEntryEventArgs { get; set; }
         /// <summary>Exit 的參數</summary>
         public MacStateExitEventArgs ThisStateExitEventArgs { get; set; }
-
     }
 }

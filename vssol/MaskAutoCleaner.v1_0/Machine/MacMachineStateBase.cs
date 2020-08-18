@@ -165,6 +165,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             {
                 if(triggerMember.ExceptionHandler !=null)
                 {
+                    thisState.SetException(ex);
                     triggerMember.ExceptionHandler.Invoke(thisState,ex);
                 }
             }
@@ -209,7 +210,8 @@ namespace MaskAutoCleaner.v1_0.Machine
                     thisState.SetException(ex);
                     if (triggerMemberAsync.ExceptionHandler != null)
                     {
-                        triggerMemberAsync.ExceptionHandler.Invoke(thisState,ex);
+                        thisState.SetException(ex);
+                        //triggerMemberAsync.ExceptionHandler.Invoke(thisState,ex);
                     }
 
                 }
