@@ -195,6 +195,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                         {
                             break;
                         }
+                        Thread.Sleep(10);
                     }
                     if (triggerMemberAsync.Action != null)
                     {
@@ -225,7 +226,54 @@ namespace MaskAutoCleaner.v1_0.Machine
             };
             new Task(Trigger).Start();
         }
-      
-       
+
+        public void TriggerAsync(IList<MacTransition> transitions)
+        {
+            DateTime startTime = DateTime.Now;
+            //var thisState = default(MacState);
+            var triggerMemberAsync = default(TriggerMemberAsync);
+            foreach (var transition in transitions) { transition.StateFrom.ClearException(); }
+            var hasDoExit = false;
+            var curentTransition = default(MacTransition);
+            Action Trigger = () =>
+            {
+                try
+                {
+                    while (true)
+                    {
+                        foreach (var transition in transitions)
+                        {
+                            curentTransition = transition;
+                            triggerMemberAsync = (TriggerMemberAsync)transition.TriggerMembers;
+                            if (triggerMemberAsync.Guard(startTime))
+                            {
+                                break;
+                            }
+                            curentTransition = default(MacTransition);
+                        }
+                        if (curentTransition != default(MacTransition))
+                        { break; }
+                        Thread.Sleep(10);
+                    }
+                    curentTransition.StateFrom.DoExit(curentTransition.TriggerMembers.ThisStateExitEventArgs);
+                    hasDoExit = true;
+                }
+                catch (Exception ex)
+                {
+                    if (curentTransition.TriggerMembers.ExceptionHandler != null)
+                    {
+                        curentTransition.TriggerMembers.ExceptionHandler.Invoke(curentTransition.StateFrom, ex);
+                    }
+                }
+                if (hasDoExit)
+                {
+                    if (curentTransition.StateTo != null)
+                    {
+                        curentTransition.StateTo.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
+                    }
+                }
+            };
+            new Task(Trigger).Start();
+        }
     }
 }

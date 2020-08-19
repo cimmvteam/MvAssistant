@@ -56,9 +56,22 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerMustInitialException = 40004,
         /// <summary>Drawer Load 移到 Out 時發生例外 </summary>
         DrawerLoadMoveTrayToPositionOutFailException = 40005,
-        /// <summary>Drawer Load 移到 Out 時逾未到達 </summary>
+        /// <summary>Drawer Load 移到 Out 時逾時未到達 </summary>
         DrawerLoadMoveTrayToPositionOutTimeOutException = 40006,
-
+        /// <summary>Drawer Load 移到 Home 時發生例外</summary>
+        DrawerLoadMoveTrayToPositionHomeFailException =40007,
+        /// <summary>Drawer Load 移到 Home 時逾時未到達</summary>
+        DrawerLoadMoveTrayToPositionHomeTimeOutException = 40008,
+        /// <summary>Drawer Load 在Home 點檢查盒子是否存在時,逾時未得結果 </summary>
+        DrawerLoadCheckBoxExistanceAtPositionHomeTimeOutException =40009,
+        /// <summary>Drawer Load 在Home 點檢查没有 Box , 回退到 Home 時發生錯誤</summary>
+        DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeFailException=4010,
+        /// <summary>Drawer Load 在Home 點檢查没有 Box , 回退到 Home 時逾時未達</summary>
+        DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException = 4011,
+        /// <summary>Drawer Load, 從Position Home 移到 Position In 時失敗 </summary>
+        DrawerLoadMoveTrayToPositionInFailException=4012,
+        /// <summary>Drawer Load, 從Position Home 移到 Position In 逾時未到 </summary>
+        DrawerLoadMoveTrayToPositionInTimeOutException = 4013,
     }
 
    
