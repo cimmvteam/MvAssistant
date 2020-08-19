@@ -64,14 +64,33 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerLoadMoveTrayToPositionHomeTimeOutException = 40008,
         /// <summary>Drawer Load 在Home 點檢查盒子是否存在時,逾時未得結果 </summary>
         DrawerLoadCheckBoxExistanceAtPositionHomeTimeOutException =40009,
-        /// <summary>Drawer Load 在Home 點檢查没有 Box , 回退到 Home 時發生錯誤</summary>
+        /// <summary>Drawer Load 在Home 點檢查没有 Box , 回退到 Out 時發生錯誤</summary>
         DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeFailException=4010,
-        /// <summary>Drawer Load 在Home 點檢查没有 Box , 回退到 Home 時逾時未達</summary>
+        /// <summary>Drawer Load 在Home 點檢查没有 Box , 回退到 Out 時逾時未達</summary>
         DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException = 4011,
         /// <summary>Drawer Load, 從Position Home 移到 Position In 時失敗 </summary>
         DrawerLoadMoveTrayToPositionInFailException=4012,
         /// <summary>Drawer Load, 從Position Home 移到 Position In 逾時未到 </summary>
         DrawerLoadMoveTrayToPositionInTimeOutException = 4013,
+        /// <summary>Drawer Unload, 將 Tray 移到 In 失敗 </summary>
+        DrawerUnloadMoveTrayToPositionInFailException,
+        /// <summary>Drawer Unload, 將 Tray 移到 In 逾時未達</summary>
+        DrawerUnloadMoveTrayToPositionInTimeOutException,
+        /// <summary>Drawer Unload, 將 Tray 移到 Home 失敗</summary>
+        DrawerUnloadMoveTrayToPositionHomeFailException,
+        /// <summary>Drawer Unload, 將 Tray 移到 Home 逾時未達</summary>
+        DrawerUnloadMoveTrayToPositionHomeTimeOutException,
+        /// <summary>Drawer Unload 在Home 點檢查盒子是否存在時,逾時未得結果 </summary>
+        DrawerUnloadCheckBoxExistanceAtPositionHomeTimeOutException,
+        /// <summary>Drawer Unload 在Home 點檢查没有 Box , 回退到 In 時發生錯誤</summary>
+        DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeFailException,
+        /// <summary>Drawer Unload 在Home 點檢查没有 Box , 回退到 In 時逾時未到</summary>
+        DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOutException,
+        /// <summary>Drawer Unload, 從Position Home 移到 Position Out 時失敗 </summary>
+        DrawerUnloadMoveTrayToPositionOutFailException,
+        /// <summary>Drawer Unload, 從Position Home 移到 Position Out 逾時未到 </summary>
+        DrawerUnloadMoveTrayToPositionOutTimeOutException,
+
     }
 
    

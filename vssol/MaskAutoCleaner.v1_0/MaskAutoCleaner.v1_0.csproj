@@ -108,6 +108,15 @@
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadCheckBoxExistanceAtPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionHomeFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionInFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionInTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionOutFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionOutTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCategory.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCode.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCodeExtends.cs" />
