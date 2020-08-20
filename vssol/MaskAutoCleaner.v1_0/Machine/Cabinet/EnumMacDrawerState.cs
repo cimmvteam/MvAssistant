@@ -73,9 +73,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadMoveTrayToPositionHomeFail,
         UnloadMoveTrayToPositionHomeTimeOut,
 
-        UnloadMoveTrayToPositionOutStart,
-        UnloadMoveTrayToPositionOutIng,
-        UnloadMoveTrayToPositionOutComplete,
+        UnloadMoveTrayToPositionOutFromPositionHomeStart,
+        UnloadMoveTrayToPositionOutFromPositionHomeIng,
+        UnloadMoveTrayToPositionOutFromPOsitionHomeComplete,
         UnloadMoveTrayToPositionInFail,
         UnloadMoveTrayToPositionOutTimeOut,
         UnloadCheckBoxExistenceAtPositionHome,

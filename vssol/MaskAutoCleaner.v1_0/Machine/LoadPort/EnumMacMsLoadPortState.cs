@@ -15,39 +15,27 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     public enum  EnumMacMsLoadPortState
     {
   
-
-        //IdleReadyToDock,
+        //Dock
         DockStart,
         DockIng,
-        DockMustReset,
-        DockMustInitial,
         DockComplete,
-        DockTimeOut,
-
-        //IdleReadyToUndock,
+      
+        //Undock,
         UndockStart,
         UndockIng,
-        UndockMustReset,
-        UndockMustInitial,
         UndockComplete,
-        UndockTimeOut,
-
-        //IdleReadyToUnload,
-        //UnloadExecuted,
-
-       // WaitReset,
+      
+       // Reset,
         ResetStart,
         ResetIng,
         ResetComplete,
-        ResetFail,
-        ResetTimeOut,
-
-        //WaitInitial,
+ 
+        //Initial,
         InitialStart,
-        Initialing,
+        InitialIng,
         InitialComplete,
-        InitialTimeOut,
-        InitialMustReset,
+       
+         // Idle
         IdleForGetMask,
         IdleForGetPOD,
         IdleForPutPOD,
