@@ -8,6 +8,7 @@ using MaskAutoCleaner.v1_0.Msg.PrescribedSecs;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.MaskTransferStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +25,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     [Guid("3C333536-8B09-43B0-9F56-957920050CFB")]
     public class MacMsMaskTransfer : MacMachineStateBase
     {
-        private IMacHalMaskTransfer HalMaskTransfer { get { return this.halAssembly as IMacHalMaskTransfer; } }
+        //private IMacHalMaskTransfer HalMaskTransfer { get { return this.halAssembly as IMacHalMaskTransfer; } }
+        public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)halAssembly.GetHalDevice(MacEnumDevice.masktransfer_assembly); } }
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 

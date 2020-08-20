@@ -24,7 +24,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
 
-        protected MacHalAssemblyBase halAssembly;
+        public MacHalAssemblyBase halAssembly;
 
         public virtual void Load()
         {
