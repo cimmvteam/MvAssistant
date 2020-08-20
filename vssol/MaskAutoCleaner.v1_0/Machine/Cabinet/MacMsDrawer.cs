@@ -63,7 +63,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             this.States[EnumMacDrawerState.UnloadMoveTrayToPositionInStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         
-        public void Unload_MoveTrayToPositionIn()
+        public void Unload_MoveTrayToPositionOutFromPositionIn()
         {
             HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInStart);
             this.States[EnumMacDrawerState.UnloadMoveTrayToPositionHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
