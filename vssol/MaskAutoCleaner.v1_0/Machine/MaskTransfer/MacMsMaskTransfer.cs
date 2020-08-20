@@ -6,6 +6,7 @@ using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.Msg;
 using MaskAutoCleaner.v1_0.Msg.PrescribedSecs;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineExceptions.MaskTransferStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
@@ -36,8 +37,169 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             this.States[EnumMacMsMaskTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
-        public void MoveToLoadPortGetMask()
+        public void MoveToLoadPortAGetMask()
         {
+            var transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortA.ToString()];
+            TriggerMember triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+
+        public void ReleaseToInspectionCh()
+        {
+            MacTransition transition = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped.ToString()];
+            TriggerMember triggerMember = null;
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionChForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionCh.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionChGlassForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionChGlass.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+
+            transition = Transitions[EnumMacMsMaskTransferTransition.InspectedAtICHomeClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReleaseToLoadPortA()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.InspectedAtLPHomeClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortAInspectedForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { throw new StateFailException(); },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
         }
 
         public override void LoadStateMachine()
@@ -96,12 +258,30 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
             //Clean
-            MacState sCleanMovingStart = NewState(EnumMacMsMaskTransferState.CleanMovingStart);//前往CleanCh
-            MacState sCleanReady = NewState(EnumMacMsMaskTransferState.CleanReady);//準備好Clean
-            MacState sCleanMovingReturn = NewState(EnumMacMsMaskTransferState.CleanMovingReturn);//離開CleanCh
-            MacState sCleanChMoving = NewState(EnumMacMsMaskTransferState.CleanChMoving);
-            MacState sCleanChWaitAckMove = NewState(EnumMacMsMaskTransferState.CleanChWaitAckMove);
+            MacState sMovingToCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCleanCh);//前往CleanCh
+            MacState sWaitingForMoveToClean = NewState(EnumMacMsMaskTransferState.WaitingForMoveToClean);//準備好Clean
+            MacState sMovingToClean = NewState(EnumMacMsMaskTransferState.MovingToClean);
+            MacState sWaitingForClean = NewState(EnumMacMsMaskTransferState.WaitingForClean);
+            MacState sMovingAfterCleaned = NewState(EnumMacMsMaskTransferState.MovingAfterCleaned);
+            MacState sWaitingForMoveToCapture = NewState(EnumMacMsMaskTransferState.WaitingForMoveToCapture);//準備好Capture
+            MacState sMovingToCapture = NewState(EnumMacMsMaskTransferState.MovingToCapture);
+            MacState sWaitingForCapture = NewState(EnumMacMsMaskTransferState.WaitingForCapture);
+            MacState sMovingAfterCaptured = NewState(EnumMacMsMaskTransferState.MovingAfterCaptured);
+            MacState sWaitingForLeaveCleanCh = NewState(EnumMacMsMaskTransferState.WaitingForLeaveCleanCh);
+            MacState sMovingToCCHomeClampedFromCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanCh);//離開CleanCh
 
+            MacState sMovingToCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanChGlass);//前往CleanChGlass
+            MacState sWaitingForMoveToCleanGlass = NewState(EnumMacMsMaskTransferState.WaitingForMoveToCleanGlass);//準備好CleanGlass
+            MacState sMovingToCleanGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanGlass);
+            MacState sWaitingForCleanGlass = NewState(EnumMacMsMaskTransferState.WaitingForCleanGlass);
+            MacState sMovingAfterCleanedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCleanedGlass);
+            MacState sWaitingForMoveToCaptureGlass = NewState(EnumMacMsMaskTransferState.WaitingForMoveToCaptureGlass);//準備好CaptureGlass
+            MacState sMovingToCaptureGlass = NewState(EnumMacMsMaskTransferState.MovingToCaptureGlass);
+            MacState sWaitingForCaptureGlass = NewState(EnumMacMsMaskTransferState.WaitingForCaptureGlass);
+            MacState sMovingAfterCapturedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCapturedGlass);
+            MacState sWaitingForLeaveCleanChGlass = NewState(EnumMacMsMaskTransferState.WaitingForLeaveCleanChGlass);
+            MacState sMovingToCCHomeClampedFromCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanChGlass);//離開CleanChGlass
+            //MacState sCleanChWaitAckMove = NewState(EnumMacMsMaskTransferState.CleanChWaitAckMove);
 
             //To Target
             MacState sMovingToLoadPortAForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortAForRelease);
@@ -131,7 +311,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tStart_DeviceInitial = NewTransition(sStart, sInitial, EnumMacMsMaskTransferTransition.PowerON);
             MacTransition tDeviceInitial_LPHome = NewTransition(sInitial, sLPHome, EnumMacMsMaskTransferTransition.Initial);
             MacTransition tLPHome_NULL = NewTransition(sLPHome, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHome);
-            MacTransition tLPHomeClamped_LPHomeClamped = NewTransition(sLPHomeClamped, sLPHomeClamped, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeClamped);
+            MacTransition tLPHomeClamped_NULL = NewTransition(sLPHomeClamped, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeClamped);
             MacTransition tLPHomeInspected_NULL = NewTransition(sLPHomeInspected, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeInspected);
             MacTransition tLPHomeCleaned_NULL = NewTransition(sLPHomeInspected, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeCleaned);
             MacTransition tICHome_NULL = NewTransition(sICHome, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtICHome);
@@ -148,7 +328,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tLPHome_ChangingDirectionToICHome = NewTransition(sLPHome, sChangingDirectionToICHome, EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeFromLPHome);
             MacTransition tICHome_ChangingDirectionToLPHome = NewTransition(sICHome, sChangingDirectionToLPHome, EnumMacMsMaskTransferTransition.ChangeDirectionToLPHomeFromICHome);
             MacTransition tLPHomeClamped_ChangingDirectionToICHomeClamped = NewTransition(sLPHomeClamped, sChangingDirectionToICHomeClamped, EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped);
-            MacTransition tLPHomeClamped_ChangingDirectionToCCHomeClamped = NewTransition(sLPHomeClamped, sChangingDirectionToCCHomeClamped, EnumMacMsMaskTransferTransition.ChangeDirectionToCCHomeClampedFromLPHomeClamped);
+            //MacTransition tLPHomeClamped_ChangingDirectionToCCHomeClamped = NewTransition(sLPHomeClamped, sChangingDirectionToCCHomeClamped, EnumMacMsMaskTransferTransition.ChangeDirectionToCCHomeClampedFromLPHomeClamped);
             MacTransition tICHomeClamped_ChangingDirectionToLPHomeClamped = NewTransition(sICHomeClamped, sChangingDirectionToLPHomeClamped, EnumMacMsMaskTransferTransition.ChangeDirectionToLPHomeClampedFromICHomeClamped);
             MacTransition tICHomeInspected_ChangingDirectionToCCHomeClamped = NewTransition(sICHomeInspected, sChangingDirectionToCCHomeClamped, EnumMacMsMaskTransferTransition.ChangeDirectionToCCHomeClampedFromICHomeInspected);
             MacTransition tICHomeInspected_ChangingDirectionToLPHomeInspected = NewTransition(sICHomeInspected, sChangingDirectionToLPHomeInspected, EnumMacMsMaskTransferTransition.ChangeDirectionToLPHomeInspectedFromICHomeInspected);
@@ -159,6 +339,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tChangingDirectionToLPHome_LPHome = NewTransition(sChangingDirectionToLPHome, sLPHome, EnumMacMsMaskTransferTransition.FinishChangeDirectionToLPHome);
             MacTransition tChangingDirectionToICHomeClamped_ICHomeClamped = NewTransition(sChangingDirectionToICHomeClamped, sICHomeClamped, EnumMacMsMaskTransferTransition.FinishChangeDirectionToICHomeClamped);
             MacTransition tChangingDirectionToLPHomeClamped_LPHomeClamped = NewTransition(sChangingDirectionToLPHomeClamped, sLPHomeClamped, EnumMacMsMaskTransferTransition.FinishChangeDirectionToLPHomeClamped);
+            MacTransition tChangingDirectionToLPHomeInspected_LPHomeInspected = NewTransition(sChangingDirectionToLPHomeInspected, sLPHomeInspected, EnumMacMsMaskTransferTransition.FinishChangeDirectionToLPHomeInspected);
+            MacTransition tChangingDirectionToLPHomeCleaned_LPHomeCleaned = NewTransition(sChangingDirectionToLPHomeCleaned, sLPHomeCleaned, EnumMacMsMaskTransferTransition.FinishChangeDirectionToLPHomeCleaned);
             MacTransition tChangingDirectionToCCHomeClamped_CCHomeClamped = NewTransition(sChangingDirectionToCCHomeClamped, sCCHomeClamped, EnumMacMsMaskTransferTransition.FinishChangeDirectionToCCHomeClamped);
             #endregion Change Direction
 
@@ -168,8 +350,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA = NewTransition(sLoadPortAClamping, sMovingToLPHomeClampedFromLoadPortA, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromLoadPortA);
             MacTransition tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortA, sLPHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtLPHomeClampedFromLoadPortA);
 
-            MacTransition tLPHomeInspected_MovingToLoadPortAForRelease = NewTransition(sLPHomeInspected, sMovingToLoadPortAForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortAForRelease);
-            MacTransition tLPHomeCleaned_MovingToLoadPortAForRelease = NewTransition(sLPHomeCleaned, sMovingToLoadPortAForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortAForRelease);
+            MacTransition tLPHomeInspected_MovingToLoadPortAForRelease = NewTransition(sLPHomeInspected, sMovingToLoadPortAForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortAInspectedForRelease);
+            MacTransition tLPHomeCleaned_MovingToLoadPortAForRelease = NewTransition(sLPHomeCleaned, sMovingToLoadPortAForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortACleanedForRelease);
             MacTransition tMovingToLoadPortAForRelease_LoadPortAReleasing = NewTransition(sMovingToLoadPortAForRelease, sLoadPortAReleasing, EnumMacMsMaskTransferTransition.ReleaseInLoadPortA);
             MacTransition tLoadPortAReleasing_MovingToLPHomeFromLoadPortA = NewTransition(sLoadPortAReleasing, sMovingToLPHomeFromLoadPortA, EnumMacMsMaskTransferTransition.MoveToLPHomeFromLoadPortA);
             MacTransition tMovingToLPHomeFromLoadPortA_LPHome = NewTransition(sMovingToLPHomeFromLoadPortA, sLPHome, EnumMacMsMaskTransferTransition.StandbyAtLPHomeFromLoadPortA);
@@ -181,8 +363,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB = NewTransition(sLoadPortBClamping, sMovingToLPHomeClampedFromLoadPortB, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromLoadPortB);
             MacTransition tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromLoadPortB, sLPHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtLPHomeClampedFromLoadPortB);
 
-            MacTransition tLPHomeInspected_MovingToLoadPortBForRelease = NewTransition(sLPHomeInspected, sMovingToLoadPortBForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortBForRelease);
-            MacTransition tLPHomeCleaned_MovingToLoadPortBForRelease = NewTransition(sLPHomeCleaned, sMovingToLoadPortBForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortBForRelease);
+            MacTransition tLPHomeInspected_MovingToLoadPortBForRelease = NewTransition(sLPHomeInspected, sMovingToLoadPortBForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortBInspectedForRelease);
+            MacTransition tLPHomeCleaned_MovingToLoadPortBForRelease = NewTransition(sLPHomeCleaned, sMovingToLoadPortBForRelease, EnumMacMsMaskTransferTransition.MoveToLoadPortBCleanedForRelease);
             MacTransition tMovingToLoadPortBForRelease_LoadPortBReleasing = NewTransition(sMovingToLoadPortBForRelease, sLoadPortBReleasing, EnumMacMsMaskTransferTransition.ReleaseInLoadPortB);
             MacTransition tLoadPortBReleasing_MovingToLPHomeFromLoadPortB = NewTransition(sLoadPortBReleasing, sMovingToLPHomeFromLoadPortB, EnumMacMsMaskTransferTransition.MoveToLPHomeFromLoadPortB);
             MacTransition tMovingToLPHomeFromLoadPortB_LPHome = NewTransition(sMovingToLPHomeFromLoadPortB, sLPHome, EnumMacMsMaskTransferTransition.StandbyAtLPHomeFromLoadPortB);
@@ -194,8 +376,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tInspectionChClamping_MovingToICHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToICHomeClampedFromInspectionCh, EnumMacMsMaskTransferTransition.MoveToICHomeClampedFromInspectionCh);
             MacTransition tMovingToICHomeClampedFromInspectionCh_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionCh, sICHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtICHomeClampedFromInspectionCh);
             MacTransition tICHomeClamped_MovingToInspectionChForRelease = NewTransition(sICHomeClamped, sMovingToInspectionChForRelease, EnumMacMsMaskTransferTransition.MoveToInspectionChForRelease);
-            MacTransition tMovingInspectionChForRelease_InspectionChReleasing = NewTransition(sMovingToInspectionChForRelease, sInspectionChReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tInspectionChReleasing_MovingToICHomeFromInspectionCh = NewTransition(sInspectionChReleasing, sMovingToICHomeFromInspectionCh, EnumMacMsMaskTransferTransition.CompleteReleased);
+            MacTransition tMovingInspectionChForRelease_InspectionChReleasing = NewTransition(sMovingToInspectionChForRelease, sInspectionChReleasing, EnumMacMsMaskTransferTransition.ReleaseInInspectionCh);
+            MacTransition tInspectionChReleasing_MovingToICHomeFromInspectionCh = NewTransition(sInspectionChReleasing, sMovingToICHomeFromInspectionCh, EnumMacMsMaskTransferTransition.MoveToICHomeFromInspectionCh);
             MacTransition tMovingToICHomeFromInspectionCh_ICHome = NewTransition(sMovingToICHomeFromInspectionCh, sICHome, EnumMacMsMaskTransferTransition.StandbyAtICHomeFromInspectionCh);
 
             MacTransition tICHome_MovingToInspectionChGlass = NewTransition(sICHome, sMovingToInspectionChGlass, EnumMacMsMaskTransferTransition.MoveToInspectionChGlass);
@@ -203,10 +385,39 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass = NewTransition(sInspectionChGlassClamping, sMovingToICHomeClampedFromInspectionChGlass, EnumMacMsMaskTransferTransition.MoveToICHomeClampedFromInspectionChGlass);
             MacTransition tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionChGlass, sICHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtICHomeClampedFromInspectionChGlass);
             MacTransition tICHomeClamped_MovingToInspectionChGlassForRelease = NewTransition(sICHomeClamped, sMovingToInspectionChGlassForRelease, EnumMacMsMaskTransferTransition.MoveToInspectionChGlassForRelease);
-            MacTransition tMovingInspectionChGlassForRelease_InspectionChGlassReleasing = NewTransition(sMovingToInspectionChGlassForRelease, sInspectionChGlassReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass = NewTransition(sInspectionChGlassReleasing, sMovingToICHomeFromInspectionChGlass, EnumMacMsMaskTransferTransition.CompleteReleased);
+            MacTransition tMovingInspectionChGlassForRelease_InspectionChGlassReleasing = NewTransition(sMovingToInspectionChGlassForRelease, sInspectionChGlassReleasing, EnumMacMsMaskTransferTransition.ReleaseInInspectionChGlass);
+            MacTransition tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass = NewTransition(sInspectionChGlassReleasing, sMovingToICHomeFromInspectionChGlass, EnumMacMsMaskTransferTransition.MoveToICHomeFromInspectionChGlass);
             MacTransition tMovingToICHomeFromInspectionChGlass_ICHome = NewTransition(sMovingToICHomeFromInspectionChGlass, sICHome, EnumMacMsMaskTransferTransition.StandbyAtICHomeFromInspectionChGlass);
             #endregion Inspection Ch
+
+            #region Clean Ch
+            MacTransition tCCHomeClamped_MovingToCleanCh = NewTransition(sCCHomeClamped, sMovingToCleanCh, EnumMacMsMaskTransferTransition.MoveToCleanCh);
+            MacTransition tMovingToCleanCh_WaitingForMoveToClean = NewTransition(sMovingToCleanCh, sWaitingForMoveToClean, EnumMacMsMaskTransferTransition.WaitForMoveToClean);
+            MacTransition tWaitingForMoveToClean_MovingToClean = NewTransition(sWaitingForMoveToClean, sMovingToClean, EnumMacMsMaskTransferTransition.MoveToClean);
+            MacTransition tMovingToClean_WaitingForClean = NewTransition(sMovingToClean, sWaitingForClean, EnumMacMsMaskTransferTransition.WaitFroClean);
+            MacTransition tWaitingForClean_MovingAfterCleaned = NewTransition(sWaitingForClean, sMovingAfterCleaned, EnumMacMsMaskTransferTransition.MoveAferCleaned);
+            MacTransition tMovingAfterCleaned_WaitingForMoveToCapture = NewTransition(sMovingAfterCleaned, sWaitingForMoveToCapture, EnumMacMsMaskTransferTransition.WaitForMoveToCapture);
+            MacTransition tWaitingForMoveToCapture_MovingToCapture = NewTransition(sWaitingForMoveToCapture, sMovingToCapture, EnumMacMsMaskTransferTransition.MoveToCapture);
+            MacTransition tMovingToCapture_WaitingForCapture = NewTransition(sMovingToCapture, sWaitingForCapture, EnumMacMsMaskTransferTransition.WaitForCapture);
+            MacTransition tWaitingForCapture_MovingAfterCaptured = NewTransition(sWaitingForCapture, sMovingAfterCaptured, EnumMacMsMaskTransferTransition.MoveAfterCapture);
+            MacTransition tMovingAfterCaptured_WaitingForLeaveCleanCh = NewTransition(sMovingAfterCaptured, sWaitingForLeaveCleanCh, EnumMacMsMaskTransferTransition.WaitForLeaveCleanCh);
+            MacTransition tWaitingForLeaveCleanCh_MovingToCCHomeClampedFromCleanCh = NewTransition(sWaitingForLeaveCleanCh, sMovingToCCHomeClampedFromCleanCh, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanCh);
+            MacTransition tMovingToCCHomeClampedFromCleanCh_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanCh, sCCHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClampedFromCleanCh);
+
+            MacTransition tCCHomeClamped_MovingToCleanChGlass = NewTransition(sCCHomeClamped, sMovingToCleanChGlass, EnumMacMsMaskTransferTransition.MoveToCleanChGlass);
+            MacTransition tMovingToCleanChGlass_WaitingForMoveToCleanGlass = NewTransition(sMovingToCleanChGlass, sWaitingForMoveToCleanGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCleanGlass);
+            MacTransition tWaitingForMoveToCleanGlass_MovingToCleanGlass = NewTransition(sWaitingForMoveToCleanGlass, sMovingToCleanGlass, EnumMacMsMaskTransferTransition.MoveToCleanGlass);
+            MacTransition tMovingToCleanGlass_WaitingForCleanGlass = NewTransition(sMovingToCleanGlass, sWaitingForCleanGlass, EnumMacMsMaskTransferTransition.WaitFroCleanGlass);
+            MacTransition tWaitingForCleanGlass_MovingAfterCleanedGlass = NewTransition(sWaitingForCleanGlass, sMovingAfterCleanedGlass, EnumMacMsMaskTransferTransition.MoveAferCleanedGlass);
+            MacTransition tMovingAfterCleanedGlass_WaitingForMoveToCaptureGlass = NewTransition(sMovingAfterCleanedGlass, sWaitingForMoveToCaptureGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCaptureGlass);
+            MacTransition tWaitingForMoveToCaptureGlass_MovingToCaptureGlass = NewTransition(sWaitingForMoveToCaptureGlass, sMovingToCaptureGlass, EnumMacMsMaskTransferTransition.MoveToCaptureGlass);
+            MacTransition tMovingToCaptureGlass_WaitingForCaptureGlass = NewTransition(sMovingToCaptureGlass, sWaitingForCaptureGlass, EnumMacMsMaskTransferTransition.WaitForCaptureGlass);
+            MacTransition tWaitingForCaptureGlass_MovingAfterCapturedGlass = NewTransition(sWaitingForCaptureGlass, sMovingAfterCapturedGlass, EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass);
+            MacTransition tMovingAfterCapturedGlass_WaitingForLeaveCleanChGlass = NewTransition(sMovingAfterCapturedGlass, sWaitingForLeaveCleanChGlass, EnumMacMsMaskTransferTransition.WaitForLeaveCleanChGlass);
+            MacTransition tWaitingForLeaveCleanChGlass_MovingToCCHomeClampedFromCleanChGlass = NewTransition(sWaitingForLeaveCleanChGlass, sMovingToCCHomeClampedFromCleanChGlass, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanChGlass);
+            MacTransition tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanChGlass, sCCHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClampedFromCleanChGlass);
+
+            #endregion Clean Ch
 
             #region Open Stage
             MacTransition tLPHome_MovingToOpenStage = NewTransition(sLPHome, sMovingToOpenStage, EnumMacMsMaskTransferTransition.MoveToOpenStage);
@@ -216,7 +427,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             MacTransition tLPHomeInspected_MovingToOpenStageForRelease = NewTransition(sLPHomeInspected, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
             MacTransition tLPHomeCleaned_MovingToOpenStageForRelease = NewTransition(sLPHomeCleaned, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
-            MacTransition tMovingOpenStageForRelease_OpenStageReleasing = NewTransition(sMovingOpenStageForRelease, sOpenStageReleasing, EnumMacMsMaskTransferTransition.CleanMoveComplete);
+            MacTransition tMovingOpenStageForRelease_OpenStageReleasing = NewTransition(sMovingOpenStageForRelease, sOpenStageReleasing, EnumMacMsMaskTransferTransition.ReleaseInOpenStage);
             MacTransition tOpenStageReleasing_MovingToLPHomeFromOpenStage = NewTransition(sOpenStageReleasing, sMovingToLPHomeFromOpenStage, EnumMacMsMaskTransferTransition.CompleteReleased);
             MacTransition tMovingToLPHomeFromOpenStage_LPHome = NewTransition(sMovingToLPHomeFromOpenStage, sLPHome, EnumMacMsMaskTransferTransition.StandbyAtLPHomeFromOpenStage);
             #endregion Open Stage
@@ -234,13 +445,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
             //--- Clean Start
-            //MacTransition tReadyToRelease_CleanMovingStart = NewTransition(sReadyToRelease, sCleanMovingStart, EnumMacMsMaskTransferTransition.CleanStart);
-            MacTransition tCleanMovingStart_CleanReady = NewTransition(sCleanMovingStart, sCleanReady, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tCleanReady_CleanMovingReturn = NewTransition(sCleanReady, sCleanMovingReturn, EnumMacMsMaskTransferTransition.CleanProcessComplete);//觸發回Home點:ReadyToRelease應讓Recipe控制, 避免其它Device衝突
-            //MacTransition tCleanMovingReturn_ReadyToRelease = NewTransition(sCleanMovingReturn, sReadyToRelease, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tCleanReady_CleanChMoving = NewTransition(sCleanReady, sCleanChMoving, EnumMacMsMaskTransferTransition.CleanReceiveMove);
-            MacTransition tCleanChMoving_CleanChWaitAckMove = NewTransition(sCleanChMoving, sCleanChWaitAckMove, EnumMacMsMaskTransferTransition.CleanMoveComplete);
-            MacTransition tCleanChWaitAckMove_CleanReady = NewTransition(sCleanChWaitAckMove, sCleanReady, EnumMacMsMaskTransferTransition.CleanMoveAck);
+
 
 
             //Complete or No Clean Job
@@ -263,708 +468,221 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sStart.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
+                var transition = tStart_DeviceInitial;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tStart_DeviceInitial,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sStart.OnExit += (sender, e) =>
             { };
 
             sInitial.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
+                HalMaskTransfer.Initial();
+                var transition = tDeviceInitial_LPHome;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tDeviceInitial_LPHome,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = (parameter) => { HalMaskTransfer.Initial(); };
-                object actionParameter = null;
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInitial.OnExit += (sender, e) =>
             { };
 
             sLPHome.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
+                var transition = tLPHome_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tLPHome_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLPHome.OnExit += (sender, e) =>
             { };
 
             sLPHomeClamped.OnEntry += (sender, e) =>
             {
-                //Func<StateGuardRtns> guard = null;
-                //Action<object> action = null;
-                //Action<object> actionMoveToICHomeClamped = null;
-                //object actionParameter = null;
-                //object actionParameterMoveToICHomeClamped = null;
-                //Action<Exception> exceptionHandler = null;
-                //Action<Exception> exceptionHandlerMoveToICHomeClamped = (ex) => { throw ex; };
-                //Func<StateGuardRtns> guardMoveToICHomeClamped = () =>//需要轉向去IC放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeClamped_ChangingDirectionToICHomeClamped,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-
-                //guard = guardMoveToICHomeClamped;
-                //action = actionMoveToICHomeClamped;
-                //actionParameter = actionParameterMoveToICHomeClamped;
-                //exceptionHandler = exceptionHandlerMoveToICHomeClamped;
-                Func<StateGuardRtns> guard = () =>
+                var transition = tLPHomeClamped_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tLPHomeClamped_ChangingDirectionToICHomeClamped,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLPHomeClamped.OnExit += (sender, e) =>
             { };
 
             sLPHomeInspected.OnEntry += (sender, e) =>
             {
-                //Func<StateGuardRtns> guard = null;
-                //Action<object> action = null;
-                //Action<object> actionMoveToOSForRelease = null;
-                //Action<object> actionMoveToLPAForRelease = null;
-                //Action<object> actionMoveToLPBForRelease = null;
-                //object actionParameter = null;
-                //object actionParameterMoveToOSForRelease = null;
-                //object actionParameterMoveToLPAForRelease = null;
-                //object actionParameterMoveToLPBForRelease = null;
-                //Action<Exception> exceptionHandler = null;
-                //Action<Exception> exceptionHandlerMoveToOSForRelease = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToLPAForRelease = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToLPBForRelease = (ex) => { throw ex; };
-                //Func<StateGuardRtns> guardMoveToOSForRelease = () =>//移動到Open Stage放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeInspected_MovingToOpenStageForRelease,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToLPAForRelease = () =>//移動到Load Port A放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeInspected_MovingToLoadPortAForRelease,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToLPBForRelease = () =>//移動到Load Port B放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeInspected_MovingToLoadPortBForRelease,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-
-                //var LPAState = new MacMsLoadPort();// TODO: Get Load Port A/B State
-                //var LPBState = new MacMsLoadPort();
-                //var OSState = new MacMsOpenStage();
-                //// TODO: Get Other Components State
-                //if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
-                //{
-                //    guard = guardMoveToOSForRelease;
-                //    action = actionMoveToOSForRelease;
-                //    actionParameter = actionParameterMoveToOSForRelease;
-                //    exceptionHandler = exceptionHandlerMoveToOSForRelease;
-                //}
-                Func<StateGuardRtns> guard = () =>
+                var transition = tLPHomeInspected_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tLPHomeInspected_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLPHomeInspected.OnExit += (sender, e) =>
             { };
 
             sLPHomeCleaned.OnEntry += (sender, e) =>
             {
-                //Func<StateGuardRtns> guard = null;
-                //Action<object> action = null;
-                //Action<object> actionMoveToICHomeClamped = null;
-                //Action<object> actionMoveToOSForRelease = null;
-                //Action<object> actionWait = null;
-                //object actionParameter = null;
-                //object actionParameterMoveToICHomeClamped = null;
-                //object actionParameterMoveToOSForRelease = null;
-                //object actionParameterWait = null;
-                //Action<Exception> exceptionHandler = null;
-                //Action<Exception> exceptionHandlerMoveToICHomeClamped = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToOSForRelease = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
-                //Func<StateGuardRtns> guardMoveToICHomeClamped = () =>//需要轉向去IC放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeClamped_ChangingDirectionToICHomeClamped,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToOSForRelease = () =>//移動到Open Stage放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeClamped_MovingToOpenStageForRelease,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardWait = () =>//保持原狀態
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tLPHomeClamped_LPHomeClamped,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-
-                //// TODO: Get Load Port A/B State
-                //var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                //var CCState = new MacMsCleanCh();
-                //var OSState = new MacMsOpenStage();
-                //// TODO: Get Other Components State
-                //if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
-                //{
-                //    guard = guardMoveToICHomeClamped;
-                //    action = actionMoveToICHomeClamped;
-                //    actionParameter = actionParameterMoveToICHomeClamped;
-                //    exceptionHandler = exceptionHandlerMoveToICHomeClamped;
-                //}
-                //else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
-                //{
-                //    guard = guardMoveToICHomeClamped;
-                //    action = actionMoveToICHomeClamped;
-                //    actionParameter = actionParameterMoveToICHomeClamped;
-                //    exceptionHandler = exceptionHandlerMoveToICHomeClamped;
-                //}
-                //else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
-                //{
-                //    guard = guardMoveToOSForRelease;
-                //    action = actionMoveToOSForRelease;
-                //    actionParameter = actionParameterMoveToOSForRelease;
-                //    exceptionHandler = exceptionHandlerMoveToOSForRelease;
-                //}
-                //// TODO: Other Components State Check
-                //else
-                //{
-                //    guard = guardWait;
-                //    action = actionWait;
-                //    actionParameter = actionParameterWait;
-                //    exceptionHandler = exceptionHandlerWait;
-                //}
-
-                Func<StateGuardRtns> guard = () =>
+                var transition = tLPHomeCleaned_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tLPHomeCleaned_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLPHomeCleaned.OnExit += (sender, e) =>
             { };
 
             sICHome.OnEntry += (sender, e) =>
             {
-                //Func<StateGuardRtns> guard = null;
-                //Action<object> action = null;
-                //Action<object> actionMoveToLPHome = null;
-                //Action<object> actionMoveToICGetMask = null;
-                //Action<object> actionMoveToICGetGlass = null;
-                //Action<object> actionWait = null;
-                //object actionParameter = null;
-                //object actionParameterMoveToLPHome = null;
-                //object actionParameterMoveToICGetMask = null;
-                //object actionParameterMoveToICGetGlass = null;
-                //object actionParameterWait = null;
-                //Action<Exception> exceptionHandler = null;
-                //Action<Exception> exceptionHandlerMoveToLPHome = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToICGetMask = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToICGetGlass = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
-                //Func<StateGuardRtns> guardMoveToLPHome = () =>//需要轉向去LP夾取
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHome_ChangingDirectionToLPHome,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToICGetMask = () =>//移動到IC夾取Mask(在IC裡面Pellicle朝上)
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHome_MovingToInspectionCh,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToICGetGlass = () =>//移動到IC夾取Mask(在IC裡面Glass朝上)
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHome_MovingToInspectionChGlass,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardWait = () =>//保持原狀態
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHome_ICHome,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-
-                //// TODO: Get Load Port A/B State
-                //var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                //var CCState = new MacMsCleanCh();
-                //var OSState = new MacMsOpenStage();
-                //// TODO: Get Other Components State
-                //if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseMask)
-                //{
-                //    guard = guardMoveToICGetMask;
-                //    action = actionMoveToICGetMask;
-                //    actionParameter = actionParameterMoveToICGetMask;
-                //    exceptionHandler = exceptionHandlerMoveToICGetMask;
-                //}
-                //else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForReleaseGlass)
-                //{
-                //    guard = guardMoveToICGetGlass;
-                //    action = actionMoveToICGetGlass;
-                //    actionParameter = actionParameterMoveToICGetGlass;
-                //    exceptionHandler = exceptionHandlerMoveToICGetGlass;
-                //}
-                //else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForReleaseMask)
-                //{
-                //    guard = guardMoveToLPHome;
-                //    action = actionMoveToLPHome;
-                //    actionParameter = actionParameterMoveToLPHome;
-                //    exceptionHandler = exceptionHandlerMoveToLPHome;
-                //}
-                //// TODO: Other Components State Check
-                //else
-                //{
-                //    guard = guardWait;
-                //    action = actionWait;
-                //    actionParameter = actionParameterWait;
-                //    exceptionHandler = exceptionHandlerWait;
-                //}
-
-                Func<StateGuardRtns> guard = () =>
+                var transition = tICHome_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tICHome_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sICHome.OnExit += (sender, e) =>
             { };
 
             sICHomeClamped.OnEntry += (sender, e) =>
             {
-                //Func<StateGuardRtns> guard = null;
-                //Action<object> action = null;
-                //Action<object> actionMoveToLPHome = null;
-                //Action<object> actionMoveToICForReleaseMask = null;
-                //Action<object> actionMoveToICForReleaseGlass = null;
-                //Action<object> actionWait = null;
-                //object actionParameter = null;
-                //object actionParameterMoveToLPHome = null;
-                //object actionParameterMoveToICForReleaseMask = null;
-                //object actionParameterMoveToICForReleaseGlass = null;
-                //object actionParameterWait = null;
-                //Action<Exception> exceptionHandler = null;
-                //Action<Exception> exceptionHandlerMoveToLPHome = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToICForReleaseMask = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerMoveToICForReleaseGlass = (ex) => { throw ex; };
-                //Action<Exception> exceptionHandlerWait = (ex) => { throw ex; };
-                //Func<StateGuardRtns> guardMoveToLPHome = () =>//需要轉向去LP放置
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHomeClamped_ChangingDirectionToLPHomeClamped,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToICForReleaseMask = () =>//移動到IC放置Mask(在IC裡面Pellicle朝上)
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHomeClamped_MovingToInspectionChForRelease,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardMoveToICForReleaseGlass = () =>//移動到IC放置Mask(在IC裡面Glass朝上)
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHomeClamped_MovingToInspectionChGlassForRelease,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-                //Func<StateGuardRtns> guardWait = () =>//保持原狀態
-                //{
-                //    StateGuardRtns rtn = null;
-                //    try
-                //    {
-                //        rtn = new StateGuardRtns
-                //        {
-                //            Transition = tICHomeClamped_ICHomeClamped,
-                //            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                //            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                //        };
-                //    }
-                //    catch (Exception)
-                //    { throw new StateFailException(); }
-                //    return rtn;
-                //};
-
-                //// TODO: Get Load Port A/B State
-                //var ICState = new MacMsInspectionCh();//暫時先New，需要找到已存在的Component State， TODO: Get InspectionCh State
-                //var CCState = new MacMsCleanCh();
-                //var OSState = new MacMsOpenStage();
-                //// TODO: Get Other Components State
-                //if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputMask)
-                //{
-                //    guard = guardMoveToICForReleaseMask;
-                //    action = actionMoveToICForReleaseMask;
-                //    actionParameter = actionParameterMoveToICForReleaseMask;
-                //    exceptionHandler = exceptionHandlerMoveToICForReleaseMask;
-                //}
-                //else if (ICState.CurrentWorkState == EnumMacMsInspectionChState.WaitingForInputGlass)
-                //{
-                //    guard = guardMoveToICForReleaseGlass;
-                //    action = actionMoveToICForReleaseGlass;
-                //    actionParameter = actionParameterMoveToICForReleaseGlass;
-                //    exceptionHandler = exceptionHandlerMoveToICForReleaseGlass;
-                //}
-                //else if (OSState.CurrentWorkState == EnumMacMsOpenStageState.WaitingForInputMask)
-                //{
-                //    guard = guardMoveToLPHome;
-                //    action = actionMoveToLPHome;
-                //    actionParameter = actionParameterMoveToLPHome;
-                //    exceptionHandler = exceptionHandlerMoveToLPHome;
-                //}
-                //// TODO: Other Components State Check
-                //else
-                //{
-                //    guard = guardWait;
-                //    action = actionWait;
-                //    actionParameter = actionParameterWait;
-                //    exceptionHandler = exceptionHandlerWait;
-                //}
-
-                Func<StateGuardRtns> guard = () =>
+                var transition = tICHomeClamped_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tICHomeClamped_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sICHomeClamped.OnExit += (sender, e) =>
             { };
 
             sICHomeInspected.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
+                var transition = tICHomeInspected_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tLPHomeInspected_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sICHomeInspected.OnExit += (sender, e) =>
             { };
 
             sCCHomeClamped.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
+                var transition = tCCHomeClamped_NULL;
+                TriggerMember triggerMember = new TriggerMember
                 {
-                    StateGuardRtns rtn = null;
-                    try
+                    Guard = () =>
                     {
-                        rtn = new StateGuardRtns
-                        {
-                            Transition = tCCHomeClamped_NULL,
-                            ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        };
-                    }
-                    catch (Exception)
-                    { throw new StateFailException(); }
-                    return rtn;
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Action<object> action = null;
-                object actionParameter = null;
-
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sCCHomeClamped.OnExit += (sender, e) =>
             { };
@@ -972,130 +690,231 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Change Direction
             sChangingDirectionToLPHome.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
-                {
-                    var rtn = new StateGuardRtns
-                    {
-                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                        Transition = tChangingDirectionToLPHome_LPHome,
-                    };
-                    return rtn;
-                };
-                Action<object> action = (parameter) =>
+                try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToLPHome_LPHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                object actionParameter = null;
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sChangingDirectionToLPHome.OnExit += (sender, e) =>
             { };
 
             sChangingDirectionToLPHomeClamped.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
-                {
-                    var rtn = new StateGuardRtns
-                    {
-                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                        Transition = tChangingDirectionToLPHomeClamped_LPHomeClamped,
-                    };
-                    return rtn;
-                };
-                Action<object> action = (parameter) =>
+                try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToLPHomeClamped_LPHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                object actionParameter = null;
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sChangingDirectionToLPHomeClamped.OnExit += (sender, e) =>
             { };
 
+            sChangingDirectionToLPHomeInspected.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToLPHomeInspected_LPHomeInspected;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sChangingDirectionToLPHomeInspected.OnExit += (sender, e) =>
+            { };
+
+            sChangingDirectionToLPHomeCleaned.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToLPHomeCleaned_LPHomeCleaned;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sChangingDirectionToLPHomeCleaned.OnExit += (sender, e) =>
+            { };
+
             sChangingDirectionToICHome.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
-                {
-                    var rtn = new StateGuardRtns
-                    {
-                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                        Transition = tChangingDirectionToICHome_ICHome,
-                    };
-                    return rtn;
-                };
-                Action<object> action = (parameter) =>
+                try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToICHome_ICHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                object actionParameter = null;
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sChangingDirectionToICHome.OnExit += (sender, e) =>
             { };
 
             sChangingDirectionToICHomeClamped.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
-                {
-                    var rtn = new StateGuardRtns
-                    {
-                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                        Transition = tChangingDirectionToICHomeClamped_ICHomeClamped,
-                    };
-                    return rtn;
-                };
-                Action<object> action = (parameter) =>
+                try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToICHomeClamped_ICHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                object actionParameter = null;
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sChangingDirectionToICHomeClamped.OnExit += (sender, e) =>
             { };
 
             sChangingDirectionToCCHomeClamped.OnEntry += (sender, e) =>
             {
-                Func<StateGuardRtns> guard = () =>
-                {
-                    var rtn = new StateGuardRtns
-                    {
-                        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                        Transition = tChangingDirectionToCCHomeClamped_CCHomeClamped,
-                    };
-                    return rtn;
-                };
-                Action<object> action = (parameter) =>
+                try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tChangingDirectionToCCHomeClamped_CCHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                object actionParameter = null;
-                Action<Exception> exceptionHandler = (ex) =>
-                { throw ex; };
-                Trigger(guard, action, actionParameter, exceptionHandler);
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sChangingDirectionToCCHomeClamped.OnExit += (sender, e) =>
             { };
@@ -1104,229 +923,196 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Load PortA
             sMovingToLoadPortA.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLoadPortA_LoadPortAClamping;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLoadPortA)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLoadPortA_LoadPortAClamping;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLoadPortA.OnExit += (sender, e) =>
             { };
 
             sLoadPortAClamping.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    var MaskType = (uint)e.Parameter;
+                    HalMaskTransfer.Clamp(MaskType);
+                    HalMaskTransfer.Clamp(MaskType);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.LoadPortAClamping)
-                        {
-                            try
-                            {
-                                var MaskType = (uint)e.Parameter;
-                                HalMaskTransfer.Clamp(MaskType);
-                                transition = tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLoadPortAClamping.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeClampedFromLoadPortA.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeClampedFromLoadPortA)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeClampedFromLoadPortA.OnExit += (sender, e) =>
             { };
 
             sMovingToLoadPortAForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLoadPortAForRelease_LoadPortAReleasing;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLoadPortAForRelease)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLoadPortAForRelease_LoadPortAReleasing;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLoadPortAForRelease.OnExit += (sender, e) =>
             { };
 
             sLoadPortAReleasing.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.Unclamp();
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tLoadPortAReleasing_MovingToLPHomeFromLoadPortA;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.LoadPortAReleasing)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.Unclamp();
-                                transition = tLoadPortAReleasing_MovingToLPHomeFromLoadPortA;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLoadPortAReleasing.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeFromLoadPortA.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    HalMaskTransfer.RobotMoving(true);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeFromLoadPortA_LPHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeFromLoadPortA)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
-                                HalMaskTransfer.RobotMoving(true);
-                                transition = tMovingToLPHomeFromLoadPortA_LPHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeFromLoadPortA.OnExit += (sender, e) =>
             { };
@@ -1335,229 +1121,195 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Load PortB
             sMovingToLoadPortB.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLoadPortB_LoadPortBClamping;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLoadPortB)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLoadPortB_LoadPortBClamping;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLoadPortB.OnExit += (sender, e) =>
             { };
 
             sLoadPortBClamping.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    var MaskType = (uint)e.Parameter;
+                    HalMaskTransfer.Clamp(MaskType);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.LoadPortBClamping)
-                        {
-                            try
-                            {
-                                var MaskType = (uint)e.Parameter;
-                                HalMaskTransfer.Clamp(MaskType);
-                                transition = tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLoadPortBClamping.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeClampedFromLoadPortB.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeClampedFromLoadPortB)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeClampedFromLoadPortB.OnExit += (sender, e) =>
             { };
 
             sMovingToLoadPortBForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLoadPortBForRelease_LoadPortBReleasing;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLoadPortBForRelease)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLoadPortBForRelease_LoadPortBReleasing;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLoadPortBForRelease.OnExit += (sender, e) =>
             { };
 
             sLoadPortBReleasing.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.Unclamp();
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tLoadPortBReleasing_MovingToLPHomeFromLoadPortB;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.LoadPortBReleasing)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.Unclamp();
-                                transition = tLoadPortBReleasing_MovingToLPHomeFromLoadPortB;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sLoadPortBReleasing.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeFromLoadPortB.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeFromLoadPortB_LPHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeFromLoadPortB)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLPHomeFromLoadPortB_LPHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeFromLoadPortB.OnExit += (sender, e) =>
             { };
@@ -1566,230 +1318,195 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Inspection Ch
             sMovingToInspectionCh.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToInspectionCh_InspectionChClamping;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        var isGuard = CurrentWorkState == EnumMacMsMaskTransferState.MovingToInspectionCh;
-                        if (isGuard)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToInspectionCh_InspectionChClamping;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToInspectionCh.OnExit += (sender, e) =>
             { };
 
             sInspectionChClamping.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    var MaskType = (uint)e.Parameter;
+                    HalMaskTransfer.Clamp(MaskType);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tInspectionChClamping_MovingToICHomeClampedFromInspectionCh;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.InspectionChClamping)
-                        {
-                            try
-                            {
-                                var MaskType = (uint)e.Parameter;
-                                HalMaskTransfer.Clamp(MaskType);
-                                transition = tInspectionChClamping_MovingToICHomeClampedFromInspectionCh;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInspectionChClamping.OnExit += (sender, e) =>
             { };
 
             sMovingToICHomeClampedFromInspectionCh.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToICHomeClampedFromInspectionCh_ICHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionCh)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToICHomeClampedFromInspectionCh_ICHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToICHomeClampedFromInspectionCh.OnExit += (sender, e) =>
             { };
 
             sMovingToInspectionChForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingInspectionChForRelease_InspectionChReleasing;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingInspectionChForRelease)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingInspectionChForRelease_InspectionChReleasing;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToInspectionChForRelease.OnExit += (sender, e) =>
             { };
 
             sInspectionChReleasing.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.Unclamp();
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tInspectionChReleasing_MovingToICHomeFromInspectionCh;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.InspectionChReleasing)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.Unclamp();
-                                transition = tInspectionChReleasing_MovingToICHomeFromInspectionCh;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInspectionChReleasing.OnExit += (sender, e) =>
             { };
 
             sMovingToICHomeFromInspectionCh.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToICHomeFromInspectionCh_ICHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToICHomeFromInspectionCh)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToICHomeFromInspectionCh_ICHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToICHomeFromInspectionCh.OnExit += (sender, e) =>
             { };
@@ -1798,488 +1515,1102 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToInspectionChGlass.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToInspectionChGlass_InspectionChGlassClamping;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToInspectionChGlass)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToInspectionChGlass_InspectionChGlassClamping;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToInspectionChGlass.OnExit += (sender, e) =>
             { };
 
             sInspectionChGlassClamping.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    var MaskType = (uint)e.Parameter;
+                    HalMaskTransfer.Clamp(MaskType);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.InspectionChGlassClamping)
-                        {
-                            try
-                            {
-                                var MaskType = (uint)e.Parameter;
-                                HalMaskTransfer.Clamp(MaskType);
-                                transition = tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInspectionChGlassClamping.OnExit += (sender, e) =>
             { };
 
             sMovingToICHomeClampedFromInspectionChGlass.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToICHomeClampedFromInspectionChGlass)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToICHomeClampedFromInspectionChGlass.OnExit += (sender, e) =>
             { };
 
             sMovingToInspectionChGlassForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingInspectionChGlassForRelease_InspectionChGlassReleasing;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingInspectionChGlassForRelease)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingInspectionChGlassForRelease_InspectionChGlassReleasing;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToInspectionChGlassForRelease.OnExit += (sender, e) =>
             { };
 
             sInspectionChGlassReleasing.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.Unclamp();
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        var isGuard = CurrentWorkState == EnumMacMsMaskTransferState.Initial;
-                        if (isGuard)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.Unclamp();
-                                transition = tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInspectionChGlassReleasing.OnExit += (sender, e) =>
             { };
 
             sMovingToICHomeFromInspectionChGlass.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToICHomeFromInspectionChGlass_ICHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToICHomeFromInspectionChGlass)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToICHomeFromInspectionChGlass_ICHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToICHomeFromInspectionChGlass.OnExit += (sender, e) =>
             { };
-            #endregion
+            #endregion Inspection Ch
 
             #region Clean Ch
-            sCleanReady.OnEntry += (sender, e) =>
-            { };
-            sCleanReady.OnExit += (sender, e) =>
+            sMovingToCleanCh.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCleanCh_WaitingForMoveToClean;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCleanCh.OnExit += (sender, e) =>
             { };
 
-            sCleanMovingStart.OnEntry += (sender, e) =>
-            { };
-            sCleanMovingStart.OnExit += (sender, e) =>
+            sWaitingForMoveToClean.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForMoveToClean_MovingToClean;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForMoveToClean.OnExit += (sender, e) =>
             { };
 
-            sCleanMovingReturn.OnEntry += (sender, e) =>
-            { };
-            sCleanMovingReturn.OnExit += (sender, e) =>
+            sMovingToClean.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToClean_WaitingForClean;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToClean.OnExit += (sender, e) =>
             { };
 
-            sCleanChMoving.OnEntry += (sender, e) =>
-            { };
-            sCleanChMoving.OnExit += (sender, e) =>
+            sWaitingForClean.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForClean_MovingAfterCleaned;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForClean.OnExit += (sender, e) =>
             { };
 
-            sCleanChWaitAckMove.OnEntry += (sender, e) =>
+            sMovingAfterCleaned.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingAfterCleaned_WaitingForMoveToCapture;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingAfterCleaned.OnExit += (sender, e) =>
             { };
-            sCleanChWaitAckMove.OnExit += (sender, e) =>
+
+            sWaitingForMoveToCapture.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForMoveToCapture_MovingToCapture;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForMoveToCapture.OnExit += (sender, e) =>
             { };
-            #endregion
+
+            sMovingToCapture.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCapture_WaitingForCapture;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCapture.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForCapture.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForCapture_MovingAfterCaptured;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForCapture.OnExit += (sender, e) =>
+            { };
+
+            sMovingAfterCaptured.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingAfterCaptured_WaitingForLeaveCleanCh;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingAfterCaptured.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForLeaveCleanCh.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForLeaveCleanCh_MovingToCCHomeClampedFromCleanCh;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForLeaveCleanCh.OnExit += (sender, e) =>
+            { };
+
+            sMovingToCCHomeClampedFromCleanCh.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCCHomeClampedFromCleanCh_CCHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCCHomeClampedFromCleanCh.OnExit += (sender, e) =>
+            { };
+
+
+
+            sMovingToCleanChGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCleanChGlass_WaitingForMoveToCleanGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCleanChGlass.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForMoveToCleanGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForMoveToCleanGlass_MovingToCleanGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForMoveToCleanGlass.OnExit += (sender, e) =>
+            { };
+
+            sMovingToCleanGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCleanGlass_WaitingForCleanGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCleanGlass.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForCleanGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForCleanGlass_MovingAfterCleanedGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForCleanGlass.OnExit += (sender, e) =>
+            { };
+
+            sMovingAfterCleanedGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingAfterCleanedGlass_WaitingForMoveToCaptureGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingAfterCleanedGlass.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForMoveToCaptureGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForMoveToCaptureGlass_MovingToCaptureGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForMoveToCaptureGlass.OnExit += (sender, e) =>
+            { };
+
+            sMovingToCaptureGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCaptureGlass_WaitingForCaptureGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCaptureGlass.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForCaptureGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForCaptureGlass_MovingAfterCapturedGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForCaptureGlass.OnExit += (sender, e) =>
+            { };
+
+            sMovingAfterCapturedGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingAfterCapturedGlass_WaitingForLeaveCleanChGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingAfterCapturedGlass.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForLeaveCleanChGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForLeaveCleanChGlass_MovingToCCHomeClampedFromCleanChGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForLeaveCleanChGlass.OnExit += (sender, e) =>
+            { };
+
+            sMovingToCCHomeClampedFromCleanChGlass.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCCHomeClampedFromCleanChGlass.OnExit += (sender, e) =>
+            { };
+            #endregion Clean Ch
 
             #region OpenStage
             sMovingToOpenStage.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToOpenStage_OpenStageClamping;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToOpenStage)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToOpenStage_OpenStageClamping;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToOpenStage.OnExit += (sender, e) =>
             { };
 
             sOpenStageClamping.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    var MaskType = (uint)e.Parameter;
+                    HalMaskTransfer.Clamp(MaskType);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tOpenStageClamping_MovingToLPHomeClampedFromOpenStage;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.OpenStageClamping)
-                        {
-                            try
-                            {
-                                var MaskType = (uint)e.Parameter;
-                                HalMaskTransfer.Clamp(MaskType);
-                                transition = tOpenStageClamping_MovingToLPHomeClampedFromOpenStage;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpenStageClamping.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeClampedFromOpenStage.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeClampedFromOpenStage_LPHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeClampedFromOpenStage)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLPHomeClampedFromOpenStage_LPHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeClampedFromOpenStage.OnExit += (sender, e) =>
             { };
 
             sMovingOpenStageForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingOpenStageForRelease_OpenStageReleasing;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingOpenStageForRelease)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingOpenStageForRelease_OpenStageReleasing;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingOpenStageForRelease.OnExit += (sender, e) =>
             { };
 
             sOpenStageReleasing.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.Unclamp();
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tOpenStageReleasing_MovingToLPHomeFromOpenStage;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.OpenStageReleasing)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.Unclamp();
-                                transition = tOpenStageReleasing_MovingToLPHomeFromOpenStage;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpenStageReleasing.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeFromOpenStage.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeFromOpenStage_LPHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeFromOpenStage)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLPHomeFromOpenStage_LPHome;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeFromOpenStage.OnExit += (sender, e) =>
             { };
@@ -2288,115 +2619,99 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Barcode Reader
             sMovingToBarcodeReaderClamped.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\LoadPortHome.json"))
+                        HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    // TODO: Robot move path
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToBarcodeReaderClamped_WaitingForBarcodeReader;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToBarcodeReaderClamped)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\LoadPortHome.json"))
-                                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                                // TODO: Robot move path
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToBarcodeReaderClamped_WaitingForBarcodeReader;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToBarcodeReaderClamped.OnExit += (sender, e) =>
             { };
 
             sWaitingForBarcodeReader.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try// TODO: 判斷Barcode Reader已經讀取完等待移走
                 {
-                    while (true)
+
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tWaitingForBarcodeReader_MovingToLPHomeClampedFromBarcodeReader;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.WaitingForBarcodeReader)
-                        {
-                            if (false)// TODO: 判斷Barcode Reader已經讀取完等待移走
-                            {
-                                transition = tWaitingForBarcodeReader_MovingToLPHomeClampedFromBarcodeReader;
-                                break;
-                            }
-                            else
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForBarcodeReader.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeClampedFromBarcodeReader.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalMaskTransfer.RobotMoving(true);
+                    // TODO: Robot move path
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception)
+                {
+                    throw new MaskTransferException();
+                }
+
+                var transition = tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsMaskTransferState.MovingToLPHomeClampedFromBarcodeReader)
-                        {
-                            try
-                            {
-                                HalMaskTransfer.RobotMoving(true);
-                                // TODO: Robot move path
-                                HalMaskTransfer.RobotMoving(false);
-                                transition = tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                HalMaskTransfer.RobotMoving(false);
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { throw new StateFailException(); },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sMovingToLPHomeClampedFromBarcodeReader.OnExit += (sender, e) =>
             { };
