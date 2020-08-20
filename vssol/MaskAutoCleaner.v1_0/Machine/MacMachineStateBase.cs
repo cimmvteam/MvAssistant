@@ -53,6 +53,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <param name="action">action(Action delegate)</param>
         /// <param name="actionParameter">action Parameter (Object)</param>
         /// <param name="exceptionHandler">Exception Handler(Action delegate)</param>
+        [Obsolete]
         public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action,object actionParameter,Action<Exception> exceptionHandler)
         {
             Action trigger = () =>
@@ -99,6 +100,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <param name="action">action (Action delegate)</param>
         /// <param name="actionParameter">action parameter(object)</param>
         /// <param name="exceptionHndler">Exception Handler (Action delegate)</param>
+        [Obsolete]
         public void Trigger(Func<StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHndler)
         {
             try

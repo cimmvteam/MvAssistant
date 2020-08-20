@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.StateMachineBeta
 {
-   public class StateGuardRtns
+    [Obsolete]
+    public class StateGuardRtns
     {
         public MacStateEntryEventArgs NextStateEntryEventArgs { get; set; }
         public MacStateExitEventArgs ThisStateExitEventArgs { get; set; }
