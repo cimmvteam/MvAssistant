@@ -8,33 +8,27 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
     public enum EnumMacMsLoadPortTransition
     {
+        // Reset
         ResetStart_ResetIng,
         ResetIng_ResetComplete,
-        ResetIng_ResetFail,
-        ResetIng_ResetTimeOut,
-        
-        InitialStart_Initialing,
+        ResetComplete_NULL,
+
+        // Initial
+        InitialStart_InitialIng,
         InitialIng_InitialComplete,
-        InitialIng_InitialTimeOut,
-        InitialIng_InitialMustReset,
+        InitialComplete_IdleForPutPOD,
+        IdleForPutPOD_NULL,
 
-     //   IdleReadyToDock_DockStart,
-
+        // Dock
         DockStart_DockIng,
         DockIng_DockComplete,
-        DockIng_DockTimeOut,
-        DockIng_DockMustReset,
-        DockIng_DockMustInitial,
+        DockComplete_IdleForGetMask,
+        IdleForGetMask_NULL,
 
-     //  ReadyToUndock,
-      //  Undock,
+        // Undock,
         UndockStart_UndockIng,
         UndockIng_UndockComplete,
-        UndockIng_UndockMustInitial,
-        UndockIng_UndockMustReset,
-        UndockIng_UndockTimeOut,
-        InitialComplete_IdleForPutPOD,
-        DockComplete_IdleForGetMask,
         UndockComplete_IdleForGetPOD,
+        IdleForGetPOD_NULL,
     }
 }
