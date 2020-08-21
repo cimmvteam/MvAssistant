@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException
 {
-   public  class LoadportMustResetException:StateMachineExceptionBase
+    public class LoadportResetFailException : StateMachineExceptionBase
     {
-        public LoadportMustResetException(string message) : base(EnumStateMachineExceptionCode.LoadportMustResetException, message)
+        public LoadportResetFailException(string message) : base(EnumStateMachineExceptionCode.LoadportResetFailException, message)
         {
 
         }
-        public LoadportMustResetException() : this("")
+        public LoadportResetFailException() : this("")
         {
 
         }

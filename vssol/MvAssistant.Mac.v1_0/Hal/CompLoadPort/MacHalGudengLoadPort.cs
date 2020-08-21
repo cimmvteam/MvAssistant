@@ -175,14 +175,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
         public string CommandAlarmReset()
         {
-            ResetWorkState();
+            SetWorkState(LoadPortWorkState.ResetIng);
             var commandText = _ldd.CommandAlarmReset();
             return commandText;
         }
 
         public string CommandDockRequest()
         {
-            ResetWorkState();
+            this.SetWorkState(LoadPortWorkState.DockIng);
             var commandText = _ldd.CommandDockRequest();
            
             return commandText;
@@ -191,7 +191,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
         public string CommandUndockRequest()
         {
-            ResetWorkState();
+            this.SetWorkState(LoadPortWorkState.UndockIng);
             var commandText = _ldd.CommandUndockRequest();
            
             return commandText;
@@ -253,7 +253,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
         public string CommandInitialRequest()
         {
-            ResetWorkState();
+            this.SetWorkState(LoadPortWorkState.InitialIng);
             var commandText = _ldd.CommandInitialRequest();
             return commandText;
         }

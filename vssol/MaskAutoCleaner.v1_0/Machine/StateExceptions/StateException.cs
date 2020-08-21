@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.StateExceptions
 {
+    [Obsolete]
     public abstract class StateException:Exception
     {
         public StateException() : base()

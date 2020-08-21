@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.StateMachineBeta
 {
-   public class MacStateExitWithTransitionEventArgs: MacStateExitEventArgs
+    [Obsolete]
+    public class MacStateExitWithTransitionEventArgs: MacStateExitEventArgs
     {
         public MacTransition Transition { get; private set; }
         private MacStateExitWithTransitionEventArgs():base()

@@ -16,54 +16,54 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     {
 
         [TestMethod]
-        public void Test_Initial()
+        public void Initial()
         {
 
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
-            var drawer = machine.HalDrawer;
+            //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-           // machine.Initial();
+           machine.InitialFromAnyState();
          }
 
 
 
 
         [TestMethod]
-        public void Test_Load_TrayGotoIn()
+        public void Load_MoveTrayToPositionOut()
         {
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
-            var drawer = machine.HalDrawer;
+            //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-           // machine.Load_TrayMovetoPositionOutFromAnyWhere();
+            machine.Load_MoveTrayToPositionOutFromAnywhere();
         }
        
 
         [TestMethod]
-        public void Test_Load_TrayGotoOut()
+        public void Load_MoveTrayToPositionIn()
         {
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
-            var drawer = machine.HalDrawer;
+           // var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-            //machine.Load_MoveTrayToInPositionFromAnywhere();
+            machine.Load_MoveTrayToPositionInFromPositionOut();
         }
 
         [TestMethod]
-        public void Test_Unload_TrayGotoOut()
+        public void Unload_MoveTrayToPositionIn()
         {
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
-            var drawer = machine.HalDrawer;
+            //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-           // machine.Unload_TrayGotoOut();
+            machine.Unload_MoveTrayToPositionInFromAnywhere();
         }
 
 
         [TestMethod]
-        public void Test_Unload_TrayGotoIn()
+        public void Unload_MoveTrayToPositionOut()
         {
             var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
-            var drawer = machine.HalDrawer;
+            //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
-           // machine.Unload_TrayGotoIn();
+            machine.Unload_MoveTrayToPositionOutFromPositionIn();
         }
 
 
