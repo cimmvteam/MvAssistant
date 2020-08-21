@@ -24,10 +24,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
 
-
-
-
-
         public override int RequestProcMsg(MsgBase msg)
         {
 

@@ -10,10 +10,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void TestInitial()
         {
-            var MTmachine = new v1_0.Machine.MaskTransfer.MacMsMaskTransfer();
-            
-            MTmachine.LoadStateMachine();
-            MTmachine.Initial();
+            var MTmachineMs = new v1_0.Machine.MaskTransfer.MacMsMaskTransfer();
+            var MTmachineMc = new MacMcMaskTransfer();
+            MTmachineMc.StateMachine.Initial();
         }
     }
 }
