@@ -13,10 +13,10 @@ namespace MaskAutoCleaner.v1_0.Machine
     [Serializable]
     public class MacMachineCtrlCfg
     {
-
+        public string ID;
 
         public MvTypeGuid MachineCtrlType;
 
-
+        public string HalId;
     }
 }

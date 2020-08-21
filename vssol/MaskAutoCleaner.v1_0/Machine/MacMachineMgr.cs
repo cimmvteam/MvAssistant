@@ -27,19 +27,30 @@ namespace MaskAutoCleaner.v1_0.Machine
         public int MvCfInit()
         {
             this.Mediater = new MacMachineMediater();
-
             
             this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
+
             this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
 
-
-
-
-
-
-
             this.HalContext.MvCfInit();
+            
+            foreach (var row in this.Config.MachineCtrls)
+            {
+                var machine = Activator.CreateInstance(row.MachineCtrlType.Type) as MacMachineCtrlBase;
+
+                this.CtrlMachines[row.ID] = machine;
+
+
+
+                var ctrlCfg = this.Config.MachineCtrls.Where(x => x.MachineCtrlType.Type == row.GetType()).FirstOrDefault();
+
+                var hal = this.HalContext.HalDevices.Where(x => x.Value.ID == ctrlCfg.HalId).FirstOrDefault();
+
+                machine.halAssembly = hal.Value as MacHalAssemblyBase;
+
+            }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
+            
             return 0;
         }
 

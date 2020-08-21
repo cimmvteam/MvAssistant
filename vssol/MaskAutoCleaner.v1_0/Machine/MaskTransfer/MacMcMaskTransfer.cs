@@ -15,9 +15,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// 使用固定的State Machine,
         /// 若有其它版的狀態機, 一般也會用不同的控制機
         /// </summary>
-        public MacMsMaskTransfer StateMachine = new MacMsMaskTransfer();
+        public MacMsMaskTransfer StateMachine { get { return this.msAssembly as MacMsMaskTransfer; } set { this.msAssembly = value; } }
 
-
+        public MacMcMaskTransfer()
+        {
+            this.msAssembly = new MacMsMaskTransfer();
+        }
 
 
 
