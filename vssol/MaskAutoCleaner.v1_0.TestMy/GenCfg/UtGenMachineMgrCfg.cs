@@ -14,9 +14,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
         public void TestMethod1()
         {
             var cfg = new MacMachineMgrCfg();
-            cfg.ManifestCfgPath = "UserData/Manifest.xml.real";
+            cfg.ManifestCfgPath = "GenCfg/Manifest/Manifest.xml.real";
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
+                ID = EnumMachineId.DE_MT_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcMaskTransfer),
                 HalId = EnumMachineId.DE_MT_A_ASB.ToString(),
             });

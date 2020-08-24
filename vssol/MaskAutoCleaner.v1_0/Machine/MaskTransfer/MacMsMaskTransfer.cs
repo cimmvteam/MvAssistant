@@ -25,8 +25,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     [Guid("3C333536-8B09-43B0-9F56-957920050CFB")]
     public class MacMsMaskTransfer : MacMachineStateBase
     {
-        //private IMacHalMaskTransfer HalMaskTransfer { get { return this.halAssembly as IMacHalMaskTransfer; } }
-        public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)halAssembly.GetHalDevice(MacEnumDevice.masktransfer_assembly); } }
+        private IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
+        //public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)halAssembly.GetHalDevice(MacEnumDevice.masktransfer_assembly); } }
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
