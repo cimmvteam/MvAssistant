@@ -1,6 +1,7 @@
 ﻿using System;
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
+using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine

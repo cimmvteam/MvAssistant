@@ -17,13 +17,11 @@ namespace MaskAutoCleaner.v1_0.Machine
     /// </summary>
     public abstract class MacMachineStateBase : MacStateMachine
     {
-     
-        
+
+
         //不需實作IMvContextFlow, 因為只有初始化StateMachine, 沒有其它作業
         //不需實作IDisposable, 因為沒有
-
-
-
+        
         public MacHalAssemblyBase halAssembly;
 
         public virtual void Load()

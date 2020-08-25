@@ -54,6 +54,7 @@
     <Compile Include="Machine\UtMcLoadport.cs" />
     <Compile Include="Machine\UtMcMaskTransfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserData\EnumMachineID.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,6 +2,7 @@
 using System.IO;
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
+using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.GenCfg.Manifest;
 
@@ -17,7 +18,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             cfg.ManifestCfgPath = "GenCfg/Manifest/Manifest.xml.real";
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
-                ID = EnumMachineId.DE_MT_A_ASB.ToString(),
+                ID = EnumMachineID.MID_MT_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcMaskTransfer),
                 HalId = EnumMachineId.DE_MT_A_ASB.ToString(),
             });
