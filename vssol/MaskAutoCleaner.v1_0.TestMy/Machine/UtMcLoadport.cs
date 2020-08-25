@@ -11,7 +11,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     [TestClass]
     public class UtMcLoadport
     {
-        public void Wait()
+        public void Repeat()
         {
             while (true)
             {
@@ -26,7 +26,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
            // var loadPort = machine.HalLoadPortUnit;
             machine.LoadStateMachine();
             machine.TestLoadportInstance();
-            Wait();
+            Repeat();
         }
 
         [TestMethod]
@@ -34,8 +34,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         {
             var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
             var loadPort = machine.HalLoadPortUnit;
-            machine.LoadStateMachine();
+            //machine.LoadStateMachine();
             machine.Reset();
+            Repeat();
         }
 
         [TestMethod]
