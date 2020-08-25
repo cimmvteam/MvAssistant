@@ -17,15 +17,19 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
+#if NoConfig
+        IMacHalLoadPortUnit HalLoadPort = null;
+#endif
+
         public IMacHalLoadPortUnit HalLoadPortUnit
         {
 #if NoConfig
 
             get
             {
-                IMacHalLoadPortUnit rtnV = new MacHalGudengLoadPort();
-                rtnV.HalConnect();
-                return rtnV;
+              
+             
+                return HalLoadPort;
             }
 #else
              get { return this.halAssembly as IMacHalLoadPortUnit; }
@@ -37,7 +41,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if NoConfig
         public MacMsLoadPort()
         {
-           
+            HalLoadPort = new MacHalGudengLoadPort();
+            HalLoadPort.HalConnect();
         }
 #endif
         public void TestLoadportInstance()
