@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+﻿#define NoConfig
+using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,33 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
-        public IMacHalLoadPortUnit HalLoadPortUnit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
+        public IMacHalLoadPortUnit HalLoadPortUnit
+        {
+#if NoConfig
+
+            get
+            {
+                IMacHalLoadPortUnit rtnV = new MacHalGudengLoadPort();
+                rtnV.HalConnect();
+                return rtnV;
+            }
+#else
+             get { return this.halAssembly as IMacHalLoadPortUnit; }
+#endif
+
+        }
         MacLoadPortUnitStateTimeOutController TimeController = new MacLoadPortUnitStateTimeOutController();
+
+#if NoConfig
+        public MacMsLoadPort()
+        {
+
+        }
+#endif
+        public void TestLoadport()
+        {
+
+        }
 
         #region  Command
         public void Reset()
