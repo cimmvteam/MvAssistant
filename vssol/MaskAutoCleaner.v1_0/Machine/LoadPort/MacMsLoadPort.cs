@@ -560,7 +560,17 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 var transition = tIdleForGetPOD_NULL;
                 var triggerMember = new TriggerMember
                 {
-                    // TODO: do something 
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something 
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
