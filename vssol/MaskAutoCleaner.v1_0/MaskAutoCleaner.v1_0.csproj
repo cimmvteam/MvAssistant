@@ -86,6 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\CleanCh\MacMcCleanCh.cs" />
+    <Compile Include="Machine\InspectionCh\MacMcInspectionCh.cs" />
+    <Compile Include="Machine\OpenStage\MacMcOpenStage.cs" />
     <Compile Include="StateMachineBeta\TriggerMember.cs" />
     <Compile Include="StateMachineBeta\TriggerMemberAsync.cs" />
     <Compile Include="StateMachineBeta\TriggerMemberBase.cs" />

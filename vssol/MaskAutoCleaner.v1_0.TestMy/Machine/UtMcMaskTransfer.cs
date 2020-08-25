@@ -12,11 +12,20 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void TestInitial()
         {
-            var machineMgr = new MacMachineMgr();
-            //var MTmachineMs = new v1_0.Machine.MaskTransfer.MacMsMaskTransfer();
-            var MTmachineMc = new MacMcMaskTransfer();
-            machineMgr.MvCfInit();
-            MTmachineMc.StateMachine.Initial();
+            try
+            {
+                var MachineMgr = new MacMachineMgr();
+                //var MTmachineMs = new v1_0.Machine.MaskTransfer.MacMsMaskTransfer();
+                //var MTmachineMc = new MacMcMaskTransfer();
+                MachineMgr.MvCfInit();
+                var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
+                MachineCtrl.StateMachine.Initial();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }
