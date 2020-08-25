@@ -11,6 +11,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     public class UtMcLoadport
     {
         [TestMethod]
+        public void TestLoadportInstance()
+        {
+            var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
+           // var loadPort = machine.HalLoadPortUnit;
+            machine.LoadStateMachine();
+            machine.TestLoadportInstance();
+        }
+
+        [TestMethod]
         public void Reset()
         {
             var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();

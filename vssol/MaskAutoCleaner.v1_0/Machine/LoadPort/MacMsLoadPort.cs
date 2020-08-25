@@ -37,12 +37,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if NoConfig
         public MacMsLoadPort()
         {
-
+           
         }
 #endif
-        public void TestLoadport()
+        public void TestLoadportInstance()
         {
-
+            var s = HalLoadPortUnit;
         }
 
         #region  Command
