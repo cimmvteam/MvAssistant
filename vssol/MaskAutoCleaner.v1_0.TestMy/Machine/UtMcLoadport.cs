@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
@@ -10,6 +11,14 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     [TestClass]
     public class UtMcLoadport
     {
+        public void Wait()
+        {
+            while (true)
+            {
+                Thread.Sleep(8);
+            }
+        }
+
         [TestMethod]
         public void TestLoadportInstance()
         {
@@ -17,6 +26,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
            // var loadPort = machine.HalLoadPortUnit;
             machine.LoadStateMachine();
             machine.TestLoadportInstance();
+            Wait();
         }
 
         [TestMethod]
