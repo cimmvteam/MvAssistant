@@ -43,9 +43,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Initial()
         {
             var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            var loadPort = machine.HalLoadPortUnit;
+           // var loadPort = machine.HalLoadPortUnit;
             machine.LoadStateMachine();
             machine.Inintial();
+            Repeat();
         }
         [TestMethod]
         public void Dock()
