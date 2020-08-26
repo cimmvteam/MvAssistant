@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerInitialType.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\EnumMacDrawerInitialType.cs" />
     <Compile Include="StateMachineBeta\TriggerMember.cs" />
     <Compile Include="StateMachineBeta\TriggerMemberAsync.cs" />
     <Compile Include="StateMachineBeta\TriggerMemberBase.cs" />
@@ -144,13 +144,13 @@
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustResetException.cs" />
     <Compile Include="StateMachineExceptions\StateMachineExceptionBase.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerLoadToHomeCompleteSource.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerUnloadToHomeCompleteSource.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacMcDrawerCmd.cs" />
-    <Compile Include="Machine\Cabinet\MacMcDrawer.cs" />
-    <Compile Include="Machine\Cabinet\MacMsDrawer.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\EnumMacDrawerLoadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\EnumMacDrawerState.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\EnumMacDrawerTransition.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\EnumMacDrawerUnloadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\EnumMacMcDrawerCmd.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\MacMcDrawer.cs" />
+    <Compile Include="Machine\Cabinet\Drawer\MacMsDrawer.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMsLoadPortState.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMsLoadPortTransition.cs" />

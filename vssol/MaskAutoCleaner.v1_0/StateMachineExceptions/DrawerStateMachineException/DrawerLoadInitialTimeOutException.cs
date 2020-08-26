@@ -17,6 +17,5 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions.DrawerStateMachineExceptio
 
         }
     }
-    {
-    }
+   
 }

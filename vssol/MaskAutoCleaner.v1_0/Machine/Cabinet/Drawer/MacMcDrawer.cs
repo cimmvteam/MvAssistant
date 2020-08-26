@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MaskAutoCleaner.v1_0.Msg;
 
-namespace MaskAutoCleaner.v1_0.Machine.Cabinet
+namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawer
 {
     public class MacMcDrawer : MacMachineCtrlBase
     {

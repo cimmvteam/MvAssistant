@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.Machine.Cabinet
+namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawer
 {
     /** Initial
        
