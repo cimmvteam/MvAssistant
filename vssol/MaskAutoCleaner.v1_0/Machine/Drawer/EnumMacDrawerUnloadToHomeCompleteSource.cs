@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawer
+namespace MaskAutoCleaner.v1_0.Machine.Drawer
 {
-    public  enum EnumMacDrawerLoadToHomeCompleteSource
+    public enum  EnumMacDrawerUnloadToHomeCompleteSource
     {
         /// <summary>從 GotoHomeIng 而來</summary>
-        MoveTrayToPositionHome,
+        MoveTrayToPositionHomeIng,
         /// <summary>從 Check Box Exist 而來</summary>
-        LoadCheckBoxExist,
+        UnloadCheckBoxExist,
         /// <summary>從 Check Box Not Exist 而來</summary>
-        LoadCheckBoxNotExist
+        UnloadCheckBoxNotExist
     }
 }
