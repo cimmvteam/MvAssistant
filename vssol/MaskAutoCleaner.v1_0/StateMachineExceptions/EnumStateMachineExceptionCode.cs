@@ -71,7 +71,11 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerMustResetException = 40003,
         /// <summary>Drawer 必須 Initial的例外</summary>
         DrawerMustInitialException = 40004,
-       /// <summary>Drawer Load 移到 Out 時發生例外 </summary>
+        /// <summary> Drawer Load 前的Initial 失敗  </summary>
+        DrawerLoadInitialFailException,
+        /// <summary> Drawer Load 前的Initial 逾時未完成  </summary>
+        DrawerLoadInitialTimeOutException,
+        /// <summary>Drawer Load 移到 Out 時發生例外 </summary>
         DrawerLoadMoveTrayToPositionOutFailException ,
         /// <summary>Drawer Load 移到 Out 時逾時未到達 </summary>
         DrawerLoadMoveTrayToPositionOutTimeOutException ,
@@ -89,6 +93,10 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerLoadMoveTrayToPositionInFailException,
         /// <summary>Drawer Load, 從Position Home 移到 Position In 逾時未到 </summary>
         DrawerLoadMoveTrayToPositionInTimeOutException ,
+        /// <summary> Drawer Unload 前的Initial 失敗  </summary>
+        DrawerUnloadInitialFailException,
+        /// <summary> Drawer Unload 前的Initial 逾時未完成 </summary>
+        DrawerUnloadInitialTimeOutException,
         /// <summary>Drawer Unload, 將 Tray 移到 In 失敗 </summary>
         DrawerUnloadMoveTrayToPositionInFailException,
         /// <summary>Drawer Unload, 將 Tray 移到 In 逾時未達</summary>

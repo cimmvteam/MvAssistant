@@ -88,5 +88,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         UnloadNoBoxRejectTrayToPositionInFromPositionHomeFail,
         UnloadNoBoxRejectTrayToPositionInFromPOsitionHomeTimeOut,
         IdleForPutBoxOnTrayAtPositionOut,
+        LoadInitialComplete,
+        LoadInitialIng,
     }
 }

@@ -103,6 +103,11 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         IdleForGetBoxOnTrayAtPositionIn_NULL,
         IdleForPutBoxOnTrayAtPositionIn_NULL,
         IdleForGetBoxOnTrayAtPositionOut_NULL,
+        LoadInitialStart_LoadInitialIng,
+        LoadInitialIngt_LoadInitialComplete,
+        LoadInitialComplete_LoadInitialComplete_LoadMoveTrayToPositionOutStart,
+        InitialComplete_LoadMoveTrayToPositionOutStart,
+        InitialComplete_UnloadMoveTrayToPositionInStart,
         // LoadGotoHomeComplete_LoadRejectToInFromHomeStart,
         // Unload (移走 Box)
         //UnloadGotoHomeComplete_IdleReadyForUnloadBoxAtIn,
