@@ -77,6 +77,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             /** Initial **/
             //  開始
             MacState sInitialStart = NewState(EnumMacDrawerState.InitialStart);
+            // 
             //  進行中
             MacState sInitialIng = NewState(EnumMacDrawerState.InitialIng);
             // 完成 
@@ -85,6 +86,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
 
             /** Load, 將托盤移到 Out**/
+            
+            
             // 開始
             MacState sLoadMoveTrayToPositionOutStart = NewState(EnumMacDrawerState.LoadMoveTrayToPositionOutStart);
             // 進行中 
