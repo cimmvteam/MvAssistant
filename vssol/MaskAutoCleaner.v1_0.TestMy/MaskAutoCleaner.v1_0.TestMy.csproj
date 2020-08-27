@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GenCfg\UtGenMachineMgrCfg.cs" />
+    <Compile Include="Machine\UtMcInspectionCh.cs" />
     <Compile Include="Machine\UtMcDrawer.cs" />
     <Compile Include="Machine\UtMcLoadport.cs" />
     <Compile Include="Machine\UtMcMaskTransfer.cs" />

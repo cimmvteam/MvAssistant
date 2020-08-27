@@ -22,7 +22,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         ReceiveTriggerAtICHomeInspected,
         ReceiveTriggerAtCCHomeClamped,
         CleanedAtCCHomeClamped,
-        ReceiveTriggerAtBarcodeReader,
 
         //Change Direction
         ChangeDirectionToLPHomeFromICHome,
@@ -95,9 +94,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         //Barcode Reader
         MoveToBarcodeReaderClamped,
         WaitForBarcodeReader,
+        ReceiveTriggerAtBarcodeReader,
         MoveToLPHomeClampedFromBarcodeReader,
         StandbyAtLPHomeClampedFromBarcodeReader,
 
+        //Inspect Deform
+        MoveToInspectDeformFromICHome,
+        WaitForInspectDeform,
+        ReceiveTriggerAtInspectDeform,
+        MoveToICHomeFromInspectDeform,
+        StandbyAtICHomeFromInspectDeform,
 
 
         ReceiveTransferMask,
@@ -114,10 +120,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         WaitFroClean,
         MoveAferCleaned,
         WaitForMoveToCapture,
+        ReceiveTriggerAtClean,
         MoveToCapture,
         WaitForCapture,
         MoveAfterCapture,
         WaitForLeaveCleanCh,
+        ReceiveTriggerAtCapture,
         MoveToCCHomeClampedFromCleanCh,
         StandbyAtCCHomeClampedFromCleanCh,
 
@@ -125,10 +133,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         WaitForMoveToCleanGlass,
         MoveToCleanGlass,
         WaitFroCleanGlass,
+        ReceiveTriggerAtCleanGlass,
         MoveAferCleanedGlass,
         WaitForMoveToCaptureGlass,
         MoveToCaptureGlass,
         WaitForCaptureGlass,
+        ReceiveTriggerAtCaptureGlass,
         MoveAfterCapturedGlass,
         WaitForLeaveCleanChGlass,
         MoveToCCHomeClampedFromCleanChGlass,

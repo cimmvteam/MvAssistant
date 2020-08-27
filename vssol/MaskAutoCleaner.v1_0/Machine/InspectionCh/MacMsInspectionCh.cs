@@ -1,4 +1,5 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineExceptions.InspectionChStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,87 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         public MacMsInspectionCh() { LoadStateMachine(); }
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
+
+        public void Initial()
+        {
+            try
+            {
+                this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void GlassInspect()
+        {
+            try
+            {
+                this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+
+                MacTransition transition = null;
+                TriggerMember triggerMember = null;
+                transition = Transitions[EnumMacMsInspectionChTransition.WaitForInputGlass.ToString()];
+                triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    {   // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+                transition = Transitions[EnumMacMsInspectionChTransition.StandbyAtStageWithGlass.ToString()];
+                triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    {   // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+                transition = Transitions[EnumMacMsInspectionChTransition.ReturnToIdleFromReleaseGlass.ToString()];
+                triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    {   // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public override void LoadStateMachine()
         {
             #region State
@@ -27,12 +109,12 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sWaitingForInputMask = NewState(EnumMacMsInspectionChState.WaitingForInputMask);
-            MacState sMaskOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
-            MacState sDefensingMask = NewState(EnumMacMsInspectionChState.DefensingMask);
-            MacState sInspectingMask = NewState(EnumMacMsInspectionChState.InspectingMask);
-            MacState sMaskOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
-            MacState sWaitingForReleaseMask = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
+            MacState sWaitingForInputPellicle = NewState(EnumMacMsInspectionChState.WaitingForInputMask);
+            MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
+            MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingMask);
+            MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingMask);
+            MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
+            MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
 
             MacState sWaitingForInputGlass = NewState(EnumMacMsInspectionChState.WaitingForInputGlass);
             MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
@@ -45,380 +127,550 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             #region Transition
             MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacMsInspectionChTransition.PowerON);
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsInspectionChTransition.Initial);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsInspectionChTransition.ReceiveTriggerAtIdle);
 
-            MacTransition tIdle_WaitingForInputMask = NewTransition(sIdle, sWaitingForInputMask, EnumMacMsInspectionChTransition.WaitForInputMask);
-            MacTransition tWaitingForInputMask_MaskOnStage = NewTransition(sWaitingForInputMask, sMaskOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithMask);
-            MacTransition tMaskOnStage_DefensingMask = NewTransition(sMaskOnStage, sDefensingMask, EnumMacMsInspectionChTransition.DefenseMask);
-            MacTransition tDefensingMask_InspectingMask = NewTransition(sDefensingMask, sInspectingMask, EnumMacMsInspectionChTransition.InspectMask);
-            MacTransition tInspectingMask_MaskOnStageInspected = NewTransition(sInspectingMask, sMaskOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithMaskInspected);
-            MacTransition tMaskOnStageInspected_WaitingForReleaseMask = NewTransition(sMaskOnStageInspected, sWaitingForReleaseMask, EnumMacMsInspectionChTransition.WaitForReleaseMask);
-            MacTransition tWaitingForReleaseMask_Idle = NewTransition(sWaitingForReleaseMask, sIdle, EnumMacMsInspectionChTransition.ReturnToIdleFromReleaseMask);
+            MacTransition tIdle_WaitingForInputPellicle = NewTransition(sIdle, sWaitingForInputPellicle, EnumMacMsInspectionChTransition.WaitForInputPellicle);
+            MacTransition tWaitingForInputPellicle_NULL = NewTransition(sWaitingForInputPellicle, null, EnumMacMsInspectionChTransition.ReceiveTriggerAtInputPellicle);
+            MacTransition tWaitingForInputPellicle_PellicleOnStage = NewTransition(sWaitingForInputPellicle, sPellicleOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithPellicle);
+            MacTransition tPellicleOnStage_DefensingPellicle = NewTransition(sPellicleOnStage, sDefensingPellicle, EnumMacMsInspectionChTransition.DefensePellicle);
+            MacTransition tDefensingPellicle_InspectingPellicle = NewTransition(sDefensingPellicle, sInspectingPellicle, EnumMacMsInspectionChTransition.InspectPellicle);
+            MacTransition tInspectingPellicle_PellicleOnStageInspected = NewTransition(sInspectingPellicle, sPellicleOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithPellicleInspected);
+            MacTransition tPellicleOnStageInspected_WaitingForReleasePellicle = NewTransition(sPellicleOnStageInspected, sWaitingForReleasePellicle, EnumMacMsInspectionChTransition.WaitForReleasePellicle);
+            MacTransition tWaitingForReleasePellicle_NULL = NewTransition(sWaitingForReleasePellicle, null, EnumMacMsInspectionChTransition.ReceiveTriggerAtReleasePellicle);
+            MacTransition tWaitingForReleasePellicle_Idle = NewTransition(sWaitingForReleasePellicle, sIdle, EnumMacMsInspectionChTransition.ReturnToIdleFromReleasePellicle);
 
             MacTransition tIdle_WaitingForInputGlass = NewTransition(sIdle, sWaitingForInputGlass, EnumMacMsInspectionChTransition.WaitForInputGlass);
+            MacTransition tWaitingForInputGlass_NULL = NewTransition(sWaitingForInputGlass, null, EnumMacMsInspectionChTransition.ReceiveTriggerAtInputGlass);
             MacTransition tWaitingForInputGlass_GlassOnStage = NewTransition(sWaitingForInputGlass, sGlassOnStage, EnumMacMsInspectionChTransition.StandbyAtStageWithGlass);
             MacTransition tGlassOnStage_DefensingGlass = NewTransition(sGlassOnStage, sDefensingGlass, EnumMacMsInspectionChTransition.DefenseGlass);
             MacTransition tDefensingGlass_InspectingGlass = NewTransition(sDefensingGlass, sInspectingGlass, EnumMacMsInspectionChTransition.InspectGlass);
             MacTransition tInspectingGlass_GlassOnStageInspected = NewTransition(sInspectingGlass, sGlassOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithGlassInspected);
             MacTransition tGlassOnStageInspected_WaitingForReleaseGlass = NewTransition(sGlassOnStageInspected, sWaitingForReleaseGlass, EnumMacMsInspectionChTransition.WaitForReleaseGlass);
+            MacTransition tWaitingForReleaseGlass_NULL = NewTransition(sWaitingForReleaseGlass, null, EnumMacMsInspectionChTransition.ReceiveTriggerAtReleaseGlass);
             MacTransition tWaitingForReleaseGlass_Idle = NewTransition(sWaitingForReleaseGlass, sIdle, EnumMacMsInspectionChTransition.ReturnToIdleFromReleaseGlass);
             #endregion Transition
 
             #region State Register OnEntry OnExit
             sStart.OnEntry += (sender, e) =>
-            { };
+            {
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tStart_Initial;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sStart.OnExit += (sender, e) =>
             { };
             sInitial.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalInspectionCh.Initial();
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChInitialFailException(ex.Message);
+                }
+
+                var transition = tInitial_Idle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.Initial)
-                        {
-                            try
-                            {
-                                HalInspectionCh.Initial();
-                                transition = tInitial_Idle;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInitial.OnExit += (sender, e) =>
             { };
-
-
             sIdle.OnEntry += (sender, e) =>
-            { };
+            {
+                try
+                {
+                    HalInspectionCh.ReadRobotIntrude(false);
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChPLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tIdle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sIdle.OnExit += (sender, e) =>
             { };
-            sWaitingForInputMask.OnEntry += (sender, e) =>
-            { };
-            sWaitingForInputMask.OnExit += (sender, e) =>
-            { };
-            sMaskOnStage.OnEntry += (sender, e) =>
+
+
+            sWaitingForInputPellicle.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tWaitingForInputPellicle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.MaskOnStage)
-                        {
-                            try
-                            {
-                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
-                                transition = tMaskOnStage_DefensingMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
-            sMaskOnStage.OnExit += (sender, e) =>
+            sWaitingForInputPellicle.OnExit += (sender, e) =>
             { };
-            sDefensingMask.OnEntry += (sender, e) =>
+            sPellicleOnStage.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tPellicleOnStage_DefensingPellicle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.DefensingMask)
-                        {
-                            try
-                            {
-                                HalInspectionCh.WPosition(51);
-                                HalInspectionCh.Camera_SideDfs_Cap();// TODO: 拍照進行檢測
-                                HalInspectionCh.Camera_TopDfs_Cap();// TODO: 拍照進行檢測
-                                // TODO: 其他位置或角度的影像檢測
-                                transition = tDefensingMask_InspectingMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
-            sDefensingMask.OnExit += (sender, e) =>
+            sPellicleOnStage.OnExit += (sender, e) =>
             { };
-            sInspectingMask.OnEntry += (sender, e) =>
+            sDefensingPellicle.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    //上方相機
+                    HalInspectionCh.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "bmp");
+                    Thread.Sleep(500);
+
+                    //側邊相機
+                    for (int i = 0; i < 360; i += 90)
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.InspectingMask)
-                        {
-                            try
-                            {
-                                HalInspectionCh.WPosition(51);
-                                HalInspectionCh.XYPosition(300, 200);
-                                HalInspectionCh.Camera_SideInsp_Cap();// TODO: 拍照進行檢測
-                                HalInspectionCh.Camera_TopInsp_Cap();// TODO: 拍照進行檢測
-                                // TODO: 其他位置或角度的影像檢測
-                                transition = tInspectingMask_MaskOnStageInspected;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
+                        HalInspectionCh.WPosition(i);
+                        HalInspectionCh.Camera_SideDfs_CapToSave("D:/Image/IC/SideDfs", "bmp");
+                        Thread.Sleep(500);
                     }
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChDefenseFailException(ex.Message);
+                }
+
+                var transition = tDefensingPellicle_InspectingPellicle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
-            sInspectingMask.OnExit += (sender, e) =>
+            sDefensingPellicle.OnExit += (sender, e) =>
             { };
-            sMaskOnStageInspected.OnEntry += (sender, e) =>
+            sInspectingPellicle.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalInspectionCh.ZPosition(-29.6);
+                    //上方相機
+                    for (int i = 158; i <= 296; i += 23)
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.MaskOnStageInspected)
+                        for (int j = 123; j <= 261; j += 23)
                         {
-                            try
-                            {
-                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
-                                transition = tMaskOnStageInspected_WaitingForReleaseMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
+                            HalInspectionCh.XYPosition(i, j);
+                            HalInspectionCh.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
+                            Thread.Sleep(500);
                         }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
                     }
+
+                    //側邊相機
+                    HalInspectionCh.XYPosition(246, 208);
+                    for (int i = 0; i < 360; i += 90)
+                    {
+                        HalInspectionCh.WPosition(i);
+                        HalInspectionCh.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "bmp");
+                        Thread.Sleep(500);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChInspectFailException(ex.Message);
+                }
+
+                var transition = tInspectingPellicle_PellicleOnStageInspected;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
-            sMaskOnStageInspected.OnExit += (sender, e) =>
+            sInspectingPellicle.OnExit += (sender, e) =>
             { };
-            sWaitingForReleaseMask.OnEntry += (sender, e) =>
+            sPellicleOnStageInspected.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalInspectionCh.XYPosition(0, 0);
+                    HalInspectionCh.ZPosition(0);
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChPLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tPellicleOnStageInspected_WaitingForReleasePellicle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sPellicleOnStageInspected.OnExit += (sender, e) =>
             { };
-            sWaitingForReleaseMask.OnExit += (sender, e) =>
+            sWaitingForReleasePellicle.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tWaitingForReleasePellicle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForReleasePellicle.OnExit += (sender, e) =>
             { };
 
 
             sWaitingForInputGlass.OnEntry += (sender, e) =>
-            { };
+            {
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tWaitingForInputGlass_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sWaitingForInputGlass.OnExit += (sender, e) =>
             { };
             sGlassOnStage.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tGlassOnStage_DefensingGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.GlassOnStage)
-                        {
-                            try
-                            {
-                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
-                                transition = tGlassOnStage_DefensingGlass;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sGlassOnStage.OnExit += (sender, e) =>
             { };
             sDefensingGlass.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    //上方相機
+                    HalInspectionCh.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "bmp");
+                    Thread.Sleep(500);
+
+                    //側邊相機
+                    for (int i = 0; i < 360; i += 90)
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.DefensingGlass)
-                        {
-                            try
-                            {
-                                HalInspectionCh.WPosition(51);
-                                HalInspectionCh.Camera_SideDfs_Cap();// TODO: 拍照進行檢測
-                                HalInspectionCh.Camera_TopDfs_Cap();// TODO: 拍照進行檢測
-                                // TODO: 其他位置或角度的影像檢測
-                                transition = tDefensingGlass_InspectingGlass;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
+                        HalInspectionCh.WPosition(i);
+                        HalInspectionCh.Camera_SideDfs_CapToSave("D:/Image/IC/SideDfs", "bmp");
+                        Thread.Sleep(500);
                     }
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChDefenseFailException(ex.Message);
+                }
+
+                var transition = tDefensingGlass_InspectingGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sDefensingGlass.OnExit += (sender, e) =>
             { };
             sInspectingGlass.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalInspectionCh.ZPosition(-29.6);
+                    //上方相機
+                    for (int i = 158; i <= 296; i += 23)
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.InspectingGlass)
+                        for (int j = 123; j <= 261; j += 23)
                         {
-                            try
-                            {
-                                HalInspectionCh.WPosition(51);
-                                HalInspectionCh.XYPosition(300, 200);
-                                HalInspectionCh.Camera_SideInsp_Cap();// TODO: 拍照進行檢測
-                                HalInspectionCh.Camera_TopInsp_Cap();// TODO: 拍照進行檢測
-                                // TODO: 其他位置或角度的影像檢測
-                                transition = tInspectingGlass_GlassOnStageInspected;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
+                            HalInspectionCh.XYPosition(i, j);
+                            HalInspectionCh.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
+                            Thread.Sleep(500);
                         }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
                     }
+
+                    //側邊相機
+                    HalInspectionCh.XYPosition(246, 208);
+                    for (int i = 0; i < 360; i += 90)
+                    {
+                        HalInspectionCh.WPosition(i);
+                        HalInspectionCh.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "bmp");
+                        Thread.Sleep(500);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChInspectFailException(ex.Message);
+                }
+
+                var transition = tInspectingGlass_GlassOnStageInspected;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInspectingGlass.OnExit += (sender, e) =>
             { };
             sGlassOnStageInspected.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                try
                 {
-                    while (true)
+                    HalInspectionCh.XYPosition(0, 0);
+                    HalInspectionCh.ZPosition(0);
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChPLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tGlassOnStageInspected_WaitingForReleaseGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsInspectionChState.GlassOnStageInspected)
-                        {
-                            try
-                            {
-                                HalInspectionCh.XYPosition(0, 0);// TODO: 移到放入Mask的位置
-                                transition = tGlassOnStageInspected_WaitingForReleaseGlass;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sGlassOnStageInspected.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseGlass.OnEntry += (sender, e) =>
-            { };
+            {
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
+
+                var transition = tWaitingForReleaseGlass_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sWaitingForReleaseGlass.OnExit += (sender, e) =>
             { };
             #endregion State Register OnEntry OnExit

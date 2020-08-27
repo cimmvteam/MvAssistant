@@ -26,7 +26,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     public class MacMsMaskTransfer : MacMachineStateBase
     {
         private IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
-        //public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)halAssembly.GetHalDevice(MacEnumDevice.masktransfer_assembly); } }
+        private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
@@ -36,7 +36,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public void Initial()
         {
-            this.States[EnumMacMsMaskTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
         public void MoveToLoadPortAGetMask()
@@ -51,7 +51,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                {   // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -73,7 +74,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                {   // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -90,7 +92,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                {   // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -107,7 +110,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                {  // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -124,7 +128,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                { // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -141,7 +146,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                { // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -158,7 +164,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                { // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -179,7 +186,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                { // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -196,7 +204,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Action = null,
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
-                { throw new StateFailException(); },
+                { // TODO: do something
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -283,7 +292,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingAfterCapturedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCapturedGlass);
             MacState sWaitingForLeaveCleanChGlass = NewState(EnumMacMsMaskTransferState.WaitingForLeaveCleanChGlass);
             MacState sMovingToCCHomeClampedFromCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanChGlass);//離開CleanChGlass
-            //MacState sCleanChWaitAckMove = NewState(EnumMacMsMaskTransferState.CleanChWaitAckMove);
+
+            //Inspect Deform
+            MacState sMovingToInspectDeformFromICHome = NewState(EnumMacMsMaskTransferState.MovingToInspectDeform);
+            MacState sWaitingForInspectDeform = NewState(EnumMacMsMaskTransferState.WaitingForInspectDeform);
+            MacState sMovingToICHomeFromInspectDeform = NewState(EnumMacMsMaskTransferState.MovingToICHomeFromInspectDeform);
 
             //To Target
             MacState sMovingToLoadPortAForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortAForRelease);
@@ -305,7 +318,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToICHomeFromInspectionChGlass = NewState(EnumMacMsMaskTransferState.MovingToICHomeFromInspectionChGlass);
             MacState sMovingToLPHomeFromOpenStage = NewState(EnumMacMsMaskTransferState.MovingToLPHomeFromOpenStage);
 
-            //MacState sWaitAckHome = NewState(EnumMacMsMaskTransferState.WaitAckHome);
             #endregion State
 
             //--- Transition ---
@@ -324,7 +336,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tCCHomeClamped_NULL = NewTransition(sCCHomeClamped, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCCHomeClamped);
             MacTransition tCCHomeClamped_CCHomeCleaned = NewTransition(sCCHomeClamped, sCCHomeCleaned, EnumMacMsMaskTransferTransition.CleanedAtCCHomeClamped);
             MacTransition tCCHomeCleaned_LPHomeCleaned = NewTransition(sCCHomeCleaned, sLPHomeCleaned, EnumMacMsMaskTransferTransition.CleanedAtLPHomeClamped);
-            MacTransition tWaitingForBarcodeReader_WaitingForBarcodeReader = NewTransition(sWaitingForBarcodeReader, sWaitingForBarcodeReader, EnumMacMsMaskTransferTransition.ReceiveTriggerAtBarcodeReader);
 
             #region Change Direction
             MacTransition tLPHome_ChangingDirectionToICHome = NewTransition(sLPHome, sChangingDirectionToICHome, EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeFromLPHome);
@@ -397,10 +408,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToCleanCh_WaitingForMoveToClean = NewTransition(sMovingToCleanCh, sWaitingForMoveToClean, EnumMacMsMaskTransferTransition.WaitForMoveToClean);
             MacTransition tWaitingForMoveToClean_MovingToClean = NewTransition(sWaitingForMoveToClean, sMovingToClean, EnumMacMsMaskTransferTransition.MoveToClean);
             MacTransition tMovingToClean_WaitingForClean = NewTransition(sMovingToClean, sWaitingForClean, EnumMacMsMaskTransferTransition.WaitFroClean);
+            MacTransition tWaitingForClean_NULL = NewTransition(sWaitingForClean, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtClean);
             MacTransition tWaitingForClean_MovingAfterCleaned = NewTransition(sWaitingForClean, sMovingAfterCleaned, EnumMacMsMaskTransferTransition.MoveAferCleaned);
             MacTransition tMovingAfterCleaned_WaitingForMoveToCapture = NewTransition(sMovingAfterCleaned, sWaitingForMoveToCapture, EnumMacMsMaskTransferTransition.WaitForMoveToCapture);
             MacTransition tWaitingForMoveToCapture_MovingToCapture = NewTransition(sWaitingForMoveToCapture, sMovingToCapture, EnumMacMsMaskTransferTransition.MoveToCapture);
             MacTransition tMovingToCapture_WaitingForCapture = NewTransition(sMovingToCapture, sWaitingForCapture, EnumMacMsMaskTransferTransition.WaitForCapture);
+            MacTransition tWaitingForCapture_NULL = NewTransition(sWaitingForCapture, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCapture);
             MacTransition tWaitingForCapture_MovingAfterCaptured = NewTransition(sWaitingForCapture, sMovingAfterCaptured, EnumMacMsMaskTransferTransition.MoveAfterCapture);
             MacTransition tMovingAfterCaptured_WaitingForLeaveCleanCh = NewTransition(sMovingAfterCaptured, sWaitingForLeaveCleanCh, EnumMacMsMaskTransferTransition.WaitForLeaveCleanCh);
             MacTransition tWaitingForLeaveCleanCh_MovingToCCHomeClampedFromCleanCh = NewTransition(sWaitingForLeaveCleanCh, sMovingToCCHomeClampedFromCleanCh, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanCh);
@@ -410,10 +423,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToCleanChGlass_WaitingForMoveToCleanGlass = NewTransition(sMovingToCleanChGlass, sWaitingForMoveToCleanGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCleanGlass);
             MacTransition tWaitingForMoveToCleanGlass_MovingToCleanGlass = NewTransition(sWaitingForMoveToCleanGlass, sMovingToCleanGlass, EnumMacMsMaskTransferTransition.MoveToCleanGlass);
             MacTransition tMovingToCleanGlass_WaitingForCleanGlass = NewTransition(sMovingToCleanGlass, sWaitingForCleanGlass, EnumMacMsMaskTransferTransition.WaitFroCleanGlass);
+            MacTransition tWaitingForCleanGlass_NULL = NewTransition(sWaitingForCleanGlass, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCleanGlass);
             MacTransition tWaitingForCleanGlass_MovingAfterCleanedGlass = NewTransition(sWaitingForCleanGlass, sMovingAfterCleanedGlass, EnumMacMsMaskTransferTransition.MoveAferCleanedGlass);
             MacTransition tMovingAfterCleanedGlass_WaitingForMoveToCaptureGlass = NewTransition(sMovingAfterCleanedGlass, sWaitingForMoveToCaptureGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCaptureGlass);
             MacTransition tWaitingForMoveToCaptureGlass_MovingToCaptureGlass = NewTransition(sWaitingForMoveToCaptureGlass, sMovingToCaptureGlass, EnumMacMsMaskTransferTransition.MoveToCaptureGlass);
             MacTransition tMovingToCaptureGlass_WaitingForCaptureGlass = NewTransition(sMovingToCaptureGlass, sWaitingForCaptureGlass, EnumMacMsMaskTransferTransition.WaitForCaptureGlass);
+            MacTransition tWaitingForCaptureGlass_NULL = NewTransition(sWaitingForCaptureGlass, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCaptureGlass);
             MacTransition tWaitingForCaptureGlass_MovingAfterCapturedGlass = NewTransition(sWaitingForCaptureGlass, sMovingAfterCapturedGlass, EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass);
             MacTransition tMovingAfterCapturedGlass_WaitingForLeaveCleanChGlass = NewTransition(sMovingAfterCapturedGlass, sWaitingForLeaveCleanChGlass, EnumMacMsMaskTransferTransition.WaitForLeaveCleanChGlass);
             MacTransition tWaitingForLeaveCleanChGlass_MovingToCCHomeClampedFromCleanChGlass = NewTransition(sWaitingForLeaveCleanChGlass, sMovingToCCHomeClampedFromCleanChGlass, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanChGlass);
@@ -437,10 +452,18 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Barcode Reader
             MacTransition tLPHomeClamped_MovingToBarcodeReaderClamped = NewTransition(sLPHomeClamped, sMovingToBarcodeReaderClamped, EnumMacMsMaskTransferTransition.MoveToBarcodeReaderClamped);
             MacTransition tMovingToBarcodeReaderClamped_WaitingForBarcodeReader = NewTransition(sMovingToBarcodeReaderClamped, sWaitingForBarcodeReader, EnumMacMsMaskTransferTransition.WaitForBarcodeReader);
+            MacTransition tWaitingForBarcodeReader_NULL = NewTransition(sWaitingForBarcodeReader, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtBarcodeReader);
             MacTransition tWaitingForBarcodeReader_MovingToLPHomeClampedFromBarcodeReader = NewTransition(sWaitingForBarcodeReader, sMovingToLPHomeClampedFromBarcodeReader, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromBarcodeReader);
             MacTransition tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromBarcodeReader, sLPHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtLPHomeClampedFromBarcodeReader);
             #endregion Barcode Reader
 
+            #region Inspect Deform
+            MacTransition tICHome_MovingToInspectDeformFromICHome = NewTransition(sICHome, sMovingToInspectDeformFromICHome, EnumMacMsMaskTransferTransition.MoveToInspectDeformFromICHome);
+            MacTransition tMovingToInspectDeformFromICHome_WaitingForInspectDeform = NewTransition(sMovingToInspectDeformFromICHome, sWaitingForInspectDeform, EnumMacMsMaskTransferTransition.WaitForInspectDeform);
+            MacTransition tWaitingForInspectDeform_NULL = NewTransition(sWaitingForInspectDeform, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtInspectDeform);
+            MacTransition tWaitingForInspectDeform_MovingToICHomeFromInspectDeform = NewTransition(sWaitingForInspectDeform, sMovingToICHomeFromInspectDeform, EnumMacMsMaskTransferTransition.MoveToICHomeFromInspectDeform);
+            MacTransition tMovingToICHomeFromInspectDeform_ICHome = NewTransition(sMovingToICHomeFromInspectDeform, sICHome, EnumMacMsMaskTransferTransition.StandbyAtICHomeFromInspectDeform);
+            #endregion Inspect Deform
 
             //Is Ready to Release
             //MacTransition tLPHomeClamped_ReadyToRelease = NewTransition(sLPHomeClamped, sReadyToRelease, EnumMacMsMaskTransferTransition.IsReady);
@@ -480,7 +503,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -492,7 +516,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sInitial.OnEntry += (sender, e) =>
             {
-                HalMaskTransfer.Initial();
+                try
+                {
+                    HalMaskTransfer.Initial();
+                }
+                catch (Exception ex)
+                {
+                    throw new MaskTransferInitialFailException(ex.Message);
+                }
+
                 var transition = tDeviceInitial_LPHome;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -503,7 +535,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -525,7 +558,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -547,7 +581,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -569,7 +604,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -591,7 +627,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -613,7 +650,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -635,7 +673,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -657,7 +696,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -679,7 +719,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -698,9 +739,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToLPHome_LPHome;
@@ -713,7 +754,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -731,9 +773,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToLPHomeClamped_LPHomeClamped;
@@ -746,7 +788,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -764,9 +807,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToLPHomeInspected_LPHomeInspected;
@@ -779,7 +822,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -797,9 +841,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToLPHomeCleaned_LPHomeCleaned;
@@ -812,7 +856,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -830,9 +875,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToICHome_ICHome;
@@ -845,7 +890,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -863,9 +909,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToICHomeClamped_ICHomeClamped;
@@ -878,7 +924,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -896,9 +943,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tChangingDirectionToCCHomeClamped_CCHomeClamped;
@@ -911,7 +958,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -931,9 +979,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLoadPortA_LoadPortAClamping;
@@ -946,7 +994,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -964,9 +1013,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.Clamp(MaskType);
                     HalMaskTransfer.Clamp(MaskType);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tLoadPortAClamping_MovingToLPHomeClampedFromLoadPortA;
@@ -979,7 +1028,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -997,9 +1047,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeClampedFromLoadPortA_LPHomeClamped;
@@ -1012,7 +1062,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1030,9 +1081,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLoadPortAForRelease_LoadPortAReleasing;
@@ -1045,7 +1096,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1061,9 +1113,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalMaskTransfer.Unclamp();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tLoadPortAReleasing_MovingToLPHomeFromLoadPortA;
@@ -1076,7 +1128,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1094,9 +1147,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
                     HalMaskTransfer.RobotMoving(true);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeFromLoadPortA_LPHome;
@@ -1109,7 +1162,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1129,9 +1183,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLoadPortB_LoadPortBClamping;
@@ -1144,7 +1198,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1161,9 +1216,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tLoadPortBClamping_MovingToLPHomeClampedFromLoadPortB;
@@ -1176,7 +1231,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1194,9 +1250,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeClampedFromLoadPortB_LPHomeClamped;
@@ -1209,7 +1265,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1227,9 +1284,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLoadPortBForRelease_LoadPortBReleasing;
@@ -1242,7 +1299,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1258,9 +1316,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalMaskTransfer.Unclamp();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tLoadPortBReleasing_MovingToLPHomeFromLoadPortB;
@@ -1273,7 +1331,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1291,9 +1350,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeFromLoadPortB_LPHome;
@@ -1306,7 +1365,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1322,13 +1382,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 try
                 {
+                    if (!HalInspectionCh.ReadRobotIntrude(true))
+                        throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToInspectionCh_InspectionChClamping;
@@ -1341,7 +1403,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1358,9 +1421,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tInspectionChClamping_MovingToICHomeClampedFromInspectionCh;
@@ -1373,7 +1436,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1390,10 +1454,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                    HalInspectionCh.ReadRobotIntrude(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToICHomeClampedFromInspectionCh_ICHomeClamped;
@@ -1406,7 +1471,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1420,13 +1486,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 try
                 {
+                    if (!HalInspectionCh.ReadRobotIntrude(true))
+                        throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingInspectionChForRelease_InspectionChReleasing;
@@ -1439,7 +1507,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1455,9 +1524,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalMaskTransfer.Unclamp();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tInspectionChReleasing_MovingToICHomeFromInspectionCh;
@@ -1470,7 +1539,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1487,10 +1557,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                    HalInspectionCh.ReadRobotIntrude(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToICHomeFromInspectionCh_ICHome;
@@ -1503,7 +1574,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1519,13 +1591,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 try
                 {
+                    if (!HalInspectionCh.ReadRobotIntrude(true))
+                        throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToInspectionChGlass_InspectionChGlassClamping;
@@ -1538,7 +1612,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1555,9 +1630,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tInspectionChGlassClamping_MovingToICHomeClampedFromInspectionChGlass;
@@ -1570,7 +1645,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1587,10 +1663,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                    HalInspectionCh.ReadRobotIntrude(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToICHomeClampedFromInspectionChGlass_ICHomeClamped;
@@ -1603,7 +1680,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1617,13 +1695,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 try
                 {
+                    if (!HalInspectionCh.ReadRobotIntrude(true))
+                        throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingInspectionChGlassForRelease_InspectionChGlassReleasing;
@@ -1636,7 +1716,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1652,9 +1733,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalMaskTransfer.Unclamp();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tInspectionChGlassReleasing_MovingToICHomeFromInspectionChGlass;
@@ -1667,7 +1748,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1684,10 +1766,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                    HalInspectionCh.ReadRobotIntrude(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToICHomeFromInspectionChGlass_ICHome;
@@ -1700,7 +1783,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1720,9 +1804,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCleanCh_WaitingForMoveToClean;
@@ -1735,7 +1819,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1751,9 +1836,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
                 var transition = tWaitingForMoveToClean_MovingToClean;
@@ -1766,7 +1851,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1784,9 +1870,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToClean_WaitingForClean;
@@ -1799,7 +1885,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1815,12 +1902,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForClean_MovingAfterCleaned;
+                var transition = tWaitingForClean_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1830,7 +1917,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1848,9 +1936,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingAfterCleaned_WaitingForMoveToCapture;
@@ -1863,7 +1951,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1879,9 +1968,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
                 var transition = tWaitingForMoveToCapture_MovingToCapture;
@@ -1894,7 +1983,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1912,9 +2002,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCapture_WaitingForCapture;
@@ -1927,7 +2017,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1943,12 +2034,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForCapture_MovingAfterCaptured;
+                var transition = tWaitingForCapture_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1958,7 +2049,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -1976,9 +2068,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingAfterCaptured_WaitingForLeaveCleanCh;
@@ -1991,7 +2083,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2007,9 +2100,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
                 var transition = tWaitingForLeaveCleanCh_MovingToCCHomeClampedFromCleanCh;
@@ -2022,7 +2115,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2040,9 +2134,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCCHomeClampedFromCleanCh_CCHomeClamped;
@@ -2055,7 +2149,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2075,9 +2170,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCleanChGlass_WaitingForMoveToCleanGlass;
@@ -2090,7 +2185,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2106,9 +2202,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
                 var transition = tWaitingForMoveToCleanGlass_MovingToCleanGlass;
@@ -2121,7 +2217,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2139,9 +2236,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCleanGlass_WaitingForCleanGlass;
@@ -2154,7 +2251,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2170,12 +2268,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForCleanGlass_MovingAfterCleanedGlass;
+                var transition = tWaitingForCleanGlass_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2185,7 +2283,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2203,9 +2302,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingAfterCleanedGlass_WaitingForMoveToCaptureGlass;
@@ -2218,7 +2317,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2234,9 +2334,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
                 var transition = tWaitingForMoveToCaptureGlass_MovingToCaptureGlass;
@@ -2249,7 +2349,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2267,9 +2368,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCaptureGlass_WaitingForCaptureGlass;
@@ -2282,7 +2383,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2298,12 +2400,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForCaptureGlass_MovingAfterCapturedGlass;
+                var transition = tWaitingForCaptureGlass_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2313,7 +2415,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2331,9 +2434,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingAfterCapturedGlass_WaitingForLeaveCleanChGlass;
@@ -2346,7 +2449,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2362,9 +2466,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
                 var transition = tWaitingForLeaveCleanChGlass_MovingToCCHomeClampedFromCleanChGlass;
@@ -2377,7 +2481,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2395,9 +2500,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped;
@@ -2410,7 +2515,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2430,9 +2536,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToOpenStage_OpenStageClamping;
@@ -2445,7 +2551,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2462,9 +2569,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tOpenStageClamping_MovingToLPHomeClampedFromOpenStage;
@@ -2477,7 +2584,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2495,9 +2603,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeClampedFromOpenStage_LPHomeClamped;
@@ -2510,7 +2618,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2528,9 +2637,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingOpenStageForRelease_OpenStageReleasing;
@@ -2543,7 +2652,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2559,9 +2669,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalMaskTransfer.Unclamp();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPLCExecuteFailException(ex.Message);
                 }
 
                 var transition = tOpenStageReleasing_MovingToLPHomeFromOpenStage;
@@ -2574,7 +2684,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2592,9 +2703,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeFromOpenStage_LPHome;
@@ -2607,7 +2718,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2625,13 +2737,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalMaskTransfer.RobotMoving(true);
                     if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\LoadPortHome.json"))
-                        HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    // TODO: Robot move path
+                        throw new MaskTransferPathMoveFailException("Robot position was not at Load Port Home,could not move to Barcode Reader !");
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToBarcodeReader.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToBarcodeReaderClamped_WaitingForBarcodeReader;
@@ -2644,7 +2756,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2660,12 +2773,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForBarcodeReader_MovingToLPHomeClampedFromBarcodeReader;
+                var transition = tWaitingForBarcodeReader_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2675,7 +2788,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2690,12 +2804,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    // TODO: Robot move path
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BarcodeReaderToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw new MaskTransferException();
+                    throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
                 var transition = tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped;
@@ -2708,7 +2822,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
-                    { throw new StateFailException(); },
+                    { // TODO: do something
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
@@ -2719,6 +2834,109 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             { };
             #endregion
 
+            #region Inspect Deform
+            sMovingToInspectDeformFromICHome.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\InspChHome.json"))
+                        throw new MaskTransferPathMoveFailException("Robot position was not at Inspection Chamber Home,could not move to Inspect Deform !");
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToBarcodeReader.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception ex)
+                {
+                    throw new MaskTransferPathMoveFailException(ex.Message);
+                }
+
+                var transition = tMovingToInspectDeformFromICHome_WaitingForInspectDeform;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToInspectDeformFromICHome.OnExit += (sender, e) =>
+            { };
+
+            sWaitingForInspectDeform.OnEntry += (sender, e) =>
+            {
+                try// TODO: 判斷Inspect Deform已經檢查完等待移走
+                {
+
+                }
+                catch (Exception ex)
+                {
+                    throw new MaskTransferException(ex.Message);
+                }
+
+                var transition = tWaitingForInspectDeform_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sWaitingForInspectDeform.OnExit += (sender, e) =>
+            { };
+
+            sMovingToICHomeFromInspectDeform.OnEntry += (sender, e) =>
+            {
+                try
+                {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\InspDeformToICHome.json");
+                    HalMaskTransfer.RobotMoving(false);
+                }
+                catch (Exception ex)
+                {
+                    throw new MaskTransferPathMoveFailException(ex.Message);
+                }
+
+                var transition = tMovingToICHomeFromInspectDeform_ICHome;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToICHomeFromInspectDeform.OnExit += (sender, e) =>
+            { };
+            #endregion Inspect Deform
 
             #endregion State Register OnEntry OnExit
 

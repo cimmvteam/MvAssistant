@@ -10,21 +10,26 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
     {
         PowerON,
         Initial,
+        ReceiveTriggerAtIdle,
 
-        WaitForInputMask,
-        StandbyAtStageWithMask,
-        DefenseMask,
-        InspectMask,
-        StandbyAtStageWithMaskInspected,
-        WaitForReleaseMask,
-        ReturnToIdleFromReleaseMask,
+        WaitForInputPellicle,
+        ReceiveTriggerAtInputPellicle,
+        StandbyAtStageWithPellicle,
+        DefensePellicle,
+        InspectPellicle,
+        StandbyAtStageWithPellicleInspected,
+        WaitForReleasePellicle,
+        ReceiveTriggerAtReleasePellicle,
+        ReturnToIdleFromReleasePellicle,
 
         WaitForInputGlass,
+        ReceiveTriggerAtInputGlass,
         StandbyAtStageWithGlass,
         DefenseGlass,
         InspectGlass,
         StandbyAtStageWithGlassInspected,
         WaitForReleaseGlass,
+        ReceiveTriggerAtReleaseGlass,
         ReturnToIdleFromReleaseGlass,
     }
 }

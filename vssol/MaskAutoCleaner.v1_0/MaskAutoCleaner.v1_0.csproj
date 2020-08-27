@@ -123,6 +123,11 @@
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCategory.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCode.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCodeExtends.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChDefenseFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChInspectFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCExecuteFailException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockTimeOutException.cs" />
@@ -141,6 +146,8 @@
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferInitialTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferPathMoveFailException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferPLCExecuteFailException.cs" />
     <Compile Include="StateMachineExceptions\StateMachineExceptionBase.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerLoadToHomeCompleteSource.cs" />
     <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
@@ -262,6 +269,8 @@
   <ItemGroup>
     <Folder Include="Machine\BoxTransfer\" />
     <Folder Include="Machine\Universal\" />
+    <Folder Include="StateMachineExceptions\CleanChStateMachineException\" />
+    <Folder Include="StateMachineExceptions\OpenStageStateMachineException\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

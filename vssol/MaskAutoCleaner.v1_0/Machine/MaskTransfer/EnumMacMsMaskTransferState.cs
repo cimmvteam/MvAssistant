@@ -111,6 +111,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         WaitingForBarcodeReader,
         MovingToLPHomeClampedFromBarcodeReader,
 
+        //Inspect Deform
+        MovingToInspectDeform,
+        WaitingForInspectDeform,
+        MovingToICHomeFromInspectDeform,
+
         //WaitAckHome,
 
         ExpRobotPositioningError,
