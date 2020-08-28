@@ -11,13 +11,19 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
     {
         /// <summary>系統類</summary>
         System = 0,
-        /// <summary>Mask Transfer</summary>
-        MaskTransfer = 1,
-        /// <summary>Box Transfer</summary>
-        BoxTransfer = 2,
-        /// <summary>Load port</summary>
-        Loadport = 3,
         /// <summary>Drawer</summary>
-        Drawer = 4,
+        Drawer = 1,
+        /// <summary></summary>
+        CleanChamber=2,
+        /// <summary>Box Transfer</summary>
+        BoxTransfer = 3,
+        /// <summary>Mask Transfer</summary>
+        MaskTransfer = 4,
+        /// <summary> OpenStage</summary>
+        OpenStage = 5,
+        /// <summary>InspectionChamber</summary>
+        InspectionChamber = 6,
+        /// <summary>Load port</summary>
+        Loadport = 7,
     }
 }

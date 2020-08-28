@@ -86,6 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerState.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerTransition.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacCabinetState.cs" />
+    <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerJob.cs" />
+    <Compile Include="Machine\CabinetDrawer\MacMsCabinetDrawer.cs" />
     <Compile Include="Machine\Drawer\EnumMacDrawerInitialType.cs" />
     <Compile Include="StateMachineBeta\TriggerMember.cs" />
     <Compile Include="StateMachineBeta\TriggerMemberAsync.cs" />
@@ -263,7 +269,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Machine\BoxTransfer\" />
-    <Folder Include="Machine\Cabinet\" />
     <Folder Include="Machine\Universal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

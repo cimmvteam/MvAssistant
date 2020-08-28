@@ -21,6 +21,20 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
     {
         public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
         private MacDrawerStateTimeOutController timeoutObj = new MacDrawerStateTimeOutController();
+        public string Index
+        {
+            get
+            {
+                if (HalDrawer == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return HalDrawer.DeviceIndex;
+                }
+            }
+        }
 
         #region State Instruction
         /// <summary>初始化</summary>
