@@ -9,7 +9,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     /// <summary>Drawer 的工作</summary>
     public enum EnumMacCabinetDrawerJob
     {
-        /// <summary>初Control Console開機時的工作</summary>
+        /// <summary>初Control Console開機時還没指定工作</summary>
         None,
         /// <summary>Control Console 開機後 Initial</summary>
         FirstInitial,
