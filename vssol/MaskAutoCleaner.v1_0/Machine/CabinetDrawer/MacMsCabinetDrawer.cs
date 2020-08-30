@@ -14,8 +14,22 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     {
         public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
         private MacMsTimeOutController TimeoutObj;
-
         public EnumMacCabinetDrawerJob DrawerJob  { set; private get; }
+        public string DrawerIndex
+        {
+            get
+            {
+                if (HalDrawer == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return HalDrawer.DeviceIndex;
+                }
+            }
+        }
+
         public void ResetDrawerJob()
         {
             SetDrawerJob(EnumMacCabinetDrawerJob.None);
