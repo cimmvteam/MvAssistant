@@ -91,7 +91,6 @@
     <Compile Include="Machine\Cabinet\EnumMacCabinetState.cs" />
     <Compile Include="Machine\Cabinet\EnumMacCabinetTransition.cs" />
     <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
-    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerJob.cs" />
     <Compile Include="Machine\CabinetDrawer\MacMsCabinetDrawer.cs" />
     <Compile Include="Machine\Drawer\EnumMacDrawerInitialType.cs" />
     <Compile Include="StateMachineBeta\MacMsTimeOutController.cs" />
