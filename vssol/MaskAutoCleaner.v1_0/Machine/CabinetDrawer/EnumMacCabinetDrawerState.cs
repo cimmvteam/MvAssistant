@@ -54,6 +54,32 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <summary>Load: 將Trsy 回退到Out, 完成</summary>
         LoadRejectToOutComplete, //LoadWaitingPutBoxOnTray,
 
+        /// <summary>Load, 將Tray 移到 In, 開始</summary>
+        LoadMoveTrayToInStart,
+        /// <summary>Load, 將Tray 移到 In, 移動中</summary>
+        LoadMoveTrayToInIng,
+        /// <summary>Load, 將Tray 移到 In, 完成 </summary>
+        LoadMoveTrayToInComplete,
+        /// <summary>等待將Box 從Tray 取走</summary>
+        LoadWaitingGetBoxOnTray,
+
+        /// <summary>將　Tray 移到 Home 等待 Unload 指令, 開始</summary>       
+        MoveTrayToHomeWaitingUnloadInstructionStart,
+        /// <summary>將　Tray 移到 Home 等待 Unload 指令, 進行中 </summary>
+        MoveTrayToHomeWaitingUnloadInstructionIng,
+        /// <summary>將　Tray 移到 Home 等待 Unload 指令, 完成 </summary>
+        MoveTrayToHomeWaitingUnloadInstructionComplete,
+        /// <summary>等待 Unload 指令</summary>
+        WaitingUnloadInstruction,
+
+        /// <summary>Unload, 將 Tray 移到 In, 開始</summary>
+        UnloadMoveTrayToInStart,
+        /// <summary>Unload, 將 Tray 移到 In, 移動中</summary>
+        UnloadMoveTrayToInIng,
+        /// <summary>Unload, 將 Tray 移到 In 完成</summary>
+        UnloadMoveTrayToInComplete,
+        /// <summary>Unload, 等待 將 Box 放到 Tray上</summary>
+        UnloadWaitingPutBoxOnTray
 
         /*
         MustInitial,

@@ -39,6 +39,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         LoadCheckBoxExistenceIng_LoadCheckBoxExistenceComplete,
         /// <summary>Load, 檢查Tray 上有盒子=> 等待命令將Tray 送到 In</summary>
         LoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn,
+        /// <summary>Load, 等待命令將Tray 送到 In => 設為最末狀態</summary>
+        LoadWaitingMoveTrayToIn_NULL,
         /// <summary>Load, 檢查Tray 上没有盒子=> 將 Tray 回退到 Out 開始</summary>
         LoadCheckBoxExistenceComplete_LoadRejectToOutStart,
         /// <summary>Load, 檢查Tray 上没有盒子將 Tray 回退到 Out 開始=> 移動中</summary>
@@ -46,7 +48,38 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <summary>Load, 檢查Tray 上没有盒子 將 Tray 回退到 Out 移動中=> 到逹Out</summary>
         LoadRejectToOutIng_LoadRejectToOutComplete,
         /// <summary>Load, 檢查Tray 上没有盒子 將 Tray 回退到 Out  到逹Out=>等待將 Box 放到Tray 上</summary>
-        LoadRejectToOutComplete_WaitingLoadInstruction,
+        LoadRejectToOutComplete_LoadWaitingPutBoxOnTray,
+
+        /// <summary>Load, 將 Tray 移到 In 開始=>移動中  </summary>
+        LoadMoveTrayToInStart_LoadMoveTrayToInIng,
+        /// <summary>Load, 將 Tray 移到 In, 移動中=>完成</summary>
+        LoadMoveTrayToInIng_LoadMoveTrayToInComplete,
+        /// <summary>Load, 將Tray 移到 In, 完成=> 等待盒子被拿走</summary>
+        LoadMoveTrayToInComplete_LoadWaitingGetBoxOnTray,
+        /// <summary>Load, 將Tray 移到 In完成, 等待盒子被拿走=>設為最末狀態</summary>
+        LoadWaitingGetBoxOnTray_NULL,
+
+
+        /// <summary>將 Tray 移到 Home 以等待 Unload 指令: 開始=>移動中 </summary>
+        MoveTrayToHomeWaitingUnloadInstructionStart_MoveTrayToHomeWaitingUnloadInstructionIng,
+        /// <summary>將 Tray 移到 Home 以等待 Unload 指令: 移動中 => 完成 </summary>
+        MoveTrayToHomeWaitingUnloadInstructionIng_MoveTrayToHomeWaitingUnloadInstructionComplete,
+        /// <summary>將 Tray 移到 Home 以等待 Unload 指令:  完成  => 等待 Unload 指令</summary>
+        MoveTrayToHomeWaitingUnloadInstructionComplete_WaitingUnloadInstruction,
+        /// <summary>等待 Unload 指令</summary>
+        WaitingUnloadInstruction_NULL,
+     
+        /// <summary>Unload, 將 Tray 移到 In 開始 => 移動中</summary>
+        UnloadMoveTrayToInStart_UnloadMoveTrayToInIng,
+        /// <summary>Unload, 將Tray移到 In 移動中 => 完成   /// </summary>
+        UnloadMoveTrayToInIng_UnloadMoveTrayToInComplete,
+        /// <summary>Unload, 將 Tray 移到 In 完成 => 等待將 Box 放到 Tray </summary>
+        UnloadMoveTrayToInComplete_UnloadWaitingPutBoxOnTray,
+        /// <summary>Unload, 等待將盒子放到 Tray 上=> 設為最末狀態</summary>
+        UnloadWaitingPutBoxOnTray_NULL,
+
+
+
         /**
 /// <summary>初始化: 開始=> 進行中</summary>
 InitialStart_InitialIng,
