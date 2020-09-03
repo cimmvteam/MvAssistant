@@ -47,12 +47,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <summary>Load: 等待將 Tray 推向 In</summary>
         LoadWaitingMoveTrayToIn,
 
-        /// <summary>Load: 將Trsy 回退到Out, 開始</summary>
-        LoadRejectToOutStart,
-        /// <summary>Load: 將Trsy 回退到Out, 進行中</summary>
-        LoadRejectToOutIng,
-        /// <summary>Load: 將Trsy 回退到Out, 完成</summary>
-        LoadRejectToOutComplete, //LoadWaitingPutBoxOnTray,
+        /// <summary>Load: 將Tray 回退到Out, 開始</summary>
+        LoadRejectTrayToOutStart,
+        /// <summary>Load: 將Tray 回退到Out, 進行中</summary>
+        LoadRejectTrayToOutIng,
+        /// <summary>Load: 將Tray 回退到Out, 完成</summary>
+        LoadRejectTrayToOutComplete, //LoadWaitingPutBoxOnTray,
 
         /// <summary>Load, 將Tray 移到 In, 開始</summary>
         LoadMoveTrayToInStart,
@@ -79,7 +79,37 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <summary>Unload, 將 Tray 移到 In 完成</summary>
         UnloadMoveTrayToInComplete,
         /// <summary>Unload, 等待 將 Box 放到 Tray上</summary>
-        UnloadWaitingPutBoxOnTray
+        UnloadWaitingPutBoxOnTray,
+        
+        /// <summary>Unload, 將 Tray 移到 Home, 開始</summary>
+        UnloadMoveTrayToHomeStart,
+        /// <summary>Unload, 將Tray 移到 Home, 進行中  </summary>
+        UnloadMoveTrayToHomeIng,
+        /// <summary>Unload, 將 Tray 移到 Home, 完成 </summary>
+        UnloadMoveTrayToHomeComplete,
+
+        /// <summary>Unload, 檢查有没有盒子,開始</summary>
+        UnloadCheckBoxExistenceStart,
+        /// <summary>Unload, 檢查有没有盒子,檢查中</summary>
+        UnloadCheckBoxExistenceIng,
+        /// <summary>Unload, 檢查有没有盒子,檢查完成</summary>
+        UnloadCheckBoxExistenceComplete,
+        
+        /// <summary>Unload, 將 Tray 移到 Out 開始</summary>
+        UnloadMoveTrayToOutStart,
+        /// <summary>Unload, 將 Tray 移到 Out 移動中</summary>
+        UnloadMoveTrayToOutIng,
+        /// <summary>Unload, 將 Tray 移到 Out 到達</summary>
+        UnloadMoveTrayToOutComplete,
+        /// <summary>Unload 等待 Box 被取出</summary>
+        UnloadWaitingGetBoxOnTray,
+
+        /// <summary>移動 Home 等待 Load 命令,  開始</summary>
+        MoveTrayToHomeWaitingLoadInstructionStart,
+        /// <summary>移動 Home 等待 Load 命令,  移動中</summary>
+        MoveTrayToHomeWaitingLoadInstructionIng,
+        /// <summary>移動 Home 等待 Load 命令.  完成</summary>
+        MoveTrayToHomeWaitingLoadInstructionComplete,
 
         /*
         MustInitial,

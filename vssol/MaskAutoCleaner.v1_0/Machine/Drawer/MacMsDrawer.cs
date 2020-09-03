@@ -426,7 +426,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 {
                     Guard = (startTime) =>
                     {
-                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
                         {
                             return true;
                         }
@@ -728,7 +728,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                       },
                     Guard = (startTime) =>
                     {
-                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome) { return true; }
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome) { return true; }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed) { throw new DrawerLoadMoveTrayToPositionHomeFailException(); }
                         else if (timeoutObj.IsTimeOut(startTime)) { throw new DrawerLoadMoveTrayToPositionHomeTimeOutException(); }
                         else { return false; }
@@ -1318,7 +1318,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     },
                     Guard = (startTime) =>
                     {
-                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
                         {
                             return true;
                         }

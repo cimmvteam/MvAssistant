@@ -78,8 +78,36 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <summary>Unload, 等待將盒子放到 Tray 上=> 設為最末狀態</summary>
         UnloadWaitingPutBoxOnTray_NULL,
 
+        /// <summary>Unload, 將Tray 移到Home 開始=> 移動中</summary>
+        UnloadMoveTrayToHomeStart_UnloadMoveTrayToHomeIng,
+        /// <summary>Unload, 將Tray 移到Home 移動中=> 完成</summary>
+        UnloadMoveTrayToHomeIng_UnloadMoveTrayToHomeComplete,
+        /// <summary>Unload, 將Tray 移到Home 完成=> 檢查有没有盒子開始</summary>
+        UnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceStart,
+        /// <summary>Unload, 檢查有没有盒子, 開始=> 檢查中</summary>
+        UnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng,
+        /// <summary>Unload, 檢查有没有盒子, 檢查中=> 完成</summary>
+        UnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete,
+        /// <summary>Unload, 檢查有没有盒子, 完成=> 將Tray 送到 Out 開始</summary>
+        UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart,
+        /// <summary>Unload, 將Tray 送到 Out 開始 => 移動中</summary>
+        UnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng,
+        /// <summary>Unload, 將 Tray 送到 Out 移動中=> 完成 </summary>
+        UnloadMoveTrayToOutIng_UnloadMoveTrayToOutComplete,
+        /// <summary>Unload, 將 Tray 送到 Out 完成=> 等待將 盒子拿走 </summary>
+        UnloadMoveTrayToOutComplete_UnloadWaitingGetBoxOnTray,
+        /// <summary>Unload, 等待將 盒子拿走=>設為最末狀態 </summary>
+        UnloadWaitingGetBoxOnTray_NULL,      
 
+        /// <summary>Unload, 在Tray 從In 退到 Home 時, 檢查到没有盒子, 將狀態轉為 WaitingUnloadInstruction </summary>
+        UnloadCheckBoxExistenceComplete_WaitingUnloadInstruction,
 
+        /// <summary>將Tray移到 Home 準備接收 Load 指令, 開始移動=> 移動中</summary>
+        MoveTrayToHomeWaitingLoadInstructionStart_MoveTrayToHomeWaitingLoadInstructionIng,
+        /// <summary>將Tray移到 Home 準備接收 Load 指令, 移動中=> 完成</summary>
+        MoveTrayToHomeWaitingLoadInstructionIng_MoveTrayToHomeWaitingLoadInstructionComplete,
+        /// <summary>將Tray移到 Home 準備接收 Load 指令, 移動中=> 等待接收 Load 指令</summary>
+        MoveTrayToHomeWaitingLoadInstructionComplete_WaitingLoadInstruction,
         /**
 /// <summary>初始化: 開始=> 進行中</summary>
 InitialStart_InitialIng,

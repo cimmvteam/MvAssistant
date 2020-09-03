@@ -118,7 +118,11 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時失敗</summary>
         DrawerMoveTrayToHomeWaitingUnloadInstructionFailException,
         /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時逾時未到</summary>
-        DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException
+        DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException,
+        /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時失敗</summary>
+        DrawerMoveTrayToHomeWaitingLoadInstructionFailException,
+        /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時逾時未到</summary>
+        DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException
 
     }
 

@@ -15,33 +15,174 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     {
         private MacState _currentState = null;
         public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
-        private void ResetState()
-        {
-            SetCurrentState(this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()]);
-        }
-
+        MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
+        public string DeviceIndex { get { return HalDrawer.DeviceIndex; } } 
         private void SetCurrentState(MacState state) 
         {
             _currentState = state;
         }
         public MacState CutrrentState { get { return _currentState; }  }
 
+        public bool CanLoad()
+        {
+            if (_currentState == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
+            { return true; }
+            else
+            { return false; }
+        }
+        #region Command
+
+        /// <summary>系統啟動</summary>
+        /// <remarks>
+        /// 情境: 系統重啟之後, 各個 Drawer 需進入這個狀態
+        /// </remarks>
+        public void SystemBootup()
+        {
+           this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+        /// <summary>系統啟動之後 Initial</summary>
+        /// <remarks>
+        /// <para>
+        /// 狀態會更新到 sWaitingLoadInstruction (等待 Load 命令狀態)
+        /// </para>
+        /// <para>
+        /// 情境: 系統重啟執行第一個作動之前需執行這個命令
+        /// </para>
+        /// </remarks>
+        public void SystemBootupInitial()
+        {
+            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+        /// <summary>Load, 將 Tray 移到 Out</summary>
+        /// <remarks>
+        /// <para>
+        /// 情境: 
+        /// <para>1. Op 點選 UI 的 Load(含數量) 的命令後, 會自動尋找 狀態 為 sWaitingLoadInstruction 的 Drawer;符合條件Drawer的 Tray 退到 Out</para>
+        /// <para>2. Tray 退到 Out 之後, Drawer 的狀態轉為 sLoadWaitingPutBoxOnTray ~ 等待放入 Box 到 Tray 上 </para>
+        /// </para>
+        /// </remarks>
+        public void Load_MoveTrayToOut()
+        {
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+        /// <summary>Load, 將 Tray 移到 Home</summary>
+        /// <remarks>
+        /// <para>
+        /// 情境: Op 將盒子放到 Tray 後, 按下Drawer 的 按鈕, 將 Tray 送到 Home, 檢查盒子在不在
+        /// <para>
+        /// 1. 没有盒子: Tray 回退到Out, 狀態重回 sLoadWaitingPutBoxOnTray(等待 Box 放到 Tray)
+        /// </para>
+        /// <para>
+        /// 2. 有盒子: 狀態更新到  sLoadWaitingMoveTrayToIn (等待命令將 Tray 移到 In)
+        /// </para>
+        /// </para>
+        /// </remarks>
+        public void Load_MoveTrayToHome()
+        {
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+        /// <summary>Load,  Tray  移到 In</summary>
+        /// <remarks>
+        /// <para>
+        /// 情境: 
+        /// <para>1. BoxRobot 要夾取盒子到 Open Stage 先下本命令將 Tray 移到 In </para>
+        /// <para>2. Tray 移到定位時,  狀態更新為 sLoadWaitingGetBoxOnTray (等待盒子被取走)</para>
+        /// </para>
+        /// </remarks>
+        public void Load_MoveTrayToIn()
+        {
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+
+        /// <summary> 盒子被取走後, 將 Tray 移到 Home, 等待 Unload 命令</summary>
+        /// <remarks>
+        /// <para>
+        /// 情境:盒子被 BoxRobot取走之後, 下本指令將 Tray 移到 Home , 狀態更新至 sWaitingUnloadInstruction(等待接收 Unload 指令)
+        /// </para>
+        /// </remarks>
+        public void MoveTrayToHomeWaitingUnloadInstruction()
+        {
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+
+        /// <summary>Unload, 將 Tray 移到 In</summary>
+        /// <remarks>
+        /// <para>
+        /// 情境: Robot 要將盒子送回時,針對Drawer 下本命令, 將指定Drawer 的Tray 移到 In; Tray 到定位後, Drawer 狀態會更新到sUnloadWaitingPutBoxOnTray(等待盒子放到 Tray 上)
+        /// </para>
+        /// </remarks>
+        public void Unload_MoveTrayToIn()
+        {
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+
+
+        /// <summary>Unload, 盒子放到 Tray 後, 將 Tray 移到 Home</summary>
+        /// <remarks>
+        /// <para>
+        /// Tray 移到 Home 之後檢查 Tray 上有没有盒子
+        /// <para>
+        /// 1. 有盒子:自動將 Tray 送到 Out, 狀態會更新到 UnloadWaitingGetBoxOnTray(等待將 盒子拿走)
+        /// </para>
+        /// <para>
+        /// 2. 没盒子:將狀態自動更新至 WaitingUnloadInstruction(等待 Unload 指令)
+        /// </para>
+        /// </para>
+        /// <para>
+        /// 情境: BoxRobot 將要 Unload 的盒子放到指定 Drawer 的 Tray 後, 下令將 Tray 送到 Home, Tray 到達定位時會檢查 Tray 上有没有盒子
+        /// <para>1. 有盒子: 將 Tray 再移動到 Out, Tray 移到定位之後 Drawer 狀態更新為 sUnloadWaitingGetBoxOnTray(等待將 盒子拿走)</para>
+        /// <para>2. 没盒子: 將 狀態變更為sWaitingUnloadInstruction(等待接收 Unload 指令)</para>
+        /// </para>
+        /// </remarks>
+        public void Unload_MoveTrayToHome()
+        {
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+
+        /// <summary>將 Tray 移到 Home, 等待 Load 命令</summary>
+        /// <remarks>
+        /// <para>
+        /// 情境: OP 取走盒子後, 按鈕 或透過 UI 操作, 將 Tray 送到 Home, 狀態更新到 sWaitingLoadInstruction(等待 Load 命令)
+        /// </para>
+        /// </remarks>
+        public void MoveTrayToHomeWaitingLoadInstruction()
+        {
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+        }
+
+        #endregion Command 
+
 
         public override void LoadStateMachine()
         {
             #region  state
+            // 系統啟動
             MacState sSystemBootup = NewState(EnumMacCabinetDrawerState.SystemBootup);
-            //--
+            
+            // 系統啟動後 Initial 
             MacState sSystemBootupInitialStart = NewState(EnumMacCabinetDrawerState.SystemBootupInitialStart);
             MacState sSystemBootupInitialIng = NewState(EnumMacCabinetDrawerState.SystemBootupInitialIng);
             MacState sSystemBootupInitialComplete = NewState(EnumMacCabinetDrawerState.SystemBootupInitialComplete);
-            //--
+
+            // 等待 Load 命令
             MacState sWaitingLoadInstruction = NewState(EnumMacCabinetDrawerState.WaitingLoadInstruction);
-            //--
+  
+            // Load, 將 Tray 移到 Out
             MacState sLoadMoveTrayToOutStart =NewState(EnumMacCabinetDrawerState.LoadMoveTrayToOutStart);
             MacState sLoadMoveTrayToOutIng = NewState(EnumMacCabinetDrawerState.LoadMoveTrayToOutIng);
             MacState sLoadMoveTrayToOutComplete = NewState(EnumMacCabinetDrawerState.LoadMoveTrayToOutComplete);
+
+            // Load, 等待 Box 放到 Tray
             MacState sLoadWaitingPutBoxOnTray = NewState(EnumMacCabinetDrawerState.LoadWaitingPutBoxOnTray);
+           
             //--
             MacState sLoadMoveTrayToHomeStart = NewState(EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart);
             MacState sLoadMoveTrayToHomeIng = NewState(EnumMacCabinetDrawerState.LoadMoveTrayToHomeIng);
@@ -52,9 +193,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
             MacState sLoadWaitingMoveTrayToIn = NewState(EnumMacCabinetDrawerState.LoadWaitingMoveTrayToIn);
 
-            MacState sLoadRejectToOutStart = NewState(EnumMacCabinetDrawerState.LoadRejectToOutStart);
-            MacState sLoadRejectToOutIng = NewState(EnumMacCabinetDrawerState.LoadRejectToOutIng);
-            MacState sLoadRejectToOutComplete = NewState(EnumMacCabinetDrawerState.LoadRejectToOutComplete);
+            MacState sLoadRejectTrayToOutStart = NewState(EnumMacCabinetDrawerState.LoadRejectTrayToOutStart);
+            MacState sLoadRejectTrayToOutIng = NewState(EnumMacCabinetDrawerState.LoadRejectTrayToOutIng);
+            MacState sLoadRejectTrayToOutComplete = NewState(EnumMacCabinetDrawerState.LoadRejectTrayToOutComplete);
 
             MacState sLoadMoveTrayToInStart = NewState(EnumMacCabinetDrawerState.LoadMoveTrayToInStart);
             MacState sLoadMoveTrayToInIng = NewState(EnumMacCabinetDrawerState.LoadMoveTrayToInIng);
@@ -72,6 +213,24 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacState sUnloadMoveTrayToInComplete = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToInComplete);
 
             MacState sUnloadWaitingPutBoxOnTray = NewState(EnumMacCabinetDrawerState.UnloadWaitingPutBoxOnTray);
+
+            MacState sUnloadMoveTrayToHomeStart = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart);
+            MacState sUnloadMoveTrayToHomeIng = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToHomeIng);
+            MacState sUnloadMoveTrayToHomeComplete = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToHomeComplete);
+
+            MacState sUnloadCheckBoxExistenceStart = NewState(EnumMacCabinetDrawerState.UnloadCheckBoxExistenceStart);
+            MacState sUnloadCheckBoxExistenceIng = NewState(EnumMacCabinetDrawerState.UnloadCheckBoxExistenceIng);
+            MacState sUnloadCheckBoxExistenceComplete = NewState(EnumMacCabinetDrawerState.UnloadCheckBoxExistenceComplete);
+
+            MacState sUnloadMoveTrayToOutStart = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToOutStart);
+            MacState sUnloadMoveTrayToOutIng = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToOutIng);
+            MacState sUnloadMoveTrayToOutComplete = NewState(EnumMacCabinetDrawerState.UnloadMoveTrayToOutComplete);
+
+            MacState sUnloadWaitingGetBoxOnTray = NewState(EnumMacCabinetDrawerState.UnloadWaitingGetBoxOnTray);
+
+            MacState sMoveTrayToHomeWaitingLoadInstructionStart = NewState(EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart);
+            MacState sMoveTrayToHomeWaitingLoadInstructionIng = NewState(EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionIng);
+            MacState sMoveTrayToHomeWaitingLoadInstructionComplete = NewState(EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionComplete);
             #endregion state
 
             #region transition
@@ -96,10 +255,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tLoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn = NewTransition(sLoadCheckBoxExistenceComplete,sLoadWaitingMoveTrayToIn, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn);
             MacTransition tLoadWaitingMoveTrayToIn_NULL = NewTransition(sLoadWaitingMoveTrayToIn,null, EnumMacCabinetDrawerTransition.LoadWaitingMoveTrayToIn_NULL);
 
-            MacTransition tLoadCheckBoxExistenceComplete_LoadRejectToOutStart = NewTransition(sLoadCheckBoxExistenceComplete,sLoadRejectToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectToOutStart);
-            MacTransition tLoadRejectToOutStart_LoadRejectToOutIng = NewTransition(sLoadRejectToOutStart,sLoadRejectToOutIng, EnumMacCabinetDrawerTransition.LoadRejectToOutStart_LoadRejectToOutIng);
-            MacTransition tLoadRejectToOutIng_LoadRejectToOutComplete = NewTransition(sLoadRejectToOutIng,sLoadRejectToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectToOutIng_LoadRejectToOutComplete );
-            MacTransition tLoadRejectToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectToOutComplete_LoadWaitingPutBoxOnTray);
+            MacTransition tLoadCheckBoxExistenceComplete_LoadRejectToOutStart = NewTransition(sLoadCheckBoxExistenceComplete,sLoadRejectTrayToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectToOutStart);
+            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart,sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectToOutStart_LoadRejectToOutIng);
+            MacTransition tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete = NewTransition(sLoadRejectTrayToOutIng,sLoadRejectTrayToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectToOutIng_LoadRejectToOutComplete );
+            MacTransition tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectTrayToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectToOutComplete_LoadWaitingPutBoxOnTray);
 
             MacTransition tLoadMoveTrayToInStart_LoadMoveTrayToInIng = NewTransition(sLoadMoveTrayToInStart,sLoadMoveTrayToInIng, EnumMacCabinetDrawerTransition.LoadMoveTrayToInStart_LoadMoveTrayToInIng);
             MacTransition tLoadMoveTrayToInIng_LoadMoveTrayToInComplete = NewTransition(sLoadMoveTrayToInIng,sLoadMoveTrayToInComplete, EnumMacCabinetDrawerTransition.LoadMoveTrayToInIng_LoadMoveTrayToInComplete);
@@ -118,6 +277,38 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tUnloadMoveTrayToInIng_UnloadMoveTrayToInComplete = NewTransition(sUnloadMoveTrayToInIng,sUnloadMoveTrayToInComplete, EnumMacCabinetDrawerTransition.UnloadMoveTrayToInIng_UnloadMoveTrayToInComplete);
             MacTransition tUnloadMoveTrayToInComplete_UnloadWaitingPutBoxOnTray = NewTransition(sUnloadMoveTrayToInComplete,sUnloadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.UnloadMoveTrayToInComplete_UnloadWaitingPutBoxOnTray);
             MacTransition tUnloadWaitingPutBoxOnTray_NULL = NewTransition(sUnloadWaitingPutBoxOnTray,null, EnumMacCabinetDrawerTransition.UnloadWaitingPutBoxOnTray_NULL);
+
+            MacTransition tUnloadMoveTrayToHomeStart_UnloadMoveTrayToHomeIng = NewTransition(sUnloadMoveTrayToHomeStart, sUnloadMoveTrayToHomeIng, 
+                                                                                  EnumMacCabinetDrawerTransition.UnloadMoveTrayToHomeStart_UnloadMoveTrayToHomeIng);
+            MacTransition tUnloadMoveTrayToHomeIng_UnloadMoveTrayToHomeComplete = NewTransition(sUnloadMoveTrayToHomeIng,sUnloadMoveTrayToHomeComplete,
+                                                                                  EnumMacCabinetDrawerTransition.UnloadMoveTrayToHomeIng_UnloadMoveTrayToHomeComplete);
+            MacTransition tUnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceStart = NewTransition(sUnloadMoveTrayToHomeComplete,sUnloadCheckBoxExistenceStart,
+                                                                                  EnumMacCabinetDrawerTransition.UnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceStart);
+            MacTransition tUnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng = NewTransition(sUnloadCheckBoxExistenceStart,sUnloadCheckBoxExistenceIng,
+                                                                                 EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng);
+            MacTransition tUnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete = NewTransition(sUnloadCheckBoxExistenceIng,sUnloadCheckBoxExistenceComplete,
+                                                                                 EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete);
+            MacTransition tUnloadCheckBoxExistenceComplete_WaitingUnloadInstruction = NewTransition(sUnloadCheckBoxExistenceComplete,sWaitingUnloadInstruction,
+                                                                                 EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
+            MacTransition tUnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart = NewTransition(sUnloadCheckBoxExistenceComplete,sUnloadMoveTrayToOutStart,
+                                                                                 EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
+            MacTransition tUnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng = NewTransition(sUnloadMoveTrayToOutStart,sUnloadMoveTrayToOutIng,
+                                                                                EnumMacCabinetDrawerTransition.UnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng);
+            MacTransition tUnloadMoveTrayToOutIng_UnloadMoveTrayToOutComplete = NewTransition(sUnloadMoveTrayToOutIng,sUnloadMoveTrayToOutComplete,
+                                                                                EnumMacCabinetDrawerTransition.UnloadMoveTrayToOutIng_UnloadMoveTrayToOutComplete);
+            MacTransition tUnloadMoveTrayToOutComplete_UnloadWaitingGetBoxOnTray = NewTransition(sUnloadMoveTrayToOutComplete,sUnloadWaitingGetBoxOnTray,
+                                                                               EnumMacCabinetDrawerTransition.UnloadMoveTrayToOutComplete_UnloadWaitingGetBoxOnTray);
+            MacTransition tUnloadWaitingGetBoxOnTray_NULL = NewTransition(sUnloadWaitingGetBoxOnTray,null,
+                                                                               EnumMacCabinetDrawerTransition.UnloadWaitingGetBoxOnTray_NULL);
+
+
+            MacTransition tMoveTrayToHomeWaitingLoadInstructionStart_MoveTrayToHomeWaitingLoadInstructionIng = NewTransition(sMoveTrayToHomeWaitingLoadInstructionStart, sMoveTrayToHomeWaitingLoadInstructionIng,
+                                                                                                        EnumMacCabinetDrawerTransition.MoveTrayToHomeWaitingLoadInstructionStart_MoveTrayToHomeWaitingLoadInstructionIng);
+            MacTransition tMoveTrayToHomeWaitingLoadInstructionIng_MoveTrayToHomeWaitingLoadInstructionComplete = NewTransition(sMoveTrayToHomeWaitingLoadInstructionIng, sMoveTrayToHomeWaitingLoadInstructionComplete,
+                                                                                                       EnumMacCabinetDrawerTransition.MoveTrayToHomeWaitingLoadInstructionIng_MoveTrayToHomeWaitingLoadInstructionComplete);
+            MacTransition tMoveTrayToHomeWaitingLoadInstructionComplete_WaitingLoadInstruction = NewTransition(sMoveTrayToHomeWaitingLoadInstructionComplete, sWaitingLoadInstruction,
+                                                                                                       EnumMacCabinetDrawerTransition.MoveTrayToHomeWaitingLoadInstructionComplete_WaitingLoadInstruction);
+
             //
 
             #endregion transition
@@ -176,7 +367,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
             sSystemBootupInitialIng.OnEntry += (sender, e) =>
             {  // Async
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+              
                 this.SetCurrentState((MacState)sender);
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -190,7 +381,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     Guard = (startTime) =>
                     {
                         var rtnV = false;
-                        if (this.HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        if (this.HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
                         {
                             rtnV = true;
                         }
@@ -198,7 +389,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             throw new DrawerInitialFailException();
                         }
-                        else if (timeoutObject.IsTimeOut(startTime))
+                        else if (TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerInitialTimeOutException();
                         }
@@ -294,7 +485,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {// Async
                 var transition = tLoadMoveTrayToOutIng_LoadMoveTrayToOutComplete;
                 this.SetCurrentState((MacState)sender);
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+             
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -314,7 +505,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             throw new DrawerLoadMoveTrayToPositionOutFailException();
                         }
-                        else if (timeoutObject.IsTimeOut(startTime))
+                        else if (TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerLoadMoveTrayToPositionOutTimeOutException();
                         }
@@ -406,7 +597,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  //Async
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToHomeIng_LoadMoveTrayToHomeComplete;
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+         
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -418,7 +609,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     Guard = (startTime) =>
                     {
                         var rtnV = false;
-                        if(HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        if(HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
                         {
                             rtnV = true;
                         }
@@ -426,7 +617,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             throw new DrawerLoadMoveTrayToPositionHomeFailException();
                         }
-                        else if(timeoutObject.IsTimeOut(startTime))
+                        else if(TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerLoadMoveTrayToPositionHomeTimeOutException();
                         }
@@ -493,7 +684,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Async
                 SetCurrentState((MacState)sender);
                 var transition = tLoadCheckBoxExistenceIng_LoadCheckBoxExistenceComplete;
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+        
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -509,7 +700,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             rtnV = true;
                         }
-                        else if (timeoutObject.IsTimeOut(startTime))
+                        else if (TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerLoadCheckBoxExistanceAtPositionHomeTimeOutException();
                         }
@@ -594,10 +785,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
             };
 
-            sLoadRejectToOutStart.OnEntry += (sender,e) =>
+            sLoadRejectTrayToOutStart.OnEntry += (sender,e) =>
             {  // Sync
                 SetCurrentState((MacState)sender);
-                var transition = tLoadRejectToOutStart_LoadRejectToOutIng;
+                var transition = tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng;
                 var triggerMember = new TriggerMember
                 {
                     Action = (parameter)=>HalDrawer.CommandTrayMotionOut(),
@@ -614,16 +805,16 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLoadRejectToOutStart.OnExit += (sender, e) =>
+            sLoadRejectTrayToOutStart.OnExit += (sender, e) =>
             {
 
             };
 
-            sLoadRejectToOutIng.OnEntry += (sender, e) =>
+            sLoadRejectTrayToOutIng.OnEntry += (sender, e) =>
             { //Async
                 SetCurrentState((MacState)sender);
-                var transition = tLoadRejectToOutIng_LoadRejectToOutComplete;
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+                var transition = tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete;
+    
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                      Action=null,
@@ -643,7 +834,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             throw new DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeFailException();
                         }
-                        else if (timeoutObject.IsTimeOut(startTime))
+                        else if (TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException();
                         }
@@ -655,15 +846,15 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMemberAsync);
                 Trigger(transition);
             };
-            sLoadRejectToOutIng.OnEntry += (sender, e) =>
+            sLoadRejectTrayToOutIng.OnEntry += (sender, e) =>
             {
 
             };
 
-            sLoadRejectToOutComplete.OnEntry += (sender, e) =>
+            sLoadRejectTrayToOutComplete.OnEntry += (sender, e) =>
             {  // Sync
                 SetCurrentState((MacState)sender);
-                var transition = tLoadRejectToOutComplete_LoadWaitingPutBoxOnTray;
+                var transition = tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray;
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -680,7 +871,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLoadRejectToOutComplete.OnExit += (sender, e) =>
+            sLoadRejectTrayToOutComplete.OnExit += (sender, e) =>
             {
 
             };
@@ -714,7 +905,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             { // Async
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToInIng_LoadMoveTrayToInComplete;
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+         
                 TriggerMemberAsync triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -734,7 +925,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             throw new DrawerLoadMoveTrayToPositionInFailException();
                         }
-                        else if (timeoutObject.IsTimeOut(startTime))
+                        else if (TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerLoadMoveTrayToPositionInTimeOutException();
                         }
@@ -830,7 +1021,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             { // Async
                 SetCurrentState((MacState)sender);
                 var transition = tMoveTrayToHomeWaitingUnloadInstructionIng_MoveTrayToHomeWaitingUnloadInstructionComplete;
-                MacMsTimeOutController timeoutObject = new MacMsTimeOutController();
+  
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -842,7 +1033,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     Guard = (startTime) =>
                     {
                         var rtnV = false;
-                        if ( HalDrawer.CurrentWorkState== DrawerWorkState.TrayArriveAtHome )
+                        if ( HalDrawer.CurrentWorkState== DrawerWorkState.TrayArriveAtPositionHome )
                         {
                             rtnV = true;
                         }
@@ -850,7 +1041,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         {
                             throw new DrawerMoveTrayToHomeWaitingUnloadInstructionFailException();
                         }
-                        else if(timeoutObject.IsTimeOut(startTime))
+                        else if(TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException();
                         }
@@ -890,6 +1081,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {
               
             };
+
             sWaitingUnloadInstruction.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -910,11 +1102,529 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
+            sWaitingUnloadInstruction.OnExit += (sender, e) =>
+            {   
+               
+            };
 
-            sWaitingUnloadInstruction.OnEntry += (sender, e) =>
+            sUnloadMoveTrayToInStart.OnEntry += (sender, e) =>
+            { // Sync
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToInStart_UnloadMoveTrayToInIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => this.HalDrawer.CommandTrayMotionIn(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something;
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sUnloadMoveTrayToInStart.OnExit += (sender, e) =>
             {
 
             };
+
+            sUnloadMoveTrayToInIng.OnEntry += (sender, e) =>
+            {  // Async
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToInIng_UnloadMoveTrayToInComplete;
+  
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = (startTime) =>
+                    {
+                        var rtnV = false;
+                        if(HalDrawer.CurrentWorkState==DrawerWorkState.TrayArriveAtPositionIn)
+                        {
+                            rtnV = true;
+                        }
+                        else if(HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                        {
+                            throw new DrawerUnloadMoveTrayToPositionInFailException();
+                        }
+                        else if (TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new DrawerUnloadMoveTrayToPositionInTimeOutException();
+                        }
+                        return rtnV;
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sUnloadMoveTrayToInIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadMoveTrayToInComplete.OnEntry += (sender, e) =>
+            {  // Sync
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToInComplete_UnloadWaitingPutBoxOnTray;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+            };
+            sUnloadMoveTrayToInComplete.OnExit += (sender, e) =>
+            {
+
+            };
+           
+            /**unload, 等待將Box 放在 Tray 上 
+             */ 
+            sUnloadWaitingPutBoxOnTray.OnEntry += (sender, e) =>
+              {// sync
+                  SetCurrentState((MacState)sender);
+                  var transition = tUnloadWaitingPutBoxOnTray_NULL;
+                  var triggerMember = new TriggerMember
+                  {
+                      Action = null,
+                      ActionParameter = null,
+                      ExceptionHandler = (state, ex) =>
+                      {
+                          // do somethingf
+                      },
+                      Guard = () => true,
+                      NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                      NotGuardException = null,
+                      ThisStateExitEventArgs = new MacStateExitEventArgs()
+                  };
+                  transition.SetTriggerMembers(triggerMember);
+                  Trigger(transition);
+              };
+            sUnloadWaitingPutBoxOnTray.OnExit += (sender, e) =>
+            {
+
+            };
+
+            #region Unload,將 Tray 送到 Home
+            sUnloadMoveTrayToHomeStart.OnEntry += (sender, e) =>
+            {// Sync
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToHomeStart_UnloadMoveTrayToHomeIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => HalDrawer.CommandTrayMotionHome(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs() 
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sUnloadMoveTrayToHomeStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadMoveTrayToHomeIng.OnEntry += (sender, e) =>
+            {   // Async
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToHomeIng_UnloadMoveTrayToHomeComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                     Action=null,
+                      ActionParameter=null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = (startTime) =>
+                    {
+                        var rtnV = false;
+                        if(HalDrawer.CurrentWorkState==DrawerWorkState.TrayArriveAtPositionHome)
+                        {
+                            rtnV = true;
+                        }
+                        else if(HalDrawer.CurrentWorkState== DrawerWorkState.TrayMotionFailed)
+                        {
+                            throw new DrawerUnloadMoveTrayToPositionHomeFailException();
+                        }
+                        else if (TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new DrawerUnloadMoveTrayToPositionHomeTimeOutException();
+                        }
+                        return rtnV;
+                    },
+                     NextStateEntryEventArgs=new MacStateEntryEventArgs(),
+                     ThisStateExitEventArgs=new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sUnloadMoveTrayToHomeIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadMoveTrayToHomeComplete.OnEntry += (sender, e) =>
+            {   // Sync
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceStart;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sUnloadMoveTrayToHomeComplete.OnExit += (sender, e) =>
+            {
+
+            };
+            #endregion 將 Tray 送到 Home
+
+            #region Unload, 檢查有没有盒子
+            sUnloadCheckBoxExistenceStart.OnEntry += (sender, e) =>
+            {  // sync
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => HalDrawer.CommandBoxDetection(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sUnloadCheckBoxExistenceStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadCheckBoxExistenceIng.OnEntry += (sender, e) =>
+            {   // Async
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = (startTime) =>
+                    {
+                        var rtnV = false;
+                        if(HalDrawer.CurrentWorkState==DrawerWorkState.BoxExist || HalDrawer.CurrentWorkState == DrawerWorkState.BoxNotExist)
+                        {
+                            rtnV = true;
+                        }
+                        else if(TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new DrawerLoadCheckBoxExistanceAtPositionHomeTimeOutException();
+                        }
+                        return rtnV;
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                Trigger(transition);
+            };
+            sUnloadCheckBoxExistenceIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadCheckBoxExistenceComplete.OnEntry += (sender, e) =>
+            {  // Sync
+                SetCurrentState((MacState)sender);
+                MacTransition transition = null;
+                TriggerMember triggerMember = null;
+                triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
+                {    // Tray 上有 Box, 回到 Out
+                    transition = tUnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart;
+                }
+                else //if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxNotExist)
+                {    // Tray 上没有 BOX, 回復到WaitingUnloadInstruction 狀態
+                    transition = tUnloadCheckBoxExistenceComplete_WaitingUnloadInstruction;
+                }
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sUnloadCheckBoxExistenceComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            #endregion Unload, 檢查有没有盒子
+            #region Unload, 將Box 移至 Out
+            sUnloadMoveTrayToOutStart.OnEntry += (sender, e) =>
+            {  // Sync
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => HalDrawer.CommandTrayMotionOut(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sUnloadMoveTrayToOutStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadMoveTrayToOutIng.OnEntry += (sender, e) =>
+            {  // Async
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadMoveTrayToOutIng_UnloadMoveTrayToOutComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                     Action=null,
+                      ActionParameter=null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = (startTime) =>
+                    {
+                        var rtnV = false;
+                        if(HalDrawer.CurrentWorkState==DrawerWorkState.TrayArriveAtPositionOut)
+                        {
+                            rtnV = true;
+                        }
+                        else if(HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                        {
+                            throw new DrawerUnloadMoveTrayToPositionOutFailException();
+                        }
+                        else if (TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new DrawerUnloadMoveTrayToPositionOutTimeOutException();
+                        }
+                        return rtnV;
+                    },
+                };
+            };
+            sUnloadMoveTrayToOutIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadMoveTrayToOutComplete.OnEntry += (sender, e) =>
+            {  // Sync
+                SetCurrentState((MacState)sender);
+                // Unload,已將Tary移到 Out, 等待 將Box 取走 
+                var transition = tUnloadMoveTrayToOutComplete_UnloadWaitingGetBoxOnTray;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // to something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+            } ;
+            sUnloadMoveTrayToOutComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUnloadWaitingGetBoxOnTray.OnEntry += (sender, e)=>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tUnloadWaitingGetBoxOnTray_NULL;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+            };
+            sUnloadWaitingGetBoxOnTray.OnExit += (sender, e) =>
+            {
+
+            };
+            #endregion Unload, 將Box 移至 Out
+
+            #region 將Tray 移到 Home, 準備接 Load指令 
+            sMoveTrayToHomeWaitingLoadInstructionStart.OnEntry += (sender, e) =>
+            {  // Sync
+                var transition = tMoveTrayToHomeWaitingLoadInstructionStart_MoveTrayToHomeWaitingLoadInstructionIng;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => HalDrawer.CommandTrayMotionHome(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something  
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMoveTrayToHomeWaitingLoadInstructionStart.OnExit+= (sender, e) =>
+            {
+
+            };
+
+            sMoveTrayToHomeWaitingLoadInstructionIng.OnEntry += (sender, e) =>
+            {  // Async
+                var transition = tMoveTrayToHomeWaitingLoadInstructionIng_MoveTrayToHomeWaitingLoadInstructionComplete;
+                SetCurrentState((MacState)sender);
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                      {
+                           // do something
+                       },
+                    Guard = (startTime) =>
+                    {
+                        var rtnV = false;
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
+                        {
+                            rtnV = true;
+                        }
+                        else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+                        {
+                            throw new DrawerMoveTrayToHomeWaitingLoadInstructionFailException();
+                        }
+                        else if (TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException();
+                        }
+                        return rtnV;
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sMoveTrayToHomeWaitingLoadInstructionIng.OnExit += (sender, e) =>
+            {
+                
+            };
+
+            sMoveTrayToHomeWaitingLoadInstructionComplete.OnEntry += (sender, e) =>
+            {  // Sync
+                SetCurrentState((MacState)sender);
+                var transition = tMoveTrayToHomeWaitingLoadInstructionComplete_WaitingLoadInstruction;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMoveTrayToHomeWaitingLoadInstructionComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+
+            #endregion 將Tray 移到 Home, 準備接 Load指令
+
 
             #endregion event
 

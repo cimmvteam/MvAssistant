@@ -116,6 +116,8 @@
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionOutFailException .cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingLoadInstructionFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingUnloadInstructionFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustInitialException.cs" />
