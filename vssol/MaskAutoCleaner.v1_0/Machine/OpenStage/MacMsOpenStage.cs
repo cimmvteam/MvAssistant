@@ -1,4 +1,5 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MaskAutoCleaner.v1_0.StateMachineExceptions.OpenStageStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,336 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
         private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
 
+        private MacState _currentState = null;
+
+        public void ResetState()
+        { this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
+
+        private void SetCurrentState(MacState state)
+        { _currentState = state; }
+
+        public MacState CurrentState { get { return _currentState; } }
+
         public MacMsOpenStage() { LoadStateMachine(); }
 
         MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();
+
+        public void Initial()
+        {
+            this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+        }
+
+        public void InputBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CalibrationClosedBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void OpenBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CloseBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReturnCloseBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReleaseBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReturnToIdleAfterReleaseBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+
+
+        public void InputBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CalibrationClosedBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void OpenBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CloseBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReturnCloseBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReleaseBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ReturnToIdleAfterReleaseBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+
         public override void LoadStateMachine()
         {
             #region State
@@ -54,466 +382,520 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             #region Transition
             MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacMsOpenStageTransition.PowerON);
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsOpenStageTransition.Initial);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsOpenStageTransition.StandbyAtIdle);
 
-            MacTransition tIdle_WaitingForInputBox = NewTransition(sIdle, sWaitingForInputBox, EnumMacMsOpenStageTransition.WaitForInputBox);
-            MacTransition tWaitingForInputBox_ClosedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacMsOpenStageTransition.StandbyAtClosedBoxFromIdle);
+            MacTransition tIdle_WaitingForInputBox = NewTransition(sIdle, sWaitingForInputBox, EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBox);
+            MacTransition tWaitingForInputBox_NULL = NewTransition(sWaitingForInputBox, null, EnumMacMsOpenStageTransition.StandbyAtWaitForInputBox);
+            MacTransition tWaitingForInputBox_ClosedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBox);
             MacTransition tClosedBox_WaitingForUnlock = NewTransition(sClosedBox, sWaitingForUnlock, EnumMacMsOpenStageTransition.WaitForUnlock);
-            MacTransition tWaitingForUnlock_OpeningBox = NewTransition(sWaitingForUnlock, sOpeningBox, EnumMacMsOpenStageTransition.OpenBox);
-            MacTransition tOpeningBox_OpenedBox = NewTransition(sOpeningBox, sOpenedBox, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxFromClosedBox);
+            MacTransition tWaitingForUnlock_NULL = NewTransition(sWaitingForUnlock, null, EnumMacMsOpenStageTransition.StandbyAtWaitForUnlock);
+            MacTransition tWaitingForUnlock_OpeningBox = NewTransition(sWaitingForUnlock, sOpeningBox, EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBox);
+            MacTransition tOpeningBox_OpenedBox = NewTransition(sOpeningBox, sOpenedBox, EnumMacMsOpenStageTransition.OpenedBox);
             MacTransition tOpenedBox_WaitingForInputMask = NewTransition(sOpenedBox, sWaitingForInputMask, EnumMacMsOpenStageTransition.WaitForInputMask);
-            MacTransition tWaitingForInputMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForInputMask, sOpenedBoxWithMaskForClose, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxWithMaskFromOpenedBox);
+            MacTransition tWaitingForInputMask_NULL = NewTransition(sWaitingForInputMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForInputMask);
+            MacTransition tWaitingForInputMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForInputMask, sOpenedBoxWithMaskForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBoxWithMask);
+            MacTransition tWaitingForInputMask_OpenedBoxForClose = NewTransition(sWaitingForInputMask, sOpenedBoxForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBox);
             MacTransition tOpenedBoxWithMaskForClose_ClosingBoxWithMask = NewTransition(sOpenedBoxWithMaskForClose, sClosingBoxWithMask, EnumMacMsOpenStageTransition.CloseBoxWithMask);
             MacTransition tClosingBoxWithMask_WaitingForLockWithMask = NewTransition(sClosingBoxWithMask, sWaitingForLockWithMask, EnumMacMsOpenStageTransition.WaitForLockWithMask);
-            MacTransition tWaitingForLockWithMask_ClosedBoxWithMaskForRelease = NewTransition(sWaitingForLockWithMask, sClosedBoxWithMaskForRelease, EnumMacMsOpenStageTransition.StandbyAtClosedBoxWithMaskFromOpenedBoxWithMask);
+            MacTransition tWaitingForLockWithMask_NULL = NewTransition(sWaitingForLockWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForLockWithMask);
+            MacTransition tWaitingForLockWithMask_ClosedBoxWithMaskForRelease = NewTransition(sWaitingForLockWithMask, sClosedBoxWithMaskForRelease, EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBoxWithMask);
             MacTransition tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask = NewTransition(sClosedBoxWithMaskForRelease, sWaitingForReleaseBoxWithMask, EnumMacMsOpenStageTransition.WaitForReleaseBoxWithMask);
-            MacTransition tWaitingForReleaseBoxWithMask_Idle = NewTransition(sWaitingForReleaseBoxWithMask, sIdle, EnumMacMsOpenStageTransition.ReturnToIdleFromClosedBoxWithMask);
+            MacTransition tWaitingForReleaseBoxWithMask_NULL = NewTransition(sWaitingForReleaseBoxWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForReleaseBoxWithMask);
+            MacTransition tWaitingForReleaseBoxWithMask_Idle = NewTransition(sWaitingForReleaseBoxWithMask, sIdle, EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBoxWithMask);
 
-            MacTransition tIdle_WaitingForInputBoxWithMask = NewTransition(sIdle, sWaitingForInputBoxWithMask, EnumMacMsOpenStageTransition.WaitForInputBoxWithMask);
-            MacTransition tWaitingForInputBoxWithMask_ClosedBoxWithMask = NewTransition(sWaitingForInputBoxWithMask, sClosedBoxWithMask, EnumMacMsOpenStageTransition.StandbyAtClosedBoxWithMaskFromIdle);
+
+
+            MacTransition tIdle_WaitingForInputBoxWithMask = NewTransition(sIdle, sWaitingForInputBoxWithMask, EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBoxWithMask);
+            MacTransition tWaitingForInputBoxWithMask_NULL = NewTransition(sWaitingForInputBoxWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForInputBoxWithMask);
+            MacTransition tWaitingForInputBoxWithMask_ClosedBoxWithMask = NewTransition(sWaitingForInputBoxWithMask, sClosedBoxWithMask, EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBoxWithMask);
             MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlockWithMask, EnumMacMsOpenStageTransition.WaitForUnlockWithMask);
-            MacTransition tWaitingForUnlockWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlockWithMask, sOpeningBoxWithMask, EnumMacMsOpenStageTransition.OpenBoxWithMask);
-            MacTransition tOpeningBoxWithMask_OpenedBoxWithMask = NewTransition(sOpeningBoxWithMask, sOpenedBoxWithMask, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxWithMaskFromClosedBoxWithMask);
+            MacTransition tWaitingForUnlockWithMask_NULL = NewTransition(sWaitingForUnlockWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForUnlockWithMask);
+            MacTransition tWaitingForUnlockWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlockWithMask, sOpeningBoxWithMask, EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBoxWithMask);
+            MacTransition tOpeningBoxWithMask_OpenedBoxWithMask = NewTransition(sOpeningBoxWithMask, sOpenedBoxWithMask, EnumMacMsOpenStageTransition.OpenedBoxWithMask);
             MacTransition tOpenedBoxWithMask_WaitingForReleaseMask = NewTransition(sOpenedBoxWithMask, sWaitingForReleaseMask, EnumMacMsOpenStageTransition.WaitForReleaseMask);
-            MacTransition tWaitingForReleaseMask_OpenedBoxForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxForClose, EnumMacMsOpenStageTransition.StandbyAtOpenedBoxFromOpenedBoxWithMask);
+            MacTransition tWaitingForReleaseMask_NULL = NewTransition(sWaitingForReleaseMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForReleaseMask);
+            MacTransition tWaitingForReleaseMask_OpenedBoxForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBox);
+            MacTransition tWaitingForReleaseMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxWithMaskForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask);
             MacTransition tOpenedBoxForClose_ClosingBox = NewTransition(sOpenedBoxForClose, sClosingBox, EnumMacMsOpenStageTransition.CloseBox);
             MacTransition tClosingBox_WaitingForLock = NewTransition(sClosingBox, sWaitingForLock, EnumMacMsOpenStageTransition.WaitForLock);
-            MacTransition tWaitingForLock_ClosedBoxForRelease = NewTransition(sWaitingForLock, sClosedBoxForRelease, EnumMacMsOpenStageTransition.StandbyAtClosedBoxFromOpenedBox);
+            MacTransition tWaitingForLock_NULL = NewTransition(sWaitingForLock, null, EnumMacMsOpenStageTransition.StandbyAtWaitForLock);
+            MacTransition tWaitingForLock_ClosedBoxForRelease = NewTransition(sWaitingForLock, sClosedBoxForRelease, EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBox);
             MacTransition tClosedBoxForRelease_WaitingForReleaseBox = NewTransition(sClosedBoxForRelease, sWaitingForReleaseBox, EnumMacMsOpenStageTransition.WaitForReleaseBox);
-            MacTransition tWaitingForReleaseBox_Idle = NewTransition(sWaitingForReleaseBox, sIdle, EnumMacMsOpenStageTransition.ReturnToIdleFromClosedBox);
+            MacTransition tWaitingForReleaseBox_NULL = NewTransition(sWaitingForReleaseBox, null, EnumMacMsOpenStageTransition.StandbyAtWaitForReleaseBox);
+            MacTransition tWaitingForReleaseBox_Idle = NewTransition(sWaitingForReleaseBox, sIdle, EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBox);
             #endregion Transition
 
             #region State Register OnEntry OnExit
             sStart.OnEntry += (sender, e) =>
-            { };
+            {
+                SetCurrentState((MacState)sender);
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tStart_Initial;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sStart.OnExit += (sender, e) =>
             { };
             sInitial.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    HalOpenStage.Initial();
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tInitial_Idle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.Initial)
-                        {
-                            try
-                            {
-                                HalOpenStage.Initial();
-                                transition = tInitial_Idle;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sInitial.OnExit += (sender, e) =>
             { };
 
             sIdle.OnEntry += (sender, e) =>
-            { };
+            {
+                SetCurrentState((MacState)sender);
+                try
+                {
+                    if (HalOpenStage.ReadWeightOnStage() > 285)
+                        throw new OpenStageGuardException("The stage is not cleared !");
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tIdle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sIdle.OnExit += (sender, e) =>
             { };
             sWaitingForInputBox.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForInputBox_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                            if (BoxWeight > 285)
-                            {
-                                transition = tWaitingForInputBox_ClosedBox;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForInputBox.OnExit += (sender, e) =>
             { };
             sClosedBox.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    var BoxType = (uint)e.Parameter;
+                    CheckBoxWeight(BoxType, false);
+                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                        throw new OpenStageGuardException("Box status was not closed");
+                    HalOpenStage.SetBoxType(BoxType);
+                    HalOpenStage.SortClamp();
+                    Thread.Sleep(1000);
+                    HalOpenStage.SortUnclamp();
+                    HalOpenStage.SortClamp();
+                    Thread.Sleep(1000);
+                    HalOpenStage.Vacuum(true);
+                    HalOpenStage.SortUnclamp();
+                    HalOpenStage.Lock();
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tClosedBox_WaitingForUnlock;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.ClosedBox)
-                        {
-                            try
-                            {
-                                var BoxType = (uint)e.Parameter;
-                                var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                                if (BoxType == 1)
-                                {
-                                    if (BoxWeight < 775 || BoxWeight > 778)
-                                        throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                else if (BoxType == 2)
-                                {
-                                    if (BoxWeight < 589 || BoxWeight > 590)
-                                        throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                                    throw new Exception("Box status was not closed");
-                                transition = tClosedBox_WaitingForUnlock;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sClosedBox.OnExit += (sender, e) =>
             { };
             sWaitingForUnlock.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForUnlock_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被解開
-                            {
-                                transition = tWaitingForUnlock_OpeningBox;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForUnlock.OnExit += (sender, e) =>
             { };
             sOpeningBox.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    HalOpenStage.Close();
+                    HalOpenStage.Clamp();
+                    HalOpenStage.Open();
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tOpeningBox_OpenedBox;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.OpeningBox)
-                        {
-                            try
-                            {
-                                HalOpenStage.Close();
-                                HalOpenStage.Clamp();
-                                HalOpenStage.Open();
-                                transition = tOpeningBox_OpenedBox;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpeningBox.OnExit += (sender, e) =>
             { };
             sOpenedBox.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    if (HalOpenStage.ReadCoverSensor().Item1 == false)
+                        throw new OpenStageGuardException("Box status was not opened");
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tOpenedBox_WaitingForInputMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.OpenedBox)
-                        {
-                            try
-                            {
-                                if (HalOpenStage.ReadCoverSensor().Item1 == false)
-                                    throw new Exception("Box status was not opened");
-                                transition = tOpenedBox_WaitingForInputMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpenedBox.OnExit += (sender, e) =>
             { };
             sWaitingForInputMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForInputMask_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                            if ((BoxWeight >= 1102 && BoxWeight <= 1104) || (BoxWeight >= 918 && BoxWeight <= 920))
-                            {
-                                transition = tWaitingForInputBox_ClosedBox;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForInputMask.OnExit += (sender, e) =>
             { };
             sOpenedBoxWithMaskForClose.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    CheckBoxWeight(null, true);
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tOpenedBoxWithMaskForClose_ClosingBoxWithMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.OpenedBoxWithMaskForClose)
-                        {
-                            try
-                            {
-                                if (HalOpenStage.ReadCoverSensor().Item1 == false)
-                                    throw new Exception("Box status was not opened");
-                                transition = tOpenedBoxWithMaskForClose_ClosingBoxWithMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpenedBoxWithMaskForClose.OnExit += (sender, e) =>
             { };
             sClosingBoxWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    HalOpenStage.Close();
+                    HalOpenStage.Unclamp();
+                    HalOpenStage.Lock();
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tClosingBoxWithMask_WaitingForLockWithMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.ClosingBoxWithMask)
-                        {
-                            try
-                            {
-                                HalOpenStage.Close();
-                                HalOpenStage.Unclamp();
-                                HalOpenStage.Lock();
-                                transition = tClosingBoxWithMask_WaitingForLockWithMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sClosingBoxWithMask.OnExit += (sender, e) =>
             { };
             sWaitingForLockWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForLockWithMask_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被鎖上
-                            {
-                                transition = tWaitingForLockWithMask_ClosedBoxWithMaskForRelease;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForLockWithMask.OnExit += (sender, e) =>
             { };
             sClosedBoxWithMaskForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                        throw new OpenStageGuardException("Box status was not closed");
+                    HalOpenStage.Vacuum(false);
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.ClosedBoxWithMaskForRelease)
-                        {
-                            try
-                            {
-                                var BoxType = (uint)e.Parameter;
-                                var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                                if (BoxType == 1)
-                                {
-                                    if (BoxWeight < 1102 || BoxWeight > 1104)
-                                        throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                else if (BoxType == 2)
-                                {
-                                    if (BoxWeight < 918 || BoxWeight > 920)
-                                        throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                                    throw new Exception("Box status was not closed");
-                                transition = tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sClosedBoxWithMaskForRelease.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseBoxWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForReleaseBoxWithMask_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                            if (BoxWeight <= 285)
-                            {
-                                transition = tWaitingForReleaseBoxWithMask_Idle;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForReleaseBoxWithMask.OnExit += (sender, e) =>
             { };
@@ -522,395 +904,419 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
             sWaitingForInputBoxWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForInputBoxWithMask_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                            if (BoxWeight > 285)
-                            {
-                                transition = tWaitingForInputBoxWithMask_ClosedBoxWithMask;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForInputBoxWithMask.OnExit += (sender, e) =>
             { };
             sClosedBoxWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    var BoxType = (uint)e.Parameter;
+                    CheckBoxWeight(BoxType, true);
+                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                        throw new OpenStageGuardException("Box status was not closed");
+                    HalOpenStage.SetBoxType(BoxType);
+                    HalOpenStage.SortClamp();
+                    Thread.Sleep(1000);
+                    HalOpenStage.SortUnclamp();
+                    HalOpenStage.SortClamp();
+                    Thread.Sleep(1000);
+                    HalOpenStage.Vacuum(true);
+                    HalOpenStage.SortUnclamp();
+                    HalOpenStage.Lock();
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tClosedBoxWithMask_WaitingForUnlockWithMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.ClosedBoxWithMask)
-                        {
-                            try
-                            {
-                                var BoxType = (uint)e.Parameter;
-                                var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                                if (BoxType == 1)
-                                {
-                                    if (BoxWeight < 1102 || BoxWeight > 1104)
-                                        throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                else if (BoxType == 2)
-                                {
-                                    if (BoxWeight < 918 || BoxWeight > 920)
-                                        throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                                    throw new Exception("Box status was not closed");
-                                transition = tClosedBoxWithMask_WaitingForUnlockWithMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sClosedBoxWithMask.OnExit += (sender, e) =>
             { };
             sWaitingForUnlockWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForUnlockWithMask_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被解開
-                            {
-                                transition = tWaitingForUnlockWithMask_OpeningBoxWithMask;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForUnlockWithMask.OnExit += (sender, e) =>
             { };
             sOpeningBoxWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    HalOpenStage.Close();
+                    HalOpenStage.Clamp();
+                    HalOpenStage.Open();
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tOpeningBoxWithMask_OpenedBoxWithMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.OpeningBoxWithMask)
-                        {
-                            try
-                            {
-                                HalOpenStage.Close();
-                                HalOpenStage.Clamp();
-                                HalOpenStage.Open();
-                                transition = tOpeningBoxWithMask_OpenedBoxWithMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpeningBoxWithMask.OnExit += (sender, e) =>
             { };
             sOpenedBoxWithMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    if (HalOpenStage.ReadCoverSensor().Item1 == false)
+                        throw new OpenStageGuardException("Box status was not opened");
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tOpenedBoxWithMask_WaitingForReleaseMask;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.OpenedBoxWithMask)
-                        {
-                            try
-                            {
-                                if (HalOpenStage.ReadCoverSensor().Item1 == false)
-                                    throw new Exception("Box status was not opened");
-                                transition = tOpenedBoxWithMask_WaitingForReleaseMask;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpenedBoxWithMask.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseMask.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForReleaseMask_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                            if (BoxWeight <= 285)
-                            {
-                                transition = tWaitingForReleaseMask_OpenedBoxForClose;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForReleaseMask.OnExit += (sender, e) =>
             { };
             sOpenedBoxForClose.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    CheckBoxWeight(null, false);
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tOpenedBoxForClose_ClosingBox;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.OpenedBoxForClose)
-                        {
-                            try
-                            {
-                                if (HalOpenStage.ReadCoverSensor().Item1 == false)
-                                    throw new Exception("Box status was not opened");
-                                transition = tOpenedBoxForClose_ClosingBox;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sOpenedBoxForClose.OnExit += (sender, e) =>
             { };
             sClosingBox.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    HalOpenStage.Close();
+                    HalOpenStage.Unclamp();
+                    HalOpenStage.Lock();
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tClosingBox_WaitingForLock;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.ClosingBox)
-                        {
-                            try
-                            {
-                                HalOpenStage.Close();
-                                HalOpenStage.Unclamp();
-                                HalOpenStage.Lock();
-                                transition = tClosingBox_WaitingForLock;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 60))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sClosingBox.OnExit += (sender, e) =>
             { };
             sWaitingForLock.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForLock_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            if (false)// TODO: 使用CCD檢查扣子是否扣上，如果扣子有被鎖上
-                            {
-                                transition = tWaitingForLock_ClosedBoxForRelease;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForLock.OnExit += (sender, e) =>
             { };
             sClosedBoxForRelease.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                        throw new OpenStageGuardException("Box status was not closed");
+                    HalOpenStage.Vacuum(false);
+                }
+                catch (OpenStageGuardException ex)
+                { throw ex; }
+                catch (Exception ex)
+                {
+                    throw new OpenStagePLCExecuteFailException(ex.Message);
+                }
+
+                var transition = tClosedBoxForRelease_WaitingForReleaseBox;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        if (CurrentWorkState == EnumMacMsOpenStageState.ClosedBoxForRelease)
-                        {
-                            try
-                            {
-                                var BoxType = (uint)e.Parameter;
-                                var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                                if (BoxType == 1)
-                                {
-                                    if (BoxWeight < 775 || BoxWeight > 778)
-                                        throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                else if (BoxType == 2)
-                                {
-                                    if (BoxWeight < 589 || BoxWeight > 590)
-                                        throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                                }
-                                if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                                    throw new Exception("Box status was not closed");
-                                transition = tClosedBoxForRelease_WaitingForReleaseBox;
-                                break;
-                            }
-                            catch (Exception)
-                            {
-                                // TODO
-                                break;
-                            }
-                        }
-                        if (timeoutObj.IsTimeOut(thisTime, 10))
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sClosedBoxForRelease.OnExit += (sender, e) =>
             { };
             sWaitingForReleaseBox.OnEntry += (sender, e) =>
             {
-                var thisState = (MacState)sender;
-                MacTransition transition = null;
-                DateTime thisTime = DateTime.Now;
-                Action guard = () =>
+                SetCurrentState((MacState)sender);
+                try
                 {
-                    while (true)
+                }
+                catch (Exception ex)
+                {
+                    throw new OpenStageException(ex.Message);
+                }
+
+                var transition = tWaitingForReleaseBox_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
                     {
-                        try
-                        {
-                            var BoxWeight = HalOpenStage.ReadWeightOnStage();
-                            if (BoxWeight <= 285)
-                            {
-                                transition = tWaitingForReleaseBox_Idle;
-                                break;
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            // TODO
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
-                new Task(guard).Start();
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sWaitingForReleaseBox.OnExit += (sender, e) =>
             { };
             #endregion State Register OnEntry OnExit
+        }
+
+        private bool CheckBoxWeight(uint? BoxType, bool WithMask)
+        {
+            int IronBoxMinWeight = 775, IronBoxMaxWeight = 778, IronBoxWithMaskMinWeight = 1102, IronBoxWithMaskMaxWeight = 1104;
+            int CrystalBoxMinWeight = 589, CrystalBoxMaxWeight = 590, CrystalBoxWithMaskMinWeight = 918, CrystalBoxWithMaskMaxWeight = 920;
+            var BoxWeight = HalOpenStage.ReadWeightOnStage();
+            if (BoxType == 1 && !WithMask)
+            {
+                if (BoxWeight < IronBoxMinWeight || BoxWeight > IronBoxMaxWeight)
+                    throw new OpenStageGuardException("Wrong weight of iron box, box weight = " + BoxWeight.ToString());
+            }
+            else if (BoxType == 1 && WithMask)
+            {
+                if (BoxWeight < IronBoxWithMaskMinWeight || BoxWeight > IronBoxWithMaskMaxWeight)
+                    throw new OpenStageGuardException("Wrong weight of iron box with mask, box weight = " + BoxWeight.ToString());
+            }
+            else if (BoxType == 2 && !WithMask)
+            {
+                if (BoxWeight < CrystalBoxMinWeight || BoxWeight > CrystalBoxMaxWeight)
+                    throw new OpenStageGuardException("Wrong weight of crystal box, box weight = " + BoxWeight.ToString());
+            }
+            else if (BoxType == 2 && WithMask)
+            {
+                if (BoxWeight < CrystalBoxWithMaskMinWeight || BoxWeight > CrystalBoxWithMaskMaxWeight)
+                    throw new OpenStageGuardException("Wrong weight of crystal box with mask, box weight = " + BoxWeight.ToString());
+            }
+            else if (BoxType == null && !WithMask)
+            {
+                if (BoxWeight < IronBoxMinWeight || BoxWeight > IronBoxMaxWeight || BoxWeight < CrystalBoxMinWeight || BoxWeight > CrystalBoxMaxWeight)
+                    throw new OpenStageGuardException("Wrong weight of box, box weight = " + BoxWeight.ToString());
+            }
+            else if (BoxType == null && WithMask)
+            {
+                if (BoxWeight < IronBoxWithMaskMinWeight || BoxWeight > IronBoxWithMaskMaxWeight || BoxWeight < CrystalBoxWithMaskMinWeight || BoxWeight > CrystalBoxWithMaskMaxWeight)
+                    throw new OpenStageGuardException("Wrong weight of box with mask, box weight = " + BoxWeight.ToString());
+            }
+            else
+                throw new OpenStageGuardException("When checking the box weight, the parameters provided do not meet the conditions !");
+            return true;
         }
 
         public class MacOpenStageUnitStateTimeOutController

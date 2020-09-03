@@ -58,6 +58,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
 
         /// <summary>Clean Chamber無法再分類的例外</summary>
         CleanChException = 2000,
+        CleanChCleanFailException,
+        CleanChInspectFailException,
 
         /// <summary>Boxtransfer 無法分類的例外</summary>
         BoxTransferException = 30000,
@@ -87,9 +89,12 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
 
         /// <summary>Open Stage無法再分類的例外</summary>
         OpenStageException=50000,
+        OpenStageInitialFailException,
+        OpenStagePLCExecuteFailException,
+        OpenStageGuardException,
 
         /// <summary>Inspection Chamber無法再分類的例外</summary>
-        InspectionChException=60000,
+        InspectionChException = 60000,
         InspectionChInitialFailException,
         InspectionChPLCExecuteFailException,
         InspectionChDefenseFailException,
@@ -121,7 +126,10 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         LoadportUndockMustInitialException,
         /// <summary>load port undock 逾時未完成 </summary>
         LoadportUndockTimeOutException,
-        
+
+        /// <summary>Universal 無法再分類的例外</summary>
+        UniversalException,
+        UniversalPLCExecuteFailException,
     }
 
 

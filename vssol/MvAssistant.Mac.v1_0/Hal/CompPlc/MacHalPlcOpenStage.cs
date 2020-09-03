@@ -480,13 +480,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
         /// <returns></returns>
-        public Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude)
+        public Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
         {
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
+                if (isBTIntrude != null)
+                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
+                if (isMTIntrude != null)
+                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
                 Thread.Sleep(100);
 
                 if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可

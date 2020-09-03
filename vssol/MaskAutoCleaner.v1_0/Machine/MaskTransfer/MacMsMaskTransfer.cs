@@ -27,10 +27,19 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     {
         private IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
+        private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
+
+        private MacState _currentState = null;
+
+        public void ResetState()
+        { this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
+
+        private void SetCurrentState(MacState state)
+        { _currentState = state; }
+
+        public MacState CurrentState { get { return _currentState; } }
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
-
-        EnumMacMsMaskTransferState CurrentWorkState { get; set; }
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
@@ -39,32 +48,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
-        public void MoveToLoadPortAGetMask()
-        {
-            var transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortA.ToString()];
-            TriggerMember triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
-        }
-
-        public void ReleaseToInspectionCh()
+        public void MoveToLPAGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
-            transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped.ToString()];
             TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortA.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -81,7 +69,99 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
-
+        }
+        public void MoveToLPBGetMaskReturnToLPHomeClamped()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortB.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void MoveToOSGetMaskReturnToLPHomeClamped()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToOpenStage.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeClampedToICHomeClamped()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ICHomeToLPHome()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToLPHomeFromICHome.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ICHomeClampedReleaseToIC()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionChForRelease.ToString()];
             triggerMember = new TriggerMember
             {
@@ -99,7 +179,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
-
+        }
+        public void ICHomeGetFromIC()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionCh.ToString()];
             triggerMember = new TriggerMember
             {
@@ -117,7 +201,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
-
+        }
+        public void ICHomeClampedReleaseToICGlass()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionChGlassForRelease.ToString()];
             triggerMember = new TriggerMember
             {
@@ -135,7 +223,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
-
+        }
+        public void ICHomeGetFromICGlass()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectionChGlass.ToString()];
             triggerMember = new TriggerMember
             {
@@ -153,7 +245,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
-
+        }
+        public void ICHomeClampedToICHomeInspected()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.InspectedAtICHomeClamped.ToString()];
             triggerMember = new TriggerMember
             {
@@ -172,7 +268,183 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ReleaseToLoadPortA()
+        public void ICHomeInspectedToCCHomeClamped()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToCCHomeClampedFromICHomeInspected.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCHomeClampedToCC()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToCleanCh.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCCleanedToCapture()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAferCleaned.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCCapturedToCCHomeClamped()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAfterCaptured.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCHomeClampedToCCGlass()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToCleanChGlass.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCGlassCleanedToCapture()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAferCleanedGlass.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCGlassCapturedToCCHomeClamped()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void CCHomeClampedToCCHomeCleaned()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.CleanedAtCCHomeClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void ICHomeInspectedToLPHomeInspected()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -193,8 +465,166 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
-
+        }
+        public void CCHomeCleanedToLPHomeCleaned()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.CleanedAtLPHomeClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeClampedReleaseOS()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeInspectedReleaseLPA()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortAInspectedForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeInspectedReleaseLPB()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortBInspectedForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeInspectedReleaseOS()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToOpenStageInspectedForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeCleanedReleaseLPA()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortACleanedForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeCleanedReleaseLPB()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLoadPortBCleanedForRelease.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        public void LPHomeCleanedReleaseOS()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToOpenStageCleanedForRelease.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -264,7 +694,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             //Barcode Reader
             MacState sMovingToBarcodeReaderClamped = NewState(EnumMacMsMaskTransferState.MovingToBarcodeReaderClamped);
-            MacState sWaitingForBarcodeReader = NewState(EnumMacMsMaskTransferState.WaitingForBarcodeReader);
+            MacState sReadingBarcode = NewState(EnumMacMsMaskTransferState.ReadingBarcode);
             MacState sMovingToLPHomeClampedFromBarcodeReader = NewState(EnumMacMsMaskTransferState.MovingToLPHomeClampedFromBarcodeReader);
 
 
@@ -272,11 +702,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCleanCh);//前往CleanCh
             MacState sWaitingForMoveToClean = NewState(EnumMacMsMaskTransferState.WaitingForMoveToClean);//準備好Clean
             MacState sMovingToClean = NewState(EnumMacMsMaskTransferState.MovingToClean);
-            MacState sWaitingForClean = NewState(EnumMacMsMaskTransferState.WaitingForClean);
+            MacState sCleaningPellicle = NewState(EnumMacMsMaskTransferState.CleaningPellicle);
             MacState sMovingAfterCleaned = NewState(EnumMacMsMaskTransferState.MovingAfterCleaned);
             MacState sWaitingForMoveToCapture = NewState(EnumMacMsMaskTransferState.WaitingForMoveToCapture);//準備好Capture
             MacState sMovingToCapture = NewState(EnumMacMsMaskTransferState.MovingToCapture);
-            MacState sWaitingForCapture = NewState(EnumMacMsMaskTransferState.WaitingForCapture);
+            MacState sCapturingPellicle = NewState(EnumMacMsMaskTransferState.CapturingPellicle);
             MacState sMovingAfterCaptured = NewState(EnumMacMsMaskTransferState.MovingAfterCaptured);
             MacState sWaitingForLeaveCleanCh = NewState(EnumMacMsMaskTransferState.WaitingForLeaveCleanCh);
             MacState sMovingToCCHomeClampedFromCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanCh);//離開CleanCh
@@ -284,18 +714,18 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanChGlass);//前往CleanChGlass
             MacState sWaitingForMoveToCleanGlass = NewState(EnumMacMsMaskTransferState.WaitingForMoveToCleanGlass);//準備好CleanGlass
             MacState sMovingToCleanGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanGlass);
-            MacState sWaitingForCleanGlass = NewState(EnumMacMsMaskTransferState.WaitingForCleanGlass);
+            MacState sCleaningGlass = NewState(EnumMacMsMaskTransferState.CleaningGlass);
             MacState sMovingAfterCleanedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCleanedGlass);
             MacState sWaitingForMoveToCaptureGlass = NewState(EnumMacMsMaskTransferState.WaitingForMoveToCaptureGlass);//準備好CaptureGlass
             MacState sMovingToCaptureGlass = NewState(EnumMacMsMaskTransferState.MovingToCaptureGlass);
-            MacState sWaitingForCaptureGlass = NewState(EnumMacMsMaskTransferState.WaitingForCaptureGlass);
+            MacState sCapturingGlass = NewState(EnumMacMsMaskTransferState.CapturingGlass);
             MacState sMovingAfterCapturedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCapturedGlass);
             MacState sWaitingForLeaveCleanChGlass = NewState(EnumMacMsMaskTransferState.WaitingForLeaveCleanChGlass);
             MacState sMovingToCCHomeClampedFromCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanChGlass);//離開CleanChGlass
 
             //Inspect Deform
             MacState sMovingToInspectDeformFromICHome = NewState(EnumMacMsMaskTransferState.MovingToInspectDeform);
-            MacState sWaitingForInspectDeform = NewState(EnumMacMsMaskTransferState.WaitingForInspectDeform);
+            MacState sInspectingClampDeform = NewState(EnumMacMsMaskTransferState.InspectingClampDeform);
             MacState sMovingToICHomeFromInspectDeform = NewState(EnumMacMsMaskTransferState.MovingToICHomeFromInspectDeform);
 
             //To Target
@@ -327,7 +757,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tLPHome_NULL = NewTransition(sLPHome, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHome);
             MacTransition tLPHomeClamped_NULL = NewTransition(sLPHomeClamped, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeClamped);
             MacTransition tLPHomeInspected_NULL = NewTransition(sLPHomeInspected, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeInspected);
-            MacTransition tLPHomeCleaned_NULL = NewTransition(sLPHomeInspected, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeCleaned);
+            MacTransition tLPHomeCleaned_NULL = NewTransition(sLPHomeCleaned, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtLPHomeCleaned);
             MacTransition tICHome_NULL = NewTransition(sICHome, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtICHome);
             MacTransition tICHomeClamped_NULL = NewTransition(sICHomeClamped, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtICHomeClamped);
             MacTransition tICHomeClamped_ICHomeInspected = NewTransition(sICHomeClamped, sICHomeInspected, EnumMacMsMaskTransferTransition.InspectedAtICHomeClamped);
@@ -407,14 +837,14 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tCCHomeClamped_MovingToCleanCh = NewTransition(sCCHomeClamped, sMovingToCleanCh, EnumMacMsMaskTransferTransition.MoveToCleanCh);
             MacTransition tMovingToCleanCh_WaitingForMoveToClean = NewTransition(sMovingToCleanCh, sWaitingForMoveToClean, EnumMacMsMaskTransferTransition.WaitForMoveToClean);
             MacTransition tWaitingForMoveToClean_MovingToClean = NewTransition(sWaitingForMoveToClean, sMovingToClean, EnumMacMsMaskTransferTransition.MoveToClean);
-            MacTransition tMovingToClean_WaitingForClean = NewTransition(sMovingToClean, sWaitingForClean, EnumMacMsMaskTransferTransition.WaitFroClean);
-            MacTransition tWaitingForClean_NULL = NewTransition(sWaitingForClean, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtClean);
-            MacTransition tWaitingForClean_MovingAfterCleaned = NewTransition(sWaitingForClean, sMovingAfterCleaned, EnumMacMsMaskTransferTransition.MoveAferCleaned);
+            MacTransition tMovingToClean_CleaningPellicle = NewTransition(sMovingToClean, sCleaningPellicle, EnumMacMsMaskTransferTransition.WaitFroClean);
+            MacTransition tCleaningPellicle_NULL = NewTransition(sCleaningPellicle, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtClean);
+            MacTransition tCleaningPellicle_MovingAfterCleaned = NewTransition(sCleaningPellicle, sMovingAfterCleaned, EnumMacMsMaskTransferTransition.MoveAferCleaned);
             MacTransition tMovingAfterCleaned_WaitingForMoveToCapture = NewTransition(sMovingAfterCleaned, sWaitingForMoveToCapture, EnumMacMsMaskTransferTransition.WaitForMoveToCapture);
             MacTransition tWaitingForMoveToCapture_MovingToCapture = NewTransition(sWaitingForMoveToCapture, sMovingToCapture, EnumMacMsMaskTransferTransition.MoveToCapture);
-            MacTransition tMovingToCapture_WaitingForCapture = NewTransition(sMovingToCapture, sWaitingForCapture, EnumMacMsMaskTransferTransition.WaitForCapture);
-            MacTransition tWaitingForCapture_NULL = NewTransition(sWaitingForCapture, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCapture);
-            MacTransition tWaitingForCapture_MovingAfterCaptured = NewTransition(sWaitingForCapture, sMovingAfterCaptured, EnumMacMsMaskTransferTransition.MoveAfterCapture);
+            MacTransition tMovingToCapture_CapturingPellicle = NewTransition(sMovingToCapture, sCapturingPellicle, EnumMacMsMaskTransferTransition.WaitForCapture);
+            MacTransition tCapturingPellicle_NULL = NewTransition(sCapturingPellicle, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCapture);
+            MacTransition tCapturingPellicle_MovingAfterCaptured = NewTransition(sCapturingPellicle, sMovingAfterCaptured, EnumMacMsMaskTransferTransition.MoveAfterCaptured);
             MacTransition tMovingAfterCaptured_WaitingForLeaveCleanCh = NewTransition(sMovingAfterCaptured, sWaitingForLeaveCleanCh, EnumMacMsMaskTransferTransition.WaitForLeaveCleanCh);
             MacTransition tWaitingForLeaveCleanCh_MovingToCCHomeClampedFromCleanCh = NewTransition(sWaitingForLeaveCleanCh, sMovingToCCHomeClampedFromCleanCh, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanCh);
             MacTransition tMovingToCCHomeClampedFromCleanCh_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanCh, sCCHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClampedFromCleanCh);
@@ -422,14 +852,14 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tCCHomeClamped_MovingToCleanChGlass = NewTransition(sCCHomeClamped, sMovingToCleanChGlass, EnumMacMsMaskTransferTransition.MoveToCleanChGlass);
             MacTransition tMovingToCleanChGlass_WaitingForMoveToCleanGlass = NewTransition(sMovingToCleanChGlass, sWaitingForMoveToCleanGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCleanGlass);
             MacTransition tWaitingForMoveToCleanGlass_MovingToCleanGlass = NewTransition(sWaitingForMoveToCleanGlass, sMovingToCleanGlass, EnumMacMsMaskTransferTransition.MoveToCleanGlass);
-            MacTransition tMovingToCleanGlass_WaitingForCleanGlass = NewTransition(sMovingToCleanGlass, sWaitingForCleanGlass, EnumMacMsMaskTransferTransition.WaitFroCleanGlass);
-            MacTransition tWaitingForCleanGlass_NULL = NewTransition(sWaitingForCleanGlass, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCleanGlass);
-            MacTransition tWaitingForCleanGlass_MovingAfterCleanedGlass = NewTransition(sWaitingForCleanGlass, sMovingAfterCleanedGlass, EnumMacMsMaskTransferTransition.MoveAferCleanedGlass);
+            MacTransition tMovingToCleanGlass_CleaningGlass = NewTransition(sMovingToCleanGlass, sCleaningGlass, EnumMacMsMaskTransferTransition.WaitFroCleanGlass);
+            MacTransition tCleaningGlass_NULL = NewTransition(sCleaningGlass, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCleanGlass);
+            MacTransition tCleaningGlass_MovingAfterCleanedGlass = NewTransition(sCleaningGlass, sMovingAfterCleanedGlass, EnumMacMsMaskTransferTransition.MoveAferCleanedGlass);
             MacTransition tMovingAfterCleanedGlass_WaitingForMoveToCaptureGlass = NewTransition(sMovingAfterCleanedGlass, sWaitingForMoveToCaptureGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCaptureGlass);
             MacTransition tWaitingForMoveToCaptureGlass_MovingToCaptureGlass = NewTransition(sWaitingForMoveToCaptureGlass, sMovingToCaptureGlass, EnumMacMsMaskTransferTransition.MoveToCaptureGlass);
-            MacTransition tMovingToCaptureGlass_WaitingForCaptureGlass = NewTransition(sMovingToCaptureGlass, sWaitingForCaptureGlass, EnumMacMsMaskTransferTransition.WaitForCaptureGlass);
-            MacTransition tWaitingForCaptureGlass_NULL = NewTransition(sWaitingForCaptureGlass, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCaptureGlass);
-            MacTransition tWaitingForCaptureGlass_MovingAfterCapturedGlass = NewTransition(sWaitingForCaptureGlass, sMovingAfterCapturedGlass, EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass);
+            MacTransition tMovingToCaptureGlass_CapturingGlass = NewTransition(sMovingToCaptureGlass, sCapturingGlass, EnumMacMsMaskTransferTransition.WaitForCaptureGlass);
+            MacTransition tCapturingGlass_NULL = NewTransition(sCapturingGlass, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtCaptureGlass);
+            MacTransition tCapturingGlass_MovingAfterCapturedGlass = NewTransition(sCapturingGlass, sMovingAfterCapturedGlass, EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass);
             MacTransition tMovingAfterCapturedGlass_WaitingForLeaveCleanChGlass = NewTransition(sMovingAfterCapturedGlass, sWaitingForLeaveCleanChGlass, EnumMacMsMaskTransferTransition.WaitForLeaveCleanChGlass);
             MacTransition tWaitingForLeaveCleanChGlass_MovingToCCHomeClampedFromCleanChGlass = NewTransition(sWaitingForLeaveCleanChGlass, sMovingToCCHomeClampedFromCleanChGlass, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanChGlass);
             MacTransition tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanChGlass, sCCHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClampedFromCleanChGlass);
@@ -442,8 +872,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tOpenStageClamping_MovingToLPHomeClampedFromOpenStage = NewTransition(sOpenStageClamping, sMovingToLPHomeClampedFromOpenStage, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromOpenStage);
             MacTransition tMovingToLPHomeClampedFromOpenStage_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromOpenStage, sLPHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtLPHomeClampedFromOpenStage);
 
-            MacTransition tLPHomeInspected_MovingToOpenStageForRelease = NewTransition(sLPHomeInspected, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
-            MacTransition tLPHomeCleaned_MovingToOpenStageForRelease = NewTransition(sLPHomeCleaned, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
+            MacTransition tLPHomeClamped_MovingToOpenStageForRelease = NewTransition(sLPHomeClamped, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageForRelease);
+            MacTransition tLPHomeInspected_MovingToOpenStageForRelease = NewTransition(sLPHomeInspected, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageInspectedForRelease);
+            MacTransition tLPHomeCleaned_MovingToOpenStageForRelease = NewTransition(sLPHomeCleaned, sMovingOpenStageForRelease, EnumMacMsMaskTransferTransition.MoveToOpenStageCleanedForRelease);
             MacTransition tMovingOpenStageForRelease_OpenStageReleasing = NewTransition(sMovingOpenStageForRelease, sOpenStageReleasing, EnumMacMsMaskTransferTransition.ReleaseInOpenStage);
             MacTransition tOpenStageReleasing_MovingToLPHomeFromOpenStage = NewTransition(sOpenStageReleasing, sMovingToLPHomeFromOpenStage, EnumMacMsMaskTransferTransition.CompleteReleased);
             MacTransition tMovingToLPHomeFromOpenStage_LPHome = NewTransition(sMovingToLPHomeFromOpenStage, sLPHome, EnumMacMsMaskTransferTransition.StandbyAtLPHomeFromOpenStage);
@@ -451,17 +882,17 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             #region Barcode Reader
             MacTransition tLPHomeClamped_MovingToBarcodeReaderClamped = NewTransition(sLPHomeClamped, sMovingToBarcodeReaderClamped, EnumMacMsMaskTransferTransition.MoveToBarcodeReaderClamped);
-            MacTransition tMovingToBarcodeReaderClamped_WaitingForBarcodeReader = NewTransition(sMovingToBarcodeReaderClamped, sWaitingForBarcodeReader, EnumMacMsMaskTransferTransition.WaitForBarcodeReader);
-            MacTransition tWaitingForBarcodeReader_NULL = NewTransition(sWaitingForBarcodeReader, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtBarcodeReader);
-            MacTransition tWaitingForBarcodeReader_MovingToLPHomeClampedFromBarcodeReader = NewTransition(sWaitingForBarcodeReader, sMovingToLPHomeClampedFromBarcodeReader, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromBarcodeReader);
+            MacTransition tMovingToBarcodeReaderClamped_ReadingBarcode = NewTransition(sMovingToBarcodeReaderClamped, sReadingBarcode, EnumMacMsMaskTransferTransition.WaitForBarcodeReader);
+            MacTransition tReadingBarcode_NULL = NewTransition(sReadingBarcode, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtBarcodeReader);
+            MacTransition tReadingBarcode_MovingToLPHomeClampedFromBarcodeReader = NewTransition(sReadingBarcode, sMovingToLPHomeClampedFromBarcodeReader, EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromBarcodeReader);
             MacTransition tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped = NewTransition(sMovingToLPHomeClampedFromBarcodeReader, sLPHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtLPHomeClampedFromBarcodeReader);
             #endregion Barcode Reader
 
             #region Inspect Deform
             MacTransition tICHome_MovingToInspectDeformFromICHome = NewTransition(sICHome, sMovingToInspectDeformFromICHome, EnumMacMsMaskTransferTransition.MoveToInspectDeformFromICHome);
-            MacTransition tMovingToInspectDeformFromICHome_WaitingForInspectDeform = NewTransition(sMovingToInspectDeformFromICHome, sWaitingForInspectDeform, EnumMacMsMaskTransferTransition.WaitForInspectDeform);
-            MacTransition tWaitingForInspectDeform_NULL = NewTransition(sWaitingForInspectDeform, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtInspectDeform);
-            MacTransition tWaitingForInspectDeform_MovingToICHomeFromInspectDeform = NewTransition(sWaitingForInspectDeform, sMovingToICHomeFromInspectDeform, EnumMacMsMaskTransferTransition.MoveToICHomeFromInspectDeform);
+            MacTransition tMovingToInspectDeformFromICHome_InspectingClampDeform = NewTransition(sMovingToInspectDeformFromICHome, sInspectingClampDeform, EnumMacMsMaskTransferTransition.WaitForInspectDeform);
+            MacTransition tInspectingClampDeform_NULL = NewTransition(sInspectingClampDeform, null, EnumMacMsMaskTransferTransition.ReceiveTriggerAtInspectDeform);
+            MacTransition tInspectingClampDeform_MovingToICHomeFromInspectDeform = NewTransition(sInspectingClampDeform, sMovingToICHomeFromInspectDeform, EnumMacMsMaskTransferTransition.MoveToICHomeFromInspectDeform);
             MacTransition tMovingToICHomeFromInspectDeform_ICHome = NewTransition(sMovingToICHomeFromInspectDeform, sICHome, EnumMacMsMaskTransferTransition.StandbyAtICHomeFromInspectDeform);
             #endregion Inspect Deform
 
@@ -493,6 +924,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sStart.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tStart_DeviceInitial;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -516,6 +948,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sInitial.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.Initial();
@@ -548,6 +981,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLPHome.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tLPHome_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -571,6 +1005,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLPHomeClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tLPHomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -594,6 +1029,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLPHomeInspected.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tLPHomeInspected_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -617,6 +1053,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLPHomeCleaned.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tLPHomeCleaned_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -640,6 +1077,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sICHome.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tICHome_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -663,6 +1101,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sICHomeClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tICHomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -686,6 +1125,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sICHomeInspected.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tICHomeInspected_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -709,6 +1149,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sCCHomeClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 var transition = tCCHomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -733,6 +1174,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Change Direction
             sChangingDirectionToLPHome.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -767,6 +1209,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sChangingDirectionToLPHomeClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -801,6 +1244,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sChangingDirectionToLPHomeInspected.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -835,6 +1279,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sChangingDirectionToLPHomeCleaned.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -869,6 +1314,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sChangingDirectionToICHome.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -903,6 +1349,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sChangingDirectionToICHomeClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -937,6 +1384,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sChangingDirectionToCCHomeClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -973,6 +1421,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Load PortA
             sMovingToLoadPortA.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1007,6 +1456,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLoadPortAClamping.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     var MaskType = (uint)e.Parameter;
@@ -1041,6 +1491,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLPHomeClampedFromLoadPortA.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1075,6 +1526,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLoadPortAForRelease.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1109,6 +1561,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLoadPortAReleasing.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.Unclamp();
@@ -1141,6 +1594,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLPHomeFromLoadPortA.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1177,6 +1631,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Load PortB
             sMovingToLoadPortB.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1211,6 +1666,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLoadPortBClamping.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     var MaskType = (uint)e.Parameter;
@@ -1244,6 +1700,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLPHomeClampedFromLoadPortB.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1278,6 +1735,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLoadPortBForRelease.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1312,6 +1770,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sLoadPortBReleasing.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.Unclamp();
@@ -1344,6 +1803,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLPHomeFromLoadPortB.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1380,6 +1840,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Inspection Ch
             sMovingToInspectionCh.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     if (!HalInspectionCh.ReadRobotIntrude(true))
@@ -1416,6 +1877,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sInspectionChClamping.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     var MaskType = (uint)e.Parameter;
@@ -1449,6 +1911,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToICHomeClampedFromInspectionCh.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1484,6 +1947,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToInspectionChForRelease.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     if (!HalInspectionCh.ReadRobotIntrude(true))
@@ -1520,6 +1984,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sInspectionChReleasing.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.Unclamp();
@@ -1552,6 +2017,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToICHomeFromInspectionCh.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1589,6 +2055,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToInspectionChGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     if (!HalInspectionCh.ReadRobotIntrude(true))
@@ -1625,6 +2092,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sInspectionChGlassClamping.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     var MaskType = (uint)e.Parameter;
@@ -1658,6 +2126,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToICHomeClampedFromInspectionChGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1693,6 +2162,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToInspectionChGlassForRelease.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     if (!HalInspectionCh.ReadRobotIntrude(true))
@@ -1729,6 +2199,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sInspectionChGlassReleasing.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.Unclamp();
@@ -1761,6 +2232,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToICHomeFromInspectionChGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1798,6 +2270,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Clean Ch
             sMovingToCleanCh.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1832,6 +2305,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sWaitingForMoveToClean.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -1864,6 +2338,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToClean.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1875,7 +2350,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToClean_WaitingForClean;
+                var transition = tMovingToClean_CleaningPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1896,8 +2371,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToClean.OnExit += (sender, e) =>
             { };
 
-            sWaitingForClean.OnEntry += (sender, e) =>
+            sCleaningPellicle.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -1907,7 +2383,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForClean_NULL;
+                var transition = tCleaningPellicle_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1925,11 +2401,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForClean.OnExit += (sender, e) =>
+            sCleaningPellicle.OnExit += (sender, e) =>
             { };
 
             sMovingAfterCleaned.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -1964,6 +2441,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sWaitingForMoveToCapture.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -1996,6 +2474,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToCapture.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2007,7 +2486,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToCapture_WaitingForCapture;
+                var transition = tMovingToCapture_CapturingPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2028,8 +2507,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToCapture.OnExit += (sender, e) =>
             { };
 
-            sWaitingForCapture.OnEntry += (sender, e) =>
+            sCapturingPellicle.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2039,7 +2519,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForCapture_NULL;
+                var transition = tCapturingPellicle_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2057,11 +2537,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForCapture.OnExit += (sender, e) =>
+            sCapturingPellicle.OnExit += (sender, e) =>
             { };
 
             sMovingAfterCaptured.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2096,6 +2577,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sWaitingForLeaveCleanCh.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2128,6 +2610,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToCCHomeClampedFromCleanCh.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2164,6 +2647,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToCleanChGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2198,6 +2682,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sWaitingForMoveToCleanGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2230,6 +2715,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToCleanGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2241,7 +2727,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToCleanGlass_WaitingForCleanGlass;
+                var transition = tMovingToCleanGlass_CleaningGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2262,8 +2748,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToCleanGlass.OnExit += (sender, e) =>
             { };
 
-            sWaitingForCleanGlass.OnEntry += (sender, e) =>
+            sCleaningGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2273,7 +2760,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForCleanGlass_NULL;
+                var transition = tCleaningGlass_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2291,11 +2778,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForCleanGlass.OnExit += (sender, e) =>
+            sCleaningGlass.OnExit += (sender, e) =>
             { };
 
             sMovingAfterCleanedGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2330,6 +2818,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sWaitingForMoveToCaptureGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2362,6 +2851,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToCaptureGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2373,7 +2863,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToCaptureGlass_WaitingForCaptureGlass;
+                var transition = tMovingToCaptureGlass_CapturingGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2394,8 +2884,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToCaptureGlass.OnExit += (sender, e) =>
             { };
 
-            sWaitingForCaptureGlass.OnEntry += (sender, e) =>
+            sCapturingGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2405,7 +2896,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForCaptureGlass_NULL;
+                var transition = tCapturingGlass_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2423,11 +2914,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForCaptureGlass.OnExit += (sender, e) =>
+            sCapturingGlass.OnExit += (sender, e) =>
             { };
 
             sMovingAfterCapturedGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2462,6 +2954,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sWaitingForLeaveCleanChGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
 
@@ -2494,10 +2987,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToCCHomeClampedFromCleanChGlass.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2530,8 +3024,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region OpenStage
             sMovingToOpenStage.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
+                    HalOpenStage.ReadRobotIntrude(null, true);
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     HalMaskTransfer.RobotMoving(false);
@@ -2564,6 +3060,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sOpenStageClamping.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     var MaskType = (uint)e.Parameter;
@@ -2597,11 +3094,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLPHomeClampedFromOpenStage.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(null, false);
                 }
                 catch (Exception ex)
                 {
@@ -2631,8 +3130,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingOpenStageForRelease.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
+                    HalOpenStage.ReadRobotIntrude(null, true);
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     HalMaskTransfer.RobotMoving(false);
@@ -2665,6 +3166,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sOpenStageReleasing.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.Unclamp();
@@ -2697,11 +3199,13 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             sMovingToLPHomeFromOpenStage.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
                     HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     HalMaskTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(null, false);
                 }
                 catch (Exception ex)
                 {
@@ -2728,11 +3232,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             sMovingToLPHomeFromOpenStage.OnExit += (sender, e) =>
             { };
-            #endregion
+            #endregion OpenStage
 
             #region Barcode Reader
             sMovingToBarcodeReaderClamped.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2746,7 +3251,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToBarcodeReaderClamped_WaitingForBarcodeReader;
+                var transition = tMovingToBarcodeReaderClamped_ReadingBarcode;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2767,8 +3272,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToBarcodeReaderClamped.OnExit += (sender, e) =>
             { };
 
-            sWaitingForBarcodeReader.OnEntry += (sender, e) =>
+            sReadingBarcode.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try// TODO: 判斷Barcode Reader已經讀取完等待移走
                 {
 
@@ -2778,7 +3284,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForBarcodeReader_NULL;
+                var transition = tReadingBarcode_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2796,11 +3302,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForBarcodeReader.OnExit += (sender, e) =>
+            sReadingBarcode.OnExit += (sender, e) =>
             { };
 
             sMovingToLPHomeClampedFromBarcodeReader.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2837,6 +3344,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #region Inspect Deform
             sMovingToInspectDeformFromICHome.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
@@ -2850,7 +3358,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToInspectDeformFromICHome_WaitingForInspectDeform;
+                var transition = tMovingToInspectDeformFromICHome_InspectingClampDeform;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2871,8 +3379,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToInspectDeformFromICHome.OnExit += (sender, e) =>
             { };
 
-            sWaitingForInspectDeform.OnEntry += (sender, e) =>
+            sInspectingClampDeform.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try// TODO: 判斷Inspect Deform已經檢查完等待移走
                 {
 
@@ -2882,7 +3391,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tWaitingForInspectDeform_NULL;
+                var transition = tInspectingClampDeform_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2900,11 +3409,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForInspectDeform.OnExit += (sender, e) =>
+            sInspectingClampDeform.OnExit += (sender, e) =>
             { };
 
             sMovingToICHomeFromInspectDeform.OnEntry += (sender, e) =>
             {
+                SetCurrentState((MacState)sender);
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);

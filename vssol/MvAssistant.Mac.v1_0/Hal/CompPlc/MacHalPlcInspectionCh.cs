@@ -250,8 +250,18 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         public bool ReadRobotIntrude(bool isIntrude)
         {
             var plc = this.plcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
-            Thread.Sleep(100);
+            try
+            {
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
+                Thread.Sleep(100);
+                if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isIntrude)//如果BT要入侵但不被許可
+                    throw new MvException("Mask Transfer Intrude is not allowed");
+            }
+            catch (Exception ex)
+            {
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
+                throw ex;
+            }
             return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense);
         }
 

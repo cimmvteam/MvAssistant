@@ -49,7 +49,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
         /// <returns></returns>
-        Tuple<bool, bool> ReadRobotIntrude(bool isBTIntrude, bool isMTIntrude);
+        Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
 
         /// <summary>
         /// 讀取目前是否被Robot侵入
