@@ -9,6 +9,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
     /// <summary>State Machine Exception 代碼</summary>
     public enum EnumStateMachineExceptionCode
     {
+       /*
         /// <summary>Masktransfer 無法分類的例外</summary>
         MaskTransferException = 40000,
         /// <summary>Masktransfer Initial 失敗的例外 </summary>
@@ -31,8 +32,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         BoxTransferMustResetException = 30003,
         /// <summary>Boxtransfer 必須先 Initial 的例外</summary>
         BoxTransferMustInitialException = 30004,
-
-
+        */
+        /**
         /// <summary>Load port 無法再分類的例外</summary>
         LoadportException = 70000,
         /// <summary>Load port  Initial 失敗的例外</summary>
@@ -59,7 +60,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         LoadportUndockMustInitialException,
         /// <summary>load port undock 逾時未完成 </summary>
         LoadportUndockTimeOutException,
-
+        */
 
         /// <summary>Drawer 無法再分類的例外</summary>
         DrawerException = 10000,
@@ -122,7 +123,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時失敗</summary>
         DrawerMoveTrayToHomeWaitingLoadInstructionFailException,
         /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時逾時未到</summary>
-        DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException
+        DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException,
 
         /// <summary>Clean Chamber無法再分類的例外</summary>
         CleanChException = 2000,
