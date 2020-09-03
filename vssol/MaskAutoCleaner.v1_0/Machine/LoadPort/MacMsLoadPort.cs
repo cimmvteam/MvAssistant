@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+﻿#define NoConfig
+using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,38 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
-        public IMacHalLoadPortUnit HalLoadPortUnit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
+#if NoConfig
+        IMacHalLoadPortUnit HalLoadPort = null;
+#endif
+
+        public IMacHalLoadPortUnit HalLoadPortUnit
+        {
+#if NoConfig
+
+            get
+            {
+              
+             
+                return HalLoadPort;
+            }
+#else
+             get { return this.halAssembly as IMacHalLoadPortUnit; }
+#endif
+
+        }
         MacLoadPortUnitStateTimeOutController TimeController = new MacLoadPortUnitStateTimeOutController();
+
+#if NoConfig
+        public MacMsLoadPort()
+        {
+            HalLoadPort = new MacHalGudengLoadPort();
+            HalLoadPort.HalConnect();
+        }
+#endif
+        public void TestLoadportInstance()
+        {
+            var s = HalLoadPortUnit;
+        }
 
         #region  Command
         public void Reset()
@@ -529,7 +560,17 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 var transition = tIdleForGetPOD_NULL;
                 var triggerMember = new TriggerMember
                 {
-                    // TODO: do something 
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something 
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);

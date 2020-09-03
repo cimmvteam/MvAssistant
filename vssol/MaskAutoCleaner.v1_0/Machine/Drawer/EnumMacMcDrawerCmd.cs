@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.Machine.Cabinet
+namespace MaskAutoCleaner.v1_0.Machine.Drawer
 {
     public enum EnumMacMcDrawerCmd
     {

@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.Machine.Cabinet
+namespace MaskAutoCleaner.v1_0.Machine.Drawer
 {
     /** Initial
        
@@ -21,6 +21,20 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     {
         public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
         private MacDrawerStateTimeOutController timeoutObj = new MacDrawerStateTimeOutController();
+        public string Index
+        {
+            get
+            {
+                if (HalDrawer == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return HalDrawer.DeviceIndex;
+                }
+            }
+        }
 
         #region State Instruction
         /// <summary>初始化</summary>
@@ -29,24 +43,21 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public void InitialFromAnyState()
         {
             HalDrawer.SetDrawerWorkState(DrawerWorkState.InitialStart);
-            this.States[EnumMacDrawerState.InitialStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacDrawerState.InitialStart.ToString()].DoEntry(new MacStateEntryEventArgs(EnumMacDrawerInitialType.NormalInitial));
         }
 
         /// <summary>Load 時, 將 Tray 從任何地方移到 Out 的位置</summary>
         /// <remarks>Out 在機器外</remarks>
         public void Load_MoveTrayToPositionOutFromAnywhere()
         {
-            HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart);
-            this.States[EnumMacDrawerState.LoadMoveTrayToPositionOutStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            //HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart);
+            HalDrawer.SetDrawerWorkState(DrawerWorkState.InitialStart);
+            this.States[EnumMacDrawerState.InitialStart.ToString()].DoEntry(new MacStateEntryEventArgs(EnumMacDrawerInitialType.LoadInitial));
         }
 
         /// <summary>Load 時,  將 Tray 從Out 的位置移到 In 的位置  </summary>
         /// <remarks>
-        /// 主要動作:
-        /// 從 Out 移到 Home,
-        /// 到逹 Home 後檢查 有没有 Box,
-        ///    有Box => 繼續移到 In
-        ///    没有 Box => 回退到 Out
+        /// 
         /// </remarks>
         public void Load_MoveTrayToPositionInFromPositionOut()
         {
@@ -58,9 +69,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void Unload_MoveTrayToPositionInFromAnywhere()
         {
-            HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart);
+            //HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart);
+            HalDrawer.SetDrawerWorkState(DrawerWorkState.InitialStart);
             //this.States[EnumMacDrawerState.LoadMoveTrayToPositionOutStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
-            this.States[EnumMacDrawerState.UnloadMoveTrayToPositionInStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacDrawerState.InitialStart.ToString()].DoEntry(new MacStateEntryEventArgs(EnumMacDrawerInitialType.UnloadInitial));
         }
         
         public void Unload_MoveTrayToPositionOutFromPositionIn()
@@ -77,14 +89,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             /** Initial **/
             //  開始
             MacState sInitialStart = NewState(EnumMacDrawerState.InitialStart);
+            // 
             //  進行中
             MacState sInitialIng = NewState(EnumMacDrawerState.InitialIng);
             // 完成 
             MacState sInitialComplete = NewState(EnumMacDrawerState.InitialComplete);
-       
+
 
 
             /** Load, 將托盤移到 Out**/
+
+          
             // 開始
             MacState sLoadMoveTrayToPositionOutStart = NewState(EnumMacDrawerState.LoadMoveTrayToPositionOutStart);
             // 進行中 
@@ -196,10 +211,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacDrawerTransition.InitialStart_InitialIng);
             MacTransition tInitialing_InitialComplete = NewTransition(sInitialIng, sInitialComplete, EnumMacDrawerTransition.Initialing_InitialComplete);
-            MacTransition tInitialComplete_NULL = NewTransition(sInitialComplete, null, EnumMacDrawerTransition.InitialComplete_NULL); 
-       
+            MacTransition tInitialComplete_NULL = NewTransition(sInitialComplete, null, EnumMacDrawerTransition.InitialComplete_NULL);
+
 
             /** Load(將 Tray 移到 定位~ Out的位置 )**/
+           
+            // 開始, Initial 
+            MacTransition tInitialComplete_LoadMoveTrayToPositionOutStart = NewTransition(sInitialComplete, sLoadMoveTrayToPositionOutStart, 
+                                                                                         EnumMacDrawerTransition.InitialComplete_LoadMoveTrayToPositionOutStart);
+            
             // 開始-進行中
             MacTransition tLoadMoveTrayToPositionOutStart_LoadMoveTrayToPositionOutIng = NewTransition(sLoadMoveTrayToPositionOutStart, sLoadMoveTrayToPositionOutIng, 
                                                                                          EnumMacDrawerTransition.LoadMoveTrayToPositionOutStart_LoadMoveTrayToPositionOutIng);
@@ -276,6 +296,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             /**Unload**/
             /**將 Tray 移到  Poisition In */
+
+            MacTransition tInitialComplete_UnloadMoveTrayToPositionInStart = NewTransition(sInitialComplete, sUnloadMoveTrayToPositionInStart,
+                                                                                           EnumMacDrawerTransition.InitialComplete_UnloadMoveTrayToPositionInStart);
             // 開始=> 移動中
             MacTransition tUnloadMoveTrayToPositionInStart_UnloadMoveTrayToPositionInIng = NewTransition(sUnloadMoveTrayToPositionInStart, sUnloadMoveTrayToPositionInIng, 
                                                                                            EnumMacDrawerTransition.UnloadMoveTrayToPositionInStart_UnloadMoveTrayToPosiotionInIng);
@@ -371,7 +394,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                          // TODO: Do Something
                      },
                      NotGuardException = null,
-                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                     NextStateEntryEventArgs = new MacStateEntryEventArgs(e),
                      ThisStateExitEventArgs = new MacStateExitEventArgs(),
 
                  };
@@ -388,21 +411,55 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
            sInitialIng.OnEntry += (sender, e) =>
             {// Async
                 var transition = tInitialing_InitialComplete;
+                var eventArgs = (MacStateEntryEventArgs)e;
+                EnumMacDrawerInitialType initialType;
+                if (e.Parameter == null)
+                {
+                    initialType = EnumMacDrawerInitialType.NormalInitial;
+                }
+                else
+                {
+                    initialType = (EnumMacDrawerInitialType)(eventArgs.Parameter);
+                }
+               
                 TriggerMemberAsync triggerMemberAsync = new TriggerMemberAsync
                 {
                     Guard = (startTime) =>
                     {
-                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
                         {
                             return true;
                         }
-                        else if (HalDrawer.CurrentWorkState == DrawerWorkState.InitialFailed)
+                        else if (  HalDrawer.CurrentWorkState == DrawerWorkState.InitialFailed)
                         {
-                            throw new DrawerInitialFailException();
+                            if (initialType == EnumMacDrawerInitialType.LoadInitial)
+                            {
+                                throw new DrawerLoadInitialFailException();
+                            }
+                            else if (initialType == EnumMacDrawerInitialType.UnloadInitial)
+                            {
+                                throw new DrawerUnloadInitialFailException();
+                            }
+                            else
+                            {
+                                throw new DrawerInitialFailException();
+                            }
                         }
                         else if (timeoutObj.IsTimeOut(startTime))
                         {
-                            throw new DrawerInitialTimeOutException();
+                            if (initialType == EnumMacDrawerInitialType.LoadInitial)
+                            {
+                                throw new DrawerLoadInitialTimeOutException();
+                            }
+                            else if (initialType == EnumMacDrawerInitialType.UnloadInitial)
+                            {
+                                throw new DrawerUnloadInitialTimeOutException();
+                            }
+                            else
+                            {
+                                throw new DrawerInitialTimeOutException();
+                            }
+                            
                         }
                         else
                         {
@@ -415,7 +472,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(e),
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
@@ -429,20 +486,70 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             sInitialComplete.OnEntry += (sender, e)=>
             {  // Sync
-                var transition = tInitialComplete_NULL;
-                TriggerMember triggerMember = new TriggerMember
+                EnumMacDrawerInitialType initialType;
+                var eventArgs = (MacStateEntryEventArgs)e;
+                TriggerMember triggerMember = null;
+                if (e.Parameter == null)
                 {
-                    Guard = () => true,
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler =(state,ex)=>
+                    initialType = EnumMacDrawerInitialType.NormalInitial;
+                }
+                else {
+                  initialType = (EnumMacDrawerInitialType)(eventArgs.Parameter);
+                }
+                MacTransition transition=null;
+                
+                if(initialType == EnumMacDrawerInitialType.LoadInitial)
+                {
+                    transition = tInitialComplete_LoadMoveTrayToPositionOutStart;
+                    triggerMember = new TriggerMember
                     {
-                        // TODO: do something
-                    },
-                    NextStateEntryEventArgs = null,
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                    NotGuardException = null
-                };
+                        Guard = () => true,
+                        Action = (parameter)=> HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart) ,
+                        ActionParameter = null,
+                        ExceptionHandler = (state, ex) =>
+                        {
+                            // TODO: do something
+                        },
+                        NextStateEntryEventArgs = null,
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        NotGuardException = null
+                    };
+                }
+                else if(initialType == EnumMacDrawerInitialType.UnloadInitial)
+                {
+                    transition = tInitialComplete_UnloadMoveTrayToPositionInStart;
+                    triggerMember = new TriggerMember
+                    {
+                        Guard = () => true,
+                        Action = (parameter)=> HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInStart),
+                        ActionParameter = null,
+                        ExceptionHandler = (state, ex) =>
+                        {
+                            // TODO: do something
+                        },
+                        NextStateEntryEventArgs = null,
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        NotGuardException = null
+                    };
+                }
+                else // if (initialType == EnumMacDrawerInitialType.NormalInitial)
+                {
+                    transition = tInitialComplete_NULL;
+                    triggerMember = new TriggerMember
+                    {
+                        Guard = () => true,
+                        Action = null,
+                        ActionParameter = null,
+                        ExceptionHandler = (state, ex) =>
+                        {
+                            // TODO: do something
+                        },
+                        NextStateEntryEventArgs = null,
+                        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                        NotGuardException = null
+                    };
+                }
+                
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
                 
@@ -621,7 +728,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                       },
                     Guard = (startTime) =>
                     {
-                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome) { return true; }
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome) { return true; }
                         else if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayMotionFailed) { throw new DrawerLoadMoveTrayToPositionHomeFailException(); }
                         else if (timeoutObj.IsTimeOut(startTime)) { throw new DrawerLoadMoveTrayToPositionHomeTimeOutException(); }
                         else { return false; }
@@ -1211,7 +1318,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     },
                     Guard = (startTime) =>
                     {
-                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtHome)
+                        if (HalDrawer.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
                         {
                             return true;
                         }
