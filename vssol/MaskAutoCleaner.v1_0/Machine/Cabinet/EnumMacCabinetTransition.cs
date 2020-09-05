@@ -31,6 +31,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         BootupInitialDrawersStart_BootupInitialDrawersIng,
         /// <summary>系統啟動後 Initial Drawer, 動作中=> 完成</summary>
         BootupInitialDrawersIng_BootupInitialDrawersComplete,
+        BootupInitialDrawersComplete_NULL,
         /// <summary>系統啟動後 Initial Drawer 完成 =>   AnyState </summary>
         //BootupInitialDrawersComplete_AnyState,
 
