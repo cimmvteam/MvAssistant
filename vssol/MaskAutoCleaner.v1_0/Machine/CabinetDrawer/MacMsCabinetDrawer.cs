@@ -13,19 +13,24 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     [Guid("11111111-1111-1111-1111-111111111111")]// TODO: UPdate this Guid
     public class MacMsCabinetDrawer : MacMachineStateBase
     {
+        /**
         private MacState _currentState = null;
-        public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
-        MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
-        public string DeviceIndex { get { return HalDrawer.DeviceIndex; } } 
-        private void SetCurrentState(MacState state) 
+        protected void SetCurrentState(MacState state)
         {
             _currentState = state;
         }
-        public MacState CutrrentState { get { return _currentState; }  }
-
+        public MacState CutrrentState { get { return _currentState; } }
+        MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
+            */
+        public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
+       
+        public string DeviceIndex { get { return HalDrawer.DeviceIndex; } } 
+     
+        /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
+        /// <returns></returns>
         public bool CanLoad()
         {
-            if (_currentState == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
+            if (CutrrentState == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
             { return true; }
             else
             { return false; }
@@ -160,7 +165,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         #endregion Command 
 
-
+        /// <summary>下達Load 指令將 Tray 移到 Out 時, 到達Out 等待 將 Box 放到Tray 時的狀態 </summary>
+        public MacState StateLoadWaitingPutBoxOnTray { get { return this.States[EnumMacCabinetDrawerState.LoadWaitingPutBoxOnTray.ToString()]; } }
         public override void LoadStateMachine()
         {
             #region  state

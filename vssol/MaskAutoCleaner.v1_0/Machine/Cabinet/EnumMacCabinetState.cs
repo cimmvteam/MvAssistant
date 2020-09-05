@@ -8,24 +8,36 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
     public enum EnumMacCabinetState
     {
-         AnyState,
 
+       
 
-         StateMachineLoadAllDrawersStateMchineStart,
-         StateMachineLoadAllDrawersStateMchineIng,
-         StateMachineLoadAllDrawersStateMchineComplete,
+        /// <summary>載入所有的  Drawer State Machine, 開始</summary>
+        StateMachineLoadAllDrawersStateMchineStart,
+        /// <summary>載進所有的  Drawer State Machine, 載入中</summary>
+        StateMachineLoadAllDrawersStateMchineIng,
+        /// <summary>所有的  Drawer State Machine, 完成</summary>
+        StateMachineLoadAllDrawersStateMchineComplete,
 
-         LoadMoveDrawerTraysToOutStart,
-         LoadMoveDrawerTraysToOutIng,
-         LoadMoveDrawerTraysToOutComplete,
+        /// <summary>Load, 將合於條件的Drawer Tray 移到 Out, 開始 </summary>
+        LoadMoveDrawerTraysToOutStart,
+        /// <summary>Load, 將合於條件的Drawer Tray 移到 Out, 移動中 </summary>
+        LoadMoveDrawerTraysToOutIng,
+        /// <summary>/// <summary>Load, 將合於條件的Drawer Tray 移到 Out, 完成 </summary></summary>
+        LoadMoveDrawerTraysToOutComplete,
 
-         InitialDrawersStart,
-         InitialDrawersIng,
-         InitialDrawersComplete,
+        /// <summary>系統啟動時的 Initial, 開始</summary>
+        BootupInitialDrawersStart,
+        /// <summary>系統啟動時的 Initial, 進行中</summary>
+        BootupInitialDrawersIng,
+        /// <summary>系統啟動時的 Initial, 結束</summary>
+        BootupInitialDrawersComplete,
 
-         SynchronousDrawerStatesStart,
-         SynchronousDrawerStatesIng,
-         SynchronousDrawerStatesComplete,
+        /// <summary>同步Drawer 的狀態, 開始</summary>
+        SynchronousDrawerStatesStart,
+        /// <summary>同步Drawer 的狀態, 進行中</summary>
+        SynchronousDrawerStatesIng,
+        /// <summary>同步Drawer 的狀態, 結束</summary>
+        SynchronousDrawerStatesComplete,
 
         
          /**

@@ -45,6 +45,17 @@ namespace MaskAutoCleaner.v1_0.Machine
             return transition;
         }
 
+       
+        /// <summary>設定目前工作狀態</summary>
+        /// <param name="state"></param>
+        protected void SetCurrentState(MacState state)
+        {
+            CutrrentState = state;
+        }
+        /// <summary>目前工作狀態</summary>
+        public MacState CutrrentState { get; private set; }
+        /// <summary>計算工作是否逾時的物件</summary>
+        public MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
 
         /// <summary></summary>
         /// <param name="guard">guard (Func delegate) </param>

@@ -25,8 +25,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         }
 
         /// <summary>判斷是否逾時</summary>
-        /// <param name="startTime">開始計算時間</param>
-        /// <param name="targetDiffSecs">逾時秒數</param>
+        /// <param name="startTime">開始計算的時間</param>
+        /// <param name="targetDiffSecs">逾時基準(秒數)</param>
         /// <returns></returns>
         public virtual bool IsTimeOut(DateTime startTime, int targetDiffSecs)
         {
@@ -42,7 +42,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
             }
         }
 
-        /// <summary>判斷是否逾時</summary>
+        /// <summary>以預設秒數判斷是否逾時</summary>
         /// <param name="startTime">開始計算的時間</param>
         /// <returns></returns>
         public virtual bool IsTimeOut(DateTime startTime)
