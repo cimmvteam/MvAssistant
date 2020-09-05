@@ -8,12 +8,27 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
     public enum EnumMacCabinetState
     {
-
-    
-    
+         AnyState,
 
 
-        /**
+         StateMachineLoadAllDrawersStateMchineStart,
+         StateMachineLoadAllDrawersStateMchineIng,
+         StateMachineLoadAllDrawersStateMchineComplete,
+
+         LoadMoveDrawerTraysToOutStart,
+         LoadMoveDrawerTraysToOutIng,
+         LoadMoveDrawerTraysToOutComplete,
+
+         InitialDrawersStart,
+         InitialDrawersIng,
+         InitialDrawersComplete,
+
+         SynchronousDrawerStatesStart,
+         SynchronousDrawerStatesIng,
+         SynchronousDrawerStatesComplete,
+
+        
+         /**
         
         /// <summary>開機後尚未Initial</summary>
         BeforeInitial,

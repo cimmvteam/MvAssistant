@@ -115,8 +115,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public override void LoadStateMachine()
         {
-          
 
+            MacState sAnyState = NewState(EnumMacCabinetState.AnyState);
+            MacState sStateMachineLoadAllDrawersStateMchineStart = NewState(EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineStart);
+            MacState sStateMachineLoadAllDrawersStateMchineIng = NewState(EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineIng);
+            MacState sStateMachineLoadAllDrawersStateMchineComplete = NewState(EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineComplete);
+
+            MacState sLoadMoveDrawerTraysToOutStart = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutStart);
+            MacState sLoadMoveDrawerTraysToOutIng = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutIng);
+            MacState sLoadMoveDrawerTraysToOutComplete = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutComplete);
+
+            MacState sInitialDrawersStart = NewState(EnumMacCabinetState.InitialDrawersStart);
+            MacState sInitialDrawersIng = NewState(EnumMacCabinetState.InitialDrawersIng);
+            MacState sInitialDrawersComplete = NewState(EnumMacCabinetState.InitialDrawersComplete);
+
+            MacState sSynchronousDrawerStatesStart = NewState(EnumMacCabinetState.SynchronousDrawerStatesStart);
+            MacState sSynchronousDrawerStatesIng = NewState(EnumMacCabinetState.SynchronousDrawerStatesIng);
+            MacState sSynchronousDrawerStatesComplete = NewState(EnumMacCabinetState.SynchronousDrawerStatesComplete);
 
 
         }
