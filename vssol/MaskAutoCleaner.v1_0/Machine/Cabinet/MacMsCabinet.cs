@@ -232,6 +232,30 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sLoadMoveDrawerTraysToOutIng.OnExit+= (sender, e) =>
             { };
 
+            sLoadMoveDrawerTraysToOutComplete.OnEntry += (sender, e) =>
+              {
+                  SetCurrentState((MacState)sender);
+                  var transition =tLoadMoveDrawerTraysToOutComplete_NULL;
+                  var triggerMember = new TriggerMember
+                  {
+                      Action = null,
+                      ActionParameter = null,
+                      ExceptionHandler = (state, ex) =>
+                      {
+
+                      },
+                      Guard = () => true,
+                      NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                      NotGuardException = null,
+                      ThisStateExitEventArgs = new MacStateExitEventArgs()
+                  };
+                  transition.SetTriggerMembers(triggerMember);
+                  Trigger(transition);
+              };
+            sLoadMoveDrawerTraysToOutComplete.OnExit += (sender, e) =>
+            {
+
+            };
             #endregion event
         }
 
