@@ -18,42 +18,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public List<MacState> LoadState = null;
         
         #region 指令
-
-        /// <summary>啟動後, 重設所有 Drawer 狀態</summary>
-        public void ResetAllDrawerState()
-        {
-            if (SumOfCabinetDrawerStates == 0)
-            {
-
-            }
-            else
-            {
-                foreach (var state in _dicCabinetDrawerStates)
-                {
-                    state.Value.SystemBootup();
-                }
-            }
-        }
-        
-        /// <summary>啟動後 Initial 所有 Drawer</summary>
-        public void InitialBootupDrawer()
-        {
-            if (SumOfCabinetDrawerStates == 0)
-            {
-
-            }
-            else
-            {
-                foreach (var state in _dicCabinetDrawerStates)
-                {
-                    state.Value.SystemBootupInitial();
-                }
-            }
-        }
-
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
-        public void Load(int targetDrawerQuantity)
+        public void LoadDrawers(int targetDrawerQuantity)
         {
 
             var states = _dicCabinetDrawerStates.Values.Where(m => m.CanLoad()).ToList();
@@ -65,9 +32,35 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 states = states.Take(targetDrawerQuantity).ToList();
             }
-            this.States[EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineStart.ToString()].DoEntry(new CabinetLoadStartMacStateEntryEventArgs(states));
+            this.States[EnumMacCabinetState.LoadMoveDrawerTraysToOutStart.ToString()].DoEntry(new CabinetLoadStartMacStateEntryEventArgs(states));
            
         }
+
+
+        /// <summary>系統啟動之後 的 Initial</summary>
+        public void BootupInitialDrawers()
+        {
+            var states = _dicCabinetDrawerStates.Values.Where(m => m.CanLoad()).ToList();
+            if (states.Count == 0)
+            { }
+            else
+            {
+                this.States[EnumMacCabinetState.BootupInitialDrawersStart.ToString()].DoEntry(new CabinetSystemUpInitialMacStateEntryEventArgs   (states));
+            }
+        }
+
+        public void SynchrousDrawerStates()
+        {
+            var states = _dicCabinetDrawerStates.Values.Where(m => m.CanLoad()).ToList();
+            if (states.Count == 0)
+            { }
+            else
+            {
+                this.States[EnumMacCabinetState.SynchronousDrawerStatesStart.ToString()].DoEntry(new  CabinetSynchronousDrawerStatesMacStateEntryEventArgs(states));
+            }
+        }
+
+        
         #endregion 指令
 
 
@@ -111,9 +104,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             #region state
          
-            MacState sStateMachineLoadAllDrawersStateMchineStart = NewState(EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineStart);
-            MacState sStateMachineLoadAllDrawersStateMchineIng = NewState(EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineIng);
-            MacState sStateMachineLoadAllDrawersStateMchineComplete = NewState(EnumMacCabinetState.StateMachineLoadAllDrawersStateMchineComplete);
+           
 
             MacState sLoadMoveDrawerTraysToOutStart = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutStart);
             MacState sLoadMoveDrawerTraysToOutIng = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutIng);
@@ -129,40 +120,27 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             #endregion state
 
             #region transition
-            MacTransition tStateMachineLoadAllDrawersStateMchineStart_StateMachineLoadAllDrawersStateMchineIng = NewTransition(sStateMachineLoadAllDrawersStateMchineStart, sStateMachineLoadAllDrawersStateMchineIng,
-                                                                                                                  EnumMacCabinetTransition.StateMachineLoadAllDrawersStateMchineStart_StateMachineLoadAllDrawersStateMchineIng);
-            MacTransition tStateMachineLoadAllDrawersStateMchineIng_StateMachineLoadAllDrawersStateMchineComplete = NewTransition(sStateMachineLoadAllDrawersStateMchineIng, sStateMachineLoadAllDrawersStateMchineComplete,
-                                                                                                                  EnumMacCabinetTransition.StateMachineLoadAllDrawersStateMchineIng_StateMachineLoadAllDrawersStateMchineComplete);
-            /** 
-              MacTransition tStateMachineLoadAllDrawersStateMchineComplete_AnyState = NewTransition(sStateMachineLoadAllDrawersStateMchineComplete, sAnyState,
-                                                                                                                  EnumMacCabinetTransition.StateMachineLoadAllDrawersStateMchineComplete_AnyState);
-           */
+           
             MacTransition tLoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng = NewTransition(sLoadMoveDrawerTraysToOutStart,sLoadMoveDrawerTraysToOutIng,
                                                                                                                  EnumMacCabinetTransition.LoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng);
             MacTransition tLoadMoveDrawerTraysToOutIng_LoadMoveDrawerTraysToOutComplete = NewTransition(sLoadMoveDrawerTraysToOutIng, sLoadMoveDrawerTraysToOutComplete,
                                                                                                                  EnumMacCabinetTransition.LoadMoveDrawerTraysToOutIng_LoadMoveDrawerTraysToOutComplete);
             MacTransition tLoadMoveDrawerTraysToOutComplete_NULL = NewTransition(sLoadMoveDrawerTraysToOutComplete, null,
                                                                                                                EnumMacCabinetTransition.LoadMoveDrawerTraysToOutComplete_NULL);
-            /**
-            MacTransition tLoadMoveDrawerTraysToOutComplete_AnyState = NewTransition(sLoadMoveDrawerTraysToOutComplete,sAnyState,
-                                                                                                                 EnumMacCabinetTransition.LoadMoveDrawerTraysToOutComplete_AnyState);
-             */
+            
             MacTransition tBootupInitialDrawersStart_BootupInitialDrawersIng = NewTransition(sBootupInitialDrawersStart,sBootupInitialDrawersIng,
                                                                                                                 EnumMacCabinetTransition.BootupInitialDrawersStart_BootupInitialDrawersIng);
             MacTransition tBootupInitialDrawersIng_BootupInitialDrawersComplete = NewTransition(sBootupInitialDrawersIng, sBootupInitialDrawersComplete,
-                                                                                                              EnumMacCabinetTransition.BootupInitialDrawersStart_BootupInitialDrawersIng);
-            /**
-            MacTransition tBootupInitialDrawersComplete_AnyState = NewTransition(sBootupInitialDrawersComplete, sAnyState,
-                                                                                                              EnumMacCabinetTransition.BootupInitialDrawersComplete_AnyState);
-            */
+                                                                                                              EnumMacCabinetTransition.BootupInitialDrawersIng_BootupInitialDrawersComplete);
+            MacTransition tBootupInitialDrawersComplete_NULL = NewTransition(sBootupInitialDrawersComplete, null,
+                                                                                                              EnumMacCabinetTransition.BootupInitialDrawersComplete_NULL);
+
+            
             MacTransition tSynchronousDrawerStatesStart_SynchronousDrawerStatesIng = NewTransition(sSynchronousDrawerStatesStart,sSynchronousDrawerStatesIng,
                                                                                                                 EnumMacCabinetTransition.SynchronousDrawerStatesStart_SynchronousDrawerStatesIng);
             MacTransition tSynchronousDrawerStatesIng_SynchronousDrawerStatesComplete = NewTransition(sSynchronousDrawerStatesIng, sSynchronousDrawerStatesComplete,
                                                                                                                EnumMacCabinetTransition.SynchronousDrawerStatesIng_SynchronousDrawerStatesComplete);
-            /**
-            MacTransition tSynchronousDrawerStatesComplete_AnyState = NewTransition(sSynchronousDrawerStatesComplete,sAnyState,
-                                                                                                         EnumMacCabinetTransition.SynchronousDrawerStatesComplete_AnyState);
-           */
+            MacTransition tSynchronousDrawerStatesComplete_NULL = NewTransition(sSynchronousDrawerStatesComplete, null, EnumMacCabinetTransition.SynchronousDrawerStatesComplete_NULL);
             #endregion transition
 
             #region event
@@ -215,9 +193,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     Guard = (startTime) =>
                     {
                         var rtnV = false;
-                        var normals = args.LoadDrawerStates.Where(m => m.CutrrentState == m.StateLoadWaitingPutBoxOnTray).ToList().Count();
-                        var exceptions= args.LoadDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
-                        if (normals + exceptions == args.LoadDrawerStates.Count())
+                        var completeDrawers = args.LoadDrawerStates.Where(m => m.CutrrentState == m.StateLoadWaitingPutBoxOnTray).ToList().Count();
+                        var exceptionDrawers= args.LoadDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        if (completeDrawers + exceptionDrawers == args.LoadDrawerStates.Count())
                         {
                             rtnV = true;
                         }
@@ -242,7 +220,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                       ActionParameter = null,
                       ExceptionHandler = (state, ex) =>
                       {
-
+                          // do domething
                       },
                       Guard = () => true,
                       NextStateEntryEventArgs = new MacStateEntryEventArgs(),
@@ -256,6 +234,196 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
 
             };
+
+            sBootupInitialDrawersStart.OnEntry+=(sender,e)=>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tBootupInitialDrawersStart_BootupInitialDrawersIng;
+                var args=(CabinetSystemUpInitialMacStateEntryEventArgs)e;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) =>
+                    {
+                        var initialDrawerStates = (List<MacMsCabinetDrawer>)parameter;
+                        foreach (var state in initialDrawerStates)
+                        {
+                            state.SystemBootupInitial();
+                        }
+                    },
+                    ActionParameter = args.InitialDrawerStates,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do domething
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs =e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                        
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBootupInitialDrawersStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sBootupInitialDrawersIng.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tBootupInitialDrawersIng_BootupInitialDrawersComplete;
+                var args = (CabinetSystemUpInitialMacStateEntryEventArgs)e;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = (startTime) =>
+                    {
+                        var rtnV = false;
+
+                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateWaitingLoadInstruction).ToList().Count();
+                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
+                        {
+                            rtnV = true;
+                        }
+                        return rtnV;
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+
+            };
+            sBootupInitialDrawersIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sBootupInitialDrawersComplete.OnEntry += (sender, e) =>
+            {
+                var transition = tBootupInitialDrawersComplete_NULL;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBootupInitialDrawersComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sSynchronousDrawerStatesStart.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tSynchronousDrawerStatesStart_SynchronousDrawerStatesIng;
+                var args=(CabinetSynchronousDrawerStatesMacStateEntryEventArgs)e;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) =>
+                    {
+                        foreach(var state in args.SynchronousDrawerStates)
+                        {
+                            state.SystemBootup();
+                        }
+                    },
+                    ActionParameter = args.SynchronousDrawerStates,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sSynchronousDrawerStatesStart.OnEntry += (sender, e) =>
+            {
+
+            };
+
+            sSynchronousDrawerStatesIng.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tSynchronousDrawerStatesIng_SynchronousDrawerStatesComplete;
+                var args = (CabinetSystemUpInitialMacStateEntryEventArgs)e;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = (startTime) => 
+                    {
+                        var rtnV = false;
+
+                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
+                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
+                        {
+                            rtnV = true;
+                        }
+                        return rtnV;
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                   ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sSynchronousDrawerStatesIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sSynchronousDrawerStatesComplete.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tSynchronousDrawerStatesComplete_NULL;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) => {
+                        //do something
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sSynchronousDrawerStatesComplete.OnEntry += (sender, e) =>
+            {
+
+            };
+
             #endregion event
         }
 
@@ -266,8 +434,25 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         {
             LoadDrawerStates = drawerStates;
         }
-        public List<MacMsCabinetDrawer> LoadDrawerStates { get; set; }
+        public List<MacMsCabinetDrawer> LoadDrawerStates { get; private set; }
 
+    }
 
+    public class CabinetSystemUpInitialMacStateEntryEventArgs : MacStateEntryEventArgs
+    {
+        public CabinetSystemUpInitialMacStateEntryEventArgs(List<MacMsCabinetDrawer> drawerStates)
+        {
+            InitialDrawerStates = drawerStates;
+        }
+        public List<MacMsCabinetDrawer> InitialDrawerStates { get; private set; }
+    }
+
+    public class CabinetSynchronousDrawerStatesMacStateEntryEventArgs : MacStateEntryEventArgs
+    {
+        public CabinetSynchronousDrawerStatesMacStateEntryEventArgs(List<MacMsCabinetDrawer> drawerStates)
+        {
+            SynchronousDrawerStates = drawerStates;
+        }
+        public List<MacMsCabinetDrawer> SynchronousDrawerStates { get; private set; }
     }
 }

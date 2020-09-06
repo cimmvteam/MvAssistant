@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="GenCfg\UtGenMachineMgrCfg.cs" />
     <Compile Include="Machine\UtMcCabinet.cs" />
+    <Compile Include="Machine\UtMcCabinetDrawer.cs" />
     <Compile Include="Machine\UtMcInspectionCh.cs" />
     <Compile Include="Machine\UtMcDrawer.cs" />
     <Compile Include="Machine\UtMcLoadport.cs" />

@@ -165,8 +165,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         #endregion Command 
 
-        /// <summary>下達Load 指令將 Tray 移到 Out 時, 到達Out 等待 將 Box 放到Tray 時的狀態 </summary>
+        /// <summary>下達Load 指令將 Tray 移到 Out 時動作完成的狀態 (到達Out 等待 將 Box 放到Tray 時的狀態) </summary>
         public MacState StateLoadWaitingPutBoxOnTray { get { return this.States[EnumMacCabinetDrawerState.LoadWaitingPutBoxOnTray.ToString()]; } }
+        /// <summary>下達 Initial指令, 完成動作的狀態</summary>
+        public MacState StateWaitingLoadInstruction { get { return this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()]; } }
+        /// <summary>系統啟動後的狀態</summary>
+        public MacState StateSystemBootup { get { return this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()]; } }
         public override void LoadStateMachine()
         {
             #region  state

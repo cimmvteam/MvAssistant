@@ -11,12 +11,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
        
 
-        /// <summary>載入所有的  Drawer State Machine, 開始</summary>
-        StateMachineLoadAllDrawersStateMchineStart,
-        /// <summary>載進所有的  Drawer State Machine, 載入中</summary>
-        StateMachineLoadAllDrawersStateMchineIng,
-        /// <summary>所有的  Drawer State Machine, 完成</summary>
-        StateMachineLoadAllDrawersStateMchineComplete,
+        
 
         /// <summary>Load, 將合於條件的Drawer Tray 移到 Out, 開始 </summary>
         LoadMoveDrawerTraysToOutStart,

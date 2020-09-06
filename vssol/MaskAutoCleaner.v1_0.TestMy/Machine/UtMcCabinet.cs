@@ -16,7 +16,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         IList<MacMsCabinetDrawer> _cabinetDrawers { get; set; }
         private IList<MacMsCabinetDrawer> GetCabinetDrawers()
         {
-            return new List<MacMsCabinetDrawer>();
+            // TODO: 去得到所有的Cabinet Drawer
+            // 先以 null 暫時.....
+            //return new List<MacMsCabinetDrawer>();
+            return null;
         }
 
         public UtMcCabinet()
@@ -28,9 +31,21 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
          [TestMethod]
-        public void TestLoad()
+        public void LoadDrawers()
         {
-            
+            int drawers = 30;// 要 執行Load 的數量 
+            _machine.LoadDrawers(drawers);
+        }
+        [TestMethod]
+        public void BootupInitialDrawers()
+        {
+            _machine.BootupInitialDrawers();
+        }
+
+        [TestMethod]
+        public void SynchrousDrawerStates()
+        {
+            _machine.SynchrousDrawerStates();
         }
     }
 }
