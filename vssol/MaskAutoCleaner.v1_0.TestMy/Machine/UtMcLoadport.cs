@@ -26,7 +26,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             StateMachineB = MachineCtrlB.StateMachine;
             StateMachineA.LoadportKey = "loadport_1";
             StateMachineB.LoadportKey = "loadport_2";
-
+           
         }
 
         public void Repeat()
@@ -56,38 +56,42 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Reset()
         {
-            var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
+            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
             //var loadPort = machine.HalLoadPortUnit;
-            machine.LoadStateMachine();
-            machine.Reset();
+            //machine.LoadStateMachine();
+            StateMachineA.Reset();
+            StateMachineB.Reset();
             Repeat();
         }
 
         [TestMethod]
         public void Initial()
         {
-            var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-           // var loadPort = machine.HalLoadPortUnit;
-            machine.LoadStateMachine();
-            machine.Inintial();
+            // var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
+            // var loadPort = machine.HalLoadPortUnit;
+            // machine.LoadStateMachine();
+            StateMachineA.Inintial();
+            StateMachineB.Inintial();
             Repeat();
         }
         [TestMethod]
         public void Dock()
         {
-            var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
+            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
             //var loadPort = machine.HalLoadPortUnit;
-            machine.LoadStateMachine();
-            machine.Dock();
+            //machine.LoadStateMachine();
+            StateMachineA.Dock();
+            StateMachineB.Dock();
             Repeat();
         }
         [TestMethod]
         public void Undock()
         {
-            var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
+            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
             //var loadPort = machine.HalLoadPortUnit;
-            machine.LoadStateMachine();
-            machine.Undock();
+            //machine.LoadStateMachine();
+            StateMachineA.Undock();
+            StateMachineB.Undock();
             Repeat();
         }
 

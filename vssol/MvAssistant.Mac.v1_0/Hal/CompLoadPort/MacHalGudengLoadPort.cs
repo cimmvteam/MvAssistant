@@ -159,7 +159,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
                             if (!connected)
                             {
                                 _ldd = null;
-                                IsConnected = true;
+                                IsConnected = false;
                             }
                         }
                     }
