@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Initial()
         {
 
-            var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
+            var machine = new v1_0.Machine.Drawer.MacMsDrawer();
             //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
            machine.InitialFromAnyState();
@@ -31,7 +31,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Load_MoveTrayToPositionOut()
         {
-            var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
+            var machine = new v1_0.Machine.Drawer.MacMsDrawer();
             //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
             machine.Load_MoveTrayToPositionOutFromAnywhere();
@@ -41,7 +41,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Load_MoveTrayToPositionIn()
         {
-            var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
+            var machine = new v1_0.Machine.Drawer.MacMsDrawer();
            // var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
             machine.Load_MoveTrayToPositionInFromPositionOut();
@@ -50,7 +50,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Unload_MoveTrayToPositionIn()
         {
-            var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
+            var machine = new v1_0.Machine.Drawer.MacMsDrawer();
             //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
             machine.Unload_MoveTrayToPositionInFromAnywhere();
@@ -60,7 +60,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Unload_MoveTrayToPositionOut()
         {
-            var machine = new v1_0.Machine.Cabinet.MacMsDrawer();
+            var machine = new v1_0.Machine.Drawer.MacMsDrawer();
             //var drawer = machine.HalDrawer;
             machine.LoadStateMachine();
             machine.Unload_MoveTrayToPositionOutFromPositionIn();

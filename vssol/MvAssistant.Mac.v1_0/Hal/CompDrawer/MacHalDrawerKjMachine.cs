@@ -393,7 +393,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         private void OnTrayArriveHome(object sender, EventArgs e)
         {
             //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtHome);
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
 
             if (OnTrayArriveHomeHandler != null)
             {

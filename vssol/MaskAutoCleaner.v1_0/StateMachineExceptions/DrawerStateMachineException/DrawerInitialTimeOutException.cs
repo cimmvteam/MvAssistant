@@ -8,8 +8,9 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions.DrawerStateMachineExceptio
 {
     public class DrawerInitialTimeOutException : StateMachineExceptionBase
     {
-        public DrawerInitialTimeOutException(string message) : base(EnumStateMachineExceptionCode.DrawerInitialTimeOutException, message)
+        public DrawerInitialTimeOutException(string message):base(EnumStateMachineExceptionCode.DrawerInitialTimeOutException)
         {
+
         }
         public DrawerInitialTimeOutException() : this("")
         {

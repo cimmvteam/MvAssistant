@@ -17,8 +17,13 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         /// temp Constructor
         /// </summary>
         /// <param name="parameter"></param>
-        public MacStateEntryEventArgs(object parameter)
+        public MacStateEntryEventArgs(object parameter):this()
         { Parameter = parameter; }
+
+        public MacStateEntryEventArgs()
+        {
+            Parameter = null;
+        }
 
     }
 }

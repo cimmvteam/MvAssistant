@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using MaskAutoCleaner.v1_0.Machine;
-using MaskAutoCleaner.v1_0.Machine.Cabinet;
+using MaskAutoCleaner.v1_0.Machine.Drawer;
 using MaskAutoCleaner.v1_0.Machine.CleanCh;
 using MaskAutoCleaner.v1_0.Machine.InspectionCh;
 using MaskAutoCleaner.v1_0.Machine.LoadPort;

@@ -86,6 +86,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerState.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerTransition.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacCabinetState.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacCabinetTransition.cs" />
+    <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
+    <Compile Include="Machine\CabinetDrawer\MacMsCabinetDrawer.cs" />
+    <Compile Include="Machine\Drawer\EnumMacDrawerInitialType.cs" />
+    <Compile Include="StateMachineBeta\MacMsTimeOutController.cs" />
     <Compile Include="Machine\CleanCh\MacMcCleanCh.cs" />
     <Compile Include="Machine\InspectionCh\MacMcInspectionCh.cs" />
     <Compile Include="Machine\OpenStage\MacMcOpenStage.cs" />
@@ -111,6 +119,8 @@
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\CabinetPLCAlarmException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\CabinetPLCWarningException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadCheckBoxExistanceAtPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadInitialTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionHomeFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionHomeTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionInFailException.cs" />
@@ -122,9 +132,14 @@
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionOutFailException .cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingLoadInstructionFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingUnloadInstructionFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustResetException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadCheckBoxExistanceAtPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadInitialFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionHomeFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionHomeTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionInFailException.cs" />
@@ -133,6 +148,7 @@
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionOutTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeFailException.cs" />
     <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadInitialTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCategory.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCode.cs" />
     <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCodeExtends.cs" />
@@ -176,13 +192,13 @@
     <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStagePLCExecuteFailException.cs" />
     <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStagePLCWarningException.cs" />
     <Compile Include="StateMachineExceptions\StateMachineExceptionBase.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerLoadToHomeCompleteSource.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerState.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerTransition.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacDrawerUnloadToHomeCompleteSource.cs" />
-    <Compile Include="Machine\Cabinet\EnumMacMcDrawerCmd.cs" />
-    <Compile Include="Machine\Cabinet\MacMcDrawer.cs" />
-    <Compile Include="Machine\Cabinet\MacMsDrawer.cs" />
+    <Compile Include="Machine\Drawer\EnumMacDrawerLoadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Drawer\EnumMacDrawerState.cs" />
+    <Compile Include="Machine\Drawer\EnumMacDrawerTransition.cs" />
+    <Compile Include="Machine\Drawer\EnumMacDrawerUnloadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Drawer\EnumMacMcDrawerCmd.cs" />
+    <Compile Include="Machine\Drawer\MacMcDrawer.cs" />
+    <Compile Include="Machine\Drawer\MacMsDrawer.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMsLoadPortState.cs" />
     <Compile Include="Machine\LoadPort\EnumMacMsLoadPortTransition.cs" />
