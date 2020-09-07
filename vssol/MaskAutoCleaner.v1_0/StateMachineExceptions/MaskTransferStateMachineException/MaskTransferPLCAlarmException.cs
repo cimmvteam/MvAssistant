@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.StateMachineExceptions.MaskTransferStateMachineException
 {
-    public class MaskTransferException : StateMachineExceptionBase
+    public class MaskTransferPLCAlarmException : StateMachineExceptionBase
     {
-        public MaskTransferException(string message) : base(EnumStateMachineExceptionCode.MaskTransferException, message)
+        public MaskTransferPLCAlarmException(string message) : base(EnumStateMachineExceptionCode.MaskTransferException, message)
         {
 
         }
-        public MaskTransferException() : this("")
+        public MaskTransferPLCAlarmException() : this("")
         {
 
         }

@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         void ResetAllAlarm();
 
-        void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS);
+        void EMSAlarm(bool BT_EMS, bool MT_EMS, bool OS_EMS, bool IC_EMS);
 
         #region PLC狀態訊號
         bool ReadPowerON();

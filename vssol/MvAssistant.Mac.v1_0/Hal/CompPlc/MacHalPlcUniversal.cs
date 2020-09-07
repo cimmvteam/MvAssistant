@@ -139,20 +139,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// 當Assembly出錯時，針對部件下緊急停止訊號
         /// </summary>
         /// <param name="BT_EMS">Box Transfer是否緊急停止</param>
-        /// <param name="RT_EMS">Mask Transfer是否緊急停止</param>
+        /// <param name="MT_EMS">Mask Transfer是否緊急停止</param>
         /// <param name="OS_EMS">Open Stage是否緊急停止</param>
         /// <param name="IC_EMS">Inspection Chamber是否緊急停止</param>
-        public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
+        public void EMSAlarm(bool BT_EMS, bool MT_EMS, bool OS_EMS, bool IC_EMS)
         {
             var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, RT_EMS);
+            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, MT_EMS);
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
             plc.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
             Thread.Sleep(1000);
             if (plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
                 throw new MvException("PLC did not get 'Box Transfer EMS' alarm signal");
-            else if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != RT_EMS)
+            else if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != MT_EMS)
                 throw new MvException("PLC did not get 'Mask Transfer EMS' alarm signal");
             else if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
                 throw new MvException("PLC did not get 'Open Stage EMS' alarm signal");
@@ -710,19 +710,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "Deform Insp:Laser1 Error (Signal disconnection ), ";
+                            Result += "Clamp Inspect Deform:Laser1 Error (Signal disconnection ), ";
                         else if (i == 1)
-                            Result += "Deform Insp:Laser2 Error (Signal disconnection ), ";
+                            Result += "Clamp Inspect Deform:Laser2 Error (Signal disconnection ), ";
                         else if (i == 2)
-                            Result += "Deform Insp:Laser3 Error (Signal disconnection ), ";
+                            Result += "Clamp Inspect Deform:Laser3 Error (Signal disconnection ), ";
                         else if (i == 3)
-                            Result += "Deform Insp:Laser4 Error (Signal disconnection ), ";
+                            Result += "Clamp Inspect Deform:Laser4 Error (Signal disconnection ), ";
                         else if (i == 4)
-                            Result += "Deform Insp:Laser5 Error (Signal disconnection ), ";
+                            Result += "Clamp Inspect Deform:Laser5 Error (Signal disconnection ), ";
                         else if (i == 5)
-                            Result += "Deform Insp:Laser6 Error (Signal disconnection ), ";
+                            Result += "Clamp Inspect Deform:Laser6 Error (Signal disconnection ), ";
                         else
-                            Result += "Deform Inspection Unknown Alarm Signal, ";
+                            Result += "Clamp Inspect Deform Unknown Alarm Signal, ";
                 }
 
                 //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")

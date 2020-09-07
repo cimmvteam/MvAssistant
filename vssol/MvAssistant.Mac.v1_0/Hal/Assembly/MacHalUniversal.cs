@@ -65,11 +65,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// 當Assembly出錯時，針對部件下緊急停止訊號，Box Transfer、Mask Transfer、Open Stage、Inspection Chamber
         /// </summary>
         /// <param name="BT_EMS">Box Transfer是否緊急停止</param>
-        /// <param name="RT_EMS">Mask Transfer是否緊急停止</param>
+        /// <param name="MT_EMS">Mask Transfer是否緊急停止</param>
         /// <param name="OS_EMS">Open Stage是否緊急停止</param>
         /// <param name="IC_EMS">Inspection Chamber是否緊急停止</param>
-        public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
-        { plc_01.EMSAlarm(BT_EMS, RT_EMS, OS_EMS, IC_EMS); }
+        public void EMSAlarm(bool BT_EMS, bool MT_EMS, bool OS_EMS, bool IC_EMS)
+        { plc_01.EMSAlarm(BT_EMS, MT_EMS, OS_EMS, IC_EMS); }
 
         #region PLC狀態訊號
         /// <summary>

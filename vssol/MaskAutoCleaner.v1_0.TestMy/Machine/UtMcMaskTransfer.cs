@@ -27,7 +27,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 throw ex;
             }
         }
-
+        
         [TestMethod]
         public void LPAInspectedToLPA()
         {
