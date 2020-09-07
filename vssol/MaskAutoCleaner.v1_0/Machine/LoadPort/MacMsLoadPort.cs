@@ -53,7 +53,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             var s = HalLoadPortUnit;
             HalLoadPortUniversal.ReadPressureDiff();
-            HalLoadPortunit.CommandAlarmReset();
+            HalLoadPortUniversal.CommandAlarmReset();
         }
 
         #region  Command

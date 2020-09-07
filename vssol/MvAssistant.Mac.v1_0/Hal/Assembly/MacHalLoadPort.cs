@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
+using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Runtime.InteropServices;
@@ -12,6 +13,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(MacEnumDevice.loadport_plc); } }
+        public IMacHalLoadPortUnit UnitA { get { return (IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_1); } }
 
 
 
@@ -52,5 +54,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion
 
+
+        public string CommandAlarmReset()
+        { return UnitA.CommandAlarmReset(); }
     }
 }

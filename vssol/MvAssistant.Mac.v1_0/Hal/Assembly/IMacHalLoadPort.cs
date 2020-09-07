@@ -30,5 +30,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <returns>True：遮斷、False：Normal</returns>
         bool ReadLP_Light_Curtain();
+
+        string CommandAlarmReset();
     }
 }
