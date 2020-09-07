@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MaskAutoCleaner.v1_0.Machine;
+using MaskAutoCleaner.v1_0.Machine.LoadPort;
+using MaskAutoCleaner.v1_0.TestMy.UserData;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +25,14 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void TestLoadportInstance()
         {
-            var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-           // var loadPort = machine.HalLoadPortUnit;
-            machine.LoadStateMachine();
-            machine.TestLoadportInstance();
+            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
+            // var loadPort = machine.HalLoadPortUnit;
+            var MachineMgr = new MacMachineMgr();
+            MachineMgr.MvCfInit();
+            var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
+            var MS = MachineCtrl.StateMachine;
+            //machine.LoadStateMachine();
+            MS.TestLoadportInstance();
             Repeat();
         }
 

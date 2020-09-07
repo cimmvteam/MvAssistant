@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using MaskAutoCleaner.v1_0.StateMachineAlpha;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException;
+using MvAssistant.Mac.v1_0.Hal.Assembly;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
@@ -20,6 +21,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if NoConfig
         IMacHalLoadPortUnit HalLoadPort = null;
 #endif
+        private IMacHalLoadPort HalLoadPortUniversal { get { return this.halAssembly as IMacHalLoadPort; } }
+        private IMacHalLoadPortUnit HalLoadPortunit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
 
         public IMacHalLoadPortUnit HalLoadPortUnit
         {
@@ -41,13 +44,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if NoConfig
         public MacMsLoadPort()
         {
-            HalLoadPort = new MacHalGudengLoadPort();
-            HalLoadPort.HalConnect();
+            //HalLoadPort = new MacHalGudengLoadPort();
+            //HalLoadPort.HalConnect();
+            LoadStateMachine();
         }
 #endif
         public void TestLoadportInstance()
         {
             var s = HalLoadPortUnit;
+            HalLoadPortUniversal.ReadPressureDiff();
+            HalLoadPortunit.CommandAlarmReset();
         }
 
         #region  Command

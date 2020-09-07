@@ -14,6 +14,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
     [Guid("F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6")]
     public class MacHalGudengLoadPort : MacHalComponentBase, IMacHalLoadPortUnit
     {
+        #region Const
+        public const string DevConnStr_Ip = "ip";
+        public const string DevConnStr_Port = "port";
+        #endregion
+
         private static object getLddObject = new object();
         private MvGudengLoadPortLdd _ldd;
         public  LoadPortWorkState CurrentWorkState { get; private set; }

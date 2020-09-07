@@ -42,7 +42,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         public static Guid CameraLink = new Guid("6887E53E-4914-444A-A099-6BD30DA27396");
         public static Guid DrawerKjMachine = new Guid("80E11398-67B2-4991-A071-89C893BCAD4C");
         public static Guid LoadPortCellGudeng = new Guid("D870183B-836C-48D3-9024-D746C23D7398");
-
+        public static Guid GudengLoadPort = new Guid("813E3573-0A47-41DD-9C67-D9DB15ECE5ED");
 
 
 

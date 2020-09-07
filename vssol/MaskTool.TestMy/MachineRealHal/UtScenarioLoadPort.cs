@@ -36,7 +36,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 {
                     halContext.MvCfLoad();
 
-                    var loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                    var loportAssembly = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
 
                     var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                     var connected = testLoadPort.HalConnect();
@@ -67,7 +67,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 {
                     halContext.MvCfLoad();
 
-                    var loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                    var loportAssembly = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
 
                     var testLoadPort = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                     testLoadPort.HalConnect();
@@ -346,7 +346,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                 halContext.MvCfLoad();
                
-                loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                loportAssembly = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 TestLoadport= loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                 TestLoadport.HalConnect();
                 BindLoadPortEvent(TestLoadport);
@@ -378,7 +378,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                 halContext.MvCfLoad();
 
-                loportAssembly = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                loportAssembly = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 TestLoadport = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
                 TestLoadport.HalConnect();
                 
