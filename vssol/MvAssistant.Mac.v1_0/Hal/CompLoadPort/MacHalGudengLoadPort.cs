@@ -1,4 +1,4 @@
-﻿#define NoConfig
+﻿//#define NoConfig
 using MvAssistant.DeviceDrive;
 using MvAssistant.DeviceDrive.GudengLoadPort;
 using System;
@@ -95,7 +95,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             get
             { 
             var port = Convert.ToInt32(this.DevSettings["port"]);
-            return port
+                return port;
             } 
 #endif
 

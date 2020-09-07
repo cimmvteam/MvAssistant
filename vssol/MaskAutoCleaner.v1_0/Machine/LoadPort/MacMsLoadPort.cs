@@ -1,4 +1,4 @@
-﻿#define NoConfig
+﻿//#define NoConfig
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
@@ -22,8 +22,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         IMacHalLoadPortUnit HalLoadPort = null;
 #endif
         private IMacHalLoadPort HalLoadPortUniversal { get { return this.halAssembly as IMacHalLoadPort; } }
-        private IMacHalLoadPortUnit HalLoadPortunit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
-
+        //private IMacHalLoadPortUnit HalLoadPortunit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
+        public string LoadportKey { get; set; }
         public IMacHalLoadPortUnit HalLoadPortUnit
         {
 #if NoConfig
@@ -35,7 +35,18 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 return HalLoadPort;
             }
 #else
-             get { return this.halAssembly as IMacHalLoadPortUnit; }
+            get
+            {
+                try
+                {
+                    var rtnV = this.halAssembly.Hals[LoadportKey] as IMacHalLoadPortUnit;
+                    return rtnV;
+                }
+                catch(Exception ex)
+                {
+                    return null;
+                }
+            }
 #endif
 
         }
@@ -48,12 +59,18 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             //HalLoadPort.HalConnect();
             LoadStateMachine();
         }
+#else
+        public MacMsLoadPort()
+        {
+            LoadStateMachine();
+        }
 #endif
         public void TestLoadportInstance()
         {
             var s = HalLoadPortUnit;
-            HalLoadPortUniversal.ReadPressureDiff();
-            HalLoadPortUniversal.CommandAlarmReset();
+            // HalLoadPortUniversal.ReadPressureDiff();
+            // HalLoadPortUniversal.CommandAlarmReset();
+            HalLoadPortUnit.CommandAlarmReset();
         }
 
         #region  Command
