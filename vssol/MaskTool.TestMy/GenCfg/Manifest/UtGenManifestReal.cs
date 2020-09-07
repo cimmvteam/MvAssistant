@@ -294,20 +294,20 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 PositionId = MacEnumPositionId.LoadPort01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("ip={0};port={1}", plcIp, plcPortId),
+                        DevConnStr = string.Format("{0}={1};{2}={3}", MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
                         DriverId = ManifestDriverId.LoadPortPlc.ToString(),
                     },
 
-                    new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
-                            MacHalLoadPortCellGudeng.DevConnStr_Ip, "192.168.0.119",
-                            MacHalLoadPortCellGudeng.DevConnStr_Port, 1000,
-                            MacHalLoadPortCellGudeng.DevConnStr_LocalIp, null,
-                            MacHalLoadPortCellGudeng.DevConnStr_LocalPort, 0),
-                        DeviceName = MacEnumDevice.loadport_cell_001.ToString(),
-                        DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
-                    },
+                    //new MacManifestDeviceCfg(){
+                    //    DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                    //        MacHalLoadPortCellGudeng.DevConnStr_Ip, "192.168.0.119",
+                    //        MacHalLoadPortCellGudeng.DevConnStr_Port, 1000,
+                    //        MacHalLoadPortCellGudeng.DevConnStr_LocalIp, null,
+                    //        MacHalLoadPortCellGudeng.DevConnStr_LocalPort, 0),
+                    //    DeviceName = MacEnumDevice.loadport_cell_001.ToString(),
+                    //    DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
+                    //},
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
@@ -348,15 +348,15 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                     },
 
 
-                    new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
-                            MacHalLoadPortCellGudeng.DevConnStr_Ip, "192.168.0.119",
-                            MacHalLoadPortCellGudeng.DevConnStr_Port, 1000,
-                            MacHalLoadPortCellGudeng.DevConnStr_LocalIp, null,
-                            MacHalLoadPortCellGudeng.DevConnStr_LocalPort, 0),
-                        DeviceName = MacEnumDevice.loadport_cell_001.ToString(),
-                        DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
-                    },
+                    //new MacManifestDeviceCfg(){
+                    //    DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                    //        MacHalLoadPortCellGudeng.DevConnStr_Ip, "192.168.0.119",
+                    //        MacHalLoadPortCellGudeng.DevConnStr_Port, 1000,
+                    //        MacHalLoadPortCellGudeng.DevConnStr_LocalIp, null,
+                    //        MacHalLoadPortCellGudeng.DevConnStr_LocalPort, 0),
+                    //    DeviceName = MacEnumDevice.loadport_cell_001.ToString(),
+                    //    DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
+                    //},
 
 
                     new MacManifestDeviceCfg(){
