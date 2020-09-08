@@ -21,17 +21,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if NoConfig
         IMacHalLoadPortUnit HalLoadPort = null;
 #endif
-        private IMacHalLoadPort HalLoadPortUniversal { get { return this.halAssembly as IMacHalLoadPort; } }
-        //private IMacHalLoadPortUnit HalLoadPortunit { get { return this.halAssembly as IMacHalLoadPortUnit; } }
-        public string LoadportKey { get; set; }
+        public IMacHalLoadPort HalLoadPortUniversal { get { return this.halAssembly as IMacHalLoadPort; } }
         public IMacHalLoadPortUnit HalLoadPortUnit
         {
 #if NoConfig
-
             get
             {
-              
-             
+           
                 return HalLoadPort;
             }
 #else
@@ -39,7 +35,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 try
                 {
-                    var rtnV = this.halAssembly.Hals[LoadportKey] as IMacHalLoadPortUnit;
+                    //var rtnV = this.halAssembly.Hals[LoadportKey] as IMacHalLoadPortUnit;
+                   var rtnV= HalLoadPortUniversal.LoadPortUnit;
                     return rtnV;
                 }
                 catch(Exception ex)
