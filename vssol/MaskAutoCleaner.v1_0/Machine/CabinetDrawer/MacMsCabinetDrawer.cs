@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 {
-    [Guid("11111111-1111-1111-1111-111111111111")]// TODO: UPdate this Guid
+    [Guid("71653EBD-4BF3-46B5-9541-02CFFD14A3EA")]
     public class MacMsCabinetDrawer : MacMachineStateBase
     {
         /**

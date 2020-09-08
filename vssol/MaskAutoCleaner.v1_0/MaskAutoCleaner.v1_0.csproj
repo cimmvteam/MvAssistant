@@ -88,6 +88,7 @@
     <Compile Include="EnumMacRecipeType.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerState.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerTransition.cs" />
+    <Compile Include="Machine\CabinetDrawer\MacMcCabinetDrawer.cs" />
     <Compile Include="Machine\Cabinet\EnumMacCabinetState.cs" />
     <Compile Include="Machine\Cabinet\EnumMacCabinetTransition.cs" />
     <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
