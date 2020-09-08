@@ -13,6 +13,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     public   class UtMcCabinetDrawer
     {
         MacMsCabinetDrawer _machine { get; set; }
+
+
         public UtMcCabinetDrawer()
         {
             _machine = new MacMsCabinetDrawer();
