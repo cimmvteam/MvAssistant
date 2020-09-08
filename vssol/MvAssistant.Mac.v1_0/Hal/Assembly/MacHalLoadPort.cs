@@ -2,6 +2,7 @@
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -11,11 +12,39 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     {
         #region Device Components
 
-
+        public MacHalLoadPort()
+        {
+           
+           // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_1));
+           // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_2));
+        }
         public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(MacEnumDevice.loadport_plc); } }
-        public IMacHalLoadPortUnit UnitA { get { return (IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_1); } }
+        
+        public IMacHalLoadPortUnit LoadPortUnit
+        {
+            get
+            {
+                   IMacHalLoadPortUnit rtnV = null;
+                   for (var i= (int)MacEnumDevice.loadport_1;i<= (int)MacEnumDevice.loadport_2; i++)
+                   {
+                     try
+                     {
+                        rtnV=(IMacHalLoadPortUnit)this.GetHalDevice((MacEnumDevice)i);
+                        if (rtnV != null)
+                        {
+                            break;
+                        }
+                      }
+                     catch(Exception ex)
+                     {
 
-
+                     }
+                   }
+                return rtnV;
+               
+            }
+            
+        }
 
         #endregion
 
@@ -54,8 +83,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion
 
-
+       
         public string CommandAlarmReset()
-        { return UnitA.CommandAlarmReset(); }
+        {
+            //           return Unit.CommandAlarmReset();
+            return null;
+        }
+       
     }
 }

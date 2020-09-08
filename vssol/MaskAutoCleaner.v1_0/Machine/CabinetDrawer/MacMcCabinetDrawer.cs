@@ -13,6 +13,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     {
         public MacMsCabinetDrawer StateMachine { get { return this.msAssembly as MacMsCabinetDrawer; } set { this.msAssembly = value; } }
 
+     
+
         public MacMcCabinetDrawer()
         {
             this.msAssembly = new MacMsCabinetDrawer();

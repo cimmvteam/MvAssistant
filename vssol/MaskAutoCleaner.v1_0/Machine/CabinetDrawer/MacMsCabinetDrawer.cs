@@ -25,6 +25,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
        
         public string DeviceIndex { get { return HalDrawer.DeviceIndex; } } 
+
+      //  public 
      
         /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
         /// <returns></returns>

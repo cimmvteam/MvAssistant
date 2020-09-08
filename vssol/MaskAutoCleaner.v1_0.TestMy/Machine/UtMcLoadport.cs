@@ -24,9 +24,12 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MachineCtrlB = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             StateMachineA = MachineCtrlA.StateMachine;
             StateMachineB = MachineCtrlB.StateMachine;
-            StateMachineA.LoadportKey = "loadport_1";
-            StateMachineB.LoadportKey = "loadport_2";
-           
+            //StateMachineA.LoadportKey = "loadport_1";
+            //StateMachineB.LoadportKey = "loadport_2";
+        //   var la= StateMachineA.HalLoadPortUniversal.LoadPortUnit;
+        //    var lb = StateMachineB.HalLoadPortUniversal.LoadPortUnit;
+
+
         }
 
         public void Repeat()
