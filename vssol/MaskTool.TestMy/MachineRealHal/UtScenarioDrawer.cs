@@ -34,7 +34,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                 halContext.MvCfLoad();
-                var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+                var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalCabinet;
                 var drawer= cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                 var connected=drawer.HalConnect();
                 var isConnected = drawer.HalIsConnected();

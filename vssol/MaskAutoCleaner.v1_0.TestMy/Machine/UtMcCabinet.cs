@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
          [TestMethod]
         public void LoadDrawers()
         {
-            int drawers = 30;// 要 執行Load 的數量 
+            int drawers = 20;// 要 執行Load 的數量 
             _machine.LoadDrawers(drawers);
         }
         [TestMethod]

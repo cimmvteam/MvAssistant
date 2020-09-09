@@ -91,6 +91,19 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 MachineCtrlType = typeof(MacMcCabinetDrawer),
                 HalId = EnumMachineId.DE_CB_A_01_02.ToString(),
             });
+
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_03.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_03.ToString(),
+            });
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_04.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_04.ToString(),
+            });
             var fn = "../../UserData/MachineMgr.config";
             var fi = new FileInfo(fn);
             if (!fi.Directory.Exists) fi.Directory.Create();

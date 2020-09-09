@@ -21,6 +21,8 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
 
         #endregion
 
+        
+
         #region Assembly PLC Driver ID
 
         public static Guid BoxTransferPlc = new Guid("56CA482D-90C4-40FD-A045-D11CA1D3168B");
