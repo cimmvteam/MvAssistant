@@ -169,7 +169,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 PositionId = MacEnumPositionId.Drawer01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000",
+                        DevConnStr = "ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_01.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                         ID= EnumMachineId.DE_CB_A_01_01.ToString(),
@@ -191,7 +191,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 PositionId = MacEnumPositionId.Drawer02.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000",
+                        DevConnStr = "ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_02.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                         ID= EnumMachineId.DE_CB_A_01_02.ToString(),
@@ -213,7 +213,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 PositionId = MacEnumPositionId.Drawer03.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "ip=192.168.0.50;port=5000;local_ip=192.168.0.14;local_port=6000",
+                        DevConnStr = "ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_03.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                         ID= EnumMachineId.DE_CB_A_01_03.ToString(),
@@ -235,7 +235,7 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                 PositionId = MacEnumPositionId.Drawer04.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = "ip=192.168.0.54;port=5000;local_ip=192.168.0.14;local_port=6000",
+                        DevConnStr = "ip=192.168.0.54;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_04.ToString(),
                         DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
                         ID= EnumMachineId.DE_CB_A_01_04.ToString(),
