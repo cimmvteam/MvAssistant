@@ -18,6 +18,56 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
+        private static MacMsLoadPort _loadPortStateMachineA = null;
+        public static MacMsLoadPort LoadPortStateMachineA
+        {
+            get
+            {
+                if (_loadPortStateMachineA == null)
+                {
+                    lock (_loportAlockObject)
+                    {
+                        if (_loadPortStateMachineA == null)
+                        {
+                            var MachineMgr = new MacMachineMgr();
+                            MachineMgr.MvCfInit();
+                            var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
+                            _loadPortStateMachineA = MachineCtrlA.StateMachine;
+                            var B = LoadPortStateMachineB;
+
+                        }
+                    }
+                }
+                return _loadPortStateMachineA;
+            }
+        }
+        private static readonly object _loportAlockObject = new object();
+
+        private static MacMsLoadPort _loadPortStateMachineB = null;
+        public static MacMsLoadPort LoadPortStateMachineB
+        {
+            get
+            {
+                if (_loadPortStateMachineB == null)
+                {
+                    lock (_loportAlockObject)
+                    {
+                        if (_loadPortStateMachineB == null)
+                        {
+                            var MachineMgr = new MacMachineMgr();
+                            MachineMgr.MvCfInit();
+                            var MachineCtrl = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
+                            _loadPortStateMachineB = MachineCtrl.StateMachine;
+                            var A = LoadPortStateMachineA;
+                        }
+                    }
+                }
+                return _loadPortStateMachineB;
+            }
+        }
+        private static readonly object _loportBlockObject = new object();
+
+
 #if NoConfig
         IMacHalLoadPortUnit HalLoadPort = null;
 #endif
@@ -59,15 +109,26 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
         public MacMsLoadPort()
         {
-            LoadStateMachine();
+           /* if (LoadPortStateMachineA == null || LoadPortStateMachineB == null)
+            {
+             var MachineMgr = new MacMachineMgr();
+                MachineMgr.MvCfInit();
+                var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
+                var MachineCtrlB = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
+                LoadPortStateMachineA = MachineCtrlA.StateMachine;
+                LoadPortStateMachineB = MachineCtrlB.StateMachine;
+            }
+            */
+             LoadStateMachine();
         }
 #endif
         public void TestLoadportInstance()
         {
-            var s = HalLoadPortUnit;
+            //var s = HalLoadPortUnit;
             // HalLoadPortUniversal.ReadPressureDiff();
             // HalLoadPortUniversal.CommandAlarmReset();
-            HalLoadPortUnit.CommandAlarmReset();
+            //HalLoadPortUnit.CommandAlarmReset();
+
         }
 
         #region  Command
@@ -163,7 +224,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 var transition = tResetStart_ResetIng;
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => this.HalLoadPortUnit.CommandAlarmReset(),
+                    Action = (parameter) => this.HalLoadPortUnit.CommandAlarmReset(), 
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {

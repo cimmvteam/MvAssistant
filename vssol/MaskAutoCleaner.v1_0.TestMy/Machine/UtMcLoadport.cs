@@ -18,17 +18,21 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         private MacMsLoadPort StateMachineB = null;
         public UtMcLoadport()
         {
+            /*
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
-            var MachineCtrlA = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
-            var MachineCtrlB = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
+            var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
+            var MachineCtrlB = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             StateMachineA = MachineCtrlA.StateMachine;
             StateMachineB = MachineCtrlB.StateMachine;
+            */
             //StateMachineA.LoadportKey = "loadport_1";
             //StateMachineB.LoadportKey = "loadport_2";
-        //   var la= StateMachineA.HalLoadPortUniversal.LoadPortUnit;
-        //    var lb = StateMachineB.HalLoadPortUniversal.LoadPortUnit;
+            //   var la= StateMachineA.HalLoadPortUniversal.LoadPortUnit;
+            //    var lb = StateMachineB.HalLoadPortUniversal.LoadPortUnit;
 
+            StateMachineA = MacMsLoadPort.LoadPortStateMachineA;
+            StateMachineB = MacMsLoadPort.LoadPortStateMachineB;
 
         }
 
@@ -62,8 +66,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
             //var loadPort = machine.HalLoadPortUnit;
             //machine.LoadStateMachine();
-            StateMachineA.Reset();
             StateMachineB.Reset();
+           // StateMachineB.Reset();
             Repeat();
         }
 

@@ -11,6 +11,7 @@ using MaskAutoCleaner.v1_0.Machine.Universal;
 using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.GenCfg.Manifest;
+using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 {
@@ -75,6 +76,20 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 ID = EnumMachineID.MID_UNI_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcUniversal),
                 HalId = EnumMachineId.DE_UNI_A_ASB.ToString(),
+            });
+
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_01.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_01.ToString(),
+            });
+
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_02.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_02.ToString(),
             });
             var fn = "../../UserData/MachineMgr.config";
             var fi = new FileInfo(fn);

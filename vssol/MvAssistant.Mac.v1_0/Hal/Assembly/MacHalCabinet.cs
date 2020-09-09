@@ -18,14 +18,40 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         #region Device Components
         public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(MacEnumDevice.cabinet_plc); } }
 
+        public IMacHalDrawer MacHalDrawer
+        {
+            get
+            {
+                //return this.
+                IMacHalDrawer drawer = null;
+                for (var i = (int)MacEnumDevice.cabinet_drawer_01_01; i <= (int)MacEnumDevice.cabinet_drawer_07_05; i++)
+                {
+                    try
+                    {
+                        drawer = (IMacHalDrawer)this.GetHalDevice((MacEnumDevice)i);
+                        if (drawer != null)
+                        {
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                return drawer;
+               ;
+            }
+        }
+
       //  public Dictionary<string, IMacHalDrawer> Drawers { get; set; }
-       
+      /*
         public IMacHalDrawer Drawer(int index)
         {
             var key = string.Format("{0}_{1:000}", MacEnumDevice.cabinet_drawer, index);
             return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
         }
-
+        */
         /*
         public IMacHalDrawer GetDrawer(string index)
         {

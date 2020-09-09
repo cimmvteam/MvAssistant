@@ -1,5 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.DrawerStateMachineException;
+using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
@@ -13,21 +14,18 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     [Guid("71653EBD-4BF3-46B5-9541-02CFFD14A3EA")]
     public class MacMsCabinetDrawer : MacMachineStateBase
     {
-        /**
-        private MacState _currentState = null;
-        protected void SetCurrentState(MacState state)
-        {
-            _currentState = state;
+        public IMacHalCabinet HalCabinetUniversal { get { return this.halAssembly as IMacHalCabinet; } }
+        public IMacHalDrawer HalDrawer {
+            get
+            {
+               
+                return HalCabinetUniversal.MacHalDrawer;
+            }
         }
-        public MacState CutrrentState { get { return _currentState; } }
-        MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
-            */
-        public IMacHalDrawer HalDrawer { get { return this.halAssembly as IMacHalDrawer; } }
-       
-        public string DeviceIndex { get { return HalDrawer.DeviceIndex; } } 
 
-      //  public 
-     
+        public string DeviceIndex { get { return HalDrawer.DeviceIndex; } }
+
+       
         /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
         /// <returns></returns>
         public bool CanLoad()
@@ -36,6 +34,11 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             { return true; }
             else
             { return false; }
+        }
+
+        public MacMsCabinetDrawer()
+        {
+            LoadStateMachine();
         }
         #region Command
 

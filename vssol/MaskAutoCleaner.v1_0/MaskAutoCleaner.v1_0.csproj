@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumDrawerStateMachineID.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerState.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerTransition.cs" />
     <Compile Include="Machine\CabinetDrawer\MacMcCabinetDrawer.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
     <Compile Include="Machine\CabinetDrawer\MacMsCabinetDrawer.cs" />
     <Compile Include="Machine\Drawer\EnumMacDrawerInitialType.cs" />
+    <Compile Include="Machine\LoadPort\EnumLoadportStateMachineID.cs" />
     <Compile Include="StateMachineBeta\MacMsTimeOutController.cs" />
     <Compile Include="Machine\CleanCh\MacMcCleanCh.cs" />
     <Compile Include="Machine\InspectionCh\MacMcInspectionCh.cs" />

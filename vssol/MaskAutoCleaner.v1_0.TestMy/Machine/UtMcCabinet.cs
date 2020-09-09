@@ -13,19 +13,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     public class UtMcCabinet
     {
         MacMsCabinet _machine { get; set; }
-        IList<MacMsCabinetDrawer> _cabinetDrawers { get; set; }
-        private IList<MacMsCabinetDrawer> GetCabinetDrawers()
-        {
-            // TODO: 去得到所有的Cabinet Drawer
-            // 先以 null 暫時.....
-            //return new List<MacMsCabinetDrawer>();
-            return null;
-        }
-
         public UtMcCabinet()
         {
-            _cabinetDrawers = GetCabinetDrawers();
-            _machine = new MacMsCabinet(_cabinetDrawers);
+            _machine = new MacMsCabinet();
             _machine.LoadStateMachine();
            
         }
