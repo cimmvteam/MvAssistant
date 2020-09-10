@@ -145,7 +145,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         MovingToCB2HomeClampedFromCabinet0705,
         #endregion Return To CB Home Clamped From Cabinet
 
-        #region Move To Cabinet Fro Release
+        #region Move To Cabinet For Release
         MovingToCabinet0101ForRelease,
         MovingToCabinet0102ForRelease,
         MovingToCabinet0103ForRelease,
@@ -181,7 +181,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         MovingToCabinet0703ForRelease,
         MovingToCabinet0704ForRelease,
         MovingToCabinet0705ForRelease,
-        #endregion Move To Cabinet Fro Release
+        #endregion Move To Cabinet For Release
 
         #region Releasing At Cabinet
         Cabinet0101Releasing,
