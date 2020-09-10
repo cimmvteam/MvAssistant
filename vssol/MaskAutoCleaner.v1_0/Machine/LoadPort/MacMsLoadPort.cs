@@ -109,26 +109,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
         public MacMsLoadPort()
         {
-           /* if (LoadPortStateMachineA == null || LoadPortStateMachineB == null)
-            {
-             var MachineMgr = new MacMachineMgr();
-                MachineMgr.MvCfInit();
-                var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
-                var MachineCtrlB = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
-                LoadPortStateMachineA = MachineCtrlA.StateMachine;
-                LoadPortStateMachineB = MachineCtrlB.StateMachine;
-            }
-            */
              LoadStateMachine();
         }
 #endif
         public void TestLoadportInstance()
         {
-            //var s = HalLoadPortUnit;
-            // HalLoadPortUniversal.ReadPressureDiff();
-            // HalLoadPortUniversal.CommandAlarmReset();
-            //HalLoadPortUnit.CommandAlarmReset();
-
+            
         }
 
         #region  Command

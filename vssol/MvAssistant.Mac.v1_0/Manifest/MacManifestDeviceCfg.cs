@@ -28,8 +28,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         [XmlAttribute] public string ID { get; set; }
         //[XmlAttribute] public string Level { get; set; }
         [XmlAttribute] public string PositionId { get; set; }
-
-
-
+       
+     
     }
 }
