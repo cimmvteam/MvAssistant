@@ -35,6 +35,8 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         DE_MT_A_ASB,
         DE_OS_A_ASB,
         DE_UNI_A_ASB,//PLC的Assembly只能有一個, 但底下可以有多個PLC Device
+       
+
 
 
         #region Box Transfer

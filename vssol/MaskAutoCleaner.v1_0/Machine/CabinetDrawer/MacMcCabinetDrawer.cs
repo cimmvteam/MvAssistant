@@ -12,14 +12,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     public  class MacMcCabinetDrawer : MacMachineCtrlBase
     {
         public MacMsCabinetDrawer StateMachine { get { return this.msAssembly as MacMsCabinetDrawer; } set { this.msAssembly = value; } }
-
-     
-
-        public MacMcCabinetDrawer()
+       public MacMcCabinetDrawer()
         {
             this.msAssembly = new MacMsCabinetDrawer();
         }
-
         public override int RequestProcMsg(MsgBase msg)
         {
             return 0;
