@@ -15,7 +15,59 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     [Guid("11111111-1111-1111-1111-111111111111")]// TODO: UPdate this Guid
     public class MacMsCabinet : MacMachineStateBase
     {
+
+        private static List<MacMcCabinetDrawer> MachineControls = null;
+        public static Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> _dicStateMachines = null;
+        public readonly static object _getStateMachineLockObj = new object();
+        public static Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> DicStateMachines
+        {
+            get
+            {
+                if(_dicStateMachines==null)
+                {
+                    lock (_getStateMachineLockObj)
+                    {
+                        if (_dicStateMachines == null)
+                        {
+                            var MachineMgr = new MacMachineMgr();
+                            MachineMgr.MvCfInit();
+                            MachineControls = new List<MacMcCabinetDrawer>();
+                            _dicStateMachines = new Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer>();
+                            for (var i = (int)EnumDrawerStateMachineID.MID_DRAWER_01_01; i <= (int)EnumDrawerStateMachineID.MID_DRAWER_01_04; i++)
+                            {
+                                var machineId = ((EnumDrawerStateMachineID)i);
+                                try
+                                {
+                                    var control = MachineMgr.CtrlMachines[machineId.ToString()] as MacMcCabinetDrawer;
+                                    MachineControls.Add(control);
+                                    _dicStateMachines.Add(machineId, control.StateMachine);
+                                }
+                                catch (Exception ex)
+                                {
+
+                                }
+                            }
+                        }
+                    }
+                }
+                return _dicStateMachines;
+            }
+
+        }
+
+
+        /// <summary>取得指定的 State Machine</summary>
+        /// <param name="machineId"></param>
+        /// <returns></returns>
+        public static MacMsCabinetDrawer GetMacMsCabinetDrawer(EnumDrawerStateMachineID machineId)
+        {
+            if (DicStateMachines == null) { return null; }
+            var rtn = DicStateMachines[machineId];
+            return rtn;
+        }
+
         public List<MacState> LoadState = null;
+
         
         #region 指令
         /// <summary>load</summary>
@@ -23,7 +75,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public void LoadDrawers(int targetDrawerQuantity)
         {
 
-            var states = _dicCabinetDrawerStates.Values.Where(m => m.CanLoad()).ToList();
+            var states = DicStateMachines.Values.Where(m => m.CanLoad()).ToList();
             if (states.Count==0)
             {
                 // 
@@ -40,7 +92,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <summary>系統啟動之後 的 Initial</summary>
         public void BootupInitialDrawers()
         {
-            var states = _dicCabinetDrawerStates.Values.Where(m => m.CanLoad()).ToList();
+            var states = DicStateMachines.Values.Where(m => m.CanLoad()).ToList();
             if (states.Count == 0)
             { }
             else
@@ -51,7 +103,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void SynchrousDrawerStates()
         {
-            var states = _dicCabinetDrawerStates.Values.Where(m => m.CanLoad()).ToList();
+            var states = DicStateMachines.Values.Where(m => m.CanLoad()).ToList();
             if (states.Count == 0)
             { }
             else
@@ -64,39 +116,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #endregion 指令
 
 
-        /// <summary>CabinetDrawer State 的集合</summary>
-        private IDictionary<string, MacMsCabinetDrawer> _dicCabinetDrawerStates;
-        /// <summary>CabinetDrawer State的數量</summary>
-        public int SumOfCabinetDrawerStates
-        {
-            get
-            {
-                int states= 0;
-                if (_dicCabinetDrawerStates != null)
-                {
-                    states = _dicCabinetDrawerStates.Count();
-                }
-                return states;
-            }
-        }
-
+      
         public MacMsCabinet()
         {
-            _dicCabinetDrawerStates = new Dictionary<string, MacMsCabinetDrawer>();
+            //_dicCabinetDrawerStates = new Dictionary<string, MacMsCabinetDrawer>();
         }
 
-        public MacMsCabinet(IList<MacMsCabinetDrawer> drawerStates):this()
-        {
-            foreach(var drawerState in drawerStates)
-            {
-                if (_dicCabinetDrawerStates.ContainsKey(drawerState.DeviceIndex))
-                {
-                    _dicCabinetDrawerStates.Remove(drawerState.DeviceIndex);
-                }
-                _dicCabinetDrawerStates.Add(drawerState.DeviceIndex, drawerState);
-            } 
-        }
-
+       
        
 
         public override void LoadStateMachine()
