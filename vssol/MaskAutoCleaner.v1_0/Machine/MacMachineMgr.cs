@@ -45,7 +45,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
                 machine.halAssembly = hal.Value as MacHalAssemblyBase;
 
-         //    machine.halAssembly.HalConnect();
+             machine.halAssembly.HalConnect();
             }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 
