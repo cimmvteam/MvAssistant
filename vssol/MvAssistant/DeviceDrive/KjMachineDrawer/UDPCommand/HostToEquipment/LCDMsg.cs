@@ -17,7 +17,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     {
         public string Message { get; set; }
 
-        public string ToParameterText()=>BaseHostToEquipmentCommand.CommandSplitSign+Message;
+        public string ToParameterText()
+        {
+            return   BaseHostToEquipmentCommand.CommandSplitSign + Message;
+        }
+
         
     }
 }
