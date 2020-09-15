@@ -26,7 +26,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         UndockComplete,
       
        // Reset,
-        AlarmResetStart,
+        SystemBootup,
         AlarmResetIng,
         AlarmResetComplete,
  

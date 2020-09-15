@@ -123,7 +123,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
        
         public void Reset()
         {
-            var state = this.States[EnumMacMsLoadPortState.AlarmResetStart.ToString()];
+            var state = this.States[EnumMacMsLoadPortState.SystemBootup.ToString()];
             state.DoEntry(new MacStateEntryEventArgs(null));
         }
 
@@ -152,9 +152,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             #region State
 
+            // 系統啟動
+            MacState sSystemBootup = NewState(EnumMacMsLoadPortState.SystemBootup);
+
             // AlarmReset 開始
-            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.AlarmResetStart);
+            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.SystemBootup);
+            // AlarmReset 進行中
             MacState sAlarmResetIng = NewState(EnumMacMsLoadPortState.AlarmResetIng);
+            // AlarmReset 完成
             MacState sAlarmResetComplete = NewState(EnumMacMsLoadPortState.AlarmResetComplete);
           
 
@@ -181,8 +186,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             #endregion State
 
 
-            #region Transition 
-            // Reset
+            #region Transition
+            // SystemBootUp
+            MacTransition tSystemBootup_NULL = NewTransition(sSystemBootup, null, EnumMacMsLoadPortTransition.SystemBootup_NULL);
+            // AlarmReset
             MacTransition tAlarmResetStart_AlarmResetIng = NewTransition(sAlarmResetStart, sAlarmResetIng, EnumMacMsLoadPortTransition.AlarmResetStart_AlarmResetIng);
             MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacMsLoadPortTransition.AlarmResetIng_AlarmResetComplete);
             MacTransition tAlarmResetComplete_NULL = NewTransition(sAlarmResetComplete, null, EnumMacMsLoadPortTransition.AlarmResetComplete_NULL);
@@ -208,6 +215,31 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
 
             #region  Register OnEntry, OnExit Event Handler
+
+            sSystemBootup.OnEntry += (sender, e) =>
+            {   // Synch
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootup_NULL;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sSystemBootup.OnExit += (sender, e) =>
+            {
+
+            };
 
             sAlarmResetStart.OnEntry += (sender, e) =>
             {   // Sync
