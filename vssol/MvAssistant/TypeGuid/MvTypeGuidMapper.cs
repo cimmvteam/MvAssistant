@@ -53,7 +53,7 @@ namespace MvAssistant.TypeGuid
                     //Console.WriteLine(fullname);
 
                     var guid_attrs = t.GetCustomAttributes(typeof(GuidAttribute), false);
-                    var guid = CtkUtilFw.TypeGuid(t);
+                    var guid = CtkUtil.TypeGuid(t);
                     if (guid == null) continue;
                     if (collector.ContainsKey(guid.Value))
                     {

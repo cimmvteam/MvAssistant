@@ -17,6 +17,12 @@ namespace MaskAutoCleaner.v1_0.Machine
         ~MacMachineMediater() { this.Dispose(false); }
 
 
+
+
+
+
+
+
         #region IDisposable
         // Flag: Has Dispose already been called?
         bool disposed = false;

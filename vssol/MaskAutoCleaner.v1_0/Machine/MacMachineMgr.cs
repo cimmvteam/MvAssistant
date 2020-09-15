@@ -1,4 +1,5 @@
 ﻿using MaskAutoCleaner.v1_0.Machine;
+using MaskAutoCleaner.v1_0.Recipe;
 using MvAssistant;
 using MvAssistant.Mac.v1_0.Hal;
 using System;
@@ -15,6 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         public MacMachineMediater Mediater;
         protected MacMachineMgrCfg Config;
         protected MacHalContext HalContext;
+        protected MacRecipeMgr RecipeMgr;
 
         /// <summary>
         /// 程式關閉或垃圾回收時會進行解構

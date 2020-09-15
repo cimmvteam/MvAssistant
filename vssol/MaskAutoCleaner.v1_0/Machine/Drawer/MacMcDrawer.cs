@@ -11,14 +11,14 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
     [Guid("8DDAA02F-8D2D-46C6-9E8B-3E861E431FF2")]
     public class MacMcDrawer : MacMachineCtrlBase
     {
-        private MsgBase _msgBase;
+        private MacMsgBase _msgBase;
         public MacMsDrawer StateMachine { get { return this.msAssembly as MacMsDrawer; } set { this.msAssembly = value; } }
 
         public MacMcDrawer()
         {
             this.msAssembly = new MacMsDrawer();
         }
-        public override int RequestProcMsg(MsgBase msg)
+        public override int RequestProcMsg(MacMsgBase msg)
         {
             _msgBase = msg;
             return 0;

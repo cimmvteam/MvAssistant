@@ -9,6 +9,11 @@ using MvAssistant.Mac.v1_0.Hal.Assembly;
 
 namespace MaskAutoCleaner.v1_0.Machine.Universal
 {
+    /// <summary>
+    /// 代為處理整機未歸類Device的Assembly
+    /// 名稱不採用EQP, 因為EQP會代表整機, 名稱會有上下階層的關係
+    /// 但此類別與其它Assembly為同階
+    /// </summary>
     [Guid("AFEFFEA4-B491-4A75-9E31-BDDBB5131262")]
     public class MacMcUniversal : MacMachineCtrlBase
     {
@@ -23,7 +28,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Universal
         {
             this.msAssembly = new MacMsUniversal();
         }
-        public override int RequestProcMsg(MsgBase msg)
+        public override int RequestProcMsg(MacMsgBase msg)
         {
             return 0;
         }

@@ -4,7 +4,7 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.Msg;
-using MaskAutoCleaner.v1_0.Msg.PrescribedSecs;
+using MaskAutoCleaner.v1_0.Msg.SecsReport;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.BoxTransferStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.CleanChStateMachineException;

@@ -28,7 +28,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public abstract int RequestProcMsg(MsgBase msg);
+        public abstract int RequestProcMsg(MacMsgBase msg);
 
 
 

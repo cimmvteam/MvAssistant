@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         {
             this.msAssembly = new MacMsCleanCh();
         }
-        public override int RequestProcMsg(MsgBase msg)
+        public override int RequestProcMsg(MacMsgBase msg)
         {
             return 0;
         }

@@ -25,7 +25,7 @@ namespace MvAssistant.TypeGuid
             set
             {
                 this.type = value;
-                var myGuid = CtkUtilFw.TypeGuid(this.type);
+                var myGuid = CtkUtil.TypeGuid(this.type);
                 if (myGuid.HasValue) this.guid = myGuid.Value;
             }
         }

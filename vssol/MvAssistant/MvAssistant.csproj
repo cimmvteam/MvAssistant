@@ -38,10 +38,12 @@
     <Reference Include="CIPCompolet">
       <HintPath>..\DLL\OmronPLC\CIPCompolet.dll</HintPath>
     </Reference>
-    <Reference Include="CToolkit.v1_1.Fw">
+    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
     </Reference>
-    <Reference Include="CToolkit.v1_1.Std">
+    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
     </Reference>
     <Reference Include="GenApiDotNet20_v3_0, Version=3.0.2.3, Culture=neutral, PublicKeyToken=702a7d0a1d42e9d9, processorArchitecture=x86">

@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             this.msAssembly = new MacMsLoadPort();
         }
-        public override int RequestProcMsg(MsgBase msg)
+        public override int RequestProcMsg(MacMsgBase msg)
         {
             return 0;
         }
