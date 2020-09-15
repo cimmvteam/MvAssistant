@@ -18,7 +18,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
+        /// <summary>Load Port A 的 Instance </summary>
         private static MacMsLoadPort _loadPortStateMachineA = null;
+        /// <summary>Load Port B 的 Instance </summary>
+        private static MacMsLoadPort _loadPortStateMachineB = null;
+        /// <summary>取得 Loadport A  Instance 時 Lock 的物件</summary>
+        private static readonly object _loportAlockObject = new object();
+        /// <summary>取得 Loadport B Instance 時 Lock 物件</summary>
+        private static readonly object _loportBlockObject = new object();
+        /// <summary>控制逾時與否的物件</summary>
+        private MacMsTimeOutController TimeController = new MacMsTimeOutController();
         public static MacMsLoadPort LoadPortStateMachineA
         {
             get
@@ -41,9 +50,6 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 return _loadPortStateMachineA;
             }
         }
-        private static readonly object _loportAlockObject = new object();
-
-        private static MacMsLoadPort _loadPortStateMachineB = null;
         public static MacMsLoadPort LoadPortStateMachineB
         {
             get
@@ -65,7 +71,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 return _loadPortStateMachineB;
             }
         }
-        private static readonly object _loportBlockObject = new object();
+        
 
 
 #if NoConfig
@@ -85,8 +91,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 try
                 {
-                    //var rtnV = this.halAssembly.Hals[LoadportKey] as IMacHalLoadPortUnit;
-                   var rtnV= HalLoadPortUniversal.LoadPortUnit;
+                     var rtnV= HalLoadPortUniversal.LoadPortUnit;
                     return rtnV;
                 }
                 catch(Exception ex)
@@ -97,9 +102,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #endif
 
         }
-        //MacLoadPortUnitStateTimeOutController TimeController = new MacLoadPortUnitStateTimeOutController();
 
-        MacMsTimeOutController TimeController =  new MacMsTimeOutController(); 
 
 #if NoConfig
         public MacMsLoadPort()
@@ -114,12 +117,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
              LoadStateMachine();
         }
 #endif
-        public void TestLoadportInstance()
-        {
-            
-        }
+
 
         #region  Command
+       
         public void Reset()
         {
             var state = this.States[EnumMacMsLoadPortState.ResetStart.ToString()];
@@ -151,7 +152,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             #region State
 
-            // Reset
+            // AlarmReset 開始
             MacState sResetStart = NewState(EnumMacMsLoadPortState.ResetStart);
             MacState sResetIng = NewState(EnumMacMsLoadPortState.ResetIng);
             MacState sResetComplete = NewState(EnumMacMsLoadPortState.ResetComplete);
@@ -161,6 +162,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacState sInitialStart = NewState(EnumMacMsLoadPortState.InitialStart);
             MacState sInitialIng = NewState(EnumMacMsLoadPortState.InitialIng);
             MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);
+            // 等待將 POD 放到 Load Port 上
             MacState sIdleForPutPOD = NewState(EnumMacMsLoadPortState.IdleForPutPOD);
 
             // dock
