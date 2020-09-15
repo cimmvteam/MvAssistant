@@ -44,6 +44,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public const string DevConnStr_LocalIp = "local_ip";
         public const string DevConnStr_LocalPort = "local_port";
 
+        public const string DevConnStr_StartPort = "start_port";
+        public const string DevConnStr_EndPort = "end_port";
+
+        public const string DevConnStr_Index = "index";
+
         public event EventHandler OnBoxDetectionResultHandler;
         #endregion
 
@@ -393,7 +398,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         private void OnTrayArriveHome(object sender, EventArgs e)
         {
             //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtHome);
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
 
             if (OnTrayArriveHomeHandler != null)
             {

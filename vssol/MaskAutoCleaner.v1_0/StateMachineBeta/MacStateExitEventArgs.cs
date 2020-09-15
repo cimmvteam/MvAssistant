@@ -7,11 +7,15 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
 {
     public class MacStateExitEventArgs : EventArgs
     {
-       
-         public MacStateExitEventArgs()
-         {
-            
-         }
+        public object Parameter { get; private set; }
+        public MacStateExitEventArgs(object parameter):this()
+        {
+            Parameter = parameter;
+        }
+        public MacStateExitEventArgs()
+        {
+            Parameter = null;
+        }
      
     }
 }

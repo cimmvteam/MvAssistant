@@ -1,15 +1,17 @@
 ﻿using System;
 using System.IO;
 using MaskAutoCleaner.v1_0.Machine;
-using MaskAutoCleaner.v1_0.Machine.Cabinet;
+using MaskAutoCleaner.v1_0.Machine.Drawer;
 using MaskAutoCleaner.v1_0.Machine.CleanCh;
 using MaskAutoCleaner.v1_0.Machine.InspectionCh;
 using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
+using MaskAutoCleaner.v1_0.Machine.Universal;
 using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.GenCfg.Manifest;
+using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 {
@@ -68,6 +70,39 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 ID = EnumMachineID.MID_CB_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcDrawer),
                 HalId = EnumMachineId.DE_CB_A_ASB.ToString(),
+            });
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_UNI_A_ASB.ToString(),
+                MachineCtrlType = typeof(MacMcUniversal),
+                HalId = EnumMachineId.DE_UNI_A_ASB.ToString(),
+            });
+
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_01.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_01.ToString(),
+            });
+
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_02.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_02.ToString(),
+            });
+
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_03.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_03.ToString(),
+            });
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_DRAWER_01_04.ToString(),
+                MachineCtrlType = typeof(MacMcCabinetDrawer),
+                HalId = EnumMachineId.DE_CB_A_01_04.ToString(),
             });
             var fn = "../../UserData/MachineMgr.config";
             var fi = new FileInfo(fn);

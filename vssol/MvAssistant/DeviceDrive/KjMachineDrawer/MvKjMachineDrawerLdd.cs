@@ -978,22 +978,22 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         #endregion
 
-        public DelegateDrawerBooleanResult INIResult { get; set; } = null;
-        public DelegateDrawerBooleanResult SetMotionSpeedResult { get; set; } = null;
-        public DelegateDrawerBooleanResult SetTimeOutResult  { get; set; } = null;
+        public DelegateDrawerBooleanResult INIResult { get; set; } //= null;
+        public DelegateDrawerBooleanResult SetMotionSpeedResult { get; set; } //= null;
+        public DelegateDrawerBooleanResult SetTimeOutResult  { get; set; }//= null;
        // public DelegateDrawerBooleanResult TrayMotionHomeResult=null;
       //  public DelegateDrawerBooleanResult TrayMotionOutResult =null;
       //  public DelegateDrawerBooleanResult TrayMotionInResult=null;
        
        
-        public DelegateDrawerBooleanResult BrightLEDResult  { get; set; } = null;
-        public DelegateDrawerStringResult PositionReadResult { get; set; } = null;
-        public DelegateDrawerBooleanResult BoxDetectionResult { get; set; } = null;
+        public DelegateDrawerBooleanResult BrightLEDResult  { get; set; } //= null;
+        public DelegateDrawerStringResult PositionReadResult { get; set; } //= null;
+        public DelegateDrawerBooleanResult BoxDetectionResult { get; set; } //= null;
 
         //public DelegateDrawerBooleanResult TrayArriveHomeResult = null;
         //public DelegateDrawerBooleanResult TrayArriveInResult = null;
         //public DelegateDrawerBooleanResult TrayArriveOutResult = null;
-        public DelegateDrawerIntResult TrayArriveResult { get; set; } = null;
+        public DelegateDrawerIntResult TrayArriveResult { get; set; } //= null;
 
         protected bool disposed = false;
 

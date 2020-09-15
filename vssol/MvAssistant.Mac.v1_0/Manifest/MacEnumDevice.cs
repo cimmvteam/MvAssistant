@@ -313,7 +313,8 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_LP_ASMBLY: Load Port Assembly 整機
         /// </summary>
-        loadport_assembly,
+        loadportA_assembly,
+        loadportB_assembly,
         loadport_plc,
 
         /// <summary>

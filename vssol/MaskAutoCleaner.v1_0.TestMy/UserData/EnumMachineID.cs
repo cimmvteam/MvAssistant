@@ -16,6 +16,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.UserData
         MID_LP_B_ASB,
         MID_MT_A_ASB,
         MID_OS_A_ASB,
-        MID_UNI_A_ASB
+        MID_UNI_A_ASB,
+        MID_DRAWER_01_01,
+        MID_DRAWER_01_02,
+        MID_DRAWER_01_03,
+        MID_DRAWER_01_04,
     }
 }

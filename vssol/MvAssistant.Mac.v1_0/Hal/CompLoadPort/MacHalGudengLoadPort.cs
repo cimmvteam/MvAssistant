@@ -1,4 +1,5 @@
-﻿using MvAssistant.DeviceDrive;
+﻿//#define NoConfig
+using MvAssistant.DeviceDrive;
 using MvAssistant.DeviceDrive.GudengLoadPort;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
     [Guid("F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6")]
     public class MacHalGudengLoadPort : MacHalComponentBase, IMacHalLoadPortUnit
     {
+        #region Const
+        public const string DevConnStr_Ip = "ip";
+        public const string DevConnStr_Port = "port";
+        #endregion
+
         private static object getLddObject = new object();
         private MvGudengLoadPortLdd _ldd;
         public  LoadPortWorkState CurrentWorkState { get; private set; }
@@ -58,25 +64,63 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         public event EventHandler OnHostLostLoadPortConnectionHandler;
         public string DeviceIP
         {
+
+#if NoConfig
+            get
+            { 
+               var ip = "192.168.0.20";
+                return ip;
+            }
+#else
             get
             {
+
                 var ip = this.DevSettings["ip"];
                 return ip;
             }
+#endif
+
         }
 
         public int DevicePort
         {
+
+#if NoConfig
             get
             {
-                var port = Convert.ToInt32(this.DevSettings["port"]);
+                var port = 1024;
                 return port;
             }
+#else
+            get
+            { 
+            var port = Convert.ToInt32(this.DevSettings["port"]);
+                return port;
+            } 
+#endif
+
+
         }
-        public string DeviceIndex { get { return HalDeviceCfg.DeviceName; } }
+        public string DeviceIndex
+        {
+#if NoConfig
+            get
+            {
+
+                return "loadport_1";
+            }
+#else
+            get
+            {
+
+                return HalDeviceCfg.DeviceName;
+            }
+#endif
+
+        }
 
 
-        
+
         public bool IsConnected { get; private set; }
 
         public override int HalClose()
@@ -115,7 +159,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
                             if (!connected)
                             {
                                 _ldd = null;
-                                IsConnected = true;
+                                IsConnected = false;
                             }
                         }
                     }

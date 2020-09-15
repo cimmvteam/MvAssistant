@@ -12,14 +12,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     public class MacMcLoadPort : MacMachineCtrlBase
     {
         public MacMsLoadPort StateMachine { get { return this.msAssembly as MacMsLoadPort; } set { this.msAssembly = value; } }
-
         public MacMcLoadPort()
         {
             this.msAssembly = new MacMsLoadPort();
         }
         public override int RequestProcMsg(MsgBase msg)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

@@ -35,6 +35,8 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         DE_MT_A_ASB,
         DE_OS_A_ASB,
         DE_UNI_A_ASB,//PLC的Assembly只能有一個, 但底下可以有多個PLC Device
+       
+
 
 
         #region Box Transfer
@@ -105,7 +107,41 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
         #endregion
 
         #region Cabinet
-        
+        DE_CB_A_01_01,
+        DE_CB_A_01_02,
+        DE_CB_A_01_03,
+        DE_CB_A_01_04,
+        DE_CB_A_01_05,
+        DE_CB_A_02_01,
+        DE_CB_A_02_02,
+        DE_CB_A_02_03,
+        DE_CB_A_02_04,
+        DE_CB_A_02_05,
+        DE_CB_A_03_01,
+        DE_CB_A_03_02,
+        DE_CB_A_03_03,
+        DE_CB_A_03_04,
+        DE_CB_A_03_05,
+        DE_CB_A_04_01,
+        DE_CB_A_04_02,
+        DE_CB_A_04_03,
+        DE_CB_A_04_04,
+        DE_CB_A_04_05,
+        DE_CB_A_05_01,
+        DE_CB_A_05_02,
+        DE_CB_A_05_03,
+        DE_CB_A_05_04,
+        DE_CB_A_05_05,
+        DE_CB_A_06_01,
+        DE_CB_A_06_02,
+        DE_CB_A_06_03,
+        DE_CB_A_06_04,
+        DE_CB_A_06_05,
+        DE_CB_A_07_01,
+        DE_CB_A_07_02,
+        DE_CB_A_07_03,
+        DE_CB_A_07_04,
+        DE_CB_A_07_05,
         #endregion
 
         #region Inspection Chamber

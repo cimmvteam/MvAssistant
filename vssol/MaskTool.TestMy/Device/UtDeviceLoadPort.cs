@@ -602,7 +602,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
                 halContext.MvCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
                 lp.HalConnect();
@@ -618,7 +618,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
                 halContext.MvCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
                 lp.HalConnect();
@@ -634,7 +634,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
                 halContext.MvCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
                 lp.HalConnect();
@@ -651,7 +651,7 @@ namespace MvAssistant.Mac.TestMy.Device
             {
                 halContext.MvCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadport_assembly.ToString()] as MacHalLoadPort;
+                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
                 lp.HalConnect();

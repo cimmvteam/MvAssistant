@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MaskAutoCleaner.v1_0.Msg;
 
-namespace MaskAutoCleaner.v1_0.Machine.Cabinet
+namespace MaskAutoCleaner.v1_0.Machine.Drawer
 {
     [Guid("8DDAA02F-8D2D-46C6-9E8B-3E861E431FF2")]
     public class MacMcDrawer : MacMachineCtrlBase

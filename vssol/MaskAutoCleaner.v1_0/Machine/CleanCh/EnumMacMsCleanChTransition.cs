@@ -10,16 +10,17 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
     {
         PowerON,
         Initial,
+        StandbyAtIdle,
 
         Idle,
-        CleanMask,
-        ReturnToIdleWithMaskCleaned,
-        InspectMask,
-        ReturnToIdleWithMaskInspected,
+        ReceiveTriggerToCleanPellicle,
+        ReturnToIdleAfterCleanPellicle,
+        ReceiveTriggerToInspectPellicle,
+        ReturnToIdleAfterInspectPellicle,
 
-        CleanGlass,
-        ReturnToIdleWithGlassCleaned,
-        InspectGlass,
-        ReturnToIdleWithGlassInspected,
+        ReceiveTriggerToCleanGlass,
+        ReturnToIdleAfterCleanGlass,
+        ReceiveTriggerToInspectGlass,
+        ReturnToIdleAfterInspectGlass,
     }
 }

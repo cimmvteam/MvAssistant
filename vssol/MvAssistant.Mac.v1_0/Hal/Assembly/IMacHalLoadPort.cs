@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
+using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -6,6 +8,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
     [GuidAttribute("8E7C81C2-3074-43AA-867E-E3F3700668E0")]
     public interface IMacHalLoadPort : IMacHalAssembly
     {
+         IMacHalLoadPortUnit LoadPortUnit{ get; }
+
         /// <summary>
         /// 設定LoadPort內部與外部環境最大壓差限制，錶1壓差限制、錶2壓差限制
         /// </summary>
@@ -30,5 +34,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <returns>True：遮斷、False：Normal</returns>
         bool ReadLP_Light_Curtain();
+
+        string CommandAlarmReset();
     }
 }

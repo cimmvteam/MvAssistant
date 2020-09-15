@@ -16,7 +16,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
 
     public class BoxDetectionParameter : IHostToEquipmentCommandParameter
     {
-        public string ToParameterText() => string.Empty;
+        public string ToParameterText() { return string.Empty; }
        
     }
 }

@@ -24,8 +24,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         #endregion Device Components
-
-
+        
 
         public bool DefenseCheck()
         {

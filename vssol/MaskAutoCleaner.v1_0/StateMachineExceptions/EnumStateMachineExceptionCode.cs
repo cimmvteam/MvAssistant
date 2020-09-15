@@ -9,6 +9,59 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
     /// <summary>State Machine Exception 代碼</summary>
     public enum EnumStateMachineExceptionCode
     {
+        /*
+         /// <summary>Masktransfer 無法分類的例外</summary>
+         MaskTransferException = 40000,
+         /// <summary>Masktransfer Initial 失敗的例外 </summary>
+         MaskTransferInitialFailException = 40001,
+         /// <summary>Masktransfer Initial 逾時的例外</summary>
+         MaskTransferInitialTimeOutException = 40002,
+         /// <summary>Masktransfer 必須 Reset 的例外</summary>
+         MaskTransferMustResetException = 40003,
+         /// <summary>Masktransfer 必須 Initial 的例外</summary>
+         MaskTransferMustInitialException = 40004,
+
+
+         /// <summary>Boxtransfer 無法分類的例外</summary>
+         BoxTransferException = 30000,
+         /// <summary>Boxtransfer Initial 失敗的例外</summary>
+         BoxTransferInitialFailException = 30001,
+         /// <summary>Boxtransfer Initial 逾時未完成的例外</summary>
+         BoxTransferInitialTimeOutException = 30002,
+         /// <summary>Boxtransfer 必須先 Reset 的例外</summary>
+         BoxTransferMustResetException = 30003,
+         /// <summary>Boxtransfer 必須先 Initial 的例外</summary>
+         BoxTransferMustInitialException = 30004,
+         */
+        /**
+        /// <summary>Load port 無法再分類的例外</summary>
+        LoadportException = 70000,
+        /// <summary>Load port  Initial 失敗的例外</summary>
+        LoadportInitialFailException = 70001,
+        /// <summary>Load port Initial 逾時的例外</summary>
+        LoadportInitialTimeOutException = 70002,
+        /// <summary>Load port 必須先 Reset 的例外</summary>
+        LoadportInitialMustResetException = 70003,
+        /// <summary>Load port 必須先 Initial的例外</summary>
+        LoadportMustInitialException = 70004,
+        /// <summary>load port Reset 失敗的例外</summary>
+        LoadportResetFailException,
+        /// <summary>load port Reset 逾時的例外</summary>
+        LoadportResetTimeOutException,
+        /// <summary>load port dock 要求先 Reset 的例外</summary>
+        LoadportDockMustResetException,
+        /// <summary>load port dock 要求先 Initial 的例外</summary>
+        LoadportDockMustInitialException,
+        /// <summary>load port dock 逾時未完成 </summary>
+        LoadportDockTimeOutException,
+        /// <summary>load port undock 要求先 Reset 的例外</summary>
+        LoadportUndockMustResetException,
+        /// <summary>load port undock 要求先 Initial 的例外</summary>
+        LoadportUndockMustInitialException,
+        /// <summary>load port undock 逾時未完成 </summary>
+        LoadportUndockTimeOutException,
+        */
+
         /// <summary>Drawer 無法再分類的例外</summary>
         DrawerException = 10000,
         /// <summary>Drawer Initial 失敗的例外</summary>
@@ -19,6 +72,10 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerMustResetException = 10003,
         /// <summary>Drawer 必須 Initial的例外</summary>
         DrawerMustInitialException = 10004,
+        /// <summary> Drawer Load 前的Initial 失敗  </summary>
+        DrawerLoadInitialFailException,
+        /// <summary> Drawer Load 前的Initial 逾時未完成  </summary>
+        DrawerLoadInitialTimeOutException,
         /// <summary>Drawer Load 移到 Out 時發生例外 </summary>
         DrawerLoadMoveTrayToPositionOutFailException,
         /// <summary>Drawer Load 移到 Out 時逾時未到達 </summary>
@@ -37,6 +94,10 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerLoadMoveTrayToPositionInFailException,
         /// <summary>Drawer Load, 從Position Home 移到 Position In 逾時未到 </summary>
         DrawerLoadMoveTrayToPositionInTimeOutException,
+        /// <summary> Drawer Unload 前的Initial 失敗  </summary>
+        DrawerUnloadInitialFailException,
+        /// <summary> Drawer Unload 前的Initial 逾時未完成 </summary>
+        DrawerUnloadInitialTimeOutException,
         /// <summary>Drawer Unload, 將 Tray 移到 In 失敗 </summary>
         DrawerUnloadMoveTrayToPositionInFailException,
         /// <summary>Drawer Unload, 將 Tray 移到 In 逾時未達</summary>
@@ -55,9 +116,23 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         DrawerUnloadMoveTrayToPositionOutFailException,
         /// <summary>Drawer Unload, 從Position Home 移到 Position Out 逾時未到 </summary>
         DrawerUnloadMoveTrayToPositionOutTimeOutException,
+        /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時失敗</summary>
+        DrawerMoveTrayToHomeWaitingUnloadInstructionFailException,
+        /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時逾時未到</summary>
+        DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException,
+        /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時失敗</summary>
+        DrawerMoveTrayToHomeWaitingLoadInstructionFailException,
+        /// <summary>Drawer Unload, 從in 移到 Home 等待 Unload 命令時逾時未到</summary>
+        DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException,
+        CabinetPLCAlarmException,
+        CabinetPLCWarningException,
 
         /// <summary>Clean Chamber無法再分類的例外</summary>
         CleanChException = 2000,
+        CleanChCleanFailException,
+        CleanChInspectFailException,
+        CleanChPLCAlarmException,
+        CleanChPLCWarningException,
 
         /// <summary>Boxtransfer 無法分類的例外</summary>
         BoxTransferException = 30000,
@@ -69,7 +144,9 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         BoxTransferMustResetException = 30003,
         /// <summary>Boxtransfer 必須先 Initial 的例外</summary>
         BoxTransferMustInitialException = 30004,
-        
+        BoxTransferPLCAlarmException,
+        BoxTransferPLCWarningException,
+
         /// <summary>Masktransfer 無法分類的例外</summary>
         MaskTransferException = 40000,
         /// <summary>Masktransfer Initial 失敗的例外 </summary>
@@ -84,16 +161,27 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         MaskTransferPathMoveFailException,
         /// <summary>MaskTransfer PLC指令執行失敗的例外</summary>
         MaskTransferPLCExecuteFailException,
+        MaskTransferPLCAlarmException,
+        MaskTransferPLCWarningException,
+        ClampInspectDeformPLCAlarmException,
+        ClampInspectDeformPLCWarningException,
 
         /// <summary>Open Stage無法再分類的例外</summary>
-        OpenStageException=50000,
+        OpenStageException = 50000,
+        OpenStageInitialFailException,
+        OpenStagePLCExecuteFailException,
+        OpenStageGuardException,
+        OpenStagePLCAlarmException,
+        OpenStagePLCWarningException,
 
         /// <summary>Inspection Chamber無法再分類的例外</summary>
-        InspectionChException=60000,
+        InspectionChException = 60000,
         InspectionChInitialFailException,
         InspectionChPLCExecuteFailException,
         InspectionChDefenseFailException,
         InspectionChInspectFailException,
+        InspectionChPLCAlarmException,
+        InspectionChPLCWarningException,
 
         /// <summary>Load port 無法再分類的例外</summary>
         LoadportException = 70000,
@@ -121,7 +209,17 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         LoadportUndockMustInitialException,
         /// <summary>load port undock 逾時未完成 </summary>
         LoadportUndockTimeOutException,
-        
+        LoadportPLCAlarmException,
+        LoadportPLCWarningException,
+
+        /// <summary>Universal 無法再分類的例外</summary>
+        UniversalException,
+        UniversalPLCExecuteFailException,
+        UniversalEquipmentException,
+        UniversalGeneralAlarmException,
+        UniversalGeneralWarningException,
+        UniversalCoverFanPLCAlarmException,
+        UniversalCoverFanPLCWarningException
     }
 
 

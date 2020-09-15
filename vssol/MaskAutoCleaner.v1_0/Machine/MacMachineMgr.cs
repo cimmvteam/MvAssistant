@@ -29,7 +29,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             this.Mediater = new MacMachineMediater();
 
             this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
-            
+
             this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
 
             HalContext.MvCfLoad();
@@ -44,6 +44,8 @@ namespace MaskAutoCleaner.v1_0.Machine
                 var hal = this.HalContext.HalDevices.Where(x => x.Value.ID == row.HalId).FirstOrDefault();
 
                 machine.halAssembly = hal.Value as MacHalAssemblyBase;
+
+                machine.halAssembly.HalConnect();
             }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 
