@@ -243,6 +243,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             sAlarmResetStart.OnEntry += (sender, e) =>
             {   // Sync
+                SetCurrentState((MacState)sender);
                 var transition = tAlarmResetStart_AlarmResetIng;
                 var triggerMember = new TriggerMember
                 {
@@ -267,6 +268,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             sAlarmResetIng.OnEntry += (sender, e) => 
             {   // Async
+                SetCurrentState((MacState)sender);
                 var transition = tAlarmResetIng_AlarmResetComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -309,6 +311,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sAlarmResetComplete.OnEntry += (sender, e) => 
             {  // Sync
                 var transition = tAlarmResetComplete_NULL;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -333,6 +336,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sInitialStart.OnEntry += (sender, e) =>
             {  // Sync 
                 var transition = tInitialStart_InitialIng;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = (parameter) => this.HalLoadPortUnit.CommandInitialRequest(),
@@ -357,6 +361,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sInitialIng.OnEntry += (sender, e) =>
             {   // Async
                 var transition = tInitialIng_InitialComplete;
+                SetCurrentState((MacState)sender);
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -398,6 +403,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             sInitialComplete.OnEntry += (sender, e) =>
             {   // Sync
+                SetCurrentState((MacState)sender);
                 var transition = tInitialComplete_IdleForPutPOD;
                 var triggerMember = new TriggerMember
                 {
@@ -424,6 +430,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sIdleForPutPOD.OnEntry += (sender, e) =>
             {  // Sync
                 var transition = tIdleForPutPOD_NULL;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -448,6 +455,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sDockStart.OnEntry += (sender, e) =>
             {   // Sync
                 var transition = tDockStart_DockIng;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = (parameter) => this.HalLoadPortUnit.CommandDockRequest(),
@@ -472,6 +480,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             sDockIng.OnEntry += (sender,e)=>
             {  // Async
+                SetCurrentState((MacState)sender);
                 var transition = tDockIng_DockComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -517,6 +526,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sDockComplete.OnEntry += (sender, e) =>
             {   // Sync 
                 var transition = tDockComplete_IdleForGetMask;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -541,6 +551,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sIdleForGetMask.OnEntry += (sender, e) =>
             {   // Sync
                 var transition = tIdleForGetMask_NULL;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -566,6 +577,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockStart.OnEntry += (sender, e) =>
             {  // Sync
                 var transition = tUndockStart_UndockIng;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = (parameter) => this.HalLoadPortUnit.CommandUndockRequest(),
@@ -591,6 +603,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 // Async
                 var transition = tUndockIng_UndockComplete;
+                SetCurrentState((MacState)sender);
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -637,6 +650,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockComplete.OnEntry += (sender, e) =>
             {  // Sync 
                 var transition = tUndockComplete_IdleForGetPOD;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -661,6 +675,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sIdleForGetPOD.OnEntry += (sender, e) =>
             {
                 var transition = tIdleForGetPOD_NULL;
+                SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
