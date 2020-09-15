@@ -194,9 +194,9 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         /// <summary>Load port 必須先 Initial的例外</summary>
         LoadportMustInitialException = 70004,
         /// <summary>load port Reset 失敗的例外</summary>
-        LoadportResetFailException,
+        LoadportAlarmResetFailException,
         /// <summary>load port Reset 逾時的例外</summary>
-        LoadportResetTimeOutException,
+        LoadportAlarmResetTimeOutException,
         /// <summary>load port dock 要求先 Reset 的例外</summary>
         LoadportDockMustResetException,
         /// <summary>load port dock 要求先 Initial 的例外</summary>

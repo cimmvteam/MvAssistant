@@ -463,7 +463,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         public void OnAlarmResetSuccess(object sender, EventArgs e)
         {
           
-            this.SetWorkState(LoadPortWorkState.ResetComplete);
+            this.SetWorkState(LoadPortWorkState.AlarmResetComplete);
             if (OnAlarmResetSuccessHandler != null)
             {
                 OnAlarmResetSuccessHandler.Invoke(this, e);
@@ -472,7 +472,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
         }
         public void OnAlarmResetFail(object sender, EventArgs e)
         {
-            this.SetWorkState(LoadPortWorkState.ResetFail);
+            this.SetWorkState(LoadPortWorkState.AlarmResetFail);
             if (OnAlarmResetFailHandler != null)
             {
                 OnAlarmResetFailHandler.Invoke(this, e);

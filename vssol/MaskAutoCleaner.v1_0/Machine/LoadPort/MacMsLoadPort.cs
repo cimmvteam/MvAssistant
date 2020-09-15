@@ -123,7 +123,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
        
         public void Reset()
         {
-            var state = this.States[EnumMacMsLoadPortState.ResetStart.ToString()];
+            var state = this.States[EnumMacMsLoadPortState.AlarmResetStart.ToString()];
             state.DoEntry(new MacStateEntryEventArgs(null));
         }
 
@@ -153,9 +153,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             #region State
 
             // AlarmReset 開始
-            MacState sResetStart = NewState(EnumMacMsLoadPortState.ResetStart);
-            MacState sResetIng = NewState(EnumMacMsLoadPortState.ResetIng);
-            MacState sResetComplete = NewState(EnumMacMsLoadPortState.ResetComplete);
+            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.AlarmResetStart);
+            MacState sAlarmResetIng = NewState(EnumMacMsLoadPortState.AlarmResetIng);
+            MacState sAlarmResetComplete = NewState(EnumMacMsLoadPortState.AlarmResetComplete);
           
 
             // Initial
@@ -183,9 +183,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             #region Transition 
             // Reset
-            MacTransition tResetStart_ResetIng = NewTransition(sResetStart, sResetIng, EnumMacMsLoadPortTransition.ResetStart_ResetIng);
-            MacTransition tResetIng_ResetComplete = NewTransition(sResetIng, sResetComplete, EnumMacMsLoadPortTransition.ResetIng_ResetComplete);
-            MacTransition tResetComplete_NULL = NewTransition(sResetComplete, null, EnumMacMsLoadPortTransition.ResetComplete_NULL);
+            MacTransition tAlarmResetStart_AlarmResetIng = NewTransition(sAlarmResetStart, sAlarmResetIng, EnumMacMsLoadPortTransition.AlarmResetStart_AlarmResetIng);
+            MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacMsLoadPortTransition.AlarmResetIng_AlarmResetComplete);
+            MacTransition tAlarmResetComplete_NULL = NewTransition(sAlarmResetComplete, null, EnumMacMsLoadPortTransition.AlarmResetComplete_NULL);
 
             //Initial
             MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacMsLoadPortTransition.InitialStart_InitialIng);
@@ -209,9 +209,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             #region  Register OnEntry, OnExit Event Handler
 
-            sResetStart.OnEntry += (sender, e) =>
+            sAlarmResetStart.OnEntry += (sender, e) =>
             {   // Sync
-                var transition = tResetStart_ResetIng;
+                var transition = tAlarmResetStart_AlarmResetIng;
                 var triggerMember = new TriggerMember
                 {
                     Action = (parameter) => this.HalLoadPortUnit.CommandAlarmReset(), 
@@ -228,14 +228,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sResetStart.OnExit += (sender, e) =>
+            sAlarmResetStart.OnExit += (sender, e) =>
             {
                 // 視狀況新增 Code
             };
 
-            sResetIng.OnEntry += (sender, e) => 
+            sAlarmResetIng.OnEntry += (sender, e) => 
             {   // Async
-                var transition = tResetIng_ResetComplete;
+                var transition = tAlarmResetIng_AlarmResetComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -246,17 +246,17 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     },
                     Guard = (startTime) =>
                     {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.ResetComplete)
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
                         {
                             return true;
                         }
-                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.ResetFail)
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
                         {
-                            throw new LoadportResetFailException();
+                            throw new LoadportAlarmResetFailException();
                         }
                         else if (TimeController.IsTimeOut(startTime))
                         {
-                            throw new LoadportResetTimeOutException();
+                            throw new LoadportAlarmResetTimeOutException();
                         }
                         else
                         {
@@ -269,14 +269,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 transition.SetTriggerMembers(triggerMemberAsync);
                 TriggerAsync(   transition);
             };
-            sResetIng.OnExit += (sender, e) => 
+            sAlarmResetIng.OnExit += (sender, e) => 
             {
                 // 視實況新增 Code 
             };
 
-            sResetComplete.OnEntry += (sender, e) => 
+            sAlarmResetComplete.OnEntry += (sender, e) => 
             {  // Sync
-                var transition = tResetComplete_NULL;
+                var transition = tAlarmResetComplete_NULL;
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -293,7 +293,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sResetComplete.OnExit += (sender, e) => 
+            sAlarmResetComplete.OnExit += (sender, e) => 
             {
                 // 視狀況增加 Code
             };
