@@ -97,7 +97,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #endif
 
         }
-        MacLoadPortUnitStateTimeOutController TimeController = new MacLoadPortUnitStateTimeOutController();
+        //MacLoadPortUnitStateTimeOutController TimeController = new MacLoadPortUnitStateTimeOutController();
+
+        MacMsTimeOutController TimeController =  new MacMsTimeOutController(); 
 
 #if NoConfig
         public MacMsLoadPort()
@@ -651,26 +653,5 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
         }
     }
-    public class MacLoadPortUnitStateTimeOutController
-    {
-        const int defTimeOutSec = 20;
-        public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
-        {
-            var thisTime = DateTime.Now;
-            var diff = thisTime.Subtract(startTime).TotalSeconds;
-            if (diff >= targetDiffSecs)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool IsTimeOut(DateTime startTime)
-        {
-            return IsTimeOut(startTime, defTimeOutSec);
-        }
-    }
+   
 }
