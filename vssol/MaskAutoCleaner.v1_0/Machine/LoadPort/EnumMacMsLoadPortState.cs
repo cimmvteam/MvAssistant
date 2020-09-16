@@ -14,7 +14,15 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     /// </remarks>
     public enum  EnumMacMsLoadPortState
     {
-  
+        // System
+        SystemBootup,
+        SystemBootupAlarmResetStart,
+        SystemBootupAlarmResetIng,
+        SystemBootupAlarmResetComplete,
+        SystemBootupInitialStart,
+        SystemBootupInitialIng,
+        SystemBootupInitialComplete,
+
         //Dock
         DockStart,
         DockIng,
@@ -26,7 +34,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         UndockComplete,
       
        // Reset,
-        SystemBootup,
+        AlarmResetStart,
         AlarmResetIng,
         AlarmResetComplete,
  

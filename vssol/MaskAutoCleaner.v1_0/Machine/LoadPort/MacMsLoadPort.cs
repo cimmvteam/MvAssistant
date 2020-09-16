@@ -120,31 +120,46 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
 
         #region  Command
-       
-        public void Reset()
+        /// <summary>啟動系統</summary>
+        /// <remarks>
+        /// 從 系統啟動 => 啟動後 AlarmReset
+        /// </remarks>
+        public void SystemBootup()
         {
             var state = this.States[EnumMacMsLoadPortState.SystemBootup.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs(null));
+            state.DoEntry(new MacStateEntryEventArgs());
+        }
+
+        
+
+
+
+       
+        /// <summary>Alarm Reset</summary>
+        public void AlarmReset()
+        {
+            var state = this.States[EnumMacMsLoadPortState.AlarmResetStart.ToString()];
+            state.DoEntry(new MacStateEntryEventArgs());
         }
 
         public void Inintial()
         {
             var state = this.States[EnumMacMsLoadPortState.InitialStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs(null));
+            state.DoEntry(new MacStateEntryEventArgs());
         }
 
 
         public void Dock()
         {
             var state = this.States[EnumMacMsLoadPortState.DockStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs(null));
+            state.DoEntry(new MacStateEntryEventArgs());
         }
          
         public void Undock()
         {
 
             var state = this.States[EnumMacMsLoadPortState.UndockStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs(null));
+            state.DoEntry(new MacStateEntryEventArgs());
         }
         #endregion command
 
@@ -154,6 +169,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             // 系統啟動
             MacState sSystemBootup = NewState(EnumMacMsLoadPortState.SystemBootup);
+            MacState sSystemBootupAlarmResetStart = NewState(null);
+            MacState sSystemBootupAlarmResetIng = NewState(null);
+            MacState sSystemBootupAlarmResetComplete = NewState(null);
+            MacState sSystemBootupInitialStart = NewState(null);
+            MacState sSystemBootupInitialIng = NewState(null);
+            MacState sSystemBootupInitialComplete = NewState(null);
+
 
             // AlarmReset 開始
             MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.SystemBootup);
@@ -188,7 +210,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             #region Transition
             // SystemBootUp
-            MacTransition tSystemBootup_NULL = NewTransition(sSystemBootup, null, EnumMacMsLoadPortTransition.SystemBootup_NULL);
+
+            MacTransition tSystemBootup_SystemBootupAlarmResetStart =  NewTransition(sSystemBootup, sSystemBootupAlarmResetStart, EnumMacMsLoadPortTransition.SystemBootup_SystemBootupAlarmResetStart);
+            MacTransition tSystemBootupAlarmResetStart_SystemBootupAlarmResetIng = NewTransition(sSystemBootupAlarmResetStart, sSystemBootupAlarmResetIng, EnumMacMsLoadPortTransition.SystemBootupAlarmResetStart_SystemBootupAlarmResetIng);
+            MacTransition tSystemBootupAlarmResetIng_SystemBootupAlarmResetComplete = NewTransition(sSystemBootupAlarmResetIng, sSystemBootupAlarmResetComplete, EnumMacMsLoadPortTransition.SystemBootupAlarmResetIng_SystemBootupAlarmResetComplete);
+            MacTransition tSystemBootupAlarmResetComplete_SystemBootupInitialStart = NewTransition(sSystemBootupAlarmResetComplete, sSystemBootupInitialStart, EnumMacMsLoadPortTransition.SystemBootupAlarmResetComplete_SystemBootupInitialStart);
+            MacTransition tSystemBootupInitialStart_SystemBootupInitialIng = NewTransition(sSystemBootupInitialStart, sSystemBootupInitialIng, EnumMacMsLoadPortTransition.SystemBootupInitialStart_SystemBootupInitialIng);
+            MacTransition tSystemBootupInitialIng_SystemBootupInitialComplete = NewTransition(sSystemBootupInitialIng, sSystemBootupInitialComplete, EnumMacMsLoadPortTransition.SystemBootupInitialIng_SystemBootupInitialComplete);
+            MacTransition tSystemBootupInitialComplete_NULL = NewTransition(sSystemBootupInitialComplete,null, EnumMacMsLoadPortTransition.SystemBootupInitialComplete_NULL);
+
+
             // AlarmReset
             MacTransition tAlarmResetStart_AlarmResetIng = NewTransition(sAlarmResetStart, sAlarmResetIng, EnumMacMsLoadPortTransition.AlarmResetStart_AlarmResetIng);
             MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacMsLoadPortTransition.AlarmResetIng_AlarmResetComplete);
@@ -219,7 +250,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sSystemBootup.OnEntry += (sender, e) =>
             {   // Synch
                 SetCurrentState((MacState)sender);
-                var transition = tSystemBootup_NULL;
+                var transition = tSystemBootup_SystemBootupAlarmResetStart;
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -240,6 +271,190 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
 
             };
+
+            sSystemBootupAlarmResetStart.OnEntry += (sender, e) =>
+            { // Synch
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootupAlarmResetStart_SystemBootupAlarmResetIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandAlarmReset(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    { },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+            };
+            sSystemBootupAlarmResetStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sSystemBootupAlarmResetIng.OnEntry += (sender, e) =>
+            { //Async
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootupAlarmResetIng_SystemBootupAlarmResetComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                    },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
+                        {
+                            return true;
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
+                        {
+                            throw new LoadportSystemBootupAlarmResetFailException();
+                        }
+                        else if (TimeController.IsTimeOut(startTime))
+                        {
+                            throw new LoadportSystemBootupAlarmResetTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+
+            };
+            sSystemBootupAlarmResetIng.OnExit += (sender, e) =>
+            {
+               
+            };
+
+
+            sSystemBootupAlarmResetComplete.OnEntry += (sender, e) =>
+            {   // Sync
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootupAlarmResetComplete_SystemBootupInitialStart;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sSystemBootupAlarmResetComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sSystemBootupInitialStart.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootupInitialStart_SystemBootupInitialIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandInitialRequest(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                     
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition); 
+            };
+            sSystemBootupInitialStart.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sSystemBootupInitialIng.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    { },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                        {
+                            return true;
+                        }
+                        else if (HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            throw new LoadportSystemBootupInitialMustResetException();
+                        }
+                        else if (TimeController.IsTimeOut(startTime))
+                        {
+                            throw new LoadportSystemBootupInitialTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                       
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                Trigger(transition);
+            };
+            sSystemBootupInitialIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sSystemBootupInitialComplete.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+                var transition = tSystemBootupInitialComplete_NULL;
+                var triggerMmember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMmember);
+                Trigger(transition);
+            };
+            sSystemBootupInitialComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
 
             sAlarmResetStart.OnEntry += (sender, e) =>
             {   // Sync

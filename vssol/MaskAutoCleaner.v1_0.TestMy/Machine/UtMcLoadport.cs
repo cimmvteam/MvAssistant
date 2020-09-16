@@ -40,7 +40,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Reset()
         {
            
-            StateMachineA.Reset();
+            StateMachineA.AlarmReset();
             Repeat();
         }
 
