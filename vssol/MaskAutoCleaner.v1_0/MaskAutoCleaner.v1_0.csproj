@@ -178,8 +178,12 @@
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportPLCAlarmException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportPLCWarningException.cs" />
-    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportResetFailException.cs" />
-    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportResetTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportAlarmResetFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportAlarmResetTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupInitialMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupAlarmResetFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupAlarmResetTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockTimeOutException.cs" />

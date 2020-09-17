@@ -192,7 +192,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         // do something,
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs =  e,
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -248,7 +248,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                       {
                           // do domething
                       },
-                      Guard = () => true,
+                        Guard = () => { return true; },
                       NextStateEntryEventArgs = new MacStateEntryEventArgs(),
                       NotGuardException = null,
                       ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -281,7 +281,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         // do domething
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs =e,
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -344,7 +344,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         // do something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
@@ -376,7 +376,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         // do something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = e,
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -436,7 +436,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     ExceptionHandler = (state, ex) => {
                         //do something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()

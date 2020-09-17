@@ -171,6 +171,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             return 0;
         }
         public object Tag { get; set; }
+        public Action PressButtonToLoad { get; set; }
+
         //public string Index { get; set; }
         public void BindResult()
         {
@@ -279,6 +281,11 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         private void OnButtonEvent(object sender, EventArgs e)
         {
+            if (PressButtonToLoad != null)
+            {
+                PressButtonToLoad.Invoke();
+            }
+
             if (OnButtonEventHandler != null)
             {
                 OnButtonEventHandler.Invoke(this, e);

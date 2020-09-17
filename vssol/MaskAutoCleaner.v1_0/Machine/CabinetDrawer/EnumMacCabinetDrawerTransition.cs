@@ -9,7 +9,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
   public   enum EnumMacCabinetDrawerTransition
   {
         /// <summary>系統啟動=> 設定為末端狀態</summary>
-        SystemBootup_NULL,
+        SystemBootup_SystemBootupInitialStart,
         /// <summary>啟動Initial 開始 => 啟動 Initial 進行中</summary>
         SystemBootupInitialStart_SystemBootupInitialIng,
         /// <summary>啟動 Initial 進行中=> 啟動 Initial 完成</summary>

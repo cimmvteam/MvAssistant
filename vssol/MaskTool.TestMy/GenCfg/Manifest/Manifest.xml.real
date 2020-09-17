@@ -50,22 +50,102 @@
     </Device>
     <Device DeviceName="cabinet_drawer_01_01" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_01_01" PositionId="Drawer01">
       <Devices>
-        <Device DevConnStr="ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_01" />
+        <Device DevConnStr="ip=192.168.0.31;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_01" />
       </Devices>
     </Device>
     <Device DeviceName="cabinet_drawer_01_02" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_01_02" PositionId="Drawer02">
       <Devices>
-        <Device DevConnStr="ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02" DeviceName="cabinet_drawer_01_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_02" />
+        <Device DevConnStr="ip=192.168.0.32;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02" DeviceName="cabinet_drawer_01_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_02" />
       </Devices>
     </Device>
     <Device DeviceName="cabinet_drawer_01_03" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_01_03" PositionId="Drawer03">
       <Devices>
-        <Device DevConnStr="ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03" DeviceName="cabinet_drawer_01_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_03" />
+        <Device DevConnStr="ip=192.168.0.33;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03" DeviceName="cabinet_drawer_01_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_03" />
       </Devices>
     </Device>
     <Device DeviceName="cabinet_drawer_01_04" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_01_04" PositionId="Drawer04">
       <Devices>
-        <Device DevConnStr="ip=192.168.0.54;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04" DeviceName="cabinet_drawer_01_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_04" />
+        <Device DevConnStr="ip=192.168.0.41;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04" DeviceName="cabinet_drawer_01_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_04" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_01_05" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_01_05" PositionId="Drawer05">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_05" DeviceName="cabinet_drawer_01_05" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_01_05" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_02_01" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_02_01" PositionId="Drawer06">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.43;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_01" DeviceName="cabinet_drawer_02_01" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_02_01" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_02_02" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_02_02" PositionId="Drawer07">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.51;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_02" DeviceName="cabinet_drawer_02_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_02_02" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_02_03" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_02_03" PositionId="Drawer08">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.52;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_03" DeviceName="cabinet_drawer_02_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_02_03" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_02_04" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_02_04" PositionId="Drawer09">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.53;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_04" DeviceName="cabinet_drawer_02_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_02_04" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_02_05" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_02_05" PositionId="Drawer10">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.61;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_05" DeviceName="cabinet_drawer_02_05" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_02_05" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_03_01" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_03_01" PositionId="Drawer11">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.62;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_01" DeviceName="cabinet_drawer_03_01" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_03_01" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_03_02" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_03_02" PositionId="Drawer12">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.63;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_02" DeviceName="cabinet_drawer_03_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_03_02" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_03_03" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_03_03" PositionId="Drawer13">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.71;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_03" DeviceName="cabinet_drawer_03_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_03_03" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_03_04" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_03_04" PositionId="Drawer14">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.72;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_04" DeviceName="cabinet_drawer_03_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_03_04" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_03_05" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_03_05" PositionId="Drawer15">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.73;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_05" DeviceName="cabinet_drawer_03_05" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_03_05" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_04_01" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_04_01" PositionId="Drawer16">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.81;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_01" DeviceName="cabinet_drawer_04_01" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_04_01" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_04_02" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_04_02" PositionId="Drawer17">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.82;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_02" DeviceName="cabinet_drawer_04_02" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_04_02" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_04_03" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_04_03" PositionId="Drawer18">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.83;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_03" DeviceName="cabinet_drawer_04_03" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_04_03" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_04_04" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_04_04" PositionId="Drawer19">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.91;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_04" DeviceName="cabinet_drawer_04_04" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_04_04" />
+      </Devices>
+    </Device>
+    <Device DeviceName="cabinet_drawer_04_05" DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" ID="DE_CB_A_04_05" PositionId="Drawer20">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.92;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_05" DeviceName="cabinet_drawer_04_05" DriverId="80e11398-67b2-4991-a071-89c893bcad4c" ID="DE_CB_A_04_05" />
       </Devices>
     </Device>
     <Device DeviceName="openstage_assembly" DriverId="a6a5eb63-ab45-4c91-bc04-417825b927ab" ID="DE_OS_A_ASB" PositionId="OpenStage01">
