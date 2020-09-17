@@ -383,7 +383,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                  var transition = tInitialStart_InitialIng;
                  TriggerMember triggerMember = new TriggerMember
                  {
-                     Guard = () =>  true,
+                     Guard = () => { return true; },
                      Action = (parameter) =>
                      {
                          HalDrawer.CommandINI();
@@ -503,8 +503,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     transition = tInitialComplete_LoadMoveTrayToPositionOutStart;
                     triggerMember = new TriggerMember
                     {
-                        Guard = () => true,
-                        Action = (parameter)=> HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart) ,
+                        Guard = () => {return true;},
+                        Action = (parameter)=> { HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutStart); } ,
                         ActionParameter = null,
                         ExceptionHandler = (state, ex) =>
                         {
@@ -520,8 +520,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     transition = tInitialComplete_UnloadMoveTrayToPositionInStart;
                     triggerMember = new TriggerMember
                     {
-                        Guard = () => true,
-                        Action = (parameter)=> HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInStart),
+                        Guard = () => { return true; },
+                        Action = (parameter)=> { HalDrawer.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInStart); },
                         ActionParameter = null,
                         ExceptionHandler = (state, ex) =>
                         {
@@ -537,7 +537,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     transition = tInitialComplete_NULL;
                     triggerMember = new TriggerMember
                     {
-                        Guard = () => true,
+                        Guard = () => { return true; },
                         Action = null,
                         ActionParameter = null,
                         ExceptionHandler = (state, ex) =>
@@ -567,7 +567,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tLoadMoveTrayToPositionOutStart_LoadMoveTrayToPositionOutIng;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>true,
+                    Guard = () => { return true; },
                     Action = (parameter) =>
                     {
                         HalDrawer.CommandTrayMotionOut();
@@ -642,7 +642,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tLoadMoveTrayToPositionOutComplete_LoadIdleForPutBoxOnTrayAtPositionOut;
                 var triggerMember = new TriggerMember
                 {
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler =(state,ex)=> 
@@ -667,7 +667,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                   var transition = tIdleForPutBoxOnTrayAtPositionOut_NULL;
                   TriggerMember triggerMember = new TriggerMember
                   {
-                      Guard = () => true,
+                      Guard = () => { return true; },
                       Action = null,
                       ActionParameter = null,
                       ExceptionHandler =(state, ex)=> 
@@ -701,7 +701,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // TODO: DO Simething
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                     NotGuardException = null,
@@ -758,7 +758,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         Action =(parameter)=> { HalDrawer.CommandBoxDetection(); },
                         ActionParameter = null,
-                        Guard = () =>true,
+                        Guard = () => { return true; },
                         NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                         ThisStateExitEventArgs = new MacStateExitEventArgs(),
                         ExceptionHandler = (state, ex) => 
@@ -776,7 +776,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         Action = null,
                         ActionParameter = null,
-                        Guard = () => true,
+                        Guard = () => { return true; },
                         ExceptionHandler = (state, ex) =>
                         {
                             // TODO: do something
@@ -793,7 +793,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         Action = null,
                         ActionParameter = null,
-                        Guard = () => true,
+                        Guard = () => { return true; },
                         ExceptionHandler = (state, ex) =>
                         {
                             // TODO: Do Something
@@ -896,7 +896,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         //TODO: DO Something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NotGuardException = null,
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -914,7 +914,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tLoadBoxNotExistAtPositionHome_LoadMoveTrayToPositionHomeComplete;
                 var triggerMember = new TriggerMember
                 {
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>  
@@ -942,7 +942,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tLoadNoBoxRejectTrayToPositionOutFromPositionHomeStart_LoadNoBoxRejectTrayToPositionOutFromHomeIng;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     Action = (parameter) => { HalDrawer.CommandTrayMotionOut(); },
                     ActionParameter = null,
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
@@ -1017,7 +1017,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // TODO: Do something 
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -1040,7 +1040,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Action = (parameter) => { HalDrawer.CommandTrayMotionIn(); },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
@@ -1114,7 +1114,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // TODO: to something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -1132,7 +1132,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tIdleForGetBoxOnTrayAtPositionIn_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = null,
@@ -1157,13 +1157,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tUnloadMoveTrayToPositionInStart_UnloadMoveTrayToPositionInIng;
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter)=> HalDrawer.CommandTrayMotionIn(),
+                    Action = (parameter)=> { HalDrawer.CommandTrayMotionIn(); },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -1233,7 +1233,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                       {
                           // TODO: do something
                       },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -1262,7 +1262,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // TODO: do something 
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -1284,14 +1284,14 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tUnloadMoveTrayToPositionHomeStart_UnloadMoveTrayToPositionHomeIng;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => HalDrawer.CommandTrayMotionHome(),
+                    Action = (parameter) => { HalDrawer.CommandTrayMotionHome(); },
                     ActionParameter = null,
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ExceptionHandler = (state, ex) =>
                     {
                         // TODO: Do something,
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
 
@@ -1358,8 +1358,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     transition = tUnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceAtPositionHome;
                     triggerMember = new TriggerMember
                     {
-                        Guard = () => true,
-                        Action = (parameter)=> HalDrawer.CommandBoxDetection(),
+                        Guard = () => { return true; },
+                        Action = (parameter)=> { HalDrawer.CommandBoxDetection(); },
                         ActionParameter = null,
                         ExceptionHandler = (state, ex) =>
                         {
@@ -1375,7 +1375,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     transition = tUnloadMoveTrayToPositionHomeComplete_UnloadMoveTrayToPositionOutFromPositionHomeStart;
                     triggerMember = new TriggerMember
                     {
-                        Guard = ()=> true,
+                        Guard = () => { return true; },
                         Action = null,
                         ActionParameter = null,
                         ExceptionHandler = (state, ex) =>
@@ -1392,7 +1392,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     transition = tUnloadMoveTrayToPositionHomeComplete_UnloadNoBoxRejectTrayToPositionInFromPositionHomeStart;
                     triggerMember = new TriggerMember
                     {
-                        Guard = () => true,
+                          Guard = () => { return true; },
                         Action = null,
                         ActionParameter = null,
                         ExceptionHandler = (state, ex) =>
@@ -1490,7 +1490,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tUnloadBoxExistAtPositionHome_UnloadMoveTrayToPositionHomeComplete;
                 var triggerMember = new TriggerMember
                 {
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
@@ -1522,7 +1522,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // TODO: Do Something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMacDrawerUnloadToHomeCompleteSource.UnloadCheckBoxNotExist),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                     NotGuardException = null,
@@ -1544,8 +1544,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tUnloadNoBoxRejectTrayToPositionInFromPositionHomeStart_UnloadNoBoxRejectTrayToPositionInFromPositionHomeIng;
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => HalDrawer.CommandTrayMotionIn(),
-                    Guard = () => true,
+                    Action = (parameter) => { HalDrawer.CommandTrayMotionIn(); },
+                      Guard = () => { return true; },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
@@ -1619,7 +1619,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // Todo: do something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -1641,13 +1641,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                 var transition = tUnloadMoveTrayToPositionOutFromPositionHomeStart_UnloadMoveTrayToPositionOutFromPositionHomeIng;
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => HalDrawer.CommandTrayMotionIn(),
+                    Action = (parameter) => { HalDrawer.CommandTrayMotionIn(); },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                      ThisStateExitEventArgs=new MacStateExitEventArgs(),
@@ -1718,7 +1718,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         //TODO: do something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
@@ -1742,7 +1742,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
                     {
                         // Todo: doi something
                     },
-                    Guard = () => true,
+                      Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
