@@ -287,7 +287,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             #endregion state
 
             #region transition
-            MacTransition tSystemBootup_NULL = NewTransition(sSystemBootup,null,EnumMacCabinetDrawerTransition.SystemBootup_NULL);
+            MacTransition tSystemBootup_NULL = NewTransition(sSystemBootup,null,EnumMacCabinetDrawerTransition.SystemBootup_NULL);// Note
             //--
             MacTransition tSystemBootupInitialStart_SystemBootupInitialIng = NewTransition(sSystemBootupInitialStart, sSystemBootupInitialIng, EnumMacCabinetDrawerTransition.SystemBootupInitialStart_SystemBootupInitialIng);
             MacTransition tSystemBootupInitialIng_SystemBootupInitialComplete = NewTransition(sSystemBootupInitialIng, sSystemBootupInitialComplete, EnumMacCabinetDrawerTransition.SystemBootupInitialIng_SystemBootupInitialComplete);
