@@ -462,13 +462,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 var transition = tAlarmResetStart_AlarmResetIng;
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => this.HalLoadPortUnit.CommandAlarmReset(), 
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandAlarmReset(); }, 
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
                         //TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => {return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -535,7 +535,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -554,13 +554,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => this.HalLoadPortUnit.CommandInitialRequest(),
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandInitialRequest(); },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => {return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -628,7 +628,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -654,7 +654,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -673,13 +673,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => this.HalLoadPortUnit.CommandDockRequest(),
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandDockRequest(); },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => {return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -750,7 +750,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO : do something
                     },
-                    Guard = () => true,
+                    Guard = () =>{ return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -775,7 +775,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO: do something
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -795,13 +795,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
-                    Action = (parameter) => this.HalLoadPortUnit.CommandUndockRequest(),
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandUndockRequest(); },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                       {
                           // TODO: do something
                       },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -874,7 +874,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO: do something 
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
@@ -899,7 +899,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     {
                         // TODO: do something 
                     },
-                    Guard = () => true,
+                    Guard = () => { return true; },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
