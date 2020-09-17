@@ -249,7 +249,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             #endregion state
 
             #region transition
-            MacTransition tSystemBootup_NULL = NewTransition(sSystemBootup,null,EnumMacCabinetDrawerTransition.SystemBootup_NULL);
+            MacTransition tSystemBootup_SystemBootupInitialStart = NewTransition(sSystemBootup, sSystemBootupInitialStart, EnumMacCabinetDrawerTransition.SystemBootup_SystemBootupInitialStart);
             //--
             MacTransition tSystemBootupInitialStart_SystemBootupInitialIng = NewTransition(sSystemBootupInitialStart, sSystemBootupInitialIng, EnumMacCabinetDrawerTransition.SystemBootupInitialStart_SystemBootupInitialIng);
             MacTransition tSystemBootupInitialIng_SystemBootupInitialComplete = NewTransition(sSystemBootupInitialIng, sSystemBootupInitialComplete, EnumMacCabinetDrawerTransition.SystemBootupInitialIng_SystemBootupInitialComplete);
@@ -332,7 +332,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             sSystemBootup.OnEntry += (sender, e) =>
             {  // Sync
                this.SetCurrentState((MacState)sender);
-                var transition = tSystemBootup_NULL;
+                var transition = tSystemBootup_SystemBootupInitialStart;
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
