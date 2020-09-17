@@ -144,6 +144,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         BoxTransferMustResetException = 30003,
         /// <summary>Boxtransfer 必須先 Initial 的例外</summary>
         BoxTransferMustInitialException = 30004,
+        BoxTransferPathMoveFailException,
+        BoxTransferPLCExecuteFailException,
         BoxTransferPLCAlarmException,
         BoxTransferPLCWarningException,
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0.TestMy.UserData
+namespace MaskAutoCleaner.v1_0.UserData
 {
     public enum EnumMachineID
     {

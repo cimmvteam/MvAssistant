@@ -1,7 +1,7 @@
 ﻿using System;
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
-using MaskAutoCleaner.v1_0.TestMy.UserData;
+using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
@@ -125,11 +125,17 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MS.ICHomeClampedToICHomeInspected();
                 MS.ICHomeInspectedToCCHomeClamped();
                 MS.CCHomeClampedToCC();
-                MS.CCCleanedToCapture();
-                MS.CCCapturedToCCHomeClamped();
+                MS.InCCMoveToClean();
+                MS.CCCleanedToCC();
+                MS.InCCMoveToCapture();
+                MS.CCCapturedToCC();
+                MS.MoveToCCHomeClampedFromCleanCh();
                 MS.CCHomeClampedToCCGlass();
-                MS.CCGlassCleanedToCapture();
-                MS.CCGlassCapturedToCCHomeClamped();
+                MS.InCCGlassMoveToClean();
+                MS.CCGlassCleanedToCCGlass();
+                MS.InCCGlassMoveToCapture();
+                MS.CCGlassCapturedToCCGlass();
+                MS.MoveToCCHomeClampedFromCleanChGlass();
                 MS.CCHomeClampedToCCHomeCleaned();
                 MS.CCHomeCleanedToLPHomeCleaned();
                 MS.LPHomeCleanedReleaseLPA();

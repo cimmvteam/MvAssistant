@@ -8,10 +8,10 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Machine.Universal;
-using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.GenCfg.Manifest;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
+using MaskAutoCleaner.v1_0.UserData;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 {
