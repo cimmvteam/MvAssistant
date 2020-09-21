@@ -217,7 +217,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tSystemBootupAlarmResetComplete_SystemBootupInitialStart = NewTransition(sSystemBootupAlarmResetComplete, sSystemBootupInitialStart, EnumMacMsLoadPortTransition.SystemBootupAlarmResetComplete_SystemBootupInitialStart);
             MacTransition tSystemBootupInitialStart_SystemBootupInitialIng = NewTransition(sSystemBootupInitialStart, sSystemBootupInitialIng, EnumMacMsLoadPortTransition.SystemBootupInitialStart_SystemBootupInitialIng);
             MacTransition tSystemBootupInitialIng_SystemBootupInitialComplete = NewTransition(sSystemBootupInitialIng, sSystemBootupInitialComplete, EnumMacMsLoadPortTransition.SystemBootupInitialIng_SystemBootupInitialComplete);
-            MacTransition tSystemBootupInitialComplete_NULL = NewTransition(sSystemBootupInitialComplete,null, EnumMacMsLoadPortTransition.SystemBootupInitialComplete_NULL);
+            MacTransition tSystemBootupInitialComplete_IdleForPutPOD = NewTransition(sSystemBootupInitialComplete, sIdleForPutPOD, EnumMacMsLoadPortTransition.SystemBootupInitialComplete_IdleForPutPOD);
 
 
             // AlarmReset
@@ -433,7 +433,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sSystemBootupInitialComplete.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-                var transition = tSystemBootupInitialComplete_NULL;
+                var transition = tSystemBootupInitialComplete_IdleForPutPOD;
                 var triggerMmember = new TriggerMember
                 {
                     Action = null,
