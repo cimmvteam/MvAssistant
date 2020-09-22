@@ -1722,6 +1722,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0303 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0303);
             MacState sMovingToCabinet0304 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0304);
             MacState sMovingToCabinet0305 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0305);
+
+            MacState state_MovingToDrawer = NewState(EnumMacMsBoxTransferState.MovingToDrawer);
             #endregion Move To Cabinet
 
             #region Clamping At Cabinet
@@ -1740,6 +1742,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0303Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0303Clamping);
             MacState sCabinet0304Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0304Clamping);
             MacState sCabinet0305Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0305Clamping);
+
+            MacState state_DrawerClamping = NewState(EnumMacMsBoxTransferState.DrawerClamping);
             #endregion Clamping At Cabinet
 
             #region Return To CB Home Clamped From Cabinet
@@ -1758,6 +1762,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeClampedFromCabinet0303 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0303);
             MacState sMovingToCB1HomeClampedFromCabinet0304 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0304);
             MacState sMovingToCB1HomeClampedFromCabinet0305 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0305);
+
+
+            MacState state_MovingToCB1HomeClampedFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromDrawer);
+
             #endregion Return To CB Home Clamped From Cabinet
 
             #region Move To Cabinet Fro Release
@@ -1776,6 +1784,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0303ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0303ForRelease);
             MacState sMovingToCabinet0304ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0304ForRelease);
             MacState sMovingToCabinet0305ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0305ForRelease);
+
+            MacState state_MovingToDrawerForRelease = NewState(EnumMacMsBoxTransferState.MovingToDrawerForRelease);
             #endregion Move To Cabinet Fro Release
 
             #region Releasing At Cabinet
@@ -1794,6 +1804,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0303Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0303Releasing);
             MacState sCabinet0304Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0304Releasing);
             MacState sCabinet0305Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0305Releasing);
+
+            MacState state_DrawerReleasing = NewState(EnumMacMsBoxTransferState.DrawerReleasing);
             #endregion Releasing At Cabinet
 
             #region Return To CB Home From Cabinet
@@ -1812,6 +1824,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeFromCabinet0303 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0303);
             MacState sMovingToCB1HomeFromCabinet0304 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0304);
             MacState sMovingToCB1HomeFromCabinet0305 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0305);
+
+            MacState state_MovingToCB1HomeFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromDrawer);
             #endregion Return To CB Home From Cabinet
             #endregion CB1
 
@@ -1837,6 +1851,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0703 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0703);
             MacState sMovingToCabinet0704 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0704);
             MacState sMovingToCabinet0705 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0705);
+
+            //MacState state_MovingToDrawer = NewState(EnumMacMsBoxTransferState.MovingToDrawer);
             #endregion Move To Cabinet
 
             #region Clamping At Cabinet
@@ -1860,6 +1876,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0703Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0703Clamping);
             MacState sCabinet0704Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0704Clamping);
             MacState sCabinet0705Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0705Clamping);
+
+
+            // MacState state_DrawerClamping = NewState(EnumMacMsBoxTransferState.DrawerClamping);
             #endregion Clamping At Cabinet
 
             #region Return To CB Home Clamped From Cabinet
@@ -1883,6 +1902,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeClampedFromCabinet0703 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0703);
             MacState sMovingToCB1HomeClampedFromCabinet0704 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0704);
             MacState sMovingToCB1HomeClampedFromCabinet0705 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0705);
+
+           // MacState state_MovingToCB1HomeFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromDrawer);
             #endregion Return To CB Home Clamped From Cabinet
 
             #region Move To Cabinet Fro Release
@@ -1906,6 +1927,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0703ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0703ForRelease);
             MacState sMovingToCabinet0704ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0704ForRelease);
             MacState sMovingToCabinet0705ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0705ForRelease);
+
+            //MacState state_MovingToDrawerForRelease = NewState(EnumMacMsBoxTransferState.MovingToDrawerForRelease);
             #endregion Move To Cabinet Fro Release
 
             #region Releasing At Cabinet
@@ -1929,6 +1952,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0703Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0703Releasing);
             MacState sCabinet0704Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0704Releasing);
             MacState sCabinet0705Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0705Releasing);
+
+            // MacState state_DrawerReleasing = NewState(EnumMacMsBoxTransferState.DrawerReleasing);
             #endregion Releasing At Cabinet
 
             #region Return To CB Home From Cabinet
@@ -1952,6 +1977,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeFromCabinet0703 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0703);
             MacState sMovingToCB1HomeFromCabinet0704 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0704);
             MacState sMovingToCB1HomeFromCabinet0705 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0705);
+
+
+            // MacState state_MovingToCB1HomeFromDrawer_ = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromDrawer);
             #endregion Return To CB Home From Cabinet
             #endregion CB2
             #endregion State
@@ -2006,6 +2034,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCB1Home_MovingToCabinet0303 = NewTransition(sCB1Home, sMovingToCabinet0303, EnumMacMsBoxTransferTransition.MoveToCB0303);
             MacTransition tCB1Home_MovingToCabinet0304 = NewTransition(sCB1Home, sMovingToCabinet0304, EnumMacMsBoxTransferTransition.MoveToCB0304);
             MacTransition tCB1Home_MovingToCabinet0305 = NewTransition(sCB1Home, sMovingToCabinet0305, EnumMacMsBoxTransferTransition.MoveToCB0305);
+
+            MacTransition transition_CB1Home_MovingToDrawer = NewTransition(sCB1Home, state_MovingToDrawer, EnumMacMsBoxTransferTransition.MoveToDrawer);
 
             MacTransition tMovingToCabinet0101_Cabinet0101Clamping = NewTransition(sMovingToCabinet0101, sCabinet0101Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0101);
             MacTransition tMovingToCabinet0102_Cabinet0102Clamping = NewTransition(sMovingToCabinet0102, sCabinet0102Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0102);

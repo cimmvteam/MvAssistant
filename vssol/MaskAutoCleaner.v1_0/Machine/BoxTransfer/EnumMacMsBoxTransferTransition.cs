@@ -341,6 +341,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         StandbyAtCB1HomeFromCB0703,
         StandbyAtCB1HomeFromCB0704,
         StandbyAtCB1HomeFromCB0705,
+        MoveToDrawer,
         #endregion Standby at CB Home from Cabinet
     }
 }
