@@ -23,11 +23,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             if (BankIn)
             {
                 MS.MoveToOpenStageGet();
-                MS.MoveToCabinet0101Put();
+                MS.MoveToCabinetPut("0101");
             }
             else if (BankOut)
             {
-                MS.MoveToCabinet0101Get();
+                MS.MoveToCabinetGet("0101");
                 MS.MoveToOpenStagePut();
             }
             else
