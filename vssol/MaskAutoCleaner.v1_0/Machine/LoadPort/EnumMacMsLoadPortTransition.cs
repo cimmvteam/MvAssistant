@@ -15,7 +15,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         SystemBootupAlarmResetComplete_SystemBootupInitialStart,
         SystemBootupInitialStart_SystemBootupInitialIng,
         SystemBootupInitialIng_SystemBootupInitialComplete,
-        SystemBootupInitialComplete_NULL,
+        SystemBootupInitialComplete_IdleForPutPOD,
 
         // Reset
         AlarmResetStart_AlarmResetIng,
