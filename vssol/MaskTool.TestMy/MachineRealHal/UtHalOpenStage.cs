@@ -48,7 +48,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.MvCfLoad();
 
+                var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                unv.HalConnect();
+                os.HalConnect();
 
                 os.ReadBoxTypeSetting();
                 os.ReadSpeedSetting();

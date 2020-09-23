@@ -64,11 +64,11 @@ namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
                         DriverId = ManifestDriverId.FanucRobot.ToString(),
                     },
 
-                      new MacManifestDeviceCfg(){
-                        DevConnStr = "id=00:11:1C:F9:A3:23",
-                        DeviceName = MacEnumDevice.boxtransfer_camera_gripper_1.ToString(),
-                        DriverId = ManifestDriverId.CameraSentech.ToString(),
-                    },
+                    //  new MacManifestDeviceCfg(){
+                    //    DevConnStr = "id=00:11:1C:F9:A3:23",
+                    //    DeviceName = MacEnumDevice.boxtransfer_camera_gripper_1.ToString(),
+                    //    DriverId = ManifestDriverId.CameraSentech.ToString(),
+                    //},
                 },
             };
             return rs;

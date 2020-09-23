@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -641,7 +642,7 @@ namespace MvAssistantMacVerifyEqp
         {
             drawers.InitialDRawer(drawers.DrawerC);
             drawers.DisableDrawerComps(drawers.DrawerC);
-            var commandText=drawers.DrawerC.CommandTrayMotionOut();
+            var commandText = drawers.DrawerC.CommandTrayMotionOut();
             Debug.WriteLine("Drawer Rtn = " + commandText);
 
         }
@@ -785,8 +786,76 @@ namespace MvAssistantMacVerifyEqp
             grpLoadportB.Enabled = true;
         }
 
+        private BackgroundWorker worker;
+        private BackgroundWorker BT_worker;
+        private delegate void Cancelable_DoWork();
+        private int MaskTransferWorkTimes = 0;
+        private int BoxTransferWorkTimes = 0;
+        private DateTime MTStartTime = DateTime.Now;
+        private string DateDiff(DateTime EndDate, DateTime StartDate)
+        {
+            string dateDiff = null;
+            TimeSpan ts1 = new TimeSpan(EndDate.Ticks);
+            TimeSpan ts2 = new TimeSpan(StartDate.Ticks);
+            TimeSpan ts = ts1.Subtract(ts2).Duration();
+            dateDiff = ts.Days.ToString() + "天" + ts.Hours.ToString() + "小時" + ts.Minutes.ToString() + "分鐘" + ts.Seconds.ToString() + "秒";
+            return dateDiff;
+        }
+        public void LogInfo(string pMessage)
+        {
+            string tFilePath = @"D:\Logg.txt";
+            StreamWriter tStreamWriter = null;
+            try
+            {
+                if (!File.Exists(tFilePath))
+                    File.Create(tFilePath);
+                tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
+                tStreamWriter.WriteLine(pMessage);
+            }
+            catch (Exception e) { }
+            finally { if (tStreamWriter != null) tStreamWriter.Close(); }
+        }
+
         private void btnStart_Click(object sender, EventArgs e)
         {
+            worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+            worker.DoWork += new DoWorkEventHandler(do_work);
+            worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+
+            worker.RunWorkerAsync();
+        }
+
+        private void do_work(object sender, DoWorkEventArgs e)
+        {
+            Cancelable_DoWork work = new Cancelable_DoWork(MaskMove);
+
+            //開始非同步執行(MaskMove)方法 
+            IAsyncResult rmm = work.BeginInvoke(null, null);
+
+            //(非同步模式，在執行一個很耗時的方法(MaskMove)時,還能繼續向下執行程式) 
+
+            //執行下面的While，判斷非同步操作是否完成 
+            while (!rmm.IsCompleted)
+            {
+                //還沒完成，判斷是否取消了backgroundworker非同步操作 
+                if (worker.CancellationPending)
+                {
+                    //如果是，馬上取消backgroundwork操作(這個地方才是真正取消非同步執行) 
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            //e.Result = work.EndInvoke(rmm); //返回查询结果 赋值给e.Result 
+        }
+
+        private void MaskMove()
+        {
+            MTStartTime = DateTime.Now;
+            lblMTStartTime.Text = MTStartTime.ToString("yyyyMMdd HH:mm:ss");
+            MaskTransferWorkTimes = 0;
             int Times = 0, CycleTimes = 0;
             if (int.TryParse(txtCycleTimes.Text, out CycleTimes))
             { CycleTimes = Convert.ToInt32(txtCycleTimes.Text); }
@@ -794,6 +863,8 @@ namespace MvAssistantMacVerifyEqp
             { MessageBox.Show("循環次數請輸入數字!!!"); return; }
             try
             {
+                btnStart.Enabled = false;
+                btnEnd.Enabled = true;
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
@@ -807,14 +878,324 @@ namespace MvAssistantMacVerifyEqp
                     os.HalConnect();
                     ic.HalConnect();
                     bool MTIntrude = false;
-                    if (true)
+                    if (false)
                     {
-                        os.Initial();
+                        //os.Initial();
                         mt.Initial();
                         ic.ReadRobotIntrude(false);
                         ic.Initial();
 
-                        os.SetBoxType(2);
+                        //os.SetBoxType(2);
+                        //os.SortClamp();
+                        //Thread.Sleep(1000);
+                        //os.SortUnclamp();
+                        //os.SortClamp();
+                        //Thread.Sleep(1000);
+                        //os.Vacuum(true);
+                        //os.SortUnclamp();
+                        //os.Lock();
+                        //os.Close();
+                        //os.Clamp();
+                        //os.Open();
+                    }
+                    for (Times = 1; Times <= CycleTimes; Times++)
+                    {
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "第[ " + Times + "]次機械手臂測試開始");
+                        MaskTransferWorkTimes = Times;
+                        worker.ReportProgress(Times);
+                        Thread.Sleep(1000);
+
+                        //ic.ReadRobotIntrude(false);
+                        //ic.XYPosition(0, 0);
+                        //ic.WPosition(0);
+
+                        mt.RobotMoving(true);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => LP");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP => LP Home");
+                        mt.RobotMoving(false);
+
+                        ic.ReadRobotIntrude(true);
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => IC Home");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC => IC Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC => IC Home");
+                        mt.RobotMoving(false);
+                        ic.ReadRobotIntrude(false);
+
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                            if (MTIntrude == true)
+                                break;
+                            else if (i == 1 && MTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        }
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => LP Home");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => OS");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " OS => LP Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => OS");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " OS => LP Home");
+                        mt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        }
+
+                        ic.ReadRobotIntrude(true);
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => IC Home");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC => IC Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC => IC Home");
+                        mt.RobotMoving(false);
+                        ic.ReadRobotIntrude(false);
+
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => LP Home");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => LP");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP => LP Home");
+                        mt.RobotMoving(false);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "第[ " + Times + "]次機械手臂測試結束");
+                        #region 20200814 version
+                        ////Get mask from Open Stage 
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                        //    if (MTIntrude == true)
+                        //        break;
+                        //    else if (i == 1 && MTIntrude == false)
+                        //        throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        //}
+                        //mt.RobotMoving(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        //mt.Clamp(1);
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        //mt.RobotMoving(false);
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                        //    if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                        //        throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        //}
+
+                        ////Put glass side into Inspection Chamber
+                        ////ic.Initial();
+                        //ic.ReadRobotIntrude(false);
+                        //ic.XYPosition(0, 0);
+                        //ic.WPosition(0);
+                        //ic.ReadRobotIntrude(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        //mt.Unclamp();
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        //ic.ReadRobotIntrude(false);
+                        ////Get glass side from Inspection Chamber
+                        //ic.ZPosition(-29.6);
+                        //for (int i = 158; i <= 296; i += 23)
+                        //{
+                        //    for (int j = 123; j <= 261; j += 23)
+                        //    {
+                        //        ic.XYPosition(i, j);
+                        //        ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
+                        //        Thread.Sleep(500);
+                        //    }
+                        //}
+                        //ic.XYPosition(246, 208);
+                        //for (int i = 0; i < 360; i += 90)
+                        //{
+                        //    ic.WPosition(i);
+                        //    ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "bmp");
+                        //    Thread.Sleep(500);
+                        //}
+
+                        //ic.XYPosition(0, 0);
+                        //ic.WPosition(0);
+                        //ic.ReadRobotIntrude(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        //mt.Clamp(1);
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        //ic.ReadRobotIntrude(false);
+
+                        ////Release mask to Open Stage
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                        //    if (MTIntrude == true)
+                        //        break;
+                        //    else if (i == 1 && MTIntrude == false)
+                        //        throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        //}
+                        //mt.RobotMoving(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        //mt.Unclamp();
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        //mt.RobotMoving(false);
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                        //    if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                        //        throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        //}
+                        #endregion 20200814 version
+                        #region 20200908 version IC => OS => LPA => IC
+                        //MaskTransferWorkTimes = Times;
+                        //worker.ReportProgress(Times);
+                        //Thread.Sleep(1000);
+
+                        //ic.ReadRobotIntrude(false);
+                        //ic.XYPosition(0, 0);
+                        //ic.WPosition(0);
+                        //ic.ReadRobotIntrude(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        //mt.Clamp(1);
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        //ic.ReadRobotIntrude(false);
+
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                        //    if (MTIntrude == true)
+                        //        break;
+                        //    else if (i == 1 && MTIntrude == false)
+                        //        throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        //}
+                        //mt.RobotMoving(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        //mt.Unclamp();
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        //mt.Clamp(1);
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        //mt.RobotMoving(false);
+                        //for (int i = 0; i < 2; i++)
+                        //{
+                        //    MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                        //    if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                        //        throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        //}
+
+                        //mt.RobotMoving(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                        //mt.Unclamp();
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                        //mt.Clamp(1);
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                        //mt.RobotMoving(false);
+
+                        //ic.ReadRobotIntrude(false);
+                        //ic.XYPosition(0, 0);
+                        //ic.WPosition(0);
+                        //ic.ReadRobotIntrude(true);
+                        //mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                        //mt.Unclamp();
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        //ic.ReadRobotIntrude(false);
+                        #endregion 20200908 version
+                    }
+
+                }
+            }
+            catch (InvalidOperationException oex) { }
+            catch (Exception ex) { throw ex; }
+        }
+
+        private void OpemStageTest()
+        {
+            uint BoxType;
+            if (txtBoxType.Text != "1" && txtBoxType.Text != "2")
+            { MessageBox.Show("Box Type請輸入數字1或2"); return; }
+            else
+                BoxType = Convert.ToUInt32(txtBoxType.Text);
+            bool BTIntrude = false;
+            bool MTIntrude = false;
+            BoxTransferWorkTimes = 0;
+            int Times = 0, CycleTimes = 0;
+            if (int.TryParse(txtBTCycleTimes.Text, out CycleTimes))
+            { CycleTimes = Convert.ToInt32(txtBTCycleTimes.Text); }
+            else
+            { MessageBox.Show("循環次數請輸入數字!!!"); return; }
+            try
+            {
+                btnBTStart.Enabled = false;
+                btnBTEnd.Enabled = true;
+                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                {
+                    halContext.MvCfLoad();
+
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                    var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                    unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                    mt.HalConnect();
+                    bt.HalConnect();
+                    os.HalConnect();
+
+                    if (true)
+                    {
+                        //os.ReadRobotIntrude(false, false);
+                        os.Initial();
+                        //mt.Initial();
+                        bt.Initial();
+                    }
+                    for (Times = 1; Times <= CycleTimes; Times++)
+                    {
+                        BoxTransferWorkTimes = Times;
+                        BT_worker.ReportProgress(Times);
+                        Thread.Sleep(1000);
+
+                        // Unlock & Open
+                        for (int i = 0; i < 2; i++)
+                        {
+                            BTIntrude = os.ReadRobotIntrude(false, false).Item1;
+                            if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been BT intrude,can net execute command!!");
+                        }
+                        os.SetBoxType(BoxType);
                         os.SortClamp();
                         Thread.Sleep(1000);
                         os.SortUnclamp();
@@ -823,99 +1204,110 @@ namespace MvAssistantMacVerifyEqp
                         os.Vacuum(true);
                         os.SortUnclamp();
                         os.Lock();
+                        if (os.ReadCoverSensor().Item2 == false)
+                            throw new Exception("Box status was not closed");
+                        for (int i = 0; i < 2; i++)
+                        {
+                            BTIntrude = os.ReadRobotIntrude(true, false).Item1;
+                            if (BTIntrude == true)
+                                break;
+                            else if (i == 1 && BTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be BT intrude!!");
+                            else
+                                os.Initial();
+                        }
+                        bt.RobotMoving(true);
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                        if (BoxType == 1)
+                            bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        else if (BoxType == 2)
+                            bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        bt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            BTIntrude = os.ReadRobotIntrude(false, false).Item1;
+                            if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been BT intrude,can net execute command!!");
+                        }
                         os.Close();
                         os.Clamp();
                         os.Open();
-                    }
-                    for (Times = 1; Times <= CycleTimes; Times++)
-                    {
-                        txtTimes.Text = Times.ToString();
-                        //Get mask from Open Stage 
+                        if (os.ReadCoverSensor().Item1 == false)
+                            throw new Exception("Box status was not opened");
+
+
+                        // Close & Lock
+                        if (os.ReadCoverSensor().Item1 == false)
+                            throw new Exception("Box status was not opened");
+                        os.Close();
+                        os.Unclamp();
+                        if (os.ReadCoverSensor().Item2 == false)
+                            throw new Exception("Box status was not closed");
+                        os.Lock();
                         for (int i = 0; i < 2; i++)
                         {
-                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
-                            if (MTIntrude == true)
+                            BTIntrude = os.ReadRobotIntrude(true, false).Item1;
+                            if (BTIntrude == true)
                                 break;
-                            else if (i == 1 && MTIntrude == false)
-                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                            else if (i == 1 && BTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be BT intrude!!");
+                            else
+                                os.Initial();
                         }
-                        mt.RobotMoving(true);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.Clamp(1);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                        mt.RobotMoving(false);
+                        bt.RobotMoving(true);
+                        bt.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                        if (BoxType == 1)
+                            bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                        else if (BoxType == 2)
+                            bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                        bt.RobotMoving(false);
                         for (int i = 0; i < 2; i++)
                         {
-                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
-                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
-                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                            BTIntrude = os.ReadRobotIntrude(false, false).Item1;
+                            if (i == 1 && BTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                         }
-
-                        //Put glass side into Inspection Chamber
-                        //ic.Initial();
-                        ic.ReadRobotIntrude(false);
-                        ic.XYPosition(0, 0);
-                        ic.WPosition(0);
-                        ic.ReadRobotIntrude(true);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                        ic.ReadRobotIntrude(false);
-                        //Get glass side from Inspection Chamber
-                        ic.ZPosition(-29.6);
-                        for (int i = 158; i <= 296; i += 23)
-                        {
-                            for (int j = 123; j <= 261; j += 23)
-                            {
-                                ic.XYPosition(i, j);
-                                ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
-                                Thread.Sleep(500);
-                            }
-                        }
-                        ic.XYPosition(246, 208);
-                        for (int i = 0; i < 360; i += 90)
-                        {
-                            ic.WPosition(i);
-                            ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "bmp");
-                            Thread.Sleep(500);
-                        }
-
-                        ic.XYPosition(0, 0);
-                        ic.WPosition(0);
-                        ic.ReadRobotIntrude(true);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
-                        mt.Clamp(1);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                        ic.ReadRobotIntrude(false);
-
-                        //Release mask to Open Stage
-                        for (int i = 0; i < 2; i++)
-                        {
-                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
-                            if (MTIntrude == true)
-                                break;
-                            else if (i == 1 && MTIntrude == false)
-                                throw new Exception("Open Stage not allowed to be MT intrude!!");
-                        }
-                        mt.RobotMoving(true);
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                        mt.RobotMoving(false);
-                        for (int i = 0; i < 2; i++)
-                        {
-                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
-                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
-                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
-                        }
+                        os.Vacuum(false);
                     }
                 }
             }
-            catch (Exception ex) { MessageBox.Show("在執行第 " + Times + " 次程式時發生錯誤。"); throw ex; }
+            catch (InvalidOperationException ex) { }
+            catch (Exception ex) { throw ex; }
+        }
+
+        //如果中途按下取消鍵
+        private void btnEnd_Click(object sender, EventArgs e)
+        {
+            if (worker.IsBusy)
+            {
+                worker.CancelAsync();
+            }
+            btnStart.Enabled = true;
+            btnEnd.Enabled = false;
+        }
+
+        //處理進度條更新
+        private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            txtTimes.Text = MaskTransferWorkTimes.ToString();
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("您取消了操作!");
+            }
+            else if (e.Error != null)
+            {
+                MessageBox.Show("出现错误!");
+            }
+            else
+            {
+                MessageBox.Show("執行完成! 花費時間:" + DateDiff(DateTime.Now, MTStartTime));
+            }
+            btnStart.Enabled = true;
+            btnEnd.Enabled = false;
         }
 
         private void TabPageDrawerAndLoadPort_Click(object sender, EventArgs e)
@@ -929,15 +1321,15 @@ namespace MvAssistantMacVerifyEqp
             {
                 loadPorts.LoadPort1.ClientSocket.Close();
             }
-            catch(Exception exx)
+            catch (Exception exx)
             {
 
             }
             try
             {
                 loadPorts.LoadPort2.ClientSocket.Close();
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
@@ -962,6 +1354,136 @@ namespace MvAssistantMacVerifyEqp
             {
 
             }
+        }
+
+        private void btnInsp_Click(object sender, EventArgs e)
+        {
+            worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.WorkerSupportsCancellation = true;
+            worker.DoWork += new DoWorkEventHandler(Insp_work);
+            worker.ProgressChanged += new ProgressChangedEventHandler(worker_ProgressChanged);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+
+            worker.RunWorkerAsync();
+        }
+
+        private void Insp_work(object sender, DoWorkEventArgs e)
+        {
+            Cancelable_DoWork work = new Cancelable_DoWork(InspSide);
+
+            //開始非同步執行(MaskMove)方法 
+            IAsyncResult rmm = work.BeginInvoke(null, null);
+
+            //(非同步模式，在執行一個很耗時的方法(MaskMove)時,還能繼續向下執行程式) 
+
+            //執行下面的While，判斷非同步操作是否完成 
+            while (!rmm.IsCompleted)
+            {
+                //還沒完成，判斷是否取消了backgroundworker非同步操作 
+                if (worker.CancellationPending)
+                {
+                    //如果是，馬上取消backgroundwork操作(這個地方才是真正取消非同步執行) 
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            //e.Result = work.EndInvoke(rmm); //返回查询结果 赋值给e.Result 
+        }
+
+        private void InspSide()
+        {
+            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            {
+                halContext.MvCfLoad();
+
+                var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
+                unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
+                ic.HalConnect();
+                if (true)
+                {
+                    ic.ReadRobotIntrude(false);
+                    ic.Initial();
+                }
+                ic.XYPosition(246, 208);
+                for (int i = 0; i < 360; i += 90)
+                {
+                    ic.WPosition(i);
+                    ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "bmp");
+                    Thread.Sleep(500);
+                }
+                ic.XYPosition(0, 0);
+            }
+        }
+
+        private void btnBTStart_Click(object sender, EventArgs e)
+        {
+            BT_worker = new BackgroundWorker();
+            BT_worker.WorkerReportsProgress = true;
+            BT_worker.WorkerSupportsCancellation = true;
+            BT_worker.DoWork += new DoWorkEventHandler(BT_do_work);
+            BT_worker.ProgressChanged += new ProgressChangedEventHandler(BT_worker_ProgressChanged);
+            BT_worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BT_worker_RunWorkerCompleted);
+
+            BT_worker.RunWorkerAsync();
+        }
+
+        private void BT_do_work(object sender, DoWorkEventArgs e)
+        {
+            Cancelable_DoWork work = new Cancelable_DoWork(OpemStageTest);
+
+            //開始非同步執行(MaskMove)方法 
+            IAsyncResult rmm = work.BeginInvoke(null, null);
+
+            //(非同步模式，在執行一個很耗時的方法(MaskMove)時,還能繼續向下執行程式) 
+
+            //執行下面的While，判斷非同步操作是否完成 
+            while (!rmm.IsCompleted)
+            {
+                //還沒完成，判斷是否取消了backgroundworker非同步操作 
+                if (BT_worker.CancellationPending)
+                {
+                    //如果是，馬上取消backgroundwork操作(這個地方才是真正取消非同步執行) 
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            //e.Result = work.EndInvoke(rmm); //返回查询结果 赋值给e.Result 
+        }
+
+        //處理進度條更新
+        private void BT_worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            txtBTTimes.Text = BoxTransferWorkTimes.ToString();
+        }
+
+        private void BT_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("您取消了操作!");
+            }
+            else if (e.Error != null)
+            {
+                MessageBox.Show("出现错误!");
+            }
+            else
+            {
+                MessageBox.Show("執行完成!");
+            }
+            btnBTStart.Enabled = true;
+            btnBTEnd.Enabled = false;
+        }
+
+        private void btnBTEnd_Click(object sender, EventArgs e)
+        {
+            if (BT_worker.IsBusy)
+            {
+                BT_worker.CancelAsync();
+            }
+            btnBTStart.Enabled = true;
+            btnBTEnd.Enabled = false;
         }
     }
 

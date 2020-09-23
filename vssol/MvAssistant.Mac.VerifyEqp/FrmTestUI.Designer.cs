@@ -131,6 +131,13 @@
             this.chkBoxDrawerAHasbox = new System.Windows.Forms.CheckBox();
             this.txtBxDetectDrawerA = new System.Windows.Forms.Button();
             this.TabPageBoxTransfer = new System.Windows.Forms.TabPage();
+            this.gbCycleTest = new System.Windows.Forms.GroupBox();
+            this.lblBTCycleTimes = new System.Windows.Forms.Label();
+            this.btnBTEnd = new System.Windows.Forms.Button();
+            this.txtBTCycleTimes = new System.Windows.Forms.TextBox();
+            this.txtBTTimes = new System.Windows.Forms.TextBox();
+            this.btnBTStart = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtDrawerRow = new System.Windows.Forms.TextBox();
             this.txtDrawerColumn = new System.Windows.Forms.TextBox();
@@ -144,11 +151,15 @@
             this.BTPutDR = new System.Windows.Forms.Button();
             this.BTGetDR = new System.Windows.Forms.Button();
             this.TabPageMaskTransfer = new System.Windows.Forms.TabPage();
+            this.btnInsp = new System.Windows.Forms.Button();
+            this.btnEnd = new System.Windows.Forms.Button();
+            this.txtTimes = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.txtCycleTimes = new System.Windows.Forms.TextBox();
             this.lblCycleTimes = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtTimes = new System.Windows.Forms.TextBox();
+            this.label = new System.Windows.Forms.Label();
+            this.lblMTStartTime = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.TabPageDrawerAndLoadPort.SuspendLayout();
             this.grpLoadPorts.SuspendLayout();
@@ -172,6 +183,7 @@
             this.GrpDrawerA.SuspendLayout();
             this.grpDrawerAComp.SuspendLayout();
             this.TabPageBoxTransfer.SuspendLayout();
+            this.gbCycleTest.SuspendLayout();
             this.TabPageMaskTransfer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1368,6 +1380,7 @@
             // 
             // TabPageBoxTransfer
             // 
+            this.TabPageBoxTransfer.Controls.Add(this.gbCycleTest);
             this.TabPageBoxTransfer.Controls.Add(this.label8);
             this.TabPageBoxTransfer.Controls.Add(this.txtDrawerRow);
             this.TabPageBoxTransfer.Controls.Add(this.txtDrawerColumn);
@@ -1388,6 +1401,75 @@
             this.TabPageBoxTransfer.Text = "BoxTransfer";
             this.TabPageBoxTransfer.UseVisualStyleBackColor = true;
             this.TabPageBoxTransfer.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // gbCycleTest
+            // 
+            this.gbCycleTest.Controls.Add(this.lblBTCycleTimes);
+            this.gbCycleTest.Controls.Add(this.btnBTEnd);
+            this.gbCycleTest.Controls.Add(this.txtBTCycleTimes);
+            this.gbCycleTest.Controls.Add(this.txtBTTimes);
+            this.gbCycleTest.Controls.Add(this.btnBTStart);
+            this.gbCycleTest.Controls.Add(this.label14);
+            this.gbCycleTest.Location = new System.Drawing.Point(16, 171);
+            this.gbCycleTest.Name = "gbCycleTest";
+            this.gbCycleTest.Size = new System.Drawing.Size(303, 219);
+            this.gbCycleTest.TabIndex = 20;
+            this.gbCycleTest.TabStop = false;
+            this.gbCycleTest.Text = "BT Cycle test";
+            // 
+            // lblBTCycleTimes
+            // 
+            this.lblBTCycleTimes.AutoSize = true;
+            this.lblBTCycleTimes.Location = new System.Drawing.Point(20, 34);
+            this.lblBTCycleTimes.Name = "lblBTCycleTimes";
+            this.lblBTCycleTimes.Size = new System.Drawing.Size(56, 12);
+            this.lblBTCycleTimes.TabIndex = 14;
+            this.lblBTCycleTimes.Text = "循環次數:";
+            // 
+            // btnBTEnd
+            // 
+            this.btnBTEnd.Enabled = false;
+            this.btnBTEnd.Location = new System.Drawing.Point(22, 178);
+            this.btnBTEnd.Name = "btnBTEnd";
+            this.btnBTEnd.Size = new System.Drawing.Size(75, 23);
+            this.btnBTEnd.TabIndex = 19;
+            this.btnBTEnd.Text = "結束執行";
+            this.btnBTEnd.UseVisualStyleBackColor = true;
+            this.btnBTEnd.Click += new System.EventHandler(this.btnBTEnd_Click);
+            // 
+            // txtBTCycleTimes
+            // 
+            this.txtBTCycleTimes.Location = new System.Drawing.Point(82, 29);
+            this.txtBTCycleTimes.Name = "txtBTCycleTimes";
+            this.txtBTCycleTimes.Size = new System.Drawing.Size(100, 22);
+            this.txtBTCycleTimes.TabIndex = 15;
+            // 
+            // txtBTTimes
+            // 
+            this.txtBTTimes.Location = new System.Drawing.Point(89, 84);
+            this.txtBTTimes.Name = "txtBTTimes";
+            this.txtBTTimes.ReadOnly = true;
+            this.txtBTTimes.Size = new System.Drawing.Size(52, 22);
+            this.txtBTTimes.TabIndex = 18;
+            // 
+            // btnBTStart
+            // 
+            this.btnBTStart.Location = new System.Drawing.Point(22, 133);
+            this.btnBTStart.Name = "btnBTStart";
+            this.btnBTStart.Size = new System.Drawing.Size(75, 23);
+            this.btnBTStart.TabIndex = 16;
+            this.btnBTStart.Text = "開始執行";
+            this.btnBTStart.UseVisualStyleBackColor = true;
+            this.btnBTStart.Click += new System.EventHandler(this.btnBTStart_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(20, 89);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(143, 12);
+            this.label14.TabIndex = 17;
+            this.label14.Text = "正在執行第                      次";
             // 
             // label8
             // 
@@ -1509,6 +1591,10 @@
             // 
             // TabPageMaskTransfer
             // 
+            this.TabPageMaskTransfer.Controls.Add(this.lblMTStartTime);
+            this.TabPageMaskTransfer.Controls.Add(this.label);
+            this.TabPageMaskTransfer.Controls.Add(this.btnInsp);
+            this.TabPageMaskTransfer.Controls.Add(this.btnEnd);
             this.TabPageMaskTransfer.Controls.Add(this.txtTimes);
             this.TabPageMaskTransfer.Controls.Add(this.label6);
             this.TabPageMaskTransfer.Controls.Add(this.btnStart);
@@ -1520,6 +1606,44 @@
             this.TabPageMaskTransfer.TabIndex = 3;
             this.TabPageMaskTransfer.Text = "MaskTransfer";
             this.TabPageMaskTransfer.UseVisualStyleBackColor = true;
+            // 
+            // btnInsp
+            // 
+            this.btnInsp.Location = new System.Drawing.Point(268, 31);
+            this.btnInsp.Name = "btnInsp";
+            this.btnInsp.Size = new System.Drawing.Size(92, 23);
+            this.btnInsp.TabIndex = 6;
+            this.btnInsp.Text = "側邊刮傷檢測";
+            this.btnInsp.UseVisualStyleBackColor = true;
+            this.btnInsp.Click += new System.EventHandler(this.btnInsp_Click);
+            // 
+            // btnEnd
+            // 
+            this.btnEnd.Enabled = false;
+            this.btnEnd.Location = new System.Drawing.Point(46, 180);
+            this.btnEnd.Name = "btnEnd";
+            this.btnEnd.Size = new System.Drawing.Size(75, 23);
+            this.btnEnd.TabIndex = 5;
+            this.btnEnd.Text = "結束執行";
+            this.btnEnd.UseVisualStyleBackColor = true;
+            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
+            // 
+            // txtTimes
+            // 
+            this.txtTimes.Location = new System.Drawing.Point(113, 86);
+            this.txtTimes.Name = "txtTimes";
+            this.txtTimes.ReadOnly = true;
+            this.txtTimes.Size = new System.Drawing.Size(52, 22);
+            this.txtTimes.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(44, 91);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(143, 12);
+            this.label6.TabIndex = 3;
+            this.label6.Text = "正在執行第                      次";
             // 
             // btnStart
             // 
@@ -1547,22 +1671,22 @@
             this.lblCycleTimes.TabIndex = 0;
             this.lblCycleTimes.Text = "循環次數:";
             // 
-            // label6
+            // label
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(44, 91);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(143, 12);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "正在執行第                      次";
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(44, 472);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(56, 12);
+            this.label.TabIndex = 7;
+            this.label.Text = "開始時間:";
             // 
-            // txtTimes
+            // lblMTStartTime
             // 
-            this.txtTimes.Location = new System.Drawing.Point(113, 86);
-            this.txtTimes.Name = "txtTimes";
-            this.txtTimes.ReadOnly = true;
-            this.txtTimes.Size = new System.Drawing.Size(52, 22);
-            this.txtTimes.TabIndex = 4;
+            this.lblMTStartTime.AutoSize = true;
+            this.lblMTStartTime.Location = new System.Drawing.Point(104, 472);
+            this.lblMTStartTime.Name = "lblMTStartTime";
+            this.lblMTStartTime.Size = new System.Drawing.Size(0, 12);
+            this.lblMTStartTime.TabIndex = 8;
             // 
             // FrmTestUI
             // 
@@ -1608,6 +1732,8 @@
             this.grpDrawerAComp.PerformLayout();
             this.TabPageBoxTransfer.ResumeLayout(false);
             this.TabPageBoxTransfer.PerformLayout();
+            this.gbCycleTest.ResumeLayout(false);
+            this.gbCycleTest.PerformLayout();
             this.TabPageMaskTransfer.ResumeLayout(false);
             this.TabPageMaskTransfer.PerformLayout();
             this.ResumeLayout(false);
@@ -1737,5 +1863,16 @@
         private System.Windows.Forms.Label lblCycleTimes;
         private System.Windows.Forms.TextBox txtTimes;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnEnd;
+        private System.Windows.Forms.Button btnInsp;
+        private System.Windows.Forms.GroupBox gbCycleTest;
+        private System.Windows.Forms.Label lblBTCycleTimes;
+        private System.Windows.Forms.Button btnBTEnd;
+        private System.Windows.Forms.TextBox txtBTCycleTimes;
+        private System.Windows.Forms.TextBox txtBTTimes;
+        private System.Windows.Forms.Button btnBTStart;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblMTStartTime;
+        private System.Windows.Forms.Label label;
     }
 }

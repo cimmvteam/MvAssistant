@@ -1,6 +1,7 @@
 ﻿using MvAssistant;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -939,7 +940,22 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
         #endregion
 
 
-
+        #region LogInfo()
+        public void LogInfo(string pMessage)
+        {
+            string tFilePath = @"D:\Logg.txt";
+            StreamWriter tStreamWriter = null;
+            try
+            {
+                if (!File.Exists(tFilePath))
+                    File.Create(tFilePath);
+                tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
+                tStreamWriter.WriteLine(pMessage);
+            }
+            catch (Exception e) { }
+            finally { if (tStreamWriter != null) tStreamWriter.Close(); }
+        }
+        #endregion LogInfo()
 
         #region IDisposable
         // Flag: Has Dispose already been called?
