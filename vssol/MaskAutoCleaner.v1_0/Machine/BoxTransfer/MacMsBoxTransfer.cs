@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         private MacState _currentState = null;
 
         private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
-        private IMacHalBoxTransfer HalBoxTransfer { get { return this.halAssembly as IMacHalBoxTransfer; } }
+        public IMacHalBoxTransfer HalBoxTransfer { get { return this.halAssembly as IMacHalBoxTransfer; } }
         private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
 
         public void ResetState()
@@ -31,9 +31,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
-        public void Initial()
+        public void SystemBootup()
         {
             this.States[EnumMacMsBoxTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+        }
+        public void Initial()
+        {
+            this.States[EnumMacMsBoxTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         public void MoveToLock()
         {

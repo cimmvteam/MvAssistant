@@ -23,6 +23,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="PosFileLocation"></param>
         /// <returns></returns>
         bool CheckPosition(string PosFileLocation);
+        void Reset();
+
+        void Recover();
         string Clamp(uint MaskType);
         string Unclamp();
         /// <summary>

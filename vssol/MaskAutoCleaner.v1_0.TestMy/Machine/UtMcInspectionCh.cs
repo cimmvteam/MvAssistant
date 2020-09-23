@@ -18,8 +18,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_IC_A_ASB.ToString()] as MacMcInspectionCh;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.WaitForInputPellicle();
+                MS.SystemBootup();
                 MS.InspectPellicle();
                 MS.ReleasePellicle();
             }
@@ -38,8 +37,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_IC_A_ASB.ToString()] as MacMcInspectionCh;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.WaitForInputGlass();
+                MS.SystemBootup();
                 MS.InspectGlass();
                 MS.ReleaseGlass();
             }

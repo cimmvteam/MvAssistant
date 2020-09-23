@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     [Guid("3C333536-8B09-43B0-9F56-957920050CFB")]
     public class MacMsMaskTransfer : MacMachineStateBase
     {
-        private IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
+        public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
         private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
         private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
@@ -51,12 +51,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
-        public void Initial()
+        public void SystemBootup()
         {
             this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
-
-        public void MoveToLPAGetMaskReturnToLPHomeClamped()
+        public void Initial()
+        {
+            this.States[EnumMacMsMaskTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+        }
+        public void LPHomeToLPAGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -78,7 +81,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void MoveToLPBGetMaskReturnToLPHomeClamped()
+        public void LPHomeToLPBGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -100,7 +103,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void MoveToOSGetMaskReturnToLPHomeClamped()
+        public void LPHomeToOSGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -166,7 +169,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ICHomeClampedReleaseToIC()
+        public void ICHomeClampedToICReleaseReturnToICHome()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -188,7 +191,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ICHomeGetFromIC()
+        public void ICHomeToICGetReturnToICClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -210,7 +213,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ICHomeClampedReleaseToICGlass()
+        public void ICHomeClampedToICGlassReleaseReturnToICHome()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -232,7 +235,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ICHomeGetFromICGlass()
+        public void ICHomeToICGlassGetReturnToICClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -342,7 +345,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CCCleanedToCC()
+        public void CCCleanedReturnInCC()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -386,7 +389,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CCCapturedToCC()
+        public void CCCapturedReturnInCC()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -408,7 +411,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void MoveToCCHomeClampedFromCleanCh()
+        public void InCCToCCHomeClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -474,7 +477,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CCGlassCleanedToCCGlass()
+        public void CCGlassCleanedReturnInCCGlass()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -518,7 +521,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CCGlassCapturedToCCGlass()
+        public void CCGlassCapturedReturnInCCGlass()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -540,7 +543,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void MoveToCCHomeClampedFromCleanChGlass()
+        public void InCCGlassToCCHomeClamped()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -628,7 +631,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeClampedReleaseOS()
+        public void LPHomeClampedToOSRelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -650,7 +653,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeInspectedReleaseLPA()
+        public void LPHomeInspectedToLPARelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -672,7 +675,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeInspectedReleaseLPB()
+        public void LPHomeInspectedToLPBRelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -694,7 +697,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeInspectedReleaseOS()
+        public void LPHomeInspectedToOSRelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -716,7 +719,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeCleanedReleaseLPA()
+        public void LPHomeCleanedToLPARelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -738,7 +741,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeCleanedReleaseLPB()
+        public void LPHomeCleanedToLPBRelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -760,7 +763,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void LPHomeCleanedReleaseOS()
+        public void LPHomeCleanedToOSRelease()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -3810,10 +3813,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Inspect Deform
 
             #endregion State Register OnEntry OnExit
-
-
-
-
             //--- Exception Transition ---
 
         }

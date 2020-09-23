@@ -30,33 +30,13 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
 
-        public void Initial()
+        public void SystemBootup()
         {
             this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
-
-        public void WaitForInputPellicle()
+        public void Initial()
         {
-
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            this.States[EnumMacMsInspectionChState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         public void InspectPellicle()
         {
@@ -107,35 +87,12 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             Trigger(transition);
         }
 
-        public void WaitForInputGlass()
-        {
-
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                    },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
-        }
         public void InspectGlass()
         {
 
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            
+
             transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass.ToString()];
             triggerMember = new TriggerMember
             {
@@ -186,14 +143,12 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sWaitingForInputPellicle = NewState(EnumMacMsInspectionChState.WaitingForInputMask);
             MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
             MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingMask);
             MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingMask);
             MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
             MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
 
-            MacState sWaitingForInputGlass = NewState(EnumMacMsInspectionChState.WaitingForInputGlass);
             MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
             MacState sDefensingGlass = NewState(EnumMacMsInspectionChState.DefensingGlass);
             MacState sInspectingGlass = NewState(EnumMacMsInspectionChState.InspectingGlass);
@@ -206,9 +161,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsInspectionChTransition.Initial);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsInspectionChTransition.StandbyAtIdle);
 
-            MacTransition tIdle_WaitingForInputPellicle = NewTransition(sIdle, sWaitingForInputPellicle, EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputPellicle);
-            MacTransition tWaitingForInputPellicle_NULL = NewTransition(sWaitingForInputPellicle, null, EnumMacMsInspectionChTransition.StandbyAtWaitForInputPellicle);
-            MacTransition tWaitingForInputPellicle_PellicleOnStage = NewTransition(sWaitingForInputPellicle, sPellicleOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectPellicle);
+            MacTransition tIdle_PellicleOnStage = NewTransition(sIdle, sPellicleOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectPellicle);
             MacTransition tPellicleOnStage_DefensingPellicle = NewTransition(sPellicleOnStage, sDefensingPellicle, EnumMacMsInspectionChTransition.DefensePellicle);
             MacTransition tDefensingPellicle_InspectingPellicle = NewTransition(sDefensingPellicle, sInspectingPellicle, EnumMacMsInspectionChTransition.InspectPellicle);
             MacTransition tInspectingPellicle_PellicleOnStageInspected = NewTransition(sInspectingPellicle, sPellicleOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithPellicleInspected);
@@ -216,9 +169,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition tWaitingForReleasePellicle_NULL = NewTransition(sWaitingForReleasePellicle, null, EnumMacMsInspectionChTransition.StandbyAtWaitForReleasePellicle);
             MacTransition tWaitingForReleasePellicle_Idle = NewTransition(sWaitingForReleasePellicle, sIdle, EnumMacMsInspectionChTransition.ReceiveTriggerToIdleAfterReleasePellicle);
 
-            MacTransition tIdle_WaitingForInputGlass = NewTransition(sIdle, sWaitingForInputGlass, EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputGlass);
-            MacTransition tWaitingForInputGlass_NULL = NewTransition(sWaitingForInputGlass, null, EnumMacMsInspectionChTransition.StandbyAtWaitForInputGlass);
-            MacTransition tWaitingForInputGlass_GlassOnStage = NewTransition(sWaitingForInputGlass, sGlassOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass);
+            MacTransition tIdle_GlassOnStage = NewTransition(sIdle, sGlassOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass);
             MacTransition tGlassOnStage_DefensingGlass = NewTransition(sGlassOnStage, sDefensingGlass, EnumMacMsInspectionChTransition.DefenseGlass);
             MacTransition tDefensingGlass_InspectingGlass = NewTransition(sDefensingGlass, sInspectingGlass, EnumMacMsInspectionChTransition.InspectGlass);
             MacTransition tInspectingGlass_GlassOnStageInspected = NewTransition(sInspectingGlass, sGlassOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithGlassInspected);
@@ -311,6 +262,8 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
                 try
                 {
+                    HalInspectionCh.XYPosition(0, 0);
+                    HalInspectionCh.WPosition(0);
                 }
                 catch (Exception ex)
                 {
@@ -339,76 +292,40 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             { };
 
 
-            sWaitingForInputPellicle.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
-
-                var transition = tWaitingForInputPellicle_NULL;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sWaitingForInputPellicle.OnExit += (sender, e) =>
-            { };
             sPellicleOnStage.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
+{
+    SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+    CheckEquipmentStatus();
+    CheckAssemblyAlarmSignal();
+    CheckAssemblyWarningSignal();
 
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
+    try
+    {
+    }
+    catch (Exception ex)
+    {
+        throw new InspectionChException(ex.Message);
+    }
 
-                var transition = tPellicleOnStage_DefensingPellicle;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
+    var transition = tPellicleOnStage_DefensingPellicle;
+    TriggerMember triggerMember = new TriggerMember
+    {
+        Guard = () =>
+        {
+            return true;
+        },
+        Action = null,
+        ActionParameter = null,
+        ExceptionHandler = (thisState, ex) =>
+        { // TODO: do something
                     },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
+        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+    };
+    transition.SetTriggerMembers(triggerMember);
+    Trigger(transition);
+};
             sPellicleOnStage.OnExit += (sender, e) =>
             { };
             sDefensingPellicle.OnEntry += (sender, e) =>
@@ -590,76 +507,40 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             { };
 
 
-            sWaitingForInputGlass.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
-
-                var transition = tWaitingForInputGlass_NULL;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sWaitingForInputGlass.OnExit += (sender, e) =>
-            { };
             sGlassOnStage.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
+{
+    SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+    CheckEquipmentStatus();
+    CheckAssemblyAlarmSignal();
+    CheckAssemblyWarningSignal();
 
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
+    try
+    {
+    }
+    catch (Exception ex)
+    {
+        throw new InspectionChException(ex.Message);
+    }
 
-                var transition = tGlassOnStage_DefensingGlass;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
+    var transition = tGlassOnStage_DefensingGlass;
+    TriggerMember triggerMember = new TriggerMember
+    {
+        Guard = () =>
+        {
+            return true;
+        },
+        Action = null,
+        ActionParameter = null,
+        ExceptionHandler = (thisState, ex) =>
+        { // TODO: do something
                     },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
+        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+    };
+    transition.SetTriggerMembers(triggerMember);
+    Trigger(transition);
+};
             sGlassOnStage.OnExit += (sender, e) =>
             { };
             sDefensingGlass.OnEntry += (sender, e) =>

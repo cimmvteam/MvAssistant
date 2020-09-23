@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as MacMcOpenStage;
             var MS = MachineCtrl.StateMachine;
 
-            MS.Initial();
+            MS.SystemBootup();
             MS.InputBox();
             MS.CalibrationClosedBox();
             MS.OpenBox();
@@ -45,7 +45,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as MacMcOpenStage;
             var MS = MachineCtrl.StateMachine;
 
-            MS.Initial();
+            MS.SystemBootup();
             MS.InputBoxWithMask();
             MS.CalibrationClosedBoxWithMask();
             MS.OpenBoxWithMask();

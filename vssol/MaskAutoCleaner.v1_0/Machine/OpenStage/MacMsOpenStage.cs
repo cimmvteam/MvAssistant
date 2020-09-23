@@ -32,11 +32,14 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
         MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();
 
-        public void Initial()
+        public void SystemBootup()
         {
             this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
-
+        public void Initial()
+        {
+            this.States[EnumMacMsOpenStageState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+        }
         public void InputBox()
         {
             MacTransition transition = null;

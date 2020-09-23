@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
             var MS = MachineCtrl.StateMachine;
 
-            MS.Initial();
+            MS.SystemBootup();
             bool BankIn = true;
             bool BankOut = false;
             if (BankIn)

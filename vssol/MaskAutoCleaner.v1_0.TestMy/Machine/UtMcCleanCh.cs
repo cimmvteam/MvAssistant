@@ -16,11 +16,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MachineMgr.MvCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_CC_A_ASB.ToString()] as MacMcCleanCh;
             var MS = MachineCtrl.StateMachine;
-            MS.StartStateMachine();
+            MS.SystemBootup();
             MS.CleanPellicle();
+            MS.CleanedPellicle();
             MS.InspectPellicle();
+            MS.InspectedPellicle();
             MS.CleanGlass();
+            MS.CleanedGlass();
             MS.InspectGlass();
+            MS.InspectedGlass();
         }
     }
 }

@@ -451,6 +451,17 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             }
         }
 
+        public void Reset()
+        {
+            if (Robot.HalReset() == -1)
+                throw new Exception("Box Transfer reset failed.");
+        }
+
+        public void Recover()
+        {
+            Robot.HalSysRecover();
+        }
+
         /// <summary>
         /// 夾取，1：鐵盒、2：水晶盒
         /// </summary>
