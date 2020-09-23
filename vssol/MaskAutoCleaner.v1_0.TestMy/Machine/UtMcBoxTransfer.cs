@@ -51,15 +51,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MS = MachineCtrl.StateMachine;
 
             MS.Initial();
-            var drawerNo = BoxrobotTransferLocation.Drawer_01_01;
+            
             if (BankIn)
             {
                 MS.MoveToOpenStageGet();
-                MS.MoveToCabinetPut_Test(drawerNo);
+                MS.MoveToCabinetPut_Test(drawerNumber);
             }
             else if (BankOut)
             {
-                MS.MoveToCabinetGet(drawerNo);
+                MS.MoveToCabinetGet(drawerNumber);
                 MS.MoveToOpenStagePut();
             }
             else
