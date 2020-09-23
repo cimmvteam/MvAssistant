@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -342,6 +343,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         StandbyAtCB1HomeFromCB0704,
         StandbyAtCB1HomeFromCB0705,
         MoveToDrawer,
+        ClampAtDrawer,
+        StandbyAtCB1HomeClamped_C,
         #endregion Standby at CB Home from Cabinet
     }
+
+
+    
 }
