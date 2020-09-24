@@ -1,7 +1,6 @@
 ﻿using System;
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
-using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 

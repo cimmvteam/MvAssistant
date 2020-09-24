@@ -110,6 +110,7 @@
     <Compile Include="Msg\JobNotify\EnumMacBoxLocker.cs" />
     <Compile Include="Msg\JobNotify\EnumMacBoxPositon.cs" />
     <Compile Include="Msg\JobNotify\EnumMacBoxProcessStatus.cs" />
+    <Compile Include="EnumMachineID.cs" />
     <Compile Include="Recipe\MacRecipeMgr.cs" />
     <Compile Include="Recipe\MacRecipeStep.cs" />
     <Compile Include="Recipe\MacRecipeStepList.cs" />
@@ -327,7 +328,6 @@
     <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalGeneralAlarmException.cs" />
     <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalGeneralWarningException.cs" />
     <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalPLCExecuteFailException.cs" />
-    <Compile Include="UserData\EnumMachineID.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -343,7 +343,9 @@
       <Name>MvAssistant</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="UserData\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

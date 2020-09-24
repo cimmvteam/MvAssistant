@@ -1,6 +1,5 @@
 ﻿using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.LoadPort;
-using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

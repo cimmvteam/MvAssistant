@@ -1,7 +1,6 @@
 ﻿using System;
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.CleanCh;
-using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine

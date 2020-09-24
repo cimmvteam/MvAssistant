@@ -9,7 +9,6 @@ using MaskAutoCleaner.v1_0.Machine.InspectionCh;
 using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
-using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine

@@ -11,7 +11,6 @@ using MaskAutoCleaner.v1_0.Machine.Universal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.GenCfg.Manifest;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
-using MaskAutoCleaner.v1_0.UserData;
 using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
