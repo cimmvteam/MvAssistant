@@ -1,6 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.LoadPort;
-using MaskAutoCleaner.v1_0.TestMy.UserData;
+using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Reset()
         {
            
-            StateMachineA.Reset();
+            StateMachineA.AlarmReset();
             Repeat();
         }
 

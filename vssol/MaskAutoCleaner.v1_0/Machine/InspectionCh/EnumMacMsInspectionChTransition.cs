@@ -11,9 +11,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         PowerON,
         Initial,
         StandbyAtIdle,
-
-        ReceiveTriggerToWaitForInputPellicle,
-        StandbyAtWaitForInputPellicle,
+        
         ReceiveTriggerToInspectPellicle,
         DefensePellicle,
         InspectPellicle,
@@ -21,9 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         WaitForReleasePellicle,
         StandbyAtWaitForReleasePellicle,
         ReceiveTriggerToIdleAfterReleasePellicle,
-
-        ReceiveTriggerToWaitForInputGlass,
-        StandbyAtWaitForInputGlass,
+        
         ReceiveTriggerToInspectGlass,
         DefenseGlass,
         InspectGlass,

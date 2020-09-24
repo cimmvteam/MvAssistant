@@ -131,7 +131,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public bool CheckPosition(string PosFileLocation)
         {
             var TargetPos = Robot.ReadMovePath(PosFileLocation)[0];
-            
+
             var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
                 if (CurrentPosInfo.x <= TargetPos.X + 5 && CurrentPosInfo.x >= TargetPos.X - 5
@@ -146,6 +146,17 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 else
                     return false;
             }
+        }
+
+        public void Reset()
+        {
+            if (Robot.HalReset() == -1)
+                throw new Exception("Mask Transfer reset failed.");
+        }
+
+        public void Recover()
+        {
+            Robot.HalSysRecover();
         }
 
         public string Clamp(uint MaskType)

@@ -82,8 +82,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
         ResetStart,
         ResetIng,
-        ResetComplete,
-        ResetFail,
+        AlarmResetComplete,
+        AlarmResetFail,
 
         InitialStart,
         InitialIng,

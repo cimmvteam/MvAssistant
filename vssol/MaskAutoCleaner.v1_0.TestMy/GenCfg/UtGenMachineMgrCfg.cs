@@ -8,10 +8,11 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Machine.Universal;
-using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.GenCfg.Manifest;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
+using MaskAutoCleaner.v1_0.UserData;
+using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 {
@@ -59,12 +60,12 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 MachineCtrlType = typeof(MacMcOpenStage),
                 HalId = EnumMachineId.DE_OS_A_ASB.ToString(),
             });
-            //cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
-            //{
-            //    ID = EnumMachineID.MID_BT_A_ASB.ToString(),
-            //    MachineCtrlType = typeof(MacMcBoxTransfer),
-            //    HalId = EnumMachineId.DE_BT_A_ASB.ToString(),
-            //});
+            cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
+            {
+                ID = EnumMachineID.MID_BT_A_ASB.ToString(),
+                MachineCtrlType = typeof(MacMcBoxTransfer),
+                HalId = EnumMachineId.DE_BT_A_ASB.ToString(),
+            });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_CB_A_ASB.ToString(),

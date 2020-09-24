@@ -14,13 +14,17 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
 
         Idle,
         ReceiveTriggerToCleanPellicle,
-        ReturnToIdleAfterCleanPellicle,
+        CleaningPellicle,
+        ReceiveTriggerToReturnToIdleAfterCleanPellicle,
         ReceiveTriggerToInspectPellicle,
-        ReturnToIdleAfterInspectPellicle,
+        InspectingPellicle,
+        ReceiveTriggerToReturnToIdleAfterInspectPellicle,
 
         ReceiveTriggerToCleanGlass,
-        ReturnToIdleAfterCleanGlass,
+        CleaningGlass,
+        ReceiveTriggerToReturnToIdleAfterCleanGlass,
         ReceiveTriggerToInspectGlass,
-        ReturnToIdleAfterInspectGlass,
+        InspectingGlass,
+        ReceiveTriggerToReturnToIdleAfterInspectGlass,
     }
 }

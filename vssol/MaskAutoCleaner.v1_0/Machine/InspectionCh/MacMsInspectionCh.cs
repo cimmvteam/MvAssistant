@@ -1,5 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.InspectionChStateMachineException;
+using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
     public class MacMsInspectionCh : MacMachineStateBase
     {
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
+        private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
 
         private MacState _currentState = null;
 
@@ -28,33 +30,13 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
 
-        public void Initial()
+        public void SystemBootup()
         {
             this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
-
-        public void WaitForInputPellicle()
+        public void Initial()
         {
-
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            this.States[EnumMacMsInspectionChState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         public void InspectPellicle()
         {
@@ -105,35 +87,12 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             Trigger(transition);
         }
 
-        public void WaitForInputGlass()
-        {
-
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                    },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
-        }
         public void InspectGlass()
         {
 
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            
+
             transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass.ToString()];
             triggerMember = new TriggerMember
             {
@@ -184,14 +143,12 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sWaitingForInputPellicle = NewState(EnumMacMsInspectionChState.WaitingForInputMask);
             MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
             MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingMask);
             MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingMask);
             MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
             MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
 
-            MacState sWaitingForInputGlass = NewState(EnumMacMsInspectionChState.WaitingForInputGlass);
             MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
             MacState sDefensingGlass = NewState(EnumMacMsInspectionChState.DefensingGlass);
             MacState sInspectingGlass = NewState(EnumMacMsInspectionChState.InspectingGlass);
@@ -204,9 +161,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsInspectionChTransition.Initial);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsInspectionChTransition.StandbyAtIdle);
 
-            MacTransition tIdle_WaitingForInputPellicle = NewTransition(sIdle, sWaitingForInputPellicle, EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputPellicle);
-            MacTransition tWaitingForInputPellicle_NULL = NewTransition(sWaitingForInputPellicle, null, EnumMacMsInspectionChTransition.StandbyAtWaitForInputPellicle);
-            MacTransition tWaitingForInputPellicle_PellicleOnStage = NewTransition(sWaitingForInputPellicle, sPellicleOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectPellicle);
+            MacTransition tIdle_PellicleOnStage = NewTransition(sIdle, sPellicleOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectPellicle);
             MacTransition tPellicleOnStage_DefensingPellicle = NewTransition(sPellicleOnStage, sDefensingPellicle, EnumMacMsInspectionChTransition.DefensePellicle);
             MacTransition tDefensingPellicle_InspectingPellicle = NewTransition(sDefensingPellicle, sInspectingPellicle, EnumMacMsInspectionChTransition.InspectPellicle);
             MacTransition tInspectingPellicle_PellicleOnStageInspected = NewTransition(sInspectingPellicle, sPellicleOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithPellicleInspected);
@@ -214,9 +169,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition tWaitingForReleasePellicle_NULL = NewTransition(sWaitingForReleasePellicle, null, EnumMacMsInspectionChTransition.StandbyAtWaitForReleasePellicle);
             MacTransition tWaitingForReleasePellicle_Idle = NewTransition(sWaitingForReleasePellicle, sIdle, EnumMacMsInspectionChTransition.ReceiveTriggerToIdleAfterReleasePellicle);
 
-            MacTransition tIdle_WaitingForInputGlass = NewTransition(sIdle, sWaitingForInputGlass, EnumMacMsInspectionChTransition.ReceiveTriggerToWaitForInputGlass);
-            MacTransition tWaitingForInputGlass_NULL = NewTransition(sWaitingForInputGlass, null, EnumMacMsInspectionChTransition.StandbyAtWaitForInputGlass);
-            MacTransition tWaitingForInputGlass_GlassOnStage = NewTransition(sWaitingForInputGlass, sGlassOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass);
+            MacTransition tIdle_GlassOnStage = NewTransition(sIdle, sGlassOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass);
             MacTransition tGlassOnStage_DefensingGlass = NewTransition(sGlassOnStage, sDefensingGlass, EnumMacMsInspectionChTransition.DefenseGlass);
             MacTransition tDefensingGlass_InspectingGlass = NewTransition(sDefensingGlass, sInspectingGlass, EnumMacMsInspectionChTransition.InspectGlass);
             MacTransition tInspectingGlass_GlassOnStageInspected = NewTransition(sInspectingGlass, sGlassOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithGlassInspected);
@@ -229,6 +182,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sStart.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                 }
@@ -260,6 +218,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     HalInspectionCh.Initial();
@@ -292,8 +255,15 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sIdle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
+                    HalInspectionCh.XYPosition(0, 0);
+                    HalInspectionCh.WPosition(0);
                 }
                 catch (Exception ex)
                 {
@@ -322,71 +292,50 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             { };
 
 
-            sWaitingForInputPellicle.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
-
-                var transition = tWaitingForInputPellicle_NULL;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sWaitingForInputPellicle.OnExit += (sender, e) =>
-            { };
             sPellicleOnStage.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
+{
+    SetCurrentState((MacState)sender);
 
-                var transition = tPellicleOnStage_DefensingPellicle;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
+    CheckEquipmentStatus();
+    CheckAssemblyAlarmSignal();
+    CheckAssemblyWarningSignal();
+
+    try
+    {
+    }
+    catch (Exception ex)
+    {
+        throw new InspectionChException(ex.Message);
+    }
+
+    var transition = tPellicleOnStage_DefensingPellicle;
+    TriggerMember triggerMember = new TriggerMember
+    {
+        Guard = () =>
+        {
+            return true;
+        },
+        Action = null,
+        ActionParameter = null,
+        ExceptionHandler = (thisState, ex) =>
+        { // TODO: do something
                     },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
+        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+    };
+    transition.SetTriggerMembers(triggerMember);
+    Trigger(transition);
+};
             sPellicleOnStage.OnExit += (sender, e) =>
             { };
             sDefensingPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     //上方相機
@@ -429,6 +378,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sInspectingPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     HalInspectionCh.ZPosition(-29.6);
@@ -480,6 +434,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sPellicleOnStageInspected.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     HalInspectionCh.XYPosition(0, 0);
@@ -513,6 +472,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sWaitingForReleasePellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                 }
@@ -543,71 +507,50 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             { };
 
 
-            sWaitingForInputGlass.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
-
-                var transition = tWaitingForInputGlass_NULL;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sWaitingForInputGlass.OnExit += (sender, e) =>
-            { };
             sGlassOnStage.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new InspectionChException(ex.Message);
-                }
+{
+    SetCurrentState((MacState)sender);
 
-                var transition = tGlassOnStage_DefensingGlass;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
+    CheckEquipmentStatus();
+    CheckAssemblyAlarmSignal();
+    CheckAssemblyWarningSignal();
+
+    try
+    {
+    }
+    catch (Exception ex)
+    {
+        throw new InspectionChException(ex.Message);
+    }
+
+    var transition = tGlassOnStage_DefensingGlass;
+    TriggerMember triggerMember = new TriggerMember
+    {
+        Guard = () =>
+        {
+            return true;
+        },
+        Action = null,
+        ActionParameter = null,
+        ExceptionHandler = (thisState, ex) =>
+        { // TODO: do something
                     },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
+        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+        ThisStateExitEventArgs = new MacStateExitEventArgs(),
+    };
+    transition.SetTriggerMembers(triggerMember);
+    Trigger(transition);
+};
             sGlassOnStage.OnExit += (sender, e) =>
             { };
             sDefensingGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     //上方相機
@@ -650,6 +593,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sInspectingGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     HalInspectionCh.ZPosition(-29.6);
@@ -701,6 +649,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sGlassOnStageInspected.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                     HalInspectionCh.XYPosition(0, 0);
@@ -734,6 +687,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sWaitingForReleaseGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
                 try
                 {
                 }
@@ -763,6 +721,83 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sWaitingForReleaseGlass.OnExit += (sender, e) =>
             { };
             #endregion State Register OnEntry OnExit
+        }
+
+        private bool CheckEquipmentStatus()
+        {
+            string Result = null;
+            if (HalUniversal.ReadPowerON() == false) Result += "Equipment is power off now, ";
+            if (HalUniversal.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
+            if (HalUniversal.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
+            if (HalUniversal.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
+            if (HalUniversal.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
+            if (HalUniversal.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
+            if (HalUniversal.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
+            if (HalUniversal.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
+            if (HalUniversal.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
+            if (HalUniversal.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
+            if (HalUniversal.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
+            if (HalUniversal.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
+            if (HalUniversal.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
+            if (HalUniversal.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
+            if (HalUniversal.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
+            if (HalUniversal.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
+            if (HalUniversal.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
+
+            if (Result == null)
+                return true;
+            else
+                throw new UniversalEquipmentException(Result);
+        }
+
+        private bool CheckAssemblyAlarmSignal()
+        {
+            //var CB_Alarm = HalUniversal.ReadAlarm_Cabinet();
+            //var CC_Alarm = HalUniversal.ReadAlarm_CleanCh();
+            //var CF_Alarm = HalUniversal.ReadAlarm_CoverFan();
+            //var BT_Alarm = HalUniversal.ReadAlarm_BTRobot();
+            //var MTClampInsp_Alarm = HalUniversal.ReadAlarm_MTClampInsp();
+            //var MT_Alarm = HalUniversal.ReadAlarm_MTRobot();
+            var IC_Alarm = HalUniversal.ReadAlarm_InspCh();
+            //var LP_Alarm = HalUniversal.ReadAlarm_LoadPort();
+            //var OS_Alarm = HalUniversal.ReadAlarm_OpenStage();
+
+            //if (CB_Alarm != "") throw new CabinetPLCAlarmException(CB_Alarm);
+            //if (CC_Alarm != "") throw new CleanChPLCAlarmException(CC_Alarm);
+            //if (CF_Alarm != "") throw new UniversalCoverFanPLCAlarmException(CF_Alarm);
+            //if (BT_Alarm != "") throw new BoxTransferPLCAlarmException(BT_Alarm);
+            //if (MTClampInsp_Alarm != "") throw new MTClampInspectDeformPLCAlarmException(MTClampInsp_Alarm);
+            //if (MT_Alarm != "") throw new MaskTransferPLCAlarmException(MT_Alarm);
+            if (IC_Alarm != "") throw new InspectionChPLCAlarmException(IC_Alarm);
+            //if (LP_Alarm != "") throw new LoadportPLCAlarmException(LP_Alarm);
+            //if (OS_Alarm != "") throw new OpenStagePLCAlarmException(OS_Alarm);
+
+            return true;
+        }
+
+        private bool CheckAssemblyWarningSignal()
+        {
+            //var CB_Warning = HalUniversal.ReadWarning_Cabinet();
+            //var CC_Warning = HalUniversal.ReadWarning_CleanCh();
+            //var CF_Warning = HalUniversal.ReadWarning_CoverFan();
+            //var BT_Warning = HalUniversal.ReadWarning_BTRobot();
+            //var MTClampInsp_Warning = HalUniversal.ReadWarning_MTClampInsp();
+            //var MT_Warning = HalUniversal.ReadWarning_MTRobot();
+            var IC_Warning = HalUniversal.ReadWarning_InspCh();
+            //var LP_Warning = HalUniversal.ReadWarning_LoadPort();
+            //var OS_Warning = HalUniversal.ReadWarning_OpenStage();
+
+            //if (CB_Warning != "") throw new CabinetPLCWarningException(CB_Warning);
+            //if (CC_Warning != "") throw new CleanChPLCWarningException(CC_Warning);
+            //if (CF_Warning != "") throw new UniversalCoverFanPLCWarningException(CF_Warning);
+            //if (BT_Warning != "") throw new BoxTransferPLCWarningException(BT_Warning);
+            //if (MTClampInsp_Warning != "") throw new MTClampInspectDeformPLCWarningException(MTClampInsp_Warning);
+            //if (MT_Warning != "") throw new MaskTransferPLCWarningException(MT_Warning);
+            if (IC_Warning != "") throw new InspectionChPLCWarningException(IC_Warning);
+            //if (LP_Warning != "") throw new LoadportPLCWarningException(LP_Warning);
+            //if (OS_Warning != "") throw new OpenStagePLCWarningException(OS_Warning);
+
+            return true;
         }
 
         public class MacInspectionChUnitStateTimeOutController

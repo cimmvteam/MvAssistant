@@ -83,27 +83,27 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         //Clean
         MovingToCleanCh,
-        WaitingForMoveToClean,
+        ClampedInCleanCh,//WaitingForMoveToClean,
         MovingToClean,
         CleaningPellicle,
         MovingAfterCleaned,
-        WaitingForMoveToCapture,
+        //WaitingForMoveToCapture,
         MovingToCapture,
         CapturingPellicle,
         MovingAfterCaptured,
-        WaitingForLeaveCleanCh,
+        //WaitingForLeaveCleanCh,
         MovingToCCHomeClampedFromCleanCh,
 
         MovingToCleanChGlass,
-        WaitingForMoveToCleanGlass,
+        ClampedInCleanChGlass,//WaitingForMoveToCleanGlass,
         MovingToCleanGlass,
         CleaningGlass,
         MovingAfterCleanedGlass,
-        WaitingForMoveToCaptureGlass,
+        //WaitingForMoveToCaptureGlass,
         MovingToCaptureGlass,
         CapturingGlass,
         MovingAfterCapturedGlass,
-        WaitingForLeaveCleanChGlass,
+        //WaitingForLeaveCleanChGlass,
         MovingToCCHomeClampedFromCleanChGlass,
 
         //Barcode

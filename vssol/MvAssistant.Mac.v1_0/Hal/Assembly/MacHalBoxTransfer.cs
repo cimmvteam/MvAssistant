@@ -427,6 +427,42 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
         /// <summary>
+        /// 檢查當前位置與目標位置是否一致，點位允許誤差 ±5 
+        /// </summary>
+        /// <param name="PosFileLocation"></param>
+        /// <returns></returns>
+        public bool CheckPosition(string PosFileLocation)
+        {
+            var TargetPos = Robot.ReadMovePath(PosFileLocation)[0];
+
+            var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
+            {
+                if (CurrentPosInfo.x <= TargetPos.X + 5 && CurrentPosInfo.x >= TargetPos.X - 5
+                    && CurrentPosInfo.y <= TargetPos.Y + 5 && CurrentPosInfo.y >= TargetPos.Y - 5
+                    && CurrentPosInfo.z <= TargetPos.Z + 5 && CurrentPosInfo.z >= TargetPos.Z - 5
+                    && CurrentPosInfo.w <= TargetPos.W + 5 && CurrentPosInfo.w >= TargetPos.W - 5
+                    && CurrentPosInfo.p <= TargetPos.P + 5 && CurrentPosInfo.p >= TargetPos.P - 5
+                    && CurrentPosInfo.r <= TargetPos.R + 5 && CurrentPosInfo.r >= TargetPos.R - 5)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        public void Reset()
+        {
+            if (Robot.HalReset() == -1)
+                throw new Exception("Box Transfer reset failed.");
+        }
+
+        public void Recover()
+        {
+            Robot.HalSysRecover();
+        }
+
+        /// <summary>
         /// 夾取，1：鐵盒、2：水晶盒
         /// </summary>
         /// <param name="BoxType">1：鐵盒、2：水晶盒</param>

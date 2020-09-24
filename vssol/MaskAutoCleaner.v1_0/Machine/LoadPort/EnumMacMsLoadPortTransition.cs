@@ -8,10 +8,19 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
     public enum EnumMacMsLoadPortTransition
     {
+        // System
+        SystemBootup_SystemBootupAlarmResetStart,
+        SystemBootupAlarmResetStart_SystemBootupAlarmResetIng,
+        SystemBootupAlarmResetIng_SystemBootupAlarmResetComplete,
+        SystemBootupAlarmResetComplete_SystemBootupInitialStart,
+        SystemBootupInitialStart_SystemBootupInitialIng,
+        SystemBootupInitialIng_SystemBootupInitialComplete,
+        SystemBootupInitialComplete_IdleForPutPOD,
+
         // Reset
-        ResetStart_ResetIng,
-        ResetIng_ResetComplete,
-        ResetComplete_NULL,
+        AlarmResetStart_AlarmResetIng,
+        AlarmResetIng_AlarmResetComplete,
+        AlarmResetComplete_NULL,
 
         // Initial
         InitialStart_InitialIng,

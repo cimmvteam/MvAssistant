@@ -16,6 +16,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         
         void SetDrawerWorkState(DrawerWorkState state);
         void ResetCurrentWorkState();
+        Action PressButtonToLoad { get; set; }
         DrawerWorkState CurrentWorkState { get; }
 
 

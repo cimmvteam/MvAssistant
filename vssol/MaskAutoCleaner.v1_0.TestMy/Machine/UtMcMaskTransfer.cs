@@ -1,7 +1,7 @@
 ﻿using System;
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
-using MaskAutoCleaner.v1_0.TestMy.UserData;
+using MaskAutoCleaner.v1_0.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
@@ -18,9 +18,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.MoveToLPAGetMaskReturnToLPHomeClamped();
-                MS.LPHomeClampedReleaseOS();
+                MS.SystemBootup();
+                MS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
+                MS.LPHomeClampedToOSRelease();
             }
             catch (Exception ex)
             {
@@ -37,16 +37,16 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.MoveToLPAGetMaskReturnToLPHomeClamped();
+                MS.SystemBootup();
+                MS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
                 MS.LPHomeClampedToICHomeClamped();
-                MS.ICHomeClampedReleaseToIC();
-                MS.ICHomeGetFromIC();
-                MS.ICHomeClampedReleaseToICGlass();
-                MS.ICHomeGetFromICGlass();
+                MS.ICHomeClampedToICReleaseReturnToICHome();
+                MS.ICHomeToICGetReturnToICClamped();
+                MS.ICHomeClampedToICGlassReleaseReturnToICHome();
+                MS.ICHomeToICGlassGetReturnToICClamped();
                 MS.ICHomeClampedToICHomeInspected();
                 MS.ICHomeInspectedToLPHomeInspected();
-                MS.LPHomeInspectedReleaseLPA();
+                MS.LPHomeInspectedToLPARelease();
             }
             catch (Exception ex)
             {
@@ -63,16 +63,16 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.MoveToLPBGetMaskReturnToLPHomeClamped();
+                MS.SystemBootup();
+                MS.LPHomeToLPBGetMaskReturnToLPHomeClamped();
                 MS.LPHomeClampedToICHomeClamped();
-                MS.ICHomeClampedReleaseToIC();
-                MS.ICHomeGetFromIC();
-                MS.ICHomeClampedReleaseToICGlass();
-                MS.ICHomeGetFromICGlass();
+                MS.ICHomeClampedToICReleaseReturnToICHome();
+                MS.ICHomeToICGetReturnToICClamped();
+                MS.ICHomeClampedToICGlassReleaseReturnToICHome();
+                MS.ICHomeToICGlassGetReturnToICClamped();
                 MS.ICHomeClampedToICHomeInspected();
                 MS.ICHomeInspectedToLPHomeInspected();
-                MS.LPHomeInspectedReleaseLPB();
+                MS.LPHomeInspectedToLPBRelease();
             }
             catch (Exception ex)
             {
@@ -89,16 +89,16 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.MoveToOSGetMaskReturnToLPHomeClamped();
+                MS.SystemBootup();
+                MS.LPHomeToOSGetMaskReturnToLPHomeClamped();
                 MS.LPHomeClampedToICHomeClamped();
-                MS.ICHomeClampedReleaseToIC();
-                MS.ICHomeGetFromIC();
-                MS.ICHomeClampedReleaseToICGlass();
-                MS.ICHomeGetFromICGlass();
+                MS.ICHomeClampedToICReleaseReturnToICHome();
+                MS.ICHomeToICGetReturnToICClamped();
+                MS.ICHomeClampedToICGlassReleaseReturnToICHome();
+                MS.ICHomeToICGlassGetReturnToICClamped();
                 MS.ICHomeClampedToICHomeInspected();
                 MS.ICHomeInspectedToLPHomeInspected();
-                MS.LPHomeInspectedReleaseLPA();
+                MS.LPHomeInspectedToLPARelease();
             }
             catch (Exception ex)
             {
@@ -115,24 +115,30 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MachineMgr.MvCfInit();
                 var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
                 var MS = MachineCtrl.StateMachine;
-                MS.Initial();
-                MS.MoveToLPAGetMaskReturnToLPHomeClamped();
+                MS.SystemBootup();
+                MS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
                 MS.LPHomeClampedToICHomeClamped();
-                MS.ICHomeClampedReleaseToIC();
-                MS.ICHomeGetFromIC();
-                MS.ICHomeClampedReleaseToICGlass();
-                MS.ICHomeGetFromICGlass();
+                MS.ICHomeClampedToICReleaseReturnToICHome();
+                MS.ICHomeToICGetReturnToICClamped();
+                MS.ICHomeClampedToICGlassReleaseReturnToICHome();
+                MS.ICHomeToICGlassGetReturnToICClamped();
                 MS.ICHomeClampedToICHomeInspected();
                 MS.ICHomeInspectedToCCHomeClamped();
                 MS.CCHomeClampedToCC();
-                MS.CCCleanedToCapture();
-                MS.CCCapturedToCCHomeClamped();
+                MS.InCCMoveToClean();
+                MS.CCCleanedReturnInCC();
+                MS.InCCMoveToCapture();
+                MS.CCCapturedReturnInCC();
+                MS.InCCToCCHomeClamped();
                 MS.CCHomeClampedToCCGlass();
-                MS.CCGlassCleanedToCapture();
-                MS.CCGlassCapturedToCCHomeClamped();
+                MS.InCCGlassMoveToClean();
+                MS.CCGlassCleanedReturnInCCGlass();
+                MS.InCCGlassMoveToCapture();
+                MS.CCGlassCapturedReturnInCCGlass();
+                MS.InCCGlassToCCHomeClamped();
                 MS.CCHomeClampedToCCHomeCleaned();
                 MS.CCHomeCleanedToLPHomeCleaned();
-                MS.LPHomeCleanedReleaseLPA();
+                MS.LPHomeCleanedToLPARelease();
             }
             catch (Exception ex)
             {

@@ -118,6 +118,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         //Clean
         MoveToCleanCh,
         WaitForMoveToClean,
+        StandbyClampedInCleanCh,
         MoveToClean,
         WaitFroClean,
         MoveAferCleaned,
@@ -133,6 +134,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         MoveToCleanChGlass,
         WaitForMoveToCleanGlass,
+        StandbyClampedInCleanChGlass,
         MoveToCleanGlass,
         WaitFroCleanGlass,
         StandbyAtCleanGlass,

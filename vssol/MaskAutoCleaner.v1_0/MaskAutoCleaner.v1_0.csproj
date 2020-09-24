@@ -86,10 +86,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Machine\BoxTransfer\MacMcBoxTransfer.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumDrawerStateMachineID.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMsBoxTransferState.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMsBoxTransferTransition.cs" />
-    <Compile Include="Machine\BoxTransfer\MacMsBoxTraansfer.cs" />
+    <Compile Include="Machine\BoxTransfer\MacMsBoxTransfer.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerState.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerTransition.cs" />
     <Compile Include="Machine\CabinetDrawer\MacMcCabinetDrawer.cs" />
@@ -122,7 +123,9 @@
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPathMoveFailException.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPLCExecuteFailException.cs" />
     <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPLCWarningException.cs" />
     <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChCleanFailException.cs" />
     <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChException.cs" />
@@ -182,8 +185,12 @@
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportPLCAlarmException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportPLCWarningException.cs" />
-    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportResetFailException.cs" />
-    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportResetTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportAlarmResetFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportAlarmResetTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupInitialMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupAlarmResetFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupAlarmResetTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockTimeOutException.cs" />
@@ -314,6 +321,7 @@
     <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalGeneralAlarmException.cs" />
     <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalGeneralWarningException.cs" />
     <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalPLCExecuteFailException.cs" />
+    <Compile Include="UserData\EnumMachineID.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

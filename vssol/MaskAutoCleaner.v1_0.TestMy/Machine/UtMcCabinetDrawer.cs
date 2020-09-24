@@ -2,7 +2,6 @@
 using MaskAutoCleaner.v1_0.Machine.Cabinet;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 using MaskAutoCleaner.v1_0.Machine.Drawer;
-using MaskAutoCleaner.v1_0.TestMy.UserData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
