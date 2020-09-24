@@ -51,14 +51,17 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
+        /// <summary> 狀態機啟動 </summary>
         public void SystemBootup()
         {
             this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
+        /// <summary> Mask Transfer初始化 </summary>
         public void Initial()
         {
             this.States[EnumMacMsMaskTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
+        /// <summary> 從 LP Home 到 Load Port A 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToLPAGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
@@ -81,6 +84,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 到 Load Port B 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToLPBGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
@@ -103,6 +107,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 到 Open Stage 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToOSGetMaskReturnToLPHomeClamped()
         {
             MacTransition transition = null;
@@ -125,6 +130,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 轉向到 IC Home(夾著Mask) </summary>
         public void LPHomeClampedToICHomeClamped()
         {
             MacTransition transition = null;
@@ -147,6 +153,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 IC Home 轉向到 LP Home(不夾Mask) </summary>
         public void ICHomeToLPHome()
         {
             MacTransition transition = null;
@@ -169,6 +176,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 IC Home 夾著 Mask 放入 Inspection Chamber(Pellicle面向上) </summary>
         public void ICHomeClampedToICReleaseReturnToICHome()
         {
             MacTransition transition = null;
@@ -191,6 +199,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 IC Home 到 Inspection Chamber 取出 Mask(Pellicle面向上) </summary>
         public void ICHomeToICGetReturnToICClamped()
         {
             MacTransition transition = null;
@@ -213,6 +222,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 IC Home 夾著 Mask 放入 Inspection Chamber(Glass面向上) </summary>
         public void ICHomeClampedToICGlassReleaseReturnToICHome()
         {
             MacTransition transition = null;
@@ -235,6 +245,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 IC Home 到 Inspection Chamber 取出 Mask(Glass面向上) </summary>
         public void ICHomeToICGlassGetReturnToICClamped()
         {
             MacTransition transition = null;
@@ -257,6 +268,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 將 IC Home 夾著 Mask 的狀態轉成 IC Home 夾著 Mask 並且兩面都完成檢測 </summary>
         public void ICHomeClampedToICHomeInspected()
         {
             MacTransition transition = null;
@@ -279,6 +291,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 在 IC Home 夾著 Mask 並且兩面都完成檢測後，需要清潔 Mask ，轉向到 CC Home </summary>
         public void ICHomeInspectedToCCHomeClamped()
         {
             MacTransition transition = null;
@@ -301,6 +314,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 CC Home 夾著 Mask 進入 Clean Chamber(Pellicle面向下) </summary>
         public void CCHomeClampedToCC()
         {
             MacTransition transition = null;
@@ -323,6 +337,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Air Gun 上方(Pellicle面向下) </summary>
         public void InCCMoveToClean()
         {
             MacTransition transition = null;
@@ -345,6 +360,30 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 開始進行清理Pellicle的動作 </summary>
+        public void CleanPellicle()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.CleanPellicle.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> Pellicle 清理完回到 Clean Chamber 內的起始點 </summary>
         public void CCCleanedReturnInCC()
         {
             MacTransition transition = null;
@@ -367,11 +406,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void InCCMoveToCapture()
+        /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Camera 上方(Pellicle面向下) </summary>
+        public void InCCMoveToInspect()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToCapture.ToString()];
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspect.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -389,11 +429,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CCCapturedReturnInCC()
+        /// <summary> 開始進行檢測Pellicle的動作 </summary>
+        public void InspectPellicle()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAfterCaptured.ToString()];
+            transition = Transitions[EnumMacMsMaskTransferTransition.InspectPellicle.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -411,6 +452,30 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> Pellicle 檢測完回到 Clean Chamber 內的起始點 </summary>
+        public void CCInspectedReturnInCC()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAfterInspected.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 從 Clean Cjamber 內(Pellecle面向下)，夾著 Mask 回到 CC Home </summary>
         public void InCCToCCHomeClamped()
         {
             MacTransition transition = null;
@@ -433,6 +498,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 CC Home 夾著 Mask 進入 Clean Chamber(Glass面向下) </summary>
         public void CCHomeClampedToCCGlass()
         {
             MacTransition transition = null;
@@ -455,6 +521,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Air Gun 上方(Glass面向下) </summary>
         public void InCCGlassMoveToClean()
         {
             MacTransition transition = null;
@@ -477,6 +544,30 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 開始進行清理Glass的動作 </summary>
+        public void CleanGlass()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.CleanGlass.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> Glass 清理完回到 Clean Chamber 內的起始點 </summary>
         public void CCGlassCleanedReturnInCCGlass()
         {
             MacTransition transition = null;
@@ -499,11 +590,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void InCCGlassMoveToCapture()
+        /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Camera 上方(Glass面向下) </summary>
+        public void InCCGlassMoveToInspect()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToCaptureGlass.ToString()];
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectGlass.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -521,11 +613,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CCGlassCapturedReturnInCCGlass()
+        /// <summary> 開始進行檢測Glass的動作 </summary>
+        public void InspectGlass()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass.ToString()];
+            transition = Transitions[EnumMacMsMaskTransferTransition.InspectGlass.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -543,6 +636,30 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> Glass 檢測完回到 Clean Chamber 內的起始點 </summary>
+        public void CCGlassInspectedReturnInCCGlass()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveAfterInspectedGlass.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 從 Clean Cjamber 內(Glass面向下)，夾著 Mask 回到 CC Home </summary>
         public void InCCGlassToCCHomeClamped()
         {
             MacTransition transition = null;
@@ -565,6 +682,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 將 CC Home 夾著 Mask 的狀態轉成 CC Home 夾著 Mask 並且完成清潔 </summary>
         public void CCHomeClampedToCCHomeCleaned()
         {
             MacTransition transition = null;
@@ -587,6 +705,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 在 IC Home 夾著 Mask 並且兩面都完成檢測，不用清潔直接轉向到 LP Home </summary>
         public void ICHomeInspectedToLPHomeInspected()
         {
             MacTransition transition = null;
@@ -609,6 +728,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 在 CC Home 夾著 Mask 並且完成清潔，轉向到 LP Home </summary>
         public void CCHomeCleanedToLPHomeCleaned()
         {
             MacTransition transition = null;
@@ -631,6 +751,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將未經過檢查的 Mask 放到 Open Stage </summary>
         public void LPHomeClampedToOSRelease()
         {
             MacTransition transition = null;
@@ -653,6 +774,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將已經檢測過，不需清理的 Mask 放到 Load Port A </summary>
         public void LPHomeInspectedToLPARelease()
         {
             MacTransition transition = null;
@@ -675,6 +797,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將已經檢測過，不需清理的 Mask 放到 Load Port B </summary>
         public void LPHomeInspectedToLPBRelease()
         {
             MacTransition transition = null;
@@ -697,6 +820,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將已經檢測過，不需清理的 Mask 放到 Open Stage </summary>
         public void LPHomeInspectedToOSRelease()
         {
             MacTransition transition = null;
@@ -719,6 +843,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將已經清理過的 Mask 放到 Load Port A </summary>
         public void LPHomeCleanedToLPARelease()
         {
             MacTransition transition = null;
@@ -741,6 +866,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將已經清理過的 Mask 放到 Load Port B </summary>
         public void LPHomeCleanedToLPBRelease()
         {
             MacTransition transition = null;
@@ -763,6 +889,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 將已經清理過的 Mask 放到 Open Stage </summary>
         public void LPHomeCleanedToOSRelease()
         {
             MacTransition transition = null;
@@ -847,9 +974,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToClean = NewState(EnumMacMsMaskTransferState.MovingToClean);
             MacState sCleaningPellicle = NewState(EnumMacMsMaskTransferState.CleaningPellicle);
             MacState sMovingAfterCleaned = NewState(EnumMacMsMaskTransferState.MovingAfterCleaned);
-            MacState sMovingToCapture = NewState(EnumMacMsMaskTransferState.MovingToCapture);
-            MacState sCapturingPellicle = NewState(EnumMacMsMaskTransferState.CapturingPellicle);
-            MacState sMovingAfterCaptured = NewState(EnumMacMsMaskTransferState.MovingAfterCaptured);
+            MacState sMovingToInspect = NewState(EnumMacMsMaskTransferState.MovingToInspect);
+            MacState sInspectingPellicle = NewState(EnumMacMsMaskTransferState.InspectingPellicle);
+            MacState sMovingAfterInspected = NewState(EnumMacMsMaskTransferState.MovingAfterInspected);
             MacState sMovingToCCHomeClampedFromCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanCh);//離開CleanCh
 
             MacState sMovingToCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanChGlass);//前往CleanChGlass
@@ -857,9 +984,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacState sMovingToCleanGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanGlass);
             MacState sCleaningGlass = NewState(EnumMacMsMaskTransferState.CleaningGlass);
             MacState sMovingAfterCleanedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCleanedGlass);
-            MacState sMovingToCaptureGlass = NewState(EnumMacMsMaskTransferState.MovingToCaptureGlass);
-            MacState sCapturingGlass = NewState(EnumMacMsMaskTransferState.CapturingGlass);
-            MacState sMovingAfterCapturedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCapturedGlass);
+            MacState sMovingToInspectGlass = NewState(EnumMacMsMaskTransferState.MovingToInspectGlass);
+            MacState sInspectingGlass = NewState(EnumMacMsMaskTransferState.InspectingGlass);
+            MacState sMovingAfterInspectedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterInspectedGlass);
             MacState sMovingToCCHomeClampedFromCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanChGlass);//離開CleanChGlass
 
             //Inspect Deform
@@ -977,15 +1104,17 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToCleanCh_ClampedInCleanCh = NewTransition(sMovingToCleanCh, sClampedInCleanCh, EnumMacMsMaskTransferTransition.WaitForMoveToClean);
             MacTransition tClampedInCleanCh_NULL = NewTransition(sClampedInCleanCh, null, EnumMacMsMaskTransferTransition.StandbyClampedInCleanCh);
             MacTransition tClampedInCleanCh_MovingToClean = NewTransition(sClampedInCleanCh, sMovingToClean, EnumMacMsMaskTransferTransition.MoveToClean);
-            MacTransition tMovingToClean_CleaningPellicle = NewTransition(sMovingToClean, sCleaningPellicle, EnumMacMsMaskTransferTransition.WaitFroClean);
+            MacTransition tMovingToClean_NULL = NewTransition(sMovingToClean, null, EnumMacMsMaskTransferTransition.WaitFroClean);
+            MacTransition tMovingToClean_CleaningPellicle = NewTransition(sMovingToClean, sCleaningPellicle, EnumMacMsMaskTransferTransition.CleanPellicle);
             MacTransition tCleaningPellicle_NULL = NewTransition(sCleaningPellicle, null, EnumMacMsMaskTransferTransition.StandbyAtClean);
             MacTransition tCleaningPellicle_MovingAfterCleaned = NewTransition(sCleaningPellicle, sMovingAfterCleaned, EnumMacMsMaskTransferTransition.MoveAferCleaned);
-            MacTransition tMovingAfterCleaned_ClampedInCleanCh = NewTransition(sMovingAfterCleaned, sClampedInCleanCh, EnumMacMsMaskTransferTransition.WaitForMoveToCapture);
-            MacTransition tClampedInCleanCh_MovingToCapture = NewTransition(sClampedInCleanCh, sMovingToCapture, EnumMacMsMaskTransferTransition.MoveToCapture);
-            MacTransition tMovingToCapture_CapturingPellicle = NewTransition(sMovingToCapture, sCapturingPellicle, EnumMacMsMaskTransferTransition.WaitForCapture);
-            MacTransition tCapturingPellicle_NULL = NewTransition(sCapturingPellicle, null, EnumMacMsMaskTransferTransition.StandbyAtCapture);
-            MacTransition tCapturingPellicle_MovingAfterCaptured = NewTransition(sCapturingPellicle, sMovingAfterCaptured, EnumMacMsMaskTransferTransition.MoveAfterCaptured);
-            MacTransition tMovingAfterCaptured_ClampedInCleanCh = NewTransition(sMovingAfterCaptured, sClampedInCleanCh, EnumMacMsMaskTransferTransition.WaitForLeaveCleanCh);
+            MacTransition tMovingAfterCleaned_ClampedInCleanCh = NewTransition(sMovingAfterCleaned, sClampedInCleanCh, EnumMacMsMaskTransferTransition.WaitForMoveToInspect);
+            MacTransition tClampedInCleanCh_MovingToInspect = NewTransition(sClampedInCleanCh, sMovingToInspect, EnumMacMsMaskTransferTransition.MoveToInspect);
+            MacTransition tMovingToInspect_NULL = NewTransition(sMovingToInspect, null, EnumMacMsMaskTransferTransition.WaitForInspect);
+            MacTransition tMovingToInspect_InspectingPellicle = NewTransition(sMovingToInspect, sInspectingPellicle, EnumMacMsMaskTransferTransition.InspectPellicle);
+            MacTransition tInspectingPellicle_NULL = NewTransition(sInspectingPellicle, null, EnumMacMsMaskTransferTransition.StandbyAtInspect);
+            MacTransition tInspectingPellicle_MovingAfterInspected = NewTransition(sInspectingPellicle, sMovingAfterInspected, EnumMacMsMaskTransferTransition.MoveAfterInspected);
+            MacTransition tMovingAfterInspected_ClampedInCleanCh = NewTransition(sMovingAfterInspected, sClampedInCleanCh, EnumMacMsMaskTransferTransition.WaitForLeaveCleanCh);
             MacTransition tClampedInCleanCh_MovingToCCHomeClampedFromCleanCh = NewTransition(sClampedInCleanCh, sMovingToCCHomeClampedFromCleanCh, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanCh);
             MacTransition tMovingToCCHomeClampedFromCleanCh_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanCh, sCCHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClampedFromCleanCh);
 
@@ -993,15 +1122,17 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tMovingToCleanChGlass_ClampedInCleanChGlass = NewTransition(sMovingToCleanChGlass, sClampedInCleanChGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCleanGlass);
             MacTransition tClampedInCleanChGlass_NULL = NewTransition(sClampedInCleanChGlass, null, EnumMacMsMaskTransferTransition.StandbyClampedInCleanChGlass);
             MacTransition tClampedInCleanChGlass_MovingToCleanGlass = NewTransition(sClampedInCleanChGlass, sMovingToCleanGlass, EnumMacMsMaskTransferTransition.MoveToCleanGlass);
-            MacTransition tMovingToCleanGlass_CleaningGlass = NewTransition(sMovingToCleanGlass, sCleaningGlass, EnumMacMsMaskTransferTransition.WaitFroCleanGlass);
+            MacTransition tMovingToCleanGlass_NULL = NewTransition(sMovingToCleanGlass, null, EnumMacMsMaskTransferTransition.WaitFroCleanGlass);
+            MacTransition tMovingToCleanGlass_CleaningGlass = NewTransition(sMovingToCleanGlass, sCleaningGlass, EnumMacMsMaskTransferTransition.CleanGlass);
             MacTransition tCleaningGlass_NULL = NewTransition(sCleaningGlass, null, EnumMacMsMaskTransferTransition.StandbyAtCleanGlass);
             MacTransition tCleaningGlass_MovingAfterCleanedGlass = NewTransition(sCleaningGlass, sMovingAfterCleanedGlass, EnumMacMsMaskTransferTransition.MoveAferCleanedGlass);
-            MacTransition tMovingAfterCleanedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterCleanedGlass, sClampedInCleanChGlass, EnumMacMsMaskTransferTransition.WaitForMoveToCaptureGlass);
-            MacTransition tClampedInCleanChGlass_MovingToCaptureGlass = NewTransition(sClampedInCleanChGlass, sMovingToCaptureGlass, EnumMacMsMaskTransferTransition.MoveToCaptureGlass);
-            MacTransition tMovingToCaptureGlass_CapturingGlass = NewTransition(sMovingToCaptureGlass, sCapturingGlass, EnumMacMsMaskTransferTransition.WaitForCaptureGlass);
-            MacTransition tCapturingGlass_NULL = NewTransition(sCapturingGlass, null, EnumMacMsMaskTransferTransition.StandbyAtCaptureGlass);
-            MacTransition tCapturingGlass_MovingAfterCapturedGlass = NewTransition(sCapturingGlass, sMovingAfterCapturedGlass, EnumMacMsMaskTransferTransition.MoveAfterCapturedGlass);
-            MacTransition tMovingAfterCapturedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterCapturedGlass, sClampedInCleanChGlass, EnumMacMsMaskTransferTransition.WaitForLeaveCleanChGlass);
+            MacTransition tMovingAfterCleanedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterCleanedGlass, sClampedInCleanChGlass, EnumMacMsMaskTransferTransition.WaitForMoveToInspectGlass);
+            MacTransition tClampedInCleanChGlass_MovingToInspectGlass = NewTransition(sClampedInCleanChGlass, sMovingToInspectGlass, EnumMacMsMaskTransferTransition.MoveToInspectGlass);
+            MacTransition tMovingToInspectGlass_NULL = NewTransition(sMovingToInspectGlass, null, EnumMacMsMaskTransferTransition.WaitForInspectGlass);
+            MacTransition tMovingToInspectGlass_InspectingGlass = NewTransition(sMovingToInspectGlass, sInspectingGlass, EnumMacMsMaskTransferTransition.InspectGlass);
+            MacTransition tInspectingGlass_NULL = NewTransition(sInspectingGlass, null, EnumMacMsMaskTransferTransition.StandbyAtInspectGlass);
+            MacTransition tInspectingGlass_MovingAfterInspectedGlass = NewTransition(sInspectingGlass, sMovingAfterInspectedGlass, EnumMacMsMaskTransferTransition.MoveAfterInspectedGlass);
+            MacTransition tMovingAfterInspectedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterInspectedGlass, sClampedInCleanChGlass, EnumMacMsMaskTransferTransition.WaitForLeaveCleanChGlass);
             MacTransition tClampedInCleanChGlass_MovingToCCHomeClampedFromCleanChGlass = NewTransition(sClampedInCleanChGlass, sMovingToCCHomeClampedFromCleanChGlass, EnumMacMsMaskTransferTransition.MoveToCCHomeClampedFromCleanChGlass);
             MacTransition tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanChGlass, sCCHomeClamped, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClampedFromCleanChGlass);
 
@@ -1103,6 +1234,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.Initial();
+                    HalMaskTransfer.Reset();
                 }
                 catch (Exception ex)
                 {
@@ -2810,7 +2942,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingAfterCleaned.OnExit += (sender, e) =>
             { };
             
-            sMovingToCapture.OnEntry += (sender, e) =>
+            sMovingToInspect.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2829,7 +2961,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToCapture_CapturingPellicle;
+                var transition = tMovingToInspect_InspectingPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2847,10 +2979,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCapture.OnExit += (sender, e) =>
+            sMovingToInspect.OnExit += (sender, e) =>
             { };
 
-            sCapturingPellicle.OnEntry += (sender, e) =>
+            sInspectingPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2867,7 +2999,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tCapturingPellicle_NULL;
+                var transition = tInspectingPellicle_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2885,10 +3017,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCapturingPellicle.OnExit += (sender, e) =>
+            sInspectingPellicle.OnExit += (sender, e) =>
             { };
 
-            sMovingAfterCaptured.OnEntry += (sender, e) =>
+            sMovingAfterInspected.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2907,7 +3039,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingAfterCaptured_ClampedInCleanCh;
+                var transition = tMovingAfterInspected_ClampedInCleanCh;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -2925,7 +3057,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingAfterCaptured.OnExit += (sender, e) =>
+            sMovingAfterInspected.OnExit += (sender, e) =>
             { };
             
             sMovingToCCHomeClampedFromCleanCh.OnEntry += (sender, e) =>
@@ -3166,7 +3298,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingAfterCleanedGlass.OnExit += (sender, e) =>
             { };
             
-            sMovingToCaptureGlass.OnEntry += (sender, e) =>
+            sMovingToInspectGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3185,7 +3317,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingToCaptureGlass_CapturingGlass;
+                var transition = tMovingToInspectGlass_InspectingGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -3203,10 +3335,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCaptureGlass.OnExit += (sender, e) =>
+            sMovingToInspectGlass.OnExit += (sender, e) =>
             { };
 
-            sCapturingGlass.OnEntry += (sender, e) =>
+            sInspectingGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3223,7 +3355,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferException(ex.Message);
                 }
 
-                var transition = tCapturingGlass_NULL;
+                var transition = tInspectingGlass_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -3241,10 +3373,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCapturingGlass.OnExit += (sender, e) =>
+            sInspectingGlass.OnExit += (sender, e) =>
             { };
 
-            sMovingAfterCapturedGlass.OnEntry += (sender, e) =>
+            sMovingAfterInspectedGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3263,7 +3395,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     throw new MaskTransferPathMoveFailException(ex.Message);
                 }
 
-                var transition = tMovingAfterCapturedGlass_ClampedInCleanChGlass;
+                var transition = tMovingAfterInspectedGlass_ClampedInCleanChGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -3281,7 +3413,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingAfterCapturedGlass.OnExit += (sender, e) =>
+            sMovingAfterInspectedGlass.OnExit += (sender, e) =>
             { };
 
             sMovingToCCHomeClampedFromCleanChGlass.OnEntry += (sender, e) =>
