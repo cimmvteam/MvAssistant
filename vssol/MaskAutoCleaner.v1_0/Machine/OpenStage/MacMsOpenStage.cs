@@ -32,14 +32,17 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
         MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();
 
+        /// <summary> 狀態機啟動 </summary>
         public void SystemBootup()
         {
             this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
+        /// <summary> Open Stage 初始化 </summary>
         public void Initial()
         {
             this.States[EnumMacMsOpenStageState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
+        /// <summary> 等待放入 Box(內無Mask) </summary>
         public void InputBox()
         {
             MacTransition transition = null;
@@ -62,6 +65,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 放入Box後，校正 Box 的位置(內無Mask)，等待 Unlock </summary>
         public void CalibrationClosedBox()
         {
             MacTransition transition = null;
@@ -84,6 +88,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> Unlock 後，開啟 Box(內無Mask) </summary>
         public void OpenBox()
         {
             MacTransition transition = null;
@@ -106,6 +111,30 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 原先要放入 Mask ，但沒有放入 Mask ，關上 Box(內無Mask)，等待 Lock </summary>
+        public void ReturnCloseBox()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBox.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 關上 Box(內有Mask)，等待 Lock </summary>
         public void CloseBoxWithMask()
         {
             MacTransition transition = null;
@@ -128,28 +157,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ReturnCloseBoxWithMask()
-        {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
-        }
+        /// <summary> Lock 後，停止吸真空固定 Box ，等待取走Box(內有Mask) </summary>
         public void ReleaseBoxWithMask()
         {
             MacTransition transition = null;
@@ -172,6 +180,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 取走 Box(內有Mask)後，將狀態改為Idle </summary>
         public void ReturnToIdleAfterReleaseBoxWithMask()
         {
             MacTransition transition = null;
@@ -196,6 +205,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         }
 
 
+        /// <summary> 等待放入 Box(內有Mask) </summary>
         public void InputBoxWithMask()
         {
             MacTransition transition = null;
@@ -218,6 +228,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 放入Box後，校正 Box 的位置(內有Mask)，等待 Unlock </summary>
         public void CalibrationClosedBoxWithMask()
         {
             MacTransition transition = null;
@@ -240,6 +251,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> Unlock 後，開啟 Box(內有Mask) </summary>
         public void OpenBoxWithMask()
         {
             MacTransition transition = null;
@@ -262,6 +274,30 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 原先要取出 Mask ，但又將 Mask 放回 Box 內，關上 Box(內有Mask)，等待 Lock </summary>
+        public void ReturnCloseBoxWithMask()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 關上 Box(內無Mask)，等待 Lock </summary>
         public void CloseBox()
         {
             MacTransition transition = null;
@@ -284,28 +320,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void ReturnCloseBox()
-        {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
-        }
+        /// <summary> Lock 後，停止吸真空固定 Box ，等待取走Box(內無Mask) </summary>
         public void ReleaseBox()
         {
             MacTransition transition = null;
@@ -328,6 +343,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 取走 Box(內無Mask)後，將狀態改為Idle </summary>
         public void ReturnToIdleAfterReleaseBox()
         {
             MacTransition transition = null;

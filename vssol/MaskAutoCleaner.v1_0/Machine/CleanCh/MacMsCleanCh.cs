@@ -26,12 +26,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         public MacState CurrentState { get { return _currentState; } }
 
         public MacMsCleanCh() { LoadStateMachine(); }
-
+        /// <summary> 狀態機啟動 </summary>
         public void SystemBootup()
         {
             this.States[EnumMacMsCleanChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
-
+        /// <summary> 清理Pellicle </summary>
         public void CleanPellicle()
         {
             MacTransition transition = null;
@@ -54,7 +54,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CleanedPellicle()
+        /// <summary> 停止/結束清理Pellicle </summary>
+        public void FinishCleanPellicle()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -76,6 +77,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 檢測Pellicle </summary>
         public void InspectPellicle()
         {
             MacTransition transition = null;
@@ -98,7 +100,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void InspectedPellicle()
+        /// <summary> 停止/結束檢測Pellicle </summary>
+        public void FinishInspectPellicle()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -121,6 +124,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             Trigger(transition);
         }
 
+        /// <summary> 清理Glass </summary>
         public void CleanGlass()
         {
             MacTransition transition = null;
@@ -143,7 +147,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void CleanedGlass()
+        /// <summary> 停止/結束清理Glass </summary>
+        public void FinishCleanGlass()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -165,6 +170,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 檢測Glass </summary>
         public void InspectGlass()
         {
             MacTransition transition = null;
@@ -187,7 +193,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void InspectedGlass()
+        /// <summary> 停止/結束檢測Glass </summary>
+        public void FinishInspectGlass()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;

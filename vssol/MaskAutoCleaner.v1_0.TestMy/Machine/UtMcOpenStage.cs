@@ -24,13 +24,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             if (true)//如果有放入Mask
             {
                 MS.CloseBoxWithMask();
-                MS.ReturnCloseBoxWithMask();
                 MS.ReleaseBoxWithMask();
                 MS.ReturnToIdleAfterReleaseBoxWithMask();
             }
             else//如果沒有放入Mask(非常態)
             {
-                MS.CloseBox();
                 MS.ReturnCloseBox();
                 MS.ReleaseBox();
                 MS.ReturnToIdleAfterReleaseBox();
@@ -51,7 +49,6 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MS.OpenBoxWithMask();
             if (false)//如果沒有取出Mask(非常態)
             {
-                MS.CloseBoxWithMask();
                 MS.ReturnCloseBoxWithMask();
                 MS.ReleaseBoxWithMask();
                 MS.ReturnToIdleAfterReleaseBoxWithMask();
@@ -59,7 +56,6 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             else//如果有取出Mask
             {
                 MS.CloseBox();
-                MS.ReturnCloseBox();
                 MS.ReleaseBox();
                 MS.ReturnToIdleAfterReleaseBox();
             }

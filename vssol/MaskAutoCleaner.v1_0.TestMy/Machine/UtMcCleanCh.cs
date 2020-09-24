@@ -18,13 +18,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MS = MachineCtrl.StateMachine;
             MS.SystemBootup();
             MS.CleanPellicle();
-            MS.CleanedPellicle();
+            MS.FinishCleanPellicle();
             MS.InspectPellicle();
-            MS.InspectedPellicle();
+            MS.FinishInspectPellicle();
             MS.CleanGlass();
-            MS.CleanedGlass();
+            MS.FinishCleanGlass();
             MS.InspectGlass();
-            MS.InspectedGlass();
+            MS.FinishInspectGlass();
         }
     }
 }

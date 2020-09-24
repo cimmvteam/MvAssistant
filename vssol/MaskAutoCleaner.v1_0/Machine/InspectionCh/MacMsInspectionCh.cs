@@ -30,14 +30,17 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
 
+        /// <summary> 狀態機啟動 </summary>
         public void SystemBootup()
         {
             this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
+        /// <summary> Inspection Chamber初始化 </summary>
         public void Initial()
         {
             this.States[EnumMacMsInspectionChState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
+        /// <summary> 檢測Pellicle </summary>
         public void InspectPellicle()
         {
 
@@ -62,6 +65,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> Mask被取出後將狀態改為Idle ( 必須先由Mask Transfer取出Mask ) </summary>
         public void ReleasePellicle()
         {
 
@@ -87,6 +91,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             Trigger(transition);
         }
 
+        /// <summary> 檢測Glass </summary>
         public void InspectGlass()
         {
 
@@ -111,6 +116,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> Mask被取出後將狀態改為Idle ( 必須先由Mask Transfer取出Mask ) </summary>
         public void ReleaseGlass()
         {
 
