@@ -42,7 +42,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         [TestMethod]
         [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        //[DataRow(BoxrobotTransferLocation.Drawer_04_01)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_07_01)]
         public void TestMethod_BankOut(BoxrobotTransferLocation drawerNumber)
         {
             var MachineMgr = new MacMachineMgr();
@@ -54,8 +54,22 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MS.MoveToOpenStagePut();
 
         }
-        
-      
+
+        [TestMethod]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_07_01)]
+        public void TestMethod_BankIn(BoxrobotTransferLocation drawerNumber)
+        {
+            var MachineMgr = new MacMachineMgr();
+            MachineMgr.MvCfInit();
+            var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
+            var MS = MachineCtrl.StateMachine;
+            MS.Initial();
+           
+            MS.MoveToOpenStageGet();
+            MS.MoveToCabinetPut(drawerNumber);
+
+        }
 
     }
 }

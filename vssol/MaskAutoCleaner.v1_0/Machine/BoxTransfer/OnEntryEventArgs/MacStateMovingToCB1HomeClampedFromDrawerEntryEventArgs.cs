@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
     public  class MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs : MacStateEntryEventArgs
    {
         /// <summary>移動的目標點</summary>
-        public BoxrobotTransferLocation TargetLocation { get; private set; }
+        public BoxrobotTransferLocation DrawerLocation { get; private set; }
 
         private MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs() : base()
         {
@@ -24,7 +24,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
         }
         public MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs(BoxrobotTransferLocation targetLocation, object parameter) : base(parameter)
         {
-            TargetLocation = targetLocation;
+            DrawerLocation = targetLocation;
 
         }
         public MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs(BoxrobotTransferLocation targetLocation) : this(targetLocation, null)

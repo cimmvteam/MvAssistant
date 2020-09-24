@@ -87,10 +87,12 @@
   <ItemGroup>
     <Compile Include="EnumMacRecipeType.cs" />
     <Compile Include="Machine\BoxTransfer\MacMcBoxTransfer.cs" />
-    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateCB1HomeClampedEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerClampingEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerReleasingEntryArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToCB1HomeFromDrawerEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToDrawerEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToDrawerForReleaseEntryEventArgs.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumDrawerStateMachineID.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMsBoxTransferState.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMsBoxTransferTransition.cs" />
@@ -334,9 +336,7 @@
       <Name>MvAssistant</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Machine\BoxTransfer\OnExitEventArgs\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

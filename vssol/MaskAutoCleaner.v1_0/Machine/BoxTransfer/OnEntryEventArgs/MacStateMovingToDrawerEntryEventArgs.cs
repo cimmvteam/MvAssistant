@@ -15,18 +15,18 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
     public class MacStateMovingToDrawerEntryEventArgs: MacStateEntryEventArgs
     {
         /// <summary>移動的目標點</summary>
-        public BoxrobotTransferLocation TargetLocation { get; private set; }
+        public BoxrobotTransferLocation DrawerLocation { get; private set; }
       
         private MacStateMovingToDrawerEntryEventArgs() : base()
         {
 
         }
-        public MacStateMovingToDrawerEntryEventArgs(BoxrobotTransferLocation targetLocation, object parameter ) :base(parameter)
+        public MacStateMovingToDrawerEntryEventArgs(BoxrobotTransferLocation drawerLocation, object parameter ) :base(parameter)
         {
-            TargetLocation = targetLocation;
+            DrawerLocation = drawerLocation;
            
         }
-        public MacStateMovingToDrawerEntryEventArgs(BoxrobotTransferLocation targetLocation) : this(targetLocation, null)
+        public MacStateMovingToDrawerEntryEventArgs(BoxrobotTransferLocation drawerLocation) : this(drawerLocation, null)
         {
 
         }

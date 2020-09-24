@@ -264,6 +264,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         DrawerReleasing,
         MovingToCB1HomeFromDrawer,
         CB1HomeClamped_C,
+        CB1Home_C,
         #endregion Return To CB Home From Cabinet
     }
 }
