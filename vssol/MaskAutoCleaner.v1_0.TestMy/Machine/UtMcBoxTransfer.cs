@@ -39,36 +39,23 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
 
-        /// <summary>整合 State 測試</summary>
-        /// <remarks>2020/09/23, King Add</remarks>
+
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01,  true,false)]
-        public void TestMethodGet(BoxrobotTransferLocation drawerNumber,bool BankIn,bool BankOut)
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_01)]
+        public void TestMethod_BankOut(BoxrobotTransferLocation drawerNumber)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
             var MS = MachineCtrl.StateMachine;
-
             MS.Initial();
-            
-            if (BankIn)
-            {
-                MS.MoveToOpenStageGet();
-                MS.MoveToCabinetPut_Test(drawerNumber);
-            }
-            else if (BankOut)
-            {
-                MS.MoveToCabinetGet(drawerNumber);
-                MS.MoveToOpenStagePut();
-            }
-            else
-            {
-                MS.MoveToLock();
-                MS.MoveToUnlock();
-            }
+            MS.MoveToCabinetGet(drawerNumber);
+            MS.MoveToOpenStagePut();
 
         }
+        
+      
 
     }
 }

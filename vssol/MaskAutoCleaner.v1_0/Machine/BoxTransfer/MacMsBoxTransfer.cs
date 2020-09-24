@@ -171,7 +171,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition transition = null;
             TriggerMember triggerMember = null;
          
-            transition =  Transitions[EnumMacMsBoxTransferTransition.MoveToDrawer.ToString()];  //transition Instance transitionCB1Home_MovingToDrawer
+            transition =  Transitions[EnumMacMsBoxTransferTransition.MoveToDrawer.ToString()];  //transitionCB1Home_MovingToDrawer
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -1459,7 +1459,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 }
                 catch (Exception ex)
                 {
-
+                    throw new BoxTransferPathMoveFailException(ex.Message);
                 }
                 //var  transition = tMovingToCabinet0101_Cabinet0101Clamping;
                 var transition = transitionMovingToDrawer_DrawerClamping;
@@ -1482,9 +1482,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 Trigger(transition);
             };
             stateMovingToDrawer.OnExit += (sender, e) =>
-            {
-
-            };
+            {   };
 
 
             sMovingToCabinet0101.OnEntry += (sender, e) =>
@@ -1507,7 +1505,6 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 {
                     throw new BoxTransferPathMoveFailException(ex.Message);
                 }
-
                 var transition = tMovingToCabinet0101_Cabinet0101Clamping;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -2667,10 +2664,16 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 CheckAssemblyWarningSignal();
                 try
                 {
+                    var cabinetHome = targetlocation.GetCabinetHomeCode();
                     var path = pathObj.FromDrawerToCabinet01Home_GET_PathFile(targetlocation);
                     HalBoxTransfer.RobotMoving(true);
                     HalBoxTransfer.ExePathMove(path);
-                    //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Drawer_01_01_Backward_Cabinet_01_Home_GET.json");
+                    if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home) // 屬於Cabinet2 所管
+                    {
+                        path = pathObj.Cabinet02HomePathFile();
+                        HalBoxTransfer.ExePathMove(path);
+                    }
+                  
                     HalBoxTransfer.RobotMoving(false);
                 }
                 catch(Exception ex)
@@ -2713,6 +2716,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     HalBoxTransfer.RobotMoving(true);
                     HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Drawer_01_01_Backward_Cabinet_01_Home_GET.json");
                     HalBoxTransfer.RobotMoving(false);
+
+         
+
                 }
                 catch (Exception ex)
                 {
