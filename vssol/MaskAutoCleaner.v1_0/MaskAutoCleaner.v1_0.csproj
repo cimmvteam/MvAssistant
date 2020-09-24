@@ -85,7 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumMacRecipeType.cs" />
+    <Compile Include="Recipe\EnumMacRecipeType.cs" />
     <Compile Include="Machine\BoxTransfer\MacMcBoxTransfer.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerClampingEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerReleasingEntryArgs.cs" />
@@ -112,8 +112,9 @@
     <Compile Include="Msg\JobNotify\EnumMacBoxProcessStatus.cs" />
     <Compile Include="EnumMachineID.cs" />
     <Compile Include="Recipe\MacRecipeMgr.cs" />
+    <Compile Include="Recipe\MacRecipeParam.cs" />
     <Compile Include="Recipe\MacRecipeStep.cs" />
-    <Compile Include="Recipe\MacRecipeStepList.cs" />
+    <Compile Include="Recipe\MacRecipe.cs" />
     <Compile Include="StateMachineBeta\MacMsTimeOutController.cs" />
     <Compile Include="Machine\CleanCh\MacMcCleanCh.cs" />
     <Compile Include="Machine\InspectionCh\MacMcInspectionCh.cs" />

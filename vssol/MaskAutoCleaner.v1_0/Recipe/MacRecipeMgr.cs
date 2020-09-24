@@ -9,12 +9,13 @@ namespace MaskAutoCleaner.v1_0.Recipe
     public class MacRecipeMgr
     {
 
-        public MacRecipeStepList RecipeStepList = new MacRecipeStepList();
+        //只有一個Recipe, 先求有, 再求好, 之後再追加 Multi-Recipe Run
+        public MacRecipe Recipe;
 
 
 
 
-        public void LoaddRecipe()
+        public void LoaddRecipe(string recipeName)
         {
 
         }
@@ -23,12 +24,28 @@ namespace MaskAutoCleaner.v1_0.Recipe
         public void Execute()
         {
 
+            foreach(var step in this.Recipe)
+            {
 
 
+            }
 
-
+            
         }
 
+
+
+
+
+        bool CheckBeforeStates(MacRecipeStep step)
+        {
+
+
+
+
+
+            return true;
+        }
 
 
     }

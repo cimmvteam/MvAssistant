@@ -28,6 +28,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         private static readonly object _loportBlockObject = new object();
         /// <summary>控制逾時與否的物件</summary>
         private MacMsTimeOutController TimeController = new MacMsTimeOutController();
+
+
+
         public static MacMsLoadPort LoadPortStateMachineA
         {
             get

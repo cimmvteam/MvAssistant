@@ -8,7 +8,7 @@ using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System.IO;
 
-namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
+namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 {
     [TestClass]
 

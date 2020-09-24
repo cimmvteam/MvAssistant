@@ -1,17 +1,16 @@
-﻿using System;
-using System.IO;
-using MaskAutoCleaner.v1_0.Machine;
-using MaskAutoCleaner.v1_0.Machine.Drawer;
+﻿using MaskAutoCleaner.v1_0.Machine;
+using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
+using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 using MaskAutoCleaner.v1_0.Machine.CleanCh;
+using MaskAutoCleaner.v1_0.Machine.Drawer;
 using MaskAutoCleaner.v1_0.Machine.InspectionCh;
 using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Machine.Universal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.Mac.v1_0.GenCfg.Manifest;
-using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
-using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
+using MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest;
+using System.IO;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 {

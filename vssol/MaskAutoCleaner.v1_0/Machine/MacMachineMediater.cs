@@ -13,6 +13,7 @@ namespace MaskAutoCleaner.v1_0.Machine
     public class MacMachineMediater : IDisposable
     {
 
+        public MacMachineMgr MachineMgr;
 
         ~MacMachineMediater() { this.Dispose(false); }
 

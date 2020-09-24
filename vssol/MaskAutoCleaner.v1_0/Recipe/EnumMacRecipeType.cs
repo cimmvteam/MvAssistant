@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Recipe
 {
-    public class MacRecipeStepList : List<MacRecipeStep>
+    public enum EnumMacRecipeType
     {
-
-
-
-
-
+        None,
+        OCAP,
+        BankIn,
+        BankOut,
     }
 }

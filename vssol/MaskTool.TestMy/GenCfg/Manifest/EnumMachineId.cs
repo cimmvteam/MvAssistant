@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.GenCfg.Manifest
+namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 {
     public enum EnumMachineId
     {

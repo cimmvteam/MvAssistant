@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MaskAutoCleaner.v1_0
+namespace MaskAutoCleaner.v1_0.Recipe
 {
-    public enum EnumMacRecipeType
+    public class MacRecipeParam
     {
-        OCAP,
-        BankIn,
-        BankOut,
+
+
+
     }
 }

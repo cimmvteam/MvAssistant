@@ -49,9 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Flow\UtSenario.cs" />
     <Compile Include="Flow\UtFlowBankIn.cs" />
     <Compile Include="Flow\UtFlowBankOut.cs" />
     <Compile Include="Flow\UtFlowOcap.cs" />
+    <Compile Include="GenCfg\UtGenRecipe.cs" />
     <Compile Include="GenCfg\UtGenMachineMgrCfg.cs" />
     <Compile Include="Machine\UtStressTest.cs" />
     <Compile Include="Machine\UtMcBoxTransfer.cs" />
