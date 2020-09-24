@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Flow\UtStartup.cs" />
     <Compile Include="Flow\UtSenario.cs" />
     <Compile Include="Flow\UtFlowBankIn.cs" />
     <Compile Include="Flow\UtFlowBankOut.cs" />
