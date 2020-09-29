@@ -1092,7 +1092,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void MaskTransferPathFile()
         {
             MaskrobotTransferPathFile fileObj = new MaskrobotTransferPathFile(@"D:\Positions\MTRobot\");
-            var loadPortHomePath = fileObj.LoadPortHomePathFile(); //V 10
+            var LoadPortHomePath = fileObj.LoadPortHomePathFile(); //V 10
             var InspChHomePath = fileObj.InspChHomePathFile();//V  20
             var cleanChHomePath = fileObj.CleanChHomePathFile();//V 30
             var LPHomeToLP1Path = fileObj.FromLPHomeToLP1PathFile();//V 40
@@ -1103,17 +1103,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var OSToLPHomePath = fileObj.FromOSToLPHomePathFile();//V  90
             var ICHomeToDeformInspPath = fileObj.FromICHomeToDeformInspPathFile();//100
             var DeformInspToICHomePath = fileObj.FromDeformInspTICHomeoPathFile();//110
-            var ICHomeFrontSideToICPath = fileObj.FromICHomeFrontSideToICPathFile();//V //120
-            var ICHomeBackSideToICPath = fileObj.FromICHomeBackSideToICPathFile();//V   //130
+            var ICHomeFrontSideToICPath = fileObj.FromICHomeToICFrontSidePathFile();//V //120
+            var ICHomeBackSideToICPath = fileObj.FromICHomeToICBackSidePathFile();//V   //130
             var ICFrontSideToICHomePath = fileObj.FromICFrontSideToICHomePathFile();//V  //140
             var ICBackSideToICHomePath = fileObj.FromICBackSideToICHomePathFile();//V   150
-            var CCHomeFrontSideToCCPath = fileObj.FromCCHomeFrontSideToCCPathFile();  //160
+            var CCHomeFrontSideToCCPath = fileObj.FromCCHomeToCCFrontSidePathFile();  //160
             var CCFrontSideToCCHomePath = fileObj.FromCCFrontSideToCCHomePathFile();  //170
             var CCFrontSideToCleanPath = fileObj.FromCCFrontSideToCleanPathFile();   //180
             var FrontSideCleanFinishToCCPath = fileObj.FromFrontSideCleanFinishToCCPathFile();  //190
             var CCFrontSideToCapturePath = fileObj.FromCCFrontSideToCapturePathFile();//     //200
             var FrontSideCaptureFinishToCCPath = fileObj.FromFrontSideCaptureFinishToCCPathFile();//210
-            var CCHomeBackSideToCCPath = fileObj.FromCCHomeBackSideToCCPathFile();   //220
+            var CCHomeBackSideToCCPath = fileObj.FromCCHomeToCCBackSidePathFile();   //220
             var CCBackSideToCCHomePath = fileObj.FromCCBackSideToCCHomePathFile();  //230
             var CCBackSideToCleanPath = fileObj.FromCCBackSideToCleanPathFile();     //240
             var BackSideCleanFinishToCCPath = fileObj.FromBackSideCleanFinishToCCPathFile(); //250
