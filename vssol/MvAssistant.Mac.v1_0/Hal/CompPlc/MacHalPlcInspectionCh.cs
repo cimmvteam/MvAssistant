@@ -252,6 +252,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
             Thread.Sleep(100);
+            if (plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense) != isIntrude)//如果要入侵但不被許可
+                throw new MvException("Mask Transfer Intrude Inspection Chamber is not allowed");
             return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense);
         }
 
