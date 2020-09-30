@@ -18,7 +18,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
-        /// <summary>Load Port A 的 Instance </summary>
+        /// <summary>Load Port A 的 Instance, </summary>
         private static MacMsLoadPort _loadPortStateMachineA = null;
         /// <summary>Load Port B 的 Instance </summary>
         private static MacMsLoadPort _loadPortStateMachineB = null;

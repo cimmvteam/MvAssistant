@@ -6,28 +6,26 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
 {
-   public  enum MaskrobotTransferLocation
+    public enum MaskrobotTransferLocation
     {
-        Dontcare=0,
+        Dontcare = 0,
         LoadPortHome,
+        LPHome,
         InspChHome,
         CleanChHome,
         LP1,
         LP2,
-        LPHome,
         OS,
-        ICHomeBackSide,
+        OSStage,
         IC,
         ICFrontSide,
         ICHome,
-        ICHomeFrontSide,
         ICBackSide,
-        CCHomeFrontSide,
+        ICStage,
         Clean,
         Camera,
         Capture,
         CC,
-        CCHomeBackSide,
         CCFrontSide,
         CCHome,
         CCBackSide,
@@ -36,7 +34,8 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         FrontSideCaptureFinish,
         BackSideCleanFinish,
         BackSideCapture,
-        
+        BarcodeReader,
+        InspDeform,
     }
     public static class MaskrobotTransferLocationExtends
     {
@@ -48,7 +47,7 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         public static string ToText(this MaskrobotTransferLocation inst)
         {
             var rtnV = inst.ToDefaultText();
-            if (inst!= MaskrobotTransferLocation.Dontcare)
+            if (inst != MaskrobotTransferLocation.Dontcare)
             {
                 rtnV = inst.ToString();
             }

@@ -180,8 +180,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         /// <para>2020/09/22, King Add</para>
         /// <para>合併 State</para>
         /// </remarks>
-        /// <param name="tragetLocation"></param>
-        public void MoveToCabinetGet( BoxrobotTransferLocation tragetLocation)
+        /// <param name="drawerLocation"></param>
+        public void MoveToCabinetGet( BoxrobotTransferLocation drawerLocation)
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -199,7 +199,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
                 },
-                NextStateEntryEventArgs = new MacStateMovingToDrawerEntryEventArgs(tragetLocation),
+                NextStateEntryEventArgs = new MacStateMovingToDrawerEntryEventArgs(drawerLocation),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);
@@ -214,7 +214,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         /// <para>合併State 測試</para>
         /// </remarks>
         /// <param name="CabinetNumber">0101~0705</param>
-        public void MoveToCabinetPut(BoxrobotTransferLocation startingLocation)
+        public void MoveToCabinetPut(BoxrobotTransferLocation drawerLocation)
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
@@ -233,7 +233,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
                 },
-                NextStateEntryEventArgs = new MacStateMovingToDrawerForReleaseEntryEventArgs(startingLocation),
+                NextStateEntryEventArgs = new MacStateMovingToDrawerForReleaseEntryEventArgs(drawerLocation),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);

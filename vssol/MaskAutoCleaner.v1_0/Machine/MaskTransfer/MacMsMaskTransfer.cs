@@ -15,6 +15,7 @@ using MaskAutoCleaner.v1_0.StateMachineExceptions.MaskTransferStateMachineExcept
 using MaskAutoCleaner.v1_0.StateMachineExceptions.OpenStageStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
@@ -136,6 +137,29 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition transition = null;
             TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                {   // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 從 LP Home 轉向到 IC Home(不夾Mask) </summary>
+        public void LPHomeToICHome()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeFromLPHome.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -912,6 +936,98 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+        /// <summary> 從 LP Home 移動到 BarcodeReader </summary>
+        public void LPHomeToBarcodeReader()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToBarcodeReaderClamped.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 從 BarcodeReader移動到 LP Home </summary>
+        public void BarcodeReaderToLPHome()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToLPHomeClampedFromBarcodeReader.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 從 IC Home 移動到變形檢測裝置 </summary>
+        public void ICHomeToInspDeform()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToInspectDeformFromICHome.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
+        /// <summary> 從變形檢測裝置移動到 IC Home </summary>
+        public void InspDeformToICHome()
+        {
+            MacTransition transition = null;
+            TriggerMember triggerMember = null;
+            transition = Transitions[EnumMacMsMaskTransferTransition.MoveToICHomeFromInspectDeform.ToString()];
+            triggerMember = new TriggerMember
+            {
+                Guard = () =>
+                {
+                    return true;
+                },
+                Action = null,
+                ActionParameter = null,
+                ExceptionHandler = (thisState, ex) =>
+                { // TODO: do something
+                },
+                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                ThisStateExitEventArgs = new MacStateExitEventArgs(),
+            };
+            transition.SetTriggerMembers(triggerMember);
+            Trigger(transition);
+        }
 
         public override void LoadStateMachine()
         {
@@ -1193,7 +1309,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Transition
 
             #region State Register OnEntry OnExit
-
+            MaskrobotTransferPathFile fileObj =new MaskrobotTransferPathFile(@"D:\Positions\MTRobot\");
             sStart.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1506,7 +1622,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1546,7 +1662,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1586,7 +1702,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1626,7 +1742,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1666,7 +1782,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.InspChHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1706,7 +1822,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.InspChHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1746,7 +1862,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
+                    HalMaskTransfer.ChangeDirection(fileObj.CleanChHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1788,7 +1904,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP1PathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1868,7 +1984,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLP1ToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1908,7 +2024,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP1PathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -1986,7 +2102,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLP1ToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(true);
                 }
                 catch (Exception ex)
@@ -2028,7 +2144,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP2PathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2107,7 +2223,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLP2ToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2147,7 +2263,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP2PathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2225,7 +2341,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLP2ToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2269,7 +2385,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     if (!HalInspectionCh.ReadRobotIntrude(true))
                         throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICHomeToICBackSidePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2308,6 +2424,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
                 try
                 {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(fileObj.FromICBackSideToICStagePathFile());
+                    HalMaskTransfer.RobotMoving(false);
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
@@ -2348,7 +2467,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICStageToICBackSidePathFile());
+                    HalMaskTransfer.ExePathMove(fileObj.FromICBackSideToICHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                     HalInspectionCh.ReadRobotIntrude(false);
                 }
@@ -2391,7 +2511,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     if (!HalInspectionCh.ReadRobotIntrude(true))
                         throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeBackSideToIC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICHomeToICBackSidePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2430,6 +2550,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
                 try
                 {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(fileObj.FromICBackSideToICStagePathFile());
+                    HalMaskTransfer.RobotMoving(false);
                     HalMaskTransfer.Unclamp();
                 }
                 catch (Exception ex)
@@ -2469,7 +2592,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICStageToICBackSidePathFile());
+                    HalMaskTransfer.ExePathMove(fileObj.FromICBackSideToICHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                     HalInspectionCh.ReadRobotIntrude(false);
                 }
@@ -2514,7 +2638,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     if (!HalInspectionCh.ReadRobotIntrude(true))
                         throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICHomeToICFrontSidePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2553,6 +2677,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
                 try
                 {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(fileObj.FromICFrontSideToICStagePathFile());
+                    HalMaskTransfer.RobotMoving(false);
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
@@ -2593,7 +2720,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICStageToICFrontSidePathFile());
+                    HalMaskTransfer.ExePathMove(fileObj.FromICFrontSideToICHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                     HalInspectionCh.ReadRobotIntrude(false);
                 }
@@ -2636,7 +2764,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     if (!HalInspectionCh.ReadRobotIntrude(true))
                         throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICHomeToICFrontSidePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2675,6 +2803,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
                 try
                 {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(fileObj.FromICFrontSideToICStagePathFile());
+                    HalMaskTransfer.RobotMoving(false);
                     HalMaskTransfer.Unclamp();
                 }
                 catch (Exception ex)
@@ -2714,7 +2845,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICStageToICFrontSidePathFile());
+                    HalMaskTransfer.ExePathMove(fileObj.FromICFrontSideToICHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                     HalInspectionCh.ReadRobotIntrude(false);
                 }
@@ -2757,7 +2889,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToCC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCHomeToCCFrontSidePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2835,7 +2967,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCleanPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2913,7 +3045,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromFrontSideCleanFinishToCCPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -2953,7 +3085,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCapturePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3031,7 +3163,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromFrontSideCaptureFinishToCCPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3071,7 +3203,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCCHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3113,7 +3245,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCHomeBackSideToCC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCHomeToCCBackSidePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3191,7 +3323,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCleanPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3269,7 +3401,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromBackSideCleanFinishToCCPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3309,7 +3441,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCapturePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3387,7 +3519,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromBackSideCaptureFinishToCCPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3427,7 +3559,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCCHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3470,7 +3602,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalOpenStage.ReadRobotIntrude(null, true);
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3509,6 +3641,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
                 try
                 {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                    HalMaskTransfer.RobotMoving(false);
                     var MaskType = (uint)e.Parameter;
                     HalMaskTransfer.Clamp(MaskType);
                 }
@@ -3549,7 +3684,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                    HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                     HalOpenStage.ReadRobotIntrude(null, false);
                 }
@@ -3591,7 +3727,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 {
                     HalOpenStage.ReadRobotIntrude(null, true);
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3630,6 +3766,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
                 try
                 {
+                    HalMaskTransfer.RobotMoving(true);
+                    HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                    HalMaskTransfer.RobotMoving(false);
                     HalMaskTransfer.Unclamp();
                 }
                 catch (Exception ex)
@@ -3669,7 +3808,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                    HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                     HalOpenStage.ReadRobotIntrude(null, false);
                 }
@@ -3714,7 +3854,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.RobotMoving(true);
                     if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\LoadPortHome.json"))
                         throw new MaskTransferPathMoveFailException("Robot position was not at Load Port Home,could not move to Barcode Reader !");
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToBarcodeReader.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToBarcodeReaderPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3792,7 +3932,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\BarcodeReaderToLPHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromBarcodeReaderToLPHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3836,7 +3976,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     HalMaskTransfer.RobotMoving(true);
                     if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\InspChHome.json"))
                         throw new MaskTransferPathMoveFailException("Robot position was not at Inspection Chamber Home,could not move to Inspect Deform !");
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\LPHomeToBarcodeReader.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromICHomeToInspDeformPathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
@@ -3914,7 +4054,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 try
                 {
                     HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(@"D:\Positions\MTRobot\InspDeformToICHome.json");
+                    HalMaskTransfer.ExePathMove(fileObj.FromInspDeformToICHomePathFile());
                     HalMaskTransfer.RobotMoving(false);
                 }
                 catch (Exception ex)
