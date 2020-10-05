@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 var MS = MachineCtrl.StateMachine;
                 MS.SystemBootup();
                 MS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
-                MS.LPHomeClampedToOSRelease();
+                MS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             }
             catch (Exception ex)
             {

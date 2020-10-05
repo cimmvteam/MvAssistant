@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 var MS = MachineCtrl.StateMachine;
                 MS.SystemBootup();
                 MS.InspectPellicle();
-                MS.ReleasePellicle();
+                MS.ReturnToIdleAfterReleasePellicle();
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 var MS = MachineCtrl.StateMachine;
                 MS.SystemBootup();
                 MS.InspectGlass();
-                MS.ReleaseGlass();
+                MS.ReturnToIdleAfterReleaseGlass();
             }
             catch (Exception ex)
             {

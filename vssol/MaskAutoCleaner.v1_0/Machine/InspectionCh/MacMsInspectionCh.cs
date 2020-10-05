@@ -66,7 +66,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             Trigger(transition);
         }
         /// <summary> Mask被取出後將狀態改為Idle ( 必須先由Mask Transfer取出Mask ) </summary>
-        public void ReleasePellicle()
+        public void ReturnToIdleAfterReleasePellicle()
         {
 
             MacTransition transition = null;
@@ -117,7 +117,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             Trigger(transition);
         }
         /// <summary> Mask被取出後將狀態改為Idle ( 必須先由Mask Transfer取出Mask ) </summary>
-        public void ReleaseGlass()
+        public void ReturnToIdleAfterReleaseGlass()
         {
 
             MacTransition transition = null;

@@ -775,8 +775,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        /// <summary> 從 LP Home 將未經過檢查的 Mask 放到 Open Stage </summary>
-        public void LPHomeClampedToOSRelease()
+        /// <summary> 從 LP Home 將未經過檢查的 Mask 放到 Open Stage，回到 LP Home </summary>
+        public void LPHomeClampedToOSReleaseMaskReturnToLPHome()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;

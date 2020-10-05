@@ -56,6 +56,7 @@
     <Compile Include="Flow\UtFlowOcap.cs" />
     <Compile Include="GenCfg\UtGenRecipe.cs" />
     <Compile Include="GenCfg\UtGenMachineMgrCfg.cs" />
+    <Compile Include="Machine\UtScenario.cs" />
     <Compile Include="Machine\UtStressTest.cs" />
     <Compile Include="Machine\UtMcBoxTransfer.cs" />
     <Compile Include="Machine\UtMcOpenStage.cs" />

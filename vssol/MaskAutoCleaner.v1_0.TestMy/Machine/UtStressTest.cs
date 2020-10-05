@@ -127,7 +127,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MTMS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
             MTMS.LPHomeClampedToICHomeClamped();
             Task.WaitAll(OS_Task);
-            MTMS.LPHomeClampedToOSRelease();
+            MTMS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             OSMS.CloseBoxWithMask();
             BTMS.MoveToLock();
             OSMS.ReleaseBoxWithMask();
