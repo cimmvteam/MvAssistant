@@ -30,7 +30,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         private MacMsTimeOutController TimeController = new MacMsTimeOutController();
 
 
-
+        /**
+       
         public static MacMsLoadPort LoadPortStateMachineA
         {
             get
@@ -74,7 +75,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 return _loadPortStateMachineB;
             }
         }
-        
+        */
 
 
 #if NoConfig
@@ -172,12 +173,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             // 系統啟動
             MacState sSystemBootup = NewState(EnumMacMsLoadPortState.SystemBootup);
-            MacState sSystemBootupAlarmResetStart = NewState(null);
-            MacState sSystemBootupAlarmResetIng = NewState(null);
-            MacState sSystemBootupAlarmResetComplete = NewState(null);
-            MacState sSystemBootupInitialStart = NewState(null);
-            MacState sSystemBootupInitialIng = NewState(null);
-            MacState sSystemBootupInitialComplete = NewState(null);
+            MacState sSystemBootupAlarmResetStart = NewState(EnumMacMsLoadPortState.SystemBootupAlarmResetStart);
+            MacState sSystemBootupAlarmResetIng = NewState(EnumMacMsLoadPortState.SystemBootupAlarmResetIng);
+            MacState sSystemBootupAlarmResetComplete = NewState(EnumMacMsLoadPortState.SystemBootupInitialComplete);
+            MacState sSystemBootupInitialStart = NewState(EnumMacMsLoadPortState.SystemBootupInitialStart);
+            MacState sSystemBootupInitialIng = NewState(EnumMacMsLoadPortState.SystemBootupInitialIng);
+            MacState sSystemBootupInitialComplete = NewState(EnumMacMsLoadPortState.SystemBootupInitialComplete);
 
 
             // AlarmReset 開始
@@ -213,7 +214,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             #region Transition
             // SystemBootUp
-
+            
             MacTransition tSystemBootup_SystemBootupAlarmResetStart =  NewTransition(sSystemBootup, sSystemBootupAlarmResetStart, EnumMacMsLoadPortTransition.SystemBootup_SystemBootupAlarmResetStart);
             MacTransition tSystemBootupAlarmResetStart_SystemBootupAlarmResetIng = NewTransition(sSystemBootupAlarmResetStart, sSystemBootupAlarmResetIng, EnumMacMsLoadPortTransition.SystemBootupAlarmResetStart_SystemBootupAlarmResetIng);
             MacTransition tSystemBootupAlarmResetIng_SystemBootupAlarmResetComplete = NewTransition(sSystemBootupAlarmResetIng, sSystemBootupAlarmResetComplete, EnumMacMsLoadPortTransition.SystemBootupAlarmResetIng_SystemBootupAlarmResetComplete);
