@@ -211,9 +211,16 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public MacState StateSystemBootup { get { return this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()]; } }
         public override void LoadStateMachine()
         {
-            if (HalCabinetUniversal.MacHalDrawer.PressButtonToLoad == null)
+            try   // TODO: Remove Try catch 
             {
-                HalCabinetUniversal.MacHalDrawer.PressButtonToLoad = this.Load_MoveTrayToHome;
+                if (HalCabinetUniversal.MacHalDrawer.PressButtonToLoad == null)
+                {
+                    HalCabinetUniversal.MacHalDrawer.PressButtonToLoad = this.Load_MoveTrayToHome;
+                }
+            }
+            catch
+            {  
+
             }
             
             #region  state
