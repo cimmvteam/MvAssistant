@@ -17,9 +17,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
     {
         // private MacState _currentState = null;
         BoxrobotTransferPathFile pathObj = new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
-        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()] as IMacHalUniversal; } }
+        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()].halAssembly as IMacHalUniversal; } }
         public IMacHalBoxTransfer HalBoxTransfer { get { return this.halAssembly as IMacHalBoxTransfer; } }
-        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as IMacHalOpenStage; } }
+        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()].halAssembly as IMacHalOpenStage; } }
         public BoxrobotTransferLocation DrawerLocation { get; private set; }
         public void ResetState()
         { this.States[EnumMacMsBoxTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
