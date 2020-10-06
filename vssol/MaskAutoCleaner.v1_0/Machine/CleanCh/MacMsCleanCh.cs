@@ -13,7 +13,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
     public class MacMsCleanCh : MacMachineStateBase
     {
         private IMacHalCleanCh HalCleanCh { get { return this.halAssembly as IMacHalCleanCh; } }
-        private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
+        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()] as IMacHalUniversal; } }
 
         private MacState _currentState = null;
 

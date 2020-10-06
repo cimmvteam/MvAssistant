@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.Machine
     {
         public MacHalAssemblyBase halAssembly { get { return this.msAssembly.halAssembly; } set { this.msAssembly.halAssembly = value; } }
         public MacMachineStateBase msAssembly;
-        public MacMachineMediater Mediater;
+        public MacMachineMediater Mediater { get { return this.msAssembly.Mediater; } set { this.msAssembly.Mediater = value; } }
 
         ~MacMachineCtrlBase() { this.Dispose(false); }
 

@@ -34,9 +34,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     public class MacMsMaskTransfer : MacMachineStateBase
     {
         public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
-        private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
-        private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
-        private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
+        private IMacHalInspectionCh HalInspectionCh { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_IC_A_ASB.ToString()] as IMacHalInspectionCh; } }
+        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as IMacHalOpenStage; } }
+        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()] as IMacHalUniversal; } }
 
         private MacState _currentState = null;
 

@@ -23,6 +23,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         //不需實作IDisposable, 因為沒有
         
         public MacHalAssemblyBase halAssembly;
+        public MacMachineMediater Mediater;
 
         public virtual void Load()
         {

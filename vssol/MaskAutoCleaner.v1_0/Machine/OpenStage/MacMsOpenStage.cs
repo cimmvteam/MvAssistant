@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public EnumMacMsOpenStageState CurrentWorkState { get; set; }
 
         private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
-        private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
+        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()] as IMacHalUniversal; } }
 
         private MacState _currentState = null;
 
