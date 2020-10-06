@@ -727,7 +727,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             Array TargetPos = Target;
 
             this.SetRegIntValue(3, _SelectCorJ);//Write R[3]. 0:Mov position, 1:Rotate J1~6
-            this.SetRegIntValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with reated pos, 1:Mov with absolute Pos
+            this.SetRegIntValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with related pos, 1:Mov with absolute Pos
             this.SetRegIntValue(8, _IsMoveUT);//Write R[8].0:Offset with UF, 1:Offset with UT
             this.SetRegIntValue(9, Speed);//Write R[9]. R[9] mm/sec
             this.SetRegIntValue(5, 0);//Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
@@ -761,7 +761,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
                 if (robotInfo.ValidJ != 0)  //Valid Cartesian values
                 {
                     for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.JointArray.Length; idx++)
-                        robotInfo.PosReg.JointArray.SetValue(TargetPos.GetValue(idx), idx);  //X_position
+                        robotInfo.PosReg.JointArray.SetValue(TargetPos.GetValue(idx), idx);  //J_position
                 }
                 else
                 {
