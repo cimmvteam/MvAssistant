@@ -17,6 +17,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 #region Ready To Abandon
         MvGudengLoadPortLdd LoadPort1 = null;
         MvGudengLoadPortLdd LoadPort2 = null;
+        // 
         MvGudengLoadPortCollection ldd = new MvGudengLoadPortCollection();
       public UtHalLoadPort()
       {
