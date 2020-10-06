@@ -15,6 +15,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
 
     public class PositionReadParameter : IHostToEquipmentCommandParameter
     {
-        public string ToParameterText() => string.Empty;
+        
+        // vs 2013
+        // public string ToParameterText() => string.Empty;
+        public string ToParameterText() { return string.Empty; }
     }
 }

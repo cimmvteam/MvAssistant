@@ -6,7 +6,8 @@ using MvAssistant.DeviceDrive.KjMachineDrawer;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Manifest;
-using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
+// vs 2013
+//using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
 using System.Net;
 using System.Threading;
 using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;

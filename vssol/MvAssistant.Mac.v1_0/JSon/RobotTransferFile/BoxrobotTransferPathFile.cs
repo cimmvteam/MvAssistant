@@ -72,24 +72,39 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         /// <returns></returns>
         public string UnlockCrystalBoxPathFile()
         {
+            /** // vs 2013
             var fileName = $"UnlockCrystalBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
+            */
+             var fileName = "UnlockCrystalBox" + this.ExetendedFileName;
+            var fullFileName = this.FilePath +fileName ;
             return fullFileName;
         }
         /// <summary>LockCrystalBox(鐵盒) 的點位檔案</summary>
         /// <returns></returns>
         public string LockIronBoxPathFile()
         {
+           
+            /** // vs 2013
             var fileName = $"LockIronBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
-            return fullFileName;
+            */
+            var fileName = "LockIronBox" + this.ExetendedFileName;
+            var fullFileName =this.FilePath + fileName;
+
+             return fullFileName;
         }
         /// <summary>UnlockCrystalBox(鐵盒)的點位檔案</summary>
         /// <returns></returns>
         public string UnlockIronBoxPathFile()
         {
+            
+            /**   // vs 2013
             var fileName = $"UnlockIronBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
+            */
+            var fileName = "UnlockIronBox" + this.ExetendedFileName;
+            var fullFileName = this.FilePath + fileName ;  
             return fullFileName;
         }
 

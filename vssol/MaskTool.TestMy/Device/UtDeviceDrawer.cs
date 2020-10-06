@@ -259,7 +259,9 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
-            NoteEvent(drawer, nameof(OnReplySetSpeed), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+           // vs 2013
+            //NoteEvent(drawer, nameof(OnReplySetSpeed), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+            NoteEvent(drawer, "OnReplySetSpeed", eventArgs.ReplyResultCode.ToString()+ "(" + (int)eventArgs.ReplyResultCode  +")");
         }
         /// <summary>Event ReplySetTimeOut(101)</summary>
         /// <param name="sender"></param>
@@ -276,7 +278,9 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
-            NoteEvent(drawer, nameof(OnReplySetTimeOut), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+             // vs 2013
+            //NoteEvent(drawer, nameof(OnReplySetTimeOut), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+            NoteEvent(drawer, "OnReplySetTimeOut", eventArgs.ReplyResultCode.ToString()+ "("  + (int)eventArgs.ReplyResultCode + ")");
         }
 
         /// <summary>Event ReplySetBrightLED(112)</summary> 
@@ -294,7 +298,9 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
-            NoteEvent(drawer, nameof(OnReplyBrightLED), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnReplyBrightLED), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })");
+            NoteEvent(drawer, "OnReplyBrightLED", eventArgs.ReplyResultCode.ToString() + "(" + (int)eventArgs.ReplyResultCode + ")");
         }
 
         /// <summary>Event ReplyPosition(113)</summary>
@@ -305,7 +311,9 @@ namespace MvAssistant.Mac.TestMy.Device
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyPositionEventArgs)args;
             var IHO = eventArgs.IHOStatus;
-            NoteEvent(drawer, nameof(OnReplyPosition), $"I={eventArgs.I}, H={eventArgs.H}, O={eventArgs.O},  IHO={IHO}");
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnReplyPosition), $"I={eventArgs.I}, H={eventArgs.H}, O={eventArgs.O},  IHO={IHO}");
+            NoteEvent(drawer, "OnReplyPosition", "I=" + eventArgs.I + ", H=" + eventArgs.H + ", O=" + eventArgs.O + ",  IHO=" +  IHO);
 
         }
 
@@ -317,7 +325,9 @@ namespace MvAssistant.Mac.TestMy.Device
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBoxDetectionEventArgs)args;
             var hasBox = eventArgs.HasBox;
-            NoteEvent(drawer, nameof(OnReplyBoxDetection), $"HasBox={hasBox}");
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnReplyBoxDetection), $"HasBox={hasBox}");
+            NoteEvent(drawer, "OnReplyBoxDetection", "HasBox="  + hasBox);
         }
 
         /// <summary>Event TrayArrive(115)</summary>
@@ -339,7 +349,9 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
-            NoteEvent(drawer, nameof(OnTrayArrive), $"{eventArgs.TrayArriveType.ToString()}({(int)eventArgs.TrayArriveType})");
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnTrayArrive), $"{eventArgs.TrayArriveType.ToString()}({(int)eventArgs.TrayArriveType})");
+            NoteEvent(drawer, "OnTrayArrive", eventArgs.TrayArriveType.ToString() + "(" + (int)eventArgs.TrayArriveType  + ")");
         }
 
         /// <summary>Event ButtonEvent(120)</summary>
@@ -348,7 +360,9 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnButtonEvent(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            NoteEvent(drawer, nameof(OnButtonEvent));
+             // vs 2013
+            // NoteEvent(drawer, nameof(OnButtonEvent));
+            NoteEvent(drawer, "OnButtonEvent");
         }
         //"~141,LCDCMsg,1@
         public void OnLCDCMsg(object sender,EventArgs args)
@@ -358,7 +372,9 @@ namespace MvAssistant.Mac.TestMy.Device
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             { }
             else { }
-            NoteEvent(drawer, nameof(OnLCDCMsg), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode})");
+             // vs 2013
+            // NoteEvent(drawer, nameof(OnLCDCMsg), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode})");
+            NoteEvent(drawer, "OnLCDCMsg", eventArgs.ReplyResultCode.ToString() + "(" + (int)eventArgs.ReplyResultCode+ ")");
         }
         /// <summary>Event TimeOutEvent(900)</summary>
         /// <param name="sender"></param>
@@ -366,7 +382,9 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTimeOutEvent(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            NoteEvent(drawer, nameof(OnTimeOutEvent));
+             // vs 2013
+            // NoteEvent(drawer, nameof(OnTimeOutEvent));
+            NoteEvent(drawer, "OnTimeOutEvent");
         }
 
         /// <summary>Event TrayMotioning(901)</summary>
@@ -375,8 +393,9 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTrayMotioning(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            
-            NoteEvent(drawer, nameof(OnTrayMotioning));
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnTrayMotioning));
+            NoteEvent(drawer, "OnTrayMotioning");
         }
 
         /// <summary>Event INIFailed(902)</summary>
@@ -385,7 +404,10 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnINIFailed(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            NoteEvent(drawer, nameof(OnINIFailed));
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnINIFailed));
+            NoteEvent(drawer, "OnINIFailed");
+
         }
 
         /// <summary>Event TrayMotionError(903)</summary>
@@ -394,7 +416,9 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTryMotionError(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            NoteEvent(drawer, nameof(OnTryMotionError));
+            // vs 2013
+            //NoteEvent(drawer, nameof(OnTryMotionError));
+            NoteEvent(drawer, "OnTryMotionError");
 
         }
 
@@ -404,7 +428,9 @@ namespace MvAssistant.Mac.TestMy.Device
         private void OnTrayMotionSensorOFF(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
+            NoteEvent(drawer, ("OnTrayMotionSensorOFF"));
         }
 
 
@@ -423,7 +449,9 @@ namespace MvAssistant.Mac.TestMy.Device
             {
 
             }
-            NoteEvent(drawer, nameof(OnError),$"{eventArgs.ReplyErrorCode.ToString()}({(int)eventArgs.ReplyErrorCode})");
+            // vs 2013
+            //NoteEvent(drawer, nameof(OnError),$"{eventArgs.ReplyErrorCode.ToString()}({(int)eventArgs.ReplyErrorCode})");
+            NoteEvent(drawer, "OnError",eventArgs.ReplyErrorCode.ToString()+ ((int)eventArgs.ReplyErrorCode));
         }
         /// <summary>Even SystemStartUp</summary>
         /// <param name="sender"></param>
@@ -431,7 +459,9 @@ namespace MvAssistant.Mac.TestMy.Device
         public void OnSysStartUp(object sender, EventArgs args)
         {
             MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
-            NoteEvent(drawer, nameof(OnSysStartUp));
+            // vs 2013
+            //NoteEvent(drawer, nameof(OnSysStartUp));
+            NoteEvent(drawer, "OnSysStartUp");
         }
 
         #endregion
