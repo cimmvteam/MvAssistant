@@ -17,7 +17,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     public class BrightLEDParameter : IHostToEquipmentCommandParameter
     {
         public BrightLEDType BrightLEDType { get; set; }
-        public string ToParameterText() => BaseHostToEquipmentCommand.CommandSplitSign+((int)BrightLEDType).ToString();
+        // vs 2013
+        //public string ToParameterText() => BaseHostToEquipmentCommand.CommandSplitSign+((int)BrightLEDType).ToString();
+        public string ToParameterText() 
+        {
+          return    BaseHostToEquipmentCommand.CommandSplitSign + ((int)BrightLEDType).ToString(); 
+        }
     }
    
     public enum BrightLEDType

@@ -814,7 +814,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
             else
             {// result 為IOH
-                DebugLog(ldd, $"IOH={result}");
+                // vs 2013
+                //DebugLog(ldd, $"IOH={result}");
+                DebugLog(ldd, "IOH=" + result);
             }
         }
 

@@ -35,16 +35,24 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         {
             string fullFileName,fileName;
             const string connetSign= FileNameConnectSign;
+            /** // vs 2013
             fileName = $"{startPoint.ToText()}{connetSign}{direction.ToText()}{connetSign}{destination.ToText()}{connetSign}{actionType}{this.ExetendedFileName}";
             fullFileName = $"{this.FilePath}{fileName}";
-            return fullFileName;
+                         */
+            fileName = startPoint.ToText() +connetSign+direction.ToText()+connetSign+destination.ToText()+connetSign + actionType + this.ExetendedFileName;
+            fullFileName = this.FilePath + fileName;
+             return fullFileName;
         }
         private string CabinetHomePathFile(BoxrobotTransferLocation cabinetHome)
         {
             string fullFileName, fileName;
             //const string connetSign = FileNameConnectSign;
+            /** // vs 2013
             fileName = $"{cabinetHome.ToText()}{this.ExetendedFileName}";
             fullFileName = $"{this.FilePath}{fileName}";
+            */
+            fileName = cabinetHome.ToText()+ this.ExetendedFileName;
+            fullFileName = this.FilePath+ fileName;
             return fullFileName;
         }
 
@@ -52,8 +60,12 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         /// <returns></returns>
         public string LockCrystalBoxPathFile()
         {
+            /** // vs 2013
             var fileName = $"LockCrystalBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
+             */ 
+            var fileName = "LockCrystalBox" + this.ExetendedFileName;
+            var fullFileName =this.FilePath + fileName;
             return fullFileName;
         }
         /// <summary>UnlockCrystalBox(水晶盒)的點位檔案</summary>

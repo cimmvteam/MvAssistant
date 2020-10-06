@@ -17,7 +17,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     public class TrayMotionParameter : IHostToEquipmentCommandParameter
     {
         public TrayMotionType TrayMotionType { get; set; }
-        public string ToParameterText() => BaseHostToEquipmentCommand.CommandSplitSign + ((int)TrayMotionType).ToString();
+         // vs 2013
+        //public string ToParameterText() => BaseHostToEquipmentCommand.CommandSplitSign + ((int)TrayMotionType).ToString();
+        public string ToParameterText() { return BaseHostToEquipmentCommand.CommandSplitSign + ((int)TrayMotionType).ToString(); }
     }
     
 

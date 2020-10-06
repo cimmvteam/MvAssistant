@@ -12,7 +12,8 @@ using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
 using System.Net;
 using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
-using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
+// vs 2013
+//using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 

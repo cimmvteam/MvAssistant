@@ -5,7 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.KjMachineDrawer;
 using System.Net;
 using System.Threading;
-using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
+// vs 2013
+//using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Manifest;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -239,7 +240,9 @@ namespace MvAssistant.Mac.TestMy.Device
             { // 失敗
                
             }
-            NoteEvent(drawer, nameof(OnReplyTrayMotion), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })" );
+            // vs 2013
+            // NoteEvent(drawer, nameof(OnReplyTrayMotion), $"{eventArgs.ReplyResultCode.ToString()}({(int)eventArgs.ReplyResultCode })" );
+            NoteEvent(drawer, "OnReplyTrayMotion", eventArgs.ReplyResultCode.ToString() + ((int)eventArgs.ReplyResultCode ) );
         }
         /// <summary>Event ReplySetSpeed(100)</summary>
         /// <param name="sender"></param>
@@ -444,11 +447,15 @@ namespace MvAssistant.Mac.TestMy.Device
             eventName = eventName.Replace("On","");
             if (result == "")
             {
-                Debug.WriteLine($"IP={endIP}, Event={eventName}");
+                // vs 2013
+                //Debug.WriteLine($"IP={endIP}, Event={eventName}");
+                Debug.WriteLine("IP=" + endIP + ", Event=" + eventName); 
             }
             else
             {
-                Debug.WriteLine($"IP={endIP}, Event={eventName}, Result={result}");
+                // vs 2013
+                //Debug.WriteLine($"IP={endIP}, Event={eventName}, Result={result}");
+                Debug.WriteLine("IP=" + endIP +", Event=" + eventName +", Result=" + result);
             }
         }
         #endregion

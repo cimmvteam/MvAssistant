@@ -15,6 +15,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     }
     public class INIParameter : IHostToEquipmentCommandParameter
     {
-        public  string ToParameterText() => "";
+        // vs 2013
+        //public  string ToParameterText() => "";
+        public  string ToParameterText() { return "";}
     }
 }

@@ -16,8 +16,12 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     public class SetMotionSpeedParameter : IHostToEquipmentCommandParameter
     {
         public int Speed { get; set; }
-        public  string ToParameterText() => BaseCommand.CommandSplitSign + Speed;
-        
+         // vs 2013
+        //public  string ToParameterText() => BaseCommand.CommandSplitSign + Speed;
+        public string ToParameterText()
+        {
+         return    BaseCommand.CommandSplitSign + Speed;
+        }        
             
         
     }
