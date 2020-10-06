@@ -9,7 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static MaskAutoCleaner.v1_0.Machine.MaskTransfer.MacMsMaskTransfer;
+// vs 2013
+//using static MaskAutoCleaner.v1_0.Machine.MaskTransfer.MacMsMaskTransfer;
 
 namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 {
@@ -42,7 +43,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
         public MacMsBoxTransfer() { LoadStateMachine(); }
 
-        MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
+        
+        //  MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
         public void SystemBootup()
         {

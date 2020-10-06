@@ -690,7 +690,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public void TrayArriveResult(object sender, int result)
         {
             var arriveType = (TrayArriveType)result;
-            if (this.Tag.ToString() == nameof(CommandINI))
+
+            // vs 2013
+            // if (this.Tag.ToString() == nameof(CommandINI))
+            if (this.Tag.ToString() == "CommandINI")
             {   // 如果當時是發 initial 指令, 視為 初始化成功
                 if (arriveType == TrayArriveType.ArriveHome)
                 {
@@ -765,16 +768,22 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             var command = this.Tag.ToString();
             if (result)
             {    // 成功
-               
-                if(command == nameof(CommandBrightLEDAllOff))
+
+                // vs 2013
+                // if(command == nameof(CommandBrightLEDAllOff))
+                if(command == "CommandBrightLEDAllOff")
                 { // 關掉所有的 led 
                     DebugLog(ldd, "所有 LED off OK");
                 }
-                else if (command ==nameof(CommandBrightLEDAllOn))
+                // vs 2013
+                //else if (command ==nameof(CommandBrightLEDAllOn))
+                else if (command =="CommandBrightLEDAllOn")
                 {// 打亮所有的led
                     DebugLog(ldd, "所有 LED On OK");
                 }
-                else if (command == nameof(CommandBrightLEDGreenOn))
+                // vs 2013
+                // else if (command == nameof(CommandBrightLEDGreenOn))
+                else if (command =="CommandBrightLEDGreenOn")
                 {  // 打亮綠色LED
                     DebugLog(ldd, "綠色 LED On OK");
                 }
@@ -785,15 +794,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
             else // 失敗
             {
-                if (command == nameof(CommandBrightLEDAllOff))
+                // vs 2013
+                //if (command == nameof(CommandBrightLEDAllOff))
+                if (command == "CommandBrightLEDAllOff")
                 { // 關掉所有的 led 
                     DebugLog(ldd, "所有 LED off Fail");
                 }
-                else if (command == nameof(CommandBrightLEDAllOn))
+                // vs 2013
+                // else if (command == nameof(CommandBrightLEDAllOn))
+                else if (command == "CommandBrightLEDAllOn")
                 {// 打亮所有的led
                     DebugLog(ldd, "所有 LED On Fail");
                 }
-                else if (command == nameof(CommandBrightLEDGreenOn))
+                // vs 2013
+                // else if (command == nameof(CommandBrightLEDGreenOn))
+                else if (command == "CommandBrightLEDGreenOn")
                 {  // 打亮綠色LED
                     DebugLog(ldd, "綠色 LED On Fail");
                 }
@@ -814,7 +829,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             }
             else
             {// result 為IOH
-                DebugLog(ldd, $"IOH={result}");
+                // vs 2013
+                //DebugLog(ldd, $"IOH={result}");
+                DebugLog(ldd, "IOH=" + result);
             }
         }
 
@@ -856,7 +873,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 #endregion
         void DebugLog(MvKjMachineDrawerLdd ldd, string text)
         {
-            string str = $"Ldd={ldd.DeviceIP}, Text={text}";
+            // vs 2013
+            // string str = $"Ldd={ldd.DeviceIP}, Text={text}";
+            string str = "Ldd=" + ldd.DeviceIP + ", Text=" + text;
             Debug.WriteLine("\r\n"+ str);
         }
 

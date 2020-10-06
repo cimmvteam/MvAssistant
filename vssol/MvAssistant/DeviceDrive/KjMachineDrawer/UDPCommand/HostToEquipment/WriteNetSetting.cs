@@ -16,6 +16,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
 
     public class WriteNetSettingParameter : IHostToEquipmentCommandParameter
     {
-        public string ToParameterText() => string.Empty;
+        // vs 2013
+        //public string ToParameterText() => string.Empty;
+        public string ToParameterText() { return string.Empty; }
     }
 }

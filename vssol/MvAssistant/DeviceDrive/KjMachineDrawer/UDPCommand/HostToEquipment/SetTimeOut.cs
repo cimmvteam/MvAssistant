@@ -17,7 +17,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
     public class SetTimeOutParameter : IHostToEquipmentCommandParameter
     {
         public int Seconds { get; set; }
-        public  string ToParameterText() =>BaseCommand.CommandSplitSign + Seconds;
+       // vs 2013
+        //public  string ToParameterText() =>BaseCommand.CommandSplitSign + Seconds;
+        public string ToParameterText() { return BaseCommand.CommandSplitSign + Seconds; }
         
     }
 }

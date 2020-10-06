@@ -15,11 +15,19 @@ namespace RosTest
         private double rcvDoubleMsg;
         private double[] rcvDoubleMsgArray;
         bool msgBindingFlag = false;
-
+        
+        /** //vs 2013
         public string RcvStrMsg { get => rcvStrMsg; }
         public string[] RcvStrMsgArray { get => rcvStrMsgArray; }
         public double RcvDoubleMsg { get => rcvDoubleMsg; }
         public double[] RcvDoubleMsgArray { get => rcvDoubleMsgArray; }
+        */
+
+        public string RcvStrMsg { get { return rcvStrMsg;} }
+        public string[] RcvStrMsgArray { get { return rcvStrMsgArray; } }
+        public double RcvDoubleMsg { get { return rcvDoubleMsg; } }
+        public double[] RcvDoubleMsgArray { get { return  rcvDoubleMsgArray; } }
+
 
         public Subscriber(EventAggregator eve)
         {

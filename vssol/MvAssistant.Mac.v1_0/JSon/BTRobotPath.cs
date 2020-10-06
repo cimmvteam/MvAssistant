@@ -17,7 +17,11 @@ namespace MvAssistant.Mac.v1_0.JSon
         private readonly static object lockObject = new object();
         private static RobotPathFileConfigSet Instance = null;
         private List<RobotPathConfig> _robotConfigSet = null;
-        public List<RobotPathConfig> RobotConfigSet => _robotConfigSet;
+
+         // vs 2013
+        // public List<RobotPathConfig> RobotConfigSet => _robotConfigSet;
+        public List<RobotPathConfig> RobotConfigSet { get { return _robotConfigSet;  } }
+
         public static RobotPathFileConfigSet GetInstance()
         {
             if (Instance == null)

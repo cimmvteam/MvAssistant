@@ -15,14 +15,17 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
         public const string FileConnectionString = "To";
         private string HomeFile(MaskrobotTransferLocation home)
         {
-
-            string fileName = $"{this.FilePath}{home.ToText()}{this.ExetendedFileName}";
+             // vs 2013
+            //string fileName = $"{this.FilePath}{home.ToText()}{this.ExetendedFileName}";
+            string fileName =this.FilePath + home.ToText() + this.ExetendedFileName;
             return fileName;
         }
 
         private string FromStartPointToDestinationPathFile(MaskrobotTransferLocation startPoint, MaskrobotTransferLocation destination)
         {
-            string fileName = $"{this.FilePath}{startPoint.ToText()}{MaskrobotTransferPathFile.FileConnectionString}{destination.ToText()}{this.ExetendedFileName}";
+            // vs 2013
+            // string fileName = $"{this.FilePath}{startPoint.ToText()}{MaskrobotTransferPathFile.FileConnectionString}{destination.ToText()}{this.ExetendedFileName}";
+            string fileName = this.FilePath + startPoint.ToText()+ MaskrobotTransferPathFile.FileConnectionString + destination.ToText()+ this.ExetendedFileName ;
             return fileName;
         }
 
