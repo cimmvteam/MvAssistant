@@ -86,19 +86,25 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         }
 
-        [TestMethod()]
-        [DataRow(EnumMachineID.MID_DRAWER_01_01, EnumMachineID.MID_DRAWER_01_02)]
-        public void CreateInstance(EnumMachineID machineID1, EnumMachineID machineID2)
+        [TestMethod]
+        //[DataRow(EnumMachineID.MID_DRAWER_01_01, EnumMachineID.MID_DRAWER_01_02)]
+        public void CreateInstance(/*EnumMachineID machineID1, EnumMachineID machineID2*/)
         {
+            // DataRow
+            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01, machineID2 = EnumMachineID.MID_DRAWER_01_02;
+
             var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
-            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
+           var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
         }
 
-        [TestMethod()]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void SystemBootup(EnumMachineID machineID)
+        [TestMethod]
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void SystemBootup(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.SystemBootup();
         }
@@ -107,65 +113,88 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void SystemBootupInitial(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void SystemBootupInitial(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.SystemBootupInitial();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void Load_MoveTrayToOut(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Load_MoveTrayToOut(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.Load_MoveTrayToOut();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void Load_MoveTrayToHome(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Load_MoveTrayToHome(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.Load_MoveTrayToHome();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void Load_MoveTrayToIn(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Load_MoveTrayToIn(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.Load_MoveTrayToIn();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void MoveTrayToHomeWaitingUnloadInstruction(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void MoveTrayToHomeWaitingUnloadInstruction(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.MoveTrayToHomeWaitingUnloadInstruction();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void Unload_MoveTrayToIn(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Unload_MoveTrayToIn(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.Unload_MoveTrayToIn();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void Unload_MoveTrayToHome(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Unload_MoveTrayToHome(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.Unload_MoveTrayToHome();
         }
 
         [TestMethod]
-        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void MoveTrayToHomeWaitingLoadInstruction(EnumMachineID machineID)
+        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void MoveTrayToHomeWaitingLoadInstruction(/*EnumMachineID machineID*/)
         {
+            // DataRow
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             machine.MoveTrayToHomeWaitingLoadInstruction();
         }
