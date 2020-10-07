@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     public class MacMsCabinet : MacMachineStateBase
     {
 
-        /**
+        /*
         private static List<MacMcCabinetDrawer> MachineControls = null;
         public static Dictionary<EnumMachineID, MacMsCabinetDrawer> _dicStateMachines = null;
         public readonly static object _getStateMachineLockObj = new object();

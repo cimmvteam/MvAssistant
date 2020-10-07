@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public UtMcCabinet()
         {
             _machine = new MacMsCabinet();
-            _machine.LoadStateMachine();
+           // _machine.LoadStateMachine();
 
 
             var DrawerMachineIdRange = EnumMachineID.MID_DRAWER_01_01.GetDrawerStateMachineIDRange();

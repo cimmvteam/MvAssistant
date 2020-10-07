@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     {
         // MacMsCabinetDrawer _machine { get; set; }
 
-        /**
+        /*
  List<MacMcCabinetDrawer> MachineControls = null;
  public Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> DicMachineStates = null;
 
