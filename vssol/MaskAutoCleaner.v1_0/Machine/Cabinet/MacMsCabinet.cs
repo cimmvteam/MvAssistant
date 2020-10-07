@@ -17,25 +17,29 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     {
 
         private static List<MacMcCabinetDrawer> MachineControls = null;
-        public static Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> _dicStateMachines = null;
+        public static Dictionary<EnumMachineID, MacMsCabinetDrawer> _dicStateMachines = null;
         public readonly static object _getStateMachineLockObj = new object();
-        public static Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> DicStateMachines
+        public static Dictionary<EnumMachineID, MacMsCabinetDrawer> DicStateMachines
         {
             get
             {
-                if(_dicStateMachines==null)
+
+                if (_dicStateMachines==null)
                 {
                     lock (_getStateMachineLockObj)
                     {
                         if (_dicStateMachines == null)
                         {
+
+                            var DrawerMachineIdRange = EnumMachineID.MID_DRAWER_01_01.GetDrawerStateMachineIDRange();
+                            
                             var MachineMgr = new MacMachineMgr();
                             MachineMgr.MvCfInit();
                             MachineControls = new List<MacMcCabinetDrawer>();
-                            _dicStateMachines = new Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer>();
-                            for (var i = (int)EnumDrawerStateMachineID.MID_DRAWER_01_01; i <= (int)EnumDrawerStateMachineID.MID_DRAWER_01_04; i++)
+                            _dicStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
+                            for (var i = (int)DrawerMachineIdRange.StartID; i <= (int)DrawerMachineIdRange.EndID; i++)
                             {
-                                var machineId = ((EnumDrawerStateMachineID)i);
+                                var machineId = ((EnumMachineID)i);
                                 try
                                 {
                                     var control = MachineMgr.CtrlMachines[machineId.ToString()] as MacMcCabinetDrawer;
@@ -59,7 +63,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <summary>取得指定的 State Machine</summary>
         /// <param name="machineId"></param>
         /// <returns></returns>
-        public static MacMsCabinetDrawer GetMacMsCabinetDrawer(EnumDrawerStateMachineID machineId)
+        public static MacMsCabinetDrawer GetMacMsCabinetDrawer(EnumMachineID machineId)
         {
             if (DicStateMachines == null) { return null; }
             var rtn = DicStateMachines[machineId];

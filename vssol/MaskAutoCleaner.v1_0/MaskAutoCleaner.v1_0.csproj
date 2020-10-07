@@ -91,6 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumMachineIDExtends.cs" />
     <Compile Include="Recipe\EnumMacRecipeType.cs" />
     <Compile Include="Machine\BoxTransfer\MacMcBoxTransfer.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerClampingEntryEventArgs.cs" />
@@ -99,7 +100,6 @@
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToCB1HomeFromDrawerEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToDrawerEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToDrawerForReleaseEntryEventArgs.cs" />
-    <Compile Include="Machine\CabinetDrawer\EnumDrawerStateMachineID.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMsBoxTransferState.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMsBoxTransferTransition.cs" />
     <Compile Include="Machine\BoxTransfer\MacMsBoxTransfer.cs" />
