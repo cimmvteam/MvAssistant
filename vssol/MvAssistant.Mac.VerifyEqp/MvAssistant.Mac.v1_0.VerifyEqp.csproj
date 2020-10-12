@@ -231,6 +231,9 @@
     <None Include="RobotInterface\Robot Interface.7z.001" />
     <None Include="RobotInterface\Robot Interface.7z.002" />
     <None Include="RobotInterface\Robot Interface.7z.003" />
+    <None Include="RobotInterface\Robot Interface.7z.004" />
+    <None Include="RobotInterface\Robot Interface.7z.005" />
+    <None Include="RobotInterface\Robot Interface.7z.006" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
