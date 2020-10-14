@@ -38,8 +38,14 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
         }
 
+
+        /// <summary>
+        /// 測試系統啟動 
+        /// </summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
-        
         public void TestSystemBootup()
         {
             StateMachineA.SystemBootup();
@@ -47,16 +53,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
+        /// <summary>測試一下,  是否可產生Load Port State Machine Instance</summary>
         [TestMethod]
-        public void TestLoadportInstance()
+        public void TestLoadportStateMachineInstance()
         {
            Repeat();
         }
 
+
+        /// <summary>測試 AlarmReset</summary>
         [TestMethod]
         public void Reset()
         {
-           
             StateMachineA.AlarmReset();
             Repeat();
         }

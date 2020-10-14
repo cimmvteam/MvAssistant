@@ -233,7 +233,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootup.OnExit += (sender, e) =>
             {
-                Debug.Write("State: [sSystemBootup.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                Debug.WriteLine("State: [sSystemBootup.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sSystemBootupAlarmResetStart.OnEntry += (sender, e) =>
