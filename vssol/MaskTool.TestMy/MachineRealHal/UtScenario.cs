@@ -302,7 +302,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     //ic.XYPosition(100,200);
                     //ic.WPosition(51);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeFrontSideToIC.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
                     mt.Unclamp();
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                 }
@@ -407,7 +407,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     mt.HalConnect();
 
                     mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeFrontSideToClean.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
                 }
             }
             catch (Exception ex) { throw ex; }

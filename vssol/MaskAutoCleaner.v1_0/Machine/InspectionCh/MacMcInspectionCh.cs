@@ -12,7 +12,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
     [Guid("85BE70B6-10A6-4403-B4E3-3224CD847B48")]
     public class MacMcInspectionCh : MacMachineCtrlBase
     {
-        public IMacHalInspectionCh HalMaskTransfer { get { return this.halAssembly as IMacHalInspectionCh; } }
+        public IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
         /// <summary>
         /// 使用固定的State Machine,
         /// 若有其它版的狀態機, 一般也會用不同的控制機

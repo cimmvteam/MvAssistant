@@ -12,7 +12,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
     [Guid("34546ED9-4B29-443A-9A96-66ACB3AA61F8")]
     public class MacMcCleanCh : MacMachineCtrlBase
     {
-        public IMacHalCleanCh HalMaskTransfer { get { return this.halAssembly as IMacHalCleanCh; } }
+        public IMacHalCleanCh HalCleanCh { get { return this.halAssembly as IMacHalCleanCh; } }
         /// <summary>
         /// 使用固定的State Machine,
         /// 若有其它版的狀態機, 一般也會用不同的控制機
