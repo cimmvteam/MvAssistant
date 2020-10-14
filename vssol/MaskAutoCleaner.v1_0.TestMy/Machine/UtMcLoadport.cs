@@ -21,12 +21,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
          //   StateMachineB = MacMsLoadPort.LoadPortStateMachineB;
            
             var MachineMgr = new MacMachineMgr();
+
             MachineMgr.MvCfInit();
             var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var MachineCtrlB = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             StateMachineA = MachineCtrlA.StateMachine;
             StateMachineB = MachineCtrlB.StateMachine;
-          
+            
         }
 
         public void Repeat()
@@ -35,6 +36,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             {
                 Thread.Sleep(8);
             }
+        }
+
+        [TestMethod]
+        
+        public void TestSystemBootup()
+        {
+            StateMachineA.SystemBootup();
+            // StateMachineB.SystemBootup();
+            Repeat();
         }
 
         [TestMethod]
