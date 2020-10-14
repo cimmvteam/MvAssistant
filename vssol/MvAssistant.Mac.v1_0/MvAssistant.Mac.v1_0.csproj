@@ -144,6 +144,7 @@
     <Compile Include="JSon\BTRobotPath.cs" />
     <Compile Include="JSon\JSonHelper.cs" />
     <Compile Include="JSon\PositionInfo.cs" />
+    <Compile Include="JSon\PositionInstance.cs" />
     <Compile Include="JSon\RobotTransferFile\BaserobotTransferPathFile.cs" />
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferDirection.cs" />
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferLocation.cs" />

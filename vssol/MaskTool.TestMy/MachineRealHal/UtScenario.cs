@@ -16,6 +16,10 @@ using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 //using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.Mac.v1_0.JSon;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {
@@ -1047,6 +1051,73 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         #endregion
         #region TransferPathFile
+
+        /// <summary>
+        ///  預先載入BoxTransferRobot所有的路徑點位資料.
+        /// </summary>
+        [TestMethod]
+        public void BoxTransferRobotPathPositionLoad()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            BoxrobotTransferPathFile boxRobotFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+
+            var OpenStageToCabinet01Home_GET = boxRobotFileObj.FromOpenStageToCabinet01Home_GET_PathFile();
+            var OpenStageToCabinet01Home_PUT = boxRobotFileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
+        
+            var position1 =JSonHelper.GetPositionPathPositionsFromJson(OpenStageToCabinet01Home_GET);
+            var position2 = JSonHelper.GetPositionPathPositionsFromJson(OpenStageToCabinet01Home_PUT);
+           
+        }
+
+        /// <summary>
+        ///  預先載入MaskTransferRobot所有的路徑點位資料.
+        ///  </summary>
+        [TestMethod]
+        public void MaskTransferRobotPathPositionLoad()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            MaskrobotTransferPathFile maskRobotFileObj = new MaskrobotTransferPathFile(PositionInstance.MTR_Path);
+
+            var position01 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromBackSideCaptureFinishToCCPathFile()); 
+            var position02 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromBackSideCleanFinishToCCPathFile());
+            var position03 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromBarcodeReaderToLPHomePathFile());
+            var position04 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCBackSideToCapturePathFile());
+            var position05 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCBackSideToCCHomePathFile());
+            var position06 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCBackSideToCleanPathFile());
+            var position07 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCFrontSideToCapturePathFile());
+            var position08 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCFrontSideToCCHomePathFile());
+            var position09 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCFrontSideToCleanPathFile());
+            var position10 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCHomeToCCBackSidePathFile());
+            var position11 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromCCHomeToCCFrontSidePathFile());
+            var position12 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromDeformInspTICHomeoPathFile());
+            var position13 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromFrontSideCaptureFinishToCCPathFile());
+            var position14 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromFrontSideCleanFinishToCCPathFile());
+            var position15 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICBackSideToICHomePathFile());
+            var position16 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICBackSideToICStagePathFile());
+            var position17 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICFrontSideToICHomePathFile());
+            var position18 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICFrontSideToICStagePathFile());
+            var position19 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICHomeToDeformInspPathFile());
+            var position20 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICHomeToICBackSidePathFile());
+            var position21 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICHomeToICFrontSidePathFile());
+            var position22 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICHomeToInspDeformPathFile());
+            var position23 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICStageToICBackSidePathFile());
+            var position24 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromICStageToICFrontSidePathFile());
+            var position25 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromInspDeformToICHomePathFile());
+            var position26 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLP1ToLPHomePathFile());
+            var position27 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLP2ToLPHomePathFile());
+            var position28 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToBarcodeReaderPathFile());
+            var position29 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToLP1PathFile());
+            var position30 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToLP2PathFile());
+            var position31 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToOSPathFile());
+            var position32 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSStageToOSPathFile());
+            var position33 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToLPHomePathFile());
+            var position34 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToLPHomePathFile());
+            var position35 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToOSStagePathFile());
+            var position36 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.InspChHomePathFile());
+            var position37 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.LoadPortHomePathFile());
+        }
+
+
         [TestMethod]
         public void BoxTransferPathFile()
         {

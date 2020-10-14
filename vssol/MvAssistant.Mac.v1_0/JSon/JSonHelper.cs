@@ -46,7 +46,8 @@ namespace MvAssistant.Mac.v1_0.JSon
         /// <returns></returns>
         public static List<PositionInfo> GetPositionPathPositionsFromJson(string pathFileName)
         {
-            return GetInstanceFromJsonFile<List<PositionInfo>>(pathFileName);
+            /** return GetInstanceFromJsonFile<List<PositionInfo>>(pathFileName);*/
+            return PositionInstance.GetInstance().GetPositionInfos(pathFileName);
         } 
 
     }
