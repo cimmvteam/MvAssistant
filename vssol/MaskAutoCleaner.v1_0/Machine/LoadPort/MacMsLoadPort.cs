@@ -12,6 +12,7 @@ using System.Threading;
 using MaskAutoCleaner.v1_0.StateMachineAlpha;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using System.Diagnostics;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
@@ -29,54 +30,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         /// <summary>控制逾時與否的物件</summary>
         //MustRe  
         //private MacMsTimeOutController TimeController = new MacMsTimeOutController(50);
-        private MacMsTimeOutController TimeController = new MacMsTimeOutController(500);
+        private MacMsTimeOutController TimeController = new MacMsTimeOutController(5000);
 
-        /**
-       
-        public static MacMsLoadPort LoadPortStateMachineA
-        {
-            get
-            {
-                if (_loadPortStateMachineA == null)
-                {
-                    lock (_loportAlockObject)
-                    {
-                        if (_loadPortStateMachineA == null)
-                        {
-                            var MachineMgr = new MacMachineMgr();
-                            MachineMgr.MvCfInit();
-                            var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
-                            _loadPortStateMachineA = MachineCtrlA.StateMachine;
-                            var B = LoadPortStateMachineB;
-
-                        }
-                    }
-                }
-                return _loadPortStateMachineA;
-            }
-        }
-        public static MacMsLoadPort LoadPortStateMachineB
-        {
-            get
-            {
-                if (_loadPortStateMachineB == null)
-                {
-                    lock (_loportAlockObject)
-                    {
-                        if (_loadPortStateMachineB == null)
-                        {
-                            var MachineMgr = new MacMachineMgr();
-                            MachineMgr.MvCfInit();
-                            var MachineCtrl = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
-                            _loadPortStateMachineB = MachineCtrl.StateMachine;
-                            var A = LoadPortStateMachineA;
-                        }
-                    }
-                }
-                return _loadPortStateMachineB;
-            }
-        }
-        */
+    
 
 
 #if NoConfig
@@ -131,8 +87,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         /// </remarks>
         public void SystemBootup()
         {
+            Debug.Write("Command: [SystemBootup], IP:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.SystemBootup.ToString()];
             state.DoEntry(new MacStateEntryEventArgs());
+            
         }
 
         
