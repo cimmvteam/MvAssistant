@@ -183,7 +183,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
 
             // AlarmReset 開始
-            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.SystemBootup);
+            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.AlarmResetStart);
             // AlarmReset 進行中
             MacState sAlarmResetIng = NewState(EnumMacMsLoadPortState.AlarmResetIng);
             // AlarmReset 完成
