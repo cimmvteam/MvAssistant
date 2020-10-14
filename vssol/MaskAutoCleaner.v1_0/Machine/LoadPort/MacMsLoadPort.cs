@@ -19,22 +19,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
-        /// <summary>Load Port A 的 Instance, </summary>
-        private static MacMsLoadPort _loadPortStateMachineA = null;
-        /// <summary>Load Port B 的 Instance </summary>
-        private static MacMsLoadPort _loadPortStateMachineB = null;
-        /// <summary>取得 Loadport A  Instance 時 Lock 的物件</summary>
-        private static readonly object _loportAlockObject = new object();
-        /// <summary>取得 Loadport B Instance 時 Lock 物件</summary>
-        private static readonly object _loportBlockObject = new object();
-        /// <summary>控制逾時與否的物件</summary>
-        //MustRe  
-        //private MacMsTimeOutController TimeController = new MacMsTimeOutController(50);
-        private MacMsTimeOutController TimeController = new MacMsTimeOutController(5000);
-
-    
-
-
+         /// <summary>控制逾時與否的物件</summary>
+        private MacMsTimeOutController TimeController = new MacMsTimeOutController(20);
+ 
 #if NoConfig
         IMacHalLoadPortUnit HalLoadPort = null;
 #endif

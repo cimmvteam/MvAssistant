@@ -175,10 +175,10 @@ namespace Euresys
             #region Driver connection Methods
             public static void OpenDriver()
             {
-                /**  //MustRe
+                  //MustRe
                   ThrowOnMultiCamError(NativeMethods.McOpenDriver((IntPtr)null),
                     "Cannot open MultiCam driver");
-                   */
+                   
             }
 
             public static void CloseDriver()
@@ -198,11 +198,11 @@ namespace Euresys
             public static void Create(String modelName, out UInt32 instance)
             {
                 instance = default(UInt32);
-                /**  //MustRe
-                 * 
+                 //MustRe
+                  
                 ThrowOnMultiCamError(NativeMethods.McCreateNm(modelName, out instance),
                     String.Format("Cannot create '{0}' instance", modelName));
-                 */
+                 
             }
 
             public static void Delete(UInt32 instance)
@@ -221,10 +221,10 @@ namespace Euresys
 
             public static void SetParam(UInt32 instance, String parameterName, Int32 value)
             {
-                /**  //MustRe
+                 //MustRe
                 ThrowOnMultiCamError(NativeMethods.McSetParamNmInt(instance, parameterName, value),
                     String.Format("Cannot set parameter '{0}' to value '{1}'", parameterName, value));
-                    */
+                    
             }
 
             public static void SetParam(UInt32 instance, UInt32 parameterId, String value)
