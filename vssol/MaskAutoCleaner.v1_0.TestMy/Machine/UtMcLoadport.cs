@@ -93,19 +93,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Dock()
         {
-            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            //var loadPort = machine.HalLoadPortUnit;
-            //machine.LoadStateMachine();
             StateMachineA.Dock();
             StateMachineB.Dock();
             Repeat();
         }
+
+        /// <summary>測試 Undock</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
         public void Undock()
         {
-            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            //var loadPort = machine.HalLoadPortUnit;
-            //machine.LoadStateMachine();
             StateMachineA.Undock();
             StateMachineB.Undock();
             Repeat();
