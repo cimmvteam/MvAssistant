@@ -43,7 +43,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void TestSystemBootup()
         {
             StateMachineA.SystemBootup();
-            // StateMachineB.SystemBootup();
+            StateMachineB.SystemBootup();
             Repeat();
         }
 
