@@ -48,7 +48,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     }
                     //   BindLoadPortEvent(loadport1);
                     BindLoadPortEvent(testLoadPort);
-                  
+
                     Repeat();
 
                 }
@@ -127,7 +127,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             loadport.OnHostLostLoadPortConnectionHandler += OnHostLostLoadPortConnection;
         }
-        void OnHostLostLoadPortConnection(object sender,EventArgs e)
+        void OnHostLostLoadPortConnection(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
             //loadport
@@ -140,7 +140,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var args = (OnPlacementEventArgs)e;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortPlacementHandler)}, ReturnCode={args.ReturnCode.ToString()}");
-            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortPlacementHandler, ReturnCode=" +args.ReturnCode.ToString());
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortPlacementHandler, ReturnCode=" + args.ReturnCode.ToString());
 
         }
         void OnLoadPortPresentHandler(object sender, EventArgs e)
@@ -171,16 +171,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             }
             else
             {
-                 // vs 2013
+                // vs 2013
                 // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortRFIDHandler)}, ReturnCode=No RFID");
                 Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke: OnLoadPortRFIDHandler, ReturnCode=No RFID");
             }
-         }
+        }
         void OnLoadPortBarcode_IDHandler(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
             var args = (OnBarcode_IDEventArgs)e;
-            if(args.ReturnCode== EventBarcodeIDCode.Success)
+            if (args.ReturnCode == EventBarcodeIDCode.Success)
             {
                 // // vs 2013
                 // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortBarcode_IDHandler)}, ReturnCode={args.BarcodeID}");
@@ -192,13 +192,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 //Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortBarcode_IDHandler)}, ReturnCode=No Barcode");
                 Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortBarcode_IDHandler, ReturnCode=No Barcode");
             }
-            
+
         }
         void OnLoadPortClamperLockCompleteHandler(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
             var args = (OnClamperLockCompleteEventArgs)e;
-             // vs 2013
+            // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortClamperLockCompleteHandler)}, ReturnCode={args.ReturnCode.ToString()}");
             Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortClamperLockCompleteHandler, ReturnCode=" + args.ReturnCode.ToString());
         }
@@ -212,7 +212,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         void OnLoadPortDockPODStartHandler(object sender, EventArgs e)
         {
-            
+
             var loadport = (IMacHalLoadPortUnit)sender;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortDockPODStartHandler)}");
@@ -234,7 +234,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         }
         void OnLoadPortUndockCompleteHandler(object sender, EventArgs e)
         {
-             
+
             var loadport = (IMacHalLoadPortUnit)sender;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortUndockCompleteHandler)}");
@@ -245,19 +245,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var loadport = (IMacHalLoadPortUnit)sender;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortClamperUnlockCompleteHandler)}");
-            Debug.WriteLine("Index=" +loadport.DeviceIndex + ", Invoke:OnLoadPortClamperUnlockCompleteHandler");
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortClamperUnlockCompleteHandler");
         }
         void OnLoadPortAlarmResetSuccessHandler(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
             // vs 2013
             //Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortAlarmResetSuccessHandler)}");
-            Debug.WriteLine("Index=" + loadport.DeviceIndex +", Invoke:OnLoadPortAlarmResetSuccessHandler");
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortAlarmResetSuccessHandler");
         }
         void OnLoadPortAlarmResetFailHandler(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
-             // vs 2013
+            // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortAlarmResetFailHandler)}");
             Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortAlarmResetFailHandler");
         }
@@ -273,7 +273,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var loadport = (IMacHalLoadPortUnit)sender;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortExecuteAlarmResetFirstHandler)}");
-            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortExecuteAlarmResetFirstHandler");        
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortExecuteAlarmResetFirstHandler");
         }
         void OnLoadPortStagePositionHandler(object sender, EventArgs e)
         {
@@ -281,7 +281,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var args = (OnStagePositionEventArgs)e;
             // vs 2013
             //  Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortStagePositionHandler)}, ReturnCode={args.ReturnCode}");
-             Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortStagePositionHandler, ReturnCode=" + args.ReturnCode);
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortStagePositionHandler, ReturnCode=" + args.ReturnCode);
         }
         void OnLoadportStatusHandler(object sender, EventArgs e)
         {
@@ -289,7 +289,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var args = (OnLoadportStatusEventArgs)e;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadportStatusHandler)}, ReturnCode={args.ReturnCode}");
-            Debug.WriteLine("Index="  + loadport.DeviceIndex + ", Invoke:OnLoadportStatusHandler, ReturnCode=" + args.ReturnCode);
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadportStatusHandler, ReturnCode=" + args.ReturnCode);
         }
         void OnLoadPortInitialCompleteHandler(object sender, EventArgs e)
         {
@@ -308,9 +308,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         void OnLoadPortMustInAutoModeHandler(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
-             // vs 2013
+            // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortMustInAutoModeHandler)}");
-            Debug.WriteLine("Index=" + loadport.DeviceIndex +", Invoke:OnLoadPortMustInAutoModeHandler");
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortMustInAutoModeHandler");
         }
         void OnLoadPortMustInManualModeHandler(object sender, EventArgs e)
         {
@@ -336,9 +336,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         void OnLoadPortClamperActionTimeOutHandler(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
-             // vs 2013
+            // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortClamperActionTimeOutHandler)}");
-            Debug.WriteLine("Index=" + loadport.DeviceIndex +", Invoke:OnLoadPortClamperActionTimeOutHandler");
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortClamperActionTimeOutHandler");
         }
         void OnLoadPortClamperUnlockPositionFailedHandler(object sender, EventArgs e)
         {
@@ -386,7 +386,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         void OnLoadPortClamperLockPositionFailed(object sender, EventArgs e)
         {
             var loadport = (IMacHalLoadPortUnit)sender;
-             // vs 2013
+            // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortClamperLockPositionFailed)}");
             Debug.WriteLine("Index=" + loadport.DeviceIndex + ", Invoke:OnLoadPortClamperLockPositionFailed");
         }
@@ -395,7 +395,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var loadport = (IMacHalLoadPortUnit)sender;
             // vs 2013
             // Debug.WriteLine($"Index={loadport.DeviceIndex}, Invoke:{nameof(OnLoadPortPODPresentAbnormalityHandler)}");
-            Debug.WriteLine("Index=" + loadport.DeviceIndex+ " , Invoke:OnLoadPortPODPresentAbnormalityHandler");
+            Debug.WriteLine("Index=" + loadport.DeviceIndex + " , Invoke:OnLoadPortPODPresentAbnormalityHandler");
         }
         void OnLoadPortClamperMotorAbnormality(object sender, EventArgs e)
         {
@@ -414,6 +414,69 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         #endregion
         #endregion
         #endregion
+
+        [TestMethod]
+        public void LoadportAlarmReset()
+        {
+            MacHalContext halContext = null;
+            MacHalLoadPort loportAssembly = null;
+            MacHalGudengLoadPort TestLoadport = null;
+            try
+            {
+                halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                halContext.MvCfLoad();
+
+                loportAssembly = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
+                TestLoadport = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                TestLoadport.HalConnect();
+                BindLoadPortEvent(TestLoadport);
+                TestLoadport.CommandAlarmReset();
+                Repeat();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (halContext != null)
+                {
+                    halContext.Dispose();
+                }
+            }
+        }
+
+
+        [TestMethod]
+        public void LoadportInitial()
+        {
+            MacHalContext halContext = null;
+            MacHalLoadPort loportAssembly = null;
+            MacHalGudengLoadPort TestLoadport = null;
+            try
+            {
+                halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
+                halContext.MvCfLoad();
+
+                loportAssembly = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
+                TestLoadport = loportAssembly.Hals[MacEnumDevice.loadport_1.ToString()] as MacHalGudengLoadPort;
+                TestLoadport.HalConnect();
+                BindLoadPortEvent(TestLoadport);
+                TestLoadport.CommandInitialRequest();
+                Repeat();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (halContext != null)
+                {
+                    halContext.Dispose();
+                }
+            }
+        }
 
         [TestMethod]
         public void LoadPortDock()

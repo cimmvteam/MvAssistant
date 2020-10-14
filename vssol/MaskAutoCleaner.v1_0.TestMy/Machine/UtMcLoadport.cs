@@ -21,12 +21,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
          //   StateMachineB = MacMsLoadPort.LoadPortStateMachineB;
            
             var MachineMgr = new MacMachineMgr();
+
             MachineMgr.MvCfInit();
             var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var MachineCtrlB = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             StateMachineA = MachineCtrlA.StateMachine;
             StateMachineB = MachineCtrlB.StateMachine;
-          
+            
         }
 
         public void Repeat()
@@ -37,46 +38,73 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
         }
 
+
+        /// <summary>
+        /// 測試系統啟動 
+        /// </summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
-        public void TestLoadportInstance()
+        public void TestSystemBootup()
+        {
+            StateMachineA.SystemBootup();
+            StateMachineB.SystemBootup();
+            Repeat();
+        }
+
+        /// <summary>測試一下,  是否可產生Load Port State Machine Instance</summary>
+        /// <para>Date: 2020/10/14, OK</para>
+        [TestMethod]
+        public void TestLoadportStateMachineInstance()
         {
            Repeat();
         }
 
+
+        /// <summary>測試 AlarmReset</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
-        public void Reset()
+        public void AlarmReset()
         {
-           
             StateMachineA.AlarmReset();
+            StateMachineB.AlarmReset();
             Repeat();
         }
 
+        /// <summary>測試 Initial</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
         public void Initial()
         {
-            // var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            // var loadPort = machine.HalLoadPortUnit;
-            // machine.LoadStateMachine();
             StateMachineA.Inintial();
             StateMachineB.Inintial();
             Repeat();
         }
+
+        /// <summary>測試 Dock</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
         public void Dock()
         {
-            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            //var loadPort = machine.HalLoadPortUnit;
-            //machine.LoadStateMachine();
             StateMachineA.Dock();
             StateMachineB.Dock();
             Repeat();
         }
+
+        /// <summary>測試 Undock</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
         public void Undock()
         {
-            //var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            //var loadPort = machine.HalLoadPortUnit;
-            //machine.LoadStateMachine();
             StateMachineA.Undock();
             StateMachineB.Undock();
             Repeat();
