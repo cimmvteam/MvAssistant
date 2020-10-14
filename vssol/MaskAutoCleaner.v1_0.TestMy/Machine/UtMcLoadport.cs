@@ -54,6 +54,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         /// <summary>測試一下,  是否可產生Load Port State Machine Instance</summary>
+        /// <para>Date: 2020/10/14, OK</para>
         [TestMethod]
         public void TestLoadportStateMachineInstance()
         {
