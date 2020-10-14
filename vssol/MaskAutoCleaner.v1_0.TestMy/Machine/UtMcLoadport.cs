@@ -85,6 +85,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             StateMachineB.Inintial();
             Repeat();
         }
+
+        /// <summary>測試 Dock</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
         public void Dock()
         {
