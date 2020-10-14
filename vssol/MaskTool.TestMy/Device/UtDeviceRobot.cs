@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.TestMy.Device
         {
             using (var ldd = new MvFanucRobotLdd())
             {
-                ldd.RobotIp = "192.168.0.51";
+                ldd.RobotIp = "192.168.0.140";
 
                 if (ldd.ConnectIfNo() != 0)
                     Console.WriteLine("Connection Fail");
