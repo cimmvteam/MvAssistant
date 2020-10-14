@@ -74,12 +74,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
+        /// <summary>測試 Initial</summary>
+        /// <remarks>
+        /// <para>Date: 2020/10/14, OK</para>
+        /// </remarks>
         [TestMethod]
         public void Initial()
         {
-            // var machine = new v1_0.Machine.LoadPort.MacMsLoadPort();
-            // var loadPort = machine.HalLoadPortUnit;
-            // machine.LoadStateMachine();
             StateMachineA.Inintial();
             StateMachineB.Inintial();
             Repeat();
