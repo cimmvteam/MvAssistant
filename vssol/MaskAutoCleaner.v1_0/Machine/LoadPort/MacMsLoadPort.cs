@@ -428,7 +428,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
-                Trigger(transition);
+                TriggerAsync(transition);
             };
             sSystemBootupInitialIng.OnExit += (sender, e) =>
             {
