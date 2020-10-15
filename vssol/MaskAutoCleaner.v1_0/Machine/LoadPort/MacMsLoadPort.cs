@@ -12,72 +12,16 @@ using System.Threading;
 using MaskAutoCleaner.v1_0.StateMachineAlpha;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using System.Diagnostics;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
     [Guid("B6CCEC0B-9042-4B88-A306-E29B87B6469C")]
     public class MacMsLoadPort : MacMachineStateBase
     {
-        /// <summary>Load Port A 的 Instance, </summary>
-        private static MacMsLoadPort _loadPortStateMachineA = null;
-        /// <summary>Load Port B 的 Instance </summary>
-        private static MacMsLoadPort _loadPortStateMachineB = null;
-        /// <summary>取得 Loadport A  Instance 時 Lock 的物件</summary>
-        private static readonly object _loportAlockObject = new object();
-        /// <summary>取得 Loadport B Instance 時 Lock 物件</summary>
-        private static readonly object _loportBlockObject = new object();
-        /// <summary>控制逾時與否的物件</summary>
-        private MacMsTimeOutController TimeController = new MacMsTimeOutController();
-
-
-        /**
-       
-        public static MacMsLoadPort LoadPortStateMachineA
-        {
-            get
-            {
-                if (_loadPortStateMachineA == null)
-                {
-                    lock (_loportAlockObject)
-                    {
-                        if (_loadPortStateMachineA == null)
-                        {
-                            var MachineMgr = new MacMachineMgr();
-                            MachineMgr.MvCfInit();
-                            var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
-                            _loadPortStateMachineA = MachineCtrlA.StateMachine;
-                            var B = LoadPortStateMachineB;
-
-                        }
-                    }
-                }
-                return _loadPortStateMachineA;
-            }
-        }
-        public static MacMsLoadPort LoadPortStateMachineB
-        {
-            get
-            {
-                if (_loadPortStateMachineB == null)
-                {
-                    lock (_loportAlockObject)
-                    {
-                        if (_loadPortStateMachineB == null)
-                        {
-                            var MachineMgr = new MacMachineMgr();
-                            MachineMgr.MvCfInit();
-                            var MachineCtrl = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
-                            _loadPortStateMachineB = MachineCtrl.StateMachine;
-                            var A = LoadPortStateMachineA;
-                        }
-                    }
-                }
-                return _loadPortStateMachineB;
-            }
-        }
-        */
-
-
+         /// <summary>控制逾時與否的物件</summary>
+        private MacMsTimeOutController TimeController = new MacMsTimeOutController(20);
+ 
 #if NoConfig
         IMacHalLoadPortUnit HalLoadPort = null;
 #endif
@@ -130,8 +74,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         /// </remarks>
         public void SystemBootup()
         {
+            Debug.WriteLine("Command: [SystemBootup], Index:" + this.HalLoadPortUnit.DeviceIndex );
             var state = this.States[EnumMacMsLoadPortState.SystemBootup.ToString()];
             state.DoEntry(new MacStateEntryEventArgs());
+            
         }
 
         
@@ -142,12 +88,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         /// <summary>Alarm Reset</summary>
         public void AlarmReset()
         {
+            Debug.WriteLine("Command: [AlarmReset], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.AlarmResetStart.ToString()];
             state.DoEntry(new MacStateEntryEventArgs());
         }
 
         public void Inintial()
         {
+            Debug.WriteLine("Command: [Inintial], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.InitialStart.ToString()];
             state.DoEntry(new MacStateEntryEventArgs());
         }
@@ -155,13 +103,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
         public void Dock()
         {
+            Debug.WriteLine("Command: [Dock], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.DockStart.ToString()];
             state.DoEntry(new MacStateEntryEventArgs());
         }
          
         public void Undock()
         {
-
+            Debug.WriteLine("Command: [Undock], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.UndockStart.ToString()];
             state.DoEntry(new MacStateEntryEventArgs());
         }
@@ -182,7 +131,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
 
             // AlarmReset 開始
-            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.SystemBootup);
+            MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.AlarmResetStart);
             // AlarmReset 進行中
             MacState sAlarmResetIng = NewState(EnumMacMsLoadPortState.AlarmResetIng);
             // AlarmReset 完成
@@ -253,6 +202,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             sSystemBootup.OnEntry += (sender, e) =>
             {   // Synch
+                Debug.WriteLine("State: [sSystemBootup.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootup_SystemBootupAlarmResetStart;
                 var triggerMember = new TriggerMember
@@ -273,11 +223,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootup.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sSystemBootup.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sSystemBootupAlarmResetStart.OnEntry += (sender, e) =>
             { // Synch
+                Debug.WriteLine("State: [sSystemBootupAlarmResetStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootupAlarmResetStart_SystemBootupAlarmResetIng;
                 var triggerMember = new TriggerMember
@@ -297,11 +248,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootupAlarmResetStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sSystemBootupAlarmResetStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sSystemBootupAlarmResetIng.OnEntry += (sender, e) =>
             { //Async
+                Debug.WriteLine("State: [sSystemBootupAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootupAlarmResetIng_SystemBootupAlarmResetComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -339,12 +291,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootupAlarmResetIng.OnExit += (sender, e) =>
             {
-               
+                Debug.WriteLine("State: [sSystemBootupAlarmResetIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
 
             sSystemBootupAlarmResetComplete.OnEntry += (sender, e) =>
             {   // Sync
+                Debug.WriteLine("State: [sSystemBootupAlarmResetComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootupAlarmResetComplete_SystemBootupInitialStart;
                 var triggerMember = new TriggerMember
@@ -365,11 +318,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootupAlarmResetComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sSystemBootupAlarmResetComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sSystemBootupInitialStart.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sSystemBootupInitialStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootupInitialStart_SystemBootupInitialIng;
                 var triggerMember = new TriggerMember
@@ -390,11 +344,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootupInitialStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sSystemBootupInitialStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sSystemBootupInitialIng.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sSystemBootupInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -427,15 +382,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
-                Trigger(transition);
+                TriggerAsync(transition);
             };
             sSystemBootupInitialIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sSystemBootupInitialIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sSystemBootupInitialComplete.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sSystemBootupInitialComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tSystemBootupInitialComplete_IdleForPutPOD;
                 var triggerMmember = new TriggerMember
@@ -456,12 +412,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sSystemBootupInitialComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sSystemBootupInitialComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
 
             sAlarmResetStart.OnEntry += (sender, e) =>
-            {   // Sync
+            {
+                Debug.WriteLine("State: [sAlarmResetStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                // Sync
                 SetCurrentState((MacState)sender);
                 var transition = tAlarmResetStart_AlarmResetIng;
                 var triggerMember = new TriggerMember
@@ -482,11 +440,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sAlarmResetStart.OnExit += (sender, e) =>
             {
+                Debug.WriteLine("State: [sAlarmResetStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 // 視狀況新增 Code
             };
 
             sAlarmResetIng.OnEntry += (sender, e) => 
-            {   // Async
+            {
+                Debug.WriteLine("State: [sAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                // Async
                 SetCurrentState((MacState)sender);
                 var transition = tAlarmResetIng_AlarmResetComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -524,11 +485,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sAlarmResetIng.OnExit += (sender, e) => 
             {
+                Debug.WriteLine("State: [sAlarmResetIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 // 視實況新增 Code 
             };
 
             sAlarmResetComplete.OnEntry += (sender, e) => 
             {  // Sync
+                Debug.WriteLine("State: [sAlarmResetComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tAlarmResetComplete_NULL;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -550,10 +513,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sAlarmResetComplete.OnExit += (sender, e) => 
             {
                 // 視狀況增加 Code
+                Debug.WriteLine("State: [sAlarmResetComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sInitialStart.OnEntry += (sender, e) =>
             {  // Sync 
+                Debug.WriteLine("State: [sInitialStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tInitialStart_InitialIng;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -574,11 +539,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sInitialStart.OnExit += (sender, e) =>
             {
+                Debug.WriteLine("State: [sInitialStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 // 視狀況增加 Code
             };
 
             sInitialIng.OnEntry += (sender, e) =>
             {   // Async
+                Debug.WriteLine("State: [sInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tInitialIng_InitialComplete;
                 SetCurrentState((MacState)sender);
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -618,10 +585,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sInitialIng.OnExit += (sender, e) =>
             {
                 // 視狀況新增 Code
+                Debug.WriteLine("State: [sInitialIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sInitialComplete.OnEntry += (sender, e) =>
             {   // Sync
+                Debug.WriteLine("State: [sInitialComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tInitialComplete_IdleForPutPOD;
                 var triggerMember = new TriggerMember
@@ -643,11 +612,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sInitialComplete.OnExit += (sender, e) =>
             {
                 // 視狀況增加Code
+                Debug.WriteLine("State: [sInitialComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
           
             sIdleForPutPOD.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("State: [sIdleForPutPOD.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForPutPOD_NULL;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -669,10 +640,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sIdleForPutPOD.OnExit += (sender, e) =>
             {
                 // 依實際狀況 增加 Code
+                Debug.WriteLine("State: [sIdleForPutPOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
           
             sDockStart.OnEntry += (sender, e) =>
             {   // Sync
+                Debug.WriteLine("State: [sDockStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tDockStart_DockIng;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -695,11 +668,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sDockStart.OnExit += (sender, e) =>
             {
                 // 視狀況增加 Code
+                Debug.WriteLine("State: [sDockStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sDockIng.OnEntry += (sender,e)=>
             {  // Async
                 SetCurrentState((MacState)sender);
+                Debug.WriteLine("State: [sDockIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tDockIng_DockComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -739,12 +714,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sDockIng.OnExit += (sender, e) =>
             {
                 // 視狀況增加 Code
+                Debug.WriteLine("State: [sDockIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             
             sDockComplete.OnEntry += (sender, e) =>
             {   // Sync 
                 var transition = tDockComplete_IdleForGetMask;
+                Debug.WriteLine("State: [sDockComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
                 {
@@ -765,10 +742,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sDockComplete.OnExit+= (sender, e) =>
             {
                 // 視狀況加 Code
+                Debug.WriteLine("State: [sDockComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sIdleForGetMask.OnEntry += (sender, e) =>
             {   // Sync
+                Debug.WriteLine("State: [sIdleForGetMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForGetMask_NULL;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -790,11 +769,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sIdleForGetMask.OnExit += (sender, e) =>
             {
                 // TODO: Depends on,......
+                Debug.WriteLine("State: [sIdleForGetMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
 
             sUndockStart.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("State: [sUndockStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tUndockStart_UndockIng;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -816,12 +797,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockStart.OnExit += (sender, e) =>
             {
                 // 視狀況增加 Code
+                Debug.WriteLine("State: [sUndockStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sUndockIng.OnEntry += (sender, e) =>
             {
                 // Async
                 var transition = tUndockIng_UndockComplete;
+                Debug.WriteLine("State: [sUndockIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -862,12 +845,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockIng.OnExit += (sender, e) =>
             {
-               // 視狀況增加 Code
+                // 視狀況增加 Code
+                Debug.WriteLine("State: [sUndockIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
 
             sUndockComplete.OnEntry += (sender, e) =>
             {  // Sync 
+                Debug.WriteLine("State: [sUndockComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tUndockComplete_IdleForGetPOD;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -889,10 +874,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sUndockComplete.OnExit += (sender, e) =>
             {
                 // 視狀況新增 Code
+                Debug.WriteLine("State: [sUndockComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
           
             sIdleForGetPOD.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sIdleForGetPOD.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForGetPOD_NULL;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -914,6 +901,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sIdleForGetPOD.OnExit += (sender, e) =>
             {
+                Debug.WriteLine("State: [sIdleForGetPOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+
                 // 視狀況新增 Code
             };
             #endregion
