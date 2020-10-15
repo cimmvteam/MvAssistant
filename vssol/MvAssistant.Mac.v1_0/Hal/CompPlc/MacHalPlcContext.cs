@@ -183,8 +183,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Failed";
-                        break;
+                        throw new MvException("Outer Cover Fan Control Error : Failed");
+                    default:
+                        throw new MvException("Outer Cover Fan Control Error : Unknown error");
                 }
 
                 this.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);

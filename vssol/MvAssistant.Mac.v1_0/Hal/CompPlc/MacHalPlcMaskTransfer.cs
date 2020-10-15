@@ -40,18 +40,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Result))
                 {
+                    case 0:
+                        throw new MvException("Mask Hand Clamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
-                    case 2:
-                        Result = "No mask type";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
+                    default:
+                        throw new MvException("Mask Hand Clamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Clamp, false);
@@ -86,26 +81,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Result))
                 {
                     case 0:
-                        Result = "Invalid";
-                        break;
+                        throw new MvException("Mask Hand Unclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
-                    case 2:
-                        Result = "Clamp no mask type";
-                        break;
-                    case 3:
-                        Result = "Tactile out range";
-                        break;
-                    case 4:
-                        Result = "Motor error";
-                        break;
-                    case 5:
-                        Result = "Please initial";
-                        break;
-                    case 6:
-                        Result = "System not ready";
-                        break;
+                    default:
+                        throw new MvException("Mask Hand Unclamp Error : Unknown error");
                 }
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Unclamp, false);
 
@@ -137,15 +118,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Initial_A04_Result))
                 {
+                    case 0:
+                        throw new MvException("Mask Hand Initial Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
-                    case 2:
-                        Result = "Have mask";
-                        break;
-                    case 3:
-                        Result = "Spin not servo ON";
-                        break;
+                    default:
+                        throw new MvException("Mask Hand Initial Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Initial_A04, false);
@@ -220,15 +199,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Result))
                 {
+                    case 0:
+                        throw new MvException("Mask Hand CCD spin Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Out of range";
-                        break;
+                        throw new MvException("Mask Hand CCD spin Error : Position out range");
                     case 3:
-                        Result = "";
-                        break;
+                        throw new MvException("Mask Hand CCD spin Error : Please initial");
+                    default:
+                        throw new MvException("Mask Hand CCD spin Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Spin, false);

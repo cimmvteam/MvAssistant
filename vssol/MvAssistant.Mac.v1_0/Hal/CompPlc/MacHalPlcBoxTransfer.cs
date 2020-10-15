@@ -37,18 +37,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Result))
                 {
+                    case 0:
+                        throw new MvException("Box Hand Clamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "No box type";
-                        break;
+                        throw new MvException("Box Hand Clamp Error : No box type");
                     case 3:
-                        Result = "No box";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
+                        throw new MvException("Box Hand Clamp Error : No box");
+                    default:
+                        throw new MvException("Box Hand Clamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Clamp, false);
@@ -83,26 +82,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Result))
                 {
                     case 0:
-                        Result = "Invalid";
-                        break;
+                        throw new MvException("Box Hand Unclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
-                    case 2:
-                        Result = "Clamp no box type";
-                        break;
-                    case 3:
-                        Result = "Tactile out range";
-                        break;
-                    case 4:
-                        Result = "Motor error";
-                        break;
-                    case 5:
-                        Result = "Please initial";
-                        break;
-                    case 6:
-                        Result = "System not ready";
-                        break;
+                    default:
+                        throw new MvException("Box Hand Unclamp Error : Unknown error");
                 }
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Unclamp, false);
 
@@ -134,15 +119,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_Initial_A03_Result))
                 {
+                    case 0:
+                        throw new MvException("Box Hand Initial Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
-                    case 2:
-                        Result = "Have Box";
-                        break;
-                    case 3:
-                        Result = "";
-                        break;
+                    default:
+                        throw new MvException("Box Hand Initial Error : Unknown error");
                 }
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Initial_A03, false);
 

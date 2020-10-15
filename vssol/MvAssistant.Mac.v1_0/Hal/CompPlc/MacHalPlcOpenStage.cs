@@ -35,18 +35,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Open_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage Open Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "NoBox";
-                        break;
+                        throw new MvException("Open Stage Open Error : No vacuum not ready");
                     case 3:
-                        Result = "Slider Point Error";
-                        break;
+                        throw new MvException("Open Stage Open Error : Slider point error");
                     case 4:
-                        Result = "";
-                        break;
+                        throw new MvException("Open Stage Open Error : Sort not unclamp");
+                    case 5:
+                        throw new MvException("Open Stage Open Error : Jaws not clamp");
+                    default:
+                        throw new MvException("Open Stage Open Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, false);
@@ -79,18 +82,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Close_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage Close Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "NoBox";
-                        break;
+                        throw new MvException("Open Stage Close Error : No box");
                     case 3:
-                        Result = "Slider Point Error";
-                        break;
+                        throw new MvException("Open Stage Close Error : Slider point unknown");
                     case 4:
-                        Result = "Cover Point Error";
-                        break;
+                        throw new MvException("Open Stage Close Error : Cover point unknown");
+                    default:
+                        throw new MvException("Open Stage Close Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, false);
@@ -127,18 +131,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage Clamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "NoBox";
-                        break;
+                        throw new MvException("Open Stage Clamp Error : Vacuum not ready");
                     case 3:
-                        Result = "NoClose";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
+                        throw new MvException("Open Stage Clamp Error : Not close");
+                    default:
+                        throw new MvException("Open Stage Clamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, false);
@@ -175,18 +178,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage Unclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "NoBox";
-                        break;
+                        throw new MvException("Open Stage Unclamp Error : Fail");
                     case 3:
-                        Result = "NoClose";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
+                        throw new MvException("Open Stage Unclamp Error : Not close");
+                    default:
+                        throw new MvException("Open Stage Unclamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, false);
@@ -223,18 +225,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage SortClamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "No Box";
-                        break;
+                        throw new MvException("Open Stage SortClamp Error : No box");
                     case 3:
-                        Result = "Clamping";
-                        break;
+                        throw new MvException("Open Stage SortClamp Error : Jaws clamp");
                     case 4:
-                        Result = "No Box Type";
-                        break;
+                        throw new MvException("Open Stage SortClamp Error : No box type");
+                    default:
+                        throw new MvException("Open Stage SortClamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, false);
@@ -271,9 +274,13 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage SortUnclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
+                    default:
+                        throw new MvException("Open Stage SortUnclamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, false);
@@ -310,18 +317,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage Lock/Unlock Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "NoBox";
-                        break;
-                    case 3:
-                        Result = "NoClose";
-                        break;
-                    case 4:
-                        Result = "";
-                        break;
+                        throw new MvException("Open Stage Lock/Unlock Error : Jaws not unclamp");
+                    default:
+                        throw new MvException("Open Stage Lock/Unlock Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
@@ -363,15 +367,19 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Result))
                 {
+                    case 0:
+                        throw new MvException("Open Stage Vacuum Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        Result = "Fail";
-                        break;
+                        throw new MvException("Open Stage Vacuum Error : Fail");
                     case 3:
-                        Result = "No Box";
-                        break;
+                        throw new MvException("Open Stage Vacuum Error : No box");
+                    case 4:
+                        throw new MvException("Open Stage Vacuum Error : Sort not clamp");
+                    default:
+                        throw new MvException("Open Stage Vacuum Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
@@ -407,17 +415,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Result))
                 {
                     case 0:
-                        Result = "Invalid";
-                        break;
+                        throw new MvException("Open Stage Initial Error : Invalid");
                     case 1:
-                        Result = "Idle";
+                        Result = "OK";
                         break;
-                    case 2:
-                        Result = "Busy";
-                        break;
-                    case 3:
-                        Result = "Error";
-                        break;
+                    default:
+                        throw new MvException("Open Stage Initial Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, false);

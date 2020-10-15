@@ -153,10 +153,10 @@
         <Device DevConnStr="ip=192.168.0.200;portid=2" DeviceName="openstage_plc" DriverId="58a26d37-1181-4fc9-8479-0f2451905430" />
         <Device DevConnStr="ip=192.168.0.139;port=1000;model=IDGB_50M4PG_24_TP;channel=1" DeviceName="openstage_light_bar_defense_top_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.139;port=1000;model=IDGB_50M4PG_24_TP;channel=2" DeviceName="openstage_light_bar_defense_side_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
-        <Device DevConnStr="id=00:11:1C:F9:A3:45" DeviceName="openstage_camera_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <!--<Device DevConnStr="id=00:11:1C:F9:A3:45" DeviceName="openstage_camera_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
         <Device DevConnStr="id=00:11:1C:F9:15:E4" DeviceName="openstage_camera_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
         <Device DevConnStr="id=00:11:1C:F9:A8:BE" DeviceName="openstage_camera_front_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <Device DevConnStr="id=00:11:1C:F9:A3:46" DeviceName="openstage_camera_barcode_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
+        <Device DevConnStr="id=00:11:1C:F9:A3:46" DeviceName="openstage_camera_barcode_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />-->
       </Devices>
     </Device>
     <Device DeviceName="boxtransfer_assembly" DriverId="9f102552-22ef-42ad-8f36-edc709808ce8" ID="DE_BT_A_ASB" PositionId="BoxTrasnfer01">
