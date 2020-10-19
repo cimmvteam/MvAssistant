@@ -211,6 +211,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         /// <summary>測試 Unload_MoveTrayToHome()</summary>
+        /// <remarks>
+        ///   有盒子:
+        /// 没有盒子:
+        /// </remarks>
         [TestMethod]
         public void Unload_MoveTrayToHome()
         {
