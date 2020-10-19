@@ -192,7 +192,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         /// <summary>測試 Unload_MoveTrayToIn() 指令</summary>
         /// <remarks>
-        /// 2020/10/19 
+        /// 2020/10/19 OK
         /// </remarks>
         [TestMethod]
         public void Unload_MoveTrayToIn()
