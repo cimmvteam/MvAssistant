@@ -18,7 +18,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         protected override void SetCurrentState(MacState state)
         {
-            this.SetCurrentState(state);
+            base.SetCurrentState(state);
+            /**
             try
             {
                 if (state == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
@@ -39,6 +40,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 }
             }
             catch  {    }
+            */
         }
         public IMacHalDrawer HalDrawer {
             get
@@ -64,6 +66,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public MacMsCabinetDrawer()
         {
+            //[???]
+            TimeoutObject = new MacMsTimeOutController(500);
 
             LoadStateMachine();
         }

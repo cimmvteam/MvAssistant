@@ -75,6 +75,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         /// <summary>測試 System BootUp</summary>
+        /// <remarks>
+        /// 2020/10/19 OK
+        /// </remarks>
         [TestMethod]
         //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void SystemBootup(/*EnumMachineID machineID*/)
@@ -85,6 +88,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             //[???]
             machine.HalDrawer.HalConnect();
+
             machine.SystemBootup();
 
             Repeat();
