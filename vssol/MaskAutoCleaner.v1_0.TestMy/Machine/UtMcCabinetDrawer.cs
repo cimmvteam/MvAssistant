@@ -43,9 +43,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
 
         }
-
+        private void Repeat()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(50);
+            };
+        } 
 
         /// <summary>測試能否產生 CabinetDrawer Udp Listen Instance</summary>
+        /// <remarks>
+        /// 2020/10/19 OK 
+        /// </remarks>
         [TestMethod]
         //[DataRow(EnumMachineID.MID_DRAWER_01_01, EnumMachineID.MID_DRAWER_01_02)]
         public void CreateInstance(/*EnumMachineID machineID1, EnumMachineID machineID2*/)
@@ -56,20 +65,29 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
             var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
+            //[???]
             machine1.HalDrawer.HalConnect();
+            //[???]
             machine2.HalDrawer.HalConnect();
+
+            Repeat();
 
         }
 
+        /// <summary>測試 System BootUp</summary>
         [TestMethod]
         //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void SystemBootup(/*EnumMachineID machineID*/)
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_01;
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            //[???]
+            machine.HalDrawer.HalConnect();
             machine.SystemBootup();
+
+            Repeat();
         }
         
         
