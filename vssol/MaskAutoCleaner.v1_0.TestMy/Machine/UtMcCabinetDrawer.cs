@@ -149,6 +149,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
+        /// <summary>測試 Load_MoveTrayToIn 指令</summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
         [TestMethod]
         //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void Load_MoveTrayToIn(/*EnumMachineID machineID*/)
@@ -157,7 +161,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+
+            //[???]
+            machine.HalDrawer.HalConnect();
+
             machine.Load_MoveTrayToIn();
+
+            Repeat();
         }
 
         [TestMethod]
