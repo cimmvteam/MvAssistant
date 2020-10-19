@@ -688,6 +688,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         return rtnV;
                     },
                 };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
             };
             sLoadMoveTrayToHomeIng.OnExit += (sender, e) =>
             {
