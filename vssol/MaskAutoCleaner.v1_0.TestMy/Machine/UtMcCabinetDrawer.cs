@@ -74,7 +74,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         }
 
-        /// <summary>測試 System BootUp</summary>
+        /// <summary>測試 SystemBootup</summary>
         /// <remarks>
         /// 2020/10/19 OK
         /// </remarks>
@@ -154,7 +154,6 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// 2020/10/19 OK
         /// </remarks>
         [TestMethod]
-        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void Load_MoveTrayToIn(/*EnumMachineID machineID*/)
         {
             // DataRow
@@ -170,15 +169,23 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
+        /// <summary>測試 MoveTrayToHomeWaitingUnloadInstruction 指令</summary>
+        /// <remarks>
+        /// </remarks>
         [TestMethod]
-        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void MoveTrayToHomeWaitingUnloadInstruction(/*EnumMachineID machineID*/)
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_01;
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+
+            //[???]
+            machine.HalDrawer.HalConnect();
+
             machine.MoveTrayToHomeWaitingUnloadInstruction();
+
+            Repeat();
         }
 
         [TestMethod]
