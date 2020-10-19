@@ -212,7 +212,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         /// <summary>測試 Unload_MoveTrayToHome()</summary>
         /// <remarks>
-        ///   有盒子:
+        ///   有盒子:2020/10/19 OK
         /// 没有盒子: 2020/10/19 OK
         /// </remarks>
         [TestMethod]
