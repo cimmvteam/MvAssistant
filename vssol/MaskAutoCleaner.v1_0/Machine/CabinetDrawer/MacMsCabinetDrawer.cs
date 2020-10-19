@@ -1413,7 +1413,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             sUnloadCheckBoxExistenceIng.OnEntry += (sender, e) =>
             {   // Async
                 SetCurrentState((MacState)sender);
-                var transition = tUnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng;
+                var transition = tUnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
