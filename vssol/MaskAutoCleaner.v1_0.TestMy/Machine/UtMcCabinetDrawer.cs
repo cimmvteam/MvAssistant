@@ -131,7 +131,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// <summary>測試 Load_MoveTrayToHome 指令</summary>
         /// <remarks>
         /// 没有盒子: 2020/10/19 OK
-        ///   有盒子:
+        ///   有盒子: 2020/10/19 OK
         /// </remarks>
         [TestMethod]
         public void Load_MoveTrayToHome()
