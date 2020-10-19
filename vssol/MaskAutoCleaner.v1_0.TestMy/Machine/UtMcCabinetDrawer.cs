@@ -206,6 +206,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             machine.HalDrawer.HalConnect();
 
             machine.Unload_MoveTrayToIn();
+
+            Repeat();
         }
 
         [TestMethod]
