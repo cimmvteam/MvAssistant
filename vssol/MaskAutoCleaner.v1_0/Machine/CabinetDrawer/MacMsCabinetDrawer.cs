@@ -1537,6 +1537,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         return rtnV;
                     },
                 };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
             };
             sUnloadMoveTrayToOutIng.OnExit += (sender, e) =>
             {
