@@ -151,7 +151,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         /// <summary>測試 Load_MoveTrayToIn 指令</summary>
         /// <remarks>
-        /// 
+        /// 2020/10/19 OK
         /// </remarks>
         [TestMethod]
         //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
