@@ -210,15 +210,21 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
+        /// <summary>測試 Unload_MoveTrayToHome()</summary>
         [TestMethod]
-        //[DataRow(EnumMachineID.MID_DRAWER_01_02)]
-        public void Unload_MoveTrayToHome(/*EnumMachineID machineID*/)
+        public void Unload_MoveTrayToHome()
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_01;
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+
+            //[???]
+            machine.HalDrawer.HalConnect();
+
             machine.Unload_MoveTrayToHome();
+
+            Repeat();
         }
 
         [TestMethod]
