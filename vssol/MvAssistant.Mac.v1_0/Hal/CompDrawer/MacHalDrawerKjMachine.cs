@@ -126,7 +126,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             get
             {
-                return this.DevSettings["local_ip"];
+                //[???]
+                return "192.168.0.11";
+                //return this.DevSettings["local_ip"];
             }
         }
          
@@ -144,6 +146,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                 }
                 else
                 {
+                  
                     Ldd = LddPool.CreateLdd(DeviceIndex, DeviceEndPoint, HostIP);
                 }
                 if (Ldd == null || LddPool==null)

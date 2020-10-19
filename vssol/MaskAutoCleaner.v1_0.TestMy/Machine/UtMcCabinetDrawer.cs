@@ -15,47 +15,6 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     [TestClass]
     public class UtMcCabinetDrawer
     {
-        // MacMsCabinetDrawer _machine { get; set; }
-
-        /*
- List<MacMcCabinetDrawer> MachineControls = null;
- public Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> DicMachineStates = null;
-
-
- private Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer> GetDicCabinetDrawerMachineStates(out List<MacMcCabinetDrawer> controls)
- {
-     var MachineMgr = new MacMachineMgr();
-     MachineMgr.MvCfInit();
-     controls = new List<MacMcCabinetDrawer>();
-     var states = new Dictionary<EnumDrawerStateMachineID, MacMsCabinetDrawer>();
-     for (var i = (int)EnumDrawerStateMachineID.MID_DRAWER_01_01; i <= (int)EnumDrawerStateMachineID.MID_DRAWER_01_04; i++)
-     {
-         var machineId = ((EnumDrawerStateMachineID)i);
-         try
-         {
-             var control = MachineMgr.CtrlMachines[machineId.ToString()] as MacMcCabinetDrawer;
-             controls.Add(control);
-             states.Add(machineId, control.StateMachine);
-         }
-         catch (Exception ex)
-         {
-
-         }
-     }
-     return states;
- }
-
- /// <summary>取得指定的 State Machine</summary>
- /// <param name="machineId"></param>
- /// <returns></returns>
- public MacMsCabinetDrawer GetMacMsCabinetDrawer(EnumDrawerStateMachineID machineId)
- {
-     if (DicMachineStates == null) { return null; }
-     var rtn = DicMachineStates[machineId];
-     return rtn;
- }
-*/
-
 
         private Dictionary<EnumMachineID, MacMsCabinetDrawer> DicStateMachines { get; set; }
         private List<MacMcCabinetDrawer> MachineControls  { get;set; }
@@ -82,10 +41,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
                 }
             }
-            //    DicMachineStates = GetDicCabinetDrawerMachineStates(out MachineControls);
 
         }
 
+
+        /// <summary>測試能否產生 CabinetDrawer Udp Listen Instance</summary>
         [TestMethod]
         //[DataRow(EnumMachineID.MID_DRAWER_01_01, EnumMachineID.MID_DRAWER_01_02)]
         public void CreateInstance(/*EnumMachineID machineID1, EnumMachineID machineID2*/)
@@ -94,7 +54,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01, machineID2 = EnumMachineID.MID_DRAWER_01_02;
 
             var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
-           var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
+            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
+
+            machine1.HalDrawer.HalConnect();
+            machine2.HalDrawer.HalConnect();
 
         }
 
