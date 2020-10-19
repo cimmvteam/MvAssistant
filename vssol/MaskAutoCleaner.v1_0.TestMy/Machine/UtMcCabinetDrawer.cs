@@ -158,7 +158,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Load_MoveTrayToIn(/*EnumMachineID machineID*/)
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_01;
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
