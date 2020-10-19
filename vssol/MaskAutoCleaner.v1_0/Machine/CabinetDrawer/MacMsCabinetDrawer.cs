@@ -1439,7 +1439,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
-                Trigger(transition);
+                TriggerAsync(transition);
             };
             sUnloadCheckBoxExistenceIng.OnExit += (sender, e) =>
             {
