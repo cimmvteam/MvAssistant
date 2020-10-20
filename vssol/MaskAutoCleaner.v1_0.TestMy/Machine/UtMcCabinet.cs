@@ -39,6 +39,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                     var control = MachineMgr.CtrlMachines[machineId.ToString()] as MacMcCabinetDrawer;
                     MachineControls.Add(control);
                     DicStateMachines.Add(machineId, control.StateMachine);
+
+                    //[???]
+                    control.StateMachine.HalDrawer.HalConnect();
                 }
                 catch (Exception ex)
                 {
