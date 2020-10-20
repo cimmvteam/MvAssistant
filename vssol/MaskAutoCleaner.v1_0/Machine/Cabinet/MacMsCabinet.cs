@@ -100,7 +100,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <param name="dicStateMachines"></param>
         public void BootupInitialDrawers(Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
-            var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            // var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            var states = dicStateMachines.Values.ToList();
             if (states.Count == 0)
             { }
             else
