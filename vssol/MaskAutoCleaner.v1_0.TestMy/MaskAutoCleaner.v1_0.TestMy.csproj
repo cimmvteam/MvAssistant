@@ -65,8 +65,10 @@
     <Compile Include="Flow\UtFlowBankIn.cs" />
     <Compile Include="Flow\UtFlowBankOut.cs" />
     <Compile Include="Flow\UtFlowOcap.cs" />
+    <Compile Include="GenCfg\UtGenMachineMgrCfgFake.cs" />
+    <Compile Include="GenCfg\UtGenMachineMgrCfgTest.cs" />
     <Compile Include="GenCfg\UtGenRecipe.cs" />
-    <Compile Include="GenCfg\UtGenMachineMgrCfg.cs" />
+    <Compile Include="GenCfg\UtGenMachineMgrCfgReal.cs" />
     <Compile Include="Machine\UtScenario.cs" />
     <Compile Include="Machine\UtStressTest.cs" />
     <Compile Include="Machine\UtMcBoxTransfer.cs" />
@@ -82,7 +84,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="UserData\MachineMgr.config" />
+    <None Include="UserData\MachineMgr.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\MachineMgr.config.fake">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\MachineMgr.config.real">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\MachineMgr.config.test">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\Manifest\Manifest.xml.fake">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\Manifest\Manifest.xml.real">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\Manifest\Manifest.xml.test">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MaskAutoCleaner.v1_0\MaskAutoCleaner.v1_0.csproj">

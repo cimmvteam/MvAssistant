@@ -15,6 +15,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
             using (var machineMgr = new MacMachineMgr())
             {
 
+
+
                 machineMgr.MvCfInit();
                 machineMgr.MvCfLoad();
 

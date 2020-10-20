@@ -34,8 +34,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
 
             this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
-
-            HalContext.MvCfLoad();
+            this.HalContext.MvCfInit();
 
             foreach (var row in this.Config.MachineCtrls)
             {

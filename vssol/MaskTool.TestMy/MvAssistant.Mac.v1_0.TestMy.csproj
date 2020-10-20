@@ -82,6 +82,8 @@
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
+    <Compile Include="GenCfg\Manifest\UtGenManifestTest.cs" />
+    <Compile Include="GenCfg\Manifest\UtGenManifestFake.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
     <Compile Include="MachineRealHal\UtScenarioDrawer.cs" />
     <Compile Include="MachineRealHal\UtScenarioLoadPort.cs" />
@@ -110,9 +112,9 @@
     <Compile Include="UtTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GenCfg\Manifest\Manifest.xml.real">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="GenCfg\Manifest\Manifest.xml.fake" />
+    <None Include="GenCfg\Manifest\Manifest.xml.real" />
+    <None Include="GenCfg\Manifest\Manifest.xml.test" />
     <None Include="packages.config" />
     <None Include="UserData\STC-CL25M_8T freerun.cam" />
   </ItemGroup>

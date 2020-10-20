@@ -14,7 +14,7 @@ namespace MvAssistant.Mac.v1_0.Hal
     /// </summary>
     public class MacHalContext : IMvContextFlow, IHal, IDisposable
     {
-        public Dictionary<string, HalBase> HalDevices = new Dictionary<string, HalBase>();
+        public Dictionary<string, MacHalBase> HalDevices = new Dictionary<string, MacHalBase>();
         public string Path;
         MacManifestCfg manifest;
         public MacHalContext(string path = null)
@@ -27,7 +27,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
 
 
-        void HalCreate(MacManifestDeviceCfg deviceCfg, HalBase hal = null)
+        void HalCreate(MacManifestDeviceCfg deviceCfg, MacHalBase hal = null)
         {
             var drivers = (from row in this.manifest.Drivers
                            where row.DriverId == deviceCfg.DriverId
@@ -41,7 +41,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             var driver = drivers.FirstOrDefault();
             var type = driver.AssignType;
-            var inst = Activator.CreateInstance(type) as HalBase;
+            var inst = Activator.CreateInstance(type) as MacHalBase;
 
             if (inst == null) throw new MacHalObjectNotFoundException();
 
@@ -71,8 +71,7 @@ namespace MvAssistant.Mac.v1_0.Hal
             this.DisposeSelf();
             return 0;
         }
-        public int MvCfInit() { return 0; }
-        public int MvCfLoad()
+        public int MvCfInit()
         {
             if (!string.IsNullOrEmpty(this.Path))
                 this.manifest = MacManifestCfg.LoadFromXmlFile(this.Path);
@@ -83,6 +82,11 @@ namespace MvAssistant.Mac.v1_0.Hal
             {
                 this.HalCreate(dcv);
             }
+
+            return 0;
+        }
+        public int MvCfLoad()
+        {
 
             return 0;
         }
@@ -147,7 +151,7 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         #region Recurrsive HAL
 
-        private void HalClose(HalBase hal)
+        private void HalClose(MacHalBase hal)
         {
             hal.HalClose();
             foreach (var kv in hal.Hals)
@@ -156,7 +160,7 @@ namespace MvAssistant.Mac.v1_0.Hal
             }
         }
 
-        private void HalConnect(HalBase hal)
+        private void HalConnect(MacHalBase hal)
         {
             hal.HalConnect();
             foreach (var kv in hal.Hals)

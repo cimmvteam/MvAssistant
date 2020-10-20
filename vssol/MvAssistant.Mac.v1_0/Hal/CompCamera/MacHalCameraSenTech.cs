@@ -1,16 +1,10 @@
 ﻿using MvAssistant.DeviceDrive.OmronSentechCamera;
-using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Hal.Component;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 //using Sentech.StApiDotNET;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompCamera
 {

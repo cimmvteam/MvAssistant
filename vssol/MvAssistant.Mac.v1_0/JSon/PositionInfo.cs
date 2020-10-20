@@ -1,10 +1,6 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+﻿using MvAssistant.Mac.v1_0.Hal.CompRobot;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.JSon
 {
@@ -15,7 +11,19 @@ namespace MvAssistant.Mac.v1_0.JSon
         public string PositionID { get; set; }
         /// <summary>Serial No </summary>
         public int Sn { get; set; }
-        public HalRobotMotion Position { get; set; }
+
+        private HalRobotMotion position;
+
+        public HalRobotMotion GetPosition()
+        {
+            return position;
+        }
+
+        public void SetPosition(HalRobotMotion value)
+        {
+            position = value;
+        }
+
         public static string GetNewInstID()
         {
             DateTime thisTime = DateTime.Now;
@@ -30,10 +38,10 @@ namespace MvAssistant.Mac.v1_0.JSon
             {
                 if (property.CanRead)
                 {
-                    text = text + property.Name + ": " + property.GetValue(this.Position).ToString() + ", ";
+                    text = text + property.Name + ": " + property.GetValue(this.GetPosition()).ToString() + ", ";
                 }
             }
-            text += "Speed: " + this.Position.Speed + ", MotionType: " + this.Position.MotionType.ToString();
+            text += "Speed: " + this.GetPosition().Speed + ", MotionType: " + this.GetPosition().MotionType.ToString();
             return text;
         }
     }

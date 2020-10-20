@@ -1,14 +1,6 @@
-﻿using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Hal.Component.Robot;
-using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+﻿using MvAssistant.DeviceDrive.LeimacLight;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using MvAssistant.DeviceDrive.LeimacLight;
-using System.Net;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompLight
 {

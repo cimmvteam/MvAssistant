@@ -1,10 +1,6 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component.Robot;
-using System;
+﻿using MvAssistant.Mac.v1_0.Hal.CompRobot;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 //using static System.Net.Mime.MediaTypeNames;
 

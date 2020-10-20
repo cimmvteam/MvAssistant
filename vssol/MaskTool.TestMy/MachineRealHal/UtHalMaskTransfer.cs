@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.Component.Robot;
-using MvAssistant.Mac.v1_0.JSon;
 using MvAssistant.Mac.v1_0.Manifest;
+using System;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal
 {

@@ -62,7 +62,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
             menifest.Devices.Add(DE_UNI_A_ASB());
 
             menifest.Drivers.AddRange(DriverRealAll());
-            menifest.Drivers.AddRange(DriverFakeAll());
+            //menifest.Drivers.AddRange(DriverFakeAll());//Pure real HAL
 
             var fn = Path.Combine(@"../../", "GenCfg/Manifest/Manifest.xml.real");
             menifest.SaveToXmlFile(fn);
@@ -89,7 +89,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                      new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.150",
                         DeviceName = MacEnumDevice.boxtransfer_robot_1.ToString(),
-                        DriverId = ManifestDriverId.FanucRobot.ToString(),
+                        DriverId = ManifestDriverId.RobotFanuc.ToString(),
                     },
 
                       new MacManifestDeviceCfg(){
@@ -782,10 +782,10 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}",
-                            MacHalGudengLoadPort.DevConnStr_Ip, "192.168.0.20",
-                            MacHalGudengLoadPort.DevConnStr_Port, 1024),
+                            MacHalLoadPortGudeng.DevConnStr_Ip, "192.168.0.20",
+                            MacHalLoadPortGudeng.DevConnStr_Port, 1024),
                         DeviceName = MacEnumDevice.loadport_1.ToString(),
-                        DriverId = ManifestDriverId.GudengLoadPort.ToString(),
+                        DriverId = ManifestDriverId.LoadPortGudeng.ToString(),
                     },
                 },
             };
@@ -832,10 +832,10 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}",
-                            MacHalGudengLoadPort.DevConnStr_Ip, "192.168.0.21",
-                            MacHalGudengLoadPort.DevConnStr_Port, 1024),
+                            MacHalLoadPortGudeng.DevConnStr_Ip, "192.168.0.21",
+                            MacHalLoadPortGudeng.DevConnStr_Port, 1024),
                         DeviceName = MacEnumDevice.loadport_2.ToString(),
-                        DriverId = ManifestDriverId.GudengLoadPort.ToString(),
+                        DriverId = ManifestDriverId.LoadPortGudeng.ToString(),
                     },
                 },
             };
@@ -862,7 +862,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.140",
                         DeviceName = MacEnumDevice.masktransfer_robot_1.ToString(),
-                        DriverId = ManifestDriverId.FanucRobot.ToString(),
+                        DriverId = ManifestDriverId.RobotFanuc.ToString(),
                     },
 
 

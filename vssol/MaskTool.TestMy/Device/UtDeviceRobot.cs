@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
-using MvAssistant.Mac.v1_0.Hal.Component.Robot;
 using MvAssistant.Mac.v1_0.Hal.CompRobot;
+using System;
+using System.Linq;
 
 namespace MvAssistant.Mac.TestMy.Device
 {

@@ -10,23 +10,22 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal
 {
     [GuidAttribute("8592A98B-C7DD-46C3-9965-BFD952A7742A")]
-    public abstract class HalBase : IHal, IDisposable
+    public abstract class MacHalBase : IHal, IDisposable
     {
         public MacHalContext HalContext;
         public MacManifestDeviceCfg HalDeviceCfg;
         public MacManifestDriverCfg HalDriverCfg;
-        public Dictionary<string, HalBase> Hals = new Dictionary<string, HalBase>();
-        ~HalBase() { this.Dispose(false); }
+        public Dictionary<string, MacHalBase> Hals = new Dictionary<string, MacHalBase>();
+        ~MacHalBase() { this.Dispose(false); }
         public string ID { get { return this.HalDeviceCfg.ID; } }
-
 
 
         #region Machines Get/Set
 
-        public HalBase this[string key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
-        public HalBase this[MacEnumDevice key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
-        public HalBase GetHalDevice(MacEnumDevice key) { return this.GetHalDevice(key.ToString()); }
-        public HalBase GetHalDevice(string key)
+        public MacHalBase this[string key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
+        public MacHalBase this[MacEnumDevice key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
+        public MacHalBase GetHalDevice(MacEnumDevice key) { return this.GetHalDevice(key.ToString()); }
+        public MacHalBase GetHalDevice(string key)
         {
             var hals = (from row in this.Hals
                         where row.Key == key
@@ -37,8 +36,8 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             return hals.FirstOrDefault().Value;
         }
-        public void SetHalDevice(MacEnumDevice key, HalBase hal) { this.SetHalDevice(key, hal); }
-        public void SetHalDevice(string key, HalBase hal) { this.Hals[key] = hal; }
+        public void SetHalDevice(MacEnumDevice key, MacHalBase hal) { this.SetHalDevice(key, hal); }
+        public void SetHalDevice(string key, MacHalBase hal) { this.Hals[key] = hal; }
 
         #endregion
 
