@@ -78,7 +78,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region 指令
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
-        /// <param name="dicStateMachines"></param>
+        /// <param name="dicStateMachines">所有Drawer 的集合</param>
         public void LoadDrawers(int targetDrawerQuantity,Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
 

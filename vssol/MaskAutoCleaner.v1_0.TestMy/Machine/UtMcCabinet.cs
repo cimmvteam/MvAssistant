@@ -17,9 +17,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public UtMcCabinet()
         {
             _machine = new MacMsCabinet();
-           // _machine.LoadStateMachine();
-
-
+            // 
             var DrawerMachineIdRange = EnumMachineID.MID_DRAWER_01_01.GetDrawerStateMachineIDRange();
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -44,24 +42,29 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         private Dictionary<EnumMachineID, MacMsCabinetDrawer> DicStateMachines { get; set; }
         private List<MacMcCabinetDrawer> MachineControls { get; set; }
-     
 
 
 
 
 
-
+        /// <summary>
+        /// 要測試 BootupInitialDrawers指令
+        /// </summary>
         [TestMethod]
-        public void LoadDrawers()
-        {
-            int drawers = 20;// 要 執行Load 的數量 
-            _machine.LoadDrawers(drawers, DicStateMachines);
-        }
-        [TestMethod]
-        public void BootupInitialDrawers()
+         public void BootupInitialDrawers()
         {
             _machine.BootupInitialDrawers(DicStateMachines);
         }
+
+        /// <summary>測試 Load Drawer 指令</summary>
+        [TestMethod]
+        [DataRow(3)]
+        public void LoadDrawers(int drawersToLoad)
+        {
+             
+            _machine.LoadDrawers(drawersToLoad, DicStateMachines);
+        }
+       
 
         [TestMethod]
         public void SynchrousDrawerStates()
