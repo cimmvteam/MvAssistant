@@ -112,13 +112,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void SynchrousDrawerStates(Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
-            
-            // [???]
-            //  var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
-            var states = new List<MacMsCabinetDrawer>();
-            states.Add(dicStateMachines.Values.ToList()[0]);
-
-
+            #region //[???] 不必檢查狀態
+            #endregion
+            var states = dicStateMachines.Values.ToList();
             if (states.Count == 0)
             { }
             else
@@ -423,16 +419,6 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     Guard = (startTime) => 
                     {
                         var rtnV = false;
-
-                        /**
-                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
-                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
-                        if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
-                        {
-                            rtnV = true;
-                        }
-                        */
-
                         var completeDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState == m.StateWaitingLoadInstruction).ToList().Count();
                         var exceptionDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
                         if (completeDrawers + exceptionDrawers == args.SynchronousDrawerStates.Count())
