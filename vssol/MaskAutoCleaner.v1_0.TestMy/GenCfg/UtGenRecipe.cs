@@ -20,11 +20,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHome);
             step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
 
-            step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LoadPortAClamping);
-            step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
+            step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LoadPortAClamping);
+            step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
 
 
-            var fn = "../../UserData/RecipeOcap.xml";
+            var fn = "../../UserData/Recipe/RecipeFlow_Ocap.xml";
             var fi = new FileInfo(fn);
             if (!fi.Directory.Exists) fi.Directory.Create();
             recipe.SaveToXmlFile(fi.FullName);

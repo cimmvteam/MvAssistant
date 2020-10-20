@@ -117,6 +117,7 @@
     <Compile Include="Msg\JobNotify\EnumMacBoxPositon.cs" />
     <Compile Include="Msg\JobNotify\EnumMacBoxProcessStatus.cs" />
     <Compile Include="EnumMachineID.cs" />
+    <Compile Include="Recipe\MacRecipeMachineState.cs" />
     <Compile Include="Recipe\MacRecipeMgr.cs" />
     <Compile Include="Recipe\MacRecipeParam.cs" />
     <Compile Include="Recipe\MacRecipeStep.cs" />

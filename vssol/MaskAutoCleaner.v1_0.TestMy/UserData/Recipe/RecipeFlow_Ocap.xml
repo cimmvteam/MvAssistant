@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ArrayOfMacRecipeStep xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MacRecipeStep StepName="MoveToLoadPort">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHome" />
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LoadPortAClamping" />
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesAfter>
+  </MacRecipeStep>
+</ArrayOfMacRecipeStep>
