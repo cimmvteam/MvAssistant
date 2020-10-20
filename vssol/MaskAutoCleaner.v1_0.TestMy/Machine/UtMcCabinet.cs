@@ -60,20 +60,28 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// <summary>
         /// 要測試 BootupInitialDrawers指令
         /// </summary>
+        /// <remarks>
+        /// 2020/10/20 OK
+        /// </remarks>
         [TestMethod]
          public void BootupInitialDrawers()
         {
             _machine.BootupInitialDrawers(DicStateMachines);
+
             Repeat();
         }
 
         /// <summary>測試 Load Drawer 指令</summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
         [TestMethod]
         [DataRow(3)]
         public void LoadDrawers(int drawersToLoad)
         {
              
             _machine.LoadDrawers(drawersToLoad, DicStateMachines);
+            Repeat();
         }
        
 
