@@ -284,6 +284,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         private void OnButtonEvent(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnButtonEvent");
             if (PressButtonToLoad != null)
             {
                 PressButtonToLoad.Invoke();
@@ -296,6 +297,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         }
         private void OnSysStartUp(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSysStartUp");
             if (OnSysStartUpHandler != null)
             {
                 OnSysStartUpHandler.Invoke(this, e);
@@ -304,7 +306,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         private void OnINIFailed(object sender, EventArgs e)
         {
-           // Sleep100msecs();
+            // Sleep100msecs();
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnINIFailed");
             this.SetDrawerWorkState(DrawerWorkState.InitialFailed);
             if (OnINIFailedHandler != null)
             {
@@ -315,13 +318,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
        
         private void OnLCDCMsgOK(object sender, EventArgs e)
         {
-            if(OnLCDCMsgOKHandler != null)
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgOK");
+            if (OnLCDCMsgOKHandler != null)
             {
                 OnLCDCMsgOKHandler.Invoke(this, e);
             }
         }
         private void OnLCDCMsgFailed(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgFailed");
             if (OnLCDCMsgFailedHandler != null)
             {
                 OnLCDCMsgFailedHandler.Invoke(this, e);
@@ -332,6 +337,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
       
         private void OnBrightLEDOK(object sender,EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDOK");
             if (OnBrightLEDOKHandler != null)
             {
                 OnBrightLEDOKHandler.Invoke(this, e);
@@ -339,6 +345,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         }
         private void OnBrightLEDFailed(object sender,EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDFailed");
             if (OnBrightLEDFailedHandler != null)
             {
                 OnBrightLEDFailedHandler.Invoke(this, e);
@@ -350,7 +357,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayMotionFailed(object sender,EventArgs e)
         {
-          
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionFailed");
             this.SetDrawerWorkState(DrawerWorkState.TrayMotionFailed);
             if (OnTrayMotionFailedHandler!=null)
             {
@@ -363,6 +370,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnSetMotionSpeedOK(Object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedOK");
             if (OnSetMotionSpeedOKHandler != null)
             {
                 OnSetMotionSpeedOKHandler.Invoke(this ,e);
@@ -373,7 +381,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e">OnSetMotionSpeedOKHandler</param>
         private void OnSetMotionSpeedFailed(Object sender, EventArgs e)
         {
-            if(OnSetMotionSpeedFailedHandler != null)
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedFailed");
+            if (OnSetMotionSpeedFailedHandler != null)
             {
                 OnSetMotionSpeedFailedHandler.Invoke(this, e);
             }
@@ -384,7 +393,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnSetTimeOutOK(Object sender,EventArgs e)
         {
-            if(OnSetTimeOutOKHandler != null)
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutOK");
+            if (OnSetTimeOutOKHandler != null)
             {
                 OnSetTimeOutOKHandler.Invoke(this, e);
             }
@@ -394,8 +404,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnSetTimeOutFailed(Object sender, EventArgs e)
         {
-          
 
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutFailed");
             if (OnSetTimeOutFailedHandler != null)
             {
                 OnSetTimeOutFailedHandler.Invoke(this, e);
@@ -409,7 +419,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             //Sleep100msecs();
             this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
-
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveHome");
             if (OnTrayArriveHomeHandler != null)
             {
                 OnTrayArriveHomeHandler.Invoke(this, e);
@@ -423,6 +433,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             //Sleep100msecs();
             this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveOut");
             if (OnTrayArriveOutHandler != null)
             {
                 OnTrayArriveOutHandler.Invoke(this, e);
@@ -435,6 +446,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             //Sleep100msecs();
             this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveIn");
             if (OnTrayArriveInHandler != null)
             {
                 OnTrayArriveInHandler.Invoke(this, e);
@@ -446,6 +458,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayMotioning(object sender,EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotioning");
             if (OnTrayMotioningHandler != null)
             {
                 OnTrayMotioningHandler.Invoke(this, e);
@@ -457,6 +470,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e">typeof(OnReplyPositionEventArgs)</param>
         private void OnPositionStatus(object sender ,EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnPositionStatus");
             var args= (OnReplyPositionEventArgs)e;
             if (OnPositionStatusHandler !=null)
             {
@@ -469,6 +483,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnDetectedHasBox(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnDetectedHasBox");
             SetDrawerWorkState(DrawerWorkState.BoxExist);
             if (OnDetectedHasBoxHandler != null)
             {
@@ -481,6 +496,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnDetectedEmptyBox(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnDetectedEmptyBox");
             SetDrawerWorkState(DrawerWorkState.BoxNotExist);
             if (OnDetectedEmptyBoxHandler != null)
             {
@@ -493,6 +509,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayMotionOK(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionOK");
             if (OnTrayMotionOKHandler != null)
             {
                 OnTrayMotionOKHandler.Invoke(this, e);
@@ -505,6 +522,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnTrayMothingSensorOFF(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMothingSensorOFF");
             if (OnTrayMotionSensorOFFHandler!= null)
             {
                 OnTrayMotionSensorOFFHandler.Invoke(this, e);
@@ -516,6 +534,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnERRORREcovery(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnERRORREcovery");
             if (OnERRORREcoveryHandler != null)
             {
                 OnERRORREcoveryHandler.Invoke(this, e);
@@ -527,6 +546,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="e"></param>
         private void OnERRORError(object sender, EventArgs e)
         {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnERRORError");
             if (OnERRORErrorHandler!=null)
             {
                 OnERRORErrorHandler.Invoke(this, e);
