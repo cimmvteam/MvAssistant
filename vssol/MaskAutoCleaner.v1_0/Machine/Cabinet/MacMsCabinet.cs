@@ -112,7 +112,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void SynchrousDrawerStates(Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
-            var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            //  var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            var states = dicStateMachines.Values.ToList();
             if (states.Count == 0)
             { }
             else
