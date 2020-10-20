@@ -228,9 +228,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="RobotInterface\Robot Interface.7z.013" />
-    <None Include="RobotInterface\Robot Interface.7z.014" />
-    <None Include="RobotInterface\Robot Interface.7z.015" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
