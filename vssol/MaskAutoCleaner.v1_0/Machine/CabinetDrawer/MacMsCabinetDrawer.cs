@@ -59,7 +59,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public bool CanLoad()
         {
             //[???]
-            return true;
+            var r = new Random();
+            var s = r.Next(1, 3);
+            if (s == 1) { return true; }
+            else { return false; }
 
             
             if (CutrrentState == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
