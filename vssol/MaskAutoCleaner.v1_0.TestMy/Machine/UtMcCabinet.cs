@@ -89,6 +89,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void SynchrousDrawerStates()
         {
             _machine.SynchrousDrawerStates(DicStateMachines);
+            Repeat();
         }
     }
 }
