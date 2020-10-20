@@ -83,8 +83,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             _machine.LoadDrawers(drawersToLoad, DicStateMachines);
             Repeat();
         }
-       
 
+        /// <summary>測試 SynchrousDrawerStates() 指令</summary>
         [TestMethod]
         public void SynchrousDrawerStates()
         {
