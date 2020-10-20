@@ -433,7 +433,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         }
                         */
 
-                        var completeDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
+                        var completeDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState == m.StateWaitingLoadInstruction).ToList().Count();
                         var exceptionDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
                         if (completeDrawers + exceptionDrawers == args.SynchronousDrawerStates.Count())
                         {
