@@ -14,6 +14,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     public class UtMcCabinet
     {
         MacMsCabinet _machine { get; set; }
+        private void Repeat()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(10);
+            }
+        }
         public UtMcCabinet()
         {
             _machine = new MacMsCabinet();
@@ -39,7 +46,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 }
             }
         }
-
+        /// <summary>CabinetDrawer StateMachine 的集合</summary>
         private Dictionary<EnumMachineID, MacMsCabinetDrawer> DicStateMachines { get; set; }
         private List<MacMcCabinetDrawer> MachineControls { get; set; }
 
@@ -54,6 +61,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
          public void BootupInitialDrawers()
         {
             _machine.BootupInitialDrawers(DicStateMachines);
+            Repeat();
         }
 
         /// <summary>測試 Load Drawer 指令</summary>
