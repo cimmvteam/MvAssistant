@@ -409,7 +409,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 SetCurrentState((MacState)sender);
                 var transition = tSynchronousDrawerStatesIng_SynchronousDrawerStatesComplete;
-                var args = (CabinetSystemUpInitialMacStateEntryEventArgs)e;
+               //  var args = (CabinetSystemUpInitialMacStateEntryEventArgs)e;
+                var args = (CabinetSynchronousDrawerStatesMacStateEntryEventArgs)e;
+               
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -422,9 +424,18 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         var rtnV = false;
 
+                        /**
                         var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
                         var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
                         if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
+                        {
+                            rtnV = true;
+                        }
+                        */
+
+                        var completeDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
+                        var exceptionDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        if (completeDrawers + exceptionDrawers == args.SynchronousDrawerStates.Count())
                         {
                             rtnV = true;
                         }
