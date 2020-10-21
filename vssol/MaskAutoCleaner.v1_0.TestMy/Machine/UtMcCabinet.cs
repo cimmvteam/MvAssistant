@@ -84,6 +84,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         /// <summary>測試 SynchrousDrawerStates() 指令</summary>
+        /// <remarks>
+        /// 2020/10/20 OK
+        /// </remarks>
         [TestMethod]
         public void SynchrousDrawerStates()
         {
