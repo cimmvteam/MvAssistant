@@ -1,18 +1,14 @@
 ﻿//#define NO_DEVICE //無裝置可連接時要 define 這個條件
 using MvAssistant.DeviceDrive.FanucRobot_v42_15;
-using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+using MvAssistant.Mac.v1_0.Hal.CompRobot;
+using MvAssistant.Mac.v1_0.JSon;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using MvAssistant.Mac.v1_0.JSon;
 
 namespace MaskCleanerVerify
 {
@@ -558,11 +554,11 @@ namespace MaskCleanerVerify
             PositionInfo positionInfo = null;
             if (this.TempCurrentPosition != null)
             {
-                positionInfo = new PositionInfo
+                positionInfo = new PositionInfo()
                 {
-                    Position = this.TempCurrentPosition,
                     PositionID = PositionInfo.GetNewInstID()
                 };
+                positionInfo.SetPosition(this.TempCurrentPosition);
 
             }
             return positionInfo;

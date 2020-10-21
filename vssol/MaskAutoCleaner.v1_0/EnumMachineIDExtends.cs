@@ -12,8 +12,7 @@ namespace MaskAutoCleaner.v1_0
         /// <summary>取得 Drawer State Machine ID 的 範圍</summary>
         /// <param name="inst">任何一個 EnumMachineID 的成員 </param>
         /// <returns>
-        /// Item1: 第一個 Drawer 的 ID
-        /// Item2: 最後一個 Drawer 的 ID
+        /// DrawerStateMachineIDRange
         /// </returns>
         public static DrawerStateMachineIDRange GetDrawerStateMachineIDRange(this EnumMachineID inst)
         {

@@ -35,25 +35,58 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
         public List<MacManifestDriverCfg> DriverFakeCamera()
         {
             return new MacManifestDriverCfg[]{
-
+                new MacManifestDriverCfg(){
+                    Vendor="Fake",
+                    Product ="Fake Camera",
+                    Remark=null,
+                    AssignType=typeof(Hal.CompCamera.MacHalCameraFake),
+                    DriverId=ManifestDriverId.CameraFake.ToString(),
+                },
 
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverFakeDevice()
         {
             return new MacManifestDriverCfg[]{
-
+                new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Drawer",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompDrawer.MacHalDrawerFake),
+                    DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                },
+                new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Load Port",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortFake),
+                    DriverId = ManifestDriverId.LoadPortGudeng.ToString(),
+                }
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverFakeLight()
         {
             return new MacManifestDriverCfg[]{
+                new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Light Controller",
+                    Remark = null,
+                    AssignType = typeof(Hal.CompLight.MacHalLightLeimac),
+                    DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    DriverPath = null,
+                },
             }.ToList();
         }
         public List<MacManifestDriverCfg> DriverFakeMotion()
         {
             return new MacManifestDriverCfg[]{
-
+                new MacManifestDriverCfg(){
+                    Vendor="Fake",
+                    Product ="Fake Robot",
+                    Remark=null,
+                    AssignType=typeof(Hal.CompRobot.HalRobotFake),
+                    DriverId=ManifestDriverId.CameraFake.ToString(),
+                },
 
 
             }.ToList();
@@ -243,15 +276,8 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Vendor = "Gudeng",
                     Product = "Load Port",
                     Remark = null,
-                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortCellGudeng),
-                    DriverId = ManifestDriverId.LoadPortCellGudeng.ToString(),
-                },
-                new MacManifestDriverCfg(){
-                    Vendor = "Gudeng",
-                    Product = "Load Port",
-                    Remark = null,
-                    AssignType = typeof(Hal.CompLoadPort.MacHalGudengLoadPort),
-                    DriverId = ManifestDriverId.GudengLoadPort.ToString(),
+                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortGudeng),
+                    DriverId = ManifestDriverId.LoadPortGudeng.ToString(),
                 }
             }.ToList();
         }
@@ -275,8 +301,8 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Vendor = "Fanuc",
                     Product = "Fanuc Robot LR Mate 200iD",
                     Remark = null,
-                    AssignType = typeof(Hal.Component.Robot.HalRobotFanuc),
-                    DriverId = ManifestDriverId.FanucRobot.ToString(),
+                    AssignType = typeof(Hal.CompRobot. HalRobotFanuc),
+                    DriverId = ManifestDriverId.RobotFanuc.ToString(),
                     DriverPath = null,
                 },
 

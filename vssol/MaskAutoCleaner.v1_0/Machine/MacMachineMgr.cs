@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         public MacMachineMediater Mediater;
         protected MacMachineMgrCfg Config;
         protected MacHalContext HalContext;
-        protected MacRecipeMgr RecipeMgr;
+        public MacRecipeMgr RecipeMgr;
 
         /// <summary>
         /// 程式關閉或垃圾回收時會進行解構
@@ -34,8 +34,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
 
             this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
-
-            HalContext.MvCfLoad();
+            this.HalContext.MvCfInit();
 
             foreach (var row in this.Config.MachineCtrls)
             {
@@ -51,7 +50,9 @@ namespace MaskAutoCleaner.v1_0.Machine
                 //Assign HAL to machine controller
                 var hal = this.HalContext.HalDevices.Where(x => x.Value.ID == row.HalId).FirstOrDefault();
                 machine.halAssembly = hal.Value as MacHalAssemblyBase;
-                machine.halAssembly.HalConnect();
+
+               
+               machine.halAssembly.HalConnect();
             }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 

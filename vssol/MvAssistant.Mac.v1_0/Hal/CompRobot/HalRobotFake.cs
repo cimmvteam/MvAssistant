@@ -1,16 +1,12 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component.Robot;
-
+﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.ComponentFake.Robot
+namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 {
-    [GuidAttribute("AC9FF1CB-B377-4F1C-9924-CC3678A0D0D9")]
-    public class HalRobotFake : HalFakeBase, IHalRobot
+    [Guid("D164A8D9-031A-4EBB-8876-679F0874C8E7")]
+    public class HalRobotFake : MacHalFakeComponentBase, IHalRobot
     {
         public int HalReset()
         {

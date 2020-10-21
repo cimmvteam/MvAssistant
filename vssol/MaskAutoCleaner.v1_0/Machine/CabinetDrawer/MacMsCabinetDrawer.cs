@@ -18,7 +18,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         protected override void SetCurrentState(MacState state)
         {
-            this.SetCurrentState(state);
+            base.SetCurrentState(state);
+            /**
             try
             {
                 if (state == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
@@ -39,6 +40,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 }
             }
             catch  {    }
+            */
         }
         public IMacHalDrawer HalDrawer {
             get
@@ -56,6 +58,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <returns></returns>
         public bool CanLoad()
         {
+                      
             if (CutrrentState == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
             { return true; }
             else
@@ -64,6 +67,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public MacMsCabinetDrawer()
         {
+            
+            TimeoutObject = new MacMsTimeOutController(20);
 
             LoadStateMachine();
         }
@@ -575,7 +580,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
-                Trigger(transition);
+                TriggerAsync(transition);
             };
 
             sLoadMoveTrayToOutComplete.OnEntry += (sender, e) =>
@@ -684,6 +689,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         return rtnV;
                     },
                 };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
             };
             sLoadMoveTrayToHomeIng.OnExit += (sender, e) =>
             {
@@ -904,7 +911,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     ThisStateExitEventArgs=new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
-                Trigger(transition);
+                TriggerAsync(transition);
             };
             sLoadRejectTrayToOutIng.OnEntry += (sender, e) =>
             {
@@ -1407,7 +1414,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             sUnloadCheckBoxExistenceIng.OnEntry += (sender, e) =>
             {   // Async
                 SetCurrentState((MacState)sender);
-                var transition = tUnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng;
+                var transition = tUnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -1433,7 +1440,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMemberAsync);
-                Trigger(transition);
+                TriggerAsync(transition);
             };
             sUnloadCheckBoxExistenceIng.OnExit += (sender, e) =>
             {
@@ -1531,6 +1538,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                         return rtnV;
                     },
                 };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
             };
             sUnloadMoveTrayToOutIng.OnExit += (sender, e) =>
             {

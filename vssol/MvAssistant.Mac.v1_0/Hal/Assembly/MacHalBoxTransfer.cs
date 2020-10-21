@@ -1,15 +1,15 @@
-﻿using MvAssistant.Mac.v1_0.Hal.Component.Robot;
+﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.Mac.v1_0.Hal.CompRobot;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Data;
-using System.IO;
-using System.Text;
-using MvAssistant.Mac.v1_0.Hal.CompCamera;
 using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {

@@ -1,17 +1,12 @@
-﻿using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Hal.Component.Robot;
-using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+﻿using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+using MvAssistant.Mac.v1_0.JSon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using MvAssistant.Mac.v1_0.JSon;
 using System.Threading;
-using System.IO;
 
-namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
+namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 {
 
     [GuidAttribute("5EDFE42F-A27A-42B5-9702-11FC84208D74")]
@@ -91,7 +86,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
         public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
         {
             var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
-            var PosList = PosInfo.Select(m => m.Position).ToList();
+            var PosList = PosInfo.Select(m => m.GetPosition()).ToList();
             return PosList;
         }
 
