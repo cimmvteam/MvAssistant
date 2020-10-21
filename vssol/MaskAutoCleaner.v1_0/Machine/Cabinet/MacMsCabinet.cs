@@ -78,7 +78,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region 指令
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
-        /// <param name="dicStateMachines"></param>
+        /// <param name="dicStateMachines">所有Drawer 的集合</param>
         public void LoadDrawers(int targetDrawerQuantity,Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
 
@@ -100,7 +100,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <param name="dicStateMachines"></param>
         public void BootupInitialDrawers(Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
-            var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            // var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            var states = dicStateMachines.Values.ToList();
             if (states.Count == 0)
             { }
             else
@@ -111,7 +112,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public void SynchrousDrawerStates(Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
-            var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
+            #region //[???] 不必檢查狀態
+            #endregion
+            var states = dicStateMachines.Values.ToList();
             if (states.Count == 0)
             { }
             else
@@ -402,7 +405,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 SetCurrentState((MacState)sender);
                 var transition = tSynchronousDrawerStatesIng_SynchronousDrawerStatesComplete;
-                var args = (CabinetSystemUpInitialMacStateEntryEventArgs)e;
+               //  var args = (CabinetSystemUpInitialMacStateEntryEventArgs)e;
+                var args = (CabinetSynchronousDrawerStatesMacStateEntryEventArgs)e;
+               
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -414,10 +419,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     Guard = (startTime) => 
                     {
                         var rtnV = false;
-
-                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
-                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
-                        if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
+                        var completeDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState == m.StateWaitingLoadInstruction).ToList().Count();
+                        var exceptionDrawers = args.SynchronousDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        if (completeDrawers + exceptionDrawers == args.SynchronousDrawerStates.Count())
                         {
                             rtnV = true;
                         }
