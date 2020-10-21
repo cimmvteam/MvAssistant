@@ -151,7 +151,52 @@ namespace MvAssistant.Mac.v1_0.Hal.Component.Robot
             return this.ldd.Pns0101MoveStraightAsync(PosArray, corJ, OfsOrPos, motion.IsTcpMove, motion.Speed);
         }
 
+        /// <summary>
+        /// 執行連線及連續點位一次性寫入，點位數量不能超過30個，edit from HalMoveStraightAsyn(HalRobotMotion)
+        /// </summary>
+        /// <param name="motion"></param>
+        /// <returns></returns>
+        public void HalWriteContinuousMotionAsyn(List<HalRobotMotion> PathPosition)
+        {
+            var targets = new List<HalRobotMotion>();
+            targets.AddRange(PathPosition);
 
+            if (targets.Count > 30)
+                throw new MvException("Position quantity can not over than 30 !!");
+
+            var Group1_Qty = ldd.ReadRegIntValue(21);//點位群組1的點位數量，存於PR[101]~PR[130]，當數量為0代表還沒存入點位
+            var Group2_Qty = ldd.ReadRegIntValue(22);//點位群組2的點位數量，存於PR[131]~PR[160]，當數量為0代表還沒存入點位
+            var Group3_Qty = ldd.ReadRegIntValue(23);//點位群組3的點位數量，存於PR[161]~PR[190]，當數量為0代表還沒存入點位
+            int PositionRegisterStartNum;
+
+            if (Group1_Qty == 0 && Group3_Qty != 0)//將點位寫入群組1，群組範圍PR[101]~PR[130]
+            { PositionRegisterStartNum = 101; }
+            else if (Group2_Qty == 0 && Group1_Qty != 0)//將點位寫入群組2，群組範圍PR[131]~PR[160]
+            { PositionRegisterStartNum = 131; }
+            else//將點位寫入群組3，群組範圍PR[161]~PR[190]
+            { PositionRegisterStartNum = 161; }
+
+            for (int idx = 0; idx < targets.Count; idx++)
+            {
+                var motion = targets[idx];
+                var corJ = 0;
+                float[] PosArray;
+                switch (motion.MotionType)
+                {
+                    case HalRobotEnumMotionType.Offset:
+                        corJ = 0; PosArray = motion.ToXyzwprArray(); break;
+                    case HalRobotEnumMotionType.Position:
+                        corJ = 0; PosArray = motion.ToXyzwprArray(); break;
+                    case HalRobotEnumMotionType.Joint:
+                        corJ = 1; PosArray = motion.ToJointArray(); break;//Joint模式讀取J1~J6座標
+                    default:
+                        corJ = 0; PosArray = motion.ToXyzwprArray(); break;
+                }
+                var Result = this.ldd.Pns0103TartgetSaveToPosReg(PosArray, corJ, motion.Speed, PositionRegisterStartNum + idx);
+                if (Result == -1)
+                    throw new MvException("Can not connected to Robot!!");
+            }
+        }
 
 
         bool IHalRobot.HalMoveIsComplete()

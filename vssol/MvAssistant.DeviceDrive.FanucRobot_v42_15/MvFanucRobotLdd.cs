@@ -790,6 +790,8 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
             return 0;
         }
 
+        
+
         /// <summary>
         /// must 用thread 
         /// </summary>
@@ -938,6 +940,68 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
 
         }
         #endregion
+
+        #region PNS0103
+        /// <summary>
+        /// 預先儲存點位移動資訊到PR[]及R[]，edit from Pns0101MoveStraightAsync(Array,int,int,int,int)
+        /// </summary>
+        /// <param name="Target"></param>
+        /// <param name="_SelectCorJ"></param>
+        /// <param name="Speed"></param>
+        /// <returns></returns>
+        public int Pns0103TartgetSaveToPosReg(Array Target, int _SelectCorJ, int Speed,int PR_Num)
+        {
+            if (!this.IsConnected()) return -1;
+
+            Array TargetPos = Target;
+            
+            this.SetRegIntValue(PR_Num, _SelectCorJ);//Write R[ PR_Num ]. 0:Mov position, 1:Rotate J1~6
+            this.SetRegIntValue(PR_Num+100, Speed);//Write R[ PR_Num+100 ]. 單位(mm/sec)
+
+            //從當前 移到指到位置
+            var robotInfo = GetCurrRobotInfo();
+
+            //還不確定為何要帶全帶0
+            robotInfo.PosReg.ConfigArray.SetValue((short)0, 4);    //for Index 0
+            robotInfo.PosReg.ConfigArray.SetValue((short)0, 5);
+            robotInfo.PosReg.ConfigArray.SetValue((short)0, 6);
+
+            if (_SelectCorJ == 0)
+            {
+                if (robotInfo.ValidC != 0)  //Valid Cartesian values
+                {
+                    for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.XyzwpreArrary.Length; idx++)
+                        robotInfo.PosReg.XyzwpreArrary.SetValue(TargetPos.GetValue(idx), idx);  //X_position
+                }
+                else
+                {
+                    //return "InValid C Return";
+                }
+
+                if (!this.SetPosRegXyzWpr(PR_Num, robotInfo.PosReg))
+                    throw new MvException("Fail to write position register");
+            }
+            else
+            {
+                if (robotInfo.ValidJ != 0)  //Valid Cartesian values
+                {
+                    for (var idx = 0; idx < TargetPos.Length && idx < robotInfo.PosReg.JointArray.Length; idx++)
+                        robotInfo.PosReg.JointArray.SetValue(TargetPos.GetValue(idx), idx);  //J_position
+                }
+                else
+                {
+                    //return "InValid J Return";
+                }
+
+                if (!this.SetPosRegJoint(PR_Num, robotInfo.PosReg))
+                    throw new MvException("Fail to write position register");
+            }
+            
+            this.mobjDataTable.Refresh();
+
+            return 0;
+        }
+        #endregion PNS0103
 
         #region LogInfo()
         public void LogInfo(string pMessage)
