@@ -126,9 +126,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         {
             get
             {
-                //[???]
-                return "192.168.0.11";
-                //return this.DevSettings["local_ip"];
+                                
+                return this.DevSettings["local_ip"];
             }
         }
          

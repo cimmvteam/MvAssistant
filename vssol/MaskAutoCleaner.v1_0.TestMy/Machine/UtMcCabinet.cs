@@ -40,8 +40,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                     MachineControls.Add(control);
                     DicStateMachines.Add(machineId, control.StateMachine);
 
-                    //[???]
-                    control.StateMachine.HalDrawer.HalConnect();
+                   
                 }
                 catch (Exception ex)
                 {

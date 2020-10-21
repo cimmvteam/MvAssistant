@@ -67,8 +67,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public MacMsCabinetDrawer()
         {
-            //[???]
-            TimeoutObject = new MacMsTimeOutController(500);
+            
+            TimeoutObject = new MacMsTimeOutController(20);
 
             LoadStateMachine();
         }

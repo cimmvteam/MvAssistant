@@ -65,10 +65,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
             var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
-            //[???]
-            machine1.HalDrawer.HalConnect();
-            //[???]
-            machine2.HalDrawer.HalConnect();
+           
 
             Repeat();
 
@@ -86,8 +83,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_01;
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
-            //[???]
-            machine.HalDrawer.HalConnect();
+           
 
             machine.SystemBootup();
 
@@ -120,8 +116,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
+           
 
             machine.Load_MoveTrayToOut();
             Repeat();
@@ -141,8 +136,6 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
 
             machine.Load_MoveTrayToHome();
 
@@ -161,8 +154,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
+          
 
             machine.Load_MoveTrayToIn();
 
@@ -181,9 +173,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
-
+          
             machine.MoveTrayToHomeWaitingUnloadInstruction();
 
             Repeat();
@@ -202,8 +192,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
+           
 
             machine.Unload_MoveTrayToIn();
 
@@ -223,9 +212,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
-
+           
             machine.Unload_MoveTrayToHome();
 
             Repeat();
@@ -244,9 +231,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-            //[???]
-            machine.HalDrawer.HalConnect();
-
+            
             machine.MoveTrayToHomeWaitingLoadInstruction();
 
             Repeat();
