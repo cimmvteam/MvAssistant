@@ -61,10 +61,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         }
         public override bool HalIsConnected()
         {
+            /* real
             if (LddPool == null) { return false; }
             if (Ldd == null) { return false; }
-
             return true;
+            */
+
+            #region fake
+            Sleep1Sec();
+            return true;
+            #endregion
         }
         public MvKjMachineDrawerLdd Ldd { get; set; }
     
@@ -131,37 +137,44 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
          
         public override int HalConnect()
         {  // LddPool
-            var connected = false;
-            try
-            {
+           /** real
+           var connected = false;
+           try
+           {
 
-                LddPool = MvKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart,HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
-                if (LddPool == null)
-                {
-                    connected = false;
+               LddPool = MvKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart,HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
+               if (LddPool == null)
+               {
+                   connected = false;
 
-                }
-                else
-                {
-                    Ldd = LddPool.CreateLdd(DeviceIndex, DeviceEndPoint, HostIP);
-                }
-                if (Ldd == null || LddPool==null)
-                {
-                    connected = false;
-                }
-                else
-                {
-                    BindLddEvent();
-                    
-                    connected = true;
-                }
+               }
+               else
+               {
+                   Ldd = LddPool.CreateLdd(DeviceIndex, DeviceEndPoint, HostIP);
+               }
+               if (Ldd == null || LddPool==null)
+               {
+                   connected = false;
+               }
+               else
+               {
+                   BindLddEvent();
+                   
+                   connected = true;
+               }
 
-            }
-            catch (Exception ex)
-            {
-                connected = false;
-            }
-            return connected ? 1:0;
+           }
+           catch (Exception ex)
+           {
+               connected = false;
+           }
+           return connected ? 1:0;
+        */
+            #region  Fake
+            LddPool = MvKjMachineDrawerLddPool.GetFakeInstance();
+            Ldd = LddPool.CreateFakeLdd(DeviceIndex, DeviceEndPoint, HostIP);
+            return 1;
+            #endregion
         }
 
         public override int HalClose()
@@ -541,10 +554,25 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public string CommandINI()
         {
 
+            /** real
             this.SetDrawerWorkState(DrawerWorkState.InitialIng);
             var commandText = Ldd.CommandINI();
 
             return commandText;
+           */
+            #region fake
+          
+            this.SetDrawerWorkState(DrawerWorkState.InitialIng);
+            var commandText = Ldd.FakeCommandINI();
+            new Task(
+                () =>
+                {
+                    Sleep2Secs();
+                    this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
+                }
+                ).Start();
+            return commandText ;
+            #endregion
         }
 
         public string CommandSetMotionSpeed(int speed)
@@ -564,10 +592,25 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public string CommandTrayMotionHome()
         {
             //ResetCurrentWorkState();
+            /** real 
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
             var commandText = Ldd.CommandTrayMotionHome();
            
             return commandText;
+           */
+
+            #region Fake
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
+            var commandText = Ldd.FakeCommandTrayMotionHome();
+            new Task(
+                () =>
+                {
+                    Sleep2Secs();
+                    this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
+                }
+                ).Start();
+            return commandText;
+            #endregion
         }
 
         private void SetDrawerWorkState(object moveTrayToPositionHomeIng)
@@ -578,21 +621,54 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         public string CommandTrayMotionOut()
         {
             //ResetCurrentWorkState();
+            /** real
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutIng);
             var commandText = Ldd.CommandTrayMotionOut();
             return commandText;
+            */
+
+            #region Fake
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutIng);
+            var commandText = Ldd.FakeCommandTrayMotionOut();
+            new Task(
+                () =>
+                {
+                    Sleep2Secs();
+                    this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
+                }
+                ).Start();
+
+            return commandText;
+            #endregion
         }
 
         public string CommandTrayMotionIn()
         {
             // ResetCurrentWorkState();
+
+            /** 
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
             var commandText = Ldd.CommandTrayMotionIn();
            
             return commandText;
+          */
+
+            #region Fake
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
+            var commandText = Ldd.FakeCommandTrayMotionIn();
+            new Task(
+              () =>
+              {
+                  Sleep2Secs();
+                  this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
+              }
+              ).Start();
+
+            return commandText;
+            #endregion 
         }
 
-        
+
 
         public string CommandBrightLEDAllOn()
         {
@@ -631,9 +707,25 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
 
         public string CommandBoxDetection()
         {
+            /** real
             ResetCurrentWorkState();
             var commandText = Ldd.CommandBoxDetection();
             return commandText;
+           */
+
+            #region Fake
+            ResetCurrentWorkState();
+            var commandText = Ldd.FakeCommandBoxDetection();
+            new Task(
+              () =>
+              {
+                  Sleep2Secs();
+                  this.SetDrawerWorkState(DrawerWorkState.BoxExist);
+              }
+              ).Start();
+            return commandText;
+            #endregion
+
         }
 
         public string CommandWriteNetSetting()
@@ -876,6 +968,37 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             // string str = $"Ldd={ldd.DeviceIP}, Text={text}";
             string str = "Ldd=" + ldd.DeviceIP + ", Text=" + text;
             Debug.WriteLine("\r\n"+ str);
+        }
+
+        /// <summary>休息 500 毫秒</summary>
+        void Sleep500msecs()
+        {
+            for(var i=1;i<=5;i++)
+            {
+                Sleep100msecs();
+            }
+        }
+
+        /// <summary>休息 1 秒</summary>
+        void Sleep1Sec()
+        {
+            for(var i = 1; i <= 2; i++)
+            {
+                Sleep500msecs();
+            }
+        }
+
+        /// <summary>休息 2 秒</summary>
+        void Sleep2Secs()
+        {
+            Sleep1Sec();
+            Sleep1Sec();
+        }
+
+        /// <summary>秒息 1000毫秒</summary>
+        void Sleep1000msecs()
+        {
+            Sleep1Sec();
         }
 
     }
