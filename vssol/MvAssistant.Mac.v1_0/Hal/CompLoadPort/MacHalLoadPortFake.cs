@@ -255,7 +255,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             #region Fake
             SetWorkState(LoadPortWorkState.ResetIng);
             var commandText = _ldd.FakeCommandAlarmReset();
-            Debug.WriteLine("[Fake] Loadport  DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
+            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
             Debug.WriteLine("[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
             new Task(
                 () =>
