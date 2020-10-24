@@ -20,7 +20,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     public class MacMsLoadPort : MacMachineStateBase
     {
          /// <summary>控制逾時與否的物件</summary>
-        private MacMsTimeOutController TimeController = new MacMsTimeOutController(20);
+       // private MacMsTimeOutController TimeController = new MacMsTimeOutController(20);
  
 #if NoConfig
         IMacHalLoadPortUnit HalLoadPort = null;
@@ -57,12 +57,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             //HalLoadPort = new MacHalGudengLoadPort();
             //HalLoadPort.HalConnect();
-            LoadStateMachine();
+           TimeoutObject = new MacMsTimeOutController(20);
+           LoadStateMachine();
         }
 #else
         public MacMsLoadPort()
         {
-             LoadStateMachine();
+            TimeoutObject = new MacMsTimeOutController(20);
+            LoadStateMachine();
         }
 #endif
 
@@ -273,7 +275,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         {
                             throw new LoadportSystemBootupAlarmResetFailException();
                         }
-                        else if (TimeController.IsTimeOut(startTime))
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new LoadportSystemBootupAlarmResetTimeOutException();
                         }
@@ -368,7 +370,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         {
                             throw new LoadportSystemBootupInitialMustResetException();
                         }
-                        else if (TimeController.IsTimeOut(startTime))
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new LoadportSystemBootupInitialTimeOutException();
                         }
@@ -468,7 +470,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         {
                             throw new LoadportAlarmResetFailException();
                         }
-                        else if (TimeController.IsTimeOut(startTime))
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new LoadportAlarmResetTimeOutException();
                         }
@@ -566,7 +568,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         {
                             throw new LoadportInitialMustResetException();
                         }
-                        else if(TimeController.IsTimeOut(startTime))
+                        else if(this.TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new LoadportInitialTimeOutException();
                         }
@@ -698,7 +700,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         {
                             throw new LoadportDockMustResetException();
                         }
-                        else if (TimeController.IsTimeOut(startTime))
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new LoadportDockTimeOutException();
                         }
@@ -828,7 +830,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                         {
                             throw new LoadportUndockMustResetException();
                         }
-                        else if (TimeController.IsTimeOut(startTime))
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
                         {
                             throw new LoadportUndockTimeOutException();
                         }
