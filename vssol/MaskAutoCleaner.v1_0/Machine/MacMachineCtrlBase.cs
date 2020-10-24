@@ -13,11 +13,11 @@ namespace MaskAutoCleaner.v1_0.Machine
     /// <summary>
     /// Machine Controller Base
     /// </summary>
-    public abstract class MacMachineCtrlBase : IMvContextFlow, IDisposable
+    public abstract class MacMachineCtrlBase : IMvContextFlow, IMacMsgProcessor, IDisposable
     {
-        public MacHalAssemblyBase halAssembly { get { return this.msAssembly.halAssembly; } set { this.msAssembly.halAssembly = value; } }
-        public MacMachineStateBase msAssembly;
-        public MacMachineMediater Mediater { get { return this.msAssembly.Mediater; } set { this.msAssembly.Mediater = value; } }
+        public MacHalAssemblyBase HalAssembly { get { return this.MsAssembly.halAssembly; } set { this.MsAssembly.halAssembly = value; } }
+        public MacMachineStateBase MsAssembly;
+        public MacMachineMediater Mediater { get { return this.MsAssembly.Mediater; } set { this.MsAssembly.Mediater = value; } }
 
         ~MacMachineCtrlBase() { this.Dispose(false); }
 
@@ -29,7 +29,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// </summary>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public abstract int RequestProcMsg(MacMsgBase msg);
+        public abstract int RequestProcMsg(IMacMsg msg);
 
 
 

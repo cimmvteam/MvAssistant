@@ -34,9 +34,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     public class MacMsMaskTransfer : MacMachineStateBase
     {
         public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
-        private IMacHalInspectionCh HalInspectionCh { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_IC_A_ASB.ToString()].halAssembly as IMacHalInspectionCh; } }
-        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()].halAssembly as IMacHalOpenStage; } }
-        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()].halAssembly as IMacHalUniversal; } }
+        private IMacHalInspectionCh HalInspectionCh { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_IC_A_ASB.ToString()).HalAssembly as IMacHalInspectionCh; } }
+        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
+        private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
 
         private MacState _currentState = null;
 
@@ -1309,11 +1309,11 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Transition
 
             #region State Register OnEntry OnExit
-            MaskrobotTransferPathFile fileObj =new MaskrobotTransferPathFile(@"D:\Positions\MTRobot\");
+            MaskrobotTransferPathFile fileObj = new MaskrobotTransferPathFile(@"D:\Positions\MTRobot\");
             sStart.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-                
+
                 CheckEquipmentStatus();
                 CheckAssemblyAlarmSignal();
                 CheckAssemblyWarningSignal();
@@ -3073,7 +3073,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             sMovingAfterCleaned.OnExit += (sender, e) =>
             { };
-            
+
             sMovingToInspect.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3191,7 +3191,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             sMovingAfterInspected.OnExit += (sender, e) =>
             { };
-            
+
             sMovingToCCHomeClampedFromCleanCh.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3429,7 +3429,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             };
             sMovingAfterCleanedGlass.OnExit += (sender, e) =>
             { };
-            
+
             sMovingToInspectGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);

@@ -13,14 +13,19 @@ namespace MaskAutoCleaner.v1_0.Machine
     public class MacMachineMediater : IDisposable
     {
 
-        public MacMachineMgr MachineMgr;
+        protected MacMachineMgr MachineMgr;//存取此物件需要透過Mediater, 不得開放給其它物件使用
 
+        public MacMachineMediater(MacMachineMgr machineMgr) { this.MachineMgr = machineMgr; }
         ~MacMachineMediater() { this.Dispose(false); }
 
 
 
 
-
+        public MacMachineCtrlBase GetCtrlMachine(string machineId)
+        {
+            if (!this.MachineMgr.CtrlMachines.ContainsKey(machineId)) return null;
+            return this.MachineMgr.CtrlMachines[machineId];
+        }
 
 
 

@@ -228,8 +228,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     Guard = (startTime) =>
                     {
                         var rtnV = false;
-                        var completeDrawers = args.LoadDrawerStates.Where(m => m.CutrrentState == m.StateLoadWaitingPutBoxOnTray).ToList().Count();
-                        var exceptionDrawers= args.LoadDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        var completeDrawers = args.LoadDrawerStates.Where(m => m.CurrentState == m.StateLoadWaitingPutBoxOnTray).ToList().Count();
+                        var exceptionDrawers= args.LoadDrawerStates.Where(m => m.CurrentState.IsStateMachineException.HasValue).ToList().Count();
                         if (completeDrawers + exceptionDrawers == args.LoadDrawerStates.Count())
                         {
                             rtnV = true;
@@ -321,8 +321,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         var rtnV = false;
 
-                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateWaitingLoadInstruction).ToList().Count();
-                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CurrentState == m.StateWaitingLoadInstruction).ToList().Count();
+                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CurrentState.IsStateMachineException.HasValue).ToList().Count();
                         if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
                         {
                             rtnV = true;
@@ -415,8 +415,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         var rtnV = false;
 
-                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState == m.StateSystemBootup).ToList().Count();
-                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CutrrentState.IsStateMachineException.HasValue).ToList().Count();
+                        var completeDrawers = args.InitialDrawerStates.Where(m => m.CurrentState == m.StateSystemBootup).ToList().Count();
+                        var exceptionDrawers = args.InitialDrawerStates.Where(m => m.CurrentState.IsStateMachineException.HasValue).ToList().Count();
                         if (completeDrawers + exceptionDrawers == args.InitialDrawerStates.Count())
                         {
                             rtnV = true;
