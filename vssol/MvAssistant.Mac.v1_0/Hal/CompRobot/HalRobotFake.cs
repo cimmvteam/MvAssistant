@@ -52,7 +52,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 
         public HalRobotMotion HalGetPose()
         {
-            return new HalRobotMotion();
+            var motion = new HalRobotMotion();
+
+            return motion;
         }
 
 

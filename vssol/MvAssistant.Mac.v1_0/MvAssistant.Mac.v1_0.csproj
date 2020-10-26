@@ -84,11 +84,15 @@
     <Compile Include="Hal\Assembly\MacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanCh.cs" />
+    <Compile Include="Hal\Assembly\MacHalCleanChFake.cs" />
     <Compile Include="Hal\Assembly\MacHalInspectionCh.cs" />
+    <Compile Include="Hal\Assembly\MacHalInspectionChFake.cs" />
     <Compile Include="Hal\Assembly\MacHalLoadPort.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
+    <Compile Include="Hal\Assembly\MacHalMaskTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
+    <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
     <Compile Include="Hal\CompDrawer\HalDrawerBoxDetectReturn.cs" />
     <Compile Include="Hal\CompDrawer\MacHalDrawerFake.cs" />
