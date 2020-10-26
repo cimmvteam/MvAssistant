@@ -87,6 +87,7 @@
     <Compile Include="Hal\Assembly\MacHalInspectionCh.cs" />
     <Compile Include="Hal\Assembly\MacHalLoadPort.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
+    <Compile Include="Hal\Assembly\MacHalOpenStageFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
