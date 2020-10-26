@@ -22,6 +22,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         StandbyAtICHomeInspected,
         StandbyAtCCHomeClamped,
         CleanedAtCCHomeClamped,
+        StandbyAtCCHomeCleaned,
 
         //Change Direction
         ChangeDirectionToLPHomeFromICHome,

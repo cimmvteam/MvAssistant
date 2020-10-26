@@ -149,11 +149,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
-            MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingMask);
-            MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingMask);
-            MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
-            MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
+            MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.PellicleOnStage);
+            MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingPellicle);
+            MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingPellicle);
+            MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.PellicleOnStageInspected);
+            MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleasePellicle);
 
             MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
             MacState sDefensingGlass = NewState(EnumMacMsInspectionChState.DefensingGlass);

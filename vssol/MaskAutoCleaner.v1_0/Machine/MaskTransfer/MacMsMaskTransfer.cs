@@ -1085,24 +1085,24 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
             //Clean
-            MacState sMovingToCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCleanCh);//前往CleanCh
-            MacState sClampedInCleanCh = NewState(EnumMacMsMaskTransferState.ClampedInCleanCh);//準備好Clean
-            MacState sMovingToClean = NewState(EnumMacMsMaskTransferState.MovingToClean);
-            MacState sCleaningPellicle = NewState(EnumMacMsMaskTransferState.CleaningPellicle);
-            MacState sMovingAfterCleaned = NewState(EnumMacMsMaskTransferState.MovingAfterCleaned);
-            MacState sMovingToInspect = NewState(EnumMacMsMaskTransferState.MovingToInspect);
-            MacState sInspectingPellicle = NewState(EnumMacMsMaskTransferState.InspectingPellicle);
-            MacState sMovingAfterInspected = NewState(EnumMacMsMaskTransferState.MovingAfterInspected);
+            MacState sMovingToCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCleanChPellicle);//前往CleanCh
+            MacState sClampedInCleanCh = NewState(EnumMacMsMaskTransferState.ClampedInCleanChTargetPellicle);//準備好Clean
+            MacState sMovingToClean = NewState(EnumMacMsMaskTransferState.MovingInCleanChToCleanPellicle);
+            MacState sCleaningPellicle = NewState(EnumMacMsMaskTransferState.CleaningPellicleInCleanCh);
+            MacState sMovingAfterCleaned = NewState(EnumMacMsMaskTransferState.MovingInCleanChAfterCleanedPellicle);
+            MacState sMovingToInspect = NewState(EnumMacMsMaskTransferState.MovingInCleanChToInspectPellicle);
+            MacState sInspectingPellicle = NewState(EnumMacMsMaskTransferState.InspectingPellicleInCleanCh);
+            MacState sMovingAfterInspected = NewState(EnumMacMsMaskTransferState.MovingInCleanChAfterInspectedPellicle);
             MacState sMovingToCCHomeClampedFromCleanCh = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanCh);//離開CleanCh
 
             MacState sMovingToCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanChGlass);//前往CleanChGlass
-            MacState sClampedInCleanChGlass = NewState(EnumMacMsMaskTransferState.ClampedInCleanChGlass);//準備好CleanGlass
-            MacState sMovingToCleanGlass = NewState(EnumMacMsMaskTransferState.MovingToCleanGlass);
-            MacState sCleaningGlass = NewState(EnumMacMsMaskTransferState.CleaningGlass);
-            MacState sMovingAfterCleanedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterCleanedGlass);
-            MacState sMovingToInspectGlass = NewState(EnumMacMsMaskTransferState.MovingToInspectGlass);
-            MacState sInspectingGlass = NewState(EnumMacMsMaskTransferState.InspectingGlass);
-            MacState sMovingAfterInspectedGlass = NewState(EnumMacMsMaskTransferState.MovingAfterInspectedGlass);
+            MacState sClampedInCleanChGlass = NewState(EnumMacMsMaskTransferState.ClampedInCleanChTargetGlass);//準備好CleanGlass
+            MacState sMovingToCleanGlass = NewState(EnumMacMsMaskTransferState.MovingInCleanChToCleanGlass);
+            MacState sCleaningGlass = NewState(EnumMacMsMaskTransferState.CleaningGlassInCleanCh);
+            MacState sMovingAfterCleanedGlass = NewState(EnumMacMsMaskTransferState.MovingInCleanChAfterCleanedGlass);
+            MacState sMovingToInspectGlass = NewState(EnumMacMsMaskTransferState.MovingInCleanChToInspectGlass);
+            MacState sInspectingGlass = NewState(EnumMacMsMaskTransferState.InspectingGlassInCleanCh);
+            MacState sMovingAfterInspectedGlass = NewState(EnumMacMsMaskTransferState.MovingInCleanChAfterInspectedGlass);
             MacState sMovingToCCHomeClampedFromCleanChGlass = NewState(EnumMacMsMaskTransferState.MovingToCCHomeClampedFromCleanChGlass);//離開CleanChGlass
 
             //Inspect Deform
@@ -1113,9 +1113,9 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //To Target
             MacState sMovingToLoadPortAForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortAForRelease);
             MacState sMovingToLoadPortBForRelease = NewState(EnumMacMsMaskTransferState.MovingToLoadPortBForRelease);
-            MacState sMovingToInspectionChForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChForRelease);
-            MacState sMovingToInspectionChGlassForRelease = NewState(EnumMacMsMaskTransferState.MovingInspectionChGlassForRelease);
-            MacState sMovingOpenStageForRelease = NewState(EnumMacMsMaskTransferState.MovingOpenStageForRelease);
+            MacState sMovingToInspectionChForRelease = NewState(EnumMacMsMaskTransferState.MovingToInspectionChForRelease);
+            MacState sMovingToInspectionChGlassForRelease = NewState(EnumMacMsMaskTransferState.MovingToInspectionChGlassForRelease);
+            MacState sMovingOpenStageForRelease = NewState(EnumMacMsMaskTransferState.MovingToOpenStageForRelease);
 
             MacState sLoadPortAReleasing = NewState(EnumMacMsMaskTransferState.LoadPortAReleasing);
             MacState sLoadPortBReleasing = NewState(EnumMacMsMaskTransferState.LoadPortBReleasing);
@@ -1147,6 +1147,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             MacTransition tICHomeInspected_LPHomeInspected = NewTransition(sICHomeInspected, sLPHomeInspected, EnumMacMsMaskTransferTransition.InspectedAtLPHomeClamped);
             MacTransition tCCHomeClamped_NULL = NewTransition(sCCHomeClamped, null, EnumMacMsMaskTransferTransition.StandbyAtCCHomeClamped);
             MacTransition tCCHomeClamped_CCHomeCleaned = NewTransition(sCCHomeClamped, sCCHomeCleaned, EnumMacMsMaskTransferTransition.CleanedAtCCHomeClamped);
+            MacTransition tCCHomeCleaned_NULL = NewTransition(sCCHomeCleaned, null, EnumMacMsMaskTransferTransition.StandbyAtCCHomeCleaned);
             MacTransition tCCHomeCleaned_LPHomeCleaned = NewTransition(sCCHomeCleaned, sLPHomeCleaned, EnumMacMsMaskTransferTransition.CleanedAtLPHomeClamped);
 
             #region Change Direction
@@ -1608,6 +1609,35 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 Trigger(transition);
             };
             sCCHomeClamped.OnExit += (sender, e) =>
+            { };
+
+            sCCHomeCleaned.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
+
+                var transition = tCCHomeCleaned_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
+                    },
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sCCHomeCleaned.OnExit += (sender, e) =>
             { };
 
             #region Change Direction

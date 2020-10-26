@@ -12,11 +12,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         Initial,
 
         Idle,
-        MaskOnStage,
-        DefensingMask,
-        InspectingMask,
-        MaskOnStageInspected,
-        WaitingForReleaseMask,
+        PellicleOnStage,
+        DefensingPellicle,
+        InspectingPellicle,
+        PellicleOnStageInspected,
+        WaitingForReleasePellicle,
         
         GlassOnStage,
         DefensingGlass,

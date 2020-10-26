@@ -190,7 +190,7 @@
     <Driver DriverId="88321fa1-2883-453c-8205-a9e48670b235" Vendor="Hirata" Product="Mask Transfer PLC" HalImpId="DFD72153-DCC6-4949-85DB-B5D7CED91E2E" HalImpRefName="MacHalPlcMaskTransfer" />
     <Driver DriverId="58a26d37-1181-4fc9-8479-0f2451905430" Vendor="Hirata" Product="Open Stage PLC" HalImpId="90A5ACB4-3B35-429C-B9B4-DF1E63AF267B" HalImpRefName="MacHalPlcOpenStage" />
     <Driver DriverId="80e11398-67b2-4991-a071-89c893bcad4c" Vendor="KJ Machine" Product="Drawer" HalImpId="AE0A6C92-6B34-495A-B591-93AE4DF65976" HalImpRefName="MacHalDrawerKjMachine" />
-    <Driver DriverId="d870183b-836c-48d3-9024-d746c23d7398" Vendor="Gudeng" Product="Load Port" HalImpId="92529F08-AC00-47CB-9587-6DE72BB2304A" HalImpRefName="MacHalLoadPortCellGudeng" />
+    <!--<Driver DriverId="d870183b-836c-48d3-9024-d746c23d7398" Vendor="Gudeng" Product="Load Port" HalImpId="92529F08-AC00-47CB-9587-6DE72BB2304A" HalImpRefName="MacHalLoadPortCellGudeng" />-->
     <Driver DriverId="813e3573-0a47-41dd-9c67-d9db15ece5ed" Vendor="Gudeng" Product="Load Port" HalImpId="F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6" HalImpRefName="MacHalGudengLoadPort" />
     <Driver DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" Vendor="Sentech" Product="Camera Controller" HalImpId="90BA4CDC-7A82-454A-8F3F-6FE6413AEF41" HalImpRefName="MacHalCameraSenTech" />
     <Driver DriverId="6887e53e-4914-444a-a099-6bd30da27396" Vendor="Sentech" Product="Camera Link" HalImpId="BF1D88C3-AEF5-4B2E-B161-336623A21804" HalImpRefName="MacHalCameraLink" />

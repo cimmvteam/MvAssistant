@@ -187,7 +187,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
                     default:
                         corJ = 0; PosArray = motion.ToXyzwprArray(); break;
                 }
-                var Result = this.ldd.Pns0103TartgetSaveToPosReg(PosArray, corJ, motion.Speed, PositionRegisterStartNum + idx);
+                var Result = this.ldd.Pns0103PositionSaveToPosReg(PosArray, corJ, motion.Speed, PositionRegisterStartNum + idx);
                 if (Result == -1)
                     throw new MvException("Can not connected to Robot!!");
             }
