@@ -88,6 +88,7 @@
     <Compile Include="Hal\Assembly\MacHalLoadPort.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
+    <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
     <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
     <Compile Include="Hal\CompDrawer\HalDrawerBoxDetectReturn.cs" />

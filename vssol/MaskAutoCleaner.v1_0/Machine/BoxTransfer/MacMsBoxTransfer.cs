@@ -1028,9 +1028,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                /**CheckEquipmentStatus(); CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal(); */
+                OnEntryCheck();
+
 
                 var transition = tCB1Home_NULL;
                 TriggerMember triggerMember = new TriggerMember
@@ -1058,9 +1058,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();CheckAssemblyAlarmSignal();CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 var transition = tCB1HomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
@@ -1094,9 +1093,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus(); CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
@@ -9787,6 +9785,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             { throw new BoxTransferException("Can not found " + myValue + " from EnumMacMsBoxTransferTransition list. "); }
             else
             { return Transitions[myValue]; }
+        }
+
+        private void OnEntryCheck()
+        {
+            CheckEquipmentStatus();
+            CheckAssemblyAlarmSignal();
+            CheckAssemblyWarningSignal();
         }
     }
 }
