@@ -485,7 +485,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         /// <returns></returns>
         public Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
         {
-            /**
+            /** real
             var plc = this.plcContext;
             try
             {
@@ -511,7 +511,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense),
                 plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense)
                 );*/
+            #region fake 
             return Tuple.Create(true, true);
+            #endregion
         }
 
         /// <summary>

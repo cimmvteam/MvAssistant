@@ -21,6 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         public string Clamp(uint BoxType)
         {
+            /** real
             var Result = "";
             var plc = this.plcContext;
             try
@@ -61,11 +62,16 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Clamp, false);
                 throw ex;
             }
-            return Result;
+            return Result; */
+
+            #region fake
+            return "OK";
+            #endregion
         }
 
         public string Unclamp()
         {
+            /**
             var Result = "";
             var plc = this.plcContext;
             try
@@ -100,6 +106,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 throw ex;
             }
             return Result;
+            */
+            return "OK";
         }
 
         public string Initial()
@@ -397,6 +405,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 throw new MvException("PLC did not get 'Box Transfer Moving' signal");
             */
             #region fake 
+              // nothing 
             #endregion
         }
 

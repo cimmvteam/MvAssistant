@@ -71,8 +71,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MS = MachineCtrl.StateMachine;
             MS.Initial();
            
-            MS.MoveToOpenStageGet();
-            MS.MoveToCabinetPut(drawerNumber);
+            MS.MoveToOpenStageGet();   // Fake OK
+            MS.MoveToCabinetPut(drawerNumber);  // Fake OK
 
         }
 

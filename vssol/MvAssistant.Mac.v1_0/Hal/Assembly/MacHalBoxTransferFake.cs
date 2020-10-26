@@ -429,6 +429,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return Robot.ExePosMove(PathPosition);
             */
             #region fake
+            FakeMoveSleep();
             return Robot.ExePosMove(null);
             #endregion
         }
@@ -440,6 +441,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public bool CheckPosition(string PosFileLocation)
         {
+            /** real
             var TargetPos = Robot.ReadMovePath(PosFileLocation)[0];
 
             var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
@@ -455,7 +457,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
                 }
                 else
                     return false;
-            }
+            }*/
+
+            #region fake
+            FakeSleep();
+            return true;
+            #endregion
         }
 
         public void Reset()
@@ -475,10 +482,27 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="BoxType">1：鐵盒、2：水晶盒</param>
         /// <returns></returns>
         public string Clamp(uint BoxType)
-        { return Plc.Clamp(BoxType); }
+        {
+            /** real
+            return Plc.Clamp(BoxType);
+            */
+            #region fake
+            FakeClampSleep();
+            return Plc.Clamp(BoxType);
+            #endregion
+        }
 
         public string Unclamp()
-        { return Plc.Unclamp(); }
+        {
+            /** real
+            return Plc.Unclamp();
+            */
+
+            #region fake
+            FakeClampSleep();
+            return Plc.Unclamp();
+            #endregion
+        }
 
         public string Initial()
         { return Plc.Initial(); }
@@ -505,7 +529,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             #region fake
             FakeSleep();
             Plc.RobotMoving(isMoving);
-            #region
+            #endregion
         }
 
         #region Set Parameter
@@ -694,6 +718,19 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         private void FakeSleep()
         {
             System.Threading.Thread.Sleep(500);
+        }
+
+        private void FakeMoveSleep()
+        {
+            FakeSleep();
+            FakeSleep();
+            FakeSleep();
+        }
+
+        private void FakeClampSleep()
+        {
+            FakeSleep();
+            FakeSleep();
         }
     }
     /// <summary>Path Test Position Collection</summary>
