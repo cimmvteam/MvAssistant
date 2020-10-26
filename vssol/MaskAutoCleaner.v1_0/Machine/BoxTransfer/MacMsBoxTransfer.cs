@@ -191,6 +191,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             TriggerMember triggerMember = null;
 
             // 從 CB1Home 移到指定的 Drawer
+            //from: sCB1Home, to: stateMovingToDrawer
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToDrawer.ToString()];  //transitionCB1Home_MovingToDrawer
             triggerMember = new TriggerMember
             {
@@ -1432,9 +1433,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var drawerLocation = eventArgs.DrawerLocation;
 
                 SetCurrentState((MacState)sender, drawerLocation);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();            CheckAssemblyAlarmSignal();      CheckAssemblyWarningSignal();
+                OnEntryCheck();
                 try
                 {
                     /**
@@ -1446,22 +1446,22 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                      */
 
                     // Robot 目前不在Cabinet 1 Home
-                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile()))
+                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile())) // Fake OK
                     { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to get box."); }
 
                     // 判斷 目標 Drawer 是屬於哪個 Cabinet(1 or 2)? 
                     var cabinetHome = drawerLocation.GetCabinetHomeCode();
                     if (cabinetHome.Item1)
                     {
-                        HalBoxTransfer.RobotMoving(true);
+                        HalBoxTransfer.RobotMoving(true);  // Fake OK
                         if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                         {  // Cabinet 1
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation));  // Fake OK
                         }
                         else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
                         {  // Cabinet 2
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile());
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile());  // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation)); // Fake OK
                         }
                         HalBoxTransfer.RobotMoving(false);
                     }
@@ -2087,13 +2087,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var drawerLocation = eventArgs.DrawerLocation;
                 var boxType = eventArgs.BoxType;
                 SetCurrentState((MacState)sender, drawerLocation);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+
+                OnEntryCheck();
                 try
                 {
                     // Clamp
-                    HalBoxTransfer.Clamp(boxType);
+                    HalBoxTransfer.Clamp(boxType); // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -2669,9 +2669,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var eventArgs = (MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
                 SetCurrentState((MacState)sender, drawerLocation);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+
+                OnEntryCheck();
                 try
                 {
                     /**
@@ -2686,17 +2686,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
                     if (cabinetHome.Item1)
                     {
-                        HalBoxTransfer.RobotMoving(true);
+                        HalBoxTransfer.RobotMoving(true); // Fake OK
                         if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                         {
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation));  // Fake OK
                         }
                         else //if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home) // 屬於Cabinet2 所管
                         {
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation));
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile());
+                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation)); // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile()); // Fake OK
                         }
-                        HalBoxTransfer.RobotMoving(false);
+                        HalBoxTransfer.RobotMoving(false); // Fake OK
                     }
 
                 }

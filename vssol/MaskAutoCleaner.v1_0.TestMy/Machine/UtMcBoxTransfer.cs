@@ -52,7 +52,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
             var MS = MachineCtrl.StateMachine;
             MS.Initial();
-            MS.MoveToCabinetGet(drawerNumber);
+
+            MS.MoveToCabinetGet(drawerNumber); // Fake OK
             MS.MoveToOpenStagePut();
 
         }
