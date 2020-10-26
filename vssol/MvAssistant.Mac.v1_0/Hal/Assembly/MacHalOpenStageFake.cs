@@ -129,7 +129,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
         /// <returns></returns>
         public Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
-        { return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude); }
+        {
+
+            /**  real
+            return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude);
+    */
+            #region fake
+            return Tuple.Create(true,true);
+            #endregion 
+
+        }
 
         /// <summary>
         /// 讀取目前是否被Robot侵入

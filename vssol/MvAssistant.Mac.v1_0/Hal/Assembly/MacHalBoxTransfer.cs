@@ -142,7 +142,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackCabinet1Home()
         {
-            var position = new BoxTransferPathPasitions().Cabinet1Home;
+            var position = new BoxTransferPathPositions().Cabinet1Home;
             this.MoveAsync(position);
         }
 
@@ -165,11 +165,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             var position = default(HalRobotMotion);
             if (cabinetIndex == 1)
             {
-                position = new BoxTransferPathPasitions().Cabinet1Home;
+                position = new BoxTransferPathPositions().Cabinet1Home;
             }
             else if (cabinetIndex == 2)
             {
-                position = new BoxTransferPathPasitions().Cabinet2Home;
+                position = new BoxTransferPathPositions().Cabinet2Home;
             }
             ChangeDirection(position);
         }
@@ -177,13 +177,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <summary>轉向面對 Open Statge 的方向 </summary>
         public void ChangeDirectionToFaceOpenStage()
         {
-            var position = new BoxTransferPathPasitions().OpenStageHome;
+            var position = new BoxTransferPathPositions().OpenStageHome;
             ChangeDirection(position);
         }
 
         private void ChangeDirection(HalRobotMotion targetPosition)
         { // TODO: 待討論
-            var positionInst = new BoxTransferPathPasitions();
+            var positionInst = new BoxTransferPathPositions();
             HalRobotMotion openStageHome = positionInst.OpenStageHome;
             HalRobotMotion cabinet1Home = positionInst.Cabinet1Home;
             HalRobotMotion cabinet2Home = positionInst.Cabinet2Home;
@@ -363,27 +363,27 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public void GotoStage1()
         {
-            var position = new BoxTransferPathPasitions().CabinetHomeToOpenStage01;
+            var position = new BoxTransferPathPositions().CabinetHomeToOpenStage01;
             this.MoveAsync(position);
         }
 
         /// <summary>回到 Cabinet 1 Home</summary>
         public void BackwardFromCabinet1()
         {
-            var position = new BoxTransferPathPasitions().Cabinet1Home;
+            var position = new BoxTransferPathPositions().Cabinet1Home;
             this.MoveAsync(position);
         }
         /// <summary>回到 Cabinet 2 Home</summary>
         public void BackwardFromCabinet2()
         {
-            var position = new BoxTransferPathPasitions().Cabinet2Home;
+            var position = new BoxTransferPathPositions().Cabinet2Home;
             this.MoveAsync(position);
         }
         /// <summary>移至 OpenStage</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void ForwardToOpenStage()
         {
-            var position = new BoxTransferPathPasitions().OpenStage;
+            var position = new BoxTransferPathPositions().OpenStage;
             this.MoveAsync(position);
 
         }
@@ -393,7 +393,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         public void BackwardFromOpenStage()
         {
-            var position = new BoxTransferPathPasitions().OpenStageHome;
+            var position = new BoxTransferPathPositions().OpenStageHome;
             this.MoveAsync(position);
         }
 
@@ -679,7 +679,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
     /// <summary>Path Test Position Collection</summary>
     /// <remarks>King, 2020/05/15 Add</remarks>
-    public class BoxTransferPathPasitions
+    public class BoxTransferPathPositions
     {
 
         /// <summary>Open Statge 的 Home 點</summary>

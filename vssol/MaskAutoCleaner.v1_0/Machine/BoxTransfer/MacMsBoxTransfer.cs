@@ -1130,9 +1130,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();            CheckAssemblyAlarmSignal();     CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {

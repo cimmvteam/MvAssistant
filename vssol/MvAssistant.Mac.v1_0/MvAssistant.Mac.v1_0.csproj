@@ -81,6 +81,7 @@
     <Compile Include="Hal\Assembly\IMacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalOpenStage.cs" />
     <Compile Include="Hal\Assembly\IMacHalUniversal.cs" />
+    <Compile Include="Hal\Assembly\MacHalBoxTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanCh.cs" />
