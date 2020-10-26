@@ -102,7 +102,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+            //from: sCB1Home, to:sMovingToOpenStage
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToOpenStage.ToString()];
+
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -1098,8 +1100,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
                 try
                 {
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
+                    HalOpenStage.ReadRobotIntrude(true, null); 
+                    HalBoxTransfer.RobotMoving(true); 
                     HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json");
                     HalBoxTransfer.RobotMoving(false);
                 }

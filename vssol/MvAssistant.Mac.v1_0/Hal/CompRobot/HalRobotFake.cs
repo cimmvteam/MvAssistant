@@ -72,7 +72,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 
         public int ExePosMove(List<HalRobotMotion> PathPosition)
         {
-            throw new NotImplementedException();
+            //  throw new NotImplementedException();
+            #region fake
+            return 0;
+            #endregion
         }
     }
 }

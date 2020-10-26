@@ -422,8 +422,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public int ExePathMove(string PathFileLocation)
         {
+
+            /** real
+
             var PathPosition = Robot.ReadMovePath(PathFileLocation);
             return Robot.ExePosMove(PathPosition);
+            */
+            #region fake
+            return Robot.ExePosMove(null);
+            #endregion
         }
 
         /// <summary>
@@ -491,7 +498,15 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="isMoving">手臂是否要移動</param>
         public void RobotMoving(bool isMoving)
-        { Plc.RobotMoving(isMoving); }
+        {
+            /**real
+            Plc.RobotMoving(isMoving);
+            */
+            #region fake
+            FakeSleep();
+            Plc.RobotMoving(isMoving);
+            #region
+        }
 
         #region Set Parameter
         /// <summary>
@@ -674,6 +689,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public void Camera_CapToSave(string SavePath, string FileType)
         {
             CameraOnGripper.ShotToSaveImage(SavePath, FileType);
+        }
+
+        private void FakeSleep()
+        {
+            System.Threading.Thread.Sleep(500);
         }
     }
     /// <summary>Path Test Position Collection</summary>

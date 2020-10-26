@@ -130,13 +130,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
         {
-
-            /**  real
+            /**real           
             return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude);
-    */
+           */
             #region fake
-            return Tuple.Create(true,true);
-            #endregion 
+            FakeSleep();
+            return Plc.ReadRobotIntrude(default(bool?), default(bool?));
+            #endregion
 
         }
 
@@ -243,6 +243,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public void Camera_FrontNearCC_CapToSave(string SavePath, string FileType)
         {
             CameraNearCC.ShotToSaveImage(SavePath, FileType);
+        }
+
+        private void FakeSleep()
+        {
+            System.Threading.Thread.Sleep(500);
         }
     }
 }
