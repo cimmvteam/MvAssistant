@@ -24,8 +24,16 @@ namespace MaskAutoCleaner.v1_0.Recipe
             set { this.m_statesAfter = value.ToDictionary(x => x.Key, x => x.Value); }
         }
 
+        public List<MacRecipeMachineState> StatesCmd
+        {
+            get { return this.m_statesAfter.Select(x => new MacRecipeMachineState(x.Key, x.Value)).ToList(); }
+            set { this.m_statesAfter = value.ToDictionary(x => x.Key, x => x.Value); }
+        }
+
+
         Dictionary<string, string> m_statesBefore = new Dictionary<string, string>();
         Dictionary<string, string> m_statesAfter = new Dictionary<string, string>();
+        Dictionary<string, string> m_statesCmd = new Dictionary<string, string>();
 
 
 

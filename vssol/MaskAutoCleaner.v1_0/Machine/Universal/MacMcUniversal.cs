@@ -17,18 +17,18 @@ namespace MaskAutoCleaner.v1_0.Machine.Universal
     [Guid("AFEFFEA4-B491-4A75-9E31-BDDBB5131262")]
     public class MacMcUniversal : MacMachineCtrlBase
     {
-        public IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
+        public IMacHalUniversal HalUniversal { get { return this.HalAssembly as IMacHalUniversal; } }
         /// <summary>
         /// 使用固定的State Machine,
         /// 若有其它版的狀態機, 一般也會用不同的控制機
         /// </summary>
-        public MacMsUniversal StateMachine { get { return this.msAssembly as MacMsUniversal; } set { this.msAssembly = value; } }
+        public MacMsUniversal StateMachine { get { return this.MsAssembly as MacMsUniversal; } set { this.MsAssembly = value; } }
 
         public MacMcUniversal()
         {
-            this.msAssembly = new MacMsUniversal();
+            this.MsAssembly = new MacMsUniversal();
         }
-        public override int RequestProcMsg(MacMsgBase msg)
+        public override int RequestProcMsg(IMacMsg msg)
         {
             return 0;
         }

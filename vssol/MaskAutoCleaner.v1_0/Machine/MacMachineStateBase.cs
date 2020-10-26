@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         //不需實作IMvContextFlow, 因為只有初始化StateMachine, 沒有其它作業
         //不需實作IDisposable, 因為沒有
-        
+
         public MacHalAssemblyBase halAssembly;
         public MacMachineMediater Mediater;
 
@@ -46,15 +46,13 @@ namespace MaskAutoCleaner.v1_0.Machine
             return transition;
         }
 
-       
+
         /// <summary>設定目前工作狀態</summary>
         /// <param name="state"></param>
-        protected virtual void SetCurrentState(MacState state)
-        {
-            CutrrentState = state;
-        }
+        protected virtual void SetCurrentState(MacState state) { CurrentState = state; }
         /// <summary>目前工作狀態</summary>
-        public MacState CutrrentState { get; private set; }
+        public MacState CurrentState { get; private set; }
+        public string CurrentStateName { get { return this.CurrentState == null ? null : this.CurrentState.Name; } }
         /// <summary>計算工作是否逾時的物件</summary>
         public MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
 
@@ -64,7 +62,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <param name="actionParameter">action Parameter (Object)</param>
         /// <param name="exceptionHandler">Exception Handler(Action delegate)</param>
         [Obsolete]
-        public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action,object actionParameter,Action<Exception> exceptionHandler)
+        public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHandler)
         {
             Action trigger = () =>
             {
@@ -78,7 +76,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                         {
                             if (action != null)
                             {
-                                
+
                                 action.Invoke(actionParameter);
                             }
                             var State = rtn.ThisState;
@@ -93,9 +91,9 @@ namespace MaskAutoCleaner.v1_0.Machine
                         Thread.Sleep(10);
                     }
                 }
-               catch(Exception ex)
+                catch (Exception ex)
                 {
-                    if(exceptionHandler != null)
+                    if (exceptionHandler != null)
                     {
                         exceptionHandler.Invoke(ex);
                     }
@@ -153,35 +151,35 @@ namespace MaskAutoCleaner.v1_0.Machine
             var hasDoExit = false;
             try
             {
-              
+
                 if (triggerMember.Guard())
                 {
                     if (triggerMember.Action != null)
                     {
                         triggerMember.Action(triggerMember.ActionParameter);
                     }
-                    
+
                     thisState.DoExit(triggerMember.ThisStateExitEventArgs);
                     hasDoExit = true;
                 }
                 else
                 {
-                    if(triggerMember.NotGuardException != null)
+                    if (triggerMember.NotGuardException != null)
                     {
                         throw triggerMember.NotGuardException;
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {
-                if(triggerMember.ExceptionHandler !=null)
+                if (triggerMember.ExceptionHandler != null)
                 {
                     thisState.SetException(ex);
-                    triggerMember.ExceptionHandler.Invoke(thisState,ex);
+                    triggerMember.ExceptionHandler.Invoke(thisState, ex);
                 }
             }
-            if(hasDoExit)
+            if (hasDoExit)
             {
                 if (nextState != null)
                 {
@@ -215,7 +213,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                     }
                     thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
                     hasDoExit = true;
-                   
+
 
                 }
                 catch (Exception ex)
@@ -230,7 +228,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                 }
                 if (hasDoExit)
                 {
-                    if (nextState !=null)
+                    if (nextState != null)
                     {
                         nextState.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
                     }

@@ -14,7 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
     public class MacMsInspectionCh : MacMachineStateBase
     {
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
-        private IMacHalUniversal HalUniversal { get { return this.Mediater.MachineMgr.CtrlMachines[EnumMachineID.MID_UNI_A_ASB.ToString()].halAssembly as IMacHalUniversal; } }
+        private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
 
         private MacState _currentState = null;
 
