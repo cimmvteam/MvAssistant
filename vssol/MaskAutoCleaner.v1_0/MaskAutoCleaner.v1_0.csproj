@@ -92,6 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumMachineIDExtends.cs" />
+    <Compile Include="MacException.cs" />
+    <Compile Include="Msg\MacMsgCommand.cs" />
     <Compile Include="Recipe\EnumMacRecipeType.cs" />
     <Compile Include="Machine\BoxTransfer\MacMcBoxTransfer.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerClampingEntryEventArgs.cs" />
@@ -275,7 +277,7 @@
     <Compile Include="Msg\EnumMacJobNotify.cs" />
     <Compile Include="Msg\EnumMacSvid.cs" />
     <Compile Include="Msg\IMacMsg.cs" />
-    <Compile Include="Msg\IMacMsgProc.cs" />
+    <Compile Include="Msg\IMacMsgProcessor.cs" />
     <Compile Include="Msg\MacMsgBase.cs" />
     <Compile Include="Msg\MacMsgDeviceCmd.cs" />
     <Compile Include="Msg\MacMsgJobNotify.cs" />

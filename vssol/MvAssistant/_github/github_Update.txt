@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'update library'
+git commit -m 'recipe manager'
 git pull
 git push
 cd ..

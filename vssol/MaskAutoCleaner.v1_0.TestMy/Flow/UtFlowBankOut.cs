@@ -10,15 +10,29 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
         [TestMethod]
         public void TestMethod1()
         {
+
             using (var machineMgr = new MacMachineMgr())
             {
 
 
 
+                machineMgr.MvCfInit();
+                machineMgr.MvCfLoad();
+
+
+
+                machineMgr.RecipeMgr.LoaddRecipe("UserData/Recipe/RecipeFlow_BankOut.xml");
+                machineMgr.RecipeMgr.Execute();
+
+
+
+                machineMgr.MvCfUnload();
+                machineMgr.MvCfFree();
 
 
 
             }
+
         }
     }
 }

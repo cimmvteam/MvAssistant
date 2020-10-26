@@ -14,6 +14,9 @@ namespace MaskAutoCleaner.v1_0.Msg
     public class MacMsgBase : IMacMsg
     {
         public DateTime RecordTime = DateTime.Now;
-        public Object Sender;
+
+
+
+
     }
 }

@@ -26,10 +26,12 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
         #region IMvContextFlow
+
         public int MvCfInit()
         {
-            this.Mediater = new MacMachineMediater();
-            this.Mediater.MachineMgr = this;
+            this.Mediater = new MacMachineMediater(this);
+            this.RecipeMgr = new MacRecipeMgr(this);
+
 
             this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
 
@@ -49,10 +51,9 @@ namespace MaskAutoCleaner.v1_0.Machine
 
                 //Assign HAL to machine controller
                 var hal = this.HalContext.HalDevices.Where(x => x.Value.ID == row.HalId).FirstOrDefault();
-                machine.halAssembly = hal.Value as MacHalAssemblyBase;
 
-               
-               machine.halAssembly.HalConnect();
+                machine.HalAssembly = hal.Value as MacHalAssemblyBase;
+                machine.HalAssembly.HalConnect();
             }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 

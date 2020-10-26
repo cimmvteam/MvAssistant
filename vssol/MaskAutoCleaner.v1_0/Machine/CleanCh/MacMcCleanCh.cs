@@ -12,18 +12,18 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
     [Guid("34546ED9-4B29-443A-9A96-66ACB3AA61F8")]
     public class MacMcCleanCh : MacMachineCtrlBase
     {
-        public IMacHalCleanCh HalCleanCh { get { return this.halAssembly as IMacHalCleanCh; } }
+        public IMacHalCleanCh HalCleanCh { get { return this.HalAssembly as IMacHalCleanCh; } }
         /// <summary>
         /// 使用固定的State Machine,
         /// 若有其它版的狀態機, 一般也會用不同的控制機
         /// </summary>
-        public MacMsCleanCh StateMachine { get { return this.msAssembly as MacMsCleanCh; } set { this.msAssembly = value; } }
+        public MacMsCleanCh StateMachine { get { return this.MsAssembly as MacMsCleanCh; } set { this.MsAssembly = value; } }
 
         public MacMcCleanCh()
         {
-            this.msAssembly = new MacMsCleanCh();
+            this.MsAssembly = new MacMsCleanCh();
         }
-        public override int RequestProcMsg(MacMsgBase msg)
+        public override int RequestProcMsg(IMacMsg msg)
         {
             return 0;
         }
