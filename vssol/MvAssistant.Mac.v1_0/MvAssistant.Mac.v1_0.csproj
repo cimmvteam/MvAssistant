@@ -93,7 +93,6 @@
     <Compile Include="Hal\Assembly\MacHalMaskTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStageFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
-    <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
