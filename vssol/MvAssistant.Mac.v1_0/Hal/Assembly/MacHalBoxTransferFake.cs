@@ -488,7 +488,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             */
             #region fake
             FakeClampSleep();
-            return Plc.Clamp(BoxType);
+            //return Plc.Clamp(BoxType);
+            return "OK";
             #endregion
         }
 
@@ -500,7 +501,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
             #region fake
             FakeClampSleep();
-            return Plc.Unclamp();
+            return "OK";
             #endregion
         }
 
@@ -528,7 +529,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             */
             #region fake
             FakeSleep();
-            Plc.RobotMoving(isMoving);
+           // Plc.RobotMoving(isMoving);
             #endregion
         }
 
