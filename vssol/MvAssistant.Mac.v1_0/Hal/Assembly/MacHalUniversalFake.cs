@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [Guid("7380FBCE-0552-4558-991A-771328870B5A")]
-    public class MacHalUniversalFake : MacHalAssemblyBase, IMacHalUniversal
+    public class MacHalUniversalFake : MacHalFakeComponentBase, IMacHalUniversal
     {
         public string CoverFanCtrl(uint FanID, uint WindSpeed)
         {
