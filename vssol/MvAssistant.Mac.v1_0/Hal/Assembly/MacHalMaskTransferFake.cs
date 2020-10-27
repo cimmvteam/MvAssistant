@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [Guid("2CB5E7D6-970D-4550-8821-E4DAB03324EF")]
-    public class MacHalMaskTransferFake : MacHalFakeComponentBase, IMacHalMaskTransfer
+    public class MacHalMaskTransferFake : MacHalAssemblyBase, IMacHalMaskTransfer
     {
         public string CCDSpin(int SpinDegree)
         {

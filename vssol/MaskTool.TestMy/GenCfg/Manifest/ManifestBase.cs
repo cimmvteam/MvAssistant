@@ -29,63 +29,8 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
         public List<MacManifestDriverCfg> DriverFakeAssembly()
         {
             return new MacManifestDriverCfg[]{
-                //new MacManifestDriverCfg(){
-                //    Vendor = "Fake",
-                //    Product = "Fake Box Transfer",
-                //    Remark = null,
-                //    AssignType = typeof(Hal.Assembly.MacHalBoxTransfer),
-                //    DriverId = ManifestDriverId.BoxTransfer.ToString(),
-                //},
-                // new MacManifestDriverCfg(){
-                //    Vendor = "Fake",
-                //    Product = "Fake Cabinet",
-                //    Remark = null,
-                //    AssignType = typeof(Hal.Assembly.MacHalCabinet),
-                //    DriverId = ManifestDriverId.Cabinet.ToString(),
-                //},
-                 new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Fake Clean Chamber",
-                    Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalCleanChFake),
-                    DriverId = ManifestDriverId.CleanChFake.ToString(),
-                },
-                 new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Fake Inspection Chamber",
-                    Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalInspectionChFake),
-                    DriverId = ManifestDriverId.InspectionChFake.ToString(),
-                },
-                // new MacManifestDriverCfg(){
-                //    Vendor = "Fake",
-                //    Product = "Fake Load Port",
-                //    Remark = null,
-                //    AssignType = typeof(Hal.Assembly.MacHalLoadPort),
-                //    DriverId = ManifestDriverId.LoadPort.ToString(),
-                //},
-                 new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Fake Mask Transfer",
-                    Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalMaskTransferFake),
-                    DriverId = ManifestDriverId.MaskTransferFake.ToString(),
-                },
-                // new MacManifestDriverCfg(){
-                //    Vendor = "Fake",
-                //    Product = " Fake Open Stage",
-                //    Remark = null,
-                //    AssignType = typeof(Hal.Assembly.MacHalOpenStage),
-                //    DriverId = ManifestDriverId.OpenStage.ToString(),
-                //},
-                 new MacManifestDriverCfg(){
-                    Vendor = "Fake",
-                    Product = "Fake Universal",
-                    Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalUniversalFake),
-                    DriverId = ManifestDriverId.UniversalFake.ToString(),
-                },
-        }.ToList();
+
+            }.ToList();
         }
         public List<MacManifestDriverCfg> DriverFakeCamera()
         {
@@ -95,7 +40,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Product ="Fake Camera",
                     Remark=null,
                     AssignType=typeof(Hal.CompCamera.MacHalCameraFake),
-                    DriverId=ManifestDriverId.RobotFake.ToString(),
+                    DriverId=ManifestDriverId.CameraFake.ToString(),
                 },
 
             }.ToList();

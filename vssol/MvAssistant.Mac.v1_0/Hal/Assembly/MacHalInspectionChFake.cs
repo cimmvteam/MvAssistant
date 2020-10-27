@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
 {
     [Guid("18DB892D-D5A9-42B7-B101-CA70EF238753")]
-    public class MacHalInspectionChFake : MacHalFakeComponentBase, IMacHalInspectionCh
+    public class MacHalInspectionChFake : MacHalAssemblyBase, IMacHalInspectionCh
     {
         public Bitmap Camera_SideDfs_Cap()
         {

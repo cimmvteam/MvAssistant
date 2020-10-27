@@ -49,15 +49,6 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 
 
         #region Fake
-        //public static Guid BoxTransfer = new Guid("9F102552-22EF-42AD-8F36-EDC709808CE8");
-        //public static Guid Cabinet = new Guid("2F174234-63C2-4AB1-ACD3-956863A543ED");
-        public static Guid CleanChFake = new Guid("C19F5058-1CE7-47AD-810C-418746779F6A");
-        public static Guid InspectionChFake = new Guid("18DB892D-D5A9-42B7-B101-CA70EF238753");
-        //public static Guid LoadPort = new Guid("4E4CBD28-08FB-4FB8-988D-57CDC10E7871");
-        public static Guid MaskTransferFake = new Guid("2CB5E7D6-970D-4550-8821-E4DAB03324EF");
-        //public static Guid OpenStage = new Guid("A6A5EB63-AB45-4C91-BC04-417825B927AB");
-        public static Guid UniversalFake = new Guid("7380FBCE-0552-4558-991A-771328870B5A");
-
         public static Guid BoxGripperFake = new Guid("E4A7500B-A364-4CA3-8859-D75FC689A366");
         public static Guid CameraFake = new Guid("9CE04592-BE15-4731-9725-F6BE4ADD98DA");
         public static Guid DrawerFake = new Guid("214A8AEC-904B-4715-80A4-BD6F33FA82A1");

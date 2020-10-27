@@ -20,12 +20,12 @@ namespace MvAssistant.Mac.v1_0.Hal
 
         public override int HalClose()
         {
-            return 0;
+            throw new NotImplementedException();
         }
 
         public override int HalConnect()
         {
-            return 0;
+            throw new NotImplementedException();
         }
     }
 }
