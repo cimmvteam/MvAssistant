@@ -3,7 +3,7 @@
   <Devices>
     <Device DeviceName="loadportA_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_A_ASB" PositionId="LoadPort01">
       <Devices>
-        <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" />
+        <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="813e3573-0a47-41dd-9c67-d9db15ece5ed" />
       </Devices>
     </Device>
     <Device DeviceName="loadportB_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_B_ASB" PositionId="LoadPort02" />

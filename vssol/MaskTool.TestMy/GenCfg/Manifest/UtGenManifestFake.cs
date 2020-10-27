@@ -723,7 +723,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLoadPortGudeng.DevConnStr_Ip, "192.168.0.20",
                             MacHalLoadPortGudeng.DevConnStr_Port, 1024),
                         DeviceName = MacEnumDevice.loadport_1.ToString(),
-                        DriverId = ManifestDriverId.LoadPortFake.ToString(),
+                        DriverId = ManifestDriverId.LoadPortUnitFake.ToString(),
                     },
                 },
             };

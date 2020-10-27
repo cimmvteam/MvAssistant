@@ -138,7 +138,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public bool ReadPowerON()
         {
-            return false;
+            return true;
         }
 
         public string ReadWarning_BTRobot()
