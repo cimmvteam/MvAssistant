@@ -135,7 +135,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
            */
             #region fake
             FakeSleep();
-            return Plc.ReadRobotIntrude(default(bool?), default(bool?));
+            return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude);
             #endregion
 
         }

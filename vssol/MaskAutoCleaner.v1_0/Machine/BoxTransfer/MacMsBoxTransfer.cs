@@ -58,6 +58,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+
+            // from:sCB1Home, to:sLocking
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToLock.ToString()];
             triggerMember = new TriggerMember
             {
@@ -80,6 +82,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+            // from: sCB1Home, to: sUnlocking
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToUnlock.ToString()];
             triggerMember = new TriggerMember
             {
@@ -126,6 +129,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+
+            // from: sCB1HomeClamped, to: sMovingToOpenStageForRelease
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
             triggerMember = new TriggerMember
             {
@@ -1206,16 +1211,14 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
+                // CheckEquipmentStatus();    CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+                OnEntryCheck();
                 try
                 {
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(true);   // Fake OK
+                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);   // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1244,13 +1247,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //   CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
 
+                OnEntryCheck();
                 try
                 {
-                    HalBoxTransfer.Unclamp();
+                    HalBoxTransfer.Unclamp();  // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1279,16 +1281,15 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();    CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
-                    HalBoxTransfer.RobotMoving(true);
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");
-                    HalBoxTransfer.RobotMoving(false);
-                    HalOpenStage.ReadRobotIntrude(false, null);
+                    HalBoxTransfer.RobotMoving(true);   // Fake OK
+                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);  // Fake OK
+                    HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1320,29 +1321,27 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
+                // CheckEquipmentStatus(); CheckAssemblyAlarmSignal();  CheckAssemblyWarningSignal();
+                OnEntryCheck();
                 try
                 {
                     var BoxType = (uint)e.Parameter;
-                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))
+                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))  // Fake OK
                         throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to lock box.");
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
+                    HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(true); // Fake OK
                     if (BoxType == 1)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json"); // Fake OK
                     else if (BoxType == 2)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");  // Fake OK
                     else
                     {
-                        HalBoxTransfer.RobotMoving(false);
-                        HalOpenStage.ReadRobotIntrude(false, null);
+                        HalBoxTransfer.RobotMoving(false);   // Fake OK
+                        HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
                         throw new Exception("Unknown box type, can not move to lock box.");
                     }
-                    HalOpenStage.ReadRobotIntrude(false, null);
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);  // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1371,29 +1370,28 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();   CheckAssemblyAlarmSignal();          CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
                     var BoxType = (uint)e.Parameter;
-                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))
+                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))   // Fake OK
                         throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to unlock box.");
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
+                    HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
+                    HalBoxTransfer.RobotMoving(true);  // Fake OK
                     if (BoxType == 1)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");  // Fake OK
                     else if (BoxType == 2)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json"); // Fake OK
                     else
                     {
-                        HalBoxTransfer.RobotMoving(false);
-                        HalOpenStage.ReadRobotIntrude(false, null);
+                        HalBoxTransfer.RobotMoving(false); // Fake OK
+                        HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
                         throw new Exception("Unknown box type, can not move to unlock box.");
                     }
-                    HalOpenStage.ReadRobotIntrude(false, null);
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);  // Fake OK
                 }
                 catch (Exception ex)
                 {

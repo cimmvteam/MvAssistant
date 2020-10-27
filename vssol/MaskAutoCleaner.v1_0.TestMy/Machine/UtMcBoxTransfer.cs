@@ -32,8 +32,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
             else
             {
-                MS.MoveToLock();
-                MS.MoveToUnlock();
+                MS.MoveToLock();  // Fake OK
+                MS.MoveToUnlock();  // Fake OK
             }
         }
 
@@ -54,7 +54,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MS.Initial();
 
             MS.MoveToCabinetGet(drawerNumber); // Fake OK
-            MS.MoveToOpenStagePut();
+            MS.MoveToOpenStagePut(); // Fake OK
 
         }
 
