@@ -84,6 +84,7 @@
     <Compile Include="Hal\Assembly\MacHalBoxTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinet.cs" />
+    <Compile Include="Hal\Assembly\MacHalCabinetFake.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanCh.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanChFake.cs" />
     <Compile Include="Hal\Assembly\MacHalInspectionCh.cs" />

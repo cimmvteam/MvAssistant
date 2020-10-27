@@ -40,8 +40,8 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Vendor = "Fake",
                     Product = "Fake Cabinet",
                     Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalCabinet),
-                    DriverId = ManifestDriverId.Cabinet.ToString(),
+                    AssignType = typeof(Hal.Assembly.MacHalCabinetFake),
+                    DriverId = ManifestDriverId.CabinetFake.ToString(),
                 },
                  new MacManifestDriverCfg(){
                     Vendor = "Fake",
