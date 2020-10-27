@@ -14,36 +14,36 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public MacHalLoadPort()
         {
-           
-           // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_1));
-           // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_2));
+
+            // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_1));
+            // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_2));
         }
         public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(MacEnumDevice.loadport_plc); } }
-        
+
         public IMacHalLoadPortUnit LoadPortUnit
         {
             get
             {
-                   IMacHalLoadPortUnit rtnV = null;
-                   for (var i= (int)MacEnumDevice.loadport_1;i<= (int)MacEnumDevice.loadport_2; i++)
-                   {
-                     try
-                     {
-                        rtnV=(IMacHalLoadPortUnit)this.GetHalDevice((MacEnumDevice)i);
+                IMacHalLoadPortUnit rtnV = null;
+                for (var i = (int)MacEnumDevice.loadport_1; i <= (int)MacEnumDevice.loadport_2; i++)
+                {
+                    try
+                    {
+                        rtnV = (IMacHalLoadPortUnit)this.GetHalDevice((MacEnumDevice)i);
                         if (rtnV != null)
                         {
                             break;
                         }
-                      }
-                     catch(Exception ex)
-                     {
+                    }
+                    catch (Exception ex)
+                    {
 
-                     }
-                   }
+                    }
+                }
                 return rtnV;
-               
+
             }
-            
+
         }
 
         #endregion
@@ -83,12 +83,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion
 
-       
+
         public string CommandAlarmReset()
         {
             //           return Unit.CommandAlarmReset();
             return null;
         }
-       
+
     }
 }

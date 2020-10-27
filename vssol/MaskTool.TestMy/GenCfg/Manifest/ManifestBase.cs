@@ -141,7 +141,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Product ="Fake Robot",
                     Remark=null,
                     AssignType=typeof(Hal.CompRobot.HalRobotFake),
-                    DriverId=ManifestDriverId.CameraFake.ToString(),
+                    DriverId=ManifestDriverId.RobotFake.ToString(),
                 },
 
 

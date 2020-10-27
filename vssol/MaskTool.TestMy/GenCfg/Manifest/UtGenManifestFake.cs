@@ -79,7 +79,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.boxtransfer_assembly.ToString(),
                 DriverId = ManifestDriverId.BoxTransfer.ToString(),
                 PositionId = MacEnumPositionId.BoxTrasnfer01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.boxtransfer_plc.ToString(),
@@ -97,7 +97,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DeviceName = MacEnumDevice.boxtransfer_camera_gripper_1.ToString(),
                         DriverId = ManifestDriverId.CameraFake.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -111,7 +111,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_assembly.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Cabinet01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.cabinet_plc.ToString(),
@@ -120,7 +120,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 
 
 
-                },
+                },*/
             };
             return rs;
         }
@@ -136,7 +136,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_01_01.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.31;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_01.ToString(),
@@ -144,7 +144,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         ID= EnumMachineId.DE_CB_A_01_01.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }
@@ -158,7 +158,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_01_02.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer02.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.32;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_02.ToString(),
@@ -166,7 +166,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         ID= EnumMachineId.DE_CB_A_01_02.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }
@@ -180,7 +180,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_01_03.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer03.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.33;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_03.ToString(),
@@ -188,7 +188,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         ID= EnumMachineId.DE_CB_A_01_03.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }
@@ -202,7 +202,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_01_04.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer04.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.41;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_04.ToString(),
@@ -210,7 +210,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         ID= EnumMachineId.DE_CB_A_01_04.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }
@@ -224,7 +224,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_01_05.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer05.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.42;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_05",
                         DeviceName = MacEnumDevice.cabinet_drawer_01_05.ToString(),
@@ -232,7 +232,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         ID= EnumMachineId.DE_CB_A_01_05.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }
@@ -246,14 +246,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_02_01.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer06.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.43;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_01",
                         DeviceName = MacEnumDevice.cabinet_drawer_02_01.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_02_01.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -267,14 +267,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_02_02.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer07.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.51;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_02",
                         DeviceName = MacEnumDevice.cabinet_drawer_02_02.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_02_02.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -288,14 +288,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_02_03.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer08.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.52;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_03",
                         DeviceName = MacEnumDevice.cabinet_drawer_02_03.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_02_03.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -309,14 +309,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_02_04.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer09.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.53;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_04",
                         DeviceName = MacEnumDevice.cabinet_drawer_02_04.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_02_04.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -330,14 +330,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_02_05.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer10.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.61;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=02_05",
                         DeviceName = MacEnumDevice.cabinet_drawer_02_05.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_02_05.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -351,14 +351,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_03_01.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer11.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.62;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_01",
                         DeviceName = MacEnumDevice.cabinet_drawer_03_01.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_03_01.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -372,14 +372,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_03_02.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer12.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.63;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_02",
                         DeviceName = MacEnumDevice.cabinet_drawer_03_02.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_03_02.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -393,14 +393,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_03_03.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer13.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.71;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_03",
                         DeviceName = MacEnumDevice.cabinet_drawer_03_03.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_03_03.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -414,14 +414,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_03_04.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer14.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.72;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_04",
                         DeviceName = MacEnumDevice.cabinet_drawer_03_04.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_03_04.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -435,14 +435,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_03_05.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer15.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.73;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=03_05",
                         DeviceName = MacEnumDevice.cabinet_drawer_03_05.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_03_05.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -456,14 +456,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_04_01.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer16.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.81;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_01",
                         DeviceName = MacEnumDevice.cabinet_drawer_04_01.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_04_01.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -477,14 +477,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_04_02.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer17.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.82;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_02",
                         DeviceName = MacEnumDevice.cabinet_drawer_04_02.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_04_02.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -498,14 +498,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_04_03.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer18.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.83;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_03",
                         DeviceName = MacEnumDevice.cabinet_drawer_04_03.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_04_03.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -519,14 +519,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_04_04.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer19.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.91;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_04",
                         DeviceName = MacEnumDevice.cabinet_drawer_04_04.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_04_04.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -540,14 +540,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_drawer_04_05.ToString(),
                 DriverId = ManifestDriverId.Cabinet.ToString(),
                 PositionId = MacEnumPositionId.Drawer20.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = "ip=192.168.0.92;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=04_05",
                         DeviceName = MacEnumDevice.cabinet_drawer_04_05.ToString(),
                         DriverId = ManifestDriverId.DrawerFake.ToString(),
                         ID= EnumMachineId.DE_CB_A_04_05.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -564,7 +564,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.clean_assembly.ToString(),
                 DriverId = ManifestDriverId.CleanCh.ToString(),
                 PositionId = MacEnumPositionId.CleanCh01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp, MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.cleanch_plc.ToString(),
@@ -587,7 +587,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DriverId = ManifestDriverId.CameraFake.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }
@@ -601,7 +601,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.inspection_assembly.ToString(),
                 DriverId = ManifestDriverId.InspectionCh.ToString(),
                 PositionId = MacEnumPositionId.InspectionCh01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.inspectionch_plc.ToString(),
@@ -685,7 +685,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DeviceName = MacEnumDevice.inspection_camera_defense_top_1.ToString(),
                         DriverId = ManifestDriverId.CameraFake.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -699,7 +699,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.loadportA_assembly.ToString(),
                 DriverId = ManifestDriverId.LoadPort.ToString(),
                 PositionId = MacEnumPositionId.LoadPort01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}", MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
@@ -725,7 +725,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DeviceName = MacEnumDevice.loadport_1.ToString(),
                         DriverId = ManifestDriverId.LoadPortFake.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -739,7 +739,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.loadportB_assembly.ToString(),
                 DriverId = ManifestDriverId.LoadPort.ToString(),
                 PositionId = MacEnumPositionId.LoadPort02.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
@@ -775,7 +775,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DeviceName = MacEnumDevice.loadport_2.ToString(),
                         DriverId = ManifestDriverId.LoadPortFake.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -789,7 +789,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.masktransfer_assembly.ToString(),
                 DriverId = ManifestDriverId.MaskTransfer.ToString(),
                 PositionId = MacEnumPositionId.MaskTransfer01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.masktransfer_plc.ToString(),
@@ -807,7 +807,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
 
 
 
-                },
+                },*/
             };
             return rs;
         }
@@ -821,7 +821,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.openstage_assembly.ToString(),
                 DriverId = ManifestDriverId.OpenStage.ToString(),
                 PositionId = MacEnumPositionId.OpenStage01.ToString(),
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.openstage_plc.ToString(),
@@ -869,7 +869,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DeviceName = MacEnumDevice.openstage_camera_barcode_1.ToString(),
                         DriverId = ManifestDriverId.CameraFake.ToString(),
                     },
-                },
+                },*/
             };
             return rs;
         }
@@ -883,14 +883,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.universal_assembly.ToString(),
                 DriverId = ManifestDriverId.Universal.ToString(),
                 PositionId = null,
-                Devices = new MacManifestDeviceCfg[] {
+                /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.universal_plc_01.ToString(),
                         DriverId = ManifestDriverId.UniversalPlc.ToString(),
                     },
 
-                },
+                },*/
             };
             return rs;
         }

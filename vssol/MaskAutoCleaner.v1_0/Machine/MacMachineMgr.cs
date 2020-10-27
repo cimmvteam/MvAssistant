@@ -52,8 +52,16 @@ namespace MaskAutoCleaner.v1_0.Machine
                 //Assign HAL to machine controller
                 var hal = this.HalContext.HalDevices.Where(x => x.Value.ID == row.HalId).FirstOrDefault();
 
-                machine.HalAssembly = hal.Value as MacHalAssemblyBase;
-                machine.HalAssembly.HalConnect();
+                if (Config.ManifestCfgPath.Contains("fake"))
+                {
+                    machine.HalAssembly = hal.Value as MacHalAssemblyBase;
+                    machine.HalAssembly.HalConnect();
+                }
+                else
+                {
+                    machine.HalAssembly = hal.Value as MacHalAssemblyBase;
+                    machine.HalAssembly.HalConnect();
+                }
             }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 
