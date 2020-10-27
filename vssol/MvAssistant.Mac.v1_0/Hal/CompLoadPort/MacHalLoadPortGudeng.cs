@@ -161,6 +161,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
                                 _ldd = null;
                                 IsConnected = false;
                             }
+                            #region  2020/10/23 13:58 King [C]
+                            else
+                            {
+                                IsConnected = true;
+                            }
+                            #endregion
                         }
                     }
                 }

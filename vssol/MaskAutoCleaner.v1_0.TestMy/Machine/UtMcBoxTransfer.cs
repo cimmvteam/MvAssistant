@@ -32,8 +32,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
             else
             {
-                MS.MoveToLock();
-                MS.MoveToUnlock();
+                MS.MoveToLock();  // Fake OK
+                MS.MoveToUnlock();  // Fake OK
             }
         }
 
@@ -52,8 +52,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
             var MS = MachineCtrl.StateMachine;
             MS.Initial();
-            MS.MoveToCabinetGet(drawerNumber);
-            MS.MoveToOpenStagePut();
+
+            MS.MoveToCabinetGet(drawerNumber); // Fake OK
+            MS.MoveToOpenStagePut(); // Fake OK
 
         }
 
@@ -71,8 +72,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MS = MachineCtrl.StateMachine;
             MS.Initial();
            
-            MS.MoveToOpenStageGet();
-            MS.MoveToCabinetPut(drawerNumber);
+            MS.MoveToOpenStageGet();   // Fake OK
+            MS.MoveToCabinetPut(drawerNumber);  // Fake OK
 
         }
 

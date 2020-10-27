@@ -81,6 +81,7 @@
     <Compile Include="Hal\Assembly\IMacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalOpenStage.cs" />
     <Compile Include="Hal\Assembly\IMacHalUniversal.cs" />
+    <Compile Include="Hal\Assembly\MacHalBoxTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanCh.cs" />
@@ -90,7 +91,9 @@
     <Compile Include="Hal\Assembly\MacHalLoadPort.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransferFake.cs" />
+    <Compile Include="Hal\Assembly\MacHalOpenStageFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
+    <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
     <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
     <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
@@ -105,6 +108,8 @@
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortFake.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortGudeng.cs" />
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortCell.cs" />
+    <Compile Include="Hal\CompPlc\MacHalPlcBoxTransferFake.cs" />
+    <Compile Include="Hal\CompPlc\MacHalPlcOpenStageFake.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPath.cs" />
     <Compile Include="Hal\CompRobot\HalRobotEnumMotionType.cs" />
     <Compile Include="Hal\CompRobot\HalRobotFake.cs" />

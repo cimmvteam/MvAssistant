@@ -47,6 +47,28 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 return null;
             }
         }
+
+        /// <summary>for create a fake MvKjMachineDrawerLddPool instance </summary>
+        /// <remarks>
+        /// 2020/10/23 10:12 King  [C]
+        /// </remarks>
+        /// <returns></returns>
+        public static MvKjMachineDrawerLddPool GetFakeInstance()
+        {
+           
+                if (_instance == null)
+                {
+                    lock (lockGetInstanceObj)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new MvKjMachineDrawerLddPool();
+                        }
+                    }
+                }
+                return _instance;
+        }
+
         /// <summary>建構式</summary>
         private MvKjMachineDrawerLddPool()
         {
@@ -124,7 +146,21 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         }
 
-     
+        /// <summary>Create a fake MvKjMachineDrawerLdd instance</summary>
+        /// <param name="drawerIndex"></param>
+        /// <param name="deviceEndpoint"></param>
+        /// <param name="localIP"></param>
+        /// <remarks>
+        /// 2020/10/23 10:50 King [C]
+        /// </remarks>
+        /// <returns></returns>
+        public MvKjMachineDrawerLdd CreateFakeLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
+        {
+            MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd(true, drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
+                _ldd.Add(ldd);
+                return ldd;
+        }
+
 
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
