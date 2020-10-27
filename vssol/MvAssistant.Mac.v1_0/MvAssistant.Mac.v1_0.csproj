@@ -108,7 +108,6 @@
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortGudeng.cs" />
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortCell.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcBoxTransferFake.cs" />
-    <Compile Include="Hal\CompPlc\MacHalPlcOpenStageFake.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPath.cs" />
     <Compile Include="Hal\CompRobot\HalRobotEnumMotionType.cs" />
     <Compile Include="Hal\CompRobot\HalRobotFake.cs" />
