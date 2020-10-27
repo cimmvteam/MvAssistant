@@ -6,7 +6,11 @@
         <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="813e3573-0a47-41dd-9c67-d9db15ece5ed" />
       </Devices>
     </Device>
-    <Device DeviceName="loadportB_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_B_ASB" PositionId="LoadPort02" />
+    <Device DeviceName="loadportB_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_B_ASB" PositionId="LoadPort02">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.21;port=1024" DeviceName="loadport_2" DriverId="813e3573-0a47-41dd-9c67-d9db15ece5ed" />
+      </Devices>
+    </Device>
     <Device DeviceName="inspection_assembly" DriverId="f19eb7b5-bb07-4a53-9e70-8616812a4f02" ID="DE_IC_A_ASB" PositionId="InspectionCh01" />
     <Device DevConnStr="127.0.0.1;3039" DeviceName="clean_assembly" DriverId="c062fa7f-3825-4ea6-8be0-0afa876ba7e4" ID="DE_CC_A_ASB" PositionId="CleanCh01" />
     <Device DevConnStr="127.0.0.1;3039" DeviceName="masktransfer_assembly" DriverId="69fc9c19-9621-4852-82e2-4ad1cf14e642" ID="DE_MT_A_ASB" PositionId="MaskTransfer01" />
