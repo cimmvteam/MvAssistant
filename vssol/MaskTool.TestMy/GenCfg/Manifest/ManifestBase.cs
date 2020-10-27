@@ -61,7 +61,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Vendor = "Fake",
                     Product = "Fake Load Port",
                     Remark = null,
-                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortFake),
+                    AssignType = typeof(Hal.Assembly.MacHalLoadPortFake),
                     DriverId = ManifestDriverId.LoadPortFake.ToString(),
                 },
                  new MacManifestDriverCfg(){
@@ -113,10 +113,10 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 },
                 new MacManifestDriverCfg(){
                     Vendor = "Fake",
-                    Product = "Fake Load Port",
+                    Product = "Fake Load Port Unit",
                     Remark = null,
-                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortFake),
-                    DriverId = ManifestDriverId.LoadPortGudeng.ToString(),
+                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortUnitFake),
+                    DriverId = ManifestDriverId.LoadPortUnitFake.ToString(),
                 }
             }.ToList();
         }

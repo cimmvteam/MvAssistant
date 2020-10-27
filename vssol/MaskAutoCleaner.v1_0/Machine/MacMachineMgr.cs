@@ -55,7 +55,6 @@ namespace MaskAutoCleaner.v1_0.Machine
                 if (Config.ManifestCfgPath.Contains("fake"))
                 {
                     machine.HalAssembly = hal.Value as MacHalAssemblyBase;
-                    machine.HalAssembly.HalConnect();
                 }
                 else
                 {

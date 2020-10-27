@@ -699,8 +699,8 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.loadportA_assembly.ToString(),
                 DriverId = ManifestDriverId.LoadPort.ToString(),
                 PositionId = MacEnumPositionId.LoadPort01.ToString(),
-                /*Devices = new MacManifestDeviceCfg[] {
-                    new MacManifestDeviceCfg(){
+                Devices = new MacManifestDeviceCfg[] {
+                    /*new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}", MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.loadport_plc.ToString(),
                         DriverId = ManifestDriverId.LoadPortPlc.ToString(),
@@ -716,7 +716,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLightLeimac.DevConnStr_Channel, 1),
                         DeviceName = MacEnumDevice.loadport_light_bar_001.ToString(),
                         DriverId = ManifestDriverId.LightFake.ToString(),
-                    },
+                    },*/
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}",
@@ -725,7 +725,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DeviceName = MacEnumDevice.loadport_1.ToString(),
                         DriverId = ManifestDriverId.LoadPortFake.ToString(),
                     },
-                },*/
+                },
             };
             return rs;
         }

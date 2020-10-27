@@ -299,39 +299,39 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
 
             sPellicleOnStage.OnEntry += (sender, e) =>
-{
-    SetCurrentState((MacState)sender);
+            {
+                SetCurrentState((MacState)sender);
 
-    CheckEquipmentStatus();
-    CheckAssemblyAlarmSignal();
-    CheckAssemblyWarningSignal();
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
 
-    try
-    {
-    }
-    catch (Exception ex)
-    {
-        throw new InspectionChException(ex.Message);
-    }
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
 
-    var transition = tPellicleOnStage_DefensingPellicle;
-    TriggerMember triggerMember = new TriggerMember
-    {
-        Guard = () =>
-        {
-            return true;
-        },
-        Action = null,
-        ActionParameter = null,
-        ExceptionHandler = (thisState, ex) =>
-        { // TODO: do something
+                var transition = tPellicleOnStage_DefensingPellicle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
                     },
-        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-    };
-    transition.SetTriggerMembers(triggerMember);
-    Trigger(transition);
-};
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sPellicleOnStage.OnExit += (sender, e) =>
             { };
             sDefensingPellicle.OnEntry += (sender, e) =>
@@ -514,39 +514,39 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
 
             sGlassOnStage.OnEntry += (sender, e) =>
-{
-    SetCurrentState((MacState)sender);
+            {
+                SetCurrentState((MacState)sender);
 
-    CheckEquipmentStatus();
-    CheckAssemblyAlarmSignal();
-    CheckAssemblyWarningSignal();
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
 
-    try
-    {
-    }
-    catch (Exception ex)
-    {
-        throw new InspectionChException(ex.Message);
-    }
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
 
-    var transition = tGlassOnStage_DefensingGlass;
-    TriggerMember triggerMember = new TriggerMember
-    {
-        Guard = () =>
-        {
-            return true;
-        },
-        Action = null,
-        ActionParameter = null,
-        ExceptionHandler = (thisState, ex) =>
-        { // TODO: do something
+                var transition = tGlassOnStage_DefensingGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
                     },
-        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-    };
-    transition.SetTriggerMembers(triggerMember);
-    Trigger(transition);
-};
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+        },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sGlassOnStage.OnExit += (sender, e) =>
             { };
             sDefensingGlass.OnEntry += (sender, e) =>

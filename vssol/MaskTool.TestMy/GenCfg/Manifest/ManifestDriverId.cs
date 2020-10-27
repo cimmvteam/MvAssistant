@@ -64,7 +64,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
         public static Guid DrawerFake = new Guid("214A8AEC-904B-4715-80A4-BD6F33FA82A1");
         public static Guid InclinometerFake = new Guid("F9071584-C35E-4588-A5F4-C44F5354BCA9");
         public static Guid LightFake = new Guid("58C711D0-E49A-4039-8495-3881ABD47758");
-        //public static Guid LoadPortFake = new Guid("EB72F3BA-A7C5-4060-82A5-661FC99C899D");
+        public static Guid LoadPortUnitFake = new Guid("813E3573-0A47-41DD-9C67-D9DB15ECE5ED");
         public static Guid MaskGripperFake = new Guid("F91E5CAC-8D68-4B99-997C-138D2A9BA2DF");
         public static Guid RobotFake = new Guid("1BCECBF8-CA91-4C75-BC3E-B6B27D172350");
         #endregion

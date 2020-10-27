@@ -89,6 +89,7 @@
     <Compile Include="Hal\Assembly\MacHalInspectionCh.cs" />
     <Compile Include="Hal\Assembly\MacHalInspectionChFake.cs" />
     <Compile Include="Hal\Assembly\MacHalLoadPort.cs" />
+    <Compile Include="Hal\Assembly\MacHalLoadPortFake.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalMaskTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStageFake.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="Hal\CompLight\MacHalLightLeimac.cs" />
     <Compile Include="Hal\CompLight\IMacHalLight.cs" />
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortUnit.cs" />
-    <Compile Include="Hal\CompLoadPort\MacHalLoadPortFake.cs" />
+    <Compile Include="Hal\CompLoadPort\MacHalLoadPortUnitFake.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortGudeng.cs" />
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortCell.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPath.cs" />

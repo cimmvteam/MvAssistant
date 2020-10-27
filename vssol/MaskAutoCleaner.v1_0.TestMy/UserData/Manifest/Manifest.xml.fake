@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <Manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Devices>
-    <Device DeviceName="loadportA_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_A_ASB" PositionId="LoadPort01" />
+    <Device DeviceName="loadportA_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_A_ASB" PositionId="LoadPort01">
+      <Devices>
+        <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" />
+      </Devices>
+    </Device>
     <Device DeviceName="loadportB_assembly" DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" ID="DE_LP_B_ASB" PositionId="LoadPort02" />
     <Device DeviceName="inspection_assembly" DriverId="f19eb7b5-bb07-4a53-9e70-8616812a4f02" ID="DE_IC_A_ASB" PositionId="InspectionCh01" />
     <Device DevConnStr="127.0.0.1;3039" DeviceName="clean_assembly" DriverId="c062fa7f-3825-4ea6-8be0-0afa876ba7e4" ID="DE_CC_A_ASB" PositionId="CleanCh01" />
@@ -36,12 +40,12 @@
     <Driver DriverId="2f174234-63c2-4ab1-acd3-956863a543ed" Vendor="Fake" Product="Fake Cabinet" HalImpId="DBCB4F3E-0405-450E-80D5-F2D1401975F1" HalImpRefName="MacHalCabinet" />
     <Driver DriverId="c062fa7f-3825-4ea6-8be0-0afa876ba7e4" Vendor="Fake" Product="Fake Clean Chamber" HalImpId="C19F5058-1CE7-47AD-810C-418746779F6A" HalImpRefName="MacHalCleanChFake" />
     <Driver DriverId="f19eb7b5-bb07-4a53-9e70-8616812a4f02" Vendor="Fake" Product="Fake Inspection Chamber" HalImpId="18DB892D-D5A9-42B7-B101-CA70EF238753" HalImpRefName="MacHalInspectionChFake" />
-    <Driver DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" Vendor="Fake" Product="Fake Load Port" HalImpId="2BC53A03-E7AC-4A1A-AB56-1B4C3A955974" HalImpRefName="MacHalLoadPortFake" />
+    <Driver DriverId="4e4cbd28-08fb-4fb8-988d-57cdc10e7871" Vendor="Fake" Product="Fake Load Port" HalImpId="24DF35C8-AF37-4103-BE97-770294647EEF" HalImpRefName="MacHalLoadPortFake" />
     <Driver DriverId="69fc9c19-9621-4852-82e2-4ad1cf14e642" Vendor="Fake" Product="Fake Mask Transfer" HalImpId="2CB5E7D6-970D-4550-8821-E4DAB03324EF" HalImpRefName="MacHalMaskTransferFake" />
     <Driver DriverId="a6a5eb63-ab45-4c91-bc04-417825b927ab" Vendor="Fake" Product="Fake Open Stage" HalImpId="5F714250-6215-40B1-A6AB-FD6BA8C7A27A" HalImpRefName="MacHalOpenStageFake" />
     <Driver DriverId="5abe148e-4dbc-4c3c-a615-958a817c26ba" Vendor="Fake" Product="Fake Universal" HalImpId="7380FBCE-0552-4558-991A-771328870B5A" HalImpRefName="MacHalUniversalFake" />
     <Driver DriverId="80e11398-67b2-4991-a071-89c893bcad4c" Vendor="Fake" Product="Fake Drawer" HalImpId="408E693D-EEB2-4458-BB91-FE1D6A9B8AD5" HalImpRefName="MacHalDrawerFake" />
-    <Driver DriverId="813e3573-0a47-41dd-9c67-d9db15ece5ed" Vendor="Fake" Product="Fake Load Port" HalImpId="2BC53A03-E7AC-4A1A-AB56-1B4C3A955974" HalImpRefName="MacHalLoadPortFake" />
+    <Driver DriverId="813e3573-0a47-41dd-9c67-d9db15ece5ed" Vendor="Fake" Product="Fake Load Port Unit" HalImpId="2BC53A03-E7AC-4A1A-AB56-1B4C3A955974" HalImpRefName="MacHalLoadPortUnitFake" />
     <Driver DriverId="9ce04592-be15-4731-9725-f6be4add98da" Vendor="Fake" Product="Fake Camera" HalImpId="6559A888-F8D8-4CD6-8F18-B72E0252EB85" HalImpRefName="MacHalCameraFake" />
     <Driver DriverId="1bcecbf8-ca91-4c75-bc3e-b6b27d172350" Vendor="Fake" Product="Fake Robot" HalImpId="D164A8D9-031A-4EBB-8876-679F0874C8E7" HalImpRefName="HalRobotFake" />
     <Driver DriverId="da521b12-e343-4ded-867e-e4b773235be5" Vendor="Fake" Product="Fake Light Controller" HalImpId="07C1D790-D3A5-4AB5-8A6E-5EC41045778B" HalImpRefName="MacHalLightLeimac" />
