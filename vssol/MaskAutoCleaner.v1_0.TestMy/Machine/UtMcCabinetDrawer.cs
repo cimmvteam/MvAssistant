@@ -120,13 +120,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Load_MoveTrayToOut(/*EnumMachineID machineID*/)
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
+            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
+            EnumMachineID machineID2 = EnumMachineID.MID_DRAWER_01_02;
 
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
+            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
-           
 
-            machine.Load_MoveTrayToOut();
+            machine1.Load_MoveTrayToOut();
+            machine2.Load_MoveTrayToOut();
             Repeat();
 
         }
