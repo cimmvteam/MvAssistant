@@ -171,7 +171,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
            return connected ? 1:0;
         */
             #region  Fake
-            LddPool = MvKjMachineDrawerLddPool.GetFakeInstance();
+            LddPool = MvKjMachineDrawerLddPool.GetFakeInstance(HostListenDrawerPortRangeStart, HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
             Ldd = LddPool.CreateFakeLdd(DeviceIndex, DeviceEndPoint, HostIP);
             Debug.WriteLine("[Fake] Drawer HalConnect(); DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
 

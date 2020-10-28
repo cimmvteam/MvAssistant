@@ -63,7 +63,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01, machineID2 = EnumMachineID.MID_DRAWER_01_02;
 
             var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
-            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
+            //var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
            
 
