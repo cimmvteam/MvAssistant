@@ -608,6 +608,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             #region Fake
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
             var commandText = Ldd.FakeCommandTrayMotionHome();
+
             Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
             Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionHome(), Command Text=" + commandText);
             new Task(
@@ -742,11 +743,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                   FakeSleep();
                   Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
 
+                  
                   this.SetDrawerWorkState(DrawerWorkState.BoxExist);
                   Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxExist.ToString());
-
+                  
+                  
+                  /**
                   this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
                   Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxNotExist.ToString());
+    */
               }
               ).Start();
             return commandText;

@@ -16,6 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     public class MacMsCabinetDrawer : MacMachineStateBase
     {
         public IMacHalCabinet HalCabinetUniversal { get { return this.halAssembly as IMacHalCabinet; } }
+        
 
         protected override void SetCurrentState(MacState state)
         {
@@ -809,7 +810,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 SetCurrentState((MacState)sender);
                 MacTransition transition = null;
                 TriggerMember triggerMember = null;
-                if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
+                if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist )
                 {
                     transition = tLoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn;
                     triggerMember = new TriggerMember
