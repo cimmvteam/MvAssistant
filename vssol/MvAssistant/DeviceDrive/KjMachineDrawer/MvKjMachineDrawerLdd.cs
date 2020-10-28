@@ -314,13 +314,25 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             return commandText;
         }
 
+        
+        /// <summary>Command TrayMotion(011)</summary>
+        /// <param name="trayMotionType"></param>
+        /// <remarks>移動托盤: 0.Home, 1.Out, 2.In</remarks>
+        private string FakeCommandTrayMotion(TrayMotionType trayMotionType)
+        {
+            var parameter = new TrayMotionParameter { TrayMotionType = trayMotionType };
+            var commandText = new TrayMotion().GetCommandText(parameter);
+            //UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            return commandText;
+        }
+
 
         /// <summary>Command TrayMotion ~ Home(011) </summary>
         /// <remarks>Main Event: ReplyTrayMotion(111)</remarks>
         public string CommandTrayMotionHome()
         {
             var commandText=CommandTrayMotion(TrayMotionType.Home);
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            //UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -328,7 +340,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         ///<remarks>2020/10/23 12:00 King [C]</remarks>
         public string FakeCommandTrayMotionHome()
         {
-            var commandText = CommandTrayMotion(TrayMotionType.Home);
+            var commandText = FakeCommandTrayMotion(TrayMotionType.Home);
            
             return commandText;
         }
@@ -338,7 +350,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string CommandTrayMotionOut()
         {
            var commandText= CommandTrayMotion(TrayMotionType.Out);
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+           // UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
 
@@ -349,7 +361,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// </remarks>
         public string FakeCommandTrayMotionOut()
         {
-            var commandText = CommandTrayMotion(TrayMotionType.Out);
+            var commandText = FakeCommandTrayMotion(TrayMotionType.Out);
             
             return commandText;
         }
@@ -359,7 +371,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         public string CommandTrayMotionIn()
         {
             var commandText=CommandTrayMotion(TrayMotionType.In);
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            //UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
         /// <summary>Fake Command TrayMotion ~ In(011) </summary>
@@ -368,7 +380,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// </remarks>
         public string FakeCommandTrayMotionIn()
         {
-            var commandText = CommandTrayMotion(TrayMotionType.In);
+            var commandText = FakeCommandTrayMotion(TrayMotionType.In);
             
             return commandText;
         }

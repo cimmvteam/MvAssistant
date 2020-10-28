@@ -36,7 +36,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                     {
                         if (_instance == null)
                         {
-                            _instance = new MvKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort);
+                            _instance = new MvKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort,false);
                         }
                     }
                 }
@@ -53,20 +53,22 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// 2020/10/23 10:12 King  [C]
         /// </remarks>
         /// <returns></returns>
-        public static MvKjMachineDrawerLddPool GetFakeInstance()
+        public static MvKjMachineDrawerLddPool GetFakeInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
         {
-           
-                if (_instance == null)
-                {
+
+             if (_instance == null)
+              {
                     lock (lockGetInstanceObj)
                     {
                         if (_instance == null)
                         {
-                            _instance = new MvKjMachineDrawerLddPool();
+                            _instance = new MvKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort, true);
                         }
                     }
                 }
                 return _instance;
+           
+            
         }
 
         /// <summary>建構式</summary>
@@ -83,7 +85,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
         /// <param name="bindLocalIp">本地端 繫結 的IP</param>
         /// <param name="bindLocalPort">本地端 繫結 的port</param>
-        public  MvKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort):this()
+        public  MvKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort,bool isFake):this()
         {
 
             /**設定可用 Port 的最初狀況狀*/
@@ -95,8 +97,11 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 }
             };
             initialPortStatusDictionary();
-            SysEventListener = new SysStartUpEventListener(sysStartUpEventListenPort);
-            ListenSystStartUpEvent();
+            if (!isFake)
+            {
+                SysEventListener = new SysStartUpEventListener(sysStartUpEventListenPort);
+                ListenSystStartUpEvent();
+            }
 
         }
 

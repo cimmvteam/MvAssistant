@@ -171,7 +171,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
            return connected ? 1:0;
         */
             #region  Fake
-            LddPool = MvKjMachineDrawerLddPool.GetFakeInstance();
+            LddPool = MvKjMachineDrawerLddPool.GetFakeInstance(HostListenDrawerPortRangeStart, HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
             Ldd = LddPool.CreateFakeLdd(DeviceIndex, DeviceEndPoint, HostIP);
             Debug.WriteLine("[Fake] Drawer HalConnect(); DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
 
@@ -608,6 +608,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             #region Fake
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
             var commandText = Ldd.FakeCommandTrayMotionHome();
+
             Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
             Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionHome(), Command Text=" + commandText);
             new Task(
@@ -742,11 +743,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                   FakeSleep();
                   Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
 
+                  /** 有盒子
                   this.SetDrawerWorkState(DrawerWorkState.BoxExist);
                   Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxExist.ToString());
-
-                  this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
+                  */
+                  
+                  /** 没盒子*/
+                   this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
                   Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxNotExist.ToString());
+    
               }
               ).Start();
             return commandText;
