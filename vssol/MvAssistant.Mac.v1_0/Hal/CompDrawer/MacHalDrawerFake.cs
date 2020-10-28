@@ -743,15 +743,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                   FakeSleep();
                   Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
 
-                  
+                  /** 有盒子
                   this.SetDrawerWorkState(DrawerWorkState.BoxExist);
                   Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxExist.ToString());
+                  */
                   
-                  
-                  /**
-                  this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
+                  /** 没盒子*/
+                   this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
                   Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxNotExist.ToString());
-    */
+    
               }
               ).Start();
             return commandText;
