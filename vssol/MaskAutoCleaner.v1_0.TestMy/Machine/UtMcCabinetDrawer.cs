@@ -101,9 +101,14 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void SystemBootupInitial(/*EnumMachineID machineID*/)
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_02;
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
-            machine.SystemBootupInitial();
+            EnumMachineID machineID2 = EnumMachineID.MID_DRAWER_01_02;
+            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
+            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
+            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
+            machine1.SystemBootupInitial();
+            machine2.SystemBootupInitial();
+
+            Repeat();
         }
 
         /// <summary>測試Load_MoveTrayToOut</summary>
