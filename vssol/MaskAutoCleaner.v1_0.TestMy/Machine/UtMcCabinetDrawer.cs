@@ -184,13 +184,14 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MoveTrayToHomeWaitingUnloadInstruction(/*EnumMachineID machineID*/)
         {
             // DataRow
-            EnumMachineID machineID = EnumMachineID.MID_DRAWER_01_01;
+            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
+            EnumMachineID machineID2 = EnumMachineID.MID_DRAWER_01_02;
+            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
+            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
 
-          
-            machine.MoveTrayToHomeWaitingUnloadInstruction();
-
+            machine1.MoveTrayToHomeWaitingUnloadInstruction();
+            machine2.MoveTrayToHomeWaitingUnloadInstruction();
             Repeat();
         }
 
