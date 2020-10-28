@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_BT_A_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.boxtransfer_assembly.ToString(),
-                DriverId = ManifestDriverId.BoxTransfer.ToString(),
+                DriverId = ManifestDriverId.BoxTransferFake.ToString(),
                 PositionId = MacEnumPositionId.BoxTrasnfer01.ToString(),
                 /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
@@ -562,7 +562,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_CC_A_ASB.ToString(),
                 DevConnStr = "127.0.0.1;3039",
                 DeviceName = MacEnumDevice.clean_assembly.ToString(),
-                DriverId = ManifestDriverId.CleanCh.ToString(),
+                DriverId = ManifestDriverId.CleanChFake.ToString(),
                 PositionId = MacEnumPositionId.CleanCh01.ToString(),
                 /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
@@ -599,7 +599,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_IC_A_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.inspection_assembly.ToString(),
-                DriverId = ManifestDriverId.InspectionCh.ToString(),
+                DriverId = ManifestDriverId.InspectionChFake.ToString(),
                 PositionId = MacEnumPositionId.InspectionCh01.ToString(),
                 /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
@@ -697,7 +697,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_LP_A_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.loadportA_assembly.ToString(),
-                DriverId = ManifestDriverId.LoadPort.ToString(),
+                DriverId = ManifestDriverId.LoadPortFake.ToString(),
                 PositionId = MacEnumPositionId.LoadPort01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     /*new MacManifestDeviceCfg(){
@@ -737,7 +737,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_LP_B_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.loadportB_assembly.ToString(),
-                DriverId = ManifestDriverId.LoadPort.ToString(),
+                DriverId = ManifestDriverId.LoadPortFake.ToString(),
                 PositionId = MacEnumPositionId.LoadPort02.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
                     /*new MacManifestDeviceCfg(){
@@ -787,7 +787,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_MT_A_ASB.ToString(),
                 DevConnStr = "127.0.0.1;3039",
                 DeviceName = MacEnumDevice.masktransfer_assembly.ToString(),
-                DriverId = ManifestDriverId.MaskTransfer.ToString(),
+                DriverId = ManifestDriverId.MaskTransferFake.ToString(),
                 PositionId = MacEnumPositionId.MaskTransfer01.ToString(),
                 /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
@@ -819,7 +819,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_OS_A_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.openstage_assembly.ToString(),
-                DriverId = ManifestDriverId.OpenStage.ToString(),
+                DriverId = ManifestDriverId.OpenStageFake.ToString(),
                 PositionId = MacEnumPositionId.OpenStage01.ToString(),
                 /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
@@ -881,7 +881,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 ID = EnumMachineId.DE_UNI_A_ASB.ToString(),
                 DevConnStr = null,
                 DeviceName = MacEnumDevice.universal_assembly.ToString(),
-                DriverId = ManifestDriverId.Universal.ToString(),
+                DriverId = ManifestDriverId.UniversalFake.ToString(),
                 PositionId = null,
                 /*Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){

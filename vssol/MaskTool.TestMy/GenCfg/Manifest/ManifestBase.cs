@@ -109,7 +109,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Product = "Fake Drawer",
                     Remark = null,
                     AssignType = typeof(Hal.CompDrawer.MacHalDrawerFake),
-                    DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                    DriverId = ManifestDriverId.DrawerFake.ToString(),
                 },
                 new MacManifestDriverCfg(){
                     Vendor = "Fake",

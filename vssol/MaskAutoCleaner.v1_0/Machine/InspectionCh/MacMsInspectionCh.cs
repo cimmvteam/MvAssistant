@@ -404,7 +404,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     }
 
                     //側邊相機
-                    HalInspectionCh.XYPosition(246, 208);
+                    HalInspectionCh.XYPosition(50, 250);
                     for (int i = 0; i < 360; i += 90)
                     {
                         HalInspectionCh.WPosition(i);
@@ -619,7 +619,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     }
 
                     //側邊相機
-                    HalInspectionCh.XYPosition(246, 208);
+                    HalInspectionCh.XYPosition(50, 250);
                     for (int i = 0; i < 360; i += 90)
                     {
                         HalInspectionCh.WPosition(i);
