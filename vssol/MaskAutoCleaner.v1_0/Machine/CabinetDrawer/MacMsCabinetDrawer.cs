@@ -81,7 +81,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void SystemBootup()
         {
-            //this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].DoEntry(new MacStateEntryEventArgs());
+            
             this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
@@ -96,7 +96,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void SystemBootupInitial()
         {
-            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>Load, 將 Tray 移到 Out</summary>
@@ -109,7 +109,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Load_MoveTrayToOut()
         {
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>Load, 將 Tray 移到 Home</summary>
@@ -130,7 +130,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public void Load_MoveTrayToHome()
         {
 
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
       
@@ -145,7 +145,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Load_MoveTrayToIn()
         {
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -157,7 +157,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void MoveTrayToHomeWaitingUnloadInstruction()
         {
-            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -169,7 +169,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Unload_MoveTrayToIn()
         {
-            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -193,7 +193,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Unload_MoveTrayToHome()
         {
-            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -205,7 +205,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void MoveTrayToHomeWaitingLoadInstruction()
         {
-            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         #endregion Command 
