@@ -81,7 +81,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void SystemBootup()
         {
-           this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].DoEntry(new MacStateEntryEventArgs());
+            //this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>系統啟動之後 Initial</summary>
