@@ -31,6 +31,12 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
             if (OnEntry == null) return;
             this.OnEntry(this, seea);
         }
+
+        public void ExecuteCommand(MacStateEntryEventArgs seea)
+        {
+
+            DoEntry(seea);
+        }
         #endregion
 
         /// <summary>
