@@ -26,10 +26,19 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public override int RequestProcMsg(IMacMsg msg)
         {
+            var msgTran = msg as MacMsgTransition;
+            if (msgTran != null)
+            {
+                //"Cmd" + EnumMacMsMaskTransferTransition.MoveToLoadPortA;
+                //
+                //
+                //
+            }
+            var msgSecs = msg as MacMsgSecs;
+            if (msgSecs != null)
+            {
 
-
-
-
+            }
             return 0;
         }
     }
