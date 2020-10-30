@@ -85,8 +85,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Initial()
         {
+            // Machine A
             StateMachineA.Inintial();
-            StateMachineB.Inintial();
+            // Machine B
+              StateMachineB.Inintial();
             Repeat();
         }
 
