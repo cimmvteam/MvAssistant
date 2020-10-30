@@ -71,7 +71,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void AlarmReset()
         {
+            // Machine A
             StateMachineA.AlarmReset();
+            // Machine B
             StateMachineB.AlarmReset();
             Repeat();
         }
