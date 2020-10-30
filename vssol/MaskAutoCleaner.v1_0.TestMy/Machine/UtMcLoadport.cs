@@ -99,8 +99,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Dock()
         {
+            // Machine A
             StateMachineA.Dock();
-            StateMachineB.Dock();
+            // Machine B
+             StateMachineB.Dock();
             Repeat();
         }
 
