@@ -113,7 +113,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Undock()
         {
+            // Machine A
             StateMachineA.Undock();
+            // Machine B 
             StateMachineB.Undock();
             Repeat();
         }

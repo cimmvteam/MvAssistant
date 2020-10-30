@@ -303,7 +303,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
 
             string command = "";
             command = new UndockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
-            Send(command);
+         //   Send(command);
             return command;
         }
 
