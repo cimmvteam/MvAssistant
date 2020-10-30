@@ -430,7 +430,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             */
             #region fake
             FakeMoveSleep();
-            return Robot.ExePosMove(null);
+            //return Robot.ExePosMove(null);
+            return 0;
             #endregion
         }
 
@@ -506,7 +507,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
         public string Initial()
-        { return Plc.Initial(); }
+        {
+            /**real
+            return Plc.Initial();
+            */
+            #region fake
+            return "OK";
+            #endregion
+        }
 
         /// <summary>
         /// 重置夾爪XY軸水平
@@ -528,7 +536,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             Plc.RobotMoving(isMoving);
             */
             #region fake
-            FakeSleep();
+             FakeSleep();
            // Plc.RobotMoving(isMoving);
             #endregion
         }

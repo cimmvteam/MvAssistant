@@ -3,6 +3,7 @@ using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.BoxTransferStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
     public class MacMsBoxTransfer : MacMachineStateBase
     {
         // private MacState _currentState = null;
-        BoxrobotTransferPathFile pathObj = new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
+        BoxrobotTransferPathFile pathObj =new BoxrobotTransferPathFile(PositionInstance.BTR_Path) ;// new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
         public IMacHalBoxTransfer HalBoxTransfer { get { return this.halAssembly as IMacHalBoxTransfer; } }
         private IMacHalOpenStage HalOpenStage { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
@@ -996,14 +997,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sStart.OnExit += (sender, e) => { };
+            };
+            sStart.OnExit += (sender, e) =>
+            {
+
+            };
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
@@ -1031,7 +1035,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sInitial.OnExit += (sender, e) => { };
+            };
+            sInitial.OnExit += (sender, e) =>
+            {
+            };
 
             sCB1Home.OnEntry += (sender, e) =>
             {
@@ -1058,7 +1065,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCB1Home.OnExit += (sender, e) => { };
+            };
+            sCB1Home.OnExit += (sender, e) =>
+            {
+            };
             //sCB2Home.OnEntry += (sender, e) => { }; sCB2Home.OnExit += (sender, e) => { };
 
             //state_CB1HomwClamped.
@@ -1087,7 +1097,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCB1HomeClamped.OnExit += (sender, e) => { };
+            };
+            sCB1HomeClamped.OnExit += (sender, e) => { };
             //sCB2HomeClamped.OnEntry += (sender, e) => { }; sCB2HomeClamped.OnExit += (sender, e) => { };
 
             #region Change Direction
@@ -1217,7 +1228,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 {
                     HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
                     HalBoxTransfer.RobotMoving(true);   // Fake OK
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");  // Fake OK
+                                                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");  // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToOpenStage_PUT_PathFile());  // Fake OK
                     HalBoxTransfer.RobotMoving(false);   // Fake OK
                 }
                 catch (Exception ex)
@@ -1287,7 +1299,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 try
                 {
                     HalBoxTransfer.RobotMoving(true);   // Fake OK
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");  // Fake OK
+                    //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");  // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromOpenStageToCabinet01Home_PUT_PathFile());
                     HalBoxTransfer.RobotMoving(false);  // Fake OK
                     HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
                 }
