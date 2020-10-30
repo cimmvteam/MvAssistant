@@ -566,15 +566,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
           
             this.SetDrawerWorkState(DrawerWorkState.InitialIng);
             var commandText = Ldd.FakeCommandINI();
-            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-            Debug.WriteLine("[Fake] Drawer; Command Name=CommandINI(), Command Text=" + commandText );
+            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port  + "\r\n[Fake] Drawer; Command Name=CommandINI(), Command Text=" + commandText);
+            //Debug.WriteLine("[Fake] Drawer; Command Name=CommandINI(), Command Text=" + commandText );
             new Task(
                 () =>
                 {
                     FakeSleep();
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
-                    Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-                    Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
+                    Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
+                   // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
                 }
                 ).Start();
             return commandText ;
@@ -609,15 +609,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
             var commandText = Ldd.FakeCommandTrayMotionHome();
 
-            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-            Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionHome(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; Command Name=CommandTrayMotionHome(), Command Text=" + commandText);
+            //Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionHome(), Command Text=" + commandText);
             new Task(
                 () =>
                 {
                     FakeSleep();
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
-                    Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-                    Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
+                    Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
+                    //Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
                 }
                 ).Start();
             return commandText;
@@ -641,15 +641,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             #region Fake
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionOutIng);
             var commandText = Ldd.FakeCommandTrayMotionOut();
-            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-            Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionOut(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; Command Name=CommandTrayMotionOut(), Command Text=" + commandText);
+           // Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionOut(), Command Text=" + commandText);
             new Task(
                 () =>
                 {
                     FakeSleep();
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
-                    Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-                    Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
+                    Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
+                   // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
                 }
                 ).Start();
 
@@ -671,15 +671,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             #region Fake
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
             var commandText = Ldd.FakeCommandTrayMotionIn();
-            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-            Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionIn(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; Command Name=CommandTrayMotionIn(), Command Text=" + commandText);
+            //Debug.WriteLine("[Fake] Drawer; Command Name=CommandTrayMotionIn(), Command Text=" + commandText);
             new Task(
               () =>
               {
                   FakeSleep();
                   this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
-                  Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-                  Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionIn.ToString());
+                  Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port+ "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionIn.ToString());
+                 // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionIn.ToString());
               }
               ).Start();
 
@@ -735,22 +735,24 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
             #region Fake
             ResetCurrentWorkState();
             var commandText = Ldd.FakeCommandBoxDetection();
-            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
-            Debug.WriteLine("[Fake] Drawer; Command Name=CommandBoxDetection(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; Command Name=CommandBoxDetection(), Command Text=" + commandText);
+          //  Debug.WriteLine("[Fake] Drawer; Command Name=CommandBoxDetection(), Command Text=" + commandText);
             new Task(
               () =>
               {
                   FakeSleep();
-                  Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port);
+
 
                   /** 有盒子
                   this.SetDrawerWorkState(DrawerWorkState.BoxExist);
-                  Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxExist.ToString());
+                  Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State = " + DrawerWorkState.BoxExist.ToString());
+                  //Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxExist.ToString());
                   */
-                  
+
                   /** 没盒子*/
-                   this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
-                  Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxNotExist.ToString());
+                  this.SetDrawerWorkState(DrawerWorkState.BoxNotExist);
+                  Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State = " + DrawerWorkState.BoxNotExist.ToString()) ;
+                  //Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.BoxNotExist.ToString());
     
               }
               ).Start();

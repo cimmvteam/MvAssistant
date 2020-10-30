@@ -75,7 +75,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public List<MacState> LoadState = null;
 
-        
+       
         #region 指令
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
@@ -185,6 +185,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             sLoadMoveDrawerTraysToOutStart.OnEntry+=(sender, e)=>
             { // Synch
+                Debug.WriteLine("LoadMoveDrawerTraysToOutStart.OnEntry");
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng;
                 var args = (CabinetLoadStartMacStateEntryEventArgs)e;
@@ -213,10 +214,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 Trigger(transition);
             };
             sLoadMoveDrawerTraysToOutStart.OnExit += (sender, e) =>
-            { };
+            {
+                Debug.WriteLine("LoadMoveDrawerTraysToOutStart.OnExit");
+            };
 
             sLoadMoveDrawerTraysToOutIng.OnEntry += (sender, e) =>
             {  // Async
+                Debug.WriteLine("LoadMoveDrawerTraysToOutIng.OnEntry");
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveDrawerTraysToOutIng_LoadMoveDrawerTraysToOutComplete;
                 var args = (CabinetLoadStartMacStateEntryEventArgs)e;
@@ -246,10 +250,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 TriggerAsync(transition);
             };
             sLoadMoveDrawerTraysToOutIng.OnExit+= (sender, e) =>
-            { };
+            {
+                Debug.WriteLine("LoadMoveDrawerTraysToOutIng.OnExit");
+            };
 
             sLoadMoveDrawerTraysToOutComplete.OnEntry += (sender, e) =>
               {
+                  Debug.WriteLine("LoadMoveDrawerTraysToOutComplete.OnEntry");
                   SetCurrentState((MacState)sender);
                   var transition =tLoadMoveDrawerTraysToOutComplete_NULL;
                   var triggerMember = new TriggerMember
@@ -270,7 +277,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
               };
             sLoadMoveDrawerTraysToOutComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveDrawerTraysToOutComplete.OnExit ");
             };
 
             sBootupInitialDrawersStart.OnEntry+=(sender,e)=>

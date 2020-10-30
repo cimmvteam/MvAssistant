@@ -55,7 +55,15 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public string DeviceIndex { get { return HalDrawer.DeviceIndex; } }
 
-       
+        /// <summary>
+        /// Fake Test 時直接設定為某狀態
+        /// </summary>
+        /// <param name="enumState"></param>
+        public void SetCurrentStateForFakeTest(EnumMacCabinetDrawerState enumState)
+        {
+            MacState state = States[enumState.ToString()];
+            SetCurrentState(state);
+        }
         /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
         /// <returns></returns>
         public bool CanLoad()

@@ -255,15 +255,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             #region Fake
             SetWorkState(LoadPortWorkState.ResetIng);
             var commandText = _ldd.FakeCommandAlarmReset();
-            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-            Debug.WriteLine("[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
+           // Debug.WriteLine("[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
             new Task(
                 () =>
                 {
                     FakeSleep();
                     SetWorkState(LoadPortWorkState.AlarmResetComplete);
-                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-                    Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.AlarmResetComplete.ToString());
+                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport State=" + LoadPortWorkState.AlarmResetComplete.ToString());
+                    //Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.AlarmResetComplete.ToString());
                 }
                 ).Start();
             return commandText;
@@ -282,15 +282,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             #region Fake
             this.SetWorkState(LoadPortWorkState.DockIng);
             var commandText = _ldd.FakeCommandDockRequest();
-            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-            Debug.WriteLine("[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
+           // Debug.WriteLine("[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
             new Task(
                 () =>
                 {
                     FakeSleep();
                     this.SetWorkState(LoadPortWorkState.DockComplete);
-                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-                    Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.DockComplete.ToString());
+                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport State=" + LoadPortWorkState.DockComplete.ToString());
+                   // Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.DockComplete.ToString());
                 }
                 ).Start();
 
@@ -310,15 +310,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             #region Fake
             this.SetWorkState(LoadPortWorkState.UndockIng);
             var commandText = _ldd.FakeCommandUndockRequest();
-            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-            Debug.WriteLine("[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
+            //Debug.WriteLine("[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
             new Task(
                () =>
                {
                    FakeSleep();
                    this.SetWorkState(LoadPortWorkState.UndockComplete);
-                   Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-                   Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.UndockComplete.ToString());
+                   Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport State=" + LoadPortWorkState.UndockComplete.ToString());
+                  // Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.UndockComplete.ToString());
                }
                ).Start();
 
@@ -391,15 +391,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
             #region Fake
             this.SetWorkState(LoadPortWorkState.InitialIng);
             var commandText = _ldd.FakeCommandInitialRequest();
-            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-            Debug.WriteLine("[Fake] Loadport Command Name=CommandInitialRequest(), Command Text=" + commandText);
+            Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandInitialRequest(), Command Text=" + commandText);
+            //Debug.WriteLine("[Fake] Loadport Command Name=CommandInitialRequest(), Command Text=" + commandText);
             new Task(
               () =>
               {
                   FakeSleep();
                   this.SetWorkState(LoadPortWorkState.InitialComplete);
-                  Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex);
-                  Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.InitialComplete.ToString());
+                  Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport State=" + LoadPortWorkState.InitialComplete.ToString());
+                  //Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.InitialComplete.ToString());
               }
               ).Start();
 

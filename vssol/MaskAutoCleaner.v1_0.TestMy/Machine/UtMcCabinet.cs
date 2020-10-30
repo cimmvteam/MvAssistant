@@ -78,7 +78,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(3)]
         public void LoadDrawers(int drawersToLoad)
         {
-             
+
+            DicStateMachines[EnumMachineID.MID_DRAWER_01_01].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
+            DicStateMachines[EnumMachineID.MID_DRAWER_01_02].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
+            DicStateMachines[EnumMachineID.MID_DRAWER_01_03].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
+            DicStateMachines[EnumMachineID.MID_DRAWER_01_04].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
             _machine.LoadDrawers(drawersToLoad, DicStateMachines);
             Repeat();
         }
