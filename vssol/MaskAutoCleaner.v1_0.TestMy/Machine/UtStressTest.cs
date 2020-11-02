@@ -11,6 +11,7 @@ using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
@@ -91,7 +92,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MTMS.LPHomeCleanedToLPARelease();
         }
         [TestMethod]
-        public void BankIn()
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        public void BankIn(BoxrobotTransferLocation drawerLocation)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -118,7 +120,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var CB_Task = Task.Factory.StartNew(() => { CBMS.SystemBootup(); CBMS.Unload_MoveTrayToIn(); });
 
             Task.WaitAll(BT_Task, CB_Task);
-            BTMS.MoveToCabinetGet("0101");
+
+            //BTMS.MoveToCabinetGet("0101");
+            BTMS.MoveToCabinetGet(drawerLocation);
+
             Task.WaitAll(OS_Task);
             BTMS.MoveToOpenStagePut();
             OSMS.CalibrationClosedBox();
@@ -133,10 +138,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             OSMS.ReleaseBoxWithMask();
             BTMS.MoveToOpenStageGet();
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBoxWithMask(); });
-            BTMS.MoveToCabinetPut("0101");
+
+            //BTMS.MoveToCabinetPut("0101");
+            BTMS.MoveToCabinetPut(drawerLocation);
         }
         [TestMethod]
-        public void BankOut()
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        public void BankOut(BoxrobotTransferLocation drawerLocation)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -168,7 +176,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var CC_Task = Task.Factory.StartNew(() => { CCMS.SystemBootup(); });
 
             Task.WaitAll(BT_Task, CB_Task);
-            BTMS.MoveToCabinetGet("0101");
+
+            //BTMS.MoveToCabinetGet("0101");
+            BTMS.MoveToCabinetGet(drawerLocation);
+
             Task.WaitAll(OS_Task);
             BTMS.MoveToOpenStagePut();
             OSMS.CalibrationClosedBoxWithMask();
@@ -232,7 +243,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             OSMS.ReleaseBox();
             BTMS.MoveToOpenStageGet();
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBox(); });
-            BTMS.MoveToCabinetPut("0101");
+
+            //BTMS.MoveToCabinetPut("0101");
+            BTMS.MoveToCabinetPut(drawerLocation);
         }
     }
 }

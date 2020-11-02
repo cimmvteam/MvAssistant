@@ -10,6 +10,7 @@ using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
@@ -182,7 +183,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        public void BTMoveToCBGetAndPut()
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        //public void BTMoveToCBGetAndPut()
+        public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -197,13 +200,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Task.WaitAll(CB_Task, BT_Task);
             //放入盒子到Cabinet_01_01
             CBMS.Load_MoveTrayToIn();
-            BTMS.MoveToCabinetPut("0101");
+
+            //BTMS.MoveToCabinetPut("0101");
+            BTMS.MoveToCabinetPut(drawerLocation);
+
             CBMS.Load_MoveTrayToHome();
 
             //從Cabinet_01_01取出盒子
             CBMS.Unload_MoveTrayToIn();
 
-            BTMS.MoveToCabinetGet("0101");
+            //BTMS.MoveToCabinetGet("0101");
+            BTMS.MoveToCabinetGet(drawerLocation);
+
             CBMS.Unload_MoveTrayToHome();
         }
     }
