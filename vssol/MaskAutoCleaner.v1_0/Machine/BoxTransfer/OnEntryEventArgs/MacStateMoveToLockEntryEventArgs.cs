@@ -4,21 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MvAssistant.Mac.v1_0;
+
 namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
 {
     public class MacStateMoveToLockEntryEventArgs : MacStateEntryEventArgs
     {
-        public uint BoxType { get; private set; }
+        public BoxType BoxType { get; private set; }
         private MacStateMoveToLockEntryEventArgs() : base()
         {
 
         }
-        public MacStateMoveToLockEntryEventArgs( uint boxType, object parameter) : base(parameter)
+        public MacStateMoveToLockEntryEventArgs(BoxType boxType, object parameter) : base(parameter)
         {
             
             BoxType = boxType;
         }
-        public MacStateMoveToLockEntryEventArgs( uint boxType) : this( boxType, null)
+        public MacStateMoveToLockEntryEventArgs(BoxType boxType) : this( boxType, null)
         {
 
         }

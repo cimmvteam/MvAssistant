@@ -10,6 +10,7 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.v1_0;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
@@ -121,14 +122,14 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Task.WaitAll(OS_Task);
             BTMS.MoveToOpenStagePut();
             OSMS.CalibrationClosedBox();
-            BTMS.MoveToUnlock();
+            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OS_Task = Task.Factory.StartNew(() => { OSMS.OpenBox(); });
             Task.WaitAll(LPA_Task, LPB_Task, MT_Task);
             MTMS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
             Task.WaitAll(OS_Task);
             MTMS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             OSMS.CloseBoxWithMask();
-            BTMS.MoveToLock();
+            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBoxWithMask();
             BTMS.MoveToOpenStageGet();
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBoxWithMask(); });
@@ -171,7 +172,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Task.WaitAll(OS_Task);
             BTMS.MoveToOpenStagePut();
             OSMS.CalibrationClosedBoxWithMask();
-            BTMS.MoveToUnlock();
+            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.OpenBoxWithMask();
             Task.WaitAll(LPA_Task, LPB_Task, MT_Task);
             MTMS.LPHomeToOSGetMaskReturnToLPHomeClamped();
@@ -227,7 +228,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             });
 
             OSMS.CloseBox();
-            BTMS.MoveToLock();
+            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBox();
             BTMS.MoveToOpenStageGet();
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBox(); });

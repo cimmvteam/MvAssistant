@@ -9,6 +9,7 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.v1_0;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
@@ -158,11 +159,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //將空盒放上OS開盒，由MT放入Mask並關盒由BT取走盒子
             OSMS.InputBox();
             OSMS.CalibrationClosedBox();
-            BTMS.MoveToUnlock();
+            BTMS.MoveToUnlock(BoxType.IronBox);// TODO: 暫時為 鐵盒
             OSMS.OpenBox();
             MTMS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             OSMS.CloseBoxWithMask();
-            BTMS.MoveToLock();
+            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBoxWithMask();
             BTMS.MoveToOpenStageGet();
             OSMS.ReturnToIdleAfterReleaseBoxWithMask();
@@ -170,11 +171,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //將盒子放上OS開盒，由MT取出Mask並關盒由BT取走空盒
             OSMS.InputBoxWithMask();
             OSMS.CalibrationClosedBoxWithMask();
-            BTMS.MoveToUnlock();
+            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.OpenBox();
             MTMS.LPHomeToOSGetMaskReturnToLPHomeClamped();
             OSMS.CloseBox();
-            BTMS.MoveToLock();
+            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBox();
             BTMS.MoveToOpenStageGet();
             OSMS.ReturnToIdleAfterReleaseBox();
@@ -201,6 +202,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             //從Cabinet_01_01取出盒子
             CBMS.Unload_MoveTrayToIn();
+
             BTMS.MoveToCabinetGet("0101");
             CBMS.Unload_MoveTrayToHome();
         }
