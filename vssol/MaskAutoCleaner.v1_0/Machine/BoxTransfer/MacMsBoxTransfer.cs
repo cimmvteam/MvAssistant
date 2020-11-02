@@ -62,6 +62,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             // from:sCB1Home, to:sLocking
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToLock.ToString()];
+            uint uintTempBoxType = 1; // TODO: 假定的 BoxType, 以後補上 
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -73,7 +74,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
                 },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                NextStateEntryEventArgs = new MacStateMoveToLockEntryEventArgs(uintTempBoxType),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);
@@ -85,6 +87,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             TriggerMember triggerMember = null;
             // from: sCB1Home, to: sUnlocking
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToUnlock.ToString()];
+            uint uintTempBoxType = 1; // TODO: 假定的 BoxType, 以後補上 
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -96,7 +99,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
                 },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                NextStateEntryEventArgs = new MacStateMoveToUnLockEntryEventArgs(uintTempBoxType),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);
@@ -976,9 +980,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();            CheckAssemblyAlarmSignal();      CheckAssemblyWarningSignal();\
+                OnEntryCheck();
 
                 var transition = tStart_DeviceInitial;
                 TriggerMember triggerMember = new TriggerMember
@@ -1130,7 +1133,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 }
 
                 var transition = tMovingToOpenStage_OpenStageClamping;
-                var unitTempBoxType = 0; // TODO: 假定的 BoxType, 以後補上 
+                uint uintTempBoxType = 1; // TODO: 假定的 BoxType, 以後補上 
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1143,7 +1146,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     { // TODO: do something
                     },
                     // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    NextStateEntryEventArgs = new MacStateOpenStageClampingEntryEventArgs(unitTempBoxType),
+                    NextStateEntryEventArgs = new MacStateOpenStageClampingEntryEventArgs(uintTempBoxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -1341,21 +1344,26 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             #region Lock & Unlock
             sLocking.OnEntry += (sender, e) =>
             {
+                var eventArgs=(MacStateMoveToLockEntryEventArgs)e;
                 SetCurrentState((MacState)sender);
 
                 // CheckEquipmentStatus(); CheckAssemblyAlarmSignal();  CheckAssemblyWarningSignal();
                 OnEntryCheck();
+                var boxType = eventArgs.BoxType;
                 try
                 {
-                    var BoxType = (uint)e.Parameter;
-                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))  // Fake OK
+                    // var BoxType = (uint)e.Parameter;
+                    // if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))  // Fake OK
+                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile()))  // Fake OK
                         throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to lock box.");
                     HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
                     HalBoxTransfer.RobotMoving(true); // Fake OK
-                    if (BoxType == 1)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json"); // Fake OK
-                    else if (BoxType == 2)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");  // Fake OK
+                    if (boxType == 1)
+                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json"); // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.LockIronBoxPathFile()); // Fake OK
+                    else if (boxType == 2)
+                        //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");  // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.LockCrystalBoxPathFile());  // Fake OK
                     else
                     {
                         HalBoxTransfer.RobotMoving(false);   // Fake OK
@@ -1390,6 +1398,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             }; sLocking.OnExit += (sender, e) => { };
             sUnlocking.OnEntry += (sender, e) =>
             {
+
+                var eventArgs = (MacStateMoveToUnLockEntryEventArgs)e;
                 SetCurrentState((MacState)sender);
 
                 //CheckEquipmentStatus();   CheckAssemblyAlarmSignal();          CheckAssemblyWarningSignal();
@@ -1397,15 +1407,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
                 try
                 {
-                    var BoxType = (uint)e.Parameter;
+                    var boxType = eventArgs.BoxType;
                     if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))   // Fake OK
                         throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to unlock box.");
                     HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
                     HalBoxTransfer.RobotMoving(true);  // Fake OK
-                    if (BoxType == 1)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");  // Fake OK
-                    else if (BoxType == 2)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json"); // Fake OK
+                    if (boxType == 1)
+                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");  // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.UnlockIronBoxPathFile());  // Fake OK
+                    else if (boxType == 2)
+                        //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json"); // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.UnlockCrystalBoxPathFile());
                     else
                     {
                         HalBoxTransfer.RobotMoving(false); // Fake OK
@@ -1492,7 +1504,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 }
                 //var  transition = tMovingToCabinet0101_Cabinet0101Clamping;
                 var transition = transitionMovingToDrawer_DrawerClamping;
-                uint tempBoxType = 0;  // TODO: 假定的 BoxType, 以後補上 
+                uint uintTempBoxType = 1;  // TODO: 假定的 BoxType, 以後補上 
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1504,7 +1516,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateDrawerClampingEntryEventArgs(eventArgs.DrawerLocation, tempBoxType),
+                    NextStateEntryEventArgs = new MacStateDrawerClampingEntryEventArgs(eventArgs.DrawerLocation, uintTempBoxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);

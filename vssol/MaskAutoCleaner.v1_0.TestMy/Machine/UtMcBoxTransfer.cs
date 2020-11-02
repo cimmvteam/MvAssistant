@@ -18,7 +18,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var MS = MachineCtrl.StateMachine;
 
             MS.SystemBootup();
-            bool BankIn = true;
+            bool BankIn = false;
             bool BankOut = false;
             if (BankIn)
             {
@@ -62,8 +62,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        //[DataRow(BoxrobotTransferLocation.Drawer_07_01)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
         public void TestMethod_BankIn(BoxrobotTransferLocation drawerNumber)
         {
             var MachineMgr = new MacMachineMgr();
