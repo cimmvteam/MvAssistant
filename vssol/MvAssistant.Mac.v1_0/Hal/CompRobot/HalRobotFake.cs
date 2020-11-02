@@ -71,7 +71,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 
         public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
         {
-            var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
+            //var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
+            var PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
             var PosList = PosInfo.Select(m => m.GetPosition()).ToList();
             return PosList;
         }

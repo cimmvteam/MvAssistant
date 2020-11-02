@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="EnumMachineIDExtends.cs" />
     <Compile Include="MacException.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateOpenStageClampingEntryEventArgs.cs" />
     <Compile Include="Msg\MacMsgCommand.cs" />
     <Compile Include="Msg\MacMsgTransition.cs" />
     <Compile Include="Recipe\EnumMacRecipeType.cs" />

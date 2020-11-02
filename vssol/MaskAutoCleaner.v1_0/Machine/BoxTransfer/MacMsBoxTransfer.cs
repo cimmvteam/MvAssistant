@@ -1120,7 +1120,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 {
                     HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
                     HalBoxTransfer.RobotMoving(true); // Fake OK
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json"); // Fake OK
+                   // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json"); // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToOpenStage_GET_PathFile()); // Fake OK
                     HalBoxTransfer.RobotMoving(false); // Fake Ok
                 }
                 catch (Exception ex)
@@ -1129,6 +1130,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 }
 
                 var transition = tMovingToOpenStage_OpenStageClamping;
+                var unitTempBoxType = 0; // TODO: 假定的 BoxType, 以後補上 
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1140,14 +1142,19 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NextStateEntryEventArgs = new MacStateOpenStageClampingEntryEventArgs(unitTempBoxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToOpenStage.OnExit += (sender, e) => { };
+            };
+            sMovingToOpenStage.OnExit += (sender, e) =>
+            {
+            };
             sOpenStageClamping.OnEntry += (sender, e) =>
             {
+                var eventArgs = (MacStateOpenStageClampingEntryEventArgs)e;
                 SetCurrentState((MacState)sender);
 
                 // CheckEquipmentStatus();            CheckAssemblyAlarmSignal();     CheckAssemblyWarningSignal();
@@ -1155,8 +1162,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
                 try
                 {
-                    var BoxType = (uint)e.Parameter;
-                    HalBoxTransfer.Clamp(BoxType); // Fake OK
+                    // var BoxType = (uint)e.Parameter;
+                    var boxType = eventArgs.BoxType;
+                    HalBoxTransfer.Clamp(boxType); // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1190,7 +1198,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 try
                 {
                     HalBoxTransfer.RobotMoving(true); // Fake OK
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_GET.json");  // Fake OK
+                                                      //  HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_GET.json");  // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromOpenStageToCabinet01Home_GET_PathFile());
                     HalBoxTransfer.RobotMoving(false); // Fake OK
                     HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
                 }

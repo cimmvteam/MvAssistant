@@ -62,13 +62,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
         //[DataRow(BoxrobotTransferLocation.Drawer_07_01)]
-        public void TestMethod_BankIn(/*BoxrobotTransferLocation drawerNumber*/)
+        public void TestMethod_BankIn(BoxrobotTransferLocation drawerNumber)
         {
-            // DataRow
-            BoxrobotTransferLocation drawerNumber = BoxrobotTransferLocation.Drawer_01_01;
-
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
