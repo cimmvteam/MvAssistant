@@ -24,13 +24,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             {
                 var step = recipe.AddStep("Load Port A Dock");
                 step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetPOD);
-
-                step.StatesCmd.Add(new MacRecipeMachineState()
-                {
-                    Key = EnumMachineID.MID_LP_A_ASB.ToString(),
-                    Value = EnumMacMsLoadPortTransition.DockStart_DockIng.ToString(),
-                });
-
+                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortTransition.DockStart_DockIng);
                 step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
             }
 

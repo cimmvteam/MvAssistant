@@ -48,6 +48,11 @@ namespace MaskAutoCleaner.v1_0.Recipe
             this.m_statesAfter[mid.ToString()] = state.ToString();
         }
 
+        public void AddCmd(Enum mid, Enum transition)
+        {
+            if (this.m_statesCmd.ContainsKey(mid.ToString())) throw new MacException("Exist machine id");
+            this.m_statesCmd[mid.ToString()] = transition.ToString();
+        }
 
 
     }
