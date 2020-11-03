@@ -42,7 +42,11 @@ namespace MaskAutoCleaner.v1_0.Machine
         public abstract void LoadStateMachine();
 
     
+
         public abstract void SystemBootup();
+
+
+
 
         #region State & Transition Quick Function
 

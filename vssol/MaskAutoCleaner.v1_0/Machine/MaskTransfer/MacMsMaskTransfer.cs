@@ -47,6 +47,15 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
         #region State Machine Command
+        //d20201103 TriggerMember 在 Command 執行時產生
+        //  好處是可以動態生成處理程式, 隨時置換要Trigger的內容
+        //  若不存在會變動的程式就不需要這功能
+        //  缺點是每次執行都會跑同一段代碼去生成TriggerMember
+        //  若不在意微秒等級的時間延遲就沒關係
+        //  目前保留此設計, 以確保未來彈性
+
+
+
 
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
@@ -61,6 +70,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// <summary> 從 LP Home 到 Load Port A 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToLPAGetMaskReturnToLPHomeClamped()
         {
+
+
             MacTransition transition = null;
             TriggerMember triggerMember = null;
             transition = Transitions[EnumMacMaskTransferTransition.MoveToLoadPortA.ToString()];
