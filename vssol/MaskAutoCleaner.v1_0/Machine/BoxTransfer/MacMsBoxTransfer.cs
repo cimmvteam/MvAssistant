@@ -296,8 +296,6 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
 
 
-
-
         public override void LoadStateMachine()
         {
             #region State
