@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
@@ -9,6 +10,7 @@ using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Recipe;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 {
@@ -44,7 +46,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 var step = recipe.AddStep("Mask Transfer Change Direction To ICHomeClamped");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHomeClamped);
 
-                step.AddCmd( EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.ICHomeClamped);
             }
 
@@ -562,6 +564,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             var fi = new FileInfo(fn);
             if (!fi.Directory.Exists) fi.Directory.Create();
             recipe.SaveToXmlFile(fi.FullName);
+
+
+
+
 
         }
 

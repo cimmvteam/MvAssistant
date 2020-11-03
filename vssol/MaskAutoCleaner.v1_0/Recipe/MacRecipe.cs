@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Recipe
 {
+    [Serializable]
     public class MacRecipe : List<MacRecipeStep>
     {
 

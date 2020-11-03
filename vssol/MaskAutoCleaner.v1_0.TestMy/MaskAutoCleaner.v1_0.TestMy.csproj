@@ -129,7 +129,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UserData\Recipe\RecipeFlow_BankIn.xml" />
+    <Content Include="UserData\Recipe\RecipeFlow_BankIn.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="UserData\Recipe\RecipeFlow_Ocap.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

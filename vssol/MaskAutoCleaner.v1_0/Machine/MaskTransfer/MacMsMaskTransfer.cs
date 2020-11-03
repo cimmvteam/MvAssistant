@@ -50,7 +50,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         #region Command
 
         /// <summary> 狀態機啟動 </summary>
-        public void SystemBootup()
+        public override void SystemBootup()
         {
             this.States[EnumMacMsMaskTransferState.Start.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
         }

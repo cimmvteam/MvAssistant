@@ -32,8 +32,11 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
         MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();
 
+
+        #region State Machine Command
+
         /// <summary> 狀態機啟動 </summary>
-        public void SystemBootup()
+        public override void SystemBootup()
         {
             this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
@@ -366,6 +369,8 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+
+        #endregion
 
         public override void LoadStateMachine()
         {

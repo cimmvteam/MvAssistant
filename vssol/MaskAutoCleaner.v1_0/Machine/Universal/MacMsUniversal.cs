@@ -89,5 +89,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Universal
             { };
             #endregion State Register OnEntry OnExit
         }
+
+
+        #region Command
+
+        public override void SystemBootup()
+        {
+            //throw new NotImplementedException();
+        }
+
+        #endregion
+
     }
 }

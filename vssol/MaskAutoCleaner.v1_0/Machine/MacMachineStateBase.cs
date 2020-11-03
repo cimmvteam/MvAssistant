@@ -47,6 +47,10 @@ namespace MaskAutoCleaner.v1_0.Machine
         }
 
 
+        public abstract void SystemBootup();
+
+
+
         /// <summary>設定目前工作狀態</summary>
         /// <param name="state"></param>
         protected virtual void SetCurrentState(MacState state) { CurrentState = state; }
