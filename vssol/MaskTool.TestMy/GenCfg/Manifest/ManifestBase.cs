@@ -29,6 +29,62 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
         public List<MacManifestDriverCfg> DriverFakeAssembly()
         {
             return new MacManifestDriverCfg[]{
+                new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Box Transfer",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalBoxTransferFake),
+                    DriverId = ManifestDriverId.BoxTransferFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Cabinet",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalCabinetFake),
+                    DriverId = ManifestDriverId.CabinetFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Clean Chamber",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalCleanChFake),
+                    DriverId = ManifestDriverId.CleanChFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Inspection Chamber",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalInspectionChFake),
+                    DriverId = ManifestDriverId.InspectionChFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Load Port",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalLoadPortFake),
+                    DriverId = ManifestDriverId.LoadPortFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Mask Transfer",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalMaskTransferFake),
+                    DriverId = ManifestDriverId.MaskTransferFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Open Stage",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalOpenStageFake),
+                    DriverId = ManifestDriverId.OpenStageFake.ToString(),
+                },
+                 new MacManifestDriverCfg(){
+                    Vendor = "Fake",
+                    Product = "Fake Universal",
+                    Remark = null,
+                    AssignType = typeof(Hal.Assembly.MacHalUniversalFake),
+                    DriverId = ManifestDriverId.UniversalFake.ToString(),
+                },
 
             }.ToList();
         }
@@ -53,14 +109,14 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Product = "Fake Drawer",
                     Remark = null,
                     AssignType = typeof(Hal.CompDrawer.MacHalDrawerFake),
-                    DriverId = ManifestDriverId.DrawerKjMachine.ToString(),
+                    DriverId = ManifestDriverId.DrawerFake.ToString(),
                 },
                 new MacManifestDriverCfg(){
                     Vendor = "Fake",
-                    Product = "Fake Load Port",
+                    Product = "Fake Load Port Unit",
                     Remark = null,
-                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortFake),
-                    DriverId = ManifestDriverId.LoadPortGudeng.ToString(),
+                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortUnitFake),
+                    DriverId = ManifestDriverId.LoadPortUnitFake.ToString(),
                 }
             }.ToList();
         }
@@ -85,7 +141,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Product ="Fake Robot",
                     Remark=null,
                     AssignType=typeof(Hal.CompRobot.HalRobotFake),
-                    DriverId=ManifestDriverId.CameraFake.ToString(),
+                    DriverId=ManifestDriverId.RobotFake.ToString(),
                 },
 
 

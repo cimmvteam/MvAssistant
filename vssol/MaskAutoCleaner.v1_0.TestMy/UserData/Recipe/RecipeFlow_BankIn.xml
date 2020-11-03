@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<ArrayOfMacRecipeStep xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MacRecipeStep StepName="Load Port A Dock">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetPOD" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Mask Transfer Move To Load Port A Catch Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHome" />
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHomeClamped" />
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHomeClamped" />
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Load Port A Undock">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetPOD" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetPOD" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Mask Transfer Move To Open Stage Release Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHomeClamped" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForInputMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHome" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForInputMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHome" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForInputMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Open Stage Close Box With Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForInputMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Box Transfer Move To Open Stage Lock Box With Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1Home" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1Home" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1Home" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Open Stage Release Box With Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForReleaseBoxWithMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForReleaseBoxWithMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Box Transfer Move To Open Stage Catch Box With Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1Home" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForReleaseBoxWithMask" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1HomeClamped" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForReleaseBoxWithMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1HomeClamped" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForReleaseBoxWithMask" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Drawer_01_01 Move Tray To In">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1HomeClamped" />
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToHomeComplete" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1HomeClamped" />
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToInComplete" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1HomeClamped" />
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToInComplete" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Box Transfer Move To Drawer_01_01 Release Box With Mask">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1HomeClamped" />
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToHomeComplete" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1Home" />
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToInComplete" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_BT_A_ASB" Value="CB1Home" />
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToInComplete" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Drawer_01_01 Move Tray To Home">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToInComplete" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToHomeComplete" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_DRAWER_01_01" Value="UnloadMoveTrayToHomeComplete" />
+    </StatesCmd>
+  </MacRecipeStep>
+</ArrayOfMacRecipeStep>

@@ -78,7 +78,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             Debug.WriteLine("Command: [SystemBootup], Index:" + this.HalLoadPortUnit.DeviceIndex );
             var state = this.States[EnumMacMsLoadPortState.SystemBootup.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs());
+            state.ExecuteCommand(new MacStateEntryEventArgs());
             
         }
 
@@ -92,14 +92,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             Debug.WriteLine("Command: [AlarmReset], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.AlarmResetStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs());
+            state.ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         public void Inintial()
         {
             Debug.WriteLine("Command: [Inintial], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.InitialStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs());
+            state.ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -107,14 +107,14 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             Debug.WriteLine("Command: [Dock], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.DockStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs());
+            state.ExecuteCommand(new MacStateEntryEventArgs());
         }
          
         public void Undock()
         {
             Debug.WriteLine("Command: [Undock], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.UndockStart.ToString()];
-            state.DoEntry(new MacStateEntryEventArgs());
+            state.ExecuteCommand(new MacStateEntryEventArgs());
         }
         #endregion command
 

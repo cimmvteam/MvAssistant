@@ -2,7 +2,9 @@
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.BoxTransferStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
     public class MacMsBoxTransfer : MacMachineStateBase
     {
         // private MacState _currentState = null;
-        BoxrobotTransferPathFile pathObj = new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
+        BoxrobotTransferPathFile pathObj =new BoxrobotTransferPathFile(PositionInstance.BTR_Path) ;// new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
         public IMacHalBoxTransfer HalBoxTransfer { get { return this.halAssembly as IMacHalBoxTransfer; } }
         private IMacHalOpenStage HalOpenStage { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
@@ -48,17 +50,22 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
         public void SystemBootup()
         {
-            this.States[EnumMacMsBoxTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            // state: sStart
+            this.States[EnumMacMsBoxTransferState.Start.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
         }
         public void Initial()
         {
-            this.States[EnumMacMsBoxTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            // State: sInitial
+            this.States[EnumMacMsBoxTransferState.Initial.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
         }
-        public void MoveToLock()
+        public void MoveToLock(BoxType boxType)
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+
+            // from:sCB1Home, to:sLocking
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToLock.ToString()];
+            //var tempBoxType = BoxType.IronBox; // TODO: 假定的 BoxType, 以後補上 
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -70,17 +77,20 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
                 },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                NextStateEntryEventArgs = new MacStateMoveToLockEntryEventArgs(boxType),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-        public void MoveToUnlock()
+        public void MoveToUnlock(BoxType boxType)
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+            // from: sCB1Home, to: sUnlocking
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToUnlock.ToString()];
+            //uint uintTempBoxType = 1; // TODO: 假定的 BoxType, 以後補上 
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -92,7 +102,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
                 },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                NextStateEntryEventArgs = new MacStateMoveToUnLockEntryEventArgs(boxType),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);
@@ -102,7 +113,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+            //from: sCB1Home, to: sMovingToOpenStage
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToOpenStage.ToString()];
+
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -124,6 +137,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
+
+            // from: sCB1HomeClamped, to: sMovingToOpenStageForRelease
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
             triggerMember = new TriggerMember
             {
@@ -148,7 +163,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
 
 
-
+        /**
+        [Obsolete]
         /// <summary>
         /// 移動到指定Cabinet編號的位置取盒，Cabinet編號0101~0705
         /// </summary>
@@ -175,7 +191,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-
+            */
 
         /// <summary>移動到指定Cabinet編號的位置取盒，Cabinet編號0101~0705</summary>
         /// <remarks>
@@ -189,6 +205,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             TriggerMember triggerMember = null;
 
             // 從 CB1Home 移到指定的 Drawer
+            //from: sCB1Home, to: stateMovingToDrawer
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToDrawer.ToString()];  //transitionCB1Home_MovingToDrawer
             triggerMember = new TriggerMember
             {
@@ -222,7 +239,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             TriggerMember triggerMember = null;
 
             //  transition = EnumMacMsBoxTransferTransitionContainValue("MoveToCB" + cabinetNumber.Item2 + "ForRelease");
-
+            
+            // from: sCB1HomeClamped, to: stateMovingToDrawerForRelease
             transition = Transitions[EnumMacMsBoxTransferTransition.MoveToDrawerForRelease.ToString()];  //transitionCB1HomeClamped_MovingToDrawerForRelease
             triggerMember = new TriggerMember
             {
@@ -242,7 +260,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             Trigger(transition);
         }
 
-
+        /**
+        [Obsolete]
         /// <summary>
         /// 移動到指定Cabinet編號的位置放置，Cabinet編號0101~0705
         /// </summary>
@@ -269,7 +288,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
-
+   */
 
 
 
@@ -314,6 +333,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             #region CB1
             #region Move To Cabinet
+            /**
             MacState sMovingToCabinet0101 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0101);
             MacState sMovingToCabinet0102 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0102);
             MacState sMovingToCabinet0103 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0103);
@@ -329,11 +349,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0303 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0303);
             MacState sMovingToCabinet0304 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0304);
             MacState sMovingToCabinet0305 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0305);
-
+            */
             MacState stateMovingToDrawer = NewState(EnumMacMsBoxTransferState.MovingToDrawer);
             #endregion Move To Cabinet
 
             #region Clamping At Cabinet
+            /**
             MacState sCabinet0101Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0101Clamping);
             MacState sCabinet0102Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0102Clamping);
             MacState sCabinet0103Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0103Clamping);
@@ -349,11 +370,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0303Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0303Clamping);
             MacState sCabinet0304Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0304Clamping);
             MacState sCabinet0305Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0305Clamping);
-
+            */
             MacState stateDrawerClamping = NewState(EnumMacMsBoxTransferState.DrawerClamping);
             #endregion Clamping At Cabinet
 
             #region Return To CB Home Clamped From Cabinet
+            /**
             MacState sMovingToCB1HomeClampedFromCabinet0101 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0101);
             MacState sMovingToCB1HomeClampedFromCabinet0102 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0102);
             MacState sMovingToCB1HomeClampedFromCabinet0103 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0103);
@@ -369,13 +391,14 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeClampedFromCabinet0303 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0303);
             MacState sMovingToCB1HomeClampedFromCabinet0304 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0304);
             MacState sMovingToCB1HomeClampedFromCabinet0305 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0305);
-
+            */
 
             MacState stateMovingToCB1HomeClampedFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromDrawer);
 
             #endregion Return To CB Home Clamped From Cabinet
 
             #region Move To Cabinet Fro Release
+            /**
             MacState sMovingToCabinet0101ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0101ForRelease);
             MacState sMovingToCabinet0102ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0102ForRelease);
             MacState sMovingToCabinet0103ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0103ForRelease);
@@ -391,11 +414,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0303ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0303ForRelease);
             MacState sMovingToCabinet0304ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0304ForRelease);
             MacState sMovingToCabinet0305ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0305ForRelease);
-
+            */
             MacState stateMovingToDrawerForRelease = NewState(EnumMacMsBoxTransferState.MovingToDrawerForRelease);
             #endregion Move To Cabinet Fro Release
 
             #region Releasing At Cabinet
+            /**
             MacState sCabinet0101Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0101Releasing);
             MacState sCabinet0102Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0102Releasing);
             MacState sCabinet0103Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0103Releasing);
@@ -411,11 +435,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0303Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0303Releasing);
             MacState sCabinet0304Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0304Releasing);
             MacState sCabinet0305Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0305Releasing);
-
+            */
             MacState stateDrawerReleasing = NewState(EnumMacMsBoxTransferState.DrawerReleasing);
             #endregion Releasing At Cabinet
 
             #region Return To CB Home From Cabinet
+            /**
             MacState sMovingToCB1HomeFromCabinet0101 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0101);
             MacState sMovingToCB1HomeFromCabinet0102 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0102);
             MacState sMovingToCB1HomeFromCabinet0103 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0103);
@@ -431,7 +456,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeFromCabinet0303 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0303);
             MacState sMovingToCB1HomeFromCabinet0304 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0304);
             MacState sMovingToCB1HomeFromCabinet0305 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0305);
-
+            */
             MacState stateMovingToCB1HomeFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromDrawer);
 
             #endregion Return To CB Home From Cabinet
@@ -439,6 +464,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             #region CB2
             #region Move To Cabinet
+            /**
             MacState sMovingToCabinet0401 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0401);
             MacState sMovingToCabinet0402 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0402);
             MacState sMovingToCabinet0403 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0403);
@@ -459,11 +485,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0703 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0703);
             MacState sMovingToCabinet0704 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0704);
             MacState sMovingToCabinet0705 = NewState(EnumMacMsBoxTransferState.MovingToCabinet0705);
-
+            */
             //MacState stateMovingToDrawer = NewState(EnumMacMsBoxTransferState.MovingToDrawer);
             #endregion Move To Cabinet
 
             #region Clamping At Cabinet
+            /**
             MacState sCabinet0401Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0401Clamping);
             MacState sCabinet0402Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0402Clamping);
             MacState sCabinet0403Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0403Clamping);
@@ -484,12 +511,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0703Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0703Clamping);
             MacState sCabinet0704Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0704Clamping);
             MacState sCabinet0705Clamping = NewState(EnumMacMsBoxTransferState.Cabinet0705Clamping);
-
+            */
 
             // MacState state_DrawerClamping = NewState(EnumMacMsBoxTransferState.DrawerClamping);
             #endregion Clamping At Cabinet
 
             #region Return To CB Home Clamped From Cabinet
+            /**
             MacState sMovingToCB1HomeClampedFromCabinet0401 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0401);
             MacState sMovingToCB1HomeClampedFromCabinet0402 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0402);
             MacState sMovingToCB1HomeClampedFromCabinet0403 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0403);
@@ -510,11 +538,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeClampedFromCabinet0703 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0703);
             MacState sMovingToCB1HomeClampedFromCabinet0704 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0704);
             MacState sMovingToCB1HomeClampedFromCabinet0705 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeClampedFromCabinet0705);
-
+            */
             // MacState state_MovingToCB1HomeFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromDrawer);
             #endregion Return To CB Home Clamped From Cabinet
 
             #region Move To Cabinet Fro Release
+            /**
             MacState sMovingToCabinet0401ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0401ForRelease);
             MacState sMovingToCabinet0402ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0402ForRelease);
             MacState sMovingToCabinet0403ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0403ForRelease);
@@ -535,11 +564,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0703ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0703ForRelease);
             MacState sMovingToCabinet0704ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0704ForRelease);
             MacState sMovingToCabinet0705ForRelease = NewState(EnumMacMsBoxTransferState.MovingToCabinet0705ForRelease);
-
+            */
             //MacState stateMovingToDrawerForRelease = NewState(EnumMacMsBoxTransferState.MovingToDrawerForRelease);
             #endregion Move To Cabinet Fro Release
 
             #region Releasing At Cabinet
+            /**
             MacState sCabinet0401Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0401Releasing);
             MacState sCabinet0402Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0402Releasing);
             MacState sCabinet0403Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0403Releasing);
@@ -560,11 +590,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sCabinet0703Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0703Releasing);
             MacState sCabinet0704Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0704Releasing);
             MacState sCabinet0705Releasing = NewState(EnumMacMsBoxTransferState.Cabinet0705Releasing);
-
+            */
             // MacState state_DrawerReleasing = NewState(EnumMacMsBoxTransferState.DrawerReleasing);
             #endregion Releasing At Cabinet
 
             #region Return To CB Home From Cabinet
+            /**
             MacState sMovingToCB1HomeFromCabinet0401 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0401);
             MacState sMovingToCB1HomeFromCabinet0402 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0402);
             MacState sMovingToCB1HomeFromCabinet0403 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0403);
@@ -585,7 +616,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCB1HomeFromCabinet0703 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0703);
             MacState sMovingToCB1HomeFromCabinet0704 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0704);
             MacState sMovingToCB1HomeFromCabinet0705 = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromCabinet0705);
-
+            */
 
             // MacState stateMovingToCB1HomeFromDrawer = NewState(EnumMacMsBoxTransferState.MovingToCB1HomeFromDrawer);
 
@@ -630,6 +661,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             #region CB1
             #region Get
+
+            /**   Obsolete
             MacTransition tCB1Home_MovingToCabinet0101 = NewTransition(sCB1Home, sMovingToCabinet0101, EnumMacMsBoxTransferTransition.MoveToCB0101);
             MacTransition tCB1Home_MovingToCabinet0102 = NewTransition(sCB1Home, sMovingToCabinet0102, EnumMacMsBoxTransferTransition.MoveToCB0102);
             MacTransition tCB1Home_MovingToCabinet0103 = NewTransition(sCB1Home, sMovingToCabinet0103, EnumMacMsBoxTransferTransition.MoveToCB0103);
@@ -645,9 +678,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCB1Home_MovingToCabinet0303 = NewTransition(sCB1Home, sMovingToCabinet0303, EnumMacMsBoxTransferTransition.MoveToCB0303);
             MacTransition tCB1Home_MovingToCabinet0304 = NewTransition(sCB1Home, sMovingToCabinet0304, EnumMacMsBoxTransferTransition.MoveToCB0304);
             MacTransition tCB1Home_MovingToCabinet0305 = NewTransition(sCB1Home, sMovingToCabinet0305, EnumMacMsBoxTransferTransition.MoveToCB0305);
-
+            */
             MacTransition transitionCB1Home_MovingToDrawer = NewTransition(sCB1Home, stateMovingToDrawer, EnumMacMsBoxTransferTransition.MoveToDrawer);
 
+            /**  Obsolete
             MacTransition tMovingToCabinet0101_Cabinet0101Clamping = NewTransition(sMovingToCabinet0101, sCabinet0101Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0101);
             MacTransition tMovingToCabinet0102_Cabinet0102Clamping = NewTransition(sMovingToCabinet0102, sCabinet0102Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0102);
             MacTransition tMovingToCabinet0103_Cabinet0103Clamping = NewTransition(sMovingToCabinet0103, sCabinet0103Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0103);
@@ -663,11 +697,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCabinet0303_Cabinet0303Clamping = NewTransition(sMovingToCabinet0303, sCabinet0303Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0303);
             MacTransition tMovingToCabinet0304_Cabinet0304Clamping = NewTransition(sMovingToCabinet0304, sCabinet0304Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0304);
             MacTransition tMovingToCabinet0305_Cabinet0305Clamping = NewTransition(sMovingToCabinet0305, sCabinet0305Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0305);
-
+            */
             MacTransition transitionMovingToDrawer_DrawerClamping = NewTransition(stateMovingToDrawer, stateDrawerClamping, EnumMacMsBoxTransferTransition.ClampAtDrawer);
 
 
-
+            /**  Obsolete
             MacTransition tCabinet0101Clamping_MovingToCB1HomeClampedFromCabinet0101 = NewTransition(sCabinet0101Clamping, sMovingToCB1HomeClampedFromCabinet0101, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0101);
             MacTransition tCabinet0102Clamping_MovingToCB1HomeClampedFromCabinet0102 = NewTransition(sCabinet0102Clamping, sMovingToCB1HomeClampedFromCabinet0102, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0102);
             MacTransition tCabinet0103Clamping_MovingToCB1HomeClampedFromCabinet0103 = NewTransition(sCabinet0103Clamping, sMovingToCB1HomeClampedFromCabinet0103, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0103);
@@ -683,10 +717,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCabinet0303Clamping_MovingToCB1HomeClampedFromCabinet0303 = NewTransition(sCabinet0303Clamping, sMovingToCB1HomeClampedFromCabinet0303, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0303);
             MacTransition tCabinet0304Clamping_MovingToCB1HomeClampedFromCabinet0304 = NewTransition(sCabinet0304Clamping, sMovingToCB1HomeClampedFromCabinet0304, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0304);
             MacTransition tCabinet0305Clamping_MovingToCB1HomeClampedFromCabinet0305 = NewTransition(sCabinet0305Clamping, sMovingToCB1HomeClampedFromCabinet0305, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0305);
-
+            */
             MacTransition transitionDrawerClamping_MovingToCB1HomeClampedFromDrawer = NewTransition(stateDrawerClamping, stateMovingToCB1HomeClampedFromDrawer, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromDrawer);
 
-
+            /** Obsolete
             MacTransition tMovingToCB1HomeClampedFromCabinet0101_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0101, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0101);
             MacTransition tMovingToCB1HomeClampedFromCabinet0102_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0102, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0102);
             MacTransition tMovingToCB1HomeClampedFromCabinet0103_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0103, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0103);
@@ -702,12 +736,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCB1HomeClampedFromCabinet0303_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0303, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0303);
             MacTransition tMovingToCB1HomeClampedFromCabinet0304_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0304, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0304);
             MacTransition tMovingToCB1HomeClampedFromCabinet0305_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0305, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0305);
-
+            */
 
             MacTransition transitionMovingToCB1HomeClampedFromDrawer_CB1HomeClamped = NewTransition(stateMovingToCB1HomeClampedFromDrawer, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromDrawer);
             #endregion Get
 
             #region Release
+            /** Obsolete
             MacTransition tCB1HomeClamped_MovingToCabinet0101ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0101ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0101ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0102ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0102ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0102ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0103ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0103ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0103ForRelease);
@@ -723,10 +758,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCB1HomeClamped_MovingToCabinet0303ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0303ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0303ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0304ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0304ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0304ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0305ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0305ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0305ForRelease);
-
+            */
             MacTransition transitionCB1HomeClamped_MovingToDrawerForRelease = NewTransition(sCB1HomeClamped, stateMovingToDrawerForRelease, EnumMacMsBoxTransferTransition.MoveToDrawerForRelease);
 
-
+            /** Obsolete 
             MacTransition tMovingToCabinet0101ForRelease_Cabinet0101Releasing = NewTransition(sMovingToCabinet0101ForRelease, sCabinet0101Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0101);
             MacTransition tMovingToCabinet0102ForRelease_Cabinet0102Releasing = NewTransition(sMovingToCabinet0102ForRelease, sCabinet0102Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0102);
             MacTransition tMovingToCabinet0103ForRelease_Cabinet0103Releasing = NewTransition(sMovingToCabinet0103ForRelease, sCabinet0103Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0103);
@@ -742,11 +777,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCabinet0303ForRelease_Cabinet0303Releasing = NewTransition(sMovingToCabinet0303ForRelease, sCabinet0303Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0303);
             MacTransition tMovingToCabinet0304ForRelease_Cabinet0304Releasing = NewTransition(sMovingToCabinet0304ForRelease, sCabinet0304Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0304);
             MacTransition tMovingToCabinet0305ForRelease_Cabinet0305Releasing = NewTransition(sMovingToCabinet0305ForRelease, sCabinet0305Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0305);
-
+            */
 
             MacTransition transitionMovingToDrawerForRelease_DrawerReleasing = NewTransition(stateMovingToDrawerForRelease, stateDrawerReleasing, EnumMacMsBoxTransferTransition.ReleaseAtDrawer);
 
-
+            /** Obsolete
             MacTransition tCabinet0101Releasing_MovingToCB1HomeFromCabinet0101 = NewTransition(sCabinet0101Releasing, sMovingToCB1HomeFromCabinet0101, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0101);
             MacTransition tCabinet0102Releasing_MovingToCB1HomeFromCabinet0102 = NewTransition(sCabinet0102Releasing, sMovingToCB1HomeFromCabinet0102, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0102);
             MacTransition tCabinet0103Releasing_MovingToCB1HomeFromCabinet0103 = NewTransition(sCabinet0103Releasing, sMovingToCB1HomeFromCabinet0103, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0103);
@@ -762,10 +797,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCabinet0303Releasing_MovingToCB1HomeFromCabinet0303 = NewTransition(sCabinet0303Releasing, sMovingToCB1HomeFromCabinet0303, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0303);
             MacTransition tCabinet0304Releasing_MovingToCB1HomeFromCabinet0304 = NewTransition(sCabinet0304Releasing, sMovingToCB1HomeFromCabinet0304, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0304);
             MacTransition tCabinet0305Releasing_MovingToCB1HomeFromCabinet0305 = NewTransition(sCabinet0305Releasing, sMovingToCB1HomeFromCabinet0305, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0305);
-
+            */
             MacTransition transitionDrawerReleasing_MovingToCB1HomeFromDrawer = NewTransition(stateDrawerReleasing, stateMovingToCB1HomeFromDrawer, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromDrawer);
 
 
+            /** Obsolete
             MacTransition tMovingToCB1HomeFromCabinet0101_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0101, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0101);
             MacTransition tMovingToCB1HomeFromCabinet0102_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0102, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0102);
             MacTransition tMovingToCB1HomeFromCabinet0103_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0103, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0103);
@@ -781,6 +817,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCB1HomeFromCabinet0303_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0303, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0303);
             MacTransition tMovingToCB1HomeFromCabinet0304_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0304, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0304);
             MacTransition tMovingToCB1HomeFromCabinet0305_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0305, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0305);
+            */
             //  StandbyAtCB1HomeFromCB0305
             MacTransition transitionMovingToCB1HomeFromDrawer_CB1Home = NewTransition(stateMovingToCB1HomeFromDrawer, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromDrawer);
             #endregion Release
@@ -788,6 +825,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             #region CB2
             #region Get
+            /** Obsolete
             MacTransition tCB1Home_MovingToCabinet0401 = NewTransition(sCB1Home, sMovingToCabinet0401, EnumMacMsBoxTransferTransition.MoveToCB0401);
             MacTransition tCB1Home_MovingToCabinet0402 = NewTransition(sCB1Home, sMovingToCabinet0402, EnumMacMsBoxTransferTransition.MoveToCB0402);
             MacTransition tCB1Home_MovingToCabinet0403 = NewTransition(sCB1Home, sMovingToCabinet0403, EnumMacMsBoxTransferTransition.MoveToCB0403);
@@ -808,7 +846,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCB1Home_MovingToCabinet0703 = NewTransition(sCB1Home, sMovingToCabinet0703, EnumMacMsBoxTransferTransition.MoveToCB0703);
             MacTransition tCB1Home_MovingToCabinet0704 = NewTransition(sCB1Home, sMovingToCabinet0704, EnumMacMsBoxTransferTransition.MoveToCB0704);
             MacTransition tCB1Home_MovingToCabinet0705 = NewTransition(sCB1Home, sMovingToCabinet0705, EnumMacMsBoxTransferTransition.MoveToCB0705);
-
+            */
+            /** Obsolete
             MacTransition tMovingToCabinet0401_Cabinet0401Clamping = NewTransition(sMovingToCabinet0401, sCabinet0401Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0401);
             MacTransition tMovingToCabinet0402_Cabinet0402Clamping = NewTransition(sMovingToCabinet0402, sCabinet0402Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0402);
             MacTransition tMovingToCabinet0403_Cabinet0403Clamping = NewTransition(sMovingToCabinet0403, sCabinet0403Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0403);
@@ -829,7 +868,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCabinet0703_Cabinet0703Clamping = NewTransition(sMovingToCabinet0703, sCabinet0703Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0703);
             MacTransition tMovingToCabinet0704_Cabinet0704Clamping = NewTransition(sMovingToCabinet0704, sCabinet0704Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0704);
             MacTransition tMovingToCabinet0705_Cabinet0705Clamping = NewTransition(sMovingToCabinet0705, sCabinet0705Clamping, EnumMacMsBoxTransferTransition.ClampAtCB0705);
-
+            */
+            /**Obsolete
             MacTransition tCabinet0401Clamping_MovingToCB1HomeClampedFromCabinet0401 = NewTransition(sCabinet0401Clamping, sMovingToCB1HomeClampedFromCabinet0401, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0401);
             MacTransition tCabinet0402Clamping_MovingToCB1HomeClampedFromCabinet0402 = NewTransition(sCabinet0402Clamping, sMovingToCB1HomeClampedFromCabinet0402, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0402);
             MacTransition tCabinet0403Clamping_MovingToCB1HomeClampedFromCabinet0403 = NewTransition(sCabinet0403Clamping, sMovingToCB1HomeClampedFromCabinet0403, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0403);
@@ -850,7 +890,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCabinet0703Clamping_MovingToCB1HomeClampedFromCabinet0703 = NewTransition(sCabinet0703Clamping, sMovingToCB1HomeClampedFromCabinet0703, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0703);
             MacTransition tCabinet0704Clamping_MovingToCB1HomeClampedFromCabinet0704 = NewTransition(sCabinet0704Clamping, sMovingToCB1HomeClampedFromCabinet0704, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0704);
             MacTransition tCabinet0705Clamping_MovingToCB1HomeClampedFromCabinet0705 = NewTransition(sCabinet0705Clamping, sMovingToCB1HomeClampedFromCabinet0705, EnumMacMsBoxTransferTransition.MoveToCB1HomeClampedFromCB0705);
-
+            */
+            /** Obsolete
             MacTransition tMovingToCB1HomeClampedFromCabinet0401_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0401, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0401);
             MacTransition tMovingToCB1HomeClampedFromCabinet0402_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0402, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0402);
             MacTransition tMovingToCB1HomeClampedFromCabinet0403_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0403, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0403);
@@ -871,9 +912,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCB1HomeClampedFromCabinet0703_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0703, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0703);
             MacTransition tMovingToCB1HomeClampedFromCabinet0704_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0704, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0704);
             MacTransition tMovingToCB1HomeClampedFromCabinet0705_CB1HomeClamped = NewTransition(sMovingToCB1HomeClampedFromCabinet0705, sCB1HomeClamped, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeClampedFromCB0705);
+            */
             #endregion Get
 
             #region Release
+            /** Obsolete
             MacTransition tCB1HomeClamped_MovingToCabinet0401ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0401ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0401ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0402ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0402ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0402ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0403ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0403ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0403ForRelease);
@@ -894,7 +937,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCB1HomeClamped_MovingToCabinet0703ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0703ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0703ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0704ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0704ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0704ForRelease);
             MacTransition tCB1HomeClamped_MovingToCabinet0705ForRelease = NewTransition(sCB1HomeClamped, sMovingToCabinet0705ForRelease, EnumMacMsBoxTransferTransition.MoveToCB0705ForRelease);
-
+            */
+            /** Obsolete
             MacTransition tMovingToCabinet0401ForRelease_Cabinet0401Releasing = NewTransition(sMovingToCabinet0401ForRelease, sCabinet0401Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0401);
             MacTransition tMovingToCabinet0402ForRelease_Cabinet0402Releasing = NewTransition(sMovingToCabinet0402ForRelease, sCabinet0402Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0402);
             MacTransition tMovingToCabinet0403ForRelease_Cabinet0403Releasing = NewTransition(sMovingToCabinet0403ForRelease, sCabinet0403Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0403);
@@ -915,7 +959,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCabinet0703ForRelease_Cabinet0703Releasing = NewTransition(sMovingToCabinet0703ForRelease, sCabinet0703Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0703);
             MacTransition tMovingToCabinet0704ForRelease_Cabinet0704Releasing = NewTransition(sMovingToCabinet0704ForRelease, sCabinet0704Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0704);
             MacTransition tMovingToCabinet0705ForRelease_Cabinet0705Releasing = NewTransition(sMovingToCabinet0705ForRelease, sCabinet0705Releasing, EnumMacMsBoxTransferTransition.ReleaseAtCB0705);
-
+            */
+            /** Obsolete
             MacTransition tCabinet0401Releasing_MovingToCB1HomeFromCabinet0401 = NewTransition(sCabinet0401Releasing, sMovingToCB1HomeFromCabinet0401, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0401);
             MacTransition tCabinet0402Releasing_MovingToCB1HomeFromCabinet0402 = NewTransition(sCabinet0402Releasing, sMovingToCB1HomeFromCabinet0402, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0402);
             MacTransition tCabinet0403Releasing_MovingToCB1HomeFromCabinet0403 = NewTransition(sCabinet0403Releasing, sMovingToCB1HomeFromCabinet0403, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0403);
@@ -936,7 +981,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCabinet0703Releasing_MovingToCB1HomeFromCabinet0703 = NewTransition(sCabinet0703Releasing, sMovingToCB1HomeFromCabinet0703, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0703);
             MacTransition tCabinet0704Releasing_MovingToCB1HomeFromCabinet0704 = NewTransition(sCabinet0704Releasing, sMovingToCB1HomeFromCabinet0704, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0704);
             MacTransition tCabinet0705Releasing_MovingToCB1HomeFromCabinet0705 = NewTransition(sCabinet0705Releasing, sMovingToCB1HomeFromCabinet0705, EnumMacMsBoxTransferTransition.MoveToCB1HomeFromCB0705);
-
+            */
+            /** Obsolete
             MacTransition tMovingToCB1HomeFromCabinet0401_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0401, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0401);
             MacTransition tMovingToCB1HomeFromCabinet0402_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0402, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0402);
             MacTransition tMovingToCB1HomeFromCabinet0403_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0403, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0403);
@@ -957,6 +1003,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCB1HomeFromCabinet0703_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0703, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0703);
             MacTransition tMovingToCB1HomeFromCabinet0704_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0704, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0704);
             MacTransition tMovingToCB1HomeFromCabinet0705_CB1Home = NewTransition(sMovingToCB1HomeFromCabinet0705, sCB1Home, EnumMacMsBoxTransferTransition.StandbyAtCB1HomeFromCB0705);
+            */
             #endregion Release
             #endregion CB2
             #endregion Transition
@@ -966,10 +1013,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();            CheckAssemblyAlarmSignal();      CheckAssemblyWarningSignal();\
+                OnEntryCheck();
 
+                // from: sStart, to: sInitial
                 var transition = tStart_DeviceInitial;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -987,14 +1034,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sStart.OnExit += (sender, e) => { };
+            };
+            sStart.OnExit += (sender, e) =>
+            {
+
+            };
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
@@ -1004,7 +1054,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 {
                     throw new BoxTransferInitialFailException(ex.Message);
                 }
-
+                //from: sInitial, to: sCB1Home
                 var transition = tDeviceInitial_CB1Home;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -1019,19 +1069,23 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                     
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sInitial.OnExit += (sender, e) => { };
+            };
+            sInitial.OnExit += (sender, e) =>
+            {
+            };
 
             sCB1Home.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                /**CheckEquipmentStatus(); CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal(); */
+                OnEntryCheck();
 
+                // from: sCB1Home(last state)
                 var transition = tCB1Home_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -1049,7 +1103,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCB1Home.OnExit += (sender, e) => { };
+            };
+            sCB1Home.OnExit += (sender, e) =>
+            {
+            };
             //sCB2Home.OnEntry += (sender, e) => { }; sCB2Home.OnExit += (sender, e) => { };
 
             //state_CB1HomwClamped.
@@ -1058,9 +1115,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();CheckAssemblyAlarmSignal();CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 var transition = tCB1HomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
@@ -1079,7 +1135,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCB1HomeClamped.OnExit += (sender, e) => { };
+            };
+            sCB1HomeClamped.OnExit += (sender, e) => { };
             //sCB2HomeClamped.OnEntry += (sender, e) => { }; sCB2HomeClamped.OnExit += (sender, e) => { };
 
             #region Change Direction
@@ -1094,16 +1151,16 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus(); CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json");
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
+                    HalBoxTransfer.RobotMoving(true); // Fake OK
+                   // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json"); // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToOpenStage_GET_PathFile()); // Fake OK
+                    HalBoxTransfer.RobotMoving(false); // Fake Ok
                 }
                 catch (Exception ex)
                 {
@@ -1111,6 +1168,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 }
 
                 var transition = tMovingToOpenStage_OpenStageClamping;
+                uint uintTempBoxType = 1; // TODO: 假定的 BoxType, 以後補上 
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1122,24 +1180,29 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    // NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NextStateEntryEventArgs = new MacStateOpenStageClampingEntryEventArgs(uintTempBoxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToOpenStage.OnExit += (sender, e) => { };
+            };
+            sMovingToOpenStage.OnExit += (sender, e) =>
+            {
+            };
             sOpenStageClamping.OnEntry += (sender, e) =>
             {
+                var eventArgs = (MacStateOpenStageClampingEntryEventArgs)e;
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();            CheckAssemblyAlarmSignal();     CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
-                    var BoxType = (uint)e.Parameter;
-                    HalBoxTransfer.Clamp(BoxType);
+                    // var BoxType = (uint)e.Parameter;
+                    var boxType = eventArgs.BoxType;
+                    HalBoxTransfer.Clamp(boxType); // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1168,16 +1231,15 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
+                // CheckEquipmentStatus(); CheckAssemblyAlarmSignal(); CheckAssemblyWarningSignal();
+                OnEntryCheck();
                 try
                 {
-                    HalBoxTransfer.RobotMoving(true);
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_GET.json");
-                    HalBoxTransfer.RobotMoving(false);
-                    HalOpenStage.ReadRobotIntrude(false, null);
+                    HalBoxTransfer.RobotMoving(true); // Fake OK
+                                                      //  HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_GET.json");  // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromOpenStageToCabinet01Home_GET_PathFile());
+                    HalBoxTransfer.RobotMoving(false); // Fake OK
+                    HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1207,16 +1269,15 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
+                // CheckEquipmentStatus();    CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+                OnEntryCheck();
                 try
                 {
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(true);   // Fake OK
+                                                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");  // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToOpenStage_PUT_PathFile());  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);   // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1245,13 +1306,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //   CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
 
+                OnEntryCheck();
                 try
                 {
-                    HalBoxTransfer.Unclamp();
+                    HalBoxTransfer.Unclamp();  // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1280,16 +1340,16 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();    CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
-                    HalBoxTransfer.RobotMoving(true);
-                    HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");
-                    HalBoxTransfer.RobotMoving(false);
-                    HalOpenStage.ReadRobotIntrude(false, null);
+                    HalBoxTransfer.RobotMoving(true);   // Fake OK
+                    //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");  // Fake OK
+                    HalBoxTransfer.ExePathMove(pathObj.FromOpenStageToCabinet01Home_PUT_PathFile());
+                    HalBoxTransfer.RobotMoving(false);  // Fake OK
+                    HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1319,37 +1379,44 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             #region Lock & Unlock
             sLocking.OnEntry += (sender, e) =>
             {
+                var eventArgs=(MacStateMoveToLockEntryEventArgs)e;
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
+                // CheckEquipmentStatus(); CheckAssemblyAlarmSignal();  CheckAssemblyWarningSignal();
+                OnEntryCheck();
+                var boxType = eventArgs.BoxType;
                 try
                 {
-                    var BoxType = (uint)e.Parameter;
-                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))
+                    // var BoxType = (uint)e.Parameter;
+                    // if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))  // Fake OK
+                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile()))  // Fake OK
                         throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to lock box.");
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
-                    if (BoxType == 1)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
-                    else if (BoxType == 2)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                    HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(true); // Fake OK
+                    if (boxType ==BoxType.IronBox)
+                    {  // 鐵盒 
+                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json"); // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.LockIronBoxPathFile()); // Fake OK
+                    }
+                    else if (boxType == BoxType.CrystalBox)
+                    {   // 水晶盒
+                        //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");  // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.LockCrystalBoxPathFile());  // Fake OK
+                    }
                     else
-                    {
-                        HalBoxTransfer.RobotMoving(false);
-                        HalOpenStage.ReadRobotIntrude(false, null);
+                    {   // 非水晶盒與也非鐵盒
+                        HalBoxTransfer.RobotMoving(false);   // Fake OK
+                        HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
                         throw new Exception("Unknown box type, can not move to lock box.");
                     }
-                    HalOpenStage.ReadRobotIntrude(false, null);
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);  // Fake OK
                 }
                 catch (Exception ex)
                 {
                     throw new BoxTransferPathMoveFailException(ex.Message);
                 }
-
+                //from: sLocking, to: sCB1Home
                 var transition = tLocking_CB1Home;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -1370,31 +1437,41 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             }; sLocking.OnExit += (sender, e) => { };
             sUnlocking.OnEntry += (sender, e) =>
             {
+
+                var eventArgs = (MacStateMoveToUnLockEntryEventArgs)e;
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();   CheckAssemblyAlarmSignal();          CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
-                    var BoxType = (uint)e.Parameter;
-                    if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))
+                    var boxType = eventArgs.BoxType;
+                    //if (!HalBoxTransfer.CheckPosition(@"D:\Positions\BTRobot\Cabinet_01_Home.json"))   // Fake OK
+                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile()))   // Fake OK
+                    {
                         throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to unlock box.");
-                    HalOpenStage.ReadRobotIntrude(true, null);
-                    HalBoxTransfer.RobotMoving(true);
-                    if (BoxType == 1)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
-                    else if (BoxType == 2)
-                        HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                    }
+                    HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
+                    HalBoxTransfer.RobotMoving(true);  // Fake OK
+                    if (boxType == BoxType.IronBox)
+                    {
+                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");  // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.UnlockIronBoxPathFile());  // Fake OK
+                    }
+                    else if (boxType == BoxType.CrystalBox)
+                    {
+                        //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json"); // Fake OK
+                        HalBoxTransfer.ExePathMove(pathObj.UnlockCrystalBoxPathFile());
+                    }
                     else
                     {
-                        HalBoxTransfer.RobotMoving(false);
-                        HalOpenStage.ReadRobotIntrude(false, null);
+                        HalBoxTransfer.RobotMoving(false); // Fake OK
+                        HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
                         throw new Exception("Unknown box type, can not move to unlock box.");
                     }
-                    HalOpenStage.ReadRobotIntrude(false, null);
-                    HalBoxTransfer.RobotMoving(false);
+                    HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                    HalBoxTransfer.RobotMoving(false);  // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -1418,7 +1495,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sUnlocking.OnExit += (sender, e) => { };
+            };
+            sUnlocking.OnExit += (sender, e) =>
+            {
+            };
             #endregion Lock & Unlock
 
             #region CB1
@@ -1434,9 +1514,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var drawerLocation = eventArgs.DrawerLocation;
 
                 SetCurrentState((MacState)sender, drawerLocation);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //CheckEquipmentStatus();            CheckAssemblyAlarmSignal();      CheckAssemblyWarningSignal();
+                OnEntryCheck();
                 try
                 {
                     /**
@@ -1448,22 +1527,22 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                      */
 
                     // Robot 目前不在Cabinet 1 Home
-                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile()))
+                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile())) // Fake OK
                     { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to get box."); }
 
                     // 判斷 目標 Drawer 是屬於哪個 Cabinet(1 or 2)? 
                     var cabinetHome = drawerLocation.GetCabinetHomeCode();
                     if (cabinetHome.Item1)
                     {
-                        HalBoxTransfer.RobotMoving(true);
+                        HalBoxTransfer.RobotMoving(true);  // Fake OK
                         if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                         {  // Cabinet 1
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation));  // Fake OK
                         }
                         else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
                         {  // Cabinet 2
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile());
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile());  // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation)); // Fake OK
                         }
                         HalBoxTransfer.RobotMoving(false);
                     }
@@ -1474,7 +1553,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 }
                 //var  transition = tMovingToCabinet0101_Cabinet0101Clamping;
                 var transition = transitionMovingToDrawer_DrawerClamping;
-                uint tempBoxType = 0;  // TODO: 假定的 BoxType, 以後補上 
+                uint uintTempBoxType = 1;  // TODO: 假定的 BoxType, 以後補上 
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
@@ -1486,7 +1565,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateDrawerClampingEntryEventArgs(eventArgs.DrawerLocation, tempBoxType),
+                    NextStateEntryEventArgs = new MacStateDrawerClampingEntryEventArgs(eventArgs.DrawerLocation, uintTempBoxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -1495,7 +1574,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             stateMovingToDrawer.OnExit += (sender, e) =>
             { };
 
-
+           /**
             sMovingToCabinet0101.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1533,7 +1612,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0101.OnExit += (sender, e) => { };
+            }; 
+            sMovingToCabinet0101.OnExit += (sender, e) =>
+            {
+            };
+            */
+            /**
             sMovingToCabinet0102.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1572,7 +1656,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0102.OnExit += (sender, e) => { };
+            };
+            sMovingToCabinet0102.OnExit += (sender, e) =>
+            {
+            };
+            */
+            /**
             sMovingToCabinet0103.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1611,7 +1700,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0103.OnExit += (sender, e) => { };
+            };
+            sMovingToCabinet0103.OnExit += (sender, e) =>
+            {
+            };
+            */
+            /**
             sMovingToCabinet0104.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1650,7 +1744,10 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0104.OnExit += (sender, e) => { };
+            };
+            sMovingToCabinet0104.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0105.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1690,6 +1787,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0105.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0201.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1729,6 +1828,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0201.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0202.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1768,6 +1869,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0202.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0203.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1807,6 +1910,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0203.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0204.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1845,7 +1950,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0204.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0204.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0205.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1884,7 +1990,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0205.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0205.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0301.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1924,6 +2031,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0301.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0302.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -1963,6 +2072,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0302.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0303.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2002,6 +2113,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0303.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0304.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2041,6 +2154,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0304.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0305.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2080,6 +2195,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0305.OnExit += (sender, e) => { };
+            */
             #endregion Move To Cabinet
 
             #region Clamping At Cabinet
@@ -2089,13 +2205,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var drawerLocation = eventArgs.DrawerLocation;
                 var boxType = eventArgs.BoxType;
                 SetCurrentState((MacState)sender, drawerLocation);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+
+                OnEntryCheck();
                 try
                 {
                     // Clamp
-                    HalBoxTransfer.Clamp(boxType);
+                    HalBoxTransfer.Clamp(boxType); // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -2123,6 +2239,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
 
             };
+            /**
             sCabinet0101Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2159,6 +2276,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0101Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0102Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2195,6 +2314,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0102Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0103Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2231,6 +2352,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0103Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0104Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2267,6 +2390,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0104Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0105Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2303,6 +2428,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0105Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0201Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2339,6 +2466,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0201Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0202Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2375,6 +2504,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0202Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0203Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2410,7 +2541,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0203Clamping.OnExit += (sender, e) => { };
+            }; sCabinet0203Clamping.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0204Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2447,6 +2579,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0204Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0205Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2483,6 +2617,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0205Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0301Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2519,6 +2655,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0301Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0302Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2555,6 +2693,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0302Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0303Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2591,6 +2731,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0303Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0304Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2627,6 +2769,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0304Clamping.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0305Clamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2663,6 +2807,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0305Clamping.OnExit += (sender, e) => { };
+            */
             #endregion Clamping At Cabinet
 
             #region Return To CB Home Clamped From Cabinet
@@ -2671,9 +2816,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var eventArgs = (MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
                 SetCurrentState((MacState)sender, drawerLocation);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+
+                OnEntryCheck();
                 try
                 {
                     /**
@@ -2688,17 +2833,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
                     if (cabinetHome.Item1)
                     {
-                        HalBoxTransfer.RobotMoving(true);
+                        HalBoxTransfer.RobotMoving(true); // Fake OK
                         if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                         {
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation));  // Fake OK
                         }
                         else //if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home) // 屬於Cabinet2 所管
                         {
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation));
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile());
+                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation)); // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile()); // Fake OK
                         }
-                        HalBoxTransfer.RobotMoving(false);
+                        HalBoxTransfer.RobotMoving(false); // Fake OK
                     }
 
                 }
@@ -2728,7 +2873,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
 
             };
-
+            /**
             sMovingToCB1HomeClampedFromCabinet0101.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2769,6 +2914,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0101.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0102.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2806,6 +2953,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0102.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0103.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2843,6 +2992,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0103.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0104.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2880,6 +3031,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0104.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0105.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2917,6 +3070,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0105.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0201.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2954,6 +3109,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0201.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0202.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -2991,6 +3148,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0202.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0203.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3027,7 +3186,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeClampedFromCabinet0203.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeClampedFromCabinet0203.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeClampedFromCabinet0204.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3065,6 +3225,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0204.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0205.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3102,6 +3264,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0205.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0301.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3138,7 +3302,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeClampedFromCabinet0301.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeClampedFromCabinet0301.OnExit += (sender, e) => { };*/
+
+            /**
             sMovingToCB1HomeClampedFromCabinet0302.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3176,6 +3342,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0302.OnExit += (sender, e) => { };
+            */
+
+            /**
             sMovingToCB1HomeClampedFromCabinet0303.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3212,7 +3381,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeClampedFromCabinet0303.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeClampedFromCabinet0303.OnExit += (sender, e) => { };*/
+
+            /**
             sMovingToCB1HomeClampedFromCabinet0304.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3250,6 +3421,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0304.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCB1HomeClampedFromCabinet0305.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3287,6 +3460,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeClampedFromCabinet0305.OnExit += (sender, e) => { };
+            */
             #endregion Return To CB Home Clamped From Cabinet
 
             #region Move To Cabinet Fro Release
@@ -3295,33 +3469,32 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var eventArgs = (MacStateMovingToDrawerForReleaseEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
                 SetCurrentState((MacState)sender);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                //  CheckEquipmentStatus(); CheckAssemblyAlarmSignal();  CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
                     var path = pathObj.Cabinet01HomePathFile();//D:\Positions\BTRobot\Cabinet_01_Home.json
-                    if (!HalBoxTransfer.CheckPosition(path))
+                    if (!HalBoxTransfer.CheckPosition(path)) // Fake OK
                     { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to put box."); }
 
                     var cabinetHome = drawerLocation.GetCabinetHomeCode();
                     if (cabinetHome.Item1 == true)
                     {
-                        HalBoxTransfer.RobotMoving(true);
+                        HalBoxTransfer.RobotMoving(true); // Fake OK
                         if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                         {
                             // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_PUT.json");
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_PUT_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_PUT_PathFile(drawerLocation)); // Fake OK
                         }
                         else if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
                         {
                             //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
                             //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_07_01_PUT.json");
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile());
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile()); // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation)); // Fake OK
                         }
-                        HalBoxTransfer.RobotMoving(false);
+                        HalBoxTransfer.RobotMoving(false); // Fake OK
                     }
                     else { }
                 }
@@ -3353,7 +3526,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             };
 
-
+            /**
             sMovingToCabinet0101ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3392,7 +3565,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0101ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0101ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0102ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3431,7 +3605,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0102ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0102ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0103ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3470,7 +3645,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0103ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0103ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0104ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3509,7 +3685,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0104ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0104ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0105ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3548,7 +3725,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0105ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0105ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0201ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3587,7 +3765,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0201ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0201ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0202ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3627,6 +3806,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0202ForRelease.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0203ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3666,6 +3847,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0203ForRelease.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0204ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3705,6 +3888,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0204ForRelease.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0205ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3744,6 +3929,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0205ForRelease.OnExit += (sender, e) => { };
+            */
+            /**
             sMovingToCabinet0301ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3782,7 +3969,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0301ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0301ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0302ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3821,7 +4009,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0302ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0302ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0303ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3860,7 +4049,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0303ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0303ForRelease.OnExit += (sender, e) => { };*/
+
+            /**
             sMovingToCabinet0304ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3899,7 +4090,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCabinet0304ForRelease.OnExit += (sender, e) => { };
+            }; sMovingToCabinet0304ForRelease.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCabinet0305ForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -3939,6 +4131,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCabinet0305ForRelease.OnExit += (sender, e) => { };
+            */
             #endregion Move To Cabinet Fro Release
 
             #region Releasing At Cabinet
@@ -3948,13 +4141,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var drawerLocation = eventArgs.DrawerLocation;
 
                 SetCurrentState((MacState)sender);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();         CheckAssemblyAlarmSignal();            CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
-                    HalBoxTransfer.Unclamp();
+                    HalBoxTransfer.Unclamp(); // Fake OK
                 }
                 catch (Exception ex)
                 {
@@ -3983,7 +4175,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
 
             };
-
+            /**
             sCabinet0101Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4019,6 +4211,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0101Releasing.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0102Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4053,7 +4247,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0102Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0102Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0103Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4088,7 +4283,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0103Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0103Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0104Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4123,7 +4319,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0104Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0104Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0105Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4158,7 +4355,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0105Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0105Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0201Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4193,7 +4391,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0201Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0201Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0202Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4228,7 +4427,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0202Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0202Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0203Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4264,6 +4464,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sCabinet0203Releasing.OnExit += (sender, e) => { };
+            */
+            /**
             sCabinet0204Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4298,7 +4500,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0204Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0204Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0205Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4333,7 +4536,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0205Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0205Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0301Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4368,7 +4572,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0301Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0301Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0302Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4403,7 +4608,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0302Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0302Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0303Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4438,7 +4644,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0303Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0303Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0304Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4473,7 +4680,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0304Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0304Releasing.OnExit += (sender, e) => { };*/
+            /**
             sCabinet0305Releasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4508,7 +4716,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sCabinet0305Releasing.OnExit += (sender, e) => { };
+            }; sCabinet0305Releasing.OnExit += (sender, e) => { };*/
             #endregion Releasing At Cabinet
 
             #region Return To CB Home From Cabinet
@@ -4517,9 +4725,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var eventArgs = (MacStateMovingToCB1HomeFromDrawerEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
                 SetCurrentState((MacState)sender);
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
+                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
+                OnEntryCheck();
 
                 try
                 {
@@ -4536,19 +4743,19 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     var cabinetHome = drawerLocation.GetCabinetHomeCode();
                     if (cabinetHome.Item1)
                     {
-                        HalBoxTransfer.RobotMoving(true);
+                        HalBoxTransfer.RobotMoving(true); // Fake OK
                         if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                         {
 
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_PUT_PathFile(drawerLocation));
+                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_PUT_PathFile(drawerLocation)); // Fake OK
                         }
                         else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
                         {
 
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_PUT_PathFile(drawerLocation));
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile());
+                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_PUT_PathFile(drawerLocation)); // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile()); // Fake OK
                         }
-                        HalBoxTransfer.RobotMoving(false);
+                        HalBoxTransfer.RobotMoving(false); // Fake OK
                     }
 
                 }
@@ -4577,6 +4784,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             };
             stateMovingToCB1HomeFromDrawer.OnExit += (sender, e) => { };
 
+            /**
             sMovingToCB1HomeFromCabinet0101.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4614,6 +4822,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeFromCabinet0101.OnExit += (sender, e) => { };
+           */
+           /**
             sMovingToCB1HomeFromCabinet0102.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4650,7 +4860,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0102.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0102.OnExit += (sender, e) => { };*/
+
+            /**
             sMovingToCB1HomeFromCabinet0103.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4688,6 +4900,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             }; sMovingToCB1HomeFromCabinet0103.OnExit += (sender, e) => { };
+    */
+
+            /**
             sMovingToCB1HomeFromCabinet0104.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4724,7 +4939,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0104.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0104.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0105.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4761,7 +4977,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0105.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0105.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0201.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4798,7 +5015,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0201.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0201.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0202.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4835,7 +5053,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0202.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0202.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0203.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4872,7 +5091,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0203.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0203.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0204.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4909,7 +5129,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0204.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0204.OnExit += (sender, e) => { }; */
+            /**
             sMovingToCB1HomeFromCabinet0205.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4946,7 +5167,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0205.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0205.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0301.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -4983,7 +5205,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0301.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0301.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0302.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -5020,7 +5243,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0302.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0302.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0303.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -5057,7 +5281,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0303.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0303.OnExit += (sender, e) => { };*/
+
+            /**
             sMovingToCB1HomeFromCabinet0304.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -5094,7 +5320,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0304.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0304.OnExit += (sender, e) => { };*/
+            /**
             sMovingToCB1HomeFromCabinet0305.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
@@ -5131,10 +5358,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromCabinet0305.OnExit += (sender, e) => { };
+            }; sMovingToCB1HomeFromCabinet0305.OnExit += (sender, e) => { };*/
             #endregion Return To CB Home From Cabinet
             #endregion CB1
 
+            /**
             #region CB2
             #region Move To Cabinet
             sMovingToCabinet0401.OnEntry += (sender, e) =>
@@ -9694,7 +9922,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             }; sMovingToCB1HomeFromCabinet0705.OnExit += (sender, e) => { };
             #endregion Return To CB Home From Cabinet
             #endregion CB2
-            #endregion State Register OnEntry OnExit
+    */        
+          #endregion State Register OnEntry OnExit
         }
         private bool CheckEquipmentStatus()
         {
@@ -9787,6 +10016,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             { throw new BoxTransferException("Can not found " + myValue + " from EnumMacMsBoxTransferTransition list. "); }
             else
             { return Transitions[myValue]; }
+        }
+
+        private void OnEntryCheck()
+        {
+            CheckEquipmentStatus();
+            CheckAssemblyAlarmSignal();
+            CheckAssemblyWarningSignal();
         }
     }
 }

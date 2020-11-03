@@ -22,6 +22,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         StandbyAtICHomeInspected,
         StandbyAtCCHomeClamped,
         CleanedAtCCHomeClamped,
+        StandbyAtCCHomeCleaned,
 
         //Change Direction
         ChangeDirectionToLPHomeFromICHome,
@@ -116,19 +117,19 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
         //Clean
-        MoveToCleanCh,
+        MoveToCleanChPellicle,
         WaitForMoveToClean,
         StandbyClampedInCleanCh,
-        MoveToClean,
+        MoveToCleanPellicle,
         WaitFroClean,
         CleanPellicle,
-        MoveAferCleaned,
+        MoveAfterCleanedPellicle,
         WaitForMoveToInspect,
         StandbyAtClean,
-        MoveToInspect,
+        MoveToInspectPellicle,
         WaitForInspect,
         InspectPellicle,
-        MoveAfterInspected,
+        MoveAfterInspectedPellicle,
         WaitForLeaveCleanCh,
         StandbyAtInspect,
         MoveToCCHomeClampedFromCleanCh,
@@ -141,7 +142,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         WaitFroCleanGlass,
         CleanGlass,
         StandbyAtCleanGlass,
-        MoveAferCleanedGlass,
+        MoveAfterCleanedGlass,
         WaitForMoveToInspectGlass,
         MoveToInspectGlass,
         WaitForInspectGlass,

@@ -224,8 +224,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             //MacState sInitial = NewState(EnumMacMsCleanChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsCleanChState.Idle);
-            MacState sCleaningPellicle = NewState(EnumMacMsCleanChState.CleaningMask);
-            MacState sInspectingPellicle = NewState(EnumMacMsCleanChState.InspectingMask);
+            MacState sCleaningPellicle = NewState(EnumMacMsCleanChState.CleaningPellicle);
+            MacState sInspectingPellicle = NewState(EnumMacMsCleanChState.InspectingPellicle);
             MacState sCleaningGlass = NewState(EnumMacMsCleanChState.CleaningGlass);
             MacState sInspectingGlass = NewState(EnumMacMsCleanChState.InspectingGlass);
             #endregion State

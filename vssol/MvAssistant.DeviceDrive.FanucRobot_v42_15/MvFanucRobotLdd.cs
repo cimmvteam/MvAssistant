@@ -949,7 +949,7 @@ namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
         /// <param name="_SelectCorJ"></param>
         /// <param name="Speed"></param>
         /// <returns></returns>
-        public int Pns0103TartgetSaveToPosReg(Array Target, int _SelectCorJ, int Speed,int PR_Num)
+        public int Pns0103PositionSaveToPosReg(Array Target, int _SelectCorJ, int Speed,int PR_Num)
         {
             if (!this.IsConnected()) return -1;
 

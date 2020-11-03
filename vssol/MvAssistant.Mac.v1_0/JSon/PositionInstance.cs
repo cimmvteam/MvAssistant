@@ -73,16 +73,17 @@ namespace MvAssistant.Mac.v1_0.JSon
         public List<PositionInfo> GetPositionInfos(string filePath)
         {
             var key = filePath;
+            
             if (_dicPositionInfos == default(List<PositionInfo>))
-            {
+            {  // 没有點位資料
                 return default(List<PositionInfo>);
             }
             else if (_dicPositionInfos.ContainsKey(key))
-            {
+            {   // 有路徑
                 return _dicPositionInfos[key];
             }
             else
-            {
+            {  // 没有路徑
                 return default(List<PositionInfo>);
             }
         }

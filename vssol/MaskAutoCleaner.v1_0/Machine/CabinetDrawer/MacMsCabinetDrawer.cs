@@ -4,6 +4,7 @@ using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,6 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     public class MacMsCabinetDrawer : MacMachineStateBase
     {
         public IMacHalCabinet HalCabinetUniversal { get { return this.halAssembly as IMacHalCabinet; } }
+        
 
         protected override void SetCurrentState(MacState state)
         {
@@ -53,7 +55,15 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public string DeviceIndex { get { return HalDrawer.DeviceIndex; } }
 
-       
+        /// <summary>
+        /// Fake Test 時直接設定為某狀態
+        /// </summary>
+        /// <param name="enumState"></param>
+        public void SetCurrentStateForFakeTest(EnumMacCabinetDrawerState enumState)
+        {
+            MacState state = States[enumState.ToString()];
+            SetCurrentState(state);
+        }
         /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
         /// <returns></returns>
         public bool CanLoad()
@@ -79,7 +89,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void SystemBootup()
         {
-           this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].DoEntry(new MacStateEntryEventArgs());
+            
+            this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>系統啟動之後 Initial</summary>
@@ -93,7 +104,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void SystemBootupInitial()
         {
-            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>Load, 將 Tray 移到 Out</summary>
@@ -106,7 +117,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Load_MoveTrayToOut()
         {
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>Load, 將 Tray 移到 Home</summary>
@@ -127,7 +138,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public void Load_MoveTrayToHome()
         {
 
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
       
@@ -142,7 +153,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Load_MoveTrayToIn()
         {
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -154,7 +165,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void MoveTrayToHomeWaitingUnloadInstruction()
         {
-            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -166,7 +177,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Unload_MoveTrayToIn()
         {
-            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -190,7 +201,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Unload_MoveTrayToHome()
         {
-            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -202,7 +213,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void MoveTrayToHomeWaitingLoadInstruction()
         {
-            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].DoEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         #endregion Command 
@@ -380,7 +391,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             #region event
             sSystemBootup.OnEntry += (sender, e) =>
             {  // Sync
-               this.SetCurrentState((MacState)sender);
+                Debug.WriteLine("SystemBootup.OnEntry; Device Index=" + this.DeviceIndex);
+                this.SetCurrentState((MacState)sender);
                 var transition = tSystemBootup_SystemBootupInitialStart;
                 var triggerMember = new TriggerMember
                 {
@@ -400,11 +412,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sSystemBootup.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("SystemBootup.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sSystemBootupInitialStart.OnEntry += (sender, e) =>
              { // Sync
+                 Debug.WriteLine("SystemBootupInitialStart.OnEntry; Device Index=" + this.DeviceIndex);
                  this.SetCurrentState((MacState)sender);
                  var transition = tSystemBootupInitialStart_SystemBootupInitialIng;
                  var triggerMember = new TriggerMember
@@ -426,12 +439,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
              };
             sSystemBootupInitialStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("SystemBootupInitialStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sSystemBootupInitialIng.OnEntry += (sender, e) =>
             {  // Async
-              
+                Debug.WriteLine("SystemBootupInitialIng.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -467,11 +480,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sSystemBootupInitialIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("SystemBootupInitialIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sSystemBootupInitialComplete.OnEntry += (sender, e) =>
             { // Sync
+                Debug.WriteLine("SystemBootupInitialComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
                 var transition = tSystemBootupInitialComplete_WaitingLoadInstruction;
                 var triggerMember = new TriggerMember
@@ -492,11 +506,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sSystemBootupInitialComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("SystemBootupInitialComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sWaitingLoadInstruction.OnEntry += (sender, e) =>
               { //Sync
+                  Debug.WriteLine("WaitingLoadInstruction.OnEntry; Device Index=" + this.DeviceIndex);
                   this.SetCurrentState((MacState)sender);
                   var transition = tWaitingLoadInstruction_NULL;
                   var triggerMember = new TriggerMember
@@ -517,11 +532,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
               };
             sWaitingLoadInstruction.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("WaitingLoadInstruction.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToOutStart.OnEntry+=(sender, e)=>
             {   // Sync
+                Debug.WriteLine("LoadMoveTrayToOutStart.OnEntry; Device Index=" + this.DeviceIndex);
                 var transition = tLoadMoveTrayToOutStart_LoadMoveTrayToOutIng;
                 this.SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -542,11 +558,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToOutStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveTrayToOutStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToOutIng.OnEntry += (sender, e) =>
             {// Async
+                Debug.WriteLine("LoadMoveTrayToOutIng.OnEntry; Device Index=" + this.DeviceIndex);
                 var transition = tLoadMoveTrayToOutIng_LoadMoveTrayToOutComplete;
                 this.SetCurrentState((MacState)sender);
              
@@ -581,9 +598,15 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMemberAsync);
                 TriggerAsync(transition);
             };
+            sLoadMoveTrayToOutIng.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("LoadMoveTrayToOutIng.OnExit; Device Index=" + this.DeviceIndex);
+            };
 
-            sLoadMoveTrayToOutComplete.OnEntry += (sender, e) =>
+
+          sLoadMoveTrayToOutComplete.OnEntry += (sender, e) =>
             {// Sync
+                Debug.WriteLine("LoadMoveTrayToOutComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 var transition = tLoadMoveTrayToOutComplete_LoadWaitingPutBoxOnTray;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -604,11 +627,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToOutComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveTrayToOutComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadWaitingPutBoxOnTray.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("LoadWaitingPutBoxOnTray.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadWaitingPutBoxOnTray_NULL;
                 var triggerMember = new TriggerMember
@@ -629,11 +653,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadWaitingPutBoxOnTray.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadWaitingPutBoxOnTray.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToHomeStart.OnEntry += (sender, e) =>
             { // Sync
+                Debug.WriteLine("LoadMoveTrayToHomeStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToHomeStart_LoadMoveTrayToHomeIng;
                 var triggerMember = new TriggerMember
@@ -654,11 +679,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToHomeStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveTrayToHomeStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToHomeIng.OnEntry += (sender, e) =>
-            {  //Async
+            {
+                //Async
+                Debug.WriteLine("LoadMoveTrayToHomeIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToHomeIng_LoadMoveTrayToHomeComplete;
          
@@ -693,11 +720,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToHomeIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveTrayToHomeIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToHomeComplete.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("LoadMoveTrayToHomeComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToHomeComplete_LoadCheckBoxExistenceStart;
                 var triggerMember = new TriggerMember
@@ -718,11 +746,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToHomeComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveTrayToHomeComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadCheckBoxExistenceStart.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("LoadCheckBoxExistenceStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadCheckBoxExistenceStart_LoadCheckBoxExistenceIng;
                 var triggerMember = new TriggerMember
@@ -743,11 +772,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadCheckBoxExistenceStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadCheckBoxExistenceStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadCheckBoxExistenceIng.OnEntry += (sender, e) =>
             {  // Async
+                Debug.WriteLine("LoadCheckBoxExistenceIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadCheckBoxExistenceIng_LoadCheckBoxExistenceComplete;
         
@@ -780,15 +810,16 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadCheckBoxExistenceIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadCheckBoxExistenceIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadCheckBoxExistenceComplete.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("LoadCheckBoxExistenceComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 MacTransition transition = null;
                 TriggerMember triggerMember = null;
-                if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
+                if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist )
                 {
                     transition = tLoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn;
                     triggerMember = new TriggerMember
@@ -825,9 +856,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-
-            sLoadWaitingMoveTrayToIn.OnEntry+=(sender, ex)=>
+            sLoadCheckBoxExistenceComplete.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("LoadCheckBoxExistenceComplete.OnExit; Device Index=" + this.DeviceIndex);
+            };
+           sLoadWaitingMoveTrayToIn.OnEntry+=(sender, ex)=>
             {    // Sync 
+                Debug.WriteLine("LoadWaitingMoveTrayToIn.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadWaitingMoveTrayToIn_NULL;
                 var triggerMember = new TriggerMember
@@ -848,11 +883,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadWaitingMoveTrayToIn.OnExit += (sender, ex) =>
             {
-
+                Debug.WriteLine("LoadWaitingMoveTrayToIn.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadRejectTrayToOutStart.OnEntry += (sender,e) =>
             {  // Sync
+                Debug.WriteLine("LoadRejectTrayToOutStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng;
                 var triggerMember = new TriggerMember
@@ -873,11 +909,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadRejectTrayToOutStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadRejectTrayToOutStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadRejectTrayToOutIng.OnEntry += (sender, e) =>
             { //Async
+                Debug.WriteLine("LoadRejectTrayToOutIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete;
     
@@ -912,13 +949,14 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 transition.SetTriggerMembers(triggerMemberAsync);
                 TriggerAsync(transition);
             };
-            sLoadRejectTrayToOutIng.OnEntry += (sender, e) =>
+            sLoadRejectTrayToOutIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadRejectTrayToOutIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadRejectTrayToOutComplete.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("LoadRejectTrayToOutComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray;
                 var triggerMember = new TriggerMember
@@ -939,11 +977,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadRejectTrayToOutComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadRejectTrayToOutComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToInStart.OnEntry += (sender, e) =>
             { // Sync
+                Debug.WriteLine("LoadMoveTrayToInStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToInStart_LoadMoveTrayToInIng;
                 var triggerMember = new TriggerMember
@@ -963,12 +1002,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 Trigger(transition);
             };
             sLoadMoveTrayToInStart.OnExit += (sender, e) =>
-            {  
-
+            {
+                Debug.WriteLine("LoadMoveTrayToInStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToInIng.OnEntry += (sender, e) =>
             { // Async
+                Debug.WriteLine("LoadMoveTrayToInIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadMoveTrayToInIng_LoadMoveTrayToInComplete;
          
@@ -1005,11 +1045,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToInIng.OnExit += (sender, e) =>
             {
+                Debug.WriteLine("LoadMoveTrayToInIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadMoveTrayToInComplete.OnEntry += (sender, e) =>
             {
-               // Sync
+                // Sync
+                Debug.WriteLine("LoadMoveTrayToInComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition =tLoadMoveTrayToInComplete_LoadWaitingGetBoxOnTray;
                 var triggerMember = new TriggerMember
@@ -1030,11 +1072,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadMoveTrayToInComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadMoveTrayToInComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sLoadWaitingGetBoxOnTray.OnEntry += (sender, e) =>
             { // Sync
+                Debug.WriteLine("LoadWaitingGetBoxOnTray.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tLoadWaitingGetBoxOnTray_NULL;
                 var triggerMember = new TriggerMember
@@ -1055,11 +1098,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadWaitingGetBoxOnTray.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("LoadWaitingGetBoxOnTray.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sMoveTrayToHomeWaitingUnloadInstructionStart.OnEntry += (sender, e) =>
             { //Sync
+                Debug.WriteLine("MoveTrayToHomeWaitingUnloadInstructionStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tMoveTrayToHomeWaitingUnloadInstructionStart_MoveTrayToHomeWaitingUnloadInstructionIng;
                 var triggerMember = new TriggerMember
@@ -1080,11 +1124,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sMoveTrayToHomeWaitingUnloadInstructionStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("MoveTrayToHomeWaitingUnloadInstructionStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sMoveTrayToHomeWaitingUnloadInstructionIng.OnEntry += (sender, e) =>
             { // Async
+                Debug.WriteLine("MoveTrayToHomeWaitingUnloadInstructionIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tMoveTrayToHomeWaitingUnloadInstructionIng_MoveTrayToHomeWaitingUnloadInstructionComplete;
   
@@ -1120,11 +1165,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 TriggerAsync(transition);
             };
             sMoveTrayToHomeWaitingUnloadInstructionIng.OnExit += (sender, e) =>
-            { 
+            {
+                Debug.WriteLine("MoveTrayToHomeWaitingUnloadInstructionIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sMoveTrayToHomeWaitingUnloadInstructionComplete.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("MoveTrayToHomeWaitingUnloadInstructionComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tMoveTrayToHomeWaitingUnloadInstructionComplete_WaitingUnloadInstruction;
                 var triggerMember = new TriggerMember
@@ -1145,11 +1192,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sMoveTrayToHomeWaitingUnloadInstructionComplete.OnExit += (sender, e) =>
             {
-              
+                Debug.WriteLine("MoveTrayToHomeWaitingUnloadInstructionComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sWaitingUnloadInstruction.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("WaitingUnloadInstruction.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tWaitingUnloadInstruction_NULL;
                 var triggerMember = new TriggerMember
@@ -1169,12 +1217,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 Trigger(transition);
             };
             sWaitingUnloadInstruction.OnExit += (sender, e) =>
-            {   
-               
+            {
+                Debug.WriteLine("WaitingUnloadInstruction.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToInStart.OnEntry += (sender, e) =>
             { // Sync
+                Debug.WriteLine("UnloadMoveTrayToInStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToInStart_UnloadMoveTrayToInIng;
                 var triggerMember = new TriggerMember
@@ -1195,11 +1244,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToInStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToInStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToInIng.OnEntry += (sender, e) =>
             {  // Async
+                Debug.WriteLine("UnloadMoveTrayToInIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToInIng_UnloadMoveTrayToInComplete;
   
@@ -1236,12 +1286,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToInIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToInIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToInComplete.OnEntry += (sender, e) =>
             {  // Sync
                 SetCurrentState((MacState)sender);
+                Debug.WriteLine("UnloadMoveTrayToInComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 var transition = tUnloadMoveTrayToInComplete_UnloadWaitingPutBoxOnTray;
                 var triggerMember = new TriggerMember
                 {
@@ -1262,13 +1313,14 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToInComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToInComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
            
             /**unload, 等待將Box 放在 Tray 上 
              */ 
             sUnloadWaitingPutBoxOnTray.OnEntry += (sender, e) =>
               {// sync
+                  Debug.WriteLine("UnloadWaitingPutBoxOnTray.OnEntry; Device Index=" + this.DeviceIndex);
                   SetCurrentState((MacState)sender);
                   var transition = tUnloadWaitingPutBoxOnTray_NULL;
                   var triggerMember = new TriggerMember
@@ -1289,12 +1341,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
               };
             sUnloadWaitingPutBoxOnTray.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadWaitingPutBoxOnTray.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             #region Unload,將 Tray 送到 Home
             sUnloadMoveTrayToHomeStart.OnEntry += (sender, e) =>
             {// Sync
+                Debug.WriteLine("UnloadMoveTrayToHomeStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToHomeStart_UnloadMoveTrayToHomeIng;
                 var triggerMember = new TriggerMember
@@ -1315,11 +1368,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToHomeStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToHomeStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToHomeIng.OnEntry += (sender, e) =>
             {   // Async
+                Debug.WriteLine("UnloadMoveTrayToHomeIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToHomeIng_UnloadMoveTrayToHomeComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -1355,11 +1409,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToHomeIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToHomeIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToHomeComplete.OnEntry += (sender, e) =>
             {   // Sync
+                Debug.WriteLine("UnloadMoveTrayToHomeComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToHomeComplete_UnloadCheckBoxExistenceStart;
                 var triggerMember = new TriggerMember
@@ -1380,13 +1435,14 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToHomeComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToHomeComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
             #endregion 將 Tray 送到 Home
 
             #region Unload, 檢查有没有盒子
             sUnloadCheckBoxExistenceStart.OnEntry += (sender, e) =>
             {  // sync
+                Debug.WriteLine("UnloadCheckBoxExistenceStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadCheckBoxExistenceStart_UnloadCheckBoxExistenceIng;
                 var triggerMember = new TriggerMember
@@ -1407,11 +1463,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadCheckBoxExistenceStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadCheckBoxExistenceStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadCheckBoxExistenceIng.OnEntry += (sender, e) =>
             {   // Async
+                Debug.WriteLine("UnloadCheckBoxExistenceIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -1443,11 +1500,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadCheckBoxExistenceIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadCheckBoxExistenceIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadCheckBoxExistenceComplete.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("UnloadCheckBoxExistenceComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 MacTransition transition = null;
                 TriggerMember triggerMember = null;
@@ -1477,13 +1535,14 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadCheckBoxExistenceComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadCheckBoxExistenceComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             #endregion Unload, 檢查有没有盒子
             #region Unload, 將Box 移至 Out
             sUnloadMoveTrayToOutStart.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("UnloadMoveTrayToOutStart.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng;
                 var triggerMember = new TriggerMember
@@ -1504,11 +1563,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToOutStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToOutStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToOutIng.OnEntry += (sender, e) =>
             {  // Async
+                Debug.WriteLine("UnloadMoveTrayToOutIng.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadMoveTrayToOutIng_UnloadMoveTrayToOutComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -1542,11 +1602,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadMoveTrayToOutIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToOutIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadMoveTrayToOutComplete.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("UnloadMoveTrayToOutComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 // Unload,已將Tary移到 Out, 等待 將Box 取走 
                 var transition = tUnloadMoveTrayToOutComplete_UnloadWaitingGetBoxOnTray;
@@ -1569,11 +1630,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             } ;
             sUnloadMoveTrayToOutComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadMoveTrayToOutComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sUnloadWaitingGetBoxOnTray.OnEntry += (sender, e)=>
             {
+                Debug.WriteLine("UnloadWaitingGetBoxOnTray.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tUnloadWaitingGetBoxOnTray_NULL;
                 var triggerMember = new TriggerMember
@@ -1595,13 +1657,14 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sUnloadWaitingGetBoxOnTray.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("UnloadWaitingGetBoxOnTray.OnExit; Device Index=" + this.DeviceIndex);
             };
             #endregion Unload, 將Box 移至 Out
 
             #region 將Tray 移到 Home, 準備接 Load指令 
             sMoveTrayToHomeWaitingLoadInstructionStart.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("MoveTrayToHomeWaitingLoadInstructionStart.OnEntry; Device Index=" + this.DeviceIndex);
                 var transition = tMoveTrayToHomeWaitingLoadInstructionStart_MoveTrayToHomeWaitingLoadInstructionIng;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -1622,11 +1685,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sMoveTrayToHomeWaitingLoadInstructionStart.OnExit+= (sender, e) =>
             {
-
+                Debug.WriteLine("MoveTrayToHomeWaitingLoadInstructionStart.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sMoveTrayToHomeWaitingLoadInstructionIng.OnEntry += (sender, e) =>
             {  // Async
+                Debug.WriteLine("MoveTrayToHomeWaitingLoadInstructionIng.OnEntry; Device Index=" + this.DeviceIndex);
                 var transition = tMoveTrayToHomeWaitingLoadInstructionIng_MoveTrayToHomeWaitingLoadInstructionComplete;
                 SetCurrentState((MacState)sender);
                 var triggerMemberAsync = new TriggerMemberAsync
@@ -1662,11 +1726,12 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sMoveTrayToHomeWaitingLoadInstructionIng.OnExit += (sender, e) =>
             {
-                
+                Debug.WriteLine("MoveTrayToHomeWaitingLoadInstructionIng.OnExit; Device Index=" + this.DeviceIndex);
             };
 
             sMoveTrayToHomeWaitingLoadInstructionComplete.OnEntry += (sender, e) =>
             {  // Sync
+                Debug.WriteLine("MoveTrayToHomeWaitingLoadInstructionComplete.OnEntry; Device Index=" + this.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tMoveTrayToHomeWaitingLoadInstructionComplete_WaitingLoadInstruction;
                 var triggerMember = new TriggerMember
@@ -1687,7 +1752,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sMoveTrayToHomeWaitingLoadInstructionComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("MoveTrayToHomeWaitingLoadInstructionComplete.OnExit; Device Index=" + this.DeviceIndex);
             };
 
 

@@ -1,6 +1,8 @@
 ﻿
+using MvAssistant.Mac.v1_0.JSon;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompRobot
@@ -50,7 +52,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 
         public HalRobotMotion HalGetPose()
         {
-            return new HalRobotMotion();
+            var motion = new HalRobotMotion();
+
+            return motion;
         }
 
 
@@ -62,17 +66,20 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
 
         public int HalSysRecover()
         {
-            throw new NotImplementedException();
+            return 0;
         }
 
         public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
         {
-            throw new NotImplementedException();
+            //var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
+            var PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
+            var PosList = PosInfo.Select(m => m.GetPosition()).ToList();
+            return PosList;
         }
 
         public int ExePosMove(List<HalRobotMotion> PathPosition)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

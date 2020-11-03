@@ -48,7 +48,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void TestSystemBootup()
         {
+            // Machine A
             StateMachineA.SystemBootup();
+            // MAchine B
             StateMachineB.SystemBootup();
             Repeat();
         }
@@ -69,7 +71,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void AlarmReset()
         {
+            // Machine A
             StateMachineA.AlarmReset();
+            // Machine B
             StateMachineB.AlarmReset();
             Repeat();
         }
@@ -81,8 +85,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Initial()
         {
+            // Machine A
             StateMachineA.Inintial();
-            StateMachineB.Inintial();
+            // Machine B
+              StateMachineB.Inintial();
             Repeat();
         }
 
@@ -93,8 +99,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Dock()
         {
+            // Machine A
             StateMachineA.Dock();
-            StateMachineB.Dock();
+            // Machine B
+             StateMachineB.Dock();
             Repeat();
         }
 
@@ -105,7 +113,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Undock()
         {
+            // Machine A
             StateMachineA.Undock();
+            // Machine B 
             StateMachineB.Undock();
             Repeat();
         }

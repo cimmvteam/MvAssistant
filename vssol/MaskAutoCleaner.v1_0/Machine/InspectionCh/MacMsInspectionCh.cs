@@ -149,11 +149,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
 
             MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.MaskOnStage);
-            MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingMask);
-            MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingMask);
-            MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.MaskOnStageInspected);
-            MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleaseMask);
+            MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.PellicleOnStage);
+            MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingPellicle);
+            MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingPellicle);
+            MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.PellicleOnStageInspected);
+            MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleasePellicle);
 
             MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
             MacState sDefensingGlass = NewState(EnumMacMsInspectionChState.DefensingGlass);
@@ -299,39 +299,39 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
 
             sPellicleOnStage.OnEntry += (sender, e) =>
-{
-    SetCurrentState((MacState)sender);
+            {
+                SetCurrentState((MacState)sender);
 
-    CheckEquipmentStatus();
-    CheckAssemblyAlarmSignal();
-    CheckAssemblyWarningSignal();
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
 
-    try
-    {
-    }
-    catch (Exception ex)
-    {
-        throw new InspectionChException(ex.Message);
-    }
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
 
-    var transition = tPellicleOnStage_DefensingPellicle;
-    TriggerMember triggerMember = new TriggerMember
-    {
-        Guard = () =>
-        {
-            return true;
-        },
-        Action = null,
-        ActionParameter = null,
-        ExceptionHandler = (thisState, ex) =>
-        { // TODO: do something
+                var transition = tPellicleOnStage_DefensingPellicle;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
                     },
-        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-    };
-    transition.SetTriggerMembers(triggerMember);
-    Trigger(transition);
-};
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sPellicleOnStage.OnExit += (sender, e) =>
             { };
             sDefensingPellicle.OnEntry += (sender, e) =>
@@ -404,7 +404,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     }
 
                     //側邊相機
-                    HalInspectionCh.XYPosition(246, 208);
+                    HalInspectionCh.XYPosition(50, 250);
                     for (int i = 0; i < 360; i += 90)
                     {
                         HalInspectionCh.WPosition(i);
@@ -514,39 +514,39 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
 
             sGlassOnStage.OnEntry += (sender, e) =>
-{
-    SetCurrentState((MacState)sender);
+            {
+                SetCurrentState((MacState)sender);
 
-    CheckEquipmentStatus();
-    CheckAssemblyAlarmSignal();
-    CheckAssemblyWarningSignal();
+                CheckEquipmentStatus();
+                CheckAssemblyAlarmSignal();
+                CheckAssemblyWarningSignal();
 
-    try
-    {
-    }
-    catch (Exception ex)
-    {
-        throw new InspectionChException(ex.Message);
-    }
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                    throw new InspectionChException(ex.Message);
+                }
 
-    var transition = tGlassOnStage_DefensingGlass;
-    TriggerMember triggerMember = new TriggerMember
-    {
-        Guard = () =>
-        {
-            return true;
-        },
-        Action = null,
-        ActionParameter = null,
-        ExceptionHandler = (thisState, ex) =>
-        { // TODO: do something
+                var transition = tGlassOnStage_DefensingGlass;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () =>
+                    {
+                        return true;
                     },
-        NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-        ThisStateExitEventArgs = new MacStateExitEventArgs(),
-    };
-    transition.SetTriggerMembers(triggerMember);
-    Trigger(transition);
-};
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+        },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
             sGlassOnStage.OnExit += (sender, e) =>
             { };
             sDefensingGlass.OnEntry += (sender, e) =>
@@ -619,7 +619,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     }
 
                     //側邊相機
-                    HalInspectionCh.XYPosition(246, 208);
+                    HalInspectionCh.XYPosition(50, 250);
                     for (int i = 0; i < 360; i += 90)
                     {
                         HalInspectionCh.WPosition(i);

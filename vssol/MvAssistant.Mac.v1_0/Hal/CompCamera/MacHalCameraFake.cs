@@ -11,22 +11,23 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
     {
         public void SetExposureTime(double mseconds)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void SetFocus(double percentage)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public Bitmap Shot()
         {
-            throw new NotImplementedException();
+            Bitmap bmp=null;
+            return bmp;
         }
 
         public int ShotToSaveImage(string SavePath, string FileType)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }

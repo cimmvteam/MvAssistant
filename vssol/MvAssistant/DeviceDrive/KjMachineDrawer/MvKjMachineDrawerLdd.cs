@@ -90,6 +90,36 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
           
           }
 
+
+        /// <summary>Constructor for Fake MvKjMachineDrawerLdd Instance</summary>
+        /// <param name="isFakeInstance"></param>
+        /// <param name="drawerIndex"></param>
+        /// <param name="deviceEndpoint"></param>
+        /// <param name="localIp"></param>
+        /// <param name="portTable"></param>
+        /// <remarks>
+        /// 2020/10/23 King [C]
+        /// </remarks>
+        public MvKjMachineDrawerLdd(bool isFakeInstance, string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
+        {
+            DrawerIndex = drawerIndex;
+            TargetEndpoint = deviceEndpoint;
+            DeviceIP = deviceEndpoint.Address.ToString();
+            while (true)
+            {
+                   // 可用的 port
+                    int variablePort = 0;
+                    KeyValuePair<int, bool?> keyValuePair = portTable.Where(m => m.Value == default(bool?)).FirstOrDefault();
+                    variablePort = keyValuePair.Key;
+                    portTable.Remove(variablePort);
+                    portTable.Add(variablePort, true);
+                    break;
+            }
+        }
+
+
+
+
         /// <summary></summary>
         /// <param name="drawerIndex"></param>
         /// <param name="deviceEndpoint"></param>
@@ -229,6 +259,17 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
                 
             }
         }
+
+        /// <summary>Fake Command INI(099)</summary>
+        /// <remarks>
+        /// 2020/10/23 King [C]
+        /// </remarks>
+        /// <returns></returns>
+        public string FakeCommandINI()
+        {
+            var commandText = new INI().GetCommandText(new INIParameter());
+            return commandText;
+        }
         
         /// <summary>Command SetMotionSpeed(000)</summary>
         /// <param name="speed"></param>
@@ -273,30 +314,79 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             return commandText;
         }
 
+        
+        /// <summary>Command TrayMotion(011)</summary>
+        /// <param name="trayMotionType"></param>
+        /// <remarks>移動托盤: 0.Home, 1.Out, 2.In</remarks>
+        private string FakeCommandTrayMotion(TrayMotionType trayMotionType)
+        {
+            var parameter = new TrayMotionParameter { TrayMotionType = trayMotionType };
+            var commandText = new TrayMotion().GetCommandText(parameter);
+            //UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            return commandText;
+        }
+
 
         /// <summary>Command TrayMotion ~ Home(011) </summary>
         /// <remarks>Main Event: ReplyTrayMotion(111)</remarks>
         public string CommandTrayMotionHome()
         {
             var commandText=CommandTrayMotion(TrayMotionType.Home);
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            //UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
+
+        ///<summary>Fake Command TrayMotion ~Home(011) </summary>
+        ///<remarks>2020/10/23 12:00 King [C]</remarks>
+        public string FakeCommandTrayMotionHome()
+        {
+            var commandText = FakeCommandTrayMotion(TrayMotionType.Home);
+           
+            return commandText;
+        }
+
 
         /// <summary>Command TrayMotion ~ Out(011) </summary>
         public string CommandTrayMotionOut()
         {
            var commandText= CommandTrayMotion(TrayMotionType.Out);
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+           // UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
+
+
+        /// <summary>Fake Command TrayMotion ~ Out(011) </summary>
+        ///<remarks>
+        ///2020/10/23 13:15 King [C]
+        /// </remarks>
+        public string FakeCommandTrayMotionOut()
+        {
+            var commandText = FakeCommandTrayMotion(TrayMotionType.Out);
+            
+            return commandText;
+        }
+
+
         /// <summary>Command TrayMotion ~ In(011) </summary>
         public string CommandTrayMotionIn()
         {
             var commandText=CommandTrayMotion(TrayMotionType.In);
-            UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            //UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
+        /// <summary>Fake Command TrayMotion ~ In(011) </summary>
+        /// <remarks>
+        /// 2020/10/23 13:24 King[C]
+        /// </remarks>
+        public string FakeCommandTrayMotionIn()
+        {
+            var commandText = FakeCommandTrayMotion(TrayMotionType.In);
+            
+            return commandText;
+        }
+
+
+
 
         /// <summary>Command BrightLED(012)</summary>
         /// <param name="brightLEDType"></param>
@@ -355,6 +445,18 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
             return commandText;
         }
+        /// <summary>Fake Command BoxDetection(014)</summary>
+        /// <remarks>
+        /// 2020/10/23 13:30 King [C]
+        /// </remarks>
+        public string FakeCommandBoxDetection()
+        {
+            var parameter = new BoxDetectionParameter();
+            var commandText = new BoxDetection().GetCommandText(parameter);
+            // UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
+            return commandText;
+        }
+
 
         /// <summary>Command WriteNetSetting(031)</summary>
         public string CommandWriteNetSetting()

@@ -266,6 +266,19 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
 
+        /// <summary>Fake Command DockRequest(100)</summary>
+        /// <remarks>
+        /// 2020/10/23 14:20 King [C]
+        /// </remarks>
+        public string FakeCommandDockRequest()
+        {
+
+            string command = null;
+            command = new DockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+            return command;
+        }
+
+
         /// <summary>Command UndockRequest(101)</summary>
         /// <remarks></remarks>
         public string CommandUndockRequest()
@@ -280,6 +293,22 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
             return command;
         }
+
+        /// <summary>Command UndockRequest(101)</summary>
+        /// <remarks>
+        /// 2020/10/23 14:24 King[C]
+        /// </remarks>
+        public string FakeCommandUndockRequest()
+        {
+
+            string command = "";
+            command = new UndockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+         //   Send(command);
+            return command;
+        }
+
+
+
 
         /// <summary>Command AskPlacementStatus(102)</summary>
         /// <remarks>Main Event: Placement</remarks>
@@ -395,6 +424,17 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
 
+        /// <summary>AlarmReset(109)</summary>
+        /// <remarks>
+        /// 2020/10/23 14:12 King [C]
+        /// </remarks>
+        public string FakeCommandAlarmReset()
+        {
+            string command = "";
+            command = new AlarmReset().GetCommandText<IHostToLoadPortCommandParameter>(null);
+            return command;
+        }
+
         /// <summary>Command AskStagePosition(110)</summary>
         /// <remarks>Main Event: StagePosition</remarks>
         public string CommandAskStagePosition()
@@ -431,6 +471,18 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             }
             return command;
         }
+
+        /// <summary>FakeCommand Initilial Request(112)</summary>
+        /// <remarks>
+        /// 2020/10/23 King [C]
+        /// </remarks>
+        public string FakeCommandInitialRequest()
+        {
+            string command = "";
+            command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+            return command;
+        }
+
 
         /// <summary>Command ManualClamperLock</summary>
         /// <remarks>Main Event: Clamper</remarks>

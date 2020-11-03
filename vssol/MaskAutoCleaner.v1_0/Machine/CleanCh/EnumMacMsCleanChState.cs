@@ -12,8 +12,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         Initial,
 
         Idle,
-        CleaningMask,
-        InspectingMask,
+        CleaningPellicle,
+        InspectingPellicle,
 
         CleaningGlass,
         InspectingGlass,
