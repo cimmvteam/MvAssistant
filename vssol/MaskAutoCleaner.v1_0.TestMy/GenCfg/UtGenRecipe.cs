@@ -30,6 +30,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                     Key = EnumMachineID.MID_LP_A_ASB.ToString(),
                     Value = EnumMacMsLoadPortTransition.DockStart_DockIng.ToString(),
                 });
+
                 step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
             }
 
