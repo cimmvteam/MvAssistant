@@ -29,6 +29,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             var msgTran = msg as MacMsgTransition;
             if (msgTran != null)
             {
+                var type = typeof(MacMsMaskTransfer);
+                var method = type.GetMethod("Cmd" + "SystemBootup");
+                method.Invoke(this.StateMachine, null);
+
                 //"Cmd" + EnumMacMsMaskTransferTransition.MoveToLoadPortA;
                 //
                 //

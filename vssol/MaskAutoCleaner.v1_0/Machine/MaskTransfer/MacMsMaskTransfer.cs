@@ -42,10 +42,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public void ResetState()
         { this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
-        
+
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
+
+        #region Command
 
         /// <summary> 狀態機啟動 </summary>
         public void SystemBootup()
@@ -1024,6 +1026,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             Trigger(transition);
         }
 
+        #endregion
+
         public override void LoadStateMachine()
         {
             //--- Declare State ---
@@ -1314,7 +1318,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 CheckAssemblyAlarmSignal();
                 CheckAssemblyWarningSignal();
 
-                
+
 
                 var transition = tStart_DeviceInitial;
                 TriggerMember triggerMember = new TriggerMember

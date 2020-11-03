@@ -33,11 +33,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHome);
                 step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
 
-                step.StatesCmd.Add(new MacRecipeMachineState()
-                {
-                    Key = EnumMachineID.MID_MT_A_ASB.ToString(),
-                    Value = EnumMacMsMaskTransferTransition.MoveToLoadPortA.ToString(),
-                });
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferTransition.MoveToLoadPortA);
+
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetMask);
             }
@@ -47,11 +44,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 var step = recipe.AddStep("Mask Transfer Change Direction To ICHomeClamped");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHomeClamped);
 
-                step.StatesCmd.Add(new MacRecipeMachineState()
-                {
-                    Key = EnumMachineID.MID_MT_A_ASB.ToString(),
-                    Value = EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped.ToString(),
-                });
+                step.AddCmd( EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferTransition.ChangeDirectionToICHomeClampedFromLPHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.ICHomeClamped);
             }
 

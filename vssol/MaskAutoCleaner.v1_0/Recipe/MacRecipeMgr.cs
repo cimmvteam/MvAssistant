@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.Recipe
 
         public void LoaddRecipe(string recipeName)
         {
-            MvUtil.LoadFromXmlFile<MacRecipe>(recipeName);
+            this.Recipe = MvUtil.LoadFromXmlFile<MacRecipe>(recipeName);
         }
 
 
