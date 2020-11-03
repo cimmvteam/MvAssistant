@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
 {
-    /// <summary>EnumMacMsBoxTransferState.DrawerClamping  的 OnEntry Event Args</summary>
+    /// <summary>EnumMacBoxTransferState.DrawerClamping  的 OnEntry Event Args</summary>
     /// <remarks>
     /// <para>2020/09/23, King Add</para>
     /// </remarks>

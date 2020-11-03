@@ -33,7 +33,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var method = type.GetMethod("Cmd" + "SystemBootup");
                 method.Invoke(this.StateMachine, null);
 
-                //"Cmd" + EnumMacMsMaskTransferTransition.MoveToLoadPortA;
+                //"Cmd" + EnumMacMaskTransferTransition.MoveToLoadPortA;
                 //
                 //
                 //
