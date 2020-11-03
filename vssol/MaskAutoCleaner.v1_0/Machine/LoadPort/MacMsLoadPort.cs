@@ -83,8 +83,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         }
 
 
-
-
+        public void GetPOD()
+        {
+            // Transition:  Idle => IdleForGetPOD
+            MacTransition transition = this.Transitions[""];
+        }
+        public void GetPODWithMask()
+        {
+            // Transition: Idle=> IdleForGetPODWithMask
+            MacTransition transition = this.Transitions[""];
+        }
 
 
         /// <summary>Alarm Reset</summary>
@@ -123,6 +131,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         public override void LoadStateMachine()
         {
             #region State
+            // Any State
+            MacState AnyState = null;
 
             // 系統啟動
             MacState sSystemBootup = NewState(EnumMacMsLoadPortState.SystemBootup);
@@ -133,6 +143,34 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacState sSystemBootupInitialIng = NewState(EnumMacMsLoadPortState.SystemBootupInitialIng);
             MacState sSystemBootupInitialComplete = NewState(EnumMacMsLoadPortState.SystemBootupInitialComplete);
 
+            #region 2020/11/03-------//
+
+            MacState sIdle=NewState(EnumMacMsLoadPortState.Idle);
+            //   MacState sIdleForGetPOD = NewState(EnumMacMsLoadPortState.IdleForGetPOD);  // 
+            MacState sIdleForGetPODWithMask = NewState(EnumMacMsLoadPortState.IdleForGetPODWithMask);
+           // MacState sDockStart;
+            //MacState sDockIng;
+            //MacState sDockComplete;
+           // MacState sDockWithMaskStart;
+           // MacState sDockWithMaskIng;
+            //MacState sDockWithMaskComplete; ;
+          //  MacState sIdleForGetMask;
+            MacState sIdleForReleaseMask;
+            MacState sUndockWithMaskStart;
+            MacState sUndockWithMaskIng;
+            MacState sUndockWithMaskComplete;
+           // MacState sUndockStart;
+           // MacState sUndockIng;
+            //MacState sUndockComplete;
+            MacState sIdleForReleasePODWithMask;
+            MacState sIdleForReleasePOD;
+
+
+
+            MacTransition tIdle_IdleForGetPOD;
+
+
+            #endregion 2020/11/03
 
             // AlarmReset 開始
             MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.AlarmResetStart);
