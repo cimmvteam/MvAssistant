@@ -30,8 +30,11 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
 
+
+
+        #region State Machine Command
         /// <summary> 狀態機啟動 </summary>
-        public void SystemBootup()
+        public override void SystemBootup()
         {
             this.States[EnumMacInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
@@ -141,6 +144,8 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+
+        #endregion
 
         public override void LoadStateMachine()
         {
@@ -540,7 +545,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
-        },
+                    },
                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };

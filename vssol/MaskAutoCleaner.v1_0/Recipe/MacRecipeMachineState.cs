@@ -21,7 +21,11 @@ namespace MaskAutoCleaner.v1_0.Recipe
             this.Key = key;
             this.Value = value;
         }
-
+        public MacRecipeMachineState(Enum key, Enum value)
+        {
+            this.Key = key.ToString();
+            this.Value = value.ToString();
+        }
 
     }
 }

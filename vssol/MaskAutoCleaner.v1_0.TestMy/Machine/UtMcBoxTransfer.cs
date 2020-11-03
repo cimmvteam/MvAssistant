@@ -2,6 +2,7 @@
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.BoxTransfer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
@@ -9,17 +10,30 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     [TestClass]
     public class UtMcBoxTransfer
     {
-        [TestMethod]
-        public void TestMethod1()
+        MacMachineMgr MachineMgr;
+        MacMcBoxTransfer MachineCtrl;
+        MacMsBoxTransfer StateMachines;
+        public UtMcBoxTransfer()
         {
-            var MachineMgr = new MacMachineMgr();
+            MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
-            var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
-            var MS = MachineCtrl.StateMachine;
+            MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
+            StateMachines= MachineCtrl.StateMachine;
+        }
 
-            MS.SystemBootup();
-            bool BankIn = true;
-            bool BankOut = false;
+        [TestMethod]
+        [DataRow(BoxType.IronBox)]
+       // [DataRow(BoxType.CrystalBox)]
+        public void TestMethod1(BoxType boxType)
+        {
+
+
+            StateMachines.SystemBootup();
+            StateMachines.MoveToLock(boxType);  // Fake OK
+            StateMachines.MoveToUnlock(boxType);  // Fake OK
+            /**
+             bool BankIn = false;
+            bool BankOut = false; 
             if (BankIn)
             {
                 MS.MoveToOpenStageGet();
@@ -32,9 +46,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
             else
             {
-                MS.MoveToLock();  // Fake OK
-                MS.MoveToUnlock();  // Fake OK
+                MS.MoveToLock(boxType);  // Fake OK
+                MS.MoveToUnlock(boxType);  // Fake OK
             }
+    */
         }
 
 
@@ -49,7 +64,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
         public void TestMethod_BankOut(BoxrobotTransferLocation drawerNumber)
         {
-           
+            StateMachines.Initial();
+            StateMachines.MoveToCabinetGet(drawerNumber); // Fake OK
+            StateMachines.MoveToOpenStagePut(); // Fake OK
+            /**
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
@@ -58,17 +76,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             MS.MoveToCabinetGet(drawerNumber); // Fake OK
             MS.MoveToOpenStagePut(); // Fake OK
-
+           */
         }
 
         [TestMethod]
         //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        //[DataRow(BoxrobotTransferLocation.Drawer_07_01)]
-        public void TestMethod_BankIn(/*BoxrobotTransferLocation drawerNumber*/)
+        [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
+        public void TestMethod_BankIn(BoxrobotTransferLocation drawerNumber)
         {
-            // DataRow
-            BoxrobotTransferLocation drawerNumber = BoxrobotTransferLocation.Drawer_01_01;
-
+            StateMachines.Initial();
+            StateMachines.MoveToOpenStageGet();   // Fake OK
+            StateMachines.MoveToCabinetPut(drawerNumber);  // Fake OK
+            /**
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
@@ -77,7 +96,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
            
             MS.MoveToOpenStageGet();   // Fake OK
             MS.MoveToCabinetPut(drawerNumber);  // Fake OK
-
+       */
         }
 
     }

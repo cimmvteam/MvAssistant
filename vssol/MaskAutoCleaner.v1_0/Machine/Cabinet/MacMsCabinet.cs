@@ -75,8 +75,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         public List<MacState> LoadState = null;
 
-       
-        #region 指令
+
+        #region State Machine Command
+
+        public override void SystemBootup()
+        {
+        }
+
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
         /// <param name="dicStateMachines">所有Drawer 的集合</param>
@@ -124,7 +129,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
 
         
-        #endregion 指令
+        #endregion 
 
 
       

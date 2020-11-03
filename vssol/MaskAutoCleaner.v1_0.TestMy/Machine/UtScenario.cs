@@ -9,6 +9,8 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
@@ -158,11 +160,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //將空盒放上OS開盒，由MT放入Mask並關盒由BT取走盒子
             OSMS.InputBox();
             OSMS.CalibrationClosedBox();
-            BTMS.MoveToUnlock();
+            BTMS.MoveToUnlock(BoxType.IronBox);// TODO: 暫時為 鐵盒
             OSMS.OpenBox();
             MTMS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             OSMS.CloseBoxWithMask();
-            BTMS.MoveToLock();
+            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBoxWithMask();
             BTMS.MoveToOpenStageGet();
             OSMS.ReturnToIdleAfterReleaseBoxWithMask();
@@ -170,18 +172,20 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //將盒子放上OS開盒，由MT取出Mask並關盒由BT取走空盒
             OSMS.InputBoxWithMask();
             OSMS.CalibrationClosedBoxWithMask();
-            BTMS.MoveToUnlock();
+            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.OpenBox();
             MTMS.LPHomeToOSGetMaskReturnToLPHomeClamped();
             OSMS.CloseBox();
-            BTMS.MoveToLock();
+            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBox();
             BTMS.MoveToOpenStageGet();
             OSMS.ReturnToIdleAfterReleaseBox();
         }
 
         [TestMethod]
-        public void BTMoveToCBGetAndPut()
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        //public void BTMoveToCBGetAndPut()
+        public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -196,12 +200,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Task.WaitAll(CB_Task, BT_Task);
             //放入盒子到Cabinet_01_01
             CBMS.Load_MoveTrayToIn();
-            BTMS.MoveToCabinetPut("0101");
+
+            //BTMS.MoveToCabinetPut("0101");
+            BTMS.MoveToCabinetPut(drawerLocation);
+
             CBMS.Load_MoveTrayToHome();
 
             //從Cabinet_01_01取出盒子
             CBMS.Unload_MoveTrayToIn();
-            BTMS.MoveToCabinetGet("0101");
+
+            //BTMS.MoveToCabinetGet("0101");
+            BTMS.MoveToCabinetGet(drawerLocation);
+
             CBMS.Unload_MoveTrayToHome();
         }
     }

@@ -9,45 +9,45 @@ using System.Xml.Serialization;
 
 namespace MaskAutoCleaner.v1_0.Recipe
 {
+    [Serializable]
     public class MacRecipeStep
     {
         [XmlAttribute]
         public string StepName;
-        public List<MacRecipeMachineState> StatesBefore
-        {
-            get { return this.m_statesBefore.Select(x => new MacRecipeMachineState(x.Key, x.Value)).ToList(); }
-            set { this.m_statesBefore = value.ToDictionary(x => x.Key, x => x.Value); }
-        }
-        public List<MacRecipeMachineState> StatesAfter
-        {
-            get { return this.m_statesAfter.Select(x => new MacRecipeMachineState(x.Key, x.Value)).ToList(); }
-            set { this.m_statesAfter = value.ToDictionary(x => x.Key, x => x.Value); }
-        }
-
-        public List<MacRecipeMachineState> StatesCmd
-        {
-            get { return this.m_statesAfter.Select(x => new MacRecipeMachineState(x.Key, x.Value)).ToList(); }
-            set { this.m_statesAfter = value.ToDictionary(x => x.Key, x => x.Value); }
-        }
+        public List<MacRecipeMachineState> StatesBefore = new List<MacRecipeMachineState>();
+        public List<MacRecipeMachineState> StatesAfter = new List<MacRecipeMachineState>();
+        public List<MacRecipeMachineState> StatesCmd = new List<MacRecipeMachineState>();
+        //{
+        //    get { return this.m_statesCmd.Select(x => new MacRecipeMachineState(x.Key, x.Value)).ToList(); }
+        //    set { this.m_statesCmd = value.ToDictionary(x => x.Key == null ? "" : x.Key, x => x.Value); }
+        //}
 
 
-        Dictionary<string, string> m_statesBefore = new Dictionary<string, string>();
-        Dictionary<string, string> m_statesAfter = new Dictionary<string, string>();
-        Dictionary<string, string> m_statesCmd = new Dictionary<string, string>();
+        //Dictionary<string, string> m_statesBefore = new Dictionary<string, string>();
+        //Dictionary<string, string> m_statesAfter = new Dictionary<string, string>();
+        //Dictionary<string, string> m_statesCmd = new Dictionary<string, string>();
 
 
 
         public void AddBeforeState(Enum mid, Enum state)
         {
-            if (this.m_statesBefore.ContainsKey(mid.ToString())) throw new MacException("Exist machine id");
-            this.m_statesBefore[mid.ToString()] = state.ToString();
+            var obj = this.StatesBefore.Where(x => x.Key == mid.ToString()).FirstOrDefault();
+            if (obj != null) throw new MacException("Exist machine id");
+            this.StatesBefore.Add(new MacRecipeMachineState(mid, state));
         }
         public void AddAfterState(Enum mid, Enum state)
         {
-            if (this.m_statesAfter.ContainsKey(mid.ToString())) throw new MacException("Exist machine id");
-            this.m_statesAfter[mid.ToString()] = state.ToString();
+            var obj = this.StatesAfter.Where(x => x.Key == mid.ToString()).FirstOrDefault();
+            if (obj != null) throw new MacException("Exist machine id");
+            this.StatesAfter.Add(new MacRecipeMachineState(mid, state));
         }
 
+        public void AddCmd(Enum mid, Enum transition)
+        {
+            var obj = this.StatesCmd.Where(x => x.Key == mid.ToString()).FirstOrDefault();
+            if (obj != null) throw new MacException("Exist machine id");
+            this.StatesCmd.Add(new MacRecipeMachineState(mid, transition));
+        }
 
 
     }

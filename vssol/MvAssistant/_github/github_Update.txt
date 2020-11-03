@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'recipe manager'
+git commit -m 'state machine command'
 git pull
 git push
 cd ..

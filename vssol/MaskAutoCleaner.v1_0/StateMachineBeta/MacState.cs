@@ -34,7 +34,6 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
 
         public void ExecuteCommand(MacStateEntryEventArgs seea)
         {
-
             DoEntry(seea);
         }
         #endregion

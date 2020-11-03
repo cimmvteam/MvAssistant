@@ -23,17 +23,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public void ResetState()
         { this.States[EnumMacOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
 
-        private void SetCurrentState(MacState state)
-        { _currentState = state; }
-
-        public MacState CurrentState { get { return _currentState; } }
 
         public MacMsOpenStage() { LoadStateMachine(); }
 
         MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();
 
+
+        #region State Machine Command
+
         /// <summary> 狀態機啟動 </summary>
-        public void SystemBootup()
+        public override void SystemBootup()
         {
             this.States[EnumMacOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
@@ -366,6 +365,8 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+
+        #endregion
 
         public override void LoadStateMachine()
         {

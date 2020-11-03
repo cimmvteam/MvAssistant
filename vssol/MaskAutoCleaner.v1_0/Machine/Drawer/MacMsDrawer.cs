@@ -36,7 +36,12 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
             }
         }
 
-        #region State Instruction
+        #region State Machine Command
+
+        public override void SystemBootup()
+        {
+        }
+
         /// <summary>初始化</summary>
         /// <remarks>
         /// </remarks>
@@ -81,8 +86,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Drawer
             this.States[EnumMacDrawerState.UnloadMoveTrayToPositionHomeStart.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
 
+        #endregion
 
-        #endregion State Instruction
+
+
         public override void LoadStateMachine()
         {
             #region State

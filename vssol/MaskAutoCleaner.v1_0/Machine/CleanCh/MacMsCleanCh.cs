@@ -26,8 +26,11 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         public MacState CurrentState { get { return _currentState; } }
 
         public MacMsCleanCh() { LoadStateMachine(); }
+
+        #region State Machine Command
+
         /// <summary> 狀態機啟動 </summary>
-        public void SystemBootup()
+        public override void SystemBootup()
         {
             this.States[EnumMacCleanChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
@@ -47,7 +50,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 ActionParameter = null,
                 ExceptionHandler = (thisState, ex) =>
                 {   // TODO: do something
-                    },
+                },
                 NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
@@ -216,6 +219,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
         }
+
+        #endregion
 
         public override void LoadStateMachine()
         {
