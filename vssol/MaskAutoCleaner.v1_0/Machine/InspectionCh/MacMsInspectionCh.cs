@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         private MacState _currentState = null;
 
         public void ResetState()
-        { this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
+        { this.States[EnumMacInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
 
         private void SetCurrentState(MacState state)
         { _currentState = state; }
@@ -36,12 +36,12 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            this.States[EnumMacMsInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         /// <summary> Inspection Chamber初始化 </summary>
         public void Initial()
         {
-            this.States[EnumMacMsInspectionChState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacInspectionChState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         /// <summary> 檢測Pellicle </summary>
         public void InspectPellicle()
@@ -50,7 +50,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition transition = null;
             TriggerMember triggerMember = null;
 
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToInspectPellicle.ToString()];
+            transition = Transitions[EnumMacInspectionChTransition.ReceiveTriggerToInspectPellicle.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -75,7 +75,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition transition = null;
             TriggerMember triggerMember = null;
 
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToIdleAfterReleasePellicle.ToString()];
+            transition = Transitions[EnumMacInspectionChTransition.ReceiveTriggerToIdleAfterReleasePellicle.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -101,7 +101,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition transition = null;
             TriggerMember triggerMember = null;
 
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass.ToString()];
+            transition = Transitions[EnumMacInspectionChTransition.ReceiveTriggerToInspectGlass.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -126,7 +126,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             MacTransition transition = null;
             TriggerMember triggerMember = null;
 
-            transition = Transitions[EnumMacMsInspectionChTransition.ReceiveTriggerToIdleAfterReleaseGlass.ToString()];
+            transition = Transitions[EnumMacInspectionChTransition.ReceiveTriggerToIdleAfterReleaseGlass.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -150,43 +150,43 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         public override void LoadStateMachine()
         {
             #region State
-            MacState sStart = NewState(EnumMacMsInspectionChState.Start);
-            MacState sInitial = NewState(EnumMacMsInspectionChState.Initial);
+            MacState sStart = NewState(EnumMacInspectionChState.Start);
+            MacState sInitial = NewState(EnumMacInspectionChState.Initial);
 
-            MacState sIdle = NewState(EnumMacMsInspectionChState.Idle);
-            MacState sPellicleOnStage = NewState(EnumMacMsInspectionChState.PellicleOnStage);
-            MacState sDefensingPellicle = NewState(EnumMacMsInspectionChState.DefensingPellicle);
-            MacState sInspectingPellicle = NewState(EnumMacMsInspectionChState.InspectingPellicle);
-            MacState sPellicleOnStageInspected = NewState(EnumMacMsInspectionChState.PellicleOnStageInspected);
-            MacState sWaitingForReleasePellicle = NewState(EnumMacMsInspectionChState.WaitingForReleasePellicle);
+            MacState sIdle = NewState(EnumMacInspectionChState.Idle);
+            MacState sPellicleOnStage = NewState(EnumMacInspectionChState.PellicleOnStage);
+            MacState sDefensingPellicle = NewState(EnumMacInspectionChState.DefensingPellicle);
+            MacState sInspectingPellicle = NewState(EnumMacInspectionChState.InspectingPellicle);
+            MacState sPellicleOnStageInspected = NewState(EnumMacInspectionChState.PellicleOnStageInspected);
+            MacState sWaitingForReleasePellicle = NewState(EnumMacInspectionChState.WaitingForReleasePellicle);
 
-            MacState sGlassOnStage = NewState(EnumMacMsInspectionChState.GlassOnStage);
-            MacState sDefensingGlass = NewState(EnumMacMsInspectionChState.DefensingGlass);
-            MacState sInspectingGlass = NewState(EnumMacMsInspectionChState.InspectingGlass);
-            MacState sGlassOnStageInspected = NewState(EnumMacMsInspectionChState.GlassOnStageInspected);
-            MacState sWaitingForReleaseGlass = NewState(EnumMacMsInspectionChState.WaitingForReleaseGlass);
+            MacState sGlassOnStage = NewState(EnumMacInspectionChState.GlassOnStage);
+            MacState sDefensingGlass = NewState(EnumMacInspectionChState.DefensingGlass);
+            MacState sInspectingGlass = NewState(EnumMacInspectionChState.InspectingGlass);
+            MacState sGlassOnStageInspected = NewState(EnumMacInspectionChState.GlassOnStageInspected);
+            MacState sWaitingForReleaseGlass = NewState(EnumMacInspectionChState.WaitingForReleaseGlass);
             #endregion State
 
             #region Transition
-            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacMsInspectionChTransition.PowerON);
-            MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsInspectionChTransition.Initial);
-            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsInspectionChTransition.StandbyAtIdle);
+            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacInspectionChTransition.PowerON);
+            MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacInspectionChTransition.Initial);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacInspectionChTransition.StandbyAtIdle);
 
-            MacTransition tIdle_PellicleOnStage = NewTransition(sIdle, sPellicleOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectPellicle);
-            MacTransition tPellicleOnStage_DefensingPellicle = NewTransition(sPellicleOnStage, sDefensingPellicle, EnumMacMsInspectionChTransition.DefensePellicle);
-            MacTransition tDefensingPellicle_InspectingPellicle = NewTransition(sDefensingPellicle, sInspectingPellicle, EnumMacMsInspectionChTransition.InspectPellicle);
-            MacTransition tInspectingPellicle_PellicleOnStageInspected = NewTransition(sInspectingPellicle, sPellicleOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithPellicleInspected);
-            MacTransition tPellicleOnStageInspected_WaitingForReleasePellicle = NewTransition(sPellicleOnStageInspected, sWaitingForReleasePellicle, EnumMacMsInspectionChTransition.WaitForReleasePellicle);
-            MacTransition tWaitingForReleasePellicle_NULL = NewTransition(sWaitingForReleasePellicle, null, EnumMacMsInspectionChTransition.StandbyAtWaitForReleasePellicle);
-            MacTransition tWaitingForReleasePellicle_Idle = NewTransition(sWaitingForReleasePellicle, sIdle, EnumMacMsInspectionChTransition.ReceiveTriggerToIdleAfterReleasePellicle);
+            MacTransition tIdle_PellicleOnStage = NewTransition(sIdle, sPellicleOnStage, EnumMacInspectionChTransition.ReceiveTriggerToInspectPellicle);
+            MacTransition tPellicleOnStage_DefensingPellicle = NewTransition(sPellicleOnStage, sDefensingPellicle, EnumMacInspectionChTransition.DefensePellicle);
+            MacTransition tDefensingPellicle_InspectingPellicle = NewTransition(sDefensingPellicle, sInspectingPellicle, EnumMacInspectionChTransition.InspectPellicle);
+            MacTransition tInspectingPellicle_PellicleOnStageInspected = NewTransition(sInspectingPellicle, sPellicleOnStageInspected, EnumMacInspectionChTransition.StandbyAtStageWithPellicleInspected);
+            MacTransition tPellicleOnStageInspected_WaitingForReleasePellicle = NewTransition(sPellicleOnStageInspected, sWaitingForReleasePellicle, EnumMacInspectionChTransition.WaitForReleasePellicle);
+            MacTransition tWaitingForReleasePellicle_NULL = NewTransition(sWaitingForReleasePellicle, null, EnumMacInspectionChTransition.StandbyAtWaitForReleasePellicle);
+            MacTransition tWaitingForReleasePellicle_Idle = NewTransition(sWaitingForReleasePellicle, sIdle, EnumMacInspectionChTransition.ReceiveTriggerToIdleAfterReleasePellicle);
 
-            MacTransition tIdle_GlassOnStage = NewTransition(sIdle, sGlassOnStage, EnumMacMsInspectionChTransition.ReceiveTriggerToInspectGlass);
-            MacTransition tGlassOnStage_DefensingGlass = NewTransition(sGlassOnStage, sDefensingGlass, EnumMacMsInspectionChTransition.DefenseGlass);
-            MacTransition tDefensingGlass_InspectingGlass = NewTransition(sDefensingGlass, sInspectingGlass, EnumMacMsInspectionChTransition.InspectGlass);
-            MacTransition tInspectingGlass_GlassOnStageInspected = NewTransition(sInspectingGlass, sGlassOnStageInspected, EnumMacMsInspectionChTransition.StandbyAtStageWithGlassInspected);
-            MacTransition tGlassOnStageInspected_WaitingForReleaseGlass = NewTransition(sGlassOnStageInspected, sWaitingForReleaseGlass, EnumMacMsInspectionChTransition.WaitForReleaseGlass);
-            MacTransition tWaitingForReleaseGlass_NULL = NewTransition(sWaitingForReleaseGlass, null, EnumMacMsInspectionChTransition.StandbyAtWaitForReleaseGlass);
-            MacTransition tWaitingForReleaseGlass_Idle = NewTransition(sWaitingForReleaseGlass, sIdle, EnumMacMsInspectionChTransition.ReceiveTriggerToIdleAfterReleaseGlass);
+            MacTransition tIdle_GlassOnStage = NewTransition(sIdle, sGlassOnStage, EnumMacInspectionChTransition.ReceiveTriggerToInspectGlass);
+            MacTransition tGlassOnStage_DefensingGlass = NewTransition(sGlassOnStage, sDefensingGlass, EnumMacInspectionChTransition.DefenseGlass);
+            MacTransition tDefensingGlass_InspectingGlass = NewTransition(sDefensingGlass, sInspectingGlass, EnumMacInspectionChTransition.InspectGlass);
+            MacTransition tInspectingGlass_GlassOnStageInspected = NewTransition(sInspectingGlass, sGlassOnStageInspected, EnumMacInspectionChTransition.StandbyAtStageWithGlassInspected);
+            MacTransition tGlassOnStageInspected_WaitingForReleaseGlass = NewTransition(sGlassOnStageInspected, sWaitingForReleaseGlass, EnumMacInspectionChTransition.WaitForReleaseGlass);
+            MacTransition tWaitingForReleaseGlass_NULL = NewTransition(sWaitingForReleaseGlass, null, EnumMacInspectionChTransition.StandbyAtWaitForReleaseGlass);
+            MacTransition tWaitingForReleaseGlass_Idle = NewTransition(sWaitingForReleaseGlass, sIdle, EnumMacInspectionChTransition.ReceiveTriggerToIdleAfterReleaseGlass);
             #endregion Transition
 
             #region State Register OnEntry OnExit

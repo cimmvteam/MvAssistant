@@ -17,13 +17,13 @@ namespace MaskAutoCleaner.v1_0.Machine.Universal
         public override void LoadStateMachine()
         {
             #region State
-            MacState sStart = NewState(EnumMacMsUniversalState.Start);
-            MacState sIdle = NewState(EnumMacMsUniversalState.Idle);
+            MacState sStart = NewState(EnumMacUniversalState.Start);
+            MacState sIdle = NewState(EnumMacUniversalState.Idle);
             #endregion State
 
             #region Transition
-            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacMsUniversalTransition.PowerON);
-            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsUniversalTransition.ReceiveTriggerAtIdle);
+            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacUniversalTransition.PowerON);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacUniversalTransition.ReceiveTriggerAtIdle);
             #endregion Transition
 
             #region State Register OnEntry OnExit
