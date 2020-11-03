@@ -13,5 +13,6 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         protected Dictionary<String, MacTransition> Transitions = new Dictionary<string, MacTransition>();
 
 
+
     }
 }

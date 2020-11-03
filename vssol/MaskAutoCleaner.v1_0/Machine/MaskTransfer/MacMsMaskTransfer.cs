@@ -38,7 +38,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private IMacHalOpenStage HalOpenStage { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
 
-        private MacState _currentState = null;
 
         public void ResetState()
         { this.States[EnumMacMsMaskTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
@@ -47,7 +46,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
 
-        #region Command
+        #region State Machine Command
 
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()

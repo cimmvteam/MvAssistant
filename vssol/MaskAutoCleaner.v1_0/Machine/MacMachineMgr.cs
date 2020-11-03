@@ -64,6 +64,12 @@ namespace MaskAutoCleaner.v1_0.Machine
         {
             this.HalContext.MvCfLoad();
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfLoad());
+
+
+            //d20201103 系統載入時, 都需要對所有 Control Machine 的 State Machine 執行 SystemBootup
+            //無特殊原由的話, 應該就放在這裡就可以了
+            //另一種可能是放在 State Machine 裡, 但放這邊可以讓維護人員更容易找到
+            MvUtil.Foreach(this.CtrlMachines.Values, m => m.MsAssembly.SystemBootup());//First Transition
             return 0;
         }
 

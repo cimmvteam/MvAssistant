@@ -23,10 +23,6 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public void ResetState()
         { this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
 
-        private void SetCurrentState(MacState state)
-        { _currentState = state; }
-
-        public MacState CurrentState { get { return _currentState; } }
 
         public MacMsOpenStage() { LoadStateMachine(); }
 

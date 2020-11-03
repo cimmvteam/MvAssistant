@@ -25,12 +25,35 @@ namespace MaskAutoCleaner.v1_0.Machine
         public MacHalAssemblyBase halAssembly;
         public MacMachineMediater Mediater;
 
+        /// <summary>計算工作是否逾時的物件</summary>
+        public MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
+
+        /// <summary>目前工作狀態</summary>
+        public MacState CurrentState { get; private set; }
+
+        public string CurrentStateName { get { return this.CurrentState == null ? null : this.CurrentState.Name; } }
+
+     
         public virtual void Load()
         {
             this.LoadStateMachine();
         }
 
         public abstract void LoadStateMachine();
+
+    
+        public abstract void SystemBootup();
+
+        #region State & Transition Quick Function
+
+        public MacTransition FindTransition(Enum tran) { return this.FindTransition(tran.ToString()); }
+
+        public MacTransition FindTransition(string tran)
+        {
+            if (!this.Transitions.ContainsKey(tran)) throw new MacException("Not exist transition name");
+            return this.Transitions[tran];
+
+        }
 
         public MacState NewState(Enum name)
         {
@@ -46,66 +69,12 @@ namespace MaskAutoCleaner.v1_0.Machine
             return transition;
         }
 
-
-        public abstract void SystemBootup();
-
-
-
         /// <summary>設定目前工作狀態</summary>
         /// <param name="state"></param>
         protected virtual void SetCurrentState(MacState state) { CurrentState = state; }
-        /// <summary>目前工作狀態</summary>
-        public MacState CurrentState { get; private set; }
-        public string CurrentStateName { get { return this.CurrentState == null ? null : this.CurrentState.Name; } }
-        /// <summary>計算工作是否逾時的物件</summary>
-        public MacMsTimeOutController TimeoutObject = new MacMsTimeOutController();
 
-        /// <summary></summary>
-        /// <param name="guard">guard (Func delegate) </param>
-        /// <param name="action">action(Action delegate)</param>
-        /// <param name="actionParameter">action Parameter (Object)</param>
-        /// <param name="exceptionHandler">Exception Handler(Action delegate)</param>
-        [Obsolete]
-        public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHandler)
-        {
-            Action trigger = () =>
-            {
-                try
-                {
-                    DateTime startTime = DateTime.Now;
-                    while (true)
-                    {
-                        StateGuardRtns rtn = guard(startTime);
-                        if (rtn != null)
-                        {
-                            if (action != null)
-                            {
+        #endregion
 
-                                action.Invoke(actionParameter);
-                            }
-                            var State = rtn.ThisState;
-                            var nextState = rtn.NextState;
-                            State.DoExit(rtn.ThisStateExitEventArgs);
-                            if (nextState != null)
-                            {
-                                nextState.DoEntry(rtn.NextStateEntryEventArgs);
-                            }
-                            break;
-                        }
-                        Thread.Sleep(10);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (exceptionHandler != null)
-                    {
-                        exceptionHandler.Invoke(ex);
-                    }
-                }
-            };
-            new Task(trigger).Start();
-
-        }
 
         /// <summary></summary>
         /// <param name="guard">guard (Func delegate)</param>
@@ -191,6 +160,62 @@ namespace MaskAutoCleaner.v1_0.Machine
                 }
             }
         }
+
+        public void Trigger(string transition)
+        {
+            var tran = this.FindTransition(transition);
+            this.Trigger(tran);
+        }
+
+        public void Trigger(Enum transition) { this.Trigger(transition.ToString()); }
+
+        /// <summary></summary>
+        /// <param name="guard">guard (Func delegate) </param>
+        /// <param name="action">action(Action delegate)</param>
+        /// <param name="actionParameter">action Parameter (Object)</param>
+        /// <param name="exceptionHandler">Exception Handler(Action delegate)</param>
+        [Obsolete]
+        public void TriggerAsync(Func<DateTime, StateGuardRtns> guard, Action<object> action, object actionParameter, Action<Exception> exceptionHandler)
+        {
+            Action trigger = () =>
+            {
+                try
+                {
+                    DateTime startTime = DateTime.Now;
+                    while (true)
+                    {
+                        StateGuardRtns rtn = guard(startTime);
+                        if (rtn != null)
+                        {
+                            if (action != null)
+                            {
+
+                                action.Invoke(actionParameter);
+                            }
+                            var State = rtn.ThisState;
+                            var nextState = rtn.NextState;
+                            State.DoExit(rtn.ThisStateExitEventArgs);
+                            if (nextState != null)
+                            {
+                                nextState.DoEntry(rtn.NextStateEntryEventArgs);
+                            }
+                            break;
+                        }
+                        Thread.Sleep(10);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (exceptionHandler != null)
+                    {
+                        exceptionHandler.Invoke(ex);
+                    }
+                }
+            };
+            new Task(trigger).Start();
+
+        }
+
         public void TriggerAsync(MacTransition transition)
         {
             TriggerMemberAsync triggerMemberAsync = (TriggerMemberAsync)transition.TriggerMembers;
@@ -289,5 +314,6 @@ namespace MaskAutoCleaner.v1_0.Machine
             };
             new Task(Trigger).Start();
         }
-    }
+
+       }
 }
