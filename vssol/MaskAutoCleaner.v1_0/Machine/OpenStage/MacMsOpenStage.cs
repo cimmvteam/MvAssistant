@@ -13,7 +13,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 {
     public class MacMsOpenStage : MacMachineStateBase
     {
-        public EnumMacMsOpenStageState CurrentWorkState { get; set; }
+        public EnumMacOpenStageState CurrentWorkState { get; set; }
 
         private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         private MacState _currentState = null;
 
         public void ResetState()
-        { this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
+        { this.States[EnumMacOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
 
         private void SetCurrentState(MacState state)
         { _currentState = state; }
@@ -35,19 +35,19 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         /// <summary> 狀態機啟動 </summary>
         public void SystemBootup()
         {
-            this.States[EnumMacMsOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         /// <summary> Open Stage 初始化 </summary>
         public void Initial()
         {
-            this.States[EnumMacMsOpenStageState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacOpenStageState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
         }
         /// <summary> 等待放入 Box(內無Mask) </summary>
         public void InputBox()
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToWaitForInputBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -70,7 +70,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToCalibrationBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -93,7 +93,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToOpenBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -116,7 +116,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToReturnCloseBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -139,7 +139,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToCloseBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -162,7 +162,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToReleaseBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -185,7 +185,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -210,7 +210,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToWaitForInputBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -233,7 +233,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToCalibrationBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -256,7 +256,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToOpenBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -279,7 +279,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -302,7 +302,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToCloseBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -325,7 +325,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToReleaseBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -348,7 +348,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         {
             MacTransition transition = null;
             TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBox.ToString()];
+            transition = Transitions[EnumMacOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBox.ToString()];
             triggerMember = new TriggerMember
             {
                 Guard = () =>
@@ -370,80 +370,80 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public override void LoadStateMachine()
         {
             #region State
-            MacState sStart = NewState(EnumMacMsOpenStageState.Start);
-            MacState sInitial = NewState(EnumMacMsOpenStageState.Initial);
+            MacState sStart = NewState(EnumMacOpenStageState.Start);
+            MacState sInitial = NewState(EnumMacOpenStageState.Initial);
 
-            MacState sIdle = NewState(EnumMacMsOpenStageState.Idle);
-            MacState sWaitingForInputBox = NewState(EnumMacMsOpenStageState.WaitingForInputBox);
-            MacState sClosedBox = NewState(EnumMacMsOpenStageState.ClosedBox);
-            MacState sWaitingForUnlock = NewState(EnumMacMsOpenStageState.WaitingForUnlock);
-            MacState sOpeningBox = NewState(EnumMacMsOpenStageState.OpeningBox);
-            MacState sOpenedBox = NewState(EnumMacMsOpenStageState.OpenedBox);
-            MacState sWaitingForInputMask = NewState(EnumMacMsOpenStageState.WaitingForInputMask);
-            MacState sOpenedBoxWithMaskForClose = NewState(EnumMacMsOpenStageState.OpenedBoxWithMaskForClose);
-            MacState sClosingBoxWithMask = NewState(EnumMacMsOpenStageState.ClosingBoxWithMask);
-            MacState sWaitingForLockWithMask = NewState(EnumMacMsOpenStageState.WaitingForLockWithMask);
-            MacState sClosedBoxWithMaskForRelease = NewState(EnumMacMsOpenStageState.ClosedBoxWithMaskForRelease);
-            MacState sWaitingForReleaseBoxWithMask = NewState(EnumMacMsOpenStageState.WaitingForReleaseBoxWithMask);
+            MacState sIdle = NewState(EnumMacOpenStageState.Idle);
+            MacState sWaitingForInputBox = NewState(EnumMacOpenStageState.WaitingForInputBox);
+            MacState sClosedBox = NewState(EnumMacOpenStageState.ClosedBox);
+            MacState sWaitingForUnlock = NewState(EnumMacOpenStageState.WaitingForUnlock);
+            MacState sOpeningBox = NewState(EnumMacOpenStageState.OpeningBox);
+            MacState sOpenedBox = NewState(EnumMacOpenStageState.OpenedBox);
+            MacState sWaitingForInputMask = NewState(EnumMacOpenStageState.WaitingForInputMask);
+            MacState sOpenedBoxWithMaskForClose = NewState(EnumMacOpenStageState.OpenedBoxWithMaskForClose);
+            MacState sClosingBoxWithMask = NewState(EnumMacOpenStageState.ClosingBoxWithMask);
+            MacState sWaitingForLockWithMask = NewState(EnumMacOpenStageState.WaitingForLockWithMask);
+            MacState sClosedBoxWithMaskForRelease = NewState(EnumMacOpenStageState.ClosedBoxWithMaskForRelease);
+            MacState sWaitingForReleaseBoxWithMask = NewState(EnumMacOpenStageState.WaitingForReleaseBoxWithMask);
 
-            MacState sWaitingForInputBoxWithMask = NewState(EnumMacMsOpenStageState.WaitingForInputBoxWithMask);
-            MacState sClosedBoxWithMask = NewState(EnumMacMsOpenStageState.ClosedBoxWithMask);
-            MacState sWaitingForUnlockWithMask = NewState(EnumMacMsOpenStageState.WaitingForUnlickWithMask);
-            MacState sOpeningBoxWithMask = NewState(EnumMacMsOpenStageState.OpeningBoxWithMask);
-            MacState sOpenedBoxWithMask = NewState(EnumMacMsOpenStageState.OpenedBoxWithMask);
-            MacState sWaitingForReleaseMask = NewState(EnumMacMsOpenStageState.WaitingForReleaseMask);
-            MacState sOpenedBoxForClose = NewState(EnumMacMsOpenStageState.OpenedBoxForClose);
-            MacState sClosingBox = NewState(EnumMacMsOpenStageState.ClosingBox);
-            MacState sWaitingForLock = NewState(EnumMacMsOpenStageState.WaitingForLock);
-            MacState sClosedBoxForRelease = NewState(EnumMacMsOpenStageState.ClosedBoxForRelease);
-            MacState sWaitingForReleaseBox = NewState(EnumMacMsOpenStageState.WaitingForReleaseBox);
+            MacState sWaitingForInputBoxWithMask = NewState(EnumMacOpenStageState.WaitingForInputBoxWithMask);
+            MacState sClosedBoxWithMask = NewState(EnumMacOpenStageState.ClosedBoxWithMask);
+            MacState sWaitingForUnlockWithMask = NewState(EnumMacOpenStageState.WaitingForUnlickWithMask);
+            MacState sOpeningBoxWithMask = NewState(EnumMacOpenStageState.OpeningBoxWithMask);
+            MacState sOpenedBoxWithMask = NewState(EnumMacOpenStageState.OpenedBoxWithMask);
+            MacState sWaitingForReleaseMask = NewState(EnumMacOpenStageState.WaitingForReleaseMask);
+            MacState sOpenedBoxForClose = NewState(EnumMacOpenStageState.OpenedBoxForClose);
+            MacState sClosingBox = NewState(EnumMacOpenStageState.ClosingBox);
+            MacState sWaitingForLock = NewState(EnumMacOpenStageState.WaitingForLock);
+            MacState sClosedBoxForRelease = NewState(EnumMacOpenStageState.ClosedBoxForRelease);
+            MacState sWaitingForReleaseBox = NewState(EnumMacOpenStageState.WaitingForReleaseBox);
 
             #endregion State
 
             #region Transition
-            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacMsOpenStageTransition.PowerON);
-            MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacMsOpenStageTransition.Initial);
-            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsOpenStageTransition.StandbyAtIdle);
+            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacOpenStageTransition.PowerON);
+            MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacOpenStageTransition.Initial);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacOpenStageTransition.StandbyAtIdle);
 
-            MacTransition tIdle_WaitingForInputBox = NewTransition(sIdle, sWaitingForInputBox, EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBox);
-            MacTransition tWaitingForInputBox_NULL = NewTransition(sWaitingForInputBox, null, EnumMacMsOpenStageTransition.StandbyAtWaitForInputBox);
-            MacTransition tWaitingForInputBox_ClosedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBox);
-            MacTransition tClosedBox_WaitingForUnlock = NewTransition(sClosedBox, sWaitingForUnlock, EnumMacMsOpenStageTransition.WaitForUnlock);
-            MacTransition tWaitingForUnlock_NULL = NewTransition(sWaitingForUnlock, null, EnumMacMsOpenStageTransition.StandbyAtWaitForUnlock);
-            MacTransition tWaitingForUnlock_OpeningBox = NewTransition(sWaitingForUnlock, sOpeningBox, EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBox);
-            MacTransition tOpeningBox_OpenedBox = NewTransition(sOpeningBox, sOpenedBox, EnumMacMsOpenStageTransition.OpenedBox);
-            MacTransition tOpenedBox_WaitingForInputMask = NewTransition(sOpenedBox, sWaitingForInputMask, EnumMacMsOpenStageTransition.WaitForInputMask);
-            MacTransition tWaitingForInputMask_NULL = NewTransition(sWaitingForInputMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForInputMask);
-            MacTransition tWaitingForInputMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForInputMask, sOpenedBoxWithMaskForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBoxWithMask);
-            MacTransition tWaitingForInputMask_OpenedBoxForClose = NewTransition(sWaitingForInputMask, sOpenedBoxForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBox);
-            MacTransition tOpenedBoxWithMaskForClose_ClosingBoxWithMask = NewTransition(sOpenedBoxWithMaskForClose, sClosingBoxWithMask, EnumMacMsOpenStageTransition.CloseBoxWithMask);
-            MacTransition tClosingBoxWithMask_WaitingForLockWithMask = NewTransition(sClosingBoxWithMask, sWaitingForLockWithMask, EnumMacMsOpenStageTransition.WaitForLockWithMask);
-            MacTransition tWaitingForLockWithMask_NULL = NewTransition(sWaitingForLockWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForLockWithMask);
-            MacTransition tWaitingForLockWithMask_ClosedBoxWithMaskForRelease = NewTransition(sWaitingForLockWithMask, sClosedBoxWithMaskForRelease, EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBoxWithMask);
-            MacTransition tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask = NewTransition(sClosedBoxWithMaskForRelease, sWaitingForReleaseBoxWithMask, EnumMacMsOpenStageTransition.WaitForReleaseBoxWithMask);
-            MacTransition tWaitingForReleaseBoxWithMask_NULL = NewTransition(sWaitingForReleaseBoxWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForReleaseBoxWithMask);
-            MacTransition tWaitingForReleaseBoxWithMask_Idle = NewTransition(sWaitingForReleaseBoxWithMask, sIdle, EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBoxWithMask);
+            MacTransition tIdle_WaitingForInputBox = NewTransition(sIdle, sWaitingForInputBox, EnumMacOpenStageTransition.ReceiveTriggerToWaitForInputBox);
+            MacTransition tWaitingForInputBox_NULL = NewTransition(sWaitingForInputBox, null, EnumMacOpenStageTransition.StandbyAtWaitForInputBox);
+            MacTransition tWaitingForInputBox_ClosedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacOpenStageTransition.ReceiveTriggerToCalibrationBox);
+            MacTransition tClosedBox_WaitingForUnlock = NewTransition(sClosedBox, sWaitingForUnlock, EnumMacOpenStageTransition.WaitForUnlock);
+            MacTransition tWaitingForUnlock_NULL = NewTransition(sWaitingForUnlock, null, EnumMacOpenStageTransition.StandbyAtWaitForUnlock);
+            MacTransition tWaitingForUnlock_OpeningBox = NewTransition(sWaitingForUnlock, sOpeningBox, EnumMacOpenStageTransition.ReceiveTriggerToOpenBox);
+            MacTransition tOpeningBox_OpenedBox = NewTransition(sOpeningBox, sOpenedBox, EnumMacOpenStageTransition.OpenedBox);
+            MacTransition tOpenedBox_WaitingForInputMask = NewTransition(sOpenedBox, sWaitingForInputMask, EnumMacOpenStageTransition.WaitForInputMask);
+            MacTransition tWaitingForInputMask_NULL = NewTransition(sWaitingForInputMask, null, EnumMacOpenStageTransition.StandbyAtWaitForInputMask);
+            MacTransition tWaitingForInputMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForInputMask, sOpenedBoxWithMaskForClose, EnumMacOpenStageTransition.ReceiveTriggerToCloseBoxWithMask);
+            MacTransition tWaitingForInputMask_OpenedBoxForClose = NewTransition(sWaitingForInputMask, sOpenedBoxForClose, EnumMacOpenStageTransition.ReceiveTriggerToReturnCloseBox);
+            MacTransition tOpenedBoxWithMaskForClose_ClosingBoxWithMask = NewTransition(sOpenedBoxWithMaskForClose, sClosingBoxWithMask, EnumMacOpenStageTransition.CloseBoxWithMask);
+            MacTransition tClosingBoxWithMask_WaitingForLockWithMask = NewTransition(sClosingBoxWithMask, sWaitingForLockWithMask, EnumMacOpenStageTransition.WaitForLockWithMask);
+            MacTransition tWaitingForLockWithMask_NULL = NewTransition(sWaitingForLockWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForLockWithMask);
+            MacTransition tWaitingForLockWithMask_ClosedBoxWithMaskForRelease = NewTransition(sWaitingForLockWithMask, sClosedBoxWithMaskForRelease, EnumMacOpenStageTransition.ReceiveTriggerToReleaseBoxWithMask);
+            MacTransition tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask = NewTransition(sClosedBoxWithMaskForRelease, sWaitingForReleaseBoxWithMask, EnumMacOpenStageTransition.WaitForReleaseBoxWithMask);
+            MacTransition tWaitingForReleaseBoxWithMask_NULL = NewTransition(sWaitingForReleaseBoxWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForReleaseBoxWithMask);
+            MacTransition tWaitingForReleaseBoxWithMask_Idle = NewTransition(sWaitingForReleaseBoxWithMask, sIdle, EnumMacOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBoxWithMask);
 
 
 
-            MacTransition tIdle_WaitingForInputBoxWithMask = NewTransition(sIdle, sWaitingForInputBoxWithMask, EnumMacMsOpenStageTransition.ReceiveTriggerToWaitForInputBoxWithMask);
-            MacTransition tWaitingForInputBoxWithMask_NULL = NewTransition(sWaitingForInputBoxWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForInputBoxWithMask);
-            MacTransition tWaitingForInputBoxWithMask_ClosedBoxWithMask = NewTransition(sWaitingForInputBoxWithMask, sClosedBoxWithMask, EnumMacMsOpenStageTransition.ReceiveTriggerToCalibrationBoxWithMask);
-            MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlockWithMask, EnumMacMsOpenStageTransition.WaitForUnlockWithMask);
-            MacTransition tWaitingForUnlockWithMask_NULL = NewTransition(sWaitingForUnlockWithMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForUnlockWithMask);
-            MacTransition tWaitingForUnlockWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlockWithMask, sOpeningBoxWithMask, EnumMacMsOpenStageTransition.ReceiveTriggerToOpenBoxWithMask);
-            MacTransition tOpeningBoxWithMask_OpenedBoxWithMask = NewTransition(sOpeningBoxWithMask, sOpenedBoxWithMask, EnumMacMsOpenStageTransition.OpenedBoxWithMask);
-            MacTransition tOpenedBoxWithMask_WaitingForReleaseMask = NewTransition(sOpenedBoxWithMask, sWaitingForReleaseMask, EnumMacMsOpenStageTransition.WaitForReleaseMask);
-            MacTransition tWaitingForReleaseMask_NULL = NewTransition(sWaitingForReleaseMask, null, EnumMacMsOpenStageTransition.StandbyAtWaitForReleaseMask);
-            MacTransition tWaitingForReleaseMask_OpenedBoxForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToCloseBox);
-            MacTransition tWaitingForReleaseMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxWithMaskForClose, EnumMacMsOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask);
-            MacTransition tOpenedBoxForClose_ClosingBox = NewTransition(sOpenedBoxForClose, sClosingBox, EnumMacMsOpenStageTransition.CloseBox);
-            MacTransition tClosingBox_WaitingForLock = NewTransition(sClosingBox, sWaitingForLock, EnumMacMsOpenStageTransition.WaitForLock);
-            MacTransition tWaitingForLock_NULL = NewTransition(sWaitingForLock, null, EnumMacMsOpenStageTransition.StandbyAtWaitForLock);
-            MacTransition tWaitingForLock_ClosedBoxForRelease = NewTransition(sWaitingForLock, sClosedBoxForRelease, EnumMacMsOpenStageTransition.ReceiveTriggerToReleaseBox);
-            MacTransition tClosedBoxForRelease_WaitingForReleaseBox = NewTransition(sClosedBoxForRelease, sWaitingForReleaseBox, EnumMacMsOpenStageTransition.WaitForReleaseBox);
-            MacTransition tWaitingForReleaseBox_NULL = NewTransition(sWaitingForReleaseBox, null, EnumMacMsOpenStageTransition.StandbyAtWaitForReleaseBox);
-            MacTransition tWaitingForReleaseBox_Idle = NewTransition(sWaitingForReleaseBox, sIdle, EnumMacMsOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBox);
+            MacTransition tIdle_WaitingForInputBoxWithMask = NewTransition(sIdle, sWaitingForInputBoxWithMask, EnumMacOpenStageTransition.ReceiveTriggerToWaitForInputBoxWithMask);
+            MacTransition tWaitingForInputBoxWithMask_NULL = NewTransition(sWaitingForInputBoxWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForInputBoxWithMask);
+            MacTransition tWaitingForInputBoxWithMask_ClosedBoxWithMask = NewTransition(sWaitingForInputBoxWithMask, sClosedBoxWithMask, EnumMacOpenStageTransition.ReceiveTriggerToCalibrationBoxWithMask);
+            MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlockWithMask, EnumMacOpenStageTransition.WaitForUnlockWithMask);
+            MacTransition tWaitingForUnlockWithMask_NULL = NewTransition(sWaitingForUnlockWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForUnlockWithMask);
+            MacTransition tWaitingForUnlockWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlockWithMask, sOpeningBoxWithMask, EnumMacOpenStageTransition.ReceiveTriggerToOpenBoxWithMask);
+            MacTransition tOpeningBoxWithMask_OpenedBoxWithMask = NewTransition(sOpeningBoxWithMask, sOpenedBoxWithMask, EnumMacOpenStageTransition.OpenedBoxWithMask);
+            MacTransition tOpenedBoxWithMask_WaitingForReleaseMask = NewTransition(sOpenedBoxWithMask, sWaitingForReleaseMask, EnumMacOpenStageTransition.WaitForReleaseMask);
+            MacTransition tWaitingForReleaseMask_NULL = NewTransition(sWaitingForReleaseMask, null, EnumMacOpenStageTransition.StandbyAtWaitForReleaseMask);
+            MacTransition tWaitingForReleaseMask_OpenedBoxForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxForClose, EnumMacOpenStageTransition.ReceiveTriggerToCloseBox);
+            MacTransition tWaitingForReleaseMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxWithMaskForClose, EnumMacOpenStageTransition.ReceiveTriggerToReturnCloseBoxWithMask);
+            MacTransition tOpenedBoxForClose_ClosingBox = NewTransition(sOpenedBoxForClose, sClosingBox, EnumMacOpenStageTransition.CloseBox);
+            MacTransition tClosingBox_WaitingForLock = NewTransition(sClosingBox, sWaitingForLock, EnumMacOpenStageTransition.WaitForLock);
+            MacTransition tWaitingForLock_NULL = NewTransition(sWaitingForLock, null, EnumMacOpenStageTransition.StandbyAtWaitForLock);
+            MacTransition tWaitingForLock_ClosedBoxForRelease = NewTransition(sWaitingForLock, sClosedBoxForRelease, EnumMacOpenStageTransition.ReceiveTriggerToReleaseBox);
+            MacTransition tClosedBoxForRelease_WaitingForReleaseBox = NewTransition(sClosedBoxForRelease, sWaitingForReleaseBox, EnumMacOpenStageTransition.WaitForReleaseBox);
+            MacTransition tWaitingForReleaseBox_NULL = NewTransition(sWaitingForReleaseBox, null, EnumMacOpenStageTransition.StandbyAtWaitForReleaseBox);
+            MacTransition tWaitingForReleaseBox_Idle = NewTransition(sWaitingForReleaseBox, sIdle, EnumMacOpenStageTransition.ReceiveTriggerToIdleAfterReleaseBox);
             #endregion Transition
 
             #region State Register OnEntry OnExit
