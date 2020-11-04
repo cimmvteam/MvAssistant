@@ -358,6 +358,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Machine\LoadPort\OnEntryEventArgs\" />
     <Folder Include="UserData\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

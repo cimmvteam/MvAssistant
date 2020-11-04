@@ -1,4 +1,5 @@
 ﻿//#define NoConfig
+#define NotCareState
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
@@ -13,6 +14,7 @@ using MaskAutoCleaner.v1_0.StateMachineAlpha;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System.Diagnostics;
+//using MaskAutoCleaner.v1_0.Machine.LoadPort.OnEntryEventArgs;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
@@ -72,14 +74,68 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         #region  Command
         /// <summary>啟動系統</summary>
         /// <remarks>
-        /// 從 系統啟動 => 啟動後 AlarmReset
+        /// AlarmReset[Start, Ing, Complete] => Initial[Start, Ing, Complete]=> Idle(OnEntry)
         /// </remarks>
         public override void SystemBootup()
         {
             Debug.WriteLine("Command: [SystemBootup], Index:" + this.HalLoadPortUnit.DeviceIndex);
-            var state = this.States[EnumMacMsLoadPortState.SystemBootup.ToString()];
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToAlarmResetStart_AlarmResetIng.ToString()];
+            var state = transition.StateFrom;
             state.ExecuteCommand(new MacStateEntryEventArgs());
 
+        }
+
+        /// <summary></summary>
+        /// <remarks>
+        /// Idle(OnExit) => IdleForGetPOD(OnEntry)
+        /// </remarks>
+        public void  ToGetPOD()
+        {
+            Debug.WriteLine("Command: [ToGetPOD], Index:" + this.HalLoadPortUnit.DeviceIndex);
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart.ToString()];
+
+#if NotCareState
+            var state = transition.StateFrom;
+#else
+            var state=this.CurrentState;
+#endif
+            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+        }
+
+        /// <summary>Dock (No Mask)</summary>
+        /// <remarks>
+        /// IdleForGetPOD(OnExit)=> Dock[Start, Ing, Complete]IdleForGetMask(OnEntry)
+        /// </remarks>
+        public void Dock()
+        {
+            Debug.WriteLine("Command: [Dock], Index:" + this.HalLoadPortUnit.DeviceIndex);
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart.ToString()];
+#if NotCareState
+            var state = transition.StateFrom;
+
+#else
+           var state=this.CurrentState;
+#endif
+            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+          
+        }
+
+
+        /// <summary></summary>
+        /// <remarks>
+        /// IdleForGetMask(OnExit) => UndockWithMask(start, ing, complete) => IdleForReleasePODWithMask(OnEntry)
+        /// </remarks>
+        public void  UndockWithMaskFromIdleForGetMask()
+        {
+            Debug.WriteLine("Command: [UndockWithMaskFromIdleForGetMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockWithMaskStart.ToString()];
+#if NotCareState
+            var state = transition.StateFrom;
+
+#else
+           var state=this.CurrentState;
+#endif
+            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
 
@@ -118,16 +174,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             */
         }
 
-
+        /**
         public void Dock()
         {
-            /**
+          
             Debug.WriteLine("Command: [Dock], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var state = this.States[EnumMacMsLoadPortState.DockStart.ToString()];
             state.ExecuteCommand(new MacStateEntryEventArgs());
-            */
+            
         }
-
+        */
         public void Undock()
         {
             /**
@@ -138,12 +194,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         }
 
 
-        #endregion command
+#endregion command
 
         public override void LoadStateMachine()
         {
 
-            #region State
+#region State
             // Any State
             MacState AnyState = null;
 
@@ -183,11 +239,11 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             MacState sIdleForReleasePODWithMask= NewState(EnumMacMsLoadPortState.IdleForReleasePOD); ;
             MacState sIdleForReleasePOD= NewState(EnumMacMsLoadPortState.IdleForReleasePOD); ;
-            #endregion
+#endregion
 
-            #region Transition
+#region Transition
             // Command: SystemStartUp
-            MacTransition tAlarmResetStart_AlarmResetIng=NewTransition(sAlarmResetStart,sAlarmResetIng,EnumMacMsLoadPortTransition.AlarmResetStart_AlarmResetIng);
+            MacTransition tAlarmResetStart_AlarmResetIng=NewTransition(sAlarmResetStart,sAlarmResetIng,EnumMacMsLoadPortTransition.TriggerToAlarmResetStart_AlarmResetIng);
             MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacMsLoadPortTransition.AlarmResetIng_AlarmResetComplete); 
             MacTransition tAlarmResetComplete_InitialStart = NewTransition(sAlarmResetComplete, sInitialStart,EnumMacMsLoadPortTransition.AlarmResetComplete_InitialStart);
             MacTransition tInitialStart_InitialIng = NewTransition( sInitialStart, sInitialIng, EnumMacMsLoadPortTransition.InitialStart_InitialIng);
@@ -196,7 +252,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdle_NULL= NewTransition( sIdle, null,EnumMacMsLoadPortTransition.Idle_NULL);
 
             // Command: ToGetPOD
-            MacTransition tIdle_IdleForGetPOD = NewTransition(sIdle, sIdleForGetPOD, EnumMacMsLoadPortTransition.Idle_IdleForGetPOD);
+            MacTransition tIdle_IdleForGetPOD = NewTransition(sIdle, sIdleForGetPOD, EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart);
             MacTransition tIdleForGetPOD_NULL = NewTransition(sIdleForGetPOD, null,EnumMacMsLoadPortTransition.IdleForGetPOD_NULL);
 
             // Command: ToGetPODWithMask
@@ -218,7 +274,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdleForReleaseMask_NULL = NewTransition(sIdleForReleaseMask,null, EnumMacMsLoadPortTransition.IdleForReleaseMask_NULL);
 
             // Command: UndockWithMaskFromIdleForGetMask(V)
-            MacTransition tIdleForGetMask_UndockWithMaskStart = NewTransition(sIdleForGetMask, sUndockWithMaskStart, EnumMacMsLoadPortTransition.IdleForGetMask_UndockWithMaskStart);
+            MacTransition tIdleForGetMask_UndockWithMaskStart = NewTransition(sIdleForGetMask, sUndockWithMaskStart, EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockWithMaskStart);
             MacTransition tUndockWithMaskStart_UndockWithMaskIng = NewTransition(sUndockWithMaskStart,sUndockWithMaskIng, EnumMacMsLoadPortTransition.UndockWithMaskStart_UndockWithMaskIng);
             MacTransition tUndockWithMaskIng_UndockWithMaskComplete = NewTransition(sUndockWithMaskIng,sUndockWithMaskComplete, EnumMacMsLoadPortTransition.UndockWithMaskIng_UndockWithMaskComplete);
             MacTransition tUndockWithMaskComplete_IdleForReleasePODWithMask = NewTransition(sUndockWithMaskComplete,sIdleForReleasePODWithMask, EnumMacMsLoadPortTransition.UndockWithMaskComplete_IdleForReleasePODWithMask);
@@ -251,9 +307,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdleForReleasePODWithMask_Idle = NewTransition(sIdleForReleasePODWithMask, sIdle, EnumMacMsLoadPortTransition.IdleForReleasePODWithMask_Idle);
             // Command: ReleasePOD
             MacTransition tIdleForReleasePOD_Idle = NewTransition(sIdleForReleasePOD, sIdle, EnumMacMsLoadPortTransition.IdleForReleasePOD_Idle);
-            #endregion Transition
+#endregion Transition
             /**
-             #region State
+#region State
             // 系統啟動
             MacState sSystemBootup = NewState(EnumMacMsLoadPortState.SystemBootup);
             MacState sSystemBootupAlarmResetStart = NewState(EnumMacMsLoadPortState.SystemBootupAlarmResetStart);
@@ -292,10 +348,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             // Undock 等待POD 被取走
             MacState sIdleForGetPOD = NewState(EnumMacMsLoadPortState.IdleForGetPOD);
       
-           #endregion State    */
+#endregion State    */
 
             /**
-              #region Transition
+#region Transition
               // SystemBootUp
 
               MacTransition tSystemBootup_SystemBootupAlarmResetStart = NewTransition(sSystemBootup, sSystemBootupAlarmResetStart, EnumMacMsLoadPortTransition.SystemBootup_SystemBootupAlarmResetStart);
@@ -329,12 +385,467 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
               MacTransition tUndockIng_UndockComplete = NewTransition(sUndockIng, sUndockComplete, EnumMacMsLoadPortTransition.UndockIng_UndockComplete);
               MacTransition tUndockComplete_IdleForGetPOD = NewTransition(sUndockComplete, sIdleForGetPOD, EnumMacMsLoadPortTransition.UndockComplete_IdleForGetPOD);
               MacTransition tIdleForGetPOD_NULL = NewTransition(sIdleForGetPOD, null, EnumMacMsLoadPortTransition.IdleForGetPOD_NULL);
-              #endregion
+#endregion
 
            */
-            #region  Register OnEntry, OnExit Event Handler
+#region  Register OnEntry, OnExit Event Handler
 
-            sSystemBootup.OnEntry += (sender, e) =>
+            sAlarmResetStart.OnEntry += (sender, e) =>
+            {// Sync
+                Debug.WriteLine("State: [sAlarmResetStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                SetCurrentState((MacState)sender);
+                var transition = tAlarmResetStart_AlarmResetIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandAlarmReset(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    { },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sAlarmResetStart.OnExit += (sender, e) =>
+            {
+
+            };
+            sAlarmResetIng.OnEntry += (sender, e) =>
+            { // Async
+                SetCurrentState((MacState)sender);
+                var transition = tAlarmResetIng_AlarmResetComplete;
+                Debug.WriteLine("State: [sAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                    },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
+                        {
+                            return true;
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
+                        {
+                            throw new LoadportAlarmResetFailException();
+                        }
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new LoadportAlarmResetTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+
+            };
+            sAlarmResetIng.OnExit += (sender, e) =>
+            {
+
+            };
+            sAlarmResetComplete.OnEntry += (sender, e) =>
+            {// Sync
+                
+                SetCurrentState((MacState)sender);
+                var transition = tAlarmResetComplete_InitialStart;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sAlarmResetComplete.OnExit += (sender, e) =>
+            {
+                
+            };
+            sInitialStart.OnEntry += (sender, e) =>
+            {  // Sync 
+                SetCurrentState((MacState)sender);
+                var transition = tInitialStart_InitialIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandInitialRequest(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sInitialStart.OnExit += (sender, e) =>
+            {
+
+            };
+            sInitialIng.OnEntry += (sender, e) =>
+            {// Async
+                Debug.WriteLine("State: [sSystemBootupInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                SetCurrentState((MacState)sender);
+                var transition = tInitialIng_InitialComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    { },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                        {
+                            return true;
+                        }
+                        else if (HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            throw new LoadportInitialMustResetException();
+                        }
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new LoadportInitialTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sInitialIng.OnExit += (sender, e) =>
+            {
+
+            };
+            sInitialComplete.OnEntry += (sender, e) =>
+            { // Sync  
+                SetCurrentState((MacState)sender);
+                var transition = tInitialComplete_Idle;
+                var triggerMmember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMmember);
+                Trigger(transition);
+
+            };
+            sInitialComplete.OnExit += (sender, e) =>
+            {
+
+            };
+            sIdle.OnEntry += (sender, e) =>
+            {  // Sync
+
+                SetCurrentState((MacState)sender);
+                var transition = tIdle_NULL;
+                var triggerMmember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMmember);
+                Trigger(transition);
+
+
+            };
+            sIdle.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sIdleForGetPOD.OnEntry += (sender, e) =>
+            {  // Sync 
+                SetCurrentState((MacState)sender);
+                var transition = tIdleForGetPOD_NULL;
+                var triggerMmember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMmember);
+                Trigger(transition);
+
+            };
+            sIdleForGetPOD.OnExit += (sender, e) =>
+            {
+
+            };
+            sDockStart.OnEntry += (sender, e) =>
+            {
+                // Sync
+                Debug.WriteLine("State: [sDockStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                var transition = tDockStart_DockIng;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandDockRequest(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sDockStart.OnExit += (sender, e) =>
+            {
+
+            };
+            sDockIng.OnEntry += (sender, e) =>
+            {   // Async
+                Debug.WriteLine("State: [sDockIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                SetCurrentState((MacState)sender);
+               
+                var transition = tDockIng_DockComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: dosomething
+                    },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
+                        {
+                            return true;
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                        {
+                            throw new LoadportDockMustInitialException();
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            throw new LoadportDockMustResetException();
+                        }
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new LoadportDockTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sDockIng.OnExit += (sender, e) =>
+            {
+
+            };
+            sDockComplete.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sDockComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                var transition = tDockComplete_IdleForGetMask;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO : do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sDockComplete.OnExit += (sender, e) =>
+            {
+
+            };
+            sIdleForGetMask.OnEntry += (sender, e) =>
+             {
+                 var transition = tIdleForGetMask_NULL;
+                 SetCurrentState((MacState)sender);
+                 var triggerMember = new TriggerMember
+                 {
+                     Action = null,
+                     ActionParameter = null,
+                     ExceptionHandler = (state, ex) =>
+                     {
+                         // TODO : do something
+                     },
+                     Guard = () => { return true; },
+                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                     NotGuardException = null,
+                     ThisStateExitEventArgs = new MacStateExitEventArgs()
+                 };
+                 transition.SetTriggerMembers(triggerMember);
+                 Trigger(transition);
+             };
+            sIdleForGetMask.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sUndockWithMaskStart.OnEntry += (sender, e) =>
+            {
+               
+                // Sync
+                Debug.WriteLine("State: [UndockWithMaskStart.OnEntry] Index: " + this.HalLoadPortUnit.DeviceIndex);
+                var transition = tUndockWithMaskStart_UndockWithMaskIng;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandUndockRequest(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+            };
+            sUndockWithMaskStart.OnExit += (sender, e) =>
+            {
+               
+            };
+            sUndockWithMaskIng.OnEntry += (sender, e) =>
+            {
+
+                // Async
+                var transition = tUndockWithMaskIng_UndockWithMaskComplete;
+                Debug.WriteLine("State: [UndockWithMaskIng.OnEntry, Index: " + this.HalLoadPortUnit.DeviceIndex);
+                SetCurrentState((MacState)sender);
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (State, ex) =>
+                    {
+                        // TODO: do something 
+                    },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete)
+                        {
+                            return true;
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                        {
+                            throw new LoadportUndockMustInitialException();
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            throw new LoadportUndockMustResetException();
+                        }
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new LoadportUndockTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sUndockWithMaskIng.OnExit += (sender, e) =>
+            {
+
+            };
+            sUndockWithMaskComplete.OnEntry += (sender, e) =>
+            {
+                var transition = tUndockWithMaskComplete_IdleForReleasePODWithMask;
+            };
+            sUndockWithMaskComplete.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sIdleForReleasePODWithMask.OnEntry += (sender, e) =>
+            {
+                var transitions = new
+                {
+                    normal = tIdleForReleasePODWithMask_NULL,
+                    commandReleasePODWithMask=tIdleForReleasePODWithMask_Idle,
+                };
+            };
+            sIdleForReleasePODWithMask.OnExit += (sender, e) =>
+            {
+
+            };
+
+
+            /** sSystemBootup.OnEntry += (sender, e) =>
             {   // Synch
                 Debug.WriteLine("State: [sSystemBootup.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
@@ -359,33 +870,33 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 Debug.WriteLine("State: [sSystemBootup.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
+    */
+            /** sSystemBootupAlarmResetStart.OnEntry += (sender, e) =>
+                    { // Synch
+                        Debug.WriteLine("State: [sSystemBootupAlarmResetStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                        SetCurrentState((MacState)sender);
+                        var transition = tSystemBootupAlarmResetStart_SystemBootupAlarmResetIng;
+                        var triggerMember = new TriggerMember
+                        {
+                            Action = (parameter) => { this.HalLoadPortUnit.CommandAlarmReset(); },
+                            ActionParameter = null,
+                            ExceptionHandler = (state, ex) =>
+                            { },
+                            Guard = () => { return true; },
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                            NotGuardException = null,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs()
+                        };
+                        transition.SetTriggerMembers(triggerMember);
+                        Trigger(transition);
 
-            sSystemBootupAlarmResetStart.OnEntry += (sender, e) =>
-            { // Synch
-                Debug.WriteLine("State: [sSystemBootupAlarmResetStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                SetCurrentState((MacState)sender);
-                var transition = tSystemBootupAlarmResetStart_SystemBootupAlarmResetIng;
-                var triggerMember = new TriggerMember
-                {
-                    Action = (parameter) => { this.HalLoadPortUnit.CommandAlarmReset(); },
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
-                    { },
-                    Guard = () => { return true; },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
-                    NotGuardException = null,
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-
-            };
-            sSystemBootupAlarmResetStart.OnExit += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sSystemBootupAlarmResetStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
-
-            sSystemBootupAlarmResetIng.OnEntry += (sender, e) =>
+                    };
+                    sSystemBootupAlarmResetStart.OnExit += (sender, e) =>
+                    {
+                        Debug.WriteLine("State: [sSystemBootupAlarmResetStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                    };
+            */
+            /** sSystemBootupAlarmResetIng.OnEntry += (sender, e) =>
             { //Async
                 Debug.WriteLine("State: [sSystemBootupAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
@@ -427,9 +938,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 Debug.WriteLine("State: [sSystemBootupAlarmResetIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
+    */
 
-
-            sSystemBootupAlarmResetComplete.OnEntry += (sender, e) =>
+            /**sSystemBootupAlarmResetComplete.OnEntry += (sender, e) =>
             {   // Sync
                 Debug.WriteLine("State: [sSystemBootupAlarmResetComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
@@ -454,8 +965,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 Debug.WriteLine("State: [sSystemBootupAlarmResetComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
-
-            sSystemBootupInitialStart.OnEntry += (sender, e) =>
+    */
+            /**sSystemBootupInitialStart.OnEntry += (sender, e) =>
             {
                 Debug.WriteLine("State: [sSystemBootupInitialStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
@@ -479,51 +990,50 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sSystemBootupInitialStart.OnExit += (sender, e) =>
             {
                 Debug.WriteLine("State: [sSystemBootupInitialStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
+            };*/
 
-            sSystemBootupInitialIng.OnEntry += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sSystemBootupInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                SetCurrentState((MacState)sender);
-                var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
-                var triggerMemberAsync = new TriggerMemberAsync
-                {
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
-                    { },
-                    Guard = (startTime) =>
-                    {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
-                        {
-                            return true;
-                        }
-                        else if (HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
-                        {
-                            throw new LoadportSystemBootupInitialMustResetException();
-                        }
-                        else if (this.TimeoutObject.IsTimeOut(startTime))
-                        {
-                            throw new LoadportSystemBootupInitialTimeOutException();
-                        }
-                        else
-                        {
-                            return false;
-                        }
+            /** sSystemBootupInitialIng.OnEntry += (sender, e) =>
+             {
+                 Debug.WriteLine("State: [sSystemBootupInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                 SetCurrentState((MacState)sender);
+                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
+                 var triggerMemberAsync = new TriggerMemberAsync
+                 {
+                     Action = null,
+                     ActionParameter = null,
+                     ExceptionHandler = (state, ex) =>
+                     { },
+                     Guard = (startTime) =>
+                     {
+                         if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                         {
+                             return true;
+                         }
+                         else if (HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                         {
+                             throw new LoadportSystemBootupInitialMustResetException();
+                         }
+                         else if (this.TimeoutObject.IsTimeOut(startTime))
+                         {
+                             throw new LoadportSystemBootupInitialTimeOutException();
+                         }
+                         else
+                         {
+                             return false;
+                         }
 
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMemberAsync);
-                TriggerAsync(transition);
-            };
-            sSystemBootupInitialIng.OnExit += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sSystemBootupInitialIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
-
-            sSystemBootupInitialComplete.OnEntry += (sender, e) =>
+                     },
+                     NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                     ThisStateExitEventArgs = new MacStateExitEventArgs()
+                 };
+                 transition.SetTriggerMembers(triggerMemberAsync);
+                 TriggerAsync(transition);
+             };
+             sSystemBootupInitialIng.OnExit += (sender, e) =>
+             {
+                 Debug.WriteLine("State: [sSystemBootupInitialIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+             };*/
+            /**sSystemBootupInitialComplete.OnEntry += (sender, e) =>
             {
                 Debug.WriteLine("State: [sSystemBootupInitialComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
@@ -548,9 +1058,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 Debug.WriteLine("State: [sSystemBootupInitialComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
+           */
 
-
-            sAlarmResetStart.OnEntry += (sender, e) =>
+            /**sAlarmResetStart.OnEntry += (sender, e) =>
             {
                 Debug.WriteLine("State: [sAlarmResetStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 // Sync
@@ -577,53 +1087,54 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 Debug.WriteLine("State: [sAlarmResetStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 // 視狀況新增 Code
             };
-
-            sAlarmResetIng.OnEntry += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                // Async
-                SetCurrentState((MacState)sender);
-                var transition = tAlarmResetIng_AlarmResetComplete;
-                var triggerMemberAsync = new TriggerMemberAsync
-                {
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
+    */
+            /** sAlarmResetIng.OnEntry += (sender, e) =>
                     {
-                        // TODO: do something
-                    },
-                    Guard = (startTime) =>
+                        Debug.WriteLine("State: [sAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                        // Async
+                        SetCurrentState((MacState)sender);
+                        var transition = tAlarmResetIng_AlarmResetComplete;
+                        var triggerMemberAsync = new TriggerMemberAsync
+                        {
+                            Action = null,
+                            ActionParameter = null,
+                            ExceptionHandler = (state, ex) =>
+                            {
+                                // TODO: do something
+                            },
+                            Guard = (startTime) =>
+                            {
+                                if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
+                                {
+                                    return true;
+                                }
+                                else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
+                                {
+                                    throw new LoadportAlarmResetFailException();
+                                }
+                                else if (this.TimeoutObject.IsTimeOut(startTime))
+                                {
+                                    throw new LoadportAlarmResetTimeOutException();
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                            },
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                            ThisStateExitEventArgs = new MacStateExitEventArgs()
+                        };
+                        transition.SetTriggerMembers(triggerMemberAsync);
+                        TriggerAsync(transition);
+                    };
+                    sAlarmResetIng.OnExit += (sender, e) =>
                     {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
-                        {
-                            return true;
-                        }
-                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
-                        {
-                            throw new LoadportAlarmResetFailException();
-                        }
-                        else if (this.TimeoutObject.IsTimeOut(startTime))
-                        {
-                            throw new LoadportAlarmResetTimeOutException();
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMemberAsync);
-                TriggerAsync(transition);
-            };
-            sAlarmResetIng.OnExit += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sAlarmResetIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                // 視實況新增 Code 
-            };
+                        Debug.WriteLine("State: [sAlarmResetIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                        // 視實況新增 Code 
+                    };
+            */
 
-            sAlarmResetComplete.OnEntry += (sender, e) =>
+            /** sAlarmResetComplete.OnEntry += (sender, e) =>
             {  // Sync
                 Debug.WriteLine("State: [sAlarmResetComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tAlarmResetComplete_NULL;
@@ -649,108 +1160,108 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 // 視狀況增加 Code
                 Debug.WriteLine("State: [sAlarmResetComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
+          */
+            /** sInitialStart.OnEntry += (sender, e) =>
+              {  // Sync 
+                  Debug.WriteLine("State: [sInitialStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                  var transition = tInitialStart_InitialIng;
+                  SetCurrentState((MacState)sender);
+                  var triggerMember = new TriggerMember
+                  {
+                      Action = (parameter) => { this.HalLoadPortUnit.CommandInitialRequest(); },
+                      ActionParameter = null,
+                      ExceptionHandler = (state, ex) =>
+                      {
+                          // TODO: do something
+                      },
+                      Guard = () => { return true; },
+                      NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                      NotGuardException = null,
+                      ThisStateExitEventArgs = new MacStateExitEventArgs()
+                  };
+                  transition.SetTriggerMembers(triggerMember);
+                  Trigger(transition);
+              };
+              sInitialStart.OnExit += (sender, e) =>
+              {
+                  Debug.WriteLine("State: [sInitialStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                  // 視狀況增加 Code
+              };
+      */
+            /** sInitialIng.OnEntry += (sender, e) =>
+                  {   // Async
+                      Debug.WriteLine("State: [sInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                      var transition = tInitialIng_InitialComplete;
+                      SetCurrentState((MacState)sender);
+                      var triggerMemberAsync = new TriggerMemberAsync
+                      {
+                          Action = null,
+                          ActionParameter = null,
+                          ExceptionHandler = (state, ex) =>
+                          {
+                              // TODO: do something
+                          },
+                          Guard = (startTime) =>
+                          {
+                              if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                              {
+                                  return true;
+                              }
+                              else if (HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                              {
+                                  throw new LoadportInitialMustResetException();
+                              }
+                              else if (this.TimeoutObject.IsTimeOut(startTime))
+                              {
+                                  throw new LoadportInitialTimeOutException();
+                              }
+                              else
+                              {
+                                  return false;
+                              }
+                          },
+                          NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                          ThisStateExitEventArgs = new MacStateExitEventArgs()
+                      };
+                      transition.SetTriggerMembers(triggerMemberAsync);
+                      TriggerAsync(transition);
 
-            sInitialStart.OnEntry += (sender, e) =>
-            {  // Sync 
-                Debug.WriteLine("State: [sInitialStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                var transition = tInitialStart_InitialIng;
-                SetCurrentState((MacState)sender);
-                var triggerMember = new TriggerMember
-                {
-                    Action = (parameter) => { this.HalLoadPortUnit.CommandInitialRequest(); },
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
-                    {
-                        // TODO: do something
-                    },
-                    Guard = () => { return true; },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    NotGuardException = null,
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sInitialStart.OnExit += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sInitialStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                // 視狀況增加 Code
-            };
-
-            sInitialIng.OnEntry += (sender, e) =>
-            {   // Async
-                Debug.WriteLine("State: [sInitialIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                var transition = tInitialIng_InitialComplete;
-                SetCurrentState((MacState)sender);
-                var triggerMemberAsync = new TriggerMemberAsync
-                {
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
-                    {
-                        // TODO: do something
-                    },
-                    Guard = (startTime) =>
-                    {
-                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                  };
+                  sInitialIng.OnExit += (sender, e) =>
+                  {
+                      // 視狀況新增 Code
+                      Debug.WriteLine("State: [sInitialIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                  };
+          */
+            /** sInitialComplete.OnEntry += (sender, e) =>
+                    {   // Sync
+                        Debug.WriteLine("State: [sInitialComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                        SetCurrentState((MacState)sender);
+                        var transition = tInitialComplete_IdleForPutPOD;
+                        var triggerMember = new TriggerMember
                         {
-                            return true;
-                        }
-                        else if (HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
-                        {
-                            throw new LoadportInitialMustResetException();
-                        }
-                        else if (this.TimeoutObject.IsTimeOut(startTime))
-                        {
-                            throw new LoadportInitialTimeOutException();
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMemberAsync);
-                TriggerAsync(transition);
-
-            };
-            sInitialIng.OnExit += (sender, e) =>
-            {
-                // 視狀況新增 Code
-                Debug.WriteLine("State: [sInitialIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
-
-            sInitialComplete.OnEntry += (sender, e) =>
-            {   // Sync
-                Debug.WriteLine("State: [sInitialComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                SetCurrentState((MacState)sender);
-                var transition = tInitialComplete_IdleForPutPOD;
-                var triggerMember = new TriggerMember
-                {
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
+                            Action = null,
+                            ActionParameter = null,
+                            ExceptionHandler = (state, ex) =>
+                            {
+                                // TODO: do something
+                            },
+                            Guard = () => { return true; },
+                            NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                            NotGuardException = null,
+                            ThisStateExitEventArgs = new MacStateExitEventArgs()
+                        };
+                        transition.SetTriggerMembers(triggerMember);
+                        Trigger(transition);
+                    };
+                    sInitialComplete.OnExit += (sender, e) =>
                     {
-                        // TODO: do something
-                    },
-                    Guard = () => { return true; },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    NotGuardException = null,
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sInitialComplete.OnExit += (sender, e) =>
-            {
-                // 視狀況增加Code
-                Debug.WriteLine("State: [sInitialComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
+                        // 視狀況增加Code
+                        Debug.WriteLine("State: [sInitialComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                    };
 
-
-            sIdleForPutPOD.OnEntry += (sender, e) =>
+            */
+            /**sIdleForPutPOD.OnEntry += (sender, e) =>
             {  // Sync
                 Debug.WriteLine("State: [sIdleForPutPOD.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForPutPOD_NULL;
@@ -776,36 +1287,37 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 // 依實際狀況 增加 Code
                 Debug.WriteLine("State: [sIdleForPutPOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
+           */
+            /**sDockStart.OnEntry += (sender, e) =>
+             {   // Sync
+                 Debug.WriteLine("State: [sDockStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                 var transition = tDockStart_DockIng;
+                 SetCurrentState((MacState)sender);
+                 var triggerMember = new TriggerMember
+                 {
+                     Action = (parameter) => { this.HalLoadPortUnit.CommandDockRequest(); },
+                     ActionParameter = null,
+                     ExceptionHandler = (state, ex) =>
+                     {
+                         // TODO: do something
+                     },
+                     Guard = () => { return true; },
+                     NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                     NotGuardException = null,
+                     ThisStateExitEventArgs = new MacStateExitEventArgs()
 
-            sDockStart.OnEntry += (sender, e) =>
-            {   // Sync
-                Debug.WriteLine("State: [sDockStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                var transition = tDockStart_DockIng;
-                SetCurrentState((MacState)sender);
-                var triggerMember = new TriggerMember
-                {
-                    Action = (parameter) => { this.HalLoadPortUnit.CommandDockRequest(); },
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
-                    {
-                        // TODO: do something
-                    },
-                    Guard = () => { return true; },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    NotGuardException = null,
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                 };
+                 transition.SetTriggerMembers(triggerMember);
+                 Trigger(transition);
+             };
+             sDockStart.OnExit += (sender, e) =>
+             {
+                 // 視狀況增加 Code
+                 Debug.WriteLine("State: [sDockStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+             };
+     */
 
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sDockStart.OnExit += (sender, e) =>
-            {
-                // 視狀況增加 Code
-                Debug.WriteLine("State: [sDockStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
-
-            sDockIng.OnEntry += (sender, e) =>
+            /**sDockIng.OnEntry += (sender, e) =>
             {  // Async
                 SetCurrentState((MacState)sender);
                 Debug.WriteLine("State: [sDockIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
@@ -850,9 +1362,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 // 視狀況增加 Code
                 Debug.WriteLine("State: [sDockIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
-
-
-            sDockComplete.OnEntry += (sender, e) =>
+            */
+            /** sDockComplete.OnEntry += (sender, e) =>
             {   // Sync 
                 var transition = tDockComplete_IdleForGetMask;
                 Debug.WriteLine("State: [sDockComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
@@ -878,7 +1389,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 // 視狀況加 Code
                 Debug.WriteLine("State: [sDockComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
              };
-
+            */
             sIdleForGetMask.OnEntry += (sender, e) =>
             {   // Sync
                 Debug.WriteLine("State: [sIdleForGetMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
@@ -1039,7 +1550,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
                 // 視狀況新增 Code
             };
-            #endregion
+#endregion
 
 
         }

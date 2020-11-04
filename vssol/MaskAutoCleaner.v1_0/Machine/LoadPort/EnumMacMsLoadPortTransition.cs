@@ -18,7 +18,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         SystemBootupInitialComplete_IdleForPutPOD,
 
         // Reset
-        AlarmResetStart_AlarmResetIng,
+        TriggerToAlarmResetStart_AlarmResetIng,
         AlarmResetIng_AlarmResetComplete,
         AlarmResetComplete_NULL,
 
@@ -48,10 +48,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         DockWithMaskStart_DockWithMaskIng,
         DockIng_DockWithMaskComplete,
         IdleForReleaseMask_NULL,
-        Idle_IdleForGetPOD,
+        TriggerToIdleForGetPOD_DockStart,
         IdleForGetPODWithMask_NULL,
         DockComplete_NULL,
-        IdleForGetMask_UndockWithMaskStart,
+        TriggerToIdleForGetMask_UndockWithMaskStart,
         UndockWithMaskStart_UndockWithMaskIng,
         UndockWithMaskIng_UndockWithMaskComplete,
         UndockWithMaskComplete_IdleForReleasePODWithMask,
@@ -64,5 +64,6 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         IdleForGetMask_UndockStart,
         IdleForReleasePODWithMask_Idle,
         IdleForReleasePOD_Idle,
+        Idle_IdleForGetPOD,
     }
 }
