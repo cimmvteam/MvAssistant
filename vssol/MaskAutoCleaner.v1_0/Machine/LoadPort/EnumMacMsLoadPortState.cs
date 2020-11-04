@@ -44,10 +44,16 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         InitialComplete,
        
          // Idle
-        IdleForGetMask,
+        IdleForReleasePOD,
         IdleForGetPOD,
         IdleForPutPOD,
         Idle,
         IdleForGetPODWithMask,
+        DockStartWithMaskStart,
+        DockStartWithMaskIng,
+        DockStartWithMaskComplete,
+        UndockWithMaskStart,
+        UndockWithMaskIng,
+        UndockWithMaskComplete,
     }
 }
