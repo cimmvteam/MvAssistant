@@ -168,6 +168,11 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
 
             MacTransition tIdle_IdleForGetPOD;
+            MacTransition tIdle_IdleForGetPODWithMask;
+            MacTransition tIdleForGetPOD_DockStart;
+            MacTransition tDocStart_DockIng;
+           // MacTransition tDockIng_DockComplete;
+
 
 
             #endregion 2020/11/03
