@@ -31,69 +31,51 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public string Open()
         {
-            string result = "";
-            result = Plc.Open();
-            return result;
+            return "OK";
         }
 
         public string Close()
         {
-            string result = "";
-            result = Plc.Close();
-            return result;
+            return "OK";
         }
 
         public string Clamp()
         {
-            string result = "";
-            result = Plc.Clamp();
-            return result;
+            return "OK";
         }
 
         public string Unclamp()
         {
-            string result = "";
-            result = Plc.Unclamp();
-            return result;
+            return "OK";
         }
 
         public string SortClamp()
         {
-            string result = "";
-            result = Plc.SortClamp();
-            return result;
+            return "OK";
         }
 
         public string SortUnclamp()
         {
-            string result = "";
-            result = Plc.SortUnclamp();
-            return result;
+            return "OK";
         }
 
         public string Lock()
         {
-            string result = "";
-            result = Plc.Lock();
-            return result;
+            return "OK";
         }
 
         public string Vacuum(bool isSuck)
         {
-            string result = "";
-            result = Plc.Vacuum(isSuck);
-            return result;
+            return "OK";
         }
 
         public string Initial()
         {
-            string result = "";
-            result = Plc.Initial();
-            return result;
+            return "OK";
         }
 
         public string ReadOpenStageStatus()
-        { return Plc.ReadOpenStageStatus(); }
+        { return "Busy"; }
 
         #region Set Parameter
         /// <summary>
@@ -101,23 +83,23 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <param name="BoxType">1：鐵盒 , 2：水晶盒</param>
         public void SetBoxType(uint BoxType)
-        { Plc.SetBoxType(BoxType); }
+        { return; }
 
         /// <summary>
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed">(%)</param>
         public void SetSpeed(uint Speed)
-        { Plc.SetSpeed(Speed); }
+        { return; }
         #endregion
 
         #region Read Parameter
 
         public int ReadBoxTypeSetting()
-        { return Plc.ReadBoxTypeSetting(); }
+        { return 1; }
 
         public int ReadSpeedSetting()
-        { return Plc.ReadSpeedSetting(); }
+        { return 1; }
         #endregion
 
         #region Read Component Value
@@ -133,10 +115,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             /**real           
             return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude);
            */
-            #region fake
-            FakeSleep();
-            return Tuple.Create(true, true);
-            #endregion
+            return new Tuple<bool, bool>((isBTIntrude ?? false), (isMTIntrude ?? false));
 
         }
 
@@ -145,109 +124,108 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <returns></returns>
         public bool ReadBeenIntruded()
-        { return Plc.ReadBeenIntruded(); }
+        { return false; }
 
         /// <summary>
         /// 讀取開盒夾爪狀態
         /// </summary>
         /// <returns></returns>
         public string ReadClampStatus()
-        { return Plc.ReadClampStatus(); }
+        { return "Clamp"; }
 
         /// <summary>
         /// 讀取Stage上固定Box的夾具位置
         /// </summary>
         /// <returns></returns>
         public Tuple<long, long> ReadSortClampPosition()
-        { return Plc.ReadSortClampPosition(); }
+        { return new Tuple<long, long>(1, 1); }
 
         /// <summary>
         /// 讀取Slider的位置
         /// </summary>
         /// <returns></returns>
         public Tuple<long, long> ReadSliderPosition()
-        { return Plc.ReadSliderPosition(); }
+        { return new Tuple<long, long>(1, 1); }
 
         /// <summary>
         /// 讀取盒蓋位置
         /// </summary>
         /// <returns></returns>
         public Tuple<double, double> ReadCoverPos()
-        { return Plc.ReadCoverPos(); }
+        { return new Tuple<double, double>(1, 1); }
 
         /// <summary>
         /// 讀取盒蓋開闔， Open ; Close
         /// </summary>
         /// <returns></returns>
         public Tuple<bool, bool> ReadCoverSensor()
-        { return Plc.ReadCoverSensor(); }
+        { return new Tuple<bool, bool>(true, true); }
 
         /// <summary>
         /// 讀取盒子是否變形
         /// </summary>
         /// <returns></returns>
         public double ReadBoxDeform()
-        { return Plc.ReadBoxDeform(); }
+        { return 1; }
 
         /// <summary>
         /// 讀取平台上的重量
         /// </summary>
         /// <returns></returns>
         public double ReadWeightOnStage()
-        { return Plc.ReadWeightOnStage(); }
+        { return 285; }
 
         /// <summary>
         /// 讀取是否有Box
         /// </summary>
         /// <returns></returns>
         public bool ReadBoxExist()
-        { return Plc.ReadBoxExist(); }
+        { return true; }
 
         #endregion
 
         public Bitmap Camera_Top_Cap()
         {
-            return CameraTop.Shot();
+            Bitmap bmp = null;
+            return bmp;
         }
 
-        public void Camera_Top_CapToSave(string SavePath,string FileType)
+        public void Camera_Top_CapToSave(string SavePath, string FileType)
         {
-            CameraTop.ShotToSaveImage(SavePath,FileType);
+            return;
         }
 
         public Bitmap Camera_Side_Cap()
         {
-            return CameraSide.Shot();
+            Bitmap bmp = null;
+            return bmp;
         }
 
         public void Camera_Side_CapToSave(string SavePath, string FileType)
         {
-            CameraSide.ShotToSaveImage(SavePath, FileType);
+            return;
         }
 
         public Bitmap Camera_FrontNearLP_Cap()
         {
-            return CameraNearLP.Shot();
+            Bitmap bmp = null;
+            return bmp;
         }
 
         public void Camera_FrontNearLP_CapToSave(string SavePath, string FileType)
         {
-            CameraNearLP.ShotToSaveImage(SavePath, FileType);
+            return;
         }
 
         public Bitmap Camera_FrontNearCC_Cap()
         {
-            return CameraNearCC.Shot();
+            Bitmap bmp = null;
+            return bmp;
         }
 
         public void Camera_FrontNearCC_CapToSave(string SavePath, string FileType)
         {
-            CameraNearCC.ShotToSaveImage(SavePath, FileType);
-        }
-
-        private void FakeSleep()
-        {
-            System.Threading.Thread.Sleep(500);
+            return;
         }
     }
 }

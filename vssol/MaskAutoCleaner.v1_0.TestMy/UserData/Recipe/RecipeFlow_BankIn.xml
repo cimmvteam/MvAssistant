@@ -21,7 +21,7 @@
       <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetMask" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MoveToLoadPortA" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToLoadPortA" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Load Port A Undock">
@@ -45,7 +45,7 @@
       <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForInputMask" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MoveToOpenStageForRelease" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToOpenStageForRelease" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Open Stage Close Box With Mask">
@@ -56,7 +56,7 @@
       <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForLockWithMask" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="ReceiveTriggerToCloseBoxWithMask" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="TriggerToCloseBoxWithMask" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Box Transfer Move To Open Stage Lock Box With Mask">
@@ -80,7 +80,7 @@
       <MacRecipeMachineState Key="MID_OS_A_ASB" Value="WaitingForReleaseBoxWithMask" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="ReceiveTriggerToCloseBoxWithMask" />
+      <MacRecipeMachineState Key="MID_OS_A_ASB" Value="TriggerToCloseBoxWithMask" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Box Transfer Move To Open Stage Catch Box With Mask">
