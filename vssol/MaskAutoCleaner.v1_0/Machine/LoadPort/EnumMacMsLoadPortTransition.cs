@@ -62,7 +62,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         IdleForReleasePOD_UndockStart,
         IdleForReleaseMask_UndockWithMaskStart,
         IdleForGetMask_UndockStart,
-        IdleForReleasePODWithMask_Idle,
+        TriggerToIdleForReleasePODWithMask_Idle,
         IdleForReleasePOD_Idle,
         Idle_IdleForGetPOD,
     }

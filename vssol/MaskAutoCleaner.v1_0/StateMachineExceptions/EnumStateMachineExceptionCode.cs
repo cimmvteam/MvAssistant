@@ -225,6 +225,9 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         LoadportUndockTimeOutException,
         LoadportPLCAlarmException,
         LoadportPLCWarningException,
+        LoadportUndockWithMaskMustInitialException,
+        LoadportUndockWithMaskMustResetException,
+        LoadportUndockWithMaskTimeOutException,
 
         /// <summary>Universal 無法再分類的例外</summary>
         UniversalException,
@@ -233,7 +236,8 @@ namespace MaskAutoCleaner.v1_0.StateMachineExceptions
         UniversalGeneralAlarmException,
         UniversalGeneralWarningException,
         UniversalCoverFanPLCAlarmException,
-        UniversalCoverFanPLCWarningException
+        UniversalCoverFanPLCWarningException,
+       
     }
 
 

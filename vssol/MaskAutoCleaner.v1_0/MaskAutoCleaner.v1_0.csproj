@@ -196,6 +196,7 @@
     <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCAlarmException.cs" />
     <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCExecuteFailException.cs" />
     <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockTimeOutException.cs" />
@@ -215,6 +216,8 @@
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustResetException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MTClampInspectDeformPLCAlarmException.cs" />
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MTClampInspectDeformPLCWarningException.cs" />
     <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferException.cs" />
