@@ -64,6 +64,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
 
+
         /// <summary>測試 AlarmReset</summary>
         /// <remarks>
         /// <para>Date: 2020/10/14, OK</para>
@@ -102,7 +103,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             // Machine A
             StateMachineA.Dock();
             // Machine B
-             StateMachineB.Dock();
+           //  StateMachineB.Dock();
             Repeat();
         }
 
