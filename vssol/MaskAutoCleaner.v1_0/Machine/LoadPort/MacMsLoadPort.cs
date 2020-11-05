@@ -374,7 +374,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsLoadPortTransition.Idle_NULL);
 
             // Command: ToGetPOD
-            MacTransition tIdle_IdleForGetPOD = NewTransition(sIdle, sIdleForGetPOD, EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart);
+            MacTransition tIdle_IdleForGetPOD = NewTransition(sIdle, sIdleForGetPOD, EnumMacMsLoadPortTransition.TriggerToIdle_IdleForGetPOD);
             MacTransition tIdleForGetPOD_NULL = NewTransition(sIdleForGetPOD, null, EnumMacMsLoadPortTransition.IdleForGetPOD_NULL);
 
             // Command: ToGetPODWithMask
@@ -723,7 +723,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
 
             sIdleForGetPOD.OnEntry += (sender, e) =>
-            {  // Sync 
+            {  // Sync
+                Debug.WriteLine("State: [sIdleForGetPOD.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var transition = tIdleForGetPOD_NULL;
                 var triggerMmember = new TriggerMember
@@ -745,7 +746,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sIdleForGetPOD.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sIdleForGetPOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockStart.OnEntry += (sender, e) =>
             {

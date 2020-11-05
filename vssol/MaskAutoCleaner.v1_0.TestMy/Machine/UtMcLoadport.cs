@@ -38,6 +38,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
         }
 
+        /// <summary>測試一下,  是否可產生Load Port State Machine Instance</summary>
+        /// <para>Date: 2020/10/14, OK</para>
+        [TestMethod]
+        public void TestLoadportStateMachineInstance()
+        {
+           Repeat();
+        }
 
         /// <summary>
         /// 測試系統啟動 
@@ -46,7 +53,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// <para>Date: 2020/10/14, OK</para>
         /// </remarks>
         [TestMethod]
-        public void TestSystemBootup()
+        public void Test_SystemBootup()
         {
             // Machine A
             StateMachineA.SystemBootup();
@@ -55,12 +62,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
-        /// <summary>測試一下,  是否可產生Load Port State Machine Instance</summary>
-        /// <para>Date: 2020/10/14, OK</para>
+
         [TestMethod]
-        public void TestLoadportStateMachineInstance()
+        public void Test_ToGetPOD()
         {
-           Repeat();
+            // Machine A
+            StateMachineA.ToGetPOD();
+            // MAchine B
+            // StateMachineB.SystemBootup();
+            Repeat();
         }
 
 
