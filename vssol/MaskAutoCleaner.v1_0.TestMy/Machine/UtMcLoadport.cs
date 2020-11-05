@@ -56,9 +56,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Test_SystemBootup()
         {
             // Machine A
-            StateMachineA.SystemBootup();
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.SystemBootup.ToString());
+            method.Invoke(StateMachineA, null);
             // MAchine B
-           // StateMachineB.SystemBootup();
+           // method.Invoke(StateMachineB, null);
             Repeat();
         }
 
@@ -67,13 +68,23 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Test_ToGetPOD()
         {
             // Machine A
-            StateMachineA.ToGetPOD();
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ToGetPOD.ToString());
+            method.Invoke(StateMachineA, null);
             // MAchine B
-            // StateMachineB.SystemBootup();
+           // method.Invoke(StateMachineB, null);
             Repeat();
         }
-
-
+        [TestMethod]
+        public void Test_ToGetPODWithMask()
+        {
+            // Machine A
+            var method= typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ToGetPODWithMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+        //-------
 
         /// <summary>測試 AlarmReset</summary>
         /// <remarks>

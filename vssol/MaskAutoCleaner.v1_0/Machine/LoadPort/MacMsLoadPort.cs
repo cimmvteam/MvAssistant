@@ -379,7 +379,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             // Command: ToGetPODWithMask
             MacTransition tIdle_IdleForGetPODWithMask = NewTransition(sIdle, sIdleForGetPODWithMask, EnumMacMsLoadPortTransition.TriggerToIdle_IdleForGetPODWithMask);
-            MacTransition IdleForGetPODWithMask_NULL = NewTransition(sIdleForGetPODWithMask, null, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_NULL);
+            MacTransition tIdleForGetPODWithMask_NULL = NewTransition(sIdleForGetPODWithMask, null, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_NULL);
 
             // Command: Dock
             MacTransition tIdleForGetPOD_DockStart = NewTransition(sIdleForGetPOD, sDockStart, EnumMacMsLoadPortTransition.IdleForGetPOD_DockStart);
@@ -747,6 +747,32 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             sIdleForGetPOD.OnExit += (sender, e) =>
             {
                 Debug.WriteLine("State: [sIdleForGetPOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
+            };
+            sIdleForGetPODWithMask.OnEntry += (sender, e) =>
+            {  // Sync
+                Debug.WriteLine("State: [sIdleForGetPODWithMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                SetCurrentState((MacState)sender);
+                var transition = tIdleForGetPODWithMask_NULL;
+                var triggerMmember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMmember);
+                Trigger(transition);
+
+            };
+            sIdleForGetPODWithMask.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sIdleForGetPODWithMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockStart.OnEntry += (sender, e) =>
             {
