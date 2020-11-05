@@ -51,7 +51,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             // Machine A
             StateMachineA.SystemBootup();
             // MAchine B
-            StateMachineB.SystemBootup();
+           // StateMachineB.SystemBootup();
             Repeat();
         }
 
