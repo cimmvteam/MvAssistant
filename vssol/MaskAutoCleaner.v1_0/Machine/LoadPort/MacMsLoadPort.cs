@@ -998,33 +998,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 Debug.WriteLine("State: [sUndockWithMaskComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
+           
             sIdleForReleasePODWithMask.OnEntry += (sender, e) =>
-            {
-                Debug.WriteLine("State: [IdleForReleasePODWithMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                var transition = tIdleForReleasePODWithMask_NULL;
-                SetCurrentState((MacState)sender);
-                var triggerMember = new TriggerMember
-                {
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (state, ex) =>
-                    {
-                        // TODO: do something 
-                    },
-                    Guard = () => { return true; },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    NotGuardException = null,
-                    ThisStateExitEventArgs = new MacStateExitEventArgs()
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-
-            };
-            sIdleForReleasePODWithMask.OnExit += (sender, e) =>
-            {
-                Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
-            };
-            sIdleForReleasePODWithMask.OnExit += (sender, e) =>
             {  // Sync
                 Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForReleasePODWithMask_NULL;
@@ -1046,7 +1021,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 Trigger(transition);
             };
             sIdleForReleasePODWithMask.OnExit += (sender, e) => {
-
+                Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockWithMaskStart.OnEntry += (sender, e) =>
             {

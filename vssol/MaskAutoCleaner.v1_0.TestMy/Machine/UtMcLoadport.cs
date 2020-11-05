@@ -106,6 +106,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //  method.Invoke(StateMachineB, null);
             Repeat();
         }
+
+        [TestMethod]
+        public void Test_ReleasePODWithMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ReleasePODWithMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
         //-------
 
         /// <summary>測試 AlarmReset</summary>
