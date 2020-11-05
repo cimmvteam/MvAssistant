@@ -382,7 +382,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdleForGetPODWithMask_NULL = NewTransition(sIdleForGetPODWithMask, null, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_NULL);
 
             // Command: Dock
-            MacTransition tIdleForGetPOD_DockStart = NewTransition(sIdleForGetPOD, sDockStart, EnumMacMsLoadPortTransition.IdleForGetPOD_DockStart);
+            MacTransition tIdleForGetPOD_DockStart = NewTransition(sIdleForGetPOD, sDockStart, EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart);
             MacTransition tDockStart_DockIng = NewTransition(sDockStart, sDockIng, EnumMacMsLoadPortTransition.DockStart_DockIng);
             MacTransition tDockIng_DockComplete = NewTransition(sDockIng, sDockComplete, EnumMacMsLoadPortTransition.DockWithMaskIng_DockWithMaskComplete);
             MacTransition tDockComplete_IdleForGetMask = NewTransition(sDockComplete, sIdleForGetMask, EnumMacMsLoadPortTransition.DockComplete_IdleForGetMask);
@@ -799,7 +799,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sDockStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockIng.OnEntry += (sender, e) =>
             {   // Async
@@ -844,7 +844,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sDockIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockComplete.OnEntry += (sender, e) =>
             {
@@ -869,10 +869,11 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sDockComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sIdleForGetMask.OnEntry += (sender, e) =>
              {
+                 Debug.WriteLine("State: [sIdleForGetMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                  var transition = tIdleForGetMask_NULL;
                  SetCurrentState((MacState)sender);
                  var triggerMember = new TriggerMember
@@ -893,7 +894,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
              };
             sIdleForGetMask.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sIdleForGetMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sUndockWithMaskStart.OnEntry += (sender, e) =>
