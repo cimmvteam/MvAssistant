@@ -96,6 +96,10 @@
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToUnLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateOpenStageClampingEntryEventArgs.cs" />
+    <Compile Include="Machine\CleanCh\EnumMacCleanChCmd.cs" />
+    <Compile Include="Machine\InspectionCh\EnumMacInspectionChCmd.cs" />
+    <Compile Include="Machine\OpenStage\EnumMacOpenStageCmd.cs" />
+    <Compile Include="Machine\Universal\EnumMacUniversalCmd.cs" />
     <Compile Include="Msg\MacMsgCommand.cs" />
     <Compile Include="Msg\MacMsgTransition.cs" />
     <Compile Include="Recipe\EnumMacRecipeType.cs" />
@@ -261,7 +265,7 @@
     <Compile Include="EnumMacMaskSide.cs" />
     <Compile Include="Machine\MacMachineCtrlBase.cs" />
     <Compile Include="Machine\MacMachineStateBase.cs" />
-    <Compile Include="Machine\MaskTransfer\EnumMacMcMaskTransferCmd.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMaskTransferCmd.cs" />
     <Compile Include="Machine\MaskTransfer\EnumMacMaskTransferState.cs" />
     <Compile Include="Machine\MaskTransfer\EnumMacMaskTransferTransition.cs" />
     <Compile Include="Machine\MaskTransfer\MacMaskTransferCommonExitEventArgs.cs" />

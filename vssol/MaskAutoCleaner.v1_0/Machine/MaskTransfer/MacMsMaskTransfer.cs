@@ -1068,7 +1068,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //To Target Clamp - Move
             MacState sMovingToLoadPortA = NewState(EnumMacMaskTransferState.MovingToLoadPortA);
             MacState sMovingToLoadPortB = NewState(EnumMacMaskTransferState.MovingToLoadPortB);
-            MacState sMovingToInspectionCh = NewState(EnumMacMaskTransferState.MovingToInspectionCh);
+            MacState sMovingToInspectionChPellicle = NewState(EnumMacMaskTransferState.MovingToInspectionChPellicle);
             MacState sMovingToInspectionChGlass = NewState(EnumMacMaskTransferState.MovingToInspectionChGlass);
             MacState sMovingToOpenStage = NewState(EnumMacMaskTransferState.MovingToOpenStage);
 
@@ -1082,7 +1082,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //Clamped Back - Move
             MacState sMovingToLPHomeClampedFromLoadPortA = NewState(EnumMacMaskTransferState.MovingToLPHomeClampedFromLoadPortA);
             MacState sMovingToLPHomeClampedFromLoadPortB = NewState(EnumMacMaskTransferState.MovingToLPHomeClampedFromLoadPortB);
-            MacState sMovingToICHomeClampedFromInspectionCh = NewState(EnumMacMaskTransferState.MovingToICHomeClampedFromInspectionCh);
+            MacState sMovingToICHomeClampedFromInspectionChPellicle = NewState(EnumMacMaskTransferState.MovingToICHomeClampedFromInspectionChPellicle);
             MacState sMovingToICHomeClampedFromInspectionChGlass = NewState(EnumMacMaskTransferState.MovingToICHomeClampedFromInspectionChGlass);
             MacState sMovingToLPHomeClampedFromOpenStage = NewState(EnumMacMaskTransferState.MovingToLPHomeClampedFromOpenStage);
 
@@ -1094,23 +1094,30 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
 
             //Clean
-            MacState sMovingToCleanCh = NewState(EnumMacMaskTransferState.MovingToCleanChPellicle);//前往CleanCh
-            MacState sClampedInCleanCh = NewState(EnumMacMaskTransferState.ClampedInCleanChTargetPellicle);//準備好Clean
-            MacState sMovingToClean = NewState(EnumMacMaskTransferState.MovingInCleanChToCleanPellicle);
-            MacState sCleaningPellicle = NewState(EnumMacMaskTransferState.CleaningPellicleInCleanCh);
-            MacState sMovingAfterCleaned = NewState(EnumMacMaskTransferState.MovingInCleanChAfterCleanedPellicle);
-            MacState sMovingToInspect = NewState(EnumMacMaskTransferState.MovingInCleanChToInspectPellicle);
+            MacState sMovingToCleanChPellicle = NewState(EnumMacMaskTransferState.MovingToCleanChPellicle);//前往CleanCh
+            MacState sClampedAtOriginPellicle = NewState(EnumMacMaskTransferState.ClampedAtOriginPellicle);//準備好Clean
+            MacState sMovingToCleanPellicle = NewState(EnumMacMaskTransferState.MovingToCleanPellicle);
+            MacState sPellicleOnAirGun = NewState(EnumMacMaskTransferState.PellicleOnAirGun);
+            MacState sCleaningPellicle = NewState(EnumMacMaskTransferState.CleaningPellicle);
+            MacState sCleanedPellicle = NewState(EnumMacMaskTransferState.CleanedPellicle);
+            MacState sMovingToOriginAfterCleanedPellicle = NewState(EnumMacMaskTransferState.MovingToOriginAfterCleanedPellicle);
+            MacState sMovingToInspectPellicle = NewState(EnumMacMaskTransferState.MovingToInspectPellicle);
+            MacState sPellicleOnCamera = NewState(EnumMacMaskTransferState.PellicleOnCamera);
             MacState sInspectingPellicle = NewState(EnumMacMaskTransferState.InspectingPellicleInCleanCh);
-            MacState sMovingAfterInspected = NewState(EnumMacMaskTransferState.MovingInCleanChAfterInspectedPellicle);
-            MacState sMovingToCCHomeClampedFromCleanCh = NewState(EnumMacMaskTransferState.MovingToCCHomeClampedFromCleanCh);//離開CleanCh
+            MacState sInspectedPellicle = NewState(EnumMacMaskTransferState.InspectedPellicleInCleanCh);
+            MacState sMovingToOriginAfterInspectedPellicle = NewState(EnumMacMaskTransferState.MovingToOriginAfterInspectedPellicle);
+            MacState sMovingToCCHomeClampedFromCleanChPellicle = NewState(EnumMacMaskTransferState.MovingToCCHomeClampedFromCleanChPellicle);//離開CleanCh
 
             MacState sMovingToCleanChGlass = NewState(EnumMacMaskTransferState.MovingToCleanChGlass);//前往CleanChGlass
-            MacState sClampedInCleanChGlass = NewState(EnumMacMaskTransferState.ClampedInCleanChTargetGlass);//準備好CleanGlass
-            MacState sMovingToCleanGlass = NewState(EnumMacMaskTransferState.MovingInCleanChToCleanGlass);
-            MacState sCleaningGlass = NewState(EnumMacMaskTransferState.CleaningGlassInCleanCh);
-            MacState sMovingAfterCleanedGlass = NewState(EnumMacMaskTransferState.MovingInCleanChAfterCleanedGlass);
-            MacState sMovingToInspectGlass = NewState(EnumMacMaskTransferState.MovingInCleanChToInspectGlass);
-            MacState sInspectingGlass = NewState(EnumMacMaskTransferState.InspectingGlassInCleanCh);
+            MacState sClampedAtOriginGlass = NewState(EnumMacMaskTransferState.ClampedAtOriginGlass);//準備好CleanGlass
+            MacState sMovingToCleanGlass = NewState(EnumMacMaskTransferState.MovingToCleanGlass);
+            MacState sGlassOnAirGun = NewState(EnumMacMaskTransferState.GlassOnCamera);
+            MacState sCleaningGlass = NewState(EnumMacMaskTransferState.CleaningGlass);
+            MacState sCleanedGlass = NewState(EnumMacMaskTransferState.CleanedGlass);
+            MacState sMovingToOriginAfterCleanedGlass = NewState(EnumMacMaskTransferState.MovingToOriginAfterCleanedGlass);
+            MacState sMovingToInspectGlass = NewState(EnumMacMaskTransferState.MovingToInspectGlass);
+            MacState sInspectingGlass = NewState(EnumMacMaskTransferState.InspectingGlass);
+            MacState sInspectedGlass = NewState(EnumMacMaskTransferState.InspectedGlass);
             MacState sMovingAfterInspectedGlass = NewState(EnumMacMaskTransferState.MovingInCleanChAfterInspectedGlass);
             MacState sMovingToCCHomeClampedFromCleanChGlass = NewState(EnumMacMaskTransferState.MovingToCCHomeClampedFromCleanChGlass);//離開CleanChGlass
 
@@ -1206,10 +1213,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Load Port B
 
             #region Inspection Ch
-            MacTransition tICHome_MovingToInspectionCh = NewTransition(sICHome, sMovingToInspectionCh, EnumMacMaskTransferTransition.TriggerToMoveToInspectionCh);
-            MacTransition tMovingToInspectionCh_InspectionChClamping = NewTransition(sMovingToInspectionCh, sInspectionChClamping, EnumMacMaskTransferTransition.ClampInInspectionCh);
-            MacTransition tInspectionChClamping_MovingToICHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToICHomeClampedFromInspectionCh, EnumMacMaskTransferTransition.MoveToICHomeClampedFromInspectionCh);
-            MacTransition tMovingToICHomeClampedFromInspectionCh_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionCh, sICHomeClamped, EnumMacMaskTransferTransition.StandbyAtICHomeClampedFromInspectionCh);
+            MacTransition tICHome_MovingToInspectionCh = NewTransition(sICHome, sMovingToInspectionChPellicle, EnumMacMaskTransferTransition.TriggerToMoveToInspectionCh);
+            MacTransition tMovingToInspectionCh_InspectionChClamping = NewTransition(sMovingToInspectionChPellicle, sInspectionChClamping, EnumMacMaskTransferTransition.ClampInInspectionCh);
+            MacTransition tInspectionChClamping_MovingToICHomeClampedFromInspectionCh = NewTransition(sInspectionChClamping, sMovingToICHomeClampedFromInspectionChPellicle, EnumMacMaskTransferTransition.MoveToICHomeClampedFromInspectionCh);
+            MacTransition tMovingToICHomeClampedFromInspectionCh_ICHomeClamped = NewTransition(sMovingToICHomeClampedFromInspectionChPellicle, sICHomeClamped, EnumMacMaskTransferTransition.StandbyAtICHomeClampedFromInspectionCh);
             MacTransition tICHomeClamped_MovingToInspectionChForRelease = NewTransition(sICHomeClamped, sMovingToInspectionChForRelease, EnumMacMaskTransferTransition.TriggerToMoveToInspectionChForRelease);
             MacTransition tMovingInspectionChForRelease_InspectionChReleasing = NewTransition(sMovingToInspectionChForRelease, sInspectionChReleasing, EnumMacMaskTransferTransition.ReleaseInInspectionCh);
             MacTransition tInspectionChReleasing_MovingToICHomeFromInspectionCh = NewTransition(sInspectionChReleasing, sMovingToICHomeFromInspectionCh, EnumMacMaskTransferTransition.MoveToICHomeFromInspectionCh);
@@ -1226,40 +1233,40 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Inspection Ch
 
             #region Clean Ch
-            MacTransition tCCHomeClamped_MovingToCleanCh = NewTransition(sCCHomeClamped, sMovingToCleanCh, EnumMacMaskTransferTransition.TriggerToMoveToCleanChPellicle);
-            MacTransition tMovingToCleanCh_ClampedInCleanCh = NewTransition(sMovingToCleanCh, sClampedInCleanCh, EnumMacMaskTransferTransition.WaitForMoveToClean);
-            MacTransition tClampedInCleanCh_NULL = NewTransition(sClampedInCleanCh, null, EnumMacMaskTransferTransition.StandbyClampedInCleanCh);
-            MacTransition tClampedInCleanCh_MovingToClean = NewTransition(sClampedInCleanCh, sMovingToClean, EnumMacMaskTransferTransition.TriggerToMoveToCleanPellicle);
-            MacTransition tMovingToClean_NULL = NewTransition(sMovingToClean, null, EnumMacMaskTransferTransition.WaitFroClean);
-            MacTransition tMovingToClean_CleaningPellicle = NewTransition(sMovingToClean, sCleaningPellicle, EnumMacMaskTransferTransition.TriggerToCleanPellicle);
+            MacTransition tCCHomeClamped_MovingToCleanCh = NewTransition(sCCHomeClamped, sMovingToCleanChPellicle, EnumMacMaskTransferTransition.TriggerToMoveToCleanChPellicle);
+            MacTransition tMovingToCleanCh_ClampedInCleanCh = NewTransition(sMovingToCleanChPellicle, sClampedAtOriginPellicle, EnumMacMaskTransferTransition.WaitForMoveToClean);
+            MacTransition tClampedInCleanCh_NULL = NewTransition(sClampedAtOriginPellicle, null, EnumMacMaskTransferTransition.StandbyClampedInCleanCh);
+            MacTransition tClampedInCleanCh_MovingToClean = NewTransition(sClampedAtOriginPellicle, sMovingToCleanPellicle, EnumMacMaskTransferTransition.TriggerToMoveToCleanPellicle);
+            MacTransition tMovingToClean_NULL = NewTransition(sMovingToCleanPellicle, null, EnumMacMaskTransferTransition.WaitFroClean);
+            MacTransition tMovingToClean_CleaningPellicle = NewTransition(sMovingToCleanPellicle, sCleaningPellicle, EnumMacMaskTransferTransition.TriggerToCleanPellicle);
             MacTransition tCleaningPellicle_NULL = NewTransition(sCleaningPellicle, null, EnumMacMaskTransferTransition.StandbyAtClean);
-            MacTransition tCleaningPellicle_MovingAfterCleaned = NewTransition(sCleaningPellicle, sMovingAfterCleaned, EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedPellicle);
-            MacTransition tMovingAfterCleaned_ClampedInCleanCh = NewTransition(sMovingAfterCleaned, sClampedInCleanCh, EnumMacMaskTransferTransition.WaitForMoveToInspect);
-            MacTransition tClampedInCleanCh_MovingToInspect = NewTransition(sClampedInCleanCh, sMovingToInspect, EnumMacMaskTransferTransition.TriggerToMoveToInspectPellicle);
-            MacTransition tMovingToInspect_NULL = NewTransition(sMovingToInspect, null, EnumMacMaskTransferTransition.WaitForInspect);
-            MacTransition tMovingToInspect_InspectingPellicle = NewTransition(sMovingToInspect, sInspectingPellicle, EnumMacMaskTransferTransition.TriggerToInspectPellicle);
+            MacTransition tCleaningPellicle_MovingAfterCleaned = NewTransition(sCleaningPellicle, sMovingToOriginAfterCleanedPellicle, EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedPellicle);
+            MacTransition tMovingAfterCleaned_ClampedInCleanCh = NewTransition(sMovingToOriginAfterCleanedPellicle, sClampedAtOriginPellicle, EnumMacMaskTransferTransition.WaitForMoveToInspect);
+            MacTransition tClampedInCleanCh_MovingToInspect = NewTransition(sClampedAtOriginPellicle, sMovingToInspectPellicle, EnumMacMaskTransferTransition.TriggerToMoveToInspectPellicle);
+            MacTransition tMovingToInspect_NULL = NewTransition(sMovingToInspectPellicle, null, EnumMacMaskTransferTransition.WaitForInspect);
+            MacTransition tMovingToInspect_InspectingPellicle = NewTransition(sMovingToInspectPellicle, sInspectingPellicle, EnumMacMaskTransferTransition.TriggerToInspectPellicle);
             MacTransition tInspectingPellicle_NULL = NewTransition(sInspectingPellicle, null, EnumMacMaskTransferTransition.StandbyAtInspect);
-            MacTransition tInspectingPellicle_MovingAfterInspected = NewTransition(sInspectingPellicle, sMovingAfterInspected, EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedPellicle);
-            MacTransition tMovingAfterInspected_ClampedInCleanCh = NewTransition(sMovingAfterInspected, sClampedInCleanCh, EnumMacMaskTransferTransition.WaitForLeaveCleanCh);
-            MacTransition tClampedInCleanCh_MovingToCCHomeClampedFromCleanCh = NewTransition(sClampedInCleanCh, sMovingToCCHomeClampedFromCleanCh, EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanCh);
-            MacTransition tMovingToCCHomeClampedFromCleanCh_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanCh, sCCHomeClamped, EnumMacMaskTransferTransition.StandbyAtCCHomeClampedFromCleanCh);
+            MacTransition tInspectingPellicle_MovingAfterInspected = NewTransition(sInspectingPellicle, sMovingToOriginAfterInspectedPellicle, EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedPellicle);
+            MacTransition tMovingAfterInspected_ClampedInCleanCh = NewTransition(sMovingToOriginAfterInspectedPellicle, sClampedAtOriginPellicle, EnumMacMaskTransferTransition.WaitForLeaveCleanCh);
+            MacTransition tClampedInCleanCh_MovingToCCHomeClampedFromCleanCh = NewTransition(sClampedAtOriginPellicle, sMovingToCCHomeClampedFromCleanChPellicle, EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanCh);
+            MacTransition tMovingToCCHomeClampedFromCleanCh_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanChPellicle, sCCHomeClamped, EnumMacMaskTransferTransition.StandbyAtCCHomeClampedFromCleanCh);
 
             MacTransition tCCHomeClamped_MovingToCleanChGlass = NewTransition(sCCHomeClamped, sMovingToCleanChGlass, EnumMacMaskTransferTransition.TriggerToMoveToCleanChGlass);
-            MacTransition tMovingToCleanChGlass_ClampedInCleanChGlass = NewTransition(sMovingToCleanChGlass, sClampedInCleanChGlass, EnumMacMaskTransferTransition.WaitForMoveToCleanGlass);
-            MacTransition tClampedInCleanChGlass_NULL = NewTransition(sClampedInCleanChGlass, null, EnumMacMaskTransferTransition.StandbyClampedInCleanChGlass);
-            MacTransition tClampedInCleanChGlass_MovingToCleanGlass = NewTransition(sClampedInCleanChGlass, sMovingToCleanGlass, EnumMacMaskTransferTransition.TriggerToMoveToCleanGlass);
+            MacTransition tMovingToCleanChGlass_ClampedInCleanChGlass = NewTransition(sMovingToCleanChGlass, sClampedAtOriginGlass, EnumMacMaskTransferTransition.WaitForMoveToCleanGlass);
+            MacTransition tClampedInCleanChGlass_NULL = NewTransition(sClampedAtOriginGlass, null, EnumMacMaskTransferTransition.StandbyClampedInCleanChGlass);
+            MacTransition tClampedInCleanChGlass_MovingToCleanGlass = NewTransition(sClampedAtOriginGlass, sMovingToCleanGlass, EnumMacMaskTransferTransition.TriggerToMoveToCleanGlass);
             MacTransition tMovingToCleanGlass_NULL = NewTransition(sMovingToCleanGlass, null, EnumMacMaskTransferTransition.WaitFroCleanGlass);
             MacTransition tMovingToCleanGlass_CleaningGlass = NewTransition(sMovingToCleanGlass, sCleaningGlass, EnumMacMaskTransferTransition.TriggerToCleanGlass);
             MacTransition tCleaningGlass_NULL = NewTransition(sCleaningGlass, null, EnumMacMaskTransferTransition.StandbyAtCleanGlass);
-            MacTransition tCleaningGlass_MovingAfterCleanedGlass = NewTransition(sCleaningGlass, sMovingAfterCleanedGlass, EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedGlass);
-            MacTransition tMovingAfterCleanedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterCleanedGlass, sClampedInCleanChGlass, EnumMacMaskTransferTransition.WaitForMoveToInspectGlass);
-            MacTransition tClampedInCleanChGlass_MovingToInspectGlass = NewTransition(sClampedInCleanChGlass, sMovingToInspectGlass, EnumMacMaskTransferTransition.TriggerToMoveToInspectGlass);
+            MacTransition tCleaningGlass_MovingAfterCleanedGlass = NewTransition(sCleaningGlass, sMovingToOriginAfterCleanedGlass, EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedGlass);
+            MacTransition tMovingAfterCleanedGlass_ClampedInCleanChGlass = NewTransition(sMovingToOriginAfterCleanedGlass, sClampedAtOriginGlass, EnumMacMaskTransferTransition.WaitForMoveToInspectGlass);
+            MacTransition tClampedInCleanChGlass_MovingToInspectGlass = NewTransition(sClampedAtOriginGlass, sMovingToInspectGlass, EnumMacMaskTransferTransition.TriggerToMoveToInspectGlass);
             MacTransition tMovingToInspectGlass_NULL = NewTransition(sMovingToInspectGlass, null, EnumMacMaskTransferTransition.WaitForInspectGlass);
             MacTransition tMovingToInspectGlass_InspectingGlass = NewTransition(sMovingToInspectGlass, sInspectingGlass, EnumMacMaskTransferTransition.TriggerToInspectGlass);
             MacTransition tInspectingGlass_NULL = NewTransition(sInspectingGlass, null, EnumMacMaskTransferTransition.StandbyAtInspectGlass);
             MacTransition tInspectingGlass_MovingAfterInspectedGlass = NewTransition(sInspectingGlass, sMovingAfterInspectedGlass, EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedGlass);
-            MacTransition tMovingAfterInspectedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterInspectedGlass, sClampedInCleanChGlass, EnumMacMaskTransferTransition.WaitForLeaveCleanChGlass);
-            MacTransition tClampedInCleanChGlass_MovingToCCHomeClampedFromCleanChGlass = NewTransition(sClampedInCleanChGlass, sMovingToCCHomeClampedFromCleanChGlass, EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChGlass);
+            MacTransition tMovingAfterInspectedGlass_ClampedInCleanChGlass = NewTransition(sMovingAfterInspectedGlass, sClampedAtOriginGlass, EnumMacMaskTransferTransition.WaitForLeaveCleanChGlass);
+            MacTransition tClampedInCleanChGlass_MovingToCCHomeClampedFromCleanChGlass = NewTransition(sClampedAtOriginGlass, sMovingToCCHomeClampedFromCleanChGlass, EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChGlass);
             MacTransition tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped = NewTransition(sMovingToCCHomeClampedFromCleanChGlass, sCCHomeClamped, EnumMacMaskTransferTransition.StandbyAtCCHomeClampedFromCleanChGlass);
 
             #endregion Clean Ch
@@ -2413,7 +2420,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Load PortB
 
             #region Inspection Ch
-            sMovingToInspectionCh.OnEntry += (sender, e) =>
+            sMovingToInspectionChPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2452,7 +2459,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectionCh.OnExit += (sender, e) =>
+            sMovingToInspectionChPellicle.OnExit += (sender, e) =>
             { };
 
             sInspectionChClamping.OnEntry += (sender, e) =>
@@ -2497,7 +2504,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sInspectionChClamping.OnExit += (sender, e) =>
             { };
 
-            sMovingToICHomeClampedFromInspectionCh.OnEntry += (sender, e) =>
+            sMovingToICHomeClampedFromInspectionChPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2536,7 +2543,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToICHomeClampedFromInspectionCh.OnExit += (sender, e) =>
+            sMovingToICHomeClampedFromInspectionChPellicle.OnExit += (sender, e) =>
             { };
 
             sMovingToInspectionChForRelease.OnEntry += (sender, e) =>
@@ -2919,7 +2926,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Inspection Ch
 
             #region Clean Ch
-            sMovingToCleanCh.OnEntry += (sender, e) =>
+            sMovingToCleanChPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2956,10 +2963,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCleanCh.OnExit += (sender, e) =>
+            sMovingToCleanChPellicle.OnExit += (sender, e) =>
             { };
 
-            sClampedInCleanCh.OnEntry += (sender, e) =>
+            sClampedAtOriginPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -2994,10 +3001,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClampedInCleanCh.OnExit += (sender, e) =>
+            sClampedAtOriginPellicle.OnExit += (sender, e) =>
             { };
 
-            sMovingToClean.OnEntry += (sender, e) =>
+            sMovingToCleanPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3034,7 +3041,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToClean.OnExit += (sender, e) =>
+            sMovingToCleanPellicle.OnExit += (sender, e) =>
             { };
 
             sCleaningPellicle.OnEntry += (sender, e) =>
@@ -3075,7 +3082,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sCleaningPellicle.OnExit += (sender, e) =>
             { };
 
-            sMovingAfterCleaned.OnEntry += (sender, e) =>
+            sMovingToOriginAfterCleanedPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3112,10 +3119,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingAfterCleaned.OnExit += (sender, e) =>
+            sMovingToOriginAfterCleanedPellicle.OnExit += (sender, e) =>
             { };
 
-            sMovingToInspect.OnEntry += (sender, e) =>
+            sMovingToInspectPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3152,7 +3159,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspect.OnExit += (sender, e) =>
+            sMovingToInspectPellicle.OnExit += (sender, e) =>
             { };
 
             sInspectingPellicle.OnEntry += (sender, e) =>
@@ -3193,7 +3200,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sInspectingPellicle.OnExit += (sender, e) =>
             { };
 
-            sMovingAfterInspected.OnEntry += (sender, e) =>
+            sMovingToOriginAfterInspectedPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3230,10 +3237,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingAfterInspected.OnExit += (sender, e) =>
+            sMovingToOriginAfterInspectedPellicle.OnExit += (sender, e) =>
             { };
 
-            sMovingToCCHomeClampedFromCleanCh.OnEntry += (sender, e) =>
+            sMovingToCCHomeClampedFromCleanChPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3270,7 +3277,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCCHomeClampedFromCleanCh.OnExit += (sender, e) =>
+            sMovingToCCHomeClampedFromCleanChPellicle.OnExit += (sender, e) =>
             { };
 
 
@@ -3315,7 +3322,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sMovingToCleanChGlass.OnExit += (sender, e) =>
             { };
 
-            sClampedInCleanChGlass.OnEntry += (sender, e) =>
+            sClampedAtOriginGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3350,7 +3357,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClampedInCleanChGlass.OnExit += (sender, e) =>
+            sClampedAtOriginGlass.OnExit += (sender, e) =>
             { };
 
             sMovingToCleanGlass.OnEntry += (sender, e) =>
@@ -3431,7 +3438,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sCleaningGlass.OnExit += (sender, e) =>
             { };
 
-            sMovingAfterCleanedGlass.OnEntry += (sender, e) =>
+            sMovingToOriginAfterCleanedGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
@@ -3468,7 +3475,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingAfterCleanedGlass.OnExit += (sender, e) =>
+            sMovingToOriginAfterCleanedGlass.OnExit += (sender, e) =>
             { };
 
             sMovingToInspectGlass.OnEntry += (sender, e) =>
