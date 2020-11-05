@@ -92,7 +92,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         public void  ToGetPOD()
         {
             Debug.WriteLine("Command: [ToGetPOD], Index:" + this.HalLoadPortUnit.DeviceIndex);
-            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart.ToString()];
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdle_IdleForGetPOD.ToString()];
 
 #if NotCareState
             var state = transition.StateFrom;
@@ -155,6 +155,25 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #endif
             state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
+
+        /// <summary> </summary>
+        /// <remarks>
+        /// Idle(OnExit) => IdleForGetPODWithMask(OnExit) 
+        /// </remarks>
+        public void ToGetPODWithMask()
+        {
+            Debug.WriteLine("Command: [ToGetPODWithMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdle_IdleForGetPODWithMask.ToString()];
+
+#if NotCareState
+            var state = transition.StateFrom;
+#else
+            var state=this.CurrentState;
+#endif
+            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+        }
+
+
 
 
         public void GetPOD()
@@ -274,7 +293,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdleForGetPOD_NULL = NewTransition(sIdleForGetPOD, null,EnumMacMsLoadPortTransition.IdleForGetPOD_NULL);
 
             // Command: ToGetPODWithMask
-            MacTransition tIdle_IdleForGetPODWithMask = NewTransition(sIdle, sIdleForGetPODWithMask, EnumMacMsLoadPortTransition.Idle_IdleForGetPODWithMask);
+            MacTransition tIdle_IdleForGetPODWithMask = NewTransition(sIdle, sIdleForGetPODWithMask, EnumMacMsLoadPortTransition.TriggerToIdle_IdleForGetPODWithMask);
             MacTransition IdleForGetPODWithMask_NULL = NewTransition(sIdleForGetPODWithMask,null, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_NULL);
 
             // Command: Dock
