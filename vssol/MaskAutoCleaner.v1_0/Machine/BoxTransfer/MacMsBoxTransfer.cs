@@ -53,12 +53,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         public override void SystemBootup()
         {
             // state: sStart
-            this.States[EnumMacMsBoxTransferState.Start.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
+            this.States[EnumMacMsBoxTransferState.Start.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
         }
         public void Initial()
         {
             // State: sInitial
-            this.States[EnumMacMsBoxTransferState.Initial.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
+            this.States[EnumMacMsBoxTransferState.Initial.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
         }
         public void MoveToLock(BoxType boxType)
         {

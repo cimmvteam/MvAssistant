@@ -32,13 +32,13 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
             this.OnEntry(this, seea);
         }
        
-        public void ExecuteCommand(MacStateEntryEventArgs seea)
+        public void ExecuteCommandAtEntry(MacStateEntryEventArgs seea)
         {
                DoEntry(seea);
         }
 
 
-        public void ExecuteCommand(MacTransition transition ,MacStateExitEventArgs exitEventArgs,MacStateEntryEventArgs entryEventArgs)
+        public void ExecuteCommandAtExit(MacTransition transition ,MacStateExitEventArgs exitEventArgs,MacStateEntryEventArgs entryEventArgs)
         {
             var stateTo = transition.StateTo;
             DoExit(exitEventArgs);

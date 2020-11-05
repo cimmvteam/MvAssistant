@@ -56,7 +56,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         UndockWithMaskIng_UndockWithMaskComplete,
         UndockWithMaskComplete_IdleForReleasePODWithMask,
         IdleForReleasePODWithMask_NULL,
-        IdleForReleaseMask_UndockStart,
+        TriggerToIdleForReleaseMask_UndockStart,
         tUndockIng_UndockComplete,
         UndockComplete_IdleForReleasePOD,
         IdleForReleasePOD_UndockStart,

@@ -97,7 +97,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 states = states.Take(targetDrawerQuantity).ToList();
             }
-            this.States[EnumMacCabinetState.LoadMoveDrawerTraysToOutStart.ToString()].ExecuteCommand(new CabinetLoadStartMacStateEntryEventArgs(states));
+            this.States[EnumMacCabinetState.LoadMoveDrawerTraysToOutStart.ToString()].ExecuteCommandAtEntry(new CabinetLoadStartMacStateEntryEventArgs(states));
            
         }
 
@@ -111,7 +111,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             { }
             else
             {
-                this.States[EnumMacCabinetState.BootupInitialDrawersStart.ToString()].ExecuteCommand(new CabinetSystemUpInitialMacStateEntryEventArgs(cabinetDrawerStateMachines));
+                this.States[EnumMacCabinetState.BootupInitialDrawersStart.ToString()].ExecuteCommandAtEntry(new CabinetSystemUpInitialMacStateEntryEventArgs(cabinetDrawerStateMachines));
             }
         }
 
@@ -124,7 +124,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             { }
             else
             {
-                this.States[EnumMacCabinetState.SynchronousDrawerStatesStart.ToString()].ExecuteCommand(new  CabinetSynchronousDrawerStatesMacStateEntryEventArgs(states));
+                this.States[EnumMacCabinetState.SynchronousDrawerStatesStart.ToString()].ExecuteCommandAtEntry(new  CabinetSynchronousDrawerStatesMacStateEntryEventArgs(states));
             }
         }
 
