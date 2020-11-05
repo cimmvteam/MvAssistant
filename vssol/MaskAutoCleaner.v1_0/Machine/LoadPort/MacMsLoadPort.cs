@@ -901,7 +901,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
 
                 // Sync
-                Debug.WriteLine("State: [UndockWithMaskStart.OnEntry] Index: " + this.HalLoadPortUnit.DeviceIndex);
+                Debug.WriteLine("State: [sUndockWithMaskStart.OnEntry] Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tUndockWithMaskStart_UndockWithMaskIng;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -923,14 +923,13 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockWithMaskStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockWithMaskStart.OnExit] Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sUndockWithMaskIng.OnEntry += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockWithMaskIng.OnEntry] Index: " + this.HalLoadPortUnit.DeviceIndex);
                 // Async
                 var transition = tUndockWithMaskIng_UndockWithMaskComplete;
-                Debug.WriteLine("State: [UndockWithMaskIng.OnEntry, Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -971,7 +970,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockWithMaskIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockWithMaskIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sUndockWithMaskComplete.OnEntry += (sender, e) =>
             {
@@ -996,7 +995,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockWithMaskComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockWithMaskComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sIdleForReleasePODWithMask.OnEntry += (sender, e) =>
@@ -1023,7 +1022,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sIdleForReleasePODWithMask.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sIdleForReleasePODWithMask.OnExit += (sender, e) =>
             {  // Sync
