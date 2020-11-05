@@ -99,7 +99,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary>Dock (No Mask)</summary>
@@ -116,7 +116,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
            var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
           
         }
 
@@ -135,7 +135,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
            var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
            var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary> </summary>
@@ -170,7 +170,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary></summary>
@@ -187,7 +187,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
 
@@ -205,7 +205,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary></summary>
@@ -222,7 +222,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary></summary>
@@ -239,7 +239,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary></summary>
@@ -256,7 +256,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #else
             var state=this.CurrentState;
 #endif
-            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
 //888888
