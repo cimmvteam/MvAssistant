@@ -173,8 +173,41 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
+        /// <summary></summary>
+        /// <remarks>
+        /// IdleForGetPODWithMask(OnExit) => DockWithMask[start, Ing, Complete] => IdleForReleaseMask(OnEntry)
+        /// </remarks>
+        public void DockWithMask()
+        {
+            Debug.WriteLine("Command: [DockWithMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetPODWithMask_DockWithMaskStart.ToString()];
+
+#if NotCareState
+            var state = transition.StateFrom;
+#else
+            var state=this.CurrentState;
+#endif
+            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+        }
 
 
+        /// <summary></summary>
+        /// <remarks>
+        /// IdleForReleaseMask(OnExit) => Undock[Start, Ing, Complete] => IdleForReleasePOD(OnExit) 
+        /// </remarks>
+        public void UndockFromIdleForRelesaseMask()
+        {
+            Debug.WriteLine("Command: [UndockFromIdleForRelesaseMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockStart.ToString()];
+
+#if NotCareState
+            var state = transition.StateFrom;
+#else
+            var state=this.CurrentState;
+#endif
+            state.ExecuteCommand(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+        }
+//888888
 
         public void GetPOD()
         {
@@ -231,12 +264,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         }
 
 
-#endregion command
+        #endregion command
 
         public override void LoadStateMachine()
         {
 
-#region State
+            #region State
             // Any State
             MacState AnyState = null;
 
@@ -244,97 +277,97 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacState sAlarmResetStart = NewState(EnumMacMsLoadPortState.AlarmResetStart);
             MacState sAlarmResetIng = NewState(EnumMacMsLoadPortState.AlarmResetIng);
             MacState sAlarmResetComplete = NewState(EnumMacMsLoadPortState.AlarmResetComplete);
-            MacState sInitialStart= NewState(EnumMacMsLoadPortState.InitialStart);
+            MacState sInitialStart = NewState(EnumMacMsLoadPortState.InitialStart);
             MacState sInitialIng = NewState(EnumMacMsLoadPortState.InitialIng);
             MacState sInitialComplete = NewState(EnumMacMsLoadPortState.InitialComplete);
 
-            MacState sIdle=NewState(EnumMacMsLoadPortState.Idle);
+            MacState sIdle = NewState(EnumMacMsLoadPortState.Idle);
 
             MacState sIdleForGetPOD = NewState(EnumMacMsLoadPortState.IdleForGetPOD);  // 
 
             MacState sIdleForGetPODWithMask = NewState(EnumMacMsLoadPortState.IdleForGetPODWithMask);
 
             MacState sDockStart = NewState(EnumMacMsLoadPortState.DockStart);
-            MacState sDockIng= NewState(EnumMacMsLoadPortState.DockIng);
-            MacState sDockComplete= NewState(EnumMacMsLoadPortState.DockComplete);
+            MacState sDockIng = NewState(EnumMacMsLoadPortState.DockIng);
+            MacState sDockComplete = NewState(EnumMacMsLoadPortState.DockComplete);
 
-            MacState sDockWithMaskStart= NewState(EnumMacMsLoadPortState.DockStartWithMaskStart); 
-            MacState sDockWithMaskIng= NewState(EnumMacMsLoadPortState.DockStartWithMaskIng); 
+            MacState sDockWithMaskStart = NewState(EnumMacMsLoadPortState.DockStartWithMaskStart);
+            MacState sDockWithMaskIng = NewState(EnumMacMsLoadPortState.DockStartWithMaskIng);
             MacState sDockWithMaskComplete = NewState(EnumMacMsLoadPortState.DockStartWithMaskComplete);
 
             MacState sIdleForGetMask = NewState(EnumMacMsLoadPortState.IdleForReleasePOD);
 
-            MacState sIdleForReleaseMask =NewState(EnumMacMsLoadPortState.IdleForReleasePOD);
+            MacState sIdleForReleaseMask = NewState(EnumMacMsLoadPortState.IdleForReleasePOD);
 
-            MacState sUndockWithMaskStart=NewState(EnumMacMsLoadPortState.UndockWithMaskStart); ;
-            MacState sUndockWithMaskIng= NewState(EnumMacMsLoadPortState.UndockWithMaskIng); ;
-            MacState sUndockWithMaskComplete= NewState(EnumMacMsLoadPortState.UndockWithMaskComplete); ;
+            MacState sUndockWithMaskStart = NewState(EnumMacMsLoadPortState.UndockWithMaskStart); ;
+            MacState sUndockWithMaskIng = NewState(EnumMacMsLoadPortState.UndockWithMaskIng); ;
+            MacState sUndockWithMaskComplete = NewState(EnumMacMsLoadPortState.UndockWithMaskComplete); ;
 
-            MacState sUndockStart= NewState(EnumMacMsLoadPortState.UndockStart); ;
-            MacState sUndockIng= NewState(EnumMacMsLoadPortState.UndockIng); ;
-            MacState sUndockComplete= NewState(EnumMacMsLoadPortState.UndockComplete); ;
+            MacState sUndockStart = NewState(EnumMacMsLoadPortState.UndockStart); ;
+            MacState sUndockIng = NewState(EnumMacMsLoadPortState.UndockIng); ;
+            MacState sUndockComplete = NewState(EnumMacMsLoadPortState.UndockComplete); ;
 
-            MacState sIdleForReleasePODWithMask= NewState(EnumMacMsLoadPortState.IdleForReleasePOD); ;
-            MacState sIdleForReleasePOD= NewState(EnumMacMsLoadPortState.IdleForReleasePOD); ;
-#endregion
+            MacState sIdleForReleasePODWithMask = NewState(EnumMacMsLoadPortState.IdleForReleasePOD); ;
+            MacState sIdleForReleasePOD = NewState(EnumMacMsLoadPortState.IdleForReleasePOD); ;
+            #endregion
 
-#region Transition
+            #region Transition
             // Command: SystemStartUp
-            MacTransition tAlarmResetStart_AlarmResetIng=NewTransition(sAlarmResetStart,sAlarmResetIng,EnumMacMsLoadPortTransition.TriggerToAlarmResetStart_AlarmResetIng);
-            MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacMsLoadPortTransition.AlarmResetIng_AlarmResetComplete); 
-            MacTransition tAlarmResetComplete_InitialStart = NewTransition(sAlarmResetComplete, sInitialStart,EnumMacMsLoadPortTransition.AlarmResetComplete_InitialStart);
-            MacTransition tInitialStart_InitialIng = NewTransition( sInitialStart, sInitialIng, EnumMacMsLoadPortTransition.InitialStart_InitialIng);
-            MacTransition tInitialIng_InitialComplete = NewTransition(sInitialIng,sInitialComplete, EnumMacMsLoadPortTransition.InitialIng_InitialComplete);
-            MacTransition tInitialComplete_Idle =NewTransition( sInitialComplete,sIdle, EnumMacMsLoadPortTransition.InitialComplete_Idle);
-            MacTransition tIdle_NULL= NewTransition( sIdle, null,EnumMacMsLoadPortTransition.Idle_NULL);
+            MacTransition tAlarmResetStart_AlarmResetIng = NewTransition(sAlarmResetStart, sAlarmResetIng, EnumMacMsLoadPortTransition.TriggerToAlarmResetStart_AlarmResetIng);
+            MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacMsLoadPortTransition.AlarmResetIng_AlarmResetComplete);
+            MacTransition tAlarmResetComplete_InitialStart = NewTransition(sAlarmResetComplete, sInitialStart, EnumMacMsLoadPortTransition.AlarmResetComplete_InitialStart);
+            MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacMsLoadPortTransition.InitialStart_InitialIng);
+            MacTransition tInitialIng_InitialComplete = NewTransition(sInitialIng, sInitialComplete, EnumMacMsLoadPortTransition.InitialIng_InitialComplete);
+            MacTransition tInitialComplete_Idle = NewTransition(sInitialComplete, sIdle, EnumMacMsLoadPortTransition.InitialComplete_Idle);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacMsLoadPortTransition.Idle_NULL);
 
             // Command: ToGetPOD
             MacTransition tIdle_IdleForGetPOD = NewTransition(sIdle, sIdleForGetPOD, EnumMacMsLoadPortTransition.TriggerToIdleForGetPOD_DockStart);
-            MacTransition tIdleForGetPOD_NULL = NewTransition(sIdleForGetPOD, null,EnumMacMsLoadPortTransition.IdleForGetPOD_NULL);
+            MacTransition tIdleForGetPOD_NULL = NewTransition(sIdleForGetPOD, null, EnumMacMsLoadPortTransition.IdleForGetPOD_NULL);
 
             // Command: ToGetPODWithMask
             MacTransition tIdle_IdleForGetPODWithMask = NewTransition(sIdle, sIdleForGetPODWithMask, EnumMacMsLoadPortTransition.TriggerToIdle_IdleForGetPODWithMask);
-            MacTransition IdleForGetPODWithMask_NULL = NewTransition(sIdleForGetPODWithMask,null, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_NULL);
+            MacTransition IdleForGetPODWithMask_NULL = NewTransition(sIdleForGetPODWithMask, null, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_NULL);
 
             // Command: Dock
             MacTransition tIdleForGetPOD_DockStart = NewTransition(sIdleForGetPOD, sDockStart, EnumMacMsLoadPortTransition.IdleForGetPOD_DockStart);
-            MacTransition tDockStart_DockIng=NewTransition(sDockStart, sDockIng, EnumMacMsLoadPortTransition.DockStart_DockIng);
+            MacTransition tDockStart_DockIng = NewTransition(sDockStart, sDockIng, EnumMacMsLoadPortTransition.DockStart_DockIng);
             MacTransition tDockIng_DockComplete = NewTransition(sDockIng, sDockComplete, EnumMacMsLoadPortTransition.DockWithMaskIng_DockWithMaskComplete);
-            MacTransition tDockComplete_IdleForGetMask = NewTransition( sDockComplete, sIdleForGetMask, EnumMacMsLoadPortTransition.DockComplete_IdleForGetMask);
-            MacTransition tIdleForGetMask_NULL = NewTransition(sIdleForGetMask,null, EnumMacMsLoadPortTransition.DockComplete_NULL);
+            MacTransition tDockComplete_IdleForGetMask = NewTransition(sDockComplete, sIdleForGetMask, EnumMacMsLoadPortTransition.DockComplete_IdleForGetMask);
+            MacTransition tIdleForGetMask_NULL = NewTransition(sIdleForGetMask, null, EnumMacMsLoadPortTransition.DockComplete_NULL);
 
             // Command: DockWithMask
-            MacTransition tIdleForGetPODWithMask_DockWithMaskStart = NewTransition(sIdleForGetPODWithMask, sDockWithMaskStart, EnumMacMsLoadPortTransition.IdleForGetPODWithMask_DockWithMaskStart);
+            MacTransition tIdleForGetPODWithMask_DockWithMaskStart = NewTransition(sIdleForGetPODWithMask, sDockWithMaskStart, EnumMacMsLoadPortTransition.TriggerToIdleForGetPODWithMask_DockWithMaskStart);
             MacTransition tDockWithMaskStart_DockWithMaskIng = NewTransition(sDockWithMaskStart, sDockWithMaskIng, EnumMacMsLoadPortTransition.DockWithMaskStart_DockWithMaskIng);
             MacTransition tDockWithMaskIng_DockWithMaskComplete = NewTransition(sDockWithMaskIng, sDockWithMaskComplete, EnumMacMsLoadPortTransition.DockWithMaskIng_DockWithMaskComplete);
             MacTransition tDockWithMaskComplete_IdleForReleaseMask = NewTransition(sDockWithMaskComplete, sIdleForReleaseMask, EnumMacMsLoadPortTransition.IdleForReleaseMask_NULL);
-            MacTransition tIdleForReleaseMask_NULL = NewTransition(sIdleForReleaseMask,null, EnumMacMsLoadPortTransition.IdleForReleaseMask_NULL);
+            MacTransition tIdleForReleaseMask_NULL = NewTransition(sIdleForReleaseMask, null, EnumMacMsLoadPortTransition.IdleForReleaseMask_NULL);
 
             // Command: UndockWithMaskFromIdleForGetMask(V)
             MacTransition tIdleForGetMask_UndockWithMaskStart = NewTransition(sIdleForGetMask, sUndockWithMaskStart, EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockWithMaskStart);
-            MacTransition tUndockWithMaskStart_UndockWithMaskIng = NewTransition(sUndockWithMaskStart,sUndockWithMaskIng, EnumMacMsLoadPortTransition.UndockWithMaskStart_UndockWithMaskIng);
-            MacTransition tUndockWithMaskIng_UndockWithMaskComplete = NewTransition(sUndockWithMaskIng,sUndockWithMaskComplete, EnumMacMsLoadPortTransition.UndockWithMaskIng_UndockWithMaskComplete);
-            MacTransition tUndockWithMaskComplete_IdleForReleasePODWithMask = NewTransition(sUndockWithMaskComplete,sIdleForReleasePODWithMask, EnumMacMsLoadPortTransition.UndockWithMaskComplete_IdleForReleasePODWithMask);
-            MacTransition tIdleForReleasePODWithMask_NULL = NewTransition(sIdleForReleasePODWithMask,null, EnumMacMsLoadPortTransition.IdleForReleasePODWithMask_NULL);
+            MacTransition tUndockWithMaskStart_UndockWithMaskIng = NewTransition(sUndockWithMaskStart, sUndockWithMaskIng, EnumMacMsLoadPortTransition.UndockWithMaskStart_UndockWithMaskIng);
+            MacTransition tUndockWithMaskIng_UndockWithMaskComplete = NewTransition(sUndockWithMaskIng, sUndockWithMaskComplete, EnumMacMsLoadPortTransition.UndockWithMaskIng_UndockWithMaskComplete);
+            MacTransition tUndockWithMaskComplete_IdleForReleasePODWithMask = NewTransition(sUndockWithMaskComplete, sIdleForReleasePODWithMask, EnumMacMsLoadPortTransition.UndockWithMaskComplete_IdleForReleasePODWithMask);
+            MacTransition tIdleForReleasePODWithMask_NULL = NewTransition(sIdleForReleasePODWithMask, null, EnumMacMsLoadPortTransition.IdleForReleasePODWithMask_NULL);
 
 
             // Command: UndockFromIdleForRelesaseMask(O)
-            MacTransition tIdleForReleaseMask_UndockStart = NewTransition(sIdleForReleaseMask,sUndockStart, EnumMacMsLoadPortTransition.IdleForReleaseMask_UndockStart);
-            MacTransition tUndockStart_UndockIng = NewTransition(sUndockStart,sUndockIng, EnumMacMsLoadPortTransition.UndockStart_UndockIng);
-            MacTransition tUndockIng_UndockComplete = NewTransition(sUndockIng,sUndockComplete, EnumMacMsLoadPortTransition.tUndockIng_UndockComplete);
-            MacTransition tUndockComplete_IdleForReleasePOD = NewTransition(sUndockComplete,sIdleForReleasePOD, EnumMacMsLoadPortTransition.UndockComplete_IdleForReleasePOD);
+            MacTransition tIdleForReleaseMask_UndockStart = NewTransition(sIdleForReleaseMask, sUndockStart, EnumMacMsLoadPortTransition.IdleForReleaseMask_UndockStart);
+            MacTransition tUndockStart_UndockIng = NewTransition(sUndockStart, sUndockIng, EnumMacMsLoadPortTransition.UndockStart_UndockIng);
+            MacTransition tUndockIng_UndockComplete = NewTransition(sUndockIng, sUndockComplete, EnumMacMsLoadPortTransition.tUndockIng_UndockComplete);
+            MacTransition tUndockComplete_IdleForReleasePOD = NewTransition(sUndockComplete, sIdleForReleasePOD, EnumMacMsLoadPortTransition.UndockComplete_IdleForReleasePOD);
             MacTransition tIdleForReleasePOD_NULL = NewTransition(sIdleForReleasePOD, null, EnumMacMsLoadPortTransition.IdleForReleasePOD_UndockStart);
 
 
             // Command: UndockWithMaskFromIdleForRelesaseMask(X)
-            MacTransition tIdleForReleaseMask_UndockWithMaskStart=NewTransition(sIdleForReleaseMask, sUndockWithMaskStart, EnumMacMsLoadPortTransition.IdleForReleaseMask_UndockWithMaskStart);
+            MacTransition tIdleForReleaseMask_UndockWithMaskStart = NewTransition(sIdleForReleaseMask, sUndockWithMaskStart, EnumMacMsLoadPortTransition.IdleForReleaseMask_UndockWithMaskStart);
             //MacTransition tUndockWithMaskStart_UndockWithMaskIng; // 有了
             //MacTransition tUndockWithMaskIng_UndockWithMaskComplete;// 有了
             //MacTransition tUndockWithMaskComplete_IdleForReleasePODWithMask;//有了
             //MacTransition tIdleForReleasePODWithMask_NULL;//有了
 
             // Command: UndockFromIdleForGetMask(@)
-            MacTransition tIdleForGetMask_UndockStart= NewTransition(sIdleForGetMask,sUndockStart, EnumMacMsLoadPortTransition.IdleForGetMask_UndockStart);
+            MacTransition tIdleForGetMask_UndockStart = NewTransition(sIdleForGetMask, sUndockStart, EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockStart);
             //MacTransition tUndockStart_UndockIng; // 有了
             // MacTransition tUndockIng_UndockComplete; // 有了
             // MacTransition tUndockComplete_IdleForReleasePOD;// 有了
@@ -344,7 +377,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition tIdleForReleasePODWithMask_Idle = NewTransition(sIdleForReleasePODWithMask, sIdle, EnumMacMsLoadPortTransition.TriggerToIdleForReleasePODWithMask_Idle);
             // Command: ReleasePOD
             MacTransition tIdleForReleasePOD_Idle = NewTransition(sIdleForReleasePOD, sIdle, EnumMacMsLoadPortTransition.IdleForReleasePOD_Idle);
-#endregion Transition
+            #endregion Transition
             /**
 #region State
             // 系統啟動
@@ -425,7 +458,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #endregion
 
            */
-#region  Register OnEntry, OnExit Event Handler
+            #region  Register OnEntry, OnExit Event Handler
 
             sAlarmResetStart.OnEntry += (sender, e) =>
             {// Sync
@@ -455,7 +488,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 SetCurrentState((MacState)sender);
                 var transition = tAlarmResetIng_AlarmResetComplete;
                 Debug.WriteLine("State: [sAlarmResetIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
-                
+
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
                     Action = null,
@@ -495,7 +528,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sAlarmResetComplete.OnEntry += (sender, e) =>
             {// Sync
-                
+
                 SetCurrentState((MacState)sender);
                 var transition = tAlarmResetComplete_InitialStart;
                 var triggerMember = new TriggerMember
@@ -516,7 +549,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sAlarmResetComplete.OnExit += (sender, e) =>
             {
-                
+
             };
             sInitialStart.OnEntry += (sender, e) =>
             {  // Sync 
@@ -692,7 +725,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {   // Async
                 Debug.WriteLine("State: [sDockIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
-               
+
                 var transition = tDockIng_DockComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -785,7 +818,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             sUndockWithMaskStart.OnEntry += (sender, e) =>
             {
-               
+
                 // Sync
                 Debug.WriteLine("State: [UndockWithMaskStart.OnEntry] Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tUndockWithMaskStart_UndockWithMaskIng;
@@ -809,7 +842,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockWithMaskStart.OnExit += (sender, e) =>
             {
-               
+
             };
             sUndockWithMaskIng.OnEntry += (sender, e) =>
             {
@@ -911,8 +944,186 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
 
             };
+            sIdleForReleasePODWithMask.OnExit += (sender, e) =>
+            {  // Sync
+                Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                var transition = tIdleForReleasePODWithMask_NULL;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something 
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sIdleForReleasePODWithMask.OnExit += (sender, e) => {
 
+            };
+            sDockWithMaskStart.OnEntry += (sender, e) =>
+            {
+                // Sync
+                Debug.WriteLine("State: [sDockWithMaskStart.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                var transition = tDockWithMaskStart_DockWithMaskIng;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) => { this.HalLoadPortUnit.CommandDockRequest(); },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
 
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sDockWithMaskStart.OnExit += (sender, e) =>
+            {
+
+            };
+            sDockWithMaskIng.OnEntry += (sender, e) =>
+            {
+                // Async
+                Debug.WriteLine("State: [DockWithMaskIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                SetCurrentState((MacState)sender);
+
+                var transition = tDockWithMaskIng_DockWithMaskComplete;
+                var triggerMemberAsync = new TriggerMemberAsync
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: dosomething
+                    },
+                    Guard = (startTime) =>
+                    {
+                        if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
+                        {
+                            return true;
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                        {
+                            throw new LoadportDockWithMaskMustInitialException();
+                        }
+                        else if (this.HalLoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                        {
+                            throw new LoadportDockWithMaskMustResetException();
+                        }
+                        else if (this.TimeoutObject.IsTimeOut(startTime))
+                        {
+                            throw new LoadportDockWithMaskTimeOutException();
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    },
+                };
+                transition.SetTriggerMembers(triggerMemberAsync);
+                TriggerAsync(transition);
+            };
+            sDockWithMaskIng.OnExit += (sender, e) =>
+            {
+
+            };
+
+            sDockWithMaskComplete.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sDockComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                var transition = tDockWithMaskComplete_IdleForReleaseMask;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO : do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sDockWithMaskComplete.OnExit += (sender, e) =>
+            {
+
+            };
+            sIdleForReleaseMask.OnEntry += (sender, e) =>
+            {
+                var transition = tIdleForReleaseMask_NULL;
+                SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO : do something
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sIdleForReleaseMask.OnEntry += (sender, e) =>
+            {
+
+            };
+
+            sUndockStart.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUndockStart.OnExit += (sender, e) =>
+            {
+
+            };
+            sUndockIng.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUndockIng.OnExit += (sender, e) =>
+            {
+
+            };
+            sUndockComplete.OnEntry += (sender, e) =>
+            {
+
+            };
+            sUndockComplete.OnExit += (sender, e) =>
+            {
+
+            };
+            sIdleForReleasePOD.OnEntry += (sender, e) =>
+            {
+
+            };
+            sIdleForReleasePOD.OnExit += (sender, e) =>
+            {
+
+            };
             /** sSystemBootup.OnEntry += (sender, e) =>
             {   // Synch
                 Debug.WriteLine("State: [sSystemBootup.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
@@ -1617,7 +1828,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
                 // 視狀況新增 Code
             };*/
-#endregion
+            #endregion
 
 
         }

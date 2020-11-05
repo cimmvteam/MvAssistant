@@ -196,6 +196,9 @@
     <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCAlarmException.cs" />
     <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCExecuteFailException.cs" />
     <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockWithMaskMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockWithMaskMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockWithMaskTimeOutException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustInitialException.cs" />
     <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustResetException.cs" />
