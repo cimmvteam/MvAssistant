@@ -9,6 +9,6 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
     public enum EnumMacLoadportCmd
     {
         SystemBootup,
-
+        ToGetPOD,
     }
 }
