@@ -25,20 +25,20 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             #region MT LPA
             {
                 var step = recipe.AddStep("Load Port A Dock");
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetPOD);
-                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortTransition.DockStart_DockIng);
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPOD);
+                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortTransition.DockStart_DockIng);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move To Load Port A Catch Mask");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHome);
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferTransition.MoveToLoadPortA);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHomeClamped);
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
             }
             #endregion MT LPA
             #region MT IC
@@ -536,7 +536,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             {
                 var step = recipe.AddStep("Mask Transfer Move To Load Port A Release Mask");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHomeCleaned);
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
 
                 step.StatesCmd.Add(new MacRecipeMachineState()
                 {
@@ -544,19 +544,19 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                     Value = EnumMacMsMaskTransferTransition.MoveToLoadPortACleanedForRelease.ToString(),
                 });
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHome);
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
             }
 
             {
                 var step = recipe.AddStep("Load Port A Undock");
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
 
                 step.StatesCmd.Add(new MacRecipeMachineState()
                 {
                     Key = EnumMachineID.MID_LP_A_ASB.ToString(),
-                    Value = EnumMacMsLoadPortTransition.UndockStart_UndockIng.ToString(),
+                    Value = EnumMacLoadPortTransition.UndockStart_UndockIng.ToString(),
                 });
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetPOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPOD);
             }
             #endregion MT LPA
 
@@ -580,20 +580,20 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             #region MT LPA
             {
                 var step = recipe.AddStep("Load Port A Dock");
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetPOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPOD);
 
                 step.StatesCmd.Add(new MacRecipeMachineState()
                 {
                     Key = EnumMachineID.MID_LP_A_ASB.ToString(),
-                    Value = EnumMacMsLoadPortTransition.DockStart_DockIng.ToString(),
+                    Value = EnumMacLoadPortTransition.DockStart_DockIng.ToString(),
                 });
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move To Load Port A Catch Mask");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHome);
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
 
                 step.StatesCmd.Add(new MacRecipeMachineState()
                 {
@@ -601,19 +601,19 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                     Value = EnumMacMsMaskTransferTransition.MoveToLoadPortA.ToString(),
                 });
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMsMaskTransferState.LPHomeClamped);
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
             }
 
             {
                 var step = recipe.AddStep("Load Port A Undock");
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForReleasePOD);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleasePOD);
 
                 step.StatesCmd.Add(new MacRecipeMachineState()
                 {
                     Key = EnumMachineID.MID_LP_A_ASB.ToString(),
-                    Value = EnumMacMsLoadPortTransition.UndockStart_UndockIng.ToString(),
+                    Value = EnumMacLoadPortTransition.UndockStart_UndockIng.ToString(),
                 });
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacMsLoadPortState.IdleForGetPOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPOD);
             }
             #endregion MT LPA
             #region MT OS

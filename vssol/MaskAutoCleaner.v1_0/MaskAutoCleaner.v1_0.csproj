@@ -247,8 +247,8 @@
     <Compile Include="Machine\Drawer\EnumMacMcDrawerCmd.cs" />
     <Compile Include="Machine\Drawer\MacMcDrawer.cs" />
     <Compile Include="Machine\Drawer\MacMsDrawer.cs" />
-    <Compile Include="Machine\LoadPort\EnumMacMsLoadPortState.cs" />
-    <Compile Include="Machine\LoadPort\EnumMacMsLoadPortTransition.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacLoadPortState.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacLoadPortTransition.cs" />
     <Compile Include="Machine\LoadPort\MacMcLoadPort.cs" />
     <Compile Include="Machine\LoadPort\MacMsLoadPort.cs" />
     <Compile Include="Machine\CleanCh\EnumMacMsCleanChState.cs" />
