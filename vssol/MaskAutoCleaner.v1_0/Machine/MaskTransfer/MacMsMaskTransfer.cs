@@ -1311,6 +1311,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             #endregion Inspect Deform
             #endregion Transition
 
+            //--- Exception Transition ---
             #region State Register OnEntry OnExit
             MaskrobotTransferPathFile fileObj = new MaskrobotTransferPathFile(@"D:\Positions\MTRobot\");
             sStart.OnEntry += (sender, e) =>
@@ -1320,13 +1321,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tStart_DeviceInitial;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1338,8 +1333,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sStart.OnExit += (sender, e) =>
-            { };
+            sStart.OnExit += (sender, e) => { };
 
             sInitial.OnEntry += (sender, e) =>
             {
@@ -1362,10 +1356,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.Reset();
                             HalMaskTransfer.Initial();
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferInitialFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferInitialFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1377,8 +1368,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInitial.OnExit += (sender, e) =>
-            { };
+            sInitial.OnExit += (sender, e) => { };
 
             sLPHome.OnEntry += (sender, e) =>
             {
@@ -1387,13 +1377,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tLPHome_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1405,8 +1389,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLPHome.OnExit += (sender, e) =>
-            { };
+            sLPHome.OnExit += (sender, e) => { };
 
             sLPHomeClamped.OnEntry += (sender, e) =>
             {
@@ -1415,13 +1398,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tLPHomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1433,8 +1410,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLPHomeClamped.OnExit += (sender, e) =>
-            { };
+            sLPHomeClamped.OnExit += (sender, e) => { };
 
             sLPHomeInspected.OnEntry += (sender, e) =>
             {
@@ -1443,13 +1419,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tLPHomeInspected_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1461,8 +1431,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLPHomeInspected.OnExit += (sender, e) =>
-            { };
+            sLPHomeInspected.OnExit += (sender, e) => { };
 
             sLPHomeCleaned.OnEntry += (sender, e) =>
             {
@@ -1471,13 +1440,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tLPHomeCleaned_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1489,8 +1452,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLPHomeCleaned.OnExit += (sender, e) =>
-            { };
+            sLPHomeCleaned.OnExit += (sender, e) => { };
 
             sICHome.OnEntry += (sender, e) =>
             {
@@ -1499,13 +1461,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tICHome_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1517,8 +1473,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sICHome.OnExit += (sender, e) =>
-            { };
+            sICHome.OnExit += (sender, e) => { };
 
             sICHomeClamped.OnEntry += (sender, e) =>
             {
@@ -1527,13 +1482,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tICHomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1545,8 +1494,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sICHomeClamped.OnExit += (sender, e) =>
-            { };
+            sICHomeClamped.OnExit += (sender, e) => { };
 
             sICHomeInspected.OnEntry += (sender, e) =>
             {
@@ -1555,13 +1503,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tICHomeInspected_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1573,8 +1515,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sICHomeInspected.OnExit += (sender, e) =>
-            { };
+            sICHomeInspected.OnExit += (sender, e) => { };
 
             sCCHomeClamped.OnEntry += (sender, e) =>
             {
@@ -1583,13 +1524,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tCCHomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1601,8 +1536,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCCHomeClamped.OnExit += (sender, e) =>
-            { };
+            sCCHomeClamped.OnExit += (sender, e) => { };
 
             sCCHomeCleaned.OnEntry += (sender, e) =>
             {
@@ -1611,13 +1545,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 var transition = tCCHomeCleaned_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        CheckEquipmentStatus();
-                        CheckAssemblyAlarmSignal();
-                        CheckAssemblyWarningSignal();
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1629,8 +1557,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCCHomeCleaned.OnExit += (sender, e) =>
-            { };
+            sCCHomeCleaned.OnExit += (sender, e) => { };
 
             #region Change Direction
             sChangingDirectionToLPHome.OnEntry += (sender, e) =>
@@ -1655,10 +1582,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1670,8 +1594,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToLPHome.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToLPHome.OnExit += (sender, e) => { };
 
             sChangingDirectionToLPHomeClamped.OnEntry += (sender, e) =>
             {
@@ -1695,10 +1618,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1710,8 +1630,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToLPHomeClamped.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToLPHomeClamped.OnExit += (sender, e) => { };
 
             sChangingDirectionToLPHomeInspected.OnEntry += (sender, e) =>
             {
@@ -1735,10 +1654,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1750,8 +1666,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToLPHomeInspected.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToLPHomeInspected.OnExit += (sender, e) => { };
 
             sChangingDirectionToLPHomeCleaned.OnEntry += (sender, e) =>
             {
@@ -1775,10 +1690,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.LoadPortHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1790,8 +1702,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToLPHomeCleaned.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToLPHomeCleaned.OnExit += (sender, e) => { };
 
             sChangingDirectionToICHome.OnEntry += (sender, e) =>
             {
@@ -1815,10 +1726,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.InspChHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1830,8 +1738,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToICHome.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToICHome.OnExit += (sender, e) => { };
 
             sChangingDirectionToICHomeClamped.OnEntry += (sender, e) =>
             {
@@ -1855,10 +1762,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.InspChHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1870,8 +1774,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToICHomeClamped.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToICHomeClamped.OnExit += (sender, e) => { };
 
             sChangingDirectionToCCHomeClamped.OnEntry += (sender, e) =>
             {
@@ -1895,10 +1798,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ChangeDirection(fileObj.CleanChHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1910,8 +1810,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sChangingDirectionToCCHomeClamped.OnExit += (sender, e) =>
-            { };
+            sChangingDirectionToCCHomeClamped.OnExit += (sender, e) => { };
             #endregion Change Direction
 
             #region Load PortA
@@ -1937,10 +1836,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP1PathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1952,8 +1848,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLoadPortA.OnExit += (sender, e) =>
-            { };
+            sMovingToLoadPortA.OnExit += (sender, e) => { };
 
             sLoadPortAClamping.OnEntry += (sender, e) =>
             {
@@ -1975,10 +1870,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         {
                             HalMaskTransfer.Clamp((uint)parameter);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPLCExecuteFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
                     },
                     ActionParameter = e.Parameter,
                     ExceptionHandler = (thisState, ex) =>
@@ -1990,8 +1882,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLoadPortAClamping.OnExit += (sender, e) =>
-            { };
+            sLoadPortAClamping.OnExit += (sender, e) => { };
 
             sMovingToLPHomeClampedFromLoadPortA.OnEntry += (sender, e) =>
             {
@@ -2015,10 +1906,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLP1ToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2030,8 +1918,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeClampedFromLoadPortA.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeClampedFromLoadPortA.OnExit += (sender, e) => { };
 
             sMovingToLoadPortAForRelease.OnEntry += (sender, e) =>
             {
@@ -2055,10 +1942,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP1PathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2070,8 +1954,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLoadPortAForRelease.OnExit += (sender, e) =>
-            { };
+            sMovingToLoadPortAForRelease.OnExit += (sender, e) => { };
 
             sLoadPortAReleasing.OnEntry += (sender, e) =>
             {
@@ -2093,10 +1976,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         {
                             HalMaskTransfer.Unclamp();
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPLCExecuteFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2108,8 +1988,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLoadPortAReleasing.OnExit += (sender, e) =>
-            { };
+            sLoadPortAReleasing.OnExit += (sender, e) => { };
 
             sMovingToLPHomeFromLoadPortA.OnEntry += (sender, e) =>
             {
@@ -2133,10 +2012,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLP1ToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(true);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2148,8 +2024,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeFromLoadPortA.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeFromLoadPortA.OnExit += (sender, e) => { };
             #endregion Load PortA
 
             #region Load PortB
@@ -2175,10 +2050,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP2PathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2190,8 +2062,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLoadPortB.OnExit += (sender, e) =>
-            { };
+            sMovingToLoadPortB.OnExit += (sender, e) => { };
 
             sLoadPortBClamping.OnEntry += (sender, e) =>
             {
@@ -2213,10 +2084,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         {
                             HalMaskTransfer.Clamp((uint)parameter);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPLCExecuteFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
                     },
                     ActionParameter = e.Parameter,
                     ExceptionHandler = (thisState, ex) =>
@@ -2228,8 +2096,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLoadPortBClamping.OnExit += (sender, e) =>
-            { };
+            sLoadPortBClamping.OnExit += (sender, e) => { };
 
             sMovingToLPHomeClampedFromLoadPortB.OnEntry += (sender, e) =>
             {
@@ -2253,10 +2120,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLP2ToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2268,8 +2132,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeClampedFromLoadPortB.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeClampedFromLoadPortB.OnExit += (sender, e) => { };
 
             sMovingToLoadPortBForRelease.OnEntry += (sender, e) =>
             {
@@ -2293,10 +2156,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToLP2PathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2308,8 +2168,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLoadPortBForRelease.OnExit += (sender, e) =>
-            { };
+            sMovingToLoadPortBForRelease.OnExit += (sender, e) => { };
 
             sLoadPortBReleasing.OnEntry += (sender, e) =>
             {
@@ -2331,10 +2190,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         {
                             HalMaskTransfer.Unclamp();
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPLCExecuteFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2346,8 +2202,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sLoadPortBReleasing.OnExit += (sender, e) =>
-            { };
+            sLoadPortBReleasing.OnExit += (sender, e) => { };
 
             sMovingToLPHomeFromLoadPortB.OnEntry += (sender, e) =>
             {
@@ -2371,10 +2226,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromLP2ToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2386,8 +2238,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeFromLoadPortB.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeFromLoadPortB.OnExit += (sender, e) => { };
             #endregion Load PortB
 
             #region Inspection Ch
@@ -2415,10 +2266,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromICHomeToICBackSidePathFile());
                             HalMaskTransfer.RobotMoving(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2430,8 +2278,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectionChPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToInspectionChPellicle.OnExit += (sender, e) => { };
 
             sInspectionChPellicleClamping.OnEntry += (sender, e) =>
             {
@@ -2456,10 +2303,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.RobotMoving(false);
                             HalMaskTransfer.Clamp((uint)parameter);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPLCExecuteFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
                     },
                     ActionParameter = e.Parameter,
                     ExceptionHandler = (thisState, ex) =>
@@ -2471,8 +2315,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectionChPellicleClamping.OnExit += (sender, e) =>
-            { };
+            sInspectionChPellicleClamping.OnExit += (sender, e) => { };
 
             sMovingToICHomeClampedFromInspectionChPellicle.OnEntry += (sender, e) =>
             {
@@ -2498,10 +2341,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.RobotMoving(false);
                             HalInspectionCh.ReadRobotIntrude(false);
                         }
-                        catch (Exception ex)
-                        {
-                            throw new MaskTransferPathMoveFailException(ex.Message);
-                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2513,8 +2353,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToICHomeClampedFromInspectionChPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToICHomeClampedFromInspectionChPellicle.OnExit += (sender, e) => { };
 
             sMovingToInspectionChPellicleForRelease.OnEntry += (sender, e) =>
             {
@@ -2552,8 +2391,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectionChPellicleForRelease.OnExit += (sender, e) =>
-            { };
+            sMovingToInspectionChPellicleForRelease.OnExit += (sender, e) => { };
 
             sInspectionChPellicleReleasing.OnEntry += (sender, e) =>
             {
@@ -2590,8 +2428,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectionChPellicleReleasing.OnExit += (sender, e) =>
-            { };
+            sInspectionChPellicleReleasing.OnExit += (sender, e) => { };
 
             sMovingToICHomeFromInspectionChPellicle.OnEntry += (sender, e) =>
             {
@@ -2629,8 +2466,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToICHomeFromInspectionChPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToICHomeFromInspectionChPellicle.OnExit += (sender, e) => { };
 
 
 
@@ -2670,8 +2506,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectionChGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToInspectionChGlass.OnExit += (sender, e) => { };
 
             sInspectionChGlassClamping.OnEntry += (sender, e) =>
             {
@@ -2708,8 +2543,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectionChGlassClamping.OnExit += (sender, e) =>
-            { };
+            sInspectionChGlassClamping.OnExit += (sender, e) => { };
 
             sMovingToICHomeClampedFromInspectionChGlass.OnEntry += (sender, e) =>
             {
@@ -2747,8 +2581,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToICHomeClampedFromInspectionChGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToICHomeClampedFromInspectionChGlass.OnExit += (sender, e) => { };
 
             sMovingToInspectionChGlassForRelease.OnEntry += (sender, e) =>
             {
@@ -2787,8 +2620,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectionChGlassForRelease.OnExit += (sender, e) =>
-            { };
+            sMovingToInspectionChGlassForRelease.OnExit += (sender, e) => { };
 
             sInspectionChGlassReleasing.OnEntry += (sender, e) =>
             {
@@ -2825,13 +2657,12 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectionChGlassReleasing.OnExit += (sender, e) =>
-            { };
+            sInspectionChGlassReleasing.OnExit += (sender, e) => { };
 
             sMovingToICHomeFromInspectionChGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-                
+
                 var transition = tMovingToICHomeFromInspectionChGlass_ICHome;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -2864,8 +2695,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToICHomeFromInspectionChGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToICHomeFromInspectionChGlass.OnExit += (sender, e) => { };
             #endregion Inspection Ch
 
             #region Clean Ch
@@ -2873,29 +2703,26 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCHomeToCCFrontSidePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
                 var transition = tMovingToCleanChPellicle_ClampedInCleanChAtOriginPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCHomeToCCFrontSidePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -2906,33 +2733,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCleanChPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToCleanChPellicle.OnExit += (sender, e) => { };
 
             sClampedInCleanChAtOriginPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
                 var transition = tClampedInCleanChAtOriginPellicle_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2944,35 +2754,52 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClampedInCleanChAtOriginPellicle.OnExit += (sender, e) =>
-            { };
+            sClampedInCleanChAtOriginPellicle.OnExit += (sender, e) => { };
 
             sMovingToCleanPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCleanPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
-                var transition = tPellicleOnAirGun_CleaningPellicle;
+                var transition = tMovingToCleanPellicle_PellicleOnAirGun;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCleanPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCleanPellicle.OnExit += (sender, e) => { };
+
+            sPellicleOnAirGun.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tPellicleOnAirGun_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -2984,33 +2811,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCleanPellicle.OnExit += (sender, e) =>
-            { };
+            sPellicleOnAirGun.OnExit += (sender, e) => { };
 
             sCleaningPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
-                var transition = tCleanedPellicle_NULL;
+                var transition = tCleaningPellicle_CleanedPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sCleaningPellicle.OnExit += (sender, e) => { };
+
+            sCleanedPellicle.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tCleanedPellicle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3022,36 +2866,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCleaningPellicle.OnExit += (sender, e) =>
-            { };
+            sCleanedPellicle.OnExit += (sender, e) => { };
 
             sMovingToOriginAfterCleanedPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromFrontSideCleanFinishToCCPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToOriginAfterCleanedPellicle_ClampedInCleanChAtOriginPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromFrontSideCleanFinishToCCPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3062,35 +2902,52 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToOriginAfterCleanedPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToOriginAfterCleanedPellicle.OnExit += (sender, e) => { };
 
             sMovingToInspectPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCapturePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
-                var transition = tPellicleOnCamera_InspectingPellicle;
+                var transition = tMovingToInspectPellicle_PellicleOnCamera;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCapturePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToInspectPellicle.OnExit += (sender, e) => { };
+
+            sPellicleOnCamera.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tPellicleOnCamera_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3102,33 +2959,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectPellicle.OnExit += (sender, e) =>
-            { };
+            sPellicleOnCamera.OnExit += (sender, e) => { };
 
             sInspectingPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
-                var transition = tInspectedPellicle_NULL;
+                var transition = tInspectingPellicle_InspectedPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sInspectingPellicle.OnExit += (sender, e) => { };
+
+            sInspectedPellicle.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tInspectedPellicle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3140,36 +3014,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectingPellicle.OnExit += (sender, e) =>
-            { };
+            sInspectedPellicle.OnExit += (sender, e) => { };
 
             sMovingToOriginAfterInspectedPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromFrontSideCaptureFinishToCCPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToOriginAfterInspectedPellicle_ClampedInCleanChAtOriginPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromFrontSideCaptureFinishToCCPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3180,36 +3050,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToOriginAfterInspectedPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToOriginAfterInspectedPellicle.OnExit += (sender, e) => { };
 
             sMovingToCCHomeClampedFromCleanChPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCCHomePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToCCHomeClampedFromCleanChPellicle_CCHomeClamped;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCFrontSideToCCHomePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3220,8 +3086,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCCHomeClampedFromCleanChPellicle.OnExit += (sender, e) =>
-            { };
+            sMovingToCCHomeClampedFromCleanChPellicle.OnExit += (sender, e) => { };
 
 
 
@@ -3229,29 +3094,26 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCHomeToCCBackSidePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
                 var transition = tMovingToCleanChGlass_ClampedInCleanChAtOriginGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCHomeToCCBackSidePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3262,33 +3124,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCleanChGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToCleanChGlass.OnExit += (sender, e) => { };
 
             sClampedInCleanChAtOriginGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
                 var transition = tClampedInCleanChAtOriginGlass_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3300,35 +3145,52 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClampedInCleanChAtOriginGlass.OnExit += (sender, e) =>
-            { };
+            sClampedInCleanChAtOriginGlass.OnExit += (sender, e) => { };
 
             sMovingToCleanGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCleanPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
-                var transition = tGlassOnAirGun_CleaningGlass;
+                var transition = tMovingToCleanGlass_GlassOnAirGun;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCleanPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToCleanGlass.OnExit += (sender, e) => { };
+
+            sGlassOnAirGun.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tGlassOnAirGun_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3340,33 +3202,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCleanGlass.OnExit += (sender, e) =>
-            { };
+            sGlassOnAirGun.OnExit += (sender, e) => { };
 
             sCleaningGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
-                var transition = tCleanedGlass_NULL;
+                var transition = tCleaningGlass_CleanedGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sCleaningGlass.OnExit += (sender, e) => { };
+
+            sCleanedGlass.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tCleanedGlass_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3378,36 +3257,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCleaningGlass.OnExit += (sender, e) =>
-            { };
+            sCleanedGlass.OnExit += (sender, e) => { };
 
             sMovingToOriginAfterCleanedGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromBackSideCleanFinishToCCPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToOriginAfterCleanedGlass_ClampedInCleanChAtOriginGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromBackSideCleanFinishToCCPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3418,35 +3293,52 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToOriginAfterCleanedGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToOriginAfterCleanedGlass.OnExit += (sender, e) => { };
 
             sMovingToInspectGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCapturePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
-                var transition = tGlassOnCamera_InspectingGlass;
+                var transition = tMovingToInspectGlass_GlassOnCamera;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCapturePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMovingToInspectGlass.OnExit += (sender, e) => { };
+
+            sGlassOnCamera.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tGlassOnCamera_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3458,33 +3350,50 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectGlass.OnExit += (sender, e) =>
-            { };
+            sGlassOnCamera.OnExit += (sender, e) => { };
 
             sInspectingGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
-                var transition = tInspectedGlass_NULL;
+                var transition = tInspectingGlass_InspectedGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sInspectingGlass.OnExit += (sender, e) => { };
+
+            sInspectedGlass.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tInspectedGlass_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3496,36 +3405,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectingGlass.OnExit += (sender, e) =>
-            { };
+            sInspectedGlass.OnExit += (sender, e) => { };
 
             sMovingToOriginAfterInspectedGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromBackSideCaptureFinishToCCPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToOriginAfterInspectedGlass_ClampedInCleanChAtOriginGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromBackSideCaptureFinishToCCPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3536,36 +3441,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToOriginAfterInspectedGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToOriginAfterInspectedGlass.OnExit += (sender, e) => { };
 
             sMovingToCCHomeClampedFromCleanChGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCCHomePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToCCHomeClampedFromCleanChGlass_CCHomeClamped;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromCCBackSideToCCHomePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3576,8 +3477,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToCCHomeClampedFromCleanChGlass.OnExit += (sender, e) =>
-            { };
+            sMovingToCCHomeClampedFromCleanChGlass.OnExit += (sender, e) => { };
             #endregion Clean Ch
 
             #region OpenStage
@@ -3585,30 +3485,27 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.ReadRobotIntrude(null, true);
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
                 var transition = tMovingToOpenStage_OpenStageClamping;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.ReadRobotIntrude(null, true);
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3619,39 +3516,34 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToOpenStage.OnExit += (sender, e) =>
-            { };
+            sMovingToOpenStage.OnExit += (sender, e) => { };
 
             sOpenStageClamping.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                    var MaskType = (uint)e.Parameter;
-                    HalMaskTransfer.Clamp(MaskType);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tOpenStageClamping_MovingToLPHomeClampedFromOpenStage;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
-                    ActionParameter = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                            HalMaskTransfer.Clamp((uint)parameter);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
+                    },
+                    ActionParameter = e.Parameter,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
@@ -3661,38 +3553,34 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sOpenStageClamping.OnExit += (sender, e) =>
-            { };
+            sOpenStageClamping.OnExit += (sender, e) => { };
 
             sMovingToLPHomeClampedFromOpenStage.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
-                    HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                    HalOpenStage.ReadRobotIntrude(null, false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToLPHomeClampedFromOpenStage_LPHomeClamped;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                            HalOpenStage.ReadRobotIntrude(null, false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3703,37 +3591,33 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeClampedFromOpenStage.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeClampedFromOpenStage.OnExit += (sender, e) => { };
 
             sMovingOpenStageForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.ReadRobotIntrude(null, true);
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingOpenStageForRelease_OpenStageReleasing;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.ReadRobotIntrude(null, true);
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3744,37 +3628,33 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingOpenStageForRelease.OnExit += (sender, e) =>
-            { };
+            sMovingOpenStageForRelease.OnExit += (sender, e) => { };
 
             sOpenStageReleasing.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                    HalMaskTransfer.Unclamp();
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tOpenStageReleasing_MovingToLPHomeFromOpenStage;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                            HalMaskTransfer.Unclamp();
+                        }
+                        catch (Exception ex) { throw new MaskTransferPLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3785,38 +3665,34 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sOpenStageReleasing.OnExit += (sender, e) =>
-            { };
+            sOpenStageReleasing.OnExit += (sender, e) => { };
 
             sMovingToLPHomeFromOpenStage.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
-                    HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                    HalOpenStage.ReadRobotIntrude(null, false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToLPHomeFromOpenStage_LPHome;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                            HalOpenStage.ReadRobotIntrude(null, false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3827,8 +3703,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeFromOpenStage.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeFromOpenStage.OnExit += (sender, e) => { };
             #endregion OpenStage
 
             #region Barcode Reader
@@ -3836,31 +3711,28 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\LoadPortHome.json"))
-                        throw new MaskTransferPathMoveFailException("Robot position was not at Load Port Home,could not move to Barcode Reader !");
-                    HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToBarcodeReaderPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
                 var transition = tMovingToBarcodeReaderClamped_ReadingBarcode;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
+                        if (!HalMaskTransfer.CheckPosition(fileObj.LoadPortHomePathFile()))
+                            throw new MaskTransferPathMoveFailException("Robot position was not at Load Port Home,could not move to Barcode Reader !");
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToBarcodeReaderPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3871,33 +3743,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToBarcodeReaderClamped.OnExit += (sender, e) =>
-            { };
+            sMovingToBarcodeReaderClamped.OnExit += (sender, e) => { };
 
             sReadingBarcode.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try// TODO: 判斷Barcode Reader已經讀取完等待移走
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
                 var transition = tReadingBarcode_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -3909,36 +3764,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sReadingBarcode.OnExit += (sender, e) =>
-            { };
+            sReadingBarcode.OnExit += (sender, e) => { };
 
             sMovingToLPHomeClampedFromBarcodeReader.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromBarcodeReaderToLPHomePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToLPHomeClampedFromBarcodeReader_LPHomeClamped;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromBarcodeReaderToLPHomePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3949,8 +3800,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToLPHomeClampedFromBarcodeReader.OnExit += (sender, e) =>
-            { };
+            sMovingToLPHomeClampedFromBarcodeReader.OnExit += (sender, e) => { };
             #endregion
 
             #region Inspect Deform
@@ -3958,31 +3808,28 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    if (!HalMaskTransfer.CheckPosition(@"D:\Positions\MTRobot\InspChHome.json"))
-                        throw new MaskTransferPathMoveFailException("Robot position was not at Inspection Chamber Home,could not move to Inspect Deform !");
-                    HalMaskTransfer.ExePathMove(fileObj.FromICHomeToInspDeformPathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
-
                 var transition = tMovingToInspectDeformFromICHome_InspectingClampDeform;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
+                        if (!HalMaskTransfer.CheckPosition(fileObj.InspChHomePathFile()))
+                            throw new MaskTransferPathMoveFailException("Robot position was not at Inspection Chamber Home,could not move to Inspect Deform !");
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromICHomeToInspDeformPathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -3993,33 +3840,16 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToInspectDeformFromICHome.OnExit += (sender, e) =>
-            { };
+            sMovingToInspectDeformFromICHome.OnExit += (sender, e) => { };
 
             sInspectingClampDeform.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try// TODO: 判斷Inspect Deform已經檢查完等待移走
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferException(ex.Message);
-                }
-
                 var transition = tInspectingClampDeform_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -4031,36 +3861,32 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectingClampDeform.OnExit += (sender, e) =>
-            { };
+            sInspectingClampDeform.OnExit += (sender, e) => { };
 
             sMovingToICHomeFromInspectDeform.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalMaskTransfer.RobotMoving(true);
-                    HalMaskTransfer.ExePathMove(fileObj.FromInspDeformToICHomePathFile());
-                    HalMaskTransfer.RobotMoving(false);
-                }
-                catch (Exception ex)
-                {
-                    throw new MaskTransferPathMoveFailException(ex.Message);
-                }
 
                 var transition = tMovingToICHomeFromInspectDeform_ICHome;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = (parameter) => { },
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalMaskTransfer.RobotMoving(true);
+                            HalMaskTransfer.ExePathMove(fileObj.FromInspDeformToICHomePathFile());
+                            HalMaskTransfer.RobotMoving(false);
+                        }
+                        catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -4071,13 +3897,10 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMovingToICHomeFromInspectDeform.OnExit += (sender, e) =>
-            { };
+            sMovingToICHomeFromInspectDeform.OnExit += (sender, e) => { };
             #endregion Inspect Deform
 
             #endregion State Register OnEntry OnExit
-            //--- Exception Transition ---
-
         }
 
         private bool CheckEquipmentStatus()
@@ -4179,8 +4002,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 return IsTimeOut(startTime, defTimeOutSec);
             }
         }
-
-
-
+        
     }
 }
