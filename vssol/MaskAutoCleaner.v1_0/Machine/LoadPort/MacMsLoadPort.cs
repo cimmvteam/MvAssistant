@@ -1,5 +1,5 @@
 ﻿//#define NoConfig
-//#define NotCareState
+#define NotCareState
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
