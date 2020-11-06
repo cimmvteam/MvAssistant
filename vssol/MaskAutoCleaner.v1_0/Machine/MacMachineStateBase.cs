@@ -135,9 +135,12 @@ namespace MaskAutoCleaner.v1_0.Machine
                     {
                         triggerMember.Action(triggerMember.ActionParameter);
                     }
-
-                    thisState.DoExit(triggerMember.ThisStateExitEventArgs);
-                    hasDoExit = true;
+                    if(nextState != null)
+                    {
+                        thisState.DoExit(triggerMember.ThisStateExitEventArgs);
+                        hasDoExit = true;
+                    }
+                   
                 }
                 else
                 {
@@ -244,8 +247,12 @@ namespace MaskAutoCleaner.v1_0.Machine
                     {
                         triggerMemberAsync.Action(triggerMemberAsync.ActionParameter);
                     }
-                    thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
-                    hasDoExit = true;
+                   
+                    if (nextState != null)
+                    {
+                        thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
+                        hasDoExit = true;
+                    }
 
 
                 }
@@ -270,6 +277,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             new Task(Trigger).Start();
         }
 
+        [Obsolete]
         public void TriggerAsync(IList<MacTransition> transitions)
         {
             DateTime startTime = DateTime.Now;

@@ -1,43 +1,49 @@
-﻿using System;
+﻿//using Microsoft.Analytics.Interfaces;
+//using Microsoft.Analytics.Types.Sql;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
-    public enum EnumMacLoadPortTransition
+   public  enum EnumMacLoadPortTransition
     {
-        // System
-        SystemBootup_SystemBootupAlarmResetStart,
-        SystemBootupAlarmResetStart_SystemBootupAlarmResetIng,
-        SystemBootupAlarmResetIng_SystemBootupAlarmResetComplete,
-        SystemBootupAlarmResetComplete_SystemBootupInitialStart,
-        SystemBootupInitialStart_SystemBootupInitialIng,
-        SystemBootupInitialIng_SystemBootupInitialComplete,
-        SystemBootupInitialComplete_IdleForPutPOD,
-
-        // Reset
         AlarmResetStart_AlarmResetIng,
         AlarmResetIng_AlarmResetComplete,
-        AlarmResetComplete_NULL,
-
-        // Initial
         InitialStart_InitialIng,
         InitialIng_InitialComplete,
-        InitialComplete_IdleForPutPOD,
-        IdleForPutPOD_NULL,
-
-        // Dock
         DockStart_DockIng,
+        DockWithMaskIng_DockWithMaskComplete,
         DockIng_DockComplete,
         DockComplete_IdleForGetMask,
-        IdleForGetMask_NULL,
-
-        // Undock,
         UndockStart_UndockIng,
-        UndockIng_UndockComplete,
-        UndockComplete_IdleForGetPOD,
         IdleForGetPOD_NULL,
+        AlarmResetComplete_InitialStart,
+        InitialComplete_Idle,
+        Idle_NULL,
+        Idle_IdleForGetPODWithMask,
+        IdleForGetPODWithMask_DockWithMaskStart,
+        DockWithMaskStart_DockWithMaskIng,
+        IdleForReleaseMask_NULL,
+        DockWithMaskComplete_IdleForReleaseMask,
+        IdleForGetPOD_DockStart,
+        IdleForGetPODWithMask_NULL,
+        DockComplete_NULL,
+        IdleForGetMask_UndockWithMaskStart,
+        UndockWithMaskStart_UndockWithMaskIng,
+        UndockWithMaskIng_UndockWithMaskComplete,
+        UndockWithMaskComplete_IdleForReleasePODWithMask,
+        IdleForReleasePODWithMask_NULL,
+        IdleForReleaseMask_UndockStart,
+        tUndockIng_UndockComplete,
+        UndockComplete_IdleForReleasePOD,
+        IdleForReleasePOD_UndockStart,
+        IdleForReleaseMask_UndockWithMaskStart,
+        ToIdleForGetMask_UndockStart,
+        IdleForReleasePODWithMask_Idle,
+        IdleForReleasePOD_Idle,
+        Idle_IdleForGetPOD,
     }
 }

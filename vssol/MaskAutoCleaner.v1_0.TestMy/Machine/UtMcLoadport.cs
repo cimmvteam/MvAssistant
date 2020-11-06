@@ -38,23 +38,6 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
         }
 
-
-        /// <summary>
-        /// 測試系統啟動 
-        /// </summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
-        [TestMethod]
-        public void TestSystemBootup()
-        {
-            // Machine A
-            StateMachineA.SystemBootup();
-            // MAchine B
-            StateMachineB.SystemBootup();
-            Repeat();
-        }
-
         /// <summary>測試一下,  是否可產生Load Port State Machine Instance</summary>
         /// <para>Date: 2020/10/14, OK</para>
         [TestMethod]
@@ -63,62 +46,139 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
            Repeat();
         }
 
-
-        /// <summary>測試 AlarmReset</summary>
+        /// <summary>
+        /// 測試系統啟動 
+        /// </summary>
         /// <remarks>
         /// <para>Date: 2020/10/14, OK</para>
         /// </remarks>
         [TestMethod]
-        public void AlarmReset()
+        public void Test_SystemBootup()
         {
             // Machine A
-            StateMachineA.AlarmReset();
-            // Machine B
-            StateMachineB.AlarmReset();
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.SystemBootup.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+           // method.Invoke(StateMachineB, null);
             Repeat();
         }
 
-        /// <summary>測試 Initial</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
+
         [TestMethod]
-        public void Initial()
+        public void Test_ToGetPOD()
         {
             // Machine A
-            StateMachineA.Inintial();
-            // Machine B
-              StateMachineB.Inintial();
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ToGetPOD.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+           // method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+       
+
+        [TestMethod]
+        public void Test_Dock()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.Dock.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
             Repeat();
         }
 
-        /// <summary>測試 Dock</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
         [TestMethod]
-        public void Dock()
+        public void Test_UndockWithMaskFromIdleForGetMask()
         {
             // Machine A
-            StateMachineA.Dock();
-            // Machine B
-             StateMachineB.Dock();
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.UndockWithMaskFromIdleForGetMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
             Repeat();
         }
 
-        /// <summary>測試 Undock</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
         [TestMethod]
-        public void Undock()
+        public void Test_ReleasePODWithMask()
         {
             // Machine A
-            StateMachineA.Undock();
-            // Machine B 
-            StateMachineB.Undock();
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ReleasePODWithMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
             Repeat();
         }
+
+        [TestMethod]
+        public void Test_ToGetPODWithMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ToGetPODWithMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
+        [TestMethod]
+        public void Test_DockWithMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.DockWithMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
+        [TestMethod]
+        public void Test_UndockFromIdleForRelesaseMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.UndockFromIdleForRelesaseMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
+        [TestMethod]
+        public void Test_ReleasePOD()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.ReleasePOD.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
+
+        [TestMethod]
+        public void Test_UndockFromIdleForGetMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.UndockFromIdleForGetMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
+        [TestMethod]
+        public void Test_UndockWithMaskFromIdleForRelesaseMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.UndockWithMaskFromIdleForRelesaseMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
+        //-------
+
+        
 
     }
 }

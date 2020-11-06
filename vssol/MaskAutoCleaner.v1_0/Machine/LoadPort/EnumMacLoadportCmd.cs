@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
-    public enum  EnumMacMcLoadPortCmd
+    public enum EnumMacLoadportCmd
     {
         SystemBootup,
         ToGetPOD,
@@ -19,6 +19,6 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         ReleasePOD,
         UndockFromIdleForGetMask,
         UndockWithMaskFromIdleForRelesaseMask
-
+        
     }
 }
