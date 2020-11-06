@@ -198,7 +198,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         public void UndockFromIdleForRelesaseMask()
         {
             Debug.WriteLine("Command: [UndockFromIdleForRelesaseMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
-            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockStart.ToString()];
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForReleaseMask_UndockStart.ToString()];
 
 #if NotCareState
             var state = transition.StateFrom;
@@ -1219,7 +1219,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sUndockComplete.OnEntry += (sender, e) =>
             {
@@ -1245,17 +1245,32 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sIdleForReleasePOD.OnEntry += (sender, e) =>
             {
                 Debug.WriteLine("State: [sIdleForReleasePOD.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForReleasePOD_NULL;
                 SetCurrentState((MacState)sender);
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // TODO: do something 
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
             sIdleForReleasePOD.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sIdleForReleasePOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             /** sSystemBootup.OnEntry += (sender, e) =>
             {   // Synch

@@ -121,7 +121,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        public void DockWithMask()
+        public void Test_DockWithMask()
         {
             // Machine A
             var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.DockWithMask.ToString());
@@ -131,7 +131,16 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
-
+        [TestMethod]
+        public void Test_UndockFromIdleForRelesaseMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.UndockFromIdleForRelesaseMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
 
         //-------
 
