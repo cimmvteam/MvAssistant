@@ -92,7 +92,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public override void SystemBootup()
         {
 
-            this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>系統啟動之後 Initial</summary>
@@ -106,7 +106,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void SystemBootupInitial()
         {
-            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>Load, 將 Tray 移到 Out</summary>
@@ -119,7 +119,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Load_MoveTrayToOut()
         {
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToOutStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         /// <summary>Load, 將 Tray 移到 Home</summary>
@@ -140,7 +140,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public void Load_MoveTrayToHome()
         {
 
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -155,7 +155,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Load_MoveTrayToIn()
         {
-            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.LoadMoveTrayToInStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -167,7 +167,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void MoveTrayToHomeWaitingUnloadInstruction()
         {
-            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingUnloadInstructionStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -179,7 +179,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Unload_MoveTrayToIn()
         {
-            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToInStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -203,7 +203,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void Unload_MoveTrayToHome()
         {
-            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.UnloadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
 
@@ -215,7 +215,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// </remarks>
         public void MoveTrayToHomeWaitingLoadInstruction()
         {
-            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+            this.States[EnumMacCabinetDrawerState.MoveTrayToHomeWaitingLoadInstructionStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
         }
 
         #endregion Command 

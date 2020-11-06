@@ -178,61 +178,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         //-------
 
-        /// <summary>測試 AlarmReset</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
-        [TestMethod]
-        public void AlarmReset()
-        {
-            // Machine A
-            StateMachineA.AlarmReset();
-            // Machine B
-            StateMachineB.AlarmReset();
-            Repeat();
-        }
-
-        /// <summary>測試 Initial</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
-        [TestMethod]
-        public void Initial()
-        {
-            // Machine A
-            StateMachineA.Inintial();
-            // Machine B
-              StateMachineB.Inintial();
-            Repeat();
-        }
-
-        /// <summary>測試 Dock</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
-        [TestMethod]
-        public void Dock()
-        {
-            // Machine A
-            StateMachineA.Dock();
-            // Machine B
-           //  StateMachineB.Dock();
-            Repeat();
-        }
-
-        /// <summary>測試 Undock</summary>
-        /// <remarks>
-        /// <para>Date: 2020/10/14, OK</para>
-        /// </remarks>
-        [TestMethod]
-        public void Undock()
-        {
-            // Machine A
-            StateMachineA.Undock();
-            // Machine B 
-            StateMachineB.Undock();
-            Repeat();
-        }
+        
 
     }
 }

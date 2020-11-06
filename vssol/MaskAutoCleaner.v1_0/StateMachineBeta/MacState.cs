@@ -31,12 +31,17 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
             if (OnEntry == null) return;
             this.OnEntry(this, seea);
         }
-       
-        public void ExecuteCommandAtEntry(MacStateEntryEventArgs seea)
+
+        [Obsolete]
+        public void ExecuteCommand(MacStateEntryEventArgs seea)
         {
                DoEntry(seea);
         }
 
+        public void ExecuteCommandAtEntry(MacStateEntryEventArgs seea)
+        {
+            DoEntry(seea);
+        }
 
         public void ExecuteCommandAtExit(MacTransition transition ,MacStateExitEventArgs exitEventArgs,MacStateEntryEventArgs entryEventArgs)
         {

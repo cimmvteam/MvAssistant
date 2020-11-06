@@ -52,7 +52,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            this.States[EnumMacMsMaskTransferState.Start.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
+            this.States[EnumMacMsMaskTransferState.Start.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
         }
         /// <summary> Mask Transfer初始化 </summary>
         public void Initial()

@@ -259,8 +259,9 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
-//888888
 
+
+        [Obsolete]
         public void GetPOD()
         {
             /**
@@ -268,6 +269,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             MacTransition transition = this.Transitions[""];
             */
         }
+
+        [Obsolete]
         public void GetPODWithMask()
         {
             /**
@@ -276,7 +279,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             */
         }
 
-
+        [Obsolete]
         /// <summary>Alarm Reset</summary>
         public void AlarmReset()
         {
@@ -286,7 +289,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             state.ExecuteCommand(new MacStateEntryEventArgs());
             */
         }
-
+        [Obsolete]
         public void Inintial()
         {
             /**
@@ -296,16 +299,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             */
         }
 
-        /**
-        public void Dock()
-        {
-          
-            Debug.WriteLine("Command: [Dock], Index:" + this.HalLoadPortUnit.DeviceIndex);
-            var state = this.States[EnumMacMsLoadPortState.DockStart.ToString()];
-            state.ExecuteCommand(new MacStateEntryEventArgs());
-            
-        }
-        */
+        
+        [Obsolete]
         public void Undock()
         {
             /**
