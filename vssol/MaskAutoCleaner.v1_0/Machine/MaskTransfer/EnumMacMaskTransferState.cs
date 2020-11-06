@@ -45,14 +45,14 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         MovingToLPHomeFromLoadPortA,
         MovingToLPHomeFromLoadPortB,
-        MovingToICHomeFromInspectionCh,
+        MovingToICHomeFromInspectionChPellicle,
         MovingToICHomeFromInspectionChGlass,
         MovingToLPHomeFromOpenStage,
 
         //夾著 Mask 到 Assembly
         MovingToLoadPortAForRelease,
         MovingToLoadPortBForRelease,
-        MovingToInspectionChForRelease,
+        MovingToInspectionChPellicleForRelease,
         MovingToInspectionChGlassForRelease,
         MovingToOpenStageForRelease,
 
@@ -67,7 +67,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         #region Gripper action
         LoadPortAClamping,
         LoadPortBClamping,
-        InspectionChClamping,
+        InspectionChPellicleClamping,
         InspectionChGlassClamping,
         OpenStageClamping,
         
@@ -75,7 +75,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         LoadPortAReleasing,
         LoadPortBReleasing,
-        InspectionChReleasing,
+        InspectionChPellicleReleasing,
         InspectionChGlassReleasing,
         OpenStageReleasing,
         #endregion
@@ -83,7 +83,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         //Clean
         MovingToCleanChPellicle,
-        ClampedAtOriginPellicle,//WaitingForMoveToClean,
+        ClampedInCleanChAtOriginPellicle,//WaitingForMoveToClean,
         MovingToCleanPellicle,
         PellicleOnAirGun,
         CleaningPellicle,
@@ -93,23 +93,24 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         MovingToInspectPellicle,
         PellicleOnCamera,
         InspectingPellicleInCleanCh,
-        InspectedPellicleInCleanCh,
+        InspectedPellicle,
         MovingToOriginAfterInspectedPellicle,
         //WaitingForLeaveCleanCh,
         MovingToCCHomeClampedFromCleanChPellicle,
 
         MovingToCleanChGlass,
-        ClampedAtOriginGlass,//WaitingForMoveToCleanGlass,
+        ClampedInCleanChAtOriginGlass,//WaitingForMoveToCleanGlass,
         MovingToCleanGlass,
-        GlassOnCamera,
+        GlassOnAirGun,
         CleaningGlass,
         CleanedGlass,
         MovingToOriginAfterCleanedGlass,
         //WaitingForMoveToCaptureGlass,
         MovingToInspectGlass,
+        GlassOnCamera,
         InspectingGlass,
         InspectedGlass,
-        MovingInCleanChAfterInspectedGlass,
+        MovingToOriginAfterInspectedGlass,
         //WaitingForLeaveCleanChGlass,
         MovingToCCHomeClampedFromCleanChGlass,
 
@@ -137,6 +138,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         ExpForceInClamped,
         ExpForceInReleasing,
         ExpForceInClamping,
-
+        InspectingPellicle,
     }
 }

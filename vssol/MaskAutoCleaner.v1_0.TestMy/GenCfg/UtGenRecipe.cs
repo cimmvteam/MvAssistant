@@ -98,7 +98,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHomeClamped);
                 step.AddBeforeState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionChForRelease);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicleForRelease);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHome);
                 step.AddAfterState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
@@ -120,7 +120,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHome);
                 step.AddBeforeState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionCh);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicle);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
@@ -161,13 +161,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanChGlass);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Glass Side Down) Clean Glass");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanGlass);
@@ -214,15 +214,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.CleaningGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedGlass);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedGlass);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Glass Side Down) Inspect Glass");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectGlass);
@@ -269,15 +269,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.InspectingGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedGlass);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedGlass);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move To CCHomeClamped After Clean Glass");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChGlass);
@@ -294,13 +294,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanChPellicle);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Pellicle Side Down) Clean Pellicle");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanPellicle);
@@ -347,15 +347,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.CleaningPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedPellicle);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedPellicle);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Pellicle Side Down) Inspect Pellicle");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectPellicle);
@@ -402,18 +402,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.InspectingPellicleInCleanCh);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedPellicle);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedPellicle);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move To CCHomeClamped After Clean Pellicle");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanCh);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChPellicle);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.CCHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
@@ -660,7 +660,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHomeClamped);
                 step.AddBeforeState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionChForRelease);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicleForRelease);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHome);
                 step.AddAfterState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
@@ -682,7 +682,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHome);
                 step.AddBeforeState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionCh);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicle);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ICHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_IC_A_ASB, EnumMacInspectionChState.WaitingForReleasePellicle);
@@ -723,13 +723,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanChGlass);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Glass Side Down) Clean Glass");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanGlass);
@@ -776,15 +776,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.CleaningGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedGlass);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedGlass);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Glass Side Down) Inspect Glass");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectGlass);
@@ -831,15 +831,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.InspectingGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedGlass);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedGlass);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move To CCHomeClamped After Clean Glass");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginGlass);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginGlass);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChGlass);
@@ -856,13 +856,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanChPellicle);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Pellicle Side Down) Clean Pellicle");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCleanPellicle);
@@ -909,15 +909,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.CleaningPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterCleanedPellicle);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedPellicle);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move Into Clean Chamber(Pellicle Side Down) Inspect Pellicle");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
                 step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToInspectPellicle);
@@ -964,18 +964,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.InspectingPellicleInCleanCh);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveAfterInspectedPellicle);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedPellicle);
 
-                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
             }
 
             {
                 var step = recipe.AddStep("Mask Transfer Move To CCHomeClamped After Clean Pellicle");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedAtOriginPellicle);
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.ClampedInCleanChAtOriginPellicle);
                 step.AddBeforeState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanCh);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB,EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChPellicle);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.CCHomeClamped);
                 step.AddAfterState(EnumMachineID.MID_CC_A_ASB, EnumMacCleanChState.Idle);
