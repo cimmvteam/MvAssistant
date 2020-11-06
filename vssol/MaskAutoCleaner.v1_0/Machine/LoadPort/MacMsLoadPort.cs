@@ -1048,12 +1048,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockWithMaskStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sDockWithMaskStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockWithMaskIng.OnEntry += (sender, e) =>
             {
                 // Async
-                Debug.WriteLine("State: [DockWithMaskIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                Debug.WriteLine("State: [sDockWithMaskIng.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 SetCurrentState((MacState)sender);
 
                 var transition = tDockWithMaskIng_DockWithMaskComplete;
@@ -1094,12 +1094,12 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockWithMaskIng.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sDockWithMaskIng.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sDockWithMaskComplete.OnEntry += (sender, e) =>
             {
-                Debug.WriteLine("State: [sDockComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
+                Debug.WriteLine("State: [sDockWithMaskComplete.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tDockWithMaskComplete_IdleForReleaseMask;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -1120,10 +1120,11 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sDockWithMaskComplete.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sDockWithMaskComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sIdleForReleaseMask.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sIdleForReleaseMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
                 var transition = tIdleForReleaseMask_NULL;
                 SetCurrentState((MacState)sender);
                 var triggerMember = new TriggerMember
@@ -1144,7 +1145,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sIdleForReleaseMask.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sIdleForReleaseMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
             sUndockStart.OnEntry += (sender, e) =>
@@ -1171,7 +1172,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             };
             sUndockStart.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [sUndockStart.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sUndockIng.OnEntry += (sender, e) =>
             {
