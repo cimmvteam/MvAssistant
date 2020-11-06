@@ -8,5 +8,17 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 {
     public enum  EnumMacMcLoadPortCmd
     {
+        SystemBootup,
+        ToGetPOD,
+        ToGetPODWithMask,
+        Dock,
+        UndockWithMaskFromIdleForGetMask,
+        ReleasePODWithMask,
+        DockWithMask,
+        UndockFromIdleForRelesaseMask,
+        ReleasePOD,
+        UndockFromIdleForGetMask,
+        UndockWithMaskFromIdleForRelesaseMask
+
     }
 }
