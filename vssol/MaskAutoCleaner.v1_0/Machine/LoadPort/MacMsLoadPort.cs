@@ -79,7 +79,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         public override void SystemBootup()
         {
             Debug.WriteLine("Command: [SystemBootup], Index:" + this.HalLoadPortUnit.DeviceIndex);
-            var transition = this.Transitions[EnumMacLoadPortTransition.TriggerToAlarmResetStart_AlarmResetIng.ToString()];
+            var transition = this.Transitions[EnumMacLoadPortTransition.AlarmResetStart_AlarmResetIng.ToString()];
             var state = transition.StateFrom;
             state.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
 
@@ -358,7 +358,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             #region Transition
             // Command: SystemStartUp
-            MacTransition tAlarmResetStart_AlarmResetIng = NewTransition(sAlarmResetStart, sAlarmResetIng, EnumMacLoadPortTransition.TriggerToAlarmResetStart_AlarmResetIng);
+            MacTransition tAlarmResetStart_AlarmResetIng = NewTransition(sAlarmResetStart, sAlarmResetIng, EnumMacLoadPortTransition.AlarmResetStart_AlarmResetIng);
             MacTransition tAlarmResetIng_AlarmResetComplete = NewTransition(sAlarmResetIng, sAlarmResetComplete, EnumMacLoadPortTransition.AlarmResetIng_AlarmResetComplete);
             MacTransition tAlarmResetComplete_InitialStart = NewTransition(sAlarmResetComplete, sInitialStart, EnumMacLoadPortTransition.AlarmResetComplete_InitialStart);
             MacTransition tInitialStart_InitialIng = NewTransition(sInitialStart, sInitialIng, EnumMacLoadPortTransition.InitialStart_InitialIng);
