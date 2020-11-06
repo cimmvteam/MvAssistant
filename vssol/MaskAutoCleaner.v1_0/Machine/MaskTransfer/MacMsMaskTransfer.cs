@@ -60,980 +60,266 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            this.States[EnumMacMaskTransferState.Start.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
+            var transition = this.Transitions[EnumMacMaskTransferTransition.SystemBootUp.ToString()];
+            transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> Mask Transfer初始化 </summary>
         public void Initial()
         {
-            this.States[EnumMacMaskTransferState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            var transition = this.Transitions[EnumMacMaskTransferTransition.Initial.ToString()];
+            transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 到 Load Port A 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToLPAGetMaskReturnToLPHomeClamped()
         {
-
-
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortA.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortA.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 到 Load Port B 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToLPBGetMaskReturnToLPHomeClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortB.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortB.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 到 Open Stage 夾取 Mask 並返回 LP Home </summary>
         public void LPHomeToOSGetMaskReturnToLPHomeClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStage.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStage.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 轉向到 IC Home(夾著Mask) </summary>
         public void LPHomeClampedToICHomeClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToICHomeClampedFromLPHomeClamped.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToICHomeClampedFromLPHomeClamped.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 轉向到 IC Home(不夾Mask) </summary>
         public void LPHomeToICHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToICHomeFromLPHome.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToICHomeFromLPHome.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 IC Home 轉向到 LP Home(不夾Mask) </summary>
         public void ICHomeToLPHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToLPHomeFromICHome.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToLPHomeFromICHome.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 IC Home 夾著 Mask 放入 Inspection Chamber(Pellicle面向上) </summary>
-        public void ICHomeClampedToICReleaseReturnToICHome()
+        public void ICHomeClampedToICPellicleReleaseReturnToICHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicleForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicleForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 IC Home 到 Inspection Chamber 取出 Mask(Pellicle面向上) </summary>
-        public void ICHomeToICGetReturnToICClamped()
+        public void ICHomeToICPellicleGetReturnToICClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {  // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 IC Home 夾著 Mask 放入 Inspection Chamber(Glass面向上) </summary>
         public void ICHomeClampedToICGlassReleaseReturnToICHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChGlassForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChGlassForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 IC Home 到 Inspection Chamber 取出 Mask(Glass面向上) </summary>
         public void ICHomeToICGlassGetReturnToICClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectionChGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 將 IC Home 夾著 Mask 的狀態轉成 IC Home 夾著 Mask 並且兩面都完成檢測 </summary>
         public void ICHomeClampedToICHomeInspected()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeMaskStateToInspected.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeMaskStateToInspected.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 IC Home 夾著 Mask 並且兩面都完成檢測後，需要清潔 Mask ，轉向到 CC Home </summary>
         public void ICHomeInspectedToCCHomeClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToCCHomeClampedFromICHomeInspected.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToCCHomeClampedFromICHomeInspected.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 CC Home 夾著 Mask 進入 Clean Chamber(Pellicle面向下) </summary>
-        public void CCHomeClampedToCC()
+        public void CCHomeClampedToCCPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanChPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanChPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Air Gun 上方(Pellicle面向下) </summary>
-        public void InCCMoveToClean()
+        public void InCCPellicleMoveToClean()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 開始進行清理Pellicle的動作 </summary>
         public void CleanPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToCleanPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToCleanPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Pellicle 清理完回到 Clean Chamber 內的起始點 </summary>
-        public void CCCleanedReturnInCC()
+        public void CCPellicleCleanedReturnInCC()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Camera 上方(Pellicle面向下) </summary>
-        public void InCCMoveToInspect()
+        public void InCCPellicleMoveToInspect()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 開始進行檢測Pellicle的動作 </summary>
         public void InspectPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToInspectPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToInspectPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Pellicle 檢測完回到 Clean Chamber 內的起始點 </summary>
-        public void CCInspectedReturnInCC()
+        public void CCPellicleInspectedReturnInCC()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 Clean Cjamber 內(Pellecle面向下)，夾著 Mask 回到 CC Home </summary>
-        public void InCCToCCHomeClamped()
+        public void InCCPellicleToCCHomeClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 CC Home 夾著 Mask 進入 Clean Chamber(Glass面向下) </summary>
         public void CCHomeClampedToCCGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanChGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanChGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Air Gun 上方(Glass面向下) </summary>
         public void InCCGlassMoveToClean()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCleanGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 開始進行清理Glass的動作 </summary>
         public void CleanGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToCleanGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToCleanGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Glass 清理完回到 Clean Chamber 內的起始點 </summary>
         public void CCGlassCleanedReturnInCCGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 Clean Chamber 內夾著 Mask ，移動到 Camera 上方(Glass面向下) </summary>
         public void InCCGlassMoveToInspect()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 開始進行檢測Glass的動作 </summary>
         public void InspectGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToInspectGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToInspectGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Glass 檢測完回到 Clean Chamber 內的起始點 </summary>
         public void CCGlassInspectedReturnInCCGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 Clean Cjamber 內(Glass面向下)，夾著 Mask 回到 CC Home </summary>
         public void InCCGlassToCCHomeClamped()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToCCHomeClampedFromCleanChGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 將 CC Home 夾著 Mask 的狀態轉成 CC Home 夾著 Mask 並且完成清潔 </summary>
         public void CCHomeClampedToCCHomeCleaned()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeMaskStateToCleaned.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeMaskStateToCleaned.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 IC Home 夾著 Mask 並且兩面都完成檢測，不用清潔直接轉向到 LP Home </summary>
         public void ICHomeInspectedToLPHomeInspected()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToLPHomeInspectedFromICHomeInspected.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToLPHomeInspectedFromICHomeInspected.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 在 CC Home 夾著 Mask 並且完成清潔，轉向到 LP Home </summary>
         public void CCHomeCleanedToLPHomeCleaned()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToLPHomeCleanedFromCCHomeCleaned.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToChangeDirectionToLPHomeCleanedFromCCHomeCleaned.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將未經過檢查的 Mask 放到 Open Stage，回到 LP Home </summary>
         public void LPHomeClampedToOSReleaseMaskReturnToLPHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStageForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStageForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將已經檢測過，不需清理的 Mask 放到 Load Port A </summary>
         public void LPHomeInspectedToLPARelease()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortAInspectedForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortAInspectedForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將已經檢測過，不需清理的 Mask 放到 Load Port B </summary>
         public void LPHomeInspectedToLPBRelease()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortBInspectedForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortBInspectedForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將已經檢測過，不需清理的 Mask 放到 Open Stage </summary>
         public void LPHomeInspectedToOSRelease()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStageInspectedForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStageInspectedForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將已經清理過的 Mask 放到 Load Port A </summary>
         public void LPHomeCleanedToLPARelease()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortACleanedForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortACleanedForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將已經清理過的 Mask 放到 Load Port B </summary>
         public void LPHomeCleanedToLPBRelease()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortBCleanedForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLoadPortBCleanedForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 將已經清理過的 Mask 放到 Open Stage </summary>
         public void LPHomeCleanedToOSRelease()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStageCleanedForRelease.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOpenStageCleanedForRelease.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 LP Home 移動到 BarcodeReader </summary>
         public void LPHomeToBarcodeReader()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToBarcodeReaderClamped.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToBarcodeReaderClamped.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 BarcodeReader移動到 LP Home </summary>
         public void BarcodeReaderToLPHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLPHomeClampedFromBarcodeReader.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToLPHomeClampedFromBarcodeReader.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從 IC Home 移動到變形檢測裝置 </summary>
         public void ICHomeToInspDeform()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectDeformFromICHome.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToInspectDeformFromICHome.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 從變形檢測裝置移動到 IC Home </summary>
         public void InspDeformToICHome()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToICHomeFromInspectDeform.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = (parameter) => { },
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                { // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToICHomeFromInspectDeform.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         #endregion
@@ -4002,6 +3288,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                 return IsTimeOut(startTime, defTimeOutSec);
             }
         }
-        
+
     }
 }

@@ -85,9 +85,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             ICMS.ReturnToIdleAfterReleaseGlass();
 
             //Mask進入IC檢測Pellicle面
-            MTMS.ICHomeClampedToICReleaseReturnToICHome();
+            MTMS.ICHomeClampedToICPellicleReleaseReturnToICHome();
             ICMS.InspectPellicle();
-            MTMS.ICHomeToICGetReturnToICClamped();
+            MTMS.ICHomeToICPellicleGetReturnToICClamped();
             ICMS.ReturnToIdleAfterReleasePellicle();
             MTMS.ICHomeClampedToICHomeInspected();
         }
@@ -123,20 +123,20 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MTMS.InCCGlassToCCHomeClamped();
 
             //清理Pellicle面並進行檢測
-            MTMS.CCHomeClampedToCC();
-            MTMS.InCCMoveToClean();
+            MTMS.CCHomeClampedToCCPellicle();
+            MTMS.InCCPellicleMoveToClean();
             MT_Task = Task.Factory.StartNew(() => MTMS.CleanPellicle());
             CC_Task = Task.Factory.StartNew(() => CCMS.CleanPellicle());
             Task.WaitAll(MT_Task);
             CC_Task = Task.Factory.StartNew(() => CCMS.FinishCleanPellicle());
-            MTMS.CCCleanedReturnInCC();
-            MTMS.InCCMoveToInspect();
+            MTMS.CCPellicleCleanedReturnInCC();
+            MTMS.InCCPellicleMoveToInspect();
             MT_Task = Task.Factory.StartNew(() => MTMS.InspectPellicle());
             CC_Task = Task.Factory.StartNew(() => CCMS.InspectPellicle());
             Task.WaitAll(MT_Task);
             CC_Task = Task.Factory.StartNew(() => CCMS.FinishInspectPellicle());
-            MTMS.CCInspectedReturnInCC();
-            MTMS.InCCToCCHomeClamped();
+            MTMS.CCPellicleInspectedReturnInCC();
+            MTMS.InCCPellicleToCCHomeClamped();
 
             MTMS.CCHomeClampedToCCHomeCleaned();
         }
