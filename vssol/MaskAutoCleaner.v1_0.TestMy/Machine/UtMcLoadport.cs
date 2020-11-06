@@ -153,6 +153,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Repeat();
         }
 
+
+        [TestMethod]
+        public void Test_UndockFromIdleForGetMask()
+        {
+            // Machine A
+            var method = typeof(MacMsLoadPort).GetMethod(EnumMacLoadportCmd.UndockFromIdleForGetMask.ToString());
+            method.Invoke(StateMachineA, null);
+            // MAchine B
+            //  method.Invoke(StateMachineB, null);
+            Repeat();
+        }
+
         //-------
 
         /// <summary>測試 AlarmReset</summary>

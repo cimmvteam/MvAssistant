@@ -249,7 +249,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         public void UndockFromIdleForGetMask()
         {
             Debug.WriteLine("Command: [UndockFromIdleForGetMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
-            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForReleaseMask_UndockStart.ToString()];
+            var transition = this.Transitions[EnumMacMsLoadPortTransition.TriggerToIdleForGetMask_UndockStart.ToString()];
 
 #if NotCareState
             var state = transition.StateFrom;

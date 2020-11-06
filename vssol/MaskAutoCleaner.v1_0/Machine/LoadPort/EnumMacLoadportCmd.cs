@@ -16,6 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         ReleasePODWithMask,
         DockWithMask,
         UndockFromIdleForRelesaseMask,
-        ReleasePOD
+        ReleasePOD,
+        UndockFromIdleForGetMask
     }
 }
