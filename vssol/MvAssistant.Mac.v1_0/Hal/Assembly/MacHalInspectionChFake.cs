@@ -70,6 +70,26 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return;
         }
 
+        public void LightForTopCrlDefenseSetValue(int value)
+        {
+            return;
+        }
+
+        public void LightForTopCrlInspSetValue(int value)
+        {
+            return;
+        }
+
+        public void LightForLeftSpotInspSetValue(int value)
+        {
+            return;
+        }
+
+        public void LightForRightSpotInspSetValue(int value)
+        {
+            return;
+        }
+
         public string ReadInspChStatus()
         {
             return "";
