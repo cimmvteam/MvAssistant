@@ -15,16 +15,20 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         Idle,
         TriggerToCleanPellicle,
         CleaningPellicle,
+        CleanedPellicle,
         TriggerToReturnToIdleAfterCleanPellicle,
         TriggerToInspectPellicle,
         InspectingPellicle,
+        InspectedPellicle,
         TriggerToReturnToIdleAfterInspectPellicle,
 
         TriggerToCleanGlass,
         CleaningGlass,
+        CleanedGlass,
         TriggerToReturnToIdleAfterCleanGlass,
         TriggerToInspectGlass,
         InspectingGlass,
+        InspectedGlass,
         TriggerToReturnToIdleAfterInspectGlass,
     }
 }

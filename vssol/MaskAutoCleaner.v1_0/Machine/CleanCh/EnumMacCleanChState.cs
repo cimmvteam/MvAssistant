@@ -13,9 +13,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
 
         Idle,
         CleaningPellicle,
+        CleanedPellicle,
         InspectingPellicle,
+        InspectedPellicle,
 
         CleaningGlass,
+        CleanedGlass,
         InspectingGlass,
+        InspectedGlass,
     }
 }
