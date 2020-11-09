@@ -9,7 +9,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
     public enum EnumMacBoxTransferState
     {
         Start,
-        Initial,
+        DeviceInitial,
 
         CB1Home,
         CB2Home,

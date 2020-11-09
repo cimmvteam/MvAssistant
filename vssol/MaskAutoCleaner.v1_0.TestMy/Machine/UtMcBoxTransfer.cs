@@ -21,35 +21,24 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             StateMachines= MachineCtrl.StateMachine;
         }
 
+
+        [DataTestMethod]
+        public void Test_SystemBootUp()
+        {
+            StateMachines.SystemBootup();
+        }
+
+
         [TestMethod]
         [DataRow(BoxType.IronBox)]
        // [DataRow(BoxType.CrystalBox)]
-        public void TestMethod1(BoxType boxType)
+        public void Test_Method1(BoxType boxType)
         {
 
 
             StateMachines.SystemBootup();
             StateMachines.MoveToLock(boxType);  // Fake OK
             StateMachines.MoveToUnlock(boxType);  // Fake OK
-            /**
-             bool BankIn = false;
-            bool BankOut = false; 
-            if (BankIn)
-            {
-                MS.MoveToOpenStageGet();
-                MS.MoveToCabinetPut("0101");
-            }
-            else if (BankOut)
-            {
-                MS.MoveToCabinetGet("0101");
-                MS.MoveToOpenStagePut();
-            }
-            else
-            {
-                MS.MoveToLock(boxType);  // Fake OK
-                MS.MoveToUnlock(boxType);  // Fake OK
-            }
-    */
         }
 
 
@@ -62,7 +51,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
         [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
-        public void TestMethod_BankOut(BoxrobotTransferLocation drawerNumber)
+        public void Test_Method_BankOut(BoxrobotTransferLocation drawerNumber)
         {
             StateMachines.Initial();
             StateMachines.MoveToCabinetGet(drawerNumber); // Fake OK
@@ -82,7 +71,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
         [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
-        public void TestMethod_BankIn(BoxrobotTransferLocation drawerNumber)
+        public void Test_Method_BankIn(BoxrobotTransferLocation drawerNumber)
         {
             StateMachines.Initial();
             StateMachines.MoveToOpenStageGet();   // Fake OK
