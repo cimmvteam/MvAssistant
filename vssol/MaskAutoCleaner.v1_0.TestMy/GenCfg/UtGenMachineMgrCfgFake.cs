@@ -76,7 +76,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 MachineCtrlType = typeof(MacMcUniversal),
                 HalId = EnumMachineId.DE_UNI_A_ASB.ToString(),
             });
-
+            /** 2020/11/07 10:40*/
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_DRAWER_01_01.ToString(),

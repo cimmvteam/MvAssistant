@@ -4,6 +4,7 @@ using MvAssistant;
 using MvAssistant.Mac.v1_0.Hal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,8 +39,11 @@ namespace MaskAutoCleaner.v1_0.Machine
             this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
             this.HalContext.MvCfInit();
 
+            var i = 0;
             foreach (var row in this.Config.MachineCtrls)
             {
+
+                Debug.WriteLine("i= " + i);
                 //Create machine controller
                 var machine = Activator.CreateInstance(row.MachineCtrlType.Type) as MacMachineCtrlBase;
                 this.CtrlMachines[row.ID] = machine;
@@ -50,10 +54,26 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
                 //Assign HAL to machine controller
-                var hal = this.HalContext.HalDevices.Where(x => x.Value.ID == row.HalId).FirstOrDefault();
+                var hal = default(KeyValuePair<string,MacHalBase>);
+                 hal = this.HalContext.HalDevices.Where(x => x.Value.ID == row.HalId).FirstOrDefault();
+                if (hal.Key == null  )
+                {
+
+                    var values = this.HalContext.HalDevices.Values;
+                    foreach (var value in values)
+                    {
+                       var valueOfValue= value.Hals.Values.Where(m => m.ID == row.HalId).FirstOrDefault();
+                        if (valueOfValue == null) { continue; }
+                        hal = new KeyValuePair<string, MacHalBase>(row.HalId, valueOfValue);
+                        break;
+                    }
+                    
+                  }
 
                 machine.HalAssembly = hal.Value as MacHalAssemblyBase;
                 machine.HalAssembly.HalConnect();
+                i++;
+              
             }
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 
