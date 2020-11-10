@@ -93,6 +93,7 @@
   <ItemGroup>
     <Compile Include="EnumMachineIDExtends.cs" />
     <Compile Include="MacException.cs" />
+    <Compile Include="Machine\BoxTransfer\EnumMacMcBoxTransferCmd.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToUnLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateOpenStageClampingEntryEventArgs.cs" />
