@@ -379,9 +379,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             MacState sClosedBox = NewState(EnumMacOpenStageState.ClosedBox);
             MacState sWaitingForUnlock = NewState(EnumMacOpenStageState.WaitingForUnlock);
             MacState sOpeningBox = NewState(EnumMacOpenStageState.OpeningBox);
-            MacState sOpenedBox = NewState(EnumMacOpenStageState.OpenedBox);
             MacState sWaitingForInputMask = NewState(EnumMacOpenStageState.WaitingForInputMask);
-            MacState sOpenedBoxWithMaskForClose = NewState(EnumMacOpenStageState.OpenedBoxWithMaskForClose);
             MacState sClosingBoxWithMask = NewState(EnumMacOpenStageState.ClosingBoxWithMask);
             MacState sWaitingForLockWithMask = NewState(EnumMacOpenStageState.WaitingForLockWithMask);
             MacState sClosedBoxWithMaskForRelease = NewState(EnumMacOpenStageState.ClosedBoxWithMaskForRelease);
@@ -391,9 +389,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             MacState sClosedBoxWithMask = NewState(EnumMacOpenStageState.ClosedBoxWithMask);
             MacState sWaitingForUnlockWithMask = NewState(EnumMacOpenStageState.WaitingForUnlickWithMask);
             MacState sOpeningBoxWithMask = NewState(EnumMacOpenStageState.OpeningBoxWithMask);
-            MacState sOpenedBoxWithMask = NewState(EnumMacOpenStageState.OpenedBoxWithMask);
             MacState sWaitingForReleaseMask = NewState(EnumMacOpenStageState.WaitingForReleaseMask);
-            MacState sOpenedBoxForClose = NewState(EnumMacOpenStageState.OpenedBoxForClose);
             MacState sClosingBox = NewState(EnumMacOpenStageState.ClosingBox);
             MacState sWaitingForLock = NewState(EnumMacOpenStageState.WaitingForLock);
             MacState sClosedBoxForRelease = NewState(EnumMacOpenStageState.ClosedBoxForRelease);
@@ -402,48 +398,43 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             #endregion State
 
             #region Transition
-            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacOpenStageTransition.PowerON);
+            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacOpenStageTransition.SystemBootUp);
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacOpenStageTransition.Initial);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacOpenStageTransition.StandbyAtIdle);
 
             MacTransition tIdle_WaitingForInputBox = NewTransition(sIdle, sWaitingForInputBox, EnumMacOpenStageTransition.TriggerToWaitForInputBox);
-            MacTransition tWaitingForInputBox_NULL = NewTransition(sWaitingForInputBox, null, EnumMacOpenStageTransition.StandbyAtWaitForInputBox);
+            MacTransition tWaitingForInputBox_NULL = NewTransition(sWaitingForInputBox, null, EnumMacOpenStageTransition.WaitForInputBox);
             MacTransition tWaitingForInputBox_ClosedBox = NewTransition(sWaitingForInputBox, sClosedBox, EnumMacOpenStageTransition.TriggerToCalibrationBox);
-            MacTransition tClosedBox_WaitingForUnlock = NewTransition(sClosedBox, sWaitingForUnlock, EnumMacOpenStageTransition.WaitForUnlock);
-            MacTransition tWaitingForUnlock_NULL = NewTransition(sWaitingForUnlock, null, EnumMacOpenStageTransition.StandbyAtWaitForUnlock);
+            MacTransition tClosedBox_WaitingForUnlock = NewTransition(sClosedBox, sWaitingForUnlock, EnumMacOpenStageTransition.CalibrationBox);
+            MacTransition tWaitingForUnlock_NULL = NewTransition(sWaitingForUnlock, null, EnumMacOpenStageTransition.WaitForUnlock);
             MacTransition tWaitingForUnlock_OpeningBox = NewTransition(sWaitingForUnlock, sOpeningBox, EnumMacOpenStageTransition.TriggerToOpenBox);
-            MacTransition tOpeningBox_OpenedBox = NewTransition(sOpeningBox, sOpenedBox, EnumMacOpenStageTransition.OpenedBox);
-            MacTransition tOpenedBox_WaitingForInputMask = NewTransition(sOpenedBox, sWaitingForInputMask, EnumMacOpenStageTransition.WaitForInputMask);
-            MacTransition tWaitingForInputMask_NULL = NewTransition(sWaitingForInputMask, null, EnumMacOpenStageTransition.StandbyAtWaitForInputMask);
-            MacTransition tWaitingForInputMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForInputMask, sOpenedBoxWithMaskForClose, EnumMacOpenStageTransition.TriggerToCloseBoxWithMask);
-            MacTransition tWaitingForInputMask_OpenedBoxForClose = NewTransition(sWaitingForInputMask, sOpenedBoxForClose, EnumMacOpenStageTransition.TriggerToReturnCloseBox);
-            MacTransition tOpenedBoxWithMaskForClose_ClosingBoxWithMask = NewTransition(sOpenedBoxWithMaskForClose, sClosingBoxWithMask, EnumMacOpenStageTransition.CloseBoxWithMask);
-            MacTransition tClosingBoxWithMask_WaitingForLockWithMask = NewTransition(sClosingBoxWithMask, sWaitingForLockWithMask, EnumMacOpenStageTransition.WaitForLockWithMask);
-            MacTransition tWaitingForLockWithMask_NULL = NewTransition(sWaitingForLockWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForLockWithMask);
+            MacTransition tOpeningBox_WaitingForInputMask = NewTransition(sOpeningBox, sWaitingForInputMask, EnumMacOpenStageTransition.OpeningBox);
+            MacTransition tWaitingForInputMask_NULL = NewTransition(sWaitingForInputMask, null, EnumMacOpenStageTransition.WaitForInputMask);
+            MacTransition tWaitingForInputMask_ClosingBoxWithMask = NewTransition(sWaitingForInputMask, sClosingBoxWithMask, EnumMacOpenStageTransition.TriggerToCloseBoxWithMask);
+            MacTransition tWaitingForInputMask_ClosingBox = NewTransition(sWaitingForInputMask, sClosingBox, EnumMacOpenStageTransition.TriggerToReturnCloseBox);
+            MacTransition tClosingBoxWithMask_WaitingForLockWithMask = NewTransition(sClosingBoxWithMask, sWaitingForLockWithMask, EnumMacOpenStageTransition.CloseBoxWithMask);
+            MacTransition tWaitingForLockWithMask_NULL = NewTransition(sWaitingForLockWithMask, null, EnumMacOpenStageTransition.WaitForLockWithMask);
             MacTransition tWaitingForLockWithMask_ClosedBoxWithMaskForRelease = NewTransition(sWaitingForLockWithMask, sClosedBoxWithMaskForRelease, EnumMacOpenStageTransition.TriggerToReleaseBoxWithMask);
-            MacTransition tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask = NewTransition(sClosedBoxWithMaskForRelease, sWaitingForReleaseBoxWithMask, EnumMacOpenStageTransition.WaitForReleaseBoxWithMask);
-            MacTransition tWaitingForReleaseBoxWithMask_NULL = NewTransition(sWaitingForReleaseBoxWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForReleaseBoxWithMask);
+            MacTransition tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask = NewTransition(sClosedBoxWithMaskForRelease, sWaitingForReleaseBoxWithMask, EnumMacOpenStageTransition.ReleaseVacuumForBoxWithMask);
+            MacTransition tWaitingForReleaseBoxWithMask_NULL = NewTransition(sWaitingForReleaseBoxWithMask, null, EnumMacOpenStageTransition.WaitForReleaseBoxWithMask);
             MacTransition tWaitingForReleaseBoxWithMask_Idle = NewTransition(sWaitingForReleaseBoxWithMask, sIdle, EnumMacOpenStageTransition.TriggerToIdleAfterReleaseBoxWithMask);
 
 
-
             MacTransition tIdle_WaitingForInputBoxWithMask = NewTransition(sIdle, sWaitingForInputBoxWithMask, EnumMacOpenStageTransition.TriggerToWaitForInputBoxWithMask);
-            MacTransition tWaitingForInputBoxWithMask_NULL = NewTransition(sWaitingForInputBoxWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForInputBoxWithMask);
+            MacTransition tWaitingForInputBoxWithMask_NULL = NewTransition(sWaitingForInputBoxWithMask, null, EnumMacOpenStageTransition.WaitForInputBoxWithMask);
             MacTransition tWaitingForInputBoxWithMask_ClosedBoxWithMask = NewTransition(sWaitingForInputBoxWithMask, sClosedBoxWithMask, EnumMacOpenStageTransition.TriggerToCalibrationBoxWithMask);
-            MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlockWithMask, EnumMacOpenStageTransition.WaitForUnlockWithMask);
-            MacTransition tWaitingForUnlockWithMask_NULL = NewTransition(sWaitingForUnlockWithMask, null, EnumMacOpenStageTransition.StandbyAtWaitForUnlockWithMask);
+            MacTransition tClosedBoxWithMask_WaitingForUnlockWithMask = NewTransition(sClosedBoxWithMask, sWaitingForUnlockWithMask, EnumMacOpenStageTransition.CalibrationBoxWithMask);
+            MacTransition tWaitingForUnlockWithMask_NULL = NewTransition(sWaitingForUnlockWithMask, null, EnumMacOpenStageTransition.WaitForUnlockWithMask);
             MacTransition tWaitingForUnlockWithMask_OpeningBoxWithMask = NewTransition(sWaitingForUnlockWithMask, sOpeningBoxWithMask, EnumMacOpenStageTransition.TriggerToOpenBoxWithMask);
-            MacTransition tOpeningBoxWithMask_OpenedBoxWithMask = NewTransition(sOpeningBoxWithMask, sOpenedBoxWithMask, EnumMacOpenStageTransition.OpenedBoxWithMask);
-            MacTransition tOpenedBoxWithMask_WaitingForReleaseMask = NewTransition(sOpenedBoxWithMask, sWaitingForReleaseMask, EnumMacOpenStageTransition.WaitForReleaseMask);
-            MacTransition tWaitingForReleaseMask_NULL = NewTransition(sWaitingForReleaseMask, null, EnumMacOpenStageTransition.StandbyAtWaitForReleaseMask);
-            MacTransition tWaitingForReleaseMask_OpenedBoxForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxForClose, EnumMacOpenStageTransition.TriggerToCloseBox);
-            MacTransition tWaitingForReleaseMask_OpenedBoxWithMaskForClose = NewTransition(sWaitingForReleaseMask, sOpenedBoxWithMaskForClose, EnumMacOpenStageTransition.TriggerToReturnCloseBoxWithMask);
-            MacTransition tOpenedBoxForClose_ClosingBox = NewTransition(sOpenedBoxForClose, sClosingBox, EnumMacOpenStageTransition.CloseBox);
-            MacTransition tClosingBox_WaitingForLock = NewTransition(sClosingBox, sWaitingForLock, EnumMacOpenStageTransition.WaitForLock);
-            MacTransition tWaitingForLock_NULL = NewTransition(sWaitingForLock, null, EnumMacOpenStageTransition.StandbyAtWaitForLock);
+            MacTransition tOpeningBoxWithMask_WaitingForReleaseMask = NewTransition(sOpeningBoxWithMask, sWaitingForReleaseMask, EnumMacOpenStageTransition.OpeningBoxWithMask);
+            MacTransition tWaitingForReleaseMask_NULL = NewTransition(sWaitingForReleaseMask, null, EnumMacOpenStageTransition.WaitForReleaseMask);
+            MacTransition tWaitingForReleaseMask_ClosingBox = NewTransition(sWaitingForReleaseMask, sClosingBox, EnumMacOpenStageTransition.TriggerToCloseBox);
+            MacTransition tWaitingForReleaseMask_ClosingBoxWithMask = NewTransition(sWaitingForReleaseMask, sClosingBoxWithMask, EnumMacOpenStageTransition.TriggerToReturnCloseBoxWithMask);
+            MacTransition tClosingBox_WaitingForLock = NewTransition(sClosingBox, sWaitingForLock, EnumMacOpenStageTransition.CloseBox);
+            MacTransition tWaitingForLock_NULL = NewTransition(sWaitingForLock, null, EnumMacOpenStageTransition.WaitForLock);
             MacTransition tWaitingForLock_ClosedBoxForRelease = NewTransition(sWaitingForLock, sClosedBoxForRelease, EnumMacOpenStageTransition.TriggerToReleaseBox);
-            MacTransition tClosedBoxForRelease_WaitingForReleaseBox = NewTransition(sClosedBoxForRelease, sWaitingForReleaseBox, EnumMacOpenStageTransition.WaitForReleaseBox);
-            MacTransition tWaitingForReleaseBox_NULL = NewTransition(sWaitingForReleaseBox, null, EnumMacOpenStageTransition.StandbyAtWaitForReleaseBox);
+            MacTransition tClosedBoxForRelease_WaitingForReleaseBox = NewTransition(sClosedBoxForRelease, sWaitingForReleaseBox, EnumMacOpenStageTransition.ReleaseVacuumForBox);
+            MacTransition tWaitingForReleaseBox_NULL = NewTransition(sWaitingForReleaseBox, null, EnumMacOpenStageTransition.WaitForReleaseBox);
             MacTransition tWaitingForReleaseBox_Idle = NewTransition(sWaitingForReleaseBox, sIdle, EnumMacOpenStageTransition.TriggerToIdleAfterReleaseBox);
             #endregion Transition
 
@@ -452,25 +443,10 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tStart_Initial;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -482,33 +458,30 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sStart.OnExit += (sender, e) =>
-            { };
+            sStart.OnExit += (sender, e) => { };
+
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.Initial();
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tInitial_Idle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Initial();
+                        }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -519,37 +492,19 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInitial.OnExit += (sender, e) =>
-            { };
+            sInitial.OnExit += (sender, e) => { };
 
             sIdle.OnEntry += (sender, e) =>
             {
+                if (HalOpenStage.ReadWeightOnStage() > 285)
+                    throw new OpenStageGuardException("The stage is not cleared !");
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    if (HalOpenStage.ReadWeightOnStage() > 285)
-                        throw new OpenStageGuardException("The stage is not cleared !");
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tIdle_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
+                    Guard = () => { return true; },
+                    Action = (parameter) => { },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -560,31 +515,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sIdle.OnExit += (sender, e) =>
-            { };
+            sIdle.OnExit += (sender, e) => { };
+
             sWaitingForInputBox.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForInputBox_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -596,48 +536,44 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForInputBox.OnExit += (sender, e) =>
-            { };
+            sWaitingForInputBox.OnExit += (sender, e) => { };
+
             sClosedBox.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    var BoxType = (uint)e.Parameter;
-                    CheckBoxWeight(BoxType, false);
-                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                        throw new OpenStageGuardException("Box status was not closed");
-                    HalOpenStage.SetBoxType(BoxType);
-                    HalOpenStage.SortClamp();
-                    Thread.Sleep(1000);
-                    HalOpenStage.SortUnclamp();
-                    HalOpenStage.SortClamp();
-                    Thread.Sleep(1000);
-                    HalOpenStage.Vacuum(true);
-                    HalOpenStage.SortUnclamp();
-                    HalOpenStage.Lock();
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tClosedBox_WaitingForUnlock;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
+
                         return true;
                     },
-                    Action = null,
-                    ActionParameter = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            CheckBoxWeight((uint)parameter, false);
+                            if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                                throw new OpenStageGuardException("Box status was not closed");
+                            HalOpenStage.SetBoxType((uint)parameter);
+                            HalOpenStage.SortClamp();
+                            Thread.Sleep(1000);
+                            HalOpenStage.SortUnclamp();
+                            HalOpenStage.SortClamp();
+                            Thread.Sleep(1000);
+                            HalOpenStage.Vacuum(true);
+                            HalOpenStage.SortUnclamp();
+                            HalOpenStage.Lock();
+                        }
+                        catch (OpenStageGuardException ex) { throw ex; }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
+                    ActionParameter = e.Parameter,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
@@ -647,31 +583,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClosedBox.OnExit += (sender, e) =>
-            { };
+            sClosedBox.OnExit += (sender, e) => { };
+
             sWaitingForUnlock.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForUnlock_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -683,35 +604,35 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForUnlock.OnExit += (sender, e) =>
-            { };
+            sWaitingForUnlock.OnExit += (sender, e) => { };
+
             sOpeningBox.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.Close();
-                    HalOpenStage.Clamp();
-                    HalOpenStage.Open();
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
-
-                var transition = tOpeningBox_OpenedBox;
+                var transition = tOpeningBox_WaitingForInputMask;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Close();
+                            HalOpenStage.Clamp();
+                            HalOpenStage.Open();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new OpenStagePLCExecuteFailException(ex.Message);
+                        }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -722,71 +643,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sOpeningBox.OnExit += (sender, e) =>
-            { };
-            sOpenedBox.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
+            sOpeningBox.OnExit += (sender, e) => { };
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    if (HalOpenStage.ReadCoverSensor().Item1 == false)
-                        throw new OpenStageGuardException("Box status was not opened");
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
-
-                var transition = tOpenedBox_WaitingForInputMask;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sOpenedBox.OnExit += (sender, e) =>
-            { };
             sWaitingForInputMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForInputMask_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -798,74 +664,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForInputMask.OnExit += (sender, e) =>
-            { };
-            sOpenedBoxWithMaskForClose.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
+            sWaitingForInputMask.OnExit += (sender, e) => { };
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    CheckBoxWeight(null, true);
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
-
-                var transition = tOpenedBoxWithMaskForClose_ClosingBoxWithMask;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sOpenedBoxWithMaskForClose.OnExit += (sender, e) =>
-            { };
             sClosingBoxWithMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.Close();
-                    HalOpenStage.Unclamp();
-                    HalOpenStage.Lock();
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tClosingBoxWithMask_WaitingForLockWithMask;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Close();
+                            HalOpenStage.Unclamp();
+                            HalOpenStage.Lock();
+                        }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -876,31 +700,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClosingBoxWithMask.OnExit += (sender, e) =>
-            { };
+            sClosingBoxWithMask.OnExit += (sender, e) => { };
+
             sWaitingForLockWithMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForLockWithMask_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -912,37 +721,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForLockWithMask.OnExit += (sender, e) =>
-            { };
+            sWaitingForLockWithMask.OnExit += (sender, e) => { };
+
             sClosedBoxWithMaskForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                        throw new OpenStageGuardException("Box status was not closed");
-                    HalOpenStage.Vacuum(false);
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tClosedBoxWithMaskForRelease_WaitingForReleaseBoxWithMask;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
+                        if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                            throw new OpenStageGuardException("Box status was not closed");
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Vacuum(false);
+                        }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -953,31 +757,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClosedBoxWithMaskForRelease.OnExit += (sender, e) =>
-            { };
+            sClosedBoxWithMaskForRelease.OnExit += (sender, e) => { };
+
             sWaitingForReleaseBoxWithMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForReleaseBoxWithMask_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -989,8 +778,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForReleaseBoxWithMask.OnExit += (sender, e) =>
-            { };
+            sWaitingForReleaseBoxWithMask.OnExit += (sender, e) => { };
 
 
 
@@ -998,25 +786,10 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForInputBoxWithMask_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1028,48 +801,43 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForInputBoxWithMask.OnExit += (sender, e) =>
-            { };
+            sWaitingForInputBoxWithMask.OnExit += (sender, e) => { };
+
             sClosedBoxWithMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    var BoxType = (uint)e.Parameter;
-                    CheckBoxWeight(BoxType, true);
-                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                        throw new OpenStageGuardException("Box status was not closed");
-                    HalOpenStage.SetBoxType(BoxType);
-                    HalOpenStage.SortClamp();
-                    Thread.Sleep(1000);
-                    HalOpenStage.SortUnclamp();
-                    HalOpenStage.SortClamp();
-                    Thread.Sleep(1000);
-                    HalOpenStage.Vacuum(true);
-                    HalOpenStage.SortUnclamp();
-                    HalOpenStage.Lock();
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tClosedBoxWithMask_WaitingForUnlockWithMask;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
-                    ActionParameter = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            CheckBoxWeight((uint)parameter, true);
+                            if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                                throw new OpenStageGuardException("Box status was not closed");
+                            HalOpenStage.SetBoxType((uint)parameter);
+                            HalOpenStage.SortClamp();
+                            Thread.Sleep(1000);
+                            HalOpenStage.SortUnclamp();
+                            HalOpenStage.SortClamp();
+                            Thread.Sleep(1000);
+                            HalOpenStage.Vacuum(true);
+                            HalOpenStage.SortUnclamp();
+                            HalOpenStage.Lock();
+                        }
+                        catch (OpenStageGuardException ex) { throw ex; }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
+                    ActionParameter = e.Parameter,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
@@ -1079,31 +847,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClosedBoxWithMask.OnExit += (sender, e) =>
-            { };
+            sClosedBoxWithMask.OnExit += (sender, e) => { };
+
             sWaitingForUnlockWithMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForUnlockWithMask_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1115,35 +868,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForUnlockWithMask.OnExit += (sender, e) =>
-            { };
+            sWaitingForUnlockWithMask.OnExit += (sender, e) => { };
+
             sOpeningBoxWithMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.Close();
-                    HalOpenStage.Clamp();
-                    HalOpenStage.Open();
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
-
-                var transition = tOpeningBoxWithMask_OpenedBoxWithMask;
+                var transition = tOpeningBoxWithMask_WaitingForReleaseMask;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Close();
+                            HalOpenStage.Clamp();
+                            HalOpenStage.Open();
+                        }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -1154,71 +904,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sOpeningBoxWithMask.OnExit += (sender, e) =>
-            { };
-            sOpenedBoxWithMask.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
+            sOpeningBoxWithMask.OnExit += (sender, e) => { };
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    if (HalOpenStage.ReadCoverSensor().Item1 == false)
-                        throw new OpenStageGuardException("Box status was not opened");
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
-
-                var transition = tOpenedBoxWithMask_WaitingForReleaseMask;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sOpenedBoxWithMask.OnExit += (sender, e) =>
-            { };
             sWaitingForReleaseMask.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForReleaseMask_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1230,74 +925,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForReleaseMask.OnExit += (sender, e) =>
-            { };
-            sOpenedBoxForClose.OnEntry += (sender, e) =>
-            {
-                SetCurrentState((MacState)sender);
+            sWaitingForReleaseMask.OnExit += (sender, e) => { };
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    CheckBoxWeight(null, false);
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
-
-                var transition = tOpenedBoxForClose_ClosingBox;
-                TriggerMember triggerMember = new TriggerMember
-                {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
-                    Action = null,
-                    ActionParameter = null,
-                    ExceptionHandler = (thisState, ex) =>
-                    { // TODO: do something
-                    },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
-                };
-                transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
-            };
-            sOpenedBoxForClose.OnExit += (sender, e) =>
-            { };
             sClosingBox.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    HalOpenStage.Close();
-                    HalOpenStage.Unclamp();
-                    HalOpenStage.Lock();
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tClosingBox_WaitingForLock;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Close();
+                            HalOpenStage.Unclamp();
+                            HalOpenStage.Lock();
+                        }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -1308,31 +961,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClosingBox.OnExit += (sender, e) =>
-            { };
+            sClosingBox.OnExit += (sender, e) => { };
+
             sWaitingForLock.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForLock_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1344,37 +982,32 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForLock.OnExit += (sender, e) =>
-            { };
+            sWaitingForLock.OnExit += (sender, e) => { };
+
             sClosedBoxForRelease.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
-
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    if (HalOpenStage.ReadCoverSensor().Item2 == false)
-                        throw new OpenStageGuardException("Box status was not closed");
-                    HalOpenStage.Vacuum(false);
-                }
-                catch (OpenStageGuardException ex)
-                { throw ex; }
-                catch (Exception ex)
-                {
-                    throw new OpenStagePLCExecuteFailException(ex.Message);
-                }
 
                 var transition = tClosedBoxForRelease_WaitingForReleaseBox;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
+                        if (HalOpenStage.ReadCoverSensor().Item2 == false)
+                            throw new OpenStageGuardException("Box status was not closed");
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            HalOpenStage.Vacuum(false);
+                        }
+                        catch (Exception ex) { throw new OpenStagePLCExecuteFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -1385,31 +1018,16 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sClosedBoxForRelease.OnExit += (sender, e) =>
-            { };
+            sClosedBoxForRelease.OnExit += (sender, e) => { };
+
             sWaitingForReleaseBox.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new OpenStageException(ex.Message);
-                }
-
                 var transition = tWaitingForReleaseBox_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -1421,8 +1039,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sWaitingForReleaseBox.OnExit += (sender, e) =>
-            { };
+            sWaitingForReleaseBox.OnExit += (sender, e) => { };
             #endregion State Register OnEntry OnExit
         }
 

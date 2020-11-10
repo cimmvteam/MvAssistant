@@ -14,6 +14,7 @@ using MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.MaskTransferStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.OpenStageStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
@@ -2796,7 +2797,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(BoxType.IronBox),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);

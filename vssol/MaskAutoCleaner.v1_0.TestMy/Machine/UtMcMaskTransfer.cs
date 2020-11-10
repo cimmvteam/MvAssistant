@@ -2,6 +2,7 @@
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.v1_0;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
