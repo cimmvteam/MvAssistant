@@ -10,6 +10,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
     {
         SystemBootup,
         MoveToLock,
-        MoveToUnlock
+        MoveToUnlock,
+        Initial,
+        BankOut,
     }
 }
