@@ -18,7 +18,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 halContext.MvCfLoad();
 
-
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
@@ -47,7 +46,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 uni.HalConnect();
                 ic.HalConnect();
 
-                for (double i = -43; i > -46; i-=0.01)
+                for (double i = -43; i > -46; i -= 0.01)
                 {
                     ic.ZPosition(i);
                     Thread.Sleep(1000);
@@ -105,7 +104,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-                
+
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
@@ -127,7 +126,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-                
+
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
@@ -148,7 +147,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfLoad();
-                
+
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
