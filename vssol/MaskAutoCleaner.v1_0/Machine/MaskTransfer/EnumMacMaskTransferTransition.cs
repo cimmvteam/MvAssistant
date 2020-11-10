@@ -8,7 +8,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 {
     public enum EnumMacMaskTransferTransition
     {
-        SystemBootUp,
+        SystemBootup,
         Initial,
         StandbyAtLPHome,
         StandbyAtLPHomeClamped,

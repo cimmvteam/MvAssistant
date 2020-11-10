@@ -32,192 +32,57 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            this.States[EnumMacCleanChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            var transition = this.Transitions[EnumMacCleanChTransition.SystemBootup.ToString()];
+            transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> 清理Pellicle </summary>
         public void CleanPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToCleanPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToCleanPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 停止/結束清理Pellicle </summary>
         public void FinishCleanPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 檢測Pellicle </summary>
         public void InspectPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToInspectPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToInspectPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 停止/結束檢測Pellicle </summary>
         public void FinishInspectPellicle()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectPellicle.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectPellicle.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         /// <summary> 清理Glass </summary>
         public void CleanGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToCleanGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToCleanGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 停止/結束清理Glass </summary>
         public void FinishCleanGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 檢測Glass </summary>
         public void InspectGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToInspectGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToInspectGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 停止/結束檢測Glass </summary>
         public void FinishInspectGlass()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectGlass.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectGlass.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         #endregion
@@ -230,27 +95,37 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
 
             MacState sIdle = NewState(EnumMacCleanChState.Idle);
             MacState sCleaningPellicle = NewState(EnumMacCleanChState.CleaningPellicle);
+            MacState sCleanedPellicle = NewState(EnumMacCleanChState.CleanedPellicle);
             MacState sInspectingPellicle = NewState(EnumMacCleanChState.InspectingPellicle);
+            MacState sInspectedPellicle = NewState(EnumMacCleanChState.InspectedPellicle);
+
             MacState sCleaningGlass = NewState(EnumMacCleanChState.CleaningGlass);
+            MacState sCleanedGlass = NewState(EnumMacCleanChState.CleanedGlass);
             MacState sInspectingGlass = NewState(EnumMacCleanChState.InspectingGlass);
+            MacState sInspectedGlass = NewState(EnumMacCleanChState.InspectedGlass);
             #endregion State
 
             #region Transition
-            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacCleanChTransition.PowerON);
+            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacCleanChTransition.SystemBootup);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacCleanChTransition.StandbyAtIdle);
 
             MacTransition tIdle_CleaningPellicle = NewTransition(sIdle, sCleaningPellicle, EnumMacCleanChTransition.TriggerToCleanPellicle);
-            MacTransition tCleaningPellicle_NULL = NewTransition(sCleaningPellicle, null, EnumMacCleanChTransition.CleaningPellicle);
-            MacTransition tCleaningPellicle_Idle = NewTransition(sCleaningPellicle, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanPellicle);
+            MacTransition tCleaningPellicle_CleanedPellicle = NewTransition(sCleaningPellicle, sCleanedPellicle, EnumMacCleanChTransition.CleaningPellicle);
+            MacTransition tCleanedPellicle_NULL = NewTransition(sCleanedPellicle, null, EnumMacCleanChTransition.CleanedPellicle);
+            MacTransition tCleanedPellicle_Idle = NewTransition(sCleanedPellicle, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanPellicle);
             MacTransition tIdle_InspectingPellicle = NewTransition(sIdle, sInspectingPellicle, EnumMacCleanChTransition.TriggerToInspectPellicle);
-            MacTransition tInspectingPellicle_NULL = NewTransition(sInspectingPellicle, null, EnumMacCleanChTransition.InspectingPellicle);
-            MacTransition tInspectingPellicle_Idle = NewTransition(sInspectingPellicle, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectPellicle);
+            MacTransition tInspectingPellicle_InspectedPellicle = NewTransition(sInspectingPellicle, sInspectedPellicle, EnumMacCleanChTransition.InspectingPellicle);
+            MacTransition tInspectedPellicle_NULL = NewTransition(sInspectedPellicle, null, EnumMacCleanChTransition.InspectedPellicle);
+            MacTransition tInspectedPellicle_Idle = NewTransition(sInspectedPellicle, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectPellicle);
+
             MacTransition tIdle_CleaningGlass = NewTransition(sIdle, sCleaningGlass, EnumMacCleanChTransition.TriggerToCleanGlass);
-            MacTransition tCleaningGlass_NULL = NewTransition(sCleaningGlass, null, EnumMacCleanChTransition.CleaningGlass);
-            MacTransition tCleaningGlass_Idle = NewTransition(sCleaningGlass, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanGlass);
+            MacTransition tCleaningGlass_CleanedGlass = NewTransition(sCleaningGlass, sCleanedGlass, EnumMacCleanChTransition.CleaningGlass);
+            MacTransition tCleanedGlass_NULL = NewTransition(sCleanedGlass, null, EnumMacCleanChTransition.CleanedGlass);
+            MacTransition tCleanedGlass_Idle = NewTransition(sCleanedGlass, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterCleanGlass);
             MacTransition tIdle_InspectingGlass = NewTransition(sIdle, sInspectingGlass, EnumMacCleanChTransition.TriggerToInspectGlass);
-            MacTransition tInspectingGlass_NULL = NewTransition(sInspectingGlass, null, EnumMacCleanChTransition.InspectingGlass);
-            MacTransition tInspectingGlass_Idle = NewTransition(sInspectingGlass, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectGlass);
+            MacTransition tInspectingGlass_InspectedGlass = NewTransition(sInspectingGlass, sInspectedGlass, EnumMacCleanChTransition.InspectingGlass);
+            MacTransition tInspectedGlass_NULL = NewTransition(sInspectedGlass, null, EnumMacCleanChTransition.InspectedGlass);
+            MacTransition tInspectedGlass_Idle = NewTransition(sInspectedGlass, sIdle, EnumMacCleanChTransition.TriggerToReturnToIdleAfterInspectGlass);
             #endregion Transition
 
             #region State Register OnEntry OnExit
@@ -258,25 +133,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new CleanChException(ex.Message);
-                }
-
                 var transition = tStart_Idle;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -288,31 +148,16 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sStart.OnExit += (sender, e) =>
-            { };
+            sStart.OnExit += (sender, e) => { };
+
             sIdle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                    throw new CleanChException(ex.Message);
-                }
-
                 var transition = tIdle_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
-                    Guard = () =>
-                    {
-                        return true;
-                    },
+                    Guard = () => { return true; },
                     Action = null,
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
@@ -324,34 +169,30 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sIdle.OnExit += (sender, e) =>
-            { };
+            sIdle.OnExit += (sender, e) => { };
 
             sCleaningPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    // TODO:清理的詳細動作
-                }
-                catch (Exception ex)
-                {
-                    throw new CleanChCleanFailException(ex.Message);
-                }
-
-                var transition = tCleaningPellicle_NULL;
+                var transition = tCleaningPellicle_CleanedPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            // TODO:清理的詳細動作
+                        }
+                        catch (Exception ex) { throw new CleanChCleanFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -362,33 +203,51 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCleaningPellicle.OnExit += (sender, e) =>
-            { };
+            sCleaningPellicle.OnExit += (sender, e) => { };
+
+            sCleanedPellicle.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tCleanedPellicle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
+                    Action = (parameter) => { },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sCleanedPellicle.OnExit += (sender, e) => { };
+
             sInspectingPellicle.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    // TODO:檢查的詳細動作
-                }
-                catch (Exception ex)
-                {
-                    throw new CleanChInspectFailException(ex.Message);
-                }
-
-                var transition = tInspectingPellicle_NULL;
+                var transition = tInspectingPellicle_InspectedPellicle;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            // TODO:檢查的詳細動作
+                        }
+                        catch (Exception ex) { throw new CleanChInspectFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -399,33 +258,52 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectingPellicle.OnExit += (sender, e) =>
-            { };
+            sInspectingPellicle.OnExit += (sender, e) => { };
+
+            sInspectedPellicle.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tInspectedPellicle_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
+                    Action = (parameter) => { },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sInspectedPellicle.OnExit += (sender, e) => { };
+
+
             sCleaningGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    // TODO:清理的詳細動作
-                }
-                catch (Exception ex)
-                {
-                    throw new CleanChCleanFailException(ex.Message);
-                }
-
-                var transition = tCleaningGlass_NULL;
+                var transition = tCleaningGlass_CleanedGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            // TODO:清理的詳細動作
+                        }
+                        catch (Exception ex) { throw new CleanChCleanFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -436,33 +314,51 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCleaningGlass.OnExit += (sender, e) =>
-            { };
+            sCleaningGlass.OnExit += (sender, e) => { };
+
+            sCleanedGlass.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tCleanedGlass_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
+                    Action = (parameter) => { },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sCleanedGlass.OnExit += (sender, e) => { };
+
             sInspectingGlass.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
 
-                CheckEquipmentStatus();
-                CheckAssemblyAlarmSignal();
-                CheckAssemblyWarningSignal();
-
-                try
-                {
-                    // TODO:檢查的詳細動作
-                }
-                catch (Exception ex)
-                {
-                    throw new CleanChInspectFailException(ex.Message);
-                }
-
-                var transition = tInspectingGlass_NULL;
+                var transition = tInspectingGlass_InspectedGlass;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        CheckEquipmentStatus();
+                        CheckAssemblyAlarmSignal();
+                        CheckAssemblyWarningSignal();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            // TODO:檢查的詳細動作
+                        }
+                        catch (Exception ex) { throw new CleanChInspectFailException(ex.Message); }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -473,8 +369,28 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sInspectingGlass.OnExit += (sender, e) =>
-            { };
+            sInspectingGlass.OnExit += (sender, e) => { };
+
+            sInspectedGlass.OnEntry += (sender, e) =>
+            {
+                SetCurrentState((MacState)sender);
+
+                var transition = tInspectedGlass_NULL;
+                TriggerMember triggerMember = new TriggerMember
+                {
+                    Guard = () => { return true; },
+                    Action = (parameter) => { },
+                    ActionParameter = null,
+                    ExceptionHandler = (thisState, ex) =>
+                    { // TODO: do something
+                    },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
+                    ThisStateExitEventArgs = new MacStateExitEventArgs(),
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sInspectedGlass.OnExit += (sender, e) => { };
             #endregion State Register OnEntry OnExit
         }
 

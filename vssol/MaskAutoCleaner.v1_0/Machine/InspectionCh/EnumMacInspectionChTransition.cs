@@ -8,24 +8,24 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 {
     public enum EnumMacInspectionChTransition
     {
-        PowerON,
+        SystemBootup,
         Initial,
         StandbyAtIdle,
         
         TriggerToInspectPellicle,
+        PellicleOnStage,
         DefensePellicle,
         InspectPellicle,
-        StandbyAtStageWithPellicleInspected,
+        InspectedPellicleOnStage,
         WaitForReleasePellicle,
-        StandbyAtWaitForReleasePellicle,
         TriggerToIdleAfterReleasePellicle,
         
         TriggerToInspectGlass,
+        GlassOnStage,
         DefenseGlass,
         InspectGlass,
-        StandbyAtStageWithGlassInspected,
+        InspectedGlassOnStage,
         WaitForReleaseGlass,
-        StandbyAtWaitForReleaseGlass,
         TriggerToIdleAfterReleaseGlass,
     }
 }
