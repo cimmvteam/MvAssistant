@@ -61,7 +61,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            var transition = this.Transitions[EnumMacMaskTransferTransition.SystemBootUp.ToString()];
+            var transition = this.Transitions[EnumMacMaskTransferTransition.SystemBootup.ToString()];
             transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> Mask Transfer初始化 </summary>
@@ -438,7 +438,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             //--- Transition ---
             #region Transition
-            MacTransition tStart_DeviceInitial = NewTransition(sStart, sInitial, EnumMacMaskTransferTransition.SystemBootUp);
+            MacTransition tStart_DeviceInitial = NewTransition(sStart, sInitial, EnumMacMaskTransferTransition.SystemBootup);
             MacTransition tDeviceInitial_LPHome = NewTransition(sInitial, sLPHome, EnumMacMaskTransferTransition.Initial);
             MacTransition tLPHome_NULL = NewTransition(sLPHome, null, EnumMacMaskTransferTransition.StandbyAtLPHome);
             MacTransition tLPHomeClamped_NULL = NewTransition(sLPHomeClamped, null, EnumMacMaskTransferTransition.StandbyAtLPHomeClamped);

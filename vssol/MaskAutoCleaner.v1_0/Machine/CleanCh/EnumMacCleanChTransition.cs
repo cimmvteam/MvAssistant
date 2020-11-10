@@ -8,7 +8,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
 {
     public enum EnumMacCleanChTransition
     {
-        SystemBootUp,
+        SystemBootup,
         Initial,
         StandbyAtIdle,
 

@@ -8,7 +8,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
 {
     public enum EnumMacInspectionChTransition
     {
-        SystemBootUp,
+        SystemBootup,
         Initial,
         StandbyAtIdle,
         

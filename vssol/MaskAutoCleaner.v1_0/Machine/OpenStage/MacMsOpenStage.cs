@@ -34,336 +34,100 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            this.States[EnumMacOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            var transition = this.Transitions[EnumMacOpenStageTransition.SystemBootup.ToString()];
+            transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> Open Stage 初始化 </summary>
         public void Initial()
         {
-            this.States[EnumMacOpenStageState.Initial.ToString()].DoEntry(new MacStateEntryEventArgs(null));
+            var transition = this.Transitions[EnumMacOpenStageTransition.Initial.ToString()];
+            transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> 等待放入 Box(內無Mask) </summary>
         public void InputBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToWaitForInputBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToWaitForInputBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 放入Box後，校正 Box 的位置(內無Mask)，等待 Unlock </summary>
         public void CalibrationClosedBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Unlock 後，開啟 Box(內無Mask) </summary>
         public void OpenBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToOpenBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToOpenBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 原先要放入 Mask ，但沒有放入 Mask ，關上 Box(內無Mask)，等待 Lock </summary>
         public void ReturnCloseBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToReturnCloseBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToReturnCloseBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 關上 Box(內有Mask)，等待 Lock </summary>
         public void CloseBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToCloseBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToCloseBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Lock 後，停止吸真空固定 Box ，等待取走Box(內有Mask) </summary>
         public void ReleaseBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToReleaseBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToReleaseBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 取走 Box(內有Mask)後，將狀態改為Idle </summary>
         public void ReturnToIdleAfterReleaseBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToIdleAfterReleaseBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToIdleAfterReleaseBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
 
         /// <summary> 等待放入 Box(內有Mask) </summary>
         public void InputBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToWaitForInputBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToWaitForInputBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 放入Box後，校正 Box 的位置(內有Mask)，等待 Unlock </summary>
         public void CalibrationClosedBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Unlock 後，開啟 Box(內有Mask) </summary>
         public void OpenBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToOpenBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToOpenBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 原先要取出 Mask ，但又將 Mask 放回 Box 內，關上 Box(內有Mask)，等待 Lock </summary>
         public void ReturnCloseBoxWithMask()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToReturnCloseBoxWithMask.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToReturnCloseBoxWithMask.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 關上 Box(內無Mask)，等待 Lock </summary>
         public void CloseBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToCloseBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToCloseBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Lock 後，停止吸真空固定 Box ，等待取走Box(內無Mask) </summary>
         public void ReleaseBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToReleaseBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToReleaseBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> 取走 Box(內無Mask)後，將狀態改為Idle </summary>
         public void ReturnToIdleAfterReleaseBox()
         {
-            MacTransition transition = null;
-            TriggerMember triggerMember = null;
-            transition = Transitions[EnumMacOpenStageTransition.TriggerToIdleAfterReleaseBox.ToString()];
-            triggerMember = new TriggerMember
-            {
-                Guard = () =>
-                {
-                    return true;
-                },
-                Action = null,
-                ActionParameter = null,
-                ExceptionHandler = (thisState, ex) =>
-                {   // TODO: do something
-                },
-                NextStateEntryEventArgs = new MacStateEntryEventArgs(null),
-                ThisStateExitEventArgs = new MacStateExitEventArgs(),
-            };
-            transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            var transition = Transitions[EnumMacOpenStageTransition.TriggerToIdleAfterReleaseBox.ToString()];
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
 
         #endregion
@@ -398,7 +162,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             #endregion State
 
             #region Transition
-            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacOpenStageTransition.SystemBootUp);
+            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacOpenStageTransition.SystemBootup);
             MacTransition tInitial_Idle = NewTransition(sStart, sIdle, EnumMacOpenStageTransition.Initial);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacOpenStageTransition.StandbyAtIdle);
 

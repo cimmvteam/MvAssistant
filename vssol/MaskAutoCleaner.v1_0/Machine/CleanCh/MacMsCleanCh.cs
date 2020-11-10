@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            var transition = this.Transitions[EnumMacCleanChTransition.SystemBootUp.ToString()];
+            var transition = this.Transitions[EnumMacCleanChTransition.SystemBootup.ToString()];
             transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> 清理Pellicle </summary>
@@ -106,7 +106,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
             #endregion State
 
             #region Transition
-            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacCleanChTransition.SystemBootUp);
+            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacCleanChTransition.SystemBootup);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacCleanChTransition.StandbyAtIdle);
 
             MacTransition tIdle_CleaningPellicle = NewTransition(sIdle, sCleaningPellicle, EnumMacCleanChTransition.TriggerToCleanPellicle);

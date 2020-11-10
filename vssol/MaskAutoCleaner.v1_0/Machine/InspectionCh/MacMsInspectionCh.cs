@@ -36,7 +36,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         /// <summary> 狀態機啟動 </summary>
         public override void SystemBootup()
         {
-            var transition = this.Transitions[EnumMacInspectionChTransition.SystemBootUp.ToString()];
+            var transition = this.Transitions[EnumMacInspectionChTransition.SystemBootup.ToString()];
             transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs());
         }
         /// <summary> Inspection Chamber初始化 </summary>
@@ -95,7 +95,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             #endregion State
 
             #region Transition
-            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacInspectionChTransition.SystemBootUp);
+            MacTransition tStart_Initial = NewTransition(sStart, sInitial, EnumMacInspectionChTransition.SystemBootup);
             MacTransition tInitial_Idle = NewTransition(sInitial, sIdle, EnumMacInspectionChTransition.Initial);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacInspectionChTransition.StandbyAtIdle);
 

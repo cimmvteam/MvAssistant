@@ -8,7 +8,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 {
     public enum EnumMacOpenStageTransition
     {
-        SystemBootUp,
+        SystemBootup,
         Initial,
         StandbyAtIdle,
 
