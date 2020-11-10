@@ -342,7 +342,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         StandbyAtCB1HomeFromCB0703,
         StandbyAtCB1HomeFromCB0704,
         StandbyAtCB1HomeFromCB0705,
-        MoveToDrawer,
+        CB1Home_MovingToDrawer,
         ClampAtDrawer,
         //StandbyAtCB1HomeClamped_C,
         MoveToCB1HomeClampedFromDrawer,

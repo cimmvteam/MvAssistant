@@ -54,17 +54,18 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         public override void SystemBootup()
         {
             // state: sStart
-            Debug.WriteLine("Command: " + "SystemBootup()");
+            Debug.WriteLine("Command: SystemBootup()");
             this.States[EnumMacBoxTransferState.Start.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
-            MoveToLock(BoxType.CrystalBox); 
-            MoveToUnlock(BoxType.CrystalBox);
-            MoveToLock(BoxType.IronBox);
-            MoveToUnlock(BoxType.IronBox);
+            //MoveToLock(BoxType.CrystalBox); 
+            //MoveToUnlock(BoxType.CrystalBox);
+            //MoveToLock(BoxType.IronBox);
+            //MoveToUnlock(BoxType.IronBox);
         }
         public void Initial()
         {
             // State: sInitial
-            this.States[EnumMacBoxTransferState.DeviceInitial.ToString()].ExecuteCommand(new MacStateEntryEventArgs(null));
+            Debug.WriteLine("Command: Initial()");
+            this.States[EnumMacBoxTransferState.DeviceInitial.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
         }
         public void MoveToLock(BoxType boxType)
         {
@@ -92,6 +93,21 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateMoveToUnLockEntryEventArgs(boxType));
         }
+
+
+        public void BankOut(BoxrobotTransferLocation drawerNumber,BoxType boxType)
+        {
+            Debug.WriteLine("Command: BankOut, DrawerNumber:" + drawerNumber + ", BoxType:" + boxType );
+            MoveToCabinetGet(drawerNumber,boxType); // Fake OK
+            MoveToOpenStagePut(); // Fake OK
+            /**
+             StateMachine.Initial();
+             StateMachine.MoveToCabinetGet(drawerNumber); // Fake OK
+             StateMachine.MoveToOpenStagePut(); // Fake OK
+             */
+        }
+
+
         public void MoveToOpenStageGet()
         {
             MacTransition transition = null;
@@ -182,15 +198,25 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         /// <para>合併 State</para>
         /// </remarks>
         /// <param name="drawerLocation"></param>
-        public void MoveToCabinetGet(BoxrobotTransferLocation drawerLocation)
+        public void MoveToCabinetGet(BoxrobotTransferLocation drawerLocation,BoxType boxType=BoxType.DontCare)
         {
+            Debug.WriteLine("Command: MoveToCabinetGet, DrawerLocation: " + drawerLocation + ", BoxType:" + boxType);
             MacTransition transition = null;
-            TriggerMember triggerMember = null;
+           // TriggerMember triggerMember = null;
 
             // 從 CB1Home 移到指定的 Drawer
-            //from: sCB1Home, to: stateMovingToDrawer
+            //from: sCB1Home, to: sMovingToDrawer
+            transition = Transitions[EnumMacBoxTransferTransition.CB1Home_MovingToDrawer.ToString()];
+#if GNotCareState
+            var state = transition.StateFrom;
+#else
+            var state=this.CurrentState;
+#endif
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateMovingToDrawerEntryEventArgs(drawerLocation,boxType));
+            /**
+             //from: sCB1Home, to: stateMovingToDrawer
             transition = Transitions[EnumMacBoxTransferTransition.MoveToDrawer.ToString()];  //transitionCB1Home_MovingToDrawer
-            triggerMember = new TriggerMember
+           triggerMember = new TriggerMember
             {
                 Guard = () =>
                 {
@@ -206,6 +232,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             };
             transition.SetTriggerMembers(triggerMember);
             Trigger(transition);
+            */
         }
 
         /// <summary>
@@ -331,7 +358,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacState sMovingToCabinet0304 = NewState(EnumMacBoxTransferState.MovingToCabinet0304);
             MacState sMovingToCabinet0305 = NewState(EnumMacBoxTransferState.MovingToCabinet0305);
             */
-            MacState stateMovingToDrawer = NewState(EnumMacBoxTransferState.MovingToDrawer);
+            MacState sMovingToDrawer = NewState(EnumMacBoxTransferState.MovingToDrawer);
             #endregion Move To Cabinet
 
             #region Clamping At Cabinet
@@ -660,7 +687,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tCB1Home_MovingToCabinet0304 = NewTransition(sCB1Home, sMovingToCabinet0304, EnumMacBoxTransferTransition.MoveToCB0304);
             MacTransition tCB1Home_MovingToCabinet0305 = NewTransition(sCB1Home, sMovingToCabinet0305, EnumMacBoxTransferTransition.MoveToCB0305);
             */
-            MacTransition transitionCB1Home_MovingToDrawer = NewTransition(sCB1Home, stateMovingToDrawer, EnumMacBoxTransferTransition.MoveToDrawer);
+            MacTransition tCB1Home_MovingToDrawer = NewTransition(sCB1Home, sMovingToDrawer, EnumMacBoxTransferTransition.CB1Home_MovingToDrawer);
 
             /**  Obsolete
             MacTransition tMovingToCabinet0101_Cabinet0101Clamping = NewTransition(sMovingToCabinet0101, sCabinet0101Clamping, EnumMacBoxTransferTransition.ClampAtCB0101);
@@ -679,7 +706,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             MacTransition tMovingToCabinet0304_Cabinet0304Clamping = NewTransition(sMovingToCabinet0304, sCabinet0304Clamping, EnumMacBoxTransferTransition.ClampAtCB0304);
             MacTransition tMovingToCabinet0305_Cabinet0305Clamping = NewTransition(sMovingToCabinet0305, sCabinet0305Clamping, EnumMacBoxTransferTransition.ClampAtCB0305);
             */
-            MacTransition transitionMovingToDrawer_DrawerClamping = NewTransition(stateMovingToDrawer, stateDrawerClamping, EnumMacBoxTransferTransition.ClampAtDrawer);
+            MacTransition transitionMovingToDrawer_DrawerClamping = NewTransition(sMovingToDrawer, stateDrawerClamping, EnumMacBoxTransferTransition.ClampAtDrawer);
 
 
             /**  Obsolete
@@ -996,7 +1023,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 SetCurrentState((MacState)sender);
                 OnEntryCheck();
 
-                // from: sStart, to: sInitial
+                // from: sStart, to: sDeviceInitial
                 var transition = tStart_DeviceInitial;
                 TriggerMember triggerMember = new TriggerMember
                 {
@@ -1023,7 +1050,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 Debug.WriteLine("State: [sDeviceInitial.OnEntry]");
                 SetCurrentState((MacState)sender);
-                OnEntryCheck();
+               
                 /**
                 try
                 {
@@ -1040,6 +1067,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
                     Action = (parameter)=>
@@ -1074,7 +1102,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 Debug.WriteLine("State: [sCB1Home.OnEntry]");
                 SetCurrentState((MacState)sender);
-                OnEntryCheck();
+               
 
                 // from: sCB1Home(last state)
                 var transition = tCB1Home_NULL;
@@ -1082,6 +1110,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
                     Action = null,
@@ -1105,16 +1134,15 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             sCB1HomeClamped.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sCB1HomeClamped.OnEntry]");
                 SetCurrentState((MacState)sender);
-
-                //CheckEquipmentStatus();CheckAssemblyAlarmSignal();CheckAssemblyWarningSignal();
-                OnEntryCheck();
-
+                // from: sCB1HomeClamped,   to: null,
                 var transition = tCB1HomeClamped_NULL;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
                     Action = null,
@@ -1128,7 +1156,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sCB1HomeClamped.OnExit += (sender, e) => { };
+            sCB1HomeClamped.OnExit += (sender, e) => 
+            {
+                Debug.WriteLine("State: [sCB1HomeClamped.OnExit]");
+
+            };
             //sCB2HomeClamped.OnEntry += (sender, e) => { }; sCB2HomeClamped.OnExit += (sender, e) => { };
 
             #region Change Direction
@@ -1506,71 +1538,85 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             #region Move To Cabinet
 
-            stateMovingToDrawer.OnEntry += (sender, e) =>
+            sMovingToDrawer.OnEntry += (sender, e) =>
             {
+
                 var eventArgs = (MacStateMovingToDrawerEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
-
+                var boxType = eventArgs.BoxType;
+                Debug.WriteLine("State: [sMovingToDrawer.OnEntry], DrawerLocation: " + drawerLocation + ", BoxType: " + boxType);
                 SetCurrentState((MacState)sender, drawerLocation);
-                //CheckEquipmentStatus();            CheckAssemblyAlarmSignal();      CheckAssemblyWarningSignal();
-                OnEntryCheck();
-                try
-                {
-                    /**
-                      Cabinet01:
-                          HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json");
-                      Cabinet02:
-                          HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
-                          HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_07_01_GET.json");
-                     */
-
-                    // Robot 目前不在Cabinet 1 Home
-                    if (!HalBoxTransfer.CheckPosition(pathObj.Cabinet01HomePathFile())) // Fake OK
-                    { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to get box."); }
-
-                    // 判斷 目標 Drawer 是屬於哪個 Cabinet(1 or 2)? 
-                    var cabinetHome = drawerLocation.GetCabinetHomeCode();
-                    if (cabinetHome.Item1)
-                    {
-                        HalBoxTransfer.RobotMoving(true);  // Fake OK
-                        if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
-                        {  // Cabinet 1
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation));  // Fake OK
-                        }
-                        else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
-                        {  // Cabinet 2
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet02HomePathFile());  // Fake OK
-                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation)); // Fake OK
-                        }
-                        HalBoxTransfer.RobotMoving(false);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new BoxTransferPathMoveFailException(ex.Message);
-                }
+  
                 //var  transition = tMovingToCabinet0101_Cabinet0101Clamping;
                 var transition = transitionMovingToDrawer_DrawerClamping;
-                uint uintTempBoxType = 1;  // TODO: 假定的 BoxType, 以後補上 
+               // uint uintTempBoxType = 1;  // TODO: 假定的 BoxType, 以後補上 
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
-                    Action = null,
+                    Action =(parameter)=>
+                    {
+                        try
+                        {
+                            /**
+                              Cabinet01:
+                                  HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json");
+                              Cabinet02:
+                                  HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home.json");
+                                  HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_07_01_GET.json");
+                             */
+
+                            // Robot 目前不在Cabinet 1 Home
+                            // path="D:\Positions\BTRobot\Cabinet_01_Home.json"
+                            var path = pathObj.Cabinet01HomePathFile();
+                            if (!HalBoxTransfer.CheckPosition(path)) // Fake OK
+                            { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to get box."); }
+
+                            // 判斷 目標 Drawer 是屬於哪個 Cabinet(1 or 2)? 
+                            var cabinetHome = drawerLocation.GetCabinetHomeCode();
+                            if (cabinetHome.Item1)
+                            {
+                                HalBoxTransfer.RobotMoving(true);  // Fake OK
+                                if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
+                                {  // Cabinet 1
+                                    //path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json"
+                                    path = pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation);
+                                    HalBoxTransfer.ExePathMove(path);  // Fake OK
+                                }
+                                else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
+                                {  // Cabinet 2
+                                    // path:  @"D:\Positions\BTRobot\Cabinet_02_Home.json"
+                                    path = pathObj.Cabinet02HomePathFile();
+                                    HalBoxTransfer.ExePathMove(path);  // Fake OK
+                                    // path: @"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_07_01_GET.json"
+                                    path = pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation);
+                                    HalBoxTransfer.ExePathMove(path); // Fake OK
+                                }
+                                HalBoxTransfer.RobotMoving(false);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BoxTransferPathMoveFailException(ex.Message);
+                        }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateDrawerClampingEntryEventArgs(eventArgs.DrawerLocation, uintTempBoxType),
+                    NextStateEntryEventArgs = new MacStateDrawerClampingEntryEventArgs(eventArgs.DrawerLocation, eventArgs.BoxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            stateMovingToDrawer.OnExit += (sender, e) =>
-            { };
+            sMovingToDrawer.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sMovingToDrawer.OnExit]");
+            };
 
             /**
              sMovingToCabinet0101.OnEntry += (sender, e) =>
@@ -2202,32 +2248,33 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var eventArgs = (MacStateDrawerClampingEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
                 var boxType = eventArgs.BoxType;
+                Debug.WriteLine("State: [stateDrawerClamping.OnEntry], DrawerLocation: " + drawerLocation + ", BoxType: " + boxType);
                 SetCurrentState((MacState)sender, drawerLocation);
-                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
-
-                OnEntryCheck();
-                try
-                {
-                    // Clamp
-                    HalBoxTransfer.Clamp(boxType); // Fake OK
-                }
-                catch (Exception ex)
-                {
-                    throw new BoxTransferPLCExecuteFailException(ex.Message);
-                }
                 var transition = transitionDrawerClamping_MovingToCB1HomeClampedFromDrawer;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter) =>
+                    {
+                        try
+                        {
+                            // Clamp
+                            HalBoxTransfer.Clamp((uint)boxType); // Fake OK
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BoxTransferPLCExecuteFailException(ex.Message);
+                        }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs(drawerLocation),
+                    NextStateEntryEventArgs = new MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs(drawerLocation,boxType),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -2235,7 +2282,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             };
             stateDrawerClamping.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [stateDrawerClamping.OnExit]");
             };
             /**
             sCabinet0101Clamping.OnEntry += (sender, e) =>
@@ -2813,50 +2860,53 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 var eventArgs = (MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
+                var boxType = eventArgs.BoxType;
+                Debug.WriteLine("State: [stateMovingToCB1HomeClampedFromDrawer.OnEntry], DrawerLocation: " +drawerLocation + ",  BoxType: " + boxType );
                 SetCurrentState((MacState)sender, drawerLocation);
-                // CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
-
-                OnEntryCheck();
-                try
-                {
-                    /**
-                     Cabinet1Home: 
-                         HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Drawer_01_01_Backward_Cabinet_01_Home_GET.json");
-                     Cabinet2Home:
-                         HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Drawer_07_01_Backward_Cabinet_02_Home_GET.json");
-                         HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
-                     */
-
-                    var cabinetHome = drawerLocation.GetCabinetHomeCode();
-
-                    if (cabinetHome.Item1)
-                    {
-                        HalBoxTransfer.RobotMoving(true); // Fake OK
-                        if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
-                        {
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation));  // Fake OK
-                        }
-                        else //if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home) // 屬於Cabinet2 所管
-                        {
-                            HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation)); // Fake OK
-                            HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile()); // Fake OK
-                        }
-                        HalBoxTransfer.RobotMoving(false); // Fake OK
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    throw new BoxTransferPathMoveFailException(ex.Message);
-                }
+                // from: stateMovingToCB1HomeClampedFromDrawer, to: sCB1HomeClamped
                 var transition = transitionMovingToCB1HomeClampedFromDrawer_CB1HomeClamped;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter)=>
+                    {
+                        try
+                        {
+                            /**
+                             Cabinet1Home: 
+                                 HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Drawer_01_01_Backward_Cabinet_01_Home_GET.json");
+                             Cabinet2Home:
+                                 HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Drawer_07_01_Backward_Cabinet_02_Home_GET.json");
+                                 HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home.json");
+                             */
+
+                            var cabinetHome = drawerLocation.GetCabinetHomeCode();
+
+                            if (cabinetHome.Item1)
+                            {
+                                HalBoxTransfer.RobotMoving(true); // Fake OK
+                                if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
+                                {
+                                    HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation));  // Fake OK
+                                }
+                                else //if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home) // 屬於Cabinet2 所管
+                                {
+                                    HalBoxTransfer.ExePathMove(pathObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation)); // Fake OK
+                                    HalBoxTransfer.ExePathMove(pathObj.Cabinet01HomePathFile()); // Fake OK
+                                }
+                                HalBoxTransfer.RobotMoving(false); // Fake OK
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BoxTransferPathMoveFailException(ex.Message);
+                        }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -2869,7 +2919,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             };
             stateMovingToCB1HomeClampedFromDrawer.OnExit += (sender, e) =>
             {
-
+                Debug.WriteLine("State: [stateMovingToCB1HomeClampedFromDrawer.OnExit]");
             };
             /**
             sMovingToCB1HomeClampedFromCabinet0101.OnEntry += (sender, e) =>
