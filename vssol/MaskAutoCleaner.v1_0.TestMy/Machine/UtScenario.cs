@@ -141,7 +141,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MTMS.CCHomeClampedToCCHomeCleaned();
         }
         [TestMethod]
-        public void MTMoveToOSGetAndPut()
+        [DataRow(BoxType.CrystalBox)]
+        //[DataRow(BoxType.IronBox)]
+        public void MTMoveToOSGetAndPut(BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -160,32 +162,33 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             //將空盒放上OS開盒，由MT放入Mask並關盒由BT取走盒子
             OSMS.InputBox();
             OSMS.CalibrationClosedBox();
-            BTMS.MoveToUnlock(BoxType.IronBox);// TODO: 暫時為 鐵盒
+            BTMS.MoveToUnlock(boxType);
             OSMS.OpenBox();
             MTMS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             OSMS.CloseBoxWithMask();
-            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToLock(boxType); 
             OSMS.ReleaseBoxWithMask();
-            BTMS.MoveToOpenStageGet(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToOpenStageGet(boxType);
             OSMS.ReturnToIdleAfterReleaseBoxWithMask();
 
             //將盒子放上OS開盒，由MT取出Mask並關盒由BT取走空盒
             OSMS.InputBoxWithMask();
             OSMS.CalibrationClosedBoxWithMask();
-            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToUnlock(boxType); 
             OSMS.OpenBox();
             MTMS.LPHomeToOSGetMaskReturnToLPHomeClamped();
             OSMS.CloseBox();
-            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToLock(boxType); 
             OSMS.ReleaseBox();
-            BTMS.MoveToOpenStageGet(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToOpenStageGet(boxType); 
             OSMS.ReturnToIdleAfterReleaseBox();
         }
 
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.IronBox)]
         //public void BTMoveToCBGetAndPut()
-        public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation)
+        public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation, BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -202,7 +205,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             CBMS.Load_MoveTrayToIn();
 
             //BTMS.MoveToCabinetPut("0101");
-            BTMS.MoveToCabinetPut(drawerLocation);
+            BTMS.MoveToCabinetPut(drawerLocation, boxType);
 
             CBMS.Load_MoveTrayToHome();
 

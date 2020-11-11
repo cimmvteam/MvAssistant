@@ -12,9 +12,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         MoveToLock,
         MoveToUnlock,
         Initial,
-        BankOut,
         MoveToCabinetGet,
         MoveToOpenStagePut,
         MoveToOpenStageGet,
+        MoveToCabinetPut,
     }
 }
