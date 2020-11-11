@@ -121,7 +121,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs(null));
         }
 
-        #endregion
+       
 
 
         /// <summary>移動到指定Cabinet編號的位置取盒，Cabinet編號0101~0705</summary>
@@ -170,8 +170,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateMovingToDrawerForReleaseEntryEventArgs(drawerLocation, boxType));
         
         }
+        #endregion
 
-        
         public override void LoadStateMachine()
         {
             #region State

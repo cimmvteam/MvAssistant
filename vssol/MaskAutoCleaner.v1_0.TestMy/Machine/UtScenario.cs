@@ -129,13 +129,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             CC_Task = Task.Factory.StartNew(() => CCMS.CleanPellicle());
             Task.WaitAll(MT_Task);
             CC_Task = Task.Factory.StartNew(() => CCMS.FinishCleanPellicle());
-            MTMS.CCPellicleCleanedReturnInCC();
+            MTMS.CCPellicleCleanedReturnInCCPellicle();
             MTMS.InCCPellicleMoveToInspect();
             MT_Task = Task.Factory.StartNew(() => MTMS.InspectPellicle());
             CC_Task = Task.Factory.StartNew(() => CCMS.InspectPellicle());
             Task.WaitAll(MT_Task);
             CC_Task = Task.Factory.StartNew(() => CCMS.FinishInspectPellicle());
-            MTMS.CCPellicleInspectedReturnInCC();
+            MTMS.CCPellicleInspectedReturnInCCPellicle();
             MTMS.InCCPellicleToCCHomeClamped();
 
             MTMS.CCHomeClampedToCCHomeCleaned();

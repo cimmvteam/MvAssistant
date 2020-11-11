@@ -126,9 +126,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MS.ICHomeInspectedToCCHomeClamped();
                 MS.CCHomeClampedToCCPellicle();
                 MS.InCCPellicleMoveToClean();
-                MS.CCPellicleCleanedReturnInCC();
+                MS.CCPellicleCleanedReturnInCCPellicle();
                 MS.InCCPellicleMoveToInspect();
-                MS.CCPellicleInspectedReturnInCC();
+                MS.CCPellicleInspectedReturnInCCPellicle();
                 MS.InCCPellicleToCCHomeClamped();
                 MS.CCHomeClampedToCCGlass();
                 MS.InCCGlassMoveToClean();
