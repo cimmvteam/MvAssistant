@@ -35,7 +35,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.SystemBootup.ToString());
             method.Invoke(StateMachine, null);
 
-            Repeat();
+           // Repeat();
         }
 
 
@@ -44,6 +44,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(BoxType.IronBox)]
         public void Test_MoveToLock(BoxType boxType)
         {
+            Test_SystemBootUp();
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToLock.ToString());
             method.Invoke(StateMachine, new object[] { boxType });
 
@@ -55,6 +56,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         //[DataRow(BoxType.IronBox)]
         public void Test_MoveToUnLock(BoxType boxType)
         {
+            Test_SystemBootUp();
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToUnlock.ToString());
             method.Invoke(StateMachine, new object[] { boxType });
             Repeat();
@@ -89,6 +91,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.BankOut.ToString());
             method.Invoke(StateMachine, new object[] { drawerNumber, boxType });
+
+
+
 
         }
 

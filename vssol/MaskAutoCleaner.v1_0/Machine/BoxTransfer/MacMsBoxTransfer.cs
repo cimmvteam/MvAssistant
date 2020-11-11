@@ -1407,13 +1407,14 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var boxType = eventArgs.BoxType;
                 Debug.WriteLine("State: [sLocking.OnEntry], BoxType=" + boxType.ToString());
                 SetCurrentState((MacState)sender);
-                OnEntryCheck();
+               
                 //from: sLocking, to: sCB1Home
                 var transition = tLocking_CB1Home;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
                     Action = (parameter) =>
