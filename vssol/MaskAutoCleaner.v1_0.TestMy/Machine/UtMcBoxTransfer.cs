@@ -80,7 +80,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         [TestMethod]
         [DataRow(BoxrobotTransferLocation.Drawer_01_01, BoxType.IronBox,true)]
-        [DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
         public void Test_MoveToCabinetGet(BoxrobotTransferLocation drawerNumber, BoxType boxType,bool unitMode)
         {
             Test_Initial(false);
