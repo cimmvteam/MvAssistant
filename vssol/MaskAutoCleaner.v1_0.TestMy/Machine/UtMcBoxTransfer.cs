@@ -92,6 +92,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.BankOut.ToString());
             method.Invoke(StateMachine, new object[] { drawerNumber, boxType });
 
+        }
 
 
 
