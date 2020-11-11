@@ -15,5 +15,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         Load_MoveTrayToOut,
         Load_MoveTrayToHome,
         Load_MoveTrayToIn,
+        MoveTrayToHomeWaitingUnloadInstruction,
+        Unload_MoveTrayToIn,
+        Unload_MoveTrayToHome,
+        MoveTrayToHomeWaitingLoadInstruction,
     }
 }

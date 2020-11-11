@@ -111,6 +111,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         WaitingLoadInstruction_LoadMoveTrayToOutStart,
         LoadWaitingPutBoxOnTray_LoadMoveTrayToHomeStart,
         LoadWaitingMoveTrayToIn_LoadMoveTrayToInStart,
+        LoadWaitingGetBoxOnTray_MoveTrayToHomeWaitingUnloadInstructionStart,
+        WaitingUnloadInstruction_UnloadMoveTrayToInStart,
+        UnloadWaitingPutBoxOnTray_UnloadMoveTrayToHomeStart,
+        UnloadWaitingGetBoxOnTray_MoveTrayToHomeWaitingLoadInstructionStart,
         /**
 /// <summary>初始化: 開始=> 進行中</summary>
 InitialStart_InitialIng,

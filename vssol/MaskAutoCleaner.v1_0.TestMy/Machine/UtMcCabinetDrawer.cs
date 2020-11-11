@@ -166,17 +166,12 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// 2020/10/19 OK
         /// </remarks>
         [TestMethod]
-        public void MoveTrayToHomeWaitingUnloadInstruction(/*EnumMachineID machineID*/)
+        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void MoveTrayToHomeWaitingUnloadInstruction(EnumMachineID machineID)
         {
-            // DataRow
-            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
-            EnumMachineID machineID2 = EnumMachineID.MID_DRAWER_01_02;
-            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
-            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
-
-
-            machine1.MoveTrayToHomeWaitingUnloadInstruction();
-            machine2.MoveTrayToHomeWaitingUnloadInstruction();
+            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.MoveTrayToHomeWaitingUnloadInstruction.ToString());
+            method.Invoke(machine, null);
             Repeat();
         }
 
@@ -186,19 +181,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// 2020/10/19 OK
         /// </remarks>
         [TestMethod]
-        public void Unload_MoveTrayToIn()
+        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Unload_MoveTrayToIn(EnumMachineID machineID)
         {
-            // DataRow
-            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
-            EnumMachineID machineID2 = EnumMachineID.MID_DRAWER_01_02;
-            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
-            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
-
-
-            machine1.Unload_MoveTrayToIn();
-            machine2.Unload_MoveTrayToIn();
-
+            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Unload_MoveTrayToIn.ToString());
+            method.Invoke(machine, null);
             Repeat();
+
+         
         }
 
         /// <summary>測試 Unload_MoveTrayToHome()</summary>
@@ -207,18 +198,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// 没有盒子: 2020/10/19 OK
         /// </remarks>
         [TestMethod]
-        public void Unload_MoveTrayToHome()
+        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void Unload_MoveTrayToHome(EnumMachineID machineID)
         {
-            // DataRow
-            EnumMachineID machineID2 = EnumMachineID.MID_DRAWER_01_02;
-            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
-
-            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
-            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
-
-            machine1.Unload_MoveTrayToHome();
-            machine2.Unload_MoveTrayToHome();
-
+            //Unload_MoveTrayToHome
+            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Unload_MoveTrayToHome.ToString());
+            method.Invoke(machine, null);
             Repeat();
         }
 
@@ -228,19 +214,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// 2020/10/19 OK
         /// </remarks>
         [TestMethod]
-       public void MoveTrayToHomeWaitingLoadInstruction()
+        [DataRow(EnumMachineID.MID_DRAWER_01_02)]
+        public void MoveTrayToHomeWaitingLoadInstruction(EnumMachineID machineID)
         {
-            // DataRow
-            EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01;
-            EnumMachineID machineID2= EnumMachineID.MID_DRAWER_01_02;
-
-            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1, DicStateMachines);
-            var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
-
-
-            machine1.MoveTrayToHomeWaitingLoadInstruction();
-             machine2.MoveTrayToHomeWaitingLoadInstruction();
-
+            //  MoveTrayToHomeWaitingLoadInstruction
+            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.MoveTrayToHomeWaitingLoadInstruction.ToString());
+            method.Invoke(machine, null);
             Repeat();
         }
 
