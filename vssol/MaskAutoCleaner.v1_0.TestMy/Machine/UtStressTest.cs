@@ -136,7 +136,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             OSMS.CloseBoxWithMask();
             BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBoxWithMask();
-            BTMS.MoveToOpenStageGet();
+            BTMS.MoveToOpenStageGet(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBoxWithMask(); });
 
             //BTMS.MoveToCabinetPut("0101");
@@ -241,7 +241,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             OSMS.CloseBox();
             BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OSMS.ReleaseBox();
-            BTMS.MoveToOpenStageGet();
+            BTMS.MoveToOpenStageGet(BoxType.IronBox); // TODO: 暫時為 鐵盒
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBox(); });
 
             //BTMS.MoveToCabinetPut("0101");
