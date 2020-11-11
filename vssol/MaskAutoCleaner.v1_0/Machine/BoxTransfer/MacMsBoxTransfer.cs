@@ -134,6 +134,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         }
         public void MoveToOpenStagePut()
         {
+            /**
             MacTransition transition = null;
             TriggerMember triggerMember = null;
 
@@ -154,7 +155,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 ThisStateExitEventArgs = new MacStateExitEventArgs(),
             };
             transition.SetTriggerMembers(triggerMember);
-            Trigger(transition);
+            Trigger(transition); */
+
+            Debug.WriteLine("Command: MoveToOpenStagePut()");
+            // from: sCB1HomeClamped, to: sMovingToOpenStageForRelease
+            var transition = Transitions[EnumMacBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
+#if GNotCareState
+            var state = transition.StateFrom;
+#else
+            var state=this.CurrentState;
+#endif
+            state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs(null));
         }
 
         #endregion
@@ -1291,31 +1302,31 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
             sMovingToOpenStageForRelease.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sMovingToOpenStageForRelease.OnEntry]");
                 SetCurrentState((MacState)sender);
-
-                // CheckEquipmentStatus();    CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
-                OnEntryCheck();
-                try
-                {
-                    HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
-                    HalBoxTransfer.RobotMoving(true);   // Fake OK
-                                                        // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");  // Fake OK
-                    HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToOpenStage_PUT_PathFile());  // Fake OK
-                    HalBoxTransfer.RobotMoving(false);   // Fake OK
-                }
-                catch (Exception ex)
-                {
-                    throw new BoxTransferPathMoveFailException(ex.Message);
-                }
-
-                var transition = tMovingToOpenStageForRelease_OpenStageReleasing;
+                 var transition = tMovingToOpenStageForRelease_OpenStageReleasing;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter)=>
+                    {
+                        try
+                        {
+                            HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                            HalBoxTransfer.RobotMoving(true);   // Fake OK
+                                                                // HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json");  // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.FromCabinet01HomeToOpenStage_PUT_PathFile());  // Fake OK
+                            HalBoxTransfer.RobotMoving(false);   // Fake OK
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BoxTransferPathMoveFailException(ex.Message);
+                        }
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -1325,31 +1336,35 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToOpenStageForRelease.OnExit += (sender, e) => { };
+            };
+            sMovingToOpenStageForRelease.OnExit += (sender, e) => 
+            {
+                Debug.WriteLine("State: [sMovingToOpenStageForRelease.OnExit]");
+            };
             sOpenStageReleasing.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sOpenStageReleasing.OnEntry]");
                 SetCurrentState((MacState)sender);
-
-                //   CheckEquipmentStatus();                CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
-
-                OnEntryCheck();
-                try
-                {
-                    HalBoxTransfer.Unclamp();  // Fake OK
-                }
-                catch (Exception ex)
-                {
-                    throw new BoxTransferPLCExecuteFailException(ex.Message);
-                }
-
                 var transition = tOpenStageReleasing_MovingToCB1HomeFromOpenStage;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
-                    Action = null,
+                    Action = (parameter)=>
+                    {
+                        try
+                        {
+                            HalBoxTransfer.Unclamp();  // Fake OK
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BoxTransferPLCExecuteFailException(ex.Message);
+                        }
+
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -1359,35 +1374,39 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sOpenStageReleasing.OnExit += (sender, e) => { };
+            };
+            sOpenStageReleasing.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sOpenStageReleasing.OnExit]");
+            };
             sMovingToCB1HomeFromOpenStage.OnEntry += (sender, e) =>
             {
+                Debug.WriteLine("State: [sMovingToCB1HomeFromOpenStage.OnEntry]");
                 SetCurrentState((MacState)sender);
-
-                //CheckEquipmentStatus();    CheckAssemblyAlarmSignal();                CheckAssemblyWarningSignal();
-                OnEntryCheck();
-
-                try
-                {
-                    HalBoxTransfer.RobotMoving(true);   // Fake OK
-                    //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");  // Fake OK
-                    HalBoxTransfer.ExePathMove(pathObj.FromOpenStageToCabinet01Home_PUT_PathFile());
-                    HalBoxTransfer.RobotMoving(false);  // Fake OK
-                    HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
-                }
-                catch (Exception ex)
-                {
-                    throw new BoxTransferPathMoveFailException(ex.Message);
-                }
-
                 var transition = tMovingToCB1HomeFromOpenStage_CB1Home;
                 TriggerMember triggerMember = new TriggerMember
                 {
                     Guard = () =>
                     {
+                        OnEntryCheck();
                         return true;
                     },
-                    Action = null,
+                    Action =(parameter)=>
+                    {
+                        try
+                        {
+                            HalBoxTransfer.RobotMoving(true);   // Fake OK
+                                                                //HalBoxTransfer.ExePathMove(@"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json");  // Fake OK
+                            HalBoxTransfer.ExePathMove(pathObj.FromOpenStageToCabinet01Home_PUT_PathFile());
+                            HalBoxTransfer.RobotMoving(false);  // Fake OK
+                            HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BoxTransferPathMoveFailException(ex.Message);
+                        }
+
+                    },
                     ActionParameter = null,
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
@@ -1397,7 +1416,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
-            }; sMovingToCB1HomeFromOpenStage.OnExit += (sender, e) => { };
+            };
+            sMovingToCB1HomeFromOpenStage.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sMovingToCB1HomeFromOpenStage.OnExit]");
+            };
             #endregion OS
 
             #region Lock & Unlock

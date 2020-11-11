@@ -31,11 +31,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         [TestMethod]
         [DataRow(true)]
-        public void Test_SystemBootUp(bool unitMode)
+        public void Test_SystemBootUp(bool mainTest)
         {
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.SystemBootup.ToString());
             method.Invoke(StateMachine, null);
-            if (unitMode)
+            if (mainTest)
             {
                 Repeat();
             }
@@ -45,12 +45,12 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         [DataRow(BoxType.CrystalBox,true)]
         [DataRow(BoxType.IronBox,true)]
-        public void Test_MoveToLock(BoxType boxType,bool unitMode)
+        public void Test_MoveToLock(BoxType boxType,bool mainTest)
         {
-            Test_SystemBootUp(false);
+            Test_Initial(mainTest);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToLock.ToString());
             method.Invoke(StateMachine, new object[] { boxType });
-            if (unitMode)
+            if (mainTest)
             { Repeat(); }
         }
 
@@ -59,7 +59,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         //[DataRow(BoxType.IronBox)]
         public void Test_MoveToUnLock(BoxType boxType)
         {
-            Test_SystemBootUp(false);
+            Test_Initial(false);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToUnlock.ToString());
             method.Invoke(StateMachine, new object[] { boxType });
             Repeat();
@@ -68,11 +68,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         [TestMethod]
         [DataRow(true)]
-        public void Test_Initial(bool unitMode)
+        public void Test_Initial(bool mainTest)
         {
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.Initial.ToString());
             method.Invoke(StateMachine, null);
-            if (unitMode)
+            if (mainTest)
             {
                 Repeat();
             }
@@ -81,55 +81,33 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         [DataRow(BoxrobotTransferLocation.Drawer_01_01, BoxType.IronBox,true)]
         //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
-        public void Test_MoveToCabinetGet(BoxrobotTransferLocation drawerNumber, BoxType boxType,bool unitMode)
+        public void Test_MoveToCabinetGet(BoxrobotTransferLocation drawerNumber, BoxType boxType,bool mainTest)
         {
-            Test_Initial(false);
+            Test_Initial(mainTest);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToCabinetGet.ToString());
             method.Invoke(StateMachine, new object[] { drawerNumber, boxType });
-            if (unitMode)
+            if (mainTest)
             {
                 Repeat();
             }
         }
 
-
-
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.IronBox)]
-       // [DataRow(BoxrobotTransferLocation.Drawer_04_01,BoxType.CrystalBox)]
-        public void Test_BankOut(BoxrobotTransferLocation drawerNumber, BoxType boxType)
-        {   
-            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.Initial.ToString());
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01, BoxType.IronBox, true)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
+        public void Test_MoveToOpenStagePut(BoxrobotTransferLocation drawerNumber, BoxType boxType,bool mainTest)
+        {
+            Test_MoveToCabinetGet(drawerNumber, boxType, false);
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToOpenStagePut.ToString());
             method.Invoke(StateMachine,null);
-
-            
-
-            method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.BankOut.ToString());
-            method.Invoke(StateMachine, new object[] { drawerNumber, boxType });
-
+            if (mainTest)
+            {
+                Repeat();
+            }
         }
-
-
 
         
 
-        /// <summary></summary>
-        /// <remarks>
-        /// <para>2020/10/30 State Machine Fake Test</para>
-        /// /// </remarks>
-        /// <param name="drawerNumber"></param>
-        [TestMethod]
-        //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        [DataRow(BoxrobotTransferLocation.Drawer_07_01,BoxType.IronBox)]
-        public void Test_BankOutP(BoxrobotTransferLocation drawerNumber,BoxType boxType)
-        {
-            StateMachine.Initial();
-            StateMachine.MoveToCabinetGet(drawerNumber, boxType); // Fake OK
-
-
-            StateMachine.MoveToOpenStagePut(); // Fake OK
-           
-        }
 
         [TestMethod]
         //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
