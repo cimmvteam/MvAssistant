@@ -77,15 +77,19 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
 
         #region State Machine Command
-
+        public Dictionary<EnumMachineID, MacMsCabinetDrawer> DicCabinetDrawerStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
         public override void SystemBootup()
         {
+            Debug.WriteLine("Command: SystemBootup");
+            var transition = this.Transitions[EnumMacCabinetTransition.Start_NULL.ToString()];
+            var state = transition.StateFrom;
+            state.ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
         }
 
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
         /// <param name="dicStateMachines">所有Drawer 的集合</param>
-        public void LoadDrawers(int targetDrawerQuantity,Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
+        public void Load_Drawers(int targetDrawerQuantity,Dictionary<EnumMachineID, MacMsCabinetDrawer> dicStateMachines)
         {
 
             var states = dicStateMachines.Values.Where(m => m.CanLoad()).ToList();
@@ -97,7 +101,12 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 states = states.Take(targetDrawerQuantity).ToList();
             }
-            this.States[EnumMacCabinetState.LoadMoveDrawerTraysToOutStart.ToString()].ExecuteCommand(new CabinetLoadStartMacStateEntryEventArgs(states));
+            if(CurrentState != null)
+            {
+                CurrentState.DoExit(null);
+            }
+            var transition = this.Transitions[EnumMacCabinetTransition.LoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng.ToString()];
+            transition.StateFrom.ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
            
         }
 
@@ -146,8 +155,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         {
 
             #region state
-         
-           
+            MacState sStart= NewState(EnumMacCabinetState.Start);
+
 
             MacState sLoadMoveDrawerTraysToOutStart = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutStart);
             MacState sLoadMoveDrawerTraysToOutIng = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutIng);
@@ -164,6 +173,8 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
             #region transition
            
+            MacTransition tStart_NULL= NewTransition(sStart, null,  EnumMacCabinetTransition.Start_NULL);
+
             MacTransition tLoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng = NewTransition(sLoadMoveDrawerTraysToOutStart,sLoadMoveDrawerTraysToOutIng,
                                                                                                                  EnumMacCabinetTransition.LoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng);
             MacTransition tLoadMoveDrawerTraysToOutIng_LoadMoveDrawerTraysToOutComplete = NewTransition(sLoadMoveDrawerTraysToOutIng, sLoadMoveDrawerTraysToOutComplete,
@@ -187,6 +198,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             #endregion transition
 
             #region event
+
+            sStart.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sStart.OnEntry]");
+                SetCurrentState((MacState)sender);
+            };
+            sStart.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [sStart.OnExit]");
+
+            };
 
             sLoadMoveDrawerTraysToOutStart.OnEntry+=(sender, e)=>
             { // Synch

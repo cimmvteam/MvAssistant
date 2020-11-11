@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <summary>同步所有 Drawer  的 State, 同步中= 完成 </summary>
         SynchronousDrawerStatesIng_SynchronousDrawerStatesComplete,
         /// <summary>同步所有 Drawer  的 State:完成  </summary>
-        SynchronousDrawerStatesComplete_NULL
-
+        SynchronousDrawerStatesComplete_NULL,
+        Start_NULL
     }
 }
