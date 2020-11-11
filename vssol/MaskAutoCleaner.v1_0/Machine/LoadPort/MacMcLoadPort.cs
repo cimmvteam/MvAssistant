@@ -18,6 +18,23 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         }
         public override int RequestProcMsg(IMacMsg msg)
         {
+            var msgCmd = msg as MacMsgCommand;
+            if (msgCmd != null)
+            {
+                var type = typeof(MacMsLoadPort);
+                var method = type.GetMethod(msgCmd.Command);
+                method.Invoke(this.StateMachine, null);
+            }
+            var msgTran = msg as MacMsgTransition;
+            if (msgTran != null)
+            {
+
+            }
+            var msgSecs = msg as MacMsgSecs;
+            if (msgSecs != null)
+            {
+
+            }
             return 0;
         }
     }

@@ -1,5 +1,16 @@
 <?xml version="1.0"?>
 <ArrayOfMacRecipeStep xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MacRecipeStep StepName="Load Port A Get POD">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="Idle" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetPODWithMask" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_LP_A_ASB" Value="ToGetPODWithMask" />
+    </StatesCmd>
+  </MacRecipeStep>
   <MacRecipeStep StepName="Load Port A Dock">
     <StatesBefore>
       <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForGetPODWithMask" />

@@ -22,6 +22,15 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
             #region MT LPA
             {
+                var step = recipe.AddStep("Load Port A Get POD");
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.Idle);
+
+                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacLoadportCmd.ToGetPODWithMask);
+
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPODWithMask);
+            }
+
+            {
                 var step = recipe.AddStep("Load Port A Dock");
                 step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPODWithMask);
 
@@ -31,7 +40,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             }
 
             {
-                var step = recipe.AddStep("Mask Transfer Move To Load Port A Catch Mask Return To LPHome");
+                var step = recipe.AddStep("Mask Transfer Move To Load Port A Catch Mask Return To LPHomeClamped");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.LPHome);
                 step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleaseMask);
 

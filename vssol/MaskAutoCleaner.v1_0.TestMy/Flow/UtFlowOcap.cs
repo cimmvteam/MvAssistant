@@ -14,16 +14,18 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
 
             using (var machineMgr = new MacMachineMgr())
             {
+                try
+                {
+                    machineMgr.MvCfInit();
+                    machineMgr.MvCfLoad();
 
-                machineMgr.MvCfInit();
-                machineMgr.MvCfLoad();
+                    machineMgr.RecipeMgr.LoaddRecipe("UserData/Recipe/RecipeFlow_Ocap.xml");
+                    machineMgr.RecipeMgr.Execute();
 
-                machineMgr.RecipeMgr.LoaddRecipe("UserData/Recipe/RecipeFlow_Ocap.xml");
-                machineMgr.RecipeMgr.Execute();
-
-                machineMgr.MvCfUnload();
-                machineMgr.MvCfFree();
-
+                    machineMgr.MvCfUnload();
+                    machineMgr.MvCfFree();
+                }
+                catch (Exception) { throw; }
             }
 
 

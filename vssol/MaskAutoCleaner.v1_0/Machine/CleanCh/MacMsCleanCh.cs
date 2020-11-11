@@ -14,17 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CleanCh
     {
         private IMacHalCleanCh HalCleanCh { get { return this.halAssembly as IMacHalCleanCh; } }
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
-
-        private MacState _currentState = null;
-
-        public void ResetState()
-        { this.States[EnumMacCleanChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
-
-        private void SetCurrentState(MacState state)
-        { _currentState = state; }
-
-        public MacState CurrentState { get { return _currentState; } }
-
+        
         public MacMsCleanCh() { LoadStateMachine(); }
 
         #region State Machine Command
