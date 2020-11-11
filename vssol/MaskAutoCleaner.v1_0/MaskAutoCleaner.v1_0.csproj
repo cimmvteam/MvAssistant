@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;GNotCareState</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -93,6 +93,8 @@
   <ItemGroup>
     <Compile Include="EnumMachineIDExtends.cs" />
     <Compile Include="MacException.cs" />
+    <Compile Include="Machine\BoxTransfer\EnumMacMcBoxTransferCmd.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToOpenStageEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToUnLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateOpenStageClampingEntryEventArgs.cs" />
