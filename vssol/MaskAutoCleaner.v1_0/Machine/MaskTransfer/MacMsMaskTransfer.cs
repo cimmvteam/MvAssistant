@@ -161,7 +161,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Pellicle 清理完回到 Clean Chamber 內的起始點 </summary>
-        public void CCPellicleCleanedReturnInCC()
+        public void CCPellicleCleanedReturnInCCPellicle()
         {
             var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterCleanedPellicle.ToString()];
             CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
@@ -179,7 +179,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
         /// <summary> Pellicle 檢測完回到 Clean Chamber 內的起始點 </summary>
-        public void CCPellicleInspectedReturnInCC()
+        public void CCPellicleInspectedReturnInCCPellicle()
         {
             var transition = Transitions[EnumMacMaskTransferTransition.TriggerToMoveToOriginAfterInspectedPellicle.ToString()];
             CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());

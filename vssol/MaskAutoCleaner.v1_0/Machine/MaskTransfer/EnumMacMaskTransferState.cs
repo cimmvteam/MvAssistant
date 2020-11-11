@@ -70,7 +70,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         InspectionChPellicleClamping,
         InspectionChGlassClamping,
         OpenStageClamping,
-        
+
         //ReadyToRelease,
 
         LoadPortAReleasing,
@@ -92,7 +92,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         //WaitingForMoveToCapture,
         MovingToInspectPellicle,
         PellicleOnCamera,
-        InspectingPellicleInCleanCh,
+        InspectingPellicle,
         InspectedPellicle,
         MovingToOriginAfterInspectedPellicle,
         //WaitingForLeaveCleanCh,
@@ -123,21 +123,5 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         MovingToInspectDeform,
         InspectingClampDeform,
         MovingToICHomeFromInspectDeform,
-
-        //WaitAckHome,
-
-        ExpRobotPositioningError,
-        ExpCalibrationFail,
-        ExpCalibrationReleaseFail,
-        ExpMayEspDamage,
-        ExpMayEspDamageInRelease,
-
-        ExpTactileInReleased,
-        ExpTactileInClamped,
-        ExpForceInReleased,
-        ExpForceInClamped,
-        ExpForceInReleasing,
-        ExpForceInClamping,
-        InspectingPellicle,
     }
 }
