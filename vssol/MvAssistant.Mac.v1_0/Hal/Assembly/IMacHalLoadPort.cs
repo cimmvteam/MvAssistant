@@ -11,6 +11,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <summary>Load Port 單元 (執行 Dock/Undock 的單元)</summary>
         IMacHalLoadPortUnit LoadPortUnit{ get; }
 
+        string Dock();
+
+        string Undock();
+
         /// <summary>
         /// 設定LoadPort內部與外部環境最大壓差限制，錶1壓差限制、錶2壓差限制
         /// </summary>
