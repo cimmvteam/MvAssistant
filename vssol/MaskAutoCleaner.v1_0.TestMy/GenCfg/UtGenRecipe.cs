@@ -384,41 +384,80 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
             #region MT LPA
             {
-                var step = recipe.AddStep("Load Port A Dock");
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPOD);
+                var step = recipe.AddStep("Load Port A Get POD");
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.Idle);
 
-                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortTransition.DockStart_DockIng);
+                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacLoadportCmd.ToGetPODWithMask);
 
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetMask);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPODWithMask);
             }
 
             {
-                var step = recipe.AddStep("Mask Transfer Move To Load Port A Catch Mask");
-                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.LPHome);
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetMask);
+                var step = recipe.AddStep("Load Port A Dock");
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPODWithMask);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferTransition.TriggerToMoveToLoadPortA);
+                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacLoadportCmd.DockWithMask);
+
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleaseMask);
+            }
+
+            {
+                var step = recipe.AddStep("Mask Transfer Move To Load Port A Catch Mask Return To LPHomeClamped");
+                step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.LPHome);
+                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleaseMask);
+
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferCmd.LPHomeToLPAGetMaskReturnToLPHomeClamped);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.LPHomeClamped);
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetMask);
-            }
-
-            {
-                var step = recipe.AddStep("Load Port A Undock");
-                step.AddBeforeState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetMask);
-
-                step.AddCmd(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortTransition.UndockStart_UndockIng);
-
-                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForGetPOD);
+                step.AddAfterState(EnumMachineID.MID_LP_A_ASB, EnumMacLoadPortState.IdleForReleaseMask);
             }
             #endregion MT LPA
+            #region OS BT
+            {
+                var step = recipe.AddStep("Open Stage Change State To Receive Box");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.Idle);
+
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.InputBox);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputBox);
+            }
+
+            {
+                var step = recipe.AddStep("Open Stage Calibration Box");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputBox);
+
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.CalibrationClosedBox);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+            }
+
+            {
+                var step = recipe.AddStep("Box Transfer Move To Unlock Box");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+                step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
+
+                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacMcBoxTransferCmd.MoveToUnlock);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+                step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
+            }
+
+            {
+                var step = recipe.AddStep("Open Stage Change State To Receive Mask");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.OpenBox);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputMask);
+            }
+            #endregion OS BT
             #region MT OS
             {
-                var step = recipe.AddStep("Mask Transfer Move To Open Stage Release Mask");
+                var step = recipe.AddStep("Mask Transfer Move To Open Stage Release Mask Return To LPHome");
                 step.AddBeforeState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.LPHomeClamped);
                 step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputMask);
 
-                step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferTransition.TriggerToMoveToOpenStageForRelease);
+                step.AddCmd(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferCmd.LPHomeClampedToOSReleaseMaskReturnToLPHome);
 
                 step.AddAfterState(EnumMachineID.MID_MT_A_ASB, EnumMacMaskTransferState.LPHome);
                 step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputMask);
@@ -429,17 +468,17 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 var step = recipe.AddStep("Open Stage Close Box With Mask");
                 step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputMask);
 
-                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageTransition.TriggerToCloseBoxWithMask);
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.CloseBoxWithMask);
 
                 step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForLockWithMask);
             }
 
             {
-                var step = recipe.AddStep("Box Transfer Move To Open Stage Lock Box With Mask");
+                var step = recipe.AddStep("Box Transfer Move To Lock Box With Mask");
                 step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
                 step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForLockWithMask);
 
-                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferTransition.MoveToLock);
+                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacMcBoxTransferCmd.MoveToLock);
 
                 step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
                 step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForLockWithMask);
@@ -449,7 +488,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 var step = recipe.AddStep("Open Stage Release Box With Mask");
                 step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForLockWithMask);
 
-                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageTransition.TriggerToCloseBoxWithMask);
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.ReleaseBoxWithMask);
 
                 step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForReleaseBoxWithMask);
             }
@@ -459,10 +498,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
                 step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForReleaseBoxWithMask);
 
-                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferTransition.MoveToOpenStage);
+                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacMcBoxTransferCmd.MoveToOpenStageGet);
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.ReturnToIdleAfterReleaseBoxWithMask);
 
                 step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1HomeClamped);
-                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForReleaseBoxWithMask);
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.Idle);
             }
             #endregion OS BT
             #region BT DW_01_01
@@ -471,7 +511,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1HomeClamped);
                 step.AddBeforeState(EnumMachineID.MID_DRAWER_01_01, EnumMacCabinetDrawerState.UnloadMoveTrayToHomeComplete);
 
-                step.AddCmd(EnumMachineID.MID_DRAWER_01_01, EnumMacCabinetDrawerTransition.UnloadMoveTrayToInIng_UnloadMoveTrayToInComplete);
+                step.AddCmd(EnumMachineID.MID_DRAWER_01_01, EnumMacMcCabinetDrawerCmd.UnloadMoveTrayToInIng_UnloadMoveTrayToInComplete);
 
                 step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1HomeClamped);
                 step.AddAfterState(EnumMachineID.MID_DRAWER_01_01, EnumMacCabinetDrawerState.UnloadMoveTrayToInComplete);
