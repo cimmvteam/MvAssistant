@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
         
-        public MacMsInspectionCh() { LoadStateMachine(); }
+        public MacMsInspectionCh() { this.LoadStateMachine(); }
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
 

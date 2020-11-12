@@ -25,7 +25,7 @@
         <Device DevConnStr="ip=192.168.0.162;port=1000;model=IWDV_600M2_24;channel=1" DeviceName="inspectionch_light_spot_inspection_left_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="ip=192.168.0.162;port=1000;model=IWDV_600M2_24;channel=2" DeviceName="inspectionch_light_spot_inspection_right_001" DriverId="da521b12-e343-4ded-867e-e4b773235be5" />
         <Device DevConnStr="id=00:11:1C:F8:C6:26" DeviceName="inspectionch_camera_inspect_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
-        <!--<Device DevConnStr="id=TXF-MDT1X150-D35" DeviceName="inspection_camera_inspect_top_1" DriverId="6887e53e-4914-444a-a099-6bd30da27396" />-->
+        <Device DevConnStr="id=TXF-MDT1X150-D35" DeviceName="inspection_camera_inspect_top_1" DriverId="6887e53e-4914-444a-a099-6bd30da27396" />
         <Device DevConnStr="id=00:11:1C:F9:A4:0A" DeviceName="inspection_camera_defense_side_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
         <Device DevConnStr="id=00:11:1C:F9:A4:0D" DeviceName="inspection_camera_defense_top_1" DriverId="a8a79e52-1626-484c-b06e-0cf9d4a0ab63" />
       </Devices>

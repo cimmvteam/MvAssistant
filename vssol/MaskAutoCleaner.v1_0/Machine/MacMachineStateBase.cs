@@ -30,21 +30,13 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         /// <summary>目前工作狀態</summary>
         public MacState CurrentState { get; private set; }
-
         public string CurrentStateName { get { return this.CurrentState == null ? null : this.CurrentState.Name; } }
 
-     
-        public virtual void Load()
-        {
-            this.LoadStateMachine();
-        }
 
+        #region Abstract
         public abstract void LoadStateMachine();
-
-    
-
         public abstract void SystemBootup();
-
+        #endregion
 
 
 
@@ -105,6 +97,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                     state.DoExit(stateExitArgs);
                     if (nextState != null)
                     {
+                        this.SetCurrentState(nextState);
                         nextState.DoEntry(nextStateEntryArgs);
                     }
                 }
@@ -135,12 +128,12 @@ namespace MaskAutoCleaner.v1_0.Machine
                     {
                         triggerMember.Action(triggerMember.ActionParameter);
                     }
-                    if(nextState != null)
+                    if (nextState != null)
                     {
                         thisState.DoExit(triggerMember.ThisStateExitEventArgs);
                         hasDoExit = true;
                     }
-                   
+
                 }
                 else
                 {
@@ -163,6 +156,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             {
                 if (nextState != null)
                 {
+                    this.SetCurrentState(nextState);
                     nextState.DoEntry(triggerMember.NextStateEntryEventArgs);
                 }
             }
@@ -175,6 +169,10 @@ namespace MaskAutoCleaner.v1_0.Machine
         }
 
         public void Trigger(Enum transition) { this.Trigger(transition.ToString()); }
+
+
+
+
 
         /// <summary></summary>
         /// <param name="guard">guard (Func delegate) </param>
@@ -204,6 +202,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                             State.DoExit(rtn.ThisStateExitEventArgs);
                             if (nextState != null)
                             {
+                                this.SetCurrentState(nextState);
                                 nextState.DoEntry(rtn.NextStateEntryEventArgs);
                             }
                             break;
@@ -247,7 +246,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                     {
                         triggerMemberAsync.Action(triggerMemberAsync.ActionParameter);
                     }
-                   
+
                     if (nextState != null)
                     {
                         thisState.DoExit(triggerMemberAsync.ThisStateExitEventArgs);
@@ -270,6 +269,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                 {
                     if (nextState != null)
                     {
+                        this.SetCurrentState(nextState);
                         nextState.DoEntry(triggerMemberAsync.NextStateEntryEventArgs);
                     }
                 }
@@ -327,5 +327,5 @@ namespace MaskAutoCleaner.v1_0.Machine
             new Task(Trigger).Start();
         }
 
-       }
+    }
 }

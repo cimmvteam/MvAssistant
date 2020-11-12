@@ -18,23 +18,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             {
                 //return this.
                 IMacHalDrawer drawer = null;
-                for (var i = (int)MacEnumDevice.cabinet_drawer_01_01; i <= (int)MacEnumDevice.cabinet_drawer_07_05; i++)
+                for (var idx = (int)MacEnumDevice.cabinet_drawer_01_01; idx <= (int)MacEnumDevice.cabinet_drawer_07_05; idx++)
                 {
-                    try
-                    {
-                        drawer = (IMacHalDrawer)this.GetHalDevice((MacEnumDevice)i);
-                        if (drawer != null)
-                        {
-                            break;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
+                    //減少拋出的Exception量, 事先判斷是否存在
+                    if (!this.IsContainDevice((MacEnumDevice)idx)) continue;
+                    drawer = (IMacHalDrawer)this.GetHalDevice((MacEnumDevice)idx);
                 }
                 return drawer;
-                ;
             }
         }
 

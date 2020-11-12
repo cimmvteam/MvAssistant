@@ -36,6 +36,16 @@ namespace MvAssistant.Mac.v1_0.Hal
 
             return hals.FirstOrDefault().Value;
         }
+        public bool IsContainDevice(MacEnumDevice key) { return this.IsContainDevice(key.ToString()); }
+        public bool IsContainDevice(string key)
+        {
+            var qhals = (from row in this.Hals
+                         where row.Key == key
+                         select row);
+            return qhals.Count() > 0;
+        }
+
+
         public void SetHalDevice(MacEnumDevice key, MacHalBase hal) { this.SetHalDevice(key, hal); }
         public void SetHalDevice(string key, MacHalBase hal) { this.Hals[key] = hal; }
 

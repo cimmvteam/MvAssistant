@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 {
     [Guid("2BC53A03-E7AC-4A1A-AB56-1B4C3A955974")]
-    public class MacHalLoadPortUnitFake : MacHalComponentBase, IMacHalLoadPortUnit
+    public class MacHalLoadPortFake : MacHalComponentBase, IMacHalLoadPortUnit
     {
         #region Const
         public const string DevConnStr_Ip = "ip";

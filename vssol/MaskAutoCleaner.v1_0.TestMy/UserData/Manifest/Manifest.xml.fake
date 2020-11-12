@@ -129,7 +129,7 @@
     <Driver DriverId="31473e4f-16e9-4824-9032-29cb1d71399b" Vendor="Fake" Product="Fake Open Stage" HalImpId="5F714250-6215-40B1-A6AB-FD6BA8C7A27A" HalImpRefName="MacHalOpenStageFake" />
     <Driver DriverId="27e39375-426f-4adc-819a-174dfc67ac81" Vendor="Fake" Product="Fake Universal" HalImpId="7380FBCE-0552-4558-991A-771328870B5A" HalImpRefName="MacHalUniversalFake" />
     <Driver DriverId="26343452-5921-4c6a-8e67-847f981706f0" Vendor="Fake" Product="Fake Drawer" HalImpId="408E693D-EEB2-4458-BB91-FE1D6A9B8AD5" HalImpRefName="MacHalDrawerFake" />
-    <Driver DriverId="f16b58aa-7d81-4192-9ce8-d571965ecc87" Vendor="Fake" Product="Fake Load Port Unit" HalImpId="2BC53A03-E7AC-4A1A-AB56-1B4C3A955974" HalImpRefName="MacHalLoadPortUnitFake" />
+    <Driver DriverId="f16b58aa-7d81-4192-9ce8-d571965ecc87" Vendor="Fake" Product="Fake Load Port Unit" HalImpId="2BC53A03-E7AC-4A1A-AB56-1B4C3A955974" HalImpRefName="MacHalLoadPortFake" />
     <Driver DriverId="9ce04592-be15-4731-9725-f6be4add98da" Vendor="Fake" Product="Fake Camera" HalImpId="6559A888-F8D8-4CD6-8F18-B72E0252EB85" HalImpRefName="MacHalCameraFake" />
     <Driver DriverId="1bcecbf8-ca91-4c75-bc3e-b6b27d172350" Vendor="Fake" Product="Fake Robot" HalImpId="D164A8D9-031A-4EBB-8876-679F0874C8E7" HalImpRefName="HalRobotFake" />
     <Driver DriverId="da521b12-e343-4ded-867e-e4b773235be5" Vendor="Fake" Product="Fake Light Controller" HalImpId="07C1D790-D3A5-4AB5-8A6E-5EC41045778B" HalImpRefName="MacHalLightLeimac" />

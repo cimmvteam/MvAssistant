@@ -89,7 +89,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         /// <remarks>
         /// Idle(OnExit) => IdleForGetPOD(OnEntry)
         /// </remarks>
-        public void  ToGetPOD()
+        public void ToGetPOD()
         {
             Debug.WriteLine("Command: [ToGetPOD], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.Idle_IdleForGetPOD.ToString()];
@@ -97,7 +97,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -114,10 +114,10 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             var state = transition.StateFrom;
 
 #else
-           var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
-          
+
         }
 
 
@@ -125,7 +125,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         /// <remarks>
         /// IdleForGetMask(OnExit) => UndockWithMask(start, ing, complete) => IdleForReleasePODWithMask(OnEntry)
         /// </remarks>
-        public void  UndockWithMaskFromIdleForGetMask()
+        public void UndockWithMaskFromIdleForGetMask()
         {
             Debug.WriteLine("Command: [UndockWithMaskFromIdleForGetMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForGetMask_UndockWithMaskStart.ToString()];
@@ -133,7 +133,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             var state = transition.StateFrom;
 
 #else
-           var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -151,7 +151,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             var state = transition.StateFrom;
 
 #else
-           var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -168,7 +168,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -185,7 +185,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -203,7 +203,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -220,7 +220,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -237,7 +237,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -254,7 +254,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 #if GNotCareState
             var state = transition.StateFrom;
 #else
-            var state=this.CurrentState;
+            var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
         }
@@ -299,7 +299,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             */
         }
 
-        
+
         [Obsolete]
         public void Undock()
         {
@@ -317,7 +317,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
 
             #region State
-           
+
 
             MacState sAlarmResetStart = NewState(EnumMacLoadPortState.AlarmResetStart);
             MacState sAlarmResetIng = NewState(EnumMacLoadPortState.AlarmResetIng);
@@ -406,18 +406,18 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
 
             // Command: UndockWithMaskFromIdleForRelesaseMask(X)
             MacTransition tIdleForReleaseMask_UndockWithMaskStart = NewTransition(sIdleForReleaseMask, sUndockWithMaskStart, EnumMacLoadPortTransition.IdleForReleaseMask_UndockWithMaskStart);
-         
+
 
             // Command: UndockFromIdleForGetMask(@)
             MacTransition tIdleForGetMask_UndockStart = NewTransition(sIdleForGetMask, sUndockStart, EnumMacLoadPortTransition.ToIdleForGetMask_UndockStart);
-          
+
 
             // Command: ReleasePODWithMask
             MacTransition tIdleForReleasePODWithMask_Idle = NewTransition(sIdleForReleasePODWithMask, sIdle, EnumMacLoadPortTransition.IdleForReleasePODWithMask_Idle);
             // Command: ReleasePOD
             MacTransition tIdleForReleasePOD_Idle = NewTransition(sIdleForReleasePOD, sIdle, EnumMacLoadPortTransition.IdleForReleasePOD_Idle);
             #endregion Transition
-           
+
             #region  Register OnEntry, OnExit Event Handler
 
             sAlarmResetStart.OnEntry += (sender, e) =>
@@ -504,7 +504,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMember);
-                Trigger(transition);
+                this.Trigger(transition);
             };
             sAlarmResetComplete.OnExit += (sender, e) =>
             {
@@ -906,7 +906,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 Debug.WriteLine("State: [sUndockWithMaskComplete.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
 
-           
+
             sIdleForReleasePODWithMask.OnEntry += (sender, e) =>
             {  // Sync
                 Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnEntry], Index: " + this.HalLoadPortUnit.DeviceIndex);
@@ -928,7 +928,8 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sIdleForReleasePODWithMask.OnExit += (sender, e) => {
+            sIdleForReleasePODWithMask.OnExit += (sender, e) =>
+            {
                 Debug.WriteLine("State: [sIdleForReleasePODWithMask.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
             sDockWithMaskStart.OnEntry += (sender, e) =>
@@ -1180,7 +1181,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             {
                 Debug.WriteLine("State: [sIdleForReleasePOD.OnExit], Index: " + this.HalLoadPortUnit.DeviceIndex);
             };
-       #endregion
+            #endregion
 
 
         }

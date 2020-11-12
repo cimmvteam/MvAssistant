@@ -17,20 +17,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             get
             {
                 IMacHalLoadPortUnit rtnV = null;
-                for (var i = (int)MacEnumDevice.loadport_1; i <= (int)MacEnumDevice.loadport_2; i++)
+                for (var idx = (int)MacEnumDevice.loadport_1; idx <= (int)MacEnumDevice.loadport_2; idx++)
                 {
-                    try
-                    {
-                        rtnV = (IMacHalLoadPortUnit)this.GetHalDevice((MacEnumDevice)i);
-                        if (rtnV != null)
-                        {
-                            break;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
+                    //先確認是否有此裝置再 Return,避免拋出 Exception
+                    if (!this.IsContainDevice((MacEnumDevice)idx)) continue;
+                    rtnV = (IMacHalLoadPortUnit)this.GetHalDevice((MacEnumDevice)idx);
                 }
                 return rtnV;
 
@@ -45,12 +36,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public Tuple<int, int> ReadPressureDiff()
         {
-            return new Tuple<int, int>(0,0);
+            return new Tuple<int, int>(0, 0);
         }
 
         public Tuple<int, int> ReadPressureDiffLimitSrtting()
         {
-            return new Tuple<int, int>(1,1);
+            return new Tuple<int, int>(1, 1);
         }
 
         public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)

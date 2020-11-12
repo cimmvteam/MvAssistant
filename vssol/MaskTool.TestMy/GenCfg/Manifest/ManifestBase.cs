@@ -115,7 +115,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                     Vendor = "Fake",
                     Product = "Fake Load Port Unit",
                     Remark = null,
-                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortUnitFake),
+                    AssignType = typeof(Hal.CompLoadPort.MacHalLoadPortFake),
                     DriverId = ManifestDriverId.LoadPortUnitFake.ToString(),
                 }
             }.ToList();
