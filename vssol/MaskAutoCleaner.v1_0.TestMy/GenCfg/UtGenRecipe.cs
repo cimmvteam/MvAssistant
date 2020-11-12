@@ -511,7 +511,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1HomeClamped);
                 step.AddBeforeState(EnumMachineID.MID_DRAWER_01_01, EnumMacCabinetDrawerState.UnloadMoveTrayToHomeComplete);
 
-                step.AddCmd(EnumMachineID.MID_DRAWER_01_01, EnumMacMcCabinetDrawerCmd.UnloadMoveTrayToInIng_UnloadMoveTrayToInComplete);
+                step.AddCmd(EnumMachineID.MID_DRAWER_01_01, EnumMacMcCabinetDrawerCmd.Unload_MoveTrayToIn);
 
                 step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1HomeClamped);
                 step.AddAfterState(EnumMachineID.MID_DRAWER_01_01, EnumMacCabinetDrawerState.UnloadMoveTrayToInComplete);
