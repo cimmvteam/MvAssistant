@@ -42,7 +42,7 @@ namespace MvAssistant.Mac.TestMy.Device
 
                 //IC1: ch1: Top Defense 環形光 ; ch2: Side Inspection 條形光 ; ch3: Side Defense 條形光 ; ch4: No install
                 light.Model = MvEnumLeimacModel.IDGB_50M4PG_24_TP;
-                light.ConnectIfNo("192.168.0.160", 1000);
+                var status = light.ConnectIfNo("192.168.0.160", 1000);
 
                 //IC2: ch1: Top Inspcetion 環形光 ; ch2: No install
                 //light.Model = MvEnumLeimacModel.IDGB_50M2PG_12_TP;
