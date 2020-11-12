@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenrioTest
+namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 {
     [TestClass]
-    public class UnitTest1
+    public class Ut022_BT
     {
         [TestMethod]
         public void TestMethod1()
