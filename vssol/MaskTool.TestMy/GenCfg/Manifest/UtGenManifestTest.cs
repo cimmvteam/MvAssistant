@@ -64,7 +64,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
             menifest.Drivers.AddRange(DriverRealAll());
             menifest.Drivers.AddRange(DriverFakeAll());
 
-            var fn = Path.Combine(@"../../", "GenCfg/Manifest/Manifest.xml.test");
+            var fn = Path.Combine(@"../../", "UserData/Manifest/Manifest.xml.test");
             menifest.SaveToXmlFile(fn);
         }
 

@@ -112,10 +112,16 @@
     <Compile Include="UtTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GenCfg\Manifest\Manifest.xml.fake" />
-    <None Include="GenCfg\Manifest\Manifest.xml.real" />
-    <None Include="GenCfg\Manifest\Manifest.xml.test" />
     <None Include="packages.config" />
+    <None Include="UserData\Manifest\Manifest.xml.fake">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\Manifest\Manifest.xml.real">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="UserData\Manifest\Manifest.xml.test">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="UserData\STC-CL25M_8T freerun.cam" />
   </ItemGroup>
   <ItemGroup>
