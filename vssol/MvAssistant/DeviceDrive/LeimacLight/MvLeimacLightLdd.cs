@@ -41,7 +41,7 @@ namespace MvAssistant.DeviceDrive.LeimacLight
         {
 
             if (this.TcpClient.remoteEP == null)
-                this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse("192.168.0.30"), 1000);
+                this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse(ip), 1000);
 
             if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
             if (port.HasValue) this.RemotePort = port.Value;

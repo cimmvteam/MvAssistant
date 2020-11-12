@@ -16,20 +16,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
+                halContext.MvCfInit();
                 halContext.MvCfLoad();
-
+                string str = System.Environment.CurrentDirectory;
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.LightForSideBarDfsSetValue(200);
-                ic.LightForSideBarInspSetValue(200);
-                ic.LightForTopCrlDefenseSetValue(200);
-                ic.LightForTopCrlInspSetValue(200);
-                ic.LightForLeftSpotInspSetValue(200);
-                ic.LightForRightSpotInspSetValue(200);
+                ic.LightForSideBarDfsSetValue(888);
+                ic.LightForSideBarInspSetValue(888);
+                ic.LightForTopCrlDefenseSetValue(888);
+                ic.LightForTopCrlInspSetValue(888);
+                ic.LightForLeftSpotInspSetValue(888);
+                ic.LightForRightSpotInspSetValue(888);
             }
         }
 
