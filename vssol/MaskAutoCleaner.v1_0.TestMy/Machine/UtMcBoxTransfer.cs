@@ -12,92 +12,128 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     {
         MacMachineMgr MachineMgr;
         MacMcBoxTransfer MachineCtrl;
-        MacMsBoxTransfer StateMachines;
+        MacMsBoxTransfer StateMachine;
+        void Repeat()
+        {
+            while (true)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+        }
         public UtMcBoxTransfer()
         {
             MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
             MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
-            StateMachines= MachineCtrl.StateMachine;
+            StateMachine= MachineCtrl.StateMachine;
+        }
+
+
+        [TestMethod]
+        [DataRow(true)]
+        public void Test_SystemBootUp(bool mainTest)
+        {
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.SystemBootup.ToString());
+            method.Invoke(StateMachine, null);
+            if (mainTest)
+            {
+                Repeat();
+            }
+        }
+
+
+        [TestMethod]
+        [DataRow(BoxType.CrystalBox,true)]
+       // [DataRow(BoxType.IronBox,true)]
+        public void Test_MoveToLock(BoxType boxType,bool mainTest)
+        {
+            Test_Initial(mainTest);
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToLock.ToString());
+            method.Invoke(StateMachine, new object[] { boxType });
+            if (mainTest)
+            { Repeat(); }
         }
 
         [TestMethod]
-        [DataRow(BoxType.IronBox)]
-       // [DataRow(BoxType.CrystalBox)]
-        public void TestMethod1(BoxType boxType)
+        [DataRow(BoxType.CrystalBox)]
+        //[DataRow(BoxType.IronBox)]
+        public void Test_MoveToUnLock(BoxType boxType)
         {
-
-
-            StateMachines.SystemBootup();
-            StateMachines.MoveToLock(boxType);  // Fake OK
-            StateMachines.MoveToUnlock(boxType);  // Fake OK
-            /**
-             bool BankIn = false;
-            bool BankOut = false; 
-            if (BankIn)
-            {
-                MS.MoveToOpenStageGet();
-                MS.MoveToCabinetPut("0101");
-            }
-            else if (BankOut)
-            {
-                MS.MoveToCabinetGet("0101");
-                MS.MoveToOpenStagePut();
-            }
-            else
-            {
-                MS.MoveToLock(boxType);  // Fake OK
-                MS.MoveToUnlock(boxType);  // Fake OK
-            }
-    */
+            Test_Initial(false);
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToUnlock.ToString());
+            method.Invoke(StateMachine, new object[] { boxType });
+            Repeat();
         }
 
 
-
-        /// <summary></summary>
-        /// <remarks>
-        /// <para>2020/10/30 State Machine Fake Test</para>
-        /// /// </remarks>
-        /// <param name="drawerNumber"></param>
         [TestMethod]
-        //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
-        public void TestMethod_BankOut(BoxrobotTransferLocation drawerNumber)
+        [DataRow(true)]
+        public void Test_Initial(bool mainTest)
         {
-            StateMachines.Initial();
-            StateMachines.MoveToCabinetGet(drawerNumber); // Fake OK
-            StateMachines.MoveToOpenStagePut(); // Fake OK
-            /**
-            var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
-            var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
-            var MS = MachineCtrl.StateMachine;
-            MS.Initial();
-
-            MS.MoveToCabinetGet(drawerNumber); // Fake OK
-            MS.MoveToOpenStagePut(); // Fake OK
-           */
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.Initial.ToString());
+            method.Invoke(StateMachine, null);
+            if (mainTest)
+            {
+                Repeat();
+            }
         }
 
         [TestMethod]
-        //[DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        [DataRow(BoxrobotTransferLocation.Drawer_07_01)]
-        public void TestMethod_BankIn(BoxrobotTransferLocation drawerNumber)
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01, BoxType.IronBox,true)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
+        public void Test_MoveToCabinetGet(BoxrobotTransferLocation drawerNumber, BoxType boxType,bool mainTest)
         {
-            StateMachines.Initial();
-            StateMachines.MoveToOpenStageGet();   // Fake OK
-            StateMachines.MoveToCabinetPut(drawerNumber);  // Fake OK
-            /**
-            var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
-            var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
-            var MS = MachineCtrl.StateMachine;
-            MS.Initial();
-           
-            MS.MoveToOpenStageGet();   // Fake OK
-            MS.MoveToCabinetPut(drawerNumber);  // Fake OK
-       */
+            Test_Initial(mainTest);
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToCabinetGet.ToString());
+            method.Invoke(StateMachine, new object[] { drawerNumber, boxType });
+            if (mainTest)
+            {
+                Repeat();
+            }
         }
 
+        [TestMethod]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01, BoxType.IronBox, true)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
+        public void Test_MoveToOpenStagePut(BoxrobotTransferLocation drawerNumber, BoxType boxType,bool mainTest)
+        {
+            Test_MoveToCabinetGet(drawerNumber, boxType, false);
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToOpenStagePut.ToString());
+            method.Invoke(StateMachine,null);
+            if (mainTest)
+            {
+                Repeat();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(BoxType.CrystalBox,true)]
+        //[DataRow(BoxType.IronBox, true)]
+        public void Test_MoveToOpenStageGet(BoxType boxType, bool mainTest)
+        {
+            Test_Initial(false);
+            var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToOpenStageGet.ToString());
+            method.Invoke(StateMachine, new object[] { boxType});
+            if (mainTest)
+            {
+                Repeat();
+            }
+
+        }
+
+
+        [TestMethod]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox, true)]
+        //[DataRow(BoxrobotTransferLocation.Drawer_04_01, BoxType.IronBox, true)]
+        public void Test_MoveToCabinetPut(BoxrobotTransferLocation drawerNumber,BoxType boxType, bool mainTest)
+        {
+            Test_MoveToOpenStageGet(boxType, false);
+            var method= typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToCabinetPut.ToString());
+            method.Invoke(StateMachine, new object[] { drawerNumber ,boxType});
+            if (mainTest)
+            {
+                Repeat();
+            }
+        }
     }
 }

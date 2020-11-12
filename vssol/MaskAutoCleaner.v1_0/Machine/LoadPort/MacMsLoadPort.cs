@@ -1,5 +1,5 @@
 ﻿//#define NoConfig
-#define NotCareState
+//#define NotCareState
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
@@ -94,7 +94,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [ToGetPOD], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.Idle_IdleForGetPOD.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;
@@ -110,7 +110,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             Debug.WriteLine("Command: [Dock], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForGetPOD_DockStart.ToString()];
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 
 #else
@@ -129,7 +129,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             Debug.WriteLine("Command: [UndockWithMaskFromIdleForGetMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForGetMask_UndockWithMaskStart.ToString()];
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 
 #else
@@ -147,7 +147,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         {
             Debug.WriteLine("Command: [ReleasePODWithMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForReleasePODWithMask_Idle.ToString()];
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 
 #else
@@ -165,7 +165,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [ToGetPODWithMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.Idle_IdleForGetPODWithMask.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;
@@ -182,7 +182,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [DockWithMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForGetPODWithMask_DockWithMaskStart.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;
@@ -200,7 +200,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [UndockFromIdleForRelesaseMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForReleaseMask_UndockStart.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;
@@ -217,7 +217,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [ReleasePOD], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForReleasePOD_Idle.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;
@@ -234,7 +234,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [UndockWithMaskFromIdleForRelesaseMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.IdleForReleaseMask_UndockWithMaskStart.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;
@@ -251,7 +251,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
             Debug.WriteLine("Command: [UndockFromIdleForGetMask], Index:" + this.HalLoadPortUnit.DeviceIndex);
             var transition = this.Transitions[EnumMacLoadPortTransition.ToIdleForGetMask_UndockStart.ToString()];
 
-#if NotCareState
+#if GNotCareState
             var state = transition.StateFrom;
 #else
             var state=this.CurrentState;

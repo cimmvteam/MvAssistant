@@ -26,17 +26,17 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public override int RequestProcMsg(IMacMsg msg)
         {
+            var msgCmd = msg as MacMsgCommand;
+            if (msgCmd != null)
+            {
+                var type = typeof(MacMsMaskTransfer);
+                var method = type.GetMethod(msgCmd.Command);
+                method.Invoke(this.StateMachine, null);
+            }
             var msgTran = msg as MacMsgTransition;
             if (msgTran != null)
             {
-                var type = typeof(MacMsMaskTransfer);
-                var method = type.GetMethod("Cmd" + "SystemBootup");
-                method.Invoke(this.StateMachine, null);
-
-                //"Cmd" + EnumMacMaskTransferTransition.MoveToLoadPortA;
-                //
-                //
-                //
+                
             }
             var msgSecs = msg as MacMsgSecs;
             if (msgSecs != null)

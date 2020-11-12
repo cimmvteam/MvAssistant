@@ -17,13 +17,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
 
         private IMacHalOpenStage HalOpenStage { get { return this.halAssembly as IMacHalOpenStage; } }
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
-
-        private MacState _currentState = null;
-
-        public void ResetState()
-        { this.States[EnumMacOpenStageState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
-
-
+        
         public MacMsOpenStage() { LoadStateMachine(); }
 
         MacOpenStageUnitStateTimeOutController timeoutObj = new MacOpenStageUnitStateTimeOutController();

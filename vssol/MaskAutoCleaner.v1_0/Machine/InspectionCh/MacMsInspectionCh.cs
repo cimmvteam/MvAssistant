@@ -15,17 +15,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
     {
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
         private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
-
-        private MacState _currentState = null;
-
-        public void ResetState()
-        { this.States[EnumMacInspectionChState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
-
-        private void SetCurrentState(MacState state)
-        { _currentState = state; }
-
-        public MacState CurrentState { get { return _currentState; } }
-
+        
         public MacMsInspectionCh() { LoadStateMachine(); }
 
         MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
