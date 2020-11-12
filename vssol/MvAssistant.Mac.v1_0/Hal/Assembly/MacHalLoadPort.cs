@@ -52,25 +52,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public string Dock()
         {
             LoadPortUnit.CommandDockRequest();
-            while (true)
-            {
-                if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete, 20 * 1000))
-                    throw new MvException("Load Port Dock Timeout !!");
-                else
-                    return "OK";
-            }
+
+            if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete, 20 * 1000))
+                throw new MvException("Load Port Dock Timeout !!");
+            else
+                return "OK";
         }
 
         public string Undock()
         {
             LoadPortUnit.CommandUndockRequest();
-            while (true)
-            {
-                if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete, 20 * 1000))
-                    throw new MvException("Load Port Undock Timeout !!");
-                else
-                    return "OK";
-            }
+
+            if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete, 20 * 1000))
+                throw new MvException("Load Port Undock Timeout !!");
+            else
+                return "OK";
         }
 
         #region Set Parameter
