@@ -77,13 +77,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             CCMS.CleanPellicle();
             Task.WaitAll(MT_Task);
             CCMS.FinishCleanPellicle();
-            MTMS.CCPellicleCleanedReturnInCC();
+            MTMS.CCPellicleCleanedReturnInCCPellicle();
             MTMS.InCCPellicleMoveToInspect();
             MT_Task = Task.Factory.StartNew(() => { MTMS.InspectPellicle(); });
             CCMS.InspectPellicle();
             Task.WaitAll(MT_Task);
             CCMS.FinishInspectPellicle();
-            MTMS.CCPellicleInspectedReturnInCC();
+            MTMS.CCPellicleInspectedReturnInCCPellicle();
             MTMS.InCCPellicleToCCHomeClamped();
 
             MTMS.CCHomeClampedToCCHomeCleaned();
@@ -92,8 +92,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MTMS.LPHomeCleanedToLPARelease();
         }
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        public void BankIn(BoxrobotTransferLocation drawerLocation)
+        //[DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox)]
+        [DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.IronBox)]
+        public void BankIn(BoxrobotTransferLocation drawerLocation, BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -127,24 +128,25 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Task.WaitAll(OS_Task);
             BTMS.MoveToOpenStagePut();
             OSMS.CalibrationClosedBox();
-            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToUnlock(boxType); 
             OS_Task = Task.Factory.StartNew(() => { OSMS.OpenBox(); });
             Task.WaitAll(LPA_Task, LPB_Task, MT_Task);
             MTMS.LPHomeToLPAGetMaskReturnToLPHomeClamped();
             Task.WaitAll(OS_Task);
             MTMS.LPHomeClampedToOSReleaseMaskReturnToLPHome();
             OSMS.CloseBoxWithMask();
-            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToLock(boxType); 
             OSMS.ReleaseBoxWithMask();
-            BTMS.MoveToOpenStageGet();
+            BTMS.MoveToOpenStageGet(boxType);
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBoxWithMask(); });
 
             //BTMS.MoveToCabinetPut("0101");
-            BTMS.MoveToCabinetPut(drawerLocation);
+            BTMS.MoveToCabinetPut(drawerLocation, boxType);
         }
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01)]
-        public void BankOut(BoxrobotTransferLocation drawerLocation)
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox)]
+        [DataRow(BoxrobotTransferLocation.Drawer_04_04, BoxType.CrystalBox)]
+        public void BankOut(BoxrobotTransferLocation drawerLocation,BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvCfInit();
@@ -183,7 +185,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Task.WaitAll(OS_Task);
             BTMS.MoveToOpenStagePut();
             OSMS.CalibrationClosedBoxWithMask();
-            BTMS.MoveToUnlock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToUnlock(boxType); 
             OSMS.OpenBoxWithMask();
             Task.WaitAll(LPA_Task, LPB_Task, MT_Task);
             MTMS.LPHomeToOSGetMaskReturnToLPHomeClamped();
@@ -221,13 +223,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             CCMS.CleanPellicle();
             Task.WaitAll(MT_Task);
             CCMS.FinishCleanPellicle();
-            MTMS.CCPellicleCleanedReturnInCC();
+            MTMS.CCPellicleCleanedReturnInCCPellicle();
             MTMS.InCCPellicleMoveToInspect();
             MT_Task = Task.Factory.StartNew(() => { MTMS.InspectPellicle(); });
             CCMS.InspectPellicle();
             Task.WaitAll(MT_Task);
             CCMS.FinishInspectPellicle();
-            MTMS.CCPellicleInspectedReturnInCC();
+            MTMS.CCPellicleInspectedReturnInCCPellicle();
             MTMS.InCCPellicleToCCHomeClamped();
 
             MT_Task = Task.Factory.StartNew(() =>
@@ -239,13 +241,13 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             });
 
             OSMS.CloseBox();
-            BTMS.MoveToLock(BoxType.IronBox); // TODO: 暫時為 鐵盒
+            BTMS.MoveToLock(boxType); 
             OSMS.ReleaseBox();
-            BTMS.MoveToOpenStageGet();
+            BTMS.MoveToOpenStageGet(boxType);
             OS_Task = Task.Factory.StartNew(() => { OSMS.ReturnToIdleAfterReleaseBox(); });
 
             //BTMS.MoveToCabinetPut("0101");
-            BTMS.MoveToCabinetPut(drawerLocation);
+            BTMS.MoveToCabinetPut(drawerLocation,boxType);
         }
     }
 }

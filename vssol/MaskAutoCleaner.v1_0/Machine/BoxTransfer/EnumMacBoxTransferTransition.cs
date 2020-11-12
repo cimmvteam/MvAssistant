@@ -9,8 +9,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 {
     public enum EnumMacBoxTransferTransition
     {
-        PowerON,
-        Initial,
+        Start_DeviceInitial,
+        DeviceInitial_CB1Home,
 
         StandbyAtCB1Home,
         StandbyAtCB1HomeClamped,
@@ -342,7 +342,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         StandbyAtCB1HomeFromCB0703,
         StandbyAtCB1HomeFromCB0704,
         StandbyAtCB1HomeFromCB0705,
-        MoveToDrawer,
+        CB1Home_MovingToDrawer,
         ClampAtDrawer,
         //StandbyAtCB1HomeClamped_C,
         MoveToCB1HomeClampedFromDrawer,

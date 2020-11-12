@@ -63,11 +63,12 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// 2020/10/20 OK
         /// </remarks>
         [TestMethod]
-         public void BootupInitialDrawers()
+         public void Test_SystemBootup()
         {
-            _machine.BootupInitialDrawers(DicStateMachines);
-
-            Repeat();
+            _machine.DicCabinetDrawerStateMachines = DicStateMachines;
+            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.SystemBootup.ToString());
+            method.Invoke(_machine, null);
+            
         }
 
         /// <summary>測試 Load Drawer 指令</summary>
@@ -76,14 +77,11 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// </remarks>
         [TestMethod]
         [DataRow(3)]
-        public void LoadDrawers(int drawersToLoad)
+        public void Load_Drawers(int drawersToLoad)
         {
-
-            DicStateMachines[EnumMachineID.MID_DRAWER_01_01].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
-            DicStateMachines[EnumMachineID.MID_DRAWER_01_02].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
-            DicStateMachines[EnumMachineID.MID_DRAWER_01_03].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
-            DicStateMachines[EnumMachineID.MID_DRAWER_01_04].SetCurrentStateForFakeTest(EnumMacCabinetDrawerState.WaitingLoadInstruction);
-            _machine.LoadDrawers(drawersToLoad, DicStateMachines);
+            _machine.DicCabinetDrawerStateMachines = this.DicStateMachines;
+            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.Load_Drawers.ToString());
+            method.Invoke(method,new object[] { drawersToLoad});
             Repeat();
         }
 

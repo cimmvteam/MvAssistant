@@ -3,6 +3,7 @@ using MaskAutoCleaner.v1_0.Msg;
 using MvAssistant;
 using MvAssistant.Mac.v1_0.Hal;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,9 @@ namespace MaskAutoCleaner.v1_0.Machine
         public MacHalAssemblyBase HalAssembly { get { return this.MsAssembly.halAssembly; } set { this.MsAssembly.halAssembly = value; } }
         public MacMachineStateBase MsAssembly;
         public MacMachineMediater Mediater { get { return this.MsAssembly.Mediater; } set { this.MsAssembly.Mediater = value; } }
+        public ConcurrentBag<MacMachineCtrlBase> CtrlMachines = new ConcurrentBag<MacMachineCtrlBase>();
+
+
 
         ~MacMachineCtrlBase() { this.Dispose(false); }
 

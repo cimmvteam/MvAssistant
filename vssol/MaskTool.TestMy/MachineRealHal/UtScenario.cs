@@ -39,8 +39,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             int times = 0;
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
+                    halContext.MvCfInit();
                     halContext.MvCfLoad();
 
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -169,7 +170,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -197,7 +198,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -220,7 +221,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -243,7 +244,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -266,7 +267,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -292,7 +293,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -319,7 +320,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -346,7 +347,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -373,7 +374,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -401,7 +402,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -422,7 +423,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -443,7 +444,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -464,7 +465,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -486,7 +487,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -542,7 +543,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -599,7 +600,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -622,7 +623,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -648,7 +649,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -695,7 +696,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -741,7 +742,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -786,7 +787,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -831,7 +832,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -916,7 +917,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1004,7 +1005,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1028,7 +1029,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1203,7 +1204,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1224,7 +1225,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1246,7 +1247,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1269,7 +1270,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1292,7 +1293,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1321,7 +1322,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1351,7 +1352,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1479,7 +1480,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 
@@ -1593,7 +1594,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             try
             {
-                using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+                using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
                     halContext.MvCfLoad();
 

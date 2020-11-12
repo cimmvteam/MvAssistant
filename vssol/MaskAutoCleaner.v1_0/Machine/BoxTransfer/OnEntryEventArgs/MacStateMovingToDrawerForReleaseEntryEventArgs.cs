@@ -1,4 +1,5 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,23 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
     {
         /// <summary>移動的起點</summary>
         public BoxrobotTransferLocation DrawerLocation { get; private set; }
+        public BoxType BoxType { get; private set; }
 
         private MacStateMovingToDrawerForReleaseEntryEventArgs() : base()
         {
 
         }
-        public MacStateMovingToDrawerForReleaseEntryEventArgs(BoxrobotTransferLocation drawerLocation, object parameter) : base(parameter)
+        public MacStateMovingToDrawerForReleaseEntryEventArgs(BoxrobotTransferLocation drawerLocation,BoxType boxType ,object parameter) : base(parameter)
         {
             DrawerLocation = drawerLocation;
+            BoxType = boxType;
 
         }
-        public MacStateMovingToDrawerForReleaseEntryEventArgs(BoxrobotTransferLocation drawerLocation) : this(drawerLocation, null)
+        public MacStateMovingToDrawerForReleaseEntryEventArgs(BoxrobotTransferLocation drawerLocation, BoxType boxType) : this(drawerLocation,boxType, null)
         {
 
         }
-        public MacStateMovingToDrawerForReleaseEntryEventArgs(object parameter) : this(BoxrobotTransferLocation.Dontcare, parameter)
+        public MacStateMovingToDrawerForReleaseEntryEventArgs(object parameter) : this(BoxrobotTransferLocation.Dontcare, BoxType.DontCare, parameter)
         {
 
         }

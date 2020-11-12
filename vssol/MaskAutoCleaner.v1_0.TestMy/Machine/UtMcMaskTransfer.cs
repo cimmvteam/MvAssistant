@@ -2,6 +2,7 @@
 using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.v1_0;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {
@@ -125,9 +126,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 MS.ICHomeInspectedToCCHomeClamped();
                 MS.CCHomeClampedToCCPellicle();
                 MS.InCCPellicleMoveToClean();
-                MS.CCPellicleCleanedReturnInCC();
+                MS.CCPellicleCleanedReturnInCCPellicle();
                 MS.InCCPellicleMoveToInspect();
-                MS.CCPellicleInspectedReturnInCC();
+                MS.CCPellicleInspectedReturnInCCPellicle();
                 MS.InCCPellicleToCCHomeClamped();
                 MS.CCHomeClampedToCCGlass();
                 MS.InCCGlassMoveToClean();
