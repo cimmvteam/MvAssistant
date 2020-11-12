@@ -29,6 +29,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         }
 
+        public string Dock()
+        { return "OK"; }
+
+        public string Undock()
+        { return "OK"; }
+
         public bool ReadLP_Light_Curtain()
         {
             return false;

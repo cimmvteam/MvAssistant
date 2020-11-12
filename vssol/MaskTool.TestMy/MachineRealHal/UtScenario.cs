@@ -31,14 +31,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public string Column = "01";// 左至右位於第幾欄， 01 ~ 07
         public string Row = "05";// 上至下位於第幾列， 01 ~ 05
 
-        #region MI-CT02-ST-001___Box Transfer___To drawer movement* 20
-
-        #endregion MI-CT02-ST-001___Box Transfer___To drawer movement* 20
-        #region MI-CT02-ST-002___Box Transfer___To drawer clamp/release* 20
-
-        #endregion MI-CT02-ST-002___Box Transfer___To drawer clamp/release* 20
-
-
         #region Mask Robot Move
         #region Clamp test
         [TestMethod]
