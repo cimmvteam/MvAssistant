@@ -60,11 +60,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
+                    halContext.MvCfInit();
                     halContext.MvCfLoad();
+                   // halContext.MvCfInit();
+                    //halContext.MvCfLoad();
+
+                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                    var drawer_01_01 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
-                    var drawer_01_02 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
-                    var isConnected= drawer_01_01.HalConnect();
+                    //var drawer_01_01 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                    //var drawer_01_02 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+                    var drawer_01_01 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_01.ToString()].Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine; 
+                    var drawer_01_02 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()].Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+
+                    var isConnected = drawer_01_01.HalConnect();
                    
                     // vs 2013
                     // Debug.WriteLine($"IsConnected={isConnected}");
