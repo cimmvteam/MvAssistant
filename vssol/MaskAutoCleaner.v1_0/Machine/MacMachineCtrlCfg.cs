@@ -16,7 +16,9 @@ namespace MaskAutoCleaner.v1_0.Machine
         public string ID;
 
         public MvTypeGuid MachineCtrlType;
-
         public string HalId;
+
+
+        public List<MacMachineCtrlCfg> MachineCfgs = new List<MacMachineCtrlCfg>();
     }
 }
