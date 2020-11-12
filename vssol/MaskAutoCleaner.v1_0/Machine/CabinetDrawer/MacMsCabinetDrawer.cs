@@ -892,8 +892,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 SetCurrentState((MacState)sender);
                 MacTransition transition = null;
                 TriggerMember triggerMember = null;
-                if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
-                {
+                //if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
+                    if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist || true)
+                    {
                     transition = tLoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn;
                     triggerMember = new TriggerMember
                     {
@@ -1595,7 +1596,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
-                if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
+                if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist || true)
                 {    // Tray 上有 Box, 回到 Out
                     transition = tUnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart;
                 }
