@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
 using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -9,6 +10,7 @@ using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.Mac.v1_0.JSon;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 {
@@ -22,6 +24,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         BoxrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
         public Ut001_BT()
         {
+            /**
             Drawers = new List<MacEnumDevice>(
                new MacEnumDevice[]  {
                    MacEnumDevice.cabinet_drawer_01_02,MacEnumDevice.cabinet_drawer_01_03,MacEnumDevice.cabinet_drawer_01_04,
@@ -43,8 +46,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                    BoxrobotTransferLocation.Drawer_07_02,BoxrobotTransferLocation.Drawer_07_03
 
              });
-
-
+    */
+            Drawers = HalDrawerExtends.DrawerCodes;
+            DrawerLocations = HalDrawerExtends.DrawerLocations;
 
             PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
             pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
@@ -55,11 +59,34 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-
+                var s=System.Environment.CurrentDirectory;
                 halContext.MvCfInit();
                 halContext.MvCfLoad();
                 var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                
+              //   unv.HalConnect();
 
+                // os.HalConnect();
+                //bt.HalConnect();
+              
+                for (var i = 0; i < Drawers.Count; i++)
+                {
+                    var cabinet = halContext.HalDevices[Drawers[i].ToString()] as MacHalCabinet;
+                    //cabinet.HalConnect();
+                    var drawer = cabinet.MacHalDrawer;
+                   // drawer.HalConnect();
+                    
+                    //drawer.Initial();
+                    //drawer.MoveTrayToIn();
+                }
+
+                var lpB = halContext.HalDevices[MacEnumDevice.loadportB_assembly.ToString()] as MacHalLoadPort;
+                var lb = lpB.LoadPortUnit;
+                var lpA = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
+                var la = lpA.LoadPortUnit;
+                lb.HalConnect();
             }
 
         }

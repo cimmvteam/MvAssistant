@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
+namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 {
     public static class HalDrawerExtends
     {

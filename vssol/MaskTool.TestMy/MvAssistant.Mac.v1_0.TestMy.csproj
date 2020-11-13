@@ -98,7 +98,7 @@
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut005_CB.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut004_CB.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut003_CB.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\HalDrawerExtends.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\HalDrawerExtends.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut024_OS.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut023_OS.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut022_BT.cs" />
