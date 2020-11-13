@@ -19,8 +19,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
         public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
         public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
-        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_front_1); } }
-        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_barcode_1); } }
+        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_left_1); } }
+        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_right_1); } }
 
         #endregion Device Components
 
@@ -206,24 +206,24 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return;
         }
 
-        public Bitmap Camera_FrontNearLP_Cap()
+        public Bitmap Camera_Left_Cap()
         {
             Bitmap bmp = null;
             return bmp;
         }
 
-        public void Camera_FrontNearLP_CapToSave(string SavePath, string FileType)
+        public void Camera_Left_CapToSave(string SavePath, string FileType)
         {
             return;
         }
 
-        public Bitmap Camera_FrontNearCC_Cap()
+        public Bitmap Camera_Right_Cap()
         {
             Bitmap bmp = null;
             return bmp;
         }
 
-        public void Camera_FrontNearCC_CapToSave(string SavePath, string FileType)
+        public void Camera_Right_CapToSave(string SavePath, string FileType)
         {
             return;
         }
