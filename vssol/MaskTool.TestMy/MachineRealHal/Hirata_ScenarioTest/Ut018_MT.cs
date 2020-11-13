@@ -22,9 +22,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
                     var lpa = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
+                    var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     lpa.HalConnect();
+                    ic.HalConnect();
 
                     //1. 光罩放置於Load Port A POD內
 
@@ -44,12 +46,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    ic.ReadRobotIntrude(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
                     mt.RobotMoving(false);
 
                     //9. Mask Robot將光罩從Inspection Chamber Entry處, 移回Load Port A
                     mt.RobotMoving(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    ic.ReadRobotIntrude(false);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
                     mt.RobotMoving(false);
