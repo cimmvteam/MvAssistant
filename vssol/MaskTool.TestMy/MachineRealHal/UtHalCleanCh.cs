@@ -23,7 +23,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 uni.HalConnect();
                 cc.HalConnect();
 
-                cc.Camera_SideInsp_CapToSave("D:/Image/CC/Insp", "jpg");
+                cc.Camera_Insp_CapToSave("D:/Image/CC/Insp", "jpg");
             }
         }
 

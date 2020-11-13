@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //1. 光罩放置於Load Port B POD內
 
-                    //2~5  Load Poat A Dock
+                    //2~5  Load Poat B Dock
                     lpb.Dock();
 
                     //6. Mask Robot從Home點移動至Load Port B

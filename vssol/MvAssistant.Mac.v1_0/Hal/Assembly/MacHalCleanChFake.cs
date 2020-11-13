@@ -17,7 +17,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return bmp;
         }
 
-        public void Camera_SideInsp_CapToSave(string SavePath, string FileType)
+        public void Camera_Insp_CapToSave(string SavePath, string FileType)
         {
             return;
         }
