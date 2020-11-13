@@ -85,6 +85,7 @@
     <Compile Include="GenCfg\Manifest\UtGenManifestTest.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestFake.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\HalDrawerExtends.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut024_OS.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut023_OS.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut022_BT.cs" />
