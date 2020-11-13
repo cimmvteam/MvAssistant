@@ -29,7 +29,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //1. 光罩放置於Load Port A POD內
 
                     //2~5  Load Poat A Dock
-
+                    lpa.Dock();
 
                     //6. Mask Robot從Home點移動至Load Port A
                     mt.RobotMoving(true);
@@ -63,7 +63,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //12~15  Load Port A Undock
-
+                    lpa.Undock();
                 }
             }
             catch (Exception ex) { throw ex; }

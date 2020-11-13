@@ -1235,7 +1235,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     cc.HalConnect();
 
                     cc.LightSetValue(200);
-                    cc.Camera_SideInsp_CapToSave("D:/Image/CC", "jpg");
+                    cc.Camera_Insp_CapToSave("D:/Image/CC", "jpg");
                 }
             }
             catch (Exception ex) { throw ex; }

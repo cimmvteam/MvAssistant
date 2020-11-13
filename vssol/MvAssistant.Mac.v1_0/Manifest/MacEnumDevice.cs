@@ -332,6 +332,10 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// </summary>
         loadport_infrared_entry_2,
 
+        loadportA_camera_inspect,
+        loadportB_camera_inspect,
+        loadport_camera_barcode_inspect,
+
         /// <summary>
         /// DE_LP_10: Mask Row CCD (Front)
         /// </summary>
@@ -493,12 +497,12 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_OS_16: Front CCD
         /// </summary>
-        openstage_camera_front_1,
+        openstage_camera_left_1,
 
         /// <summary>
         /// DE_OS_20: Barcode CCD
         /// </summary>
-        openstage_camera_barcode_1,
+        openstage_camera_right_1,
 
         /// <summary>
         /// DE_OS_18: Light Bar (Top)

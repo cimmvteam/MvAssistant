@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -51,6 +52,39 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         }
 
         public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
+        {
+            return;
+        }
+
+        public Bitmap Camera_LoadPortA_Cap()
+        {
+            Bitmap bmp = null;
+            return bmp;
+        }
+
+        public void Camera_LoadPortA_CapToSave(string SavePath, string FileType)
+        {
+            return;
+        }
+
+        public Bitmap Camera_LoadPortB_Cap()
+        {
+            Bitmap bmp = null;
+            return bmp;
+        }
+
+        public void Camera_LoadPortB_CapToSave(string SavePath, string FileType)
+        {
+            return;
+        }
+
+        public Bitmap Camera_Barcode_Cap()
+        {
+            Bitmap bmp = null;
+            return bmp;
+        }
+
+        public void Camera_Barcode_CapToSave(string SavePath, string FileType)
         {
             return;
         }
