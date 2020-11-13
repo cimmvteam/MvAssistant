@@ -459,6 +459,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 this.SetCurrentState((MacState)sender);
 
 
+
+
                 try   // TODO: Remove Try catch 
                 {
                     if (HalCabinet.MacHalDrawer.PressButtonToLoad == null)
@@ -526,6 +528,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Async
                 Debug.WriteLine("SystemBootupInitialIng.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
+
+
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
