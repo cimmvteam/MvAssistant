@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         [TestMethod]
         //[DataRow(BoxType.IronBox,false)] // 鐵盒
         [DataRow(BoxType.CrystalBox,false)]// 水晶盒
-        public void TestMethod(BoxType boxType,bool autoConnect) 
+        public void Test_Ut001_BT(BoxType boxType,bool autoConnect) 
         {
            
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
