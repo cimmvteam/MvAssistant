@@ -355,6 +355,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// Use of inspection
         /// </summary>
         loadport_light_bar_001,
+        loadport_light_bar_002,
 
         /// <summary>
         /// DE_LP_25: Clamper
