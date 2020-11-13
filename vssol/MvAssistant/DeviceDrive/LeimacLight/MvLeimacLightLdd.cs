@@ -33,26 +33,26 @@ namespace MvAssistant.DeviceDrive.LeimacLight
 
         public MvLeimacLightLdd()
         {
-
+            this.TcpClient.EhDataReceive += TcpClient_EhDataReceive;
         }
 
 
         public int ConnectIfNo(string ip = null, int? port = null)
         {
+            lock (this)
+            {
+                if (this.TcpClient.IsNonStopRunning) return 0;
 
-            if (this.TcpClient.remoteEP == null)
-                this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse(ip), 1000);
+                if (this.TcpClient.remoteEP == null)
+                    this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse(ip), 1000);
 
-            if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
-            if (port.HasValue) this.RemotePort = port.Value;
+                if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
+                if (port.HasValue) this.RemotePort = port.Value;
 
-            this.TcpClient.EhDataReceive += TcpClient_EhDataReceive;
-
-            this.TcpClient.ConnectIfNo();
-
-
-
-            return 0;
+                if (!this.TcpClient.IsOpenRequesting && !this.TcpClient.IsRemoteConnected)
+                    this.TcpClient.ConnectIfNo();
+                return 0;
+            }
         }
 
         private void TcpClient_EhDataReceive(object sender, CToolkit.v1_1.Protocol.CtkProtocolEventArgs e)

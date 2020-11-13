@@ -69,7 +69,7 @@ namespace MvAssistant
 
         public static void VerboseNs(object sender, string msg, params object[] args) { GetAssemblyLogger(sender).Write(string.Format(msg, args), MvLoggerEnumLevel.Verbose); }
 
-        public static void WarnNs(object sender, string msg, params object[] args) { GetAssemblyLogger(sender).Write(string.Format(msg, args), MvLoggerEnumLevel.Warn); }
+        public static void WarnNs(object sender, string msg, params object[] args) { GetAssemblyLogger(sender).Write(string.Format(msg+"", args), MvLoggerEnumLevel.Warn); }
 
         public static void WarnNs(object sender, MvLoggerEventArgs ea) { GetAssemblyLogger(sender).Write(ea, MvLoggerEnumLevel.Warn); }
 

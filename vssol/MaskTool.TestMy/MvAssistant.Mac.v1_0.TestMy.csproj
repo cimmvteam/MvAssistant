@@ -132,6 +132,7 @@
     <Compile Include="MachineRealPlc\UtPlcBoxRobot.cs" />
     <Compile Include="MachineRealPlc\UtPlcPublicArea.cs" />
     <Compile Include="MachineRealPlc\UtPlc.cs" />
+    <Compile Include="MacTestMyUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtTest.cs" />
   </ItemGroup>
