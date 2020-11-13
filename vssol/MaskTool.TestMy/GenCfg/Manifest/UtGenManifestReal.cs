@@ -1182,7 +1182,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLightLeimac.DevConnStr_Port, 1000,
                             MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
                             MacHalLightLeimac.DevConnStr_Channel, 2),
-                        DeviceName = MacEnumDevice.loadport_light_bar_001.ToString(),
+                        DeviceName = MacEnumDevice.loadport_light_bar_002.ToString(),
                         DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
 
