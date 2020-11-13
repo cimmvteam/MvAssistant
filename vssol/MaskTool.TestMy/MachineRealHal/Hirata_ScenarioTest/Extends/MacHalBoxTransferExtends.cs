@@ -1,6 +1,9 @@
 ﻿//using Microsoft.Analytics.Interfaces;
 //using Microsoft.Analytics.Types.Sql;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +23,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             instance.RobotMoving(true);
             instance.ExePathMove(path);
             instance.RobotMoving(false);
-        } 
+        }
+
+
+        /// <summary>回到 CB1 HOME </summary>
+        /// <param name="instance"></param>
+        public static void TurnToCB1Home(this MacHalBoxTransfer instance)
+        {
+            var pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+            string path = pathFileObj.Cabinet01HomePathFile();
+            instance.Move(path);
+        }
     }
 }

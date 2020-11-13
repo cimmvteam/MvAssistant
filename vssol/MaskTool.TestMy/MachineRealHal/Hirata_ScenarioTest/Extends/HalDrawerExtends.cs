@@ -118,6 +118,27 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             }
         }
 
+        public static bool MoveTrayToHome(this IMacHalDrawer instance)
+        {
+
+            instance.CommandTrayMotionHome();
+            var rtn = SpinWait.SpinUntil(
+             () => { return instance.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome || instance.CurrentWorkState == DrawerWorkState.TrayMotionFailed; }, timeoutMilliSecs);
+
+
+            if (instance.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionHome)
+            { return true; }
+            else if (instance.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+            {
+                throw new Exception("Drawer Move Tray Home  Failed");
+            }
+            else
+            {
+                throw (new Exception("Drawer Move Tray In Time Out"));
+            }
+
+        }
+
     }
 
     

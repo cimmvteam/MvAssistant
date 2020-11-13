@@ -100,6 +100,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 
                 // boxTransfer 
                 boxTransfer.Initial();
+                boxTransfer.TurnToCB1Home();
+             
                 // 1. 光罩鐵盒放置於Open Stage平台上  => 假設 OK
                 
                  
@@ -119,16 +121,44 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     boxTransfer.Move(path);
                     boxTransfer.Clamp((uint)boxType);
 
+                    #region 拍照 , 暫緩(4,5)
                     // 4. Box Robot從Open Stage夾持光罩至Drawer放置點位之前一個點位 (暫且定義為 CB1 Home)
+                    // 5. (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中無光罩盒
+                    #endregion
+
+                    // 6. Box Robot從Open Stage夾持光罩至Drawer放置點位 (不做放置光罩鐵盒於drawer的動作)
+                    //   6.1 先回 Cabinet 1Home
                     path = pathFileObj.FromOpenStageToCabinet01Home_GET_PathFile();
                     boxTransfer.Move(path);
+                    //   6.2 將BoxRobot 轉回 CB1 HOME 方向
+                    boxTransfer.TurnToCB1Home();
+                    //   6.3 將 BoxRobot 伸到 Drawer
+                    path = pathFileObj.FromCabinet01HomeToDrawer_PUT_PathFile(DrawerLocations[i]);
+                    boxTransfer.Move(path);
 
-                    // 5. (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中無光罩盒
+                    // 7. Box Robot夾持光罩回到Drawer entry點位 (目前没有 teach 這個點位, 改以 回到 CB1_HOME)
+                    //   7.1 以Get 方式回到 Cb1Home
+                    path = pathFileObj.FromDrawerToCabinet01Home_GET_PathFile(DrawerLocations[i]);
+                    boxTransfer.Move(path);
+                    //   7.2 將Cabnet 移到 OpenStage 
+                    path = pathFileObj.FromCabinet01HomeToOpenStage_PUT_PathFile();
+                    boxTransfer.Move(path);
+                    //   7.3 放下盒子
+                    boxTransfer.Unclamp();
+                    //   7.4 Box robot 回CB1Home
+                    path = pathFileObj.FromOpenStageToCabinet01Home_GET_PathFile();
+                    boxTransfer.Move(path);
+                    //   7.5 轉回 CB1 HOme
+                    boxTransfer.TurnToCB1Home();
 
-                    
-                    
-               }
-                
+                    // 8. Drawer回到Cabinet內
+                    drawer.MoveTrayToHome();
+
+                    // 9. 重複1~8步驟, 完成20個Drawer的光罩鐵盒的移動測試(下個 Cycle)
+
+                }
+               // 9.重複1~8步驟, 完成20個Drawer的光罩鐵盒的移動測試
+                  //10.重複1~8步驟, 完成20個Drawer的光罩水晶盒的移動測試
 
             };
 
