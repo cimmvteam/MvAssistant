@@ -38,6 +38,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         }
 
+        public string Dock()
+        { return "OK"; }
+
+        public string Undock()
+        { return "OK"; }
+
         public bool ReadLP_Light_Curtain()
         {
             return false;
@@ -45,12 +51,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public Tuple<int, int> ReadPressureDiff()
         {
-            return new Tuple<int, int>(0,0);
+            return new Tuple<int, int>(0, 0);
         }
 
         public Tuple<int, int> ReadPressureDiffLimitSrtting()
         {
-            return new Tuple<int, int>(1,1);
+            return new Tuple<int, int>(1, 1);
         }
 
         public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
