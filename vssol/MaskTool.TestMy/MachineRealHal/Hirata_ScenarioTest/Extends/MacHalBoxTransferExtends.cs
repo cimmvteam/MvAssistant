@@ -34,5 +34,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             string path = pathFileObj.Cabinet01HomePathFile();
             instance.Move(path);
         }
+
+        public static void TurnToCB2Home(this MacHalBoxTransfer instance)
+        {
+            var pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+            string path = pathFileObj.Cabinet02HomePathFile();
+            instance.Move(path);
+        }
     }
 }
