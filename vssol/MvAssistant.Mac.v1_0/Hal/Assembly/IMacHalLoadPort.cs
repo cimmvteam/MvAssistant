@@ -1,6 +1,7 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.Mac.v1_0.Hal.Assembly
@@ -33,6 +34,18 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// </summary>
         /// <returns>錶1壓差、錶2壓差</returns>
         Tuple<int, int> ReadPressureDiff();
+
+        Bitmap Camera_LoadPortA_Cap();
+
+        void Camera_LoadPortA_CapToSave(string SavePath, string FileType);
+
+        Bitmap Camera_LoadPortB_Cap();
+
+        void Camera_LoadPortB_CapToSave(string SavePath, string FileType);
+
+        Bitmap Camera_Barcode_Cap();
+
+        void Camera_Barcode_CapToSave(string SavePath, string FileType);
 
         /// <summary>
         /// 讀取Load Port光閘，True：遮斷 、 False：Normal

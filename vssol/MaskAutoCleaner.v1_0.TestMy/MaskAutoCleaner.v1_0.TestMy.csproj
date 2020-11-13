@@ -39,6 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Filtering.0.7.0\lib\net40\MathNet.Filtering.dll</HintPath>
     </Reference>

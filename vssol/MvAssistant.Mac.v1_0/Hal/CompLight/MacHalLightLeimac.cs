@@ -66,6 +66,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLight
                 Model = this.model,
             });
 
+            this.ldd.ConnectIfNo();
             return 0;
         }
 

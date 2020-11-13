@@ -111,7 +111,8 @@
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut012_LP.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut011_LP.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut002_BT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_BT.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_BT_.cs" />
+    <Compile Include="MachineRealHal\UtHalCamera.cs" />
     <Compile Include="MachineRealHal\UtScenarioDrawer.cs" />
     <Compile Include="MachineRealHal\UtScenarioLoadPort.cs" />
     <Compile Include="MachineRealHal\UtStressTest.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="MachineRealPlc\UtPlcBoxRobot.cs" />
     <Compile Include="MachineRealPlc\UtPlcPublicArea.cs" />
     <Compile Include="MachineRealPlc\UtPlc.cs" />
+    <Compile Include="MacTestMyUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtTest.cs" />
   </ItemGroup>

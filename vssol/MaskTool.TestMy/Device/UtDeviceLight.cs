@@ -11,6 +11,10 @@ namespace MvAssistant.Mac.TestMy.Device
         [TestMethod]
         public void TestMethod1()
         {
+
+            MacTestMyUtil.RegisterLog();
+
+
             //Clean Ch./Light IWDV-100S-24
             var are = new AutoResetEvent(false);
             using (var light = new MvLeimacLightLdd())
@@ -18,9 +22,26 @@ namespace MvAssistant.Mac.TestMy.Device
 
                 light.TcpClient.EhDataReceive += (ss, ee) =>
                 {
-                    System.Diagnostics.Debug.WriteLine("Message:" + ee.Message);
-                    System.Diagnostics.Debug.WriteLine("Data:" + ee.TrxMessage.GetString());
+                    MvLog.WarnNs(this, ee.Message);
+                    MvLog.WarnNs(this, ee.TrxMessage.GetString());
                     are.Set();
+                };
+
+                light.TcpClient.EhErrorReceive += (ss, ee) =>
+                {
+                    MvLog.WarnNs(this, ee.Message);
+                };
+                light.TcpClient.EhFailConnect += (ss, ee) =>
+                {
+                    MvLog.WarnNs(this, ee.Message);
+                };
+                light.TcpClient.EhDisconnect += (ss, ee) =>
+                {
+                    MvLog.WarnNs(this, ee.Message);
+                };
+                light.TcpClient.EhFirstConnect += (ss, ee) =>
+                {
+                    MvLog.WarnNs(this, ee.Message);
                 };
 
 
@@ -46,7 +67,10 @@ namespace MvAssistant.Mac.TestMy.Device
 
                 //IC2: ch1: Top Inspcetion 環形光 ; ch2: No install
                 //light.Model = MvEnumLeimacModel.IDGB_50M2PG_12_TP;
-                //light.ConnectIfNo("192.168.0.161", 1000);
+                //var status = light.ConnectIfNo("192.168.0.161", 1000);
+
+                while (!light.TcpClient.IsRemoteConnected) Thread.Sleep(100);
+
 
                 //IC3: ch1: Left Spot Light ; ch2: Right Spot Light
                 //light.Model = MvEnumLeimacModel.IWDV_600M2_24;
@@ -54,10 +78,12 @@ namespace MvAssistant.Mac.TestMy.Device
 
 
 
-                light.SetValue(1, 0);
-
-                Thread.Sleep(1000);
-                are.WaitOne();
+                for (var idx = 0; idx < 10; idx++)
+                {
+                    light.SetValue(1, 0);
+                    Thread.Sleep(1000);
+                    are.WaitOne();
+                }
             }
 
 

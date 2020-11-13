@@ -113,12 +113,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         void Camera_Side_CapToSave(string SavePath, string FileType);
 
-        Bitmap Camera_FrontNearLP_Cap();
+        Bitmap Camera_Left_Cap();
 
-        void Camera_FrontNearLP_CapToSave(string SavePath, string FileType);
+        void Camera_Left_CapToSave(string SavePath, string FileType);
 
-        Bitmap Camera_FrontNearCC_Cap();
+        Bitmap Camera_Right_Cap();
 
-        void Camera_FrontNearCC_CapToSave(string SavePath, string FileType);
+        void Camera_Right_CapToSave(string SavePath, string FileType);
     }
 }

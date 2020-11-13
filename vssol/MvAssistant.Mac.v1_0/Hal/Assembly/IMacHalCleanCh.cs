@@ -128,7 +128,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         Bitmap Camera_Cap();
 
-        void Camera_SideInsp_CapToSave(string SavePath, string FileType);
+        void Camera_Insp_CapToSave(string SavePath, string FileType);
 
         /// <summary>
         /// 調整燈光亮度
