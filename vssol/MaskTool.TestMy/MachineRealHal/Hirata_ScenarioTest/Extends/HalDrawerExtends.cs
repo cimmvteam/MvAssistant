@@ -1,4 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompDrawer;
+﻿using MvAssistant.Mac.v1_0.Hal;
+using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
@@ -17,7 +18,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
         static List<BoxrobotTransferLocation> drawerLocations = null;
         static readonly object lockDrawerCode=new object();
         static readonly object lockDrawerLocation = new object();
-        public static List<MacEnumDevice> DrawerCodes
+        public static List<MacEnumDevice> DrawerKeys
         {
             get
             {
@@ -75,7 +76,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 
         }
        
-
+       
+        
 
       public static bool Initial(this IMacHalDrawer instance)
        {
