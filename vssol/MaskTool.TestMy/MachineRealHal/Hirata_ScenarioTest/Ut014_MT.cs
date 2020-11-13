@@ -63,6 +63,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Inspection Chamber 內進行光罩夾取
@@ -70,6 +71,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Inspection Chamber移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                     ic.ReadRobotIntrude(false);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
@@ -82,6 +84,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     ic.ReadRobotIntrude(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Inspection Chamber Stage上
@@ -89,6 +92,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7. Mask Robot (無夾持光罩) 從Inspection Chamber移回Home點
                     mt.RobotMoving(true);
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                     ic.ReadRobotIntrude(false);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
@@ -152,6 +156,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Open Stage進行光罩夾取
@@ -159,6 +164,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Open Stage移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     os.ReadRobotIntrude(false, false);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
@@ -169,6 +175,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
                     os.ReadRobotIntrude(false, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Open Stage上
@@ -176,6 +183,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7. Mask Robot (無夾持光罩) 從Open Stage移回Home點
                     mt.RobotMoving(true);
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     mt.RobotMoving(false);
                     os.ReadRobotIntrude(false, false);
@@ -218,6 +226,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Open Stage進行光罩夾取
@@ -225,6 +234,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Open Stage移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     os.ReadRobotIntrude(false, false);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
@@ -235,6 +245,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
                     os.ReadRobotIntrude(false, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Open Stage上
@@ -242,6 +253,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7. Mask Robot (無夾持光罩) 從Open Stage移回Home點
                     mt.RobotMoving(true);
+                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     mt.RobotMoving(false);
                     os.ReadRobotIntrude(false, false);
