@@ -15,13 +15,25 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
    public static class MacHalBoxTransferExtends
     {
 
-        /// <summary>移動</summary>
+        /// <summary>單一路徑移動</summary>
         /// <param name="instance"></param>
         /// <param name="path">路徑檔名稱</param>
         public static void Move(this MacHalBoxTransfer instance,string path)
         {
+            instance.Move((new string[] { path }).ToList());
+        }
+
+
+        /// <summary>多路徑移動</summary>
+        /// <param name="instance"></param>
+        /// <param name="path">路徑檔名稱的集合</param>
+        public static void Move(this MacHalBoxTransfer instance, List<string> paths)
+        {
             instance.RobotMoving(true);
-            instance.ExePathMove(path);
+            foreach(var path in paths)
+            {
+                instance.ExePathMove(path);
+            }
             instance.RobotMoving(false);
         }
 
@@ -35,6 +47,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             instance.Move(path);
         }
 
+        /// <summary> 回到 CB1 HOME</summary>
+        /// <param name="instance"></param>
         public static void TurnToCB2Home(this MacHalBoxTransfer instance)
         {
             var pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
