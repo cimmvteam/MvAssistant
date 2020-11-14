@@ -14,7 +14,10 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 {
-    /// <summary>MI-CT02-ST-001</summary>
+    /// <summary>
+    /// <para>ID: MI-CT02-ST-001</para>
+    /// <para>項目:To drawer movement * 20</para>
+    /// </summary>
     [TestClass]
     public class Ut001_BT
     {
@@ -34,11 +37,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         [TestMethod]
         public void TestCreateDrawerInstance()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
             {
-                var s=System.Environment.CurrentDirectory;
-                halContext.MvCfInit();
-                halContext.MvCfLoad();
+                
                 var universal = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 var boxTransfer = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
                 var openStage = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
@@ -79,12 +80,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         [DataRow(BoxType.CrystalBox,false)]// 水晶盒
         public void Test_Ut001_BT(BoxType boxType,bool autoConnect) 
         {
-           
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+
+            using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
             {
                 try
                 {
-                    halContext.InitialAndLoad();
+                    
                     var universal = halContext.GetUniversalAssembly(autoConnect);
                     var boxTransfer = halContext.GetBoxTransferAssembly(autoConnect);
                     var cabinet = halContext.GetCabinetAssembly(autoConnect);

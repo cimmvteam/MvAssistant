@@ -12,6 +12,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 {
    public static class MacHalContextExtends
     {
+        public const string configPath= "GenCfg/Manifest/Manifest.xml.real";
+
+
+
+        public static MacHalContext Create_MacHalContext_Instance()
+        {
+            var rtnInst = new MacHalContext(configPath);
+            rtnInst.InitialAndLoad();
+            return rtnInst;
+        }
+        
         /// <summary>初始化及載入 MacHalContext</summary>
         /// <param name="instance"></param>
         public static void InitialAndLoad(this MacHalContext instance)
