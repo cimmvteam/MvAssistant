@@ -34,7 +34,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
         #region this is the real unit test functions
 
-      
+
         // BoxType boxType = BoxType.CrystalBox;
 
         /// <summary>
@@ -47,6 +47,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <para>7. Box Robot將光罩鐵盒從Open Stage Entry處, 移至Drawer可放置光罩盒的位置, 並且放置光罩鐵盒 (release光罩鐵盒)</para>
         /// <para>8. Box Robot (無夾持光罩盒) 從Drawer移回Home點</para>
         /// <para>9. Drawer回到Cabinet內</para>
+        /// <para>10.重複1~9步驟, 完成20個Drawer的光罩鐵盒測試</para>
+        /// <para>12. 重複1~9步驟, 完成20個Drawer的光罩盒測試</para>
         /// </summary>
         [TestMethod]
         [DataRow(BoxType.IronBox,true)] // 鐵盒
