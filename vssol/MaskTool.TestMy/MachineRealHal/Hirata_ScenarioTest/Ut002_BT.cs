@@ -51,7 +51,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <para>9. Drawer回到Cabinet內</para>
         /// </summary>
         [TestMethod]
-        public void Test_Step_01_02_03_04_05_06_07_08_09()
+        public void Test_Step_01_02_03_04_05_06_07_08_09_10_11_12()
         {
             var BREAK_POINT = 0;
             using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
@@ -126,6 +126,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     // 6.2 boxrobot 移到 OpenStage
                     btMovePathFile = pathFileObj.FromCabinet01HomeToOpenStage_PUT_PathFile(); // boxrobot 目前有盒子, 要到 Open Stage, 用PUT
                     boxTransfer.Move(btMovePathFile);
+
+
+                    BREAK_POINT = 0;
 
                     /** 7*/
                     // 7.1 Boxtransfer 回到 Cabinet 1 Home
