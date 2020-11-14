@@ -111,8 +111,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
                 {
                     var universal = halContext.GetUniversalAssembly(autoConnect);
-                  
-                    halContext.HalConnect();
+
+                    universal.HalConnect();
                     for (var i= 0;i < DrawerKeys.Count;i++  )
                     {
                         var drawer = halContext.GetDrawer(DrawerKeys[i], true);
@@ -136,7 +136,31 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             }
         }
 
-       void Repeat()
+        [TestMethod]
+        public void Test_Drawer()
+        {
+            try
+            {
+                using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
+                {
+                    var universal = halContext.GetUniversalAssembly(true);
+                    universal.HalConnect();
+
+                    // get drawer
+                    var drawer = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_01_02,true);
+                    drawer.CommandINI();
+                    // drawer command
+
+                    Repeat();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("MacHalContext Exception, Message=" + ex.Message);
+            }
+        }
+
+        void Repeat()
         {
             while (true)
             {
