@@ -138,12 +138,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
         /// <summary>取得 Drawer Assembly intance</summary>
         /// <param name="instance"></param>
         /// <param name="key"></param>
+        /// <param name="autoConnect"></param>
         /// <returns></returns>
-        public static IMacHalDrawer GetDrawer(this MacHalContext instance, MacEnumDevice key)
+        public static IMacHalDrawer GetDrawer(this MacHalContext instance, MacEnumDevice key, bool autoConnect = false)
         {
             var cabinet = instance.HalDevices[key.ToString()] as MacHalCabinet;
-            var rtnV = cabinet.MacHalDrawer;
-            return rtnV;
+            var drawer = cabinet.MacHalDrawer;
+            if(autoConnect)
+            {
+                drawer.HalConnect();
+            }
+            return drawer;
         }
     }
 }

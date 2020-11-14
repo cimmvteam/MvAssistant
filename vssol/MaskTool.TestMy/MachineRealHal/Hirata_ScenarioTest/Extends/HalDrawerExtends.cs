@@ -134,7 +134,28 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             }
             else
             {
-                throw (new Exception("Drawer Move Tray In Time Out"));
+                throw (new Exception("Drawer Move Tray Out Time Out"));
+            }
+
+        }
+
+        public static bool MoveTrayToOut(this IMacHalDrawer instance)
+        {
+
+            instance.CommandTrayMotionOut();
+            var rtn = SpinWait.SpinUntil(
+             () => { return instance.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionOut || instance.CurrentWorkState == DrawerWorkState.TrayMotionFailed; }, timeoutMilliSecs);
+
+
+            if (instance.CurrentWorkState == DrawerWorkState.TrayArriveAtPositionOut)
+            { return true; }
+            else if (instance.CurrentWorkState == DrawerWorkState.TrayMotionFailed)
+            {
+                throw new Exception("Drawer Move Tray Out  Failed");
+            }
+            else
+            {
+                throw (new Exception("Drawer Move Tray Out Time Out"));
             }
 
         }
