@@ -185,7 +185,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             }
                             boxTransfer.Move(path);
 
-
+                            // 照相
+                            boxTransfer.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
 
                             BREAK_POINT = 0;
 

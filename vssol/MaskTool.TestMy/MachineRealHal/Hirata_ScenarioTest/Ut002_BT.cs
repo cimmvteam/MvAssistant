@@ -134,6 +134,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
                             }
                             boxTransfer.Move(btMovePathFile);
+
+                            // 照相
+                            boxTransfer.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+
                             // 5.2 夾取
                             boxTransfer.Clamp((uint)boxType);
 
