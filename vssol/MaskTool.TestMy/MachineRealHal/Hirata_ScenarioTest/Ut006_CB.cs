@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
 using MvAssistant.Mac.v1_0;
+using MvAssistant.Mac.v1_0.Hal.CompDrawer;
 using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 
@@ -126,6 +128,26 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         try
                         {
                             drawer.CommandINI();
+                            drawer.OnButtonEventHandler += (sender, e) =>
+                            {
+                                var rtnDrawer = ((IMacHalDrawer)sender);
+                                Debug.WriteLine("(Ut003)Invoke OnButtonEventHandler,  Drawer= " + rtnDrawer.DeviceIndex);
+                                rtnDrawer.CommandPositionRead();
+                            };
+                            drawer.OnPositionStatusHandler += (sender, e) =>
+                            {
+                                var eventArgs = (OnReplyPositionEventArgs)e;
+                                var rtnDrawer= ((IMacHalDrawer)sender);
+                                Debug.WriteLine("(Ut003)Invoke OnPositionStatusHandler,  Drawer= " + rtnDrawer.DeviceIndex + ", IHOStatus=" + eventArgs.IHOStatus);
+                                if (eventArgs.IHOStatus=="111")   //在Home, 往外推
+                                {
+                                    rtnDrawer.MoveTrayToOut();
+                                }
+                                else
+                                {
+                                    rtnDrawer.MoveTrayToHome();
+                                }
+                            };
                         }
                         catch (Exception ex)
                         {
