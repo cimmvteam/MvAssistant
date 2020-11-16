@@ -13,7 +13,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 {
     public static class HalDrawerExtends
     {
-       static int timeoutMilliSecs = 20000;
+       static int timeoutMilliSecs = 30000;
        static List<MacEnumDevice> drawerCode = null;
         static List<BoxrobotTransferLocation> drawerLocations = null;
         static readonly object lockDrawerCode=new object();
