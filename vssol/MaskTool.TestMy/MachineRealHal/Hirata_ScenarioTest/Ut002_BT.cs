@@ -223,6 +223,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                             BREAK_POINT = 0;
 
+                            // 取出盒子後回到 HOME
                             drawer.MoveTrayToHome();
 
 

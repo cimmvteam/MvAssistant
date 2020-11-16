@@ -178,9 +178,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                             /** 1 光罩鐵盒放置於Open Stage平台上*/
-                            // 確認一下
+                       
 
-                            BREAK_POINT = 0;
+                            BREAK_POINT = 0;   // 確認 光罩鐵盒放置於Open Stage平台上*/
 
 
                             /** 2. Drawer往機台內部移動到光罩盒可放置的位置 */
