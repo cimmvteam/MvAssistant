@@ -39,6 +39,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         {
             using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
             {
+              
                 
                 var universal = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 var boxTransfer = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
@@ -46,10 +47,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 
                  universal.HalConnect();
 
-                /**
+               
                  openStage.HalConnect();
                  boxTransfer.HalConnect();
-    */            
+
+                openStage.Initial();
+                boxTransfer.Initial();
+
                 var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()];
                 cabinet.HalConnect();
                 for (var i = 0; i < DrawerKeys.Count; i++)
@@ -114,11 +118,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         openStage.HalConnect();
                     }
 
+                    // boxTransfer 
+                    boxTransfer.Initial();
+                    openStage.Initial();
+
                     // connect 所有 Drawer
                     halContext.DrawersConnect();
 
-                    // boxTransfer 
-                    boxTransfer.Initial();
+                   
 
                     for (int i = 0; 0 < DrawerKeys.Count; i++)
                     {
