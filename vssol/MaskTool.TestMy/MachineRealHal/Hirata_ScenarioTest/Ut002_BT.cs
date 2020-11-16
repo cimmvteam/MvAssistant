@@ -64,17 +64,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var universal = halContext.GetUniversalAssembly(autoConnect);
                     var boxTransfer = halContext.GetBoxTransferAssembly(autoConnect);
                     var openStage=halContext.GetOpenStageAssembly(autoConnect);
+                    var cabinet = halContext.GetCabinetAssembly(autoConnect);
                     string btMovePathFile = default(string);
                     if(!autoConnect)
                     {
                         universal.HalConnect();
                         boxTransfer.HalConnect();
+                        cabinet.HalConnect();
                         openStage.HalConnect();
                     }
 
+                    boxTransfer.Initial();
+                    openStage.Initial();
+
                     halContext.DrawersConnect();
 
-                    boxTransfer.Initial();
+                
                     for (var i = 0; i < DrawerKeys.Count; i++)
                     {
                         try

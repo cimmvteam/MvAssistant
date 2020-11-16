@@ -136,11 +136,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         openStage.HalConnect();
                     }
 
+                    // boxTransfer 
+                    boxTransfer.Initial();
+                    openStage.Initial();
+
                     // connect 所有 Drawer
                     halContext.DrawersConnect();
 
-                    // boxTransfer 
-                    boxTransfer.Initial();
+                   
 
                     for (int i = 0; 0 < DrawerKeys.Count; i++)
                     {
