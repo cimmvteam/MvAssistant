@@ -35,6 +35,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
         }
         #region do not care this  test function              
+
+
+
+
         [TestMethod]
         [DataRow(false)]
         public void TestCreateDrawerInstance(bool autoConnect)
@@ -42,12 +46,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             string str = System.Environment.CurrentDirectory;
             using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
             {
-
+                
                 var universal = halContext.GetUniversalAssembly(autoConnect);
                 var boxTransfer = halContext.GetBoxTransferAssembly(autoConnect);
                 var cabinet = halContext.GetCabinetAssembly(autoConnect);
                 var openStage = halContext.GetOpenStageAssembly(autoConnect);
-                halContext.DrawersConnect();
+                universal.HalConnect();
+                boxTransfer.HalConnect();
+                boxTransfer.CameraShot("TTTTTTT");
+                
+                //   halContext.DrawersConnect();
                 // connect 所有 Drawer
                // halContext.DrawersConnect();
                 for(var i=0;i<2;i++)

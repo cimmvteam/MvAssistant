@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 {
    public static class MacHalContextExtends
     {
-        public const string configPath= "GenCfg/Manifest/Manifest.xml.real";
+        public const string configPath= "UserData/Manifest/Manifest.xml.real";
 
 
 
