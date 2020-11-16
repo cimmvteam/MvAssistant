@@ -111,6 +111,16 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                         DriverId = ManifestDriverId.RobotFanuc.ToString(),
                     },
 
+                     new MacManifestDeviceCfg(){
+                        DevConnStr = string.Format("{0}={1};{2}={3};{4}={5};{6}={7}",
+                            MacHalLightLeimac.DevConnStr_Ip, "192.168.0.155",
+                            MacHalLightLeimac.DevConnStr_Port, 1000,
+                            MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
+                            MacHalLightLeimac.DevConnStr_Channel, 1),
+                        DeviceName = MacEnumDevice.boxtransfer_light_1.ToString(),
+                        DriverId = ManifestDriverId.LightLeimac.ToString(),
+                    },
+
                       new MacManifestDeviceCfg(){
                         DevConnStr = "id=00:11:1C:F9:A3:23",
                         DeviceName = MacEnumDevice.boxtransfer_camera_gripper_1.ToString(),

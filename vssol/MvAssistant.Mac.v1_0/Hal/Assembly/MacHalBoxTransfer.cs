@@ -1,4 +1,5 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
+using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Hal.CompRobot;
 using MvAssistant.Mac.v1_0.Manifest;
@@ -20,6 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(MacEnumDevice.boxtransfer_plc); } }
         public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.boxtransfer_robot_1); } }
+        public IMacHalLight LightCircleGripper { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.boxtransfer_light_1); } }
         public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.boxtransfer_camera_gripper_1); } }
 
         #endregion Device Components
@@ -665,6 +667,11 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public bool ReadHandVacuum()
         { return Plc.ReadHandVacuum(); }
         #endregion
+
+        public void LightForGripper(int value)
+        {
+            LightCircleGripper.TurnOn(value);
+        }
 
         public Bitmap Camera_Cap()
         {
