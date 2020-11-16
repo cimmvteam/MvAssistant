@@ -87,7 +87,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompRobot
         {
            // var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
             var  PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
-            var PosList = PosInfo.Select(m => m.GetPosition()).ToList();
+            //   var PosList = PosInfo.Select(m => m.GetPosition()).ToList();
+            var PosList = PosInfo.Select(m => m.Position).ToList();
             return PosList;
         }
 
