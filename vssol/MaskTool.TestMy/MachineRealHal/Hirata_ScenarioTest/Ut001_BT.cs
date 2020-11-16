@@ -195,11 +195,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             #region 拍照 , 暫緩
                             // 5. (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中無光罩盒
 
-                            // 照相
-                            boxTransfer.TurnOnCameraLight();
-                            boxTransfer.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
-                            boxTransfer.TurnOffCameraLight();
-                            #endregion
+                           
 
                             BREAK_POINT = 0;
 
@@ -216,8 +212,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 path = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation);
                             }
                             boxTransfer.Move(path);
+                            // 照相
+                            boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
+                            #endregion
 
-                        
 
                             BREAK_POINT = 0;
 

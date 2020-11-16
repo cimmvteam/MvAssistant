@@ -67,5 +67,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 
             instance.LightForGripper(0);
         }
+
+
+        public static void CameraShot(this MacHalBoxTransfer instance, string picName,int lightValue=200)
+        {
+            var thisTime = DateTime.Now;
+            var timeStamp = thisTime.Year.ToString("0000") + thisTime.Month.ToString("00") + thisTime.Day.ToString("00") + "_" + thisTime.Hour.ToString("00") + thisTime.Minute.ToString("00") + thisTime.Second.ToString("00");
+            var path = "D:/Image/BT/";
+            var fileName = path + picName + "_" + timeStamp; 
+             instance.TurnOnCameraLight(lightValue);
+            instance.Camera_CapToSave(fileName, "jpg");
+            instance.TurnOffCameraLight();
+        }
     }
 }
