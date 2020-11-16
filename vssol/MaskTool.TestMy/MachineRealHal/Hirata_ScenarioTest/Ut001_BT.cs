@@ -50,12 +50,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 halContext.DrawersConnect();
                 // connect 所有 Drawer
                // halContext.DrawersConnect();
-                for(var i=0;i<20;i++)
+                for(var i=0;i<2;i++)
                 {
                     try
                     {
                         var drawer = halContext.GetDrawer(DrawerKeys[i], false);
-                        drawer.Initial();
+                        drawer.CommandINI();
                        
                         Debug.WriteLine(DrawerKeys[i] + ", OK");
                     }

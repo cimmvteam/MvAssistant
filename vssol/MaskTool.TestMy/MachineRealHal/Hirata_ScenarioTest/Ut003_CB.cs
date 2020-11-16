@@ -115,13 +115,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var universal = halContext.GetUniversalAssembly(autoConnect);
 
                     universal.HalConnect();
-                    for (var i= 0;i < DrawerKeys.Count;i++  )
-                    {
+                    //for (var i= 0;i < DrawerKeys.Count;i++  )
+                     for (var i = 0; i < DrawerKeys.Count; i++)
+                      {
                         var drawer = halContext.GetDrawer(DrawerKeys[i], true);
                         Debug.WriteLine("Drawer Initial, DeviceIndex=" + drawer.DeviceIndex);
                         try
                         {
-                            drawer.CommandINI();
+                           // drawer.CommandINI();
                             drawer.OnButtonEventHandler += (sender, e) =>
                             {
                                 var rtnDrawer = ((IMacHalDrawer)sender);
