@@ -51,8 +51,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <para>12. 重複1~9步驟, 完成20個Drawer的光罩盒測試</para>
         /// </summary>
         [TestMethod]
-        [DataRow(BoxType.IronBox,true)] // 鐵盒
-        //[DataRow(BoxType.CrystalBox,true)]  // 水晶盒
+        //[DataRow(BoxType.IronBox,true)] // 鐵盒
+        [DataRow(BoxType.CrystalBox,true)]  // 水晶盒
         public void Test_Ut002_BT(BoxType boxType,bool autoConnect)
         {
             var BREAK_POINT = 0;
