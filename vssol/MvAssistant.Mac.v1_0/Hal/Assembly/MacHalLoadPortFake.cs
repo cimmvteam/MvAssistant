@@ -107,5 +107,10 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             return;
         }
+
+        public void LightForBarcodeReader(int value)
+        {
+            return;
+        }
     }
 }

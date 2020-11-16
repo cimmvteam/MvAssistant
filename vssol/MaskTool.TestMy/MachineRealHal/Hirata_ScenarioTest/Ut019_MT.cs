@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
@@ -9,6 +11,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut019_MT
     {
+        MaskrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+        public Ut019_MT()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            pathFileObj = new MaskrobotTransferPathFile(PositionInstance.MTR_Path);
+        }
+        
         [TestMethod]
         public void TestMethod1()
         {
@@ -42,8 +51,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7.Mask Robot從Home點移動至Load Port B
                     mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
 
                     //8. Mask Robot上的傾斜角度傳感器可報值 & 位於水平狀態
@@ -64,6 +73,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //12. Mask Robot將光罩從Recognizer移動至Inspection Chamber Entry處
                     mt.RobotMoving(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\BarcodeReaderToLPHome.json");
+                    mt.ChangeDirection(pathFileObj.InspChHomePathFile());
+                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     ic.ReadRobotIntrude(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");

@@ -15,7 +15,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(MacEnumDevice.cleanch_plc); } }
-        public IMacHalLight InspectionSpotLight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.cleanch_inspection_spot_light_001); } }
+        public IMacHalLight LightSideInsp { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.cleanch_inspection_spot_light_001); } }
         public IHalCamera CameraInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.clean_camera_particle_1); } }
 
 
@@ -190,9 +190,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// 調整燈光亮度
         /// </summary>
         /// <param name="value"></param>
-        public void LightSetValue(int value)
+        public void LightForInspSetValue(int value)
         {
-            InspectionSpotLight.TurnOn(value);
+            LightSideInsp.TurnOn(value);
         }
     }
 }

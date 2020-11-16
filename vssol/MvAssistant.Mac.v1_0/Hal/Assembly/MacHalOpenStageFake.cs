@@ -227,5 +227,20 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             return;
         }
+
+        public void LightForSideBarDfsSetValue(int value)
+        {
+            return;
+        }
+
+        public void LightForTopBarDfsSetValue(int value)
+        {
+            return;
+        }
+
+        public void LightForFrontBarDfsSetValue(int value)
+        {
+            return;
+        }
     }
 }

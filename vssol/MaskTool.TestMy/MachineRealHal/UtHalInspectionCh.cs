@@ -11,29 +11,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     public class UtHalInspectionCh
     {
         [TestMethod]
-        public void TestLight()
-        {
-
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
-            {
-                halContext.MvCfInit();
-                halContext.MvCfLoad();
-
-                var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
-                uni.HalConnect();
-                ic.HalConnect();
-
-                ic.LightForSideBarDfsSetValue(200);
-                ic.LightForSideBarInspSetValue(200);
-                ic.LightForTopCrlDfsSetValue(200);
-                ic.LightForTopCrlInspSetValue(200);
-                ic.LightForLeftSpotInspSetValue(200);
-                ic.LightForRightSpotInspSetValue(200);
-            }
-        }
-
-        [TestMethod]
         public void TestCamera()
         {
 

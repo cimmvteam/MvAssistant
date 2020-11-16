@@ -41,9 +41,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             string EndPosName = "";
             string EndPosFileDirectory = Path.GetDirectoryName(EndPosFileLocation);
             string EndPosFileName = Path.GetFileName(EndPosFileLocation);
-            var LPHome = Robot.ReadMovePath(EndPosFileDirectory + "/LoadPortHome.json")[0];
-            var ICHome = Robot.ReadMovePath(EndPosFileDirectory + "/InspChHome.json")[0];
-            var CCHome = Robot.ReadMovePath(EndPosFileDirectory + "/CleanChHome.json")[0];
+            var LPHome = Robot.ReadMovePath(EndPosFileDirectory + "\\LoadPortHome.json")[0];
+            var ICHome = Robot.ReadMovePath(EndPosFileDirectory + "\\InspChHome.json")[0];
+            var CCHome = Robot.ReadMovePath(EndPosFileDirectory + "\\CleanChHome.json")[0];
             List<HalRobotMotion> PosList = new List<HalRobotMotion>();
 
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位

@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestMethod1()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
                 halContext.MvCfInit();
                 halContext.MvCfLoad();
@@ -36,7 +36,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
                 ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
                 ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
-                //ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");//需要有介面卡的主機才能執行此動作
+                ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");//需要有介面卡的主機才能執行此動作
                 cc.Camera_Insp_CapToSave("D:/Image/CC/Insp", "jpg");
                 lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
                 lpa.Camera_Barcode_CapToSave("D:/Image/LP/LPA/Barcode", "jpg");
