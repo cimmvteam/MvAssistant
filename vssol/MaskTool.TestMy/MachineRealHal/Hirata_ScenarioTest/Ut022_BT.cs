@@ -58,8 +58,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         try
                         {
-                            BREAK_POINT = 0;
-
                             var drawerLocation = DrawerLocations[i];
                             var drawer = halContext.GetDrawer(DrawerKeys[i]);
 
@@ -85,6 +83,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {
                                 //Cabinet 2 Drawer 的 Path
+                                bt.TurnToCB2Home();
                                 btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
                             }
                             bt.Move(btMovePathFile);
@@ -125,8 +124,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             bt.Unclamp();
 
                             /** 09 Box Robot退出Open Stage, 並回到Box Robot Home點*/
-                            btMovePathFile = pathFileObj.FromOpenStageToCabinet01Home_PUT_PathFile(); // boxrobot 目前有盒子,要回到 Cabinet 1 Home, 用 GET
+                            btMovePathFile = pathFileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
                             bt.Move(btMovePathFile);
+                            os.ReadRobotIntrude(false, null);
 
                             /** 10 (編號9-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
                             os.LightForTopBarDfsSetValue(200);
@@ -139,105 +139,40 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             os.LightForSideBarDfsSetValue(0);
 
                             /** 12 Box Robot(無夾持光罩鐵盒)從Home點移動進入Open Stage上方*/
-                            /** 13 光罩鐵盒夾取前確認Box Robot是水平狀態 (by 水平儀)*/
-                            /** 14 Box Robot從Open Stage上方夾取光罩鐵盒*/
-                            /** 15 Box Robot將光罩鐵盒移動至Drawer處*/
-                            /** 16 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                            /** 17 Box Robot將光罩鐵盒移動至Drawer內*/
-                            /** 18 Box Robot (無夾持光罩鐵盒) 從Drawer移回Home點*/
-                            /** 19 重複1~18步驟, 完成20個Drawer的光罩鐵盒測試*/
-                            /** 20 重複1~19步驟, 完成20個Drawer的光罩水晶盒測試*/
-
-
-
-
-
-                            /** 03 Box Robot從Home點至Drawer夾取前的檢查點位*/
-                            // 3.1 BoxTransfer 轉到 Cabitnet 1 Home 
-                            bt.TurnToCB1Home();
-                            //*******[BR]*******
-                            // 3.2 如果是 Cabitnet 2 的Drawer, 再轉到 Cabinet 2 Home
-                            if (drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            {
-                                bt.TurnToCB2Home();
-                            }
-
-
-                            BREAK_POINT = 0;
-
-
-                            /** 04 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中有光罩鐵盒*/ //(先不測)
-
-
-                            BREAK_POINT = 0;
-
-
-                            /** 5 Box Robot移動至Drawer夾取點, 進行光罩鐵盒夾取 (clamp光罩鐵盒)*/
-                            // 5.1 Boxtransfer 移到夾取點
-                            if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
-                            {  // Cabinet 1  Drawer 的 Path
-                                btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
-                            }
-                            else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            {
-                                //Cabinet 2 Drawer 的 Path
-                                btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
-                            }
+                            os.ReadRobotIntrude(true, null);
+                            btMovePathFile = pathFileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
                             bt.Move(btMovePathFile);
 
-                            // 照相
-                            bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                            /** 13 光罩鐵盒夾取前確認Box Robot是水平狀態 (by 水平儀)*/
+                            Level = bt.ReadLevelSensor();
 
-                            // 5.2 夾取
+                            /** 14 Box Robot從Open Stage上方夾取光罩鐵盒*/
                             bt.Clamp((uint)boxType);
 
-                            BREAK_POINT = 0;
-
-                            /** 6 Box Robot將光罩鐵盒從Drawer移動至Open Stage Entry處*/
-                            // 6.1 回到 Cabinet 1 Home
-                            if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
-                            {
-                                btMovePathFile = pathFileObj.FromDrawerToCabinet01Home_GET_PathFile(drawerLocation); // Box Transfer 夾到盒子後,由 Drawer 回到 Home, 用GET
-                            }
-                            else // if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            {
-                                btMovePathFile = pathFileObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation);// Box Transfer 夾到盒子後,由 Drawer 回到 Home, 用GET
-                            }
-                            bt.Move(btMovePathFile);
-                            if (drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            { bt.TurnToCB1Home(); }
-                            // 6.2 boxrobot 移到 OpenStage
-                            os.ReadRobotIntrude(true, null);
-                            btMovePathFile = pathFileObj.FromCabinet01HomeToOpenStage_PUT_PathFile(); // boxrobot 目前有盒子, 要到 Open Stage, 用PUT
-                            bt.Move(btMovePathFile);
-
-
-                            BREAK_POINT = 0;
-
-                            /** 7 Box Robot將光罩鐵盒從Open Stage Entry處, 移至Drawer可放置光罩盒的位置, 並且放置光罩鐵盒 (release光罩鐵盒)*/
-                            // 7.1 Boxtransfer 回到 Cabinet 1 Home
+                            /** 15 Box Robot將光罩鐵盒移動至Drawer處*/
                             btMovePathFile = pathFileObj.FromOpenStageToCabinet01Home_GET_PathFile(); // boxrobot 目前有盒子,要回到 Cabinet 1 Home, 用 GET
                             bt.Move(btMovePathFile);
-                            // 7.2 如果是 Cabinet 2 的 Drawer, 轉向 Cabinet 2 Home
-                            if (drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            {
-                                bt.TurnToCB2Home();
-                            }
-                            // 7.3 移到 Drawer
+                            os.ReadRobotIntrude(false, null);
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
                             {
                                 btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
                             }
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {
+                                bt.TurnToCB2Home();
                                 btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
                             }
                             bt.Move(btMovePathFile);
-                            // 7.3 放下 Box
+
+                            /** 16 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
+                            bt.LightForGripper(200);
+                            bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                            bt.LightForGripper(0);
+
+                            /** 17 Box Robot將光罩鐵盒移動至Drawer內*/
                             bt.Unclamp();
 
-                            BREAK_POINT = 0;
-
+                            /** 18 Box Robot (無夾持光罩鐵盒) 從Drawer移回Home點*/
                             /** 8 Box Robot (無夾持光罩盒) 從Drawer移回Home點*/
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
                             {
@@ -252,21 +187,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             {
                                 bt.TurnToCB1Home();
                             }
-                            BREAK_POINT = 0;
 
-                            /** 9 Drawer回到Cabinet內*/
-                            drawer.MoveTrayToHome();
-
-                            // 10.重複1~9步驟, 完成20個Drawer的光罩鐵盒測試
+                            /** 19 重複1~18步驟, 完成20個Drawer的光罩鐵盒測試*/
+                            /** 20 重複1~19步驟, 完成20個Drawer的光罩水晶盒測試*/
                         }
                         catch (Exception ex)
                         {
 
                         }
                     }
-
-                    //12.重複1~9步驟, 完成20個Drawer的光罩盒測試
-
                 }
                 catch (Exception ex)
                 {

@@ -88,6 +88,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Close();
                     os.Unclamp();
                     os.Lock();
+                    os.Vacuum(false);
                     #endregion Iron Box
                     //11. 重複1~10步驟, 再執行光罩鐵盒(有光罩) / 光罩水晶盒(無光罩) / 光罩水晶盒(有光罩)之情境
                     #region Iron Box with Mask
@@ -144,6 +145,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Close();
                     os.Unclamp();
                     os.Lock();
+                    os.Vacuum(false);
                     #endregion Iron Box with Mask
                     BoxType = 2;
                     //11. 重複1~10步驟, 再執行光罩水晶盒(無光罩) / 光罩水晶盒(有光罩)之情境
@@ -202,6 +204,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Close();
                     os.Unclamp();
                     os.Lock();
+                    os.Vacuum(false);
                     #endregion Crystal Box
                     //11. 重複1~10步驟, 再執光罩水晶盒(有光罩)之情境
                     #region Crystal Box with Mask
@@ -258,6 +261,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Close();
                     os.Unclamp();
                     os.Lock();
+                    os.Vacuum(false);
                     #endregion Crystal Box with Mask
                 }
             }
