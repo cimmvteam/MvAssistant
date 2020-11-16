@@ -74,9 +74,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         openStage.HalConnect();
                     }
 
+
+                    openStage.Initial();
                     boxTransfer.Initial();
                     boxTransfer.TurnOffCameraLight();
-                    openStage.Initial();
+                  
 
                     halContext.DrawersConnect();
 
@@ -122,7 +124,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             BREAK_POINT = 0;
 
 
-                            /** 04 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中有光罩鐵盒*/ //(先不測)
+                            /** 04 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中有光罩鐵盒*/ //(移到5.1 ~ 5.2)
                           
 
 
@@ -142,9 +144,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             }
                             boxTransfer.Move(btMovePathFile);
 
-                            boxTransfer.TurnOnCameraLight();
-                            // 照相
                             
+                            // 照相
                             boxTransfer.CameraShot("Ut002_BT_" + drawerLocation);
 
 
@@ -216,6 +217,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                             /** 9 Drawer回到Cabinet內*/
                             drawer.MoveTrayToHome();
+
+                            BREAK_POINT = 0;
+                            drawer.MoveTrayToOut(); //取出盒子
+
+                            BREAK_POINT = 0;
+
+                            drawer.MoveTrayToHome();
+
+
 
                             // 10.重複1~9步驟, 完成20個Drawer的光罩鐵盒測試
                         }

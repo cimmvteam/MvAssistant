@@ -144,10 +144,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         openStage.HalConnect();
                     }
 
-                    // 
-                    boxTransfer.Initial();
-                    boxTransfer.TurnOffCameraLight();
+                    // Initial OpenStage
                     openStage.Initial();
+                    // Initial BoxTransfer
+                    boxTransfer.Initial();
+                    // 關燈
+                    boxTransfer.TurnOffCameraLight();
+                   
 
                     // connect 所有 Drawer
                     halContext.DrawersConnect();
@@ -159,10 +162,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                         try
                         {
+                            // 取得 Drawer
                             var drawer = halContext.GetDrawer(DrawerKeys[i]);
+                            // Drawer  代碼
                             var drawerLocation = DrawerLocations[i];
+                            // Drawer Home
                             var drawerHome = DrawerLocations[i].GetCabinetHomeCode().Item2;
+                            // Drawer Initial
                             drawer.Initial();
+                            // boxTransfer 轉向 Cabitnet 1 Home
                             boxTransfer.TurnToCB1Home();
 
 
@@ -200,10 +208,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 boxTransfer.TurnToCB2Home();
                             }
 
-                            #region 拍照 , 暫緩
+                            #region 拍照 , 移到 6~7 間
                             // 5. (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中無光罩盒
+                            #endregion
 
-                           
 
                             BREAK_POINT = 0;
 
@@ -219,11 +227,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                
                                 path = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation);
                             }
-                            boxTransfer.Move(path);
-                            // 照相
-                            boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
-                            #endregion
 
+
+                            boxTransfer.Move(path);
+                            
+                            //  拍照  
+                            boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
+                            
 
                             BREAK_POINT = 0;
 
