@@ -42,7 +42,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <para>2. Drawer往機台內部移動到Box Robot可以取得光罩的位置</para>
         /// <para>3. Box Robot從Home點至Drawer夾取前的檢查點位 (目前没有這個點, 所以 移到 CB1 Home)</para>
         /// <para>4. (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中有光罩鐵盒(先不測)</para>
-        /// <para>5. Box Robot移動至Drawer夾取點, 進行光罩鐵盒夾取 </para>
+        /// <para>5. Box Robot移動至Drawer夾取點, 進行光罩鐵盒夾取 (clamp光罩鐵盒)</para>
         /// <para>6. Box Robot將光罩鐵盒從Drawer移動至Open Stage Entry處</para>
         /// <para>7. Box Robot將光罩鐵盒從Open Stage Entry處, 移至Drawer可放置光罩盒的位置, 並且放置光罩鐵盒 (release光罩鐵盒)</para>
         /// <para>8. Box Robot (無夾持光罩盒) 從Drawer移回Home點</para>
