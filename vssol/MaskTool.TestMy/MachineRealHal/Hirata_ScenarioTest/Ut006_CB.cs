@@ -127,7 +127,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         Debug.WriteLine("Drawer Initial, DeviceIndex=" + drawer.DeviceIndex);
                         try
                         {
-                            drawer.CommandINI();
+                         //  drawer.CommandINI();
                             drawer.OnButtonEventHandler += (sender, e) =>
                             {
                                 var rtnDrawer = ((IMacHalDrawer)sender);
