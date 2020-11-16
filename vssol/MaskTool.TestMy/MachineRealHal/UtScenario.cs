@@ -992,7 +992,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     ic.XYPosition(100, 100);
                     ic.WPosition(51);
-                    ic.LightForSideInspSetValue(100);
+                    ic.LightForSideBarInspSetValue(100);
                     //TODO：Camera Link Capture Image
                 }
             }
@@ -1015,7 +1015,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     ic.XYPosition(100, 100);
                     ic.WPosition(51);
-                    ic.LightForSideDfsSetValue(100);
+                    ic.LightForSideBarDfsSetValue(100);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
                 }
             }
@@ -1038,7 +1038,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     ic.XYPosition(100, 100);
                     ic.WPosition(51);
-                    ic.LightForSideDfsSetValue(500);
+                    ic.LightForSideBarDfsSetValue(500);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/SideInsp", "jpg");
                     ic.WPosition(141);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/SideInsp", "jpg");
@@ -1067,7 +1067,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                     ic.XYPosition(100, 100);
                     ic.WPosition(51);
-                    ic.LightForSideDfsSetValue(500);
+                    ic.LightForSideBarDfsSetValue(500);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/SideDfs", "jpg");
                     ic.WPosition(141);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/SideDfs", "jpg");

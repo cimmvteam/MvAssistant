@@ -73,7 +73,7 @@
     <Compile Include="Device\UtDeviceCamera.cs" />
     <Compile Include="Device\UtDeviceRobot.cs" />
     <Compile Include="Device\UtDevicePlc.cs" />
-    <Compile Include="GenCfg\Machine\UtGenMachineMgrCfg.cs" />
+    <Compile Include="GenCfg\Machine\0000000000000000000000000000000000000000000000000000.cs" />
     <Compile Include="GenCfg\Manifest\EnumMachineId.cs" />
     <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
     <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />

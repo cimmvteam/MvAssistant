@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -36,7 +37,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Reply), 1000))
                     throw new MvException("Mask Hand Clamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Complete), 10 * 1000))
-                    throw new MvException("Mask Hand Clamp T2 timeout");
+                { LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss")+"Mask Hand Clamp Complete:" + plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Complete).ToString()); throw new MvException("Mask Hand Clamp T2 timeout"); }
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Result))
                 {
@@ -81,7 +82,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Reply), 1000))
                     throw new MvException("Mask Hand Unclamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Complete), 10 * 1000))
-                    throw new MvException("Mask Hand Unclamp T2 timeout");
+                { LogInfo("Mask Hand Unclamp Complete:" + plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Complete).ToString()); throw new MvException("Mask Hand Unclamp T2 timeout"); }
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Result))
                 {
@@ -580,6 +581,24 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
             if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_RobotMoving_Reply) != isMoving)
                 throw new MvException("PLC did not get 'Mask Transfer Moving' signal");
         }
+
+
+        #region LogInfo()
+        public void LogInfo(string pMessage)
+        {
+            string tFilePath = @"D:\MaskTransferPLCLogg.txt";
+            StreamWriter tStreamWriter = null;
+            try
+            {
+                if (!File.Exists(tFilePath))
+                    File.Create(tFilePath);
+                tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
+                tStreamWriter.WriteLine(pMessage);
+            }
+            catch (Exception e) { }
+            finally { if (tStreamWriter != null) tStreamWriter.Close(); }
+        }
+        #endregion LogInfo()
     }
 
 }

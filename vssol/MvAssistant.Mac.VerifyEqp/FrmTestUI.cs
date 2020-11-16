@@ -950,20 +950,20 @@ namespace MvAssistantMacVerifyEqp
                         mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                         LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home Clamped");
 
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
-                        mt.Clamp(1);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home Clamped");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Pellicle");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                        //mt.Unclamp();
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Pellicle");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                        //mt.Clamp(1);
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home Clamped");
                         mt.RobotMoving(false);
                         ic.ReadRobotIntrude(false);
 
@@ -972,124 +972,19 @@ namespace MvAssistantMacVerifyEqp
                         LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => CC Home Clmaped");
                         mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
 
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Glass => In CC Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Glass => In CC Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Glass => CC Home Clamped");
-
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Pellicle => In CC Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Pellicle => In CC PEllicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Pellicle => CC Home Clamped");
-                        mt.RobotMoving(false);
-
-                        //OS
-                        for (int i = 0; i < 2; i++)
-                        {
-                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
-                            if (MTIntrude == true)
-                                break;
-                            else if (i == 1 && MTIntrude == false)
-                                throw new Exception("Open Stage not allowed to be MT intrude!!");
-                        }
-                        mt.RobotMoving(true);
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => LP Home Clamped");
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home Clamped => OS");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " OS => LP Home");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => OS");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
-                        mt.Clamp(1);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " OS => LP Home Clamped");
-                        mt.RobotMoving(false);
-                        for (int i = 0; i < 2; i++)
-                        {
-                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
-                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
-                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
-                        }
-
-                        //IC
-                        ic.ReadRobotIntrude(true);
-                        mt.RobotMoving(true);
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home Clamped => IC Home Clamped");
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
-                        mt.Clamp(1);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home Clamped");
-
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
-                        mt.Unclamp();
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Pellicle");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
-                        mt.Clamp(1);
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home Clamped");
-                        mt.RobotMoving(false);
-                        ic.ReadRobotIntrude(false);
-
-                        //CC
-                        mt.RobotMoving(true);
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => CC Home Clmaped");
-                        mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Glass => In CC Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Glass => In CC Glass");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
-                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Glass => CC Home Clamped");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Glass");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Glass");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Glass => In CC Glass");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Glass => In CC Glass");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
+                        //mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
+                        //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Glass => CC Home Clamped");
 
                         LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Pellicle");
                         mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
@@ -1355,6 +1250,231 @@ namespace MvAssistantMacVerifyEqp
                         //mt.RobotMoving(false);
                         //LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "第[ " + Times + "]次機械手臂測試結束");
                         #endregion 20200924 version
+                        #region 20201015 version 1st LPA => IC(雙面) => CC(雙面) => OS => IC(雙面) => CC(雙面) => LPB      2nd LPB => IC(雙面) => CC(雙面) => OS => IC(雙面) => CC(雙面) => LPA
+                        /*LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "第[ " + Times + "]次機械手臂測試開始");
+                        MaskTransferWorkTimes = Times;
+                        worker.ReportProgress(Times);
+                        Thread.Sleep(1000);
+                        //LP
+                        mt.RobotMoving(true);
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        if (Times % 2 == 1)
+                        {
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => LPA");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                            mt.Clamp(1);
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LPA => LP Home Clamped");
+                        }
+                        else
+                        {
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => LPB");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                            mt.Clamp(1);
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LPB => LP Home Clamped");
+                        }
+                        mt.RobotMoving(false);
+
+                        //IC
+                        ic.ReadRobotIntrude(true);
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home Clamped => IC Home Clamped");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home Clamped");
+
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home Clamped");
+                        mt.RobotMoving(false);
+                        ic.ReadRobotIntrude(false);
+
+                        //CC
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => CC Home Clmaped");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
+
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Glass => In CC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Glass => In CC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Glass => CC Home Clamped");
+
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Pellicle => In CC Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Pellicle => In CC PEllicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Pellicle => CC Home Clamped");
+                        mt.RobotMoving(false);
+
+                        //OS
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, true).Item2;
+                            if (MTIntrude == true)
+                                break;
+                            else if (i == 1 && MTIntrude == false)
+                                throw new Exception("Open Stage not allowed to be MT intrude!!");
+                        }
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => LP Home Clamped");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home Clamped => OS");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " OS => LP Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => OS");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " OS => LP Home Clamped");
+                        mt.RobotMoving(false);
+                        for (int i = 0; i < 2; i++)
+                        {
+                            MTIntrude = os.ReadRobotIntrude(false, false).Item2;
+                            if (i == 1 && MTIntrude == true || os.ReadBeenIntruded() == true)
+                                throw new Exception("Open Stage has been MT intrude,can net execute command!!");
+                        }
+
+                        //IC
+                        ic.ReadRobotIntrude(true);
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home Clamped => IC Home Clamped");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Glass => IC Home Clamped");
+
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => IC Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                        mt.Unclamp();
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => IC Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                        mt.Clamp(1);
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Pellicle => IC Home Clamped");
+                        mt.RobotMoving(false);
+                        ic.ReadRobotIntrude(false);
+
+                        //CC
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home Clamped => CC Home Clmaped");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
+
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Glass => In CC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Glass => In CC Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Glass => CC Home Clamped");
+
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " CC Home Clamped => In CC Clean Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Clean Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Clean Pellicle => In CC Pellicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To Inspect Glass");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Finish Inspect Pellicle => In CC PEllicle");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " Move To CC Home Clamped");
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " In CC Pellicle => CC Home Clamped");
+                        mt.RobotMoving(false);
+
+                        //LP
+                        mt.RobotMoving(true);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " IC Home => LP Home");
+                        mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                        if (Times % 2 == 1)
+                        {
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => LPB");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                            mt.Unclamp();
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LPB => LP Home");
+                        }
+                        else
+                        {
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LP Home => LPA");
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                            mt.Unclamp();
+                            mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                            LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " LPA => LP Home");
+                        }
+                        mt.RobotMoving(false);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + "第[ " + Times + "]次機械手臂測試結束");*/
+                        #endregion 20201015 version 1st LPA => IC(雙面) => CC(雙面) => OS => IC(雙面) => CC(雙面) => LPB      2nd LPB => IC(雙面) => CC(雙面) => OS => IC(雙面) => CC(雙面) => LPA
                     }
 
                 }
@@ -1627,7 +1747,17 @@ namespace MvAssistantMacVerifyEqp
                     ic.ReadRobotIntrude(false);
                     ic.Initial();
                 }
-                ic.XYPosition(246, 208);
+                ic.ZPosition(-29.6);
+                for (int i = 158; i <= 296; i += 23)
+                {
+                    for (int j = 123; j <= 261; j += 23)
+                    {
+                        ic.XYPosition(i, j);
+                        ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
+                        Thread.Sleep(500);
+                    }
+                }
+                ic.XYPosition(30, 90);
                 for (int i = 0; i < 360; i += 90)
                 {
                     ic.WPosition(i);
@@ -1635,6 +1765,11 @@ namespace MvAssistantMacVerifyEqp
                     Thread.Sleep(500);
                 }
                 ic.XYPosition(0, 0);
+                ///
+                //for (int i = 0; i < 24; i++)
+                //{
+                //    ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "bmp");
+                //}
             }
         }
 

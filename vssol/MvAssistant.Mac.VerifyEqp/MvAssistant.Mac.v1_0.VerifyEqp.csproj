@@ -222,6 +222,11 @@
     <EmbeddedResource Include="ViewVerify\UcVrfMaskTransfer.resx">
       <DependentUpon>UcVrfMaskTransfer.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="bin\Debug\error.log" />
+    <None Include="bin\Debug\GenCfg\Manifest\Manifest.xml.real" />
+    <None Include="bin\Debug\JSon\RobotPathFileConfigSetFile.json" />
+    <None Include="bin\Debug\MaskAutoCleaner.v1_0.dll.config" />
+    <None Include="bin\Debug\MvAssistant.Mac.VerifyEqp.exe.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -232,6 +237,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="UserData\STC-CL25M_8T freerun.cam" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -253,6 +259,61 @@
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
       <Name>MvAssistant</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\CIPCompolet.dll" />
+    <Content Include="bin\Debug\CIPCoreDotNet.dll" />
+    <Content Include="bin\Debug\CIPMessaging.dll" />
+    <Content Include="bin\Debug\CIPObjectLibrary.dll" />
+    <Content Include="bin\Debug\CodeExpress.v1_0.Fw.dll" />
+    <Content Include="bin\Debug\CodeExpress.v1_0.Std.dll" />
+    <Content Include="bin\Debug\CommonCipService.dll" />
+    <Content Include="bin\Debug\CompoletDataManager.dll" />
+    <Content Include="bin\Debug\CompoletFramework.dll" />
+    <Content Include="bin\Debug\CToolkit.v1_1.Fw.dll" />
+    <Content Include="bin\Debug\CToolkit.v1_1.Std.dll" />
+    <Content Include="bin\Debug\FgwDotnet.dll" />
+    <Content Include="bin\Debug\GenApiDotNet20_v3_0.dll" />
+    <Content Include="bin\Debug\ja\CIPObjectLibrary.resources.dll" />
+    <Content Include="bin\Debug\ja\CommonCipService.resources.dll" />
+    <Content Include="bin\Debug\ja\CompoletDataManager.resources.dll" />
+    <Content Include="bin\Debug\ja\CompoletFramework.resources.dll" />
+    <Content Include="bin\Debug\ja\FgwDotnet.resources.dll" />
+    <Content Include="bin\Debug\ja\PLCDevice.resources.dll" />
+    <Content Include="bin\Debug\ja\SysmacCipService.resources.dll" />
+    <Content Include="bin\Debug\MaskAutoCleaner.v1_0.dll" />
+    <Content Include="bin\Debug\MaskAutoCleaner.v1_0.pdb" />
+    <Content Include="bin\Debug\MathNet.Numerics.dll" />
+    <Content Include="bin\Debug\MathNet.Numerics.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml" />
+    <Content Include="bin\Debug\MvAssistant.DeviceDrive.FanucRobot_v42_15.dll" />
+    <Content Include="bin\Debug\MvAssistant.DeviceDrive.FanucRobot_v42_15.pdb" />
+    <Content Include="bin\Debug\MvAssistant.dll" />
+    <Content Include="bin\Debug\MvAssistant.Mac.TestMy.dll" />
+    <Content Include="bin\Debug\MvAssistant.Mac.TestMy.pdb" />
+    <Content Include="bin\Debug\MvAssistant.Mac.v1_0.dll" />
+    <Content Include="bin\Debug\MvAssistant.Mac.v1_0.pdb" />
+    <Content Include="bin\Debug\MvAssistant.Mac.VerifyEqp.exe" />
+    <Content Include="bin\Debug\MvAssistant.Mac.VerifyEqp.pdb" />
+    <Content Include="bin\Debug\MvAssistant.pdb" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\PLCDevice.dll" />
+    <Content Include="bin\Debug\PylonC.NET.dll" />
+    <Content Include="bin\Debug\PylonC.NET.xml" />
+    <Content Include="bin\Debug\StApiDotNet20_v1_0.dll" />
+    <Content Include="bin\Debug\SysmacCipService.dll" />
+    <Content Include="bin\Debug\uEyeDotNet.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll" />
+    <Content Include="bin\Debug\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

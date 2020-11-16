@@ -126,8 +126,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         void Camera_SideInsp_CapToSave(string SavePath, string FileType);
 
-        void LightForSideInspSetValue(int value);
+        void LightForSideBarInspSetValue(int value);
 
-        void LightForSideDfsSetValue(int value);
+        void LightForSideBarDfsSetValue(int value);
+
+        void LightForTopCrlDefenseSetValue(int value);
+
+        void LightForTopCrlInspSetValue(int value);
+
+        void LightForLeftSpotInspSetValue(int value);
+
+        void LightForRightSpotInspSetValue(int value);
     }
 }
