@@ -82,7 +82,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_BT_03: 環形光
         /// </summary>
-        boxtransfer_ringlight_1,
+        boxtransfer_light_1,
 
         /// <summary>
         /// DE_BT_12: Robot
