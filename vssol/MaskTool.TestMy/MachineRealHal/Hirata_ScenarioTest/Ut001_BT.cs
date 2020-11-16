@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
@@ -35,49 +36,66 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
         #region do not care this  test function              
         [TestMethod]
-        public void TestCreateDrawerInstance()
+        [DataRow(false)]
+        public void TestCreateDrawerInstance(bool autoConnect)
         {
+            string str = System.Environment.CurrentDirectory;
             using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
             {
-              
-                
-                var universal = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
-                var boxTransfer = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                var openStage = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
-                
-                 universal.HalConnect();
 
-               
-                 openStage.HalConnect();
-                 boxTransfer.HalConnect();
-
-                openStage.Initial();
-                boxTransfer.Initial();
-
-                var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()];
-                cabinet.HalConnect();
-                for (var i = 0; i < DrawerKeys.Count; i++)
+                var universal = halContext.GetUniversalAssembly(autoConnect);
+                var boxTransfer = halContext.GetBoxTransferAssembly(autoConnect);
+                var cabinet = halContext.GetCabinetAssembly(autoConnect);
+                var openStage = halContext.GetOpenStageAssembly(autoConnect);
+                halContext.DrawersConnect();
+                // connect 所有 Drawer
+               // halContext.DrawersConnect();
+                for(var i=0;i<20;i++)
                 {
-                    var drawerCab = halContext.HalDevices[DrawerKeys[i].ToString()] as MacHalCabinet;
-                    var drawer = drawerCab.MacHalDrawer;
-                    drawerCab.HalConnect();
+                    try
+                    {
+                        var drawer = halContext.GetDrawer(DrawerKeys[i], false);
+                        drawer.Initial();
+                       
+                        Debug.WriteLine(DrawerKeys[i] + ", OK");
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine(DrawerKeys[i] + ", Error:" + ex.Message);
+                    }
 
-                    drawer.Initial();
-                    drawer.MoveTrayToIn();
                 }
+                /*
+                if (!autoConnect)
+                {
+                    universal.HalConnect();
+                    boxTransfer.HalConnect();
+                    cabinet.HalConnect();
+                    openStage.HalConnect();
+                }*/
+                // connect 所有 Drawer
+                //  halContext.DrawersConnect();
 
+                /**
                 var lpB = halContext.HalDevices[MacEnumDevice.loadportB_assembly.ToString()] as MacHalLoadPort;
                 lpB.HalConnect();
                 var lb = lpB.LoadPortUnit;
                 var lpA = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 lpA.HalConnect();
                 var la = lpA.LoadPortUnit;
-                
+                */
             }
-
+            Repeat();
+            
         }
         #endregion
-
+        void Repeat()
+        {
+            while(true)
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
         #region this is the real unit test
         /// <summary>
         /// <para>1. 光罩鐵盒放置於Open Stage平台上</para>
@@ -188,6 +206,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             else  //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {
                                 boxTransfer.TurnToCB2Home();
+                               
                                 path = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation);
                             }
                             boxTransfer.Move(path);
