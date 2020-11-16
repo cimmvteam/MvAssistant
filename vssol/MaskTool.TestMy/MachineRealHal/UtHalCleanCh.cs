@@ -119,7 +119,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 uni.HalConnect();
                 cc.HalConnect();
 
-                cc.InspectionSpotLight.TurnOn(255);
+                cc.LightSideInsp.TurnOn(255);
 
             }
         }

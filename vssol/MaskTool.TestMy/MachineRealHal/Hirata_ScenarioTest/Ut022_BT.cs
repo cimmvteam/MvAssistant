@@ -34,21 +34,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         public void TestMethod1(BoxType boxType, bool autoConnect)
         {
             var BREAK_POINT = 0;
-            using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
+                halContext.MvCfInit();
+                halContext.MvCfLoad();
+
                 try
                 {
-
-                    var uni = halContext.GetUniversalAssembly(autoConnect);
-                    var bt = halContext.GetBoxTransferAssembly(autoConnect);
-                    var os = halContext.GetOpenStageAssembly(autoConnect);
+                    var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
                     string btMovePathFile = default(string);
-                    if (!autoConnect)
-                    {
-                        uni.HalConnect();
-                        bt.HalConnect();
-                        os.HalConnect();
-                    }
+
+                    uni.HalConnect();
+                    bt.HalConnect();
+                    os.HalConnect();
+
 
                     halContext.DrawersConnect();
 

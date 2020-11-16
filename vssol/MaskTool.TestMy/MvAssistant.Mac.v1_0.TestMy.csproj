@@ -112,6 +112,7 @@
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut012_LP.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut011_LP.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut002_BT.cs" />
+    <Compile Include="MachineRealHal\UtHalLight.cs" />
     <Compile Include="MachineRealHal\UtHalCamera.cs" />
     <Compile Include="MachineRealHal\UtScenarioDrawer.cs" />
     <Compile Include="MachineRealHal\UtScenarioLoadPort.cs" />

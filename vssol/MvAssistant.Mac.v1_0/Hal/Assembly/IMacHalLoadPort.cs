@@ -39,6 +39,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         void LightForLoadPortB(int value);
 
+        void LightForBarcodeReader(int value);
+
         Bitmap Camera_LoadPortA_Cap();
 
         void Camera_LoadPortA_CapToSave(string SavePath, string FileType);
