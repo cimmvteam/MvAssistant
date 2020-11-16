@@ -55,5 +55,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             string path = pathFileObj.Cabinet02HomePathFile();
             instance.Move(path);
         }
+
+        public static void TurnOnCameraLight(this MacHalBoxTransfer instance, int lightValue=200)
+        {
+
+            instance.LightForGripper(lightValue);
+        }
+
+        public static void TurnOffCameraLight(this MacHalBoxTransfer instance)
+        {
+
+            instance.LightForGripper(0);
+        }
     }
 }

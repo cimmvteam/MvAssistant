@@ -75,6 +75,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     }
 
                     boxTransfer.Initial();
+                    boxTransfer.TurnOffCameraLight();
                     openStage.Initial();
 
                     halContext.DrawersConnect();
@@ -122,6 +123,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                             /** 04 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中有光罩鐵盒*/ //(先不測)
+                            boxTransfer.TurnOnCameraLight();
+                            // 照相
+                            boxTransfer.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                            boxTransfer.TurnOffCameraLight();
 
 
                             BREAK_POINT = 0;
@@ -140,8 +145,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             }
                             boxTransfer.Move(btMovePathFile);
 
-                            // 照相
-                            boxTransfer.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                         
 
                             // 5.2 夾取
                             boxTransfer.Clamp((uint)boxType);
