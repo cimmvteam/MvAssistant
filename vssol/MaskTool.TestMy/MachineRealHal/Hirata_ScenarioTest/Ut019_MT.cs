@@ -73,6 +73,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //12. Mask Robot將光罩從Recognizer移動至Inspection Chamber Entry處
                     mt.RobotMoving(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\BarcodeReaderToLPHome.json");
+                    mt.ChangeDirection(pathFileObj.InspChHomePathFile());
+                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     ic.ReadRobotIntrude(true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
