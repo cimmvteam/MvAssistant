@@ -26,7 +26,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 ic.LightForSideBarDfsSetValue(200);
                 ic.LightForSideBarInspSetValue(200);
-                ic.LightForTopCrlDefenseSetValue(200);
+                ic.LightForTopCrlDfsSetValue(200);
                 ic.LightForTopCrlInspSetValue(200);
                 ic.LightForLeftSpotInspSetValue(200);
                 ic.LightForRightSpotInspSetValue(200);

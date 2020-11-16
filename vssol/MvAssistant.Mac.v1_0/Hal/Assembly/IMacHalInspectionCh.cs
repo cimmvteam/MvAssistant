@@ -130,7 +130,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         void LightForSideBarDfsSetValue(int value);
 
-        void LightForTopCrlDefenseSetValue(int value);
+        void LightForTopCrlDfsSetValue(int value);
 
         void LightForTopCrlInspSetValue(int value);
 

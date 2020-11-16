@@ -70,7 +70,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return;
         }
 
-        public void LightForTopCrlDefenseSetValue(int value)
+        public void LightForTopCrlDfsSetValue(int value)
         {
             return;
         }
