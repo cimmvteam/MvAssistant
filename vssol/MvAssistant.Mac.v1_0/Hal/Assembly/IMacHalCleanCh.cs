@@ -134,6 +134,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// 調整燈光亮度
         /// </summary>
         /// <param name="value"></param>
-        void LightSetValue(int value);
+        void LightForInspSetValue(int value);
     }
 }

@@ -12,16 +12,16 @@ namespace MvAssistant.Mac.v1_0.JSon
         /// <summary>Serial No </summary>
         public int Sn { get; set; }
 
-        private HalRobotMotion position;
+        public HalRobotMotion Position;
 
         public HalRobotMotion GetPosition()
         {
-            return position;
+            return Position;
         }
 
         public void SetPosition(HalRobotMotion value)
         {
-            position = value;
+            Position = value;
         }
 
         public static string GetNewInstID()

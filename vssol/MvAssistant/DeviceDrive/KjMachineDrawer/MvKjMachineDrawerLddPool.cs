@@ -139,6 +139,7 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
             try
             {
 
+                // 檢查一下, ldd 是否存在, 如果存在, 就將 Ldd 找出來,回傳 Note: 2020/11/13 King
                 MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd( drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
                 _ldd.Add(ldd);
                 return ldd;

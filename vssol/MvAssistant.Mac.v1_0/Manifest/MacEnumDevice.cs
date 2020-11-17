@@ -82,7 +82,7 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// <summary>
         /// DE_BT_03: 環形光
         /// </summary>
-        boxtransfer_ringlight_1,
+        boxtransfer_light_1,
 
         /// <summary>
         /// DE_BT_12: Robot
@@ -355,6 +355,8 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// Use of inspection
         /// </summary>
         loadport_light_bar_001,
+        loadport_light_bar_002,
+        loadport_light_bar_003,//用於Barcode Reader
 
         /// <summary>
         /// DE_LP_25: Clamper
@@ -513,6 +515,8 @@ namespace MvAssistant.Mac.v1_0.Manifest
         /// DE_OS_19: Light Bar (Barcode)
         /// </summary>
         openstage_light_bar_defense_side_001,
+
+        openstage_light_bar_defense_front_001,
 
         /// <summary>
         /// DE_OS_08: Particle Counter

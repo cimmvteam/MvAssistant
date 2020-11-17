@@ -1,5 +1,6 @@
 ﻿using MvAssistant.DeviceDrive.OmronSentechCamera;
 using MvAssistant.Mac.v1_0.Hal.CompCamera;
+using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
 using System;
@@ -17,6 +18,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
+        public IMacHalLight LightBarDfsTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_top_001); } }
+        public IMacHalLight LightBarDfsSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_side_001); } }
+        public IMacHalLight LightBarDfsFront { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_front_001); } }
         public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
         public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
         public IHalCamera CameraLeft { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_left_1); } }
@@ -195,6 +199,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         { return Plc.ReadBoxExist(); }
 
         #endregion
+
+        public void LightForSideBarDfsSetValue(int value)
+        {
+            LightBarDfsSide.TurnOn(value);
+        }
+
+        public void LightForTopBarDfsSetValue(int value)
+        {
+            LightBarDfsTop.TurnOn(value);
+        }
+
+        public void LightForFrontBarDfsSetValue(int value)
+        {
+            LightBarDfsFront.TurnOn(value);
+        }
 
         public Bitmap Camera_Top_Cap()
         {

@@ -27,7 +27,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return "OK";
         }
 
-        public void LightSetValue(int value)
+        public void LightForInspSetValue(int value)
         {
             return;
         }

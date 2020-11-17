@@ -85,6 +85,9 @@
     <Compile Include="GenCfg\Manifest\UtGenManifestTest.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestFake.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalBoxTransferExtends.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalContextExtends.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_BT.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut017_MT.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut016_MT.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut015_MT.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut005_CB.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut004_CB.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut003_CB.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\HalDrawerExtends.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut024_OS.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut023_OS.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut022_BT.cs" />
@@ -108,7 +112,7 @@
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut012_LP.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut011_LP.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut002_BT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_BT_.cs" />
+    <Compile Include="MachineRealHal\UtHalLight.cs" />
     <Compile Include="MachineRealHal\UtHalCamera.cs" />
     <Compile Include="MachineRealHal\UtScenarioDrawer.cs" />
     <Compile Include="MachineRealHal\UtScenarioLoadPort.cs" />
@@ -133,6 +137,7 @@
     <Compile Include="MachineRealPlc\UtPlcBoxRobot.cs" />
     <Compile Include="MachineRealPlc\UtPlcPublicArea.cs" />
     <Compile Include="MachineRealPlc\UtPlc.cs" />
+    <Compile Include="MacTestMyUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtTest.cs" />
   </ItemGroup>

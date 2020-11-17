@@ -1,4 +1,5 @@
 ﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
+using MvAssistant.Mac.v1_0.Hal.CompLight;
 using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
 using MvAssistant.Mac.v1_0.Hal.CompPlc;
 using MvAssistant.Mac.v1_0.Manifest;
@@ -25,6 +26,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public IHalCamera CameraLoadPortA { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadportA_camera_inspect); } }
         public IHalCamera CameraLoadPortB { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadportB_camera_inspect); } }
         public IHalCamera CameraBarcodeInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadport_camera_barcode_inspect); } }
+        public IMacHalLight LightBarLoadPortA { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.loadport_light_bar_001); } }
+        public IMacHalLight LightBarLoadPortB { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.loadport_light_bar_002); } }
+        public IMacHalLight LightBarBarcodeReader { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.loadport_light_bar_003); } }
 
         public IMacHalLoadPortUnit LoadPortUnit
         {
@@ -108,6 +112,21 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public bool ReadLP_Light_Curtain()
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion
+        
+        public void LightForLoadPortA(int value)
+        {
+            LightBarLoadPortA.TurnOn(value);
+        }
+
+        public void LightForLoadPortB(int value)
+        {
+            LightBarLoadPortB.TurnOn(value);
+        }
+
+        public void LightForBarcodeReader(int value)
+        {
+            LightBarBarcodeReader.TurnOn(value);
+        }
 
         public Bitmap Camera_LoadPortA_Cap()
         {

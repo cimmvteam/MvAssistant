@@ -148,7 +148,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                         {
                             HalInspectionCh.LightForSideBarDfsSetValue(888);
                             HalInspectionCh.LightForSideBarInspSetValue(888);
-                            HalInspectionCh.LightForTopCrlDefenseSetValue(888);
+                            HalInspectionCh.LightForTopCrlDfsSetValue(888);
                             HalInspectionCh.LightForTopCrlInspSetValue(888);
                             HalInspectionCh.LightForLeftSpotInspSetValue(888);
                             HalInspectionCh.LightForRightSpotInspSetValue(888);

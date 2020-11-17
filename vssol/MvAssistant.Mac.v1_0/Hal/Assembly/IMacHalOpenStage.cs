@@ -105,6 +105,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         bool ReadBoxExist();
 
+        void LightForSideBarDfsSetValue(int value);
+
+        void LightForTopBarDfsSetValue(int value);
+
+        void LightForFrontBarDfsSetValue(int value);
+
         Bitmap Camera_Top_Cap();
 
         void Camera_Top_CapToSave(string SavePath, string FileType);

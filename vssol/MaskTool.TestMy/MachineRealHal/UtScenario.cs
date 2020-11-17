@@ -1234,7 +1234,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     cc.HalConnect();
 
-                    cc.LightSetValue(200);
+                    cc.LightForInspSetValue(200);
                     cc.Camera_Insp_CapToSave("D:/Image/CC", "jpg");
                 }
             }

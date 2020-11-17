@@ -251,7 +251,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             LightBarDefenseSide.TurnOn(value);
         }
         
-        public void LightForTopCrlDefenseSetValue(int value)
+        public void LightForTopCrlDfsSetValue(int value)
         {
             LightCrlDefenseTop.TurnOn(value);
         }
