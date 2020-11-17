@@ -494,9 +494,9 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                     plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
                 Thread.Sleep(100);
 
-                if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可
+                if (isBTIntrude != null && plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可
                     throw new MvException("Box Transfer Intrude is not allowed");
-                else if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense) != isMTIntrude)//如果MT要入侵但不被許可
+                else if (isMTIntrude != null && plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense) != isMTIntrude)//如果MT要入侵但不被許可
                     throw new MvException("Mask Transfer Intrude is not allowed");
             }
             catch (Exception ex)

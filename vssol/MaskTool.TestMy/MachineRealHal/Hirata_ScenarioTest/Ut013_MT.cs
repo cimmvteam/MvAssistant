@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut013_MT
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//OK
         {
             try
             {
@@ -36,7 +36,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestMethod2()//OK
         {
             try
             {
@@ -103,7 +103,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod3()
+        public void TestMethod3()//水晶盒路徑高度需修改，未測
         {
             try
             {

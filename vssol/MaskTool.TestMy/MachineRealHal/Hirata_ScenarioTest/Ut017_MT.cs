@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut017_MT
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//OK
         {
             try
             {
@@ -26,16 +26,33 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.HalConnect();
                     os.HalConnect();
 
+                    uint BoxType = 1;//1：鐵盒 , 2：水晶盒
+
+                    os.Initial();
+
+                    os.SetBoxType(BoxType);
+                    os.SortClamp();
+                    os.Vacuum(true);
+                    os.SortUnclamp();
+                    os.Lock();
+                    
+                    if (os.ReadCoverSensor().Item2 == false)
+                        throw new Exception("Box status was not closed");
+                    os.Close();
+                    os.Clamp();
+                    os.Open();
+                    if (os.ReadCoverSensor().Item1 == false)
+                        throw new Exception("Box status was not opened");
+
                     //1. Mask Robot (無夾持光罩) 從Home點移動至Open Stage
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    os.ReadRobotIntrude(false, true);
+                    os.ReadRobotIntrude(null, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
-                    os.ReadRobotIntrude(false, false);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    os.ReadRobotIntrude(null, false);
                     mt.RobotMoving(false);
 
                 }
@@ -44,7 +61,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestMethod2()//OK
         {
             try
             {
@@ -115,7 +132,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod3()
+        public void TestMethod3()//OK
         {
             try
             {

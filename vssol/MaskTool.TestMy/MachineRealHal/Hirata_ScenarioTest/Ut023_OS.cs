@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut023_OS
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//第7步由誰取像，無法辨識光罩盒種類
         {
             try
             {
@@ -72,9 +72,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. 透過Box Robot PIN, 開啟光罩鐵盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //9. 開盒機構正常開啟光罩鐵盒
                     os.Close();
@@ -129,9 +141,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. 透過Box Robot PIN, 開啟光罩鐵盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //9. 開盒機構正常開啟光罩鐵盒
                     os.Close();
@@ -188,9 +212,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. 透過Box Robot PIN, 開啟光罩水晶盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //9. 開盒機構正常開啟光罩水晶盒
                     os.Close();
@@ -245,9 +281,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. 透過Box Robot PIN, 開啟光罩水晶盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //9. 開盒機構正常開啟光罩水晶盒
                     os.Close();
