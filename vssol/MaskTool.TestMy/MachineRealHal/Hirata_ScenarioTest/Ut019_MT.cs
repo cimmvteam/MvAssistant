@@ -19,7 +19,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
         
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//OK
         {
             try
             {

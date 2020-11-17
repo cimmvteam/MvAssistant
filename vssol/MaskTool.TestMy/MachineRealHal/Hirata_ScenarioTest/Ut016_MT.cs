@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut016_MT
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//OK
         {
             try
             {
@@ -25,7 +25,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     cc.HalConnect();
-                    
+
                     //1. 光罩放置於Load Port A的Pod上
 
                     //2.Mask Robot從Home點移動至Load Port A
@@ -55,7 +55,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
                     mt.RobotMoving(false);
 
-                    //7. 將光罩移動至安全光柵附近, 觸發光柵報值
+                    //7. 將光罩移動至安全光柵附近, 觸發光柵報值(由人員手動遮斷)
+                    var LightCurtain = cc.ReadLightCurtain();
 
                     //8. Mask Robot將光罩從Clean Chamber, 移回Load Port A
                     mt.RobotMoving(true);
@@ -106,7 +107,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
                     mt.RobotMoving(false);
 
-                    //7. 將光罩移動至安全光柵附近, 觸發光柵報值
+                    //7. 將光罩移動至安全光柵附近, 觸發光柵報值(由人員手動遮斷)
+                    LightCurtain = cc.ReadLightCurtain();
 
                     //8. Mask Robot將光罩從Clean Chamber, 移回Load Port B
                     mt.RobotMoving(true);
@@ -128,7 +130,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestMethod2()//OK
         {
             try
             {
@@ -146,15 +148,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     cc.HalConnect();
                     ic.HalConnect();
 
-                    //1. 光罩   (反面-Pellicle向上)   放置於Inspection Chamber Stage上
+                    //1. 光罩放置於Inspection Chamber Stage上
 
                     //2. Mask Robot從Home點移動至Inspection Chamber
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     ic.ReadRobotIntrude(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Inspection Chamber 內進行光罩夾取
@@ -162,8 +164,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Inspection Chamber移動至Clean Chamber內
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                     ic.ReadRobotIntrude(false);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
@@ -188,8 +190,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
                     mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
                     ic.ReadRobotIntrude(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICBackSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICStage.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
                     mt.RobotMoving(false);
 
                     //9. Mask Robot將光罩放置於Inspection Chamber Stage上
@@ -197,12 +199,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //10.Mask Robot(無夾持光罩) 從Inspection Chamber移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICBackSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICBackSideToICHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
                     ic.ReadRobotIntrude(false);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.RobotMoving(false);
-                    
+
                 }
             }
             catch (Exception ex) { throw ex; }

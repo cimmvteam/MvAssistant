@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut024_OS
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//第7步由誰取像，無法辨識光罩盒種類
         {
             try
             {
@@ -40,17 +40,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
-                    var BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -78,9 +67,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. 透過Box Robot PIN, 關閉光罩鐵盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //7. Front CCD可以拍照取像(FOV正確)
 
@@ -108,17 +109,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
-                    BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -146,9 +136,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. 透過Box Robot PIN, 關閉光罩鐵盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //7. Front CCD可以拍照取像(FOV正確)
 
@@ -177,17 +179,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
-                    BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -215,9 +206,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. 透過Box Robot PIN, 關閉光罩水晶盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //7. Front CCD可以拍照取像(FOV正確)
 
@@ -245,17 +248,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
-                    BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -283,9 +275,21 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. 透過Box Robot PIN, 關閉光罩水晶盒鈕扣
                     if (BoxType == 1)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockIronBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
                     else if (BoxType == 2)
+                    {
+                        bt.RobotMoving(true);
+                        os.ReadRobotIntrude(true, null);
                         bt.ExePathMove(@"D:\Positions\BTRobot\LockCrystalBox.json");
+                        os.ReadRobotIntrude(false, null);
+                        bt.RobotMoving(false);
+                    }
 
                     //7. Front CCD可以拍照取像(FOV正確)
 

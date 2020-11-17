@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut020_MT
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//OK
         {
             try
             {
@@ -31,7 +31,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //1. 光罩放置於Inspection Chamber Stage上
 
                     //2. (編號2-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    ic.LightForSideBarDfsSetValue(500);
+                    ic.LightForSideBarDfsSetValue(200);
                     ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
                     ic.LightForSideBarDfsSetValue(0);
 
@@ -83,7 +83,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.Unclamp();
 
                     //11. (編號2 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    ic.LightForSideBarDfsSetValue(500);
+                    ic.LightForSideBarDfsSetValue(200);
                     ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
                     ic.LightForSideBarDfsSetValue(0);
 
