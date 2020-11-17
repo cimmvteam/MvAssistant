@@ -87,5 +87,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             // 關閉
             instance.TurnOffCameraLight();
         }
+
+       
     }
 }
