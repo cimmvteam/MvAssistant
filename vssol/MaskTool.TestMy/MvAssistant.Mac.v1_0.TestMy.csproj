@@ -87,6 +87,7 @@
     <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalBoxTransferExtends.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalContextExtends.cs" />
+    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_002_004_005.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_BT.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut017_MT.cs" />
     <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut016_MT.cs" />

@@ -120,8 +120,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <param name="boxType"></param>
         /// <param name="autoConnect"></param>
         [TestMethod]
-        //[DataRow(BoxType.IronBox,false)] // 鐵盒
-        [DataRow(BoxType.CrystalBox,false)]// 水晶盒
+       [DataRow(BoxType.IronBox,false)] // 鐵盒
+        //[DataRow(BoxType.CrystalBox,false)]// 水晶盒
         public void Test_Ut001_BT(BoxType boxType,bool autoConnect) 
         {
 
@@ -146,6 +146,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     // Initial OpenStage
                     openStage.Initial();
+                    openStage.SetBoxType((uint)boxType);
+                    openStage.SortClamp();
                     // Initial BoxTransfer
                     boxTransfer.Initial();
                     // 關燈
@@ -195,7 +197,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             openStage.ReadRobotIntrude(true, null);
                             //  3.2 將 Boxrobot 移到 OpenStage
                             var path = pathFileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
+                            openStage.SortUnclamp();
+                            openStage.Lock();
                             boxTransfer.Move(path);
+                            
                             boxTransfer.Clamp((uint)boxType);
 
                             BREAK_POINT = 0;
@@ -232,7 +237,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             boxTransfer.Move(path);
                             
                             //  拍照  
-                            boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
+                          //  boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
                             
 
                             BREAK_POINT = 0;
