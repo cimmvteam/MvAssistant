@@ -126,7 +126,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     BoxType = 2;
 
                     //13. 重複1~12, 完成光罩水晶盒內的光罩clamp & release測試
-                    //1. 光罩放置於Open Stage上的光罩鐵盒內
+                    //1. 光罩放置於Open Stage上的光罩水晶盒內
                     os.SetBoxType(BoxType);
                     os.SortClamp();
                     os.Vacuum(true);
@@ -197,7 +197,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
                     mt.RobotMoving(false);
 
-                    //9. Mask Robot將光罩放置於Open Stage上的光罩鐵盒內(release光罩)
+                    //9. Mask Robot將光罩放置於Open Stage上的光罩水晶盒內(release光罩)
                     mt.Unclamp();
 
                     //10. Mask Robot(無夾持光罩) 從Open Stage移回Home點

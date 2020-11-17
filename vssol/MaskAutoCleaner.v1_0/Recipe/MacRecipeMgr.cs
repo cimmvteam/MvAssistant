@@ -36,17 +36,23 @@ namespace MaskAutoCleaner.v1_0.Recipe
 
             foreach (var step in this.Recipe)
             {
+                MvLog.InfoNs(this, "Step Before Check: " + step.StepName);
                 while (!this.CheckStatesBefore(step))
                     Thread.Sleep(100);
+
 
 
                 this.SendStatesCmd(step);
 
 
+                MvLog.InfoNs(this, "Step After Check: " + step.StepName);
                 while (!this.CheckStatesAfter(step))
                     Thread.Sleep(100);
 
             }
+
+            MvLog.InfoNs(this, "Complete Recipe: " + this.Recipe.RecipeName);
+
 
 
         }

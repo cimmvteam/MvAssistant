@@ -89,6 +89,7 @@
     <Compile Include="Machine\UtMcLoadport.cs" />
     <Compile Include="Machine\UtMcMaskTransfer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestMyUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

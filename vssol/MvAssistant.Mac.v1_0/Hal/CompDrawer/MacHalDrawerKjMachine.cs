@@ -29,6 +29,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         /// <param name="state"></param>
         public void SetDrawerWorkState(DrawerWorkState state)
         {
+            //此狀態非State Machine使用, Drawer本身不知道自己的狀態
+            //需要由Drawer軟體內部自己要記錄
             CurrentWorkState = state;
         }
         /// <summary>將工作狀態設為 AnyState</summary>

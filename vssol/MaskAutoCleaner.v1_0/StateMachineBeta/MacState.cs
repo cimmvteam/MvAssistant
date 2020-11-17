@@ -48,6 +48,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineBeta
         {
             var stateTo = transition.StateTo;
             DoExit(exitEventArgs);
+
             stateTo.DoEntry(entryEventArgs);
         }
        

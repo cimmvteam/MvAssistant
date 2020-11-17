@@ -116,9 +116,8 @@
     <Compile Include="Hal\CompLight\MacHalLightLeimac.cs" />
     <Compile Include="Hal\CompLight\IMacHalLight.cs" />
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortUnit.cs" />
-    <Compile Include="Hal\CompLoadPort\MacHalLoadPortUnitFake.cs" />
+    <Compile Include="Hal\CompLoadPort\MacHalLoadPortFake.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortGudeng.cs" />
-    <Compile Include="Hal\CompLoadPort\IMacHalLoadPortCell.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPath.cs" />
     <Compile Include="Hal\CompRobot\HalRobotEnumMotionType.cs" />
     <Compile Include="Hal\CompRobot\HalRobotFake.cs" />

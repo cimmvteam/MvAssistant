@@ -2,6 +2,8 @@
 using MaskAutoCleaner.v1_0.Recipe;
 using MvAssistant;
 using MvAssistant.Mac.v1_0.Hal;
+using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Tasking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,12 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// 程式關閉或垃圾回收時會進行解構
         /// </summary>
         ~MacMachineMgr() { this.Dispose(false); }
+
+
+
+
+
+
 
 
 
@@ -93,6 +101,46 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
 
+        #region Fake-Simulation
+
+        protected MvCancelTask FakeTask;
+
+        public int SimulateFakeNormalAsyn()
+        {
+
+            this.FakeTask = MvCancelTask.Run((ct) =>
+            {
+                var cabinets = this.CtrlMachines.Where(x => x is IMacHalCabinet).ToList();
+
+                foreach (var kv in cabinets)
+                {
+                    var cb = kv.Value as IMacHalCabinet;
+
+
+                }
+
+
+                //MvSpinWait.SpinUntil(() =>    )
+
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+            return 0;
+        }
+
+
+
+        #endregion
 
 
 
@@ -140,9 +188,6 @@ namespace MaskAutoCleaner.v1_0.Machine
         #endregion
 
 
-
-        #region Other
-        #endregion
 
     }
 }

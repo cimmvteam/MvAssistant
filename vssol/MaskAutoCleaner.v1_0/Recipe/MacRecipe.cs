@@ -10,6 +10,7 @@ namespace MaskAutoCleaner.v1_0.Recipe
     [Serializable]
     public class MacRecipe : List<MacRecipeStep>
     {
+        public String RecipeName;
 
         public MacRecipeParam Param;
         public EnumMacRecipeType RecipeType = EnumMacRecipeType.None;//未設定

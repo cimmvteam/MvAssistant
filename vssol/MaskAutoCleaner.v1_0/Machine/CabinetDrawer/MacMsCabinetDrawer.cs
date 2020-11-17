@@ -15,7 +15,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
     [Guid("71653EBD-4BF3-46B5-9541-02CFFD14A3EA")]
     public class MacMsCabinetDrawer : MacMachineStateBase
     {
-        public IMacHalCabinet HalCabinetUniversal { get { return this.halAssembly as IMacHalCabinet; } }
+        public IMacHalCabinet HalCabinet { get { return this.halAssembly as IMacHalCabinet; } }
 
 
         protected override void SetCurrentState(MacState state)
@@ -50,7 +50,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {
 
 
-                return HalCabinetUniversal.MacHalDrawer;
+                return HalCabinet.MacHalDrawer;
             }
         }
 
@@ -79,8 +79,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         {
 
             TimeoutObject = new MacMsTimeOutController(20);
-
-            LoadStateMachine();
+            this.LoadStateMachine();
         }
 
         #region State Machine Command
@@ -109,6 +108,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         {
             Debug.WriteLine("Command: SystemBootupInitial");
             this.States[EnumMacCabinetDrawerState.SystemBootupInitialStart.ToString()].ExecuteCommandAtEntry(new MacStateEntryEventArgs());
+
+
         }
 
         /// <summary>Load, 將 Tray 移到 Out</summary>
@@ -151,7 +152,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         {
             Debug.WriteLine("Command: Load_MoveTrayToHome");
             //this.States[EnumMacCabinetDrawerState.LoadMoveTrayToHomeStart.ToString()].ExecuteCommand(new MacStateEntryEventArgs());
-            var transition=this.Transitions[EnumMacCabinetDrawerTransition.LoadWaitingPutBoxOnTray_LoadMoveTrayToHomeStart.ToString()];
+            var transition = this.Transitions[EnumMacCabinetDrawerTransition.LoadWaitingPutBoxOnTray_LoadMoveTrayToHomeStart.ToString()];
 #if GNotCareState
             var state = transition.StateFrom;
 #else
@@ -253,9 +254,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             var state = this.CurrentState;
 #endif
             state.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs(null));
-
-
         }
+
 
 
         /// <summary>將 Tray 移到 Home, 等待 Load 命令</summary>
@@ -288,19 +288,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         public MacState StateSystemBootup { get { return this.States[EnumMacCabinetDrawerState.SystemBootup.ToString()]; } }
 
 
+
         public override void LoadStateMachine()
         {
-            try   // TODO: Remove Try catch 
-            {
-                if (HalCabinetUniversal.MacHalDrawer.PressButtonToLoad == null)
-                {
-                    HalCabinetUniversal.MacHalDrawer.PressButtonToLoad = this.Load_MoveTrayToHome;
-                }
-            }
-            catch
-            {
 
-            }
 
             #region  state
             // 系統啟動
@@ -466,6 +457,24 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Sync
                 Debug.WriteLine("SystemBootup.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
+
+
+
+
+                try   // TODO: Remove Try catch 
+                {
+                    if (HalCabinet.MacHalDrawer.PressButtonToLoad == null)
+                    {
+                        HalCabinet.MacHalDrawer.PressButtonToLoad = this.Load_MoveTrayToHome;
+                    }
+                }
+                catch
+                {
+
+                }
+
+
+
                 var transition = tSystemBootup_SystemBootupInitialStart;
                 var triggerMember = new TriggerMember
                 {
@@ -519,6 +528,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Async
                 Debug.WriteLine("SystemBootupInitialIng.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
+
+
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -583,26 +594,26 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
 
             sWaitingLoadInstruction.OnEntry += (sender, e) =>
-              { //Sync
-                  Debug.WriteLine("WaitingLoadInstruction.OnEntry; Device Index=" + this.DeviceIndex);
-                  this.SetCurrentState((MacState)sender);
-                  var transition = tWaitingLoadInstruction_NULL;
-                  var triggerMember = new TriggerMember
-                  {
-                      Action = null,
-                      ActionParameter = null,
-                      ExceptionHandler = (state, ex) =>
-                      {
+            { //Sync
+                Debug.WriteLine("WaitingLoadInstruction.OnEntry; Device Index=" + this.DeviceIndex);
+                this.SetCurrentState((MacState)sender);
+                var transition = tWaitingLoadInstruction_NULL;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
                           // do something
-                      },
-                      Guard = () => { return true; },
-                      NextStateEntryEventArgs = new MacStateEntryEventArgs(),
-                      NotGuardException = null,
-                      ThisStateExitEventArgs = new MacStateExitEventArgs()
-                  };
-                  transition.SetTriggerMembers(triggerMember);
-                  this.Trigger(transition);
-              };
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                this.Trigger(transition);
+            };
             sWaitingLoadInstruction.OnExit += (sender, e) =>
             {
                 Debug.WriteLine("WaitingLoadInstruction.OnExit; Device Index=" + this.DeviceIndex);
@@ -610,7 +621,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
             sLoadMoveTrayToOutStart.OnEntry += (sender, e) =>
               {   // Sync
-                Debug.WriteLine("LoadMoveTrayToOutStart.OnEntry; Device Index=" + this.DeviceIndex);
+                  Debug.WriteLine("LoadMoveTrayToOutStart.OnEntry; Device Index=" + this.DeviceIndex);
                   var transition = tLoadMoveTrayToOutStart_LoadMoveTrayToOutIng;
                   this.SetCurrentState((MacState)sender);
                   var triggerMember = new TriggerMember
@@ -619,8 +630,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                       ActionParameter = null,
                       ExceptionHandler = (state, ex) =>
                       {
-                        // do something
-                    },
+                          // do something
+                      },
                       Guard = () => { return true; },
                       NextStateEntryEventArgs = new MacStateEntryEventArgs(),
                       NotGuardException = null,
@@ -679,7 +690,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
             sLoadMoveTrayToOutComplete.OnEntry += (sender, e) =>
               {// Sync
-                Debug.WriteLine("LoadMoveTrayToOutComplete.OnEntry; Device Index=" + this.DeviceIndex);
+                  Debug.WriteLine("LoadMoveTrayToOutComplete.OnEntry; Device Index=" + this.DeviceIndex);
                   var transition = tLoadMoveTrayToOutComplete_LoadWaitingPutBoxOnTray;
                   SetCurrentState((MacState)sender);
                   var triggerMember = new TriggerMember
@@ -688,8 +699,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                       ActionParameter = null,
                       ExceptionHandler = (state, ex) =>
                         {
-                          // do something
-                      },
+                            // do something
+                        },
                       Guard = () => { return true; },
                       NextStateEntryEventArgs = new MacStateEntryEventArgs(),
                       NotGuardException = null,
@@ -893,8 +904,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 MacTransition transition = null;
                 TriggerMember triggerMember = null;
                 //if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist)
-                    if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist || true)
-                    {
+                if (HalDrawer.CurrentWorkState == DrawerWorkState.BoxExist || true)
+                {
                     transition = tLoadCheckBoxExistenceComplete_LoadWaitingMoveTrayToIn;
                     triggerMember = new TriggerMember
                     {
@@ -936,7 +947,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             };
             sLoadWaitingMoveTrayToIn.OnEntry += (sender, ex) =>
                {    // Sync 
-                Debug.WriteLine("LoadWaitingMoveTrayToIn.OnEntry; Device Index=" + this.DeviceIndex);
+                   Debug.WriteLine("LoadWaitingMoveTrayToIn.OnEntry; Device Index=" + this.DeviceIndex);
                    SetCurrentState((MacState)sender);
                    var transition = tLoadWaitingMoveTrayToIn_NULL;
                    var triggerMember = new TriggerMember
@@ -945,8 +956,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                        ActionParameter = null,
                        ExceptionHandler = (state, e) =>
                        {
-                        // do something
-                    },
+                           // do something
+                       },
                        Guard = () => { return true; },
                        NextStateEntryEventArgs = new MacStateEntryEventArgs(),
                        NotGuardException = null,
