@@ -48,14 +48,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         throw new Exception("Box status was not opened");
 
                     //2. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForTopBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(3);//bar 0~255
+                    os.LightForTopBarDfsSetValue(50);//bar 0~255
                     os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
+                    os.LightForSideBarDfsSetValue(0);
                     os.LightForTopBarDfsSetValue(0);
 
                     //3. (編號12 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForSideBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(250);//bar 0~255
+                    os.LightForTopBarDfsSetValue(20);//bar 0~255
                     os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
                     os.LightForSideBarDfsSetValue(0);
+                    os.LightForTopBarDfsSetValue(0);
 
                     //4. Mask Robot從Home點移動至Open Stage
                     mt.RobotMoving(true);
@@ -115,14 +123,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //11. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForTopBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(3);//bar 0~255
+                    os.LightForTopBarDfsSetValue(50);//bar 0~255
                     os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
+                    os.LightForSideBarDfsSetValue(0);
                     os.LightForTopBarDfsSetValue(0);
 
                     //12. (編號12 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForSideBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(250);//bar 0~255
+                    os.LightForTopBarDfsSetValue(20);//bar 0~255
                     os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
                     os.LightForSideBarDfsSetValue(0);
+                    os.LightForTopBarDfsSetValue(0);
 
 
                     BoxType = 2;
@@ -154,14 +170,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         throw new Exception("Box status was not opened");
 
                     //2. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForTopBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(3);//bar 0~255
+                    os.LightForTopBarDfsSetValue(50);//bar 0~255
                     os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
+                    os.LightForSideBarDfsSetValue(0);
                     os.LightForTopBarDfsSetValue(0);
 
                     //3. (編號12 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForSideBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(250);//bar 0~255
+                    os.LightForTopBarDfsSetValue(20);//bar 0~255
                     os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
                     os.LightForSideBarDfsSetValue(0);
+                    os.LightForTopBarDfsSetValue(0);
 
                     //4. Mask Robot從Home點移動至Open Stage
                     mt.RobotMoving(true);
@@ -221,14 +245,22 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //11. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForTopBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(3);//bar 0~255
+                    os.LightForTopBarDfsSetValue(50);//bar 0~255
                     os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
+                    os.LightForSideBarDfsSetValue(0);
                     os.LightForTopBarDfsSetValue(0);
 
                     //12. (編號12 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForSideBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                    os.LightForSideBarDfsSetValue(250);//bar 0~255
+                    os.LightForTopBarDfsSetValue(20);//bar 0~255
                     os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
                     os.LightForSideBarDfsSetValue(0);
+                    os.LightForTopBarDfsSetValue(0);
                 }
             }
             catch (Exception ex) { throw ex; }

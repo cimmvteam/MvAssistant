@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut023_OS
     {
         [TestMethod]
-        public void TestMethod1()//Box重量未定義，第7步由誰取像，無法辨識光罩盒種類
+        public void TestMethod1()//Box重量未定義
         {
             try
             {
@@ -50,12 +50,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     }
 
                     //3. (編號10 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
                     //4. (編號11 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
@@ -69,6 +69,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Lock();
 
                     //7. Front CCD可以拍照取像(FOV正確)
+                    os.LightForFrontBarDfsSetValue(6);
+                    os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
+                    os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
 
                     //8. 透過Box Robot PIN, 開啟光罩鐵盒鈕扣
                     if (BoxType == 1)
@@ -119,12 +123,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     }
 
                     //3. (編號10 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
                     //4. (編號11 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
@@ -138,6 +142,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Lock();
 
                     //7. Front CCD可以拍照取像(FOV正確)
+                    os.LightForFrontBarDfsSetValue(6);
+                    os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
+                    os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
 
                     //8. 透過Box Robot PIN, 開啟光罩鐵盒鈕扣
                     if (BoxType == 1)
@@ -190,12 +198,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     }
 
                     //3. (編號10 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
                     //4. (編號11 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
@@ -209,6 +217,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Lock();
 
                     //7. Front CCD可以拍照取像(FOV正確)
+                    os.LightForFrontBarDfsSetValue(6);
+                    os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
+                    os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
 
                     //8. 透過Box Robot PIN, 開啟光罩水晶盒鈕扣
                     if (BoxType == 1)
@@ -259,12 +271,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     }
 
                     //3. (編號10 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
                     //4. (編號11 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    os.LightForFrontBarDfsSetValue(200);
+                    os.LightForFrontBarDfsSetValue(6);
                     os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
                     os.LightForFrontBarDfsSetValue(0);
 
@@ -278,6 +290,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.Lock();
 
                     //7. Front CCD可以拍照取像(FOV正確)
+                    os.LightForFrontBarDfsSetValue(6);
+                    os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
+                    os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
+                    os.LightForFrontBarDfsSetValue(0);
 
                     //8. 透過Box Robot PIN, 開啟光罩水晶盒鈕扣
                     if (BoxType == 1)

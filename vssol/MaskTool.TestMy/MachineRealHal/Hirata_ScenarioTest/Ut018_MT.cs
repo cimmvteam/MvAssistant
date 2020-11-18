@@ -34,7 +34,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     lpa.Dock();
 
                     //6. (編號6-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    lpa.LightForLoadPortA(200);
+                    lpa.LightForLoadPortA(255);
                     lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
                     lpa.LightForLoadPortA(0);
 
@@ -57,7 +57,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //11. (編號8 - Barcode CCD)拍攝mask barcode, 並能成功辨識ID
+                    lpa.LightForBarcodeReader(2);
                     lpa.Camera_Barcode_CapToSave("D:/Image/LP/LPA/Barcode", "jpg");
+                    lpa.LightForBarcodeReader(0);
 
                     //12. Mask Robot將光罩從Recognizer移動至Inspection Chamber Entry處
                     mt.RobotMoving(true);
@@ -86,7 +88,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //16. (編號6-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    lpa.LightForLoadPortA(200);
+                    lpa.LightForLoadPortA(255);
                     lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
                     lpa.LightForLoadPortA(0);
 
