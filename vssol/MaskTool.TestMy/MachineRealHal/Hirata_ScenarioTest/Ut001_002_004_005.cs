@@ -30,6 +30,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         string filePath;
         public Ut001_002_004_005()
         {
+           
             DrawerKeys = HalDrawerExtends.DrawerKeys;
             DrawerLocations = HalDrawerExtends.DrawerLocations;
 
@@ -53,7 +54,28 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             HalBoxTransfer.TurnOffCameraLight();
             HalBoxTransfer.TurnToCB1Home();
 
+           
+
         }
+
+        [TestMethod]
+        public void TestFilePath()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+            var path00=  pathFileObj.GetFromCabinetHomeToDrawerGetPath(BoxrobotTransferLocation.Drawer_01_01);
+            var path01 =  pathFileObj.GetFromCabinetHomeToDrawerPutPath(BoxrobotTransferLocation.Drawer_01_01);
+            var path02= pathFileObj.GetFromCabinetHomeToDrawerGetPath(BoxrobotTransferLocation.Drawer_04_01);
+            var path03 = pathFileObj.GetFromCabinetHomeToDrawerPutPath(BoxrobotTransferLocation.Drawer_04_01);
+
+            //pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+            var path04 = pathFileObj.GetFromDrawerToCabitnetHomeGetPath(BoxrobotTransferLocation.Drawer_01_01);
+            var path05 = pathFileObj.GetFromDrawerToCabitnetHomePutPath(BoxrobotTransferLocation.Drawer_01_01);
+            var path06 = pathFileObj.GetFromDrawerToCabitnetHomeGetPath(BoxrobotTransferLocation.Drawer_04_01);
+            var path07 = pathFileObj.GetFromDrawerToCabitnetHomePutPath(BoxrobotTransferLocation.Drawer_04_01);
+        }
+
+
 
         /// <summary>
         /// <para>1-01. 光罩盒放 Drawer 內</para>
