@@ -13,5 +13,10 @@ namespace MvAssistant
         {
 
         }
+
+        public MvException(string message, Exception innerException) : base(message, innerException)
+        {
+
+        }
     }
 }

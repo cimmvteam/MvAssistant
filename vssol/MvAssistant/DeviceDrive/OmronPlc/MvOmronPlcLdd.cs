@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using OMRON.Compolet.CIP;
 namespace MvAssistant.DeviceDrive.OmronPlc
 {
@@ -32,22 +33,25 @@ namespace MvAssistant.DeviceDrive.OmronPlc
                 if (this._CIPcompolet == null)
                     this._CIPcompolet = new NJCompolet();
 
-                _CIPcompolet.Active = false;
-                _CIPcompolet.ConnectionType = ConnectionType.UCMM;
-                _CIPcompolet.ReceiveTimeLimit = 750;
-                _CIPcompolet.PeerAddress = ip;
-                _CIPcompolet.LocalPort = portId;
-                _CIPcompolet.Active = true;
+                this._CIPcompolet.Active = false;
+                this._CIPcompolet.ConnectionType = ConnectionType.UCMM;
+                this._CIPcompolet.ReceiveTimeLimit = 750;
+                this._CIPcompolet.PeerAddress = ip;
+                this._CIPcompolet.LocalPort = portId;
+                this._CIPcompolet.Active = true;
             }
         }
         public void NLPLC_ClosePort()
         {
             lock (this)
             {
-                if (this._CIPcompolet == null)
-                    this._CIPcompolet = new NJCompolet();
+                Thread.Sleep(50);
+                if (this._CIPcompolet == null) return;
 
-                _CIPcompolet.Active = false;
+                using (var obj = this._CIPcompolet)
+                {
+                    this._CIPcompolet.Active = false;
+                }
             }
         }
         public bool IsConnected() { lock (this) return this._CIPcompolet.IsConnected; }
@@ -56,13 +60,53 @@ namespace MvAssistant.DeviceDrive.OmronPlc
 
         public object Read(string VarName)
         {
-            lock (this)
-                return _CIPcompolet.ReadVariable(VarName);
+            Exception myex = null;
+            //Fail允許重新再執行, 上限3次
+            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            {
+                try
+                {
+                    lock (this)
+                    {
+                        //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+                        Thread.Sleep(50);
+                        return _CIPcompolet.ReadVariable(VarName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MvLog.WarnNs(this, ex);
+                    myex = ex;
+                }
+            }
+
+            //若3次嘗試存取失敗, 直接拋出Exception
+            throw new MvException("PLC read fail over 3 times", myex);
         }
         public void Write(string VarName, Object data)
         {
-            lock (this)
-                _CIPcompolet.WriteVariable(VarName, data);
+            Exception myex = null;
+            //Fail允許重新再執行, 上限3次
+            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            {
+                try
+                {
+                    lock (this)
+                    {
+                        //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+                        Thread.Sleep(50);
+                        this._CIPcompolet.WriteVariable(VarName, data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MvLog.WarnNs(this, ex);
+                    myex = ex;
+                }
+            }
+
+            //若3次嘗試存取失敗, 直接拋出Exception
+            throw new MvException("PLC read fail over 3 times", myex);
         }
 
 
