@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut024_OS
     {
         [TestMethod]
-        public void TestMethod1()//第7步由誰取像，無法辨識光罩盒種類
+        public void TestMethod1()//Box重量未定義，第7步由誰取像，無法辨識光罩盒種類
         {
             try
             {
