@@ -146,7 +146,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                             
                             // 照相
-                            boxTransfer.CameraShot("Ut002_BT_" + drawerLocation);
+                           // boxTransfer.CameraShot("Ut002_BT_" + drawerLocation);
 
 
                             // 5.2 夾取

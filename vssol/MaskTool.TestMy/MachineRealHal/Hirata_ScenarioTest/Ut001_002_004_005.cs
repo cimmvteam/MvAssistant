@@ -133,7 +133,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             var failedConnectDrawers =HalContext.DrawersConnect();
 
             HalBoxTransfer.TurnToCB1Home();
-            for (var i = 0; i < DrawerKeys.Count; i++)
+            int start = 12;
+            int end = start + 3;
+            //int end = DrawerKeys.Count;
+            for (var i = start; i < end; i++)
              {
                 try
                 {

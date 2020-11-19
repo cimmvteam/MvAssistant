@@ -38,6 +38,29 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             var BREAK_POINT = 0;
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
+                /** Index & array
+            * [0]   [1]  [2]    
+            * 1-2,  1-3, 1-4     IP: 31~33
+            * ------------------
+            * [3]   [4]  [5]    
+            * 2-2,  2-3, 2-4,    IP: 41~43
+            * ------------------
+            * [6]   [7]  [8]    
+            * 3-2,  3-3, 3-4,    IP: 51~53
+            * ----------------
+            * [9]   [10] [11]    
+            * 4-2,  4-3, 4-4,    IP: 61~63
+            * ------------------
+            * [12]  [13] [14]   
+            * 5-2,  5-3, 5-4,    IP: 71~73
+            * ------------------
+            * [15]  [16] [17] 
+            * 6-2,  6-3, 6-4,    IP: 81~83
+            *--------------------
+            * [18]  [19]    
+            * 7-2,  7-3,         IP: 91~92
+            */
+
                 halContext.MvCfInit();
                 halContext.MvCfLoad();
 
@@ -57,7 +80,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                   
                     bt.Initial();
                     bt.TurnToCB1Home();
-                    for (var i =11; i <12; i++)
+                    int start =12 ;
+                    int end = start + 3;
+
+                    for (var i = start; i <end; i++)
                     {
                         try
                         {
@@ -65,64 +91,39 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             var drawer = halContext.GetDrawer(DrawerKeys[i]);
                             IMacHalDrawer previousDrawer = null;
                             var drawerHome = drawerLocation.GetCabinetHomeCode().Item2;
-                            if (i != 0)
+                            /** 00 預先動作, 如有上一輪的 Drawer, 將上一輪的 Drawer 推回到 Out , 取出 Box, 將Box放到現在的 Drawer Tray中, 並將 Tray 放回 Home */
+                            // 0.1 如有上一輪的 Drawer, 將其 Tray 移到 OUt
+                            if (i > start)
                             {
                                 previousDrawer = halContext.GetDrawer(DrawerKeys[i - 1]);
-                                try
-                                {
-                                    previousDrawer.Initial();
-                                    previousDrawer.MoveTrayToOut();
-                                }
-                                catch(Exception ex)
-                                {
-                                    BREAK_POINT++;
-                                }
+                                previousDrawer.Initial();
+                                previousDrawer.MoveTrayToOut();
                             }
-                            try
-                            {
-                                drawer.Initial();
-                            }
-                            catch(Exception ex)
-                            {
-                                BREAK_POINT ++ ;
-                            }
+                            // 0.2 將目前的  Drawer Tray Initial 
+                            drawer.Initial();
+                            // 0.3 將 目前的  Drawer Tray 移回 Out  
+                            drawer.MoveTrayToOut();
 
 
-                            /** 01 光罩鐵盒放置於Drawer內*/
-                            // [1.1] Drawer Tray 移到 Out
-                            try
-                            {
-                                drawer.MoveTrayToOut(); 
-                            }
-                            catch (Exception ex)
-                            {
-                                BREAK_POINT++;
-                            }
-                            // [1.2] Draert Tray 移到 Out 之後等待手動放入鐵盒
-                            BREAK_POINT ++;
+                            /**1. 光罩盒置於 Drawer內*/
+                            BREAK_POINT++; // 確認有 Box後往下執行
+                            // 1.1 如有上一個  Drawer, 將上一個 Drawer 移到 Home
                             if (previousDrawer != null)
-                            { // 如有上一個  Drawer, 將上一個 Drawer 移到 Home
+                            { // 
                                 previousDrawer.CommandINI();
                             }
-                            // [1.3] Drawer往機台內部移動到Box Robot可以取得光罩的位置
-
-                            try
-                            {
-                                drawer.Initial();
-                                drawer.MoveTrayToIn();
-                            }
-                            catch(Exception ex)
-                            {
-                                BREAK_POINT++;
-                            }
+                            // 1.2 Drawer Tray 往機台內部移動到可以取得光罩的位置
+                            drawer.Initial();
+                            drawer.MoveTrayToIn();
+                         
 
                             /** 02 Box Robot從Home點至Drawer entry處*/
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
-                            {  // Cabinet 1  Drawer 的 Path
+                            {   // Drawer 01-01 ~ Drawer 03-05
                                 btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
                             }
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            {
+                            {   // // Drawer 04-01 ~ Drawer 07-05
                                 //Cabinet 2 Drawer 的 Path
                                 bt.TurnToCB2Home();
                                 btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
@@ -130,16 +131,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             bt.Move(btMovePathFile);
 
                             /** 03 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-
-                            //bt.LightForGripper(200);
-                            //bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
-                            //bt.LightForGripper(0);
+                            /**
+                              bt.LightForGripper(200);
+                            bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                            bt.LightForGripper(0);
+                            */
                             var lightValue = bt.GetCameraLightValue(boxType);
                             var resultTemp=bt.CameraShot("D:/Image/BT/Gripper", "jpg",lightValue);
                             
-
-
-
 
                             /** 04 Box Robot從Drawer Entry處移至Drawer內進行光罩鐵盒夾取*/
                             resultTemp = bt.Clamp((uint)boxType);
@@ -155,7 +154,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 bt.Move(btMovePathFile);
                             }
                             else // if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
-                            {
+                            {   // Drawer 04_01~07~05 回到  Cabinet 1 Home 
                                 btMovePathFile = pathFileObj.FromDrawerToCabinet02Home_GET_PathFile(drawerLocation);// Box Transfer 夾到盒子後,由 Drawer 回到 Home, 用GET
                                 bt.Move(btMovePathFile);
                                 bt.TurnToCB1Home();
@@ -179,10 +178,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             os.ReadRobotIntrude(false, null);
 
                             /** 10 (編號9-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                            /** os.LightForTopBarDfsSetValue(200);
+                            /** 
+                             os.LightForTopBarDfsSetValue(200);
                              os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
                              os.LightForTopBarDfsSetValue(0);
-                          */
+                            */
                             try
                             {
                                 os.LightForFrontBarDfsSetValue(85);//bar 0~255
@@ -242,16 +242,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             bt.Clamp((uint)boxType);
 
                             /** 15 Box Robot將光罩鐵盒移動至Drawer處*/
+                            // 15.1 Boxrobot 移到 Cabitnet 1 Home
                             btMovePathFile = pathFileObj.FromOpenStageToCabinet01Home_GET_PathFile(); // boxrobot 目前有盒子,要回到 Cabinet 1 Home, 用 GET
                             bt.Move(btMovePathFile);
                             os.ReadRobotIntrude(false, null);
+                            // 15.2
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
-                            {
+                            {   // drawer 01-01 ~ drawer 03-05 
                                 btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
                                 bt.Move(btMovePathFile);
                             }
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {
+                                // drawer 04-01 ~ drawer 07-05
                                 bt.TurnToCB2Home();
                                 btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
                                 bt.Move(btMovePathFile);
@@ -271,9 +274,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             bt.Unclamp();
 
                             /** 18 Box Robot (無夾持光罩鐵盒) 從Drawer移回Home點*/
-                            /** 8 Box Robot (無夾持光罩盒) 從Drawer移回Home點*/
+                            // 18.1 Boxrobot 移回 Home 點
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
-                            {
+                            {    
                                 btMovePathFile = pathFileObj.FromDrawerToCabinet01Home_PUT_PathFile(drawerLocation); // 
                             }
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
@@ -281,6 +284,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 btMovePathFile = pathFileObj.FromDrawerToCabinet02Home_PUT_PathFile(drawerLocation); // T
                             }
                             bt.Move(btMovePathFile);
+
+                            // 18.2 Drawer 04-01 ~ Drawer 07-05 時 Boxrobot 轉回 Cabitnet 1 Home 
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {
                                 bt.TurnToCB1Home();
