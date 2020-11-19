@@ -152,7 +152,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             boxTransfer.Move(path);
 
                             //  拍照  
-                            boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
+                         //   boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
 
                             // 將光罩盒放回Drawer 內
                             boxTransfer.Unclamp();
