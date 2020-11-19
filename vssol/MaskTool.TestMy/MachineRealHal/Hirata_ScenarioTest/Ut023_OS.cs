@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut023_OS
     {
         [TestMethod]
-        public void TestMethod1()//Box重量未定義
+        public void TestMethod1()//OK
         {
             try
             {
@@ -40,12 +40,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var BoxWeight = os.ReadWeightOnStage();
                     if (BoxType == 1)
                     {
-                        if ((BoxWeight < 560 || BoxWeight > 590) && (BoxWeight < 1102 || BoxWeight > 1104))
+                        if ((BoxWeight < 560 || BoxWeight > 590) && (BoxWeight < 895 || BoxWeight > 925))
                             throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
                     }
                     else if (BoxType == 2)
                     {
-                        if ((BoxWeight < 305 || BoxWeight > 320) && (BoxWeight < 918 || BoxWeight > 920))
+                        if ((BoxWeight < 290 || BoxWeight > 320) && (BoxWeight < 625 || BoxWeight > 655))
                             throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
                     }
 
@@ -113,12 +113,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //2. Load Cell可以讀出光罩鐵盒(有光罩)重量, 確認鐵盒有放置好位置
                     if (BoxType == 1)
                     {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
+                        if ((BoxWeight < 560 || BoxWeight > 590) && (BoxWeight < 895 || BoxWeight > 925))
                             throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
                     }
                     else if (BoxType == 2)
                     {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
+                        if ((BoxWeight < 290 || BoxWeight > 320) && (BoxWeight < 625 || BoxWeight > 655))
                             throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
                     }
 
@@ -188,12 +188,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     BoxWeight = os.ReadWeightOnStage();
                     if (BoxType == 1)
                     {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
+                        if ((BoxWeight < 560 || BoxWeight > 590) && (BoxWeight < 895 || BoxWeight > 925))
                             throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
                     }
                     else if (BoxType == 2)
                     {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
+                        if ((BoxWeight < 290 || BoxWeight > 320) && (BoxWeight < 625 || BoxWeight > 655))
                             throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
                     }
 
@@ -261,12 +261,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //2. Load Cell可以讀出光罩水晶盒(有光罩)重量, 確認水晶盒有放置好位置
                     if (BoxType == 1)
                     {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
+                        if ((BoxWeight < 560 || BoxWeight > 590) && (BoxWeight < 895 || BoxWeight > 925))
                             throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
                     }
                     else if (BoxType == 2)
                     {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
+                        if ((BoxWeight < 290 || BoxWeight > 320) && (BoxWeight < 625 || BoxWeight > 655))
                             throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
                     }
 
