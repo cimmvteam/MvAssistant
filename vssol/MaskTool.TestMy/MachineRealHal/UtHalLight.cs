@@ -41,12 +41,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 os.LightForTopBarDfsSetValue(200);//bar 0~255
                 bt.LightForGripper(200);//bar 0~255
 
-                ic.LightForSideBarDfsSetValue(200);//bar 0~999
-                ic.LightForSideBarInspSetValue(200);//bar 0~999
-                ic.LightForTopCrlDfsSetValue(200);//crl 0~255
-                ic.LightForTopCrlInspSetValue(200);//crl 0~255
-                ic.LightForLeftSpotInspSetValue(200);//spot 0~255
-                ic.LightForRightSpotInspSetValue(200);//spot 0~255
+                ic.LightForBackLineSetValue(200);//bar 0~255(小線光-後)
+                ic.LightForLeftLineSetValue(200);//bar 0~255(小線光-左)
+                ic.LightForTopCrlDfsSetValue(200);//crl 0~255(小環光)
+                ic.LightForTopCrlInspSetValue(200);//crl 0~255(大環光)
+                ic.LightForLeftBarSetValue(200);//spot 0~999(大線光-左)
+                ic.LightForRightBarSetValue(200);//spot 0~999(大線光-右)
 
 
 
@@ -60,12 +60,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 os.LightForTopBarDfsSetValue(0);
                 bt.LightForGripper(0);
 
-                ic.LightForSideBarDfsSetValue(0);
-                ic.LightForSideBarInspSetValue(0);
+                ic.LightForBackLineSetValue(0);
+                ic.LightForLeftLineSetValue(0);
                 ic.LightForTopCrlDfsSetValue(0);
                 ic.LightForTopCrlInspSetValue(0);
-                ic.LightForLeftSpotInspSetValue(0);
-                ic.LightForRightSpotInspSetValue(0);
+                ic.LightForLeftBarSetValue(0);
+                ic.LightForRightBarSetValue(0);
             }
         }
     }

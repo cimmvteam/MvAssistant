@@ -183,7 +183,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
                     mt.RobotMoving(false);
 
-                    //7. 將光罩移動至安全光柵附近, 可觸發光柵報值
+                    //7. 將光罩移動至安全光柵附近, 可觸發光柵報值(由人員手動遮斷)
+                    var LightCurtain = cc.ReadLightCurtain();
 
                     //8. Mask Robot將光罩從Clean Chamber, 移回Inspection Chamber
                     mt.RobotMoving(true);

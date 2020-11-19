@@ -116,13 +116,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     universal.HalConnect();
                     //for (var i= 0;i < DrawerKeys.Count;i++  )
-                     for (var i = 0; i < DrawerKeys.Count; i++)
-                      {
+                    // for (var i = 0; i < DrawerKeys.Count; i++)
+                        for (var i =0; i <20; i++)
+                        {
                         var drawer = halContext.GetDrawer(DrawerKeys[i], true);
                         Debug.WriteLine("Drawer Initial, DeviceIndex=" + drawer.DeviceIndex);
                         try
                         {
-                           // drawer.CommandINI();
+                           drawer.CommandINI();
+                          
+                          //  drawer.CommandTrayMotionOut();
                             drawer.OnButtonEventHandler += (sender, e) =>
                             {
                                 var rtnDrawer = ((IMacHalDrawer)sender);
@@ -137,11 +140,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 Debug.WriteLine("(Ut003)Invoke OnPositionStatusHandler,  Drawer= " + rtnDrawer.DeviceIndex + ", IHOStatus=" + eventArgs.IHOStatus);
                                 if (eventArgs.IHOStatus == "111")   //在Home, 往外推
                                 {
-                                    rtnDrawer.MoveTrayToOut();
+                                    rtnDrawer.CommandTrayMotionOut();
                                 }
                                 else
                                 {
-                                    rtnDrawer.MoveTrayToHome();
+                                    rtnDrawer.CommandTrayMotionHome();
                                 }
                             };
                         }

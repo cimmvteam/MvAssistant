@@ -15,12 +15,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(MacEnumDevice.inspectionch_plc); } }
-        public IMacHalLight LightBarInspSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_inspection_side_001); } }
-        public IMacHalLight LightBarDefenseSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_denfese_side_001); } }
+        public IMacHalLight LightLineLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_line_left_001); } }
+        public IMacHalLight LightLineBack { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_line_back_001); } }
         public IMacHalLight LightCrlDefenseTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_circle_defense_top_001); } }
         public IMacHalLight LightCrlInspTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_circle_inspection_top_001); } }
-        public IMacHalLight LightSpotInspLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_spot_inspection_left_001); } }
-        public IMacHalLight LightSpotInspRight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_spot_inspection_right_001); } }
+        public IMacHalLight LightBarLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_left_001); } }
+        public IMacHalLight LightBarRight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_right_001); } }
         public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_1); } }
         public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_defense_side_1); } }
         public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspection_camera_defense_top_1); } }
@@ -54,7 +54,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             this.Plc.ZPosition(-50);
 
             this.Plc.WPosition(0);
-            this.LightBarInspSide.TurnOn(255);
+            this.LightLineLeft.TurnOn(255);
             //TODO: Camera
 
             this.Plc.WPosition(90);
@@ -241,14 +241,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             CameraSideInsp.ShotToSaveImage(SavePath, FileType);
         }
 
-        public void LightForSideBarInspSetValue(int value)
+        public void LightForLeftLineSetValue(int value)
         {
-            LightBarInspSide.TurnOn(value);
+            LightLineLeft.TurnOn(value);
         }
 
-        public void LightForSideBarDfsSetValue(int value)
+        public void LightForBackLineSetValue(int value)
         {
-            LightBarDefenseSide.TurnOn(value);
+            LightLineBack.TurnOn(value);
         }
         
         public void LightForTopCrlDfsSetValue(int value)
@@ -261,14 +261,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             LightCrlInspTop.TurnOn(value);
         }
 
-        public void LightForLeftSpotInspSetValue(int value)
+        public void LightForLeftBarSetValue(int value)
         {
-            LightSpotInspLeft.TurnOn(value);
+            LightBarLeft.TurnOn(value);
         }
 
-        public void LightForRightSpotInspSetValue(int value)
+        public void LightForRightBarSetValue(int value)
         {
-            LightSpotInspRight.TurnOn(value);
+            LightBarRight.TurnOn(value);
         }
     }
 }

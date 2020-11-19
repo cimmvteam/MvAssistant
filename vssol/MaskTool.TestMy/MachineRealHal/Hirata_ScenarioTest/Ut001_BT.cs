@@ -35,6 +35,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
         }
         #region do not care this  test function              
+
+
+
+
         [TestMethod]
         [DataRow(false)]
         public void TestCreateDrawerInstance(bool autoConnect)
@@ -42,12 +46,16 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             string str = System.Environment.CurrentDirectory;
             using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())
             {
-
+                
                 var universal = halContext.GetUniversalAssembly(autoConnect);
                 var boxTransfer = halContext.GetBoxTransferAssembly(autoConnect);
                 var cabinet = halContext.GetCabinetAssembly(autoConnect);
                 var openStage = halContext.GetOpenStageAssembly(autoConnect);
-                halContext.DrawersConnect();
+                universal.HalConnect();
+                boxTransfer.HalConnect();
+                boxTransfer.CameraShot("TTTTTTT");
+                
+                //   halContext.DrawersConnect();
                 // connect 所有 Drawer
                // halContext.DrawersConnect();
                 for(var i=0;i<2;i++)
@@ -112,8 +120,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <param name="boxType"></param>
         /// <param name="autoConnect"></param>
         [TestMethod]
-        //[DataRow(BoxType.IronBox,false)] // 鐵盒
-        [DataRow(BoxType.CrystalBox,false)]// 水晶盒
+       [DataRow(BoxType.IronBox,false)] // 鐵盒
+        //[DataRow(BoxType.CrystalBox,false)]// 水晶盒
         public void Test_Ut001_BT(BoxType boxType,bool autoConnect) 
         {
 
@@ -136,10 +144,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                         openStage.HalConnect();
                     }
 
-                    // 
-                    boxTransfer.Initial();
-                    boxTransfer.TurnOffCameraLight();
+                    // Initial OpenStage
                     openStage.Initial();
+                    openStage.SetBoxType((uint)boxType);
+                    openStage.SortClamp();
+                    // Initial BoxTransfer
+                    boxTransfer.Initial();
+                    // 關燈
+                    boxTransfer.TurnOffCameraLight();
+                   
 
                     // connect 所有 Drawer
                     halContext.DrawersConnect();
@@ -151,10 +164,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                         try
                         {
+                            // 取得 Drawer
                             var drawer = halContext.GetDrawer(DrawerKeys[i]);
+                            // Drawer  代碼
                             var drawerLocation = DrawerLocations[i];
+                            // Drawer Home
                             var drawerHome = DrawerLocations[i].GetCabinetHomeCode().Item2;
+                            // Drawer Initial
                             drawer.Initial();
+                            // boxTransfer 轉向 Cabitnet 1 Home
                             boxTransfer.TurnToCB1Home();
 
 
@@ -162,9 +180,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                             /** 1 光罩鐵盒放置於Open Stage平台上*/
-                            // 確認一下
+                       
 
-                            BREAK_POINT = 0;
+                            BREAK_POINT = 0;   // 確認 光罩鐵盒放置於Open Stage平台上*/
 
 
                             /** 2. Drawer往機台內部移動到光罩盒可放置的位置 */
@@ -179,7 +197,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             openStage.ReadRobotIntrude(true, null);
                             //  3.2 將 Boxrobot 移到 OpenStage
                             var path = pathFileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
+                            openStage.SortUnclamp();
+                            openStage.Lock();
                             boxTransfer.Move(path);
+                            
                             boxTransfer.Clamp((uint)boxType);
 
                             BREAK_POINT = 0;
@@ -192,10 +213,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 boxTransfer.TurnToCB2Home();
                             }
 
-                            #region 拍照 , 暫緩
+                            #region 拍照 , 移到 6~7 間
                             // 5. (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源, 確認Drawer中無光罩盒
+                            #endregion
 
-                           
 
                             BREAK_POINT = 0;
 
@@ -211,11 +232,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                
                                 path = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation);
                             }
-                            boxTransfer.Move(path);
-                            // 照相
-                            boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
-                            #endregion
 
+
+                            boxTransfer.Move(path);
+                            
+                            //  拍照  
+                          //  boxTransfer.CameraShot("Ut001_BT_" + drawerLocation);
+                            
 
                             BREAK_POINT = 0;
 

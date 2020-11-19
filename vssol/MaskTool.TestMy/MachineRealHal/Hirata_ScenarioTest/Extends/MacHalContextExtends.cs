@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 {
    public static class MacHalContextExtends
     {
-        public const string configPath= "GenCfg/Manifest/Manifest.xml.real";
+        public const string configPath= "UserData/Manifest/Manifest.xml.real";
 
 
 
@@ -79,7 +79,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
         /// <para>false: 另行連線</para>
         /// </param>
         /// <returns></returns>
-        public static MacHalOpenStage GetOpenStageAssembly(this MacHalContext instance,bool autoConnect)
+        public static MacHalOpenStage GetOpenStageAssembly(this MacHalContext instance,bool autoConnect=false)
         {
             var rtnV = instance.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
             if (autoConnect)

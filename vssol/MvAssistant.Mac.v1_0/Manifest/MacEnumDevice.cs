@@ -292,11 +292,11 @@ namespace MvAssistant.Mac.v1_0.Manifest
         inspection_camera_defense_top_1,
 
         inspectionch_light_circle_defense_top_001,
-        inspectionch_light_bar_inspection_side_001,
-        inspectionch_light_bar_denfese_side_001,
+        inspectionch_light_line_left_001,
+        inspectionch_light_line_back_001,
         inspectionch_light_circle_inspection_top_001,
-        inspectionch_light_spot_inspection_left_001,
-        inspectionch_light_spot_inspection_right_001,
+        inspectionch_light_bar_left_001,
+        inspectionch_light_bar_right_001,
 
 
 

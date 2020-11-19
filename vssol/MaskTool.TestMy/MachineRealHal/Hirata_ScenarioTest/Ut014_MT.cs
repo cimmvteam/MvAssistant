@@ -103,7 +103,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod3()//水晶盒路徑高度需修改，未測
+        public void TestMethod3()//OK
         {
             try
             {
@@ -132,16 +132,6 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.SortUnclamp();
                     os.Lock();
                     var BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -156,7 +146,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Open Stage進行光罩夾取
@@ -164,7 +157,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Open Stage移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     os.ReadRobotIntrude(false, false);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
@@ -172,10 +168,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //5. Mask Robot將光罩從Load Port A, 移回Open Stage
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
                     os.ReadRobotIntrude(false, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Open Stage上
@@ -183,7 +182,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7. Mask Robot (無夾持光罩) 從Open Stage移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     mt.RobotMoving(false);
                     os.ReadRobotIntrude(false, false);
@@ -195,23 +197,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     BoxType = 2;
                     //8. 重複1~7, 執行Open Stage上水晶盒的傳送測試
-                    //1. 光罩放置於Open Stage上的鐵盒內
+                    //1. 光罩放置於Open Stage上的水晶盒內
                     os.SetBoxType(BoxType);
                     os.SortClamp();
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
                     BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -226,7 +218,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Open Stage進行光罩夾取
@@ -234,18 +229,24 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Open Stage移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     os.ReadRobotIntrude(false, false);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
                     mt.RobotMoving(false);
 
-                    //5. Mask Robot將光罩從Load Port A, 移回Open Stage
+                    //5. Mask Robot將光罩從Load Port B, 移回Open Stage
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
                     os.ReadRobotIntrude(false, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToOSStage.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Open Stage上
@@ -253,7 +254,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7. Mask Robot (無夾持光罩) 從Open Stage移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSStageToOS.json");
+                    if (BoxType == 1)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                    else if (BoxType == 2)
+                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
                     mt.RobotMoving(false);
                     os.ReadRobotIntrude(false, false);

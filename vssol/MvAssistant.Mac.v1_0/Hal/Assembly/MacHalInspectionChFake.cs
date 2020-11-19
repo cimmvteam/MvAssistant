@@ -60,12 +60,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return "OK";
         }
 
-        public void LightForSideBarDfsSetValue(int value)
+        public void LightForBackLineSetValue(int value)
         {
             return;
         }
 
-        public void LightForSideBarInspSetValue(int value)
+        public void LightForLeftLineSetValue(int value)
         {
             return;
         }
@@ -80,12 +80,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return;
         }
 
-        public void LightForLeftSpotInspSetValue(int value)
+        public void LightForLeftBarSetValue(int value)
         {
             return;
         }
 
-        public void LightForRightSpotInspSetValue(int value)
+        public void LightForRightBarSetValue(int value)
         {
             return;
         }
