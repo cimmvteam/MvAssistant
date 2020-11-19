@@ -158,7 +158,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod3()//未測
+        public void TestMethod3()//OK
         {
             try
             {

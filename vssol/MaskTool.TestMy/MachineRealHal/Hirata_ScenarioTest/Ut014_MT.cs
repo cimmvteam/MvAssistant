@@ -103,7 +103,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        public void TestMethod3()//未測
+        public void TestMethod3()//OK
         {
             try
             {
@@ -168,7 +168,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //5. Mask Robot將光罩從Load Port A, 移回Open Stage
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
                     os.ReadRobotIntrude(false, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     if (BoxType == 1)

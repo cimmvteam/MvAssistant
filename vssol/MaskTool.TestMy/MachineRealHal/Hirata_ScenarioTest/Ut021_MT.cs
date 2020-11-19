@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut021_MT
     {
         [TestMethod]
-        public void TestMethod1()//未測
+        public void TestMethod1()//OK
         {
             try
             {
@@ -120,6 +120,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    os.ReadRobotIntrude(false, false);
                     mt.RobotMoving(false);
 
                     //11. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
@@ -141,6 +142,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.LightForTopBarDfsSetValue(0);
 
 
+                    os.Close();
+                    os.Unclamp();
+                    os.Vacuum(false);
+                    os.Lock();
+
+
                     BoxType = 2;
 
                     //13. 重複1~12, 完成光罩水晶盒內的光罩clamp & release測試
@@ -151,16 +158,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.SortUnclamp();
                     os.Lock();
                     BoxWeight = os.ReadWeightOnStage();
-                    if (BoxType == 1)
-                    {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
-                            throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
-                    }
-                    else if (BoxType == 2)
-                    {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
-                            throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
-                    }
+                    
                     if (os.ReadCoverSensor().Item2 == false)
                         throw new Exception("Box status was not closed");
                     os.Close();
@@ -242,6 +240,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
                     mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                    os.ReadRobotIntrude(false, false);
                     mt.RobotMoving(false);
 
                     //11. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
@@ -261,6 +260,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     os.LightForFrontBarDfsSetValue(0);
                     os.LightForSideBarDfsSetValue(0);
                     os.LightForTopBarDfsSetValue(0);
+
+
+                    os.Close();
+                    os.Unclamp();
+                    os.Vacuum(false);
+                    os.Lock();
                 }
             }
             catch (Exception ex) { throw ex; }
