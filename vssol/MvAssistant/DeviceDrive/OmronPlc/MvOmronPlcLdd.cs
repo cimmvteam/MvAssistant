@@ -60,53 +60,54 @@ namespace MvAssistant.DeviceDrive.OmronPlc
 
         public object Read(string VarName)
         {
-            Exception myex = null;
-            //Fail允許重新再執行, 上限3次
-            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
-            {
-                try
-                {
+            //KING
+            //Exception myex = null;
+            ////Fail允許重新再執行, 上限3次
+            //for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            //{
+            //    try
+            //    {
                     lock (this)
-                    {
-                        //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
-                        Thread.Sleep(50);
+            //        {
+            //            //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+            //            Thread.Sleep(50);
                         return _CIPcompolet.ReadVariable(VarName);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MvLog.WarnNs(this, ex);
-                    myex = ex;
-                }
-            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MvLog.WarnNs(this, ex);
+            //        myex = ex;
+            //    }
+            //}
 
-            //若3次嘗試存取失敗, 直接拋出Exception
-            throw new MvException("PLC read fail over 3 times", myex);
+            ////若3次嘗試存取失敗, 直接拋出Exception
+            //throw new MvException("PLC read fail over 3 times", myex);
         }
         public void Write(string VarName, Object data)
         {
-            Exception myex = null;
-            //Fail允許重新再執行, 上限3次
-            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
-            {
-                try
-                {
-                    lock (this)
-                    {
-                        //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
-                        Thread.Sleep(50);
-                        this._CIPcompolet.WriteVariable(VarName, data);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MvLog.WarnNs(this, ex);
-                    myex = ex;
-                }
-            }
+            //Exception myex = null;
+            ////Fail允許重新再執行, 上限3次
+            //for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            //{
+            //    try
+            //    {
+            lock (this)
+                //        {
+                //            //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+                //            Thread.Sleep(50);
+                this._CIPcompolet.WriteVariable(VarName, data);
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MvLog.WarnNs(this, ex);
+            //        myex = ex;
+            //    }
+            //}
 
             //若3次嘗試存取失敗, 直接拋出Exception
-            throw new MvException("PLC read fail over 3 times", myex);
+            //throw new MvException("PLC read fail over 3 times", myex);
         }
 
 

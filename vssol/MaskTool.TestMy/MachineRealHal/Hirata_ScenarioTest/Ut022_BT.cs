@@ -52,9 +52,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                     halContext.DrawersConnect();
-
+                  
                     bt.Initial();
-                    for (var i = 0; i < DrawerKeys.Count; i++)
+                    for (var i =11; i <12; i++)
                     {
                         try
                         {
@@ -67,12 +67,15 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                             /** 01 光罩鐵盒放置於Drawer內*/
                             // [1.1] Tray 移到 Out
-                            drawer.MoveTrayToOut();
+                         //   drawer.MoveTrayToOut();
                             // [1.2] 移到 Out 之後等待手動放入鐵盒
                             BREAK_POINT = 0;
 
                             // [1.3] Drawer往機台內部移動到Box Robot可以取得光罩的位置
-                            drawer.MoveTrayToHome();
+                            //drawer.MoveTrayToOut();
+                           // Sleep(500);
+                          //  drawer.MoveTrayToHome();
+                          //  Sleep(500);
                             drawer.MoveTrayToIn();
 
                             /** 02 Box Robot從Home點至Drawer entry處*/
@@ -94,7 +97,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             bt.LightForGripper(0);
 
                             /** 04 Box Robot從Drawer Entry處移至Drawer內進行光罩鐵盒夾取*/
-                            bt.Clamp((uint)boxType);
+                            var result = bt.Clamp((uint)boxType);
 
                             /** 05 光罩鐵盒夾取前確認Box Robot是水平狀態 (by 水平儀)*/
                             var Level = bt.ReadLevelSensor();
@@ -129,14 +132,32 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             os.ReadRobotIntrude(false, null);
 
                             /** 10 (編號9-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                            os.LightForTopBarDfsSetValue(200);
+                            /** os.LightForTopBarDfsSetValue(200);
+                             os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                             os.LightForTopBarDfsSetValue(0);
+                          */
+                            os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                            os.LightForSideBarDfsSetValue(140);//bar 0~255
+                            os.LightForTopBarDfsSetValue(20);//bar 0~255
                             os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                            os.LightForFrontBarDfsSetValue(0);
+                            os.LightForSideBarDfsSetValue(0);
                             os.LightForTopBarDfsSetValue(0);
 
+
+
                             /** 11 (編號12-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                            os.LightForSideBarDfsSetValue(200);
+                            /**os.LightForSideBarDfsSetValue(200);
                             os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
                             os.LightForSideBarDfsSetValue(0);
+                            */
+                            os.LightForFrontBarDfsSetValue(85);//bar 0~255
+                            os.LightForSideBarDfsSetValue(140);//bar 0~255
+                            os.LightForTopBarDfsSetValue(20);//bar 0~255
+                            os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                            os.LightForFrontBarDfsSetValue(0);
+                            os.LightForSideBarDfsSetValue(0);
+                            os.LightForTopBarDfsSetValue(0);
 
                             /** 12 Box Robot(無夾持光罩鐵盒)從Home點移動進入Open Stage上方*/
                             os.ReadRobotIntrude(true, null);
@@ -160,7 +181,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {
                                 bt.TurnToCB2Home();
-                                btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
+                                btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
                             }
                             bt.Move(btMovePathFile);
 
@@ -170,6 +191,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             bt.LightForGripper(0);
 
                             /** 17 Box Robot將光罩鐵盒移動至Drawer內*/
+
                             bt.Unclamp();
 
                             /** 18 Box Robot (無夾持光罩鐵盒) 從Drawer移回Home點*/
@@ -187,10 +209,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             {
                                 bt.TurnToCB1Home();
                             }
-
+                            drawer.MoveTrayToHome();
                             /** 19 重複1~18步驟, 完成20個Drawer的光罩鐵盒測試*/
                             /** 20 重複1~19步驟, 完成20個Drawer的光罩水晶盒測試*/
-                        }
+                         }
                         catch (Exception ex)
                         {
 
@@ -204,6 +226,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 }
 
             }
+        }
+
+        private void Sleep(int v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

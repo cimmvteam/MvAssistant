@@ -174,11 +174,31 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     universal.HalConnect();
 
                     // get drawer
-                    var drawer = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_01_02,true);
-                    drawer.CommandINI();
+                    var drawer0 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_03,true);
+                    var drawer1 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_02, true);
+                    var drawer2 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_04, true);
+                    var drawer3 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_03_02, true);
+                    var drawer4 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_03_03, true);
+                    var drawer5 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_03_04, true);
+                 //   drawer0.CommandTrayMotionIn();
+                 //  drawer1.CommandTrayMotionIn();
+                 //  drawer2.CommandTrayMotionIn();
+                 // drawer3.CommandTrayMotionIn();
+                 // drawer4.CommandTrayMotionIn();
+                 // drawer5.CommandTrayMotionIn();
+                    //drawer0.MoveTrayToHome();
+                    //drawer1.MoveTrayToHome();
+                    //drawer2.MoveTrayToHome();
+                   drawer0.CommandINI();
+                   drawer1.CommandINI();
+                   drawer2.CommandINI();
+                    drawer3.CommandINI();
+                   drawer4.CommandINI();
+                  drawer5.CommandINI();
+
                     // drawer command
 
-                    Repeat();
+                               Repeat();
                 }
             }
             catch (Exception ex)
