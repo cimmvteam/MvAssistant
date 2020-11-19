@@ -32,7 +32,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Reply), 1000))
                     throw new MvException("Box Hand Clamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Complete), 8000))
                     throw new MvException("Box Hand Clamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Result))
@@ -77,7 +77,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Reply), 1000))
                     throw new MvException("Box Hand Unclamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Complete), 8000))
                     throw new MvException("Box Hand Unclamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Result))
