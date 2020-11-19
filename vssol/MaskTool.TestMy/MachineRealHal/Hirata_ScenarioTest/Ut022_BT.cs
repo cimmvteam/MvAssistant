@@ -77,11 +77,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                     halContext.DrawersConnect();
-                  
+                    //bt.Reset();
                     bt.Initial();
-                    bt.TurnToCB1Home();
-                    int start =12 ;
-                    int end = start + 3;
+                    //bt.TurnToCB1Home();
+                    int start =2 ;
+                    int end = 3;
 
                     for (var i = start; i <end; i++)
                     {
@@ -96,13 +96,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             if (i > start)
                             {
                                 previousDrawer = halContext.GetDrawer(DrawerKeys[i - 1]);
-                                previousDrawer.Initial();
-                                previousDrawer.MoveTrayToOut();
+                                previousDrawer.MoveTrayToHome();
+                                previousDrawer.MoveTrayToIn();
                             }
                             // 0.2 將目前的  Drawer Tray Initial 
                             drawer.Initial();
                             // 0.3 將 目前的  Drawer Tray 移回 Out  
-                            drawer.MoveTrayToOut();
+                            drawer.MoveTrayToIn();
 
 
                             /**1. 光罩盒置於 Drawer內*/
@@ -110,38 +110,52 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             // 1.1 如有上一個  Drawer, 將上一個 Drawer 移到 Home
                             if (previousDrawer != null)
                             { // 
-                                previousDrawer.CommandINI();
+                                previousDrawer.CommandTrayMotionHome();
                             }
                             // 1.2 Drawer Tray 往機台內部移動到可以取得光罩的位置
-                            drawer.Initial();
+                            drawer.MoveTrayToHome();
                             drawer.MoveTrayToIn();
                          
 
                             /** 02 Box Robot從Home點至Drawer entry處*/
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
                             {   // Drawer 01-01 ~ Drawer 03-05
+                                bt.TurnToCB1Home();
                                 btMovePathFile = pathFileObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
+
                             }
                             else //if(drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             {   // // Drawer 04-01 ~ Drawer 07-05
                                 //Cabinet 2 Drawer 的 Path
+                                bt.TurnToCB1Home();
                                 bt.TurnToCB2Home();
                                 btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation); // Box Transfer 要去 Drawer 夾盒子, 所以用 GET
                             }
                             bt.Move(btMovePathFile);
 
                             /** 03 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                            /**
-                              bt.LightForGripper(200);
-                            bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
-                            bt.LightForGripper(0);
-                            */
-                            var lightValue = bt.GetCameraLightValue(boxType);
-                            var resultTemp=bt.CameraShot("D:/Image/BT/Gripper", "jpg",lightValue);
+
+                            try
+                            {
+                                bt.LightForGripper(200);
+                                bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                                //bt.LightForGripper(0);
+                            }
+                            catch(Exception ex)
+                            {
+                               
+                            }
+                            finally
+                            {
+                                bt.LightForGripper(0);
+                            }
+                            bt.Clamp((uint)boxType);
+                            //var lightValue = bt.GetCameraLightValue(boxType);
+                           //var resultTemp=bt.CameraShot("D:/Image/BT/Gripper", "jpg",lightValue);
                             
 
                             /** 04 Box Robot從Drawer Entry處移至Drawer內進行光罩鐵盒夾取*/
-                            resultTemp = bt.Clamp((uint)boxType);
+                           // resultTemp = bt.Clamp((uint)boxType);
 
                             /** 05 光罩鐵盒夾取前確認Box Robot是水平狀態 (by 水平儀)*/
                             var Level = bt.ReadLevelSensor();
@@ -262,13 +276,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                            
 
                             /** 16 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                            /**
+                           
                             bt.LightForGripper(200);
                             bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
                             bt.LightForGripper(0);
-                            */
-                            lightValue = bt.GetCameraLightValue(boxType);
-                            resultTemp= bt.CameraShot("D:/Image/BT/Gripper", "jpg", lightValue);
+                                                       //lightValue = bt.GetCameraLightValue(boxType);
+                            //resultTemp= bt.CameraShot("D:/Image/BT/Gripper", "jpg", lightValue);
 
                             /** 17 Box Robot將光罩鐵盒移動至Drawer內*/
                             bt.Unclamp();
