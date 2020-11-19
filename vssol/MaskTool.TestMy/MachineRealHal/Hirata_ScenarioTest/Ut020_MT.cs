@@ -31,13 +31,17 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //1. 光罩放置於Inspection Chamber Stage上
 
                     //2. (編號2-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    ic.LightForBackLineSetValue(200);
+                    ic.LightForBackLineSetValue(120);
                     ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
                     ic.LightForBackLineSetValue(0);
 
                     //3. (編號3-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    ic.LightForTopCrlDfsSetValue(200);
+                    ic.LightForLeftLineSetValue(255);
+                    ic.LightForBackLineSetValue(255);
+                    ic.LightForTopCrlDfsSetValue(39);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
+                    ic.LightForLeftLineSetValue(0);
+                    ic.LightForBackLineSetValue(0);
                     ic.LightForTopCrlDfsSetValue(0);
 
                     //4. Mask Robot從Home點移動至Inspection Chamber
@@ -82,14 +86,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //10. Mask Robot將光罩放置於Inspection Chamber Stage上
                     mt.Unclamp();
 
-                    //11. (編號2 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    ic.LightForBackLineSetValue(200);
+                    //11. (編號2-CCD): 開啟光源->拍照(FOV正確)->關閉光源
+                    ic.LightForBackLineSetValue(120);
                     ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
                     ic.LightForBackLineSetValue(0);
 
-                    //12. (編號3 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    ic.LightForTopCrlDfsSetValue(200);
+                    //12. (編號3-CCD): 開啟光源->拍照(FOV正確)->關閉光源
+                    ic.LightForLeftLineSetValue(255);
+                    ic.LightForBackLineSetValue(255);
+                    ic.LightForTopCrlDfsSetValue(39);
                     ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
+                    ic.LightForLeftLineSetValue(0);
+                    ic.LightForBackLineSetValue(0);
                     ic.LightForTopCrlDfsSetValue(0);
 
                     //13. Mask Robot(無夾持光罩) 從Inspection Chamber移回Home點

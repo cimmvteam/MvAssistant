@@ -40,12 +40,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var BoxWeight = os.ReadWeightOnStage();
                     if (BoxType == 1)
                     {
-                        if ((BoxWeight < 775 || BoxWeight > 778) && (BoxWeight < 1102 || BoxWeight > 1104))
+                        if ((BoxWeight < 560 || BoxWeight > 590) && (BoxWeight < 1102 || BoxWeight > 1104))
                             throw new Exception("Wrong iron box weight, box weight = " + BoxWeight.ToString());
                     }
                     else if (BoxType == 2)
                     {
-                        if ((BoxWeight < 589 || BoxWeight > 590) && (BoxWeight < 918 || BoxWeight > 920))
+                        if ((BoxWeight < 305 || BoxWeight > 320) && (BoxWeight < 918 || BoxWeight > 920))
                             throw new Exception("Wrong crystal box weight, box weight = " + BoxWeight.ToString());
                     }
 
