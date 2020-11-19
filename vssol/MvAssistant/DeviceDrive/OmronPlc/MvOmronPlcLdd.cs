@@ -96,6 +96,7 @@ namespace MvAssistant.DeviceDrive.OmronPlc
                         //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
                         Thread.Sleep(50);
                         this._CIPcompolet.WriteVariable(VarName, data);
+                        return;
                     }
                 }
                 catch (Exception ex)
