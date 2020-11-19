@@ -31,9 +31,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //1. 光罩放置於Inspection Chamber Stage上
 
                     //2. (編號2-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    ic.LightForSideBarDfsSetValue(200);
+                    ic.LightForBackLineSetValue(200);
                     ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
-                    ic.LightForSideBarDfsSetValue(0);
+                    ic.LightForBackLineSetValue(0);
 
                     //3. (編號3-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
                     ic.LightForTopCrlDfsSetValue(200);
@@ -83,9 +83,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.Unclamp();
 
                     //11. (編號2 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
-                    ic.LightForSideBarDfsSetValue(200);
+                    ic.LightForBackLineSetValue(200);
                     ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
-                    ic.LightForSideBarDfsSetValue(0);
+                    ic.LightForBackLineSetValue(0);
 
                     //12. (編號3 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
                     ic.LightForTopCrlDfsSetValue(200);

@@ -10,7 +10,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     public class Ut010_IC
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestMethod1()//OK
         {
             try
             {
@@ -33,13 +33,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //3. 在每個側邊, 執行以下程序: 開啟Light Bar光源 -> 拍照(FOV正確) -> 關閉Light Bar光源
                     ic.LightForTopCrlInspSetValue(10);//crl 0~255
-                    ic.LightForLeftSpotInspSetValue(100);//spot 0~255
+                    ic.LightForLeftBarSetValue(100);//spot 0~255
                     for (int i = 0; i < 360; i+=90)
                     {
                         ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");
                     }
                     ic.LightForTopCrlInspSetValue(0);
-                    ic.LightForLeftSpotInspSetValue(0);
+                    ic.LightForLeftBarSetValue(0);
 
                     ic.XYPosition(0,158);
                     ic.WPosition(0);

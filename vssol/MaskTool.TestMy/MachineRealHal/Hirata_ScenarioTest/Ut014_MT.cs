@@ -238,9 +238,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
                     mt.RobotMoving(false);
 
-                    //5. Mask Robot將光罩從Load Port A, 移回Open Stage
+                    //5. Mask Robot將光罩從Load Port B, 移回Open Stage
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
                     os.ReadRobotIntrude(false, true);
                     mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
                     if (BoxType == 1)
