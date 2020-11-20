@@ -622,7 +622,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLightLeimac.DevConnStr_Port, 1000,
                             MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
                             MacHalLightLeimac.DevConnStr_Channel, 2),
-                        DeviceName = MacEnumDevice.inspectionch_light_bar_inspection_side_001.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_light_line_left_001.ToString(),
                         DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -631,7 +631,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLightLeimac.DevConnStr_Port, 1000,
                             MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IDGB_50M4PG_24_TP,
                             MacHalLightLeimac.DevConnStr_Channel, 3),
-                        DeviceName = MacEnumDevice.inspectionch_light_bar_denfese_side_001.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_light_line_back_001.ToString(),
                         DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -649,7 +649,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLightLeimac.DevConnStr_Port, 1000,
                             MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IWDV_600M2_24,
                             MacHalLightLeimac.DevConnStr_Channel, 1),
-                        DeviceName = MacEnumDevice.inspectionch_light_spot_inspection_left_001.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_light_bar_left_001.ToString(),
                         DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
                     new MacManifestDeviceCfg(){
@@ -658,7 +658,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                             MacHalLightLeimac.DevConnStr_Port, 1000,
                             MacHalLightLeimac.DevConnStr_Model, MvEnumLeimacModel.IWDV_600M2_24,
                             MacHalLightLeimac.DevConnStr_Channel, 2),
-                        DeviceName = MacEnumDevice.inspectionch_light_spot_inspection_right_001.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_light_bar_right_001.ToString(),
                         DriverId = ManifestDriverId.LightLeimac.ToString(),
                     },
 

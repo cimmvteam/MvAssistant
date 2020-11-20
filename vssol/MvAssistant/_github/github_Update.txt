@@ -3,7 +3,7 @@
 
 cd MvAssistant
 git add --all
-git commit -m 'state machine command'
+git commit -m 'issue - plc'
 git pull
 git push
 cd ..
