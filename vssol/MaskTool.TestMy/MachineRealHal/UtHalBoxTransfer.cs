@@ -144,8 +144,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         [TestMethod]
         public void TestReadComponentValue()
         {
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
+                halContext.MvCfInit();
                 halContext.MvCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
@@ -160,6 +161,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 bt.ReadLevelSensor();
                 bt.ReadSixAxisSensor();
                 bt.ReadHandVacuum();
+                bt.ReadBT_FrontLimitSenser();
+                bt.ReadBT_RearLimitSenser();
             }
         }
 
