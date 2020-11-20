@@ -54,7 +54,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                 // Initial
-              //  HalOpenStage.ReadRobotIntrude(false, false);
+            //    HalOpenStage.ReadRobotIntrude(false, false);
                 HalOpenStage.Initial();
                 HalBoxTransfer.Initial();
                 HalBoxTransfer.TurnOffCameraLight();
@@ -90,20 +90,23 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 try
                 {
                     var drawer = HalContext.GetDrawer(DrawerKeys[i]);
-                    drawer.Initial();
-                    drawer.MoveTrayToOut();
-                    drawer.MoveTrayToHome();
-                    drawer.MoveTrayToIn();
-                    drawer.MoveTrayToHome();
+                    /** drawer.Initial();
+                     drawer.MoveTrayToOut();
+                     drawer.MoveTrayToHome();
+                     drawer.MoveTrayToIn();
+                     drawer.MoveTrayToHome();
+                     **/
+                    drawer.CommandINI();
+                    //Repeat();
                     Debug.WriteLine(DrawerKeys[i] + ", [OK]");
                 }
                 catch(Exception ex)
                 {
                     Debug.WriteLine(DrawerKeys[i] + ", [Error], Message=" + ex.Message);
                 }
-
+                
             }
-
+            Repeat();
         }
 
         [TestMethod]
@@ -187,18 +190,20 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             var failedConnectDrawers =HalContext.DrawersConnect();
 
 
-            int start = 17;// 0; // 3-2~ 4-4
-            int end = DrawerKeys.Count;// DrawerKeys.Count;
+            int start =2;// 0; // 3-2~ 4-4
+            int end = 6;// DrawerKeys.Count;// DrawerKeys.Count;
             //int end = DrawerKeys.Count;
             for (var i = start; i < end; i++)
              {
+                var drawerKey = DrawerKeys[i];
+                var drawerLocation = DrawerLocations[i];
                 try
                 {
-                    var drawerKey = DrawerKeys[i];
-                    var drawerLocation = DrawerLocations[i];
+                   
                     var drawer = HalContext.GetDrawer(drawerKey);
                     IMacHalDrawer previousDrawer = null;
                     var drawerHome = drawerLocation.GetCabinetHomeCode().Item2;
+                    
                     if (i != start)
                     {
                         // 取得前一個 Drawer

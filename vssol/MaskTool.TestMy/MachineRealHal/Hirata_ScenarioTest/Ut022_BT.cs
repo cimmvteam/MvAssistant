@@ -30,7 +30,31 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
             pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
         }
+        [TestMethod]
+        public void DrawerTest()
+        {
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
+            {
+                halContext.InitialAndLoad();
+                var s=  halContext.DrawersConnect();
+                var drawer = halContext.GetDrawer(DrawerKeys[1]);
+                try
+                {
+                    drawer.Initial();
+                   // while (true)
+                    //{
+                     // System.Threading.Thread.  Sleep(100);
+                   // }
+                    drawer.MoveTrayToOut();
+                    drawer.MoveTrayToHome();
+                   drawer.MoveTrayToIn();
+                }
+                catch(Exception ex)
+                {
 
+                }
+            }
+        }
         [TestMethod]
         [DataRow(BoxType.IronBox, true,DrawerReplaceBoxPlace.In)] // 鐵盒
         //[DataRow(BoxType.CrystalBox,true)]  // 水晶盒
@@ -81,8 +105,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //bt.Reset();
                     bt.Initial();
                     //bt.TurnToCB1Home();
-                    int start =0 ;
-                    int end = DrawerKeys.Count;
+                    int start =8 ;
+                    int end =10;
 
                     for (var i = start; i <end; i++)
                     {
