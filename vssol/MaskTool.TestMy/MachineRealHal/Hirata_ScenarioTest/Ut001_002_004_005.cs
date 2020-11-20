@@ -148,8 +148,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var drawerHome = drawerLocation.GetCabinetHomeCode().Item2;
                     if (i != 0)
                     {
+                        // 取得前一個 Drawer
                         previousDrawer = HalContext.GetDrawer(DrawerKeys[i-1]);
+                        // 將前一個 Drawer Tray 移回 Home 點
                         previousDrawer.MoveTrayToHome();
+                        // 將 前一個 Drawer 移到可以 抽換 Box 的位置
                         if (drawerReplaceBoxPlace == DrawerReplaceBoxPlace.In)
                         {
                             previousDrawer.MoveTrayToIn();
@@ -162,6 +165,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     /** 004-01 光罩盒在 Drawer 內 */
                     drawer.Initial();
+                    // 將 目前 Drawer 的 Tray 移到可抽換Box 的位置
                     if ( drawerReplaceBoxPlace==  DrawerReplaceBoxPlace.In)
                     {
                         drawer.MoveTrayToIn();
@@ -172,19 +176,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     }
                  
 
-                    BREAK_POINT++;// [一定要暫停]     將 Box 放入 Tray 中 (如果是第2個及第2個以後的 Drawer, 將 盒子從前一個測試的 Drawer 取出來, 放到這個 Drawer 當中)
+                    BREAK_POINT++;// [[[[[[[[一定要暫停]]]]]]]]]]]]     將 Box 放入 Tray 中 (如果是第2個及第2個以後的 Drawer, 將 盒子從前一個測試的 Drawer 取出來, 放到這個 Drawer 當中)
 
                     // 前個 Drawer Tray 回 Home
                     if (previousDrawer != null)
                     {
-                        previousDrawer.CommandTrayMotionHome();
+                        previousDrawer.MoveTrayToHome();
                     }
 
 
                     /** 004-02  Drawer 往機台內部移動 到Box Robot 可以存光罩鐵盒的位置 */
                     // Drawer Tray 回 Home
                     drawer.MoveTrayToHome();
-                    // Drawer Tray 到 In
+                    // Drawer Tray 移到  Box Robot 可以取得 光罩鐵盒的位置
                     drawer.MoveTrayToIn();
                     
 
@@ -341,7 +345,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                     /** 999999 ok*/
-                    BREAK_POINT++;  //[一定要暫停] 準備下一個
+                    BREAK_POINT++;  //[[[[[[[[[[[[[[[[[[一定要暫停]]]]]]]]]]]]]]]]]]]]]]]]]] 準備下一個
                 }
                 catch(Exception ex)
                 {
