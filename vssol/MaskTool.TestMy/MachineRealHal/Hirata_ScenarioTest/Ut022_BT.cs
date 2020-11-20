@@ -81,8 +81,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //bt.Reset();
                     bt.Initial();
                     //bt.TurnToCB1Home();
-                    int start =2 ;
-                    int end = 3;
+                    int start =0 ;
+                    int end = DrawerKeys.Count;
 
                     for (var i = start; i <end; i++)
                     {
@@ -121,7 +121,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                             /**1. 光罩盒置於 Drawer內*/
-                            BREAK_POINT++; //[一定要暫停]   確認有 Box後往下執行
+                            BREAK_POINT++; //[[[[[[[[[[[[[[[[[[一定要暫停]]]]]]]]]]]]]]]]]]]]]]]]]]   確認有 Box後往下執行
                             // 1.1 如有上一個  Drawer, 將上一個 Drawer 移到 Home
                             if (previousDrawer != null)
                             { // 
