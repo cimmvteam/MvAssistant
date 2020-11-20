@@ -431,7 +431,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else if (i == 6)
                             Result += "BT:Level limit out Y, ";
                         else if (i == 7)
-                            Result += "BT:Hand動作逾時, ";
+                            Result += "BT:Hand Start Timeout, ";
+                        else if (i == 8)
+                            Result += "BT:Axis7 Vacuum not ready, ";
+                        else if (i == 9)
+                            Result += "BT:Hand Vacuum not ready, ";
+                        else if (i == 10)
+                            Result += "BT:Robot動作中不可執行指令, ";
+                        else if (i == 11)
+                            Result += "BT:Clamp/Unclamp Flow Timeout, ";
+                        else if (i == 12)
+                            Result += "BT:Initial Flow Timeout, ";
                         else
                             Result += "Box Transfer Unknown Alarm Signal, ";
                 }
@@ -476,13 +486,21 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else if (i == 8)
                             Result += "MT:Tactile out range, ";
                         else if (i == 9)
-                            Result += "MT:Up動作逾時, ";
+                            Result += "MT:Up開始動作逾時, ";
                         else if (i == 10)
-                            Result += "MT:Down動作逾時, ";
+                            Result += "MT:Down開始動作逾時, ";
                         else if (i == 11)
-                            Result += "MT:Left動作逾時, ";
+                            Result += "MT:Left開始動作逾時, ";
                         else if (i == 12)
-                            Result += "MT:Right動作逾時, ";
+                            Result += "MT:Right開始動作逾時, ";
+                        else if (i == 13)
+                            Result += "MT:Robot動作中不可執行指令, ";
+                        else if (i == 14)
+                            Result += "MT:Clamp Flow Tiomeout, ";
+                        else if (i == 15)
+                            Result += "MT:Unclamp Flow Tiomeout, ";
+                        else if (i == 16)
+                            Result += "MT:Initial Flow Timeout, ";
                         else
                             Result += "Mask Transfer Unknown Alarm Signal, ";
                 }
@@ -535,17 +553,27 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                         else if (i == 12)
                             Result += "OS:Close Sensor Timeout, ";
                         else if (i == 13)
-                            Result += "OS:翻蓋動作逾時, ";
+                            Result += "OS:Cover Start Timeout, ";
                         else if (i == 14)
-                            Result += "OS:滑台動作逾時, ";
+                            Result += "OS:Slider Start Timeout, ";
                         else if (i == 15)
-                            Result += "OS:整定動作逾時, ";
+                            Result += "OS:Sort Clamp Start Timeout, ";
                         else if (i == 16)
-                            Result += "OS:夾爪動作逾時, ";
+                            Result += "OS:Clamp Start Timeout, ";
                         else if (i == 17)
                             Result += "OS:Cover1 Deviation is too large, ";
                         else if (i == 18)
                             Result += "OS:Cover2 Deviation is too large, ";
+                        else if (i == 19)
+                            Result += "OS:Clamp Flow Timeout, ";
+                        else if (i == 20)
+                            Result += "OS:Conver Flow Timeout, ";
+                        else if (i == 21)
+                            Result += "OS:Slider Flow Timeout, ";
+                        else if (i == 22)
+                            Result += "OS:Conver Flow Timeout, ";
+                        else if (i == 23)
+                            Result += "OS:SortClamp Flow Timeout, ";
                         else
                             Result += "Open Stage Unknown Alarm Signal, ";
                 }
