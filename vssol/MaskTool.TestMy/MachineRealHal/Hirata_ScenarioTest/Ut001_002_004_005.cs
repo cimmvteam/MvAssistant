@@ -95,12 +95,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <para>2-06. Drawer回到Cabinet內</para>
         /// <para>2-07. 測試(編號13-CCD): 開啟光源 -> 拍照-> 關閉光源, 功能是否正常</para>
         /// </summary>
-        /// <paramref name="boxType"/>
-        /// <paramref name="getComeraShot"/>
+        /// <param name="boxType">盒子種類</param>
+        /// <param name="getComeraShot">是否照相</param>
+        /// <param name="drawerReplaceBoxPlace">更換盒子的地方</param>
         [TestMethod]
         // [DataRow(BoxType.IronBox,true,ReplaceBoxPlace.In)]
         [DataRow(BoxType.CrystalBox,true, DrawerReplaceBoxPlace.Out)]
-        public void Test_MainMethod(BoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace replaceBoxPlace)
+        public void Test_MainMethod(BoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace drawerReplaceBoxPlace)
         {
             /** Index & array
              * [0]   [1]  [2]    
@@ -149,7 +150,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         previousDrawer = HalContext.GetDrawer(DrawerKeys[i-1]);
                         previousDrawer.MoveTrayToHome();
-                        if (replaceBoxPlace == DrawerReplaceBoxPlace.In)
+                        if (drawerReplaceBoxPlace == DrawerReplaceBoxPlace.In)
                         {
                             previousDrawer.MoveTrayToIn();
                         }
@@ -161,28 +162,31 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     /** 004-01 光罩盒在 Drawer 內 */
                     drawer.Initial();
-                    if ( replaceBoxPlace==  DrawerReplaceBoxPlace.In)
+                    if ( drawerReplaceBoxPlace==  DrawerReplaceBoxPlace.In)
                     {
-                        previousDrawer.MoveTrayToIn();
+                        drawer.MoveTrayToIn();
                     }
                     else
                     {
-                        previousDrawer.MoveTrayToOut();
+                        drawer.MoveTrayToOut();
                     }
                  
 
                     BREAK_POINT++;// [一定要暫停]     將 Box 放入 Tray 中 (如果是第2個及第2個以後的 Drawer, 將 盒子從前一個測試的 Drawer 取出來, 放到這個 Drawer 當中)
+
+                    // 前個 Drawer Tray 回 Home
+                    if (previousDrawer != null)
+                    {
+                        previousDrawer.CommandTrayMotionHome();
+                    }
+
 
                     /** 004-02  Drawer 往機台內部移動 到Box Robot 可以存光罩鐵盒的位置 */
                     // Drawer Tray 回 Home
                     drawer.MoveTrayToHome();
                     // Drawer Tray 到 In
                     drawer.MoveTrayToIn();
-                    // 前個 Drawer Tray 回 Home
-                    if (previousDrawer != null)
-                    {
-                        previousDrawer.CommandTrayMotionHome();
-                    }
+                    
 
                     BREAK_POINT++;  // 確試 Drawer Tray  已經移到 In
 

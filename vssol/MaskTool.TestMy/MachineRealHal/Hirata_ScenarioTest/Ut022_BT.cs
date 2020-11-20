@@ -109,19 +109,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             }
                             // 0.2 將目前的  Drawer Tray Initial 
                             drawer.Initial();
-                            // 0.3 將 目前的  Drawer Tray 移回 Out  
-                            drawer.MoveTrayToIn();
-
-
-                            /**1. 光罩盒置於 Drawer內*/
-                            BREAK_POINT++; // 確認有 Box後往下執行
-                            // 1.1 如有上一個  Drawer, 將上一個 Drawer 移到 Home
-                            if (previousDrawer != null)
-                            { // 
-                                previousDrawer.CommandTrayMotionHome();
-                            }
-                            // 1.2 Drawer Tray 往機台內部移動到可以取得光罩的位置
-                            drawer.MoveTrayToHome();
+                            // 0.3 將 目前的  Drawer Tray 移回 可以置換 Drawer 的地方
                             if (drawerReplaceBoxPlace == DrawerReplaceBoxPlace.In)
                             {
                                 drawer.MoveTrayToIn();
@@ -130,7 +118,18 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             {
                                 drawer.MoveTrayToOut();
                             }
-                         
+
+
+                            /**1. 光罩盒置於 Drawer內*/
+                            BREAK_POINT++; //[一定要暫停]   確認有 Box後往下執行
+                            // 1.1 如有上一個  Drawer, 將上一個 Drawer 移到 Home
+                            if (previousDrawer != null)
+                            { // 
+                                previousDrawer.MoveTrayToHome(); ;
+                            }
+                            // 1.2 Drawer Tray 往機台內部移動到可以取得光罩的位置
+                            drawer.MoveTrayToHome();
+                            drawer.MoveTrayToIn();
 
                             /** 02 Box Robot從Home點至Drawer entry處*/
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
