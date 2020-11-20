@@ -100,8 +100,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
                 // 照相
                 instance.Camera_CapToSave(pathName, picType);
 
-                // 關閉
-                instance.TurnOffCameraLight();
+               
                 rtnV = "Boxtransfer camera shot [OK]";
 
             }

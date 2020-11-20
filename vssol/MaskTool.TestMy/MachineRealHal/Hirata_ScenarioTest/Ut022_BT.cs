@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
+using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Types;
 using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -31,9 +32,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         }
 
         [TestMethod]
-        [DataRow(BoxType.IronBox, true)] // 鐵盒
+        [DataRow(BoxType.IronBox, true,DrawerReplaceBoxPlace.In)] // 鐵盒
         //[DataRow(BoxType.CrystalBox,true)]  // 水晶盒
-        public void TestMethod1(BoxType boxType, bool autoConnect)
+        public void TestMethod1(BoxType boxType, bool autoConnect,DrawerReplaceBoxPlace drawerReplaceBoxPlace)
         {
             var BREAK_POINT = 0;
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
@@ -92,12 +93,19 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             IMacHalDrawer previousDrawer = null;
                             var drawerHome = drawerLocation.GetCabinetHomeCode().Item2;
                             /** 00 預先動作, 如有上一輪的 Drawer, 將上一輪的 Drawer 推回到 Out , 取出 Box, 將Box放到現在的 Drawer Tray中, 並將 Tray 放回 Home */
-                            // 0.1 如有上一輪的 Drawer, 將其 Tray 移到 OUt
+                            // 0.1 如有上一輪的 Drawer, 將其 Tray 移到 可抽換 box 的位置
                             if (i > start)
                             {
                                 previousDrawer = halContext.GetDrawer(DrawerKeys[i - 1]);
                                 previousDrawer.MoveTrayToHome();
-                                previousDrawer.MoveTrayToIn();
+                                if (drawerReplaceBoxPlace == DrawerReplaceBoxPlace.In)
+                                {
+                                    previousDrawer.MoveTrayToIn();
+                                }
+                                else
+                                {
+                                    previousDrawer.MoveTrayToOut();
+                                }
                             }
                             // 0.2 將目前的  Drawer Tray Initial 
                             drawer.Initial();
@@ -114,7 +122,14 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             }
                             // 1.2 Drawer Tray 往機台內部移動到可以取得光罩的位置
                             drawer.MoveTrayToHome();
-                            drawer.MoveTrayToIn();
+                            if (drawerReplaceBoxPlace == DrawerReplaceBoxPlace.In)
+                            {
+                                drawer.MoveTrayToIn();
+                            }
+                            else
+                            {
+                                drawer.MoveTrayToOut();
+                            }
                          
 
                             /** 02 Box Robot從Home點至Drawer entry處*/
@@ -321,7 +336,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             /** 19 重複1~18步驟, 完成20個Drawer的光罩鐵盒測試*/
                             /** 20 重複1~19步驟, 完成20個Drawer的光罩水晶盒測試*/
 
-                            BREAK_POINT++; // 這個 drawer 做好了, 準備下一個
+                            BREAK_POINT++; // [一定要暫停] 這個 drawer 做好了, 準備下一個
 
                          }
                         catch (Exception ex)

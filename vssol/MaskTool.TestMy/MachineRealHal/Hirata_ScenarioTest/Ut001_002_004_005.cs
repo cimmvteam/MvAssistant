@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
+using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Types;
 using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -95,12 +96,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <para>2-07. 測試(編號13-CCD): 開啟光源 -> 拍照-> 關閉光源, 功能是否正常</para>
         /// </summary>
         /// <paramref name="boxType"/>
-        /// <paramref name="autoConnect"/>
         /// <paramref name="getComeraShot"/>
         [TestMethod]
-        [DataRow(BoxType.IronBox,true)]
-      //  [DataRow(BoxType.CrystalBox,true)]
-        public void Test_MainMethod(BoxType boxType, bool getComeraShot)
+        // [DataRow(BoxType.IronBox,true,ReplaceBoxPlace.In)]
+        [DataRow(BoxType.CrystalBox,true, DrawerReplaceBoxPlace.Out)]
+        public void Test_MainMethod(BoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace replaceBoxPlace)
         {
             /** Index & array
              * [0]   [1]  [2]    
@@ -132,7 +132,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             // Connect, 所有Drawer 
             var failedConnectDrawers =HalContext.DrawersConnect();
 
-            HalBoxTransfer.TurnToCB1Home();
+           
             int start = 12;
             int end = start + 3;
             //int end = DrawerKeys.Count;
@@ -148,32 +148,48 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     if (i != 0)
                     {
                         previousDrawer = HalContext.GetDrawer(DrawerKeys[i-1]);
-                        previousDrawer.Initial();
-                       previousDrawer.MoveTrayToOut();
-                    
+                        previousDrawer.MoveTrayToHome();
+                        if (replaceBoxPlace == DrawerReplaceBoxPlace.In)
+                        {
+                            previousDrawer.MoveTrayToIn();
+                        }
+                        else
+                        {
+                            previousDrawer.MoveTrayToOut();
+                        }
                     }
 
                     /** 004-01 光罩盒在 Drawer 內 */
                     drawer.Initial();
-                    drawer.MoveTrayToOut();
-                    
-                    BREAK_POINT++;// [暫停]確認光罩盒在 Drawer 內
+                    if ( replaceBoxPlace==  DrawerReplaceBoxPlace.In)
+                    {
+                        previousDrawer.MoveTrayToIn();
+                    }
+                    else
+                    {
+                        previousDrawer.MoveTrayToOut();
+                    }
+                 
+
+                    BREAK_POINT++;// [一定要暫停]     將 Box 放入 Tray 中 (如果是第2個及第2個以後的 Drawer, 將 盒子從前一個測試的 Drawer 取出來, 放到這個 Drawer 當中)
 
                     /** 004-02  Drawer 往機台內部移動 到Box Robot 可以存光罩鐵盒的位置 */
                     // Drawer Tray 回 Home
-                    drawer.Initial();
+                    drawer.MoveTrayToHome();
                     // Drawer Tray 到 In
                     drawer.MoveTrayToIn();
                     // 前個 Drawer Tray 回 Home
                     if (previousDrawer != null)
                     {
-                       previousDrawer.CommandINI();
+                        previousDrawer.CommandTrayMotionHome();
                     }
 
                     BREAK_POINT++;  // 確試 Drawer Tray  已經移到 In
 
                     /** 004-03 Box Robot 從Home 點至Drawer 夾取點, 進行光罩鐵盒夾取(Clamp光鐵盒)*/
-                    //  Drawer 04-01 ~ Drawer 07-05 回 Cabitnet 1 Home 轉向 Cabitnet 2 Home
+                    // BoxRobot 回 Cabinet 1 Home 
+                    HalBoxTransfer.TurnToCB1Home();
+                    // Drawer 04-01 ~ Drawer 07-05 回 Cabitnet 1 Home 轉向 Cabitnet 2 Home
                     if (drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                     {  
                         HalBoxTransfer.TurnToCB2Home();
@@ -217,7 +233,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                     /** 004-05. Drawer 回到Cabinet 內 */
-                    drawer.Initial();
+                    drawer.MoveTrayToHome();
 
                     /** 004-06. Box Robot將光罩盒放在 Open Stage平台上 */
                     HalBoxTransfer.Unclamp();
@@ -309,7 +325,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                     /** 005-06. Drawer回到Cabinet內 */
-                     drawer.Initial();
+                     drawer.MoveTrayToHome();
 
                     /** 005-07 測試(編號13-CCD): 開啟光源 -> 拍照-> 關閉光源, 功能是否正常 */
                     if (getComeraShot)
@@ -321,7 +337,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
 
                     /** 999999 ok*/
-                    BREAK_POINT++;
+                    BREAK_POINT++;  //[一定要暫停] 準備下一個
                 }
                 catch(Exception ex)
                 {
