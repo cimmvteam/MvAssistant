@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -60,53 +61,62 @@ namespace MvAssistant.DeviceDrive.OmronPlc
 
         public object Read(string VarName)
         {
-            //Exception myex = null;
-            ////Fail允許重新再執行, 上限3次
-            //for (var tryIndex = 0; tryIndex < 3; tryIndex++)
-            //{
-            //    try
-            //    {
-            lock (this)
-                //        {
-                //            //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
-                //            Thread.Sleep(50);
-                return _CIPcompolet.ReadVariable(VarName);
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MvLog.WarnNs(this, ex);
-            //        myex = ex;
-            //    }
-            //}
+            Exception myex = null;
+            //Fail允許重新再執行, 上限3次
+            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            {
+                try
+                {
+                    lock (this)
+                    {
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Read VariableName = " + VarName);
+                        //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+                        Thread.Sleep(50);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Write " + VarName + " = " + _CIPcompolet.ReadVariable(VarName) + " success");
+                        return _CIPcompolet.ReadVariable(VarName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Read " + VarName + " fail");
+                    LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Exception message : " + ex.Message);
+                    MvLog.WarnNs(this, ex);
+                    myex = ex;
+                }
+            }
 
-            ////若3次嘗試存取失敗, 直接拋出Exception
-            //throw new MvException("PLC read fail over 3 times", myex);
+            //若3次嘗試存取失敗, 直接拋出Exception
+            throw new MvException("PLC read fail over 3 times", myex);
         }
         public void Write(string VarName, Object data)
         {
-            //Exception myex = null;
-            ////Fail允許重新再執行, 上限3次
-            //for (var tryIndex = 0; tryIndex < 3; tryIndex++)
-            //{
-            //    try
-            //    {
-            lock (this)
-                //        {
-                //            //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
-                //            Thread.Sleep(50);
-                this._CIPcompolet.WriteVariable(VarName, data);
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MvLog.WarnNs(this, ex);
-            //        myex = ex;
-            //    }
-            //}
+            Exception myex = null;
+            //Fail允許重新再執行, 上限3次
+            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            {
+                try
+                {
+                    lock (this)
+                    {
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Write VariableName = " + VarName + " , Data = " + data);
+                        //            //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+                        //            Thread.Sleep(50);
+                        this._CIPcompolet.WriteVariable(VarName, data);
+                        LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Write " + VarName + " success");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Write " + VarName + " fail");
+                    LogInfo(DateTime.Now.ToString("yyyyMMdd_HHmmss") + " Exception message : " + ex.Message);
+                    MvLog.WarnNs(this, ex);
+                    myex = ex;
+                }
+            }
 
-            ////若3次嘗試存取失敗, 直接拋出Exception
-            //throw new MvException("PLC read fail over 3 times", myex);
+            //若3次嘗試存取失敗, 直接拋出Exception
+            throw new MvException("PLC read fail over 3 times", myex);
         }
 
 
@@ -115,6 +125,24 @@ namespace MvAssistant.DeviceDrive.OmronPlc
 
         #endregion
 
+        #region LogInfo()
+        public void LogInfo(string pMessage)
+        {
+            string tFilePath = @"D:\PLC_Logg.txt";
+            StreamWriter tStreamWriter = null;
+            try
+            {
+                if (!File.Exists(tFilePath)) File.Create(tFilePath);
+                tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
+                tStreamWriter.WriteLine(pMessage);
+            }
+            catch (Exception e) { }
+            finally
+            {
+                if (tStreamWriter != null) tStreamWriter.Close();
+            }
+        }
+        #endregion LogInfo()
 
         #region IDisposable
         // Flag: Has Dispose already been called?
