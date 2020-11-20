@@ -28,34 +28,81 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         MacHalUniversal HalUniversal;
         MacHalOpenStage HalOpenStage;
         MacHalBoxTransfer HalBoxTransfer;
+        public bool InitialError = false;
+        public string InitialErrorMessage;
         string filePath;
         public Ut001_002_004_005()
         {
+            try
+            {
+
+                DrawerKeys = HalDrawerExtends.DrawerKeys;
+                DrawerLocations = HalDrawerExtends.DrawerLocations;
+
+                PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+                pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+
+                HalContext = MacHalContextExtends.Create_MacHalContext_Instance();
+
+                HalUniversal = HalContext.GetUniversalAssembly();
+                HalOpenStage = HalContext.GetOpenStageAssembly();
+                HalBoxTransfer = HalContext.GetBoxTransferAssembly();
+
+                HalUniversal.HalConnect();
+                HalOpenStage.HalConnect();
+                HalBoxTransfer.HalConnect();
+
+
+                // Initial
+              //  HalOpenStage.ReadRobotIntrude(false, false);
+                HalOpenStage.Initial();
+                HalBoxTransfer.Initial();
+                HalBoxTransfer.TurnOffCameraLight();
+            }
+            catch(Exception ex)
+            {
+               
+                InitialError = true;
+                InitialErrorMessage = ex.Message;
+            }
+           // HalBoxTransfer.TurnToCB1Home();
+
            
-            DrawerKeys = HalDrawerExtends.DrawerKeys;
-            DrawerLocations = HalDrawerExtends.DrawerLocations;
 
-            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
-            pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
-
-            HalContext = MacHalContextExtends.Create_MacHalContext_Instance();
-
-            HalUniversal = HalContext.GetUniversalAssembly();
-            HalOpenStage = HalContext.GetOpenStageAssembly();
-            HalBoxTransfer = HalContext.GetBoxTransferAssembly();
-
-            HalUniversal.HalConnect();
-            HalOpenStage.HalConnect();
-            HalBoxTransfer.HalConnect();
+        }
+        [TestMethod]
+        public void TestDrawer()
+        {
+            if (InitialError)
+            {
+                var message = InitialErrorMessage;
+                return;
+            }
+            var failedConnectDrawers = HalContext.DrawersConnect();
 
 
-            // Initial
-            HalOpenStage.Initial();
-            HalBoxTransfer.Initial();
-            HalBoxTransfer.TurnOffCameraLight();
-            HalBoxTransfer.TurnToCB1Home();
+            int start = 0;// 0; // 3-2~ 4-4
+            int end = DrawerKeys.Count;// DrawerKeys.Count;
+            //int end = DrawerKeys.Count;
+            for (var i = start; i < end; i++) {
 
-           
+
+                try
+                {
+                    var drawer = HalContext.GetDrawer(DrawerKeys[i]);
+                    drawer.Initial();
+                    drawer.MoveTrayToOut();
+                    drawer.MoveTrayToHome();
+                    drawer.MoveTrayToIn();
+                    drawer.MoveTrayToHome();
+                    Debug.WriteLine(DrawerKeys[i] + ", [OK]");
+                }
+                catch(Exception ex)
+                {
+                    Debug.WriteLine(DrawerKeys[i] + ", [Error], Message=" + ex.Message);
+                }
+
+            }
 
         }
 
@@ -100,7 +147,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
         /// <param name="drawerReplaceBoxPlace">更換盒子的地方</param>
         [TestMethod]
         // [DataRow(BoxType.IronBox,true,ReplaceBoxPlace.In)]
-        [DataRow(BoxType.CrystalBox,true, DrawerReplaceBoxPlace.Out)]
+        [DataRow(BoxType.CrystalBox,true, DrawerReplaceBoxPlace.In)]
         public void Test_MainMethod(BoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace drawerReplaceBoxPlace)
         {
             /** Index & array
@@ -125,7 +172,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
              * [18]  [19]    
              * 7-2,  7-3,         IP: 91~92
              */
-           
+
+
+            if (InitialError)
+            {
+                var message = InitialErrorMessage;
+                return;
+            }
 
             int BREAK_POINT = 0;
          
@@ -134,8 +187,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
             var failedConnectDrawers =HalContext.DrawersConnect();
 
 
-            int start = 6;// 0;
-            int end = 12;// DrawerKeys.Count;
+            int start = 17;// 0; // 3-2~ 4-4
+            int end = DrawerKeys.Count;// DrawerKeys.Count;
             //int end = DrawerKeys.Count;
             for (var i = start; i < end; i++)
              {
@@ -146,7 +199,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     var drawer = HalContext.GetDrawer(drawerKey);
                     IMacHalDrawer previousDrawer = null;
                     var drawerHome = drawerLocation.GetCabinetHomeCode().Item2;
-                    if (i != 0)
+                    if (i != start)
                     {
                         // 取得前一個 Drawer
                         previousDrawer = HalContext.GetDrawer(DrawerKeys[i-1]);
