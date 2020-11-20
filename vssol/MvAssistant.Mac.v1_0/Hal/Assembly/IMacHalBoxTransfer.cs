@@ -166,6 +166,14 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         bool ReadHandVacuum();
 
+        /// <summary>讀取BoxTransfer第七軸前端的極限Sensor， True：Nomal, False：Error </summary>
+        /// <returns>True：Nomal, False：Error</returns>
+        bool ReadBT_FrontLimitSenser();
+
+        /// <summary>讀取BoxTransfer第七軸後端的極限Sensor， True：Nomal, False：Error </summary>
+        /// <returns>True：Nomal, False：Error</returns>
+        bool ReadBT_RearLimitSenser();
+
         Bitmap Camera_Cap();
 
         void Camera_CapToSave(string SavePath, string FileType);

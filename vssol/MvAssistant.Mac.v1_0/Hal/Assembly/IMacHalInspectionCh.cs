@@ -56,6 +56,44 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D);
 
         /// <summary>
+        /// 設定各種大小Particle的數量限制
+        /// </summary>
+        /// <param name="L_Limit">Large Particle Qty</param>
+        /// <param name="M_Limit">Medium Particle Qty</param>
+        /// <param name="S_Limit">Small Particle Qty</param>
+        void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
+
+        /// <summary>
+        /// 讀取各種大小Particle的數量限制設定，大Particle、中Particle、小Particle的數量
+        /// </summary>
+        /// <returns></returns>
+        Tuple<int, int, int> ReadParticleCntLimitSetting();
+
+        /// <summary>
+        /// 讀取各種大小Particle的數量，大Particle、中Particle、小Particle的數量
+        /// </summary>
+        /// <returns></returns>
+        Tuple<int, int, int> ReadParticleCount();
+
+        /// <summary>
+        /// 設定Inspection Chamber內部與外部環境最大壓差限制
+        /// </summary>
+        /// <param name="GaugeLimit">錶壓差限制</param>
+        void SetPressureDiffLimit(uint? GaugeLimit);
+
+        /// <summary>
+        /// 讀取Inspection Chamber內部與外部環境最大壓差限制設定
+        /// </summary>
+        /// <returns>錶壓差限制</returns>
+        int ReadPressureDiffLimitSrtting();
+
+        /// <summary>
+        /// 讀取Inspection Chamber內部與外部環境壓差
+        /// </summary>
+        /// <returns>錶壓差</returns>
+        int ReadPressureDiff();
+
+        /// <summary>
         /// 讀取速度設定，Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)
         /// </summary>
         /// <returns>Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)</returns>

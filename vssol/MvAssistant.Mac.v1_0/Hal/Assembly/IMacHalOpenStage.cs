@@ -39,6 +39,26 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Speed">(%)</param>
         void SetSpeed(uint Speed);
 
+        /// <summary>
+        /// 設定各種大小Particle的數量限制
+        /// </summary>
+        /// <param name="L_Limit">Large Particle Qty</param>
+        /// <param name="M_Limit">Medium Particle Qty</param>
+        /// <param name="S_Limit">Small Particle Qty</param>
+        void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
+
+        /// <summary>
+        /// 讀取各種大小Particle的數量限制設定，大Particle、中Particle、小Particle的數量
+        /// </summary>
+        /// <returns></returns>
+        Tuple<int, int, int> ReadParticleCntLimitSetting();
+
+        /// <summary>
+        /// 讀取各種大小Particle的數量，大Particle、中Particle、小Particle的數量
+        /// </summary>
+        /// <returns></returns>
+        Tuple<int, int, int> ReadParticleCount();
+
         int ReadBoxTypeSetting();
 
         int ReadSpeedSetting();

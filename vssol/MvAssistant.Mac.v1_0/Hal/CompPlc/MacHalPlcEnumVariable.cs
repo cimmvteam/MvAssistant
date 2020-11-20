@@ -42,6 +42,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         PLC_TO_PC_LP2_Door,
         PLC_TO_PC_BCP_Smoke,
         PLC_TO_PC_LP_Light_Curtain,
+        PLC_TO_PC_BT_RLS,
+PLC_TO_PC_BT_FLS,
 
         //Cabinet(A01)
         PC_TO_DB_DP1Limit, //壓差設定數值寫入 AWord
@@ -87,6 +89,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         CC_TO_PC_Area1,//一排一個 各自獨立，遮斷時True，Reset time 500ms
         CC_TO_PC_Area2,
         CC_TO_PC_Area3,
+        CC_TO_PC_Area4,
 
         //Box Robot Hand(A03)
         PC_TO_BT_Clamp,//會依設定位置進行夾取mask box
@@ -267,6 +270,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         OS_TO_PC_Slider2_Position,
         OS_TO_PC_Cover1_Position,
         OS_TO_PC_Cover2_Position,
+        PC_TO_OS_PD_L_Limit,
+PC_TO_OS_PD_M_Limit,
+PC_TO_OS_PD_S_Limit,
+        OS_TO_PC_PD_L,
+OS_TO_PC_PD_M,
+OS_TO_PC_PD_S,
         OS_TO_PC_CoverSensor_Open,
         OS_TO_PC_CoverSensor_Close,
         OS_TO_PC_SoundWave,
@@ -304,6 +313,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         IC_TO_PC_Positon_Y,
         IC_TO_PC_Positon_Z,//CCD Z軸位置
         IC_TO_PC_Positon_W,//旋轉位置
+        PC_TO_IC_PD_L_Limit,
+PC_TO_IC_PD_M_Limit,
+PC_TO_IC_PD_S_Limit,
+        IC_TO_PC_PD_L,
+IC_TO_PC_PD_M,
+IC_TO_PC_PD_S,
+        PC_TO_IC_DPLimit,
+        IC_TO_PC_DP,
         PC_TO_IC_Robot_AboutLimit_R,//檢測Robot侵入位置(左右)
         PC_TO_IC_Robot_AboutLimit_L,
         IC_TO_PC_RobotPosition_About,

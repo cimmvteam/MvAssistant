@@ -120,11 +120,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         double ReadPressure();
 
-        /// <summary>
-        /// 讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms
-        /// </summary>
-        /// <returns></returns>
-        Tuple<bool, bool, bool> ReadLightCurtain();
+        /// <summary> 遮斷為True，依序為：右、前、左 </summary>
+        /// <returns>遮斷為True，依序為：右、前、左</returns>
+        Tuple<bool, bool, bool, bool> ReadLightCurtain();
 
         Bitmap Camera_Cap();
 

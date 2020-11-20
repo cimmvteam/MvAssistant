@@ -113,6 +113,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="Speed">(%)</param>
         public void SetSpeed(uint Speed)
         { Plc.SetSpeed(Speed); }
+
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
+        { Plc.SetParticleCntLimit(L_Limit, M_Limit, S_Limit); }
         #endregion
 
         #region Read Parameter
@@ -198,6 +201,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         public bool ReadBoxExist()
         { return Plc.ReadBoxExist(); }
 
+        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        { return Plc.ReadParticleCntLimitSetting(); }
+
+        public Tuple<int, int, int> ReadParticleCount()
+        { return Plc.ReadParticleCount(); }
+
         #endregion
 
         public void LightForSideBarDfsSetValue(int value)
@@ -220,9 +229,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return CameraTop.Shot();
         }
 
-        public void Camera_Top_CapToSave(string SavePath,string FileType)
+        public void Camera_Top_CapToSave(string SavePath, string FileType)
         {
-            CameraTop.ShotToSaveImage(SavePath,FileType);
+            CameraTop.ShotToSaveImage(SavePath, FileType);
         }
 
         public Bitmap Camera_Side_Cap()
@@ -254,5 +263,6 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             CameraRight.ShotToSaveImage(SavePath, FileType);
         }
+
     }
 }

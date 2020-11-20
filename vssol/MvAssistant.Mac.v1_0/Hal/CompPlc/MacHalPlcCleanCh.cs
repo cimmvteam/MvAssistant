@@ -24,7 +24,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
 
 
-        #region"Particle數量監控"
+        #region Particle數量監控
         //設定各種大小Particle的數量限制
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         {
@@ -61,7 +61,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_PD_S)
                 );
         }
-        #endregion
+        #endregion Particle數量監控
 
         //讀取Mask水平
         public Tuple<double, double, double> ReadMaskLevel()
@@ -242,14 +242,15 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
 
         //讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms
-        public Tuple<bool, bool, bool> ReadLightCurtain()
+        public Tuple<bool, bool, bool, bool> ReadLightCurtain()
         {
             var plc = this.plcContext;
 
-            return new Tuple<bool, bool, bool>(
+            return new Tuple<bool, bool, bool, bool>(
             plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area1),//Right
             plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area2),//Front
-            plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area3)//Left
+            plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area3),//Left
+            plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Area4)
             );
         }
     }
