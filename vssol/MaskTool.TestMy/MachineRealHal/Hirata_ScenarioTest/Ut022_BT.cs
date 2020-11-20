@@ -137,7 +137,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                             try
                             {
-                                bt.LightForGripper(200);
+                                var lightValue = bt.GetCameraLightValue(boxType);
+                                bt.LightForGripper(lightValue);
                                 bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
                                 //bt.LightForGripper(0);
                             }
@@ -149,13 +150,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                             {
                                 bt.LightForGripper(0);
                             }
-                            bt.Clamp((uint)boxType);
+                           // bt.Clamp((uint)boxType);
                             //var lightValue = bt.GetCameraLightValue(boxType);
                            //var resultTemp=bt.CameraShot("D:/Image/BT/Gripper", "jpg",lightValue);
                             
 
                             /** 04 Box Robot從Drawer Entry處移至Drawer內進行光罩鐵盒夾取*/
-                           // resultTemp = bt.Clamp((uint)boxType);
+                           var resultTemp = bt.Clamp((uint)boxType);
 
                             /** 05 光罩鐵盒夾取前確認Box Robot是水平狀態 (by 水平儀)*/
                             var Level = bt.ReadLevelSensor();
@@ -273,14 +274,24 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                                 btMovePathFile = pathFileObj.FromCabinet02HomeToDrawer_PUT_PathFile(drawerLocation); // boxrobot 目前有盒子,要到 Drawer, 所以用 PUT
                                 bt.Move(btMovePathFile);
                             }
-                           
+
 
                             /** 16 (編號13-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
-                           
-                            bt.LightForGripper(200);
-                            bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
-                            bt.LightForGripper(0);
-                                                       //lightValue = bt.GetCameraLightValue(boxType);
+                            try
+                            {
+                                var lightValue = bt.GetCameraLightValue(boxType);
+                                bt.LightForGripper(lightValue);
+                                bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                               // bt.LightForGripper(0);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                            finally
+                            {
+                                bt.LightForGripper(0);
+                            }
+                            //lightValue = bt.GetCameraLightValue(boxType);
                             //resultTemp= bt.CameraShot("D:/Image/BT/Gripper", "jpg", lightValue);
 
                             /** 17 Box Robot將光罩鐵盒移動至Drawer內*/
