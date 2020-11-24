@@ -21,28 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         protected override void SetCurrentState(MacState state)
         {
             base.SetCurrentState(state);
-            /**
-            try
-            {
-                if (state == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
-                {  //WaitingLoadInstruction: 等待, Load 命令: 亮綠燈
-                    this.HalDrawer.CommandBrightLEDGreenOn();
-                }
-                else if (state == this.States[EnumMacCabinetDrawerState.WaitingUnloadInstruction.ToString()])
-                {  // WaitingUnloadInstruction: 等待Unload命令: 亮紅燈
-                    this.HalDrawer.CommandBrightLEDRedOn();
-                } 
-                else if (state.StateException != null)
-                {  // 發生例外
-                    this.HalDrawer.CommandBrightLEDAllOn();
-                }
-                else
-                {  // LED 全滅
-                    this.HalDrawer.CommandBrightLEDAllOff();
-                }
-            }
-            catch  {    }
-            */
+           
         }
         public IMacHalDrawer HalDrawer
         {
@@ -1854,101 +1833,5 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
 
     }
-    /**
-    public class CabinetDrawerLEDController
-    {
-        private enum LedCommand
-        {
-            AllOff,
-            GreenOn,
-            GreenFlash,
-            RedOn,
-            RedFlash,
-            AllOn,
-            AllFlash,
-        }
-        public IMacHalDrawer HalDrawer = null;
-        private LedCommand LightFlag = LedCommand.AllOff;
-        private int FlashmSec = 500;
-        private CabinetDrawerLEDController()
-        {
-
-        }
-        public  CabinetDrawerLEDController(IMacHalDrawer halDrawer):this()
-        {
-            HalDrawer = halDrawer;
-        }
-        public void AllOff()
-        {
-            LightFlag = LedCommand.AllOff;
-        }
-        public void GreenOn()
-        {
-            LightFlag = LedCommand.GreenOn;
-        }
-        public void GreenFlash()
-        {
-            LightFlag = LedCommand.GreenFlash;
-        }
-        public void RedOn()
-        {
-            LightFlag = LedCommand.RedOn;
-        }
-
-        public void RedFlash()
-        {
-            LightFlag = LedCommand.RedFlash;
-        }
-
-        public void AllOn()
-        {
-            LightFlag = LedCommand.AllOn;
-        }
-        public void ALLFlash()
-        {
-            LightFlag = LedCommand.AllFlash;
-        }
-
-
-        private void SetLedState()
-        {
-            bool? toggle = false;
-            Action led = () =>
-            {
-                while (toggle.HasValue)
-                {
-                    try
-                    {
-                        if (((bool)toggle))
-                        {
-                            
-
-                            toggle = false;
-                        }
-                        else
-                        {
-
-                            toggle = true;
-                        }
-                      
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-                    Sleep(FlashmSec);          
-                }
-            };
-            
-            var task = new Task(led);
-            task.Start();
-
-        }
-
-        private void Sleep(int flashmSec)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    */
+  
 }
