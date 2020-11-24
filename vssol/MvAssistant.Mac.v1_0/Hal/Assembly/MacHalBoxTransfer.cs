@@ -666,6 +666,12 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public bool ReadHandVacuum()
         { return Plc.ReadHandVacuum(); }
+
+        public bool ReadBT_FrontLimitSenser()
+        { return ReadBT_FrontLimitSenser(); }
+
+        public bool ReadBT_RearLimitSenser()
+        { return ReadBT_RearLimitSenser(); }
         #endregion
 
         public void LightForGripper(int value)

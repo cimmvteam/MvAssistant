@@ -335,6 +335,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         {
             return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
         }
+
+        public bool ReadBT_FrontLimitSenser()
+        { return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_FLS); }
+
+        public bool ReadBT_RearLimitSenser()
+        { return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_RLS); }
         #endregion
 
 

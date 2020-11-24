@@ -574,6 +574,45 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
                 );
         }
 
+        #region Particle數量監控
+        //設定各種大小Particle的數量限制
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
+        {
+            var plc = this.plcContext;
+
+            if (L_Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_PD_L_Limit, L_Limit);
+            if (M_Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_PD_M_Limit, M_Limit);
+            if (S_Limit != null)
+                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_PD_S_Limit, S_Limit);
+        }
+
+        //讀取各種大小Particle的數量限制
+        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        {
+            var plc = this.plcContext;
+
+            return new Tuple<int, int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_PD_L_Limit),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_PD_M_Limit),
+                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_PD_S_Limit)
+                );
+        }
+
+        //讀取各種大小Particle的數量
+        public Tuple<int, int, int> ReadParticleCount()
+        {
+            var plc = this.plcContext;
+
+            return new Tuple<int, int, int>(
+                plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_PD_L),
+                plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_PD_M),
+                plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_PD_S)
+                );
+        }
+        #endregion Particle數量監控
+
         /// <summary>
         /// 讀取盒蓋開闔
         /// </summary>

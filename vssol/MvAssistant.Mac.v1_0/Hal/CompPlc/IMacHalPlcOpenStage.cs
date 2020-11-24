@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 {
-    public interface IMacHalPlcOpenStage: IMacHalComponent
+    public interface IMacHalPlcOpenStage : IMacHalComponent
     {
         string Open();
 
@@ -43,6 +43,12 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         Tuple<long, long> ReadSliderPosition();
 
         Tuple<double, double> ReadCoverPos();
+
+        void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
+
+        Tuple<int, int, int> ReadParticleCntLimitSetting();
+
+        Tuple<int, int, int> ReadParticleCount();
 
         Tuple<bool, bool> ReadCoverSensor();
 

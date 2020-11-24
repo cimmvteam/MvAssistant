@@ -17,13 +17,17 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         string Initial();
 
         string ReadInspChStatus();
-
+        
         #region Set Parameter
         void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed);
 
         void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R);
 
         void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D);
+
+        void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
+
+        void SetPressureDiffLimit(uint? GaugeLimit);
         #endregion
 
         #region Read Parameter
@@ -32,6 +36,14 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         Tuple<double, double> ReadRobotAboutLimitSetting();
 
         Tuple<double, double> ReadRobotUpDownLimitSetting();
+
+        Tuple<int, int, int> ReadParticleCntLimitSetting();
+
+        Tuple<int, int, int> ReadParticleCount();
+
+        int ReadPressureDiffLimitSrtting();
+
+        int ReadPressureDiff();
         #endregion
 
         #region Read Component Value

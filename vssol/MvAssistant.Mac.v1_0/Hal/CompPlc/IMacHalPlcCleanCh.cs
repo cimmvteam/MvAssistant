@@ -12,7 +12,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
 
         #region Set Parameter
         void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
-        void SetRobotAboutLimit(double? Limit_L,double? Limit_R);
+        void SetRobotAboutLimit(double? Limit_L, double? Limit_R);
         void SetRobotUpDownLimit(double? Limit_U, double? Limit_D);
         void SetPressureDiffLimit(uint PressureLimit);
         void SetPressureCtrl(double AirPressure);
@@ -34,7 +34,10 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         int ReadPressureDiff();
         Single ReadBlowPressure();
         double ReadPressure();
-        Tuple<bool, bool, bool> ReadLightCurtain();
+
+        /// <summary>遮斷為True，依序為：右、前、左</summary>
+        /// <returns>遮斷為True，依序為：右、前、左</returns>
+        Tuple<bool, bool, bool, bool> ReadLightCurtain();
         #endregion
     }
 }

@@ -41,6 +41,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         Tuple<double, double> ReadLevelSensor();
         Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
         bool ReadHandVacuum();
+        bool ReadBT_FrontLimitSenser();
+        bool ReadBT_RearLimitSenser();
         #endregion
     }
 }
