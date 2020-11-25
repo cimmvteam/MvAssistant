@@ -567,4 +567,18 @@ namespace MvAssistant.Mac.v1_0.Manifest
 
 
     }
+
+    public static class MacEnumDeviceExtends
+    {
+
+
+
+        public static MacEnumDeviceDrawerRange GetDrawerRange(this MacEnumDevice instance)
+        {
+            return new MacEnumDeviceDrawerRange();
+        }
+
+
+
+    }
 }

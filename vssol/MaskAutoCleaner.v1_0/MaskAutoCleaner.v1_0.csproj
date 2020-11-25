@@ -91,7 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnumMachineIDExtends.cs" />
+    <Compile Include="DrawerStateMachineIDRange.cs" />
     <Compile Include="MacException.cs" />
     <Compile Include="Machine\BoxTransfer\EnumMacMcBoxTransferCmd.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToOpenStageEntryEventArgs.cs" />

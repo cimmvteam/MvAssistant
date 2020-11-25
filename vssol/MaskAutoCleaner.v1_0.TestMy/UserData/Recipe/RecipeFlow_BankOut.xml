@@ -1,5 +1,27 @@
 <?xml version="1.0"?>
 <ArrayOfMacRecipeStep xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MacRecipeStep StepName="Move DrawerTray to Out to put a  mask box on Drawer Tray">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_DRAWER_02_04" Value="WaitingLoadInstruction" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_DRAWER_02_04" Value="LoadWaitingPutBoxOnTray" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_DRAWER_02_04" Value="Load_MoveTrayToOut" />
+    </StatesCmd>
+  </MacRecipeStep>
+  <MacRecipeStep StepName="Move DrawerTray to In and waiting  Boxtransfer to Clamp box">
+    <StatesBefore>
+      <MacRecipeMachineState Key="MID_DRAWER_02_04" Value="LoadWaitingPutBoxOnTray" />
+    </StatesBefore>
+    <StatesAfter>
+      <MacRecipeMachineState Key="MID_DRAWER_02_04" Value="LoadWaitingMoveTrayToIn" />
+    </StatesAfter>
+    <StatesCmd>
+      <MacRecipeMachineState Key="MID_DRAWER_02_04" Value="Load_MoveTrayToIn" />
+    </StatesCmd>
+  </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move To Open Stage Catch Mask">
     <StatesBefore>
       <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHome" />
@@ -84,7 +106,7 @@
       <MacRecipeMachineState Key="MID_IC_A_ASB" Value="WaitingForReleasePellicle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToInspectionChForRelease" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToInspectionChPellicleForRelease" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Inspect Mask(Pellicle Side Up) In Inspection Chamber">
@@ -110,7 +132,7 @@
       <MacRecipeMachineState Key="MID_IC_A_ASB" Value="WaitingForReleasePellicle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToInspectionCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToInspectionChPellicle" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Inspection Chamber Change State To Idle">
@@ -152,7 +174,7 @@
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -161,11 +183,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Glass Side Down) Clean Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToCleanGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToCleanGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -174,11 +196,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Cleanning Glass On The Air Gun">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToCleanGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToCleanGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -187,11 +209,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Turn On Air Gun To Clean Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="CleaningGlass" />
     </StatesAfter>
     <StatesCmd>
@@ -200,11 +222,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Turn Off Air Gun After Cleaned Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="CleaningGlass" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -213,24 +235,24 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Glass Side Down)">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveAfterCleanedGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToOriginAfterCleanedGlass" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Glass Side Down) Inspect Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToInspectGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToInspectGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -239,11 +261,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Inspecting Glass On The Camera">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToInspectGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToInspectGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -252,11 +274,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Catch Image To Inspect Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="InspectingGlass" />
     </StatesAfter>
     <StatesCmd>
@@ -265,11 +287,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Return To Idle After Inspected Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="InspectingGlass" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -278,20 +300,20 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Glass Side Down)">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlassInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveAfterInspectedGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToOriginAfterInspectedGlass" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move To CCHomeClamped After Clean Glass">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetGlass" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginGlass" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
@@ -308,7 +330,7 @@
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -317,11 +339,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Pellicle Side Down) Clean Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToCleanPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToCleanPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -330,11 +352,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Cleanning Pellicle On The Air Gun">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToCleanPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToCleanPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -343,11 +365,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Turn On Air Gun To Clean Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="CleaningPellicle" />
     </StatesAfter>
     <StatesCmd>
@@ -356,11 +378,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Turn Off Air Gun After Cleaned Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="CleaningPellicle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -369,24 +391,24 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Pellicle Side Down)">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="CleaningPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveAfterCleanedPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToOriginAfterCleanedPellicle" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Pellicle Side Down) Inspect Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToInspectPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToInspectPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -395,11 +417,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Inspecting Pellicle On The Camera">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingInCleanChToInspectPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="MovingToInspectPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -408,11 +430,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Catch Image To Inspect Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="InspectingPellicle" />
     </StatesAfter>
     <StatesCmd>
@@ -421,11 +443,11 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Clean Chamber Return To Idle After Inspected Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="InspectingPellicle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
@@ -434,20 +456,20 @@
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move Into Clean Chamber(Pellicle Side Down)">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicleInCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="InspectingPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveAfterInspectedPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToOriginAfterInspectedPellicle" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Move To CCHomeClamped After Clean Pellicle">
     <StatesBefore>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChTargetPellicle" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="ClampedInCleanChAtOriginPellicle" />
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesBefore>
     <StatesAfter>
@@ -455,7 +477,7 @@
       <MacRecipeMachineState Key="MID_CC_A_ASB" Value="Idle" />
     </StatesAfter>
     <StatesCmd>
-      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToCCHomeClampedFromCleanCh" />
+      <MacRecipeMachineState Key="MID_MT_A_ASB" Value="TriggerToMoveToCCHomeClampedFromCleanChPellicle" />
     </StatesCmd>
   </MacRecipeStep>
   <MacRecipeStep StepName="Mask Transfer Change Mask State Afer Clean">
