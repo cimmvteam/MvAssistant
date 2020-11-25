@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
 
 
 
-                machineMgr.RecipeMgr.LoaddRecipe("UserData/Recipe/RecipeFlow_BankOut.xml");
+                machineMgr.RecipeMgr.LoaddRecipe("../../UserData/Recipe/RecipeFlow_BankOut.xml");
                 machineMgr.RecipeMgr.Execute();
 
 
