@@ -254,7 +254,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
             #region Fake
             SetWorkState(LoadPortWorkState.ResetIng);
-            var commandText = _ldd.FakeCommandAlarmReset();
+            //var commandText = _ldd.FakeCommandAlarmReset();
+            var commandText = "Fake Test: AlarmReset";
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
            // Debug.WriteLine("[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
             new Task(
@@ -281,7 +282,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
             #region Fake
             this.SetWorkState(LoadPortWorkState.DockIng);
-            var commandText = _ldd.FakeCommandDockRequest();
+            var commandText = "Fake Test: DocRequest";
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
            // Debug.WriteLine("[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
             new Task(
@@ -309,7 +310,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
             #region Fake
             this.SetWorkState(LoadPortWorkState.UndockIng);
-            var commandText = _ldd.FakeCommandUndockRequest();
+            var commandText = "Fake Test: UndockRequest"; //_ldd.FakeCommandUndockRequest();
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
             //Debug.WriteLine("[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
             new Task(
@@ -390,7 +391,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
 
             #region Fake
             this.SetWorkState(LoadPortWorkState.InitialIng);
-            var commandText = _ldd.FakeCommandInitialRequest();
+            //var commandText = _ldd.FakeCommandInitialRequest();
+            var commandText ="Fake Test: CommandInitialRequest";
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceIndex + "\r\n[Fake] Loadport Command Name=CommandInitialRequest(), Command Text=" + commandText);
             //Debug.WriteLine("[Fake] Loadport Command Name=CommandInitialRequest(), Command Text=" + commandText);
             new Task(

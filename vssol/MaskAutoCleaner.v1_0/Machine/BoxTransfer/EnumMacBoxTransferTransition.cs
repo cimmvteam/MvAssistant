@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         ChangeDirectionToCB1HomeClampedFromCB2HomeClamped,
 
         #region OS
-        MoveToOpenStage,
+        CB1Home_MovingToOpenStage,
         ClampInOpenStage,
         MoveToCB1HomeClampedFromOpenStage,
         StandbyAtCB1HomeClampedFromOpenStage,
@@ -33,9 +33,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         #endregion OS
 
         #region Lock & Unlock
-        MoveToLock,
+        CB1Home_Locking,
         StandbyAtCB1HomeFromLock,
-        MoveToUnlock,
+        CB1Home_Unlocking,
         StandbyAtCB1HomeFromUnlock,
         #endregion Lock & Unlock
 
@@ -347,10 +347,26 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         //StandbyAtCB1HomeClamped_C,
         MoveToCB1HomeClampedFromDrawer,
         StandbyAtCB1HomeClampedFromDrawer,
-        MoveToDrawerForRelease,
-        ReleaseAtDrawer,
+        CB1HomeClamped_MovingToDrawerForRelease,
+        MovingToDrawerForRelease_DrawerReleasing,
         MoveToCB1HomeFromDrawer,
         StandbyAtCB1HomeFromDrawer,
+        CB1Home_NULL,
+        CB1HomeClamped_NULL,
+        MovingToOpenStage_OpenStageClamping,
+        OpenStageClamping_MovingToCB1HomeClampedFromOpenStage,
+        MovingToCB1HomeClampedFromOpenStage_CB1HomeClamped,
+        CB1HomeClamped_MovingToOpenStageForRelease,
+        MovingToOpenStageForRelease_OpenStageReleasing,
+        OpenStageReleasing_MovingToCB1HomeFromOpenStage,
+        MovingToCB1HomeFromOpenStage_CB1Home,
+        Locking_CB1Home,
+        Unlocking_CB1Home,
+        MovingToDrawer_DrawerClamping,
+        DrawerClamping_MovingToCB1HomeClampedFromDrawer,
+        MovingToCB1HomeClampedFromDrawer_CB1HomeClamped,
+        DrawerReleasing_MovingToCB1HomeFromDrawer,
+        MovingToCB1HomeFromDrawer_CB1Home,
         #endregion Standby at CB Home from Cabinet
     }
 

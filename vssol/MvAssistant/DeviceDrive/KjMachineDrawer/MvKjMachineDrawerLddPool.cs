@@ -50,7 +50,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
 
         /// <summary>for create a fake MvKjMachineDrawerLddPool instance </summary>
         /// <remarks>
-        /// 2020/10/23 10:12 King  [C]
+        /// <para>2020/10/23 10:12 King  [C]</para>
+        /// <para>暫時保留</para>
         /// </remarks>
         /// <returns></returns>
         public static MvKjMachineDrawerLddPool GetFakeInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
@@ -85,6 +86,9 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
         /// <param name="bindLocalIp">本地端 繫結 的IP</param>
         /// <param name="bindLocalPort">本地端 繫結 的port</param>
+        /// <remarks>
+        /// <para>暫時保留</para>
+        /// </remarks>
         public  MvKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort,bool isFake):this()
         {
 
@@ -157,7 +161,8 @@ namespace MvAssistant.DeviceDrive.KjMachineDrawer
         /// <param name="deviceEndpoint"></param>
         /// <param name="localIP"></param>
         /// <remarks>
-        /// 2020/10/23 10:50 King [C]
+        /// <para>2020/10/23 10:50 King [C]</para>
+        /// <para>暫時保留</para>
         /// </remarks>
         /// <returns></returns>
         public MvKjMachineDrawerLdd CreateFakeLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)

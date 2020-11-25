@@ -45,5 +45,7 @@ namespace MaskAutoCleaner.v1_0.Machine.LoadPort
         IdleForReleasePODWithMask_Idle,
         IdleForReleasePOD_Idle,
         Idle_IdleForGetPOD,
+        IdleForGetMask_NULL,
+        IdleForReleasePOD_NULL,
     }
 }
