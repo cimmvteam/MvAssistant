@@ -35,6 +35,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public string DeviceIndex { get { return HalDrawer.DeviceIndex; } }
 
+        /**  [2020/11/24] [D]
         /// <summary>
         /// Fake Test 時直接設定為某狀態
         /// </summary>
@@ -43,7 +44,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         {
             MacState state = States[enumState.ToString()];
             SetCurrentState(state);
-        }
+        }*/
+
+
         /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
         /// <returns></returns>
         public bool CanLoad()
@@ -367,8 +370,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tLoadWaitingMoveTrayToIn_NULL = NewTransition(sLoadWaitingMoveTrayToIn, null, EnumMacCabinetDrawerTransition.LoadWaitingMoveTrayToIn_NULL);
             MacTransition tLoadWaitingMoveTrayToIn_LoadMoveTrayToInStart = NewTransition(sLoadWaitingMoveTrayToIn, sLoadMoveTrayToInStart, EnumMacCabinetDrawerTransition.LoadWaitingMoveTrayToIn_LoadMoveTrayToInStart);
 
-            MacTransition tLoadCheckBoxExistenceComplete_LoadRejectToOutStart = NewTransition(sLoadCheckBoxExistenceComplete, sLoadRejectTrayToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectToOutStart);
-            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart, sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectToOutStart_LoadRejectToOutIng);
+            MacTransition tLoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart = NewTransition(sLoadCheckBoxExistenceComplete, sLoadRejectTrayToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart);
+            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart, sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectToOutStart_LoadRejectTrayToOutIng);
             MacTransition tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete = NewTransition(sLoadRejectTrayToOutIng, sLoadRejectTrayToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectToOutIng_LoadRejectToOutComplete);
             MacTransition tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectTrayToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectToOutComplete_LoadWaitingPutBoxOnTray);
 
@@ -404,7 +407,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tUnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete = NewTransition(sUnloadCheckBoxExistenceIng, sUnloadCheckBoxExistenceComplete,
                                                                                  EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete);
             MacTransition tUnloadCheckBoxExistenceComplete_WaitingUnloadInstruction = NewTransition(sUnloadCheckBoxExistenceComplete, sWaitingUnloadInstruction,
-                                                                                 EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
+                                                                                    EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_WaitingUnloadInstruction);
+                                                                                 //EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
             MacTransition tUnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart = NewTransition(sUnloadCheckBoxExistenceComplete, sUnloadMoveTrayToOutStart,
                                                                                  EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
             MacTransition tUnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng = NewTransition(sUnloadMoveTrayToOutStart, sUnloadMoveTrayToOutIng,
@@ -436,10 +440,6 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Sync
                 Debug.WriteLine("SystemBootup.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
-
-
-
-
                 try   // TODO: Remove Try catch 
                 {
                     if (HalCabinet.MacHalDrawer.PressButtonToLoad == null)
@@ -451,9 +451,6 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 {
 
                 }
-
-
-
                 var transition = tSystemBootup_SystemBootupInitialStart;
                 var triggerMember = new TriggerMember
                 {
@@ -507,8 +504,6 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Async
                 Debug.WriteLine("SystemBootupInitialIng.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
-
-
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -902,7 +897,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 }
                 else //if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxNotExist)
                 {
-                    transition = tLoadCheckBoxExistenceComplete_LoadRejectToOutStart;
+                    transition = tLoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart;
                     triggerMember = new TriggerMember
                     {
                         Action = null,
