@@ -1,6 +1,7 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.OpenStageStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public void CalibrationClosedBox()
         {
             var transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBox.ToString()];
-            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs((uint)BoxType.DontCare));
         }
         /// <summary> Unlock 後，開啟 Box(內無Mask) </summary>
         public void OpenBox()
@@ -91,7 +92,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public void CalibrationClosedBoxWithMask()
         {
             var transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBoxWithMask.ToString()];
-            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs());
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs(BoxType.DontCare));
         }
         /// <summary> Unlock 後，開啟 Box(內有Mask) </summary>
         public void OpenBoxWithMask()
@@ -806,7 +807,11 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             int IronBoxMinWeight = 775, IronBoxMaxWeight = 778, IronBoxWithMaskMinWeight = 1102, IronBoxWithMaskMaxWeight = 1104;
             int CrystalBoxMinWeight = 589, CrystalBoxMaxWeight = 590, CrystalBoxWithMaskMinWeight = 918, CrystalBoxWithMaskMaxWeight = 920;
             var BoxWeight = HalOpenStage.ReadWeightOnStage();
-            if (BoxType == 1 && !WithMask)
+            if (BoxType == 0)//Fake data by pass
+            {
+                return true;
+            }
+            else if (BoxType == 1 && !WithMask)
             {
                 if (BoxWeight < IronBoxMinWeight || BoxWeight > IronBoxMaxWeight)
                     throw new OpenStageGuardException("Wrong weight of iron box, box weight = " + BoxWeight.ToString());

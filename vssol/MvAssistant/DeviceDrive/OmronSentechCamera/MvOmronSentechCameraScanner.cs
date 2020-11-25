@@ -35,7 +35,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
         ////  ID：00-11-1C-F9-A3-46     Name：STC-SBS500POE(19HC603)    OS前，近CC
         public MvOmronSentechCameraScanner()
         {
-           
+
         }
         ~MvOmronSentechCameraScanner() { this.Dispose(false); }
 
@@ -69,6 +69,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 for (int i = 0; i < uCamCnt; i++)
                 {
                     dataStream[i].Dispose();
+                    dataStream[i] = null;
                 }
             }
 
@@ -78,14 +79,21 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
                 for (int i = 0; i < uCamCnt; i++)
                 {
                     StDevice[i].Dispose();
+                    StDevice[i] = null;
                 }
             }
 
             if (api != null)
+            {
                 api.Dispose();
-            if (system != null)
-                system.Dispose();
+                api = null;
+            }
 
+            if (system != null)
+            {
+                system.Dispose();
+                system = null;
+            }
 
             foreach (var camera in this.cameras)
             {

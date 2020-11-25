@@ -1,5 +1,7 @@
 ﻿using MaskAutoCleaner.v1_0.Msg;
+using MvAssistant.Mac.v1_0;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +28,35 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
         public override int RequestProcMsg(IMacMsg msg)
         {
-            throw new NotImplementedException();
+            var msgCmd = msg as MacMsgCommand;
+            if (msgCmd != null)
+            {
+                var type = typeof(MacMsBoxTransfer);
+                var method = type.GetMethod(msgCmd.Command);
+                if (msgCmd.Command.ToString() == "MoveToLock") 
+                    method.Invoke(this.StateMachine, new object[] { (uint)BoxType.DontCare });
+                else if (msgCmd.Command.ToString() == "MoveToUnlock")
+                    method.Invoke(this.StateMachine, new object[] { (uint)BoxType.DontCare });
+                else if (msgCmd.Command.ToString() == "MoveToOpenStageGet")
+                    method.Invoke(this.StateMachine, new object[] { (uint)BoxType.DontCare });
+                else if (msgCmd.Command.ToString() == "MoveToCabinetGet")
+                    method.Invoke(this.StateMachine, new object[] { BoxrobotTransferLocation.Drawer_01_01,(uint)BoxType.DontCare });
+                else if (msgCmd.Command.ToString() == "MoveToCabinetPut")
+                    method.Invoke(this.StateMachine, new object[] { BoxrobotTransferLocation.Drawer_01_01, (uint)BoxType.DontCare });
+                else
+                    method.Invoke(this.StateMachine, null);
+            }
+            var msgTran = msg as MacMsgTransition;
+            if (msgTran != null)
+            {
+
+            }
+            var msgSecs = msg as MacMsgSecs;
+            if (msgSecs != null)
+            {
+
+            }
+            return 0;
         }
     }
 }

@@ -442,7 +442,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacMcBoxTransferCmd.MoveToUnlock);
 
                 step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
-                step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
+                step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
             }
 
             {
@@ -591,6 +591,59 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             }
             #endregion
     
+
+            #region BT DW_01_01
+            {
+                var step = recipe.AddStep("Box Transfer Move To Drawer_01_01 Get Box");
+                step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
+
+                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacMcBoxTransferCmd.MoveToCabinetGet);
+                
+                step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1HomeClamped);
+            }
+            #endregion BT DW_01_01
+            #region BT OS
+
+            #endregion BT OS
+            #region OS BT
+            {
+                var step = recipe.AddStep("Open Stage Change State To Receive Box");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.Idle);
+
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.InputBox);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputBox);
+            }
+
+            {
+                var step = recipe.AddStep("Open Stage Calibration Box");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputBox);
+
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.CalibrationClosedBox);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+            }
+
+            {
+                var step = recipe.AddStep("Box Transfer Move To Unlock Box");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+                step.AddBeforeState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
+
+                step.AddCmd(EnumMachineID.MID_BT_A_ASB, EnumMacMcBoxTransferCmd.MoveToUnlock);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+                step.AddAfterState(EnumMachineID.MID_BT_A_ASB, EnumMacBoxTransferState.CB1Home);
+            }
+
+            {
+                var step = recipe.AddStep("Open Stage Change State To Receive Mask");
+                step.AddBeforeState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForUnlock);
+
+                step.AddCmd(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageCmd.OpenBox);
+
+                step.AddAfterState(EnumMachineID.MID_OS_A_ASB, EnumMacOpenStageState.WaitingForInputMask);
+            }
+            #endregion OS BT
             #region MT OS
             {
                 var step = recipe.AddStep("Mask Transfer Move To Open Stage Catch Mask");

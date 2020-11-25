@@ -763,13 +763,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                          try
                          {
                              HalBoxTransfer.RobotMoving(true);   // Fake OK
-
-                            // path: @"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json"
-                            var path = pathObj.FromOpenStageToCabinet01Home_PUT_PathFile();
-                            var moveREsult= HalBoxTransfer.ExePathMove(path);
+                             
+                             // path: @"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json"
+                             var path = pathObj.FromOpenStageToCabinet01Home_PUT_PathFile();
+                             var moveREsult = HalBoxTransfer.ExePathMove(path);
                              HalBoxTransfer.RobotMoving(false);  // Fake OK
-                            var intrudeResult =HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
-                        }
+                             var intrudeResult = HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
+                         }
                          catch (Exception ex)
                          {
                              throw new BoxTransferPathMoveFailException(ex.Message);
@@ -838,7 +838,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             {   // 非水晶盒與也非鐵盒
                                 HalBoxTransfer.RobotMoving(false);   // Fake OK
                                 HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
-                                throw new Exception("Unknown box type, can not move to lock box.");
+                                if (boxType != 0)//測試Fake State Machine先用BoxType.DontCare，因此先略過BoxType=0的錯誤
+                                    throw new Exception("Unknown box type, can not move to lock box.");
                             }
 
                             intrudeResult= HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
@@ -907,8 +908,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             else
                             {
                                 HalBoxTransfer.RobotMoving(false); // Fake OK
-                                var intrudeREsult=HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
-                                throw new Exception("Unknown box type, can not move to unlock box.");
+                                var intrudeREsult = HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                                if (boxType != 0)//測試Fake State Machine先用BoxType.DontCare，因此先略過BoxType=0的錯誤
+                                    throw new Exception("Unknown box type, can not move to unlock box.");
                             }
                            intrudeResult= HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(false);  // Fake OK
@@ -963,27 +965,27 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                      {
                          try
                          {
-                            // Robot 目前不在Cabinet 1 Home
-                            // path="D:\Positions\BTRobot\Cabinet_01_Home.json"
-                            var path = pathObj.Cabinet01HomePathFile();
+                             // Robot 目前不在Cabinet 1 Home
+                             // path="D:\Positions\BTRobot\Cabinet_01_Home.json"
+                             var path = pathObj.Cabinet01HomePathFile();
                              if (!HalBoxTransfer.CheckPosition(path)) // Fake OK
-                            { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to get box."); }
+                             { throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to cabinet to get box."); }
 
-                            // 判斷 目標 Drawer 是屬於哪個 Cabinet(1 or 2)? 
-                            var cabinetHome = drawerLocation.GetCabinetHomeCode();
+                             // 判斷 目標 Drawer 是屬於哪個 Cabinet(1 or 2)? 
+                             var cabinetHome = drawerLocation.GetCabinetHomeCode();
                              if (cabinetHome.Item1)
                              {
                                  HalBoxTransfer.RobotMoving(true);  // Fake OK
-                                if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
+                                 if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                                  {  // Cabinet 1
-
-                                    //path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json"
-                                    path = pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation);
-                                    var moveResult= HalBoxTransfer.ExePathMove(path);  // Fake OK
-                                }
+                                     
+                                     //path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json"
+                                     path = pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation);
+                                     var moveResult = HalBoxTransfer.ExePathMove(path);  // Fake OK
+                                 }
                                  else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
-                                {  // Cabinet 2
-
+                                 {  // Cabinet 2
+                                    
                                     // path:  @"D:\Positions\BTRobot\Cabinet_02_Home.json"
                                     path = pathObj.Cabinet02HomePathFile();
                                     var moveResult= HalBoxTransfer.ExePathMove(path);  // Fake OK

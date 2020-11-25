@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
 
 
 
-                    machineMgr.RecipeMgr.LoaddRecipe("UserData/Recipe/RecipeFlow_Ocap.xml");
+                    machineMgr.RecipeMgr.LoaddRecipe("../../UserData/Recipe/RecipeFlow_Ocap.xml");
                     machineMgr.SimulateFakeNormalAsyn();
 
 
