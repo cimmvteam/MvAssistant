@@ -763,22 +763,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                          try
                          {
                              HalBoxTransfer.RobotMoving(true);   // Fake OK
-
-<<<<<<< HEAD
+                             
                              // path: @"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json"
                              var path = pathObj.FromOpenStageToCabinet01Home_PUT_PathFile();
-                             HalBoxTransfer.ExePathMove(path);
+                             var moveREsult = HalBoxTransfer.ExePathMove(path);
                              HalBoxTransfer.RobotMoving(false);  // Fake OK
-                             HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
+                             var intrudeResult = HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
                          }
-=======
-                            // path: @"D:\Positions\BTRobot\OpenStage_Backward_Cabinet_01_Home_PUT.json"
-                            var path = pathObj.FromOpenStageToCabinet01Home_PUT_PathFile();
-                            var moveREsult= HalBoxTransfer.ExePathMove(path);
-                             HalBoxTransfer.RobotMoving(false);  // Fake OK
-                            var intrudeResult =HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
-                        }
->>>>>>> ceb2f2d084e0615e5e1369ec2901ac10f2118c99
                          catch (Exception ex)
                          {
                              throw new BoxTransferPathMoveFailException(ex.Message);
@@ -917,14 +908,9 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             else
                             {
                                 HalBoxTransfer.RobotMoving(false); // Fake OK
-<<<<<<< HEAD
-                                HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                                var intrudeREsult = HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
                                 if (boxType != 0)//測試Fake State Machine先用BoxType.DontCare，因此先略過BoxType=0的錯誤
                                     throw new Exception("Unknown box type, can not move to unlock box.");
-=======
-                                var intrudeREsult=HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
-                                throw new Exception("Unknown box type, can not move to unlock box.");
->>>>>>> ceb2f2d084e0615e5e1369ec2901ac10f2118c99
                             }
                            intrudeResult= HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(false);  // Fake OK
@@ -992,31 +978,14 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                                  HalBoxTransfer.RobotMoving(true);  // Fake OK
                                  if (cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_01_Home)
                                  {  // Cabinet 1
-
-<<<<<<< HEAD
+                                     
                                      //path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json"
                                      path = pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation);
-                                     HalBoxTransfer.ExePathMove(path);  // Fake OK
+                                     var moveResult = HalBoxTransfer.ExePathMove(path);  // Fake OK
                                  }
-=======
-                                    //path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_Drawer_01_01_GET.json"
-                                    path = pathObj.FromCabinet01HomeToDrawer_GET_PathFile(drawerLocation);
-                                    var moveResult= HalBoxTransfer.ExePathMove(path);  // Fake OK
-                                }
->>>>>>> ceb2f2d084e0615e5e1369ec2901ac10f2118c99
                                  else //if(cabinetHome.Item2 == BoxrobotTransferLocation.Cabinet_02_Home)
                                  {  // Cabinet 2
-
-<<<<<<< HEAD
-                                     // path:  @"D:\Positions\BTRobot\Cabinet_02_Home.json"
-                                     path = pathObj.Cabinet02HomePathFile();
-                                     HalBoxTransfer.ExePathMove(path);  // Fake OK
-
-                                     // path: @"D:\Positions\BTRobot\Cabinet_02_Home_Forward_Drawer_07_01_GET.json"
-                                     path = pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation);
-                                     HalBoxTransfer.ExePathMove(path); // Fake OK
-                                 }
-=======
+                                    
                                     // path:  @"D:\Positions\BTRobot\Cabinet_02_Home.json"
                                     path = pathObj.Cabinet02HomePathFile();
                                     var moveResult= HalBoxTransfer.ExePathMove(path);  // Fake OK
@@ -1025,7 +994,6 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                                     path = pathObj.FromCabinet02HomeToDrawer_GET_PathFile(drawerLocation);
                                    moveResult=  HalBoxTransfer.ExePathMove(path); // Fake OK
                                 }
->>>>>>> ceb2f2d084e0615e5e1369ec2901ac10f2118c99
                                  HalBoxTransfer.RobotMoving(false);
                              }
                          }
