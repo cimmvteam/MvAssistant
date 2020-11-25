@@ -53,7 +53,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                 var openStage = halContext.GetOpenStageAssembly(autoConnect);
                 universal.HalConnect();
                 boxTransfer.HalConnect();
-                boxTransfer.CameraShot("TTTTTTT");
+               // boxTransfer.CameraShot("TTTTTTT");
                 
                 //   halContext.DrawersConnect();
                 // connect 所有 Drawer
