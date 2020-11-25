@@ -371,9 +371,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tLoadWaitingMoveTrayToIn_LoadMoveTrayToInStart = NewTransition(sLoadWaitingMoveTrayToIn, sLoadMoveTrayToInStart, EnumMacCabinetDrawerTransition.LoadWaitingMoveTrayToIn_LoadMoveTrayToInStart);
 
             MacTransition tLoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart = NewTransition(sLoadCheckBoxExistenceComplete, sLoadRejectTrayToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart);
-            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart, sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectToOutStart_LoadRejectTrayToOutIng);
-            MacTransition tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete = NewTransition(sLoadRejectTrayToOutIng, sLoadRejectTrayToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectToOutIng_LoadRejectToOutComplete);
-            MacTransition tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectTrayToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectToOutComplete_LoadWaitingPutBoxOnTray);
+            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart, sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectTrayToOutStart_LoadRejectTrayToOutIng);
+            MacTransition tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete = NewTransition(sLoadRejectTrayToOutIng, sLoadRejectTrayToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectTrayToOutIng_LoadRejectTrayToOutComplete);
+            MacTransition tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectTrayToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray);
 
             MacTransition tLoadMoveTrayToInStart_LoadMoveTrayToInIng = NewTransition(sLoadMoveTrayToInStart, sLoadMoveTrayToInIng, EnumMacCabinetDrawerTransition.LoadMoveTrayToInStart_LoadMoveTrayToInIng);
             MacTransition tLoadMoveTrayToInIng_LoadMoveTrayToInComplete = NewTransition(sLoadMoveTrayToInIng, sLoadMoveTrayToInComplete, EnumMacCabinetDrawerTransition.LoadMoveTrayToInIng_LoadMoveTrayToInComplete);
