@@ -553,8 +553,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
         public void GenRecipeBankOut(BoxType boxType, EnumMachineID drawerEnumMachineID)
         {
             var recipe = new MacRecipe();
-           
-          
+
+            #region King Add :)
             var macEnumDeviceDrawerConvert = drawerEnumMachineID.ToMacEnumDeviceForDrawer();
             var boxrobotTransferLocationConvert= drawerEnumMachineID.ToBoxrobotTransferLocationForDrawer();
             var enumDeviceDrawer = macEnumDeviceDrawerConvert.Item2;
@@ -590,7 +590,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
             }
             #endregion
-    
+            #endregion 
 
             #region BT DW_01_01
             {
