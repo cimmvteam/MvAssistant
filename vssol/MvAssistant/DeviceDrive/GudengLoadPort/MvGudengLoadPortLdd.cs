@@ -266,18 +266,20 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
 
+        /**
         /// <summary>Fake Command DockRequest(100)</summary>
         /// <remarks>
         /// 2020/10/23 14:20 King [C]
         /// </remarks>
-        public string FakeCommandDockRequest()
+        /// 
+         public string FakeCommandDockRequest()
         {
 
             string command = null;
             command = new DockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
             return command;
         }
-
+        */
 
         /// <summary>Command UndockRequest(101)</summary>
         /// <remarks></remarks>
@@ -294,6 +296,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
 
+        /**
         /// <summary>Command UndockRequest(101)</summary>
         /// <remarks>
         /// 2020/10/23 14:24 King[C]
@@ -306,7 +309,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
          //   Send(command);
             return command;
         }
-
+        */
 
 
 
@@ -424,6 +427,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
 
+        /**
         /// <summary>AlarmReset(109)</summary>
         /// <remarks>
         /// 2020/10/23 14:12 King [C]
@@ -434,7 +438,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             command = new AlarmReset().GetCommandText<IHostToLoadPortCommandParameter>(null);
             return command;
         }
-
+        */
         /// <summary>Command AskStagePosition(110)</summary>
         /// <remarks>Main Event: StagePosition</remarks>
         public string CommandAskStagePosition()
@@ -472,6 +476,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             return command;
         }
 
+        /**
         /// <summary>FakeCommand Initilial Request(112)</summary>
         /// <remarks>
         /// 2020/10/23 King [C]
@@ -482,7 +487,7 @@ namespace MvAssistant.DeviceDrive.GudengLoadPort
             command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
             return command;
         }
-
+        */
 
         /// <summary>Command ManualClamperLock</summary>
         /// <remarks>Main Event: Clamper</remarks>
