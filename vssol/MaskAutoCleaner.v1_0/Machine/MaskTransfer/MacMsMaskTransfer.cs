@@ -35,10 +35,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
     public class MacMsMaskTransfer : MacMachineStateBase
     {
         public IMacHalMaskTransfer HalMaskTransfer { get { return (IMacHalMaskTransfer)this.halAssembly; } }
-        private IMacHalInspectionCh HalInspectionCh { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_IC_A_ASB.ToString()).HalAssembly as IMacHalInspectionCh; } }
-        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
-        private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
-        
+
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
         MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
@@ -1537,7 +1534,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         CheckEquipmentStatus();
                         CheckAssemblyAlarmSignal();
                         CheckAssemblyWarningSignal();
-                        if (!HalInspectionCh.ReadRobotIntrude(true))
+                        if (!Mediater.RobotIntrudeInspCh(true))
                             throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                         return true;
                     },
@@ -1622,7 +1619,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromICStageToICBackSidePathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromICBackSideToICHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
-                            HalInspectionCh.ReadRobotIntrude(false);
+                            Mediater.RobotIntrudeInspCh(false);
                         }
                         catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
@@ -1650,7 +1647,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         CheckEquipmentStatus();
                         CheckAssemblyAlarmSignal();
                         CheckAssemblyWarningSignal();
-                        if (!HalInspectionCh.ReadRobotIntrude(true))
+                        if (!Mediater.RobotIntrudeInspCh(true))
                             throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                         return true;
                     },
@@ -1735,7 +1732,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromICStageToICBackSidePathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromICBackSideToICHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
-                            HalInspectionCh.ReadRobotIntrude(false);
+                            Mediater.RobotIntrudeInspCh(false);
                         }
                         catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
@@ -1765,7 +1762,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         CheckEquipmentStatus();
                         CheckAssemblyAlarmSignal();
                         CheckAssemblyWarningSignal();
-                        if (!HalInspectionCh.ReadRobotIntrude(true))
+                        if (!Mediater.RobotIntrudeInspCh(true))
                             throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                         return true;
                     },
@@ -1850,7 +1847,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromICStageToICFrontSidePathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromICFrontSideToICHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
-                            HalInspectionCh.ReadRobotIntrude(false);
+                            Mediater.RobotIntrudeInspCh(false);
                         }
                         catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
@@ -1878,7 +1875,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         CheckEquipmentStatus();
                         CheckAssemblyAlarmSignal();
                         CheckAssemblyWarningSignal();
-                        if (!HalInspectionCh.ReadRobotIntrude(true))
+                        if (!Mediater.RobotIntrudeInspCh(true))
                             throw new MaskTransferPathMoveFailException("Inspection Chamber not allowed to intrude !");
                         return true;
                     },
@@ -1964,7 +1961,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromICStageToICFrontSidePathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromICFrontSideToICHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
-                            HalInspectionCh.ReadRobotIntrude(false);
+                            Mediater.RobotIntrudeInspCh(false);
                         }
                         catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
@@ -2782,7 +2779,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     {
                         try
                         {
-                            HalOpenStage.ReadRobotIntrude(null, true);
+                            Mediater.RobotIntrudeOpenStage(null, true);
                             HalMaskTransfer.RobotMoving(true);
                             HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
                             HalMaskTransfer.RobotMoving(false);
@@ -2860,7 +2857,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
-                            HalOpenStage.ReadRobotIntrude(null, false);
+                            Mediater.RobotIntrudeOpenStage(null, false);
                         }
                         catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
@@ -2894,7 +2891,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     {
                         try
                         {
-                            HalOpenStage.ReadRobotIntrude(null, true);
+                            Mediater.RobotIntrudeOpenStage(null, true);
                             HalMaskTransfer.RobotMoving(true);
                             HalMaskTransfer.ExePathMove(fileObj.FromLPHomeToOSPathFile());
                             HalMaskTransfer.RobotMoving(false);
@@ -2972,7 +2969,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                             HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
-                            HalOpenStage.ReadRobotIntrude(null, false);
+                            Mediater.RobotIntrudeOpenStage(null, false);
                         }
                         catch (Exception ex) { throw new MaskTransferPathMoveFailException(ex.Message); }
                     },
@@ -3189,23 +3186,23 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
         private bool CheckEquipmentStatus()
         {
             string Result = null;
-            if (HalUniversal.ReadPowerON() == false) Result += "Equipment is power off now, ";
-            if (HalUniversal.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
-            if (HalUniversal.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
-            if (HalUniversal.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
-            if (HalUniversal.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
-            if (HalUniversal.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
-            if (HalUniversal.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
-            if (HalUniversal.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
-            if (HalUniversal.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
-            if (HalUniversal.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
+            if (Mediater.ReadPowerON() == false) Result += "Equipment is power off now, ";
+            if (Mediater.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
+            if (Mediater.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
+            if (Mediater.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
+            if (Mediater.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
+            if (Mediater.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
+            if (Mediater.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
+            if (Mediater.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
+            if (Mediater.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
+            if (Mediater.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
 
             if (Result == null)
                 return true;
@@ -3219,8 +3216,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //var CC_Alarm = HalUniversal.ReadAlarm_CleanCh();
             //var CF_Alarm = HalUniversal.ReadAlarm_CoverFan();
             //var BT_Alarm = HalUniversal.ReadAlarm_BTRobot();
-            var MTClampInsp_Alarm = HalUniversal.ReadAlarm_MTClampInsp();
-            var MT_Alarm = HalUniversal.ReadAlarm_MTRobot();
+            var MTClampInsp_Alarm = Mediater.ReadAlarm_MTClampInsp();
+            var MT_Alarm = Mediater.ReadAlarm_MTRobot();
             //var IC_Alarm = HalUniversal.ReadAlarm_InspCh();
             //var LP_Alarm = HalUniversal.ReadAlarm_LoadPort();
             //var OS_Alarm = HalUniversal.ReadAlarm_OpenStage();
@@ -3244,8 +3241,8 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             //var CC_Warning = HalUniversal.ReadWarning_CleanCh();
             //var CF_Warning = HalUniversal.ReadWarning_CoverFan();
             //var BT_Warning = HalUniversal.ReadWarning_BTRobot();
-            var MTClampInsp_Warning = HalUniversal.ReadWarning_MTClampInsp();
-            var MT_Warning = HalUniversal.ReadWarning_MTRobot();
+            var MTClampInsp_Warning = Mediater.ReadWarning_MTClampInsp();
+            var MT_Warning = Mediater.ReadWarning_MTRobot();
             //var IC_Warning = HalUniversal.ReadWarning_InspCh();
             //var LP_Warning = HalUniversal.ReadWarning_LoadPort();
             //var OS_Warning = HalUniversal.ReadWarning_OpenStage();
