@@ -28,7 +28,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// </summary>
         /// <param name="filePath">xml file path for loading</param>
         /// <returns></returns>
-        public static MacMachineMgrCfg LoadFromXmlFile(string filePath = "../../UserData/MachineMgr.config") { return MvUtil.LoadFromXmlFile<MacMachineMgrCfg>(filePath); }
+        public static MacMachineMgrCfg LoadFromXmlFile(string filePath = "../../UserData/MachineMgr.config.fake") { return MvUtil.LoadFromXmlFile<MacMachineMgrCfg>(filePath); }
         /// <summary>
         /// serialize (序列化) manifest object, and save as xml file
         /// </summary>
