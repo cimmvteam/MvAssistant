@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
@@ -35,22 +36,27 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
 
                 try
                 {
-                    ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
-                    ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
-                    ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
-                    ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");//需要有介面卡的主機才能執行此動作
-                    cc.Camera_Insp_CapToSave("D:/Image/CC/Insp", "jpg");
-                    lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
-                    lpa.Camera_Barcode_CapToSave("D:/Image/LP/LPA/Barcode", "jpg");
-                    lpb.Camera_LoadPortB_CapToSave("D:/Image/LP/LPB/Insp", "jpg");
-                    os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
-                    os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
-                    os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
-                    os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
-                    bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                    for (int i = 0; i < 2000; i++)
+                    {
+                        //ic.Camera_SideDfs_CapToSave("D:/Image/IC/SigeDfs", "jpg");
+                        //ic.Camera_TopDfs_CapToSave("D:/Image/IC/TopDfs", "jpg");
+                        //ic.Camera_SideInsp_CapToSave("D:/Image/IC/SideInsp", "jpg");
+                        ic.Camera_TopInsp_CapToSave("D:/Image/IC/TopInsp", "jpg");//需要有介面卡的主機才能執行此動作
+                        //cc.Camera_Insp_CapToSave("D:/Image/CC/Insp", "jpg");
+                        //lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
+                        //lpa.Camera_Barcode_CapToSave("D:/Image/LP/LPA/Barcode", "jpg");
+                        //lpb.Camera_LoadPortB_CapToSave("D:/Image/LP/LPB/Insp", "jpg");
+                        //os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
+                        //os.Camera_Side_CapToSave("D:/Image/OS/Side", "jpg");
+                        //os.Camera_Left_CapToSave("D:/Image/OS/Left", "jpg");
+                        //os.Camera_Right_CapToSave("D:/Image/OS/Right", "jpg");
+                        //bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
+                        Thread.Sleep(100);
+                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    throw ex;
                 }
                 
             }
