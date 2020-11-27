@@ -99,7 +99,11 @@
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToLockEntryEventArgs.cs" />
     <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateOpenStageClampingEntryEventArgs.cs" />
     <Compile Include="Machine\CabinetDrawer\EnumMacMcCabinetDrawerCmd.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\EnqueueUniqueMaskBoxForBankOutQueResult.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\MaskBoxForBankOutQue.cs" />
     <Compile Include="Machine\Cabinet\EnumMacMcCabinetCmd.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\MaskBoxInfo.cs" />
+    <Compile Include="Machine\Cabinet\MacMcCabinet.cs" />
     <Compile Include="Machine\CleanCh\EnumMacCleanChCmd.cs" />
     <Compile Include="Machine\InspectionCh\EnumMacInspectionChCmd.cs" />
     <Compile Include="Machine\OpenStage\EnumMacOpenStageCmd.cs" />

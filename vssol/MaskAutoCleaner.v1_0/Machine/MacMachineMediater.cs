@@ -1,4 +1,5 @@
-﻿using MvAssistant;
+﻿using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues;
+using MvAssistant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MaskAutoCleaner.v1_0.Machine
     {
 
         protected MacMachineMgr MachineMgr;//存取此物件需要透過Mediater, 不得開放給其它物件使用
+
+        public MaskBoxForBankOutQue MaskBoxForBankOutQue = MaskBoxForBankOutQue.GetInstance();
 
         public MacMachineMediater(MacMachineMgr machineMgr) { this.MachineMgr = machineMgr; }
         ~MacMachineMediater() { this.Dispose(false); }

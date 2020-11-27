@@ -77,6 +77,7 @@
     <Compile Include="GenCfg\UtGenMachineMgrCfgTest.cs" />
     <Compile Include="GenCfg\UtGenRecipe.cs" />
     <Compile Include="GenCfg\UtGenMachineMgrCfgReal.cs" />
+    <Compile Include="Machine\UtQueue.cs" />
     <Compile Include="Machine\UtScenario.cs" />
     <Compile Include="Machine\UtStressTest.cs" />
     <Compile Include="Machine\UtMcBoxTransfer.cs" />
