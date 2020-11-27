@@ -14,11 +14,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     {
 
         public MacMsCabinet StateMachine { get { return this.MsAssembly as MacMsCabinet; } set { this.MsAssembly = value; } }
+
+        
+        public Object[] InvokeParameters;
         public MacMcCabinet()
         {
             this.StateMachine = new MacMsCabinet();
+            InvokeParameters = null;
         }
-        public Object[] InvokeParameters;
+        //public Object[] InvokeParameters;
         public override int RequestProcMsg(IMacMsg msg)
         {
             var msgCmd = msg as MacMsgCommand;
@@ -26,7 +30,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var type = typeof(MacMsCabinet);
                 var method = type.GetMethod(msgCmd.Command);
-                method.Invoke(this.StateMachine, null);
+                method.Invoke(this.StateMachine, InvokeParameters);
             }
             var msgTran = msg as MacMsgTransition;
             if (msgTran != null)

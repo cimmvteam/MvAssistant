@@ -16,26 +16,26 @@
     <Device DevConnStr="127.0.0.1;3039" DeviceName="masktransfer_assembly" DriverId="bb201700-2f47-4a4f-847a-5e4ac6b228a3" ID="DE_MT_A_ASB" PositionId="MaskTransfer01" />
     <Device DeviceName="cabinet_assembly" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_ASB" PositionId="Cabinet01">
       <Devices>
-        <Device DeviceName="cabinet_drawer_01_01" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_01_01" PositionId="Drawer01">
-          <Devices>
+        <!--<Device DeviceName="cabinet_drawer_01_01" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_01_01" PositionId="Drawer01">
+          <Devices>-->
             <Device DevConnStr="ip=192.168.0.31;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_01" />
-          </Devices>
-        </Device>
-        <Device DeviceName="cabinet_drawer_01_02" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_01_02" PositionId="Drawer02">
-          <Devices>
-            <Device DevConnStr="ip=192.168.0.32;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02" DeviceName="cabinet_drawer_01_01" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_02" />
-          </Devices>
+         <!-- </Devices>
+        </Device>-->
+        <!--<Device DeviceName="cabinet_drawer_01_02" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_01_02" PositionId="Drawer02">
+          <Devices>-->
+            <Device DevConnStr="ip=192.168.0.32;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02" DeviceName="cabinet_drawer_01_02" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_02" />
+          <!--</Devices>
         </Device>
         <Device DeviceName="cabinet_drawer_01_03" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_01_03" PositionId="Drawer03">
-          <Devices>
+          <Devices> -->
             <Device DevConnStr="ip=192.168.0.33;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03" DeviceName="cabinet_drawer_01_03" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_03" />
-          </Devices>
+         <!-- </Devices>
         </Device>
         <Device DeviceName="cabinet_drawer_01_04" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_01_04" PositionId="Drawer04">
-          <Devices>
+          <Devices>-->
             <Device DevConnStr="ip=192.168.0.41;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04" DeviceName="cabinet_drawer_01_04" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_04" />
-          </Devices>
-        </Device>
+         <!-- </Devices>
+        </Device>-->
       </Devices>
     </Device>
     <Device DeviceName="openstage_assembly" DriverId="31473e4f-16e9-4824-9032-29cb1d71399b" ID="DE_OS_A_ASB" PositionId="OpenStage01" />

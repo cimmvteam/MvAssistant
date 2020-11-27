@@ -2,7 +2,10 @@
 using MaskAutoCleaner.v1_0.Machine.Drawer;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions;
+using MvAssistant.Mac.v1_0.Hal.Assembly;
 using MvAssistant.Mac.v1_0.Hal.CompDrawer;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using MvAssistant.Mac.v1_0.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,50 +20,40 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     public class MacMsCabinet : MacMachineStateBase
     {
 
-        /*
-        private static List<MacMcCabinetDrawer> MachineControls = null;
-        public static Dictionary<EnumMachineID, MacMsCabinetDrawer> _dicStateMachines = null;
-        public readonly static object _getStateMachineLockObj = new object();
-        public static Dictionary<EnumMachineID, MacMsCabinetDrawer> DicStateMachines
+       Dictionary <BoxrobotTransferLocation,IMacHalDrawer> dicMacHalDrawers = null;
+       private readonly static object GetDrawerLockObj = new object();
+        /// <summary>取得所有的 Drawer 與 BoxrobotTransferLocation 的  Dictionary</summary>
+        /// <returns></returns>
+        public Dictionary<BoxrobotTransferLocation,IMacHalDrawer> GetDicMacHalDrawers()
         {
-            get
-            {
-
-                if (_dicStateMachines==null)
+               if (dicMacHalDrawers == null)
                 {
-                    lock (_getStateMachineLockObj)
+                    lock (GetDrawerLockObj)
                     {
-                        if (_dicStateMachines == null)
+                        if (dicMacHalDrawers == null)
                         {
-
-                            var DrawerMachineIdRange = EnumMachineID.MID_DRAWER_01_01.GetDrawerStateMachineIDRange();
-                            
-                            var MachineMgr = new MacMachineMgr();
-                            MachineMgr.MvCfInit();
-                            MachineControls = new List<MacMcCabinetDrawer>();
-                            _dicStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
-                            for (var i = (int)DrawerMachineIdRange.StartID; i <= (int)DrawerMachineIdRange.EndID; i++)
+                            dicMacHalDrawers = new Dictionary<BoxrobotTransferLocation, IMacHalDrawer>();
+                            var drawerIdRange = MacEnumDevice.boxtransfer_assembly.GetDrawerRange();
+                            for (var i = drawerIdRange.StartID; i <= drawerIdRange.EndID; i++)
                             {
-                                var machineId = ((EnumMachineID)i);
-                                try
-                                {
-                                    var control = MachineMgr.CtrlMachines[machineId.ToString()] as MacMcCabinetDrawer;
-                                    MachineControls.Add(control);
-                                    _dicStateMachines.Add(machineId, control.StateMachine);
+                               try
+                               {
+                                //var drawer = (this.halAssembly.Hals[i.ToString()] as IMacHalCabinet).MacHalDrawer as IMacHalDrawer;
+                                var drawer = this.halAssembly.Hals[i.ToString()] as IMacHalDrawer;
+                                var drawerLocation = i.ToBoxrobotTransferLocation();
+                                   dicMacHalDrawers.Add(drawerLocation, drawer);
                                 }
-                                catch (Exception ex)
-                                {
+                               catch(Exception ex)
+                               {
 
-                                }
+                               }
                             }
+                            BindDrawerEventHandler();
                         }
                     }
                 }
-                return _dicStateMachines;
-            }
-
+                return dicMacHalDrawers;
         }
-    */
 
         /// <summary>取得指定的 State Machine</summary>
         /// <param name="machineId"></param>
@@ -80,6 +73,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public Dictionary<EnumMachineID, MacMsCabinetDrawer> DicCabinetDrawerStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
         public override void SystemBootup()
         {
+            
             Debug.WriteLine("Command: SystemBootup");
             var transition = this.Transitions[EnumMacCabinetTransition.Start_NULL.ToString()];
             var state = transition.StateFrom;
@@ -137,11 +131,105 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             }
         }
 
+
+        #endregion
+
+        /// <summary>綁定 事件程序</summary>
+        /// <remarks>
+        /// <para>目前只綁定必要的</para>
+        /// </remarks>
+        void BindDrawerEventHandler()
+        {
+            EventHandler drawerINIOKHandler  = (sender, e)=>
+            {
+
+            };
+            EventHandler drawerINIFailedHandler = (sender, e) =>
+            {
+
+            };
+            EventHandler drawerTrayArriveHomeHandler = (sender, e) =>
+            {
+
+            };
+            EventHandler drawerTrayArriveInHandler = (sender, e) =>
+            {
+
+            };
+            EventHandler drawerTrayArriveOutHandler = (sender, e) =>
+            {
+
+            };
+
+            EventHandler drawerOnSysyStartUpHandler = (sender, e) =>
+            {
+
+            };
+
+            EventHandler drawerOnButtonEventHandler = (sender, e) =>
+            {
+
+            };
+            foreach (var ele in dicMacHalDrawers)
+            {
+                var drawer = ele.Value;
+                drawer.OnINIOKHandler -= drawerINIOKHandler;
+                drawer.OnINIOKHandler += drawerINIOKHandler;
+
+                drawer.OnINIFailedHandler -= drawerINIFailedHandler;
+                drawer.OnINIFailedHandler += drawerINIFailedHandler;
+
+                drawer.OnTrayArriveHomeHandler -= drawerTrayArriveHomeHandler;
+                drawer.OnTrayArriveHomeHandler += drawerTrayArriveHomeHandler;
+
+                drawer.OnTrayArriveOutHandler -= drawerTrayArriveOutHandler;
+                drawer.OnTrayArriveOutHandler += drawerTrayArriveOutHandler;
+
+                drawer.OnTrayArriveInHandler -= drawerTrayArriveInHandler;
+                drawer.OnTrayArriveInHandler += drawerTrayArriveInHandler;
+
+                drawer.OnSysStartUpHandler -= drawerOnSysyStartUpHandler;
+                drawer.OnSysStartUpHandler += drawerOnSysyStartUpHandler;
+
+                drawer.OnButtonEventHandler -= drawerOnButtonEventHandler;
+                drawer.OnButtonEventHandler += drawerOnButtonEventHandler;
+
+                drawer.OnDetectedEmptyBoxHandler -= null;
+                drawer.OnDetectedEmptyBoxHandler += null;
+
+                drawer.OnDetectedHasBoxHandler -= null;
+                drawer.OnDetectedHasBoxHandler += null;
+
+                drawer.OnTrayMotionFailedHandler -= null;
+                drawer.OnTrayMotionFailedHandler += null;
+
+                drawer.OnERRORErrorHandler -= null;
+                drawer.OnERRORErrorHandler -= null;
+
+                drawer.OnERRORREcoveryHandler -= null;
+                drawer.OnERRORREcoveryHandler += null;
+
+                drawer.OnPositionStatusHandler -= null;
+                drawer.OnPositionStatusHandler += null;
+
+                drawer.OnTrayMotionFailedHandler -= null;
+                drawer.OnTrayMotionFailedHandler += null;
+
+                drawer.OnTrayMotioningHandler -= null;
+                drawer.OnTrayMotioningHandler += null;
+
+                drawer.OnTrayMotionOKHandler -= null;
+                drawer.OnTrayMotionOKHandler += null;
+
+                drawer.OnTrayMotionSensorOFFHandler -= null;
+                drawer.OnTrayMotionSensorOFFHandler += null;
+
+                
+
+            }
+        }
         
-        #endregion 
 
-
-      
         public MacMsCabinet()
         {
             //_dicCabinetDrawerStates = new Dictionary<string, MacMsCabinetDrawer>();
@@ -535,4 +623,6 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         public List<MacMsCabinetDrawer> SynchronousDrawerStates { get; private set; }
     }
+
+   
 }

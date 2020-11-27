@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -578,7 +579,14 @@ namespace MvAssistant.Mac.v1_0.Manifest
             return new MacEnumDeviceDrawerRange();
         }
 
-
+        public static BoxrobotTransferLocation ToBoxrobotTransferLocation(this MacEnumDevice instance)
+        {
+            var idRange = instance.GetDrawerRange();
+            var drawerLocationRange = BoxrobotTransferLocation.Dontcare.GetDrawerRange();
+            var diff = instance - idRange.StartID;
+            var rtnV = drawerLocationRange.Start + diff;
+            return rtnV;
+        }
 
     }
 }
