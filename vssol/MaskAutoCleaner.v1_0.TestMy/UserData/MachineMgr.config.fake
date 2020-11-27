@@ -47,6 +47,7 @@
       <MachineCtrlType Guid="afeffea4-b491-4a75-9e31-bddbb5131262" />
       <HalId>DE_UNI_A_ASB</HalId>
     </MacMachineCtrlCfg>
+   <!-- Update MachineMgr.config.fake
     <MacMachineCtrlCfg>
       <ID>MID_DRAWER_01_01</ID>
       <MachineCtrlType Guid="cfdd465e-0156-43ce-8abf-b3eeffbb510f" />
@@ -66,6 +67,6 @@
       <ID>MID_DRAWER_01_04</ID>
       <MachineCtrlType Guid="cfdd465e-0156-43ce-8abf-b3eeffbb510f" />
       <HalId>DE_CB_A_01_04</HalId>
-    </MacMachineCtrlCfg>
+    </MacMachineCtrlCfg>-->
   </MachineCtrls>
 </MacMachineMgrCfg>
