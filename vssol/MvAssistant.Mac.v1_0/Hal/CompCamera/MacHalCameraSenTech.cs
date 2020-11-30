@@ -101,7 +101,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             {
                 if (!Directory.Exists(strSavePath + "/" + ldd.getDeviceName()))
                     Directory.CreateDirectory(strSavePath + "/" + ldd.getDeviceName());
-                strSavePath += ("/" + ldd.getDeviceName() + "/" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+                strSavePath += ("/" + ldd.getDeviceName() + "/" + DateTime.Now.ToString("yyyyMMdd_HHmmssfff"));
                 if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
                 {
                     strSavePath += ".bmp";

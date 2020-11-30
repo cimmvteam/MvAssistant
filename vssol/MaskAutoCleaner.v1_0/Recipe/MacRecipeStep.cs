@@ -42,11 +42,11 @@ namespace MaskAutoCleaner.v1_0.Recipe
             this.StatesAfter.Add(new MacRecipeMachineState(mid, state));
         }
 
-        public void AddCmd(Enum mid, Enum transition)
+        public void AddCmd(Enum mid, Enum command)
         {
             var obj = this.StatesCmd.Where(x => x.Key == mid.ToString()).FirstOrDefault();
             if (obj != null) throw new MacException("Exist machine id");
-            this.StatesCmd.Add(new MacRecipeMachineState(mid, transition));
+            this.StatesCmd.Add(new MacRecipeMachineState(mid, command));
         }
 
 

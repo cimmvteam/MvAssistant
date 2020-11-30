@@ -71,7 +71,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompCamera
             {
                 if (!Directory.Exists(strSavePath + "/CameraLink"))
                     Directory.CreateDirectory(strSavePath + "/CameraLink");
-                strSavePath += ("/CameraLink/" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+                strSavePath += ("/CameraLink/" + DateTime.Now.ToString("yyyyMMdd_HHmmssfff"));
                 if (sFT == "bitmap" || sFT == "bmp" || sFT == ".bmp")
                 {
                     strSavePath += ".bmp";
