@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public Object[] InvokeParameters;
         public MacMcCabinet()
         {
-            this.StateMachine = new MacMsCabinet();
+            this.StateMachine = MacMsCabinet.GetInstance();
             InvokeParameters = null;
         }
         //public Object[] InvokeParameters;

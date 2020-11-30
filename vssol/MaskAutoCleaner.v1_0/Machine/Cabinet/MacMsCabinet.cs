@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
+﻿using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus;
+using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 using MaskAutoCleaner.v1_0.Machine.Drawer;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions;
@@ -12,6 +13,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet
@@ -19,7 +21,27 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     [Guid("11111111-1111-1111-1111-111111111111")]// TODO: UPdate this Guid
     public class MacMsCabinet : MacMachineStateBase
     {
+        private DrawerInitialStatus DrawerInitialStatus = null;
+        private DrawerMoveTrayToOutStatus DrawerMoveTrayToOutStatus = null;
 
+        private static readonly object lockObj =new object();
+        private static MacMsCabinet _instance = null;
+        private BankType BankType = BankType.DontCare;
+        public static MacMsCabinet GetInstance()
+        {
+            if (_instance == null)
+            {
+                lock (lockObj)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new MacMsCabinet();
+                    }
+                }
+            }
+            return _instance;
+        }
+       
        Dictionary <BoxrobotTransferLocation,IMacHalDrawer> dicMacHalDrawers = null;
        private readonly static object GetDrawerLockObj = new object();
         /// <summary>取得所有的 Drawer 與 BoxrobotTransferLocation 的  Dictionary</summary>
@@ -73,11 +95,31 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public Dictionary<EnumMachineID, MacMsCabinetDrawer> DicCabinetDrawerStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
         public override void SystemBootup()
         {
-            
+
+            /**
             Debug.WriteLine("Command: SystemBootup");
             var transition = this.Transitions[EnumMacCabinetTransition.Start_NULL.ToString()];
             var state = transition.StateFrom;
             state.ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
+           */
+
+
+            Debug.WriteLine("Command: SystemBootup");
+            var transition = this.Transitions[EnumMacCabinetTransition.Start_Idle.ToString()];
+            var state = transition.StateFrom;
+            state.ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
+        }
+
+
+
+        public void BankOutLoadMoveTraysToOut(int drawerCounts)
+        {
+
+            Debug.WriteLine("Command: MoveTrayToOut, DrawerCounts: " + drawerCounts);
+            BankType.ToBankOut();
+            var transition = this.Transitions[EnumMacCabinetTransition.Idle_MoveTraysToOutForPutBoxOnTrayStart.ToString()];
+            var state = transition.StateFrom;
+            state.ExecuteCommandAtExit(transition, null, new MacStateEntryEventArgs(drawerCounts));
         }
 
         /// <summary>load</summary>
@@ -142,15 +184,22 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         {
             EventHandler drawerINIOKHandler  = (sender, e)=>
             {
-
+                DrawerInitialStatus.ActionOkIncrease();
             };
             EventHandler drawerINIFailedHandler = (sender, e) =>
             {
-
+                DrawerInitialStatus.ActionFailedIncrease();
             };
             EventHandler drawerTrayArriveHomeHandler = (sender, e) =>
             {
+                if (this.DrawerInitialStatus != null && this.DrawerInitialStatus.IsActionIng())
+                {
+                    drawerINIOKHandler(this, e);
+                }
+                else
+                {
 
+                }
             };
             EventHandler drawerTrayArriveInHandler = (sender, e) =>
             {
@@ -158,6 +207,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
             EventHandler drawerTrayArriveOutHandler = (sender, e) =>
             {
+                if(this.DrawerMoveTrayToOutStatus != null && this.DrawerMoveTrayToOutStatus.IsActionIng())
+                {
+                    this.DrawerMoveTrayToOutStatus.ActionOkIncrease();
+                }
 
             };
 
@@ -230,10 +283,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
         
 
-        public MacMsCabinet()
+        private MacMsCabinet()
         {
+            if (_instance== null){
+                lock (lockObj)
+                {
+                   if (_instance == null)
+                    {
+                        LoadStateMachine();
+                        _instance = this;
+
+                    }
+
+                }
+            }
+            
             //_dicCabinetDrawerStates = new Dictionary<string, MacMsCabinetDrawer>();
-            LoadStateMachine();
+           
         }
 
        
@@ -242,8 +308,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public override void LoadStateMachine()
         {
 
+
             #region state
-            MacState sStart= NewState(EnumMacCabinetState.Start);
+            //--------------------------------------
+            MacState sIdle = NewState(EnumMacCabinetState.Idle); // 目前没事
+            MacState sMoveTraysToOutForPutBoxOnTrayStart = NewState(EnumMacCabinetState.MoveTraysToOutForPutBoxOnTraysStart);// 將Drawer 移出至Out For Bank
+            MacState sMoveTraysToOutForPutBoxOnTrayIng = NewState(EnumMacCabinetState.MoveTraysToOutForPutBoxOnTraysIng);// 將Drawer 移出至Out For Bank
+            MacState sMoveTraysToOutForPutBoxOnTrayComplete = NewState(EnumMacCabinetState.MoveTraysToOutForPutBoxOnTraysComplete);// 將Drawer 移出至Out For Bank
+            //*************************************
+
+            MacState sStart = NewState(EnumMacCabinetState.Start);
 
 
             MacState sLoadMoveDrawerTraysToOutStart = NewState(EnumMacCabinetState.LoadMoveDrawerTraysToOutStart);
@@ -260,7 +334,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             #endregion state
 
             #region transition
-           
+            //----------------------
+            MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacCabinetTransition.Start_Idle);
+            MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacCabinetTransition.Idle_NULL);
+
+            MacTransition tIdle_MoveTraysToOutForPutBoxOnTrayStart = NewTransition(sIdle, sMoveTraysToOutForPutBoxOnTrayStart, EnumMacCabinetTransition.Idle_MoveTraysToOutForPutBoxOnTrayStart);
+            MacTransition tMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng = NewTransition(sMoveTraysToOutForPutBoxOnTrayStart, sMoveTraysToOutForPutBoxOnTrayIng, EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng);
+            MacTransition tMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete = NewTransition(sMoveTraysToOutForPutBoxOnTrayIng, sMoveTraysToOutForPutBoxOnTrayComplete, EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete);
+            MacTransition tMoveTraysToOutForPutBoxOnTrayComplete_Idle= NewTransition( sMoveTraysToOutForPutBoxOnTrayComplete, sIdle,EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayComplete_Idle);
+
+
+            //******************************************
             MacTransition tStart_NULL= NewTransition(sStart, null,  EnumMacCabinetTransition.Start_NULL);
 
             MacTransition tLoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng = NewTransition(sLoadMoveDrawerTraysToOutStart,sLoadMoveDrawerTraysToOutIng,
@@ -286,17 +370,197 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             #endregion transition
 
             #region event
-
+           
             sStart.OnEntry += (sender, e) =>
             {
+               var drawers= GetDicMacHalDrawers();
                 Debug.WriteLine("State: [sStart.OnEntry]");
                 SetCurrentState((MacState)sender);
+                DrawerInitialStatus = new DrawerInitialStatus(drawers.Count);
+              
+                var transition = tStart_Idle;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter) =>
+                    {
+                        DrawerInitialStatus.StartAction();
+                        foreach (var drawer in drawers)
+                        {
+                            drawer.Value.CommandINI();
+                        }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => { return true; },
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
             };
             sStart.OnExit += (sender, e) =>
             {
                 Debug.WriteLine("State: [sStart.OnExit]");
+               
+            };
+
+            sIdle.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("State: [ sIdle.OnEntry]");
+                SetCurrentState((MacState)sender);
+                var transition = tIdle_NULL;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => 
+                    {
+                       
+                        DateTime thisTime = DateTime.Now;
+                        while (true)
+                        {
+                            if (this.DrawerInitialStatus.IsActionComplete())
+                            {
+                                break;
+                            }
+                            if (TimeoutObject.IsTimeOut(thisTime))
+                            {
+                                break;
+                            }
+                            Thread.Sleep(100);
+                        }
+                        //this.DrawerInitialStatus.StopInitial();
+                        this.DrawerInitialStatus = null;
+                        return true;
+                    },
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
 
             };
+            sIdle.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [ sIdle.OnExit]");
+            };
+
+            sMoveTraysToOutForPutBoxOnTrayStart.OnEntry += (sender,e) =>
+            {
+                Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayStart.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawers = GetDicMacHalDrawers();
+                var drawerCounts = (int)e.Parameter; // drawerCounts 要調整一下, 應該有些cDrawer 的Tray 不能移動
+                this.DrawerMoveTrayToOutStatus = new DrawerMoveTrayToOutStatus(drawerCounts);
+                var transition = tMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng;
+                var triggerMember = new TriggerMember
+                {
+                    
+                    Action = (parameter)=>
+                    {
+                        DrawerMoveTrayToOutStatus.StartAction();
+                        foreach (var drawer in drawers)
+                        {
+                            drawer.Value.CommandTrayMotionOut();
+                        }
+                    },
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () =>  true,
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+
+            };
+            sMoveTraysToOutForPutBoxOnTrayStart.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [ sMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
+
+            };
+            sMoveTraysToOutForPutBoxOnTrayIng.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayIng.OnEntry");
+                SetCurrentState((MacState)sender);
+                var transition = tMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete;
+                var startTime = DateTime.Now;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () =>
+                    {
+                        while (true)
+                        {
+                            if (this.DrawerMoveTrayToOutStatus.IsActionComplete())
+                            {
+                                break;
+                            }
+                            if (TimeoutObject.IsTimeOut(startTime))
+                            {
+                                 break;
+                            }
+                        }
+                        DrawerMoveTrayToOutStatus.StopAction();
+                        return true;
+                    },
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sMoveTraysToOutForPutBoxOnTrayIng.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [ sMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
+            };
+            sMoveTraysToOutForPutBoxOnTrayComplete.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayComplete.OnEntry");
+                SetCurrentState((MacState)sender);
+                var transition = tMoveTraysToOutForPutBoxOnTrayComplete_Idle;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => true,
+
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+            };
+            sMoveTraysToOutForPutBoxOnTrayComplete.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("State: [ sMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
+            };
+
+
+
 
             sLoadMoveDrawerTraysToOutStart.OnEntry+=(sender, e)=>
             { // Synch
@@ -624,5 +888,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         public List<MacMsCabinetDrawer> SynchronousDrawerStates { get; private set; }
     }
 
-   
+  
+ 
+    
 }

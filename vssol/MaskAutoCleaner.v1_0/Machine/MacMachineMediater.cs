@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues;
+﻿using MaskAutoCleaner.v1_0.Machine.Cabinet;
+using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues;
 using MvAssistant;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
 using System;
@@ -17,9 +18,15 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         protected MacMachineMgr MachineMgr;//存取此物件需要透過Mediater, 不得開放給其它物件使用
 
-        public MaskBoxForBankOutQue MaskBoxForBankOutQue = MaskBoxForBankOutQue.GetInstance();
+        
 
-        public MacMachineMediater(MacMachineMgr machineMgr) { this.MachineMgr = machineMgr; }
+        private MacMachineMediater()
+        {
+            DrawerForBankOutQue= DrawerForBankOutQue.GetInstance();
+            CabinetMediater = new CabinetMediater(MacMsCabinet.GetInstance(), DrawerForBankOutQue);
+        }
+        public MacMachineMediater(MacMachineMgr machineMgr):this()
+        { this.MachineMgr = machineMgr; }
         ~MacMachineMediater() { this.Dispose(false); }
 
         private IMacHalInspectionCh HalInspectionCh { get { return GetCtrlMachine(EnumMachineID.MID_IC_A_ASB.ToString()).HalAssembly as IMacHalInspectionCh; } }
@@ -27,12 +34,23 @@ namespace MaskAutoCleaner.v1_0.Machine
         private IMacHalOpenStage HalOpenStage { get { return GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
         private IMacHalUniversal HalUniversal { get { return GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
 
+
+
         
+        
+        private MacMsCabinet MsCabinet { get { return MacMsCabinet.GetInstance();} }
+        private DrawerForBankOutQue DrawerForBankOutQue { get; set; }
+        public CabinetMediater CabinetMediater { get; set; }
         public MacMachineCtrlBase GetCtrlMachine(string machineId)
         {
             if (!this.MachineMgr.CtrlMachines.ContainsKey(machineId)) return null;
             return this.MachineMgr.CtrlMachines[machineId];
         }
+
+
+       
+
+
 
         #region Open Stage
 
@@ -316,4 +334,6 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
     }
+
+    
 }

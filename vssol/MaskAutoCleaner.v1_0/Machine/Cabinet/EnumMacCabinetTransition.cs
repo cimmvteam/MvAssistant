@@ -33,6 +33,12 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         SynchronousDrawerStatesIng_SynchronousDrawerStatesComplete,
         /// <summary>同步所有 Drawer  的 State:完成  </summary>
         SynchronousDrawerStatesComplete_NULL,
-        Start_NULL
+        Start_NULL,
+        Start_Idle,
+        Idle_NULL,
+        Idle_MoveTraysToOutForPutBoxOnTrayStart,
+        MoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete,
+        MoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng,
+        MoveTraysToOutForPutBoxOnTrayComplete_Idle
     }
 }

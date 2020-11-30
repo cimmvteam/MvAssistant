@@ -11,7 +11,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
     /// <remarks>
     /// <para>2020/11/26 King Liu [C]</para>
     /// </remarks>
-    public  class MaskBoxForBankOutQue:Queue<MaskBoxInfo>
+    public  class DrawerForBankOutQue:Queue<DrawerSatusInfo>
     {
         Thread ScanThread;
 
@@ -25,11 +25,11 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
         /// <remarks>
         /// <para>2020/11/26 King Liu[c]</para>
         /// </remarks>
-        private static MaskBoxForBankOutQue _instance = null;
+        private static DrawerForBankOutQue _instance = null;
 
         /// <summary>to get a singleton instance</summary>
         /// <returns></returns>
-        public static MaskBoxForBankOutQue GetInstance()
+        public static DrawerForBankOutQue GetInstance()
         {
             if (_instance == null)
             {
@@ -38,7 +38,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
                     if (_instance == null)
                     {
 
-                        _instance = new MaskBoxForBankOutQue();
+                        _instance = new DrawerForBankOutQue();
 
                     }
                 }
@@ -47,7 +47,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
             return _instance;
         }
 
-        private MaskBoxForBankOutQue()
+        private DrawerForBankOutQue()
         {
 
             
@@ -61,16 +61,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
         /// <param name="maskBoxInfo">enqueue itenm</param>
         /// <param name="message">enqueue result message</param>
         /// <returns>value of  EnqueueUniqueMaskBoxForBankOutQueResult(enum)</returns>
-        public EnqueueUniqueMaskBoxForBankOutQueResult EnqueueUnique(MaskBoxInfo maskBoxInfo,out string message )
+        public EnqueueUniqueMaskBoxForBankOutQueResult EnqueueUnique(DrawerSatusInfo maskBoxInfo,out string message )
         {
             EnqueueUniqueMaskBoxForBankOutQueResult rtnV;
           
-            if (this.Where(m => m.BoxBarcode == maskBoxInfo.BoxBarcode).FirstOrDefault() != default(MaskBoxInfo))
+            if (this.Where(m => m.BoxBarcode == maskBoxInfo.BoxBarcode).FirstOrDefault() != default(DrawerSatusInfo))
             {
                 message = maskBoxInfo.BoxBarcode;
                 rtnV = EnqueueUniqueMaskBoxForBankOutQueResult.DuplicateBoxBarcode;
             }
-           else  if(this.Where(m => m.DrawerMachineID == maskBoxInfo.DrawerMachineID).FirstOrDefault() != default(MaskBoxInfo))
+           else  if(this.Where(m => m.DrawerMachineID == maskBoxInfo.DrawerMachineID).FirstOrDefault() != default(DrawerSatusInfo))
             {
                 message = maskBoxInfo.DrawerMachineID.ToString();
                 rtnV = EnqueueUniqueMaskBoxForBankOutQueResult.DuplicateDrawerMachineID;
