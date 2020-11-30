@@ -9,7 +9,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
     [TestClass]
     public class UtHalCleanCh
     {
-        const string ManifestPath = "GenCfg/Manifest/Manifest.xml.real";
+        const string ManifestPath = "UserData/Manifest/Manifest.xml.real";
 
         [TestMethod]
         public void TestCamera()
@@ -72,6 +72,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
+                halContext.MvCfInit();
                 halContext.MvCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;

@@ -28,7 +28,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
 
         #endregion Device Components
-        
+
 
         public bool DefenseCheck()
         {
@@ -131,6 +131,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <param name="UpDownLimit_D"></param>
         public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         { Plc.SetRobotUpDownLimit(UpDownLimit_U, UpDownLimit_D); }
+
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
+        { Plc.SetParticleCntLimit(L_Limit, M_Limit, S_Limit); }
+
+        /// <summary>
+        /// 設定Inspection Chamber內部與外部環境最大壓差限制
+        /// </summary>
+        /// <param name="GaugeLimit">壓差限制</param>
+        public void SetPressureDiffLimit(uint? GaugeLimit)
+        { Plc.SetPressureDiffLimit(GaugeLimit); }
         #endregion
 
         #region Read Parameter
@@ -154,6 +164,19 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns>上極限、下極限</returns>
         public Tuple<double, double> ReadRobotUpDownLimitSetting()
         { return Plc.ReadRobotUpDownLimitSetting(); }
+
+        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        { return Plc.ReadParticleCntLimitSetting(); }
+
+        public Tuple<int, int, int> ReadParticleCount()
+        { return Plc.ReadParticleCount(); }
+
+        /// <summary>
+        /// 讀取Inspection Chamber內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
+        /// </summary>
+        /// <returns>錶1壓差限制、錶2壓差限制</returns>
+        public int ReadPressureDiffLimitSrtting()
+        { return Plc.ReadPressureDiffLimitSrtting(); }
         #endregion
 
         #region Read Component Value
@@ -199,6 +222,13 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         public double ReadRobotPosUpDown()
         { return Plc.ReadRobotPosUpDown(); }
+
+        /// <summary>
+        /// 讀取Inspection Chamber內部與外部環境壓差
+        /// </summary>
+        /// <returns>錶壓差</returns>
+        public int ReadPressureDiff()
+        { return Plc.ReadPressureDiff(); }
         #endregion
 
         public Bitmap Camera_TopInsp_Cap()
@@ -250,7 +280,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             LightLineBack.TurnOn(value);
         }
-        
+
         public void LightForTopCrlDfsSetValue(int value)
         {
             LightCrlDefenseTop.TurnOn(value);

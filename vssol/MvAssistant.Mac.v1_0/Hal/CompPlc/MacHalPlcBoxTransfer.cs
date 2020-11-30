@@ -354,6 +354,18 @@ namespace MvAssistant.Mac.v1_0.Hal.CompPlc
         }
         #endregion
 
+        public bool ReadBT_FrontLimitSenser()
+        {
+            var plc = this.plcContext;
+            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_FLS);
+        }
+
+        public bool ReadBT_RearLimitSenser()
+        {
+            var plc = this.plcContext;
+            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_RLS);
+        }
+
         //確認Hand吸塵狀態
         public bool ReadHandVacuum()
         {

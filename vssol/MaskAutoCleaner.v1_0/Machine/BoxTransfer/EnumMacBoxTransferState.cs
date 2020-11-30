@@ -24,7 +24,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         MovingToOpenStage,
         OpenStageClamping,
         MovingToCB1HomeClampedFromOpenStage,
-        MovingOpenStageForRelease,
+        MovingToOpenStageForRelease,
         OpenStageReleasing,
         MovingToCB1HomeFromOpenStage,
 

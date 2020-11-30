@@ -41,8 +41,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TestSetParameter()
         {
 
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
+                halContext.MvCfInit();
                 halContext.MvCfLoad();
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
@@ -53,6 +54,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 ic.SetSpeed(200, 100, 50);
                 ic.SetRobotAboutLimit(10, 100);
                 ic.SetRobotUpDownLimit(10, -20);
+                ic.SetParticleCntLimit(15,25,35);
+                ic.SetPressureDiffLimit(20);
             }
         }
 
@@ -60,8 +63,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TestReadParameter()
         {
 
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
+                halContext.MvCfInit();
                 halContext.MvCfLoad();
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
@@ -72,6 +76,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 ic.ReadSpeedSetting();
                 ic.ReadRobotAboutLimitSetting();
                 ic.ReadRobotUpDownLimitSetting();
+                ic.ReadParticleCntLimitSetting();
+                ic.ReadPressureDiffLimitSrtting();
             }
         }
 
@@ -79,8 +85,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
         public void TestReadComponentValue()
         {
 
-            using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
+            using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
+                halContext.MvCfInit();
                 halContext.MvCfLoad();
 
                 var ic = halContext.HalDevices[MacEnumDevice.inspection_assembly.ToString()] as MacHalInspectionCh;
@@ -94,6 +101,8 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
                 ic.ReadWPosition();
                 ic.ReadRobotPosAbout();
                 ic.ReadRobotPosUpDown();
+                ic.ReadParticleCount();
+                ic.ReadPressureDiff();
             }
         }
 

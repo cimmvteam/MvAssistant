@@ -169,5 +169,35 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         {
             return "OK";
         }
+
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
+        {
+            return;
+        }
+
+        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        {
+            return new Tuple<int, int, int>(2, 2, 2);
+        }
+
+        public Tuple<int, int, int> ReadParticleCount()
+        {
+            return new Tuple<int, int, int>(1, 1, 1);
+        }
+
+        public void SetPressureDiffLimit(uint? GaugeLimit)
+        {
+            return;
+        }
+
+        public int ReadPressureDiffLimitSrtting()
+        {
+            return 1;
+        }
+
+        public int ReadPressureDiff()
+        {
+            return 1;
+        }
     }
 }

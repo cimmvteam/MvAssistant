@@ -68,24 +68,51 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
             instance.LightForGripper(0);
         }
 
+        public static  int GetCameraLightValue(this MacHalBoxTransfer instance,BoxType boxType)
+        {
+            if (boxType == BoxType.IronBox)
+            { return 5; }
+            else if (boxType == BoxType.CrystalBox)
+            {
+                return 100;
+            }
+            else
+            {
+                return 200;
+            }
+
+        }
+
+
         /// <summary></summary>
         /// <param name="instance"></param>
         /// <param name="picName"></param>
         /// <param name="lightValue"></param>
-        public static void CameraShot(this MacHalBoxTransfer instance, string picName,int lightValue=200)
+        public static string CameraShot(this MacHalBoxTransfer instance, string pathName,string picType,int lightValue=200)
         {
-            var thisTime = DateTime.Now;
-            var timeStamp = thisTime.Year.ToString("0000") + thisTime.Month.ToString("00") + thisTime.Day.ToString("00") + "_" + thisTime.Hour.ToString("00") + thisTime.Minute.ToString("00") + thisTime.Second.ToString("00");
-            var path = "D:/Image/BT/";
-            var fileName = path + picName + "_" + timeStamp;
+            string rtnV = "";
+            try
+            {
 
-            // 開啟 光源 
-            instance.TurnOnCameraLight(lightValue);
-            // 照相
-            instance.Camera_CapToSave(fileName, "jpg");
 
-            // 關閉
-            instance.TurnOffCameraLight();
+                // 開啟 光源 
+                instance.TurnOnCameraLight(lightValue);
+                // 照相
+                instance.Camera_CapToSave(pathName, picType);
+
+               
+                rtnV = "Boxtransfer camera shot [OK]";
+
+            }
+            catch(Exception ex)
+            {
+                rtnV ="Boxtransfer camera shot error:" + ex.Message + ",  lightValue=" + lightValue;
+            }
+            finally
+            {
+                instance.TurnOffCameraLight();
+            }
+            return rtnV;
         }
 
        

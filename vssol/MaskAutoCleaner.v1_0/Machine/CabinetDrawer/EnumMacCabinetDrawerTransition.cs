@@ -42,13 +42,13 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         /// <summary>Load, 等待命令將Tray 送到 In => 設為最末狀態</summary>
         LoadWaitingMoveTrayToIn_NULL,
         /// <summary>Load, 檢查Tray 上没有盒子=> 將 Tray 回退到 Out 開始</summary>
-        LoadCheckBoxExistenceComplete_LoadRejectToOutStart,
+        LoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart,
         /// <summary>Load, 檢查Tray 上没有盒子將 Tray 回退到 Out 開始=> 移動中</summary>
-        LoadRejectToOutStart_LoadRejectToOutIng,
+        LoadRejectTrayToOutStart_LoadRejectTrayToOutIng,
         /// <summary>Load, 檢查Tray 上没有盒子 將 Tray 回退到 Out 移動中=> 到逹Out</summary>
-        LoadRejectToOutIng_LoadRejectToOutComplete,
+        LoadRejectTrayToOutIng_LoadRejectTrayToOutComplete,
         /// <summary>Load, 檢查Tray 上没有盒子 將 Tray 回退到 Out  到逹Out=>等待將 Box 放到Tray 上</summary>
-        LoadRejectToOutComplete_LoadWaitingPutBoxOnTray,
+        LoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray,
 
         /// <summary>Load, 將 Tray 移到 In 開始=>移動中  </summary>
         LoadMoveTrayToInStart_LoadMoveTrayToInIng,

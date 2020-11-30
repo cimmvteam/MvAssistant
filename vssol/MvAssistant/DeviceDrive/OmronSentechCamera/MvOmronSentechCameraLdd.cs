@@ -251,6 +251,7 @@ namespace MvAssistant.DeviceDrive.OmronSentechCamera
             {
                 device.AcquisitionStop();
                 dataStream.StopAcquisition();
+                GC.Collect();
             }
         }
 

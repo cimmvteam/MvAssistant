@@ -21,28 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         protected override void SetCurrentState(MacState state)
         {
             base.SetCurrentState(state);
-            /**
-            try
-            {
-                if (state == this.States[EnumMacCabinetDrawerState.WaitingLoadInstruction.ToString()])
-                {  //WaitingLoadInstruction: 等待, Load 命令: 亮綠燈
-                    this.HalDrawer.CommandBrightLEDGreenOn();
-                }
-                else if (state == this.States[EnumMacCabinetDrawerState.WaitingUnloadInstruction.ToString()])
-                {  // WaitingUnloadInstruction: 等待Unload命令: 亮紅燈
-                    this.HalDrawer.CommandBrightLEDRedOn();
-                } 
-                else if (state.StateException != null)
-                {  // 發生例外
-                    this.HalDrawer.CommandBrightLEDAllOn();
-                }
-                else
-                {  // LED 全滅
-                    this.HalDrawer.CommandBrightLEDAllOff();
-                }
-            }
-            catch  {    }
-            */
+           
         }
         public IMacHalDrawer HalDrawer
         {
@@ -56,6 +35,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
         public string DeviceIndex { get { return HalDrawer.DeviceIndex; } }
 
+        /**  [2020/11/24] [D]
         /// <summary>
         /// Fake Test 時直接設定為某狀態
         /// </summary>
@@ -64,7 +44,9 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
         {
             MacState state = States[enumState.ToString()];
             SetCurrentState(state);
-        }
+        }*/
+
+
         /// <summary>目前的狀態是否可以接受 Load 指令?</summary>
         /// <returns></returns>
         public bool CanLoad()
@@ -388,10 +370,10 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tLoadWaitingMoveTrayToIn_NULL = NewTransition(sLoadWaitingMoveTrayToIn, null, EnumMacCabinetDrawerTransition.LoadWaitingMoveTrayToIn_NULL);
             MacTransition tLoadWaitingMoveTrayToIn_LoadMoveTrayToInStart = NewTransition(sLoadWaitingMoveTrayToIn, sLoadMoveTrayToInStart, EnumMacCabinetDrawerTransition.LoadWaitingMoveTrayToIn_LoadMoveTrayToInStart);
 
-            MacTransition tLoadCheckBoxExistenceComplete_LoadRejectToOutStart = NewTransition(sLoadCheckBoxExistenceComplete, sLoadRejectTrayToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectToOutStart);
-            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart, sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectToOutStart_LoadRejectToOutIng);
-            MacTransition tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete = NewTransition(sLoadRejectTrayToOutIng, sLoadRejectTrayToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectToOutIng_LoadRejectToOutComplete);
-            MacTransition tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectTrayToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectToOutComplete_LoadWaitingPutBoxOnTray);
+            MacTransition tLoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart = NewTransition(sLoadCheckBoxExistenceComplete, sLoadRejectTrayToOutStart, EnumMacCabinetDrawerTransition.LoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart);
+            MacTransition tLoadRejectTrayToOutStart_LoadRejectTrayToOutIng = NewTransition(sLoadRejectTrayToOutStart, sLoadRejectTrayToOutIng, EnumMacCabinetDrawerTransition.LoadRejectTrayToOutStart_LoadRejectTrayToOutIng);
+            MacTransition tLoadRejectTrayToOutIng_LoadRejectTrayToOutComplete = NewTransition(sLoadRejectTrayToOutIng, sLoadRejectTrayToOutComplete, EnumMacCabinetDrawerTransition.LoadRejectTrayToOutIng_LoadRejectTrayToOutComplete);
+            MacTransition tLoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray = NewTransition(sLoadRejectTrayToOutComplete, sLoadWaitingPutBoxOnTray, EnumMacCabinetDrawerTransition.LoadRejectTrayToOutComplete_LoadWaitingPutBoxOnTray);
 
             MacTransition tLoadMoveTrayToInStart_LoadMoveTrayToInIng = NewTransition(sLoadMoveTrayToInStart, sLoadMoveTrayToInIng, EnumMacCabinetDrawerTransition.LoadMoveTrayToInStart_LoadMoveTrayToInIng);
             MacTransition tLoadMoveTrayToInIng_LoadMoveTrayToInComplete = NewTransition(sLoadMoveTrayToInIng, sLoadMoveTrayToInComplete, EnumMacCabinetDrawerTransition.LoadMoveTrayToInIng_LoadMoveTrayToInComplete);
@@ -425,7 +407,8 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             MacTransition tUnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete = NewTransition(sUnloadCheckBoxExistenceIng, sUnloadCheckBoxExistenceComplete,
                                                                                  EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceIng_UnloadCheckBoxExistenceComplete);
             MacTransition tUnloadCheckBoxExistenceComplete_WaitingUnloadInstruction = NewTransition(sUnloadCheckBoxExistenceComplete, sWaitingUnloadInstruction,
-                                                                                 EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
+                                                                                    EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_WaitingUnloadInstruction);
+                                                                                 //EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
             MacTransition tUnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart = NewTransition(sUnloadCheckBoxExistenceComplete, sUnloadMoveTrayToOutStart,
                                                                                  EnumMacCabinetDrawerTransition.UnloadCheckBoxExistenceComplete_UnloadMoveTrayToOutStart);
             MacTransition tUnloadMoveTrayToOutStart_UnloadMoveTrayToOutIng = NewTransition(sUnloadMoveTrayToOutStart, sUnloadMoveTrayToOutIng,
@@ -457,10 +440,6 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Sync
                 Debug.WriteLine("SystemBootup.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
-
-
-
-
                 try   // TODO: Remove Try catch 
                 {
                     if (HalCabinet.MacHalDrawer.PressButtonToLoad == null)
@@ -472,9 +451,6 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 {
 
                 }
-
-
-
                 var transition = tSystemBootup_SystemBootupInitialStart;
                 var triggerMember = new TriggerMember
                 {
@@ -528,8 +504,6 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
             {  // Async
                 Debug.WriteLine("SystemBootupInitialIng.OnEntry; Device Index=" + this.DeviceIndex);
                 this.SetCurrentState((MacState)sender);
-
-
                 var transition = tSystemBootupInitialIng_SystemBootupInitialComplete;
                 var triggerMemberAsync = new TriggerMemberAsync
                 {
@@ -923,7 +897,7 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
                 }
                 else //if(HalDrawer.CurrentWorkState == DrawerWorkState.BoxNotExist)
                 {
-                    transition = tLoadCheckBoxExistenceComplete_LoadRejectToOutStart;
+                    transition = tLoadCheckBoxExistenceComplete_LoadRejectTrayToOutStart;
                     triggerMember = new TriggerMember
                     {
                         Action = null,
@@ -1854,101 +1828,5 @@ namespace MaskAutoCleaner.v1_0.Machine.CabinetDrawer
 
 
     }
-    /**
-    public class CabinetDrawerLEDController
-    {
-        private enum LedCommand
-        {
-            AllOff,
-            GreenOn,
-            GreenFlash,
-            RedOn,
-            RedFlash,
-            AllOn,
-            AllFlash,
-        }
-        public IMacHalDrawer HalDrawer = null;
-        private LedCommand LightFlag = LedCommand.AllOff;
-        private int FlashmSec = 500;
-        private CabinetDrawerLEDController()
-        {
-
-        }
-        public  CabinetDrawerLEDController(IMacHalDrawer halDrawer):this()
-        {
-            HalDrawer = halDrawer;
-        }
-        public void AllOff()
-        {
-            LightFlag = LedCommand.AllOff;
-        }
-        public void GreenOn()
-        {
-            LightFlag = LedCommand.GreenOn;
-        }
-        public void GreenFlash()
-        {
-            LightFlag = LedCommand.GreenFlash;
-        }
-        public void RedOn()
-        {
-            LightFlag = LedCommand.RedOn;
-        }
-
-        public void RedFlash()
-        {
-            LightFlag = LedCommand.RedFlash;
-        }
-
-        public void AllOn()
-        {
-            LightFlag = LedCommand.AllOn;
-        }
-        public void ALLFlash()
-        {
-            LightFlag = LedCommand.AllFlash;
-        }
-
-
-        private void SetLedState()
-        {
-            bool? toggle = false;
-            Action led = () =>
-            {
-                while (toggle.HasValue)
-                {
-                    try
-                    {
-                        if (((bool)toggle))
-                        {
-                            
-
-                            toggle = false;
-                        }
-                        else
-                        {
-
-                            toggle = true;
-                        }
-                      
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-                    Sleep(FlashmSec);          
-                }
-            };
-            
-            var task = new Task(led);
-            task.Start();
-
-        }
-
-        private void Sleep(int flashmSec)
-        {
-            throw new NotImplementedException();
-        }
-    }
-    */
+  
 }

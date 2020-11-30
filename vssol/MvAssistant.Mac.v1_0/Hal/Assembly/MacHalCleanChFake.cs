@@ -37,9 +37,9 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             return (float)0.1;
         }
 
-        public Tuple<bool, bool, bool> ReadLightCurtain()
+        public Tuple<bool, bool, bool, bool> ReadLightCurtain()
         {
-            return new Tuple<bool, bool, bool>(false, false, false);
+            return new Tuple<bool, bool, bool, bool>(false, false, false, false);
         }
 
         public Tuple<double, double, double> ReadMaskLevel()
@@ -94,7 +94,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
 
         public Tuple<double, double> ReadRobotUpDownLimitSetting()
         {
-            return new Tuple<double, double>(1,0);
+            return new Tuple<double, double>(1, 0);
         }
 
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)

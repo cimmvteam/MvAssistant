@@ -741,6 +741,16 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
             FakeSleep();
             FakeSleep();
         }
+
+        public bool ReadBT_FrontLimitSenser()
+        {
+            return true;
+        }
+
+        public bool ReadBT_RearLimitSenser()
+        {
+            return true;
+        }
     }
     /// <summary>Path Test Position Collection</summary>
     /// <remarks>King, 2020/05/15 Add</remarks>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using MvAssistant.Mac.v1_0.Manifest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +39,84 @@ namespace MaskAutoCleaner.v1_0
         MID_DRAWER_04_03,
         MID_DRAWER_04_04,
         MID_DRAWER_04_05,
+        MID_DRAWER_05_01,
+        MID_DRAWER_05_02,
+        MID_DRAWER_05_03,
+        MID_DRAWER_05_04,
+        MID_DRAWER_05_05,
+        MID_DRAWER_06_01,
+        MID_DRAWER_06_02,
+        MID_DRAWER_06_03,
+        MID_DRAWER_06_04,
+        MID_DRAWER_06_05,
+        MID_DRAWER_07_01,
+        MID_DRAWER_07_02,
+        MID_DRAWER_07_03,
+        MID_DRAWER_07_04,
+        MID_DRAWER_07_05,
+    }
+    public static class EnumMachineIDExtends
+    {
+
+        /// <summary>取得 Drawer State Machine ID 的 範圍</summary>
+        /// <param name="inst">任何一個 EnumMachineID 的成員 </param>
+        /// <returns>
+        /// DrawerStateMachineIDRange
+        /// </returns>
+        public static DrawerStateMachineIDRange GetDrawerStateMachineIDRange(this EnumMachineID inst)
+        {
+            var rtnV = new DrawerStateMachineIDRange(EnumMachineID.MID_DRAWER_01_01, EnumMachineID.MID_DRAWER_07_05);
+            return rtnV;
+        }
+        public static Tuple<bool, MacEnumDevice> ToMacEnumDeviceForDrawer(this EnumMachineID inst)
+        {
+            DrawerStateMachineIDRange drawerRangeOfEnumMachineID = inst.GetDrawerStateMachineIDRange();
+            var rtnV = default(Tuple<bool, MacEnumDevice>);
+            if (inst.IsInDrawerRange())
+            {
+                var diff = inst - drawerRangeOfEnumMachineID.StartID;
+                var drawerRangeOfMacEnumDevice = new MacEnumDeviceDrawerRange();
+                rtnV = Tuple.Create(true, drawerRangeOfMacEnumDevice.StartID + diff);
+            }
+            else
+            {
+                rtnV = Tuple.Create(false, MacEnumDevice.boxtransfer_assembly);
+            }
+            return rtnV;
+        }
+
+        public static Tuple<bool, BoxrobotTransferLocation> ToBoxrobotTransferLocationForDrawer(this EnumMachineID inst)
+        {
+            DrawerStateMachineIDRange drawerRangeOfEnumMachineID = inst.GetDrawerStateMachineIDRange();
+            var rtnV = default(Tuple<bool, BoxrobotTransferLocation>);
+            if (inst.IsInDrawerRange())
+            {
+                var diff = inst - drawerRangeOfEnumMachineID.StartID;
+                var drawerRangeOfBoxrobotTransferLocation = new BoxrobotTransferLocationDrawerRange();
+                rtnV = Tuple.Create(true, drawerRangeOfBoxrobotTransferLocation.Start + diff);
+            }
+            else
+            {
+                rtnV = Tuple.Create(false, BoxrobotTransferLocation.Dontcare);
+            }
+            return rtnV;
+        }
+
+        /// <summary>是否在 Drawer 的範圍內 </summary>
+        /// <param name="inst"></param>
+        /// <returns></returns>
+        public static bool IsInDrawerRange(this EnumMachineID inst)
+        {
+            var range = inst.GetDrawerStateMachineIDRange();
+            if (inst > range.EndID || inst < range.StartID)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
     }
 }

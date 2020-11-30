@@ -172,7 +172,7 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// 讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms
         /// </summary>
         /// <returns></returns>
-        public Tuple<bool, bool, bool> ReadLightCurtain()
+        public Tuple<bool, bool, bool, bool> ReadLightCurtain()
         { return Plc.ReadLightCurtain(); }
         #endregion
 

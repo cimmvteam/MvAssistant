@@ -22,7 +22,7 @@
       <MacRecipeMachineState Key="MID_LP_A_ASB" Value="DockWithMask" />
     </StatesCmd>
   </MacRecipeStep>
-  <MacRecipeStep StepName="Mask Transfer Move To Load Port A Catch Mask Return To LPHome">
+  <MacRecipeStep StepName="Mask Transfer Move To Load Port A Catch Mask Return To LPHomeClamped">
     <StatesBefore>
       <MacRecipeMachineState Key="MID_MT_A_ASB" Value="LPHome" />
       <MacRecipeMachineState Key="MID_LP_A_ASB" Value="IdleForReleaseMask" />
