@@ -38,8 +38,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
-        MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
-
         #region State Machine Command
         //d20201103 TriggerMember 在 Command 執行時產生
         //  好處是可以動態生成處理程式, 隨時置換要Trigger的內容
@@ -3259,29 +3257,5 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             return true;
         }
-
-        public class MacMaskTransferUnitStateTimeOutController
-        {
-            const int defTimeOutSec = 20;
-            public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
-            {
-                var thisTime = DateTime.Now;
-                var diff = thisTime.Subtract(startTime).TotalSeconds;
-                if (diff >= targetDiffSecs)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            public bool IsTimeOut(DateTime startTime)
-            {
-                return IsTimeOut(startTime, defTimeOutSec);
-            }
-        }
-
     }
 }

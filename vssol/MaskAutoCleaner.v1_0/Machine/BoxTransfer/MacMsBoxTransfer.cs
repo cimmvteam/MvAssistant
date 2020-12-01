@@ -116,7 +116,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             Debug.WriteLine("Command: MoveToOpenStagePut()");
             // from: sCB1HomeClamped, to: sMovingToOpenStageForRelease
             //var transition = Transitions[EnumMacBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
-            var transition = Transitions[EnumMacBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
+            var transition = Transitions[EnumMacBoxTransferTransition.CB1HomeClamped_MovingToOpenStageForRelease.ToString()];
 #if GNotCareState
             var state = transition.StateFrom;
 #else
