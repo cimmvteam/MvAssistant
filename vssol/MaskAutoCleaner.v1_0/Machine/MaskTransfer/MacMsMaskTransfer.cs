@@ -616,6 +616,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+                Mediater.ResetAllAlarm();
 
                 var transition = tDeviceInitial_LPHome;
                 TriggerMember triggerMember = new TriggerMember

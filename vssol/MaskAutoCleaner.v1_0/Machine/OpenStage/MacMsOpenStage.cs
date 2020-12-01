@@ -219,6 +219,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+                Mediater.ResetAllAlarm();
 
                 var transition = tInitial_Idle;
                 TriggerMember triggerMember = new TriggerMember

@@ -128,6 +128,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+                Mediater.ResetAllAlarm();
 
                 var transition = tInitial_Idle;
                 TriggerMember triggerMember = new TriggerMember
@@ -143,12 +144,6 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.LightForBackLineSetValue(888);
-                            HalInspectionCh.LightForLeftLineSetValue(888);
-                            HalInspectionCh.LightForTopCrlDfsSetValue(888);
-                            HalInspectionCh.LightForTopCrlInspSetValue(888);
-                            HalInspectionCh.LightForLeftBarSetValue(888);
-                            HalInspectionCh.LightForRightBarSetValue(888);
                             HalInspectionCh.Initial();
                         }
                         catch (Exception ex) { throw new InspectionChInitialFailException(ex.Message); }
@@ -183,7 +178,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.XYPosition(0, 0);
+                            HalInspectionCh.XYPosition(0, 158);
                             HalInspectionCh.WPosition(0);
                         }
                         catch (Exception ex) { throw new InspectionChPLCExecuteFailException(ex.Message); }
@@ -337,7 +332,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.XYPosition(0, 0);
+                            HalInspectionCh.XYPosition(0, 158);
                             HalInspectionCh.ZPosition(0);
                         }
                         catch (Exception ex) { throw new InspectionChPLCExecuteFailException(ex.Message); }
@@ -512,7 +507,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.XYPosition(0, 0);
+                            HalInspectionCh.XYPosition(0, 158);
                             HalInspectionCh.ZPosition(0);
                         }
                         catch (Exception ex) { throw new InspectionChPLCExecuteFailException(ex.Message); }
