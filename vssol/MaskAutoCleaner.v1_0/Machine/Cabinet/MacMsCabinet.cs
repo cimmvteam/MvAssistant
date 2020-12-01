@@ -1,4 +1,5 @@
-﻿using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus;
+﻿using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues;
+using MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 using MaskAutoCleaner.v1_0.Machine.Drawer;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
@@ -21,12 +22,23 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     [Guid("11111111-1111-1111-1111-111111111111")]// TODO: UPdate this Guid
     public class MacMsCabinet : MacMachineStateBase
     {
-        private DrawerInitialStatus DrawerInitialStatus = null;
-        private DrawerMoveTrayToOutStatus DrawerMoveTrayToOutStatus = null;
+        
+        /// <summary>Initial 所有(或特定幾個) Drawers 的管物件</summary>        
+        private CabinetInitialStatus DrawersInitialStatus = null;
+       
+        /// <summary>Bank out 時 將所有(或特定幾個) Drawer 移回到 Out 時</summary>
+        private DrawerMoveTrayToOutStatus DrawersMoveTrayToOutStatus = null;
+        
+        /// <summary>BankOut 或 BankIn 或 Dont Care 時的旗標</summary>
+        private CabinetDuration CabinetDuration = CabinetDuration.DontCare.Reset();
+
+
+        QueueBankOutWaitingToClampBoxDrawers QueueBankOutWaitingToClampBoxDrawers = null;
+
 
         private static readonly object lockObj =new object();
         private static MacMsCabinet _instance = null;
-        private BankType BankType = BankType.DontCare;
+      
         public static MacMsCabinet GetInstance()
         {
             if (_instance == null)
@@ -42,28 +54,29 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             return _instance;
         }
        
-       Dictionary <BoxrobotTransferLocation,IMacHalDrawer> dicMacHalDrawers = null;
-       private readonly static object GetDrawerLockObj = new object();
+        Dictionary<BoxrobotTransferLocation, DrawerBoxInfo> dicDrawerAndBoxInfos = null;
+        private readonly static object GetDrawerLockObj = new object();
         /// <summary>取得所有的 Drawer 與 BoxrobotTransferLocation 的  Dictionary</summary>
         /// <returns></returns>
-        public Dictionary<BoxrobotTransferLocation,IMacHalDrawer> GetDicMacHalDrawers()
+        public Dictionary<BoxrobotTransferLocation, DrawerBoxInfo> GetDicMacHalDrawers()
         {
-               if (dicMacHalDrawers == null)
+               if (dicDrawerAndBoxInfos == null)
                 {
                     lock (GetDrawerLockObj)
                     {
-                        if (dicMacHalDrawers == null)
+                        if (dicDrawerAndBoxInfos == null)
                         {
-                            dicMacHalDrawers = new Dictionary<BoxrobotTransferLocation, IMacHalDrawer>();
+                            dicDrawerAndBoxInfos = new Dictionary<BoxrobotTransferLocation, DrawerBoxInfo>();
                             var drawerIdRange = MacEnumDevice.boxtransfer_assembly.GetDrawerRange();
                             for (var i = drawerIdRange.StartID; i <= drawerIdRange.EndID; i++)
                             {
                                try
                                {
-                                //var drawer = (this.halAssembly.Hals[i.ToString()] as IMacHalCabinet).MacHalDrawer as IMacHalDrawer;
-                                var drawer = this.halAssembly.Hals[i.ToString()] as IMacHalDrawer;
-                                var drawerLocation = i.ToBoxrobotTransferLocation();
-                                   dicMacHalDrawers.Add(drawerLocation, drawer);
+                                   var drawer = this.halAssembly.Hals[i.ToString()] as IMacHalDrawer;
+                                   var drawerBox = new DrawerBoxInfo(i, drawer);
+                                   var drawerLocation = i.ToBoxrobotTransferLocation();
+                                   dicDrawerAndBoxInfos.Add(drawerLocation, drawerBox);
+                                  
                                 }
                                catch(Exception ex)
                                {
@@ -74,7 +87,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         }
                     }
                 }
-                return dicMacHalDrawers;
+                return dicDrawerAndBoxInfos;
         }
 
         /// <summary>取得指定的 State Machine</summary>
@@ -93,6 +106,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         #region State Machine Command
         public Dictionary<EnumMachineID, MacMsCabinetDrawer> DicCabinetDrawerStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
+
         public override void SystemBootup()
         {
 
@@ -103,24 +117,57 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             state.ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
            */
 
-
+            
+            CabinetDuration = CabinetDuration.ToSystemBootUp();
             Debug.WriteLine("Command: SystemBootup");
             var transition = this.Transitions[EnumMacCabinetTransition.Start_Idle.ToString()];
             var state = transition.StateFrom;
-            state.ExecuteCommandAtEntry(new MacStateEntryEventArgs(null));
+            state.ExecuteCommandAtEntry(null);
         }
 
 
-
-        public void BankOutLoadMoveTraysToOut(int drawerCounts)
+        /// <summary>BankOut(Load) 時, 將指定數量的 drawer Tray 移到 Out,以便將 Box 放到 Box 上</summary>
+        /// <param name="drawerCounts"></param>
+        public void BankOutLoadMoveTraysToOutForPutBoxOnTray(int drawerCounts)
         {
 
             Debug.WriteLine("Command: MoveTrayToOut, DrawerCounts: " + drawerCounts);
-            BankType.ToBankOut();
+
+            CabinetDuration=CabinetDuration.ToBankOut();
             var transition = this.Transitions[EnumMacCabinetTransition.Idle_MoveTraysToOutForPutBoxOnTrayStart.ToString()];
             var state = transition.StateFrom;
-            state.ExecuteCommandAtExit(transition, null, new MacStateEntryEventArgs(drawerCounts));
+            state.ExecuteCommandAtExit(transition, null, new MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs(drawerCounts));
         }
+
+        /// <summary>Bank out load 時, 將指定的 Drawer (可多個, 送回 HOME)  </summary>
+        /// <param name="drawer"></param>
+        public void BankOutLoadMoveTraysToHomeAfterPutBoxOnTray(List<MacEnumDevice> drawerIDs)
+        {
+            var dic = this.GetDicMacHalDrawers();
+            foreach (var drawerID in drawerIDs)
+            {
+                var keyValue = dic.GetKeyValue(drawerID.ToBoxrobotTransferLocation());
+                
+                keyValue.Value.Drawer.CommandTrayMotionHome();
+            }
+        }
+
+        /// <summary>將指定的 Drawer 無條件退回到 Home</summary>
+        /// <param name="devices"></param>
+        public void MoveTrayToHomeNoCondition(List<MacEnumDevice> devices)
+        {
+            var dicDrawers = this.GetDicMacHalDrawers();
+            foreach (var device in devices)
+            {
+                var drawerLocation = device.ToBoxrobotTransferLocation();
+                if (dicDrawers.ContainsKey(drawerLocation))
+                {
+                    //var drawer =dicDrawers[drawerLocation]
+                }
+            }
+
+        }
+
 
         /// <summary>load</summary>
         /// <param name="targetDrawerQuantity"> Drawer 數量</param>
@@ -184,34 +231,60 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         {
             EventHandler drawerINIOKHandler  = (sender, e)=>
             {
-                DrawerInitialStatus.ActionOkIncrease();
+                var drawer = (IMacHalDrawer)sender;
+                if (this.CabinetDuration.IsSystemBootupDuration() )
+                {   // 整體的 SystemBootUp
+                 
+                    var keyValue = this.dicDrawerAndBoxInfos.GetKeyValue(drawer);
+                    keyValue.Value.ResetDuration();
+                }
+                else if (this.CabinetDuration.IsInitialDuration())
+                {
+                     // 
+                }
+                DrawersInitialStatus.ActionOkIncrease();
             };
             EventHandler drawerINIFailedHandler = (sender, e) =>
             {
-                DrawerInitialStatus.ActionFailedIncrease();
+                DrawersInitialStatus.ActionFailedIncrease();
             };
             EventHandler drawerTrayArriveHomeHandler = (sender, e) =>
             {
-                if (this.DrawerInitialStatus != null && this.DrawerInitialStatus.IsActionIng())
+                var drawer = (IMacHalDrawer)sender;
+                if (this.DrawersInitialStatus != null && this.DrawersInitialStatus.IsActionIng())
                 {
-                    drawerINIOKHandler(this, e);
+                    drawerINIOKHandler(sender, e);
                 }
                 else
                 {
+                    var keyValue = this.dicDrawerAndBoxInfos.GetKeyValue(drawer);
+                    if (keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtOutForPutBoxOnTray)
+                    {
+                        keyValue.Value.SetDuration(DrawerDuration.BankOut_Load_TrayAtHomeWithBox);
+                        // TODO 加入 QUEUE 
+                        this.QueueBankOutWaitingToClampBoxDrawers.Enqueue(keyValue.Key);
 
+                    }
                 }
             };
             EventHandler drawerTrayArriveInHandler = (sender, e) =>
             {
 
             };
+
+            // 到達了Out
             EventHandler drawerTrayArriveOutHandler = (sender, e) =>
             {
-                if(this.DrawerMoveTrayToOutStatus != null && this.DrawerMoveTrayToOutStatus.IsActionIng())
+                if(this.DrawersMoveTrayToOutStatus != null && this.DrawersMoveTrayToOutStatus.IsActionIng())
                 {
-                    this.DrawerMoveTrayToOutStatus.ActionOkIncrease();
+                    this.DrawersMoveTrayToOutStatus.ActionOkIncrease();
+                 }
+                var drawer = (IMacHalDrawer)sender;
+                var keyValue = this.dicDrawerAndBoxInfos.GetKeyValue(drawer);
+                if(keyValue.Value.Duration==DrawerDuration.Idle_TrayAtHome && CabinetDuration.IsBankOutDuration())
+                {   // 原先在 Idle_TrayAtHome 的Drawer  && Cabinet 正在操作 整批將 Drawer Tray 移到 Out 
+                    keyValue.Value.SetDuration( DrawerDuration.BankOut_Load_TrayAtOutForPutBoxOnTray);
                 }
-
             };
 
             EventHandler drawerOnSysyStartUpHandler = (sender, e) =>
@@ -223,9 +296,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
 
             };
-            foreach (var ele in dicMacHalDrawers)
+            foreach (var ele in dicDrawerAndBoxInfos)
             {
-                var drawer = ele.Value;
+                var drawer = ele.Value.Drawer;
                 drawer.OnINIOKHandler -= drawerINIOKHandler;
                 drawer.OnINIOKHandler += drawerINIOKHandler;
 
@@ -292,7 +365,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         LoadStateMachine();
                         _instance = this;
-
+                        QueueBankOutWaitingToClampBoxDrawers = new QueueBankOutWaitingToClampBoxDrawers();
                     }
 
                 }
@@ -376,17 +449,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                var drawers= GetDicMacHalDrawers();
                 Debug.WriteLine("State: [sStart.OnEntry]");
                 SetCurrentState((MacState)sender);
-                DrawerInitialStatus = new DrawerInitialStatus(drawers.Count);
-              
+               // var initialType = (CabinetInitialType)(e.Parameter);
+                DrawersInitialStatus = new CabinetInitialStatus(drawers.Count);
                 var transition = tStart_Idle;
                 var triggerMember = new TriggerMember
                 {
                     Action = (parameter) =>
                     {
-                        DrawerInitialStatus.StartAction();
+                        DrawersInitialStatus.StartAction();
                         foreach (var drawer in drawers)
                         {
-                            drawer.Value.CommandINI();
+                            drawer.Value.Drawer.CommandINI();
                         }
                     },
                     ActionParameter = null,
@@ -416,7 +489,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 var transition = tIdle_NULL;
                 var triggerMember = new TriggerMember
                 {
-                    Action = null,
+                    Action = (parameter)=>CabinetDuration.ToIdle(),
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
                     {
@@ -428,18 +501,18 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         DateTime thisTime = DateTime.Now;
                         while (true)
                         {
-                            if (this.DrawerInitialStatus.IsActionComplete())
+                            if (this.DrawersInitialStatus.IsActionComplete())
                             {
                                 break;
                             }
-                            if (TimeoutObject.IsTimeOut(thisTime))
+                            else if (TimeoutObject.IsTimeOut(thisTime))
                             {
                                 break;
                             }
                             Thread.Sleep(100);
                         }
                         //this.DrawerInitialStatus.StopInitial();
-                        this.DrawerInitialStatus = null;
+                        this.DrawersInitialStatus = null;
                         return true;
                     },
                     NextStateEntryEventArgs = e,
@@ -455,24 +528,41 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 Debug.WriteLine("State: [ sIdle.OnExit]");
             };
 
+            // 
             sMoveTraysToOutForPutBoxOnTrayStart.OnEntry += (sender,e) =>
             {
                 Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayStart.OnEntry");
                 SetCurrentState((MacState)sender);
-                var drawers = GetDicMacHalDrawers();
-                var drawerCounts = (int)e.Parameter; // drawerCounts 要調整一下, 應該有些cDrawer 的Tray 不能移動
-                this.DrawerMoveTrayToOutStatus = new DrawerMoveTrayToOutStatus(drawerCounts);
+                var drawerBoxInfos = GetDicMacHalDrawers();
+                
+                // 要送出的 Drawer
+                var drawerCounts = ((MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs)e).RequestDrawers; // drawerCounts 要調整一下, 應該有些cDrawer 的Tray 不能移動
+                this.DrawersMoveTrayToOutStatus = new DrawerMoveTrayToOutStatus(drawerCounts);
                 var transition = tMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng;
+                // 實際發送命令的 Drawer 
+                var commandDrawers = new List<IMacHalDrawer>();   
                 var triggerMember = new TriggerMember
                 {
                     
                     Action = (parameter)=>
                     {
-                        DrawerMoveTrayToOutStatus.StartAction();
-                        foreach (var drawer in drawers)
+                        var i = 0;
+                        DrawersMoveTrayToOutStatus.StartAction();
+                        foreach (var info in drawerBoxInfos)
                         {
-                            drawer.Value.CommandTrayMotionOut();
+                            if (i > drawerCounts)
+                            {
+                                break;
+                            }
+                            if (info.Value.Duration == DrawerDuration.Idle_TrayAtHome)
+                            {
+                                info.Value.Drawer.CommandTrayMotionOut();
+                                commandDrawers.Add(info.Value.Drawer);
+                                i++;
+                            }
                         }
+                        // 重設數量, 可能可以 TrayOut 的 没有那麼多 
+                        this.DrawersMoveTrayToOutStatus.ResetDrawerCount(i);
                     },
                     ActionParameter = null,
                     ExceptionHandler = (state, ex) =>
@@ -480,7 +570,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         // do something,
                     },
                     Guard = () =>  true,
-                    NextStateEntryEventArgs = e,
+                    NextStateEntryEventArgs = new MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(commandDrawers),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
@@ -496,6 +586,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             sMoveTraysToOutForPutBoxOnTrayIng.OnEntry += (sender, e) =>
             {
                 Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayIng.OnEntry");
+                var commandDrawers = ((MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs)e).CommandDrawers;
                 SetCurrentState((MacState)sender);
                 var transition = tMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete;
                 var startTime = DateTime.Now;
@@ -511,7 +602,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         while (true)
                         {
-                            if (this.DrawerMoveTrayToOutStatus.IsActionComplete())
+                            if (this.DrawersMoveTrayToOutStatus.IsActionComplete())
                             {
                                 break;
                             }
@@ -520,10 +611,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                                  break;
                             }
                         }
-                        DrawerMoveTrayToOutStatus.StopAction();
+                        DrawersMoveTrayToOutStatus.StopAction();
                         return true;
                     },
-                    NextStateEntryEventArgs = e,
+                    NextStateEntryEventArgs = new MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(commandDrawers),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
@@ -860,6 +951,41 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
 
     }
+
+    public class MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs: MacStateEntryEventArgs
+    {
+        public MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs(int requestDrawers)
+        {
+            RequestDrawers = requestDrawers;
+          
+        }
+        public int RequestDrawers { get; set; }
+        
+        
+    }
+    public class MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs : MacStateEntryEventArgs
+    {
+        public MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(List<IMacHalDrawer> drawers)
+        {
+            CommandDrawers = drawers;
+
+        }
+        public List<IMacHalDrawer> CommandDrawers { get; set; }
+
+
+    }
+    public class MoveTraysToOutForPutBoxOnTrayCompleteMacStateEntryEventArgs : MacStateEntryEventArgs
+    {
+        public MoveTraysToOutForPutBoxOnTrayCompleteMacStateEntryEventArgs(List<IMacHalDrawer> drawers)
+        {
+            CommandDrawers = drawers;
+
+        }
+        public List<IMacHalDrawer> CommandDrawers { get; set; }
+
+
+    }
+
     public class CabinetLoadStartMacStateEntryEventArgs: MacStateEntryEventArgs
     {
         public CabinetLoadStartMacStateEntryEventArgs(List<MacMsCabinetDrawer> drawerStates)

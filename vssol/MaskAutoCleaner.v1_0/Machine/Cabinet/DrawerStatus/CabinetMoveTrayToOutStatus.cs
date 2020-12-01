@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
-    public class DrawerMoveTrayToOutStatus:DrawerStatusBase
+    public class DrawerMoveTrayToOutStatus:CabinetStatusBase
     {
         public DrawerMoveTrayToOutStatus(int drawers) : base(drawers)
         {

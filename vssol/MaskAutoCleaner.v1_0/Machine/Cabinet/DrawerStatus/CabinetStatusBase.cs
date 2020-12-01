@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
 {
-    public abstract class DrawerStatusBase
+    public abstract class CabinetStatusBase
     {
         protected object LockActionOKInCrease { get; set; }
         protected object LockActionFailedInCrease { get; set; }
@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
                 return DrawerCount - ActionOKCount - ActionFailedCount;
             }
         }
-        public DrawerStatusBase(int drawerCnt)
+        public CabinetStatusBase(int drawerCnt)
         {
             Reset(drawerCnt);
         }
@@ -100,5 +100,10 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
                 return false;
             }
         }
+
+        public virtual void ResetDrawerCount(int drawerCount )
+        {
+            this.DrawerCount = drawerCount;
+        } 
     }
 }

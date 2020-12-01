@@ -10,5 +10,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
     {
         SystemBootup,
         Load_Drawers,
+        BankOutLoadMoveTraysToOutForPutBoxOnTray,
+        BankOutLoadMoveTraysToHomeAfterPutBoxOnTray,
     }
 }

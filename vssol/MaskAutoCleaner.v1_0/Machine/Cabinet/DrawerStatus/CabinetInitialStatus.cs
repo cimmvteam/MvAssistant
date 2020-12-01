@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
 {
-    public class DrawerInitialStatus: DrawerStatusBase
+    public class CabinetInitialStatus: CabinetStatusBase
     {
        
-        public DrawerInitialStatus(int totals):base(totals)
+       
+        public CabinetInitialStatus(int totals):base(totals)
         {
-            
+       
         }
-        
+       
     }
 
     
