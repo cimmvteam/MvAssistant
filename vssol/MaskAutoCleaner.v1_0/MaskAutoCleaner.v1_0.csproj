@@ -101,7 +101,7 @@
     <Compile Include="Machine\CabinetDrawer\EnumMacMcCabinetDrawerCmd.cs" />
     <Compile Include="Machine\Cabinet\CabinetDuration.cs" />
     <Compile Include="Machine\Cabinet\CabinetMediater.cs" />
-    <Compile Include="Machine\Cabinet\DrawerQueues\QueueBankOutWaitingToClampBoxDrawers.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\QueueBankOutAtHomeWaitingToGrabBoxDrawers.cs" />
     <Compile Include="Machine\Cabinet\DrawerStatus\CabinetInitialStatus.cs" />
     <Compile Include="Machine\Cabinet\DrawerStatus\CabinetMoveTrayToOutStatus.cs" />
     <Compile Include="Machine\Cabinet\DrawerQueues\EnqueueUniqueMaskBoxForBankOutQueResult.cs" />

@@ -33,12 +33,31 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         SynchronousDrawerStatesIng_SynchronousDrawerStatesComplete,
         /// <summary>同步所有 Drawer  的 State:完成  </summary>
         SynchronousDrawerStatesComplete_NULL,
+
         Start_NULL,
+
         Start_Idle,
         Idle_NULL,
-        Idle_MoveTraysToOutForPutBoxOnTrayStart,
-        MoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete,
-        MoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng,
-        MoveTraysToOutForPutBoxOnTrayComplete_Idle
+        Idle_BankOutLoadMoveTraysToOutForPutBoxOnTrayStart,
+        BankOutLoadMoveTraysToOutForPutBoxOnTrayIng_BankOutLoadMoveTraysToOutForPutBoxOnTrayComplete,
+        BankOutLoadMoveTraysToOutForPutBoxOnTrayStart_BankOutLoadMoveTraysToOutForPutBoxOnTrayIng,
+        MoveTraysToOutForPutBoxOnTrayComplete_Idle,
+
+        Idle_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComlete,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComlete_Idle,
+
+        Idle_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart,
+        BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng,
+        BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete,
+        BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete_Idle,
+
+        Idle_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart,
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng,
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete,
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete_Idle,
+
+
     }
 }

@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
 {
-    public class QueueBankOutWaitingToClampBoxDrawers:Queue<BoxrobotTransferLocation>
+    /// <summary>
+    /// 儲存 Tray 已經在 Home(已經有盒子), 待命讓 Boxrrobot 呼叫 到In 的Drawer 的Queue   
+    /// </summary>
+    public class QueueBankOutAtHomeWaitingToGrabBoxDrawers:Queue<BoxrobotTransferLocation>
     {
         public new BoxrobotTransferLocation Dequeue()
         {

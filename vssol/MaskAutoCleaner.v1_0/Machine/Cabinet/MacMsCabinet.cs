@@ -33,8 +33,33 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         private CabinetDuration CabinetDuration = CabinetDuration.DontCare.Reset();
 
 
-        QueueBankOutWaitingToClampBoxDrawers QueueBankOutWaitingToClampBoxDrawers = null;
+        /// <summary>存放Bankout 目前有盒子, Tray 在 Home  的 Drawer 的Queue </summary>
+        private QueueBankOutAtHomeWaitingToGrabBoxDrawers QueueBankOutWaitingToClampBoxDrawers = null;
 
+
+        public void BankOutLoadEnqueue(BoxrobotTransferLocation drawerLocation )
+        {
+            QueueBankOutWaitingToClampBoxDrawers.Enqueue(drawerLocation);
+        }
+
+
+        /// <summary>目前首先要處理 Bank Out Drawer 的 Location</summary>
+        public bool GetFirstBankOutWaitingToGrabDrawerLacation(out BoxrobotTransferLocation drawerLocation)
+        {
+
+            var rtnV = false;
+            drawerLocation = BoxrobotTransferLocation.Dontcare;
+            if (QueueBankOutWaitingToClampBoxDrawers != null )
+             {
+                drawerLocation = QueueBankOutWaitingToClampBoxDrawers.Peek();
+                if (drawerLocation != default(BoxrobotTransferLocation))
+                {
+                    rtnV = true;
+                }
+             }
+            return rtnV; 
+            
+        }
 
         private static readonly object lockObj =new object();
         private static MacMsCabinet _instance = null;
@@ -107,6 +132,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         #region State Machine Command
         public Dictionary<EnumMachineID, MacMsCabinetDrawer> DicCabinetDrawerStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
 
+        /// <summary>系統啟動</summary>
         public override void SystemBootup()
         {
 
@@ -134,9 +160,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             Debug.WriteLine("Command: MoveTrayToOut, DrawerCounts: " + drawerCounts);
 
             CabinetDuration=CabinetDuration.ToBankOut();
-            var transition = this.Transitions[EnumMacCabinetTransition.Idle_MoveTraysToOutForPutBoxOnTrayStart.ToString()];
+            var transition = this.Transitions[EnumMacCabinetTransition.Idle_BankOutLoadMoveTraysToOutForPutBoxOnTrayStart.ToString()];
             var state = transition.StateFrom;
-            state.ExecuteCommandAtExit(transition, null, new MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs(drawerCounts));
+            state.ExecuteCommandAtExit(transition, null, new BankOutLoadMoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs(drawerCounts));
         }
 
         /// <summary>Bank out load 時, 將指定的 Drawer (可多個, 送回 HOME)  </summary>
@@ -152,21 +178,81 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             }
         }
 
-        /// <summary>將指定的 Drawer 無條件退回到 Home</summary>
-        /// <param name="devices"></param>
-        public void MoveTrayToHomeNoCondition(List<MacEnumDevice> devices)
+        /// <summary>Bank Out load 時, 將指定的 Drawer Tray(單一個) 送到 In </summary>
+        public void BankOutLoadMoveSpecificTrayToInForBoxRobotGrab()
         {
-            var dicDrawers = this.GetDicMacHalDrawers();
-            foreach (var device in devices)
+
+            BoxrobotTransferLocation drawerLocation = default(BoxrobotTransferLocation);
+            
+            // 有要等待處理的 Drawer
+            var hasDrawerBankOutMoveIn = this.GetFirstBankOutWaitingToGrabDrawerLacation(out drawerLocation);
+            if(hasDrawerBankOutMoveIn)
             {
-                var drawerLocation = device.ToBoxrobotTransferLocation();
-                if (dicDrawers.ContainsKey(drawerLocation))
-                {
-                    //var drawer =dicDrawers[drawerLocation]
+                //BankOut_Load_TrayAtHomeWithBox
+                var keyValue = GetDicMacHalDrawers().GetKeyValue(drawerLocation);
+                if(!keyValue.Equals(default(KeyValuePair<BoxrobotTransferLocation, DrawerBoxInfo>)) && keyValue.Value.DrawerAbled && keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtHomeWithBox)
+                {// 狀態要對
+                    var transition = this.Transitions[EnumMacCabinetTransition.Idle_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart.ToString()];
+                    var state = transition.StateFrom;
+                    var drawerInfo = keyValue.Value;
+                    state.ExecuteCommandAtExit(transition, null, new BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStartEventArgs(drawerInfo));
                 }
             }
-
+            else
+            {
+                // 没有可處理的 Drawer
+            }
         }
+        
+        
+        /// <summary>bank out, Load 時, 指定的 Drawer Tray 在In 時被取走Box 之後令其回到 Home</summary>
+        public void BankOutLOadMoveSpecificTrayToHomeAfterBoxrobotGrabBox()
+        {
+            BoxrobotTransferLocation drawerLocation = default(BoxrobotTransferLocation);
+            var hasDrawerBankOutMoveHome = this.GetFirstBankOutWaitingToGrabDrawerLacation(out drawerLocation);
+            if (hasDrawerBankOutMoveHome)
+            {
+                var keyValue = GetDicMacHalDrawers().GetKeyValue(drawerLocation);
+                if (!keyValue.Equals(default(KeyValuePair<BoxrobotTransferLocation, DrawerBoxInfo>)) && keyValue.Value.DrawerAbled && keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtInWithBoxForRobotGrabBox)
+                {// 狀態要對
+                    var transition = this.Transitions[EnumMacCabinetTransition.Idle_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart.ToString()];
+                    var state = transition.StateFrom;
+                    var drawerInfo = keyValue.Value;
+                    state.ExecuteCommandAtExit(transition, null, new BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStartEventArgs(drawerInfo));
+                }
+                else
+                { // 没有可處理的 Drawer
+
+                }
+            }
+        }
+
+        /// <summary>bank out, UnLoad 時, 指定的 Drawer Tray 在Home 時 移到Home 準備 到 BankOut Unload, 將盒子放在Tray 上</summary>
+        public void BankOutUnLoadMoveSpecificTrayToInForBoxrobotPutBox()
+        {
+            BoxrobotTransferLocation drawerLocation = default(BoxrobotTransferLocation);
+            var hasDrawerBankOutMoveIn = this.GetFirstBankOutWaitingToGrabDrawerLacation(out drawerLocation);
+            if (hasDrawerBankOutMoveIn)
+            {
+                var keyValue = GetDicMacHalDrawers().GetKeyValue(drawerLocation);
+                if (!keyValue.Equals(default(KeyValuePair<BoxrobotTransferLocation, DrawerBoxInfo>)) && keyValue.Value.DrawerAbled && keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtHomeNoBox)
+                {// 狀態要對
+                    var transition = this.Transitions[EnumMacCabinetTransition.Idle_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart.ToString()];
+                    var state = transition.StateFrom;
+                    var drawerInfo = keyValue.Value;
+                    state.ExecuteCommandAtExit(transition, null, new BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStartEventArgs(drawerInfo));
+                }
+                else
+                { // 没有可處理的 Drawer
+
+                }
+            }
+        }
+
+
+
+
+        //----------------------
 
 
         /// <summary>load</summary>
@@ -252,7 +338,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             {
                 var drawer = (IMacHalDrawer)sender;
                 if (this.DrawersInitialStatus != null && this.DrawersInitialStatus.IsActionIng())
-                {
+                {   // Cabinet Initial 階段
                     drawerINIOKHandler(sender, e);
                 }
                 else
@@ -265,11 +351,24 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         this.QueueBankOutWaitingToClampBoxDrawers.Enqueue(keyValue.Key);
 
                     }
+                    else if(keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtInWithBoxForRobotGrabBox)
+                    {
+                        keyValue.Value.SetDuration(DrawerDuration.BankOut_Load_TrayAtHomeNoBox) ;
+                    }
                 }
             };
             EventHandler drawerTrayArriveInHandler = (sender, e) =>
             {
-
+                var drawer = (IMacHalDrawer)sender;
+                var keyValue = this.dicDrawerAndBoxInfos.GetKeyValue(drawer);
+                if (keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtHomeWithBox)
+                {   // 
+                    keyValue.Value.SetDuration(DrawerDuration.BankOut_Load_TrayAtInWithBoxForRobotGrabBox);
+                }
+                else if (keyValue.Value.Duration == DrawerDuration.BankOut_Load_TrayAtHomeNoBox)
+                {   // 
+                    keyValue.Value.SetDuration(DrawerDuration.BankOut_UnLoad_TrayAtInNoBox);
+                }
             };
 
             // 到達了Out
@@ -365,7 +464,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     {
                         LoadStateMachine();
                         _instance = this;
-                        QueueBankOutWaitingToClampBoxDrawers = new QueueBankOutWaitingToClampBoxDrawers();
+                        QueueBankOutWaitingToClampBoxDrawers = new QueueBankOutAtHomeWaitingToGrabBoxDrawers();
                     }
 
                 }
@@ -385,9 +484,25 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             #region state
             //--------------------------------------
             MacState sIdle = NewState(EnumMacCabinetState.Idle); // 目前没事
-            MacState sMoveTraysToOutForPutBoxOnTrayStart = NewState(EnumMacCabinetState.MoveTraysToOutForPutBoxOnTraysStart);// 將Drawer 移出至Out For Bank
-            MacState sMoveTraysToOutForPutBoxOnTrayIng = NewState(EnumMacCabinetState.MoveTraysToOutForPutBoxOnTraysIng);// 將Drawer 移出至Out For Bank
-            MacState sMoveTraysToOutForPutBoxOnTrayComplete = NewState(EnumMacCabinetState.MoveTraysToOutForPutBoxOnTraysComplete);// 將Drawer 移出至Out For Bank
+
+            MacState sBankOutLoadMoveTraysToOutForPutBoxOnTrayStart = NewState(EnumMacCabinetState.BankOutLoadMoveTraysToOutForPutBoxOnTraysStart);// 將Drawer 移出至Out For Bank
+            MacState sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng = NewState(EnumMacCabinetState.BankOutLoadMoveTraysToOutForPutBoxOnTraysIng);// 將Drawer 移出至Out For Bank
+            MacState sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete = NewState(EnumMacCabinetState.BankOutLoadMoveTraysToOutForPutBoxOnTraysComplete);// 將Drawer 移出至Out For Bank
+
+            MacState sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart = NewState(EnumMacCabinetState.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart);
+            MacState sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng = NewState(EnumMacCabinetState.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng);
+            MacState sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete = NewState(EnumMacCabinetState.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete);
+
+            MacState sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart = NewState(EnumMacCabinetState.BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart);
+            MacState sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng = NewState(EnumMacCabinetState.BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng);
+            MacState sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete = NewState(EnumMacCabinetState.BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete);
+
+            MacState sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart = NewState(EnumMacCabinetState.BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart);
+            MacState sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng = NewState(EnumMacCabinetState.BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng);
+            MacState sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete = NewState(EnumMacCabinetState.BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete);
+
+
+            //MacState sMoveTray
             //*************************************
 
             MacState sStart = NewState(EnumMacCabinetState.Start);
@@ -411,11 +526,26 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             MacTransition tStart_Idle = NewTransition(sStart, sIdle, EnumMacCabinetTransition.Start_Idle);
             MacTransition tIdle_NULL = NewTransition(sIdle, null, EnumMacCabinetTransition.Idle_NULL);
 
-            MacTransition tIdle_MoveTraysToOutForPutBoxOnTrayStart = NewTransition(sIdle, sMoveTraysToOutForPutBoxOnTrayStart, EnumMacCabinetTransition.Idle_MoveTraysToOutForPutBoxOnTrayStart);
-            MacTransition tMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng = NewTransition(sMoveTraysToOutForPutBoxOnTrayStart, sMoveTraysToOutForPutBoxOnTrayIng, EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng);
-            MacTransition tMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete = NewTransition(sMoveTraysToOutForPutBoxOnTrayIng, sMoveTraysToOutForPutBoxOnTrayComplete, EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete);
-            MacTransition tMoveTraysToOutForPutBoxOnTrayComplete_Idle= NewTransition( sMoveTraysToOutForPutBoxOnTrayComplete, sIdle,EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayComplete_Idle);
+            MacTransition tIdle_MoveTraysToOutForPutBoxOnTrayStart = NewTransition(sIdle, sBankOutLoadMoveTraysToOutForPutBoxOnTrayStart, EnumMacCabinetTransition.Idle_BankOutLoadMoveTraysToOutForPutBoxOnTrayStart);
+            MacTransition tBankOutLoadMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng = NewTransition(sBankOutLoadMoveTraysToOutForPutBoxOnTrayStart, sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng, EnumMacCabinetTransition.BankOutLoadMoveTraysToOutForPutBoxOnTrayStart_BankOutLoadMoveTraysToOutForPutBoxOnTrayIng);
+            MacTransition tBankOutLoadMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete = NewTransition(sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng, sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete, EnumMacCabinetTransition.BankOutLoadMoveTraysToOutForPutBoxOnTrayIng_BankOutLoadMoveTraysToOutForPutBoxOnTrayComplete);
+            MacTransition tBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete_Idle= NewTransition( sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete, sIdle,EnumMacCabinetTransition.MoveTraysToOutForPutBoxOnTrayComplete_Idle);
 
+            MacTransition tIdle_sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart=NewTransition(sIdle, sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart, EnumMacCabinetTransition.Idle_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart);
+            MacTransition tBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng=NewTransition(sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart, sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng, EnumMacCabinetTransition.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng);
+            MacTransition tBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete= NewTransition(sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng, sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete, EnumMacCabinetTransition.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComlete);
+            MacTransition tBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete_Idle= NewTransition( sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete, sIdle,EnumMacCabinetTransition.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComlete_Idle);
+
+
+            MacTransition tIdle_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart = NewTransition(sIdle, sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart, EnumMacCabinetTransition.Idle_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart);
+            MacTransition tBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng = NewTransition(sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart, sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng, EnumMacCabinetTransition.BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng);
+            MacTransition tBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete = NewTransition(sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng, sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete, EnumMacCabinetTransition.BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete);
+            MacTransition tBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete_Idle = NewTransition(sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete,sIdle, EnumMacCabinetTransition.BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete_Idle);
+
+            MacTransition tIdle_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart = NewTransition(sIdle, sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart, EnumMacCabinetTransition.Idle_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart);
+            MacTransition tBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng = NewTransition(sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart, sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng, EnumMacCabinetTransition.BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng);
+            MacTransition tBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete = NewTransition(sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng, sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete, EnumMacCabinetTransition.BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete);
+            MacTransition tBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete_Idle = NewTransition( sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete,sIdle, EnumMacCabinetTransition.BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete_Idle);
 
             //******************************************
             MacTransition tStart_NULL= NewTransition(sStart, null,  EnumMacCabinetTransition.Start_NULL);
@@ -501,7 +631,11 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         DateTime thisTime = DateTime.Now;
                         while (true)
                         {
-                            if (this.DrawersInitialStatus.IsActionComplete())
+                            if (this.DrawersInitialStatus == null)
+                            {
+                                break;
+                            }
+                            else if (this.DrawersInitialStatus.IsActionComplete())
                             {
                                 break;
                             }
@@ -529,16 +663,16 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
             };
 
             // 
-            sMoveTraysToOutForPutBoxOnTrayStart.OnEntry += (sender,e) =>
+            sBankOutLoadMoveTraysToOutForPutBoxOnTrayStart.OnEntry += (sender,e) =>
             {
-                Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayStart.OnEntry");
+                Debug.WriteLine("BankOutLoadMoveTraysToOutForPutBoxOnTrayStart.OnEntry");
                 SetCurrentState((MacState)sender);
                 var drawerBoxInfos = GetDicMacHalDrawers();
                 
                 // 要送出的 Drawer
-                var drawerCounts = ((MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs)e).RequestDrawers; // drawerCounts 要調整一下, 應該有些cDrawer 的Tray 不能移動
+                var drawerCounts = ((BankOutLoadMoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs)e).RequestDrawers; // drawerCounts 要調整一下, 應該有些cDrawer 的Tray 不能移動
                 this.DrawersMoveTrayToOutStatus = new DrawerMoveTrayToOutStatus(drawerCounts);
-                var transition = tMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng;
+                var transition = tBankOutLoadMoveTraysToOutForPutBoxOnTrayStart_MoveTraysToOutForPutBoxOnTrayIng;
                 // 實際發送命令的 Drawer 
                 var commandDrawers = new List<IMacHalDrawer>();   
                 var triggerMember = new TriggerMember
@@ -570,7 +704,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         // do something,
                     },
                     Guard = () =>  true,
-                    NextStateEntryEventArgs = new MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(commandDrawers),
+                    NextStateEntryEventArgs = new BankOutLoadMoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(commandDrawers),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
@@ -578,17 +712,17 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                 Trigger(transition);
 
             };
-            sMoveTraysToOutForPutBoxOnTrayStart.OnExit += (sender, e) =>
+            sBankOutLoadMoveTraysToOutForPutBoxOnTrayStart.OnExit += (sender, e) =>
             {
-                Debug.WriteLine("State: [ sMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
+                Debug.WriteLine("State: [ sBankOutLoadMoveTraysToOutForPutBoxOnTrayStart.OnExit]");
 
             };
-            sMoveTraysToOutForPutBoxOnTrayIng.OnEntry += (sender, e) =>
+            sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng.OnEntry += (sender, e) =>
             {
-                Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayIng.OnEntry");
-                var commandDrawers = ((MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs)e).CommandDrawers;
+                Debug.WriteLine("sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng.OnEntry");
+                var commandDrawers = ((BankOutLoadMoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs)e).CommandDrawers;
                 SetCurrentState((MacState)sender);
-                var transition = tMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete;
+                var transition = tBankOutLoadMoveTraysToOutForPutBoxOnTrayIng_MoveTraysToOutForPutBoxOnTrayComplete;
                 var startTime = DateTime.Now;
                 var triggerMember = new TriggerMember
                 {
@@ -614,22 +748,22 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         DrawersMoveTrayToOutStatus.StopAction();
                         return true;
                     },
-                    NextStateEntryEventArgs = new MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(commandDrawers),
+                    NextStateEntryEventArgs = new BankOutLoadMoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(commandDrawers),
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
                 transition.SetTriggerMembers(triggerMember);
                 Trigger(transition);
             };
-            sMoveTraysToOutForPutBoxOnTrayIng.OnExit += (sender, e) =>
+            sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng.OnExit += (sender, e) =>
             {
-                Debug.WriteLine("State: [ sMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
+                Debug.WriteLine("State: [ sBankOutLoadMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
             };
-            sMoveTraysToOutForPutBoxOnTrayComplete.OnEntry += (sender, e) =>
+            sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete.OnEntry += (sender, e) =>
             {
-                Debug.WriteLine("MoveTraysToOutForPutBoxOnTrayComplete.OnEntry");
+                Debug.WriteLine("sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete.OnEntry");
                 SetCurrentState((MacState)sender);
-                var transition = tMoveTraysToOutForPutBoxOnTrayComplete_Idle;
+                var transition = tBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete_Idle;
                 var triggerMember = new TriggerMember
                 {
                     Action = null,
@@ -644,15 +778,307 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     NotGuardException = null,
                     ThisStateExitEventArgs = new MacStateExitEventArgs()
                 };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
             };
-            sMoveTraysToOutForPutBoxOnTrayComplete.OnExit += (sender, e) =>
+            sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete.OnExit += (sender, e) =>
             {
-                Debug.WriteLine("State: [ sMoveTraysToOutForPutBoxOnTrayIng.OnExit]");
+                Debug.WriteLine("State: [ sBankOutLoadMoveTraysToOutForPutBoxOnTrayComplete.OnExit]");
             };
 
+            sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart.OnEntry += (sender, e) =>
+             {
+                  Debug.WriteLine("sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart.OnEntry");
+                  SetCurrentState((MacState)sender);
+                  var transition = tBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng;
+                  var drawerBoxInfo = ((BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStartEventArgs)e).DrawerBoxInfo;
+                 var triggerMember = new TriggerMember
+                 {
+                     Action = (parameter) =>
+                     {
+                         drawerBoxInfo.Drawer.CommandTrayMotionIn();
+                     },
+                    ActionParameter=null,
+                     ExceptionHandler = (state, ex) =>
+                     {
+                         // do something,
+                     },
+                     Guard = () => true,
+                     NextStateEntryEventArgs = new BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIngEventArgs(drawerBoxInfo),
+                     NotGuardException = null,
+                     ThisStateExitEventArgs = new MacStateExitEventArgs()
+                 };
+                 transition.SetTriggerMembers(triggerMember);
+                 Trigger(transition);
+             };
+            sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart.OnExit");
+               
+            };
+            sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng.OnEntry");
+                SetCurrentState((MacState)sender);
+                var transition = tBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete;
+                var drawerBoxInfo = ((BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIngEventArgs)e).DrawerBoxInfo;
+                var triggerMember = new TriggerMember
+                {
+                    Action=null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () =>
+                    {
+                        DateTime startTime = DateTime.Now;
+                        while (true)
+                        {
+                            // 判斷是否到In //BankOut_Load_TrayAtHomeWithBox
 
+                            if (drawerBoxInfo.Duration == DrawerDuration.BankOut_Load_TrayAtInWithBoxForRobotGrabBox)
+                            {
+                                return true; 
+                            }
+                            // 有没有 逾時
+                            if (TimeoutObject.IsTimeOut(startTime))
+                            {
+                                // TODO: to throw a time out Exception 
+                            }
+                            Thread.Sleep(100);
+                        }
+                    },
+                    NextStateEntryEventArgs = new BankOutLoadMoveSpecificTrayToInForBoxRobotGrabCompleteEventArgs(drawerBoxInfo),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng.OnExit");
+            };
+            sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutLoadMoveSpecificTrayToInForBoxRobotGrabCompleteEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete_Idle;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () =>true,
+                    NextStateEntryEventArgs = e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete.OnEntry");
+            };
 
+            sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStartEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action =(parameter)=>drawerBoxInfo.Drawer.CommandTrayMotionHome(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs =new BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIngEventArgs(drawerBoxInfo),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart.OnExit");
+            };
 
+            sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIngEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng_BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () =>
+                    {
+                        var startTime = DateTime.Now;
+                        while (true)
+                        {
+                            if (drawerBoxInfo.Duration==DrawerDuration.BankOut_Load_TrayAtHomeNoBox)
+                            {
+                                break;
+                            }
+
+                            if (TimeoutObject.IsTimeOut(startTime))
+                            {
+                                // TODO: To throw an Exception
+                            }
+                            Thread.Sleep(100);
+                        }
+                        return true;
+                    },
+                    NextStateEntryEventArgs = new BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabCompleteEventArgs(drawerBoxInfo),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng.OnExit");
+            };
+
+            sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabCompleteEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete_Idle;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs =e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete.OnExit");
+            };
+
+            sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart.OnEntry += (sender,e) =>
+            {
+                Debug.WriteLine("sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStartEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng;
+                var triggerMember = new TriggerMember
+                {
+                    Action = (parameter)=> drawerBoxInfo.Drawer.CommandTrayMotionIn(),
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs = new BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIngEventArgs(drawerBoxInfo),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart.Exit");
+            };
+
+            sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIngEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () =>
+                    {
+                        var startTime = DateTime.Now;
+                        while (true)
+                        {
+                            if (drawerBoxInfo.Duration == DrawerDuration.BankOut_UnLoad_TrayAtInNoBox)
+                            {
+                                break;
+                            }
+                            if (TimeoutObject.IsTimeOut(startTime)) { break; }
+                            Thread.Sleep(100);
+                        }
+                        return true; 
+                    },
+                    NextStateEntryEventArgs = new BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutCompleteEventArgs(drawerBoxInfo),
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng.Exit");
+            };
+
+            sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete.OnEntry += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete.OnEntry");
+                SetCurrentState((MacState)sender);
+                var drawerBoxInfo = ((BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutCompleteEventArgs)e).DrawerBoxInfo;
+                var transition = tBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete_Idle;
+                var triggerMember = new TriggerMember
+                {
+                    Action = null,
+                    ActionParameter = null,
+                    ExceptionHandler = (state, ex) =>
+                    {
+                        // do something,
+                    },
+                    Guard = () => true,
+                    NextStateEntryEventArgs =e,
+                    NotGuardException = null,
+                    ThisStateExitEventArgs = new MacStateExitEventArgs()
+                };
+                transition.SetTriggerMembers(triggerMember);
+                Trigger(transition);
+            };
+            sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete.OnExit += (sender, e) =>
+            {
+                Debug.WriteLine("sBankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete.Exit");
+            };
+            //----------------------
             sLoadMoveDrawerTraysToOutStart.OnEntry+=(sender, e)=>
             { // Synch
                 Debug.WriteLine("LoadMoveDrawerTraysToOutStart.OnEntry");
@@ -951,10 +1377,103 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         }
 
     }
-
-    public class MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs: MacStateEntryEventArgs
+    public class BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutCompleteEventArgs : MacStateEntryEventArgs
     {
-        public MoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs(int requestDrawers)
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutCompleteEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+    public class BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIngEventArgs : MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIngEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+
+    public class BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStartEventArgs : MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStartEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+
+    public class BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabCompleteEventArgs : MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabCompleteEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+    public class BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIngEventArgs : MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIngEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+
+    public class BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStartEventArgs: MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStartEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+
+
+    public class BankOutLoadMoveSpecificTrayToInForBoxRobotGrabCompleteEventArgs : MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutLoadMoveSpecificTrayToInForBoxRobotGrabCompleteEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+    public class BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIngEventArgs : MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIngEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+    public class BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStartEventArgs: MacStateEntryEventArgs
+    {
+        public DrawerBoxInfo DrawerBoxInfo { get; set; }
+        public BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStartEventArgs(DrawerBoxInfo info)
+        {
+            DrawerBoxInfo = info;
+
+        }
+    }
+
+    public class BankOutLoadMoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs: MacStateEntryEventArgs
+    {
+        public BankOutLoadMoveTraysToOutForPutBoxOnTrayStartMacStateEntryEventArgs(int requestDrawers)
         {
             RequestDrawers = requestDrawers;
           
@@ -963,9 +1482,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         
         
     }
-    public class MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs : MacStateEntryEventArgs
+    public class BankOutLoadMoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs : MacStateEntryEventArgs
     {
-        public MoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(List<IMacHalDrawer> drawers)
+        public BankOutLoadMoveTraysToOutForPutBoxOnTrayIngMacStateEntryEventArgs(List<IMacHalDrawer> drawers)
         {
             CommandDrawers = drawers;
 
@@ -974,9 +1493,9 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
 
     }
-    public class MoveTraysToOutForPutBoxOnTrayCompleteMacStateEntryEventArgs : MacStateEntryEventArgs
+    public class BankOutLoadMoveTraysToOutForPutBoxOnTrayCompleteMacStateEntryEventArgs : MacStateEntryEventArgs
     {
-        public MoveTraysToOutForPutBoxOnTrayCompleteMacStateEntryEventArgs(List<IMacHalDrawer> drawers)
+        public BankOutLoadMoveTraysToOutForPutBoxOnTrayCompleteMacStateEntryEventArgs(List<IMacHalDrawer> drawers)
         {
             CommandDrawers = drawers;
 

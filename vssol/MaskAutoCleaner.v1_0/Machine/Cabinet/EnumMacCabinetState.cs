@@ -35,9 +35,20 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         SynchronousDrawerStatesComplete,
         Start,
         Idle,
-        MoveTraysToOutForPutBoxOnTraysIng,
-        MoveTraysToOutForPutBoxOnTraysStart,
-        MoveTraysToOutForPutBoxOnTraysComplete,
+        BankOutLoadMoveTraysToOutForPutBoxOnTraysIng,
+        BankOutLoadMoveTraysToOutForPutBoxOnTraysStart,
+        BankOutLoadMoveTraysToOutForPutBoxOnTraysComplete,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabStart,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabIng,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabComplete,
+
+        BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabStart,
+        BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabIng,
+        BankOutLoadMoveSpecificTrayToHomeAfterBoxRobotGrabComplete,
+
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart,
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng,
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete
         /**
 
 /// <summary>開機後尚未Initial</summary>
