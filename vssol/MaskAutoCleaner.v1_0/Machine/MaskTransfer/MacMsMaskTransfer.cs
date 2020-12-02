@@ -2816,7 +2816,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToIronBoxPathFile());
                             HalMaskTransfer.RobotMoving(false);
                             HalMaskTransfer.Clamp((uint)parameter);
                         }
@@ -2853,7 +2853,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromIronBoxToOSPathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                             Mediater.RobotIntrudeOpenStage(null, false);
@@ -2928,7 +2928,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToIronBoxPathFile());
                             HalMaskTransfer.RobotMoving(false);
                             HalMaskTransfer.Unclamp();
                         }
@@ -2965,7 +2965,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromIronBoxToOSPathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                             Mediater.RobotIntrudeOpenStage(null, false);

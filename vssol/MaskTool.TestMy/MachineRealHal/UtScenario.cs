@@ -1110,10 +1110,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal
             var position29 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToLP1PathFile());
             var position30 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToLP2PathFile());
             var position31 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromLPHomeToOSPathFile());
-            var position32 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSStageToOSPathFile());
+            var position32 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromIronBoxToOSPathFile());
             var position33 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToLPHomePathFile());
             var position34 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToLPHomePathFile());
-            var position35 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToOSStagePathFile());
+            var position35 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.FromOSToIronBoxPathFile());
             var position36 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.InspChHomePathFile());
             var position37 = JSonHelper.GetPositionPathPositionsFromJson(maskRobotFileObj.LoadPortHomePathFile());
         }
