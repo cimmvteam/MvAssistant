@@ -60,15 +60,25 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <returns></returns>
         public Tuple<bool, bool> RobotIntrudeOpenStage(bool? isBTIntrude, bool? isMTIntrude)
         { return HalOpenStage.ReadRobotIntrude(isBTIntrude, isMTIntrude); }
-
-        /// <summary> 讀取Open Stage上的盒蓋開闔， Open;Close </summary>
+        
+        /// <summary> 讀取平台上的重量 </summary>
         /// <returns></returns>
-        public Tuple<bool, bool> ReadOpenStageCoverSensor()
-        { return HalOpenStage.ReadCoverSensor(); }
+        public double ReadOpenStageWeightOnStage()
+        { return HalOpenStage.ReadWeightOnStage(); }
+
+        /// <summary> 讀取Open Stage是否有Box </summary>
+        /// <returns></returns>
+        public bool ReadOpenStageExistBox()
+        { return HalOpenStage.ReadBoxExist(); }
+
+        /// <summary> 讀取Open Stage的Particle數量 </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadOpenStageParticleCount()
+        { return HalOpenStage.ReadParticleCount(); }
         #endregion Open Stage
 
         #region Inspection Chamber
-        
+
         /// <summary> Mask Transfer手臂入侵Inspection Chamber前確認可否侵入 </summary>
         /// <param name="isIntrude">Mask Transfer手臂是否入侵</param>
         /// <returns></returns>
@@ -97,6 +107,11 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <returns></returns>
         public double ReadCleanChUpDownSensor()
         { return HalCleanCh.ReadRobotPosUpDown(); }
+
+        /// <summary> 讀取光閘，一排一個 各自獨立，遮斷時True，Reset time 500ms </summary>
+        /// <returns></returns>
+        public Tuple<bool, bool, bool, bool> ReadCleanChLightCurtain()
+        { return HalCleanCh.ReadLightCurtain(); }
         #endregion Clean Chamber
 
         #region Universal

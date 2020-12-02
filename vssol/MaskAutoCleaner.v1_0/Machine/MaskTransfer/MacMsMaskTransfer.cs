@@ -38,8 +38,6 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
         public MacMsMaskTransfer() { LoadStateMachine(); }
 
-        MacMaskTransferUnitStateTimeOutController timeoutObj = new MacMaskTransferUnitStateTimeOutController();
-
         #region State Machine Command
         //d20201103 TriggerMember 在 Command 執行時產生
         //  好處是可以動態生成處理程式, 隨時置換要Trigger的內容
@@ -618,6 +616,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+                Mediater.ResetAllAlarm();
 
                 var transition = tDeviceInitial_LPHome;
                 TriggerMember triggerMember = new TriggerMember
@@ -2817,7 +2816,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToIronBoxPathFile());
                             HalMaskTransfer.RobotMoving(false);
                             HalMaskTransfer.Clamp((uint)parameter);
                         }
@@ -2854,7 +2853,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromIronBoxToOSPathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                             Mediater.RobotIntrudeOpenStage(null, false);
@@ -2929,7 +2928,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSToOSStagePathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromOSToIronBoxPathFile());
                             HalMaskTransfer.RobotMoving(false);
                             HalMaskTransfer.Unclamp();
                         }
@@ -2966,7 +2965,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                         try
                         {
                             HalMaskTransfer.RobotMoving(true);
-                            HalMaskTransfer.ExePathMove(fileObj.FromOSStageToOSPathFile());
+                            HalMaskTransfer.ExePathMove(fileObj.FromIronBoxToOSPathFile());
                             HalMaskTransfer.ExePathMove(fileObj.FromOSToLPHomePathFile());
                             HalMaskTransfer.RobotMoving(false);
                             Mediater.RobotIntrudeOpenStage(null, false);
@@ -3259,29 +3258,5 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
 
             return true;
         }
-
-        public class MacMaskTransferUnitStateTimeOutController
-        {
-            const int defTimeOutSec = 20;
-            public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
-            {
-                var thisTime = DateTime.Now;
-                var diff = thisTime.Subtract(startTime).TotalSeconds;
-                if (diff >= targetDiffSecs)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            public bool IsTimeOut(DateTime startTime)
-            {
-                return IsTimeOut(startTime, defTimeOutSec);
-            }
-        }
-
     }
 }

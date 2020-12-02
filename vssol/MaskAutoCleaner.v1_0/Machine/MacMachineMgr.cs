@@ -90,7 +90,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         public int MvCfFree()
         {
-            this.MvCfFree();
+            this.HalContext.MvCfFree();
             MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfFree());
             this.DisposeSelf();
             return 0;

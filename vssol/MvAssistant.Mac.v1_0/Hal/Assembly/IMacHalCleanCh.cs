@@ -120,8 +120,8 @@ namespace MvAssistant.Mac.v1_0.Hal.Assembly
         /// <returns></returns>
         double ReadPressure();
 
-        /// <summary> 遮斷為True，依序為：右、前、左 </summary>
-        /// <returns>遮斷為True，依序為：右、前、左</returns>
+        /// <summary> 遮斷為True，依序由左到右 </summary>
+        /// <returns>遮斷為True，依序由左到右</returns>
         Tuple<bool, bool, bool, bool> ReadLightCurtain();
 
         Bitmap Camera_Cap();

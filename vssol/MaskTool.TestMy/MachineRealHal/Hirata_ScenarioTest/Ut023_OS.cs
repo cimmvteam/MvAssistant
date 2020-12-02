@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
@@ -9,6 +11,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut023_OS
     {
+        BoxrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+        public Ut023_OS()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            pathFileObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+        }
         [TestMethod]
         public void TestMethod1()//OK
         {
@@ -79,7 +87,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -87,7 +95,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -152,7 +160,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -160,7 +168,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -227,7 +235,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -235,7 +243,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -300,7 +308,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockIronBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
@@ -308,7 +316,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     {
                         bt.RobotMoving(true);
                         os.ReadRobotIntrude(true, null);
-                        bt.ExePathMove(@"D:\Positions\BTRobot\UnlockCrystalBox.json");
+                        bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
                         os.ReadRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }

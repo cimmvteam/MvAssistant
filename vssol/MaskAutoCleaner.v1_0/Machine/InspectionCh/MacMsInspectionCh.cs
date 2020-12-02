@@ -14,11 +14,8 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
     public class MacMsInspectionCh : MacMachineStateBase
     {
         private IMacHalInspectionCh HalInspectionCh { get { return this.halAssembly as IMacHalInspectionCh; } }
-        private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
         
         public MacMsInspectionCh() { this.LoadStateMachine(); }
-
-        MacInspectionChUnitStateTimeOutController timeoutObj = new MacInspectionChUnitStateTimeOutController();
 
 
 
@@ -131,6 +128,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             sInitial.OnEntry += (sender, e) =>
             {
                 SetCurrentState((MacState)sender);
+                Mediater.ResetAllAlarm();
 
                 var transition = tInitial_Idle;
                 TriggerMember triggerMember = new TriggerMember
@@ -146,12 +144,6 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.LightForBackLineSetValue(888);
-                            HalInspectionCh.LightForLeftLineSetValue(888);
-                            HalInspectionCh.LightForTopCrlDfsSetValue(888);
-                            HalInspectionCh.LightForTopCrlInspSetValue(888);
-                            HalInspectionCh.LightForLeftBarSetValue(888);
-                            HalInspectionCh.LightForRightBarSetValue(888);
                             HalInspectionCh.Initial();
                         }
                         catch (Exception ex) { throw new InspectionChInitialFailException(ex.Message); }
@@ -186,7 +178,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.XYPosition(0, 0);
+                            HalInspectionCh.XYPosition(0, 158);
                             HalInspectionCh.WPosition(0);
                         }
                         catch (Exception ex) { throw new InspectionChPLCExecuteFailException(ex.Message); }
@@ -340,7 +332,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.XYPosition(0, 0);
+                            HalInspectionCh.XYPosition(0, 158);
                             HalInspectionCh.ZPosition(0);
                         }
                         catch (Exception ex) { throw new InspectionChPLCExecuteFailException(ex.Message); }
@@ -515,7 +507,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
                     {
                         try
                         {
-                            HalInspectionCh.XYPosition(0, 0);
+                            HalInspectionCh.XYPosition(0, 158);
                             HalInspectionCh.ZPosition(0);
                         }
                         catch (Exception ex) { throw new InspectionChPLCExecuteFailException(ex.Message); }
@@ -561,23 +553,23 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
         private bool CheckEquipmentStatus()
         {
             string Result = null;
-            if (HalUniversal.ReadPowerON() == false) Result += "Equipment is power off now, ";
-            if (HalUniversal.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
-            if (HalUniversal.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
-            if (HalUniversal.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
-            if (HalUniversal.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
-            if (HalUniversal.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
-            if (HalUniversal.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
-            if (HalUniversal.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
-            if (HalUniversal.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
-            if (HalUniversal.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
+            if (Mediater.ReadPowerON() == false) Result += "Equipment is power off now, ";
+            if (Mediater.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
+            if (Mediater.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
+            if (Mediater.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
+            if (Mediater.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
+            if (Mediater.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
+            if (Mediater.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
+            if (Mediater.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
+            if (Mediater.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
+            if (Mediater.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
 
             if (Result == null)
                 return true;
@@ -593,7 +585,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             //var BT_Alarm = HalUniversal.ReadAlarm_BTRobot();
             //var MTClampInsp_Alarm = HalUniversal.ReadAlarm_MTClampInsp();
             //var MT_Alarm = HalUniversal.ReadAlarm_MTRobot();
-            var IC_Alarm = HalUniversal.ReadAlarm_InspCh();
+            var IC_Alarm = Mediater.ReadAlarm_InspCh();
             //var LP_Alarm = HalUniversal.ReadAlarm_LoadPort();
             //var OS_Alarm = HalUniversal.ReadAlarm_OpenStage();
 
@@ -618,7 +610,7 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             //var BT_Warning = HalUniversal.ReadWarning_BTRobot();
             //var MTClampInsp_Warning = HalUniversal.ReadWarning_MTClampInsp();
             //var MT_Warning = HalUniversal.ReadWarning_MTRobot();
-            var IC_Warning = HalUniversal.ReadWarning_InspCh();
+            var IC_Warning = Mediater.ReadWarning_InspCh();
             //var LP_Warning = HalUniversal.ReadWarning_LoadPort();
             //var OS_Warning = HalUniversal.ReadWarning_OpenStage();
 
@@ -633,29 +625,6 @@ namespace MaskAutoCleaner.v1_0.Machine.InspectionCh
             //if (OS_Warning != "") throw new OpenStagePLCWarningException(OS_Warning);
 
             return true;
-        }
-
-        public class MacInspectionChUnitStateTimeOutController
-        {
-            const int defTimeOutSec = 20;
-            public bool IsTimeOut(DateTime startTime, int targetDiffSecs)
-            {
-                var thisTime = DateTime.Now;
-                var diff = thisTime.Subtract(startTime).TotalSeconds;
-                if (diff >= targetDiffSecs)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            public bool IsTimeOut(DateTime startTime)
-            {
-                return IsTimeOut(startTime, defTimeOutSec);
-            }
         }
     }
 }
