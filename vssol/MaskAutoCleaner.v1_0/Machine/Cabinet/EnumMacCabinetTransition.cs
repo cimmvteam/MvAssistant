@@ -58,6 +58,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng_BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete,
         BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete_Idle,
 
+        Idle_BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutStart,
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutStart_BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutIng,
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutIng_BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutComplete,
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutComplete_Idle,
 
+
+        Idle_BankOutUnLoadMoveSpecificTraysToOutForGrabStart,
+        BankOutUnLoadMoveSpecificTraysToOutForGrabStart_BankOutUnLoadMoveSpecificTraysToOutForGrabIng,
+        BankOutUnLoadMoveSpecificTraysToOutForGrabIng_BankOutUnLoadMoveSpecificTraysToOutForGrabComplete,
+        BankOutUnLoadMoveSpecificTraysToOutForGrabComplete_Idle,
     }
 }

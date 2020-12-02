@@ -88,7 +88,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
 
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveSpecificTrayToInForBoxRobotGrab.ToString());
+            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabBox.ToString());
             method.Invoke(Machine,null);
             Repeat();
         }
@@ -96,7 +96,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// <summary>BankOut, Load, 將指定的 Drawer Tray (從特定的 Que 取得 Drawer Location)將相對的 Drawer Tray 移到 Home, 等待 下一步(Unload)  </summary>
         [TestMethod]
         [DataRow(BoxrobotTransferLocation.Drawer_01_02)]
-        public void Test_BankOutLOadMoveSpecificTrayToHomeAfterBoxrobotGrabBox(BoxrobotTransferLocation drawerLocation)
+        public void Test_BankOutLoadMoveSpecificTrayToHomeAfterBoxrobotGrabBox(BoxrobotTransferLocation drawerLocation)
         {
             #region 測試資料
             var drawerInfo = Machine.GetDicMacHalDrawers().GetKeyValue(drawerLocation);
@@ -126,6 +126,44 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTrayToInForBoxrobotPutBox.ToString());
             method.Invoke(Machine, null);
+            Repeat();
+        }
+
+        /// <summary>Bankout, unload, 將指定的Drawer Tray 經Boxrobot 放上 Box 之後 由 In 移到 Home </summary>
+        /// <param name="drawerLocation"></param>
+        [TestMethod]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_02)]
+        public void Test_BankOutUnLoadMoveSpecificTrayToHomeAfterBoxrobotPutBox(BoxrobotTransferLocation drawerLocation)
+        {
+            #region 測試資料
+            var drawerInfo = Machine.GetDicMacHalDrawers().GetKeyValue(drawerLocation);
+            drawerInfo.Value.SetBoxType(BoxType.CrystalBox);
+            drawerInfo.Value.SetDuration(DrawerDuration.BankOut_UnLoad_TrayAtInNoBox);
+            Machine.BankOutLoadEnqueue(drawerLocation);
+            #endregion
+
+            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTrayToHomeAfterBoxrobotPutBox.ToString());
+            method.Invoke(Machine, null);
+            Repeat();
+        }
+
+        /// <summary>Bankout, unload, 將 Drawer Tray 在 Home 而且有盒子者  由 Home 移到 Out </summary>
+        [TestMethod]
+        [DataRow(new MacEnumDevice[] { MacEnumDevice.cabinet_drawer_01_02, MacEnumDevice.cabinet_drawer_01_03 })]
+        public void Test_BankOutUnLoadMoveSpecificTraysToOutForGrabBox(MacEnumDevice[] devices)
+        {
+            #region  測試資料
+            var list = devices.ToList();
+            var drawers = Machine.GetDicMacHalDrawers();
+            foreach (var l in list)
+            {
+                var v = drawers[l.ToBoxrobotTransferLocation()];
+                v.SetDuration(DrawerDuration.BankOut_UnLoad_TrayAtHomeWithBox);
+            }
+            #endregion
+
+            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTraysToOutForGrabBox.ToString());
+            method.Invoke(Machine,null);
             Repeat();
         }
 

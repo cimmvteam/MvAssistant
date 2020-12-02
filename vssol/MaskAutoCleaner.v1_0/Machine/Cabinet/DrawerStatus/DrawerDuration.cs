@@ -35,7 +35,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
         BankOut_UnLoad_TrayAtInNoBox,
 
         /// <summary>Bank out, Unload, Tray 移到 In, 盒子已經放在上面 </summary>
-        BankOut_UnLoad_TrayAtInWithBox,
+       // BankOut_UnLoad_TrayAtInWithBox,
 
         /// <summary>Bnak Out, Unload, Tray 移到Home </summary>
         BankOut_UnLoad_TrayAtHomeWithBox,

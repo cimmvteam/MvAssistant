@@ -48,7 +48,15 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutStart,
         BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutIng,
-        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete
+        BankOutUnLoadMoveSpecificTrayToInForBoxRobotPutComplete,
+
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutStart,
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutIng,
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxRobotPutComplete,
+
+        BankOutUnLoadMoveSpecificTraysToOutForGrabStart,
+        BankOutUnLoadMoveSpecificTraysToOutForGrabIng,
+        BankOutUnLoadMoveSpecificTraysToOutForGrabComplete,
         /**
 
 /// <summary>開機後尚未Initial</summary>

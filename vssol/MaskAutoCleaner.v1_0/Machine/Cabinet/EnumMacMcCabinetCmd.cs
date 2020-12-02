@@ -20,13 +20,19 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         BankOutLoadMoveTraysToHomeAfterPutBoxOnTray,
 
         /// <summary>BankOut, Load, 將指定具有 盒子的 Tray 移到 In, 等待 BoxRobot 抓取</summary>
-        BankOutLoadMoveSpecificTrayToInForBoxRobotGrab,
+        BankOutLoadMoveSpecificTrayToInForBoxRobotGrabBox,
 
         /// <summary>BankOut, Load, 具有 盒子的 Tray 原本在  In, BoxRobot 抓取 盒子後 將 Tray 移至 Home</summary>
         BankOutLoadMoveSpecificTrayToHomeAfterBoxrobotGrabBox,
 
-        /// <summary>BankOut, UnLoad, 將指定具有 盒子的 Tray 移到 In, 等待 BoxRobot 放置盒子</summary>
+        /// <summary>BankOut, UnLoad, 將指定 盒子的 Tray(没有盒子) 移到 In, 等待 BoxRobot 放置盒子</summary>
         BankOutUnLoadMoveSpecificTrayToInForBoxrobotPutBox,
+
+        /// <summary>BankOut, UnLoad, 將指定具有 盒子的 Tray 移到 In, 等待 BoxRobot 放置盒子</summary>
+        BankOutUnLoadMoveSpecificTrayToHomeAfterBoxrobotPutBox,
+
+        /// <summary>BankOut, UnLoad, 將指定具有 盒子的 Tray 移到Home, 等待 將盒子取走</summary>
+        BankOutUnLoadMoveSpecificTraysToOutForGrabBox
 
     }
 }
