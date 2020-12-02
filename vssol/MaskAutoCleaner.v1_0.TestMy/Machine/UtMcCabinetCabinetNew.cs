@@ -53,7 +53,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             method.Invoke(Machine, new object[] { drawerCounts});
         }
 
-        /// <summary>將盒子</summary>
+        /// <summary>Bankout, LO 將盒子</summary>
         /// <param name="deviceID"></param>
         [TestMethod]
         [DataRow(new MacEnumDevice[] { MacEnumDevice.cabinet_drawer_01_02, MacEnumDevice.cabinet_drawer_01_03 }) ]
