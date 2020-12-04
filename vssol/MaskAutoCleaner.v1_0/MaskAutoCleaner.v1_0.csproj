@@ -108,6 +108,9 @@
     <Compile Include="Machine\Cabinet\DrawerQueues\DrawerForBankOutQue.cs" />
     <Compile Include="Machine\Cabinet\DrawerStatus\CabinetStatusBase.cs" />
     <Compile Include="Machine\Cabinet\DrawerStatus\DrawerDuration.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\BoxUnit.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\DrawerDetail.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\MaskUnit.cs" />
     <Compile Include="Machine\Cabinet\EnumMacMcCabinetCmd.cs" />
     <Compile Include="Machine\Cabinet\DrawerQueues\DrawerSatusInfo.cs" />
     <Compile Include="Machine\Cabinet\MacMcCabinet.cs" />
