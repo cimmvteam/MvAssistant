@@ -22,12 +22,12 @@ namespace MvAssistant.DeviceDrive.LeimacLight
         {
             get
             {
-                if (this.TcpClient.remoteEP == null) this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);
-                return this.TcpClient.remoteEP;
+                if (this.TcpClient.RemoteUri == null) this.TcpClient.RemoteUri = CtkNetUtil.ToUri("127.0.0.1", 0);
+                return CtkNetUtil.ToIPEndPoint(this.TcpClient.RemoteUri);
             }
         }
         public string RemoteIp { get { return this.RemoteEp.Address.ToString(); } set { this.RemoteEp.Address = IPAddress.Parse(value); } }
-        public int RemotePort { get { return this.TcpClient.remoteEP.Port; } set { this.TcpClient.remoteEP.Port = value; } }
+        public int RemotePort { get { return this.TcpClient.RemoteUri.Port; } set { this.TcpClient.RemoteUri = CtkNetUtil.ToUri(this.TcpClient.RemoteUri.Host, value); } }
         public MvEnumLeimacModel Model = MvEnumLeimacModel.None;
 
 
@@ -43,8 +43,8 @@ namespace MvAssistant.DeviceDrive.LeimacLight
             {
                 if (this.TcpClient.IsNonStopRunning) return 0;
 
-                if (this.TcpClient.remoteEP == null)
-                    this.TcpClient.remoteEP = new IPEndPoint(IPAddress.Parse(ip), 1000);
+                if (this.TcpClient.RemoteUri == null)
+                    this.TcpClient.RemoteUri = CtkNetUtil.ToUri(ip, 1000);
 
                 if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
                 if (port.HasValue) this.RemotePort = port.Value;

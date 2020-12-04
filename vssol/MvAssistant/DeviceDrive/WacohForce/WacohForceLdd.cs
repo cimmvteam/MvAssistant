@@ -25,8 +25,8 @@ namespace MvAssistant.DeviceDrive.WacohForce
         public CtkNonStopTcpClient netClient { get { return this.netNonStopTcpClient; } }
         WacohForceMessageReceiver messageReceiver = new WacohForceMessageReceiver();
 
-        public IPEndPoint localEP { get { return this.netNonStopTcpClient.localEP; } set { this.netNonStopTcpClient.localEP = value; } }
-        public IPEndPoint remoteEP { get { return this.netNonStopTcpClient.remoteEP; } set { this.netNonStopTcpClient.remoteEP = value; } }
+        public IPEndPoint localEP { get { return CtkNetUtil.ToIPEndPoint(this.netNonStopTcpClient.LocalUri); } set { this.netNonStopTcpClient.LocalUri = CtkNetUtil.ToUri(value); } }
+        public IPEndPoint remoteEP { get { return CtkNetUtil.ToIPEndPoint(this.netNonStopTcpClient.RemoteUri); } set { this.netNonStopTcpClient.RemoteUri = CtkNetUtil.ToUri(value); } }
 
         Boolean correctionFlag = false;
         WacohForceVector centerForceVector = new WacohForceVector();
