@@ -18,7 +18,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     [TestClass]
     public  class UtMcCabinetCabinetNew
     {
-        MacMsCabinet Machine = default(MacMsCabinet);
+        MacMsCabinet0 Machine = default(MacMsCabinet0);
         public UtMcCabinetCabinetNew()
         {
             var MachineMgr = new MacMachineMgr();
@@ -42,7 +42,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [TestMethod]
         public void Test_SystemBootup()
         {
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.SystemBootup.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.SystemBootup.ToString());
             method.Invoke(Machine, null);
             Repeat();
         }
@@ -52,7 +52,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(3)]
         public void Test_BankOutLoadMoveTraysToOutForPutBoxOnTray(int drawerCounts)
         {
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveTraysToOutForPutBoxOnTray.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveTraysToOutForPutBoxOnTray.ToString());
             method.Invoke(Machine, new object[] { drawerCounts});
             Repeat();
         }
@@ -70,7 +70,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
                 var v = drawers[l.ToBoxrobotTransferLocation()];
                 v.SetDuration(DrawerDuration.BankOut_Load_TrayAtOutForPutBoxOnTray);
             }
-           var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveTraysToHomeAfterPutBoxOnTray.ToString());
+           var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveTraysToHomeAfterPutBoxOnTray.ToString());
             method.Invoke(Machine, new object[] { list });
             Repeat();
         }
@@ -88,7 +88,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
 
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabBox.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveSpecificTrayToInForBoxRobotGrabBox.ToString());
             method.Invoke(Machine,null);
             Repeat();
         }
@@ -105,7 +105,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
 
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveSpecificTrayToHomeAfterBoxrobotGrabBox.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutLoadMoveSpecificTrayToHomeAfterBoxrobotGrabBox.ToString());
             method.Invoke(Machine, null);
             Repeat();
            
@@ -124,7 +124,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             #endregion
 
 
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTrayToInForBoxrobotPutBox.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTrayToInForBoxrobotPutBox.ToString());
             method.Invoke(Machine, null);
             Repeat();
         }
@@ -142,7 +142,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
 
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTrayToHomeAfterBoxrobotPutBox.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTrayToHomeAfterBoxrobotPutBox.ToString());
             method.Invoke(Machine, null);
             Repeat();
         }
@@ -162,7 +162,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             }
             #endregion
 
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTraysToOutForGrabBox.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.BankOutUnLoadMoveSpecificTraysToOutForGrabBox.ToString());
             method.Invoke(Machine,null);
             Repeat();
         }

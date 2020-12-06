@@ -110,10 +110,12 @@
     <Compile Include="Machine\Cabinet\DrawerStatus\DrawerDuration.cs" />
     <Compile Include="Machine\Cabinet\Drawers\BoxUnit.cs" />
     <Compile Include="Machine\Cabinet\Drawers\DrawerDetail.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\DrawerEventHandler.cs" />
     <Compile Include="Machine\Cabinet\Drawers\MaskUnit.cs" />
     <Compile Include="Machine\Cabinet\EnumMacMcCabinetCmd.cs" />
     <Compile Include="Machine\Cabinet\DrawerQueues\DrawerSatusInfo.cs" />
     <Compile Include="Machine\Cabinet\MacMcCabinet.cs" />
+    <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
     <Compile Include="Machine\CleanCh\EnumMacCleanChCmd.cs" />
     <Compile Include="Machine\Cabinet\DrawerStatus\DrawerBoxInfo.cs" />
     <Compile Include="Machine\InspectionCh\EnumMacInspectionChCmd.cs" />
@@ -138,7 +140,7 @@
     <Compile Include="Machine\CabinetDrawer\MacMcCabinetDrawer.cs" />
     <Compile Include="Machine\Cabinet\EnumMacCabinetState.cs" />
     <Compile Include="Machine\Cabinet\EnumMacCabinetTransition.cs" />
-    <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
+    <Compile Include="Machine\Cabinet\MacMsCabinet0.cs" />
     <Compile Include="Machine\CabinetDrawer\MacMsCabinetDrawer.cs" />
     <Compile Include="Machine\Obsolete\Drawer\EnumMacDrawerInitialType.cs" />
     <Compile Include="Machine\LoadPort\EnumLoadportStateMachineID.cs" />

@@ -7,60 +7,91 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawers
 {
-   public class BoxUnit
+    /// <summary>光罩盒</summary>
+    public class BoxUnit
     {
-        public string Barcode { get; private set; }
-        public BoxType BoxType { set; get; }
+        /// <summary>光罩盒條碼</summary>
+        public string BoxBarcode { get; private set; }
+        
+        /// <summary>光罩盒型態</summary>
+        public BoxType BoxType { set;private get; }
+
+        /// <summary>光罩</summary>
         public MaskUnit MaskUnit { get; private set; }
+
+        /// <summary>目前有没有光罩在盒內</summary>
         public bool HasMask { get; private set; }
 
+        /// <summary>Constructor</summary>
         public BoxUnit()
         {
-            Barcode = string.Empty;
+            BoxBarcode = string.Empty;
             BoxType = BoxType.DontCare;
             MaskUnit = null;
             HasMask = false;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="barcode"></param>
-        /// <param name="boxType"></param>
+        /// <summary>Constructor</summary>
+        /// <param name="barcode">光罩盒條碼</param>
+        /// <param name="boxType">光罩盒種類</param>
         public BoxUnit(string barcode, BoxType boxType):this()
         {
-            Barcode = barcode;
+            BoxBarcode = barcode;
             BoxType = BoxType;
 
         }
 
-        public void SetBarcode(string barcode)
+        /// <summary>設定光罩盒條碼</summary>
+        /// <param name="barcode"></param>
+        public void SetBoxBarcode(string barcode)
         {
-            Barcode = barcode;
-        }
-        public void ClearBarcode()
-        {
-            Barcode = string.Empty;
+            BoxBarcode = barcode;
         }
 
+        /// <summary>清除光罩盒條碼</summary>
+        public void ClearBarcode()
+        {
+            BoxBarcode = string.Empty;
+        }
+        
+        /// <summary>將光罩放入光罩盒內</summary>
         public void PutMaskInBox()
         {
             HasMask = true;
         }
 
+        /// <summary>從光罩盒內拿走光罩</summary>
         public void TakeMaskFromBox()
         {
             HasMask = false;
         }
 
+        /// <summary>綁定光罩資料</summary>
+        /// <param name="maskUnit"></param>
         public void BindMask(MaskUnit maskUnit)
         {
             MaskUnit = maskUnit;
         }
-
+        
+        /// <summary>解綁光罩資料</summary>
         public void UnBindMask()
         {
             MaskUnit = null;
+        }
+
+        /// <summary>載入 Mask</summary>
+        /// <param name="mask"></param>
+        public void LoadMask(MaskUnit mask)
+        {
+            BindMask(mask); 
+            PutMaskInBox();
+        }
+
+        /// <summary>卸載 Mask</summary>
+        public void UnLoadMask()
+        {
+            UnBindMask();
+            TakeMaskFromBox();
         }
     }
 }

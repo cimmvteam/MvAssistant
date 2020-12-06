@@ -8,10 +8,14 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
     public enum EnumMacCabinetState
     {
+        //----
+        InitialStart,
+        InitialIng,
+        InitialComplete,
+        Idle,
 
-       
+        //
 
-        
 
         /// <summary>Load, 將合於條件的Drawer Tray 移到 Out, 開始 </summary>
         LoadMoveDrawerTraysToOutStart,
@@ -34,7 +38,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         /// <summary>同步Drawer 的狀態, 結束</summary>
         SynchronousDrawerStatesComplete,
         Start,
-        Idle,
+      
         BankOutLoadMoveTraysToOutForPutBoxOnTraysIng,
         BankOutLoadMoveTraysToOutForPutBoxOnTraysStart,
         BankOutLoadMoveTraysToOutForPutBoxOnTraysComplete,
