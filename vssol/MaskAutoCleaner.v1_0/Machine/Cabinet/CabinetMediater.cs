@@ -9,7 +9,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
     public class CabinetMediater
     {
-        MacMsCabinet StateMachine;
+        MacMsCabinet0 StateMachine;
         DrawerForBankOutQue DrawerForBankOutQue;
 
         /// <summary>BnakOut處理中的盒子(帶有盒子, 要 從 Home 移到 In 開始算)</summary>
@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
         {
 
         }
-        public CabinetMediater(MacMsCabinet stateMachine, DrawerForBankOutQue drawerForBankOutQue) : this()
+        public CabinetMediater(MacMsCabinet0 stateMachine, DrawerForBankOutQue drawerForBankOutQue) : this()
         {
             StateMachine = stateMachine;
             DrawerForBankOutQue = drawerForBankOutQue;

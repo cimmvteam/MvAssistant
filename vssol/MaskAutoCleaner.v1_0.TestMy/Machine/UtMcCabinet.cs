@@ -13,7 +13,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
     [TestClass]
     public class UtMcCabinet
     {
-        MacMsCabinet _machine { get; set; }
+        MacMsCabinet0 _machine { get; set; }
         private void Repeat()
         {
             while (true)
@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
         public UtMcCabinet()
         {
-            _machine = MacMsCabinet.GetInstance();
+            _machine = MacMsCabinet0.GetInstance();
             // 
             var DrawerMachineIdRange = EnumMachineID.MID_DRAWER_01_01.GetDrawerStateMachineIDRange();
             var MachineMgr = new MacMachineMgr();
@@ -66,7 +66,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
          public void Test_SystemBootup()
         {
             _machine.DicCabinetDrawerStateMachines = DicStateMachines;
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.SystemBootup.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.SystemBootup.ToString());
             method.Invoke(_machine, null);
             
         }
@@ -80,7 +80,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Load_Drawers(int drawersToLoad)
         {
             _machine.DicCabinetDrawerStateMachines = this.DicStateMachines;
-            var method = typeof(MacMsCabinet).GetMethod(EnumMacMcCabinetCmd.Load_Drawers.ToString());
+            var method = typeof(MacMsCabinet0).GetMethod(EnumMacMcCabinetCmd.Load_Drawers.ToString());
             method.Invoke(method,new object[] { drawersToLoad});
             Repeat();
         }

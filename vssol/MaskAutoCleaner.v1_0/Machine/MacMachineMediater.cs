@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         private MacMachineMediater()
         {
             DrawerForBankOutQue= DrawerForBankOutQue.GetInstance();
-            CabinetMediater = new CabinetMediater(MacMsCabinet.GetInstance(), DrawerForBankOutQue);
+            CabinetMediater = new CabinetMediater(MacMsCabinet0.GetInstance(), DrawerForBankOutQue);
         }
         public MacMachineMediater(MacMachineMgr machineMgr):this()
         { this.MachineMgr = machineMgr; }
@@ -38,7 +38,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         
         
-        private MacMsCabinet MsCabinet { get { return MacMsCabinet.GetInstance();} }
+        private MacMsCabinet0 MsCabinet { get { return MacMsCabinet0.GetInstance();} }
         private DrawerForBankOutQue DrawerForBankOutQue { get; set; }
         public CabinetMediater CabinetMediater { get; set; }
         public MacMachineCtrlBase GetCtrlMachine(string machineId)

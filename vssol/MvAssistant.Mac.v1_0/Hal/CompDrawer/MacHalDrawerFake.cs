@@ -20,7 +20,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     public class MacHalDrawerFake : MacHalComponentBase, IMacHalDrawer
     {
 
-
+        public bool IsInitialing { get; set; }
         public MacHalDrawerFake()
         {
             //Fake 預設在正常位置, 不用檢查

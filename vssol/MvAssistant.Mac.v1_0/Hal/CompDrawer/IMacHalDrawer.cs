@@ -18,7 +18,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         void ResetCurrentWorkState();
         Action PressButtonToLoad { get; set; }
         DrawerWorkState CurrentWorkState { get; }
-
+        bool IsInitialing { get; set; }
 
         #region command
         string CommandINI();
@@ -135,4 +135,8 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
         MoveTrayToPositionHomeIng,
         MoveTrayToPositionInIng,
     }
+
+
+   
+
 }

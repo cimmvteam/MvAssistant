@@ -8,8 +8,18 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 {
     public enum EnumMacCabinetTransition
     {
-       
-      
+
+        //--------------------------
+        InitialStart_InitialIng,
+        InitialIng_InitialComplete,
+        InitialComplete_Idle,
+
+      //
+
+
+
+
+
 
         /// <summary>Load, 將 Drawer 的Tray 移到 Out 開始=> 移動中</summary>
         LoadMoveDrawerTraysToOutStart_LoadMoveDrawerTraysToOutIng,

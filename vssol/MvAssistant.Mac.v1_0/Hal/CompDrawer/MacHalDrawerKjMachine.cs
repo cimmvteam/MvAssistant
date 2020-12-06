@@ -21,6 +21,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
     public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
     {
 
+        public bool IsInitialing { get; set; }
         MvKjMachineDrawerLddPool LddPool;
        // private bool IsCommandINI = false;
         /// <summary>工作狀態</summary>

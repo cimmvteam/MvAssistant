@@ -62,7 +62,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             // DataRow
             EnumMachineID machineID1 = EnumMachineID.MID_DRAWER_01_01, machineID2 = EnumMachineID.MID_DRAWER_01_02;
 
-            var machine1 = MacMsCabinet.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
+            var machine1 = MacMsCabinet0.GetMacMsCabinetDrawer(machineID1,DicStateMachines);
             //var machine2 = MacMsCabinet.GetMacMsCabinetDrawer(machineID2, DicStateMachines);
 
            
@@ -81,7 +81,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void SystemBootup(EnumMachineID machineID)
         {
         
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
          
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.SystemBootup.ToString());
 
@@ -99,7 +99,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         {
             // DataRow
            
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method= typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.SystemBootupInitial.ToString());
             method.Invoke(machine,null);
             
@@ -117,7 +117,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         //[DataRow(EnumMachineID.MID_DRAWER_04_02)]
         public void Load_MoveTrayToOut(EnumMachineID machineID)
         {
-           var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+           var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
            var method= typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Load_MoveTrayToOut.ToString());
            method.Invoke(machine, null);
            Repeat();
@@ -136,7 +136,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Load_MoveTrayToHome(EnumMachineID machineID)
         {
 
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Load_MoveTrayToHome.ToString());
             method.Invoke(machine, null);
             Repeat();
@@ -155,7 +155,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void Load_MoveTrayToIn(EnumMachineID machineID)
         {
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Load_MoveTrayToIn.ToString());
             method.Invoke(machine, null);
             Repeat();
@@ -169,7 +169,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void MoveTrayToHomeWaitingUnloadInstruction(EnumMachineID machineID)
         {
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.MoveTrayToHomeWaitingUnloadInstruction.ToString());
             method.Invoke(machine, null);
             Repeat();
@@ -184,7 +184,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         [DataRow(EnumMachineID.MID_DRAWER_01_02)]
         public void Unload_MoveTrayToIn(EnumMachineID machineID)
         {
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Unload_MoveTrayToIn.ToString());
             method.Invoke(machine, null);
             Repeat();
@@ -202,7 +202,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void Unload_MoveTrayToHome(EnumMachineID machineID)
         {
             //Unload_MoveTrayToHome
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.Unload_MoveTrayToHome.ToString());
             method.Invoke(machine, null);
             Repeat();
@@ -218,7 +218,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MoveTrayToHomeWaitingLoadInstruction(EnumMachineID machineID)
         {
             //  MoveTrayToHomeWaitingLoadInstruction
-            var machine = MacMsCabinet.GetMacMsCabinetDrawer(machineID, DicStateMachines);
+            var machine = MacMsCabinet0.GetMacMsCabinetDrawer(machineID, DicStateMachines);
             var method = typeof(MacMsCabinetDrawer).GetMethod(EnumMacMcCabinetDrawerCmd.MoveTrayToHomeWaitingLoadInstruction.ToString());
             method.Invoke(machine, null);
             Repeat();
