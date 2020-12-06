@@ -29,7 +29,8 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
             menifest.Devices.Add(DE_CC_A_ASB());
             menifest.Devices.Add(DE_MT_A_ASB());
             menifest.Devices.Add(DE_CB_A_ASB());
-
+            /**
+          
             #region drawer
             menifest.Devices.Add(DE_CB_A_01_01());
             menifest.Devices.Add(DE_CB_A_01_02());
@@ -56,7 +57,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
             menifest.Devices.Add(DE_CB_A_04_05());
 
             #endregion drawer
-
+            */
             menifest.Devices.Add(DE_OS_A_ASB());
             menifest.Devices.Add(DE_BT_A_ASB());
             menifest.Devices.Add(DE_UNI_A_ASB());
@@ -111,16 +112,32 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.cabinet_assembly.ToString(),
                 DriverId = ManifestDriverId.CabinetFake.ToString(),
                 PositionId = MacEnumPositionId.Cabinet01.ToString(),
-                /*Devices = new MacManifestDeviceCfg[] {
+                Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
-                        DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
-                        DeviceName = MacEnumDevice.cabinet_plc.ToString(),
-                        DriverId = ManifestDriverId.CabinetPlc.ToString(),
+                        DevConnStr ="ip=192.168.0.31;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01",
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_01.ToString(),
+                        DriverId = ManifestDriverId.DrawerFake.ToString(),
+                        ID= EnuDeviceId.DE_CB_A_01_01.ToString(),
                     },
-
-
-
-                },*/
+                     new MacManifestDeviceCfg(){
+                         DevConnStr ="ip=192.168.0.32;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_02",
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_02.ToString(),
+                        DriverId = ManifestDriverId.DrawerFake.ToString(),
+                        ID= EnuDeviceId.DE_CB_A_01_02.ToString(),
+                    },
+                      new MacManifestDeviceCfg(){
+                          DevConnStr ="ip=192.168.0.33;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_03",
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_03.ToString(),
+                        DriverId = ManifestDriverId.DrawerFake.ToString(),
+                        ID= EnuDeviceId.DE_CB_A_01_03.ToString(),
+                    },
+                       new MacManifestDeviceCfg(){
+                           DevConnStr ="ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04",
+                        DeviceName = MacEnumDevice.cabinet_drawer_01_04.ToString(),
+                        DriverId = ManifestDriverId.DrawerFake.ToString(),
+                        ID= EnuDeviceId.DE_CB_A_01_04.ToString(),
+                    },
+                },
             };
             return rs;
         }
@@ -821,7 +838,7 @@ namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
                 DeviceName = MacEnumDevice.openstage_assembly.ToString(),
                 DriverId = ManifestDriverId.OpenStageFake.ToString(),
                 PositionId = MacEnumPositionId.OpenStage01.ToString(),
-                /*Devices = new MacManifestDeviceCfg[] {
+                /**Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
                         DeviceName = MacEnumDevice.openstage_plc.ToString(),

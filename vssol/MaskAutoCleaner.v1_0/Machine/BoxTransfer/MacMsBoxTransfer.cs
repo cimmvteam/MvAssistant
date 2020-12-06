@@ -20,10 +20,8 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
     public class MacMsBoxTransfer : MacMachineStateBase
     {
         // private MacState _currentState = null;
-        BoxrobotTransferPathFile pathObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);// new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\");
-        private IMacHalUniversal HalUniversal { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
+        BoxrobotTransferPathFile pathObj = new BoxrobotTransferPathFile(PositionInstance.BTR_Path);// new BoxrobotTransferPathFile(@"D:\Positions\BTRobot\"); }
         public IMacHalBoxTransfer HalBoxTransfer { get { return this.halAssembly as IMacHalBoxTransfer; } }
-        private IMacHalOpenStage HalOpenStage { get { return this.Mediater.GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
         public BoxrobotTransferLocation DrawerLocation { get; private set; }
         public void ResetState()
         { this.States[EnumMacBoxTransferState.Start.ToString()].DoEntry(new MacStateEntryEventArgs(null)); }
@@ -116,7 +114,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             Debug.WriteLine("Command: MoveToOpenStagePut()");
             // from: sCB1HomeClamped, to: sMovingToOpenStageForRelease
             //var transition = Transitions[EnumMacBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
-            var transition = Transitions[EnumMacBoxTransferTransition.MoveToOpenStageForRelease.ToString()];
+            var transition = Transitions[EnumMacBoxTransferTransition.CB1HomeClamped_MovingToOpenStageForRelease.ToString()];
 #if GNotCareState
             var state = transition.StateFrom;
 #else
@@ -408,6 +406,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 Debug.WriteLine("State: [sDeviceInitial.OnEntry]");
                 SetCurrentState((MacState)sender);
+                Mediater.ResetAllAlarm();
 
                 //from: sInitial, to: sCB1Home
                 var transition = tDeviceInitial_CB1Home;
@@ -544,7 +543,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     {
                         try
                         {
-                          var intrudeResult=  HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
+                          var intrudeResult= Mediater.RobotIntrudeOpenStage(true, null); // Fake OK
                           HalBoxTransfer.RobotMoving(true); // Fake OK
 
                             // path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_GET.json"
@@ -637,7 +636,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             var path = pathObj.FromOpenStageToCabinet01Home_GET_PathFile();
                             var moveREsult=  HalBoxTransfer.ExePathMove(path);
                             HalBoxTransfer.RobotMoving(false); // Fake OK
-                            var intrudeResult=HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
+                            var intrudeResult= Mediater.RobotIntrudeOpenStage(false, null); // Fake OK
                         }
                         catch (Exception ex)
                         {
@@ -677,7 +676,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                     {
                         try
                         {
-                            var intrudeResult=HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                            var intrudeResult= Mediater.RobotIntrudeOpenStage(true, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(true);   // Fake OK
 
                             // Path: @"D:\Positions\BTRobot\Cabinet_01_Home_Forward_OpenStage_PUT.json"
@@ -768,7 +767,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                              var path = pathObj.FromOpenStageToCabinet01Home_PUT_PathFile();
                              var moveREsult = HalBoxTransfer.ExePathMove(path);
                              HalBoxTransfer.RobotMoving(false);  // Fake OK
-                             var intrudeResult = HalOpenStage.ReadRobotIntrude(false, null);   // Fake OK
+                             var intrudeResult = Mediater.RobotIntrudeOpenStage(false, null);   // Fake OK
                          }
                          catch (Exception ex)
                          {
@@ -818,7 +817,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             var path = pathObj.Cabinet01HomePathFile();
                             if (!HalBoxTransfer.CheckPosition(path))  // Fake OK
                                 throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to lock box.");
-                            var intrudeResult= HalOpenStage.ReadRobotIntrude(true, null);  // Fake OK
+                            var intrudeResult= Mediater.RobotIntrudeOpenStage(true, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(true); // Fake OK
                             if (boxType == BoxType.IronBox)
                             {  // 鐵盒 
@@ -837,12 +836,12 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             else
                             {   // 非水晶盒與也非鐵盒
                                 HalBoxTransfer.RobotMoving(false);   // Fake OK
-                                HalOpenStage.ReadRobotIntrude(false, null); // Fake OK
+                                Mediater.RobotIntrudeOpenStage(false, null); // Fake OK
                                 if (boxType != 0)//測試Fake State Machine先用BoxType.DontCare，因此先略過BoxType=0的錯誤
                                     throw new Exception("Unknown box type, can not move to lock box.");
                             }
 
-                            intrudeResult= HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                            intrudeResult= Mediater.RobotIntrudeOpenStage(false, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(false);  // Fake OK
                         }
                         catch (Exception ex)
@@ -891,7 +890,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             {
                                 throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to unlock box.");
                             }
-                           var intrudeResult= HalOpenStage.ReadRobotIntrude(true, null); // Fake OK
+                           var intrudeResult= Mediater.RobotIntrudeOpenStage(true, null); // Fake OK
                             HalBoxTransfer.RobotMoving(true);  // Fake OK
                             if (boxType == BoxType.IronBox)
                             {
@@ -908,11 +907,11 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             else
                             {
                                 HalBoxTransfer.RobotMoving(false); // Fake OK
-                                var intrudeREsult = HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                                var intrudeREsult = Mediater.RobotIntrudeOpenStage(false, null);  // Fake OK
                                 if (boxType != 0)//測試Fake State Machine先用BoxType.DontCare，因此先略過BoxType=0的錯誤
                                     throw new Exception("Unknown box type, can not move to unlock box.");
                             }
-                           intrudeResult= HalOpenStage.ReadRobotIntrude(false, null);  // Fake OK
+                           intrudeResult= Mediater.RobotIntrudeOpenStage(false, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(false);  // Fake OK
                         }
                         catch (Exception ex)
@@ -1339,23 +1338,23 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         private bool CheckEquipmentStatus()
         {
             string Result = null;
-            if (HalUniversal.ReadPowerON() == false) Result += "Equipment is power off now, ";
-            if (HalUniversal.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
-            if (HalUniversal.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
-            if (HalUniversal.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
-            if (HalUniversal.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
-            if (HalUniversal.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
-            if (HalUniversal.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
-            if (HalUniversal.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
-            if (HalUniversal.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
-            if (HalUniversal.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
-            if (HalUniversal.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
-            if (HalUniversal.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
+            if (Mediater.ReadPowerON() == false) Result += "Equipment is power off now, ";
+            if (Mediater.ReadBCP_Maintenance()) Result += "Key lock in the electric control box is turn to maintenance, ";
+            if (Mediater.ReadCB_Maintenance()) Result += "Outside key lock between cabinet_1 and cabinet_2 is turn to maintenance, ";
+            if (Mediater.ReadBCP_EMO().Item1) Result += "EMO_1 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item2) Result += "EMO_2 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item3) Result += "EMO_3 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item4) Result += "EMO_4 has been trigger, ";
+            if (Mediater.ReadBCP_EMO().Item5) Result += "EMO_5 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item1) Result += "EMO_6 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item2) Result += "EMO_7 has been trigger, ";
+            if (Mediater.ReadCB_EMO().Item3) Result += "EMO_8 has been trigger, ";
+            if (Mediater.ReadLP1_EMO()) Result += "Load Port_1 EMO has been trigger, ";
+            if (Mediater.ReadLP2_EMO()) Result += "Load Port_2 EMO has been trigger, ";
+            if (Mediater.ReadBCP_Door()) Result += "The door of electric control box has been open, ";
+            if (Mediater.ReadLP1_Door()) Result += "The door of Load Port_1 has been open, ";
+            if (Mediater.ReadLP2_Door()) Result += "The door of Load Pord_2 has been open, ";
+            if (Mediater.ReadBCP_Smoke()) Result += "Smoke detected in the electric control box, ";
 
             if (Result == null)
                 return true;
@@ -1372,7 +1371,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             //var CB_Alarm = HalUniversal.ReadAlarm_Cabinet();
             //var CC_Alarm = HalUniversal.ReadAlarm_CleanCh();
             //var CF_Alarm = HalUniversal.ReadAlarm_CoverFan();
-            var BT_Alarm = HalUniversal.ReadAlarm_BTRobot();
+            var BT_Alarm = Mediater.ReadAlarm_BTRobot();
             //var MTClampInsp_Alarm = HalUniversal.ReadAlarm_MTClampInsp();
             //var MT_Alarm = HalUniversal.ReadAlarm_MTRobot();
             //var IC_Alarm = HalUniversal.ReadAlarm_InspCh();
@@ -1401,7 +1400,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             //var CB_Warning = HalUniversal.ReadWarning_Cabinet();
             //var CC_Warning = HalUniversal.ReadWarning_CleanCh();
             //var CF_Warning = HalUniversal.ReadWarning_CoverFan();
-            var BT_Warning = HalUniversal.ReadWarning_BTRobot();
+            var BT_Warning = Mediater.ReadWarning_BTRobot();
             //var MTClampInsp_Warning = HalUniversal.ReadWarning_MTClampInsp();
             //var MT_Warning = HalUniversal.ReadWarning_MTRobot();
             //var IC_Warning = HalUniversal.ReadWarning_InspCh();

@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
@@ -9,6 +11,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut014_MT
     {
+        MaskrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+        public Ut014_MT()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            pathFileObj = new MaskrobotTransferPathFile(PositionInstance.MTR_Path);
+        }
         [TestMethod]
         public void TestMethod1()//OK
         {
@@ -26,9 +34,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //1. Mask Robot (無夾持光罩) 從Home點移動至Load Port B
                     mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
+                    mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
                     mt.RobotMoving(false);
                 }
             }
@@ -61,9 +69,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //2. Mask Robot從Home點移動至Inspection Chamber
                     ic.ReadRobotIntrude(true);
                     mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                    mt.ChangeDirection(pathFileObj.InspChHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Inspection Chamber 內進行光罩夾取
@@ -71,20 +79,20 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Inspection Chamber移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
                     ic.ReadRobotIntrude(false);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
 
                     //5. Mask Robot將光罩從Load Port B, 移回Inspection Chamber
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
+                    mt.ChangeDirection(pathFileObj.InspChHomePathFile());
                     ic.ReadRobotIntrude(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                    mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Inspection Chamber Stage上
@@ -92,10 +100,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //7. Mask Robot (無夾持光罩) 從Inspection Chamber移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
                     ic.ReadRobotIntrude(false);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.RobotMoving(false);
                 }
             }
@@ -144,12 +152,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //2. Mask Robot從Home點移動至Open Stage上方
                     os.ReadRobotIntrude(false, true);
                     mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    os.ReadRobotIntrude(false, true);
+                    mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToCrystalBoxPathFile());
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Open Stage進行光罩夾取
@@ -158,23 +167,23 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //4. Mask Robot將光罩從Open Stage移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                        mt.ExePathMove(pathFileObj.FromIronBoxToOSPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
+                    mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
                     os.ReadRobotIntrude(false, false);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
 
-                    //5. Mask Robot將光罩從Load Port A, 移回Open Stage
+                    //5. Mask Robot將光罩從Load Port B, 移回Open Stage
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
                     os.ReadRobotIntrude(false, true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToCrystalBoxPathFile());
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Open Stage上
@@ -183,10 +192,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //7. Mask Robot (無夾持光罩) 從Open Stage移回Home點
                     mt.RobotMoving(true);
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                        mt.ExePathMove(pathFileObj.FromIronBoxToOSPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
+                    mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
                     mt.RobotMoving(false);
                     os.ReadRobotIntrude(false, false);
 
@@ -216,12 +225,13 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //2. Mask Robot從Home點移動至Open Stage上方
                     os.ReadRobotIntrude(false, true);
                     mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    os.ReadRobotIntrude(false, true);
+                    mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToCrystalBoxPathFile());
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Open Stage進行光罩夾取
@@ -230,23 +240,23 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //4. Mask Robot將光罩從Open Stage移動至Load Port B處 (不放置)
                     mt.RobotMoving(true);
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                        mt.ExePathMove(pathFileObj.FromIronBoxToOSPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
+                    mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
                     os.ReadRobotIntrude(false, false);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
 
                     //5. Mask Robot將光罩從Load Port B, 移回Open Stage
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
                     os.ReadRobotIntrude(false, true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToOS.json");
+                    mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToIronBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\OSToCrystalBox.json");
+                        mt.ExePathMove(pathFileObj.FromOSToCrystalBoxPathFile());
                     mt.RobotMoving(false);
 
                     //6. Mask Robot將光罩放置於Open Stage上
@@ -255,10 +265,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
                     //7. Mask Robot (無夾持光罩) 從Open Stage移回Home點
                     mt.RobotMoving(true);
                     if (BoxType == 1)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\IronBoxToOS.json");
+                        mt.ExePathMove(pathFileObj.FromIronBoxToOSPathFile());
                     else if (BoxType == 2)
-                        mt.ExePathMove(@"D:\Positions\MTRobot\CrystalBoxToOS.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\OSToLPHome.json");
+                        mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
+                    mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
                     mt.RobotMoving(false);
                     os.ReadRobotIntrude(false, false);
 

@@ -67,14 +67,24 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.OS, MaskrobotTransferLocation.LPHome);
         }
 
-        public string FromOSToOSStagePathFile()
+        public string FromOSToIronBoxPathFile()
         {
-            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.OS, MaskrobotTransferLocation.OSStage);
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.OS, MaskrobotTransferLocation.IronBox);
         }
 
-        public string FromOSStageToOSPathFile()
+        public string FromOSToCrystalBoxPathFile()
         {
-            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.OSStage, MaskrobotTransferLocation.OS);
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.OS, MaskrobotTransferLocation.CrystalBox);
+        }
+
+        public string FromIronBoxToOSPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.IronBox, MaskrobotTransferLocation.OS);
+        }
+
+        public string FromCrystalBoxToOSPathFile()
+        {
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CrystalBox, MaskrobotTransferLocation.OS);
         }
 
         public string FromICHomeToDeformInspPathFile()

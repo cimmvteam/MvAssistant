@@ -76,7 +76,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 MachineCtrlType = typeof(MacMcUniversal),
                 HalId = EnuDeviceId.DE_UNI_A_ASB.ToString(),
             });
-
+            /**
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_DRAWER_01_01.ToString(),
@@ -102,7 +102,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
                 ID = EnumMachineID.MID_DRAWER_01_04.ToString(),
                 MachineCtrlType = typeof(MacMcCabinetDrawer),
                 HalId = EnuDeviceId.DE_CB_A_01_04.ToString(),
-            });
+            });*/
             var fn = "../../UserData/MachineMgr.config.fake";
             var fi = new FileInfo(fn);
             if (!fi.Directory.Exists) fi.Directory.Create();

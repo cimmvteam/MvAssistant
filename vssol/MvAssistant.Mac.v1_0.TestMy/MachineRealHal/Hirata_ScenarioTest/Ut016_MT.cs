@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvAssistant.Mac.v1_0.Hal;
 using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
 using MvAssistant.Mac.v1_0.Manifest;
 
 namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
@@ -9,6 +11,12 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut016_MT
     {
+        MaskrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
+        public Ut016_MT()
+        {
+            PositionInstance.Load(); // 在這裏載入所有(Boxtransfer 及 Masktransfer)的路徑點位資料
+            pathFileObj = new MaskrobotTransferPathFile(PositionInstance.MTR_Path);
+        }
         [TestMethod]
         public void TestMethod1()//OK
         {
@@ -30,7 +38,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //2.Mask Robot從Home點移動至Load Port A
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP1PathFile());
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Load Port A的Pod 內進行光罩夾取
@@ -38,9 +46,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Load Port A移動至Clean Chamber內
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
+                    mt.ExePathMove(pathFileObj.FromLP1ToLPHomePathFile());
+                    mt.ChangeDirection(pathFileObj.CleanChHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromCCHomeToCCFrontSidePathFile());
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Clean Chamber & 報值
@@ -49,10 +57,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. Mask Robot模擬吹除轉動Mask行為
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                    mt.ExePathMove(pathFileObj.FromCCFrontSideToCleanPathFile());
+                    mt.ExePathMove(pathFileObj.FromFrontSideCleanFinishToCCPathFile());
+                    mt.ExePathMove(pathFileObj.FromCCFrontSideToCapturePathFile());
+                    mt.ExePathMove(pathFileObj.FromFrontSideCaptureFinishToCCPathFile());
                     mt.RobotMoving(false);
 
                     //7. 將光罩移動至安全光柵附近, 觸發光柵報值(由人員手動遮斷)
@@ -60,9 +68,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. Mask Robot將光罩從Clean Chamber, 移回Load Port A
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP1.json");
+                    mt.ExePathMove(pathFileObj.FromCCFrontSideToCCHomePathFile());
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP1PathFile());
                     mt.RobotMoving(false);
 
                     //9. Mask Robot將光罩放置於Load Port A Pod上
@@ -70,7 +78,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //10. Mask Robot (無夾持光罩) 從Load Port A移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP1ToLPHome.json");
+                    mt.ExePathMove(pathFileObj.FromLP1ToLPHomePathFile());
                     mt.RobotMoving(false);
 
 
@@ -82,7 +90,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //2.Mask Robot從Home點移動至Load Port B
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Load Port B的Pod 內進行光罩夾取
@@ -90,9 +98,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Load Port B移動至Clean Chamber內
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCFrontSide.json");
+                    mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
+                    mt.ChangeDirection(pathFileObj.CleanChHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromCCHomeToCCFrontSidePathFile());
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Clean Chamber & 報值
@@ -101,10 +109,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. Mask Robot模擬吹除轉動Mask行為
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToClean.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCleanFinishToCC.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCapture.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\FrontSideCaptureFinishToCC.json");
+                    mt.ExePathMove(pathFileObj.FromCCFrontSideToCleanPathFile());
+                    mt.ExePathMove(pathFileObj.FromFrontSideCleanFinishToCCPathFile());
+                    mt.ExePathMove(pathFileObj.FromCCFrontSideToCapturePathFile());
+                    mt.ExePathMove(pathFileObj.FromFrontSideCaptureFinishToCCPathFile());
                     mt.RobotMoving(false);
 
                     //7. 將光罩移動至安全光柵附近, 觸發光柵報值(由人員手動遮斷)
@@ -112,9 +120,9 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. Mask Robot將光罩從Clean Chamber, 移回Load Port B
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCFrontSideToCCHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LPHomeToLP2.json");
+                    mt.ExePathMove(pathFileObj.FromCCFrontSideToCCHomePathFile());
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
 
                     //9. Mask Robot將光罩放置於Load Port B Pod上
@@ -122,7 +130,7 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //10. Mask Robot (無夾持光罩) 從Load Port B移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\LP2ToLPHome.json");
+                    mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
                     mt.RobotMoving(false);
                 }
             }
@@ -152,11 +160,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //2. Mask Robot從Home點移動至Inspection Chamber
                     mt.RobotMoving(true);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
+                    mt.ChangeDirection(pathFileObj.InspChHomePathFile());
                     ic.ReadRobotIntrude(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                    mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
 
                     //3. Mask Robot在Inspection Chamber 內進行光罩夾取
@@ -164,11 +172,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //4. Mask Robot將光罩從Inspection Chamber移動至Clean Chamber內
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
                     ic.ReadRobotIntrude(false);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\CleanChHome.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCHomeToCCBackSide.json");
+                    mt.ChangeDirection(pathFileObj.CleanChHomePathFile());
+                    mt.ExePathMove(pathFileObj.FromCCHomeToCCBackSidePathFile());
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Clean Chamber & 報值
@@ -177,10 +185,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //6. Mask Robot模擬吹除轉動Mask行為
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToClean.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCleanFinishToCC.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCapture.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\BackSideCaptureFinishToCC.json");
+                    mt.ExePathMove(pathFileObj.FromCCBackSideToCleanPathFile());
+                    mt.ExePathMove(pathFileObj.FromBackSideCleanFinishToCCPathFile());
+                    mt.ExePathMove(pathFileObj.FromCCBackSideToCapturePathFile());
+                    mt.ExePathMove(pathFileObj.FromBackSideCaptureFinishToCCPathFile());
                     mt.RobotMoving(false);
 
                     //7. 將光罩移動至安全光柵附近, 可觸發光柵報值(由人員手動遮斷)
@@ -188,11 +196,11 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //8. Mask Robot將光罩從Clean Chamber, 移回Inspection Chamber
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\CCBackSideToCCHome.json");
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\InspChHome.json");
+                    mt.ExePathMove(pathFileObj.FromCCBackSideToCCHomePathFile());
+                    mt.ChangeDirection(pathFileObj.InspChHomePathFile());
                     ic.ReadRobotIntrude(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICHomeToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICStage.json");
+                    mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
 
                     //9. Mask Robot將光罩放置於Inspection Chamber Stage上
@@ -200,10 +208,10 @@ namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 
                     //10.Mask Robot(無夾持光罩) 從Inspection Chamber移回Home點
                     mt.RobotMoving(true);
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICStageToICFrontSide.json");
-                    mt.ExePathMove(@"D:\Positions\MTRobot\ICFrontSideToICHome.json");
+                    mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
+                    mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
                     ic.ReadRobotIntrude(false);
-                    mt.ChangeDirection(@"D:\Positions\MTRobot\LoadPortHome.json");
+                    mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.RobotMoving(false);
 
                 }

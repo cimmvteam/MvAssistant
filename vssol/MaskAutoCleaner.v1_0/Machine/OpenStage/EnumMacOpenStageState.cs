@@ -36,7 +36,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         ClosingBoxWithMask,
         WaitingForLockWithMask,
         OpeningBoxWithMask,
-        WaitingForUnlickWithMask,
+        WaitingForUnlockWithMask,
         
         ClosedBoxWithMask,
         ClosedBoxWithMaskForRelease,

@@ -55,9 +55,6 @@ namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
 
     public static class BoxrobotTransferLocationExtends
     {
-
-       
-
         const BoxrobotTransferLocation DrawerStart = BoxrobotTransferLocation.Drawer_01_01;
         const BoxrobotTransferLocation DrawerEnd = BoxrobotTransferLocation.Drawer_07_05;
         const BoxrobotTransferLocation Cabinet1End = BoxrobotTransferLocation.Drawer_03_05;

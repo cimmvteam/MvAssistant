@@ -585,6 +585,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
                     Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
                     // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
+                    OnTrayArriveHome(this,null);
                 }
                 ).Start();
             return commandText;
@@ -629,6 +630,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
                     Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
                     //Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
+                    OnTrayArriveHome(this, null);
                 }
                 ).Start();
             return commandText;
@@ -662,6 +664,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
                     Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
                     // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
+                    OnTrayArriveOut(this,null);
                 }
                 ).Start();
 
@@ -693,6 +696,7 @@ namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
                   this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
                   Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceIndex + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionIn.ToString());
                   // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionIn.ToString());
+                  OnTrayArriveIn(this, null);
               }
               ).Start();
 
