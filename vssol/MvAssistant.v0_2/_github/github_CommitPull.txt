@@ -1,0 +1,7 @@
+
+cd MvAssistant
+git add --all
+git commit -m 'pull new'
+git pull
+cd ..
+

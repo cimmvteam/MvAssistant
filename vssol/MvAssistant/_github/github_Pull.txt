@@ -1,7 +1,0 @@
-
-
-cd MvAssistant
-git pull
-cd ..
-
-

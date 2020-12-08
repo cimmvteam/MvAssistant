@@ -122,21 +122,17 @@
       <Project>{6170a960-30f6-48cf-b50a-7533d0d749b1}</Project>
       <Name>MaskAutoCleaner.v1_0</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MvAssistant.DeviceDrive.FanucRobot_v42_15\MvAssistant.DeviceDrive.FanucRobot_v42_15.csproj">
+    <ProjectReference Include="..\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15.csproj">
       <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
-      <Name>MvAssistant.DeviceDrive.FanucRobot_v42_15</Name>
+      <Name>MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MvAssistant.Mac.v1_0.TestMy\MvAssistant.Mac.v1_0.TestMy.csproj">
-      <Project>{c720df8c-b6fe-4284-a4ae-b1fec882f9cd}</Project>
-      <Name>MvAssistant.Mac.v1_0.TestMy</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MvAssistant.Mac.v1_0\MvAssistant.Mac.v1_0.csproj">
+    <ProjectReference Include="..\MvAssistant.v0_2.Mac\MvAssistant.v0_2.Mac.csproj">
       <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
-      <Name>MvAssistant.Mac.v1_0</Name>
+      <Name>MvAssistant.v0_2.Mac</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MvAssistant\MvAssistant.csproj">
+    <ProjectReference Include="..\MvAssistant.v0_2\MvAssistant.v0_2.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
-      <Name>MvAssistant</Name>
+      <Name>MvAssistant.v0_2</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

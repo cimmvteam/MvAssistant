@@ -1,8 +1,0 @@
-
-
-cd MvAssistant
-git checkout master
-git pull
-git merge develop
-cd ..
-
