@@ -2,14 +2,14 @@
 using System.Diagnostics;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.GudengLoadPort;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Manifest;
-using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
-using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Manifest;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtHalLoadPort

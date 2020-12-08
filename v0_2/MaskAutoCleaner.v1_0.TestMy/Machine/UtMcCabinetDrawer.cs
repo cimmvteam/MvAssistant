@@ -3,7 +3,7 @@ using MaskAutoCleaner.v1_0.Machine.Cabinet;
 using MaskAutoCleaner.v1_0.Machine.CabinetDrawer;
 using MaskAutoCleaner.v1_0.Machine.Drawer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;

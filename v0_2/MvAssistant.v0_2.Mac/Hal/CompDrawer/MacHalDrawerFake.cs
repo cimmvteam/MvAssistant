@@ -1,20 +1,20 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer;
+﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System.Diagnostics;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
-using MvAssistant.DeviceDrive;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand;
+using MvAssistant.v0_2.DeviceDrive;
 using System.Net;
-using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompDrawer
+namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 {
     [Guid("408E693D-EEB2-4458-BB91-FE1D6A9B8AD5")]
     public class MacHalDrawerFake : MacHalComponentBase, IMacHalDrawer

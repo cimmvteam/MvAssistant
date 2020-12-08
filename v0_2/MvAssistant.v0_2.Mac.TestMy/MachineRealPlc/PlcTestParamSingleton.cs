@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.TestMy.MachineRealPlc
+namespace MvAssistant.v0_2.TestMy.MachineRealPlc
 {
     public class PlcTestParamSingleton
     {

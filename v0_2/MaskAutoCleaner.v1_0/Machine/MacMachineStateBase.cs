@@ -1,7 +1,7 @@
 ﻿using MaskAutoCleaner.v1_0.Machine.StateExceptions;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions;
-using MvAssistant.Mac.v1_0.Hal;
+using MvAssistant.v0_2.Mac.Hal;
 using System;
 using System.Collections.Generic;
 using System.Linq;

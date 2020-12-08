@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode
 {
    public class ReplyMessage
     {

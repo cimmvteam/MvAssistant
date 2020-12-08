@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using OMRON.Compolet.CIP;
-namespace MvAssistant.DeviceDrive.OmronPlc
+namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
 {
 
     /// <summary>

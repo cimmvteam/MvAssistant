@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
 {
     /// <summary>控制端到 Device(Drawer) 指令的基礎類別</summary>
     public abstract class BaseHostToEquipmentCommand : BaseCommand

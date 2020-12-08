@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
     /// <summary>Host to Equiipment Command</summary>
     public enum HostToEquipmentContent

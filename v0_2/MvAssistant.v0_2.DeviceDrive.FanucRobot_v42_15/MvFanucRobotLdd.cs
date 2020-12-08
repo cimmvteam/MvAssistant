@@ -1,4 +1,4 @@
-﻿using MvAssistant;
+﻿using MvAssistant.v0_2;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
+namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 {
     public class MvFanucRobotLdd : IDisposable
     {

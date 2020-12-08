@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 {
     [Obsolete]
     public class MvGudengLoadPortCollection : IDisposable

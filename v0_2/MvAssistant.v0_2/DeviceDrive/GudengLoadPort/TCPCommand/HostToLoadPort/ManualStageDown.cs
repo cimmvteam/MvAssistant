@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort
 {
    public class ManualStageDown:BaseHostToLoadPortCommand
     {

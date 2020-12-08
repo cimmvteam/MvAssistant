@@ -1,5 +1,5 @@
-﻿using MvAssistant;
-using MvAssistant.Mac.v1_0;
+﻿using MvAssistant.v0_2;
+using MvAssistant.v0_2.Mac;
 using System;
 using System.Collections.Generic;
 using System.Linq;

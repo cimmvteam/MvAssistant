@@ -2,19 +2,19 @@
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.KjMachineDrawer;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
 using System.Net;
 using System.Threading;
 // vs 2013
-//using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Manifest;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
-using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+//using static MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Manifest;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using System.Diagnostics;
 
-namespace MvAssistant.Mac.TestMy.Device
+namespace MvAssistant.v0_2.Mac.TestMy.Device
 {
     [TestClass]
     public class UtDeviceDrawer

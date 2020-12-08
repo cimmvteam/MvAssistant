@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaskTool.TestMy.MachineRealPlc;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 
 namespace MvAssistantMacVerifyEqp.ViewUc
 {

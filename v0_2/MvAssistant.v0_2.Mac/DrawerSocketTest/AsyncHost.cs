@@ -5,7 +5,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Configuration;
 
-namespace MvAssistant.Mac.DrawerSocketTest
+namespace MvAssistant.v0_2.DrawerSocketTest
 {
     public class AsynchoronousSocketListener
     {

@@ -1,7 +1,7 @@
 ﻿//#define NoConfig
 //#define NotCareState
 using MaskAutoCleaner.v1_0.StateMachineBeta;
-using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using MaskAutoCleaner.v1_0.StateMachineAlpha;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.LoadportStateMachineException;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
 using System.Diagnostics;
 //using MaskAutoCleaner.v1_0.Machine.LoadPort.OnEntryEventArgs;
 

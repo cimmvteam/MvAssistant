@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.OmronPlc;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.v0_2.DeviceDrive.OmronPlc;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 
-namespace MaskTool.TestMy.Device
+namespace MvAssistant.v0_2.Mac.TestMy.Device
 {
     [TestClass]
     public class UtDevicePlc

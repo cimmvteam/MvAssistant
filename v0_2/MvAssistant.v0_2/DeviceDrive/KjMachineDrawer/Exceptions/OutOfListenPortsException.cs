@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.Exceptions
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.Exceptions
 {
    public  class OutOfListenPortsException:BaseException
     {

@@ -1,12 +1,12 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
-using MvAssistant.Mac.v1_0.Hal.CompLight;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac.Hal.CompCamera;
+using MvAssistant.v0_2.Mac.Hal.CompLight;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [GuidAttribute("F6FF301E-55DB-4861-AF19-A90F5A70FDA6")]
     public class MacHalInspectionCh : MacHalAssemblyBase, IMacHalInspectionCh

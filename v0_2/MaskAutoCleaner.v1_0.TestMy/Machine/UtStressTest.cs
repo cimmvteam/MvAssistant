@@ -10,8 +10,8 @@ using MaskAutoCleaner.v1_0.Machine.LoadPort;
 using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Machine
 {

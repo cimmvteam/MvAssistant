@@ -1,5 +1,5 @@
 ﻿using CToolkit.v1_1.Net;
-using MvAssistant.Tasking;
+using MvAssistant.v0_2.Tasking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.LeimacLight
+namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
 {
     public class MvLeimacLightLdd : IDisposable
     {

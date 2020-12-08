@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment
 {
    public  class LCDMsg:BaseHostToEquipmentCommand
     {

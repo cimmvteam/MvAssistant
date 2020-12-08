@@ -1,11 +1,11 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
+﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs
 {
     /// <summary>ReplySetTimeOut 事件程序</summary>
     public class OnReplySetTimeOutEventArgs : EventArgs

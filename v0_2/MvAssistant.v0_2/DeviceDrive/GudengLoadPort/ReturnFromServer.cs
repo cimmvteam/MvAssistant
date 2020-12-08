@@ -1,11 +1,11 @@
-﻿using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
+﻿using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 {
     public class ReturnFromServer
     {

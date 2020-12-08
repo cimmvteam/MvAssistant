@@ -1,4 +1,4 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
 
     [Guid("6C08618D-3A39-4B00-A6F0-10CF12D162D7")]

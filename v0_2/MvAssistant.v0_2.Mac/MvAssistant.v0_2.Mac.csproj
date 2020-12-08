@@ -133,7 +133,6 @@
     <Compile Include="Hal\MacHalBase.cs" />
     <Compile Include="Hal\MacHalContext.cs" />
     <Compile Include="Hal\MacHalFakeComponentBase.cs" />
-    <Compile Include="Hal\MacHalUtil.cs" />
     <Compile Include="Hal\IMacHal.cs" />
     <Compile Include="Hal\IMacHalFake.cs" />
     <Compile Include="Hal\CompRobotTest\MacHalBoxRobotFanuc.cs" />

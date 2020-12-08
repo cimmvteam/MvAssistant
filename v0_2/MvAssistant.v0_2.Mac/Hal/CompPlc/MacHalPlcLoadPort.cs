@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
     [Guid("17793D56-17D7-4DFD-850B-EEB443CE9231")]
     public class MacHalPlcLoadPort : MacHalPlcBase, IMacHalPlcLoadPort

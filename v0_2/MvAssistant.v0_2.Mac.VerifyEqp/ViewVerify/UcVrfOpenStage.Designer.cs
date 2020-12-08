@@ -1,4 +1,4 @@
-﻿namespace MvAssistant.Mac.VerifyEqp.ViewVerify
+﻿namespace MvAssistant.v0_2.VerifyEqp.ViewVerify
 {
     partial class UcVrfOpenStage
     {

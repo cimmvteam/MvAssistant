@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode
 {
    public enum ReplyErrorCode
     {

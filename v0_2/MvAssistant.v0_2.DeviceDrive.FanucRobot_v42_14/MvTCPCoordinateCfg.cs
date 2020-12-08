@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
+namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
     public class MvTCPCoordinateCfg
     {

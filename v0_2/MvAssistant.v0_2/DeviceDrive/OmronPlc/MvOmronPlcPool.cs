@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.OmronPlc
+namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
 {
     public class MvOmronPlcPool
     {

@@ -1,8 +1,8 @@
-﻿using MvAssistant.DeviceDrive.LeimacLight;
+﻿using MvAssistant.v0_2.DeviceDrive.LeimacLight;
 using System;
 using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompLight
+namespace MvAssistant.v0_2.Mac.Hal.CompLight
 {
 
     [Guid("07BE1449-B072-48C7-99ED-60FEF10C6A0E")]

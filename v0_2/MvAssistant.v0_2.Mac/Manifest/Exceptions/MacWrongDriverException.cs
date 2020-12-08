@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Manifest.Exceptions
+namespace MvAssistant.v0_2.Mac.Manifest.Exceptions
 {
     public class MacWrongDriverException : MacException
     {

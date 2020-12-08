@@ -2,10 +2,10 @@
 using MaskAutoCleaner.v1_0.StateMachineBeta;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.BoxTransferStateMachineException;
 using MaskAutoCleaner.v1_0.StateMachineExceptions.UniversalStateMachineException;
-using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.JSon;
-using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.JSon;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

@@ -1,14 +1,14 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.LeimacLight;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
-using MvAssistant.Mac.v1_0.Hal.CompLight;
-using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.DeviceDrive.LeimacLight;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.Mac.Hal.CompLight;
+using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
 using System.IO;
 
-namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
+namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
 {
     [TestClass]
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.LeimacLight;
+using MvAssistant.v0_2.DeviceDrive.LeimacLight;
 
-namespace MvAssistant.Mac.TestMy.Device
+namespace MvAssistant.v0_2.Mac.TestMy.Device
 {
     [TestClass]
     public class UtDeviceLight

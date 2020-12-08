@@ -5,10 +5,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Manifest;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [Guid("24DF35C8-AF37-4103-BE97-770294647EEF")]
     public class MacHalLoadPortFake : MacHalAssemblyBase, IMacHalLoadPort

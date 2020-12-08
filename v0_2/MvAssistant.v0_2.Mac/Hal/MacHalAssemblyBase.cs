@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal
+namespace MvAssistant.v0_2.Mac.Hal
 {
     [GuidAttribute("4F3F6C35-3EA5-427A-923D-CA544E8A0AF1")]
     public abstract class MacHalAssemblyBase : MacHalBase

@@ -1,11 +1,11 @@
-﻿using MvAssistant;
+﻿using MvAssistant.v0_2;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Tasking
+namespace MvAssistant.v0_2.Tasking
 {
     public class MvTask : IDisposable
     {

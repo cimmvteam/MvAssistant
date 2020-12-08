@@ -1,11 +1,11 @@
 ﻿
-using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.v0_2.Mac.JSon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [Guid("D164A8D9-031A-4EBB-8876-679F0874C8E7")]
     public class HalRobotFake : MacHalFakeComponentBase, IHalRobot

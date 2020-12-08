@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MvAssistant.DeviceDrive.CameraLink;
-using MvAssistant.DeviceDrive.OmronSentechCamera;
+using MvAssistant.v0_2.DeviceDrive.CameraLink;
+using MvAssistant.v0_2.DeviceDrive.OmronSentechCamera;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompCamera
+namespace MvAssistant.v0_2.Mac.Hal.CompCamera
 {
     [GuidAttribute("BF1D88C3-AEF5-4B2E-B161-336623A21804")]
     public class MacHalCameraLink : MacHalComponentBase, IHalCamera

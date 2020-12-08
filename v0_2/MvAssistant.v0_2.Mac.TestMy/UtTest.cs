@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+using MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15;
 
-namespace MvAssistant.Mac.TestMy
+namespace MvAssistant.v0_2.Mac.TestMy
 {
     [TestClass]
     public class UtTest

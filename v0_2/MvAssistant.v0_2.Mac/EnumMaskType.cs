@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0
+namespace MvAssistant.v0_2.Mac
 {
     public enum EnumMaskType : uint
     {

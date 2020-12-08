@@ -1,13 +1,13 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompPlc;
-using MvAssistant.Mac.v1_0.Hal.CompRobot;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Hal.CompRobot;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [GuidAttribute("BE7EADB1-6821-4CDC-980C-8673F2B50225")]
     public class MacHalMaskTransfer : MacHalAssemblyBase, IMacHalMaskTransfer

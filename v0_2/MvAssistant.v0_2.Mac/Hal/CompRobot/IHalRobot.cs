@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [GuidAttribute("A3065B41-C1F5-41B0-937E-A13205DB0D46")]
     public interface IHalRobot : IMacHalComponent

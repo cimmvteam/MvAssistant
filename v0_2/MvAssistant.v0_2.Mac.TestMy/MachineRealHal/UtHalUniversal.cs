@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Manifest;
 using System.Threading;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtHalUniversal

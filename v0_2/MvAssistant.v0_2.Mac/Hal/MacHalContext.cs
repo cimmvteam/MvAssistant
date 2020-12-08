@@ -1,13 +1,13 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompLight;
-using MvAssistant.Mac.v1_0.Manifest;
-using MvAssistant.Mac.v1_0.Manifest.Exceptions;
+﻿using MvAssistant.v0_2.Mac.Hal.CompLight;
+using MvAssistant.v0_2.Mac.Manifest;
+using MvAssistant.v0_2.Mac.Manifest.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal
+namespace MvAssistant.v0_2.Mac.Hal
 {
     /// <summary>
     /// HAL assembly, comporot or device resource manager

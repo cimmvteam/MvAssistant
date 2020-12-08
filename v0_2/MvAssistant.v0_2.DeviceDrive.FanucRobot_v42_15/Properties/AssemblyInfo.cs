@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 組件的一般資訊是由下列的屬性集控制。
 // 變更這些屬性的值即可修改組件的相關
 // 資訊。
-[assembly: AssemblyTitle("MvAssistant.DeviceDrive.FanucRobot_v42_15")]
+[assembly: AssemblyTitle("MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MvAssistant.DeviceDrive.FanucRobot_v42_15")]
+[assembly: AssemblyProduct("MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

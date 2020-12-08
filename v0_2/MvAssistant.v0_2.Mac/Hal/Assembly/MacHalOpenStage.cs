@@ -1,13 +1,13 @@
-﻿using MvAssistant.DeviceDrive.OmronSentechCamera;
-using MvAssistant.Mac.v1_0.Hal.CompCamera;
-using MvAssistant.Mac.v1_0.Hal.CompLight;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.DeviceDrive.OmronSentechCamera;
+using MvAssistant.v0_2.Mac.Hal.CompCamera;
+using MvAssistant.v0_2.Mac.Hal.CompLight;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [GuidAttribute("66F97306-5CB8-4188-B835-CDC87DF1EF23")]
     public class MacHalOpenStage : MacHalAssemblyBase, IMacHalOpenStage

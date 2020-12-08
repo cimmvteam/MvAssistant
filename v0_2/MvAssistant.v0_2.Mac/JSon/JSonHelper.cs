@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace MvAssistant.Mac.v1_0.JSon
+namespace MvAssistant.v0_2.Mac.JSon
 {
     public  class JSonHelper
     {

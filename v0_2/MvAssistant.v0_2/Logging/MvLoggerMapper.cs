@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace MvAssistant.Logging
+namespace MvAssistant.v0_2.Logging
 {
     [Serializable]
     public class MvLoggerMapper : Dictionary<String, MvLogger>

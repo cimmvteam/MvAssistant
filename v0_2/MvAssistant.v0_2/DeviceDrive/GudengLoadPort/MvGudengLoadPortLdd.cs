@@ -1,7 +1,7 @@
 ﻿//#define OnlyObserveCommandText
-using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
-using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
-using MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 {
     public class MvGudengLoadPortLdd
     {

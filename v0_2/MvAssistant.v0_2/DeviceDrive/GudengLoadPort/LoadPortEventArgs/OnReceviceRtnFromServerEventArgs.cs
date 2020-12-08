@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs
 {
     public class OnReceviceRtnFromServerEventArgs : EventArgs
     {

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompCamera
+namespace MvAssistant.v0_2.Mac.Hal.CompCamera
 {
     [GuidAttribute("DC1CA257-1564-4C86-B6FE-892B79CA107C")]
     public interface IHalCamera : IMacHalComponent

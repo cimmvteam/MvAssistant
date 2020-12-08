@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 {
     public enum LoadPortRequestContent
     {

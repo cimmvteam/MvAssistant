@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.Mac.DrawerSocketTest;
-using MvAssistant.Tasking;
+using MvAssistant.v0_2.DrawerSocketTest;
+using MvAssistant.v0_2.Tasking;
 using System.Threading;
 
 namespace MvAssistantMacVerifyEqp.ViewUc

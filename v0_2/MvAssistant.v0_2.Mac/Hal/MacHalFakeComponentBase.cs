@@ -1,4 +1,4 @@
-using MvAssistant.Mac.v1_0;
+using MvAssistant.v0_2.Mac;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-namespace MvAssistant.Mac.v1_0.Hal
+
+namespace MvAssistant.v0_2.Mac.Hal
 {
     /// <summary>
     /// abstract fake HAL (Hardware Abstract Layer) class

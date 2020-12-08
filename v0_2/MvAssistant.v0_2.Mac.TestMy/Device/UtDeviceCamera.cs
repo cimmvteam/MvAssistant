@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.OmronSentechCamera;
+using MvAssistant.v0_2.DeviceDrive.OmronSentechCamera;
 
 
-namespace MvAssistant.Mac.TestMy.Device
+namespace MvAssistant.v0_2.Mac.TestMy.Device
 {
     [TestClass]
     public class UtDeviceCamera

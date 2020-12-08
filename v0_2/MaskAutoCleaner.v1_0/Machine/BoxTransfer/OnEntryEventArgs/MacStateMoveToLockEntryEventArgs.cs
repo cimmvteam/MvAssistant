@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MaskAutoCleaner.v1_0.StateMachineBeta;
-using MvAssistant.Mac.v1_0;
+using MvAssistant.v0_2.Mac;
 
 namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
 {

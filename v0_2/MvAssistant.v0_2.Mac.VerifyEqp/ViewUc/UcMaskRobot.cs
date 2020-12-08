@@ -1,5 +1,5 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
-using MvAssistant.Tasking;
+﻿using MvAssistant.v0_2.Mac.Hal.CompRobotTest;
+using MvAssistant.v0_2.Tasking;
 using System;
 using System.Windows.Forms;
 

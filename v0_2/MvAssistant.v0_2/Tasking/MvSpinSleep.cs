@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Tasking
+namespace MvAssistant.v0_2.Tasking
 {
     public class MvSpinSleep
     {

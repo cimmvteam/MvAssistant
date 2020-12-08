@@ -1,5 +1,5 @@
 ﻿using CToolkit.v1_1;
-using MvAssistant.TypeGuid;
+using MvAssistant.v0_2.TypeGuid;
 using System;
 using System.Collections.Generic;
 using System.Linq;

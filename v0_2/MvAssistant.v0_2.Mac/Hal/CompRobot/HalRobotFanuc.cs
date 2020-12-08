@@ -1,12 +1,12 @@
-﻿using MvAssistant.DeviceDrive.FanucRobot_v42_15;
-using MvAssistant.Mac.v1_0.JSon;
+﻿using MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15;
+using MvAssistant.v0_2.Mac.JSon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
 
     [GuidAttribute("5EDFE42F-A27A-42B5-9702-11FC84208D74")]

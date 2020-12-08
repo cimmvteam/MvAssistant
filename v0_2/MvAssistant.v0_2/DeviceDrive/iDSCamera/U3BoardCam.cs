@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using uEye;
 
-namespace MvAssistant.DeviceDrive.iDSCamera
+namespace MvAssistant.v0_2.DeviceDrive.iDSCamera
 {
     public class U3BoardCam
     {

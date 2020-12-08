@@ -1,13 +1,13 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive
+namespace MvAssistant.v0_2.DeviceDrive
 {
   public   interface IDrawerLdd
     {

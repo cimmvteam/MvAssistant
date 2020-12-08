@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
 
     [Guid("22421239-9CEA-4050-AE0C-FF997A872FED")]

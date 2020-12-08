@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [Guid("2CB5E7D6-970D-4550-8821-E4DAB03324EF")]
     public class MacHalMaskTransferFake : MacHalAssemblyBase, IMacHalMaskTransfer

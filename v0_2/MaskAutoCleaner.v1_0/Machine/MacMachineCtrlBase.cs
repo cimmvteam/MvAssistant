@@ -1,7 +1,7 @@
 ﻿using CToolkit.v1_1;
 using MaskAutoCleaner.v1_0.Msg;
-using MvAssistant;
-using MvAssistant.Mac.v1_0.Hal;
+using MvAssistant.v0_2;
+using MvAssistant.v0_2.Mac.Hal;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

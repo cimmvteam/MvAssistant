@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.JSon
+namespace MvAssistant.v0_2.Mac.JSon
 {
     public class PositionInstance
     {

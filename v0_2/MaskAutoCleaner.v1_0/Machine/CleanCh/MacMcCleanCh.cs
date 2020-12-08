@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using MaskAutoCleaner.v1_0.Msg;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
 
 namespace MaskAutoCleaner.v1_0.Machine.CleanCh
 {

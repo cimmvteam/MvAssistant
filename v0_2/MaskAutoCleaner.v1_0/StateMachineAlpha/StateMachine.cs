@@ -1,5 +1,5 @@
-﻿using MvAssistant;
-using MvAssistant.Logging;
+﻿using MvAssistant.v0_2;
+using MvAssistant.v0_2.Logging;
 using MaskAutoCleaner.v1_0.StateMachineAlpha.SmExp;
 using System;
 using System.Collections;

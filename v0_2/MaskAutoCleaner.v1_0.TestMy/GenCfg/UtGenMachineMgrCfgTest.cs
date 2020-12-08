@@ -9,7 +9,7 @@ using MaskAutoCleaner.v1_0.Machine.MaskTransfer;
 using MaskAutoCleaner.v1_0.Machine.OpenStage;
 using MaskAutoCleaner.v1_0.Machine.Universal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest;
+using MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest;
 using System.IO;
 
 namespace MaskAutoCleaner.v1_0.TestMy.GenCfg

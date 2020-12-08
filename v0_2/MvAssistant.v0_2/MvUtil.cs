@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 
-namespace MvAssistant
+namespace MvAssistant.v0_2
 {
     public class MvUtil
     {

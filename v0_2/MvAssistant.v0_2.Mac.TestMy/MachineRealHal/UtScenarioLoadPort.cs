@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
-using MvAssistant.DeviceDrive.GudengLoadPort.ReplyCode;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtScenarioLoadPort

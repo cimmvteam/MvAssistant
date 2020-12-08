@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [Guid("C19F5058-1CE7-47AD-810C-418746779F6A")]
     public class MacHalCleanChFake : MacHalAssemblyBase, IMacHalCleanCh

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs
 {
     /// <summary>ReplyPosition 事件程序的 Event Args</summary>
     public class OnReplyPositionEventArgs : EventArgs

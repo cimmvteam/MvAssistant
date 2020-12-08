@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
+using MvAssistant.v0_2;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 
-namespace MaskTool.TestMy.MachineRealPlc
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealPlc
 {
     [TestClass]
     public class UtPlcCleanCh

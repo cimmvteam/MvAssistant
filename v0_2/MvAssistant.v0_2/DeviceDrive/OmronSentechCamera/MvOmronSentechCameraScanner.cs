@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.OmronSentechCamera
+namespace MvAssistant.v0_2.DeviceDrive.OmronSentechCamera
 {
     public class MvOmronSentechCameraScanner : IDisposable
     {

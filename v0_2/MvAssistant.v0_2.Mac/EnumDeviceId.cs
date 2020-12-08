@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.TestMy.GenCfg.Manifest
+namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
 {
     public enum EnuDeviceId
     {

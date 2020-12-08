@@ -1,8 +1,8 @@
-﻿using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
-using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;

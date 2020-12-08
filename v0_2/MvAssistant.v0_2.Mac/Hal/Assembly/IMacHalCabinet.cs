@@ -1,10 +1,10 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
+﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [GuidAttribute("002CE873-5909-4874-96BF-6CD3971DAB39")]
     public interface IMacHalCabinet : IMacHalAssembly

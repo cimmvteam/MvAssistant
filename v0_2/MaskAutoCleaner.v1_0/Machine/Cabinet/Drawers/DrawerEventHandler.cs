@@ -1,5 +1,5 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
+﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

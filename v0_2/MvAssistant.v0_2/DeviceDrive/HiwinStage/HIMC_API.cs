@@ -132,7 +132,7 @@ public struct PosTriggerPar
     public int nPolarity;
 };
 
-namespace MvAssistant.DeviceDriver.HiwinStage
+namespace MvAssistant.v0_2.DeviceDriver.HiwinStage
 {
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void HMPLEventCBFuncPtr(int value);

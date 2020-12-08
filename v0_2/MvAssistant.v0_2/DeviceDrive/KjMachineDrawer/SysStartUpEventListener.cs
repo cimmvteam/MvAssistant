@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
 
     /// <summary>Lisent SysStartUp Event 的物件類別</summary>

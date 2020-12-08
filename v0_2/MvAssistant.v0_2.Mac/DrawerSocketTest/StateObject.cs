@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 
-namespace MvAssistant.Mac.DrawerSocketTest
+namespace MvAssistant.v0_2.DrawerSocketTest
 {
     public class StateObject
     {

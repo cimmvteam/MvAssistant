@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
     [Guid("2CA853C0-DE8E-49D5-AF55-02DD20754F3D")]
     public class MacHalPlcCleanCh : MacHalPlcBase, IMacHalPlcCleanCh

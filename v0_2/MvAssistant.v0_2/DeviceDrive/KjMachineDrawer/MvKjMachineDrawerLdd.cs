@@ -1,8 +1,8 @@
-﻿using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
-using MvAssistant.DeviceDrive.KjMachineDrawer.Exceptions;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.Exceptions;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
     /// <summary>Drawer Class</summary>
     public class MvKjMachineDrawerLdd:IDisposable

@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
-using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
-using MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Types;
-using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
-using MvAssistant.Mac.v1_0.JSon;
-using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using MvAssistant.v0_2.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends;
+using MvAssistant.v0_2.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Types;
+using MvAssistant.v0_2.Mac;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.Mac.JSon;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest
 {
     [TestClass]
     public class Ut001_002_004_005

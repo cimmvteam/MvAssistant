@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [Guid("0F7340AE-4295-4659-A626-6F10471152A9")]
     [Serializable]

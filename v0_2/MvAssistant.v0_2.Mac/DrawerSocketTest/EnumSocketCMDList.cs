@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.ComponentModel;
 
-namespace MvAssistant.Mac.DrawerSocketTest
+namespace MvAssistant.v0_2.DrawerSocketTest
 {
     public enum LP_EnumSendCMDList
     {

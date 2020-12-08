@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
     [Guid("614E49F2-1F21-400D-ABAE-715C494A5654")]
     public class MacHalPlcCabinet : MacHalPlcBase, IMacHalPlcCabinet

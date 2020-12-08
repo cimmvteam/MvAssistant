@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
     /// <summary>接收到訊號回呼函式的委派型別</summary>
     /// <param name="message"></param>

@@ -1,6 +1,6 @@
 ﻿//#define NoConfig
-using MvAssistant.DeviceDrive;
-using MvAssistant.DeviceDrive.GudengLoadPort;
+using MvAssistant.v0_2.DeviceDrive;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompLoadPort
+namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 {
     [Guid("F02B078D-30B7-44CF-9D9C-DAC2FE9A26C6")]
     public class MacHalLoadPortGudeng : MacHalComponentBase, IMacHalLoadPortUnit

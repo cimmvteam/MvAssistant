@@ -1,7 +1,7 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
-using MvAssistant.Mac.v1_0.Hal.CompRobot;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac.Hal.CompCamera;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Hal.CompRobot;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [Guid("B57BDC28-ACA8-46DF-8B51-1A2285950031")]
     public class MacHalBoxTransferFake : MacHalAssemblyBase, IMacHalBoxTransfer

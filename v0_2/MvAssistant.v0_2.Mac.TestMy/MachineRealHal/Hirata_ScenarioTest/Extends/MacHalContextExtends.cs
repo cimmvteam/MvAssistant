@@ -1,14 +1,14 @@
-﻿using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal.Hirata_ScenarioTest.Extends
 {
    public static class MacHalContextExtends
     {

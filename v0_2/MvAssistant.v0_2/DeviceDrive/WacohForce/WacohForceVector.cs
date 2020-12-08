@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.WacohForce
+namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 {
     public class WacohForceVector : MathNet.Numerics.LinearAlgebra.Single.DenseVector
     {

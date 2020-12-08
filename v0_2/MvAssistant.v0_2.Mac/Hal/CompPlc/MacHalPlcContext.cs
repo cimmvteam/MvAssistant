@@ -1,5 +1,5 @@
-﻿using MvAssistant.DeviceDrive.OmronPlc;
-using MvAssistant.Tasking;
+﻿using MvAssistant.v0_2.DeviceDrive.OmronPlc;
+using MvAssistant.v0_2.Tasking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
     [Guid("EEED741C-18BC-465E-9772-99F19DD68BD3")]
     public class MacHalPlcContext : IDisposable

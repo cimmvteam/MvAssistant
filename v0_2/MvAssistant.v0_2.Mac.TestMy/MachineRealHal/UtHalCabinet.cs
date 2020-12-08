@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.DeviceDrive.KjMachineDrawer;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Manifest;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Manifest;
 // vs 2013
-//using static MvAssistant.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
+//using static MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.MvKjMachineDrawerLdd;
 using System.Net;
 using System.Threading;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
-using MvAssistant.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal
 {
     [TestClass]
     public class UtHalCabinet

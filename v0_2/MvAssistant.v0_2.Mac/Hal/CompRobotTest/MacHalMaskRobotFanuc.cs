@@ -1,10 +1,10 @@
-﻿using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+﻿using MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-//using MvAssistant.DeviceDrive.FanucRobot_v42_15;
+//using MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobotTest
+namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 {
     public class MacHalMaskRobotFanuc : IDisposable
     {

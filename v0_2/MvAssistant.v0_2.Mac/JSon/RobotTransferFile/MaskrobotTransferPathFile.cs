@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
+namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 {
     public class MaskrobotTransferPathFile : BaserobotTransferPathFile
     {

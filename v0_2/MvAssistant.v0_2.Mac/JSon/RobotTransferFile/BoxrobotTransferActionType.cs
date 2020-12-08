@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.JSon.RobotTransferFile
+namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 {
     /// <summary>Box Robot 動作分類</summary>
     public  enum BoxrobotTransferActionType

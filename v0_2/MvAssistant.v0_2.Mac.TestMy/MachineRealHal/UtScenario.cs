@@ -3,25 +3,25 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Mac.v1_0.Manifest;
-using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Mac.Manifest;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
 using System.Diagnostics;
-using MvAssistant.Mac.v1_0.Hal.CompDrawer;
-using MvAssistant.DeviceDrive.KjMachineDrawer;
+using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
 using System.Net;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand.HostToEquipment;
 // vs 2013
 //using static MvAssistant.Mac.v1_0.Hal.CompDrawer.MacHalDrawerKjMachine;
-using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
-using MvAssistant.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
-using MvAssistant.Mac.v1_0.JSon;
+using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.v0_2.Mac.JSon;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 
-namespace MvAssistant.Mac.TestMy.MachineRealHal
+namespace MvAssistant.v0_2.Mac.TestMy.MachineRealHal
 {
 
     [TestClass]

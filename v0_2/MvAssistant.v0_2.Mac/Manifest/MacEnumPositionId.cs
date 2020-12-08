@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Manifest
+namespace MvAssistant.v0_2.Mac.Manifest
 {
     /// <summary>
     /// 實體物理位置識別字符

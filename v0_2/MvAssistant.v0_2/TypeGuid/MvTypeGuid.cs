@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MvAssistant.TypeGuid
+namespace MvAssistant.v0_2.TypeGuid
 {
     public class MvTypeGuid
     {

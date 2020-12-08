@@ -1,10 +1,10 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompRobot;
+﻿using MvAssistant.v0_2.Mac.Hal.CompRobot;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 //using static System.Net.Mime.MediaTypeNames;
 
-namespace MvAssistant.Mac.v1_0.JSon
+namespace MvAssistant.v0_2.Mac.JSon
 {
     /// <summary>擷取點位時的點位組態</summary>
     public class RobotPathFileConfigSet

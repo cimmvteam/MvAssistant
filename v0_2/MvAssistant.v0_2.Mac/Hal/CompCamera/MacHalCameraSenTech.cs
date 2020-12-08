@@ -1,4 +1,4 @@
-﻿using MvAssistant.DeviceDrive.OmronSentechCamera;
+﻿using MvAssistant.v0_2.DeviceDrive.OmronSentechCamera;
 using System;
 using System.Drawing;
 //using Sentech.StApiDotNET;
@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompCamera
+namespace MvAssistant.v0_2.Mac.Hal.CompCamera
 {
     [GuidAttribute("90BA4CDC-7A82-454A-8F3F-6FE6413AEF41")]
     public class MacHalCameraSenTech : MacHalComponentBase, IHalCamera

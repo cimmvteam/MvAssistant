@@ -1,6 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.StateMachineBeta;
-using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
 using System.Linq;

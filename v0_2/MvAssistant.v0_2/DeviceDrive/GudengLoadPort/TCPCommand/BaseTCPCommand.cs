@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.GudengLoadPort.TCPCommand
+namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort.TCPCommand
 {
    public abstract class BaseTCPCommand
     {

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompPlc
+namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
     [Guid("DFD72153-DCC6-4949-85DB-B5D7CED91E2E")]
     public class MacHalPlcMaskTransfer : MacHalPlcBase, IMacHalPlcMaskTransfer

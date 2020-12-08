@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 //using Euresys.MultiCam;
 
-namespace MvAssistant.DeviceDrive.CameraLink
+namespace MvAssistant.v0_2.DeviceDrive.CameraLink
 {
     public class MvCameraLinkLdd : IDisposable
     {

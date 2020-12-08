@@ -1,8 +1,8 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompRobot;
+﻿using MvAssistant.v0_2.Mac.Hal.CompRobot;
 using System;
 using System.Reflection;
 
-namespace MvAssistant.Mac.v1_0.JSon
+namespace MvAssistant.v0_2.Mac.JSon
 {
     public class PositionInfo
     {

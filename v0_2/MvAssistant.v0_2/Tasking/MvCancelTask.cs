@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Tasking
+namespace MvAssistant.v0_2.Tasking
 {
     public class MvCancelTask : MvTask
     {

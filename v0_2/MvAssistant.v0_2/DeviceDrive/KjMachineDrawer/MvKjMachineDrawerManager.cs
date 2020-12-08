@@ -1,6 +1,6 @@
 ﻿using CToolkit.v1_1.Net;
-using MvAssistant.DeviceDrive.KjMachineDrawer.ReplyCode;
-using MvAssistant.DeviceDrive.KjMachineDrawer.UDPCommand;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.ReplyCode;
+using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.KjMachineDrawer
+namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
     /// <summary></summary>
     [Obsolete]

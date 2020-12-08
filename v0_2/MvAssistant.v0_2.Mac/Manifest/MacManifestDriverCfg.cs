@@ -1,4 +1,4 @@
-﻿using MvAssistant.TypeGuid;
+﻿using MvAssistant.v0_2.TypeGuid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MvAssistant.Mac.v1_0.Manifest
+namespace MvAssistant.v0_2.Mac.Manifest
 {
     [Serializable]
     public class MacManifestDriverCfg

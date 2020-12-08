@@ -1,5 +1,5 @@
-﻿using MvAssistant.Mac.v1_0;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal
+namespace MvAssistant.v0_2.Mac.Hal
 {
     [GuidAttribute("8592A98B-C7DD-46C3-9965-BFD952A7742A")]
     public abstract class MacHalBase : IHal, IDisposable

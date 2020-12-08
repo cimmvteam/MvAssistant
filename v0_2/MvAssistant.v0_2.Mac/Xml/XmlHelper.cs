@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace MvAssistant.Mac.v1_0.Xml
+namespace MvAssistant.v0_2.Mac.Xml
 {
     public class XmlHelper
     {

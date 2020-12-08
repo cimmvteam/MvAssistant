@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.TestMy
+namespace MvAssistant.v0_2.Mac.TestMy
 {
     public class MacTestMyUtil
     {

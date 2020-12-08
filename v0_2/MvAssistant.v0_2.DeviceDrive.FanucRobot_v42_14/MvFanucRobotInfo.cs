@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MvAssistant.DeviceDrive.FanucRobot_v42_14
+namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
     [Serializable]
     public class MvFanucRobotInfo

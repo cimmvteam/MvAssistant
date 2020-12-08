@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.WacohForce
+namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 {
     public class WacohForceMessageReceiver : Queue<WacohForceVector>
     {

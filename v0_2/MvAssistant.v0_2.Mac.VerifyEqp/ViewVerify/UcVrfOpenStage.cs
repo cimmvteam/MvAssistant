@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MvAssistant.Mac.VerifyEqp.ViewVerify
+namespace MvAssistant.v0_2.VerifyEqp.ViewVerify
 {
     public partial class UcVrfOpenStage : UserControl
     {

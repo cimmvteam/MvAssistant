@@ -1,7 +1,7 @@
 ﻿using System;
 using MaskAutoCleaner.v1_0.Machine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvAssistant;
+using MvAssistant.v0_2;
 
 namespace MaskAutoCleaner.v1_0.TestMy.Flow
 {

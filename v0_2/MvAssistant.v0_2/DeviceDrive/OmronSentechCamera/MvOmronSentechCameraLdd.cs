@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace MvAssistant.DeviceDrive.OmronSentechCamera
+namespace MvAssistant.v0_2.DeviceDrive.OmronSentechCamera
 {
     public class MvOmronSentechCameraLdd : IDisposable
     {

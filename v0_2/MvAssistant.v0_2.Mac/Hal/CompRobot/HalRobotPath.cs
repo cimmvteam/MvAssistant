@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MvAssistant.Mac.v1_0.Hal.CompRobot
+namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [Serializable]
     public class HalRobotPath

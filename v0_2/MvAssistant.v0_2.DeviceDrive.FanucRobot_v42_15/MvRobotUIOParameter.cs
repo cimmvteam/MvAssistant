@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
+namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 {
 
     public class MvRobotUIOParameter

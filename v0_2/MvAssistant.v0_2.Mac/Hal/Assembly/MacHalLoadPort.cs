@@ -1,15 +1,15 @@
-﻿using MvAssistant.Mac.v1_0.Hal.CompCamera;
-using MvAssistant.Mac.v1_0.Hal.CompLight;
-using MvAssistant.Mac.v1_0.Hal.CompLoadPort;
-using MvAssistant.Mac.v1_0.Hal.CompPlc;
-using MvAssistant.Mac.v1_0.Manifest;
+﻿using MvAssistant.v0_2.Mac.Hal.CompCamera;
+using MvAssistant.v0_2.Mac.Hal.CompLight;
+using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace MvAssistant.Mac.v1_0.Hal.Assembly
+namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [GuidAttribute("35E28A32-12E1-413A-8783-8A8018D512F1")]
     public class MacHalLoadPort : MacHalAssemblyBase, IMacHalLoadPort

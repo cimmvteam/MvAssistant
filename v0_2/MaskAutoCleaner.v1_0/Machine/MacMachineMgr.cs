@@ -1,9 +1,9 @@
 ﻿using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Recipe;
-using MvAssistant;
-using MvAssistant.Mac.v1_0.Hal;
-using MvAssistant.Mac.v1_0.Hal.Assembly;
-using MvAssistant.Tasking;
+using MvAssistant.v0_2;
+using MvAssistant.v0_2.Mac.Hal;
+using MvAssistant.v0_2.Mac.Hal.Assembly;
+using MvAssistant.v0_2.Tasking;
 using System;
 using System.Collections.Generic;
 using System.Linq;

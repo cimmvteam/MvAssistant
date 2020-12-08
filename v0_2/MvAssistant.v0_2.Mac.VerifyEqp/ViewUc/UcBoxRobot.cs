@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MvAssistant.Tasking;
-using MvAssistant.Mac.v1_0.Hal.CompRobotTest;
+using MvAssistant.v0_2.Tasking;
+using MvAssistant.v0_2.Mac.Hal.CompRobotTest;
 
 namespace MvAssistantMacVerifyEqp.ViewUc
 {

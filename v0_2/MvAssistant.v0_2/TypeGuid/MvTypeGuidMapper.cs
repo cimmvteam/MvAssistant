@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.TypeGuid
+namespace MvAssistant.v0_2.TypeGuid
 {
     public class MvTypeGuidMapper
     {

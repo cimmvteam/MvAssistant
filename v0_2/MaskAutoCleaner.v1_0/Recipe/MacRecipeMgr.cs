@@ -1,6 +1,6 @@
 ﻿using MaskAutoCleaner.v1_0.Machine;
 using MaskAutoCleaner.v1_0.Msg;
-using MvAssistant;
+using MvAssistant.v0_2;
 using System;
 using System.Collections.Generic;
 using System.Linq;

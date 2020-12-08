@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace MvAssistant.DeviceDrive.FanucRobot_v42_15
+namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 {
     /// <summary>
     /// 除Robot暫存器資料以外, 可存放其它類型資料
