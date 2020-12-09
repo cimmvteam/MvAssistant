@@ -8,12 +8,12 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 {
     public class BoxrobotTransferLocationDrawerRange
     {
-        public BoxrobotTransferLocation Start { get; }
-        public BoxrobotTransferLocation End { get; }
-        public BoxrobotTransferLocation Cabinet2Start { get; }
-        public BoxrobotTransferLocation Cabinet1End { get; }
-        public BoxrobotTransferLocation Cabinet1Start { get { return Start; } }
-        public BoxrobotTransferLocation Cabinet2End { get { return End; } }
+        public BoxrobotTransferLocation Start { get; private set; }
+        public BoxrobotTransferLocation End { get; private set; }
+        public BoxrobotTransferLocation Cabinet2Start { get; private set; }
+        public BoxrobotTransferLocation Cabinet1End { get; private set; }
+        public BoxrobotTransferLocation Cabinet1Start { get { return Start; } private set { this.Start = value; } }
+        public BoxrobotTransferLocation Cabinet2End { get { return End; } private set { this.End = value; } }
         public BoxrobotTransferLocationDrawerRange()
         {
             Start = BoxrobotTransferLocation.Drawer_01_01;
