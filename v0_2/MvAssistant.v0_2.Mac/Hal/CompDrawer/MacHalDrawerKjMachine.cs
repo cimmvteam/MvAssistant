@@ -22,7 +22,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
     {
 
         public bool IsInitialing { get; set; }
-        MvKjMachineDrawerLddPool LddPool;
+        MvaKjMachineDrawerLddPool LddPool;
        // private bool IsCommandINI = false;
         /// <summary>工作狀態</summary>
         public DrawerWorkState CurrentWorkState { get; private set; }
@@ -70,7 +70,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
             return true;
         }
-        public MvKjMachineDrawerLdd Ldd { get; set; }
+        public MvaKjMachineDrawerLdd Ldd { get; set; }
     
 
         /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(起始) </summary>
@@ -140,7 +140,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             try
             {
 
-                LddPool = MvKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart,HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
+                LddPool = MvaKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart,HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
                 if (LddPool == null)
                 {
                     connected = false;
@@ -727,7 +727,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             }
             else
             {
-                var ldd = (MvKjMachineDrawerLdd)sender;
+                var ldd = (MvaKjMachineDrawerLdd)sender;
                 if (arriveType == TrayArriveType.ArriveHome)
                 { // 回到 Home
 
@@ -748,7 +748,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         
         public void INIResult(object sender,bool result)
         {
-            var ldd = (MvKjMachineDrawerLdd)sender;
+            var ldd = (MvaKjMachineDrawerLdd)sender;
             if (result)
             {  // 初始化成功
                 DebugLog(ldd, "初始化成功");
@@ -761,7 +761,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public void SetMotionSpeedResult(object sender, bool result)
         {
-            var ldd = (MvKjMachineDrawerLdd)sender;
+            var ldd = (MvaKjMachineDrawerLdd)sender;
             if (result)
             {  // 速度設定成功
                 DebugLog(ldd, "設定速度成功");
@@ -774,7 +774,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public void SetTimeOutResult(object sender, bool result)
         {
-            var ldd = (MvKjMachineDrawerLdd)sender;
+            var ldd = (MvaKjMachineDrawerLdd)sender;
             if (result)
             { // 逾時時間設定成功
                 DebugLog(ldd, "設定Time Out成功");
@@ -789,7 +789,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
       
         public void BrightLEDResult(object sender, bool result)
         {
-            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
             var command = this.Tag.ToString();
             if (result)
             {    // 成功
@@ -847,7 +847,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public void PositionReadResult(object sender, string result)
         {
-            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
             if (string.IsNullOrEmpty(result))
             {
                 DebugLog(ldd, " PositionRead Error");
@@ -862,7 +862,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public void BoxDetectionResult(object sender, bool result)
         {
-            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
             if (result)
             {  // 有盒子
                 DebugLog(ldd, "有盒子");
@@ -882,7 +882,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public void ErrorResult(object sender,int result)
         {
-            MvKjMachineDrawerLdd ldd = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
             var errorResult = (ReplyErrorCode)result;
             if (errorResult == ReplyErrorCode.Error)
             { // Error
@@ -896,7 +896,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         }
 
 #endregion
-        void DebugLog(MvKjMachineDrawerLdd ldd, string text)
+        void DebugLog(MvaKjMachineDrawerLdd ldd, string text)
         {
             // vs 2013
             // string str = $"Ldd={ldd.DeviceIP}, Text={text}";

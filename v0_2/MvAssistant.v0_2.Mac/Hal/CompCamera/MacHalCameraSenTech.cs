@@ -17,10 +17,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompCamera
 
         #region DevConnStr
         string id;
-        string resourceKey { get { return "resource://" + typeof(MvOmronSentechCameraScanner).Name; } }
+        string resourceKey { get { return "resource://" + typeof(MvamronSentechCameraScanner).Name; } }
         #endregion
 
-        MvOmronSentechCameraLdd ldd;
+        MvaOmronSentechCameraLdd ldd;
 
 
 
@@ -30,10 +30,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompCamera
         {
             this.id = this.GetDevConnStr(DevConnStr_Id);
 
-            var scanner = this.HalContext.ResourceGetOrDefault<MvOmronSentechCameraScanner>(this.resourceKey);
+            var scanner = this.HalContext.ResourceGetOrDefault<MvamronSentechCameraScanner>(this.resourceKey);
             if (scanner == null)
             {
-                scanner = new MvOmronSentechCameraScanner();
+                scanner = new MvamronSentechCameraScanner();
                 scanner.Connect();
                 scanner.ScanAlldevice();
                 this.HalContext.ResourceRegister(this.resourceKey, scanner);

@@ -14,7 +14,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
     {
 
 
-        public MvOmronPlcLdd PlcLdd;
+        public MvaOmronPlcLdd PlcLdd;
         public string PlcIp;
         public int PlcPortId;
         bool m_isConnected = false;
@@ -56,7 +56,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             if (ip != null) this.PlcIp = ip;
             if (port != null) this.PlcPortId = port.Value;
 
-            this.PlcLdd = new MvOmronPlcLdd();
+            this.PlcLdd = new MvaOmronPlcLdd();
             this.PlcLdd.NLPLC_Initial(this.PlcIp, this.PlcPortId);
         }
 

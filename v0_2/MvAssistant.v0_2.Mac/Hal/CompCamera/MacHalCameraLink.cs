@@ -22,10 +22,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompCamera
 
         #region Device Connection Str
         string id;
-        string resourceKey { get { return "resource://" + typeof(MvCameraLinkLdd).Name; } }
+        string resourceKey { get { return "resource://" + typeof(MvaCameraLinkLdd).Name; } }
         #endregion
 
-        public MvCameraLinkLdd ldd;
+        public MvaCameraLinkLdd ldd;
 
         public MacHalCameraLink()
         {
@@ -41,7 +41,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompCamera
         {
             this.id = this.GetDevConnStr(DevConnStr_Id);
 
-            this.ldd = new MvCameraLinkLdd();
+            this.ldd = new MvaCameraLinkLdd();
             ldd.Connect();
 
             return 0;

@@ -93,9 +93,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeviceDrive\BaslerCamera\PylonDotNetLdd_v5_0.cs" />
-    <Compile Include="DeviceDrive\CameraLink\MultiCam.cs" />
-    <Compile Include="DeviceDrive\CameraLink\MvCameraLinkLdd.cs" />
+    <Compile Include="DeviceDrive\BaslerCamera\MvaPylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvaMultiCam.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvaCameraLinkLdd.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
@@ -144,7 +144,7 @@
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOn.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\UndockRequest.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
-    <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
+    <Compile Include="DeviceDrive\iDSCamera\MvaU3BoardCam.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerBooleanResult.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerStringResult.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerIntResult.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\OutOfListenPortsException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
-    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLddPool.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLddPool.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyErrorCode.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyMessage.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyResultCode.cs" />
@@ -170,9 +170,9 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\TrayArriveType.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\BaseCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />
-    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerLdd.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLdd.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
-    <Compile Include="DeviceDrive\KjMachineDrawer\MvKjMachineDrawerManager.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerManager.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BoxDetection.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BrightLED.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\INI.cs" />
@@ -183,21 +183,21 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\TrayMotion.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\WriteNetSetting.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\LCDMsg.cs" />
-    <Compile Include="DeviceDrive\LeimacLight\MvEnumLeimacModel.cs" />
-    <Compile Include="DeviceDrive\LeimacLight\MvLeimacLightLdd.cs" />
-    <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcLdd.cs" />
-    <Compile Include="DeviceDrive\OmronPlc\MvOmronPlcPool.cs" />
-    <Compile Include="DeviceDrive\OmronSentechCamera\MvOmronSentechCameraScanner.cs" />
-    <Compile Include="DeviceDrive\OmronSentechCamera\MvOmronSentechCameraLdd.cs" />
+    <Compile Include="DeviceDrive\LeimacLight\MvaEnumLeimacModel.cs" />
+    <Compile Include="DeviceDrive\LeimacLight\MvaLeimacLightLdd.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\MvaOmronPlcLdd.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\MvaOmronPlcPool.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\MvamronSentechCameraScanner.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\MvaOmronSentechCameraLdd.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrab.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrabCallback.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SampleMultipleCameras.cs" />
     <Compile Include="DeviceDrive\OmronSentechCamera\SaveAndLoadImage.cs" />
-    <Compile Include="DeviceDrive\WacohForce\WacohForceEnumConnectionStatus.cs" />
-    <Compile Include="DeviceDrive\WacohForce\WacohForceLdd.cs" />
-    <Compile Include="DeviceDrive\WacohForce\WacohForceMessageEventArgs.cs" />
-    <Compile Include="DeviceDrive\WacohForce\WacohForceMessageReceiver.cs" />
-    <Compile Include="DeviceDrive\WacohForce\WacohForceVector.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceEnumConnectionStatus.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceLdd.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceMessageEventArgs.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceMessageReceiver.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceVector.cs" />
     <Compile Include="IMvaContextFlow.cs" />
     <Compile Include="IMvaContextFlowRun.cs" />
     <Compile Include="Logging\IMvaLoggable.cs" />

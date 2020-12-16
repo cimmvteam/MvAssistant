@@ -14,18 +14,18 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
     /// 記得PLC需要與該網卡設定在同一個網域/遮罩. 
     /// PortID與一般Socket Port不同, 是
     /// </summary>
-    public class MvOmronPlcLdd : IDisposable
+    public class MvaOmronPlcLdd : IDisposable
     {
         NJCompolet _CIPcompolet;
 
         public NJCompolet CIPcompolet { get { return _CIPcompolet; } }
-        public MvOmronPlcLdd()
+        public MvaOmronPlcLdd()
         {
         }
 
 
 
-        ~MvOmronPlcLdd() { this.Dispose(false); }
+        ~MvaOmronPlcLdd() { this.Dispose(false); }
 
         public void NLPLC_Initial(string ip, int portId)
         {

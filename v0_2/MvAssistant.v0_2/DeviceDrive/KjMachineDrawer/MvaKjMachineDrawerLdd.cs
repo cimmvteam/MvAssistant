@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
     /// <summary>Drawer Class</summary>
-    public class MvKjMachineDrawerLdd:IDisposable
+    public class MvaKjMachineDrawerLdd:IDisposable
     {
         /// <summary>Cabinet 編號</summary>        
         private int CabinetNO { get;  set; }
@@ -41,7 +41,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         private Thread ListenThread;
 
         /// <summary>建構式/summary>
-        private MvKjMachineDrawerLdd(){  }
+        private MvaKjMachineDrawerLdd(){  }
 
         /// <summary>建構式</summary>
         /// <param name="cabinetNO">Cabinet 編號</param>
@@ -50,7 +50,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <param name="localIp">本地IP</param>
         /// <param name="portTable">本地端 Port 使用狀況</param>
         [Obsolete]
-        public MvKjMachineDrawerLdd(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, string localIp,IDictionary<int,bool?> portTable) : this()
+        public MvaKjMachineDrawerLdd(int cabinetNO, string drawerNO, IPEndPoint deviceEndpoint, string localIp,IDictionary<int,bool?> portTable) : this()
         {
             DrawerNO = drawerNO;
             CabinetNO = cabinetNO;
@@ -101,7 +101,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <para>2020/10/23 King [C]</para>
         /// <para>保留</para>
         /// </remarks>
-        public MvKjMachineDrawerLdd(bool isFakeInstance, string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
+        public MvaKjMachineDrawerLdd(bool isFakeInstance, string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
         {
             DrawerIndex = drawerIndex;
             TargetEndpoint = deviceEndpoint;
@@ -126,7 +126,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <param name="deviceEndpoint"></param>
         /// <param name="localIp"></param>
         /// <param name="portTable"></param>
-        public MvKjMachineDrawerLdd( string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
+        public MvaKjMachineDrawerLdd( string drawerIndex, IPEndPoint deviceEndpoint, string localIp, IDictionary<int, bool?> portTable) : this()
         {
             DrawerIndex = drawerIndex;
             TargetEndpoint = deviceEndpoint;

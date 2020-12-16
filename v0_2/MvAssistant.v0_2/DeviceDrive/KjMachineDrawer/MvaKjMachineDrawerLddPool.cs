@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
-   public  class MvKjMachineDrawerLddPool:IDisposable
+   public  class MvaKjMachineDrawerLddPool:IDisposable
     {
         /// <summary>這個物件的實體</summary>
-        private static MvKjMachineDrawerLddPool _instance;
+        private static MvaKjMachineDrawerLddPool _instance;
         /// <summary></summary>
         private static object lockGetInstanceObj = new object();
         /// <summary>存放 Ldd 的容器</summary>
-        public List<MvKjMachineDrawerLdd> _ldd = null;
+        public List<MvaKjMachineDrawerLdd> _ldd = null;
         /// <summary>存放可用 port 的 Dictionary</summary>
         public IDictionary<int, bool?> PortStatusDictionary { get; private set; }
         /// <summary>接收到Drawer 硬體發送的 SysStartUp以 及 OnButton 事件時 須Invoke 的方法 </summary>
@@ -26,7 +26,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         {
             SysEventListener=  listener;
         }
-        public static MvKjMachineDrawerLddPool GetInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
+        public static MvaKjMachineDrawerLddPool GetInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     {
                         if (_instance == null)
                         {
-                            _instance = new MvKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort,false);
+                            _instance = new MvaKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort,false);
                         }
                     }
                 }
@@ -54,7 +54,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <para>暫時保留</para>
         /// </remarks>
         /// <returns></returns>
-        public static MvKjMachineDrawerLddPool GetFakeInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
+        public static MvaKjMachineDrawerLddPool GetFakeInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
         {
 
              if (_instance == null)
@@ -63,7 +63,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     {
                         if (_instance == null)
                         {
-                            _instance = new MvKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort, true);
+                            _instance = new MvaKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort, true);
                         }
                     }
                 }
@@ -73,9 +73,9 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         }
 
         /// <summary>建構式</summary>
-        private MvKjMachineDrawerLddPool()
+        private MvaKjMachineDrawerLddPool()
         {
-            _ldd = new List<MvKjMachineDrawerLdd>();
+            _ldd = new List<MvaKjMachineDrawerLdd>();
             //ReceiveInfos = new List<ReceiveInfo>();
 
         }
@@ -89,7 +89,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <remarks>
         /// <para>暫時保留</para>
         /// </remarks>
-        public  MvKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort,bool isFake):this()
+        public  MvaKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort,bool isFake):this()
         {
 
             /**設定可用 Port 的最初狀況狀*/
@@ -116,7 +116,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 
         public void OnSysStartUp(string message, IPEndPoint endPoint)
         {
-            MvKjMachineDrawerLdd ldd = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
+            MvaKjMachineDrawerLdd ldd = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
             if (ldd != null)
             {
                 ldd.InvokeMethod(message);
@@ -137,14 +137,14 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
             }
         }
 
-        public MvKjMachineDrawerLdd CreateLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
+        public MvaKjMachineDrawerLdd CreateLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
         {
 
             try
             {
 
                 // 檢查一下, ldd 是否存在, 如果存在, 就將 Ldd 找出來,回傳 Note: 2020/11/13 King
-                MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd( drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
+                MvaKjMachineDrawerLdd ldd = new MvaKjMachineDrawerLdd( drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
                 _ldd.Add(ldd);
                 return ldd;
             }
@@ -165,9 +165,9 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <para>暫時保留</para>
         /// </remarks>
         /// <returns></returns>
-        public MvKjMachineDrawerLdd CreateFakeLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
+        public MvaKjMachineDrawerLdd CreateFakeLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
         {
-            MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd(true, drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
+            MvaKjMachineDrawerLdd ldd = new MvaKjMachineDrawerLdd(true, drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
                 _ldd.Add(ldd);
                 return ldd;
         }
@@ -176,7 +176,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
         /// <returns></returns>
-        public MvKjMachineDrawerLdd GetDrawerByDeviceIP(string deviceIP)
+        public MvaKjMachineDrawerLdd GetDrawerByDeviceIP(string deviceIP)
         {
             try
             {

@@ -13,7 +13,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         public void TestPlcOn()
         {
 
-            using(var plc = new MvOmronPlcLdd())
+            using(var plc = new MvaOmronPlcLdd())
             {
 
                 plc.NLPLC_Initial("192.168.0.200", 2);
@@ -34,7 +34,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         public void TestPlcInsResult()
         {
 
-            using (var plc = new MvOmronPlcLdd())
+            using (var plc = new MvaOmronPlcLdd())
             {
 
                 plc.NLPLC_Initial("192.168.0.200", 2);

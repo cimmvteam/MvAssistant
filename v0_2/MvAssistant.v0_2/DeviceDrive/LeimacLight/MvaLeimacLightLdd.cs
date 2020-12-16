@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
 {
-    public class MvLeimacLightLdd : IDisposable
+    public class MvaLeimacLightLdd : IDisposable
     {
         public CtkNonStopTcpClient TcpClient = new CtkNonStopTcpClient();
         public DateTime LastSend;
@@ -28,10 +28,10 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
         }
         public string RemoteIp { get { return this.RemoteEp.Address.ToString(); } set { this.RemoteEp.Address = IPAddress.Parse(value); } }
         public int RemotePort { get { return this.TcpClient.RemoteUri.Port; } set { this.TcpClient.RemoteUri = CtkNetUtil.ToUri(this.TcpClient.RemoteUri.Host, value); } }
-        public MvEnumLeimacModel Model = MvEnumLeimacModel.None;
+        public MvaEnumLeimacModel Model = MvaEnumLeimacModel.None;
 
 
-        public MvLeimacLightLdd()
+        public MvaLeimacLightLdd()
         {
             this.TcpClient.EhDataReceive += TcpClient_EhDataReceive;
         }
@@ -66,8 +66,8 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
             {
                 switch (this.Model)
                 {
-                    case MvEnumLeimacModel.IWDV_100S_24:
-                    case MvEnumLeimacModel.IWDV_600M2_24:
+                    case MvaEnumLeimacModel.IWDV_100S_24:
+                    case MvaEnumLeimacModel.IWDV_600M2_24:
                         for (var idx = 0; data.Length > 0; idx++)
                         {
                             this.Values[idx] = Int32.Parse(data.Substring(0, 4));
@@ -81,8 +81,8 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
             {
                 switch (this.Model)
                 {
-                    case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
-                    case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                    case MvaEnumLeimacModel.IDGB_50M2PG_12_TP:
+                    case MvaEnumLeimacModel.IDGB_50M4PG_24_TP:
                         for (var idx = 0; data.Length > 0; idx++)
                         {
                             this.Values[idx] = Int32.Parse(data.Substring(0, 4));
@@ -115,14 +115,14 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
             var cmd = "";
             switch (this.Model)
             {
-                case MvEnumLeimacModel.IWDV_100S_24:
+                case MvaEnumLeimacModel.IWDV_100S_24:
                     cmd = string.Format("{0}0000", cmdType);
                     break;
-                case MvEnumLeimacModel.IWDV_600M2_24:
+                case MvaEnumLeimacModel.IWDV_600M2_24:
                     cmd = string.Format("{0}0000", cmdType);
                     break;
-                case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
-                case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                case MvaEnumLeimacModel.IDGB_50M2PG_12_TP:
+                case MvaEnumLeimacModel.IDGB_50M4PG_24_TP:
                     cmdType = "R11";
                     cmd = string.Format("{0}0000", cmdType);
                     break;
@@ -154,14 +154,14 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
             var cmd = "";
             switch (this.Model)
             {
-                case MvEnumLeimacModel.IWDV_100S_24:
+                case MvaEnumLeimacModel.IWDV_100S_24:
                     cmd = string.Format("{0}{1:0000}", cmdType, value);
                     break;
-                case MvEnumLeimacModel.IWDV_600M2_24:
+                case MvaEnumLeimacModel.IWDV_600M2_24:
                     cmd = string.Format("{0}{1:00}{2:0000}", cmdType, ch, value);
                     break;
-                case MvEnumLeimacModel.IDGB_50M2PG_12_TP:
-                case MvEnumLeimacModel.IDGB_50M4PG_24_TP:
+                case MvaEnumLeimacModel.IDGB_50M2PG_12_TP:
+                case MvaEnumLeimacModel.IDGB_50M4PG_24_TP:
                     cmdType = "W11";
                     cmd = string.Format("{0}{1:00}{2:0000}", cmdType, ch, value);
                     break;

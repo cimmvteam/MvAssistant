@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 {
-    public class WacohForceVector : MathNet.Numerics.LinearAlgebra.Single.DenseVector
+    public class MvaWacohForceVector : MathNet.Numerics.LinearAlgebra.Single.DenseVector
     {
         
 
@@ -18,13 +18,13 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
         public float mz { get { return this[5]; } set { this[5] = value; } }
 
 
-        public WacohForceVector()
+        public MvaWacohForceVector()
             : base(6)
         {
 
         }
 
-        public WacohForceVector(MathNet.Numerics.LinearAlgebra.Single.DenseVector vec)
+        public MvaWacohForceVector(MathNet.Numerics.LinearAlgebra.Single.DenseVector vec)
             : base(vec.ToArray())
         {
 

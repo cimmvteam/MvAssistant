@@ -18,21 +18,21 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 
 
 
-    public class WacohForceLdd : IDisposable
+    public class MvaWacohForceLdd : IDisposable
     {
 
         CtkNonStopTcpClient netNonStopTcpClient = new CtkNonStopTcpClient();
         public CtkNonStopTcpClient netClient { get { return this.netNonStopTcpClient; } }
-        WacohForceMessageReceiver messageReceiver = new WacohForceMessageReceiver();
+        MvaWacohForceMessageReceiver messageReceiver = new MvaWacohForceMessageReceiver();
 
         public IPEndPoint localEP { get { return CtkNetUtil.ToIPEndPoint(this.netNonStopTcpClient.LocalUri); } set { this.netNonStopTcpClient.LocalUri = CtkNetUtil.ToUri(value); } }
         public IPEndPoint remoteEP { get { return CtkNetUtil.ToIPEndPoint(this.netNonStopTcpClient.RemoteUri); } set { this.netNonStopTcpClient.RemoteUri = CtkNetUtil.ToUri(value); } }
 
         Boolean correctionFlag = false;
-        WacohForceVector centerForceVector = new WacohForceVector();
+        MvaWacohForceVector centerForceVector = new MvaWacohForceVector();
 
-        WacohForceEnumConnectionStatus _connectionStatus = WacohForceEnumConnectionStatus.Disconnection;
-        WacohForceEnumConnectionStatus connectionStatus
+        MvaWacohForceEnumConnectionStatus _connectionStatus = MvaWacohForceEnumConnectionStatus.Disconnection;
+        MvaWacohForceEnumConnectionStatus connectionStatus
         {
             get { return _connectionStatus; }
             set
@@ -47,7 +47,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
         }
 
 
-        public WacohForceLdd()
+        public MvaWacohForceLdd()
         {
             this.netNonStopTcpClient.EhDataReceive += (sender, e) =>
             {
@@ -66,7 +66,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
                         correctionFlag = false;
                 }
 
-                var ea = new WacohForceMessageEventArgs();
+                var ea = new MvaWacohForceMessageEventArgs();
                 ea.centerForceVector = this.centerForceVector;
                 ea.rawForceVector = vec;
                 this.OnDataReceive(ea);
@@ -75,16 +75,16 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 
             this.netNonStopTcpClient.EhDisconnect += (sender, e) =>
             {
-                this.connectionStatus = WacohForceEnumConnectionStatus.Disconnection;
+                this.connectionStatus = MvaWacohForceEnumConnectionStatus.Disconnection;
             };
             this.netNonStopTcpClient.EhFirstConnect += (sender, e) =>
             {
-                this.connectionStatus = WacohForceEnumConnectionStatus.Connected;
+                this.connectionStatus = MvaWacohForceEnumConnectionStatus.Connected;
             };
 
         }
 
-        ~WacohForceLdd() { this.Dispose(false); }
+        ~MvaWacohForceLdd() { this.Dispose(false); }
 
 
         public int ConnectIfNo()
@@ -92,11 +92,11 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
             if (this.remoteEP == null) return -1;
 
 
-            if (this.connectionStatus == WacohForceEnumConnectionStatus.Connecting) return 1;
+            if (this.connectionStatus == MvaWacohForceEnumConnectionStatus.Connecting) return 1;
 
             this.netNonStopTcpClient.ConnectIfNo();
             if (this.netNonStopTcpClient.IsLocalReadyConnect)
-                this.connectionStatus = WacohForceEnumConnectionStatus.Connecting;
+                this.connectionStatus = MvaWacohForceEnumConnectionStatus.Connecting;
 
             return 0;
         }
@@ -151,7 +151,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
             {
                 foreach (Delegate d in this.evtDataReceive.GetInvocationList())
                 {
-                    this.evtDataReceive -= (EventHandler<WacohForceMessageEventArgs>)d;
+                    this.evtDataReceive -= (EventHandler<MvaWacohForceMessageEventArgs>)d;
                 }
             }
             catch (Exception ex) { MvaLog.Write(ex); }
@@ -161,8 +161,8 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 
 
 
-        public event EventHandler<WacohForceMessageEventArgs> evtDataReceive;
-        void OnDataReceive(WacohForceMessageEventArgs ea)
+        public event EventHandler<MvaWacohForceMessageEventArgs> evtDataReceive;
+        void OnDataReceive(MvaWacohForceMessageEventArgs ea)
         {
             if (this.evtDataReceive == null) return;
             this.evtDataReceive(this, ea);

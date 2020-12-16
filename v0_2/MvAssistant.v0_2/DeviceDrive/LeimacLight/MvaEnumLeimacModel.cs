@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
 {
-    public enum MvEnumLeimacModel
+    public enum MvaEnumLeimacModel
     {
         None,
         IWDV_100S_24,

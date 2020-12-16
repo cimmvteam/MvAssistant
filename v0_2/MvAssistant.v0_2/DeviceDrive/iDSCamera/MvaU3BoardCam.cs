@@ -10,7 +10,7 @@ using uEye;
 
 namespace MvAssistant.v0_2.DeviceDrive.iDSCamera
 {
-    public class U3BoardCam
+    public class MvaU3BoardCam
     {
         private uEye.Camera m_Camera;
         public IntPtr m_displayHandle = IntPtr.Zero;
@@ -22,7 +22,7 @@ namespace MvAssistant.v0_2.DeviceDrive.iDSCamera
         }
         private const int m_cnNumberOfSeqBuffers = 3;
 
-        public U3BoardCam()
+        public MvaU3BoardCam()
         {
             m_Camera = new uEye.Camera();
             m_Camera.Init();

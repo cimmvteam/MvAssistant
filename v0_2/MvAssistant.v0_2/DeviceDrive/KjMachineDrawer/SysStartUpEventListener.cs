@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
 
     /// <summary>Lisent SysStartUp Event 的物件類別</summary>
-    public  class SysStartUpEventListener
+    public class SysStartUpEventListener
     {
         /// <summary>Listen Port</summary>
         private int _listenPort;
@@ -37,7 +37,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         public SysStartUpEventListener(int port) : this()
         {
             _listenPort = port;
-           
+
         }
 
         /// <summary>開始監聽</summary>
@@ -61,23 +61,23 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpEndPoint));
                     OnRcvMessage(rcvMessage, IpEndPoint);
                 }
-                catch(Exception ex)      {  }
+                catch (Exception ex) { }
             }
         }
 
         /// <summary>接到監聽資料時的處理函式</summary>
         /// <param name="message">收到的訊息</param>
         /// <param name="ipEndpoint">發出訊號的 端點</param>
-        private void OnRcvMessage(string message,IPEndPoint ipEndpoint)
+        private void OnRcvMessage(string message, IPEndPoint ipEndpoint)
         {
             var ip = ipEndpoint.Address;
-            if(OnRcvMessageCallBack!=null)
+            if (OnRcvMessageCallBack != null)
             {
                 OnRcvMessageCallBack(message, ipEndpoint);
             }
         }
 
-       
+
         /// <summary>回呼函式</summary>
         public DelOnRcvMessage OnRcvMessageCallBack = null;
     }

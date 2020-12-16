@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.CameraLink
 {
-    public class MvCameraLinkLdd : IDisposable
+    public class MvaCameraLinkLdd : IDisposable
     {
-        public MvCameraLinkLdd()
+        public MvaCameraLinkLdd()
         {
         }
 
-        ~MvCameraLinkLdd() { this.Dispose(false); }
+        ~MvaCameraLinkLdd() { this.Dispose(false); }
 
         private ColorPalette imgpal = null;
         private Bitmap image = null;

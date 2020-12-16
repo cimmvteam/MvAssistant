@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 {
-    public class WacohForceMessageReceiver : Queue<WacohForceVector>
+    public class MvaWacohForceMessageReceiver : Queue<MvaWacohForceVector>
     {
         List<byte> DataBuffer = new List<byte>();
 
@@ -37,7 +37,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
             }
         }
 
-        WacohForceVector AnalysisMessage_Split()
+        MvaWacohForceVector AnalysisMessage_Split()
         {
             if (this.DataBuffer.Count < 27) return null;
 
@@ -45,7 +45,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
             this.DataBuffer.RemoveRange(0, 27);
 
 
-            var vec = new WacohForceVector();
+            var vec = new MvaWacohForceVector();
             vec.fx = int.Parse(message.Substring(1, 4), System.Globalization.NumberStyles.HexNumber);
             vec.fy = int.Parse(message.Substring(5, 4), System.Globalization.NumberStyles.HexNumber);
             vec.fz = int.Parse(message.Substring(9, 4), System.Globalization.NumberStyles.HexNumber);

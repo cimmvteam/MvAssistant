@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.BaslerCamera
 {
-    public class PylonDotNetLdd_v5_0
+    public class MvaPylonDotNetLdd_v5_0
     {
 
 

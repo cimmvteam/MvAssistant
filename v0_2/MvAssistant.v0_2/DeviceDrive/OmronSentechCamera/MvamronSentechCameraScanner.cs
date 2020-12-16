@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.OmronSentechCamera
 {
-    public class MvOmronSentechCameraScanner : IDisposable
+    public class MvamronSentechCameraScanner : IDisposable
     {
-        public Dictionary<string, MvOmronSentechCameraLdd> cameras = new Dictionary<string, MvOmronSentechCameraLdd>();
+        public Dictionary<string, MvaOmronSentechCameraLdd> cameras = new Dictionary<string, MvaOmronSentechCameraLdd>();
 
         //public MvOmronSentechCameraLdd BT_ccd_gripper_1;//  ID：00-11-1C-F9-A3-23     Name：STC-SBS500POE(19HC568)
         //public MvOmronSentechCameraLdd CC_ccd_particle_1;//  ID：00-11-1C-F9-A4-08     Name：STC-SBS500POE(19HD395)
@@ -33,11 +33,11 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronSentechCamera
         //public MvOmronSentechCameraLdd OS_ccd_barcode_1;
         ////  ID：00-11-1C-F9-A8-BE     Name：STC-SBS500POE(19JA599)    OS前，近LP
         ////  ID：00-11-1C-F9-A3-46     Name：STC-SBS500POE(19HC603)    OS前，近CC
-        public MvOmronSentechCameraScanner()
+        public MvamronSentechCameraScanner()
         {
 
         }
-        ~MvOmronSentechCameraScanner() { this.Dispose(false); }
+        ~MvamronSentechCameraScanner() { this.Dispose(false); }
 
         // 要取得的影像數量
         const int nCountOfImagesToGrab = 1;
@@ -133,7 +133,7 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronSentechCamera
 
                     dataStream[uCamCnt] = StDevice[uCamCnt].CreateStDataStream(0);
 
-                    this.cameras[tmpDeviceInfoPtr.ID] = new MvOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
+                    this.cameras[tmpDeviceInfoPtr.ID] = new MvaOmronSentechCameraLdd(StDevice[uCamCnt], dataStream[uCamCnt]);
 
                     uCamCnt++;
                 }

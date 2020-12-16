@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 {
-    public enum WacohForceEnumConnectionStatus
+    public enum MvaWacohForceEnumConnectionStatus
     {
         Disconnection,
         Connecting,

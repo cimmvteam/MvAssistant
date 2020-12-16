@@ -18,13 +18,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLight
         #region Device Connection String
         string ip;
         int port;
-        MvEnumLeimacModel model;
+        MvaEnumLeimacModel model;
         int channel;
         string resourceKey { get { return string.Format("net.tcp://{0}:{1}", this.ip, this.port); } }
         #endregion
 
 
-        public MvLeimacLightLdd ldd;
+        public MvaLeimacLightLdd ldd;
 
         public MacHalLightFake()
         {
@@ -56,10 +56,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLight
         {
             this.ip = this.GetDevConnStr(DevConnStr_Ip);
             this.port = this.GetDevConnStrInt(DevConnStr_Port);
-            this.model = this.GetDevConnStrEnum<MvEnumLeimacModel>(DevConnStr_Model);
+            this.model = this.GetDevConnStrEnum<MvaEnumLeimacModel>(DevConnStr_Model);
             this.channel = this.GetDevConnStrInt(DevConnStr_Channel);
 
-            this.ldd = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MvLeimacLightLdd()
+            this.ldd = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MvaLeimacLightLdd()
             {
                 RemoteIp = this.ip,
                 RemotePort = this.port,

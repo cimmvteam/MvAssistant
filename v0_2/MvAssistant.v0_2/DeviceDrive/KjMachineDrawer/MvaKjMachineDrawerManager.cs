@@ -13,17 +13,17 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
     /// <summary></summary>
     [Obsolete]
-    public class MvKjMachineDrawerManager : IDisposable
+    public class MvaKjMachineDrawerManager : IDisposable
     {
-      public List<MvKjMachineDrawerLdd> Drawers = null;
+      public List<MvaKjMachineDrawerLdd> Drawers = null;
       
         public IDictionary<int,bool?> PortStatusDictionary { get; private set; }
         //private List<ReceiveInfo> ReceiveInfos = null;
         public SysStartUpEventListener SysStartUpEventListener;
         /// <summary>建構式</summary>
-        public   MvKjMachineDrawerManager()
+        public   MvaKjMachineDrawerManager()
         {
-            Drawers = new List<MvKjMachineDrawerLdd>();
+            Drawers = new List<MvaKjMachineDrawerLdd>();
             //ReceiveInfos = new List<ReceiveInfo>();
            
         }
@@ -34,7 +34,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <param name="listenDrawerPortMax">監聽 Udp Port 的最大值</param>
         /// <param name="bindLocalIp">本地端 繫結 的IP</param>
         /// <param name="bindLocalPort">本地端 繫結 的port</param>
-        public MvKjMachineDrawerManager(int listenDrawerPortMin,int listenDrawerPortMax,int sysStartUpEventListenPort):this()
+        public MvaKjMachineDrawerManager(int listenDrawerPortMin,int listenDrawerPortMax,int sysStartUpEventListenPort):this()
         {
 
             Action initialPortStatusDictionary = () =>{
@@ -57,7 +57,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 
         public void OnSysStartUp(string message,IPEndPoint endPoint)
         {
-            MvKjMachineDrawerLdd drawer = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
+            MvaKjMachineDrawerLdd drawer = this.GetDrawerByDeviceIP(endPoint.Address.ToString());
             if(drawer != null)
             {
                 drawer.InvokeMethod(message);
@@ -86,12 +86,12 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <param name="deviceIP">裝置 IP</param>
         /// <param name="udpServerPort">Drawer 內建 UDP Server Port</param>
         /// <returns></returns>
-        public MvKjMachineDrawerLdd CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,string localIP)
+        public MvaKjMachineDrawerLdd CreateDrawer(int cabinetNo,string drawerNo,IPEndPoint deviceEndpoint,string localIP)
         {
             try
             {
                 
-                MvKjMachineDrawerLdd drawer = new MvKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
+                MvaKjMachineDrawerLdd drawer = new MvaKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
                 
                 Drawers.Add(drawer);
                 return drawer;
@@ -102,13 +102,13 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
             }
            
         }
-        public MvKjMachineDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
+        public MvaKjMachineDrawerLdd CreateLdd(int cabinetNo, string drawerNo, IPEndPoint deviceEndpoint, string localIP)
         {
 
             try
             {
 
-                MvKjMachineDrawerLdd ldd = new MvKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
+                MvaKjMachineDrawerLdd ldd = new MvaKjMachineDrawerLdd(cabinetNo, drawerNo, deviceEndpoint, localIP, this.PortStatusDictionary);
 
                 return ldd;
             }
@@ -124,7 +124,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <summary>由IP 取得 Drawer</summary>
         /// <param name="deviceIP">Drawer IP</param>
         /// <returns></returns>
-        public MvKjMachineDrawerLdd GetDrawerByDeviceIP(string deviceIP)
+        public MvaKjMachineDrawerLdd GetDrawerByDeviceIP(string deviceIP)
         {
             try
             {

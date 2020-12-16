@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.WacohForce
 {
-    public class WacohForceMessageEventArgs : EventArgs
+    public class MvaWacohForceMessageEventArgs : EventArgs
     {
 
-        public WacohForceVector centerForceVector;
-        public WacohForceVector rawForceVector;
-        public WacohForceVector correctForceVector { get { return new WacohForceVector(rawForceVector - centerForceVector); } }
+        public MvaWacohForceVector centerForceVector;
+        public MvaWacohForceVector rawForceVector;
+        public MvaWacohForceVector correctForceVector { get { return new MvaWacohForceVector(rawForceVector - centerForceVector); } }
 
 
 

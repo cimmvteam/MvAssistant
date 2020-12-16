@@ -13,14 +13,14 @@ using System.Threading;
 
 namespace MvAssistant.v0_2.DeviceDrive.OmronSentechCamera
 {
-    public class MvOmronSentechCameraLdd : IDisposable
+    public class MvaOmronSentechCameraLdd : IDisposable
     {
-        public MvOmronSentechCameraLdd(CStDevice device = null, CStDataStream dataStream = null)
+        public MvaOmronSentechCameraLdd(CStDevice device = null, CStDataStream dataStream = null)
         {
             this.device = device;
             this.dataStream = dataStream;
         }
-        ~MvOmronSentechCameraLdd() { this.Dispose(false); }
+        ~MvaOmronSentechCameraLdd() { this.Dispose(false); }
 
         // 要取得的影像數量
         const int nCountOfImagesToGrab = 1;

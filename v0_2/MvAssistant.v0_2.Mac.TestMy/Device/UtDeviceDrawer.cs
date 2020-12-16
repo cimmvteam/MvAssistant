@@ -29,8 +29,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         public string ClientIP_01_01_01 = "192.168.0.42";
         //public string ClientIP_01_01_01 = "127.0.0.1";
 
-        public MvKjMachineDrawerLdd Drawer_01_01_01 = null;
-        private MvKjMachineDrawerManager ldd = null;
+        public MvaKjMachineDrawerLdd Drawer_01_01_01 = null;
+        private MvaKjMachineDrawerManager ldd = null;
         int PortBegin = 5000;
         int PortEnd = 5999;
         private int ListenStartupPort = 6000;
@@ -67,7 +67,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
 
         public UtDeviceDrawer()
         {
-            ldd = new MvKjMachineDrawerManager(PortBegin, PortEnd, ListenStartupPort);
+            ldd = new MvaKjMachineDrawerManager(PortBegin, PortEnd, ListenStartupPort);
             InitialDrawers();
             BindEvent();
             ldd.ListenSystStartUpEvent();
@@ -230,7 +230,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnReplyTrayMotion(object sender, EventArgs args)
         {
-            var drawer = (MvKjMachineDrawerLdd)sender;
+            var drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyTrayMotionEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {  // 成功
@@ -249,7 +249,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnReplySetSpeed(object sender, EventArgs args)
         {
-            var drawer = (MvKjMachineDrawerLdd)sender;
+            var drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplySetSpeedEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
@@ -268,7 +268,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnReplySetTimeOut(object sender, EventArgs args)
         {
-            var drawer = (MvKjMachineDrawerLdd)sender;
+            var drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplySetTimeOutEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
@@ -288,7 +288,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="sender"></param>
         private void OnReplyBrightLED(object sender, EventArgs args)
         {
-            var drawer = (MvKjMachineDrawerLdd)sender;
+            var drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBrightLEDEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             {
@@ -308,7 +308,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name=""></param>
         private void OnReplyPosition(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyPositionEventArgs)args;
             var IHO = eventArgs.IHOStatus;
             // vs 2013
@@ -322,7 +322,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnReplyBoxDetection(Object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnReplyBoxDetectionEventArgs)args;
             var hasBox = eventArgs.HasBox;
             // vs 2013
@@ -335,7 +335,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnTrayArrive(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnTrayArriveEventArgs)args;
             if (eventArgs.TrayArriveType == TrayArriveType.ArriveHome)
             {
@@ -359,7 +359,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnButtonEvent(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
              // vs 2013
             // NoteEvent(drawer, nameof(OnButtonEvent));
             NoteEvent(drawer, "OnButtonEvent");
@@ -367,7 +367,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         //"~141,LCDCMsg,1@
         public void OnLCDCMsg(object sender,EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnLCDCMsgEventArgs)args;
             if (eventArgs.ReplyResultCode == ReplyResultCode.Set_Successfully)
             { }
@@ -381,7 +381,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnTimeOutEvent(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
              // vs 2013
             // NoteEvent(drawer, nameof(OnTimeOutEvent));
             NoteEvent(drawer, "OnTimeOutEvent");
@@ -392,7 +392,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnTrayMotioning(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             // vs 2013
             // NoteEvent(drawer, nameof(OnTrayMotioning));
             NoteEvent(drawer, "OnTrayMotioning");
@@ -403,7 +403,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnINIFailed(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             // vs 2013
             // NoteEvent(drawer, nameof(OnINIFailed));
             NoteEvent(drawer, "OnINIFailed");
@@ -415,7 +415,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnTryMotionError(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             // vs 2013
             //NoteEvent(drawer, nameof(OnTryMotionError));
             NoteEvent(drawer, "OnTryMotionError");
@@ -427,7 +427,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnTrayMotionSensorOFF(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             // vs 2013
             // NoteEvent(drawer, nameof(OnTrayMotionSensorOFF));
             NoteEvent(drawer, ("OnTrayMotionSensorOFF"));
@@ -439,7 +439,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         private void OnError(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             var eventArgs = (OnErrorEventArgs)args;
             if (eventArgs.ReplyErrorCode == ReplyErrorCode.Recovery)
             {
@@ -458,7 +458,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         /// <param name="args"></param>
         public void OnSysStartUp(object sender, EventArgs args)
         {
-            MvKjMachineDrawerLdd drawer = (MvKjMachineDrawerLdd)sender;
+            MvaKjMachineDrawerLdd drawer = (MvaKjMachineDrawerLdd)sender;
             // vs 2013
             //NoteEvent(drawer, nameof(OnSysStartUp));
             NoteEvent(drawer, "OnSysStartUp");
@@ -471,7 +471,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         {
             Debug.WriteLine(commandText);
         }
-        public void NoteEvent(MvKjMachineDrawerLdd drawer, string eventName,string result="")
+        public void NoteEvent(MvaKjMachineDrawerLdd drawer, string eventName,string result="")
         {
             var endIP = drawer.DeviceIP;
             eventName = eventName.Replace("On","");
@@ -493,7 +493,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
         [TestMethod]
         public void TestMethod1()
         {
-            using (var drawer = new MvKjMachineDrawerManager())
+            using (var drawer = new MvaKjMachineDrawerManager())
             {
                 drawer.ConnectIfNo();
 
