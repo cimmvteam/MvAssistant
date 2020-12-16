@@ -42,7 +42,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
 
 
 
-        public void SaveToXmlFile(string fn) { MvUtil.SaveToXmlFile(this, fn); }
+        public void SaveToXmlFile(string fn) { MvaUtil.SaveToXmlFile(this, fn); }
 
         #region static function
         /// <summary>
@@ -50,13 +50,13 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// </summary>
         /// <param name="filePath">xml file path for loading</param>
         /// <returns></returns>
-        public static MacManifestCfg LoadFromXmlFile(string filePath) { return MvUtil.LoadFromXmlFile<MacManifestCfg>(filePath); }
+        public static MacManifestCfg LoadFromXmlFile(string filePath) { return MvaUtil.LoadFromXmlFile<MacManifestCfg>(filePath); }
         /// <summary>
         /// serialize (序列化) manifest object, and save as xml file
         /// </summary>
         /// <param name="manifest">MachineManifest object</param>
         /// <param name="filePath">xml file path for saving</param>
-        public static void SaveToXmlFile(MacManifestCfg manifest, string filePath) { MvUtil.SaveToXmlFile<MacManifestCfg>(manifest, filePath); }
+        public static void SaveToXmlFile(MacManifestCfg manifest, string filePath) { MvaUtil.SaveToXmlFile<MacManifestCfg>(manifest, filePath); }
         #endregion
 
 

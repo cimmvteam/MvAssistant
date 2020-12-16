@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Tasking
 {
-    public class MvTask : IDisposable
+    public class MvaTask : IDisposable
     {
         public string Name;
         public Task Task;
 
 
-        ~MvTask() { this.Dispose(false); }
+        ~MvaTask() { this.Dispose(false); }
 
         public virtual int Id { get { return this.Task.Id; } }
 
-        public static MvTask Run(Action act)
+        public static MvaTask Run(Action act)
         {
-            var task = new MvTask();
+            var task = new MvaTask();
             task.Task = Task.Factory.StartNew(act);
             return task;
         }
@@ -84,9 +84,9 @@ namespace MvAssistant.v0_2.Tasking
                         if (!this.Task.Wait(3 * 1000))
                         {
                             if (this.Task.Status < TaskStatus.Running)
-                                MvLog.WarnNs(this, "MvTask is no start");
+                                MvaLog.WarnNs(this, "MvTask is no start");
                             else if(this.Task.Status ==  TaskStatus.Running)
-                                MvLog.WarnNs(this, "MvTask can not cancel");
+                                MvaLog.WarnNs(this, "MvTask can not cancel");
                         }
                 }
                 catch (OperationCanceledException) { }

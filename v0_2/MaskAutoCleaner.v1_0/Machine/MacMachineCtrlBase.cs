@@ -14,7 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine
     /// <summary>
     /// Machine Controller Base
     /// </summary>
-    public abstract class MacMachineCtrlBase : IMvContextFlow, IMacMsgProcessor, IDisposable
+    public abstract class MacMachineCtrlBase : IMvaContextFlow, IMacMsgProcessor, IDisposable
     {
         public MacHalAssemblyBase HalAssembly { get { return this.MsAssembly.halAssembly; } set { this.MsAssembly.halAssembly = value; } }
         public MacMachineStateBase MsAssembly;

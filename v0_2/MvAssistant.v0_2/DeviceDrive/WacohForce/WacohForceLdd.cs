@@ -154,7 +154,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
                     this.evtDataReceive -= (EventHandler<WacohForceMessageEventArgs>)d;
                 }
             }
-            catch (Exception ex) { MvLog.Write(ex); }
+            catch (Exception ex) { MvaLog.Write(ex); }
         }
 
 

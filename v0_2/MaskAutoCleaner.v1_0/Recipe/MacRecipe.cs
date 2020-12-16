@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.Recipe
             return step;
         }
 
-        public void SaveToXmlFile(string fn) { MvUtil.SaveToXmlFile(this, fn); }
+        public void SaveToXmlFile(string fn) { MvaUtil.SaveToXmlFile(this, fn); }
 
 
 

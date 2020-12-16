@@ -563,14 +563,14 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         {
             var posReg = new MvFanucRobotPosReg();
             if (!this.GetPosRegValue(PRno, posReg))
-                throw new MvException("Fail to read position register");
+                throw new MvaException("Fail to read position register");
             return posReg;
         }
         public MvFanucRobotPosReg ReadCurPosUf()
         {
             var posReg = new MvFanucRobotPosReg();
             if (!this.GetCurPosUf(posReg))
-                throw new MvException("Fail to read current position");
+                throw new MvaException("Fail to read current position");
             return posReg;
         }
 
@@ -578,7 +578,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         {
             object reg = 0;
             if (!this.GetRegValue(index, ref reg))
-                throw new MvException("Fail to read register value");
+                throw new MvaException("Fail to read register value");
             return (int)reg;
         }
 
@@ -586,7 +586,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         {
             MvRobotAlarm alminfo = new MvRobotAlarm();
             if (!this.GetAlarmInfo(alminfo))
-                throw new MvException("Fail to read alarm info");
+                throw new MvaException("Fail to read alarm info");
             return alminfo;
         }
         public StringBuilder RegisterTest()
@@ -774,12 +774,12 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
             if (_SelectCorJ == 0)
             {
                 if (!this.SetPosRegXyzWpr(1, robotInfo.PosReg))
-                    throw new MvException("Fail to write position register");
+                    throw new MvaException("Fail to write position register");
             }
             else
             {
                 if (!this.SetPosRegJoint(2, robotInfo.PosReg))
-                    throw new MvException("Fail to write position register");
+                    throw new MvaException("Fail to write position register");
             }
 
 
@@ -979,7 +979,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                 }
 
                 if (!this.SetPosRegXyzWpr(PR_Num, robotInfo.PosReg))
-                    throw new MvException("Fail to write position register");
+                    throw new MvaException("Fail to write position register");
             }
             else
             {
@@ -994,7 +994,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                 }
 
                 if (!this.SetPosRegJoint(PR_Num, robotInfo.PosReg))
-                    throw new MvException("Fail to write position register");
+                    throw new MvaException("Fail to write position register");
             }
             
             this.mobjDataTable.Refresh();

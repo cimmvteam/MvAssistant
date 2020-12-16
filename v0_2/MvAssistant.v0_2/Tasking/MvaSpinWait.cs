@@ -6,20 +6,20 @@ using System.Threading;
 
 namespace MvAssistant.v0_2.Tasking
 {
-    public class MvSpinWait
+    public class MvaSpinWait
     {
         public DateTime LastSpinTime = DateTime.Now;
         public int WaitMillisecondsMax = -1;//-1代表無上限
         public int WaitMillisecondsMin = -1;//-1代表不等待
         Action _fail;
         Action _success;
-        public MvSpinWait() { }
-        public MvSpinWait(int maxWaitMs, int minWaitMs) { this.SetWait(maxWaitMs, minWaitMs); }
+        public MvaSpinWait() { }
+        public MvaSpinWait(int maxWaitMs, int minWaitMs) { this.SetWait(maxWaitMs, minWaitMs); }
 
 
-        public MvSpinWait OnFail(Action fail) { this._fail = fail; return this; }
+        public MvaSpinWait OnFail(Action fail) { this._fail = fail; return this; }
 
-        public MvSpinWait OnSuccess(Action success) { this._success = success; return this; }
+        public MvaSpinWait OnSuccess(Action success) { this._success = success; return this; }
 
         public void SetWait(int? maxWaitMs = null, int? minWaitMs = null)
         {
@@ -88,9 +88,9 @@ namespace MvAssistant.v0_2.Tasking
         }
         #region Static
 
-        public static MvSpinWait New(int? maxWaitMs = null, int? minWaitMs = null)
+        public static MvaSpinWait New(int? maxWaitMs = null, int? minWaitMs = null)
         {
-            var mv = new MvSpinWait();
+            var mv = new MvaSpinWait();
             mv.SetWait(maxWaitMs, minWaitMs);
             return mv;
         }
@@ -123,7 +123,7 @@ namespace MvAssistant.v0_2.Tasking
         /// <returns></returns>
         public static bool SpinUntil(Func<bool> condition, int maxWaitMs, int minWaitMs, Action success = null, Action fail = null)
         {
-            var mvSpin = new MvSpinWait();
+            var mvSpin = new MvaSpinWait();
             var flag = mvSpin.WaitUntil(condition, maxWaitMs, minWaitMs);
 
             if (flag)

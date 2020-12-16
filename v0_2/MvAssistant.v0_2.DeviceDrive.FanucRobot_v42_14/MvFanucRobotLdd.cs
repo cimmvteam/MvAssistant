@@ -299,7 +299,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
             {
                 // 將 mobjCore 斷開連線
                 try { mobjCore.Disconnect(); }
-                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
                 mobjCore = null;
             }
             return 0;

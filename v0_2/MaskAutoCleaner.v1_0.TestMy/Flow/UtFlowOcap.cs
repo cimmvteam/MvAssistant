@@ -31,7 +31,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
                     machineMgr.MvCfUnload();
                     machineMgr.MvCfFree();
                 }
-                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
             }
 
 

@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Tasking
 {
-    public class MvCancelTask : MvTask
+    public class MvaCancelTask : MvaTask
     {
         public CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
 
-        ~MvCancelTask() { this.Dispose(false); }
+        ~MvaCancelTask() { this.Dispose(false); }
         public CancellationToken CancelToken { get { return this.CancelTokenSource.Token; } }
 
-        public static MvCancelTask Run(Action<CancellationToken> act)
+        public static MvaCancelTask Run(Action<CancellationToken> act)
         {
-            var task = new MvCancelTask();
+            var task = new MvaCancelTask();
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
@@ -26,9 +26,9 @@ namespace MvAssistant.v0_2.Tasking
             return task;
         }
 
-        public static MvCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0)
+        public static MvaCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0)
         {
-            var task = new MvCancelTask();
+            var task = new MvaCancelTask();
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
@@ -36,7 +36,7 @@ namespace MvAssistant.v0_2.Tasking
                 {
                     ct.ThrowIfCancellationRequested();
                     if (!funcIsContinue()) break;
-                    if (delay_ms > 0) MvSpinWait.SpinUntil(() => ct.IsCancellationRequested, delay_ms);
+                    if (delay_ms > 0) MvaSpinWait.SpinUntil(() => ct.IsCancellationRequested, delay_ms);
                 }
             }, ct);
 

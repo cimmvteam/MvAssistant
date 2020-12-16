@@ -75,7 +75,7 @@ namespace MvAssistant.v0_2.Mac.Hal
         protected string DeviceConnStr { get { return this.HalDeviceCfg.DevConnStr; } }
         public string GetDevConnStr(string key) { return this.DevSettings[key.ToLower()]; }
 
-        public T GetDevConnStrEnum<T>(string key) { return MvUtil.EnumParse<T>(this.DevSettings[key] as string); }
+        public T GetDevConnStrEnum<T>(string key) { return MvaUtil.EnumParse<T>(this.DevSettings[key] as string); }
 
         public int GetDevConnStrInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
         protected Dictionary<string, string> GetDevConnStr()

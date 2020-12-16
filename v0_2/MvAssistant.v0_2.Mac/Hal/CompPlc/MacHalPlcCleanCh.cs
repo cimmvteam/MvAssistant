@@ -178,25 +178,25 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Blow, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Reply), 1000))
-                    throw new MvException("Clean Chamber Gas Valve Blow T0 timeout");
+                    throw new MvaException("Clean Chamber Gas Valve Blow T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Complete), 1000 + (int)BlowTime * 100))
-                    throw new MvException("Clean Chamber Gas Valve Blow T2 timeout");
+                    throw new MvaException("Clean Chamber Gas Valve Blow T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Result))
                 {
                     case 0:
-                        throw new MvException("Clean Chamber Gas Valve Blow Error : Invalid");
+                        throw new MvaException("Clean Chamber Gas Valve Blow Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Clean Chamber Gas Valve Blow Error : Unknown error");
+                        throw new MvaException("Clean Chamber Gas Valve Blow Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_CC_Blow, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.CC_TO_PC_Blow_Complete), 1000))
-                    throw new MvException("Clean Chamber Gas Valve Blow T4 timeout");
+                    throw new MvaException("Clean Chamber Gas Valve Blow T4 timeout");
             }
             catch (Exception ex)
             {

@@ -79,7 +79,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineAlpha
                 if (!s.Equals(CurrentState))
                 {
                     trulyChange = true;
-                    MvLog.Info(ID + " change state from {0} to {1}", this.CurrentState.StateName, s.StateName);
+                    MvaLog.Info(ID + " change state from {0} to {1}", this.CurrentState.StateName, s.StateName);
                     CurrentState = s;
                 }
             }
@@ -267,7 +267,7 @@ namespace MaskAutoCleaner.v1_0.StateMachineAlpha
             }
             catch (Exception ex)
             {
-                MvLog.Write(ex, MvLoggerEnumLevel.Warn);
+                MvaLog.Write(ex, MvaLoggerEnumLevel.Warn);
             }
         }
 
@@ -581,25 +581,25 @@ namespace MaskAutoCleaner.v1_0.StateMachineAlpha
             catch (PluralTriggerSameTimeException ex)
             {
                 PopupAlarm(this, EnumStateMachineMsgType.PluralTriggerSameTime, "TransitionPluralTrigger");
-                MvLog.Write(ex, MvLoggerEnumLevel.Warn);
+                MvaLog.Write(ex, MvaLoggerEnumLevel.Warn);
                 return EnumStateMachineMsgType.PluralTriggerSameTime;
             }
             catch (NotCurrentStateException ex)
             {
                 //Transition nocurTrans = GetDynamicExceptionTransition(CurrentState, EnumStateMachineMsgType.NotCurrentStateTransition);
                 //nocurTrans.RunTrigger(new StateParameter(), this);
-                MvLog.Write(ex, MvLoggerEnumLevel.Error);
+                MvaLog.Write(ex, MvaLoggerEnumLevel.Error);
                 return EnumStateMachineMsgType.StateMachineException;
             }
             catch (StateMachineException ex)
             {
                 System.Diagnostics.Debug.WriteLine(this.ID + ":Error");
-                MvLog.Write(ex, MvLoggerEnumLevel.Error);
+                MvaLog.Write(ex, MvaLoggerEnumLevel.Error);
                 throw ex;
             }
             catch (Exception ex)
             {
-                MvLog.Write(ex, MvLoggerEnumLevel.Error);
+                MvaLog.Write(ex, MvaLoggerEnumLevel.Error);
                 throw ex;
             }
         }

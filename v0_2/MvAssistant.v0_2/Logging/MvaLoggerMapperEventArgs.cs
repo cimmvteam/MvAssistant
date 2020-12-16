@@ -6,9 +6,9 @@ using System.Text;
 namespace MvAssistant.v0_2.Logging
 {
 
-    public class MvLoggerMapperEventArgs : EventArgs
+    public class MvaLoggerMapperEventArgs : EventArgs
     {
-        public MvLogger Logger;
+        public MvaLogger Logger;
         public string LoggerId;
     }
 }

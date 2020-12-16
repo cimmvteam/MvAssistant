@@ -56,8 +56,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         public HalRobotMotion Clone()
         {
-            var buffer = MvUtil.SerializeBinary(this);
-            var rtn = MvUtil.DeserializeBinary<HalRobotMotion>(buffer);
+            var buffer = MvaUtil.SerializeBinary(this);
+            var rtn = MvaUtil.DeserializeBinary<HalRobotMotion>(buffer);
             return rtn;
         }
 

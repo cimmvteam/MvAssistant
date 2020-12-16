@@ -39,30 +39,30 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYReply), 1000))
-                    throw new MvException("Inspection Chamber XY-axis Move T0 timeout");
+                    throw new MvaException("Inspection Chamber XY-axis Move T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYComplete), 10 * 1000))
-                    throw new MvException("Inspection Chamber XY-axis Move T2 timeout");
+                    throw new MvaException("Inspection Chamber XY-axis Move T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_XYResult))
                 {
                     case 0:
-                        throw new MvException("Inspection Chamber XY-axis Move Error : Invalid");
+                        throw new MvaException("Inspection Chamber XY-axis Move Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Inspection Chamber XY-axis Move Error : ABS point out range");
+                        throw new MvaException("Inspection Chamber XY-axis Move Error : ABS point out range");
                     case 5:
                         Result = "ABS point not change";
                         break;
                     default:
-                        throw new MvException("Inspection Chamber XY-axis Move Error : Unknown error");
+                        throw new MvaException("Inspection Chamber XY-axis Move Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XYCmd, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_XYComplete), 1000))
-                    throw new MvException("Inspection Chamber XY-axis Move T4 timeout");
+                    throw new MvaException("Inspection Chamber XY-axis Move T4 timeout");
             }
             catch (Exception ex)
             {
@@ -85,30 +85,30 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZCmd, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_ZReply), 1000))
-                    throw new MvException("Inspection Chamber Z-axis Move T0 timeout");
+                    throw new MvaException("Inspection Chamber Z-axis Move T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_ZComplete), 5000))
-                    throw new MvException("Inspection Chamber Z-axis Move T2 timeout");
+                    throw new MvaException("Inspection Chamber Z-axis Move T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_ZResult))
                 {
                     case 0:
-                        throw new MvException("Inspection Chamber Z-axis Move Error : Invalid");
+                        throw new MvaException("Inspection Chamber Z-axis Move Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Inspection Chamber Z-axis Move Error : ABS point out range");
+                        throw new MvaException("Inspection Chamber Z-axis Move Error : ABS point out range");
                     case 5:
                         Result = "ABS point not change ";
                         break;
                     default:
-                        throw new MvException("Inspection Chamber Z-axis Move Error : Unknown error");
+                        throw new MvaException("Inspection Chamber Z-axis Move Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_ZCmd, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_ZComplete), 1000))
-                    throw new MvException("Inspection Chamber Z-axis Move T4 timeout");
+                    throw new MvaException("Inspection Chamber Z-axis Move T4 timeout");
             }
             catch (Exception ex)
             {
@@ -131,30 +131,30 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WCmd, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_WReply), 1000))
-                    throw new MvException("Inspection Chamber W-axis T0 timeout");
+                    throw new MvaException("Inspection Chamber W-axis T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_WComplete), 5000))
-                    throw new MvException("Inspection Chamber W-axis T2 timeout");
+                    throw new MvaException("Inspection Chamber W-axis T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_WResult))
                 {
                     case 0:
-                        throw new MvException("Inspection Chamber W-axis Error : Invalid");
+                        throw new MvaException("Inspection Chamber W-axis Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Inspection Chamber W-axis Error : ABS point out range");
+                        throw new MvaException("Inspection Chamber W-axis Error : ABS point out range");
                     case 5:
                         Result = "ABS point not change";
                         break;
                     default:
-                        throw new MvException("Inspection Chamber W-axis Error : Unknown error");
+                        throw new MvaException("Inspection Chamber W-axis Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_WCmd, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_WComplete), 1000))
-                    throw new MvException("Inspection Chamber W-axis T4 timeout");
+                    throw new MvaException("Inspection Chamber W-axis T4 timeout");
             }
             catch (Exception ex)
             {
@@ -175,25 +175,25 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Reply), 1000))
-                    throw new MvException("Inspection Chamber Initial T0 timeout");
+                    throw new MvaException("Inspection Chamber Initial T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Complete), 120 * 1000))
-                    throw new MvException("Inspection Chamber Initial T2 timeout");
+                    throw new MvaException("Inspection Chamber Initial T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Result))
                 {
                     case 0:
-                        throw new MvException("Inspection Chamber Initial Error : Invalid");
+                        throw new MvaException("Inspection Chamber Initial Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Inspection Chamber Initial Error : Unknown error");
+                        throw new MvaException("Inspection Chamber Initial Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_Initial_A06, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_Initial_A06_Complete), 1000))
-                    throw new MvException("Inspection Chamber Initial T4 timeout");
+                    throw new MvaException("Inspection Chamber Initial T4 timeout");
             }
             catch (Exception ex)
             {
@@ -301,7 +301,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude, !isIntrude);
                 Thread.Sleep(100);
                 if (plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense) != isIntrude)//如果BT要入侵但不被許可
-                    throw new MvException("Mask Transfer Intrude is not allowed");
+                    throw new MvaException("Mask Transfer Intrude is not allowed");
             }
             catch (Exception ex)
             {

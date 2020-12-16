@@ -6,7 +6,7 @@ using System.Text;
 namespace MvAssistant.v0_2.Logging
 {
 
-    public enum MvLoggerEnumLevel
+    public enum MvaLoggerEnumLevel
     {
         None = 0,
         Verbose = 100,

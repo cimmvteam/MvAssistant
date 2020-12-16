@@ -31,29 +31,29 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Clamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Reply), 1000))
-                    throw new MvException("Box Hand Clamp T0 timeout");
+                    throw new MvaException("Box Hand Clamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Complete), 5000))
-                    throw new MvException("Box Hand Clamp T2 timeout");
+                    throw new MvaException("Box Hand Clamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Result))
                 {
                     case 0:
-                        throw new MvException("Box Hand Clamp Error : Invalid");
+                        throw new MvaException("Box Hand Clamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Box Hand Clamp Error : No box type");
+                        throw new MvaException("Box Hand Clamp Error : No box type");
                     case 3:
-                        throw new MvException("Box Hand Clamp Error : No box");
+                        throw new MvaException("Box Hand Clamp Error : No box");
                     default:
-                        throw new MvException("Box Hand Clamp Error : Unknown error");
+                        throw new MvaException("Box Hand Clamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Clamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_ClampCmd_Complete), 1000))
-                    throw new MvException("Box Hand Clamp T4 timeout");
+                    throw new MvaException("Box Hand Clamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -75,24 +75,24 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Unclamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Reply), 1000))
-                    throw new MvException("Box Hand Unclamp T0 timeout");
+                    throw new MvaException("Box Hand Unclamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Complete), 5000))
-                    throw new MvException("Box Hand Unclamp T2 timeout");
+                    throw new MvaException("Box Hand Unclamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Result))
                 {
                     case 0:
-                        throw new MvException("Box Hand Unclamp Error : Invalid");
+                        throw new MvaException("Box Hand Unclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Box Hand Unclamp Error : Unknown error");
+                        throw new MvaException("Box Hand Unclamp Error : Unknown error");
                 }
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Unclamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_UnclampCmd_Complete), 1000))
-                    throw new MvException("Box Hand Unclamp T4 timeout");
+                    throw new MvaException("Box Hand Unclamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -113,24 +113,24 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Initial_A03, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_Initial_A03_Reply), 1000))
-                    throw new MvException("Box Hand Initial T0 timeout");
+                    throw new MvaException("Box Hand Initial T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_Initial_A03_Complete), 5000))
-                    throw new MvException("Box Hand Initial T2 timeout");
+                    throw new MvaException("Box Hand Initial T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.BT_TO_PC_Initial_A03_Result))
                 {
                     case 0:
-                        throw new MvException("Box Hand Initial Error : Invalid");
+                        throw new MvaException("Box Hand Initial Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Box Hand Initial Error : Unknown error");
+                        throw new MvaException("Box Hand Initial Error : Unknown error");
                 }
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Initial_A03, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_Initial_A03_Complete), 1000))
-                    throw new MvException("Box Hand Initial T4 timeout");
+                    throw new MvaException("Box Hand Initial T4 timeout");
             }
             catch (Exception ex)
             {
@@ -262,7 +262,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Reset, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_BT_Level_Reset_Complete), 1000))
-                    throw new MvException("Box Hand Level Reset T0 timeout");
+                    throw new MvaException("Box Hand Level Reset T0 timeout");
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Level_Reset, false);
             }
@@ -405,7 +405,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_RobotMoving, isMoving);
             Thread.Sleep(1000);
             if (plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_RobotMoving_Reply) != isMoving)
-                throw new MvException("PLC did not get 'Box Transfer Moving' signal");
+                throw new MvaException("PLC did not get 'Box Transfer Moving' signal");
         }
 
 

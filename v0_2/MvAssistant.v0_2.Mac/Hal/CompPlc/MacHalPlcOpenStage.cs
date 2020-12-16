@@ -29,33 +29,33 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Open_Reply), 1000))
-                    throw new MvException("Open Stage Open Box T0 timeout");
+                    throw new MvaException("Open Stage Open Box T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Open_Complete), 10 * 1000))
-                    throw new MvException("Open Stage Open Box T2 timeout");
+                    throw new MvaException("Open Stage Open Box T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Open_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Open Error : Invalid");
+                        throw new MvaException("Open Stage Open Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage Open Error : No vacuum not ready");
+                        throw new MvaException("Open Stage Open Error : No vacuum not ready");
                     case 3:
-                        throw new MvException("Open Stage Open Error : Slider point error");
+                        throw new MvaException("Open Stage Open Error : Slider point error");
                     case 4:
-                        throw new MvException("Open Stage Open Error : Sort not unclamp");
+                        throw new MvaException("Open Stage Open Error : Sort not unclamp");
                     case 5:
-                        throw new MvException("Open Stage Open Error : Jaws not clamp");
+                        throw new MvaException("Open Stage Open Error : Jaws not clamp");
                     default:
-                        throw new MvException("Open Stage Open Error : Unknown error");
+                        throw new MvaException("Open Stage Open Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Open_Complete), 1000))
-                    throw new MvException("Open Stage Open Box T4 timeout");
+                    throw new MvaException("Open Stage Open Box T4 timeout");
             }
             catch (Exception ex)
             {
@@ -76,31 +76,31 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Close_Reply), 1000))
-                    throw new MvException("Open Stage Close Box T0 timeout");
+                    throw new MvaException("Open Stage Close Box T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Close_Complete), 10 * 1000))
-                    throw new MvException("Open Stage Close Box T2 timeout");
+                    throw new MvaException("Open Stage Close Box T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Close_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Close Error : Invalid");
+                        throw new MvaException("Open Stage Close Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage Close Error : No box");
+                        throw new MvaException("Open Stage Close Error : No box");
                     case 3:
-                        throw new MvException("Open Stage Close Error : Slider point unknown");
+                        throw new MvaException("Open Stage Close Error : Slider point unknown");
                     case 4:
-                        throw new MvException("Open Stage Close Error : Cover point unknown");
+                        throw new MvaException("Open Stage Close Error : Cover point unknown");
                     default:
-                        throw new MvException("Open Stage Close Error : Unknown error");
+                        throw new MvaException("Open Stage Close Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Close_Complete), 1000))
-                    throw new MvException("Open Stage Close Box T4 timeout");
+                    throw new MvaException("Open Stage Close Box T4 timeout");
             }
             catch (Exception ex)
             {
@@ -125,29 +125,29 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Reply), 1000))
-                    throw new MvException("Open Stage Clamp T0 timeout");
+                    throw new MvaException("Open Stage Clamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Complete), 5000))
-                    throw new MvException("Open Stage Clamp T2 timeout");
+                    throw new MvaException("Open Stage Clamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Clamp Error : Invalid");
+                        throw new MvaException("Open Stage Clamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage Clamp Error : Vacuum not ready");
+                        throw new MvaException("Open Stage Clamp Error : Vacuum not ready");
                     case 3:
-                        throw new MvException("Open Stage Clamp Error : Not close");
+                        throw new MvaException("Open Stage Clamp Error : Not close");
                     default:
-                        throw new MvException("Open Stage Clamp Error : Unknown error");
+                        throw new MvaException("Open Stage Clamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Complete), 1000))
-                    throw new MvException("Open Stage Clamp T4 timeout");
+                    throw new MvaException("Open Stage Clamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -172,29 +172,29 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Reply), 1000))
-                    throw new MvException("Open Stage Unclamp T0 timeout");
+                    throw new MvaException("Open Stage Unclamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Complete), 5000))
-                    throw new MvException("Open Stage Unclamp T2 timeout");
+                    throw new MvaException("Open Stage Unclamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Unclamp Error : Invalid");
+                        throw new MvaException("Open Stage Unclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage Unclamp Error : Fail");
+                        throw new MvaException("Open Stage Unclamp Error : Fail");
                     case 3:
-                        throw new MvException("Open Stage Unclamp Error : Not close");
+                        throw new MvaException("Open Stage Unclamp Error : Not close");
                     default:
-                        throw new MvException("Open Stage Unclamp Error : Unknown error");
+                        throw new MvaException("Open Stage Unclamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Complete), 1000))
-                    throw new MvException("Open Stage Unclamp T4 timeout");
+                    throw new MvaException("Open Stage Unclamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -219,31 +219,31 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Reply), 1000))
-                    throw new MvException("Open Stage SortClamp T0 timeout");
+                    throw new MvaException("Open Stage SortClamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Complete), 5000))
-                    throw new MvException("Open Stage SortClamp T2 timeout");
+                    throw new MvaException("Open Stage SortClamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage SortClamp Error : Invalid");
+                        throw new MvaException("Open Stage SortClamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage SortClamp Error : No box");
+                        throw new MvaException("Open Stage SortClamp Error : No box");
                     case 3:
-                        throw new MvException("Open Stage SortClamp Error : Jaws clamp");
+                        throw new MvaException("Open Stage SortClamp Error : Jaws clamp");
                     case 4:
-                        throw new MvException("Open Stage SortClamp Error : No box type");
+                        throw new MvaException("Open Stage SortClamp Error : No box type");
                     default:
-                        throw new MvException("Open Stage SortClamp Error : Unknown error");
+                        throw new MvaException("Open Stage SortClamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Complete), 1000))
-                    throw new MvException("Open Stage SortClamp T4 timeout");
+                    throw new MvaException("Open Stage SortClamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -268,25 +268,25 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Reply), 1000))
-                    throw new MvException("Open Stage SortUnclamp T0 timeout");
+                    throw new MvaException("Open Stage SortUnclamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Complete), 5000))
-                    throw new MvException("Open Stage SortUnclamp T2 timeout");
+                    throw new MvaException("Open Stage SortUnclamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage SortUnclamp Error : Invalid");
+                        throw new MvaException("Open Stage SortUnclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Open Stage SortUnclamp Error : Unknown error");
+                        throw new MvaException("Open Stage SortUnclamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Complete), 1000))
-                    throw new MvException("Open Stage SortUnclamp T4 timeout");
+                    throw new MvaException("Open Stage SortUnclamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -311,27 +311,27 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Reply), 1000))
-                    throw new MvException("Open Stage Lock/Unlock T0 timeout");
+                    throw new MvaException("Open Stage Lock/Unlock T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Complete), 15 * 1000))
-                    throw new MvException("Open Stage Lock/Unlock T2 timeout");
+                    throw new MvaException("Open Stage Lock/Unlock T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Lock/Unlock Error : Invalid");
+                        throw new MvaException("Open Stage Lock/Unlock Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage Lock/Unlock Error : Jaws not unclamp");
+                        throw new MvaException("Open Stage Lock/Unlock Error : Jaws not unclamp");
                     default:
-                        throw new MvException("Open Stage Lock/Unlock Error : Unknown error");
+                        throw new MvaException("Open Stage Lock/Unlock Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Complete), 1000))
-                    throw new MvException("Open Stage Lock/Unlock T4 timeout");
+                    throw new MvaException("Open Stage Lock/Unlock T4 timeout");
             }
             catch (Exception ex)
             {
@@ -361,32 +361,32 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                     plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Reply), 1000))
-                    throw new MvException("Open Stage Vacuum T0 timeout");
+                    throw new MvaException("Open Stage Vacuum T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Complete), 5000))
-                    throw new MvException("Open Stage Vacuum T2 timeout");
+                    throw new MvaException("Open Stage Vacuum T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Vacuum Error : Invalid");
+                        throw new MvaException("Open Stage Vacuum Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Open Stage Vacuum Error : Fail");
+                        throw new MvaException("Open Stage Vacuum Error : Fail");
                     case 3:
-                        throw new MvException("Open Stage Vacuum Error : No box");
+                        throw new MvaException("Open Stage Vacuum Error : No box");
                     case 4:
-                        throw new MvException("Open Stage Vacuum Error : Sort not clamp");
+                        throw new MvaException("Open Stage Vacuum Error : Sort not clamp");
                     default:
-                        throw new MvException("Open Stage Vacuum Error : Unknown error");
+                        throw new MvaException("Open Stage Vacuum Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Complete), 1000))
-                    throw new MvException("Open Stage Vacuum T4 timeout");
+                    throw new MvaException("Open Stage Vacuum T4 timeout");
             }
             catch (Exception ex)
             {
@@ -408,25 +408,25 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Reply), 1000))
-                    throw new MvException("Open Stage Initial T0 timeout");
+                    throw new MvaException("Open Stage Initial T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Complete), 300 * 1000))
-                    throw new MvException("Open Stage Initial T2 timeout");
+                    throw new MvaException("Open Stage Initial T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Result))
                 {
                     case 0:
-                        throw new MvException("Open Stage Initial Error : Invalid");
+                        throw new MvaException("Open Stage Initial Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Open Stage Initial Error : Unknown error");
+                        throw new MvaException("Open Stage Initial Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Complete), 1000))
-                    throw new MvException("Open Stage Initial T4 timeout");
+                    throw new MvaException("Open Stage Initial T4 timeout");
             }
             catch (Exception ex)
             {
@@ -495,9 +495,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 Thread.Sleep(100);
 
                 if (isBTIntrude != null && plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可
-                    throw new MvException("Box Transfer Intrude is not allowed");
+                    throw new MvaException("Box Transfer Intrude is not allowed");
                 else if (isMTIntrude != null && plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense) != isMTIntrude)//如果MT要入侵但不被許可
-                    throw new MvException("Mask Transfer Intrude is not allowed");
+                    throw new MvaException("Mask Transfer Intrude is not allowed");
             }
             catch (Exception ex)
             {

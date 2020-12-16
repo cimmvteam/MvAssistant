@@ -8,25 +8,25 @@ using System.Text;
 namespace MvAssistant.v0_2.Logging
 {
     [Serializable]
-    public class MvLoggerMapper : Dictionary<String, MvLogger>
+    public class MvaLoggerMapper : Dictionary<String, MvaLogger>
     {
 
 
-        ~MvLoggerMapper()
+        ~MvaLoggerMapper()
         {
             CtkEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);
         }
 
-        public MvLogger Get(String id = "")
+        public MvaLogger Get(String id = "")
         {
             lock (this)
             {
                 if (!this.ContainsKey(id))
                 {
-                    var logger = new MvLogger();
+                    var logger = new MvaLogger();
                     this.Add(id, logger);
 
-                    this.OnCreated(new MvLoggerMapperEventArgs() { LoggerId = id, Logger = logger });
+                    this.OnCreated(new MvaLoggerMapperEventArgs() { LoggerId = id, Logger = logger });
                 }
             }
             //不能 override/new this[] 會造成無窮迴圈
@@ -34,14 +34,14 @@ namespace MvAssistant.v0_2.Logging
         }
 
 
-        public void RegisterAllLogger(EventHandler<MvLoggerEventArgs> evt, Func<string, bool> filter = null)
+        public void RegisterAllLogger(EventHandler<MvaLoggerEventArgs> evt, Func<string, bool> filter = null)
         {
-            MvLoggerMapper.Singleton.evtCreated += delegate (object ss, MvLoggerMapperEventArgs ee)
+            MvaLoggerMapper.Singleton.evtCreated += delegate (object ss, MvaLoggerMapperEventArgs ee)
             {
                 if (filter != null && !filter(ee.LoggerId)) return;
                 ee.Logger.EhLogWrite += evt;
             };
-            foreach (var kv in MvLoggerMapper.Singleton)
+            foreach (var kv in MvaLoggerMapper.Singleton)
             {
                 if (filter != null && !filter(kv.Key)) continue;
                 kv.Value.EhLogWrite += evt;
@@ -51,8 +51,8 @@ namespace MvAssistant.v0_2.Logging
 
 
         #region Event
-        public event EventHandler<MvLoggerMapperEventArgs> evtCreated;
-        void OnCreated(MvLoggerMapperEventArgs ea)
+        public event EventHandler<MvaLoggerMapperEventArgs> evtCreated;
+        void OnCreated(MvaLoggerMapperEventArgs ea)
         {
             if (this.evtCreated == null)
                 return;
@@ -69,14 +69,14 @@ namespace MvAssistant.v0_2.Logging
 
 
 
-        static MvLoggerMapper m_Singleton;
+        static MvaLoggerMapper m_Singleton;
 
-        public static MvLoggerMapper Singleton
+        public static MvaLoggerMapper Singleton
         {
             get
             {
 
-                if (m_Singleton == null) m_Singleton = new MvLoggerMapper();
+                if (m_Singleton == null) m_Singleton = new MvaLoggerMapper();
                 return m_Singleton;
             }
 

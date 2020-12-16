@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2
 {
-    public interface IMvContextFlow
+    public interface IMvaContextFlow
     {
         /// <summary>
         /// 初始化資源/參數

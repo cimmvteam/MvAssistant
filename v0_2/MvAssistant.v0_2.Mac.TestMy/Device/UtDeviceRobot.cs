@@ -70,8 +70,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
 
 
 
-            MvUtil.SaveToXmlFile(robotPath, robotPath.Name + ".xml");
-            var loadPath = MvUtil.LoadFromXmlFile<HalRobotPath>(robotPath.Name + ".xml");
+            MvaUtil.SaveToXmlFile(robotPath, robotPath.Name + ".xml");
+            var loadPath = MvaUtil.LoadFromXmlFile<HalRobotPath>(robotPath.Name + ".xml");
             var loadMotion = loadPath.Motions.LastOrDefault();
 
 

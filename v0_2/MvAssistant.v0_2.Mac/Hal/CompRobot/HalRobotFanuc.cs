@@ -159,7 +159,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             targets.AddRange(PathPosition);
 
             if (targets.Count > 30)
-                throw new MvException("Position quantity can not over than 30 !!");
+                throw new MvaException("Position quantity can not over than 30 !!");
 
             var Group1_Qty = ldd.ReadRegIntValue(21);//點位群組1的點位數量，存於PR[101]~PR[130]，當數量為0代表還沒存入點位
             var Group2_Qty = ldd.ReadRegIntValue(22);//點位群組2的點位數量，存於PR[131]~PR[160]，當數量為0代表還沒存入點位
@@ -191,7 +191,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
                 }
                 var Result = this.ldd.Pns0103PositionSaveToPosReg(PosArray, corJ, motion.Speed, PositionRegisterStartNum + idx);
                 if (Result == -1)
-                    throw new MvException("Can not connected to Robot!!");
+                    throw new MvaException("Can not connected to Robot!!");
             }
         }
 

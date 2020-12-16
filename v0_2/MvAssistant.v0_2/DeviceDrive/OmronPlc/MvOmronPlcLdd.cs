@@ -77,13 +77,13 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    MvLog.WarnNs(this, ex);
+                    MvaLog.WarnNs(this, ex);
                     myex = ex;
                 }
             }
 
             //若3次嘗試存取失敗, 直接拋出Exception
-            throw new MvException("PLC read fail over 3 times", myex);
+            throw new MvaException("PLC read fail over 3 times", myex);
         }
         public void Write(string VarName, Object data)
         {
@@ -104,13 +104,13 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    MvLog.WarnNs(this, ex);
+                    MvaLog.WarnNs(this, ex);
                     myex = ex;
                 }
             }
 
             //若3次嘗試存取失敗, 直接拋出Exception
-            throw new MvException("PLC read fail over 3 times", myex);
+            throw new MvaException("PLC read fail over 3 times", myex);
         }
 
 

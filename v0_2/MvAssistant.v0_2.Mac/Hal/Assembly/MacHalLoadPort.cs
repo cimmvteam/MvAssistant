@@ -63,7 +63,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             LoadPortUnit.CommandDockRequest();
 
             if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete, 20 * 1000))
-                throw new MvException("Load Port Dock Timeout !!");
+                throw new MvaException("Load Port Dock Timeout !!");
             else
                 return "OK";
         }
@@ -73,7 +73,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             LoadPortUnit.CommandUndockRequest();
 
             if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete, 20 * 1000))
-                throw new MvException("Load Port Undock Timeout !!");
+                throw new MvaException("Load Port Undock Timeout !!");
             else
                 return "OK";
         }

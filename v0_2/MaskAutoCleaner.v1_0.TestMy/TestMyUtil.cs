@@ -13,7 +13,7 @@ namespace MaskAutoCleaner.v1_0.TestMy
 
         public static void RegisterLog()
         {
-            MvLog.RegisterEveryLogWrite((ss, ee) =>
+            MvaLog.RegisterEveryLogWrite((ss, ee) =>
             {
                 var now = DateTime.Now;
 

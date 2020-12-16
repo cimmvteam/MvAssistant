@@ -34,25 +34,25 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Clamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Reply), 1000))
-                    throw new MvException("Mask Hand Clamp T0 timeout");
+                    throw new MvaException("Mask Hand Clamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Complete), 10 * 1000))
-                    throw new MvException("Mask Hand Clamp T2 timeout");
+                    throw new MvaException("Mask Hand Clamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Result))
                 {
                     case 0:
-                        throw new MvException("Mask Hand Clamp Error : Invalid");
+                        throw new MvaException("Mask Hand Clamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Mask Hand Clamp Error : Unknown error");
+                        throw new MvaException("Mask Hand Clamp Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Clamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_ClampCmd_Complete), 1000))
-                    throw new MvException("Mask Hand Clamp T4 timeout");
+                    throw new MvaException("Mask Hand Clamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -74,24 +74,24 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Unclamp, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Reply), 1000))
-                    throw new MvException("Mask Hand Unclamp T0 timeout");
+                    throw new MvaException("Mask Hand Unclamp T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Complete), 10 * 1000))
-                    throw new MvException("Mask Hand Unclamp T2 timeout");
+                    throw new MvaException("Mask Hand Unclamp T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Result))
                 {
                     case 0:
-                        throw new MvException("Mask Hand Unclamp Error : Invalid");
+                        throw new MvaException("Mask Hand Unclamp Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Mask Hand Unclamp Error : Unknown error");
+                        throw new MvaException("Mask Hand Unclamp Error : Unknown error");
                 }
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Unclamp, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_UnclampCmd_Complete), 1000))
-                    throw new MvException("Mask Hand Unclamp T4 timeout");
+                    throw new MvaException("Mask Hand Unclamp T4 timeout");
             }
             catch (Exception ex)
             {
@@ -112,25 +112,25 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Initial_A04, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Initial_A04_Reply), 1000))
-                    throw new MvException("Mask Hand Initial T0 timeout");
+                    throw new MvaException("Mask Hand Initial T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Initial_A04_Complete), 120 * 1000))
-                    throw new MvException("Mask Hand Initial T2 timeout");
+                    throw new MvaException("Mask Hand Initial T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Initial_A04_Result))
                 {
                     case 0:
-                        throw new MvException("Mask Hand Initial Error : Invalid");
+                        throw new MvaException("Mask Hand Initial Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     default:
-                        throw new MvException("Mask Hand Initial Error : Unknown error");
+                        throw new MvaException("Mask Hand Initial Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Initial_A04, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Initial_A04_Complete), 1000))
-                    throw new MvException("Mask Hand Initial T4 timeout");
+                    throw new MvaException("Mask Hand Initial T4 timeout");
             }
             catch (Exception ex)
             {
@@ -193,29 +193,29 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Spin, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Reply), 1000))
-                    throw new MvException("Mask Hand CCD spin T0 timeout");
+                    throw new MvaException("Mask Hand CCD spin T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Complete), 20 * 1000))
-                    throw new MvException("Mask Hand CCD spin T2 timeout");
+                    throw new MvaException("Mask Hand CCD spin T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Result))
                 {
                     case 0:
-                        throw new MvException("Mask Hand CCD spin Error : Invalid");
+                        throw new MvaException("Mask Hand CCD spin Error : Invalid");
                     case 1:
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Mask Hand CCD spin Error : Position out range");
+                        throw new MvaException("Mask Hand CCD spin Error : Position out range");
                     case 3:
-                        throw new MvException("Mask Hand CCD spin Error : Please initial");
+                        throw new MvaException("Mask Hand CCD spin Error : Please initial");
                     default:
-                        throw new MvException("Mask Hand CCD spin Error : Unknown error");
+                        throw new MvaException("Mask Hand CCD spin Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_MT_Spin, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_Spin_Complete), 1000))
-                    throw new MvException("Mask Hand CCD spin T4 timeout");
+                    throw new MvaException("Mask Hand CCD spin T4 timeout");
             }
             catch (Exception ex)
             {
@@ -559,7 +559,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_MT_RobotMoving, isMoving);
             Thread.Sleep(1000);
             if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_RobotMoving_Reply) != isMoving)
-                throw new MvException("PLC did not get 'Mask Transfer Moving' signal");
+                throw new MvaException("PLC did not get 'Mask Transfer Moving' signal");
         }
     }
 

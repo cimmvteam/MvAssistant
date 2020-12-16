@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MaskAutoCleaner.v1_0.Machine
 {
-    public class MacMachineMgr : IMvContextFlow, IDisposable
+    public class MacMachineMgr : IMvaContextFlow, IDisposable
     {
         public Dictionary<string, MacMachineCtrlBase> CtrlMachines = new Dictionary<string, MacMachineCtrlBase>();
         public MacMachineMediater Mediater;
@@ -63,7 +63,7 @@ namespace MaskAutoCleaner.v1_0.Machine
                 machine.HalAssembly = hal.Value as MacHalAssemblyBase;
                 machine.HalAssembly.HalConnect();
             }
-            MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
 
             return 0;
         }
@@ -71,27 +71,27 @@ namespace MaskAutoCleaner.v1_0.Machine
         public int MvCfLoad()
         {
             this.HalContext.MvCfLoad();
-            MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfLoad());
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfLoad());
 
 
             //d20201103 系統載入時, 都需要對所有 Control Machine 的 State Machine 執行 SystemBootup
             //無特殊原由的話, 應該就放在這裡就可以了
             //另一種可能是放在 State Machine 裡, 但放這邊可以讓維護人員更容易找到
-            MvUtil.Foreach(this.CtrlMachines.Values, m => m.MsAssembly.SystemBootup());//First Transition
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MsAssembly.SystemBootup());//First Transition
             return 0;
         }
 
         public int MvCfUnload()
         {
             this.HalContext.MvCfUnload();
-            MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfUnload());
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfUnload());
             return 0;
         }
 
         public int MvCfFree()
         {
             this.HalContext.MvCfFree();
-            MvUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfFree());
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfFree());
             this.DisposeSelf();
             return 0;
         }
@@ -103,12 +103,12 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         #region Fake-Simulation
 
-        protected MvCancelTask FakeTask;
+        protected MvaCancelTask FakeTask;
 
         public int SimulateFakeNormalAsyn()
         {
 
-            this.FakeTask = MvCancelTask.Run((ct) =>
+            this.FakeTask = MvaCancelTask.Run((ct) =>
             {
                 var cabinets = this.CtrlMachines.Where(x => x is IMacHalCabinet).ToList();
 
@@ -181,7 +181,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         protected virtual void DisposeSelf()
         {
 
-            MvUtil.DisposeObjTry(this.CtrlMachines.Values);
+            MvaUtil.DisposeObjTry(this.CtrlMachines.Values);
         }
 
 

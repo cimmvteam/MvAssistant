@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Mac.Hal
     /// <summary>
     /// HAL assembly, comporot or device resource manager
     /// </summary>
-    public class MacHalContext : IMvContextFlow, IHal, IDisposable
+    public class MacHalContext : IMvaContextFlow, IHal, IDisposable
     {
         public Dictionary<string, MacHalBase> HalDevices = new Dictionary<string, MacHalBase>();
         public string Path;
@@ -109,7 +109,7 @@ namespace MvAssistant.v0_2.Mac.Hal
             foreach (var kv in this.HalDevices)
             {
                 try { this.HalClose(kv.Value); }
-                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
             }
 
             //釋放資源
@@ -120,7 +120,7 @@ namespace MvAssistant.v0_2.Mac.Hal
                     if (kv.Value == null) continue;
                     kv.Value.Dispose();
                 }
-                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
             }
 
 
@@ -203,7 +203,7 @@ namespace MvAssistant.v0_2.Mac.Hal
 
             foreach (var did in duplicates)
             {
-                MvLog.WarnNs(this, "Duplicate driver id: {0}", did.Key);
+                MvaLog.WarnNs(this, "Duplicate driver id: {0}", did.Key);
             }
 
             if (duplicates.Count != 0)
@@ -256,7 +256,7 @@ namespace MvAssistant.v0_2.Mac.Hal
             foreach (var rsc in this.Resources)
             {
                 try { rsc.Value.Dispose(); }
-                catch (Exception ex) { MvLog.WarnNs(this, ex); }
+                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
             }
         }
 

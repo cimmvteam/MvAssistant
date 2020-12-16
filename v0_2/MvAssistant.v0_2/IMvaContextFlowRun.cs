@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2
 {
-    public interface IMvContextFlowRun : IMvContextFlow
+    public interface IMvaContextFlowRun : IMvaContextFlow
     {
 
         int MvCfRunOnce();

@@ -16,7 +16,7 @@ using System.Xml.Serialization;
 
 namespace MvAssistant.v0_2
 {
-    public class MvUtil
+    public class MvaUtil
     {
         public static DateTime? ConvertToDateTime(string datetime, string srcFormat)
         {
@@ -272,7 +272,7 @@ namespace MvAssistant.v0_2
             }
             catch (Exception ex)
             {
-                MvLog.Write(ex);
+                MvaLog.Write(ex);
                 return ex;
             }
         }
@@ -317,7 +317,7 @@ namespace MvAssistant.v0_2
             catch (Exception ex)
             {
                 if (exceptionHandler == null) exceptionHandler(ex);
-                else MvLog.Write(ex);
+                else MvaLog.Write(ex);
             }
 
         }
@@ -346,7 +346,7 @@ namespace MvAssistant.v0_2
                 catch (Exception ex)
                 {
                     if (exceptionHandler == null) exceptionHandler(ex);
-                    else MvLog.Write(ex);
+                    else MvaLog.Write(ex);
                 }
             }
         }

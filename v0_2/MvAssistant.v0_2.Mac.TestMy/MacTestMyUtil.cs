@@ -10,7 +10,7 @@ namespace MvAssistant.v0_2.Mac.TestMy
     {
         public static void RegisterLog()
         {
-            MvLog.RegisterEveryLogWrite((ss, ee) =>
+            MvaLog.RegisterEveryLogWrite((ss, ee) =>
             {
                 var now = DateTime.Now;
 

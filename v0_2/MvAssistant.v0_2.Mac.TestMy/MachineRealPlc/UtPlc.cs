@@ -40,7 +40,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.MachineRealPlc
                 plc.StartAsyn();
 
                 if (!SpinWait.SpinUntil(() => plc.IsConnectedByHandShake, 60 * 1000))
-                    throw new MvException("PLC connection fail");
+                    throw new MvaException("PLC connection fail");
 
                 Console.WriteLine("PLC connection success");
 

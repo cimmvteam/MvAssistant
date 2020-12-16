@@ -6,7 +6,7 @@ using System.Text;
 namespace MvAssistant.v0_2.Logging
 {
 
-    public enum MvLoggerDisplayEnum
+    public enum MvaLoggerDisplayEnum
     {
         All,
         Debug,

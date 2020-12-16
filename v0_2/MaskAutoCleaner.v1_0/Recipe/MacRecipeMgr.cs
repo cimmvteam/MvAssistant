@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.Recipe
 
         public void LoaddRecipe(string recipeName)
         {
-            this.Recipe = MvUtil.LoadFromXmlFile<MacRecipe>(recipeName);
+            this.Recipe = MvaUtil.LoadFromXmlFile<MacRecipe>(recipeName);
         }
 
 
@@ -36,7 +36,7 @@ namespace MaskAutoCleaner.v1_0.Recipe
 
             foreach (var step in this.Recipe)
             {
-                MvLog.InfoNs(this, "Step Before Check: " + step.StepName);
+                MvaLog.InfoNs(this, "Step Before Check: " + step.StepName);
                 while (!this.CheckStatesBefore(step))
                     Thread.Sleep(100);
 
@@ -45,13 +45,13 @@ namespace MaskAutoCleaner.v1_0.Recipe
                 this.SendStatesCmd(step);
 
 
-                MvLog.InfoNs(this, "Step After Check: " + step.StepName);
+                MvaLog.InfoNs(this, "Step After Check: " + step.StepName);
                 while (!this.CheckStatesAfter(step))
                     Thread.Sleep(100);
 
             }
 
-            MvLog.InfoNs(this, "Complete Recipe: " + this.Recipe.RecipeName);
+            MvaLog.InfoNs(this, "Complete Recipe: " + this.Recipe.RecipeName);
 
 
 

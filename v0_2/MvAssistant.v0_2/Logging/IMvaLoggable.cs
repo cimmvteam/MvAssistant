@@ -9,13 +9,13 @@ using System.Threading;
 
 namespace MvAssistant.v0_2.Logging
 {
-    public interface IMvLoggable
+    public interface IMvaLoggable
     {
 
-        void Write(MvLoggerEventArgs ea);
-        void Write(MvLoggerEventArgs ea, MvLoggerEnumLevel _level = MvLoggerEnumLevel.Info);
-        void WriteSyn(MvLoggerEventArgs ea);
-        void WriteAsyn(MvLoggerEventArgs ea);
+        void Write(MvaLoggerEventArgs ea);
+        void Write(MvaLoggerEventArgs ea, MvaLoggerEnumLevel _level = MvaLoggerEnumLevel.Info);
+        void WriteSyn(MvaLoggerEventArgs ea);
+        void WriteAsyn(MvaLoggerEventArgs ea);
 
 
 
@@ -29,7 +29,7 @@ namespace MvAssistant.v0_2.Logging
 
 
 
-        event EventHandler<MvLoggerEventArgs> EhLogWrite;
+        event EventHandler<MvaLoggerEventArgs> EhLogWrite;
 
 
 

@@ -144,7 +144,6 @@
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOn.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\UndockRequest.cs" />
     <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
-    <Compile Include="DeviceDrive\IDrawerLdd.cs" />
     <Compile Include="DeviceDrive\iDSCamera\U3BoardCam.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerBooleanResult.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerStringResult.cs" />
@@ -199,26 +198,26 @@
     <Compile Include="DeviceDrive\WacohForce\WacohForceMessageEventArgs.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceMessageReceiver.cs" />
     <Compile Include="DeviceDrive\WacohForce\WacohForceVector.cs" />
-    <Compile Include="IMvContextFlow.cs" />
-    <Compile Include="IMvContextFlowRun.cs" />
-    <Compile Include="Logging\IMvLoggable.cs" />
-    <Compile Include="Logging\MvLogger.cs" />
-    <Compile Include="Logging\MvLoggerDisplayEnum.cs" />
-    <Compile Include="Logging\MvLoggerEnumLevel.cs" />
-    <Compile Include="Logging\MvLoggerEventArgs.cs" />
-    <Compile Include="Logging\MvLoggerMapper.cs" />
-    <Compile Include="Logging\MvLoggerMapperEventArgs.cs" />
-    <Compile Include="MvException.cs" />
-    <Compile Include="MvLog.cs" />
-    <Compile Include="MvUtil.cs" />
+    <Compile Include="IMvaContextFlow.cs" />
+    <Compile Include="IMvaContextFlowRun.cs" />
+    <Compile Include="Logging\IMvaLoggable.cs" />
+    <Compile Include="Logging\MvaLogger.cs" />
+    <Compile Include="Logging\MvaLoggerDisplayEnum.cs" />
+    <Compile Include="Logging\MvaLoggerEnumLevel.cs" />
+    <Compile Include="Logging\MvaLoggerEventArgs.cs" />
+    <Compile Include="Logging\MvaLoggerMapper.cs" />
+    <Compile Include="Logging\MvaLoggerMapperEventArgs.cs" />
+    <Compile Include="MvaException.cs" />
+    <Compile Include="MvaLog.cs" />
+    <Compile Include="MvaUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ROS\EventAggregator.cs" />
-    <Compile Include="ROS\Publisher.cs" />
-    <Compile Include="ROS\Subscriber.cs" />
-    <Compile Include="Tasking\MvCancelTask.cs" />
-    <Compile Include="Tasking\MvSpinSleep.cs" />
-    <Compile Include="Tasking\MvSpinWait.cs" />
-    <Compile Include="Tasking\MvTask.cs" />
+    <Compile Include="ROS\MacRosEventAggregator.cs" />
+    <Compile Include="ROS\MacRosPublisher.cs" />
+    <Compile Include="ROS\MacRosSubscriber.cs" />
+    <Compile Include="Tasking\MvaCancelTask.cs" />
+    <Compile Include="Tasking\MvaSpinSleep.cs" />
+    <Compile Include="Tasking\MvaSpinWait.cs" />
+    <Compile Include="Tasking\MvaTask.cs" />
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>
@@ -236,8 +235,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

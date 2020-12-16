@@ -67,9 +67,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Reply), 1000))
-                    throw new MvException("Outer Cover Fan Control T0 timeout");
+                    throw new MvaException("Outer Cover Fan Control T0 timeout");
                 else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Complete), 5000))
-                    throw new MvException("Outer Cover Fan Control T2 timeout");
+                    throw new MvaException("Outer Cover Fan Control T2 timeout");
 
                 switch (plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Result))
                 {
@@ -77,15 +77,15 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         Result = "OK";
                         break;
                     case 2:
-                        throw new MvException("Outer Cover Fan Control Error : Failed");
+                        throw new MvaException("Outer Cover Fan Control Error : Failed");
                     default:
-                        throw new MvException("Outer Cover Fan Control Error : Unknown error");
+                        throw new MvaException("Outer Cover Fan Control Error : Unknown error");
                 }
 
                 plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
 
                 if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Complete), 1000))
-                    throw new MvException("Outer Cover Fan Control T4 timeout");
+                    throw new MvaException("Outer Cover Fan Control T4 timeout");
             }
             catch (Exception ex)
             {
@@ -125,7 +125,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(MacHalPlcEnumVariable.Reset_ALL, true);
 
                 if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.Reset_ALL_Complete), 2000))
-                    throw new MvException("Reset All T0 timeout");
+                    throw new MvaException("Reset All T0 timeout");
 
                 plc.Write(MacHalPlcEnumVariable.Reset_ALL, false);
             }
@@ -152,13 +152,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             plc.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
             Thread.Sleep(1000);
             if (plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
-                throw new MvException("PLC did not get 'Box Transfer EMS' alarm signal");
+                throw new MvaException("PLC did not get 'Box Transfer EMS' alarm signal");
             else if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != MT_EMS)
-                throw new MvException("PLC did not get 'Mask Transfer EMS' alarm signal");
+                throw new MvaException("PLC did not get 'Mask Transfer EMS' alarm signal");
             else if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
-                throw new MvException("PLC did not get 'Open Stage EMS' alarm signal");
+                throw new MvaException("PLC did not get 'Open Stage EMS' alarm signal");
             else if (plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_EMS_Reply) != IC_EMS)
-                throw new MvException("PLC did not get 'Inspection Chamber EMS' alarm signal");
+                throw new MvaException("PLC did not get 'Inspection Chamber EMS' alarm signal");
 
         }
 

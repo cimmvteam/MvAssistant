@@ -107,7 +107,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
         public int[] GetValues()
         {
             //需等連線完成
-            if (!MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
+            if (!MvaSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
                 return null;
 
 
@@ -126,7 +126,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
                     cmdType = "R11";
                     cmd = string.Format("{0}0000", cmdType);
                     break;
-                default: throw new MvException("No assign Model.");
+                default: throw new MvaException("No assign Model.");
             }
 
 
@@ -134,7 +134,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
             this.LastSend = DateTime.Now;
             this.TcpClient.WriteMsg(cmd);
 
-            if (!MvSpinWait.SpinUntil(() => this.LastReceive > this.LastSend, 1000)) return null;
+            if (!MvaSpinWait.SpinUntil(() => this.LastReceive > this.LastSend, 1000)) return null;
             return this.Values;
         }
 
@@ -143,12 +143,12 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
         public int SetValue(int ch, int value)
         {
             //需等連線完成
-            if (!MvSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
+            if (!MvaSpinWait.SpinUntil(() => this.TcpClient.IsRemoteConnected, 5000))
                 return -1;
 
 
-            if (value > 999) throw new MvException("Light value can not set over 999");
-            if (value < 0) throw new MvException("Light value can not set under zero");
+            if (value > 999) throw new MvaException("Light value can not set over 999");
+            if (value < 0) throw new MvaException("Light value can not set under zero");
 
             var cmdType = "W12";
             var cmd = "";
@@ -165,7 +165,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
                     cmdType = "W11";
                     cmd = string.Format("{0}{1:00}{2:0000}", cmdType, ch, value);
                     break;
-                default: throw new MvException("No assign Model.");
+                default: throw new MvaException("No assign Model.");
             }
 
 
@@ -185,7 +185,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
                 if (this.TcpClient != null)
                     using (var obj = this.TcpClient) { obj.Disconnect(); }
             }
-            catch (Exception ex) { MvLog.WarnNs(this, ex); }
+            catch (Exception ex) { MvaLog.WarnNs(this, ex); }
         }
 
 

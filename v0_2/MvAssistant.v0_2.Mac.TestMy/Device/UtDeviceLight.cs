@@ -22,26 +22,26 @@ namespace MvAssistant.v0_2.Mac.TestMy.Device
 
                 light.TcpClient.EhDataReceive += (ss, ee) =>
                 {
-                    MvLog.WarnNs(this, ee.Message);
-                    MvLog.WarnNs(this, ee.TrxMessage.GetString());
+                    MvaLog.WarnNs(this, ee.Message);
+                    MvaLog.WarnNs(this, ee.TrxMessage.GetString());
                     are.Set();
                 };
 
                 light.TcpClient.EhErrorReceive += (ss, ee) =>
                 {
-                    MvLog.WarnNs(this, ee.Message);
+                    MvaLog.WarnNs(this, ee.Message);
                 };
                 light.TcpClient.EhFailConnect += (ss, ee) =>
                 {
-                    MvLog.WarnNs(this, ee.Message);
+                    MvaLog.WarnNs(this, ee.Message);
                 };
                 light.TcpClient.EhDisconnect += (ss, ee) =>
                 {
-                    MvLog.WarnNs(this, ee.Message);
+                    MvaLog.WarnNs(this, ee.Message);
                 };
                 light.TcpClient.EhFirstConnect += (ss, ee) =>
                 {
-                    MvLog.WarnNs(this, ee.Message);
+                    MvaLog.WarnNs(this, ee.Message);
                 };
 
 

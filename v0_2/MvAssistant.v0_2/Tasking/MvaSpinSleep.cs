@@ -6,15 +6,15 @@ using System.Threading;
 
 namespace MvAssistant.v0_2.Tasking
 {
-    public class MvSpinSleep
+    public class MvaSpinSleep
     {
         public DateTime LastSpinTime = DateTime.Now;
         public int WaitMillisecondsTotal = -1;//-1代表無上限
         public int WaitMillisecondsEach = -1;//-1代表不等待
 
 
-        public MvSpinSleep() { }
-        public MvSpinSleep(int totalMs, int eachMs) { this.SetTime(totalMs, eachMs); }
+        public MvaSpinSleep() { }
+        public MvaSpinSleep(int totalMs, int eachMs) { this.SetTime(totalMs, eachMs); }
 
 
         public void SetTime(int? totalMs = null, int? eachMs = null)
@@ -78,7 +78,7 @@ namespace MvAssistant.v0_2.Tasking
         public static bool SpinUntil(Func<bool> condition, int maxWaitMs, Action success = null, Action fail = null) { return SpinUntil(condition, maxWaitMs, -1, success, fail); }
         public static bool SpinUntil(Func<bool> condition, int maxWaitMs, int minWaitMs, Action success = null, Action fail = null)
         {
-            var mvSpin = new MvSpinSleep();
+            var mvSpin = new MvaSpinSleep();
             var flag = mvSpin.SleepLoopUntil(condition, maxWaitMs, minWaitMs);
 
             if (flag)
