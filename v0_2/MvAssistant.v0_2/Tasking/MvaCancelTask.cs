@@ -14,9 +14,10 @@ namespace MvAssistant.v0_2.Tasking
         ~MvaCancelTask() { this.Dispose(false); }
         public CancellationToken CancelToken { get { return this.CancelTokenSource.Token; } }
 
-        public static MvaCancelTask Run(Action<CancellationToken> act)
+        public static MvaCancelTask Run(Action<CancellationToken> act, string name = null)
         {
             var task = new MvaCancelTask();
+            task.Name = name;
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
@@ -26,9 +27,10 @@ namespace MvAssistant.v0_2.Tasking
             return task;
         }
 
-        public static MvaCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0)
+        public static MvaCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0, string name = null)
         {
             var task = new MvaCancelTask();
+            task.Name = name;
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
