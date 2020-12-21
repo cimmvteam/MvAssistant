@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.v0_2.Tasking
+namespace MvAssistant.v0_2.Threading
 {
     public class MvaTask : IDisposable
     {
         public string Name;
         public Task Task;
-
+        public TaskStatus Status { get { return this.Task.Status; } }
 
         ~MvaTask() { this.Dispose(false); }
 

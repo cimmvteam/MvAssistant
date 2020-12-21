@@ -214,10 +214,10 @@
     <Compile Include="ROS\MacRosEventAggregator.cs" />
     <Compile Include="ROS\MacRosPublisher.cs" />
     <Compile Include="ROS\MacRosSubscriber.cs" />
-    <Compile Include="Tasking\MvaCancelTask.cs" />
-    <Compile Include="Tasking\MvaSpinSleep.cs" />
-    <Compile Include="Tasking\MvaSpinWait.cs" />
-    <Compile Include="Tasking\MvaTask.cs" />
+    <Compile Include="Threading\MvaCancelTask.cs" />
+    <Compile Include="Threading\MvaSpinSleep.cs" />
+    <Compile Include="Threading\MvaSpinWait.cs" />
+    <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>

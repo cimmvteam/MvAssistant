@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MvAssistant.v0_2.Tasking
+namespace MvAssistant.v0_2.Threading
 {
     public class MvaCancelTask : MvaTask
     {
@@ -27,6 +27,15 @@ namespace MvAssistant.v0_2.Tasking
             return task;
         }
 
+
+        /// <summary>
+        /// Run loop的過程不會try/catch.
+        /// 邏輯上來講, 使用者應該要take care exception
+        /// </summary>
+        /// <param name="funcIsContinue"></param>
+        /// <param name="delay_ms"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static MvaCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0, string name = null)
         {
             var task = new MvaCancelTask();

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MvAssistant.v0_2.Threading;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -12,26 +13,25 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace MvAssistant.v0_2
 {
     public class MvaUtil
     {
-        public static DateTime? ConvertToDateTime(string datetime, string srcFormat)
+        public static T ChangeType<T>(object data) { return (T)Convert.ChangeType(data, typeof(T)); }
+
+
+        public static T DeserializeBinary<T>(byte[] dataArray)
         {
-            DateTime rsdate;
-            if (DateTime.TryParse(datetime, out rsdate)
-                ||
-
-                DateTime.TryParseExact(datetime, srcFormat
-                    , System.Globalization.CultureInfo.InvariantCulture
-                    , System.Globalization.DateTimeStyles.None
-                    , out rsdate))
-            { return rsdate; }
-            return null;
+            var bf = new BinaryFormatter();
+            using (var ms = new MemoryStream(dataArray))
+            {
+                var obj = bf.Deserialize(ms);
+                return (T)obj;
+            }
         }
-
 
         /// <summary>
         /// 泛型 Enum.Parse
@@ -235,6 +235,17 @@ namespace MvAssistant.v0_2
         }
 
 
+        public static byte[] SerializeBinary(object obj)
+        {
+            var bf = new BinaryFormatter();
+            using (var ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                ms.Flush();
+                return ms.ToArray();
+            }
+        }
+
         public static byte[] ToByteArray<T>(T[] source) where T : struct
         {
             GCHandle handle = GCHandle.Alloc(source, GCHandleType.Pinned);
@@ -277,35 +288,16 @@ namespace MvAssistant.v0_2
             }
         }
 
-
-        public static byte[] SerializeBinary(object obj)
-        {
-            var bf = new BinaryFormatter();
-            using (var ms = new MemoryStream())
-            {
-                bf.Serialize(ms, obj);
-                ms.Flush();
-                return ms.ToArray();
-            }
-        }
-
-        public static T DeserializeBinary<T>(byte[] dataArray)
-        {
-            var bf = new BinaryFormatter();
-            using (var ms = new MemoryStream(dataArray))
-            {
-                var obj = bf.Deserialize(ms);
-                return (T)obj;
-            }
-        }
-
-
         #region Dispose
 
         public static void DisposeObj(IDisposable obj)
         {
             if (obj == null) return;
             obj.Dispose();
+        }
+        public static void DisposeObj(IEnumerable<IDisposable> objs)
+        {
+            foreach (var obj in objs) DisposeObj(obj);
         }
         public static void DisposeObjTry(IDisposable obj, Action<Exception> exceptionHandler = null)
         {
@@ -325,9 +317,65 @@ namespace MvAssistant.v0_2
         {
             foreach (var obj in objs) DisposeObjTry(obj, exceptionHandler);
         }
-        public static void DisposeObj(IEnumerable<IDisposable> objs)
+
+        public static void DisposeTask(Task task)
         {
-            foreach (var obj in objs) DisposeObj(obj);
+            if (task == null) return;
+            task.Dispose();
+        }
+        public static void DisposeTask(MvaTask task)
+        {
+            if (task == null) return;
+            task.Dispose();
+        }
+        public static void DisposeTask(MvaCancelTask task)
+        {
+            if (task == null) return;
+            if (task.Status < TaskStatus.RanToCompletion)
+            {
+                task.Cancel();
+                SpinWait.SpinUntil(() => task.Status >= TaskStatus.RanToCompletion, 500);
+            }
+            task.Dispose();
+        }
+        public static bool DisposeTaskTry(Task task)
+        {
+            try
+            {
+                DisposeTask(task);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MvaLog.Warn(ex);
+                return false;
+            }
+        }
+        public static bool DisposeTaskTry(MvaTask task)
+        {
+            try
+            {
+                DisposeTask(task);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MvaLog.Warn(ex);
+                return false;
+            }
+        }
+        public static bool DisposeTaskTry(MvaCancelTask task)
+        {
+            try
+            {
+                DisposeTask(task);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MvaLog.Warn(ex);
+                return false;
+            }
         }
 
         #endregion
