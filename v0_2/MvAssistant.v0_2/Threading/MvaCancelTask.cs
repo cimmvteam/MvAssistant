@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +37,23 @@ namespace MvAssistant.v0_2.Threading
         /// <param name="name"></param>
         /// <returns></returns>
         public static MvaCancelTask RunLoop(Func<bool> funcIsContinue, int delay_ms = 0, string name = null)
+        {
+            var task = new MvaCancelTask();
+            task.Name = name;
+            var ct = task.CancelTokenSource.Token;
+            task.Task = Task.Factory.StartNew(() =>
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    ct.ThrowIfCancellationRequested();
+                    if (!funcIsContinue()) break;
+                    if (delay_ms > 0) MvaSpinWait.SpinUntil(() => ct.IsCancellationRequested, delay_ms);
+                }
+            }, ct);
+
+            return task;
+        }
+        public static MvaCancelTask RunLoop(Func<bool> funcIsContinue, string name, int delay_ms = 0)
         {
             var task = new MvaCancelTask();
             task.Name = name;
