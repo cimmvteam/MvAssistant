@@ -74,32 +74,15 @@ namespace MvAssistant.v0_2.Threading
 
         protected virtual void DisposeSelf()
         {
-            if (this.Task != null)
+            //預期Task是能在迴圈開始時, 自己確認是否終止
+            //一般會以 disposed 和 IsCancellationRequested 作為持續的判斷
+            try
             {
-                this.Task.Dispose();
+                if (this.Task != null)
+                    MvaUtil.DisposeTask(this.Task);
             }
-
-            if (this.Task != null)
-            {
-                //預期Task是能在迴圈開始時, 自己確認是否終止
-                //一般會以 disposed 和 IsCancellationRequested 作為持續的判斷
-                try
-                {
-                    using (this.Task)
-                        if (!this.Task.Wait(3 * 1000))
-                        {
-                            if (this.Task.Status < TaskStatus.Running)
-                                MvaLog.WarnNs(this, "MvTask is no start");
-                            else if (this.Task.Status == TaskStatus.Running)
-                                MvaLog.WarnNs(this, "MvTask can not cancel");
-                        }
-                }
-                catch (OperationCanceledException) { }
-                this.Task = null;
-            }
-
-
-
+            catch (OperationCanceledException ex) { MvaLog.WarnNs(this, ex); }
+            this.Task = null;
         }
 
         #endregion
