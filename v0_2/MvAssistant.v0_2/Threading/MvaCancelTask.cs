@@ -77,7 +77,7 @@ namespace MvAssistant.v0_2.Threading
         protected override void DisposeSelf()
         {
             this.CancelTokenSource.Cancel();
-            this.Task.Wait(1000);
+            if (this.Task.Status < TaskStatus.RanToCompletion) this.Task.Wait(1000);
             base.DisposeSelf();
         }
         #endregion
