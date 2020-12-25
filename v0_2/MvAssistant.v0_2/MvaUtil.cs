@@ -1,4 +1,4 @@
-﻿using MvAssistant.v0_2.Threading;
+using MvAssistant.v0_2.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -308,7 +308,7 @@ namespace MvAssistant.v0_2
             }
             catch (Exception ex)
             {
-                if (exceptionHandler == null) exceptionHandler(ex);
+                if (exceptionHandler != null) exceptionHandler(ex);
                 else MvaLog.Write(ex);
             }
 
@@ -318,23 +318,25 @@ namespace MvAssistant.v0_2
             foreach (var obj in objs) DisposeObjTry(obj, exceptionHandler);
         }
 
-        public static void DisposeTask(Task task)
+        public static void DisposeTask(Task task, int millisecond = 100)
         {
             if (task == null) return;
+            if (task.Status < TaskStatus.RanToCompletion && millisecond >= 0) task.Wait(millisecond);
             task.Dispose();
         }
-        public static void DisposeTask(MvaTask task)
+        public static void DisposeTask(MvaTask task, int millisecond = 100)
         {
             if (task == null) return;
+            if (task.Status < TaskStatus.RanToCompletion && millisecond >= 0) task.Wait(millisecond);
             task.Dispose();
         }
-        public static void DisposeTask(MvaCancelTask task)
+        public static void DisposeTask(MvaCancelTask task, int millisecond = 100)
         {
             if (task == null) return;
             if (task.Status < TaskStatus.RanToCompletion)
             {
                 task.Cancel();
-                SpinWait.SpinUntil(() => task.Status >= TaskStatus.RanToCompletion, 500);
+                if (millisecond >= 0) task.Wait(millisecond);
             }
             task.Dispose();
         }
