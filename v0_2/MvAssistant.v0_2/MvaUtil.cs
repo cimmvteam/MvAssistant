@@ -1,4 +1,4 @@
-﻿using MvAssistant.v0_2.Threading;
+using MvAssistant.v0_2.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -308,7 +308,7 @@ namespace MvAssistant.v0_2
             }
             catch (Exception ex)
             {
-                if (exceptionHandler == null) exceptionHandler(ex);
+                if (exceptionHandler != null) exceptionHandler(ex);
                 else MvaLog.Write(ex);
             }
 
