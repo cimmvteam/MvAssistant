@@ -76,9 +76,18 @@ namespace MvAssistant.v0_2.Threading
 
         protected override void DisposeSelf()
         {
-            this.CancelTokenSource.Cancel();
-            this.Task.Wait(1000);
-            base.DisposeSelf();
+            //預期Task是能在迴圈開始時, 自己確認是否終止
+            //一般會以 disposed 和 IsCancellationRequested 作為持續的判斷
+            try
+            {
+                if (this.Task != null)
+                {
+                    this.Cancel();
+                    MvaUtil.DisposeTask(this.Task);
+                }
+            }
+            catch (OperationCanceledException ex) { MvaLog.WarnNs(this, ex); }
+            this.Task = null;
         }
         #endregion
 
