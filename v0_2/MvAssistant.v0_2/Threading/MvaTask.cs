@@ -75,7 +75,7 @@ namespace MvAssistant.v0_2.Threading
         {
             if (this.Task != null)
             {
-                MvaUtil.DisposeTaskTry(this.Task);
+                MvaUtil.DisposeTask(this.Task);
                 this.Task = null;
             }
 
