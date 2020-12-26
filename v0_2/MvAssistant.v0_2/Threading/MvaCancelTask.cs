@@ -72,14 +72,21 @@ namespace MvAssistant.v0_2.Threading
         }
 
         public void Cancel() { this.CancelTokenSource.Cancel(); }
+
+
         #region IDisposable
 
         protected override void DisposeSelf()
         {
-            this.CancelTokenSource.Cancel();
-            this.Task.Wait(1000);
-            base.DisposeSelf();
+            if (this.Task != null)
+            {
+                //只增加Cancel的呼叫, 剩的用父類別的
+                if (this.Status < TaskStatus.RanToCompletion)
+                    this.CancelTokenSource.Cancel();
+                base.DisposeSelf();
+            }
         }
+
         #endregion
 
     }
