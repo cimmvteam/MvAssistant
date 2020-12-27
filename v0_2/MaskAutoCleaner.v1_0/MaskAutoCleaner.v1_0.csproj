@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6170A960-30F6-48CF-B50A-7533D0D749B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MaskAutoCleaner.v1_0</RootNamespace>
+    <AssemblyName>MaskAutoCleaner.v1_0</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CodeExpress.v1_0.Fw">
+      <HintPath>..\DLL\CodeExpress.v1_0\CodeExpress.v1_0.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeExpress.v1_0.Std">
+      <HintPath>..\DLL\CodeExpress.v1_0\CodeExpress.v1_0.Std.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Filtering.0.7.0\lib\net40\MathNet.Filtering.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DrawerStateMachineIDRange.cs" />
+    <Compile Include="MacException.cs" />
+    <Compile Include="Machine\BoxTransfer\EnumMacMcBoxTransferCmd.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToOpenStageEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToUnLockEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMoveToLockEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateOpenStageClampingEntryEventArgs.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacMcCabinetDrawerCmd.cs" />
+    <Compile Include="Machine\Cabinet\CabinetDuration.cs" />
+    <Compile Include="Machine\Cabinet\CabinetMediater.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\QueueBankOutAtHomeWaitingToGrabBoxDrawers.cs" />
+    <Compile Include="Machine\Cabinet\DrawerStatus\CabinetInitialStatus.cs" />
+    <Compile Include="Machine\Cabinet\DrawerStatus\CabinetMoveTrayToOutStatus.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\EnqueueUniqueMaskBoxForBankOutQueResult.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\DrawerForBankOutQue.cs" />
+    <Compile Include="Machine\Cabinet\DrawerStatus\CabinetStatusBase.cs" />
+    <Compile Include="Machine\Cabinet\DrawerStatus\DrawerDuration.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\BoxUnit.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\DrawerDetail.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\DrawerEventHandler.cs" />
+    <Compile Include="Machine\Cabinet\Drawers\MaskUnit.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacMcCabinetCmd.cs" />
+    <Compile Include="Machine\Cabinet\DrawerQueues\DrawerSatusInfo.cs" />
+    <Compile Include="Machine\Cabinet\MacMcCabinet.cs" />
+    <Compile Include="Machine\Cabinet\MacMsCabinet.cs" />
+    <Compile Include="Machine\CleanCh\EnumMacCleanChCmd.cs" />
+    <Compile Include="Machine\Cabinet\DrawerStatus\DrawerBoxInfo.cs" />
+    <Compile Include="Machine\InspectionCh\EnumMacInspectionChCmd.cs" />
+    <Compile Include="Machine\OpenStage\EnumMacOpenStageCmd.cs" />
+    <Compile Include="Machine\Universal\EnumMacUniversalCmd.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacLoadportCmd.cs" />
+    <Compile Include="Msg\MacMsgCommand.cs" />
+    <Compile Include="Msg\MacMsgTransition.cs" />
+    <Compile Include="Recipe\EnumMacRecipeType.cs" />
+    <Compile Include="Machine\BoxTransfer\MacMcBoxTransfer.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerClampingEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateDrawerReleasingEntryArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToCB1HomeClampedFromDrawerEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToCB1HomeFromDrawerEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToDrawerEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\OnEntryEventArgs\MacStateMovingToDrawerForReleaseEntryEventArgs.cs" />
+    <Compile Include="Machine\BoxTransfer\EnumMacBoxTransferState.cs" />
+    <Compile Include="Machine\BoxTransfer\EnumMacBoxTransferTransition.cs" />
+    <Compile Include="Machine\BoxTransfer\MacMsBoxTransfer.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerState.cs" />
+    <Compile Include="Machine\CabinetDrawer\EnumMacCabinetDrawerTransition.cs" />
+    <Compile Include="Machine\CabinetDrawer\MacMcCabinetDrawer.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacCabinetState.cs" />
+    <Compile Include="Machine\Cabinet\EnumMacCabinetTransition.cs" />
+    <Compile Include="Machine\Cabinet\MacMsCabinet0.cs" />
+    <Compile Include="Machine\CabinetDrawer\MacMsCabinetDrawer.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\EnumMacDrawerInitialType.cs" />
+    <Compile Include="Machine\LoadPort\EnumLoadportStateMachineID.cs" />
+    <Compile Include="Msg\JobNotify\EnumMacBoxType.cs" />
+    <Compile Include="Msg\JobNotify\EnumMacBoxLocker.cs" />
+    <Compile Include="Msg\JobNotify\EnumMacBoxPositon.cs" />
+    <Compile Include="Msg\JobNotify\EnumMacBoxProcessStatus.cs" />
+    <Compile Include="EnumMachineID.cs" />
+    <Compile Include="Recipe\MacRecipeMachineState.cs" />
+    <Compile Include="Recipe\MacRecipeMgr.cs" />
+    <Compile Include="Recipe\MacRecipeParam.cs" />
+    <Compile Include="Recipe\MacRecipeStep.cs" />
+    <Compile Include="Recipe\MacRecipe.cs" />
+    <Compile Include="StateMachineBeta\MacMsTimeOutController.cs" />
+    <Compile Include="Machine\CleanCh\MacMcCleanCh.cs" />
+    <Compile Include="Machine\InspectionCh\MacMcInspectionCh.cs" />
+    <Compile Include="Machine\OpenStage\MacMcOpenStage.cs" />
+    <Compile Include="Machine\Universal\EnumMacUniversalState.cs" />
+    <Compile Include="Machine\Universal\EnumMacUniversalTransition.cs" />
+    <Compile Include="Machine\Universal\MacMcUniversal.cs" />
+    <Compile Include="Machine\Universal\MacMsUniversal.cs" />
+    <Compile Include="StateMachineBeta\TriggerMember.cs" />
+    <Compile Include="StateMachineBeta\TriggerMemberAsync.cs" />
+    <Compile Include="StateMachineBeta\TriggerMemberBase.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPathMoveFailException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPLCExecuteFailException.cs" />
+    <Compile Include="StateMachineExceptions\BoxTransferStateMachineException\BoxTransferPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChCleanFailException.cs" />
+    <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChException.cs" />
+    <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChInspectFailException.cs" />
+    <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\CleanChStateMachineException\CleanChPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\CabinetPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\CabinetPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadCheckBoxExistanceAtPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionHomeFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionInFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionInTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionOutTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadMoveTrayToPositionOutFailException .cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerLoadNoBoxRejectTrayToPositionOutFromPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingLoadInstructionFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingLoadInstructionTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingUnloadInstructionFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMoveTrayToHomeWaitingUnloadInstructionTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadCheckBoxExistanceAtPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionHomeFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionInFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionInTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionOutFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadMoveTrayToPositionOutTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeFailException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadNoBoxRejectTrayToPositionInFromPositionHomeTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\DrawerStateMachineException\DrawerUnloadInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCategory.cs" />
+    <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCode.cs" />
+    <Compile Include="StateMachineExceptions\EnumStateMachineExceptionCodeExtends.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChDefenseFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChInspectFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCExecuteFailException.cs" />
+    <Compile Include="StateMachineExceptions\InspectionChStateMachineException\InspectionChPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockWithMaskMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockWithMaskMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockWithMaskTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportDockTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportInitialMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportAlarmResetFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportAlarmResetTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupInitialMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupAlarmResetFailException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportSystemBootupAlarmResetTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\LoadportStateMachineException\LoadportUndockWithMaskTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MTClampInspectDeformPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MTClampInspectDeformPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferInitialTimeOutException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustInitialException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferMustResetException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferPathMoveFailException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferPLCExecuteFailException.cs" />
+    <Compile Include="StateMachineExceptions\MaskTransferStateMachineException\MaskTransferPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStageException.cs" />
+    <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStageGuardException.cs" />
+    <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStageInitialFailException.cs" />
+    <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStagePLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStagePLCExecuteFailException.cs" />
+    <Compile Include="StateMachineExceptions\OpenStageStateMachineException\OpenStagePLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\StateMachineExceptionBase.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\EnumMacDrawerLoadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\EnumMacDrawerState.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\EnumMacDrawerTransition.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\EnumMacDrawerUnloadToHomeCompleteSource.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\EnumMacMcDrawerCmd.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\MacMcDrawer.cs" />
+    <Compile Include="Machine\Obsolete\Drawer\MacMsDrawer.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacMcLoadPortCmd.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacLoadPortState.cs" />
+    <Compile Include="Machine\LoadPort\EnumMacLoadPortTransition.cs" />
+    <Compile Include="Machine\LoadPort\MacMcLoadPort.cs" />
+    <Compile Include="Machine\LoadPort\MacMsLoadPort.cs" />
+    <Compile Include="Machine\CleanCh\EnumMacCleanChState.cs" />
+    <Compile Include="Machine\CleanCh\EnumMacCleanChTransition.cs" />
+    <Compile Include="Machine\CleanCh\MacMsCleanCh.cs" />
+    <Compile Include="Machine\InspectionCh\EnumMacInspectionChState.cs" />
+    <Compile Include="Machine\InspectionCh\EnumMacInspectionChTransition.cs" />
+    <Compile Include="Machine\InspectionCh\MacMsInspectionCh.cs" />
+    <Compile Include="Machine\MacMachineCtrlCfg.cs" />
+    <Compile Include="Machine\MacMachineMgr.cs" />
+    <Compile Include="Machine\MacMachineMgrCfg.cs" />
+    <Compile Include="Inspect\DefectItem.cs" />
+    <Compile Include="Inspect\DefectList.cs" />
+    <Compile Include="Inspect\EnumDefectStatus.cs" />
+    <Compile Include="Inspect\EnumDefectType.cs" />
+    <Compile Include="EnumMacMaskSide.cs" />
+    <Compile Include="Machine\MacMachineCtrlBase.cs" />
+    <Compile Include="Machine\MacMachineStateBase.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMaskTransferCmd.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMaskTransferState.cs" />
+    <Compile Include="Machine\MaskTransfer\EnumMacMaskTransferTransition.cs" />
+    <Compile Include="Machine\MaskTransfer\MacMaskTransferCommonExitEventArgs.cs" />
+    <Compile Include="Machine\MaskTransfer\MacMcMaskTransfer.cs" />
+    <Compile Include="Machine\MaskTransfer\MacMsMaskTransfer.cs" />
+    <Compile Include="Machine\MacMachineMediater.cs" />
+    <Compile Include="Machine\OpenStage\EnumMacOpenStageState.cs" />
+    <Compile Include="Machine\OpenStage\EnumMacOpenStageTransition.cs" />
+    <Compile Include="Machine\OpenStage\MacMsOpenStage.cs" />
+    <Compile Include="Machine\StateExceptions\StateException.cs" />
+    <Compile Include="Machine\StateExceptions\StateFailException.cs" />
+    <Compile Include="Machine\StateExceptions\StateTimeoutException.cs" />
+    <Compile Include="Msg\EnumMacAlarmId.cs" />
+    <Compile Include="Msg\EnumMacAlarmLevel.cs" />
+    <Compile Include="Msg\EnumMacCeid.cs" />
+    <Compile Include="Msg\EnumMacEcid.cs" />
+    <Compile Include="Msg\EnumMacJobNotify.cs" />
+    <Compile Include="Msg\EnumMacSvid.cs" />
+    <Compile Include="Msg\IMacMsg.cs" />
+    <Compile Include="Msg\IMacMsgProcessor.cs" />
+    <Compile Include="Msg\MacMsgBase.cs" />
+    <Compile Include="Msg\MacMsgDeviceCmd.cs" />
+    <Compile Include="Msg\MacMsgJobNotify.cs" />
+    <Compile Include="Msg\MacMsgRecipe.cs" />
+    <Compile Include="Msg\MacMsgSecs.cs" />
+    <Compile Include="Msg\MacMsgSecsCeid.cs" />
+    <Compile Include="Msg\JobNotify\EnumMacBoxStatus.cs" />
+    <Compile Include="Msg\JobNotify\MacJnActiveMaskProcessInitial.cs" />
+    <Compile Include="Msg\JobNotify\MacJnBtDockComplete.cs" />
+    <Compile Include="Msg\JobNotify\MacJnBtFinalBoxProcessEnd.cs" />
+    <Compile Include="Msg\JobNotify\MacJnBtReadBoxInfo.cs" />
+    <Compile Include="Msg\JobNotify\MacJnDrWaitBoxProc.cs" />
+    <Compile Include="Msg\JobNotify\MacJobNotifyBase.cs" />
+    <Compile Include="Msg\SecsReport\MacSecsReportBase.cs" />
+    <Compile Include="Msg\SecsReport\MacS1F3QuerySvid.cs" />
+    <Compile Include="Msg\SecsReport\MacS3F17CreateJob.cs" />
+    <Compile Include="Msg\SecsReport\MacS3F17DockStart.cs" />
+    <Compile Include="Msg\SecsReport\MacS3F17Undock.cs" />
+    <Compile Include="Msg\SecsReport\MacS6F11.cs" />
+    <Compile Include="Msg\SecsReport\MacS6F11DockComplete.cs" />
+    <Compile Include="StateMachineAlpha\DeferralTransition.cs" />
+    <Compile Include="StateMachineAlpha\DeviceStateMachine.cs" />
+    <Compile Include="StateMachineAlpha\ExceptionState.cs" />
+    <Compile Include="StateMachineAlpha\IStateMachineAlarmHandler.cs" />
+    <Compile Include="StateMachineAlpha\InternalTransition.cs" />
+    <Compile Include="StateMachineAlpha\IStateMachinePersist.cs" />
+    <Compile Include="StateMachineAlpha\IStateMachineResettable.cs" />
+    <Compile Include="StateMachineAlpha\IStateParam.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\EnumAlarmAction.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\PluralTriggerSameTimeException.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StateErrorException.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StateMachineAlterFailException.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StateMachineFatelException.cs" />
+    <Compile Include="StateMachineAlpha\StateEntryEventArgs.cs" />
+    <Compile Include="StateMachineAlpha\StateExitEventArgs.cs" />
+    <Compile Include="StateMachineAlpha\StateParameter.cs" />
+    <Compile Include="StateMachineAlpha\IStepAnalyzable.cs" />
+    <Compile Include="StateMachineAlpha\EnumStateMachineMsgType.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\NotCurrentStateException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachineAlpha\State.cs" />
+    <Compile Include="StateMachineAlpha\StateMachine.cs" />
+    <Compile Include="StateMachineAlpha\StateMachineBuilder.cs" />
+    <Compile Include="StateMachineAlpha\SmExp\StatemMachineException.cs" />
+    <Compile Include="StateMachineAlpha\Transition.cs" />
+    <Compile Include="StateMachineAlpha\TransitionEvaluation.cs" />
+    <Compile Include="StateMachineBeta\MacState.cs" />
+    <Compile Include="StateMachineBeta\MacStateExitWithTransitionEventArgs.cs" />
+    <Compile Include="StateMachineBeta\MacStateMachine.cs" />
+    <Compile Include="StateMachineBeta\MacTransition.cs" />
+    <Compile Include="StateMachineBeta\MacStateEntryEventArgs.cs" />
+    <Compile Include="StateMachineBeta\MacStateExitEventArgs.cs" />
+    <Compile Include="StateMachineBeta\StateGuardRtns.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalCoverFanPLCAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalCoverFanPLCWarningException.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalEquipmentException.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalException.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalGeneralAlarmException.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalGeneralWarningException.cs" />
+    <Compile Include="StateMachineExceptions\UniversalStateMachineException\UniversalPLCExecuteFailException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Machine\LoadPort\OnEntryEventArgs\" />
+    <Folder Include="UserData\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15.csproj">
+      <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
+      <Name>MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvAssistant.v0_2.Mac\MvAssistant.v0_2.Mac.csproj">
+      <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
+      <Name>MvAssistant.v0_2.Mac</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MvAssistant.v0_2\MvAssistant.v0_2.csproj">
+      <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
+      <Name>MvAssistant.v0_2</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

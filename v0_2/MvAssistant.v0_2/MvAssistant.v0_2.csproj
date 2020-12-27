@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F694FA5-2647-4A70-A97D-4E443D5B79EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MvAssistant.v0_2</RootNamespace>
+    <AssemblyName>MvAssistant.v0_2</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CIPCompolet, Version=1.7.0.0, Culture=neutral, PublicKeyToken=f3505d5782c23c5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\OmronPLC.1.7.0\CIPCompolet.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeExpress.v1_0.Fw, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CodeExpress.v1_0.Std, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.Std.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.1.1.0\CToolkit.v1_1.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.8, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\CToolkit.1.1.0\CToolkit.v1_1.Std.dll</HintPath>
+    </Reference>
+    <Reference Include="GenApiDotNet20">
+      <HintPath>..\DLL\StApiDotNet20.1.0.8\GenApiDotNet20.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Filtering.0.7.0\lib\net40\MathNet.Filtering.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.4.9.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PylonC.NET, Version=4.1.0.0, Culture=neutral, PublicKeyToken=a77e8471c5919d5a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\PylonC.Net.5.0.11\PylonC.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="StApiDotNet20">
+      <HintPath>..\DLL\StApiDotNet20.1.0.8\StApiDotNet20.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="uEyeDotNet, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLL\uEyeDotNet.1.7.0\uEyeDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DeviceDrive\BaslerCamera\MvaPylonDotNetLdd_v5_0.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvaMultiCam.cs" />
+    <Compile Include="DeviceDrive\CameraLink\MvaCameraLinkLdd.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnLoadportStatusEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnPlacementEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventBarcodeIDCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventClamperLockCompleteCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventPlacementCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventPresentCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventStagePositionCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventVacuumCompleteCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnPresentEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnReceviceRtnFromServerEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnRFIDEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnStagePositionEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnVacuumCompleteEventArgs.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortLdd.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortRequestContent.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\LoadPortResponseContent.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\MvGudengLoadPortCollection.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReplyCode\EventLoadportStatusCode.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\ReturnFromServer.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AlarmReset.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskBarcodeStatus .cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskClamperStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskLoadportStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskPresentStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\BaseTCPCommand.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskPlacementStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskReticleExistStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskRFIDStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskStagePosition.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\AskVacuumStatus.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\BaseHostToLoadPortCommand.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\DockRequest.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\InitialRequest.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualClamperLock.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualClamperOPR.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualClamperUnlock.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageDown.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageInspection.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageOPR.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualStageUp.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOff.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\ManualVacuumOn.cs" />
+    <Compile Include="DeviceDrive\GudengLoadPort\TCPCommand\HostToLoadPort\UndockRequest.cs" />
+    <Compile Include="DeviceDrive\HiwinStage\HIMC_API.cs" />
+    <Compile Include="DeviceDrive\iDSCamera\MvaU3BoardCam.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerBooleanResult.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerStringResult.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelegateDrawerIntResult.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DelOnRcvMessage.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnErrorEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnLCDCMsgEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyBoxDetectionEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyBrightLEDEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyPositionEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplySetSpeedEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplySetTimeOutEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnReplyTrayMotionEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\DrawerEventArgs\OnTrayArriveEventArgs.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\BaseException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\OutOfListenPortsException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\MotionSpeedOutOfRangeException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\Exceptions\TimeOutSecondOutOfRangeException.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLddPool.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyErrorCode.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyMessage.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\ReplyResultCode.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\SysStartUpEventListener.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\ReplyCode\TrayArriveType.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\BaseCommand.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLdd.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerManager.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BoxDetection.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BrightLED.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\INI.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\PositionRead.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\SetMotionSpeed.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\SetParameter.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\SetTimeOut.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\TrayMotion.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\WriteNetSetting.cs" />
+    <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\LCDMsg.cs" />
+    <Compile Include="DeviceDrive\LeimacLight\MvaEnumLeimacModel.cs" />
+    <Compile Include="DeviceDrive\LeimacLight\MvaLeimacLightLdd.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\MvaOmronPlcLdd.cs" />
+    <Compile Include="DeviceDrive\OmronPlc\MvaOmronPlcPool.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\MvamronSentechCameraScanner.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\MvaOmronSentechCameraLdd.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrab.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\SampleGrabCallback.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\SampleMultipleCameras.cs" />
+    <Compile Include="DeviceDrive\OmronSentechCamera\SaveAndLoadImage.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceEnumConnectionStatus.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceLdd.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceMessageEventArgs.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceMessageReceiver.cs" />
+    <Compile Include="DeviceDrive\WacohForce\MvaWacohForceVector.cs" />
+    <Compile Include="IMvaContextFlow.cs" />
+    <Compile Include="IMvaContextFlowRun.cs" />
+    <Compile Include="Logging\IMvaLoggable.cs" />
+    <Compile Include="Logging\MvaLogger.cs" />
+    <Compile Include="Logging\MvaLoggerDisplayEnum.cs" />
+    <Compile Include="Logging\MvaLoggerEnumLevel.cs" />
+    <Compile Include="Logging\MvaLoggerEventArgs.cs" />
+    <Compile Include="Logging\MvaLoggerMapper.cs" />
+    <Compile Include="Logging\MvaLoggerMapperEventArgs.cs" />
+    <Compile Include="MvaException.cs" />
+    <Compile Include="MvaLog.cs" />
+    <Compile Include="MvaUtil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ROS\MacRosEventAggregator.cs" />
+    <Compile Include="ROS\MacRosPublisher.cs" />
+    <Compile Include="ROS\MacRosSubscriber.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\ISNetProtoConnectBase.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\ISNetProtoFormatBase.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\ISNetProtoSessionBase.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetEnumProtoConnect.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetEnumProtoFormat.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetEnumProtoSession.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetProtoConnRs232.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetProtoConnTcp.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetProtoFormatSecs.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetProtoFormatSNetCmd.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetProtoSessionSecs.cs" />
+    <Compile Include="SensingNet\DvcSensor\Protocol\SNetProtoSessionSNetCmd.cs" />
+    <Compile Include="SensingNet\DvcSensor\SignalTrans\ISNetSignalTransBase.cs" />
+    <Compile Include="SensingNet\DvcSensor\SignalTrans\SNetEnumSignalTrans.cs" />
+    <Compile Include="SensingNet\DvcSensor\SignalTrans\SNetSignalTransCfg.cs" />
+    <Compile Include="SensingNet\DvcSensor\SignalTrans\SNetSignalTransEventArgs.cs" />
+    <Compile Include="SensingNet\DvcSensor\SignalTrans\SNetSignalTransSecs001.cs" />
+    <Compile Include="SensingNet\DvcSensor\SignalTrans\SNetSignalTransSNetCmd.cs" />
+    <Compile Include="SensingNet\DvcSensor\SNetDvcSensorCfg.cs" />
+    <Compile Include="SensingNet\DvcSensor\SNetDvcSensorHandler.cs" />
+    <Compile Include="SensingNet\Framework\SNetDeviceSensorMgr.cs" />
+    <Compile Include="SensingNet\Framework\SNetQSecsMgr.cs" />
+    <Compile Include="SensingNet\Framework\Storage\FileStorageFormat_Csv0_1.cs" />
+    <Compile Include="SensingNet\Framework\Storage\SNetFileStorage.cs" />
+    <Compile Include="SensingNet\Framework\Storage\SNetFileStorageCfg.cs" />
+    <Compile Include="SensingNet\Framework\Storage\SNetFileStorageEventArgs.cs" />
+    <Compile Include="SensingNet\Framework\Storage\SNetFileStorageFormat.cs" />
+    <Compile Include="SensingNet\Framework\Storage\SNetFileStorageFormat_Csv0_2.cs" />
+    <Compile Include="SensingNet\Framework\Storage\SNetFileStorageInfo.cs" />
+    <Compile Include="SensingNet\QSecs\SNetEnumStatisticsMethod.cs" />
+    <Compile Include="SensingNet\QSecs\SNetQSecsCfg.cs" />
+    <Compile Include="SensingNet\QSecs\SNetQSecsHandler.cs" />
+    <Compile Include="SensingNet\QSecs\SNetQSecsRcvDataEventArgs.cs" />
+    <Compile Include="SensingNet\QSecs\SNetQSvidCfg.cs" />
+    <Compile Include="SensingNet\Simulate\SNetSimulateCmdTcpClient.cs" />
+    <Compile Include="SensingNet\Simulate\SNetSimulateDeviceRandom.cs" />
+    <Compile Include="SensingNet\Simulate\SNetSimulateDeviceVibration.cs" />
+    <Compile Include="SensingNet\Simulate\SNetSimulateSecsClient.cs" />
+    <Compile Include="SensingNet\SNetEnumHandlerStatus.cs" />
+    <Compile Include="SensingNet\SNetException.cs" />
+    <Compile Include="SensingNet\SNetUtil.cs" />
+    <Compile Include="SensingNet\TdBase\SNetTdBlock.cs" />
+    <Compile Include="SensingNet\TdBase\SNetTdDiagram.cs" />
+    <Compile Include="SensingNet\TdBase\SNetTdEnumInvokeResult.cs" />
+    <Compile Include="SensingNet\TdBase\SNetTdEventArg.cs" />
+    <Compile Include="SensingNet\TdBase\SNetTdNode.cs" />
+    <Compile Include="SensingNet\TdSecs\SNetTdnQSecs.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdbQSecs.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdnFft.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdnFilter.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdNodeF8.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdnPass.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdnSeqDataCollector.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdnStatistics.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdSignalEventArg.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdSignalSecF8EventArg.cs" />
+    <Compile Include="SensingNet\TdSignalProc\SNetTdSignalSecSetF8EventArg.cs" />
+    <Compile Include="SensingNet\TimeSignal\ISNetTSignal.cs" />
+    <Compile Include="SensingNet\TimeSignal\ISNetTSignalSet.cs" />
+    <Compile Include="SensingNet\TimeSignal\SNetTSignalSecF8.cs" />
+    <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetC.cs" />
+    <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetF8.cs" />
+    <Compile Include="Threading\MvaCancelTask.cs" />
+    <Compile Include="Threading\MvaSpinSleep.cs" />
+    <Compile Include="Threading\MvaSpinWait.cs" />
+    <Compile Include="Threading\MvaTask.cs" />
+    <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
+    <Compile Include="TypeGuid\MvTypeGuid.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SensingNet\Readme\CUDA.NET.Readme.txt" />
+    <Content Include="SensingNet\Readme\CUDAfy-License.txt" />
+    <Content Include="SensingNet\Readme\example_source_code.cs.txt" />
+    <Content Include="SensingNet\Readme\ILSpy-license.txt" />
+    <Content Include="SensingNet\Readme\README.txt" />
+    <Content Include="_github\github_Clone.txt" />
+    <Content Include="_github\github_CommitPull.txt" />
+    <Content Include="_github\github_Pull.txt" />
+    <Content Include="_github\github_FetchPull.txt" />
+    <Content Include="_github\github_HardResetPull.txt" />
+    <Content Include="_github\github_MergeToMaster_Pull.txt" />
+    <Content Include="_github\github_MergeToMaster_Push.txt" />
+    <Content Include="_github\github_Push.txt" />
+    <Content Include="_github\github_Update.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

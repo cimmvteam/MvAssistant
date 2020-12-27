@@ -1,9 +1,0 @@
-
-
-
-cd MvAssistant
-git reset --hard
-git pull
-cd ..
-
-
