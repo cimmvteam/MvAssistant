@@ -310,7 +310,7 @@ namespace MvAssistant.v0_2
             catch (Exception ex)
             {
                 if (exceptionHandler != null) exceptionHandler(ex);
-                else CtkLog.Write(ex);
+                else MvaLog.Write(ex);
                 return false;
             }
 
