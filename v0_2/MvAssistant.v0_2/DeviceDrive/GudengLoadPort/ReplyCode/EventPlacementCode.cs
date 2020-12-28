@@ -8,7 +8,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode
 {
    public  enum EventPlacementCode
     {
-        NoPlacemment=0,
+        NoPlacement=0,
         HasPlacement =1,
     }
 }
