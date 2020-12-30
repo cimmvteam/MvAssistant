@@ -11,6 +11,8 @@ using CToolkit.v1_1.Net;
 using CToolkit.v1_1.Threading;
 using CodeExpress.v1_0.Secs;
 using Newtonsoft.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SensingNet.v0_2.QSecs
 {
@@ -23,34 +25,30 @@ namespace SensingNet.v0_2.QSecs
     public class SNetQSecsHandler : ICtkContextFlowRun, IDisposable
     {
         public SNetQSecsCfg cfg;
-
         [JsonIgnore]
         public CxHsmsConnector HsmsConnector;
+        CtkCancelTask RunningTask;
+
+        public bool IsWaitDispose;
 
         /// <summary>
         /// 一個Secs Handler需要一組IP/Port
         /// 對一個 IP/Port 而言, Svid 不應該重複, 因此用 Query SVID 作為Key
         /// </summary>
         public SNetEnumHandlerStatus status = SNetEnumHandlerStatus.None;
-        public bool IsWaitDispose;
+
 
         #region ICtkContextFlowRun
 
         public bool CfIsRunning { get; set; }
-        public int CfRunOnce()
-        {
-            return 0;
-        }
-
         public int CfFree()
         {
             this.Dispose(false);
             return 0;
         }
-
         public int CfInit()
         {
-            HsmsConnector = new CxHsmsConnector();
+            this.HsmsConnector = new CxHsmsConnector();
             //hsmsConnector.ctkConnSocket.isActively = true;
 
             var localUri = string.IsNullOrEmpty(this.cfg.LocalUri) ? null : new Uri(this.cfg.LocalUri);
@@ -58,8 +56,8 @@ namespace SensingNet.v0_2.QSecs
 
             var localIp = CtkNetUtil.GetIpAdr1stLikelyOr127(localUri == null ? null : localUri.Host, remoteUri == null ? null : remoteUri.Host);
             if (localIp == null) throw new Exception("無法取得在地IP");
-            HsmsConnector.LocalUri = CtkNetUtil.ToUri(localIp.ToString(), localUri == null ? 0 : localUri.Port);
-            HsmsConnector.EhReceiveData += delegate (Object sen, CxHsmsConnectorRcvDataEventArg ea)
+            this.HsmsConnector.LocalUri = CtkNetUtil.ToUri(localIp.ToString(), localUri == null ? 0 : localUri.Port);
+            this.HsmsConnector.EhReceiveData += delegate (Object sen, CxHsmsConnectorRcvDataEventArg ea)
             {
 
                 var myMsg = ea.msg;
@@ -86,32 +84,52 @@ namespace SensingNet.v0_2.QSecs
 
             return 0;
         }
-        public int CfLoad()
+        public int CfLoad() { return 0; }
+        public int CfRunLoop()
         {
-            CtkThreadingUtil.RunWorkerAsyn(delegate (object sender, DoWorkEventArgs e)
+            while (!this.disposed)
             {
-                for (int idx = 0; !this.disposed; idx++)
-                {
-                    try
-                    {
-                        HsmsConnector.ConnectIfNo();
-                        HsmsConnector.ReceiveLoop();
-                    }
-                    catch (Exception ex)
-                    {
-                        CtkLog.Write(ex);
-                        System.Threading.Thread.Sleep(5000);//無法連線等待5秒
-                    }
-                }
-            });
+                this.CfRunOnce();
+                Thread.Sleep(5 * 1000);
+            }
+
             return 0;
         }
-        public int CfRunLoop() { return 0; }
-        public int CfRunLoopAsyn() { return 0; }
+        public int CfRunLoopAsyn()
+        {
+            //還在執行中, 不接受重新執行
+            if (this.RunningTask != null && this.RunningTask.Status < TaskStatus.RanToCompletion) return 1;
+
+            //需要重複確認機台的功能是活著的, 因此使用RunLoop重複運作
+            this.RunningTask = CtkCancelTask.RunLoop(() =>
+            {
+                try
+                {
+                    this.CfRunOnce();
+                }
+                catch (Exception ex)
+                {
+                    //Task root method 需要try/catch: 已經到最上層, 就必須捕抓->寫log, 否則就看不到這個例外
+                    CtkLog.WriteNs(this, ex);
+                }
+                Thread.Sleep(5 * 1000);
+                return !this.disposed;//d20201210 機台仍舊要持續運作
+            });
+
+            return 0;
+        }
+        public int CfRunOnce()
+        {
+            //持續確認連線狀態, 有需要就重新連線
+            this.HsmsConnector.ConnectIfNo();
+            //HsmsConnector.ReceiveLoop();
+            return 0;
+        }
         public int CfUnLoad()
         {
             return 0;
         }
+
         #endregion
 
 
