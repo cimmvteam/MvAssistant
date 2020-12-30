@@ -121,8 +121,8 @@ namespace SensingNet.v0_2.QSecs
         public int CfRunOnce()
         {
             //持續確認連線狀態, 有需要就重新連線
-            this.HsmsConnector.ConnectIfNo();
-            //HsmsConnector.ReceiveLoop();
+            this.HsmsConnector.ConnectIfNoAsyn();
+            //HsmsConnector.ReceiveLoop();//IsAutoReceive=true
             return 0;
         }
         public int CfUnLoad()

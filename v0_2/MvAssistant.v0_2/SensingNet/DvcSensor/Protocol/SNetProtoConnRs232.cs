@@ -79,15 +79,13 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
 
         public object ActiveWorkClient { get { return this.nonStopSerialPort.ActiveWorkClient; } set { this.nonStopSerialPort.ActiveWorkClient = value; } }
-        public int IntervalTimeOfConnectCheck { get { return this.nonStopSerialPort.IntervalTimeOfConnectCheck; } set { this.nonStopSerialPort.IntervalTimeOfConnectCheck = value; } }
         public bool IsLocalReadyConnect { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsLocalReadyConnect; } }//Local連線成功=遠端連線成功
-        public bool IsNonStopRunning { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsNonStopRunning; } }
         public bool IsOpenRequesting { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsOpenRequesting; } }
         public bool IsRemoteConnected { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsRemoteConnected; } }
-        public void AbortNonStopConnect() { this.nonStopSerialPort.AbortNonStopConnect(); }
 
         //用途是避免重複要求連線
-        public int ConnectIfNo()
+        public int ConnectIfNo() { return this.ConnectIfNoAsyn(); }
+        public int ConnectIfNoAsyn()
         {
             if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectIfNo
             if (this.IsRemoteConnected || this.IsOpenRequesting) return 0;
@@ -106,17 +104,6 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             if (this.mreHasMsg != null) this.mreHasMsg.Dispose();
         }
 
-        public void NonStopConnectAsyn()
-        {
-            if (this.IsRemoteConnected || this.IsOpenRequesting) return;
-
-            var now = DateTime.Now;
-            if (this.timeOfBeginConnect.HasValue && (now - this.timeOfBeginConnect.Value).TotalSeconds < 10) return;
-            this.timeOfBeginConnect = now;
-
-            this.ReloadComPort();
-            this.nonStopSerialPort.NonStopConnectAsyn();
-        }
         public void WriteMsg(CtkProtocolTrxMessage msg)
         {
             if (msg.As<string>() != null)
@@ -135,38 +122,59 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
                 throw new ArgumentException("未定義該型別的寫入操作");
             }
         }
+
+        #endregion
+
+        #region ICtkProtocolNonStopConnect
+
+        public bool IsNonStopRunning { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsNonStopRunning; } }
+        public int IntervalTimeOfConnectCheck { get { return this.nonStopSerialPort.IntervalTimeOfConnectCheck; } set { this.nonStopSerialPort.IntervalTimeOfConnectCheck = value; } }
+        public void AbortNonStopRun() { this.nonStopSerialPort.AbortNonStopConnect(); }
+        public void NonStopRunAsyn()
+        {
+            if (this.IsRemoteConnected || this.IsOpenRequesting) return;
+
+            var now = DateTime.Now;
+            if (this.timeOfBeginConnect.HasValue && (now - this.timeOfBeginConnect.Value).TotalSeconds < 10) return;
+            this.timeOfBeginConnect = now;
+
+            this.ReloadComPort();
+            this.nonStopSerialPort.NonStopConnectAsyn();
+        }
+
+        #endregion
+
+
+
+        #region Event 
+
         void OnDataReceive(CtkProtocolEventArgs ea)
         {
             if (this.EhDataReceive == null) return;
             this.EhDataReceive(this, ea);
         }
-
         void OnDisconnect(CtkProtocolEventArgs ea)
         {
             if (this.EhDisconnect == null) return;
             this.EhDisconnect(this, ea);
         }
-
         void OnErrorReceive(CtkProtocolEventArgs ea)
         {
             if (this.EhErrorReceive == null) return;
             this.EhErrorReceive(this, ea);
         }
-
         void OnFailConnect(CtkProtocolEventArgs ea)
         {
             if (this.EhFailConnect == null) return;
             this.EhFailConnect(this, ea);
         }
-
         void OnFirstConnect(CtkProtocolEventArgs ea)
         {
             if (this.EhFirstConnect == null) return;
             this.EhFirstConnect(this, ea);
         }
+
         #endregion
-
-
 
 
 

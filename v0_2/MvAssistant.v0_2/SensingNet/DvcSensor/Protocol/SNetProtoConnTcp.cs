@@ -63,9 +63,6 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
 
             this.client.IntervalTimeOfConnectCheck = this.IntervalTimeOfConnectCheck;
         }
-
-
-
         public void ReloadListener()
         {
             if (this.listener != null) using (var obj = this.listener) obj.Disconnect();
@@ -99,17 +96,21 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
 
         #region IProtoConnectBase
 
+        public event EventHandler<CtkProtocolEventArgs> EhDataReceive;
+        public event EventHandler<CtkProtocolEventArgs> EhDisconnect;
+        public event EventHandler<CtkProtocolEventArgs> EhErrorReceive;
+        public event EventHandler<CtkProtocolEventArgs> EhFailConnect;
+        public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
+
         [JsonIgnore]
         public object ActiveWorkClient { get { return this.ctkProtoConnect.ActiveWorkClient; } set { this.ctkProtoConnect.ActiveWorkClient = value; } }
-        public int IntervalTimeOfConnectCheck { get; set; }
         public bool IsLocalReadyConnect { get { return this.ctkProtoConnect == null ? false : this.ctkProtoConnect.IsLocalReadyConnect; } }//Local連線成功=遠端連線成功
-        public bool IsNonStopRunning { get { return this.ctkProtoConnect == null ? false : this.ctkProtoConnect.IsNonStopRunning; } }
         public bool IsOpenRequesting { get { return this.ctkProtoConnect == null ? false : this.ctkProtoConnect.IsOpenRequesting; } }
         public bool IsRemoteConnected { get { var obj = this.ctkProtoConnect; return obj == null ? false : obj.IsRemoteConnected; } }
-        public void AbortNonStopConnect() { this.ctkProtoConnect.AbortNonStopConnect(); }
 
         //用途是避免重複要求連線
-        public int ConnectIfNo()
+        public int ConnectIfNo() { return this.ConnectIfNoAsyn(); }
+        public int ConnectIfNoAsyn()
         {
             if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectIfNo
             if (this.IsRemoteConnected || this.IsOpenRequesting) return 0;
@@ -140,27 +141,6 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             if (this.mreHasMsg != null) this.mreHasMsg.Dispose();
 
         }
-
-        public void NonStopConnectAsyn()
-        {
-            if (this.IsRemoteConnected || this.IsOpenRequesting) return;
-
-            var now = DateTime.Now;
-            //上次要求連線在10秒內也不會再連線
-            if (this.timeOfBeginConnect.HasValue && (now - this.timeOfBeginConnect.Value).TotalSeconds < 10) return;
-            this.timeOfBeginConnect = now;
-
-            if (this.isListener)
-            {
-                this.ReloadListener();
-                this.listener.NonStopConnectAsyn();
-            }
-            else
-            {
-                this.ReloadClient();
-                this.client.NonStopConnectAsyn();
-            }
-        }
         public void WriteMsg(CtkProtocolTrxMessage msg)
         {
             if (msg.As<string>() != null)
@@ -181,13 +161,39 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         }
 
 
+
+
+        #region  ICtkProtocolNonStopConnect
+
+        public int IntervalTimeOfConnectCheck { get; set; }
+        public bool IsNonStopRunning { get { return this.ctkProtoConnect == null ? false : this.ctkProtoConnect.IsNonStopRunning; } }
+        public void AbortNonStopRun() { this.ctkProtoConnect.AbortNonStopRun(); }
+        public void NonStopRunAsyn()
+        {
+            if (this.IsRemoteConnected || this.IsOpenRequesting) return;
+
+            var now = DateTime.Now;
+            //上次要求連線在10秒內也不會再連線
+            if (this.timeOfBeginConnect.HasValue && (now - this.timeOfBeginConnect.Value).TotalSeconds < 10) return;
+            this.timeOfBeginConnect = now;
+
+            if (this.isListener)
+            {
+                this.ReloadListener();
+                this.listener.NonStopConnectAsyn();
+            }
+            else
+            {
+                this.ReloadClient();
+                this.client.NonStopConnectAsyn();
+            }
+        }
+
+        #endregion
+
+
         #region Event
 
-        public event EventHandler<CtkProtocolEventArgs> EhDataReceive;
-        public event EventHandler<CtkProtocolEventArgs> EhDisconnect;
-        public event EventHandler<CtkProtocolEventArgs> EhErrorReceive;
-        public event EventHandler<CtkProtocolEventArgs> EhFailConnect;
-        public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
 
         void OnDataReceive(CtkProtocolEventArgs ea)
         {
