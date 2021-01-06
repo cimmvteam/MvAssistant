@@ -23,8 +23,8 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public Uri LocalUri;
         public Uri RemoteUri;
         public DateTime? timeOfBeginConnect;
-        CtkNonStopTcpClient client;
-        CtkNonStopTcpListener listener;
+        CtkTcpClient client;
+        CtkTcpListener listener;
         ManualResetEvent mreHasMsg = new ManualResetEvent(false);
 
         public SNetProtoConnTcp(Uri l, Uri r, bool isListener)
@@ -46,7 +46,7 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public void ReloadClient()
         {
             if (this.client != null) using (var obj = this.client) obj.Disconnect();
-            this.client = new CtkNonStopTcpClient();
+            this.client = new CtkTcpClient();
             this.client.LocalUri = this.LocalUri;
             this.client.RemoteUri = this.RemoteUri;
 
@@ -66,7 +66,7 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public void ReloadListener()
         {
             if (this.listener != null) using (var obj = this.listener) obj.Disconnect();
-            this.listener = new CtkNonStopTcpListener();
+            this.listener = new CtkTcpListener();
             this.listener.LocalUri = this.LocalUri;
 
             this.listener.EhFirstConnect += (sender, e) =>
@@ -180,12 +180,12 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             if (this.isListener)
             {
                 this.ReloadListener();
-                this.listener.NonStopConnectAsyn();
+                this.listener.NonStopRunAsyn();
             }
             else
             {
                 this.ReloadClient();
-                this.client.NonStopConnectAsyn();
+                this.client.NonStopRunAsyn();
             }
         }
 

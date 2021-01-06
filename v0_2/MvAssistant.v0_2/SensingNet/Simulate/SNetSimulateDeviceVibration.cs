@@ -16,7 +16,7 @@ namespace SensingNet.v0_2.Simulate
     {
 
         ~SNetSimulateDeviceVibration() { this.Dispose(false); }
-        public CtkNonStopTcpListener listener;
+        public CtkTcpListener listener;
 
         public void RunAsyn()
         {
@@ -42,8 +42,8 @@ namespace SensingNet.v0_2.Simulate
 
 
             DateTime? prevTime = DateTime.Now;
-            this.listener = new CtkNonStopTcpListener("127.0.0.1", 5003);
-            listener.NonStopConnectAsyn();
+            this.listener = new CtkTcpListener("127.0.0.1", 5003);
+            listener.NonStopRunAsyn();
 
             listener.EhFirstConnect += (ss, ee) =>
             {
@@ -108,7 +108,7 @@ namespace SensingNet.v0_2.Simulate
 
         public void Stop()
         {
-            this.listener.AbortNonStopConnect();
+            this.listener.AbortNonStopRun();
         }
 
 

@@ -14,7 +14,7 @@ namespace SensingNet.v0_2.Simulate
 {
     public class SNetSimulateCmdTcpClient : IDisposable
     {
-        CtkNonStopTcpClient client;
+        CtkTcpClient client;
         public volatile bool IsSendRequest = false;
 
         ~SNetSimulateCmdTcpClient() { this.Dispose(false); }
@@ -22,7 +22,7 @@ namespace SensingNet.v0_2.Simulate
         public void RunAsyn()
         {
 
-            client = new CtkNonStopTcpClient("127.0.0.1", 5003);
+            client = new CtkTcpClient("127.0.0.1", 5003);
             client.EhFirstConnect += (ss, ee) => { Write("evtFirstConnect"); };
             client.EhFailConnect += (ss, ee) =>
             {
@@ -41,7 +41,7 @@ namespace SensingNet.v0_2.Simulate
 
             };
 
-            client.NonStopConnectAsyn();
+            client.NonStopRunAsyn();
         }
 
 
@@ -78,7 +78,7 @@ namespace SensingNet.v0_2.Simulate
             {
                 using (this.client)
                 {
-                    this.client.AbortNonStopConnect();
+                    this.client.AbortNonStopRun();
                     this.client.Disconnect();
                 }
             }

@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
 {
     public class MvaLeimacLightLdd : IDisposable
     {
-        public CtkNonStopTcpClient TcpClient = new CtkNonStopTcpClient();
+        public CtkTcpClient TcpClient = new CtkTcpClient();
         public DateTime LastSend;
         public DateTime LastReceive;
         public int[] Values = new int[4];//目前控制器最多4個channel

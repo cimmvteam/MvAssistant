@@ -21,8 +21,8 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
     public class MvaWacohForceLdd : IDisposable
     {
 
-        CtkNonStopTcpClient netNonStopTcpClient = new CtkNonStopTcpClient();
-        public CtkNonStopTcpClient netClient { get { return this.netNonStopTcpClient; } }
+        CtkTcpClient netNonStopTcpClient = new CtkTcpClient();
+        public CtkTcpClient netClient { get { return this.netNonStopTcpClient; } }
         MvaWacohForceMessageReceiver messageReceiver = new MvaWacohForceMessageReceiver();
 
         public IPEndPoint localEP { get { return CtkNetUtil.ToIPEndPoint(this.netNonStopTcpClient.LocalUri); } set { this.netNonStopTcpClient.LocalUri = CtkNetUtil.ToUri(value); } }
