@@ -78,83 +78,81 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Device\UtDeviceLoadPort.cs" />
-    <Compile Include="Device\UtDeviceDrawer.cs" />
-    <Compile Include="Device\UtDeviceLight.cs" />
-    <Compile Include="Device\UtDeviceCamera.cs" />
-    <Compile Include="Device\UtDeviceRobot.cs" />
-    <Compile Include="Device\UtDevicePlc.cs" />
-    <Compile Include="GenCfg\Manifest\ManifestBase.cs" />
-    <Compile Include="GenCfg\Manifest\ManifestDriverId.cs" />
+    <Compile Include="ToolDevice\UtDeviceLoadPort.cs" />
+    <Compile Include="ToolDevice\UtDeviceDrawer.cs" />
+    <Compile Include="ToolDevice\UtDeviceLight.cs" />
+    <Compile Include="ToolDevice\UtDeviceCamera.cs" />
+    <Compile Include="ToolDevice\UtDeviceRobot.cs" />
+    <Compile Include="ToolDevice\UtDevicePlc.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestTest.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestFake.cs" />
-    <Compile Include="GenCfg\Manifest\UtGenManifestReal.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\BoxrobotTransferPathFileExtends.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalBoxTransferExtends.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalContextExtends.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\MacHalOpenStageExtends.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Types\DrawerReplaceBoxPlace.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_002_004_005.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut001_BT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut017_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut016_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut015_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut014_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut013_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut010_IC.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut009_IC.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut008_CC.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut007_CC.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut006_CB.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut005_CB.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut004_CB.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut003_CB.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Extends\HalDrawerExtends.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut024_OS.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut023_OS.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut022_BT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut021_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut020_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut019_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut018_MT.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut012_LP.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut011_LP.cs" />
-    <Compile Include="MachineRealHal\Hirata_ScenarioTest\Ut002_BT.cs" />
-    <Compile Include="MachineRealHal\UtHalLight.cs" />
-    <Compile Include="MachineRealHal\UtHalCamera.cs" />
-    <Compile Include="MachineRealHal\UtScenarioDrawer.cs" />
-    <Compile Include="MachineRealHal\UtScenarioLoadPort.cs" />
-    <Compile Include="MachineRealHal\UtStressTest.cs" />
-    <Compile Include="MachineRealHal\UtScenario.cs" />
-    <Compile Include="MachineRealHal\UtHalBoxTransfer.cs" />
-    <Compile Include="MachineRealHal\UtHalLoadPort.cs" />
-    <Compile Include="MachineRealHal\UtHalCleanCh.cs" />
-    <Compile Include="MachineRealHal\UtHalCabinet.cs" />
-    <Compile Include="MachineRealHal\UtHalOpenStage.cs" />
-    <Compile Include="MachineRealHal\UtHalInspectionCh.cs" />
-    <Compile Include="MachineRealHal\UtHalMaskTransfer.cs" />
-    <Compile Include="MachineRealHal\UtHalContext.cs" />
-    <Compile Include="MachineRealHal\UtHalUniversal.cs" />
-    <Compile Include="MachineRealPlc\PlcTestParamSingleton.cs" />
-    <Compile Include="MachineRealPlc\UtPlcOpenStage.cs" />
-    <Compile Include="MachineRealPlc\UtPlcMaskRobot.cs" />
-    <Compile Include="MachineRealPlc\UtPlcLoadPort.cs" />
-    <Compile Include="MachineRealPlc\UtPlcInspCh.cs" />
-    <Compile Include="MachineRealPlc\UtPlcCleanCh.cs" />
-    <Compile Include="MachineRealPlc\UtPlcCabinet.cs" />
-    <Compile Include="MachineRealPlc\UtPlcBoxRobot.cs" />
-    <Compile Include="MachineRealPlc\UtPlcPublicArea.cs" />
-    <Compile Include="MachineRealPlc\UtPlc.cs" />
+    <Compile Include="GenCfg\Manifest\UtGenManifestDevelop.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\BoxrobotTransferPathFileExtends.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\MacHalBoxTransferExtends.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\MacHalContextExtends.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\MacHalOpenStageExtends.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Types\DrawerReplaceBoxPlace.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut001_002_004_005.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut001_BT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut017_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut016_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut015_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut014_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut013_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut010_IC.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut009_IC.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut008_CC.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut007_CC.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut006_CB.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut005_CB.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut004_CB.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut003_CB.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\HalDrawerExtends.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut024_OS.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut023_OS.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut022_BT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut021_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut020_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut019_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut018_MT.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut012_LP.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut011_LP.cs" />
+    <Compile Include="ToolHal\Hirata_ScenarioTest\Ut002_BT.cs" />
+    <Compile Include="ToolHal\UtHalLight.cs" />
+    <Compile Include="ToolHal\UtHalCamera.cs" />
+    <Compile Include="ToolHal\UtScenarioDrawer.cs" />
+    <Compile Include="ToolHal\UtScenarioLoadPort.cs" />
+    <Compile Include="ToolHal\UtStressTest.cs" />
+    <Compile Include="ToolHal\UtScenario.cs" />
+    <Compile Include="ToolHal\UtHalBoxTransfer.cs" />
+    <Compile Include="ToolHal\UtHalLoadPort.cs" />
+    <Compile Include="ToolHal\UtHalCleanCh.cs" />
+    <Compile Include="ToolHal\UtHalCabinet.cs" />
+    <Compile Include="ToolHal\UtHalOpenStage.cs" />
+    <Compile Include="ToolHal\UtHalInspectionCh.cs" />
+    <Compile Include="ToolHal\UtHalMaskTransfer.cs" />
+    <Compile Include="ToolHal\UtHalContext.cs" />
+    <Compile Include="ToolHal\UtHalUniversal.cs" />
+    <Compile Include="ToolPlc\PlcTestParamSingleton.cs" />
+    <Compile Include="ToolPlc\UtPlcOpenStage.cs" />
+    <Compile Include="ToolPlc\UtPlcMaskRobot.cs" />
+    <Compile Include="ToolPlc\UtPlcLoadPort.cs" />
+    <Compile Include="ToolPlc\UtPlcInspCh.cs" />
+    <Compile Include="ToolPlc\UtPlcCleanCh.cs" />
+    <Compile Include="ToolPlc\UtPlcCabinet.cs" />
+    <Compile Include="ToolPlc\UtPlcBoxRobot.cs" />
+    <Compile Include="ToolPlc\UtPlcPublicArea.cs" />
+    <Compile Include="ToolPlc\UtPlc.cs" />
     <Compile Include="MacTestMyUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UtTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="UserData\Manifest\Manifest.xml.fake">
+    <None Include="UserData\Manifest\Manifest.xml.develop">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="UserData\Manifest\Manifest.xml.real">
+    <None Include="UserData\Manifest\Manifest.xml.fake">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="UserData\Manifest\Manifest.xml.test">
@@ -181,9 +179,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Device\ReadMe.txt" />
-    <Content Include="MachineRealHal\ReadMe.txt" />
-    <Content Include="MachineRealPlc\ReadMe.txt" />
+    <Content Include="ToolDevice\ReadMe.txt" />
+    <Content Include="ToolHal\ReadMe.txt" />
+    <Content Include="ToolPlc\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

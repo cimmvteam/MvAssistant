@@ -179,6 +179,8 @@
     <Compile Include="Hal\CompPlc\MacHalPlcLoadPort.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcMaskTransfer.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcOpenStage.cs" />
+    <Compile Include="Manifest\MacManifestGenCfgBase.cs" />
+    <Compile Include="Manifest\MacManifestDriverId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\XmlHelper.cs" />
   </ItemGroup>

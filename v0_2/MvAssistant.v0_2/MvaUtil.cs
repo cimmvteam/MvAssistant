@@ -22,17 +22,6 @@ namespace MvAssistant.v0_2
     {
         public static T ChangeType<T>(object data) { return (T)Convert.ChangeType(data, typeof(T)); }
 
-
-        public static T DeserializeBinary<T>(byte[] dataArray)
-        {
-            var bf = new BinaryFormatter();
-            using (var ms = new MemoryStream(dataArray))
-            {
-                var obj = bf.Deserialize(ms);
-                return (T)obj;
-            }
-        }
-
         /// <summary>
         /// 泛型 Enum.Parse
         /// </summary>
@@ -42,43 +31,6 @@ namespace MvAssistant.v0_2
         public static T EnumParse<T>(string val) { return (T)Enum.Parse(typeof(T), val, true); }
 
         public static bool EnumTryParse<T>(String val, out T result) where T : struct { return Enum.TryParse<T>(val, true, out result); }
-
-        public static T[] FromByteArray<T>(byte[] source) where T : struct
-        {
-            T[] destination = new T[source.Length / Marshal.SizeOf(typeof(T))];
-            GCHandle handle = GCHandle.Alloc(destination, GCHandleType.Pinned);
-            try
-            {
-                IntPtr pointer = handle.AddrOfPinnedObject();
-                Marshal.Copy(source, 0, pointer, source.Length);
-                return destination;
-            }
-            finally
-            {
-                if (handle.IsAllocated)
-                    handle.Free();
-            }
-        }
-
-        public static T FromBytes<T>(byte[] buffer)
-        {
-            int size = Marshal.SizeOf(typeof(T));
-            IntPtr ptr = Marshal.AllocHGlobal(size);
-            try
-            {
-                Marshal.Copy(buffer, 0, ptr, size);
-                T data = (T)Marshal.PtrToStructure(ptr, typeof(T));
-                return data;
-            }
-            finally
-            {
-                if (ptr != IntPtr.Zero)
-                    Marshal.FreeHGlobal(ptr);
-            }
-
-
-        }
-
 
 
         /// <summary>
@@ -221,20 +173,65 @@ namespace MvAssistant.v0_2
             bgworker.RunWorkerAsync();
         }
 
-        public static void SaveToXmlFile<T>(T obj, String fn)
+        public static object TryCatch(Action theMethod, params object[] parameters)
         {
-            var seri = new XmlSerializer(typeof(T));
-            var fi = new FileInfo(fn);
-
-            if (!fi.Directory.Exists) fi.Directory.Create();
-
-            using (var stm = fi.Open(FileMode.Create))
+            try
             {
-                seri.Serialize(stm, obj);
+                return theMethod.DynamicInvoke(parameters);
+            }
+            catch (Exception ex)
+            {
+                MvaLog.Write(ex);
+                return ex;
             }
         }
 
 
+        #region Load/Save ; Serialize/Deserialize
+
+        public static T DeserializeBinary<T>(byte[] dataArray)
+        {
+            var bf = new BinaryFormatter();
+            using (var ms = new MemoryStream(dataArray))
+            {
+                var obj = bf.Deserialize(ms);
+                return (T)obj;
+            }
+        }
+        public static T[] FromByteArray<T>(byte[] source) where T : struct
+        {
+            T[] destination = new T[source.Length / Marshal.SizeOf(typeof(T))];
+            GCHandle handle = GCHandle.Alloc(destination, GCHandleType.Pinned);
+            try
+            {
+                IntPtr pointer = handle.AddrOfPinnedObject();
+                Marshal.Copy(source, 0, pointer, source.Length);
+                return destination;
+            }
+            finally
+            {
+                if (handle.IsAllocated)
+                    handle.Free();
+            }
+        }
+        public static T FromBytes<T>(byte[] buffer)
+        {
+            int size = Marshal.SizeOf(typeof(T));
+            IntPtr ptr = Marshal.AllocHGlobal(size);
+            try
+            {
+                Marshal.Copy(buffer, 0, ptr, size);
+                T data = (T)Marshal.PtrToStructure(ptr, typeof(T));
+                return data;
+            }
+            finally
+            {
+                if (ptr != IntPtr.Zero)
+                    Marshal.FreeHGlobal(ptr);
+            }
+
+
+        }
         public static byte[] SerializeBinary(object obj)
         {
             var bf = new BinaryFormatter();
@@ -245,7 +242,6 @@ namespace MvAssistant.v0_2
                 return ms.ToArray();
             }
         }
-
         public static byte[] ToByteArray<T>(T[] source) where T : struct
         {
             GCHandle handle = GCHandle.Alloc(source, GCHandleType.Pinned);
@@ -262,7 +258,6 @@ namespace MvAssistant.v0_2
                     handle.Free();
             }
         }
-
         public static byte[] ToBytes<T>(T obj)
         {
 
@@ -275,18 +270,9 @@ namespace MvAssistant.v0_2
             }
             finally { pinStructure.Free(); }
         }
-        public static object TryCatch(Action theMethod, params object[] parameters)
-        {
-            try
-            {
-                return theMethod.DynamicInvoke(parameters);
-            }
-            catch (Exception ex)
-            {
-                MvaLog.Write(ex);
-                return ex;
-            }
-        }
+
+        #endregion
+
 
         #region Dispose
 
