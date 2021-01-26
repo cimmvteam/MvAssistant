@@ -1,4 +1,4 @@
-﻿using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
+using MvAssistant.v0_2.Mac.JSon.RobotTransferFile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,64 +64,60 @@ namespace MvAssistant.v0_2.Mac.Manifest
         ///  ...依此類推
 
         #region Box Transfer
-        /// <summary>
-        /// DE_BT_ASMBLY: Box Transfer Assembly 整機
-        /// </summary>
+
+        [MacManifestDeviceProgKpi("Box Transfer", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         boxtransfer_assembly,
+        [MacManifestDeviceProgKpi("Box Transfer", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         boxtransfer_plc,
 
-        /// <summary>
-        /// DE_BT_14: 雷射測距Sensor
-        /// </summary>
-        boxtransfer_laser_gripper_1,
+        [MacManifestDeviceProgKpi("Box Transfer", "雷射測距", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
+        boxtransfer_laser_1,
 
-        /// <summary>
-        /// DE_BT_02: Robot CCD
-        /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "夾爪Camera", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         boxtransfer_camera_gripper_1,
 
         /// <summary>
         /// DE_BT_03: 環形光
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "夾爪環形光", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         boxtransfer_light_1,
 
         /// <summary>
         /// DE_BT_12: Robot
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "Robot", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         boxtransfer_robot_1,
 
         /// <summary>
         /// DE_BT_01: 六軸力覺感測
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "六軸力感", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         boxtransfer_force_6axis_sensor_1,
 
         /// <summary>
         /// DE_BT_10: Tactile Sensor (for 開盒PIN腳)
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "開盒觸感1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
         boxtransfer_tactile_1,
 
         /// <summary>
         /// DE_BT_13: Tactile Sensor (for Gripper夾取Box)
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "開盒觸感2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
         boxtransfer_tactile_2,
 
         /// <summary>
         /// DE_BT_09: IC水平儀
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "水平儀", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         boxtransfer_gradienter_1,
 
         /// <summary>
         /// DE_BT_07: Box Gripper (for 15,000 run)
         /// </summary>
+        [MacManifestDeviceProgKpi("Box Transfer", "夾爪", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         boxtransfer_gripper_1,
 
-        /// <summary>
-        /// DE_BT_15: Robot SkinSensor
-        /// </summary>
-        boxtransfer_robot_skin_1,
-
-
-        boxtransfer_vibration,
 
 
         #endregion Box Transfer
@@ -132,44 +128,82 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_DR_ASMBLY: Cabinet Assembly 整機
         /// </summary>
+        [MacManifestDeviceProgKpi("Cabinet", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         cabinet_assembly,
+        [MacManifestDeviceProgKpi("Cabinet", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         cabinet_plc,
 
+
         cabinet_drawer,//無編號版
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 1-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_01_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 1-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_01_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 1-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_01_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 1-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_01_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 1-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_01_05,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 2-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_02_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 2-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_02_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 2-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_02_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 2-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_02_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 2-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_02_05,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 3-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_03_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 3-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_03_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 3-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_03_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 3-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_03_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 3-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_03_05,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 4-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_04_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 4-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_04_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 4-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_04_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 4-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_04_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 4-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_04_05,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 5-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_05_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 5-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_05_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 5-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_05_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 5-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_05_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 5-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_05_05,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 6-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_06_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 6-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_06_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 6-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_06_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 6-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_06_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 6-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_06_05,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 7-1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_07_01,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 7-2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_07_02,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 7-3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cabinet_drawer_07_03,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 7-4", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_07_04,
+        [MacManifestDeviceProgKpi("Cabinet", "Drawer 7-5", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.DontInstall)]
         cabinet_drawer_07_05,
 
         #endregion
@@ -180,73 +214,36 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_CC_ASMBLY: Clean Chamber Assembly 整機
         /// </summary>
+        [MacManifestDeviceProgKpi("Claen Ch.", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         clean_assembly,
+        [MacManifestDeviceProgKpi("Claen Ch.", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         cleanch_plc,
 
-        /// <summary>
-        /// DE_CC_33: Laser Sensor (Side)
-        /// </summary>
-        clean_laser_entry_1,
-
-        /// <summary>
-        /// DE_CC_34: Laser Sensor (Bottom)
-        /// </summary>
-        clean_laser_entry_2,
-
-        /// <summary>
-        /// DE_CC_35: 防碰撞 - 點雷射1
-        /// </summary>
-        clean_laser_prevent_collision_1,
-
-        /// <summary>
-        /// DE_CC_36: 防碰撞 - 點雷射2
-        /// </summary>
-        clean_laser_prevent_collision_2,
-
-        /// <summary>
-        /// DE_CC_37: 防碰撞 - 點雷射3
-        /// </summary>
-        clean_laser_prevent_collision_3,
 
         /// <summary>
         /// DE_CC_06: Particle Inspection CCD
         /// </summary>
+        [MacManifestDeviceProgKpi("Claen Ch.", "Particle", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
         clean_camera_particle_1,
 
         /// <summary>
         /// DE_CC_08: 線光源
         /// </summary>
+        [MacManifestDeviceProgKpi("Claen Ch.", "線光源", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         cleanch_inspection_spot_light_001,
-
-        /// <summary>
-        /// DE_CC_16: PA Counter Sensor
-        /// </summary>
-        clean_particle_counter_1,
 
         /// <summary>
         /// DE_CC_04: Pressure Controller
         /// </summary>
+        [MacManifestDeviceProgKpi("Claen Ch.", "線光源", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         clean_air_pressure_controller_1,
-
-        /// <summary>
-        /// DE_CC_05: 氣體壓力計
-        /// </summary>
-        clean_air_pressure_sensor_1,
-
-        /// <summary>
-        /// DE_CC_17: 壓差計
-        /// </summary>
-        clean_air_pressure_diff_sensor_1,
-
-        /// <summary>
-        /// DE_CC_50: GasValve
-        /// </summary>
-        clean_gas_valve_1,
 
         /// <summary>
         /// DE_CC_23: Ionizer
         /// </summary>
+        [MacManifestDeviceProgKpi("Claen Ch.", "離子靜電消除器", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         clean_ionizer_1,
+
         #endregion Clean Chamber
 
 
@@ -255,48 +252,46 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_IC_ASMBLY: Inspection Chamber Assembly 整機
         /// </summary>
+        [MacManifestDeviceProgKpi("Inspection Ch.", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         inspection_assembly,
+        [MacManifestDeviceProgKpi("Inspection Ch.", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         inspectionch_plc,
-        /// <summary>
-        /// DE_IC_09: XYZR Stage
-        /// </summary>
-        inspection_stage_1,
-
-        /// <summary>
-        /// DE_IC_11: 雷射測距sensor (Side)
-        /// </summary>
-        inspection_laser_entry_1,
-
-        /// <summary>
-        /// DE_IC_20: 雷射測距sensor (Bottom)
-        /// </summary>
-        inspection_laser_entry_2,
 
         /// <summary>
         /// DE_IC_02: Inspection_CCD (Side)
         /// </summary>
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Inspect-Side", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         inspectionch_camera_inspect_side_1,
 
         /// <summary>
         /// DE_IC_03: Inspection_CCD (Top)
         /// </summary>
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Inspect-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         inspection_camera_inspect_top_1,
 
         /// <summary>
         /// DE_IC_15: Defense_CCD (Top)
         /// </summary>
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Defense-Side", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         inspection_camera_defense_side_1,
 
         /// <summary>
         /// DE_IC_21: Defense_CCD (Side)
         /// </summary>
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Defense-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         inspection_camera_defense_top_1,
 
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Circle-Defense-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_circle_defense_top_001,
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Spot-Inspect-Left", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_line_left_001,
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Spot-Inspect-Back", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_line_back_001,
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Circle-Inspect-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_circle_inspection_top_001,
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Bar-Env-Left", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_bar_left_001,
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Bar-Env-Right", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_bar_right_001,
 
 
@@ -305,6 +300,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_IC_10: Particle Counter
         /// </summary>
+        [MacManifestDeviceProgKpi("Inspection Ch.", "Particle Counter", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
         inspection_particle_counter_1,
         #endregion Inspection Chamber
 
@@ -314,66 +310,37 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_LP_ASMBLY: Load Port Assembly 整機
         /// </summary>
+        [MacManifestDeviceProgKpi("Load Port", "組件A", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         loadportA_assembly,
+        [MacManifestDeviceProgKpi("Load Port", "組件B", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         loadportB_assembly,
+        [MacManifestDeviceProgKpi("Load Port", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         loadport_plc,
 
-        /// <summary>
-        /// DE_LP_23: LoadPort Stage
-        /// </summary>
-        loadport_cell_001,
 
-        /// <summary>
-        /// DE_LP_01: Entry Point紅外線(Side)
-        /// </summary>
-        loadport_infrared_entry_1,
 
-        /// <summary>
-        /// DE_LP_02: Entry Point紅外線(Front)
-        /// </summary>
-        loadport_infrared_entry_2,
-
+        [MacManifestDeviceProgKpi("Load Port", "Camera-Inspect-A", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         loadportA_camera_inspect,
+        [MacManifestDeviceProgKpi("Load Port", "Camera-Inspect-B", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         loadportB_camera_inspect,
+        [MacManifestDeviceProgKpi("Load Port", "Camera-Inspect-Barcode", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         loadport_camera_barcode_inspect,
 
-        /// <summary>
-        /// DE_LP_10: Mask Row CCD (Front)
-        /// </summary>
-        loadport_ccd_front_1,
 
-        /// <summary>
-        /// DE_LP_11: Mask Pitch CCD (Side)
-        /// </summary>
-        loadport_ccd_side_1,
 
-        /// <summary>
-        /// DE_LP_12: Mask Direction CCD (Top)
-        /// </summary>
-        loadport_ccd_top_1,
+
 
         /// <summary>
         /// Use of inspection
         /// </summary>
+        [MacManifestDeviceProgKpi("Load Port", "Light-Bar-Env1", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         loadport_light_bar_001,
+        [MacManifestDeviceProgKpi("Load Port", "Light-Bar-Env2", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         loadport_light_bar_002,
+        [MacManifestDeviceProgKpi("Load Port", "Light-Bar-Env3", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         loadport_light_bar_003,//用於Barcode Reader
 
-        /// <summary>
-        /// DE_LP_25: Clamper
-        /// </summary>
-        loadport_clamper_1,
 
-
-        /// <summary>
-        /// DE_LP_26: POD RFID Reader
-        /// </summary>
-        loadport_rfid_reader_1,
-
-        /// <summary>
-        /// DE_LP_27: Plunger
-        /// </summary>
-        loadport_plunger_1,
 
         loadport_1,
         loadport_2,
@@ -386,96 +353,36 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_MT_ASMBLY: Mask Transfer Assembly 整機
         /// </summary>
+        [MacManifestDeviceProgKpi("Mask Transfer", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         masktransfer_assembly,
+        [MacManifestDeviceProgKpi("Mask Transfer", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         masktransfer_plc,
-        /// <summary>
-        /// DE_MT_48: Pellicle型變CCD載台
-        /// </summary>
-        masktransfer_stage_pellicle_deform_1,
 
-        /// <summary>
-        /// DE_MT_12: Pellicle型變CCD
-        /// </summary>
-        masktransfer_ccd_pellicle_deform_1,
 
-        /// <summary>
-        /// 
-        /// </summary>
-        masktransfer_ccd_barcode_reader_1,
-        /// <summary>
-        /// 
-        /// </summary>
+        [MacManifestDeviceProgKpi("Mask Transfer", "Barcode Reader", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
+        masktransfer_barcode_reader_1,
+        [MacManifestDeviceProgKpi("Mask Transfer", "Light-Bar-Barcode", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         masktransfer_light_barcode_1,
         /// <summary>
         /// DE_MT_02: Robot
         /// </summary>
+        [MacManifestDeviceProgKpi("Mask Transfer", "Robot", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         masktransfer_robot_1,
 
         /// <summary>
         /// DE_MT_03: 六軸力覺感測
         /// </summary>
+        [MacManifestDeviceProgKpi("Mask Transfer", "六軸力感", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         masktransfer_force_6axis_sensor_1,
 
-        /// <summary>
-        /// DE_MT_23: [Gripper] Stepper Motor (伺服馬達-1)
-        /// </summary>
-        masktransfer_gripper_01,
-
-        /// <summary>
-        /// DE_MT_24: [Gripper] Stepper Motor (伺服馬達-2)
-        /// </summary>
-        masktransfer_gripper_02,
-
-        /// <summary>
-        /// DE_MT_25: [Gripper] Stepper Motor (伺服馬達-3)
-        /// </summary>
-        masktransfer_gripper_03,
-
-        /// <summary>
-        /// DE_MT_26: [Gripper] Stepper Motor (伺服馬達-4)
-        /// </summary>
-        masktransfer_gripper_04,
-
-        /// <summary>
-        /// DE_MT_19: Tactile Sensor-1
-        /// </summary>
-        masktransfer_tactile_1,
-
-        /// <summary>
-        /// DE_MT_20: Tactile Sensor-2
-        /// </summary>
-        masktransfer_tactile_2,
-
-        /// <summary>
-        /// DE_MT_21: Tactile Sensor-3
-        /// </summary>
-        masktransfer_tactile_3,
-
-        /// <summary>
-        /// DE_MT_22: Tactile Sensor-4
-        /// </summary>
-        masktransfer_tactile_4,
 
         /// <summary>
         /// DE_MT_10: IC水平儀
         /// </summary>
+        [MacManifestDeviceProgKpi("Mask Transfer", "傾角儀", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
         masktransfer_inclinometer01,
 
 
-        /// <summary>
-        /// DE_MT_39: 光遮斷Sensor
-        /// </summary>
-        masktransfer_light_interrupt_1,
-
-        /// <summary>
-        /// DE_MT_42: Robot Skin
-        /// </summary>
-        masktransfer_robot_skin_1,
-
-        /// <summary>
-        /// DE_MT_43: 靜電量測儀
-        /// </summary>
-        masktransfer_static_electricity_detector_1,
         #endregion Mask Transfer
 
 
@@ -484,82 +391,44 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// <summary>
         /// DE_OS_ASMBLY: Open Stage Assembly 整機
         /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         openstage_assembly,
+        [MacManifestDeviceProgKpi("Open Stage", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         openstage_plc,
 
-        /// <summary>
-        /// DE_OS_01: Side CCD
-        /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Camera-Defense-Side", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         openstage_camera_side_1,
-
-        /// <summary>
-        /// DE_OS_03: Top CCD
-        /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Camera-Defense-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         openstage_camera_top_1,
-
-        /// <summary>
-        /// DE_OS_16: Front CCD
-        /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Camera-Defense-Left", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         openstage_camera_left_1,
-
-        /// <summary>
-        /// DE_OS_20: Barcode CCD
-        /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Camera-Defense-Right", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
         openstage_camera_right_1,
 
-        /// <summary>
-        /// DE_OS_18: Light Bar (Top)
-        /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Light-Bar-Defense-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         openstage_light_bar_defense_top_001,
-
-        /// <summary>
-        /// DE_OS_19: Light Bar (Barcode)
-        /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Light-Bar-Defense-Side", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         openstage_light_bar_defense_side_001,
-
+        [MacManifestDeviceProgKpi("Open Stage", "Light-Bar-Defense-Front", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         openstage_light_bar_defense_front_001,
 
         /// <summary>
         /// DE_OS_08: Particle Counter
         /// </summary>
+        [MacManifestDeviceProgKpi("Open Stage", "Particle Counter", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
         openstage_particle_counter_1,
 
-        /// <summary>
-        /// DE_OS_12: 光纖單位 - 測開盒
-        /// </summary>
-        openstage_fiber_optic_open_box_1,
 
-        /// <summary>
-        /// DE_OS_25: 光纖單位 - 測Box種類
-        /// </summary>
-        openstage_fiber_optic_box_category_1,
-
-        /// <summary>
-        /// DE_OS_24: Open Stage底座固定器-1
-        /// </summary>
-        openstage_box_holder_1,
-
-        /// <summary>
-        /// DE_OS_28: Open Stage底座固定器-2
-        /// </summary>
-        openstage_box_holder_2,
-
-        /// <summary>
-        /// DE_OS_22: Auto Switch,NPN,三線式-1
-        /// </summary>
-        openstage_auto_switch_1,
-
-        /// <summary>
-        /// DE_OS_23: Auto Switch,NPN,三線式-2
-        /// </summary>
-        openstage_auto_switch_2,
 
         #endregion Open Stage
 
 
 
         #region Universal
+
+        [MacManifestDeviceProgKpi("Universal", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         universal_assembly,
+        [MacManifestDeviceProgKpi("Universal", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         universal_plc_01,
 
         #endregion Universal
