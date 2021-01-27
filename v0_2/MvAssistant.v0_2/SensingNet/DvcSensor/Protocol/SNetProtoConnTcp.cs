@@ -3,6 +3,7 @@ using CToolkit;
 using CToolkit.v1_1;
 using CToolkit.v1_1.Net;
 using CToolkit.v1_1.Protocol;
+using MvAssistant.v0_2;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -88,9 +89,9 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             this.listener.EhFirstConnect += (sender, e) =>
             {
                 var ea = e as CtkNonStopTcpStateEventArgs;
-                    //this.ActiveWorkClient = ea.workClient;
-                    //this.listener.CleanExclude(this.activeWorkTcpClient);   
-                    this.OnFirstConnect(e);
+                //this.ActiveWorkClient = ea.workClient;
+                //this.listener.CleanExclude(this.activeWorkTcpClient);   
+                this.OnFirstConnect(e);
             };
             this.listener.EhFailConnect += (sender, e) => this.OnFailConnect(e);
             this.listener.EhDisconnect += (sender, e) => this.OnDisconnect(e);
@@ -125,7 +126,7 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public bool IsRemoteConnected { get { var obj = this.ctkProtoConnect; return obj == null ? false : obj.IsRemoteConnected; } }
 
         //用途是避免重複要求連線
-        public int ConnectIfNo() { return this.ConnectIfNoAsyn(); }
+        public int ConnectIfNo() { throw new NotImplementedException(); }
         public int ConnectIfNoAsyn()
         {
             if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectIfNo
@@ -140,12 +141,14 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             if (this.isListener)
             {
                 this.ReloadListener();
-                this.listener.ConnectIfNo();
+                this.listener.IsAsyncAutoRead = true;
+                this.listener.ConnectIfNoAsyn();
             }
             else
             {
                 this.ReloadClient();
-                this.client.ConnectIfNo();
+                this.client.IsAsyncAutoRead = true;
+                this.client.ConnectIfNoAsyn();
             }
 
             return 0;
