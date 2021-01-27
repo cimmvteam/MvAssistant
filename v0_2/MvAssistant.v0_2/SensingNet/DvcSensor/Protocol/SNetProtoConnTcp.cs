@@ -45,7 +45,16 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
 
         public void ReloadClient()
         {
-            if (this.client != null) using (var obj = this.client) obj.Disconnect();
+
+            try
+            {
+                if (this.client != null)
+                    using (var obj = this.client) obj.Disconnect();
+            }
+            catch (Exception) { /*斷線例外不處理?*/ }
+
+
+
             this.client = new CtkTcpClient();
             this.client.LocalUri = this.LocalUri;
             this.client.RemoteUri = this.RemoteUri;
@@ -65,16 +74,23 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         }
         public void ReloadListener()
         {
-            if (this.listener != null) using (var obj = this.listener) obj.Disconnect();
+            try
+            {
+                if (this.listener != null)
+                    using (var obj = this.listener) obj.Disconnect();
+            }
+            catch (Exception) { /*斷線例外不處理?*/ }
+
+
             this.listener = new CtkTcpListener();
             this.listener.LocalUri = this.LocalUri;
 
             this.listener.EhFirstConnect += (sender, e) =>
             {
                 var ea = e as CtkNonStopTcpStateEventArgs;
-                //this.ActiveWorkClient = ea.workClient;
-                //this.listener.CleanExclude(this.activeWorkTcpClient);   
-                this.OnFirstConnect(e);
+                    //this.ActiveWorkClient = ea.workClient;
+                    //this.listener.CleanExclude(this.activeWorkTcpClient);   
+                    this.OnFirstConnect(e);
             };
             this.listener.EhFailConnect += (sender, e) => this.OnFailConnect(e);
             this.listener.EhDisconnect += (sender, e) => this.OnDisconnect(e);

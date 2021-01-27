@@ -598,7 +598,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
 
                 ID = EnuDeviceId.DE_IC_A_ASB.ToString(),
                 DevConnStr = null,
-                DeviceName = MacEnumDevice.inspection_assembly.ToString(),
+                DeviceName = MacEnumDevice.inspectionch_assembly.ToString(),
                 DriverId = MacManifestDriverId.InspectionCh.ToString(),
                 PositionId = MacEnumPositionId.InspectionCh01.ToString(),
                 Devices = new MacManifestDeviceCfg[] {
@@ -664,25 +664,25 @@ namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00:11:1C:F8:C6:26",
-                        DeviceName = MacEnumDevice.inspectionch_camera_inspect_side_1.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_camera_inspect_side_001.ToString(),
                         DriverId = MacManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=TXF-MDT1X150-D35",
-                        DeviceName = MacEnumDevice.inspection_camera_inspect_top_1.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_camera_inspect_top_001.ToString(),
                         DriverId = MacManifestDriverId.CameraFake.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00:11:1C:F9:A4:0A",
-                        DeviceName = MacEnumDevice.inspection_camera_defense_side_1.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_camera_defense_side_001.ToString(),
                         DriverId = MacManifestDriverId.CameraSentech.ToString(),
                     },
 
                     new MacManifestDeviceCfg(){
                         DevConnStr = "id=00:11:1C:F9:A4:0D",
-                        DeviceName = MacEnumDevice.inspection_camera_defense_top_1.ToString(),
+                        DeviceName = MacEnumDevice.inspectionch_camera_defense_top_001.ToString(),
                         DriverId = MacManifestDriverId.CameraSentech.ToString(),
                     },
                 },

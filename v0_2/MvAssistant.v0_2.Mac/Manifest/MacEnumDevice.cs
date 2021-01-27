@@ -253,7 +253,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// DE_IC_ASMBLY: Inspection Chamber Assembly 整機
         /// </summary>
         [MacManifestDeviceProgKpi("Inspection Ch.", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
-        inspection_assembly,
+        inspectionch_assembly,
         [MacManifestDeviceProgKpi("Inspection Ch.", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Install)]
         inspectionch_plc,
 
@@ -261,25 +261,25 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// DE_IC_02: Inspection_CCD (Side)
         /// </summary>
         [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Inspect-Side", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
-        inspectionch_camera_inspect_side_1,
+        inspectionch_camera_inspect_side_001,
 
         /// <summary>
         /// DE_IC_03: Inspection_CCD (Top)
         /// </summary>
         [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Inspect-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
-        inspection_camera_inspect_top_1,
+        inspectionch_camera_inspect_top_001,
 
         /// <summary>
         /// DE_IC_15: Defense_CCD (Top)
         /// </summary>
         [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Defense-Side", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
-        inspection_camera_defense_side_1,
+        inspectionch_camera_defense_side_001,
 
         /// <summary>
         /// DE_IC_21: Defense_CCD (Side)
         /// </summary>
         [MacManifestDeviceProgKpi("Inspection Ch.", "Camera-Defense-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.FailCabling)]
-        inspection_camera_defense_top_1,
+        inspectionch_camera_defense_top_001,
 
         [MacManifestDeviceProgKpi("Inspection Ch.", "Light-Circle-Defense-Top", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.Cabling)]
         inspectionch_light_circle_defense_top_001,
@@ -295,13 +295,11 @@ namespace MvAssistant.v0_2.Mac.Manifest
         inspectionch_light_bar_right_001,
 
 
-
-
         /// <summary>
         /// DE_IC_10: Particle Counter
         /// </summary>
         [MacManifestDeviceProgKpi("Inspection Ch.", "Particle Counter", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.None)]
-        inspection_particle_counter_1,
+        inspectionch_particle_counter_1,
         #endregion Inspection Chamber
 
 

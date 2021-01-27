@@ -168,6 +168,7 @@
     <Compile Include="Manifest\Exceptions\MacWrongDriverException.cs" />
     <Compile Include="Manifest\Exceptions\MacNoPropertyException.cs" />
     <Compile Include="Manifest\MacManifestDeviceCfg.cs" />
+    <Compile Include="Manifest\MacManifestDeviceProgKpiAttribute.cs" />
     <Compile Include="Manifest\MacManifestDriverCfg.cs" />
     <Compile Include="Manifest\MacManifestCfg.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcEnumVariable.cs" />

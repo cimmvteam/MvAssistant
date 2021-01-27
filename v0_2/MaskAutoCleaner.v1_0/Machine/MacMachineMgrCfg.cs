@@ -34,7 +34,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// </summary>
         /// <param name="cfg">MachineManifest object</param>
         /// <param name="filePath">xml file path for saving</param>
-        public static void SaveToXmlFile(MacMachineMgrCfg cfg, string filePath) { MvaUtil.SaveXmlToFile<MacMachineMgrCfg>(cfg, filePath); }
+        public static void SaveToXmlFile(MacMachineMgrCfg cfg, string filePath) { MvaUtil.SaveXmlToFile(cfg, filePath); }
 
         #endregion
 

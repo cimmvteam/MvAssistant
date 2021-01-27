@@ -213,7 +213,7 @@ namespace MvAssistant.v0_2
                 seri.Serialize(stm, obj);
             }
         }
-        public static void SaveToXmlFileT<T>(T obj, String fn)
+        public static void SaveXmlToFileT<T>(T obj, String fn)
         {
             var seri = new System.Xml.Serialization.XmlSerializer(typeof(T));
             var fi = new FileInfo(fn);

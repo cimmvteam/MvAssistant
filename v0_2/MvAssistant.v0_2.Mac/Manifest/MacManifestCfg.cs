@@ -56,7 +56,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
         /// </summary>
         /// <param name="manifest">MachineManifest object</param>
         /// <param name="filePath">xml file path for saving</param>
-        public static void SaveToXmlFile(MacManifestCfg manifest, string filePath) { MvaUtil.SaveXmlToFile<MacManifestCfg>(manifest, filePath); }
+        public static void SaveToXmlFile(MacManifestCfg manifest, string filePath) { MvaUtil.SaveXmlToFile(manifest, filePath); }
         #endregion
 
 
