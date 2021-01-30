@@ -356,8 +356,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<double, double>(
-                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R),
-                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_L)
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_L),
+                plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_Robot_AboutLimit_R)
                 );
         }
 
