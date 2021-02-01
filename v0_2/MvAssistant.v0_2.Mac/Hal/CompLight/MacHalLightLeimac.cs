@@ -1,4 +1,4 @@
-﻿using MvAssistant.v0_2.DeviceDrive.LeimacLight;
+using MvAssistant.v0_2.DeviceDrive.LeimacLight;
 using System;
 using System.Runtime.InteropServices;
 
