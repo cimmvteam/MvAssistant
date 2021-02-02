@@ -26,8 +26,8 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
                 return CtkNetUtil.ToIPEndPoint(this.TcpClient.RemoteUri);
             }
         }
-        public string RemoteIp { get { return this.RemoteEp.Address.ToString(); } set { this.RemoteEp.Address = IPAddress.Parse(value); } }
-        public int RemotePort { get { return this.TcpClient.RemoteUri.Port; } set { this.TcpClient.RemoteUri = CtkNetUtil.ToUri(this.TcpClient.RemoteUri.Host, value); } }
+        public string RemoteIp { get { return this.RemoteEp.Address.ToString(); } set { this.TcpClient.RemoteUri = CtkNetUtil.ToUri(value, this.RemotePort); } }
+        public int RemotePort { get { return this.RemoteEp.Port; } set { this.TcpClient.RemoteUri = CtkNetUtil.ToUri(this.RemoteIp, value); } }
         public MvaEnumLeimacModel Model = MvaEnumLeimacModel.None;
 
 
