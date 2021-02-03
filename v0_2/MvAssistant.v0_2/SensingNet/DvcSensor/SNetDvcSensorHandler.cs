@@ -140,7 +140,7 @@ namespace SensingNet.v0_2.DvcSensor
         {
             try
             {
-                this.ProtoConn.ConnectIfNo();//內部會處理重複要求連線
+                this.ProtoConn.ConnectIfNoAsyn();//內部會處理重複要求連線
                 this.RealExec();
 
             }
