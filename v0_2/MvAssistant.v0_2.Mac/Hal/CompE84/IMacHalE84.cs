@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.Mac.v1_0.Hal.Component
+namespace MvAssistant.v0_2.Mac.Hal.CompE84
 {
-    [GuidAttribute("7C9BB031-050D-4B6A-94D3-A2398C33648E")]
-    public interface IHalModbus : IMacHalComponent
+    [Guid("FC4B2831-DE8D-4D65-83A9-F45C4171B44A")]
+    public interface IMacHalE84: IMacHalComponent
     {
     }
 }

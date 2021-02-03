@@ -103,6 +103,8 @@
     <Compile Include="Hal\CompDrawer\MacHalDrawerFake.cs" />
     <Compile Include="Hal\CompDrawer\MacHalDrawerKjMachine.cs" />
     <Compile Include="Hal\CompDrawer\IMacHalDrawer.cs" />
+    <Compile Include="Hal\CompE84\IMacHalE84.cs" />
+    <Compile Include="Hal\CompE84\MacHalE84Aml.cs" />
     <Compile Include="Hal\CompLight\MacHalLightFake.cs" />
     <Compile Include="Hal\CompLight\MacHalLightLeimac.cs" />
     <Compile Include="Hal\CompLight\IMacHalLight.cs" />

@@ -76,8 +76,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLight
             return 0;
         }
 
-
-
         #endregion
 
 
