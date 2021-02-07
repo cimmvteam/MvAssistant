@@ -147,7 +147,7 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             else
             {
                 this.ReloadClient();
-                this.client.IsAsyncAutoRead = true;
+                this.client.IsAsynAutoRead = true;
                 this.client.ConnectIfNoAsyn();
             }
 
