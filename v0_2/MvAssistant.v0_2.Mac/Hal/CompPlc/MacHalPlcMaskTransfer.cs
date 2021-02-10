@@ -319,16 +319,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 );
         }
 
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()
         {
             var plc = this.plcContext;
-            return new Tuple<int, int, int, int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceFx),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceFy),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceFz),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceMx),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceMy),
-                plc.Read<int>(MacHalPlcEnumVariable.MT_TO_PC_ForceMz)
+            return new Tuple<double, double, double, double, double, double>(
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_ForceFx),
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_ForceFy),
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_ForceFz),
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_ForceMx),
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_ForceMy),
+                plc.Read<double>(MacHalPlcEnumVariable.MT_TO_PC_ForceMz)
                 );
         }
         #endregion

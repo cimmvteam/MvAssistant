@@ -33,7 +33,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting();
 
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensor();
 
         void SetClampTactileLim(int? TactileLimit_Up, int? TactileLimit_Down);
 

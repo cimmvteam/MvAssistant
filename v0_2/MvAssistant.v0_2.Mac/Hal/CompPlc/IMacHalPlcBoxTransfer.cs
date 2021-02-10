@@ -39,7 +39,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         double ReadHandPosByLSR();
         double ReadClampDistance();
         Tuple<double, double> ReadLevelSensor();
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensor();
         bool ReadHandVacuum();
         bool ReadBT_FrontLimitSenser();
         bool ReadBT_RearLimitSenser();

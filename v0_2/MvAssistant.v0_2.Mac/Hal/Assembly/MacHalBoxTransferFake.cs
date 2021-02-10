@@ -703,7 +703,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取六軸力覺Sensor數值
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()
         { return Plc.ReadSixAxisSensor(); }
 
         /// <summary>

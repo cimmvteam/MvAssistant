@@ -421,7 +421,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取六軸Sensor數值，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()
         { return Plc.ReadSixAxisSensor(); }
 
         /// <summary>

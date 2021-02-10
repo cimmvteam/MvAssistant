@@ -166,7 +166,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取六軸Sensor數值，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensor();
         /// <summary>
         /// 讀取靜電測量值
         /// </summary>

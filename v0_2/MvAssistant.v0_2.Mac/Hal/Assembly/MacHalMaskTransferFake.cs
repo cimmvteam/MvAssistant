@@ -95,9 +95,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return "";
         }
 
-        public Tuple<int, int, int, int, int, int> ReadSixAxisSensor()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()
         {
-            return new Tuple<int, int, int, int, int, int>(1,1,1,1,1,1);
+            return new Tuple<double, double, double, double, double, double>(1,1,1,1,1,1);
         }
 
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()

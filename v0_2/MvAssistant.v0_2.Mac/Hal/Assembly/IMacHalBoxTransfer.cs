@@ -158,7 +158,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取六軸力覺Sensor數值
         /// </summary>
         /// <returns></returns>
-        Tuple<int, int, int, int, int, int> ReadSixAxisSensor();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensor();
 
         /// <summary>
         /// 確認Hand吸塵狀態
