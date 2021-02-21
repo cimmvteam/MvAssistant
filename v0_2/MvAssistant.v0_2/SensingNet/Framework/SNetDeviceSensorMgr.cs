@@ -1,6 +1,7 @@
 using CToolkit;
 using CToolkit.v1_1;
 using CToolkit.v1_1.Config;
+using CToolkit.v1_1.ContextFlow;
 using SensingNet.v0_2.DvcSensor;
 using SensingNet.v0_2.DvcSensor.SignalTrans;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SensingNet.v0_2.Framework
 {
-    public class SNetDeviceSensorMgr : IDisposable, ICtkContextFlowRun
+    public class SNetDeviceSensorMgr :  ICtkContextFlowRun, IDisposable
     {
 
         public String DefaultConfigsFilder = "Config/DeviceConfigs";

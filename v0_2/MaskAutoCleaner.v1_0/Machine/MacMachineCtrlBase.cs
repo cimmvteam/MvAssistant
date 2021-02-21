@@ -39,10 +39,10 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
         #region IMvContextFlow
-        public virtual int MvCfInit() { return 0; }
-        public virtual int MvCfLoad() { return 0; }
-        public virtual int MvCfUnload() { return 0; }
-        public virtual int MvCfFree()
+        public virtual int MvaCfInit() { return 0; }
+        public virtual int MvaCfLoad() { return 0; }
+        public virtual int MvaCfUnload() { return 0; }
+        public virtual int MvaCfFree()
         {
             this.DisposeSelf();
             return 0;

@@ -27,8 +27,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <param name="instance"></param>
         public static void InitialAndLoad(this MacHalContext instance)
         {
-            instance.MvCfInit();
-            instance.MvCfLoad();
+            instance.MvaCfInit();
+            instance.MvaCfLoad();
         }
 
         /// <summary>取得 universal Assembly instance</summary>

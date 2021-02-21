@@ -17,8 +17,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
 
                 try
                 {
-                    machineMgr.MvCfInit();
-                    machineMgr.MvCfLoad();
+                    machineMgr.MvaCfInit();
+                    machineMgr.MvaCfLoad();
                     
                     machineMgr.RecipeMgr.LoaddRecipe("../../UserData/Recipe/RecipeFlow_BankIn.xml");
                     machineMgr.SimulateFakeNormalAsyn();
@@ -26,8 +26,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
                     machineMgr.RecipeMgr.Execute();
 
 
-                    machineMgr.MvCfUnload();
-                    machineMgr.MvCfFree();
+                    machineMgr.MvaCfUnload();
+                    machineMgr.MvaCfFree();
                     
                 }
                 catch (Exception ex) { MvaLog.WarnNs(this, ex); }

@@ -33,7 +33,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             try
             {
                 var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
                 var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalCabinet;
                 var drawer= cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                 var connected=drawer.HalConnect();
@@ -60,8 +60,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    halContext.MvCfInit();
-                    halContext.MvCfLoad();
+                    halContext.MvaCfInit();
+                    halContext.MvaCfLoad();
                    // halContext.MvCfInit();
                     //halContext.MvCfLoad();
 
@@ -321,7 +321,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             try
             {
                     halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-                    halContext.MvCfLoad();
+                    halContext.MvaCfLoad();
                     cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                     testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                     testDrawer.HalConnect();
@@ -452,7 +452,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             try
             {
                 halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
                 cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
                 testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                 testDrawer.HalConnect();

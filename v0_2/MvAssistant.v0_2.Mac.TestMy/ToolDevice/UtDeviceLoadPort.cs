@@ -668,7 +668,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -684,7 +684,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -700,7 +700,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -717,7 +717,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         {
             using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;

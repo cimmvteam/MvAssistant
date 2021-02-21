@@ -35,7 +35,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         #region IMvContextFlow
 
-        public int MvCfInit()
+        public int MvaCfInit()
         {
             this.Mediater = new MacMachineMediater(this);
             this.RecipeMgr = new MacRecipeMgr(this);
@@ -44,7 +44,7 @@ namespace MaskAutoCleaner.v1_0.Machine
             this.Config = MacMachineMgrCfg.LoadFromXmlFile();//先載入整機的Config
 
             this.HalContext = new MacHalContext(this.Config.ManifestCfgPath);//將Manifest路徑交給HalContext載入
-            this.HalContext.MvCfInit();
+            this.HalContext.MvaCfInit();
 
             foreach (var row in this.Config.MachineCtrls)
             {
@@ -63,15 +63,15 @@ namespace MaskAutoCleaner.v1_0.Machine
                 machine.HalAssembly = hal.Value as MacHalAssemblyBase;
                 machine.HalAssembly.HalConnect();
             }
-            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfInit());
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvaCfInit());
 
             return 0;
         }
 
-        public int MvCfLoad()
+        public int MvaCfLoad()
         {
-            this.HalContext.MvCfLoad();
-            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfLoad());
+            this.HalContext.MvaCfLoad();
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvaCfLoad());
 
 
             //d20201103 系統載入時, 都需要對所有 Control Machine 的 State Machine 執行 SystemBootup
@@ -81,17 +81,17 @@ namespace MaskAutoCleaner.v1_0.Machine
             return 0;
         }
 
-        public int MvCfUnload()
+        public int MvaCfUnload()
         {
-            this.HalContext.MvCfUnload();
-            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfUnload());
+            this.HalContext.MvaCfUnload();
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvaCfUnload());
             return 0;
         }
 
-        public int MvCfFree()
+        public int MvaCfFree()
         {
-            this.HalContext.MvCfFree();
-            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvCfFree());
+            this.HalContext.MvaCfFree();
+            MvaUtil.Foreach(this.CtrlMachines.Values, m => m.MvaCfFree());
             this.DisposeSelf();
             return 0;
         }

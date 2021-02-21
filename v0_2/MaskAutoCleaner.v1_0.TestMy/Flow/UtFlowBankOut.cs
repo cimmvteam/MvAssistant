@@ -18,8 +18,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
                 try
                 {
 
-                    machineMgr.MvCfInit();
-                    machineMgr.MvCfLoad();
+                    machineMgr.MvaCfInit();
+                    machineMgr.MvaCfLoad();
 
 
 
@@ -28,8 +28,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Flow
 
 
 
-                    machineMgr.MvCfUnload();
-                    machineMgr.MvCfFree();
+                    machineMgr.MvaCfUnload();
+                    machineMgr.MvaCfFree();
 
                 }
                 catch (Exception ex) { MvaLog.WarnNs(this, ex); }

@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public UtMcBoxTransfer()
         {
             MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
             StateMachine= MachineCtrl.StateMachine;
         }

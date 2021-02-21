@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void OCAP()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var LPAMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var LPBMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
@@ -97,7 +97,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void BankIn(BoxrobotTransferLocation drawerLocation, BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var LPAMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var LPBMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
@@ -149,7 +149,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void BankOut(BoxrobotTransferLocation drawerLocation,BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var LPAMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var LPBMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;

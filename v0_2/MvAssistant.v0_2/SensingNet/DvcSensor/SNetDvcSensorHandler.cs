@@ -14,6 +14,7 @@ using CToolkit.v1_1.Threading;
 using CToolkit.v1_1.Logging;
 using SensingNet.v0_2.DvcSensor.Protocol;
 using SensingNet.v0_2.DvcSensor.SignalTrans;
+using CToolkit.v1_1.ContextFlow;
 
 namespace SensingNet.v0_2.DvcSensor
 {

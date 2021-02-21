@@ -24,8 +24,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
             {
                 using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
-                    halContext.MvCfInit();
-                    halContext.MvCfLoad();
+                    halContext.MvaCfInit();
+                    halContext.MvaCfLoad();
 
                     var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                     var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
