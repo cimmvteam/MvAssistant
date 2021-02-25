@@ -12,22 +12,22 @@ namespace MvAssistant.v0_2
         /// 初始化資源/參數
         /// </summary>
         /// <returns></returns>
-        int MvCfInit();
+        int MvaCfInit();
         /// <summary>
         /// 載入資源
         /// </summary>
         /// <returns></returns>
-        int MvCfLoad();
+        int MvaCfLoad();
         /// <summary>
         /// 御載資源
         /// </summary>
         /// <returns></returns>
-        int MvCfUnload();
+        int MvaCfUnload();
         /// <summary>
         /// 釋放資源
         /// </summary>
         /// <returns></returns>
-        int MvCfFree();
+        int MvaCfFree();
 
     }
 }

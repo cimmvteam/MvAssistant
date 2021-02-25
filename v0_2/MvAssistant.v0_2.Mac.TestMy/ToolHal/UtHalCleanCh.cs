@@ -16,7 +16,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -32,7 +32,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -52,7 +52,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -72,8 +72,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvCfInit();
-                halContext.MvCfLoad();
+                halContext.MvaCfInit();
+                halContext.MvaCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -96,7 +96,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
 
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
@@ -114,7 +114,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvCfLoad();
+                halContext.MvaCfLoad();
                 var cc = halContext.HalDevices[MacEnumDevice.clean_assembly.ToString()] as MacHalCleanCh;
                 var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
                 uni.HalConnect();

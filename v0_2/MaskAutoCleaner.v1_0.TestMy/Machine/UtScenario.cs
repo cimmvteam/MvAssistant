@@ -21,7 +21,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MTMoveToLPAGetAndPut()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var LPAMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var LPBMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
@@ -44,7 +44,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MTMoveToLPBGetAndPut()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var LPAMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var LPBMC = MachineMgr.CtrlMachines[EnumMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
@@ -67,7 +67,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MTMoveToICForInspectMask()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
             var ICMC = MachineMgr.CtrlMachines[EnumMachineID.MID_IC_A_ASB.ToString()] as MacMcInspectionCh;
             var ICMS = ICMC.StateMachine;
@@ -95,7 +95,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MTMoveToCCForCleanMask()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
             var CCMC = MachineMgr.CtrlMachines[EnumMachineID.MID_CC_A_ASB.ToString()] as MacMcCleanCh;
             var CCMS = CCMC.StateMachine;
@@ -146,7 +146,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void MTMoveToOSGetAndPut(BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_MT_A_ASB.ToString()] as MacMcMaskTransfer;
             var OSMC = MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as MacMcOpenStage;
             var BTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
@@ -191,7 +191,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation, BoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var BTMC = MachineMgr.CtrlMachines[EnumMachineID.MID_BT_A_ASB.ToString()] as MacMcBoxTransfer;
             var CBMC = MachineMgr.CtrlMachines[EnumMachineID.MID_DRAWER_01_01.ToString()] as MacMcCabinetDrawer;
             var BTMS = BTMC.StateMachine;

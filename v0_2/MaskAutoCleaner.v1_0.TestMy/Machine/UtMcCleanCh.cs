@@ -12,7 +12,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void TestMethod1()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_CC_A_ASB.ToString()] as MacMcCleanCh;
             var MS = MachineCtrl.StateMachine;
             MS.SystemBootup();

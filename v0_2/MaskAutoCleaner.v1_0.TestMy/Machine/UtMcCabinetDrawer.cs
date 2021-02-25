@@ -23,7 +23,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             var DrawerMachineIdRange = EnumMachineID.MID_DRAWER_01_01.GetDrawerStateMachineIDRange();
             
            var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             MachineControls = new List<MacMcCabinetDrawer>();
             DicStateMachines = new Dictionary<EnumMachineID, MacMsCabinetDrawer>();
            

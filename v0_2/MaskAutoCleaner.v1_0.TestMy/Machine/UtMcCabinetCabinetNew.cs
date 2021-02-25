@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public UtMcCabinetCabinetNew()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_CB_A_ASB.ToString()] as MacMcCabinet;
             Machine = MachineCtrl.StateMachine;
         }

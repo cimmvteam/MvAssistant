@@ -12,7 +12,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void InputMask()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as MacMcOpenStage;
             var MS = MachineCtrl.StateMachine;
 
@@ -38,7 +38,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         public void ReleaseMask()
         {
             var MachineMgr = new MacMachineMgr();
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MachineCtrl = MachineMgr.CtrlMachines[EnumMachineID.MID_OS_A_ASB.ToString()] as MacMcOpenStage;
             var MS = MachineCtrl.StateMachine;
 

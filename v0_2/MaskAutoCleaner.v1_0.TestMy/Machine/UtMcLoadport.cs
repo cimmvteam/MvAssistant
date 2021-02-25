@@ -22,7 +22,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
            
             var MachineMgr = new MacMachineMgr();
 
-            MachineMgr.MvCfInit();
+            MachineMgr.MvaCfInit();
             var MachineCtrlA = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_A_ASB.ToString()] as MacMcLoadPort;
             var MachineCtrlB = MachineMgr.CtrlMachines[EnumLoadportStateMachineID.MID_LP_B_ASB.ToString()] as MacMcLoadPort;
             StateMachineA = MachineCtrlA.StateMachine;

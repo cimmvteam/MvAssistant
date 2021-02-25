@@ -66,12 +66,12 @@ namespace MvAssistant.v0_2.Mac.Hal
 
         #region IMvContextFlow
 
-        public int MvCfFree()
+        public int MvaCfFree()
         {
             this.DisposeSelf();
             return 0;
         }
-        public int MvCfInit()
+        public int MvaCfInit()
         {
             if (!string.IsNullOrEmpty(this.Path))
                 this.manifest = MacManifestCfg.LoadFromXmlFile(this.Path);
@@ -85,12 +85,12 @@ namespace MvAssistant.v0_2.Mac.Hal
 
             return 0;
         }
-        public int MvCfLoad()
+        public int MvaCfLoad()
         {
 
             return 0;
         }
-        public int MvCfUnload()
+        public int MvaCfUnload()
         {
             this.HalClose();
             return 0;
