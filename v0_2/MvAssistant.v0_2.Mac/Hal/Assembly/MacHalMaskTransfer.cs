@@ -19,6 +19,18 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         #endregion Device Components
 
+        /// <summary> 讀取檔案的路徑點位 </summary>
+        /// <param name="PathFileLocation"></param>
+        /// <returns></returns>
+        public List<HalRobotMotion> ReadFilePosition(string PathFileLocation)
+        { return Robot.ReadMovePath(PathFileLocation); }
+
+        /// <summary> 帶入點位資訊，移動Robot </summary>
+        /// <param name="MovePosition"></param>
+        /// <returns></returns>
+        public int ExePathMove(List<HalRobotMotion> MovePosition)
+        { return Robot.ExePosMove(MovePosition); }
+
         /// <summary>
         /// 給點位清單，依序移動
         /// </summary>

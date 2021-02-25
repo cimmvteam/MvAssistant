@@ -37,6 +37,10 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         BackSideCapture,
         BarcodeReader,
         InspDeform,
+        CCFrontSideCleanMaskCenter,
+        CCFrontSideInspectMaskCenter,
+        CCBackSideCleanMaskCenter,
+        CCBackSideInspectMaskCenter,
     }
     public static class MaskrobotTransferLocationExtends
     {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompRobot;
+using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace MvAssistant.v0_2.Mac.Hal.Assembly
@@ -6,6 +8,16 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("6412D4A0-41F3-4659-B12B-7A8BF9399BAE")]
     public interface IMacHalMaskTransfer : IMacHalAssembly
     {
+        /// <summary> 讀取檔案的路徑點位 </summary>
+        /// <param name="PathFileLocation"></param>
+        /// <returns></returns>
+        List<HalRobotMotion> ReadFilePosition(string PathFileLocation);
+
+        /// <summary> 帶入點位資訊，移動Robot </summary>
+        /// <param name="MovePosition"></param>
+        /// <returns></returns>
+        int ExePathMove(List<HalRobotMotion> MovePosition);
+
         /// <summary>
         /// 給點位清單，依序移動
         /// </summary>

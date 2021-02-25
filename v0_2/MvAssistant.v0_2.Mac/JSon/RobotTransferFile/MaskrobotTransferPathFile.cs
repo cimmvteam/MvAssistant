@@ -13,11 +13,11 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         public MaskrobotTransferPathFile(string path) : base(path) { }
         public MaskrobotTransferPathFile(string path, string extendedName) : base(path, extendedName) { }
         public const string FileConnectionString = "To";
-        private string HomeFile(MaskrobotTransferLocation home)
+        private string SinglePositionFile(MaskrobotTransferLocation PositionName)
         {
-             // vs 2013
+            // vs 2013
             //string fileName = $"{this.FilePath}{home.ToText()}{this.ExetendedFileName}";
-            string fileName =this.FilePath + home.ToText() + this.ExetendedFileName;
+            string fileName = this.FilePath + PositionName.ToText() + this.ExetendedFileName;
             return fileName;
         }
 
@@ -25,22 +25,31 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         {
             // vs 2013
             // string fileName = $"{this.FilePath}{startPoint.ToText()}{MaskrobotTransferPathFile.FileConnectionString}{destination.ToText()}{this.ExetendedFileName}";
-            string fileName = this.FilePath + startPoint.ToText()+ MaskrobotTransferPathFile.FileConnectionString + destination.ToText()+ this.ExetendedFileName ;
+            string fileName = this.FilePath + startPoint.ToText() + MaskrobotTransferPathFile.FileConnectionString + destination.ToText() + this.ExetendedFileName;
             return fileName;
         }
 
         public string LoadPortHomePathFile()
         {
-            return HomeFile(MaskrobotTransferLocation.LoadPortHome);
+            return SinglePositionFile(MaskrobotTransferLocation.LoadPortHome);
         }
         public string InspChHomePathFile()
         {
-            return HomeFile(MaskrobotTransferLocation.InspChHome);
+            return SinglePositionFile(MaskrobotTransferLocation.InspChHome);
         }
         public string CleanChHomePathFile()
         {
-            return HomeFile(MaskrobotTransferLocation.CleanChHome);
+            return SinglePositionFile(MaskrobotTransferLocation.CleanChHome);
         }
+
+        public string CCFrontSideCleanMaskCenterFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.CCFrontSideCleanMaskCenter); }
+        public string CCFrontSideInspectMaskCenterFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.CCFrontSideInspectMaskCenter); }
+        public string CCBackSideCleanMaskCenterFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.CCBackSideCleanMaskCenter); }
+        public string CCBackSideInspectMaskCenterFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.CCBackSideInspectMaskCenter); }
 
         public string FromLPHomeToLP1PathFile()
         {
@@ -180,7 +189,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         public string FromBackSideCaptureFinishToCCPathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.BackSideCapture, MaskrobotTransferLocation.CC);
-         }
+        }
         public string FromLPHomeToBarcodeReaderPathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.LPHome, MaskrobotTransferLocation.BarcodeReader);

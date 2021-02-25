@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using MvAssistant.v0_2.Mac.Hal.CompRobot;
 
 namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
@@ -31,6 +32,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         }
 
         public int ExePathMove(string PathFileLocation)
+        {
+            return 0;
+        }
+
+        public int ExePathMove(List<HalRobotMotion> MovePosition)
         {
             return 0;
         }
@@ -73,6 +79,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public Tuple<int, int, int, int, int, int> ReadClampTactile_RightSide()
         {
             return new Tuple<int, int, int, int, int, int>(1,1,1,1,1,1);
+        }
+
+        public List<HalRobotMotion> ReadFilePosition(string PathFileLocation)
+        {
+            return new List<HalRobotMotion>();
         }
 
         public Tuple<double, double, double, double, double, double> ReadHandInspection()
