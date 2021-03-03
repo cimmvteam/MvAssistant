@@ -1,0 +1,41 @@
+using CodeExpress.v1_0.Secs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MaskAutoCleaner.v1_0.Msg.SecsMsg
+{
+
+    /// <summary>
+    /// Secs 內容變更, 只需修改 Prescribed 類別
+    /// </summary>
+    public class MacS01F03 : MacSecsMsgBase
+    {
+
+        public MacS01F03()
+        {
+            this.SecsMessageInst.header.StreamId = 1;
+            this.SecsMessageInst.header.FunctionId = 3;
+        }
+        public MacS01F03(CxHsmsMessage msg) { this.SecsMessageInst = msg; }
+
+
+        public CxSecsIINodeList RootList { get { return this.SecsMessageInst.rootNode as CxSecsIINodeList; } set { this.SecsMessageInst.rootNode = value; } }
+
+        public static MacS01F03 Create(CxHsmsMessage secsMsg = null)
+        {
+            CxHsmsMgr.CxSetup();
+            if (secsMsg == null) return new MacS01F03();
+            return new MacS01F03() { SecsMessageInst = secsMsg };
+        }
+
+        public static MacS01F03 Create(string sml)
+        {
+            CxHsmsMgr.CxSetup();
+            var secsMsg = CxHsmsMessage.GetFromSml(sml);
+            return new MacS01F03() { SecsMessageInst = secsMsg };
+        }
+    }
+}
