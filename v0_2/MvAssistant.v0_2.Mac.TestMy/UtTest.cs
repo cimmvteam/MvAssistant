@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2.Mac.TestMy
         public void TestMethod1()
         {
 
-            var robotInfo = new MvFanucRobotInfo();
+            var robotInfo = new MvaFanucRobotInfo();
 
             
 

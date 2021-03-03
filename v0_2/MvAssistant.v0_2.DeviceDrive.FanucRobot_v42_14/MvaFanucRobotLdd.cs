@@ -45,14 +45,14 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 
         public bool IsInitialFanucAPI = true;
         public bool isUnderSystemRecoverAuto = false;
-        public MvFanucRobotInfo m_currRobotInfo = new MvFanucRobotInfo();
+        public MvaFanucRobotInfo m_currRobotInfo = new MvaFanucRobotInfo();
         public string RobotIp;
         private bool HasRobotFaultStatus = false;
         private object lockCurRobotInfo = new object();
         ManualResetEvent mreInitialFanucAPI = new ManualResetEvent(false);
         ~MvFanucRobotLdd() { this.Dispose(false); }
 
-        public MvFanucRobotInfo CurRobotInfo
+        public MvaFanucRobotInfo CurRobotInfo
         {
             get
             {
@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
         }
 
 
-        public MvFanucRobotInfo GetCurrRobotInfo()
+        public MvaFanucRobotInfo GetCurrRobotInfo()
         {
             lock (lockCurRobotInfo)
             {
@@ -106,7 +106,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
                 HasRobotFault(ref msg, ref alarmInfo);
 
 
-                var robotInfo = new MvFanucRobotInfo();
+                var robotInfo = new MvaFanucRobotInfo();
                 mobjCurPosUF.GetValue(ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray,
                                      ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
                 robotInfo.robotTime = DateTime.Now;
@@ -606,9 +606,9 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
                 mobjPosReg.SetValueXyzwpr(PRno, ref xyzwprArray, ref CurRobotInfo.configArray, PRUF, PRUT);
         }
 
-        public MvFanucRobotInfo ReadPosReg(int prno=0)
+        public MvaFanucRobotInfo ReadPosReg(int prno=0)
         {
-            var robotInfo = new MvFanucRobotInfo();
+            var robotInfo = new MvaFanucRobotInfo();
             lock (this)
                 mobjPosReg.GetValue(prno, ref robotInfo.posArray, ref robotInfo.configArray, ref robotInfo.jointArray, ref robotInfo.userFrame, ref robotInfo.userTool, ref robotInfo.validC, ref robotInfo.validJ);
 

@@ -15,7 +15,7 @@ namespace MaskCleanerVerify
     public partial class FmRobotPath : Form
     {
         //  Type PotisionType = typeof(HalRobotMotion);
-        private MvFanucRobotLdd ldd = new MvFanucRobotLdd();
+        private MvaFanucRobotLdd ldd = new MvaFanucRobotLdd();
         /// <summary>最後訪問的點位</summary>
         private HalRobotMotion TempCurrentPosition { get; set; }
         /// <summary>準備記錄點位的集合</summary>
@@ -142,7 +142,7 @@ namespace MaskCleanerVerify
                 var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
 #else
                 var currentPos = GetCurrentPosUf();
-                var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                var currentMotion = new ClassHelper().ClonPropertiesValue<MvaFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
 #endif                
                 currentMotion.Speed = GetSpeedFromControlle();
                 currentMotion.MotionType = GetMotionType();
@@ -389,7 +389,7 @@ namespace MaskCleanerVerify
 #if NO_DEVICE
 #else
                 groupBox1.Enabled = false;
-                ldd = new MvFanucRobotLdd();
+                ldd = new MvaFanucRobotLdd();
                 this.ldd.RobotIp = this.RobotPathFileConfigSet.GetCurrentConfig(CmbBoxDeviceName.Text).DeviceIP;
                 if (ldd.ConnectIfNo() != 0)
                 { throw new Exception("無法連接裝置"); }
@@ -428,7 +428,7 @@ namespace MaskCleanerVerify
                 var currentMotion = new ClassHelper().ClonPropertiesValue<Fake_MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
 #else
                 var currentPos = this.GetCurrentPosUf();
-                var currentMotion = new ClassHelper().ClonPropertiesValue<MvFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
+                var currentMotion = new ClassHelper().ClonPropertiesValue<MvaFanucRobotPosReg, HalRobotMotion>(currentPos, null, true);
 #endif             
                 currentMotion.Speed = speed;
                 currentMotion.MotionType = motionType;
@@ -578,7 +578,7 @@ namespace MaskCleanerVerify
             }
         }
 
-        private MvFanucRobotPosReg GetCurrentPosUf()
+        private MvaFanucRobotPosReg GetCurrentPosUf()
         {
 
             // if (ldd.ConnectIfNo() != 0)

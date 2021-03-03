@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         [TestMethod]
         public void TestPosReg()
         {
-            using (var ldd = new MvFanucRobotLdd())
+            using (var ldd = new MvaFanucRobotLdd())
             {
                 ldd.RobotIp = "192.168.0.51";
 

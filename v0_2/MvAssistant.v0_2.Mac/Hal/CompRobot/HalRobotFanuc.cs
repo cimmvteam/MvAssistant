@@ -18,7 +18,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         }
 
 
-        public MvFanucRobotLdd ldd;
+        public MvaFanucRobotLdd ldd;
 
         public static HalRobotEnumMotionType GetMotionType(int corJ, int OfsOrPos)
         {
@@ -36,7 +36,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             var ip = this.DevSettings["ip"];
 
             if (this.ldd == null)
-                this.ldd = new MvFanucRobotLdd();
+                this.ldd = new MvaFanucRobotLdd();
             this.ldd.RobotIp = ip;
             var success = this.ldd.ConnectIfNo();
             return success;

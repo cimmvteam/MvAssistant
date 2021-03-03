@@ -9,14 +9,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
     public class MacHalMaskRobotFanuc : IDisposable
     {
         public int PositionRecordInterval_MillSec = 7;
-        public MvFanucRobotLdd ldd;
-        public List<MvRobotAlarm> alarmInfos;
+        public MvaFanucRobotLdd ldd;
+        public List<MvaRobotAlarm> alarmInfos;
         bool isRunning = false;
 
         public MacHalMaskRobotFanuc()
         {
-            ldd = new MvFanucRobotLdd();
-            alarmInfos = new List<MvRobotAlarm>();
+            ldd = new MvaFanucRobotLdd();
+            alarmInfos = new List<MvaRobotAlarm>();
         }
         ~MacHalMaskRobotFanuc()
         {
@@ -38,7 +38,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
         public bool HasRobotAlarm()
         {
             var alarmmsg = String.Empty;
-            var alarmInfo = new MvRobotAlarm();
+            var alarmInfo = new MvaRobotAlarm();
             if (this.ldd.HasRobotFault(ref alarmmsg, ref alarmInfo))
             {
                 this.ldd.HasRobotFault(ref alarmmsg, ref alarmInfo);
@@ -102,7 +102,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
 
 
-        public void SgsVerifyStartPns0102(Action<MvFanucRobotInfo> waitEvent)
+        public void SgsVerifyStartPns0102(Action<MvaFanucRobotInfo> waitEvent)
         {
             this.ldd.StopProgram();
             if (!this.ldd.ExecutePNS("PNS0102"))
@@ -141,13 +141,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
         }
 
-        public void MaskRobotMove(List<MvFanucRobotInfo> PathPosition)
+        public void MaskRobotMove(List<MvaFanucRobotInfo> PathPosition)
         {
             this.ldd.StopProgram();
             if (!this.ldd.ExecutePNS("PNS0101"))
                 throw new Exception("Start PNS0101 Fail");
 
-            var targets = new List<MvFanucRobotInfo>();
+            var targets = new List<MvaFanucRobotInfo>();
             targets.AddRange(PathPosition);
             float[] target = new float[6];
             var speed = 200;
@@ -203,14 +203,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
         }
 
-        public List<MvFanucRobotInfo> SgsVerifyGenHomeToBarcodeReader()
+        public List<MvaFanucRobotInfo> SgsVerifyGenHomeToBarcodeReader()
         {
-            var poss = new List<MvFanucRobotInfo>();
+            var poss = new List<MvaFanucRobotInfo>();
 
 
 
             //Home
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 317,
                 y = 0,
@@ -223,7 +223,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
 
             //between ic & lpa
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 215,
                 y = 215,
@@ -234,7 +234,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
             });
 
             //ICxLPA 抬頭1動
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 215,
                 y = 301,
@@ -246,7 +246,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
 
             //ICxLPA 抬頭2動
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 215,
                 y = 301,
@@ -257,7 +257,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
             });
 
             //LPA 上方
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 244,
                 y = 290,
@@ -269,7 +269,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
 
             //Barcode Reader
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = -110,
                 y = 247,
@@ -284,12 +284,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
             return poss;
         }
-        public List<MvFanucRobotInfo> SgsVerifyGenHome2Cc2Os()
+        public List<MvaFanucRobotInfo> SgsVerifyGenHome2Cc2Os()
         {
-            var poss = new List<MvFanucRobotInfo>();
+            var poss = new List<MvaFanucRobotInfo>();
 
             //Home
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 317,
                 y = 0,
@@ -301,7 +301,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
 
             //Between IC & CC
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 223,
                 y = -225,
@@ -312,7 +312,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
             });
 
             //Front CC 低頭
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 0,
                 y = -317,
@@ -325,7 +325,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
 
             //Front of CC 抬頭
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = 0,
                 y = -232,
@@ -345,12 +345,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
 
         #region TeachingPosition
 
-        public List<MvFanucRobotInfo> LPUpsideToOSPutMask()
+        public List<MvaFanucRobotInfo> LPUpsideToOSPutMask()
         {
-            var poss = new List<MvFanucRobotInfo>();
+            var poss = new List<MvaFanucRobotInfo>();
 
             //PR[54]-Load Port upside
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = (float)-1.287,
                 y = (float)302.844,
@@ -363,7 +363,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
             });
 
             //PR[56]-LoadPort前(未伸出手臂)
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = (float)-422.038,
                 y = (float)305.272,
@@ -376,7 +376,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
             });
 
             //PR[57]-LoadPort上方(伸出手臂)
-            poss.Add(new MvFanucRobotInfo()
+            poss.Add(new MvaFanucRobotInfo()
             {
                 x = (float)-637.878,
                 y = (float)305.272,

@@ -60,13 +60,13 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
 
 
-        public MvFanucRobotInfo GetCurrRobotInfo()
+        public MvaFanucRobotInfo GetCurrRobotInfo()
         {
             var msg = "";
             var alarmInfo = new MvRobotAlarm();
             HasRobotFault(ref msg, ref alarmInfo);
 
-            var robotInfo = new MvFanucRobotInfo();
+            var robotInfo = new MvaFanucRobotInfo();
             robotInfo.PosReg = this.ReadCurPosUf();
             robotInfo.RobotTime = DateTime.Now;
             robotInfo.IsReachTarget = this.MoveIsComplete();
