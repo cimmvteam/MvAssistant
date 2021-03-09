@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
     /// 存放Robot暫存器中取得的資料
     /// </summary>
     [Serializable]
-    public class MvFanucRobotPosReg
+    public class MvaFanucRobotPosReg
     {
         public float x { get { return (float)this.XyzwpreArrary.GetValue(0); } set { this.XyzwpreArrary.SetValue(value, 0); } }
         public float y { get { return (float)this.XyzwpreArrary.GetValue(1); } set { this.XyzwpreArrary.SetValue(value, 1); } }
@@ -63,14 +63,14 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
 
 
-        public MvFanucRobotPosReg() { }
-        public MvFanucRobotPosReg(MvFanucRobotPosReg source)
+        public MvaFanucRobotPosReg() { }
+        public MvaFanucRobotPosReg(MvaFanucRobotPosReg source)
         {
             source.Clone(this);
         }
 
 
-        public void Clone(MvFanucRobotPosReg target)
+        public void Clone(MvaFanucRobotPosReg target)
         {
             this.XyzwpreArrary.CopyTo(target.XyzwpreArrary, 0);
             this.ConfigArray.CopyTo(target.ConfigArray, 0);

@@ -55,11 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MvFanucRobotPosReg.cs" />
-    <Compile Include="MvFanucRobotInfo.cs" />
-    <Compile Include="MvFanucRobotLdd.cs" />
-    <Compile Include="MvRobotAlarm.cs" />
-    <Compile Include="MvRobotUIOParameter.cs" />
+    <Compile Include="MvaFanucRobotPosReg.cs" />
+    <Compile Include="MvaFanucRobotInfo.cs" />
+    <Compile Include="MvaFanucRobotLdd.cs" />
+    <Compile Include="MvaRobotAlarm.cs" />
+    <Compile Include="MvaRobotUIOParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

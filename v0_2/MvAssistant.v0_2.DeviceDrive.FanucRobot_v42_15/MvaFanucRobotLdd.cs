@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 {
-    public class MvFanucRobotLdd : IDisposable
+    public class MvaFanucRobotLdd : IDisposable
     {
         /* 20200517 所有lock皆需使用 this
          Fanuc API 並不允許多執行緒同步操作
@@ -55,7 +55,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         public string RobotIp;
         private bool HasRobotFaultStatus = false;
         ManualResetEvent mreInitialFanucAPI = new ManualResetEvent(false);
-        ~MvFanucRobotLdd() { this.Dispose(false); }
+        ~MvaFanucRobotLdd() { this.Dispose(false); }
 
 
 
@@ -63,7 +63,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         public MvaFanucRobotInfo GetCurrRobotInfo()
         {
             var msg = "";
-            var alarmInfo = new MvRobotAlarm();
+            var alarmInfo = new MvaRobotAlarm();
             HasRobotFault(ref msg, ref alarmInfo);
 
             var robotInfo = new MvaFanucRobotInfo();
@@ -281,7 +281,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         {
             Array UI = new short[18];
             Array UOInfo = new short[18];
-            MvRobotUIOParameter UIO = new MvRobotUIOParameter();
+            MvaRobotUIOParameter UIO = new MvaRobotUIOParameter();
             String PNScode;
 
             if (PNSname.Length == 7 && PNSname.Substring(0, 3) == "PNS")
@@ -332,7 +332,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         }
 
 
-        public bool HasRobotFault(ref string message, ref MvRobotAlarm alarmInfo)
+        public bool HasRobotFault(ref string message, ref MvaRobotAlarm alarmInfo)
         {
             //************IMPORTANT*************************************************//
             //UO[1~20] address has been mapping to DI[1~20] address at addr.22
@@ -417,7 +417,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                 bool IsRestSUccess;
                 //bool IsRWSucess = false;	// 移除未使用的變數。by YMWANGN, 2016/11/17。
 
-                MvRobotUIOParameter UIO = new MvRobotUIOParameter();
+                MvaRobotUIOParameter UIO = new MvaRobotUIOParameter();
 
                 Array UI = new short[18];
                 Array UOInfo = new short[18];
@@ -501,7 +501,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
         #region Register
 
-        public bool GetPosRegValue(int PRno, MvFanucRobotPosReg posReg, bool isNeedRefresh = true)
+        public bool GetPosRegValue(int PRno, MvaFanucRobotPosReg posReg, bool isNeedRefresh = true)
         {
             //isNeedRefresh 預設為true, 確保取得最新資料, 若己知不需要更新, 可以設為false
             lock (this)
@@ -522,7 +522,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                 return this.mobjNumReg.GetValue(index, ref value);
             }
         }
-        public bool GetAlarmInfo(MvRobotAlarm alminfo, bool isNeedRefresh = true)
+        public bool GetAlarmInfo(MvaRobotAlarm alminfo, bool isNeedRefresh = true)
         {
             lock (this)
             {
@@ -547,7 +547,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                     );
             }
         }
-        public bool GetCurPosUf(MvFanucRobotPosReg posReg, bool isNeedRefresh = true)
+        public bool GetCurPosUf(MvaFanucRobotPosReg posReg, bool isNeedRefresh = true)
         {
             lock (this)
             {
@@ -559,16 +559,16 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
             }
         }
 
-        public MvFanucRobotPosReg ReadPosReg(int PRno = 0)
+        public MvaFanucRobotPosReg ReadPosReg(int PRno = 0)
         {
-            var posReg = new MvFanucRobotPosReg();
+            var posReg = new MvaFanucRobotPosReg();
             if (!this.GetPosRegValue(PRno, posReg))
                 throw new MvaException("Fail to read position register");
             return posReg;
         }
-        public MvFanucRobotPosReg ReadCurPosUf()
+        public MvaFanucRobotPosReg ReadCurPosUf()
         {
-            var posReg = new MvFanucRobotPosReg();
+            var posReg = new MvaFanucRobotPosReg();
             if (!this.GetCurPosUf(posReg))
                 throw new MvaException("Fail to read current position");
             return posReg;
@@ -582,9 +582,9 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
             return (int)reg;
         }
 
-        public MvRobotAlarm ReadRobotAlarmInfo()
+        public MvaRobotAlarm ReadRobotAlarmInfo()
         {
-            MvRobotAlarm alminfo = new MvRobotAlarm();
+            MvaRobotAlarm alminfo = new MvaRobotAlarm();
             if (!this.GetAlarmInfo(alminfo))
                 throw new MvaException("Fail to read alarm info");
             return alminfo;
@@ -686,12 +686,12 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
         }
 
-        public bool SetPosRegJoint(int PRno, MvFanucRobotPosReg posReg, short userFrame = -1, short userTool = -1)
+        public bool SetPosRegJoint(int PRno, MvaFanucRobotPosReg posReg, short userFrame = -1, short userTool = -1)
         {
             lock (this)
                 return mobjPosReg.SetValueJoint(PRno, ref posReg.JointArray, userFrame, userTool);//User Frame 及 User Tool 要帶-1 才有辦法修改
         }
-        public bool SetPosRegXyzWpr(int PRno, MvFanucRobotPosReg posReg, short userFrame = -1, short userTool = -1)
+        public bool SetPosRegXyzWpr(int PRno, MvaFanucRobotPosReg posReg, short userFrame = -1, short userTool = -1)
         {
             lock (this)
                 return mobjPosReg.SetValueXyzwpr(PRno, ref posReg.XyzwpreArrary, ref posReg.ConfigArray, userFrame, userTool);//User Frame 及 User Tool 要帶-1 才有辦法修改
@@ -810,7 +810,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                 GetCurrRobotInfo();
 
                 var msg = "";
-                var alarmInfo = new MvRobotAlarm();
+                var alarmInfo = new MvaRobotAlarm();
                 if (HasRobotFault(ref msg, ref alarmInfo)) { break; }
 
                 Thread.Sleep(100);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
 
-    public class MvRobotPose 
+    public class MvaRobotPose 
     {
         public float X = 0f;
         public float Y = 0f;

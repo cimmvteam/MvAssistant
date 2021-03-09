@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 {
 
-    public class MvRobotUIOParameter
+    public class MvaRobotUIOParameter
     {
         public short UI1_IMSTP = 1;                          //Always ON.ON:Normal, OFF:Emergent Stop
         public short UI2_HOLD = 1;                           //Always ON.ON:Normal, OFF:PAUSE

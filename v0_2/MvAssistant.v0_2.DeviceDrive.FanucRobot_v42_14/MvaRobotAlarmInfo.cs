@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
 
-    public class MvRobotAlarmInfo
+    public class MvaRobotAlarmInfo
     {
 
         public int Count = 0;

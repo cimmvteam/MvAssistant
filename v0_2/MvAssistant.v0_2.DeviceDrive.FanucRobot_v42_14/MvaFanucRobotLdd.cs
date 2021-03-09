@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
-    public class MvFanucRobotLdd : IDisposable
+    public class MvaFanucRobotLdd : IDisposable
     {
 
 
@@ -50,7 +50,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
         private bool HasRobotFaultStatus = false;
         private object lockCurRobotInfo = new object();
         ManualResetEvent mreInitialFanucAPI = new ManualResetEvent(false);
-        ~MvFanucRobotLdd() { this.Dispose(false); }
+        ~MvaFanucRobotLdd() { this.Dispose(false); }
 
         public MvaFanucRobotInfo CurRobotInfo
         {
@@ -102,7 +102,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
                 //short ValidC = 0, ValidJ = 0;	// 移除未使用的變數。by YMWANGN, 2016/11/17。
                 //Alarm TEST
                 var msg = "";
-                var alarmInfo = new MvRobotAlarmInfo();
+                var alarmInfo = new MvaRobotAlarmInfo();
                 HasRobotFault(ref msg, ref alarmInfo);
 
 
@@ -117,9 +117,9 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
             }
         }
 
-        public MvRobotAlarmInfo GetRobotAlarm()
+        public MvaRobotAlarmInfo GetRobotAlarm()
         {
-            MvRobotAlarmInfo alminfo = new MvRobotAlarmInfo();
+            MvaRobotAlarmInfo alminfo = new MvaRobotAlarmInfo();
             mobjDataTable.Refresh();
             mobjAlarm.GetValue(
                 1,
@@ -141,7 +141,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
             return alminfo;
         }
 
-        public bool HasRobotFault(ref string message, ref MvRobotAlarmInfo alarmInfo)
+        public bool HasRobotFault(ref string message, ref MvaRobotAlarmInfo alarmInfo)
         {
             //************IMPORTANT*************************************************//
             //UO[1~20] address has been mapping to DI[1~20] address at addr.22
@@ -214,7 +214,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
         {
             Array UI = new short[18];
             Array UOInfo = new short[18];
-            MvRobotUIOParameter UIO = new MvRobotUIOParameter();
+            MvaRobotUIOParameter UIO = new MvaRobotUIOParameter();
             String PNScode;
 
             if (PNSname.Length == 7 && PNSname.Substring(0, 3) == "PNS")
@@ -421,7 +421,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
                 bool IsRestSUccess;
                 //bool IsRWSucess = false;	// 移除未使用的變數。by YMWANGN, 2016/11/17。
 
-                MvRobotUIOParameter UIO = new MvRobotUIOParameter();
+                MvaRobotUIOParameter UIO = new MvaRobotUIOParameter();
 
                 Array UI = new short[18];
                 Array UOInfo = new short[18];
@@ -747,7 +747,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
                 m_currRobotInfo = GetCurrRobotInfo();
 
                 var msg = "";
-                var alarmInfo = new MvRobotAlarmInfo();
+                var alarmInfo = new MvaRobotAlarmInfo();
                 if (HasRobotFault(ref msg, ref alarmInfo)) { break; }
 
                 Thread.Sleep(100);

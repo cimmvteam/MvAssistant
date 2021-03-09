@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
     /// 除Robot暫存器資料以外, 可存放其它類型資料
     /// </summary>
     [Serializable]
-    public class MvFanucRobotInfo
+    public class MvaFanucRobotInfo
     {
         public bool IsReachTarget = false;
         /// <summary>
@@ -19,26 +19,26 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         /// </summary>
         public int MotionType = 0;
 
-        public MvFanucRobotPosReg PosReg = new MvFanucRobotPosReg();
+        public MvaFanucRobotPosReg PosReg = new MvaFanucRobotPosReg();
         public DateTime RobotTime = DateTime.Now;
         /// <summary>
         /// (mm/sec)
         /// </summary>
         public int Speed = 60;
 
-        public MvFanucRobotInfo() { }
+        public MvaFanucRobotInfo() { }
 
-        public MvFanucRobotInfo(MvFanucRobotInfo source)
+        public MvaFanucRobotInfo(MvaFanucRobotInfo source)
         {
             source.Clone(this);
         }
-        public MvFanucRobotInfo(MvFanucRobotPosReg source)
+        public MvaFanucRobotInfo(MvaFanucRobotPosReg source)
         {
             source.Clone(this.PosReg);
         }
 
 
-        public void Clone(MvFanucRobotInfo target)
+        public void Clone(MvaFanucRobotInfo target)
         {
             this.PosReg.Clone(target.PosReg);
 

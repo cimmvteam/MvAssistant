@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
-    public class MvTCPCoordinateCfg
+    public class MvaTCPCoordinateCfg
     {
         public int Code;
         public string DispName;

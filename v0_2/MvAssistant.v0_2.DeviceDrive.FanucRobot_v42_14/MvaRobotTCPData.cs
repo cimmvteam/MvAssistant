@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
-    public class MvRobotTCPData
+    public class MvaRobotTCPData
     {
         public string DispName = "";
         public int Code = 0;

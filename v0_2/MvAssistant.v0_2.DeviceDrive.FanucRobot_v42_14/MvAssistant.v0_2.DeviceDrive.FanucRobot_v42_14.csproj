@@ -50,13 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MvFanucRobotInfo.cs" />
-    <Compile Include="MvFanucRobotLdd.cs" />
-    <Compile Include="MvRobotAlarmInfo.cs" />
-    <Compile Include="MvRobotPose.cs" />
-    <Compile Include="MvRobotTCPData.cs" />
-    <Compile Include="MvRobotUIOParameter.cs" />
-    <Compile Include="MvTCPCoordinateCfg.cs" />
+    <Compile Include="MvaFanucRobotInfo.cs" />
+    <Compile Include="MvaFanucRobotLdd.cs" />
+    <Compile Include="MvaRobotAlarmInfo.cs" />
+    <Compile Include="MvaRobotPose.cs" />
+    <Compile Include="MvaRobotTCPData.cs" />
+    <Compile Include="MvaRobotUIOParameter.cs" />
+    <Compile Include="MvaTCPCoordinateCfg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

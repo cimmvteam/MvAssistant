@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 {
     [Serializable]
-    public class MvFanucRobotInfo
+    public class MvaFanucRobotInfo
     {
         public float x { get { return (float)this.posArray.GetValue(0); } set { this.posArray.SetValue(value, 0); } }
         public float y { get { return (float)this.posArray.GetValue(1); } set { this.posArray.SetValue(value, 1); } }
@@ -55,8 +55,8 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14
 
 
 
-        public MvFanucRobotInfo() { }
-        public MvFanucRobotInfo(MvFanucRobotInfo newone)
+        public MvaFanucRobotInfo() { }
+        public MvaFanucRobotInfo(MvaFanucRobotInfo newone)
         {
             newone.posArray.CopyTo(posArray, 0);
             newone.configArray.CopyTo(configArray, 0);
