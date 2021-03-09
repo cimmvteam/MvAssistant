@@ -60,7 +60,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                return this.DevSettings["index"];
+                return this.DevSettings[DevConnStr_Index];
             }
         }
         public override bool HalIsConnected()
@@ -78,7 +78,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get {
                 
-                return Convert.ToInt32(this.DevSettings["startport"]);
+                return Convert.ToInt32(this.DevSettings[DevConnStr_StartPort]);
             }
         }
         /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(結束) </summary>
@@ -86,7 +86,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                return Convert.ToInt32(this.DevSettings["endport"]);
+                return Convert.ToInt32(this.DevSettings[DevConnStr_EndPort]);
             }
         }
 
@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                return Convert.ToInt32(this.DevSettings["local_port"]);
+                return Convert.ToInt32(this.DevSettings[DevConnStr_LocalPort]);
             }
         }
 
@@ -104,7 +104,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                return this.DevSettings["ip"];
+                return this.DevSettings[DevConnStr_Ip];
             }
         }
         /// <summary>硬體裝置的 Listen Port</summary>
@@ -112,7 +112,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                return  Convert.ToInt32( this.DevSettings["port"]);
+                return  Convert.ToInt32( this.DevSettings[DevConnStr_Port]);
             }
         }
 
@@ -130,7 +130,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             get
             {
                                 
-                return this.DevSettings["local_ip"];
+                return this.DevSettings[DevConnStr_LocalIp];
             }
         }
          
