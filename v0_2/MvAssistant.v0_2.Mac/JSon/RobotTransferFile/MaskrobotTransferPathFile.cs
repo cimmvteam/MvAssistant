@@ -44,12 +44,12 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 
         public string CCFrontSideCleanMaskCenterFile()
         { return SinglePositionFile(MaskrobotTransferLocation.CCFrontSideCleanMaskCenter); }
-        public string CCFrontSideInspectMaskCenterFile()
-        { return SinglePositionFile(MaskrobotTransferLocation.CCFrontSideInspectMaskCenter); }
+        public string CCFrontSideCaptureMaskCenterFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.CCFrontSideCaptureMaskCenter); }
         public string CCBackSideCleanMaskCenterFile()
         { return SinglePositionFile(MaskrobotTransferLocation.CCBackSideCleanMaskCenter); }
-        public string CCBackSideInspectMaskCenterFile()
-        { return SinglePositionFile(MaskrobotTransferLocation.CCBackSideInspectMaskCenter); }
+        public string CCBackSideCaptureMaskCenterFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.CCBackSideCaptureMaskCenter); }
 
         public string FromLPHomeToLP1PathFile()
         {
