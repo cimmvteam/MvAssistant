@@ -350,6 +350,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "Cabinet:DP1 未知異常, ";
                         else if (i == 9)
                             Result += "Cabinet:DP2 未知異常, ";
+                        else if (i == 10)
+                            Result += "Cabinet:Pressure1 not Ready, ";
+                        else if (i == 11)
+                            Result += "Cabinet:Vacuum not ready, ";
+                        else if (i == 12)
+                            Result += "Cabinet:Pressure2 not Ready, ";
+                        else if (i == 13)
+                            Result += "Cabinet:Pressure3 not Ready, ";
                         else
                             Result += "Cabinet Unknown Alarm Signal, ";
                 }
@@ -391,6 +399,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "CC:About laser sensor open circuit, ";
                         else if (i == 7)
                             Result += "CC:UpDown laser sensor open circuit, ";
+                        else if (i == 8)
+                            Result += "CC:PD Inexesutable mode Error, ";
+                        else if (i == 9)
+                            Result += "CC:PD Sensor Error, ";
+                        else if (i == 10)
+                            Result += "CC:PD未知異常, ";
+                        else if (i == 11)
+                            Result += "CC:DP Inxexcutable mode Error, ";
+                        else if (i == 12)
+                            Result += "CC:DP Sensor Error, ";
+                        else if (i == 13)
+                            Result += "CC:DP未知異常, ";
                         else
                             Result += "Clean Chamber Unknown Alarm Signal, ";
                 }
@@ -501,6 +521,24 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "MT:Unclamp Flow Tiomeout, ";
                         else if (i == 16)
                             Result += "MT:Initial Flow Timeout, ";
+                        else if (i == 17)
+                            Result += "MT:Clamp Timeout Up, ";
+                        else if (i == 18)
+                            Result += "MT:Clamp Timeout Down, ";
+                        else if (i == 19)
+                            Result += "MT:Clamp Timeout Left, ";
+                        else if (i == 20)
+                            Result += "MT:Clamp Timeout Right, ";
+                        else if (i == 21)
+                            Result += "MT:Up move error 2, ";
+                        else if (i == 22)
+                            Result += "MT:Down move error 2, ";
+                        else if (i == 23)
+                            Result += "MT:Left move error 2, ";
+                        else if (i == 24)
+                            Result += "MT:Right move error 2, ";
+                        else if (i == 25)
+                            Result += "MT:Clamp狀態在席消失, ";
                         else
                             Result += "Mask Transfer Unknown Alarm Signal, ";
                 }
@@ -574,6 +612,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "OS:Conver Flow Timeout, ";
                         else if (i == 23)
                             Result += "OS:SortClamp Flow Timeout, ";
+                        else if (i == 24)
+                            Result += "OS:重量Sensor異常, ";
+                        else if (i == 25)
+                            Result += "OS:超音波Sensor異常, ";
                         else
                             Result += "Open Stage Unknown Alarm Signal, ";
                 }
@@ -896,6 +938,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "BT:Force negative limit out My, ";
                         else if (i == 21)
                             Result += "BT:Force negative limit out Mz, ";
+                        else if (i == 22)
+                            Result += "BT:Robot動作中不可執行指令, ";
                         else
                             Result += "Box Transfer Unknown Warning Signal, ";
                 }
@@ -961,6 +1005,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "MT:Force negative limit out My, ";
                         else if (i == 19)
                             Result += "MT:Force negative limit out Mz, ";
+                        else if (i == 20)
+                            Result += "MT:Robot動作中不可執行指令, ";
                         else
                             Result += "Mask Transfer Unknown Warning Signal, ";
                 }
@@ -1026,6 +1072,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "OS:Lock T3 Timeout, ";
                         else if (i == 19)
                             Result += "OS:Initial T3 Timeout, ";
+                        else if (i == 20)
+                            Result += "OS:Particle Counter TCP Timeout, ";
                         else
                             Result += "Open Stage Unknown Warning Signal, ";
                 }
@@ -1086,6 +1134,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                             Result += "IC:XY T3 Timeout, ";
                         else if (i == 16)
                             Result += "IC:W T3 Timeout, ";
+                        else if (i == 17)
+                            Result += "IC:ParticleCounter TCP Timeout, ";
+                        else if (i == 18)
+                            Result += "IC:Different TCP Timeout, ";
                         else
                             Result += "Inspection Chamber Unknown Warning Signal, ";
                 }
@@ -1135,7 +1187,34 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 for (int i = 0; i < WarningList.Length; i++)
                 {
                     if (WarningList[i])
-                        Result += "Outer Cover Fans Unknown Warning Signal, ";
+                        if (i == 0)
+                            Result += "";
+                        else if (i == 1)
+                            Result += "OTHER:FFU 1 Read Error, ";
+                        else if (i == 2)
+                            Result += "OTHER:FFU 2 Read Error, ";
+                        else if (i == 3)
+                            Result += "OTHER:FFU 3 Read Error, ";
+                        else if (i == 4)
+                            Result += "OTHER:FFU 4 Read Error, ";
+                        else if (i == 5)
+                            Result += "OTHER:FFU 5 Read Error, ";
+                        else if (i == 6)
+                            Result += "OTHER:FFU 6 Read Error, ";
+                        else if (i == 7)
+                            Result += "OTHER:FFU 7 Read Error, ";
+                        else if (i == 8)
+                            Result += "OTHER:FFU 8 Read Error, ";
+                        else if (i == 9)
+                            Result += "OTHER:FFU 9 Read Error, ";
+                        else if (i == 10)
+                            Result += "OTHER:FFU 10 Read Error, ";
+                        else if (i == 11)
+                            Result += "OTHER:FFU 11 Read Error, ";
+                        else if (i == 12)
+                            Result += "OTHER:FFU 12 Read Error, ";
+                        else
+                            Result += "Outer Cover Fans Unknown Warning Signal, ";
                 }
 
                 //if (Result.Length > 0 && Result.Substring(Result.Length - 2, 2) == ", ")

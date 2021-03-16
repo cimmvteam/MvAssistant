@@ -188,7 +188,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         }
         public string FromBackSideCaptureFinishToCCPathFile()
         {
-            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.BackSideCapture, MaskrobotTransferLocation.CC);
+            return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.BackSideCaptureFinish, MaskrobotTransferLocation.CC);
         }
         public string FromLPHomeToBarcodeReaderPathFile()
         {

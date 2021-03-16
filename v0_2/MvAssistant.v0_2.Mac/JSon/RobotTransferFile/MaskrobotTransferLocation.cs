@@ -34,7 +34,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         FrontSideCleanFinish,
         FrontSideCaptureFinish,
         BackSideCleanFinish,
-        BackSideCapture,
+        BackSideCaptureFinish,
         BarcodeReader,
         InspDeform,
         CCFrontSideCleanMaskCenter,
