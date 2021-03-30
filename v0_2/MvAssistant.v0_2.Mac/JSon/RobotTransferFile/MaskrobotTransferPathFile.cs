@@ -51,6 +51,12 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         public string CCBackSideCaptureMaskCenterFile()
         { return SinglePositionFile(MaskrobotTransferLocation.CCBackSideCaptureMaskCenter); }
 
+        public string ReadBarcodeFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.ReadBarcode); }
+
+        public string ReadT7codeFile()
+        { return SinglePositionFile(MaskrobotTransferLocation.ReadT7code); }
+
         public string FromLPHomeToLP1PathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.LPHome, MaskrobotTransferLocation.LP1);
