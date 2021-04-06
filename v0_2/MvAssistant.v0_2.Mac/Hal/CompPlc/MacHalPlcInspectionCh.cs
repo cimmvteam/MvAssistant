@@ -293,7 +293,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取Robot入侵
-        public bool ReadRobotIntrude(bool isIntrude)
+        public bool SetRobotIntrude(bool isIntrude)
         {
             var plc = this.plcContext;
             try
@@ -309,6 +309,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 throw ex;
             }
             return plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_RobotLicense);
+        }
+
+        public bool ReadRobotIntruded()
+        {
+            var plc = this.plcContext;
+            return !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_IC_RobotIntrude);
         }
 
         //讀取 XY Stage位置

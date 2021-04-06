@@ -74,9 +74,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     unv.HalConnect();
                     os.HalConnect();
 
-                    os.ReadRobotIntrude(true, false);
-                    os.ReadRobotIntrude(false, true);
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(true, false);
+                    os.SetRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, false);
                     os.ReadClampStatus();
                     os.ReadSortClampPosition();
                     os.ReadSliderPosition();
@@ -86,7 +86,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     os.ReadWeightOnStage();
                     os.ReadBoxExist();
                     os.ReadOpenStageStatus();
-                    os.ReadBeenIntruded();
+                    os.ReadRobotIntruded();
                     os.ReadParticleCount();
                 }
             }

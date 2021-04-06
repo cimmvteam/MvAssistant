@@ -35,11 +35,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <returns>錶1壓差、錶2壓差</returns>
         Tuple<int, int> ReadPressureDiff();
 
-        void LightForLoadPortA(int value);
+        void LightForLoadPortASetValue(int value);
 
-        void LightForLoadPortB(int value);
+        int ReadLightForLoadPortA();
 
-        void LightForBarcodeReader(int value);
+        void LightForLoadPortBSetValue(int value);
+
+        int ReadLightForLoadPortB();
+
+        void LightForBarcodeReaderSetValue(int value);
+
+        int ReadLightForBarcodeReader();
 
         Bitmap Camera_LoadPortA_Cap();
 

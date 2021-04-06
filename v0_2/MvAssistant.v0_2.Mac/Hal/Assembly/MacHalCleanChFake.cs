@@ -32,6 +32,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
+        public int ReadLightForInsp()
+        { return 1; }
+
         public float ReadBlowPressure()
         {
             return (float)0.1;

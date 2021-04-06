@@ -162,7 +162,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
@@ -174,7 +174,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.CleanChHomePathFile());
                     mt.ExePathMove(pathFileObj.FromCCHomeToCCBackSidePathFile());
                     mt.RobotMoving(false);
@@ -198,7 +198,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromCCBackSideToCCHomePathFile());
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
@@ -210,7 +210,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.RobotMoving(false);
 

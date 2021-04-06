@@ -17,7 +17,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         string Initial();
 
         string ReadInspChStatus();
-        
+
+        bool SetRobotIntrude(bool isIntrude);
+
+        bool ReadRobotIntruded();
+
         #region Set Parameter
         void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed);
 
@@ -47,8 +51,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         #endregion
 
         #region Read Component Value
-        bool ReadRobotIntrude(bool isIntrude);
-
         Tuple<double, double> ReadXYPosition();
 
         double ReadZPosition();

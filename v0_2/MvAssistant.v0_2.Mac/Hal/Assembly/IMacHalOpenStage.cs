@@ -69,13 +69,13 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
         /// <returns></returns>
-        Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
+        Tuple<bool, bool> SetRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
 
         /// <summary>
         /// 讀取目前是否被Robot侵入
         /// </summary>
         /// <returns></returns>
-        bool ReadBeenIntruded();
+        Tuple<bool, bool> ReadRobotIntruded();
 
         /// <summary>
         /// 讀取開盒夾爪狀態
@@ -130,6 +130,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         void LightForTopBarDfsSetValue(int value);
 
         void LightForFrontBarDfsSetValue(int value);
+
+        int ReadLightForSideBarDfs();
+
+        int ReadLightForTopBarDfs();
+
+        int ReadLightForFrontBarDfs();
 
         Bitmap Camera_Top_Cap();
 

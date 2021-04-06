@@ -155,7 +155,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_02_Home)
                             { boxTransfer.TurnToCB1Home(); }
                             // 6.2 boxrobot 移到 OpenStage
-                            openStage.ReadRobotIntrude(true, null);
+                            openStage.SetRobotIntrude(true, null);
                             btMovePathFile = pathFileObj.FromCabinet01HomeToOpenStage_PUT_PathFile(); // boxrobot 目前有盒子, 要到 Open Stage, 用PUT
                             boxTransfer.Move(btMovePathFile);
 

@@ -86,17 +86,17 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     if (BoxType == 1)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
                     else if (BoxType == 2)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
 
@@ -159,17 +159,17 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     if (BoxType == 1)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
                     else if (BoxType == 2)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
 
@@ -234,17 +234,17 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     if (BoxType == 1)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
                     else if (BoxType == 2)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
 
@@ -307,17 +307,17 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     if (BoxType == 1)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockIronBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
                     else if (BoxType == 2)
                     {
                         bt.RobotMoving(true);
-                        os.ReadRobotIntrude(true, null);
+                        os.SetRobotIntrude(true, null);
                         bt.ExePathMove(pathFileObj.UnlockCrystalBoxPathFile());
-                        os.ReadRobotIntrude(false, null);
+                        os.SetRobotIntrude(false, null);
                         bt.RobotMoving(false);
                     }
 

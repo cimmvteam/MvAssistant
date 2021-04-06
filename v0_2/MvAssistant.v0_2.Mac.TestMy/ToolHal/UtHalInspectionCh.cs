@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.ReadRobotIntrude(false);
+                ic.SetRobotIntrude(false);
                 ic.ReadXYPosition();
                 ic.ReadZPosition();
                 ic.ReadWPosition();
@@ -119,7 +119,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.ReadRobotIntrude(false);
+                ic.SetRobotIntrude(false);
                 ic.Initial();
                 ic.XYPosition(200, 100);
                 ic.ZPosition(-30);

@@ -223,7 +223,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.InspCh.Initial());
                 plc.InspCh.SetSpeed(10, 10, 10);
                 Console.WriteLine(plc.InspCh.ReadSpeedSetting());
-                Console.WriteLine(plc.InspCh.ReadRobotIntrude(true));
+                Console.WriteLine(plc.InspCh.SetRobotIntrude(true));
                 Console.WriteLine(plc.InspCh.ReadXYPosition());
                 Console.WriteLine(plc.InspCh.ReadZPosition());
                 Console.WriteLine(plc.InspCh.ReadWPosition());
@@ -317,7 +317,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                         Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
                         plc.OpenStage.SetSpeed(50);//OK
                         Console.WriteLine(plc.OpenStage.ReadSpeedSetting()); //OK
-                        Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
+                        Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));
                         Console.WriteLine(plc.OpenStage.ReadClampStatus());
                         Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
                         Console.WriteLine(plc.OpenStage.ReadSliderPosition());
@@ -327,7 +327,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                         Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
                         Console.WriteLine(plc.OpenStage.ReadBoxExist());
                         Console.WriteLine(plc.OpenStage.ReadOpenStageStatus());
-                        Console.WriteLine(plc.OpenStage.ReadBeenIntruded());
+                        Console.WriteLine(plc.OpenStage.ReadRobotIntruded());
                     }
                     catch (Exception ex)
                     {
@@ -346,7 +346,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 plc.Connect("192.168.0.200", 2);
                 boolTestStop = false;
                 plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
-                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
+                Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));
                 Console.WriteLine(plc.OpenStage.Initial());
                 for (int i = 0; i < 1; i++)
                 //while (boolTestStop == false)
@@ -361,8 +361,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                     if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Open());
                     if (boolTestStop) break;
-                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));
-                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));
+                    Console.WriteLine(plc.OpenStage.SetRobotIntrude(true, false));
+                    Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));
                     if (boolTestStop) break;
                     Console.WriteLine(plc.OpenStage.Close());
                     if (boolTestStop) break;
@@ -387,7 +387,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 plc.Connect("192.168.0.200", 2);
                 //bool[] AlarmArray = new bool[256];
 
-                Console.WriteLine(plc.InspCh.ReadRobotIntrude(false));
+                Console.WriteLine(plc.InspCh.SetRobotIntrude(false));
                 Console.WriteLine(plc.InspCh.Initial());
                 plc.InspCh.SetSpeed(100, 50, 500);
                 for (int i = 0; i < 5; i++)

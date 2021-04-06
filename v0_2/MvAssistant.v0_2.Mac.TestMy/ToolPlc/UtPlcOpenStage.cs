@@ -106,7 +106,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.OpenStage.ReadBoxDeform());
                 Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
                 Console.WriteLine(plc.OpenStage.ReadBoxExist());
-                Console.WriteLine(plc.OpenStage.ReadBeenIntruded());
+                Console.WriteLine(plc.OpenStage.ReadRobotIntruded());
             }
         }
 
@@ -137,8 +137,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                     Console.WriteLine(plc.OpenStage.Close());
                     Console.WriteLine(plc.OpenStage.Clamp());
                     Console.WriteLine(plc.OpenStage.Open());
-                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, true));//Mask Robot入侵將MTIntrude訊號改為False
-                    Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
+                    Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, true));//Mask Robot入侵將MTIntrude訊號改為False
+                    Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
                     Console.WriteLine(plc.OpenStage.Close());
                     Console.WriteLine(plc.OpenStage.Unclamp());
                     Console.WriteLine(plc.OpenStage.Lock());

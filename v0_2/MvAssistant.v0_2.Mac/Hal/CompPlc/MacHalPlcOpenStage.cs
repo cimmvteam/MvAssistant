@@ -483,7 +483,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
         /// <returns></returns>
-        public Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
+        public Tuple<bool, bool> SetRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
         {
             var plc = this.plcContext;
             try
@@ -679,10 +679,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             return Result;
         }
 
-        public bool ReadBeenIntruded()
+        public Tuple<bool, bool> ReadRobotIntruded()
         {
             var plc = this.plcContext;
-            return !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude) || !plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude);
+            return new Tuple<bool, bool>(!plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude),!plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude));
         }
     }
 }

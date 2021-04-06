@@ -286,7 +286,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 
 
                     // OpenStage 入侵
-                    HalOpenStage.ReadRobotIntrude(true, null);
+                    HalOpenStage.SetRobotIntrude(true, null);
                     //HalOpenStage.SortUnclampAndLock();
 
                     BREAK_POINT++; // 確認 OPen Stage 的狀態是否可以放入盒子
@@ -312,7 +312,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     BREAK_POINT++;// 確認 BoxRobot 是否回到 Cabitnet 1 Home 
 
                     // 解除 Open Stage 入侵
-                    HalOpenStage.ReadRobotIntrude(false, null);
+                    HalOpenStage.SetRobotIntrude(false, null);
 
                     BREAK_POINT++;// 
 
@@ -331,7 +331,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 
                     /** 005-03. Box Robot從Home點至Open Stage進行光罩鐵盒夾取*/
                     // 入侵 OpenStage
-                    HalOpenStage.ReadRobotIntrude(true, null);
+                    HalOpenStage.SetRobotIntrude(true, null);
                   //  HalOpenStage.SortUnclampAndLock();
 
                     BREAK_POINT++;// 確認 Open Stage 是否已經放開鐵盒 ?
@@ -355,7 +355,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     BREAK_POINT++; // 確認Boxrobot 已經到 Cabitnet 1 HOme 
 
                     // 解除 入侵
-                    HalOpenStage.ReadRobotIntrude(false, null);
+                    HalOpenStage.SetRobotIntrude(false, null);
 
                     BREAK_POINT++;
 

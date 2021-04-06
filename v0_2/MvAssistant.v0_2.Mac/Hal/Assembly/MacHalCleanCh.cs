@@ -194,5 +194,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             LightSideInsp.TurnOn(value);
         }
+
+        public int ReadLightForInsp()
+        { return LightSideInsp.GetValue(); }
     }
 }

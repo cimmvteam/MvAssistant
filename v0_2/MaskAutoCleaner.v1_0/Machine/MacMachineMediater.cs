@@ -59,7 +59,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <param name="isMTIntrude">Mask Transfer手臂是否入侵</param>
         /// <returns></returns>
         public Tuple<bool, bool> RobotIntrudeOpenStage(bool? isBTIntrude, bool? isMTIntrude)
-        { return HalOpenStage.ReadRobotIntrude(isBTIntrude, isMTIntrude); }
+        { return HalOpenStage.SetRobotIntrude(isBTIntrude, isMTIntrude); }
         
         /// <summary> 讀取平台上的重量 </summary>
         /// <returns></returns>
@@ -83,7 +83,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <param name="isIntrude">Mask Transfer手臂是否入侵</param>
         /// <returns></returns>
         public bool RobotIntrudeInspCh(bool isIntrude)
-        { return HalInspectionCh.ReadRobotIntrude(isIntrude); }
+        { return HalInspectionCh.SetRobotIntrude(isIntrude); }
 
         /// <summary> 讀取Robot侵入InspCh的左右位置 </summary>
         /// <returns></returns>

@@ -135,15 +135,15 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
         /// <returns></returns>
-        public Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
-        { return Plc.ReadRobotIntrude(isBTIntrude, isMTIntrude); }
+        public Tuple<bool, bool> SetRobotIntrude(bool? isBTIntrude, bool? isMTIntrude)
+        { return Plc.SetRobotIntrude(isBTIntrude, isMTIntrude); }
 
         /// <summary>
         /// 讀取目前是否被Robot侵入
         /// </summary>
         /// <returns></returns>
-        public bool ReadBeenIntruded()
-        { return Plc.ReadBeenIntruded(); }
+        public Tuple<bool, bool> ReadRobotIntruded()
+        { return Plc.ReadRobotIntruded(); }
 
         /// <summary>
         /// 讀取開盒夾爪狀態
@@ -223,6 +223,15 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             LightBarDfsFront.TurnOn(value);
         }
+
+        public int ReadLightForSideBarDfs()
+        { return LightBarDfsSide.GetValue(); }
+
+        public int ReadLightForTopBarDfs()
+        { return LightBarDfsTop.GetValue(); }
+
+        public int ReadLightForFrontBarDfs()
+        { return LightBarDfsFront.GetValue(); }
 
         public Bitmap Camera_Top_Cap()
         {

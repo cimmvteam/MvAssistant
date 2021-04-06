@@ -133,5 +133,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="value"></param>
         void LightForInspSetValue(int value);
+
+        int ReadLightForInsp();
     }
 }

@@ -112,7 +112,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 
                             /** 3. Box Robot從Home點至Open Stage進行光罩鐵盒夾取*/
                             //  3.1 能否入侵 Open Stage?
-                            openStage.ReadRobotIntrude(true, null);
+                            openStage.SetRobotIntrude(true, null);
                             //  3.2 將 Boxrobot 移到 OpenStage
                             var path = pathFileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
                             boxTransfer.Move(path);

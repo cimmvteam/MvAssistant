@@ -100,9 +100,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<double, double>(1, 0);
         }
 
-        public bool ReadRobotIntrude(bool isIntrude)
+        public bool SetRobotIntrude(bool isIntrude)
         {
             return isIntrude;
+        }
+
+        public bool ReadRobotIntruded()
+        {
+            return false;
         }
 
         public double ReadRobotPosAbout()
@@ -199,5 +204,23 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             return 1;
         }
+
+        public int ReadLightForLeftLine()
+        { return 1; }
+               
+        public int ReadLightForBackLine()
+        { return 1; }
+                
+        public int ReadLightForTopCrlDfs()
+        { return 1; }
+               
+        public int ReadLightForTopCrlInsp()
+        { return 1; }
+               
+        public int ReadLightForLeftBar()
+        { return 1; }
+               
+        public int ReadLightForRightBar()
+        { return 1; }
     }
 }

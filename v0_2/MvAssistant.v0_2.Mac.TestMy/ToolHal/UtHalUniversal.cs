@@ -35,33 +35,33 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     os.Vacuum(true);
                     os.SortUnclamp();
                     os.Lock();
-                    if (os.ReadRobotIntrude(true, false).Item1 == true)
+                    if (os.SetRobotIntrude(true, false).Item1 == true)
                         bt.RobotMoving(true);
                     else
                         throw new Exception("Open Stage not allow Box Transfer intrude.");
                     //BT開鎖
                     bt.RobotMoving(false);
-                    SpinWait.SpinUntil(() => (os.ReadBeenIntruded() == false));
+                    SpinWait.SpinUntil(() => (os.ReadRobotIntruded() == false));
                     os.Close();
                     os.Clamp();
                     os.Open();
-                    if (os.ReadRobotIntrude(false, true).Item2 == true)
+                    if (os.SetRobotIntrude(false, true).Item2 == true)
                         mt.RobotMoving(true);
                     else
                         throw new Exception("Open Stage not allow Mask Transfer intrude.");
                     //MT取mask
                     mt.RobotMoving(false);
-                    SpinWait.SpinUntil(() => (os.ReadBeenIntruded() == false));
+                    SpinWait.SpinUntil(() => (os.ReadRobotIntruded() == false));
                     os.Close();
                     os.Unclamp();
                     os.Lock();
-                    if (os.ReadRobotIntrude(true, false).Item1 == true)
+                    if (os.SetRobotIntrude(true, false).Item1 == true)
                         bt.RobotMoving(true);
                     else
                         throw new Exception("Open Stage not allow Box Transfer intrude.");
                     //BT開鎖
                     bt.RobotMoving(false);
-                    SpinWait.SpinUntil(() => (os.ReadBeenIntruded() == false));
+                    SpinWait.SpinUntil(() => (os.ReadRobotIntruded() == false));
                     os.Vacuum(false);
                 }
             }

@@ -36,7 +36,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
                       {
                           try
                           {
-                              Console.WriteLine(plc.InspCh.ReadRobotIntrude(false));
+                              Console.WriteLine(plc.InspCh.SetRobotIntrude(false));
                               plc.InspCh.SetSpeed(100, 50, 500);
                               Console.WriteLine(plc.InspCh.Initial());
 
@@ -69,7 +69,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
                         {
 
                             plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
-                            Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
+                            Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
                             Console.WriteLine(plc.OpenStage.Initial());
                             //for (int i = 0; i < 1; i++)
                             while (boolTestStop == false)
@@ -79,8 +79,8 @@ namespace MvAssistantMacVerifyEqp.ViewUc
                                 Console.WriteLine(plc.OpenStage.Close());
                                 Console.WriteLine(plc.OpenStage.Clamp());
                                 Console.WriteLine(plc.OpenStage.Open());
-                                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(true, false));//Mask Robot入侵將MTIntrude訊號改為False
-                                Console.WriteLine(plc.OpenStage.ReadRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
+                                Console.WriteLine(plc.OpenStage.SetRobotIntrude(true, false));//Mask Robot入侵將MTIntrude訊號改為False
+                                Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
                                 Console.WriteLine(plc.OpenStage.Close());
                                 Console.WriteLine(plc.OpenStage.Unclamp());
                                 Console.WriteLine(plc.OpenStage.Lock());

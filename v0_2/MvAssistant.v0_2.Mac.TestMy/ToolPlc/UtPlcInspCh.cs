@@ -97,7 +97,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
                 Console.WriteLine(plc.InspCh.ZPosition(-30));//1~-85
                 Console.WriteLine(plc.InspCh.WPosition(20));//0~359
-                Console.WriteLine(plc.InspCh.ReadRobotIntrude(true));
+                Console.WriteLine(plc.InspCh.SetRobotIntrude(true));
             }
         }
     }

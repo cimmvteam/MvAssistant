@@ -39,7 +39,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     ic.Initial();
 
                     //1. Mask Robot (無夾持光罩) 從Home點移動至Inspection Chamber
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.RobotMoving(true);
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
@@ -52,7 +52,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.RobotMoving(false);
                 }
@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromLP1ToLPHomePathFile());
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.RobotMoving(false);
 
@@ -106,7 +106,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Load Port A
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.ExePathMove(pathFileObj.FromLPHomeToLP1PathFile());
                     mt.RobotMoving(false);
@@ -137,7 +137,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromLP2ToLPHomePathFile());
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.RobotMoving(false);
 
@@ -148,7 +148,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Load Port B
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.ExePathMove(pathFileObj.FromLPHomeToLP2PathFile());
                     mt.RobotMoving(false);
@@ -206,7 +206,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //2. Mask Robot從Home點移動至Open Stage上方
                     mt.RobotMoving(true);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -224,9 +224,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.RobotMoving(false);
 
@@ -237,9 +237,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Open Stage
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -258,7 +258,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
                     mt.RobotMoving(false);
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
 
                     os.Close();
                     os.Unclamp();
@@ -288,7 +288,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //2. Mask Robot從Home點移動至Open Stage上方
                     mt.RobotMoving(true);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -306,9 +306,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.RobotMoving(false);
 
@@ -319,9 +319,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Open Stage
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -340,7 +340,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
                     mt.RobotMoving(false);
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
 
                     os.Close();
                     os.Unclamp();

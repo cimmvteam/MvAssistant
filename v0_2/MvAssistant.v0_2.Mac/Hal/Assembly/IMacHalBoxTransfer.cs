@@ -177,5 +177,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         Bitmap Camera_Cap();
 
         void Camera_CapToSave(string SavePath, string FileType);
+
+        void LightForGripperSetValue(int value);
+
+        int ReadLightForGripper();
     }
 }

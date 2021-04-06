@@ -32,9 +32,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 os.HalConnect();
                 bt.HalConnect();
 
-                lpa.LightForLoadPortA(200);//bar 0~255
-                lpb.LightForLoadPortB(200);//bar 0~255
-                lpa.LightForBarcodeReader(200);//bar 0~255
+                lpa.LightForLoadPortASetValue(200);//bar 0~255
+                lpb.LightForLoadPortBSetValue(200);//bar 0~255
+                lpa.LightForBarcodeReaderSetValue(200);//bar 0~255
                 cc.LightForInspSetValue(200);//bar 0~999
                 os.LightForFrontBarDfsSetValue(200);//bar 0~255
                 os.LightForSideBarDfsSetValue(200);//bar 0~255
@@ -51,9 +51,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
 
 
-                lpa.LightForLoadPortA(0);
-                lpb.LightForLoadPortB(0);
-                lpa.LightForBarcodeReader(0);
+                lpa.LightForLoadPortASetValue(0);
+                lpb.LightForLoadPortBSetValue(0);
+                lpa.LightForBarcodeReaderSetValue(0);
                 cc.LightForInspSetValue(0);
                 os.LightForFrontBarDfsSetValue(0);
                 os.LightForSideBarDfsSetValue(0);

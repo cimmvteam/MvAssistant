@@ -106,6 +106,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string ReadInspChStatus()
         { return Plc.ReadInspChStatus(); }
 
+        /// <summary>
+        /// 設定Robot是否要入侵，讀取Mask Robot可否入侵
+        /// </summary>
+        /// <param name="isIntrude"></param>
+        /// <returns></returns>
+        public bool SetRobotIntrude(bool isIntrude)
+        { return Plc.SetRobotIntrude(isIntrude); }
+
+        public bool ReadRobotIntruded()
+        { return Plc.ReadRobotIntruded(); }
+
         #region Set Parameter
         /// <summary>
         /// 設定速度，Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)
@@ -180,14 +191,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #endregion
 
         #region Read Component Value
-        /// <summary>
-        /// 設定Robot是否要入侵，讀取Mask Robot可否入侵
-        /// </summary>
-        /// <param name="isIntrude"></param>
-        /// <returns></returns>
-        public bool ReadRobotIntrude(bool isIntrude)
-        { return Plc.ReadRobotIntrude(isIntrude); }
-
         /// <summary>
         /// 讀取Stage XY軸位置，X軸位置、Y軸位置
         /// </summary>
@@ -300,5 +303,23 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             LightBarRight.TurnOn(value);
         }
+
+        public int ReadLightForLeftLine()
+        { return LightLineLeft.GetValue(); }
+               
+        public int ReadLightForBackLine()
+        { return LightLineBack.GetValue(); }
+               
+        public int ReadLightForTopCrlDfs()
+        { return LightCrlDefenseTop.GetValue(); }
+               
+        public int ReadLightForTopCrlInsp()
+        { return LightCrlInspTop.GetValue(); }
+               
+        public int ReadLightForLeftBar()
+        { return LightBarLeft.GetValue(); }
+               
+        public int ReadLightForRightBar()
+        { return LightBarRight.GetValue(); }
     }
 }

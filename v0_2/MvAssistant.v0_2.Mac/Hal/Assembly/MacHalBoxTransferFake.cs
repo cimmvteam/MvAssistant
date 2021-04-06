@@ -536,8 +536,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             Plc.RobotMoving(isMoving);
             */
             #region fake
-             FakeSleep();
-           // Plc.RobotMoving(isMoving);
+            FakeSleep();
+            // Plc.RobotMoving(isMoving);
             #endregion
         }
 
@@ -751,6 +751,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             return true;
         }
+
+        public void LightForGripperSetValue(int value)
+        { return; }
+
+        public int ReadLightForGripper()
+        { return 1; }
     }
     /// <summary>Path Test Position Collection</summary>
     /// <remarks>King, 2020/05/15 Add</remarks>

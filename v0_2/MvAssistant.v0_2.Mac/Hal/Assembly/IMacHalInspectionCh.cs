@@ -116,7 +116,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="isIntrude"></param>
         /// <returns></returns>
-        bool ReadRobotIntrude(bool isIntrude);
+        bool SetRobotIntrude(bool isIntrude);
+
+        bool ReadRobotIntruded();
 
         /// <summary>
         /// 讀取Stage XY軸位置，X軸位置、Y軸位置
@@ -175,5 +177,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         void LightForLeftBarSetValue(int value);
 
         void LightForRightBarSetValue(int value);
+
+        int ReadLightForLeftLine();
+
+        int ReadLightForBackLine();
+
+        int ReadLightForTopCrlDfs();
+
+        int ReadLightForTopCrlInsp();
+
+        int ReadLightForLeftBar();
+
+        int ReadLightForRightBar();
     }
 }

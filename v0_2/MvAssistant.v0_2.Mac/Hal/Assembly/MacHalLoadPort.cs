@@ -113,20 +113,29 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion
         
-        public void LightForLoadPortA(int value)
+        public void LightForLoadPortASetValue(int value)
         {
             LightBarLoadPortA.TurnOn(value);
         }
 
-        public void LightForLoadPortB(int value)
+        public int ReadLightForLoadPortA()
+        { return LightBarLoadPortA.GetValue(); }
+
+        public void LightForLoadPortBSetValue(int value)
         {
             LightBarLoadPortB.TurnOn(value);
         }
 
-        public void LightForBarcodeReader(int value)
+        public int ReadLightForLoadPortB()
+        { return LightBarLoadPortB.GetValue(); }
+
+        public void LightForBarcodeReaderSetValue(int value)
         {
             LightBarBarcodeReader.TurnOn(value);
         }
+
+        public int ReadLightForBarcodeReader()
+        { return LightBarBarcodeReader.GetValue(); }
 
         public Bitmap Camera_LoadPortA_Cap()
         {

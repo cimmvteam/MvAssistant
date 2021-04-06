@@ -42,9 +42,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     lpa.Dock();
 
                     //6. (編號6-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    lpa.LightForLoadPortA(255);
+                    lpa.LightForLoadPortASetValue(255);
                     lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
-                    lpa.LightForLoadPortA(0);
+                    lpa.LightForLoadPortASetValue(0);
 
                     //7.Mask Robot從Home點移動至Load Port A
                     mt.RobotMoving(true);
@@ -65,15 +65,15 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //11. (編號8 - Barcode CCD)拍攝mask barcode, 並能成功辨識ID
-                    lpa.LightForBarcodeReader(2);
+                    lpa.LightForBarcodeReaderSetValue(2);
                     lpa.Camera_Barcode_CapToSave("D:/Image/LP/LPA/Barcode", "jpg");
-                    lpa.LightForBarcodeReader(0);
+                    lpa.LightForBarcodeReaderSetValue(0);
 
                     //12. Mask Robot將光罩從Recognizer移動至Inspection Chamber Entry處
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromBarcodeReaderToLPHomePathFile());
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICBackSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICBackSideToICStagePathFile());
                     mt.RobotMoving(false);
@@ -82,7 +82,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICStageToICBackSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICBackSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
                     mt.ExePathMove(pathFileObj.FromLPHomeToLP1PathFile());
                     mt.RobotMoving(false);
@@ -96,9 +96,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //16. (編號6-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源
-                    lpa.LightForLoadPortA(255);
+                    lpa.LightForLoadPortASetValue(255);
                     lpa.Camera_LoadPortA_CapToSave("D:/Image/LP/LPA/Insp", "jpg");
-                    lpa.LightForLoadPortA(0);
+                    lpa.LightForLoadPortASetValue(0);
 
                     //17~20  Load Port A Undock
                     lpa.Undock();

@@ -34,7 +34,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         int ReadSpeedSetting();
 
-        Tuple<bool, bool> ReadRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
+        Tuple<bool, bool> SetRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
 
         string ReadClampStatus();
 
@@ -60,6 +60,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         string ReadOpenStageStatus();
 
-        bool ReadBeenIntruded();
+        Tuple<bool, bool> ReadRobotIntruded();
     }
 }

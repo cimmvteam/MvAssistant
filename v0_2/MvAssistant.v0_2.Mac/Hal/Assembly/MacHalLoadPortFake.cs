@@ -89,19 +89,34 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public void LightForLoadPortA(int value)
+        public void LightForLoadPortASetValue(int value)
         {
             return;
         }
 
-        public void LightForLoadPortB(int value)
+        public void LightForLoadPortBSetValue(int value)
         {
             return;
         }
 
-        public void LightForBarcodeReader(int value)
+        public void LightForBarcodeReaderSetValue(int value)
         {
             return;
+        }
+
+        public int ReadLightForLoadPortA()
+        {
+            return 1;
+        }
+
+        public int ReadLightForLoadPortB()
+        {
+            return 1;
+        }
+
+        public int ReadLightForBarcodeReader()
+        {
+            return 1;
         }
     }
 }

@@ -674,10 +674,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return ReadBT_RearLimitSenser(); }
         #endregion
 
-        public void LightForGripper(int value)
+        public void LightForGripperSetValue(int value)
         {
             LightCircleGripper.TurnOn(value);
         }
+               
+        public int ReadLightForGripper()
+
+        { return LightCircleGripper.GetValue(); }
 
         public Bitmap Camera_Cap()
         {

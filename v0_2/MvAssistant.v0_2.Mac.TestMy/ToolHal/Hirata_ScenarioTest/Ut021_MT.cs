@@ -76,7 +76,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //4. Mask Robot從Home點移動至Open Stage
                     mt.RobotMoving(true);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -97,9 +97,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
@@ -108,9 +108,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -128,7 +128,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
                     mt.RobotMoving(false);
 
                     //11. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源
@@ -196,7 +196,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     //4. Mask Robot從Home點移動至Open Stage
                     mt.RobotMoving(true);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -217,9 +217,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
                     mt.ChangeDirection(pathFileObj.InspChHomePathFile());
-                    ic.ReadRobotIntrude(true);
+                    ic.SetRobotIntrude(true);
                     mt.ExePathMove(pathFileObj.FromICHomeToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICStagePathFile());
                     mt.RobotMoving(false);
@@ -228,9 +228,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(true);
                     mt.ExePathMove(pathFileObj.FromICStageToICFrontSidePathFile());
                     mt.ExePathMove(pathFileObj.FromICFrontSideToICHomePathFile());
-                    ic.ReadRobotIntrude(false);
+                    ic.SetRobotIntrude(false);
                     mt.ChangeDirection(pathFileObj.LoadPortHomePathFile());
-                    os.ReadRobotIntrude(false, true);
+                    os.SetRobotIntrude(false, true);
                     mt.ExePathMove(pathFileObj.FromLPHomeToOSPathFile());
                     if (BoxType == 1)
                         mt.ExePathMove(pathFileObj.FromOSToIronBoxPathFile());
@@ -248,7 +248,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     else if (BoxType == 2)
                         mt.ExePathMove(pathFileObj.FromCrystalBoxToOSPathFile());
                     mt.ExePathMove(pathFileObj.FromOSToLPHomePathFile());
-                    os.ReadRobotIntrude(false, false);
+                    os.SetRobotIntrude(false, false);
                     mt.RobotMoving(false);
 
                     //11. (編號9 - CCD): 開啟光源->拍照(FOV正確)->關閉光源

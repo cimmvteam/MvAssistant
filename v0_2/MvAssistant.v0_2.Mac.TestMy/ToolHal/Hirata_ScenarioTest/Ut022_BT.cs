@@ -215,7 +215,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                           
                             // 6.2 boxrobot 移到 OpenStage
-                            os.ReadRobotIntrude(true, null);
+                            os.SetRobotIntrude(true, null);
                             btMovePathFile = pathFileObj.FromCabinet01HomeToOpenStage_PUT_PathFile(); // boxrobot 目前有盒子, 要到 Open Stage, 用PUT
                             bt.Move(btMovePathFile);
 
@@ -228,7 +228,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             /** 09 Box Robot退出Open Stage, 並回到Box Robot Home點*/
                             btMovePathFile = pathFileObj.FromOpenStageToCabinet01Home_PUT_PathFile();
                             bt.Move(btMovePathFile);
-                            os.ReadRobotIntrude(false, null);
+                            os.SetRobotIntrude(false, null);
 
                             /** 10 (編號9-CCD): 開啟光源 -> 拍照(FOV正確) -> 關閉光源*/
                             /** 
@@ -284,7 +284,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
 
                             /** 12 Box Robot(無夾持光罩鐵盒)從Home點移動進入Open Stage上方*/
-                            os.ReadRobotIntrude(true, null);
+                            os.SetRobotIntrude(true, null);
                             btMovePathFile = pathFileObj.FromCabinet01HomeToOpenStage_GET_PathFile();
                             bt.Move(btMovePathFile);
 
@@ -298,7 +298,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             // 15.1 Boxrobot 移到 Cabitnet 1 Home
                             btMovePathFile = pathFileObj.FromOpenStageToCabinet01Home_GET_PathFile(); // boxrobot 目前有盒子,要回到 Cabinet 1 Home, 用 GET
                             bt.Move(btMovePathFile);
-                            os.ReadRobotIntrude(false, null);
+                            os.SetRobotIntrude(false, null);
                             // 15.2
                             if (drawerHome == BoxrobotTransferLocation.Cabinet_01_Home)
                             {   // drawer 01-01 ~ drawer 03-05 
