@@ -59,13 +59,13 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         public static void TurnOnCameraLight(this MacHalBoxTransfer instance, int lightValue=200)
         {
 
-            instance.LightForGripper(lightValue);
+            instance.LightForGripperSetValue(lightValue);
         }
 
         public static void TurnOffCameraLight(this MacHalBoxTransfer instance)
         {
 
-            instance.LightForGripper(0);
+            instance.LightForGripperSetValue(0);
         }
 
         public static  int GetCameraLightValue(this MacHalBoxTransfer instance,BoxType boxType)

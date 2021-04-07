@@ -176,7 +176,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             try
                             {
                                 var lightValue = bt.GetCameraLightValue(boxType);
-                                bt.LightForGripper(lightValue);
+                                bt.LightForGripperSetValue(lightValue);
                                 bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
                                 //bt.LightForGripper(0);
                             }
@@ -186,7 +186,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                             finally
                             {
-                                bt.LightForGripper(0);
+                                bt.LightForGripperSetValue(0);
                             }
                         //    bt.Clamp((uint)boxType);
                             //var lightValue = bt.GetCameraLightValue(boxType);
@@ -318,7 +318,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             try
                             {
                                 var lightValue = bt.GetCameraLightValue(boxType);
-                                bt.LightForGripper(lightValue);
+                                bt.LightForGripperSetValue(lightValue);
                                 bt.Camera_CapToSave("D:/Image/BT/Gripper", "jpg");
                             }
                             catch(Exception ex)
@@ -327,7 +327,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                             finally
                             {
-                                bt.LightForGripper(0);
+                                bt.LightForGripperSetValue(0);
                             }
                                
                                                        //lightValue = bt.GetCameraLightValue(boxType);

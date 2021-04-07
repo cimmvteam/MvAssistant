@@ -39,7 +39,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 os.LightForFrontBarDfsSetValue(200);//bar 0~255
                 os.LightForSideBarDfsSetValue(200);//bar 0~255
                 os.LightForTopBarDfsSetValue(200);//bar 0~255
-                bt.LightForGripper(200);//bar 0~255
+                bt.LightForGripperSetValue(200);//bar 0~255
 
                 ic.LightForBackLineSetValue(200);//bar 0~255(小線光-後)
                 ic.LightForLeftLineSetValue(200);//bar 0~255(小線光-左)
@@ -58,7 +58,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 os.LightForFrontBarDfsSetValue(0);
                 os.LightForSideBarDfsSetValue(0);
                 os.LightForTopBarDfsSetValue(0);
-                bt.LightForGripper(0);
+                bt.LightForGripperSetValue(0);
 
                 ic.LightForBackLineSetValue(0);
                 ic.LightForLeftLineSetValue(0);
