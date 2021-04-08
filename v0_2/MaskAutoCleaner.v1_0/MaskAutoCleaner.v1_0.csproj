@@ -52,18 +52,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CodeExpress.v1_0.Fw">
-      <HintPath>..\DLL\CodeExpress.v1_0\CodeExpress.v1_0.Fw.dll</HintPath>
+      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.Fw.dll</HintPath>
     </Reference>
     <Reference Include="CodeExpress.v1_0.Std">
-      <HintPath>..\DLL\CodeExpress.v1_0\CodeExpress.v1_0.Std.dll</HintPath>
+      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.Std.dll</HintPath>
     </Reference>
-    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Fw.dll</HintPath>
+    <Reference Include="CToolkit.v1_1.Fw">
+      <HintPath>..\DLL\CToolkit.1.1.0\CToolkit.v1_1.Fw.dll</HintPath>
     </Reference>
-    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CToolkit.v1_1\CToolkit.v1_1.Std.dll</HintPath>
+    <Reference Include="CToolkit.v1_1.Std">
+      <HintPath>..\DLL\CToolkit.1.1.0\CToolkit.v1_1.Std.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Filtering.0.7.0\lib\net40\MathNet.Filtering.dll</HintPath>

@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.SetBoxType(1);
@@ -85,7 +85,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.Close();
@@ -122,7 +122,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.Vacuum(false);
@@ -145,7 +145,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             bt.RobotMoving(true);
@@ -245,7 +245,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 MTIntrude = os.SetRobotIntrude(false, false).Item2;
-                                if (i == 1 && MTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && MTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been MT intrude,can net execute command!!");
                             }
                         }
@@ -326,7 +326,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.SetBoxType(1);
@@ -350,7 +350,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.Close();
@@ -387,7 +387,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.Vacuum(false);
@@ -410,7 +410,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             bt.RobotMoving(true);
@@ -446,7 +446,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 MTIntrude = os.SetRobotIntrude(false, false).Item2;
-                                if (i == 1 && MTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && MTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been MT intrude,can net execute command!!");
                             }
                             //ic.XYPosition(100,200);
@@ -590,7 +590,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.SetBoxType(1);
@@ -614,7 +614,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.Close();
@@ -651,7 +651,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             os.Vacuum(false);
@@ -674,7 +674,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                             for (int i = 0; i < 2; i++)
                             {
                                 BTIntrude = os.SetRobotIntrude(false, false).Item1;
-                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded() == true)
+                                if (i == 1 && BTIntrude == true || os.ReadRobotIntruded().Item1 == true || os.ReadRobotIntruded().Item2 == true)
                                     throw new Exception("Open Stage has been BT intrude,can net execute command!!");
                             }
                             bt.RobotMoving(true);
