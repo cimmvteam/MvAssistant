@@ -23,6 +23,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="PathPosition"></param>
         int ExePathMove(string PathFileLocation);
+
+        /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
+        /// <param name="PathFileLocation"></param>
+        /// <returns></returns>
+        int BacktrackPathMove(string PathFileLocation);
+
         /// <summary>
         /// 調整手臂到其他進入Assembly的Home點
         /// </summary>

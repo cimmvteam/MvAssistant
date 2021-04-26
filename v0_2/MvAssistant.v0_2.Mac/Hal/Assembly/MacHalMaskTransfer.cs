@@ -31,14 +31,21 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public int ExePathMove(List<HalRobotMotion> MovePosition)
         { return Robot.ExePosMove(MovePosition); }
 
-        /// <summary>
-        /// 給點位清單，依序移動
-        /// </summary>
+        /// <summary> 給點位清單，依序移動 </summary>
         /// <param name="PathPosition"></param>
         public int ExePathMove(string PathFileLocation)
         {
             var PathPosition = Robot.ReadMovePath(PathFileLocation);
             return Robot.ExePosMove(PathPosition);
+        }
+
+        /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
+        /// <param name="PathFileLocation"></param>
+        /// <returns></returns>
+        public int BacktrackPathMove(string PathFileLocation)
+        {
+            var PathPosition = Robot.ReadMovePath(PathFileLocation);
+            return Robot.BacktrackPosMove(PathPosition);
         }
 
         /// <summary>

@@ -7,7 +7,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("442DC2E7-1076-4B1F-8F73-7B865ED08771")]
     public interface IMacHalBoxTransfer : IMacHalAssembly
     {
+        /// <summary> 給點位清單，依序移動 </summary>
+        /// <param name="PathPosition"></param>
         int ExePathMove(string PathFileLocation);
+
+        /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
+        /// <param name="PathFileLocation"></param>
+        /// <returns></returns>
+        int BacktrackPathMove(string PathFileLocation);
 
         bool CheckPosition(string PosFileLocation);
 
