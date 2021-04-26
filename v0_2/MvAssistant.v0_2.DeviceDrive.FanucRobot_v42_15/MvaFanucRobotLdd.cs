@@ -246,6 +246,12 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
         #region System / Program
 
+        /// <summary>
+        /// 若卡在此function無法write, 請確認是否為主執行緒呼叫的.
+        /// 若不是主執行緒, 請讓主執行緒進入 Wait(讓出主執行緒),
+        /// 這是 Fanuc Robot API 先行限制.
+        /// </summary>
+        /// <returns></returns>
         public bool AlarmReset()
         {
             Array UIAlways_ON = new short[3];
