@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 {
-   public class BoxrobotTransferPathFile:BaserobotTransferPathFile
+    public class BoxrobotTransferPathFile : BaserobotTransferPathFile
     {
         /// <summary>檔案名稱連接符號</summary>
         private const string FileNameConnectSign = "_";
@@ -24,24 +24,24 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         }
 
 
-         
-       /// <summary>由起點到終點的檔案名稱</summary>
-       /// <param name="startPoint">起點</param>
-       /// <param name="destination">終點</param>
-       /// <param name="direction">方向(去、 回)</param>
-       /// <param name="actionType">動作方式(取、 放)</param>
-       /// <returns></returns>
-        private string FromStartPointToDestinationPathFile(BoxrobotTransferLocation startPoint, BoxrobotTransferLocation destination,BoxrobotTransferDirection direction, BoxrobotTransferActionType actionType)
+
+        /// <summary>由起點到終點的檔案名稱</summary>
+        /// <param name="startPoint">起點</param>
+        /// <param name="destination">終點</param>
+        /// <param name="direction">方向(去、 回)</param>
+        /// <param name="actionType">動作方式(取、 放)</param>
+        /// <returns></returns>
+        private string FromStartPointToDestinationPathFile(BoxrobotTransferLocation startPoint, BoxrobotTransferLocation destination, BoxrobotTransferDirection direction, BoxrobotTransferActionType actionType)
         {
-            string fullFileName,fileName;
-            const string connetSign= FileNameConnectSign;
+            string fullFileName, fileName;
+            const string connetSign = FileNameConnectSign;
             /** // vs 2013
             fileName = $"{startPoint.ToText()}{connetSign}{direction.ToText()}{connetSign}{destination.ToText()}{connetSign}{actionType}{this.ExetendedFileName}";
             fullFileName = $"{this.FilePath}{fileName}";
                          */
-            fileName = startPoint.ToText() +connetSign+direction.ToText()+connetSign+destination.ToText()+connetSign + actionType + this.ExetendedFileName;
+            fileName = startPoint.ToText() + connetSign + direction.ToText() + connetSign + destination.ToText() + connetSign + actionType + this.ExetendedFileName;
             fullFileName = this.FilePath + fileName;
-             return fullFileName;
+            return fullFileName;
         }
         private string CabinetHomePathFile(BoxrobotTransferLocation cabinetHome)
         {
@@ -51,8 +51,16 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
             fileName = $"{cabinetHome.ToText()}{this.ExetendedFileName}";
             fullFileName = $"{this.FilePath}{fileName}";
             */
-            fileName = cabinetHome.ToText()+ this.ExetendedFileName;
-            fullFileName = this.FilePath+ fileName;
+            fileName = cabinetHome.ToText() + this.ExetendedFileName;
+            fullFileName = this.FilePath + fileName;
+            return fullFileName;
+        }
+        private string FromStartPointToGet(BoxrobotTransferLocation startPoint)
+        {
+            string fullFileName, fileName;
+            const string connetSign = FileNameConnectSign;
+            fileName = startPoint.ToText() + connetSign + BoxrobotTransferActionType.GET.ToText() + this.ExetendedFileName;
+            fullFileName = this.FilePath + fileName;
             return fullFileName;
         }
 
@@ -63,9 +71,9 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
             /** // vs 2013
             var fileName = $"LockCrystalBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
-             */ 
+             */
             var fileName = "LockCrystalBox" + this.ExetendedFileName;
-            var fullFileName =this.FilePath + fileName;
+            var fullFileName = this.FilePath + fileName;
             return fullFileName;
         }
         /// <summary>UnlockCrystalBox(水晶盒)的點位檔案</summary>
@@ -76,35 +84,35 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
             var fileName = $"UnlockCrystalBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
             */
-             var fileName = "UnlockCrystalBox" + this.ExetendedFileName;
-            var fullFileName = this.FilePath +fileName ;
+            var fileName = "UnlockCrystalBox" + this.ExetendedFileName;
+            var fullFileName = this.FilePath + fileName;
             return fullFileName;
         }
         /// <summary>LockCrystalBox(鐵盒) 的點位檔案</summary>
         /// <returns></returns>
         public string LockIronBoxPathFile()
         {
-           
+
             /** // vs 2013
             var fileName = $"LockIronBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
             */
             var fileName = "LockIronBox" + this.ExetendedFileName;
-            var fullFileName =this.FilePath + fileName;
+            var fullFileName = this.FilePath + fileName;
 
-             return fullFileName;
+            return fullFileName;
         }
         /// <summary>UnlockCrystalBox(鐵盒)的點位檔案</summary>
         /// <returns></returns>
         public string UnlockIronBoxPathFile()
         {
-            
+
             /**   // vs 2013
             var fileName = $"UnlockIronBox{this.ExetendedFileName}";
             var fullFileName = $"{this.FilePath}{fileName}";
             */
             var fileName = "UnlockIronBox" + this.ExetendedFileName;
-            var fullFileName = this.FilePath + fileName ;  
+            var fullFileName = this.FilePath + fileName;
             return fullFileName;
         }
 
@@ -165,8 +173,8 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         /// <param name="drawer">指定的 Drawer</param>
         /// <returns></returns>
         public string FromDrawerToCabinet01Home_GET_PathFile(BoxrobotTransferLocation drawer)
-        {  
-            var fullFileName = FromStartPointToDestinationPathFile(drawer,BoxrobotTransferLocation.Cabinet_01_Home,  BoxrobotTransferDirection.Backward, BoxrobotTransferActionType.GET);
+        {
+            var fullFileName = FromStartPointToDestinationPathFile(drawer, BoxrobotTransferLocation.Cabinet_01_Home, BoxrobotTransferDirection.Backward, BoxrobotTransferActionType.GET);
             return fullFileName;
         }
         /// <summary>從 指定的Drawer 到 Cabinet 2 Home(Get)</summary>
@@ -182,7 +190,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         /// <param name="drawer">指定的 Drawer</param>
         /// <returns></returns>
         public string FromDrawerToCabinet01Home_PUT_PathFile(BoxrobotTransferLocation drawer)
-        {   
+        {
             var fullFileName = FromStartPointToDestinationPathFile(drawer, BoxrobotTransferLocation.Cabinet_01_Home, BoxrobotTransferDirection.Backward, BoxrobotTransferActionType.PUT);
             return fullFileName;
         }
@@ -221,6 +229,18 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         public string FromOpenStageToCabinet01Home_PUT_PathFile()
         {
             var fileName = FromStartPointToDestinationPathFile(BoxrobotTransferLocation.OpenStage, BoxrobotTransferLocation.Cabinet_01_Home, BoxrobotTransferDirection.Backward, BoxrobotTransferActionType.PUT);
+            return fileName;
+        }
+
+        public string FromDrawerToGetPathFile(BoxrobotTransferLocation drawer)
+        {
+            var fileName = FromStartPointToGet(drawer);
+            return fileName;
+        }
+
+        public string FromOpenStageToGetPathFile()
+        {
+            var fileName = FromStartPointToGet(BoxrobotTransferLocation.OpenStage);
             return fileName;
         }
     }

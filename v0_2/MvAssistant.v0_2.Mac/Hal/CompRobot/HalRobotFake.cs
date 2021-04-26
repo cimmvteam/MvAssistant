@@ -81,5 +81,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         {
             return 0;
         }
+
+        public int BacktrackPosMove(List<HalRobotMotion> PathPosition)
+        {
+            return 0;
+        }
     }
 }

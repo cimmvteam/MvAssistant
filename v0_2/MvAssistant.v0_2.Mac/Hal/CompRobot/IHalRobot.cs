@@ -43,5 +43,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         List<HalRobotMotion> ReadMovePath(string PathFileLocation);
 
         int ExePosMove(List<HalRobotMotion> PathPosition);
+
+        int BacktrackPosMove(List<HalRobotMotion> PathPosition);
     }
 }

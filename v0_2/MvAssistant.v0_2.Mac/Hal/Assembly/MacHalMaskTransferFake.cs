@@ -11,6 +11,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("2CB5E7D6-970D-4550-8821-E4DAB03324EF")]
     public class MacHalMaskTransferFake : MacHalAssemblyBase, IMacHalMaskTransfer
     {
+        public int BacktrackPathMove(string PathFileLocation)
+        {
+            return 0;
+        }
+
         public string CCDSpin(int SpinDegree)
         {
             return "OK";

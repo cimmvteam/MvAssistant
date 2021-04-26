@@ -757,6 +757,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public int ReadLightForGripper()
         { return 1; }
+
+        public int BacktrackPathMove(string PathFileLocation)
+        {
+            return 0;
+        }
     }
     /// <summary>Path Test Position Collection</summary>
     /// <remarks>King, 2020/05/15 Add</remarks>

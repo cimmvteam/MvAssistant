@@ -79,38 +79,47 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             return this.ldd.StopProgram();
         }
 
-        /// <summary>
-        /// 讀路徑Jason檔，依照清單移動
-        /// </summary>
+        /// <summary> 讀路徑Jason檔，依照清單移動 </summary>
         /// <param name="PathFileLocation"></param>
         public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
         {
-           // var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
-            var  PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
+            // var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
+            var PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
             //   var PosList = PosInfo.Select(m => m.GetPosition()).ToList();
             var PosList = PosInfo.Select(m => m.Position).ToList();
             return PosList;
         }
 
-        /// <summary>
-        /// 給點位清單，依序移動
-        /// </summary>
+        /// <summary> 給點位清單，依序移動 </summary>
         /// <param name="PathPosition"></param>
         public int ExePosMove(List<HalRobotMotion> PathPosition)
         {
             var targets = new List<HalRobotMotion>();
             targets.AddRange(PathPosition);
-            float[] target = new float[6];
-
             for (int idx = 0; idx < targets.Count; idx++)
             {
                 var motion = targets[idx];
                 this.HalMoveStraightAsyn(motion);
-                ldd.LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " send [ " + (idx + 1) + "/" + targets.Count + " ] parameter");
                 while (!this.ldd.MoveIsComplete())
                     Thread.Sleep(100);
                 this.ldd.MoveCompeleteReply();
-                ldd.LogInfo(DateTime.Now.ToString("yyyyMMdd HH:mm:ss") + " finish [ " + (idx + 1) + "/" + targets.Count + " ] move");
+            }
+            return 0;
+        }
+
+        /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
+        /// <param name="PathPosition"></param>
+        public int BacktrackPosMove(List<HalRobotMotion> PathPosition)
+        {
+            var targets = new List<HalRobotMotion>();
+            targets.AddRange(PathPosition);
+            for (int idx = targets.Count - 1; idx >= 0; idx--)
+            {
+                var motion = targets[idx];
+                this.HalMoveStraightAsyn(motion);
+                while (!this.ldd.MoveIsComplete())
+                    Thread.Sleep(100);
+                this.ldd.MoveCompeleteReply();
             }
             return 0;
         }

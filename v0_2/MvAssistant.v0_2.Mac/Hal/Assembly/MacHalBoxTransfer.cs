@@ -428,6 +428,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return Robot.ExePosMove(PathPosition);
         }
 
+        public int BacktrackPathMove(string PathFileLocation)
+        {
+            var PathPosition = Robot.ReadMovePath(PathFileLocation);
+            return Robot.BacktrackPosMove(PathPosition);
+        }
+
         /// <summary>
         /// 檢查當前位置與目標位置是否一致，點位允許誤差 ±5 
         /// </summary>
@@ -678,7 +684,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             LightCircleGripper.TurnOn(value);
         }
-               
+
         public int ReadLightForGripper()
 
         { return LightCircleGripper.GetValue(); }
