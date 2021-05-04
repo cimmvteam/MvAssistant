@@ -1121,7 +1121,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMaskType.DontCare),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMacMaskType.DontCare),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -1335,7 +1335,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMaskType.DontCare),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMacMaskType.DontCare),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -1551,7 +1551,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMaskType.DontCare),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMacMaskType.DontCare),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -1779,7 +1779,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMaskType.DontCare),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMacMaskType.DontCare),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);
@@ -2789,7 +2789,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     ExceptionHandler = (thisState, ex) =>
                     { // TODO: do something
                     },
-                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMaskType.DontCare),
+                    NextStateEntryEventArgs = new MacStateEntryEventArgs(EnumMacMaskType.DontCare),
                     ThisStateExitEventArgs = new MacStateExitEventArgs(),
                 };
                 transition.SetTriggerMembers(triggerMember);

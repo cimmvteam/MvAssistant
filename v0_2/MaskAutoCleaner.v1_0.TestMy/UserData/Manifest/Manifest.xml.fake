@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <Manifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Devices>
-    <Device DeviceName="loadportA_assembly" DriverId="f14a50a9-fc82-4a52-b0c6-13bfecf62bf4" ID="DE_LP_A_ASB" PositionId="LoadPort01">
+    <Device DeviceName="loadportA_assembly" DriverId="f14a50a9-fc82-4a52-b0c6-13bfecf62bf4" ID="HID_LP_A_ASB" PositionId="LoadPort01">
       <Devices>
         <Device DevConnStr="ip=192.168.0.20;port=1024" DeviceName="loadport_1" DriverId="f16b58aa-7d81-4192-9ce8-d571965ecc87" />
       </Devices>
     </Device>
-    <Device DeviceName="loadportB_assembly" DriverId="f14a50a9-fc82-4a52-b0c6-13bfecf62bf4" ID="DE_LP_B_ASB" PositionId="LoadPort02">
+    <Device DeviceName="loadportB_assembly" DriverId="f14a50a9-fc82-4a52-b0c6-13bfecf62bf4" ID="HID_LP_B_ASB" PositionId="LoadPort02">
       <Devices>
         <Device DevConnStr="ip=192.168.0.21;port=1024" DeviceName="loadport_2" DriverId="f16b58aa-7d81-4192-9ce8-d571965ecc87" />
       </Devices>
     </Device>
-    <Device DeviceName="inspection_assembly" DriverId="f200e012-be17-4230-894c-8565cee34a78" ID="DE_IC_A_ASB" PositionId="InspectionCh01" />
+    <Device DeviceName="inspection_assembly" DriverId="f200e012-be17-4230-894c-8565cee34a78" ID="HID_IC_A_ASB" PositionId="InspectionCh01" />
     <Device DevConnStr="127.0.0.1;3039" DeviceName="clean_assembly" DriverId="a98473bb-8d94-404c-acc5-6a38a0785a3c" ID="DE_CC_A_ASB" PositionId="CleanCh01" />
-    <Device DevConnStr="127.0.0.1;3039" DeviceName="masktransfer_assembly" DriverId="bb201700-2f47-4a4f-847a-5e4ac6b228a3" ID="DE_MT_A_ASB" PositionId="MaskTransfer01" />
+    <Device DevConnStr="127.0.0.1;3039" DeviceName="masktransfer_assembly" DriverId="bb201700-2f47-4a4f-847a-5e4ac6b228a3" ID="HID_MT_A_ASB" PositionId="MaskTransfer01" />
     <Device DeviceName="cabinet_assembly" DriverId="0801c998-528b-4e59-a21f-083366136be6" ID="DE_CB_A_ASB" PositionId="Cabinet01">
       <Devices>
         <Device DevConnStr="ip=192.168.0.31;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_01" DeviceName="cabinet_drawer_01_01" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_01" />
@@ -22,9 +22,9 @@
         <Device DevConnStr="ip=192.168.0.34;port=5000;local_ip=192.168.0.14;local_port=6000;startPort=5001;endPort=5999;index=01_04" DeviceName="cabinet_drawer_01_04" DriverId="26343452-5921-4c6a-8e67-847f981706f0" ID="DE_CB_A_01_04" />
       </Devices>
     </Device>
-    <Device DeviceName="openstage_assembly" DriverId="31473e4f-16e9-4824-9032-29cb1d71399b" ID="DE_OS_A_ASB" PositionId="OpenStage01" />
+    <Device DeviceName="openstage_assembly" DriverId="31473e4f-16e9-4824-9032-29cb1d71399b" ID="HID_OS_A_ASB" PositionId="OpenStage01" />
     <Device DeviceName="boxtransfer_assembly" DriverId="9da10112-fc16-4840-ba34-280d99dff7f3" ID="DE_BT_A_ASB" PositionId="BoxTrasnfer01" />
-    <Device DeviceName="universal_assembly" DriverId="27e39375-426f-4adc-819a-174dfc67ac81" ID="DE_UNI_A_ASB" />
+    <Device DeviceName="universal_assembly" DriverId="27e39375-426f-4adc-819a-174dfc67ac81" ID="HID_UNI_A_ASB" />
   </Devices>
   <Drivers>
     <Driver DriverId="9da10112-fc16-4840-ba34-280d99dff7f3" Vendor="Fake" Product="Fake Box Transfer" HalImpId="B57BDC28-ACA8-46DF-8B51-1A2285950031" HalImpRefName="MacHalBoxTransferFake" />
