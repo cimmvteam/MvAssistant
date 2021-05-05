@@ -73,8 +73,8 @@
     <Compile Include="DrawerSocketTest\SocketMsgTranslator.cs" />
     <Compile Include="DrawerSocketTest\StateObject.cs" />
     <Compile Include="DrawerSocketTest\UDPSocket.cs" />
-    <Compile Include="EnumDeviceId.cs" />
-    <Compile Include="EnumMaskType.cs" />
+    <Compile Include="EnumMacDeviceId.cs" />
+    <Compile Include="EnumMacMaskType.cs" />
     <Compile Include="Hal\Assembly\IMacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\IMacHalCleanCh.cs" />

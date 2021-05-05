@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac
 {
-    public enum EnumMaskType : uint
+    public enum EnumMacMaskType : uint
     {
         DontCare = 0,
         Common = 1,

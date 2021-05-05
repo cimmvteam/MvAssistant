@@ -34,7 +34,7 @@ namespace MaskAutoCleaner.v1_0.Msg.SecsReport
             rs.RootList = secsList;
 
             secsList.Data.AddRange(new CxSecsIINodeASCII[1]);
-            //rs.UnitId = EnumMachineId.DE_LP_A_ASB.ToString();
+            //rs.UnitId = EnumMachineId.HID_LP_A_ASB.ToString();
 
 
             return rs;
