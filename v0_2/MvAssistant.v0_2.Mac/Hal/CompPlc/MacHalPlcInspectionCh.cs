@@ -99,7 +99,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                     case 2:
                         throw new MvaException("Inspection Chamber Z-axis Move Error : ABS point out range");
                     case 5:
-                        Result = "ABS point not change ";
+                        Result = "ABS point not change";
                         break;
                     default:
                         throw new MvaException("Inspection Chamber Z-axis Move Error : Unknown error");
