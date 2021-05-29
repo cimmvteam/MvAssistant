@@ -68,22 +68,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public Tuple<int, int, int> ReadClampTactile_BehindSide()
         {
-            return new Tuple<int, int, int>(1,1,1);
+            return new Tuple<int, int, int>(1, 1, 1);
         }
 
         public Tuple<int, int, int> ReadClampTactile_FrontSide()
         {
-            return new Tuple<int, int, int>(1,1,1);
+            return new Tuple<int, int, int>(1, 1, 1);
         }
 
         public Tuple<int, int, int, int, int, int> ReadClampTactile_LeftSide()
         {
-            return new Tuple<int, int, int, int, int, int>(1,1,1,1,1,1);
+            return new Tuple<int, int, int, int, int, int>(1, 1, 1, 1, 1, 1);
         }
 
         public Tuple<int, int, int, int, int, int> ReadClampTactile_RightSide()
         {
-            return new Tuple<int, int, int, int, int, int>(1,1,1,1,1,1);
+            return new Tuple<int, int, int, int, int, int>(1, 1, 1, 1, 1, 1);
         }
 
         public List<HalRobotMotion> ReadFilePosition(string PathFileLocation)
@@ -93,17 +93,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public Tuple<double, double, double, double, double, double> ReadHandInspection()
         {
-            return new Tuple<double, double, double, double, double, double>(0,0,0,0,0,0);
+            return new Tuple<double, double, double, double, double, double>(0, 0, 0, 0, 0, 0);
         }
 
         public Tuple<int, int, int> ReadLevel()
         {
-            return new Tuple<int, int, int>(0,0,0);
+            return new Tuple<int, int, int>(0, 0, 0);
         }
 
         public Tuple<int, int, int> ReadLevelLimitSetting()
         {
-            return new Tuple<int, int, int>(0,0,0);
+            return new Tuple<int, int, int>(0, 0, 0);
         }
 
         public string ReadMTRobotStatus()
@@ -113,22 +113,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()
         {
-            return new Tuple<double, double, double, double, double, double>(1,1,1,1,1,1);
+            return new Tuple<double, double, double, double, double, double>(1, 1, 1, 1, 1, 1);
         }
 
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
         {
-            return new Tuple<double, double, double, double, double, double>(0,0,0,0,0,0);
+            return new Tuple<double, double, double, double, double, double>(0, 0, 0, 0, 0, 0);
         }
 
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
         {
-            return new Tuple<double, double, double, double, double, double>(10,10,10,10,10,10);
+            return new Tuple<double, double, double, double, double, double>(10, 10, 10, 10, 10, 10);
         }
 
         public Tuple<double, long> ReadSpeedSetting()
         {
-            return new Tuple<double, long>(1,1);
+            return new Tuple<double, long>(1, 1);
         }
 
         public double ReadStaticElec()
@@ -138,18 +138,21 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public Tuple<double, double> ReadStaticElecLimitSetting()
         {
-            return new Tuple<double, double>(1,0);
+            return new Tuple<double, double>(1, 0);
         }
 
-        public void Recover()
+        public int Recover()
         {
-            return;
+            return 0;
         }
 
-        public void Reset()
+        public int Reset()
         {
-            return;
+            return 0;
         }
+
+        public int StopProgram()
+        { return 0; }
 
         public void RobotMoving(bool isMoving)
         {

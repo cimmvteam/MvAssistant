@@ -18,9 +18,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         bool CheckPosition(string PosFileLocation);
 
-        void Reset();
-
-        void Recover();
+        int Reset();
+        
+        int Recover();
+        
+        int StopProgram();
 
         /// <summary>
         /// 夾取，1：鐵盒、2：水晶盒
