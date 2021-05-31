@@ -256,8 +256,6 @@
     <Compile Include="SensingNet\SNetEnumHandlerStatus.cs" />
     <Compile Include="SensingNet\SNetException.cs" />
     <Compile Include="SensingNet\SNetUtil.cs" />
-    <Compile Include="SensingNet\TdBase\SNetTdBlock.cs" />
-    <Compile Include="SensingNet\TdBase\SNetTdDiagram.cs" />
     <Compile Include="SensingNet\TdBase\SNetTdEnumInvokeResult.cs" />
     <Compile Include="SensingNet\TdBase\SNetTdEventArg.cs" />
     <Compile Include="SensingNet\TdBase\SNetTdNode.cs" />

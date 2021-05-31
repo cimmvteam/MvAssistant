@@ -298,7 +298,7 @@ namespace SensingNet.v0_2.DvcSensor
             catch (Exception ex) { CtkLog.Write(ex, CtkLoggerEnumLevel.Error); }
             return 0;
         }
-        public virtual int CfRunLoopAsyn()
+        public virtual int CfRunLoopStart()
         {
             if (this.taskRun != null)
                 if (!this.taskRun.Wait(100)) return 0;//正在工作

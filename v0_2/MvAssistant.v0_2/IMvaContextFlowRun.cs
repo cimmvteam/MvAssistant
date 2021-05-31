@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2
 
         int MvaCfRunOnce();
         int MvaCfRunLoop();
-        int MvaCfRunLoopAsyn();
+        int MvaCfRunLoopStart();
 
 
     }

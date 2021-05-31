@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
+namespace MvAssistant.v0_2.Mac
 {
-    public enum EnuDeviceId
+    public enum EnumMacDeviceId
     {
         Eqp,
         RecipeAgent,

@@ -79,7 +79,7 @@ namespace SensingNet.v0_2.Framework
 
             return 0;
         }
-        public int CfRunLoopAsyn()
+        public int CfRunLoopStart()
         {
             if (this.runTask != null)
                 if (!this.runTask.Wait(100)) return 0;//正在工作

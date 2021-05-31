@@ -7,12 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 
 namespace SensingNet.v0_2.TdBase
 {
     [Serializable]
+    [Guid("CA483706-9EAE-4E60-8CE7-2C4C3CAFAD32")]
     public class SNetTdNode : ICtkTdNode, IDisposable
     {
         public bool IsEnalbed = true;
@@ -21,6 +24,40 @@ namespace SensingNet.v0_2.TdBase
 
         public string CtkTdIdentifier { get { return this._identifier; } set { this._identifier = value; } }
         public string CtkTdName { get; set; }
+
+
+        public Dictionary<String, SNetTdNode> TdNodes = new Dictionary<string, SNetTdNode>();
+
+        public T AddNode<T>() where T : SNetTdNode, new()
+        {
+            var node = new T();
+            return this.AddNode(node);
+        }
+
+        public T AddNode<T>(T node) where T : SNetTdNode
+        {
+            try
+            {
+                if (!Monitor.TryEnter(this.TdNodes, 30 * 1000)) throw new SNetException("Cannot add TdNodes in 30 seconds");
+
+                if (this.TdNodes.ContainsKey(node.CtkTdIdentifier)) throw new ArgumentException("Already exist identifier");
+                this.TdNodes[node.CtkTdIdentifier] = node;
+                return node;
+            }
+            finally { Monitor.Exit(this.TdNodes); }
+        }
+
+
+        public void RefreshNodeId()
+        {
+            var dspNodes = this.TdNodes.Values;
+            lock (this.TdNodes)
+            {
+                this.TdNodes.Clear();
+                foreach (var node in dspNodes)
+                    this.AddNode(node);
+            }
+        }
 
 
 
@@ -81,6 +118,7 @@ namespace SensingNet.v0_2.TdBase
         }
         protected virtual void DisposeSelf()
         {
+            this.TdNodes.Clear();
             CtkEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);//移除自己的Event Delegate
         }
         #endregion

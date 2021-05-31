@@ -96,7 +96,7 @@ namespace SensingNet.v0_2.QSecs
 
             return 0;
         }
-        public int CfRunLoopAsyn()
+        public int CfRunLoopStart()
         {
             //還在執行中, 不接受重新執行
             if (this.RunningTask != null && this.RunningTask.Status < TaskStatus.RanToCompletion) return 1;

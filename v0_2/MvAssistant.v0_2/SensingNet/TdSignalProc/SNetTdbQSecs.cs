@@ -10,12 +10,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SensingNet.v0_2.TdSignalProc
 {
     [Serializable]
-    public class SNetTdbQSecs : SNetTdBlock, ICtkContextFlowRun
+    [Guid("32FE852F-F9C2-4C24-B3F4-5946B5E2F4B0")]
+    public class SNetTdbQSecs : SNetTdNode, ICtkContextFlowRun
     {
         public SNetQSecsCfg cfg;
         public CxHsmsConnector hsmsConnector;
@@ -101,7 +103,7 @@ namespace SensingNet.v0_2.TdSignalProc
             }
             return 0;
         }
-        public int CfRunLoopAsyn()
+        public int CfRunLoopStart()
         {
             this.CfIsRunning = true;
             CtkThreadingUtil.RunWorkerAsyn(delegate (object sender, DoWorkEventArgs e)

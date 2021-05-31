@@ -22,6 +22,7 @@ namespace MvAssistant.v0_2
     {
         public static T ChangeType<T>(object data) { return (T)Convert.ChangeType(data, typeof(T)); }
 
+        public static Enum EnumParse(string val, Type type) { return (Enum)Enum.Parse(type, val, true); }
         /// <summary>
         /// 泛型 Enum.Parse
         /// </summary>
@@ -95,7 +96,7 @@ namespace MvAssistant.v0_2
             }
         }
 
-    
+
         public static void MemoryCopy<S, D>(S[] src, int srcOffset, D[] dst, int sdtOffset, int length)
         {
             if (srcOffset + length > src.Length) throw new ArgumentException();
