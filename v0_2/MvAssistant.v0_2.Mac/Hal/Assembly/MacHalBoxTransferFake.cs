@@ -466,15 +466,19 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             #endregion
         }
 
-        public void Reset()
+        public int Reset()
         {
-            if (Robot.HalReset() == -1)
-                throw new Exception("Box Transfer reset failed.");
+            return 0;
         }
 
-        public void Recover()
+        public int Recover()
         {
-            Robot.HalSysRecover();
+            return 0;
+        }
+
+        public int StopProgram()
+        {
+            return 0;
         }
 
         /// <summary>
