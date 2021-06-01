@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 {
-    public interface IMacHalLoadPortUnit: IMacHalComponent
+    public interface IMacHalLoadPortUnit : IMacHalComponent
     {
-         bool IsConnected { get; }
-         string DeviceIndex { get; }
-         LoadPortWorkState CurrentWorkState { get; }
-         void ResetWorkState();
-         void SetWorkState(LoadPortWorkState state);
+        bool IsConnected { get; }
+        string DeviceIndex { get; }
+        LoadPortWorkState CurrentWorkState { get; }
+        void ResetWorkState();
+        void SetWorkState(LoadPortWorkState state);
 
         string CommandDockRequest();
         string CommandUndockRequest();
@@ -93,10 +93,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         DockStart,
         DockIng,
         DockComplete,
-      
+
         UndockStart,
         UndockIng,
-        UndockComplete
-       
+        UndockComplete,
+        PODNotPutProperly
     }
 }
