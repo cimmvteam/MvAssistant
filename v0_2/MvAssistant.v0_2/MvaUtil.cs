@@ -416,7 +416,7 @@ namespace MvAssistant.v0_2
                 try { act(obj); }
                 catch (Exception ex)
                 {
-                    if (exceptionHandler == null) exceptionHandler(ex);
+                    if (exceptionHandler != null) exceptionHandler(ex);
                     else MvaLog.Write(ex);
                 }
             }
