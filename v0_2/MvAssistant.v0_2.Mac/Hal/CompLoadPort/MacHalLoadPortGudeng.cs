@@ -564,6 +564,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnPODNotPutProperly(object sender, EventArgs e)
         {
+            this.SetWorkState(LoadPortWorkState.PODNotPutProperly);
             if (OnPODNotPutProperlyHandler != null)
             {
                 OnPODNotPutProperlyHandler.Invoke(this, e);
