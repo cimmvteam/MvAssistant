@@ -17,7 +17,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Universal
     [Guid("AFEFFEA4-B491-4A75-9E31-BDDBB5131262")]
     public class MacMcUniversal : MacMachineCtrlBase
     {
-        public IMacHalUniversal HalUniversal { get { return this.HalAssembly as IMacHalUniversal; } }
+        public IMacHalEqp HalUniversal { get { return this.HalAssembly as IMacHalEqp; } }
         /// <summary>
         /// 使用固定的State Machine,
         /// 若有其它版的狀態機, 一般也會用不同的控制機

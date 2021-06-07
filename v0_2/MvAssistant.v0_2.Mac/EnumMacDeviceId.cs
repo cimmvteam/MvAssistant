@@ -34,7 +34,7 @@ namespace MvAssistant.v0_2.Mac
         HID_LP_B_ASSY,
         HID_MT_A_ASSY,
         HID_OS_A_ASSY,
-        HID_UNI_A_ASSY,//PLC的Assembly只能有一個, 但底下可以有多個PLC Device
+        HID_EQP_A_ASSY,//PLC的Assembly只能有一個, 但底下可以有多個PLC Device
        
 
 

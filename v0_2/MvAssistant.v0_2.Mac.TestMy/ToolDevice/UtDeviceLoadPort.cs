@@ -671,7 +671,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
                 halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
 
@@ -687,7 +687,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
                 halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
 
@@ -703,7 +703,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
                 halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
 
@@ -720,7 +720,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
                 halContext.MvaCfLoad();
 
                 var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
             }

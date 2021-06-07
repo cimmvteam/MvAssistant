@@ -895,9 +895,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
             var rs = new MacManifestDeviceCfg()
             {
 
-                ID = EnumMacDeviceId.HID_UNI_A_ASSY.ToString(),
+                ID = EnumMacDeviceId.HID_EQP_A_ASSY.ToString(),
                 DevConnStr = null,
-                DeviceName = MacEnumDevice.universal_assembly.ToString(),
+                DeviceName = MacEnumDevice.eqp_assembly.ToString(),
                 DriverId = MacManifestDriverId.UniversalFake.ToString(),
                 PositionId = null,
                 /*Devices = new MacManifestDeviceCfg[] {

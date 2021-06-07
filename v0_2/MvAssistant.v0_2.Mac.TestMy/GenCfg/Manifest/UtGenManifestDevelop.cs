@@ -1333,15 +1333,15 @@ namespace MvAssistant.v0_2.Mac.TestMy.GenCfg.Manifest
             var rs = new MacManifestDeviceCfg()
             {
 
-                ID = EnumMacDeviceId.HID_UNI_A_ASSY.ToString(),
+                ID = EnumMacDeviceId.HID_EQP_A_ASSY.ToString(),
                 DevConnStr = null,
-                DeviceName = MacEnumDevice.universal_assembly.ToString(),
+                DeviceName = MacEnumDevice.eqp_assembly.ToString(),
                 DriverId = MacManifestDriverId.Universal.ToString(),
                 PositionId = null,
                 Devices = new MacManifestDeviceCfg[] {
                     new MacManifestDeviceCfg(){
                         DevConnStr = string.Format("{0}={1};{2}={3}" , MacHalPlcBase.DevConnStr_Ip, plcIp,MacHalPlcBase.DevConnStr_PortId, plcPortId),
-                        DeviceName = MacEnumDevice.universal_plc_01.ToString(),
+                        DeviceName = MacEnumDevice.eqp_plc_01.ToString(),
                         DriverId = MacManifestDriverId.UniversalPlc.ToString(),
                     },
 

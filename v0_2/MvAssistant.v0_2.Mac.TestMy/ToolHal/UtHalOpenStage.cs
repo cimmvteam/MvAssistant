@@ -69,7 +69,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     halContext.MvaCfInit();
                     halContext.MvaCfLoad();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                    var unv = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                     var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
                     unv.HalConnect();
                     os.HalConnect();
@@ -104,7 +104,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 os.HalConnect();
 

@@ -82,7 +82,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
                     Vendor = "Fake",
                     Product = "Fake Universal",
                     Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalUniversalFake),
+                    AssignType = typeof(Hal.Assembly.MacHalEqpFake),
                     DriverId = MacManifestDriverId.UniversalFake.ToString(),
                 },
 
@@ -229,7 +229,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
                     Vendor = "Hirata",
                     Product = "Universal",
                     Remark = null,
-                    AssignType = typeof(Hal.Assembly.MacHalUniversal),
+                    AssignType = typeof(Hal.Assembly.MacHalEqp),
                     DriverId = MacManifestDriverId.Universal.ToString(),
                 },
 

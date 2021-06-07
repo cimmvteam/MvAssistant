@@ -74,7 +74,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             {
                 ID = EnumMachineID.MID_UNI_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcUniversal),
-                HalId = EnumMacDeviceId.HID_UNI_A_ASSY.ToString(),
+                HalId = EnumMacDeviceId.HID_EQP_A_ASSY.ToString(),
             });
 
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()

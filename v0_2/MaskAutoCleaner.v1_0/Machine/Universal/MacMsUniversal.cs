@@ -11,7 +11,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Universal
 {
     public class MacMsUniversal : MacMachineStateBase
     {
-        private IMacHalUniversal HalUniversal { get { return this.halAssembly as IMacHalUniversal; } }
+        private IMacHalEqp HalUniversal { get { return this.halAssembly as IMacHalEqp; } }
 
         public MacMsUniversal() { LoadStateMachine(); }
         public override void LoadStateMachine()

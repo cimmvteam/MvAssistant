@@ -7,14 +7,14 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
     [Guid("FAFCEF2B-6356-4438-890F-30F865CAA742")]
-    public class MacHalUniversal : MacHalAssemblyBase, IMacHalUniversal
+    public class MacHalEqp : MacHalAssemblyBase, IMacHalEqp
     {
 
 
         #region Device Components
 
 
-        public IMacHalPlcUniversal plc_01 { get { return (IMacHalPlcUniversal)this.GetHalDevice(MacEnumDevice.universal_plc_01); } }
+        public IMacHalPlcUniversal plc_01 { get { return (IMacHalPlcUniversal)this.GetHalDevice(MacEnumDevice.eqp_plc_01); } }
 
         #endregion Device Components
 

@@ -25,7 +25,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         List<BoxrobotTransferLocation> DrawerLocations;
         BoxrobotTransferPathFile pathFileObj;
         MacHalContext HalContext;
-        MacHalUniversal HalUniversal;
+        MacHalEqp HalUniversal;
         MacHalOpenStage HalOpenStage;
         MacHalBoxTransfer HalBoxTransfer;
         public bool InitialError = false;

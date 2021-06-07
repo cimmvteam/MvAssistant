@@ -38,9 +38,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <para>false: 另行 Connect
         /// </param>
         /// <returns></returns>
-        public static MacHalUniversal GetUniversalAssembly(this MacHalContext instance,bool autoConnect=false)
+        public static MacHalEqp GetUniversalAssembly(this MacHalContext instance,bool autoConnect=false)
         {
-          var rtnV=  instance.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+          var rtnV=  instance.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
             if (autoConnect)
             {
                 if (rtnV != null)

@@ -422,12 +422,12 @@ namespace MvAssistant.v0_2.Mac.Manifest
 
 
 
-        #region Universal
+        #region Eqp
 
-        [MacManifestDeviceProgKpi("Universal", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.SoftTest)]
-        universal_assembly,
-        [MacManifestDeviceProgKpi("Universal", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.SoftTest)]
-        universal_plc_01,
+        [MacManifestDeviceProgKpi("EQP", "組件", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.SoftTest)]
+        eqp_assembly,
+        [MacManifestDeviceProgKpi("EQP", "PLC", MacManifestDeviceProgKpiAttribute.EnumManifestDeviceProgStatus.SoftTest)]
+        eqp_plc_01,
 
         #endregion Universal
 

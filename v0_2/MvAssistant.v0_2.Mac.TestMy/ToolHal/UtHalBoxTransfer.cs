@@ -18,7 +18,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 bt.HalConnect();
 
@@ -107,7 +107,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 bt.HalConnect();
 
@@ -128,7 +128,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 bt.HalConnect();
 
@@ -150,7 +150,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 bt.HalConnect();
 
@@ -174,7 +174,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
                 var bt = halContext.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.universal_assembly.ToString()] as MacHalUniversal;
+                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 bt.HalConnect();
 

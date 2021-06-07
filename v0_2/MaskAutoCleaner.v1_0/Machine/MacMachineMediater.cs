@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         private IMacHalInspectionCh HalInspectionCh { get { return GetCtrlMachine(EnumMachineID.MID_IC_A_ASB.ToString()).HalAssembly as IMacHalInspectionCh; } }
         private IMacHalCleanCh HalCleanCh { get { return GetCtrlMachine(EnumMachineID.MID_CC_A_ASB.ToString()).HalAssembly as IMacHalCleanCh; } }
         private IMacHalOpenStage HalOpenStage { get { return GetCtrlMachine(EnumMachineID.MID_OS_A_ASB.ToString()).HalAssembly as IMacHalOpenStage; } }
-        private IMacHalUniversal HalUniversal { get { return GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalUniversal; } }
+        private IMacHalEqp HalUniversal { get { return GetCtrlMachine(EnumMachineID.MID_UNI_A_ASB.ToString()).HalAssembly as IMacHalEqp; } }
 
 
 
