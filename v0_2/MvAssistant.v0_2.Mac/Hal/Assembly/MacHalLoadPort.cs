@@ -63,7 +63,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             LoadPortUnit.CommandDockRequest();
 
             if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete, 20 * 1000))
-                throw new MvaException("Load Port Dock Timeout !!");
+                return "Load Port Dock Timeout";
             else
                 return "OK";
         }
@@ -73,9 +73,33 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             LoadPortUnit.CommandUndockRequest();
 
             if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete, 20 * 1000))
-                throw new MvaException("Load Port Undock Timeout !!");
+                return "Load Port Undock Timeout";
             else
                 return "OK";
+        }
+
+        public string Initial()
+        {
+            LoadPortUnit.CommandInitialRequest();
+
+            if (SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete, 20 * 1000))
+                return "OK";
+            else if (LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                return "Load Port must reset first";
+            else
+                return "Load Port Initial timeout";
+        }
+
+        public string AlarmReset()
+        {
+            LoadPortUnit.CommandAlarmReset();
+
+            if (SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete, 20 * 1000))
+                return "OK";
+            else if (LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
+                return "Load Port AlarmReset failed";
+            else
+                return "Load Port AlarmReset timeout";
         }
 
         #region Set Parameter
@@ -112,7 +136,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public bool ReadLP_Light_Curtain()
         { return Plc.ReadLP_Light_Curtain(); }
         #endregion
-        
+
         public void LightForLoadPortASetValue(int value)
         {
             LightBarLoadPortA.TurnOn(value);

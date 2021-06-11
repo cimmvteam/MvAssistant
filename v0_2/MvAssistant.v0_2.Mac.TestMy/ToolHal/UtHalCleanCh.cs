@@ -42,8 +42,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 cc.SetParticleCntLimit(20, 30, 40);
                 cc.SetRobotAboutLimit(10, 50);
                 cc.SetRobotUpDownLimit(50, 10);
-                cc.SetPressureDiffLimit(40);
-                cc.SetPressureCtrl(90);
+                cc.SetManometerPressureDiffLimit(40);
+                cc.SetBlowPressureCtrl(90);
             }
         }
 
@@ -62,8 +62,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 cc.ReadParticleCntLimitSetting();
                 cc.ReadRobotAboutLimitSetting();
                 cc.ReadRobotUpDownLimitSetting();
-                cc.ReadPressureDiffLimitSetting();
-                cc.ReadPressureCtrlSetting();
+                cc.ReadManometerPressureDiffLimitSetting();
+                cc.ReadBlowPressureCtrlSetting();
             }
         }
 
@@ -86,7 +86,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 cc.ReadRobotPosUpDown();
                 cc.ReadPressureDiff();
                 cc.ReadBlowPressure();
-                cc.ReadPressure();
+                cc.ReadManometerPressure();
                 cc.ReadLightCurtain();
             }
         }

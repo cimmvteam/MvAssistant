@@ -466,17 +466,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             #endregion
         }
 
-        public int Reset()
+        public int RobotReset()
         {
             return 0;
         }
 
-        public int Recover()
+        public int RobotRecover()
         {
             return 0;
         }
 
-        public int StopProgram()
+        public int RobotStopProgram()
         {
             return 0;
         }
@@ -550,7 +550,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 夾爪速度設定，單位(mm/sec)
         /// </summary>
         /// <param name="ClampSpeed">夾爪速度</param>
-        public void SetSpeed(double ClampSpeed)
+        public void SetClampSpeed(double ClampSpeed)
         { Plc.SetSpeed(ClampSpeed); }
 
         /// <summary>
@@ -558,14 +558,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="Minimum">最小間距</param>
         /// <param name="Maximum">最大間距</param>
-        public void SetHandSpaceLimit(double? Minimum, double? Maximum)
+        public void SetClampSpacingLimit(double? Minimum, double? Maximum)
         { Plc.SetHandSpaceLimit(Minimum, Maximum); }
 
         /// <summary>
         /// 設定Clamp與Cabinet的最小間距限制
         /// </summary>
         /// <param name="Minimum">最小間距</param>
-        public void SetClampToCabinetSpaceLimit(double Minimum)
+        public void SetSpacingLimitBetweenClampAndCabinet(double Minimum)
         { Plc.SetClampToCabinetSpaceLimit(Minimum); }
 
         /// <summary>
@@ -628,21 +628,21 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取夾爪速度設定
         /// </summary>
         /// <returns></returns>
-        public double ReadSpeedSetting()
+        public double ReadClampSpeedSetting()
         { return Plc.ReadSpeedSetting(); }
 
         /// <summary>
         /// 讀取夾爪間距的極限值設定，最小夾距、最大夾距
         /// </summary>
         /// <returns>最小夾距、最大夾距</returns>
-        public Tuple<double, double> ReadHandSpaceLimitSetting()
+        public Tuple<double, double> ReadClampSpacingLimitSetting()
         { return Plc.ReadHandSpaceLimitSetting(); }
 
         /// <summary>
         /// 讀取Clamp與Cabinet的最小間距設定
         /// </summary>
         /// <returns>最小間距</returns>
-        public double ReadClampToCabinetSpaceLimitSetting()
+        public double ReadSpacingLimitBetweenClampAndCabinetSetting()
         { return Plc.ReadClampToCabinetSpaceLimitSetting(); }
 
         /// <summary>
@@ -714,7 +714,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 確認Hand吸塵狀態
         /// </summary>
         /// <returns></returns>
-        public bool ReadHandVacuum()
+        public bool ReadClampVacuum()
         { return Plc.ReadHandVacuum(); }
         #endregion
 

@@ -434,9 +434,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return Robot.BacktrackPosMove(PathPosition);
         }
 
-        /// <summary>
-        /// 檢查當前位置與目標位置是否一致，點位允許誤差 ±5 
-        /// </summary>
+        /// <summary> 檢查當前位置與目標位置是否一致，點位允許誤差 ±50mm </summary>
         /// <param name="PosFileLocation"></param>
         /// <returns></returns>
         public bool CheckPosition(string PosFileLocation)
@@ -445,12 +443,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
-                if (CurrentPosInfo.x <= TargetPos.X + 5 && CurrentPosInfo.x >= TargetPos.X - 5
-                    && CurrentPosInfo.y <= TargetPos.Y + 5 && CurrentPosInfo.y >= TargetPos.Y - 5
-                    && CurrentPosInfo.z <= TargetPos.Z + 5 && CurrentPosInfo.z >= TargetPos.Z - 5
-                    && CurrentPosInfo.w <= TargetPos.W + 5 && CurrentPosInfo.w >= TargetPos.W - 5
-                    && CurrentPosInfo.p <= TargetPos.P + 5 && CurrentPosInfo.p >= TargetPos.P - 5
-                    && CurrentPosInfo.r <= TargetPos.R + 5 && CurrentPosInfo.r >= TargetPos.R - 5)
+                if (CurrentPosInfo.x <= TargetPos.X + 50 && CurrentPosInfo.x >= TargetPos.X - 50
+                    && CurrentPosInfo.y <= TargetPos.Y + 50 && CurrentPosInfo.y >= TargetPos.Y - 50
+                    && CurrentPosInfo.z <= TargetPos.Z + 50 && CurrentPosInfo.z >= TargetPos.Z - 50
+                    && CurrentPosInfo.w <= TargetPos.W + 50 && CurrentPosInfo.w >= TargetPos.W - 50
+                    && CurrentPosInfo.p <= TargetPos.P + 50 && CurrentPosInfo.p >= TargetPos.P - 50
+                    && CurrentPosInfo.r <= TargetPos.R + 50 && CurrentPosInfo.r >= TargetPos.R - 50)
                 {
                     return true;
                 }
@@ -459,19 +457,19 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             }
         }
 
-        public int Reset()
+        public int RobotReset()
         {
             if (Robot.HalReset() == -1)
                 throw new Exception("Box Transfer reset failed.");
             return 0;
         }
 
-        public int Recover()
+        public int RobotRecover()
         {
             return Robot.HalSysRecover();
         }
 
-        public int StopProgram()
+        public int RobotStopProgram()
         { return Robot.HalStopProgram(); }
 
         /// <summary>
@@ -510,7 +508,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 夾爪速度設定，單位(mm/sec)
         /// </summary>
         /// <param name="ClampSpeed">夾爪速度</param>
-        public void SetSpeed(double ClampSpeed)
+        public void SetClampSpeed(double ClampSpeed)
         { Plc.SetSpeed(ClampSpeed); }
 
         /// <summary>
@@ -518,14 +516,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="Minimum">最小間距</param>
         /// <param name="Maximum">最大間距</param>
-        public void SetHandSpaceLimit(double? Minimum, double? Maximum)
+        public void SetClampSpacingLimit(double? Minimum, double? Maximum)
         { Plc.SetHandSpaceLimit(Minimum, Maximum); }
 
         /// <summary>
         /// 設定Clamp與Cabinet的最小間距限制
         /// </summary>
         /// <param name="Minimum">最小間距</param>
-        public void SetClampToCabinetSpaceLimit(double Minimum)
+        public void SetSpacingLimitBetweenClampAndCabinet(double Minimum)
         { Plc.SetClampToCabinetSpaceLimit(Minimum); }
 
         /// <summary>
@@ -588,21 +586,21 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取夾爪速度設定
         /// </summary>
         /// <returns></returns>
-        public double ReadSpeedSetting()
+        public double ReadClampSpeedSetting()
         { return Plc.ReadSpeedSetting(); }
 
         /// <summary>
         /// 讀取夾爪間距的極限值設定，最小夾距、最大夾距
         /// </summary>
         /// <returns>最小夾距、最大夾距</returns>
-        public Tuple<double, double> ReadHandSpaceLimitSetting()
+        public Tuple<double, double> ReadClampSpacingLimitSetting()
         { return Plc.ReadHandSpaceLimitSetting(); }
 
         /// <summary>
         /// 讀取Clamp與Cabinet的最小間距設定
         /// </summary>
         /// <returns>最小間距</returns>
-        public double ReadClampToCabinetSpaceLimitSetting()
+        public double ReadSpacingLimitBetweenClampAndCabinetSetting()
         { return Plc.ReadClampToCabinetSpaceLimitSetting(); }
 
         /// <summary>
@@ -674,7 +672,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 確認Hand吸塵狀態
         /// </summary>
         /// <returns></returns>
-        public bool ReadHandVacuum()
+        public bool ReadClampVacuum()
         { return Plc.ReadHandVacuum(); }
 
         public bool ReadBT_FrontLimitSenser()

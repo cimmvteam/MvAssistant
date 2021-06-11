@@ -69,14 +69,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定壓力表壓差限制
         /// </summary>
         /// <param name="PressureLimit"></param>
-        public void SetPressureDiffLimit(uint PressureLimit)
+        public void SetManometerPressureDiffLimit(uint PressureLimit)
         { Plc.SetPressureDiffLimit(PressureLimit); }
 
         /// <summary>
         /// 設定吹氣壓力值
         /// </summary>
         /// <param name="AirPressure"></param>
-        public void SetPressureCtrl(double AirPressure)
+        public void SetBlowPressureCtrl(double AirPressure)
         { Plc.SetPressureCtrl(AirPressure); }
         #endregion
 
@@ -106,14 +106,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取壓力表壓差限制設定
         /// </summary>
         /// <returns></returns>
-        public int ReadPressureDiffLimitSetting()
+        public int ReadManometerPressureDiffLimitSetting()
         { return Plc.ReadPressureDiffLimitSetting(); }
 
         /// <summary>
         /// 讀取吹氣壓力設定值
         /// </summary>
         /// <returns></returns>
-        public double ReadPressureCtrlSetting()
+        public double ReadBlowPressureCtrlSetting()
         { return Plc.ReadPressureCtrlSetting(); }
         #endregion
 
@@ -165,7 +165,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取壓力表數值
         /// </summary>
         /// <returns></returns>
-        public double ReadPressure()
+        public double ReadManometerPressure()
         { return Plc.ReadPressure(); }
 
         /// <summary>

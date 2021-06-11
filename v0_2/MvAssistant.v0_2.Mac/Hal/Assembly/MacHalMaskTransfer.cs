@@ -140,9 +140,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
-        /// <summary>
-        /// 檢查當前位置與目標位置是否一致，點位允許誤差 ±5 
-        /// </summary>
+        /// <summary> 檢查當前位置與目標位置是否一致，點位允許誤差 ±50mm </summary>
         /// <param name="PosFileLocation"></param>
         /// <returns></returns>
         public bool CheckPosition(string PosFileLocation)
@@ -151,12 +149,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
-                if (CurrentPosInfo.x <= TargetPos.X + 5 && CurrentPosInfo.x >= TargetPos.X - 5
-                    && CurrentPosInfo.y <= TargetPos.Y + 5 && CurrentPosInfo.y >= TargetPos.Y - 5
-                    && CurrentPosInfo.z <= TargetPos.Z + 5 && CurrentPosInfo.z >= TargetPos.Z - 5
-                    && CurrentPosInfo.w <= TargetPos.W + 5 && CurrentPosInfo.w >= TargetPos.W - 5
-                    && CurrentPosInfo.p <= TargetPos.P + 5 && CurrentPosInfo.p >= TargetPos.P - 5
-                    && CurrentPosInfo.r <= TargetPos.R + 5 && CurrentPosInfo.r >= TargetPos.R - 5)
+                if (CurrentPosInfo.x <= TargetPos.X + 50 && CurrentPosInfo.x >= TargetPos.X - 50
+                    && CurrentPosInfo.y <= TargetPos.Y + 50 && CurrentPosInfo.y >= TargetPos.Y - 50
+                    && CurrentPosInfo.z <= TargetPos.Z + 50 && CurrentPosInfo.z >= TargetPos.Z - 50
+                    && CurrentPosInfo.w <= TargetPos.W + 50 && CurrentPosInfo.w >= TargetPos.W - 50
+                    && CurrentPosInfo.p <= TargetPos.P + 50 && CurrentPosInfo.p >= TargetPos.P - 50
+                    && CurrentPosInfo.r <= TargetPos.R + 50 && CurrentPosInfo.r >= TargetPos.R - 50)
                 {
                     return true;
                 }
@@ -165,19 +163,19 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             }
         }
 
-        public int Reset()
+        public int RobotReset()
         {
             if (Robot.HalReset() == -1)
                 throw new Exception("Mask Transfer reset failed.");
             return 0;
         }
 
-        public int Recover()
+        public int RobotRecover()
         {
             return Robot.HalSysRecover();
         }
 
-        public int StopProgram()
+        public int RobotStopProgram()
         { return Robot.HalStopProgram(); }
 
         public string Clamp(uint MaskType)

@@ -60,12 +60,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<int, int, int>(20, 20, 20);
         }
 
-        public double ReadPressure()
+        public double ReadManometerPressure()
         {
             return 0;
         }
 
-        public double ReadPressureCtrlSetting()
+        public double ReadBlowPressureCtrlSetting()
         {
             return 0;
         }
@@ -75,7 +75,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 1;
         }
 
-        public int ReadPressureDiffLimitSetting()
+        public int ReadManometerPressureDiffLimitSetting()
         {
             return 1;
         }
@@ -105,12 +105,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public void SetPressureCtrl(double AirPressure)
+        public void SetBlowPressureCtrl(double AirPressure)
         {
             return;
         }
 
-        public void SetPressureDiffLimit(uint PressureLimit)
+        public void SetManometerPressureDiffLimit(uint PressureLimit)
         {
             return;
         }

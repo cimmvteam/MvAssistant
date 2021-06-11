@@ -111,9 +111,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 bt.HalConnect();
 
-                bt.SetSpeed(20);
-                bt.SetHandSpaceLimit(10, 20);
-                bt.SetClampToCabinetSpaceLimit(50);
+                bt.SetClampSpeed(20);
+                bt.SetClampSpacingLimit(10, 20);
+                bt.SetSpacingLimitBetweenClampAndCabinet(50);
                 bt.SetLevelSensorLimit(5, 6);
                 bt.SetSixAxisSensorUpperLimit(10.1, 20.2, 30.3, 40.4, 50.5, 60.6);
                 bt.SetSixAxisSensorLowerLimit(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
@@ -132,9 +132,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 bt.HalConnect();
 
-                bt.ReadSpeedSetting();
-                bt.ReadHandSpaceLimitSetting();
-                bt.ReadClampToCabinetSpaceLimitSetting();
+                bt.ReadClampSpeedSetting();
+                bt.ReadClampSpacingLimitSetting();
+                bt.ReadSpacingLimitBetweenClampAndCabinetSetting();
                 bt.ReadLevelSensorLimitSetting();
                 bt.ReadSixAxisSensorUpperLimitSetting();
                 bt.ReadSixAxisSensorLowerLimitSetting();
@@ -160,7 +160,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 bt.ReadClampDistance();
                 bt.ReadLevelSensor();
                 bt.ReadSixAxisSensor();
-                bt.ReadHandVacuum();
+                bt.ReadClampVacuum();
                 bt.ReadBT_FrontLimitSenser();
                 bt.ReadBT_RearLimitSenser();
             }
