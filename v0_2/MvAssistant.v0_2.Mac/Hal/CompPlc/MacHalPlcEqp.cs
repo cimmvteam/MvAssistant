@@ -11,11 +11,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
 
     [Guid("6C08618D-3A39-4B00-A6F0-10CF12D162D7")]
-    public class MacHalPlcUniversal : MacHalPlcBase, IMacHalPlcUniversal
+    public class MacHalPlcEqp : MacHalPlcBase, IMacHalPlcEqp
     {
-        public MacHalPlcUniversal() { }
+        public MacHalPlcEqp() { }
 
-        public MacHalPlcUniversal(MacHalPlcContext plc = null)
+        public MacHalPlcEqp(MacHalPlcContext plc = null)
         { this.plcContext = plc; }
 
 

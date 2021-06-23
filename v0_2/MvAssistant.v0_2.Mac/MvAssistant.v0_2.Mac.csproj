@@ -82,7 +82,7 @@
     <Compile Include="Hal\Assembly\IMacHalLoadPort.cs" />
     <Compile Include="Hal\Assembly\IMacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalOpenStage.cs" />
-    <Compile Include="Hal\Assembly\IMacHalUniversal.cs" />
+    <Compile Include="Hal\Assembly\IMacHalEqp.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinet.cs" />
@@ -97,8 +97,8 @@
     <Compile Include="Hal\Assembly\MacHalMaskTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStageFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
-    <Compile Include="Hal\Assembly\MacHalUniversal.cs" />
-    <Compile Include="Hal\Assembly\MacHalUniversalFake.cs" />
+    <Compile Include="Hal\Assembly\MacHalEqp.cs" />
+    <Compile Include="Hal\Assembly\MacHalEqpFake.cs" />
     <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
     <Compile Include="Hal\CompDrawer\HalDrawerBoxDetectReturn.cs" />
     <Compile Include="Hal\CompDrawer\MacHalDrawerFake.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="Hal\CompRobot\HalRobotMotion.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPose.cs" />
     <Compile Include="Hal\CompRobot\IHalRobot.cs" />
-    <Compile Include="Hal\CompPlc\IMacHalPlcUniversal.cs" />
+    <Compile Include="Hal\CompPlc\IMacHalPlcEqp.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcOpenStage.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcMaskTransfer.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcLoadPort.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="Hal\CompPlc\IMacHalPlcCabinet.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcBoxTransfer.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcBase.cs" />
-    <Compile Include="Hal\CompPlc\MacHalPlcUniversal.cs" />
+    <Compile Include="Hal\CompPlc\MacHalPlcEqp.cs" />
     <Compile Include="Hal\IMacHalAssembly.cs" />
     <Compile Include="Hal\IMacHalComponent.cs" />
     <Compile Include="Hal\MacHalAssemblyBase.cs" />
