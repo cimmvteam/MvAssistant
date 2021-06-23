@@ -632,7 +632,7 @@ namespace MaskAutoCleaner.v1_0.Machine.MaskTransfer
                     {
                         try
                         {
-                            HalMaskTransfer.Reset();
+                            HalMaskTransfer.RobotReset();
                             HalMaskTransfer.Initial();
                         }
                         catch (Exception ex) { throw new MaskTransferInitialFailException(ex.Message); }

@@ -36,6 +36,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string Undock()
         { return "OK"; }
 
+        public string Initial()
+        { return "OK"; }
+
+        public string AlarmReset()
+        { return "OK"; }
+
         public bool ReadLP_Light_Curtain()
         {
             return false;

@@ -141,17 +141,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<double, double>(1, 0);
         }
 
-        public int Recover()
+        public int RobotRecover()
         {
             return 0;
         }
 
-        public int Reset()
+        public int RobotReset()
         {
             return 0;
         }
 
-        public int StopProgram()
+        public int RobotStopProgram()
         { return 0; }
 
         public void RobotMoving(bool isMoving)
