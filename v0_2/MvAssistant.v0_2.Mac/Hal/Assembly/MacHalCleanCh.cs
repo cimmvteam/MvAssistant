@@ -54,7 +54,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="Limit_L">左極限</param>
         /// <param name="Limit_R">右極限</param>
-        public void SetRobotAboutLimit(double? Limit_L, double? Limit_R)
+        public void SetRobotLeftRightLimit(double? Limit_L, double? Limit_R)
         { Plc.SetRobotAboutLimit(Limit_L, Limit_R); }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定吹氣壓力值
         /// </summary>
         /// <param name="AirPressure"></param>
-        public void SetBlowPressureCtrl(double AirPressure)
+        public void SetAirPurgePressurVar(double AirPressure)
         { Plc.SetPressureCtrl(AirPressure); }
         #endregion
 
@@ -92,7 +92,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取手臂入侵的左右區間極限設定，左極限、右極限
         /// </summary>
         /// <returns>左極限、右極限</returns>
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotLeftRightLimitSetting()
         { return Plc.ReadRobotAboutLimitSetting(); }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取吹氣壓力設定值
         /// </summary>
         /// <returns></returns>
-        public double ReadBlowPressureCtrlSetting()
+        public double ReadAirPurgePressureVar()
         { return Plc.ReadPressureCtrlSetting(); }
         #endregion
 
@@ -137,7 +137,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取手臂橫向位置(左右區間)
         /// </summary>
         /// <returns></returns>
-        public double ReadRobotPosAbout()
+        public double ReadRobotPosLeftRight()
         { return Plc.ReadRobotPosAbout(); }
 
         /// <summary>
@@ -158,7 +158,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取實際吹氣壓力
         /// </summary>
         /// <returns></returns>
-        public Single ReadBlowPressure()
+        public Single ReadAirPurgePressure()
         { return Plc.ReadBlowPressure(); }
 
         /// <summary>

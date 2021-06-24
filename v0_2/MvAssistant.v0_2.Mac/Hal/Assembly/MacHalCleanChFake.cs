@@ -35,7 +35,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public int ReadLightForInsp()
         { return 1; }
 
-        public float ReadBlowPressure()
+        public float ReadAirPurgePressure()
         {
             return (float)0.1;
         }
@@ -65,7 +65,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 0;
         }
 
-        public double ReadBlowPressureCtrlSetting()
+        public double ReadAirPurgePressureVar()
         {
             return 0;
         }
@@ -80,12 +80,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 1;
         }
 
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotLeftRightLimitSetting()
         {
             return new Tuple<double, double>(1, 1);
         }
 
-        public double ReadRobotPosAbout()
+        public double ReadRobotPosLeftRight()
         {
             return 0;
         }
@@ -105,7 +105,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public void SetBlowPressureCtrl(double AirPressure)
+        public void SetAirPurgePressurVar(double AirPressure)
         {
             return;
         }
@@ -115,7 +115,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public void SetRobotAboutLimit(double? Limit_L, double? Limit_R)
+        public void SetRobotLeftRightLimit(double? Limit_L, double? Limit_R)
         {
             return;
         }

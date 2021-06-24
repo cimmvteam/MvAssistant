@@ -52,7 +52,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Clean Chamber & 報值
-                    var About = cc.ReadRobotPosAbout();
+                    var About = cc.ReadRobotPosLeftRight();
                     var UpDown = cc.ReadRobotPosUpDown();
 
                     //6. Mask Robot模擬吹除轉動Mask行為
@@ -104,7 +104,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Clean Chamber & 報值
-                    About = cc.ReadRobotPosAbout();
+                    About = cc.ReadRobotPosLeftRight();
                     UpDown = cc.ReadRobotPosUpDown();
 
                     //6. Mask Robot模擬吹除轉動Mask行為
@@ -180,7 +180,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Clean Chamber & 報值
-                    var About = cc.ReadRobotPosAbout();
+                    var About = cc.ReadRobotPosLeftRight();
                     var UpDown = cc.ReadRobotPosUpDown();
 
                     //6. Mask Robot模擬吹除轉動Mask行為

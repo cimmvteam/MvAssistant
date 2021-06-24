@@ -1213,7 +1213,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     cc.HalConnect();
 
-                    cc.SetBlowPressureCtrl(100);
+                    cc.SetAirPurgePressurVar(100);
                     cc.GasValveBlow(30);
                 }
             }
