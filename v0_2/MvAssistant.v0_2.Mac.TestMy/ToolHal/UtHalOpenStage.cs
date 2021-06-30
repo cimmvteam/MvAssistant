@@ -38,7 +38,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
                 os.SetBoxType(1);
-                os.SetSpeed(50);
+                os.SetSpeedVar(50);
                 os.SetParticleCntLimit(10,20,30);
             }
         }
@@ -53,9 +53,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
                 var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
 
-                os.ReadBoxTypeSetting();
-                os.ReadSpeedSetting();
-                os.ReadParticleCntLimitSetting();
+                os.ReadBoxTypeVar();
+                os.ReadSpeedVar();
+                os.ReadParticleCntLimit();
             }
         }
 

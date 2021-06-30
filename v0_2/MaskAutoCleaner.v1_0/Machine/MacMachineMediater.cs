@@ -88,7 +88,7 @@ namespace MaskAutoCleaner.v1_0.Machine
         /// <summary> 讀取Robot侵入InspCh的左右位置 </summary>
         /// <returns></returns>
         public double ReadInspChAboutSensor()
-        { return HalInspectionCh.ReadRobotPosAbout(); }
+        { return HalInspectionCh.ReadRobotPosLeftRight(); }
 
         /// <summary> 讀取Robot侵入InspCh的上下位置 </summary>
         /// <returns></returns>

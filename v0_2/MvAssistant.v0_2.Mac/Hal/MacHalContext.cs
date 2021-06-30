@@ -16,6 +16,7 @@ namespace MvAssistant.v0_2.Mac.Hal
     {
         public Dictionary<string, MacHalBase> HalDevices = new Dictionary<string, MacHalBase>();
         public string Path;
+        public String HalId { get { return null; } }
         MacManifestCfg manifest;
         public MacHalContext(string path = null)
         {

@@ -38,12 +38,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(false, false, false, false, false, false, false);
         }
 
-        public Tuple<int, int> ReadPressureDiff()
+        public Tuple<int, int> ReadChamberPressureDiff()
         {
             return new Tuple<int, int>(0,0);
         }
 
-        public Tuple<int, int> ReadPressureDiffLimitSetting()
+        public Tuple<int, int> ReadChamberPressureDiffLimitSetting()
         {
             return new Tuple<int, int>(1,1);
         }
@@ -53,7 +53,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
+        public void SetChamberPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         {
             return;
         }

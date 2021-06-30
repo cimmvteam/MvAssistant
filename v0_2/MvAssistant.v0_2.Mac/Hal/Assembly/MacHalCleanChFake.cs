@@ -22,7 +22,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public string GasValveBlow(uint BlowTime)
+        public string SetGasValveTime(uint BlowTime)
         {
             return "OK";
         }
@@ -35,7 +35,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public int ReadLightForInsp()
         { return 1; }
 
-        public float ReadAirPurgePressure()
+        public float ReadGasValvePressure()
         {
             return (float)0.1;
         }
@@ -50,7 +50,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<double, double, double>(0, 0, 0);
         }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
             return new Tuple<int, int, int>(50, 50, 50);
         }
@@ -65,22 +65,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 0;
         }
 
-        public double ReadAirPurgePressureVar()
+        public double ReadGasValvePressureVar()
         {
             return 0;
         }
 
-        public int ReadPressureDiff()
+        public int ReadChamberPressureDiff()
         {
             return 1;
         }
 
-        public int ReadManometerPressureDiffLimitSetting()
+        public int ReadManometerPressureLimit()
         {
             return 1;
         }
 
-        public Tuple<double, double> ReadRobotLeftRightLimitSetting()
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
         {
             return new Tuple<double, double>(1, 1);
         }
@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 0;
         }
 
-        public Tuple<double, double> ReadRobotUpDownLimitSetting()
+        public Tuple<double, double> ReadRobotPosUpDownLimit()
         {
             return new Tuple<double, double>(1, 0);
         }
@@ -105,12 +105,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public void SetAirPurgePressurVar(double AirPressure)
+        public void SetGasValvePressurVar(double AirPressure)
         {
             return;
         }
 
-        public void SetManometerPressureDiffLimit(uint PressureLimit)
+        public void SetManometerPressureLimit(uint PressureLimit)
         {
             return;
         }

@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return "";
         }
 
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
         {
             return new Tuple<double, double>(1, 0);
         }
@@ -110,7 +110,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return false;
         }
 
-        public double ReadRobotPosAbout()
+        public double ReadRobotPosLeftRight()
         {
             return 0;
         }
@@ -120,12 +120,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 0;
         }
 
-        public Tuple<double, double> ReadRobotUpDownLimitSetting()
+        public Tuple<double, double> ReadRobotPosUpDownLimit()
         {
             return new Tuple<double, double>(1, 0);
         }
 
-        public Tuple<double, double, double> ReadSpeedSetting()
+        public Tuple<double, double, double> ReadSpeedVar()
         {
             return new Tuple<double, double, double>(1, 1, 1);
         }
@@ -145,17 +145,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 1;
         }
 
-        public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
+        public void SetRobotPosLeftRightLimit(double? AboutLimit_L, double? AboutLimit_R)
         {
             return;
         }
 
-        public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
+        public void SetRobotPosUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         {
             return;
         }
 
-        public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
+        public void SetSpeedVar(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
         {
             return;
         }
@@ -180,7 +180,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
             return new Tuple<int, int, int>(2, 2, 2);
         }
@@ -195,12 +195,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public int ReadPressureDiffLimitSrtting()
+        public int ReadChamberPressureDiffLimit()
         {
             return 1;
         }
 
-        public int ReadPressureDiff()
+        public int ReadChamberPressureDiff()
         {
             return 1;
         }

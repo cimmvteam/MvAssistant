@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac
 {
-    public enum EnumMacDeviceId
+    public enum EnumMacHalId
     {
         Eqp,
         RecipeAgent,

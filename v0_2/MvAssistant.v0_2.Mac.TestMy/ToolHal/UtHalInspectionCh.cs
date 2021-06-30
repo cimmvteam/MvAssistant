@@ -51,9 +51,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.SetSpeed(200, 100, 50);
-                ic.SetRobotAboutLimit(10, 100);
-                ic.SetRobotUpDownLimit(10, -20);
+                ic.SetSpeedVar(200, 100, 50);
+                ic.SetRobotPosLeftRightLimit(10, 100);
+                ic.SetRobotPosUpDownLimit(10, -20);
                 ic.SetParticleCntLimit(15,25,35);
                 ic.SetPressureDiffLimit(20);
             }
@@ -73,11 +73,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.ReadSpeedSetting();
-                ic.ReadRobotAboutLimitSetting();
-                ic.ReadRobotUpDownLimitSetting();
-                ic.ReadParticleCntLimitSetting();
-                ic.ReadPressureDiffLimitSrtting();
+                ic.ReadSpeedVar();
+                ic.ReadRobotPosLeftRightLimit();
+                ic.ReadRobotPosUpDownLimit();
+                ic.ReadParticleCntLimit();
+                ic.ReadChamberPressureDiffLimit();
             }
         }
 
@@ -99,10 +99,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 ic.ReadXYPosition();
                 ic.ReadZPosition();
                 ic.ReadWPosition();
-                ic.ReadRobotPosAbout();
+                ic.ReadRobotPosLeftRight();
                 ic.ReadRobotPosUpDown();
                 ic.ReadParticleCount();
-                ic.ReadPressureDiff();
+                ic.ReadChamberPressureDiff();
             }
         }
 

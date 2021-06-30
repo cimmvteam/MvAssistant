@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber &報值
-                    var About = ic.ReadRobotPosAbout();
+                    var About = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot在Inspection Chamber 內進行光罩夾取
@@ -88,7 +88,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //9. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber &報值
-                    About = ic.ReadRobotPosAbout();
+                    About = ic.ReadRobotPosLeftRight();
                     UpDown = ic.ReadRobotPosUpDown();
 
                     //10. Mask Robot將光罩放置於Inspection Chamber Stage上

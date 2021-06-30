@@ -89,16 +89,16 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed">(%)</param>
-        public void SetSpeed(uint Speed)
+        public void SetSpeedVar(uint Speed)
         { return; }
         #endregion
 
         #region Read Parameter
 
-        public int ReadBoxTypeSetting()
+        public int ReadBoxTypeVar()
         { return 1; }
 
-        public int ReadSpeedSetting()
+        public int ReadSpeedVar()
         { return 1; }
         #endregion
 
@@ -257,7 +257,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
             return new Tuple<int, int, int>(2,2,2);
         }

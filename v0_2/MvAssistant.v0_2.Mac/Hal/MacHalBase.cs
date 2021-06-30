@@ -17,7 +17,7 @@ namespace MvAssistant.v0_2.Mac.Hal
         public MacManifestDriverCfg HalDriverCfg;
         public Dictionary<string, MacHalBase> Hals = new Dictionary<string, MacHalBase>();
         ~MacHalBase() { this.Dispose(false); }
-        public string HID { get { return this.HalDeviceCfg.ID; } }
+        public string HalId { get { return this.HalDeviceCfg.ID; } }
 
 
         #region Machines Get/Set
@@ -53,6 +53,8 @@ namespace MvAssistant.v0_2.Mac.Hal
 
         #region IHal
 
+        
+
         public abstract int HalClose();
         public abstract int HalConnect();
         public virtual bool HalIsConnected() { throw new NotImplementedException(); }
@@ -73,6 +75,8 @@ namespace MvAssistant.v0_2.Mac.Hal
         }
 
         protected string DeviceConnStr { get { return this.HalDeviceCfg.DevConnStr; } }
+
+
         public string GetDevConnStr(string key) { return this.DevSettings[key.ToLower()]; }
 
         public T GetDevConnStrEnum<T>(string key) { return MvaUtil.EnumParse<T>(this.DevSettings[key] as string); }

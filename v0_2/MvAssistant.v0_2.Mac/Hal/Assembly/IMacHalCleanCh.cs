@@ -11,10 +11,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         void Camera_Insp_CapToSave(string SavePath, string FileType);
 
-        /// <summary> 空氣閥吹風(BlowTime單位為100ms) </summary>
-        /// <param name="BlowTime">(100ms)</param>
-        /// <returns></returns>
-        string GasValveBlow(uint BlowTime);
 
         /// <summary>
         /// 調整燈光亮度
@@ -22,13 +18,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="value"></param>
         void LightForInspSetValue(int value);
 
+        /// <summary> 讀取實際壓差 </summary>
+        /// <returns></returns>
+        int ReadChamberPressureDiff();
+
         /// <summary> 讀取實際吹氣壓力 </summary>
         /// <returns></returns>
-        Single ReadAirPurgePressure();
+        Single ReadGasValvePressure();
 
         /// <summary> 讀取吹氣壓力設定值 </summary>
         /// <returns></returns>
-        double ReadAirPurgePressureVar();
+        double ReadGasValvePressureVar();
 
         /// <summary> 遮斷為True，由Chamber開口往內看，依序由左到右 </summary>
         /// <returns>遮斷為True，由Chamber開口往內看，依序由左到右</returns>
@@ -42,7 +42,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 讀取壓力表壓差限制設定 </summary>
         /// <returns></returns>
-        int ReadManometerPressureDiffLimitSetting();
+        int ReadManometerPressureLimit();
 
         /// <summary> 讀取Mask水平 </summary>
         /// <returns></returns>
@@ -50,23 +50,19 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 讀取各種大小Particle的數量限制設定，大Particle、中Particle、小Particle的數量 </summary>
         /// <returns></returns>
-        Tuple<int, int, int> ReadParticleCntLimitSetting();
+        Tuple<int, int, int> ReadParticleCntLimit();
 
         /// <summary> 讀取各種大小Particle的數量，大Particle、中Particle、小Particle的數量 </summary>
         /// <returns></returns>
         Tuple<int, int, int> ReadParticleCount();
 
-        /// <summary> 讀取實際壓差 </summary>
-        /// <returns></returns>
-        int ReadPressureDiff();
-
-        /// <summary> 讀取手臂入侵的左右區間極限設定，左極限、右極限 </summary>
-        /// <returns>左極限、右極限</returns>
-        Tuple<double, double> ReadRobotLeftRightLimitSetting();
-
         /// <summary> 讀取手臂橫向位置(左右區間) </summary>
         /// <returns></returns>
         double ReadRobotPosLeftRight();
+
+        /// <summary> 讀取手臂入侵的左右區間極限設定，左極限、右極限 </summary>
+        /// <returns>左極限、右極限</returns>
+        Tuple<double, double> ReadRobotPosLeftRightLimit();
 
         /// <summary> 讀取手臂直向位置(上下區間) </summary>
         /// <returns></returns>
@@ -74,15 +70,19 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 讀取手臂入侵的上下區間極限設定，上極限、下極限 </summary>
         /// <returns>上極限、下極限</returns>
-        Tuple<double, double> ReadRobotUpDownLimitSetting();
+        Tuple<double, double> ReadRobotPosUpDownLimit();
 
         /// <summary> 設定吹氣壓力值 </summary>
         /// <param name="AirPressure"></param>
-        void SetAirPurgePressurVar(double AirPressure);
+        void SetGasValvePressurVar(double AirPressure);
 
+        /// <summary> 空氣閥吹風(BlowTime單位為100ms) </summary>
+        /// <param name="purgeTime">(100ms)</param>
+        /// <returns></returns>
+        string SetGasValveTime(uint purgeTime);
         /// <summary> 設定壓力表壓差限制 </summary>
         /// <param name="PressureLimit"></param>
-        void SetManometerPressureDiffLimit(uint PressureLimit);
+        void SetManometerPressureLimit(uint PressureLimit);
 
         /// <summary> 設定各種大小Particle的數量限制 </summary>
         /// <param name="L_Limit">Large Particle Qty</param>

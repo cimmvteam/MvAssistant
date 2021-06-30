@@ -25,28 +25,28 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     cc.HalConnect();
 
                     //1. 氣壓20psi,  噴3秒
-                    cc.SetAirPurgePressurVar(20);
-                    cc.GasValveBlow(30);
+                    cc.SetGasValvePressurVar(20);
+                    cc.SetGasValveTime(30);
 
                     //2. 氣壓20psi,  噴5秒
-                    cc.SetAirPurgePressurVar(20);
-                    cc.GasValveBlow(50);
+                    cc.SetGasValvePressurVar(20);
+                    cc.SetGasValveTime(50);
 
                     //3. 氣壓20psi,  噴10秒
-                    cc.SetAirPurgePressurVar(20);
-                    cc.GasValveBlow(100);
+                    cc.SetGasValvePressurVar(20);
+                    cc.SetGasValveTime(100);
 
                     //4. 氣壓50psi,  噴3秒
-                    cc.SetAirPurgePressurVar(50);
-                    cc.GasValveBlow(30);
+                    cc.SetGasValvePressurVar(50);
+                    cc.SetGasValveTime(30);
 
                     //5. 氣壓50psi,  噴5秒
-                    cc.SetAirPurgePressurVar(50);
-                    cc.GasValveBlow(50);
+                    cc.SetGasValvePressurVar(50);
+                    cc.SetGasValveTime(50);
 
                     //6. 氣壓50psi,  噴10秒
-                    cc.SetAirPurgePressurVar(50);
-                    cc.GasValveBlow(100);
+                    cc.SetGasValvePressurVar(50);
+                    cc.SetGasValveTime(100);
                 }
             }
             catch (Exception ex) { throw ex; }

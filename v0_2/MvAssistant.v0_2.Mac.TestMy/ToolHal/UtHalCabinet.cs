@@ -31,7 +31,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 cbn.HalConnect();
 
-                cbn.SetPressureDiffLimit(50, 60);
+                cbn.SetChamberPressureDiffLimit(50, 60);
                 cbn.SetExhaustFlow(20, 35);
             }
         }
@@ -48,7 +48,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 cbn.HalConnect();
 
-                cbn.ReadPressureDiffLimitSetting();
+                cbn.ReadChamberPressureDiffLimitSetting();
                 cbn.ReadExhaustFlowSetting();
             }
         }
@@ -65,7 +65,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 cbn.HalConnect();
 
-                cbn.ReadPressureDiff();
+                cbn.ReadChamberPressureDiff();
                 cbn.ReadLightCurtain();
             }
         }

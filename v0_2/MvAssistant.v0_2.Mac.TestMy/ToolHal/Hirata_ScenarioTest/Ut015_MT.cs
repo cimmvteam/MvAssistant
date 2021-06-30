@@ -46,7 +46,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //2. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    var about = ic.ReadRobotPosAbout();
+                    var about = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
 
@@ -100,7 +100,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    var About = ic.ReadRobotPosAbout();
+                    var About = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Load Port A
@@ -142,7 +142,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    About = ic.ReadRobotPosAbout();
+                    About = ic.ReadRobotPosLeftRight();
                     UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Load Port B
@@ -231,7 +231,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    var About = ic.ReadRobotPosAbout();
+                    var About = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Open Stage
@@ -313,7 +313,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    About = ic.ReadRobotPosAbout();
+                    About = ic.ReadRobotPosLeftRight();
                     UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Open Stage

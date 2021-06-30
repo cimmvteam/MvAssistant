@@ -42,8 +42,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 cc.SetParticleCntLimit(20, 30, 40);
                 cc.SetRobotLeftRightLimit(10, 50);
                 cc.SetRobotUpDownLimit(50, 10);
-                cc.SetManometerPressureDiffLimit(40);
-                cc.SetAirPurgePressurVar(90);
+                cc.SetManometerPressureLimit(40);
+                cc.SetGasValvePressurVar(90);
             }
         }
 
@@ -59,11 +59,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 cc.HalConnect();
 
-                cc.ReadParticleCntLimitSetting();
-                cc.ReadRobotLeftRightLimitSetting();
-                cc.ReadRobotUpDownLimitSetting();
-                cc.ReadManometerPressureDiffLimitSetting();
-                cc.ReadAirPurgePressureVar();
+                cc.ReadParticleCntLimit();
+                cc.ReadRobotPosLeftRightLimit();
+                cc.ReadRobotPosUpDownLimit();
+                cc.ReadManometerPressureLimit();
+                cc.ReadGasValvePressureVar();
             }
         }
 
@@ -84,8 +84,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 cc.ReadMaskLevel();
                 cc.ReadRobotPosLeftRight();
                 cc.ReadRobotPosUpDown();
-                cc.ReadPressureDiff();
-                cc.ReadAirPurgePressure();
+                cc.ReadChamberPressureDiff();
+                cc.ReadGasValvePressure();
                 cc.ReadManometerPressure();
                 cc.ReadLightCurtain();
             }
@@ -103,7 +103,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 uni.HalConnect();
                 cc.HalConnect();
 
-                cc.GasValveBlow(50);
+                cc.SetGasValveTime(50);
             }
         }
 

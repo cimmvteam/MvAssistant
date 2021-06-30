@@ -47,7 +47,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 設定速度(%) </summary>
         /// <param name="Speed">(%)</param>
-        void SetSpeed(uint Speed);
+        void SetSpeedVar(uint Speed);
 
         /// <summary> 設定各種大小Particle的數量限制 </summary>
         /// <param name="L_Limit">Large Particle Qty</param>
@@ -57,15 +57,15 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 讀取各種大小Particle的數量限制設定，大Particle、中Particle、小Particle的數量 </summary>
         /// <returns></returns>
-        Tuple<int, int, int> ReadParticleCntLimitSetting();
+        Tuple<int, int, int> ReadParticleCntLimit();
 
         /// <summary> 讀取各種大小Particle的數量，大Particle、中Particle、小Particle的數量 </summary>
         /// <returns></returns>
         Tuple<int, int, int> ReadParticleCount();
 
-        int ReadBoxTypeSetting();
+        int ReadBoxTypeVar();
 
-        int ReadSpeedSetting();
+        int ReadSpeedVar();
 
         /// <summary> 發送入侵訊號，確認Robot能否入侵 </summary>
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>

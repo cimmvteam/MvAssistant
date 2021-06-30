@@ -124,7 +124,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="StageXYSpeed">Stage XY軸移動速度(mm/S)</param>
         /// <param name="CcdZSpeed">CCD Z軸移動速度(mm/S)</param>
         /// <param name="MaskWSpeed">Mask W軸旋轉速度(Deg/S)</param>
-        public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
+        public void SetSpeedVar(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
         { Plc.SetSpeed(StageXYSpeed, CcdZSpeed, MaskWSpeed); }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="AboutLimit_L">左極限</param>
         /// <param name="AboutLimit_R">右極限</param>
-        public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
+        public void SetRobotPosLeftRightLimit(double? AboutLimit_L, double? AboutLimit_R)
         { Plc.SetRobotAboutLimit(AboutLimit_L, AboutLimit_R); }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="UpDownLimit_U"></param>
         /// <param name="UpDownLimit_D"></param>
-        public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
+        public void SetRobotPosUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         { Plc.SetRobotUpDownLimit(UpDownLimit_U, UpDownLimit_D); }
 
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
@@ -159,24 +159,24 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取速度設定，Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)
         /// </summary>
         /// <returns>Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)</returns>
-        public Tuple<double, double, double> ReadSpeedSetting()
+        public Tuple<double, double, double> ReadSpeedVar()
         { return Plc.ReadSpeedSetting(); }
 
         /// <summary>
         /// 讀取手臂入侵的左右區間極限設定，左極限、右極限
         /// </summary>
         /// <returns>左極限、右極限</returns>
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
         { return Plc.ReadRobotAboutLimitSetting(); }
 
         /// <summary>
         /// 讀取手臂入侵的上下區間極限設定，上極限、下極限
         /// </summary>
         /// <returns>上極限、下極限</returns>
-        public Tuple<double, double> ReadRobotUpDownLimitSetting()
+        public Tuple<double, double> ReadRobotPosUpDownLimit()
         { return Plc.ReadRobotUpDownLimitSetting(); }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         { return Plc.ReadParticleCntLimitSetting(); }
 
         public Tuple<int, int, int> ReadParticleCount()
@@ -186,7 +186,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Inspection Chamber內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
         /// </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        public int ReadPressureDiffLimitSrtting()
+        public int ReadChamberPressureDiffLimit()
         { return Plc.ReadPressureDiffLimitSrtting(); }
         #endregion
 
@@ -216,7 +216,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取手臂橫向位置(左右區間)
         /// </summary>
         /// <returns></returns>
-        public double ReadRobotPosAbout()
+        public double ReadRobotPosLeftRight()
         { return Plc.ReadRobotPosAbout(); }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Inspection Chamber內部與外部環境壓差
         /// </summary>
         /// <returns>錶壓差</returns>
-        public int ReadPressureDiff()
+        public int ReadChamberPressureDiff()
         { return Plc.ReadPressureDiff(); }
         #endregion
 

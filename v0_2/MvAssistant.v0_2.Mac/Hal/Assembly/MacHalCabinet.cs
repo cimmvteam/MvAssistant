@@ -98,7 +98,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="Gauge1Limit">錶1壓差限制</param>
         /// <param name="Gauge2Limit">錶2壓差限制</param>
-        public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
+        public void SetChamberPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         { Plc.SetPressureDiffLimit(Gauge1Limit, Gauge2Limit); }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Cabinet內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
         /// </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        public Tuple<int, int> ReadPressureDiffLimitSetting()
+        public Tuple<int, int> ReadChamberPressureDiffLimitSetting()
         { return Plc.ReadPressureDiffLimitSetting(); }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Cabinet內部與外部環境壓差，錶1壓差、錶2壓差
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int> ReadPressureDiff()
+        public Tuple<int, int> ReadChamberPressureDiff()
         { return Plc.ReadPressureDiff(); }
 
         /// <summary>

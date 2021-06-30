@@ -111,7 +111,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed">(%)</param>
-        public void SetSpeed(uint Speed)
+        public void SetSpeedVar(uint Speed)
         { Plc.SetSpeed(Speed); }
 
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
@@ -120,10 +120,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         #region Read Parameter
 
-        public int ReadBoxTypeSetting()
+        public int ReadBoxTypeVar()
         { return Plc.ReadBoxTypeSetting(); }
 
-        public int ReadSpeedSetting()
+        public int ReadSpeedVar()
         { return Plc.ReadSpeedSetting(); }
         #endregion
 
@@ -201,7 +201,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public bool ReadBoxExist()
         { return Plc.ReadBoxExist(); }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         { return Plc.ReadParticleCntLimitSetting(); }
 
         public Tuple<int, int, int> ReadParticleCount()

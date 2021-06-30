@@ -14,6 +14,7 @@ namespace MvAssistant.v0_2.Mac.Hal
     [GuidAttribute("A11710A1-CF37-4D4D-835C-323BAEC46658")]
     public interface IHal
     {
+        String HalId { get; }
         /// <summary>
         /// implement connection terminate in here
         /// </summary>
