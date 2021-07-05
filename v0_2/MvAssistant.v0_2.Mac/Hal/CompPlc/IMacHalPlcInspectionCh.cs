@@ -23,31 +23,31 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         bool ReadRobotIntruded();
 
         #region Set Parameter
-        void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed);
+        void SetSpeedVar(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed);
 
-        void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R);
+        void SetRobotPosLeftRightLimit(double? AboutLimit_L, double? AboutLimit_R);
 
-        void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D);
+        void SetRobotPosUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D);
 
         void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
 
-        void SetPressureDiffLimit(uint? GaugeLimit);
+        void SetChamberPressureDiffLimit(uint? GaugeLimit);
         #endregion
 
         #region Read Parameter
-        Tuple<double, double, double> ReadSpeedSetting();
+        Tuple<double, double, double> ReadSpeedVar();
 
-        Tuple<double, double> ReadRobotAboutLimitSetting();
+        Tuple<double, double> ReadRobotPosLeftRightLimit();
 
-        Tuple<double, double> ReadRobotUpDownLimitSetting();
+        Tuple<double, double> ReadRobotPosUpDownLimit();
 
-        Tuple<int, int, int> ReadParticleCntLimitSetting();
+        Tuple<int, int, int> ReadParticleCntLimit();
 
         Tuple<int, int, int> ReadParticleCount();
 
-        int ReadPressureDiffLimitSrtting();
+        int ReadChamberPressureDiffLimit();
 
-        int ReadPressureDiff();
+        int ReadChamberPressureDiff();
         #endregion
 
         #region Read Component Value
@@ -57,7 +57,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         double ReadWPosition();
 
-        double ReadRobotPosAbout();
+        double ReadRobotPosLeftRight();
 
         double ReadRobotPosUpDown();
         #endregion

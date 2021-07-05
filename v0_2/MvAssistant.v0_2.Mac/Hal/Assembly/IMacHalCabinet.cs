@@ -32,11 +32,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 讀取Cabinet內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制 </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        Tuple<int, int> ReadChamberPressureDiffLimitSetting();
+        Tuple<int, int> ReadChamberPressureDiffLimit();
 
         /// <summary> 讀取節流閥開啟大小設定，節流閥1、節流閥2 </summary>
         /// <returns>節流閥1、節流閥2</returns>
-        Tuple<int, int> ReadExhaustFlowSetting();
+        Tuple<int, int> ReadExhaustFlowVar();
 
         /// <summary> 讀取光閘是否遮斷，一排一個 各自獨立，遮斷時True，Reset time 500ms </summary>
         /// <returns></returns>
@@ -50,6 +50,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary> 設定節流閥開啟大小，節流閥1、節流閥2 </summary>
         /// <param name="Valve1">節流閥1</param>
         /// <param name="Valve2">節流閥2</param>
-        void SetExhaustFlow(int? Valve1, int? Valve2);
+        void SetExhaustFlowVar(int? Valve1, int? Valve2);
     }
 }

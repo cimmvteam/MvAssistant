@@ -76,8 +76,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.OpenStage.SetBoxType(0);
-                plc.OpenStage.SetSpeed(50);
+                plc.OpenStage.SetBoxTypeVar(0);
+                plc.OpenStage.SetSpeedVar(50);
             }
         }
 
@@ -87,8 +87,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
-                Console.WriteLine(plc.OpenStage.ReadSpeedSetting());
+                Console.WriteLine(plc.OpenStage.ReadBoxTypeVar());
+                Console.WriteLine(plc.OpenStage.ReadSpeedVar());
             }
         }
 
@@ -126,7 +126,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
+                plc.OpenStage.SetBoxTypeVar(1);//鐵盒：1，水晶盒：2
                 Console.WriteLine(plc.OpenStage.Initial());
                 for (int i = 0; i < 1; i++)
                 //while (true)

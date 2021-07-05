@@ -551,7 +551,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="ClampSpeed">夾爪速度</param>
         public void SetClampSpeedVar(double ClampSpeed)
-        { Plc.SetSpeed(ClampSpeed); }
+        { Plc.SetSpeedVar(ClampSpeed); }
 
         /// <summary>
         /// 設定夾爪間距的極限值，最小間距、最大間距
@@ -589,7 +589,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorUpperLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
@@ -612,7 +612,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetSixAxisSensorLowerLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorLowerLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorLowerLimit();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
@@ -629,7 +629,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <returns></returns>
         public double ReadClampSpeedVar()
-        { return Plc.ReadSpeedSetting(); }
+        { return Plc.ReadSpeedVar(); }
 
         /// <summary>
         /// 讀取夾爪間距的極限值設定，最小夾距、最大夾距
@@ -657,14 +657,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <returns></returns>
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
-        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
+        { return Plc.ReadSixAxisSensorUpperLimit(); }
 
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值下限設定
         /// </summary>
         /// <returns></returns>
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
-        { return Plc.ReadSixAxisSensorLowerLimitSetting(); }
+        { return Plc.ReadSixAxisSensorLowerLimit(); }
         #endregion
 
         #region Read Component Value

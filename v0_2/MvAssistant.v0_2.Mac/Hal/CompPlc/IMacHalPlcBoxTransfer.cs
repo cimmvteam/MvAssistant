@@ -16,7 +16,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         void RobotMoving(bool isMoving);
 
         #region Set Parameter
-        void SetSpeed(double ClampSpeed);
+        void SetSpeedVar(double ClampSpeed);
         void SetHandSpaceLimit(double? Minimum, double? Maximum);
         void SetClampToCabinetSpaceLimit(double Minimum);
         void SetLevelSensorLimit(double? Level_X, double? Level_Y);
@@ -25,12 +25,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         #endregion
 
         #region Read Parameter
-        double ReadSpeedSetting();
+        double ReadSpeedVar();
         Tuple<double, double> ReadHandSpaceLimitSetting();
         double ReadClampToCabinetSpaceLimitSetting();
         Tuple<double, double> ReadLevelSensorLimitSetting();
-        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting();
-        Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit();
         #endregion
 
         #region Read Component Value

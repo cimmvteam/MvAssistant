@@ -101,22 +101,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary> 讀取夾爪觸覺極限設定值，上限、下限 </summary>
         /// <returns>Maximum、Minimum</returns>
-        Tuple<int, int> ReadClampTactileLimSetting();
+        Tuple<int, int> ReadClampTactileLimit();
         /// <summary> 讀取三軸水平極限值設定，X軸、Y軸、Z軸 </summary>
         /// <returns>X軸、Y軸、Z軸</returns>
-        Tuple<int, int, int> ReadLevelLimitSetting();
+        Tuple<int, int, int> ReadLevelLimit();
         /// <summary> 讀取六軸力覺Sensor的壓力值上限設定，Fx、Fy、Fz、Mx、My、Mz </summary>
         /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit();
         /// <summary> 讀取六軸力覺Sensor的壓力值下限設定，Fx、Fy、Fz、Mx、My、Mz </summary>
         /// <returns></returns>
-        Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting();
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit();
         /// <summary> 讀取速度設定，夾爪速度、CCD旋轉速度 </summary>
         /// <returns>夾爪速度、CCD旋轉速度</returns>
-        Tuple<double, long> ReadSpeedSetting();
+        Tuple<double, long> ReadSpeedVar();
         /// <summary> 讀取靜電感測的區間限制設定值，上限、下限 </summary>
         /// <returns>上限、下限</returns>
-        Tuple<double, double> ReadStaticElecLimitSetting();
+        Tuple<double, double> ReadStaticElecLimit();
 
 
         /// <summary> 讀取CCD旋轉角度(單位 0.01 Degree) </summary>

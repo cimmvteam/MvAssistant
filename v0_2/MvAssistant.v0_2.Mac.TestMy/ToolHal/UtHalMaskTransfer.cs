@@ -45,12 +45,12 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     uni.HalConnect();
                     mt.HalConnect();
 
-                    mt.ReadClampTactileLimSetting();
-                    mt.ReadLevelLimitSetting();
-                    mt.ReadSixAxisSensorUpperLimitSetting();
-                    mt.ReadSixAxisSensorLowerLimitSetting();
-                    mt.ReadSpeedSetting();
-                    mt.ReadStaticElecLimitSetting();
+                    mt.ReadClampTactileLimit();
+                    mt.ReadLevelLimit();
+                    mt.ReadSixAxisSensorUpperLimit();
+                    mt.ReadSixAxisSensorLowerLimit();
+                    mt.ReadSpeedVar();
+                    mt.ReadStaticElecLimit();
                 }
             }
             catch (Exception ex)

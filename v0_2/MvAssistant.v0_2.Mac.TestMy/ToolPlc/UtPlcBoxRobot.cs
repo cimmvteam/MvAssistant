@@ -21,7 +21,6 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
         //        Console.WriteLine(plc.BoxRobot.Unclamp());
         //        Console.WriteLine(plc.BoxRobot.Initial());
         //        plc.BoxRobot.SetSpeed(10); //Speed：1~100mm/s
-        //        Console.WriteLine(plc.BoxRobot.ReadSpeedSetting());
         //        Console.WriteLine(plc.BoxRobot.ReadHandPos());
         //        Console.WriteLine(plc.BoxRobot.ReadBoxDetect());
         //        plc.BoxRobot.SetHandSpaceLimit(10, 20);
@@ -49,7 +48,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.BoxRobot.SetSpeed(10); //Speed：1~100mm/s
+                plc.BoxRobot.SetSpeedVar(10); //Speed：1~100mm/s
                 plc.BoxRobot.SetHandSpaceLimit(10, 20);
                 plc.BoxRobot.SetClampToCabinetSpaceLimit(10);
                 plc.BoxRobot.SetLevelSensorLimit(10, 15);
@@ -64,11 +63,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.BoxRobot.ReadSpeedSetting());
+                Console.WriteLine(plc.BoxRobot.ReadSpeedVar());
                 Console.WriteLine(plc.BoxRobot.ReadHandSpaceLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadClampToCabinetSpaceLimitSetting());
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensorLimitSetting());
-                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimitSetting());
+                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimit());
             }
         }
 

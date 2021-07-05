@@ -37,7 +37,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
                           try
                           {
                               Console.WriteLine(plc.InspCh.SetRobotIntrude(false));
-                              plc.InspCh.SetSpeed(100, 50, 500);
+                              plc.InspCh.SetSpeedVar(100, 50, 500);
                               Console.WriteLine(plc.InspCh.Initial());
 
                               while (boolTestStop == false)
@@ -68,7 +68,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
                         try
                         {
 
-                            plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
+                            plc.OpenStage.SetBoxTypeVar(1);//鐵盒：1，水晶盒：2
                             Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));//沒有Robot入侵時，將訊號改為True
                             Console.WriteLine(plc.OpenStage.Initial());
                             //for (int i = 0; i < 1; i++)

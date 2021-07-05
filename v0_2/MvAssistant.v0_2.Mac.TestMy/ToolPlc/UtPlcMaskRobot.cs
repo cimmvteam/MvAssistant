@@ -15,7 +15,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.MaskRobot.SetSpeed(10,null);
+                plc.MaskRobot.SetSpeedVar(10,null);
                 plc.MaskRobot.SetStaticElecLimit(20, 10);
                 plc.MaskRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
                 plc.MaskRobot.SetClampTactileLim(15,10);
@@ -29,11 +29,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
-                Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
-                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimitSetting());
-                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimSetting());
-                Console.WriteLine(plc.MaskRobot.ReadLevelLimitSetting());
+                Console.WriteLine(plc.MaskRobot.ReadSpeedVar());
+                Console.WriteLine(plc.MaskRobot.ReadStaticElecLimit());
+                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimit());
+                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimit());
+                Console.WriteLine(plc.MaskRobot.ReadLevelLimit());
             }
         }
 

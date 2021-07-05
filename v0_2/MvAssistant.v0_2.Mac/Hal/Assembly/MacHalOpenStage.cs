@@ -105,14 +105,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="BoxType">1：鐵盒 , 2：水晶盒</param>
         public void SetBoxType(uint BoxType)
-        { Plc.SetBoxType(BoxType); }
+        { Plc.SetBoxTypeVar(BoxType); }
 
         /// <summary>
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed">(%)</param>
         public void SetSpeedVar(uint Speed)
-        { Plc.SetSpeed(Speed); }
+        { Plc.SetSpeedVar(Speed); }
 
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         { Plc.SetParticleCntLimit(L_Limit, M_Limit, S_Limit); }
@@ -121,10 +121,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Read Parameter
 
         public int ReadBoxTypeVar()
-        { return Plc.ReadBoxTypeSetting(); }
+        { return Plc.ReadBoxTypeVar(); }
 
         public int ReadSpeedVar()
-        { return Plc.ReadSpeedSetting(); }
+        { return Plc.ReadSpeedVar(); }
         #endregion
 
         #region Read Component Value
@@ -202,7 +202,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return Plc.ReadBoxExist(); }
 
         public Tuple<int, int, int> ReadParticleCntLimit()
-        { return Plc.ReadParticleCntLimitSetting(); }
+        { return Plc.ReadParticleCntLimit(); }
 
         public Tuple<int, int, int> ReadParticleCount()
         { return Plc.ReadParticleCount(); }

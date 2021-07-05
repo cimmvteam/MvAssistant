@@ -142,8 +142,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.BoxRobot.Clamp(1));
                 Console.WriteLine(plc.BoxRobot.Unclamp());
                 Console.WriteLine(plc.BoxRobot.Initial());
-                plc.BoxRobot.SetSpeed(10); //Speed：1~100mm/s
-                Console.WriteLine(plc.BoxRobot.ReadSpeedSetting());
+                plc.BoxRobot.SetSpeedVar(10); //Speed：1~100mm/s
+                Console.WriteLine(plc.BoxRobot.ReadSpeedVar());
                 Console.WriteLine(plc.BoxRobot.ReadHandPos());
                 Console.WriteLine(plc.BoxRobot.ReadBoxDetect());
                 plc.BoxRobot.SetHandSpaceLimit(10, 20);
@@ -157,7 +157,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.BoxRobot.ReadLevelSensor());
                 Console.WriteLine(plc.BoxRobot.LevelReset());
                 plc.BoxRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
-                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimitSetting());
+                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimit());
                 Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
                 Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
@@ -221,17 +221,17 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
                 Console.WriteLine(plc.InspCh.WPosition(20));//0~359
                 Console.WriteLine(plc.InspCh.Initial());
-                plc.InspCh.SetSpeed(10, 10, 10);
-                Console.WriteLine(plc.InspCh.ReadSpeedSetting());
+                plc.InspCh.SetSpeedVar(10, 10, 10);
+                Console.WriteLine(plc.InspCh.ReadSpeedVar());
                 Console.WriteLine(plc.InspCh.SetRobotIntrude(true));
                 Console.WriteLine(plc.InspCh.ReadXYPosition());
                 Console.WriteLine(plc.InspCh.ReadZPosition());
                 Console.WriteLine(plc.InspCh.ReadWPosition());
-                plc.InspCh.SetRobotAboutLimit(-10, 10);
-                Console.WriteLine(plc.InspCh.ReadRobotAboutLimitSetting());
-                Console.WriteLine(plc.InspCh.ReadRobotPosAbout());
-                plc.InspCh.SetRobotUpDownLimit(10, 0);
-                Console.WriteLine(plc.InspCh.ReadRobotUpDownLimitSetting());
+                plc.InspCh.SetRobotPosLeftRightLimit(-10, 10);
+                Console.WriteLine(plc.InspCh.ReadRobotPosLeftRightLimit());
+                Console.WriteLine(plc.InspCh.ReadRobotPosLeftRight());
+                plc.InspCh.SetRobotPosUpDownLimit(10, 0);
+                Console.WriteLine(plc.InspCh.ReadRobotPosUpDownLimit());
                 Console.WriteLine(plc.InspCh.ReadRobotPosUpDown());
                 Console.WriteLine(plc.InspCh.ReadInspChStatus());
 
@@ -264,25 +264,25 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                     Console.WriteLine(plc.MaskRobot.Clamp(1));
                     Console.WriteLine(plc.MaskRobot.Unclamp());
                     Console.WriteLine(plc.MaskRobot.Initial());
-                    plc.MaskRobot.SetSpeed(6, 8);
-                    Console.WriteLine(plc.MaskRobot.ReadSpeedSetting());
+                    plc.MaskRobot.SetSpeedVar(6, 8);
+                    Console.WriteLine(plc.MaskRobot.ReadSpeedVar());
                     Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
                     plc.MaskRobot.CCDSpin(1000);  // 待測  已拆除(討論要移除)
                     Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
                     plc.MaskRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
-                    Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimitSetting());
+                    Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimit());
                     Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
                     plc.MaskRobot.SetClampTactileLim(15, 10);// OK
-                    Console.WriteLine(plc.MaskRobot.ReadClampTactileLimSetting());// OK
+                    Console.WriteLine(plc.MaskRobot.ReadClampTactileLimit());// OK
                     Console.WriteLine(plc.MaskRobot.ReadClampTactile_FrontSide());// OK
                     Console.WriteLine(plc.MaskRobot.ReadClampTactile_BehindSide());// OK
                     Console.WriteLine(plc.MaskRobot.ReadClampTactile_LeftSide());// OK
                     Console.WriteLine(plc.MaskRobot.ReadClampTactile_RightSide());// OK
                     plc.MaskRobot.SetLevelLimit(15, 10, 5);// OK
-                    Console.WriteLine(plc.MaskRobot.ReadLevelLimitSetting());// OK
+                    Console.WriteLine(plc.MaskRobot.ReadLevelLimit());// OK
                     Console.WriteLine(plc.MaskRobot.ReadLevel());// OK
                     plc.MaskRobot.SetStaticElecLimit(20, 10);
-                    Console.WriteLine(plc.MaskRobot.ReadStaticElecLimitSetting());
+                    Console.WriteLine(plc.MaskRobot.ReadStaticElecLimit());
                     Console.WriteLine(plc.MaskRobot.ReadStaticElec());
                     Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
                     Console.WriteLine(plc.MaskRobot.ReadHandInspection());
@@ -313,10 +313,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                         Console.WriteLine(plc.OpenStage.Lock());
                         Console.WriteLine(plc.OpenStage.Vacuum(false));//OK
                         Console.WriteLine(plc.OpenStage.Initial());
-                        plc.OpenStage.SetBoxType(1);
-                        Console.WriteLine(plc.OpenStage.ReadBoxTypeSetting());
-                        plc.OpenStage.SetSpeed(50);//OK
-                        Console.WriteLine(plc.OpenStage.ReadSpeedSetting()); //OK
+                        plc.OpenStage.SetBoxTypeVar(1);
+                        Console.WriteLine(plc.OpenStage.ReadBoxTypeVar());
+                        plc.OpenStage.SetSpeedVar(50);//OK
+                        Console.WriteLine(plc.OpenStage.ReadSpeedVar()); //OK
                         Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));
                         Console.WriteLine(plc.OpenStage.ReadClampStatus());
                         Console.WriteLine(plc.OpenStage.ReadSortClampPosition());
@@ -345,7 +345,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             {
                 plc.Connect("192.168.0.200", 2);
                 boolTestStop = false;
-                plc.OpenStage.SetBoxType(1);//鐵盒：1，水晶盒：2
+                plc.OpenStage.SetBoxTypeVar(1);//鐵盒：1，水晶盒：2
                 Console.WriteLine(plc.OpenStage.SetRobotIntrude(false, false));
                 Console.WriteLine(plc.OpenStage.Initial());
                 for (int i = 0; i < 1; i++)
@@ -389,7 +389,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
 
                 Console.WriteLine(plc.InspCh.SetRobotIntrude(false));
                 Console.WriteLine(plc.InspCh.Initial());
-                plc.InspCh.SetSpeed(100, 50, 500);
+                plc.InspCh.SetSpeedVar(100, 50, 500);
                 for (int i = 0; i < 5; i++)
                 {
                     Console.WriteLine(plc.InspCh.XYPosition(200, 10));//X:300~-10,Y:250~-10  左下

@@ -140,13 +140,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             return Result;
         }
 
-        public void SetSpeed(double ClampSpeed)
+        public void SetSpeedVar(double ClampSpeed)
         {
             var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_BT_Speed, ClampSpeed);
         }
 
-        public double ReadSpeedSetting()
+        public double ReadSpeedVar()
         {
             var plc = this.plcContext;
             return plc.Read<double>(MacHalPlcEnumVariable.PC_TO_BT_Speed);
@@ -313,7 +313,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取六軸力覺Sensor的壓力極限值設定
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
         {
             var plc = this.plcContext;
             return new Tuple<double, double, double, double, double, double>(
@@ -326,7 +326,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 );
         }
 
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
         {
             var plc = this.plcContext;
             return new Tuple<double, double, double, double, double, double>(

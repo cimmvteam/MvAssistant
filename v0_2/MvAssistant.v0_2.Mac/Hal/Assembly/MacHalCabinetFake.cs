@@ -28,7 +28,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             }
         }
 
-        public Tuple<int, int> ReadExhaustFlowSetting()
+        public Tuple<int, int> ReadExhaustFlowVar()
         {
             return new Tuple<int, int>(0, 0);
         }
@@ -43,12 +43,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<int, int>(0,0);
         }
 
-        public Tuple<int, int> ReadChamberPressureDiffLimitSetting()
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
         {
             return new Tuple<int, int>(1,1);
         }
 
-        public void SetExhaustFlow(int? Valve1, int? Valve2)
+        public void SetExhaustFlowVar(int? Valve1, int? Valve2)
         {
             return;
         }

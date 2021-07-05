@@ -106,7 +106,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="Valve1">節流閥1</param>
         /// <param name="Valve2">節流閥2</param>
-        public void SetExhaustFlow(int? Valve1, int? Valve2)
+        public void SetExhaustFlowVar(int? Valve1, int? Valve2)
         { Plc.SetExhaustFlow(Valve1, Valve2); }
         #endregion
 
@@ -115,14 +115,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Cabinet內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
         /// </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        public Tuple<int, int> ReadChamberPressureDiffLimitSetting()
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
         { return Plc.ReadPressureDiffLimitSetting(); }
 
         /// <summary>
         /// 讀取節流閥開啟大小設定，節流閥1、節流閥2
         /// </summary>
         /// <returns>節流閥1、節流閥2</returns>
-        public Tuple<int, int> ReadExhaustFlowSetting()
+        public Tuple<int, int> ReadExhaustFlowVar()
         { return Plc.ReadExhaustFlowSetting(); }
         #endregion
 
