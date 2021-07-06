@@ -120,9 +120,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         /// <param name="boxType"></param>
         /// <param name="autoConnect"></param>
         [TestMethod]
-       [DataRow(BoxType.IronBox,false)] // 鐵盒
+       [DataRow(MacMaskBoxType.IronBox,false)] // 鐵盒
         //[DataRow(BoxType.CrystalBox,false)]// 水晶盒
-        public void Test_Ut001_BT(BoxType boxType,bool autoConnect) 
+        public void Test_Ut001_BT(MacMaskBoxType boxType,bool autoConnect) 
         {
 
             var BREAK_POINT = 0;

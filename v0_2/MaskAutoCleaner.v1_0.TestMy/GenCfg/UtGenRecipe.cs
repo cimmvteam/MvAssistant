@@ -549,8 +549,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
 
 
         [TestMethod]
-        [DataRow(BoxType.CrystalBox, EnumMachineID.MID_DRAWER_02_04)]
-        public void GenRecipeBankOut(BoxType boxType, EnumMachineID drawerEnumMachineID)
+        [DataRow(MacMaskBoxType.CrystalBox, EnumMachineID.MID_DRAWER_02_04)]
+        public void GenRecipeBankOut(MacMaskBoxType boxType, EnumMachineID drawerEnumMachineID)
         {
             var recipe = new MacRecipe();
 

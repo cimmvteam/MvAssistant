@@ -34,15 +34,15 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                 var type = typeof(MacMsBoxTransfer);
                 var method = type.GetMethod(msgCmd.Command);
                 if (msgCmd.Command.ToString() == "MoveToLock") 
-                    method.Invoke(this.StateMachine, new object[] { (uint)BoxType.DontCare });
+                    method.Invoke(this.StateMachine, new object[] { (uint)MacMaskBoxType.DontCare });
                 else if (msgCmd.Command.ToString() == "MoveToUnlock")
-                    method.Invoke(this.StateMachine, new object[] { (uint)BoxType.DontCare });
+                    method.Invoke(this.StateMachine, new object[] { (uint)MacMaskBoxType.DontCare });
                 else if (msgCmd.Command.ToString() == "MoveToOpenStageGet")
-                    method.Invoke(this.StateMachine, new object[] { (uint)BoxType.DontCare });
+                    method.Invoke(this.StateMachine, new object[] { (uint)MacMaskBoxType.DontCare });
                 else if (msgCmd.Command.ToString() == "MoveToCabinetGet")
-                    method.Invoke(this.StateMachine, new object[] { BoxrobotTransferLocation.Drawer_01_01,(uint)BoxType.DontCare });
+                    method.Invoke(this.StateMachine, new object[] { BoxrobotTransferLocation.Drawer_01_01,(uint)MacMaskBoxType.DontCare });
                 else if (msgCmd.Command.ToString() == "MoveToCabinetPut")
-                    method.Invoke(this.StateMachine, new object[] { BoxrobotTransferLocation.Drawer_01_01, (uint)BoxType.DontCare });
+                    method.Invoke(this.StateMachine, new object[] { BoxrobotTransferLocation.Drawer_01_01, (uint)MacMaskBoxType.DontCare });
                 else
                     method.Invoke(this.StateMachine, null);
             }

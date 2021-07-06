@@ -16,7 +16,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
     {
         MacHalBoxRobotFanuc robotHandler;
 
-        MvaCancelTask task;
+        MvaTask task;
         public UcBoxRobot()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
             if (this.task != null) return;
             if (this.task != null && !this.task.IsEnd()) return;
 
-            this.task = MvaCancelTask.RunLoop(() =>
+            this.task = MvaTask.RunLoop(() =>
             {
                 //大迴圈, 來回一次
                 try

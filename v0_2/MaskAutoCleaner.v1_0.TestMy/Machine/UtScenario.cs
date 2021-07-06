@@ -141,9 +141,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             MTMS.CCHomeClampedToCCHomeCleaned();
         }
         [TestMethod]
-        [DataRow(BoxType.CrystalBox)]
+        [DataRow(MacMaskBoxType.CrystalBox)]
         //[DataRow(BoxType.IronBox)]
-        public void MTMoveToOSGetAndPut(BoxType boxType)
+        public void MTMoveToOSGetAndPut(MacMaskBoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvaCfInit();
@@ -185,10 +185,10 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox)]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01,MacMaskBoxType.CrystalBox)]
         //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.IronBox)]
         //public void BTMoveToCBGetAndPut()
-        public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation, BoxType boxType)
+        public void BTMoveToCBGetAndPut(BoxrobotTransferLocation drawerLocation, MacMaskBoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvaCfInit();

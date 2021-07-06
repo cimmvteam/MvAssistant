@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         {
             var s = Machine.GetDicMacHalDrawers();
 
-            DrawerSatusInfo drawerInfo = new DrawerSatusInfo("boxBarcode",EnumMachineID.MID_DRAWER_01_02,BoxType.CrystalBox);
+            DrawerSatusInfo drawerInfo = new DrawerSatusInfo("boxBarcode",EnumMachineID.MID_DRAWER_01_02,MacMaskBoxType.CrystalBox);
             Machine.Mediater.CabinetMediater.EnqueueBankOutDrawerInfo(drawerInfo);
             var peek = Machine.Mediater.CabinetMediater.PeekBankOut(out drawerInfo);
 
@@ -83,7 +83,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
             #region 測試資料
             var drawerInfo = Machine.GetDicMacHalDrawers().GetKeyValue(drawerLocation);
-            drawerInfo.Value.SetBoxType(BoxType.CrystalBox);
+            drawerInfo.Value.SetBoxType(MacMaskBoxType.CrystalBox);
             drawerInfo.Value.SetDuration(DrawerDuration.BankOut_Load_TrayAtHomeWithBox);
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
@@ -100,7 +100,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         {
             #region 測試資料
             var drawerInfo = Machine.GetDicMacHalDrawers().GetKeyValue(drawerLocation);
-            drawerInfo.Value.SetBoxType(BoxType.CrystalBox);
+            drawerInfo.Value.SetBoxType(MacMaskBoxType.CrystalBox);
             drawerInfo.Value.SetDuration(DrawerDuration.BankOut_Load_TrayAtInWithBoxForRobotGrabBox);
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
@@ -118,7 +118,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         {
             #region 測試資料
             var drawerInfo = Machine.GetDicMacHalDrawers().GetKeyValue(drawerLocation);
-            drawerInfo.Value.SetBoxType(BoxType.CrystalBox);
+            drawerInfo.Value.SetBoxType(MacMaskBoxType.CrystalBox);
             drawerInfo.Value.SetDuration(DrawerDuration.BankOut_Load_TrayAtHomeNoBox);
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion
@@ -137,7 +137,7 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         {
             #region 測試資料
             var drawerInfo = Machine.GetDicMacHalDrawers().GetKeyValue(drawerLocation);
-            drawerInfo.Value.SetBoxType(BoxType.CrystalBox);
+            drawerInfo.Value.SetBoxType(MacMaskBoxType.CrystalBox);
             drawerInfo.Value.SetDuration(DrawerDuration.BankOut_UnLoad_TrayAtInNoBox);
             Machine.BankOutLoadEnqueue(drawerLocation);
             #endregion

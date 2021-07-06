@@ -68,11 +68,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
             instance.LightForGripperSetValue(0);
         }
 
-        public static  int GetCameraLightValue(this MacHalBoxTransfer instance,BoxType boxType)
+        public static  int GetCameraLightValue(this MacHalBoxTransfer instance,MacMaskBoxType boxType)
         {
-            if (boxType == BoxType.IronBox)
+            if (boxType == MacMaskBoxType.IronBox)
             { return 5; }
-            else if (boxType == BoxType.CrystalBox)
+            else if (boxType == MacMaskBoxType.CrystalBox)
             {
                 return 100;
             }

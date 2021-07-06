@@ -117,8 +117,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取LoadPort內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
         /// </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        public Tuple<int, int> ReadPressureDiffLimitSrtting()
-        { return Plc.ReadPressureDiffLimitSrtting(); }
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
+        { return Plc.ReadChamberPressureDiffLimit(); }
         #endregion
 
         #region Read Component Value

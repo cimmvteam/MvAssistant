@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Logging
     public class MvaLogger : IMvaLoggable
     {
         public ConcurrentQueue<MvaLoggerEventArgs> msgQueue = new ConcurrentQueue<MvaLoggerEventArgs>();
-        public MvaCancelTask Task;
+        public MvaTask Task;
 
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace MvAssistant.v0_2.Logging
                     else return;
                 }
 
-                this.Task = MvaCancelTask.RunLoop(() =>
+                this.Task = MvaTask.RunLoop(() =>
                 {
                     MvaSpinWait.SpinUntil(() => this.msgQueue.Count > 0);
 

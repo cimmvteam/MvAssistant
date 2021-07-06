@@ -275,10 +275,9 @@
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecF8.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetC.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetF8.cs" />
-    <Compile Include="Threading\MvaCancelTask.cs" />
+    <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="Threading\MvaSpinSleep.cs" />
     <Compile Include="Threading\MvaSpinWait.cs" />
-    <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>

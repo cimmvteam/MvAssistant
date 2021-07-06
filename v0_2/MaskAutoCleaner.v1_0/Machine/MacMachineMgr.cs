@@ -103,12 +103,12 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         #region Fake-Simulation
 
-        protected MvaCancelTask FakeTask;
+        protected MvaTask FakeTask;
 
         public int SimulateFakeNormalAsyn()
         {
 
-            this.FakeTask = MvaCancelTask.Run((ct) =>
+            this.FakeTask = MvaTask.RunOnce((ct) =>
             {
                 var cabinets = this.CtrlMachines.Where(x => x is IMacHalCabinet).ToList();
 

@@ -17,7 +17,6 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
         //        plc.Connect("192.168.0.200", 2);
 
         //        plc.LoadPort.SetPressureDiffLimit(1, 2);
-        //        Console.WriteLine(plc.LoadPort.ReadPressureDiffLimitSrtting());
         //        Console.WriteLine(plc.LoadPort.ReadPressureDiff());
         //    }
         //}
@@ -38,7 +37,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.LoadPort.ReadPressureDiffLimitSrtting());
+                Console.WriteLine(plc.LoadPort.ReadChamberPressureDiffLimit());
             }
         }
 

@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
         public BoxrobotTransferLocation BoxrobotTransferLocation { get { return DeviceID.ToBoxrobotTransferLocation(); } }
 
         /// <summary>盒子種類</summary>
-        public BoxType BoxType { get; private set; }
+        public MacMaskBoxType BoxType { get; private set; }
 
         /// <summary>開放 Drawer 工作</summary>
         public bool DrawerAbled { get; private set; }
@@ -59,7 +59,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
         private DrawerBoxInfo()
         {
             Duration = DrawerDuration.Idle_TrayAtHome;
-            BoxType = BoxType.DontCare;
+            BoxType = MacMaskBoxType.DontCare;
             DrawerAbled = true;
         }
 
@@ -74,7 +74,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
 
         /// <summary>設定 BoxType</summary>
         /// <param name="boxType">Box 種類 (鐵盒/水晶盒)</param>
-        public void SetBoxType(BoxType boxType)
+        public void SetBoxType(MacMaskBoxType boxType)
         {
             this.BoxType = boxType;
         }

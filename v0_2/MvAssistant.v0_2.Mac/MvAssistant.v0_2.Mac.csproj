@@ -66,7 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoxType.cs" />
+    <Compile Include="MacMaskBoxType.cs" />
     <Compile Include="DrawerSocketTest\AsyncClient.cs" />
     <Compile Include="DrawerSocketTest\AsyncHost.cs" />
     <Compile Include="DrawerSocketTest\EnumSocketCMDList.cs" />

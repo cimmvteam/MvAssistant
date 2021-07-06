@@ -93,8 +93,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
         [TestMethod]
         //[DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox)]
-        [DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.IronBox)]
-        public void BankIn(BoxrobotTransferLocation drawerLocation, BoxType boxType)
+        [DataRow(BoxrobotTransferLocation.Drawer_04_02, MacMaskBoxType.IronBox)]
+        public void BankIn(BoxrobotTransferLocation drawerLocation, MacMaskBoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvaCfInit();
@@ -144,9 +144,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
             BTMS.MoveToCabinetPut(drawerLocation, boxType);
         }
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01,BoxType.CrystalBox)]
-        [DataRow(BoxrobotTransferLocation.Drawer_04_04, BoxType.CrystalBox)]
-        public void BankOut(BoxrobotTransferLocation drawerLocation,BoxType boxType)
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01,MacMaskBoxType.CrystalBox)]
+        [DataRow(BoxrobotTransferLocation.Drawer_04_04, MacMaskBoxType.CrystalBox)]
+        public void BankOut(BoxrobotTransferLocation drawerLocation,MacMaskBoxType boxType)
         {
             var MachineMgr = new MacMachineMgr();
             MachineMgr.MvaCfInit();

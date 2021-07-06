@@ -52,7 +52,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<int, int>(0, 0);
         }
 
-        public Tuple<int, int> ReadPressureDiffLimitSrtting()
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
         {
             return new Tuple<int, int>(1, 1);
         }

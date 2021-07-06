@@ -19,7 +19,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public int PlcPortId;
         bool m_isConnected = false;
 
-        MvaCancelTask m_keepConnection;
+        MvaTask m_keepConnection;
 
 
         public bool IsConnectedByHandShake { get { return m_isConnected; } }
@@ -85,7 +85,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
 
 
-            this.m_keepConnection = MvaCancelTask.RunLoop(() =>
+            this.m_keepConnection = MvaTask.RunLoop(() =>
             {
 
                 this.Write(MacHalPlcEnumVariable.PC_TO_PLC_CheckClock, false);

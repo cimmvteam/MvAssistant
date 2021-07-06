@@ -150,8 +150,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         /// <param name="drawerReplaceBoxPlace">更換盒子的地方</param>
         [TestMethod]
         // [DataRow(BoxType.IronBox,true,ReplaceBoxPlace.In)]
-        [DataRow(BoxType.CrystalBox,true, DrawerReplaceBoxPlace.In)]
-        public void Test_MainMethod(BoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace drawerReplaceBoxPlace)
+        [DataRow(MacMaskBoxType.CrystalBox,true, DrawerReplaceBoxPlace.In)]
+        public void Test_MainMethod(MacMaskBoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace drawerReplaceBoxPlace)
         {
             /** Index & array
              * [0]   [1]  [2]    

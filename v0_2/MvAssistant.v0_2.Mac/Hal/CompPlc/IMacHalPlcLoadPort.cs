@@ -13,7 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         #endregion
 
         #region Read Parameter
-        Tuple<int, int> ReadPressureDiffLimitSrtting();
+        Tuple<int, int> ReadChamberPressureDiffLimit();
         #endregion
 
         #region Read Component Value

@@ -33,9 +33,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         /// <param name="boxType"></param>
         /// <param name="autoConnect"></param>
         [TestMethod]
-        [DataRow(BoxType.IronBox, false)]// 鐵盒
+        [DataRow(MacMaskBoxType.IronBox, false)]// 鐵盒
         //[DataRow(BoxType.CrystalBox, false)]// 水晶盒
-        public void Test_Ut003_CB(BoxType boxType, bool autoConnect)
+        public void Test_Ut003_CB(MacMaskBoxType boxType, bool autoConnect)
         {
             Debug.WriteLine("---------MI-CT02-ST-006-------");
             Debug.WriteLine("BoxType=" + boxType.ToString());

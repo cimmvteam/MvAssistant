@@ -56,9 +56,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
             }
         }
         [TestMethod]
-        [DataRow(BoxType.IronBox, true,DrawerReplaceBoxPlace.In)] // 鐵盒
+        [DataRow(MacMaskBoxType.IronBox, true,DrawerReplaceBoxPlace.In)] // 鐵盒
         //[DataRow(BoxType.CrystalBox,true)]  // 水晶盒
-        public void TestMethod1(BoxType boxType, bool autoConnect,DrawerReplaceBoxPlace drawerReplaceBoxPlace)
+        public void TestMethod1(MacMaskBoxType boxType, bool autoConnect,DrawerReplaceBoxPlace drawerReplaceBoxPlace)
         {
             var BREAK_POINT = 0;
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))

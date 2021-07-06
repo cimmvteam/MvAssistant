@@ -691,7 +691,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
                 uni.HalConnect();
                 lp.HalConnect();
 
-                lp.ReadPressureDiffLimitSrtting();
+                lp.ReadChamberPressureDiffLimit();
             }
         }
 
