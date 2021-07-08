@@ -44,10 +44,11 @@ namespace MvAssistant.v0_2.Threading
 
         #region --- Static --- --- ---
 
-        public static MvaTask Run(Action act)
+        public static MvaTask Run(Action act, String name = null)
         {
             var task = new MvaTask();
             task.Task = Task.Factory.StartNew(act);
+            task.Name = name;
             return task;
         }
         /// <summary>
