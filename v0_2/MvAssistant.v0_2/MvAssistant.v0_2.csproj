@@ -275,6 +275,11 @@
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecF8.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetC.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetF8.cs" />
+    <Compile Include="Sensor\Device\MvaSsTcpCmd.cs" />
+    <Compile Include="Sensor\Proto\EnumMvaSsProtoCmdCat.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoCmdMsg.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoBufferSecs.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoCmd.cs" />
     <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="Threading\MvaSpinSleep.cs" />
     <Compile Include="Threading\MvaSpinWait.cs" />
