@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac
 {
-    public enum MacMaskBoxType : uint
+    public enum EnumMacMaskBoxType : uint
     {
         DontCare = 0,
         IronBox = 1,

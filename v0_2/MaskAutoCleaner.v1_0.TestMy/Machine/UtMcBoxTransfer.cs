@@ -43,9 +43,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
 
         [TestMethod]
-        [DataRow(MacMaskBoxType.CrystalBox,true)]
+        [DataRow(EnumMacMaskBoxType.CrystalBox,true)]
        // [DataRow(BoxType.IronBox,true)]
-        public void Test_MoveToLock(MacMaskBoxType boxType,bool mainTest)
+        public void Test_MoveToLock(EnumMacMaskBoxType boxType,bool mainTest)
         {
             Test_Initial(mainTest);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToLock.ToString());
@@ -55,9 +55,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        [DataRow(MacMaskBoxType.CrystalBox)]
+        [DataRow(EnumMacMaskBoxType.CrystalBox)]
         //[DataRow(BoxType.IronBox)]
-        public void Test_MoveToUnLock(MacMaskBoxType boxType)
+        public void Test_MoveToUnLock(EnumMacMaskBoxType boxType)
         {
             Test_Initial(false);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToUnlock.ToString());
@@ -79,9 +79,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01, MacMaskBoxType.IronBox,true)]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01, EnumMacMaskBoxType.IronBox,true)]
         //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
-        public void Test_MoveToCabinetGet(BoxrobotTransferLocation drawerNumber, MacMaskBoxType boxType,bool mainTest)
+        public void Test_MoveToCabinetGet(BoxrobotTransferLocation drawerNumber, EnumMacMaskBoxType boxType,bool mainTest)
         {
             Test_Initial(mainTest);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToCabinetGet.ToString());
@@ -93,9 +93,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01, MacMaskBoxType.IronBox, true)]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01, EnumMacMaskBoxType.IronBox, true)]
         //[DataRow(BoxrobotTransferLocation.Drawer_04_02, BoxType.CrystalBox,true)]
-        public void Test_MoveToOpenStagePut(BoxrobotTransferLocation drawerNumber, MacMaskBoxType boxType,bool mainTest)
+        public void Test_MoveToOpenStagePut(BoxrobotTransferLocation drawerNumber, EnumMacMaskBoxType boxType,bool mainTest)
         {
             Test_MoveToCabinetGet(drawerNumber, boxType, false);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToOpenStagePut.ToString());
@@ -107,9 +107,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         }
 
         [TestMethod]
-        [DataRow(MacMaskBoxType.CrystalBox,true)]
+        [DataRow(EnumMacMaskBoxType.CrystalBox,true)]
         //[DataRow(BoxType.IronBox, true)]
-        public void Test_MoveToOpenStageGet(MacMaskBoxType boxType, bool mainTest)
+        public void Test_MoveToOpenStageGet(EnumMacMaskBoxType boxType, bool mainTest)
         {
             Test_Initial(false);
             var method = typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToOpenStageGet.ToString());
@@ -123,9 +123,9 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
 
         [TestMethod]
-        [DataRow(BoxrobotTransferLocation.Drawer_01_01,MacMaskBoxType.CrystalBox, true)]
+        [DataRow(BoxrobotTransferLocation.Drawer_01_01,EnumMacMaskBoxType.CrystalBox, true)]
         //[DataRow(BoxrobotTransferLocation.Drawer_04_01, BoxType.IronBox, true)]
-        public void Test_MoveToCabinetPut(BoxrobotTransferLocation drawerNumber,MacMaskBoxType boxType, bool mainTest)
+        public void Test_MoveToCabinetPut(BoxrobotTransferLocation drawerNumber,EnumMacMaskBoxType boxType, bool mainTest)
         {
             Test_MoveToOpenStageGet(boxType, false);
             var method= typeof(MacMsBoxTransfer).GetMethod(EnumMacMcBoxTransferCmd.MoveToCabinetPut.ToString());

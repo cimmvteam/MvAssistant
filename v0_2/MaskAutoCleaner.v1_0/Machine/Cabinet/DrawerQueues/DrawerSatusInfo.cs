@@ -16,7 +16,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
     public class DrawerSatusInfo
     {
         public string BoxBarcode { get; set; }
-        public MacMaskBoxType BoxType { get; set; }
+        public EnumMacMaskBoxType BoxType { get; set; }
         public EnumMachineID DrawerMachineID { get; set; }
         public string SN { get; set; }
         public DrawerDuration DrawerStatus{get;set;}
@@ -36,7 +36,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
 
             }
         }
-        public  DrawerSatusInfo(string boxBarcode, EnumMachineID machineID,MacMaskBoxType boxType)
+        public  DrawerSatusInfo(string boxBarcode, EnumMachineID machineID,EnumMacMaskBoxType boxType)
         {
             BoxBarcode = boxBarcode;
             DrawerMachineID = machineID;
@@ -47,7 +47,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerQueues
             DrawerStatus = DrawerDuration.Idle_TrayAtHome;
         }
 
-        public DrawerSatusInfo(string boxBarcode, EnumMachineID machineID, MacMaskBoxType boxType,DrawerDuration drawerStaus):this(boxBarcode, machineID,boxType)
+        public DrawerSatusInfo(string boxBarcode, EnumMachineID machineID, EnumMacMaskBoxType boxType,DrawerDuration drawerStaus):this(boxBarcode, machineID,boxType)
         {
 
             DrawerStatus = drawerStaus;

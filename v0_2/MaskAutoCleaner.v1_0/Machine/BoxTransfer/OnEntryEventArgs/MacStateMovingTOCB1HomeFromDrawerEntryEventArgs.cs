@@ -13,23 +13,23 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
     {
         /// <summary>移動的目標點</summary>
         public BoxrobotTransferLocation DrawerLocation { get; private set; }
-        public MacMaskBoxType BoxType { get; private set; }
+        public EnumMacMaskBoxType BoxType { get; private set; }
 
         private MacStateMovingToCB1HomeFromDrawerEntryEventArgs() : base()
         {
 
         }
-        public MacStateMovingToCB1HomeFromDrawerEntryEventArgs(BoxrobotTransferLocation drawerLocation,MacMaskBoxType boxType ,object parameter) : base(parameter)
+        public MacStateMovingToCB1HomeFromDrawerEntryEventArgs(BoxrobotTransferLocation drawerLocation,EnumMacMaskBoxType boxType ,object parameter) : base(parameter)
         {
             DrawerLocation = drawerLocation;
             BoxType = boxType;
 
         }
-        public MacStateMovingToCB1HomeFromDrawerEntryEventArgs(BoxrobotTransferLocation drawerLocation,MacMaskBoxType boxType) : this(drawerLocation,boxType ,null)
+        public MacStateMovingToCB1HomeFromDrawerEntryEventArgs(BoxrobotTransferLocation drawerLocation,EnumMacMaskBoxType boxType) : this(drawerLocation,boxType ,null)
         {
 
         }
-        public MacStateMovingToCB1HomeFromDrawerEntryEventArgs(object parameter) : this(BoxrobotTransferLocation.Dontcare, MacMaskBoxType.DontCare, parameter)
+        public MacStateMovingToCB1HomeFromDrawerEntryEventArgs(object parameter) : this(BoxrobotTransferLocation.Dontcare, EnumMacMaskBoxType.DontCare, parameter)
         {
 
         }

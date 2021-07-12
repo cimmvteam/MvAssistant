@@ -45,7 +45,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public void CalibrationClosedBox()
         {
             var transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBox.ToString()];
-            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs((uint)MacMaskBoxType.DontCare));
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs((uint)EnumMacMaskBoxType.DontCare));
         }
         /// <summary> Unlock 後，開啟 Box(內無Mask) </summary>
         public void OpenBox()
@@ -89,7 +89,7 @@ namespace MaskAutoCleaner.v1_0.Machine.OpenStage
         public void CalibrationClosedBoxWithMask()
         {
             var transition = Transitions[EnumMacOpenStageTransition.TriggerToCalibrationBoxWithMask.ToString()];
-            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs(MacMaskBoxType.DontCare));
+            CurrentState.ExecuteCommandAtExit(transition, new MacStateExitEventArgs(), new MacStateEntryEventArgs(EnumMacMaskBoxType.DontCare));
         }
         /// <summary> Unlock 後，開啟 Box(內有Mask) </summary>
         public void OpenBoxWithMask()

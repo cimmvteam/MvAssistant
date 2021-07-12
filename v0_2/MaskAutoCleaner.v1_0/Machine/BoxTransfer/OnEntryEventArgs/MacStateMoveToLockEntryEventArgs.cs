@@ -10,17 +10,17 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer.OnEntryEventArgs
 {
     public class MacStateMoveToLockEntryEventArgs : MacStateEntryEventArgs
     {
-        public MacMaskBoxType BoxType { get; private set; }
+        public EnumMacMaskBoxType BoxType { get; private set; }
         private MacStateMoveToLockEntryEventArgs() : base()
         {
 
         }
-        public MacStateMoveToLockEntryEventArgs(MacMaskBoxType boxType, object parameter) : base(parameter)
+        public MacStateMoveToLockEntryEventArgs(EnumMacMaskBoxType boxType, object parameter) : base(parameter)
         {
             
             BoxType = boxType;
         }
-        public MacStateMoveToLockEntryEventArgs(MacMaskBoxType boxType) : this( boxType, null)
+        public MacStateMoveToLockEntryEventArgs(EnumMacMaskBoxType boxType) : this( boxType, null)
         {
 
         }
