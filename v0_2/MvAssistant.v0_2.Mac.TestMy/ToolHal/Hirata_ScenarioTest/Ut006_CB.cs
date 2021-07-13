@@ -14,7 +14,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut006_CB
     {
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         public Ut006_CB()
         {

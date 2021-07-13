@@ -17,14 +17,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
-        public IMacHalLight LightBarDfsTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_top_001); } }
-        public IMacHalLight LightBarDfsSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_side_001); } }
-        public IMacHalLight LightBarDfsFront { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_front_001); } }
-        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
-        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
-        public IHalCamera CameraLeft { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_left_1); } }
-        public IHalCamera CameraRight { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_right_1); } }
+        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(EnumMacDeviceId.openstage_plc); } }
+        public IMacHalLight LightBarDfsTop { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.openstage_light_bar_defense_top_001); } }
+        public IMacHalLight LightBarDfsSide { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.openstage_light_bar_defense_side_001); } }
+        public IMacHalLight LightBarDfsFront { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.openstage_light_bar_defense_front_001); } }
+        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_side_1); } }
+        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_top_1); } }
+        public IHalCamera CameraLeft { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_left_1); } }
+        public IHalCamera CameraRight { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_right_1); } }
 
         #endregion Device Components
 

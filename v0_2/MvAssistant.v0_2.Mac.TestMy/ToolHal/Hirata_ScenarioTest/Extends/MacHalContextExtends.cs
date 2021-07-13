@@ -40,7 +40,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <returns></returns>
         public static MacHalEqp GetUniversalAssembly(this MacHalContext instance,bool autoConnect=false)
         {
-          var rtnV=  instance.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+          var rtnV=  instance.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
             if (autoConnect)
             {
                 if (rtnV != null)
@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <returns></returns>
         public static MacHalBoxTransfer GetBoxTransferAssembly(this MacHalContext instance, bool autoConnect=false)
         {
-            var rtnV = instance.HalDevices[MacEnumDevice.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
+            var rtnV = instance.HalDevices[EnumMacDeviceId.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;
             if (autoConnect)
             {
                 if (rtnV != null)
@@ -81,7 +81,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <returns></returns>
         public static MacHalOpenStage GetOpenStageAssembly(this MacHalContext instance,bool autoConnect=false)
         {
-            var rtnV = instance.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+            var rtnV = instance.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
             if (autoConnect)
             {
                 if (rtnV != null)
@@ -101,7 +101,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <returns></returns>
         public static MacHalCabinet GetCabinetAssembly(this MacHalContext instance,bool autoConnect)
         {
-            var rtnV = instance.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+            var rtnV = instance.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
             if (autoConnect)
             {
                 if (rtnV != null)
@@ -117,9 +117,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <returns>
         /// Connect 失敗的 Drawer 的 Key 值
         /// </returns>
-        public static List<MacEnumDevice> DrawersConnect(this MacHalContext instance)
+        public static List<EnumMacDeviceId> DrawersConnect(this MacHalContext instance)
         {
-            List<MacEnumDevice> connectFailed = new List<MacEnumDevice>();
+            List<EnumMacDeviceId> connectFailed = new List<EnumMacDeviceId>();
             foreach (var key in HalDrawerExtends.DrawerKeys)
             {
                 try
@@ -140,7 +140,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <param name="key"></param>
         /// <param name="autoConnect"></param>
         /// <returns></returns>
-        public static IMacHalDrawer GetDrawer(this MacHalContext instance, MacEnumDevice key, bool autoConnect = false)
+        public static IMacHalDrawer GetDrawer(this MacHalContext instance, EnumMacDeviceId key, bool autoConnect = false)
         {
             var cabinet = instance.HalDevices[key.ToString()] as MacHalCabinet;
             var drawer = cabinet.MacHalDrawer;

@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
     {
         //MacHalAssemblyBase Assembly { get; set; }
 
-        public MacEnumDevice DeviceID { get;  }
+        public EnumMacDeviceId DeviceID { get;  }
         public string MaskBarCode { get; private set;}
 
         /// <summary> Drawer 裝置實體 </summary>
@@ -66,7 +66,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
         /// <summary>Constructor</summary>
         /// <param name="deviceID">Drawer Device ID</param>
         /// <param name="drawer">Drawer 裝置</param>
-        public DrawerBoxInfo(MacEnumDevice deviceID, IMacHalDrawer drawer):this()
+        public DrawerBoxInfo(EnumMacDeviceId deviceID, IMacHalDrawer drawer):this()
         {
             Drawer = drawer;
             UpdateLastTime();

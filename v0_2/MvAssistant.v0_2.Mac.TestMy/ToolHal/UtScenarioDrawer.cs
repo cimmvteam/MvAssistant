@@ -34,8 +34,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                 halContext.MvaCfLoad();
-                var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalCabinet;
-                var drawer= cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                var cabinet = halContext.HalDevices[EnumMacDeviceId.cabinet_drawer_01_01.ToString()] as MacHalCabinet;
+                var drawer= cabinet.Hals[EnumMacDeviceId.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                 var connected=drawer.HalConnect();
                 var isConnected = drawer.HalIsConnected();
 
@@ -65,14 +65,14 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                    // halContext.MvCfInit();
                     //halContext.MvCfLoad();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                    var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                    unv.HalConnect();
-                    var cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
+                    var cabinet = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
                     cabinet.HalConnect();
                     //  var drawer_01_01 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                     //    var drawer_01_02 = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
-                    var DR0101 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalCabinet;//.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine; 
-                   var DR0102= halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalCabinet;//.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
+                    var DR0101 = halContext.HalDevices[EnumMacDeviceId.cabinet_drawer_01_01.ToString()] as MacHalCabinet;//.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine; 
+                   var DR0102= halContext.HalDevices[EnumMacDeviceId.cabinet_drawer_01_02.ToString()] as MacHalCabinet;//.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
                                                                                                                      //  var drawer_01_01 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalCabinet;//.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine; 
                                                                                                                      //  var drawer_01_02 = halContext.HalDevices[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalCabinet;//.Hals[MacEnumDevice.cabinet_drawer_01_02.ToString()] as MacHalDrawerKjMachine;
                     var drawer_01_01 = DR0101.MacHalDrawer;
@@ -322,8 +322,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                     halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                     halContext.MvaCfLoad();
-                    cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                    testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                    cabinet = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
+                    testDrawer = cabinet.Hals[EnumMacDeviceId.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                     testDrawer.HalConnect();
                     testDrawer.OnTrayMotionFailedHandler += (sender, e) =>
                       {
@@ -453,8 +453,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                 halContext.MvaCfLoad();
-                cabinet = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                testDrawer = cabinet.Hals[MacEnumDevice.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
+                cabinet = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
+                testDrawer = cabinet.Hals[EnumMacDeviceId.cabinet_drawer_01_01.ToString()] as MacHalDrawerKjMachine;
                 testDrawer.HalConnect();
                 testDrawer.OnTrayMotionFailedHandler += (sender, e) =>
                 {

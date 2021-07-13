@@ -14,7 +14,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcEqp plc_01 { get { return (IMacHalPlcEqp)this.GetHalDevice(MacEnumDevice.eqp_plc_01); } }
+        public IMacHalPlcEqp plc_01 { get { return (IMacHalPlcEqp)this.GetHalDevice(EnumMacDeviceId.eqp_plc_01); } }
 
         #endregion Device Components
 

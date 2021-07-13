@@ -18,7 +18,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     public class Ut002_BT
     {
 
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         BoxrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
 

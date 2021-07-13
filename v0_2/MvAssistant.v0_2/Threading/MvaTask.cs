@@ -44,7 +44,7 @@ namespace MvAssistant.v0_2.Threading
 
         #region --- Static --- --- ---
 
-        public static MvaTask Run(Action act, String name = null)
+        public static MvaTask RunOnce(Action act, String name = null)
         {
             var task = new MvaTask();
             task.Task = Task.Factory.StartNew(act);
@@ -87,7 +87,6 @@ namespace MvAssistant.v0_2.Threading
 
             return task;
         }
-
         public static MvaTask RunLoop(Func<bool> funcIsContinue, string name)
         {
             var task = new MvaTask();
@@ -98,6 +97,21 @@ namespace MvAssistant.v0_2.Threading
                 {
                     ct.ThrowIfCancellationRequested();
                     if (!funcIsContinue()) break;
+                }
+            }, ct);
+            task.Name = name;
+            return task;
+        }
+        public static MvaTask RunLoop(Func<CancellationToken, bool> funcIsContinue, string name)
+        {
+            var task = new MvaTask();
+            var ct = task.CancelTokenSource.Token;
+            task.Task = Task.Factory.StartNew(() =>
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    ct.ThrowIfCancellationRequested();
+                    if (!funcIsContinue(ct)) break;
                 }
             }, ct);
             task.Name = name;

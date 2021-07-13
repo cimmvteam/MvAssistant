@@ -9,12 +9,12 @@ namespace MvAssistant.v0_2.Mac.Manifest
   
     public class MacEnumDeviceDrawerRange
     {
-        public MacEnumDevice StartID { get; private set; }
-        public MacEnumDevice EndID { get; private set; }
+        public EnumMacDeviceId StartID { get; private set; }
+        public EnumMacDeviceId EndID { get; private set; }
         public MacEnumDeviceDrawerRange()
         {
-            StartID = MacEnumDevice.cabinet_drawer_01_01;
-            EndID = MacEnumDevice.cabinet_drawer_07_05;
+            StartID = EnumMacDeviceId.cabinet_drawer_01_01;
+            EndID = EnumMacDeviceId.cabinet_drawer_07_05;
         }
     }
 }

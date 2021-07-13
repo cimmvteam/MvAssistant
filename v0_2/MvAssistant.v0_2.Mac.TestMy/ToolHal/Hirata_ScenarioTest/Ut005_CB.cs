@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut005_CB
     {
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         BoxrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
         public Ut005_CB()

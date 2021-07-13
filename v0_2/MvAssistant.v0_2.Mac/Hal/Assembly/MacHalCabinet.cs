@@ -16,7 +16,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
       //  public MvKjMachineDrawerManager LddManager = null;
 
         #region Device Components
-        public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(MacEnumDevice.cabinet_plc); } }
+        public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(EnumMacDeviceId.cabinet_plc); } }
 
         public IMacHalDrawer MacHalDrawer
         {
@@ -24,11 +24,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             {
                 //return this.
                 IMacHalDrawer drawer = null;
-                for (var i = (int)MacEnumDevice.cabinet_drawer_01_01; i <= (int)MacEnumDevice.cabinet_drawer_07_05; i++)
+                for (var i = (int)EnumMacDeviceId.cabinet_drawer_01_01; i <= (int)EnumMacDeviceId.cabinet_drawer_07_05; i++)
                 {
                     try
                     {
-                        drawer = (IMacHalDrawer)this.GetHalDevice((MacEnumDevice)i);
+                        drawer = (IMacHalDrawer)this.GetHalDevice((EnumMacDeviceId)i);
                         if (drawer != null)
                         {
                             break;

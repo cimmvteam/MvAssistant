@@ -16,11 +16,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
-        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
-        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
-        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_left_1); } }
-        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_right_1); } }
+        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(EnumMacDeviceId.openstage_plc); } }
+        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_side_1); } }
+        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_top_1); } }
+        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_left_1); } }
+        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_right_1); } }
 
         #endregion Device Components
 

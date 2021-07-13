@@ -71,7 +71,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                     if (_dicDrawerDetails == null)
                     {
                         _dicDrawerDetails = new Dictionary<BoxrobotTransferLocation, DrawerDetail>();
-                        var drawerIdRange = MacEnumDevice.boxtransfer_assembly.GetDrawerRange();
+                        var drawerIdRange = EnumMacDeviceId.boxtransfer_assembly.GetDrawerRange();
                         for (var i = drawerIdRange.StartID; i <= drawerIdRange.EndID; i++)
                         {
                             try

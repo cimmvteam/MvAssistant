@@ -14,8 +14,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     {
         #region Device Components
 
-        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetHalDevice(MacEnumDevice.masktransfer_plc); } }
-        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.masktransfer_robot_1); } }
+        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetHalDevice(EnumMacDeviceId.masktransfer_plc); } }
+        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(EnumMacDeviceId.masktransfer_robot_1); } }
 
         #endregion Device Components
 

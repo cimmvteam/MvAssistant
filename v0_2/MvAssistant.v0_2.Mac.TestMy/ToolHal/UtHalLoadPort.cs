@@ -615,8 +615,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var lp = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
 
@@ -631,8 +631,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var lp = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
 
@@ -647,8 +647,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var lp = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
 
@@ -664,8 +664,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var lp = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var lp = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 lp.HalConnect();
             }

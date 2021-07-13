@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Manifest
 {
-    public enum MacEnumDevice
+    public enum EnumMacDeviceId
     {
         /// 編碼格式 ABCDEF
         /// AB: Assembly 
@@ -441,12 +441,12 @@ namespace MvAssistant.v0_2.Mac.Manifest
 
 
 
-        public static MacEnumDeviceDrawerRange GetDrawerRange(this MacEnumDevice instance)
+        public static MacEnumDeviceDrawerRange GetDrawerRange(this EnumMacDeviceId instance)
         {
             return new MacEnumDeviceDrawerRange();
         }
 
-        public static BoxrobotTransferLocation ToBoxrobotTransferLocation(this MacEnumDevice instance)
+        public static BoxrobotTransferLocation ToBoxrobotTransferLocation(this EnumMacDeviceId instance)
         {
             var idRange = instance.GetDrawerRange();
             var drawerLocationRange = BoxrobotTransferLocation.Dontcare.GetDrawerRange();

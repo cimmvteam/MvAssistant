@@ -14,17 +14,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(MacEnumDevice.inspectionch_plc); } }
-        public IMacHalLight LightLineLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_line_left_001); } }
-        public IMacHalLight LightLineBack { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_line_back_001); } }
-        public IMacHalLight LightCrlDefenseTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_circle_defense_top_001); } }
-        public IMacHalLight LightCrlInspTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_circle_inspection_top_001); } }
-        public IMacHalLight LightBarLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_left_001); } }
-        public IMacHalLight LightBarRight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_right_001); } }
-        public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_001); } }
-        public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_defense_side_001); } }
-        public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_defense_top_001); } }
-        public IHalCamera CameraLink { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_top_001); } }
+        public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(EnumMacDeviceId.inspectionch_plc); } }
+        public IMacHalLight LightLineLeft { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_line_left_001); } }
+        public IMacHalLight LightLineBack { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_line_back_001); } }
+        public IMacHalLight LightCrlDefenseTop { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_circle_defense_top_001); } }
+        public IMacHalLight LightCrlInspTop { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_circle_inspection_top_001); } }
+        public IMacHalLight LightBarLeft { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_bar_left_001); } }
+        public IMacHalLight LightBarRight { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_bar_right_001); } }
+        public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_inspect_side_001); } }
+        public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_defense_side_001); } }
+        public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_defense_top_001); } }
+        public IHalCamera CameraLink { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_inspect_top_001); } }
 
 
         #endregion Device Components

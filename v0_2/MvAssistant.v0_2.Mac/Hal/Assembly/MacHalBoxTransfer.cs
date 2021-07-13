@@ -19,10 +19,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     {
         #region Device Components
 
-        public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(MacEnumDevice.boxtransfer_plc); } }
-        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.boxtransfer_robot_1); } }
-        public IMacHalLight LightCircleGripper { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.boxtransfer_light_1); } }
-        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.boxtransfer_camera_gripper_1); } }
+        public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(EnumMacDeviceId.boxtransfer_plc); } }
+        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(EnumMacDeviceId.boxtransfer_robot_1); } }
+        public IMacHalLight LightCircleGripper { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.boxtransfer_light_1); } }
+        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.boxtransfer_camera_gripper_1); } }
 
         #endregion Device Components
 

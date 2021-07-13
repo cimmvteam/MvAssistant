@@ -60,8 +60,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
         /// <summary>Bankout, Load, 放入盒子之後, 將指定的 Drawer 的Tray(有盒子) 推入 Home </summary>
         /// <param name="deviceID"></param>
         [TestMethod]
-        [DataRow(new MacEnumDevice[] { MacEnumDevice.cabinet_drawer_01_02, MacEnumDevice.cabinet_drawer_01_03 }) ]
-        public void Test_BankOutLoadMoveTraysToHomeAfterPutBoxOnTray(MacEnumDevice[] deviceIDs)
+        [DataRow(new EnumMacDeviceId[] { EnumMacDeviceId.cabinet_drawer_01_02, EnumMacDeviceId.cabinet_drawer_01_03 }) ]
+        public void Test_BankOutLoadMoveTraysToHomeAfterPutBoxOnTray(EnumMacDeviceId[] deviceIDs)
         {
             var list = deviceIDs.ToList();
             var drawers = Machine.GetDicMacHalDrawers();
@@ -149,8 +149,8 @@ namespace MaskAutoCleaner.v1_0.TestMy.Machine
 
         /// <summary>Bankout, unload, 將 Drawer Tray 在 Home 而且有盒子者  由 Home 移到 Out </summary>
         [TestMethod]
-        [DataRow(new MacEnumDevice[] { MacEnumDevice.cabinet_drawer_01_02, MacEnumDevice.cabinet_drawer_01_03 })]
-        public void Test_BankOutUnLoadMoveSpecificTraysToOutForGrabBox(MacEnumDevice[] devices)
+        [DataRow(new EnumMacDeviceId[] { EnumMacDeviceId.cabinet_drawer_01_02, EnumMacDeviceId.cabinet_drawer_01_03 })]
+        public void Test_BankOutUnLoadMoveSpecificTraysToOutForGrabBox(EnumMacDeviceId[] devices)
         {
             #region  測試資料
             var list = devices.ToList();

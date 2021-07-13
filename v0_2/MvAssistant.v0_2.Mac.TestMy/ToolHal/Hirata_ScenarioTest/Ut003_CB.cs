@@ -14,7 +14,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut003_CB
     {
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         public Ut003_CB()
         {
@@ -174,7 +174,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     universal.HalConnect();
 
                     // get drawer
-                    var drawer0 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_01_04,true);
+                    var drawer0 = halContext.GetDrawer(EnumMacDeviceId.cabinet_drawer_01_04,true);
                    // var drawer1 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_02, true);
                     //var drawer2 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_04, true);
                     //var drawer3 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_03_02, true);

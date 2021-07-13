@@ -23,8 +23,8 @@ namespace MvAssistant.v0_2.Mac.Hal
         #region Machines Get/Set
 
         public MacHalBase this[string key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
-        public MacHalBase this[MacEnumDevice key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
-        public MacHalBase GetHalDevice(MacEnumDevice key) { return this.GetHalDevice(key.ToString()); }
+        public MacHalBase this[EnumMacDeviceId key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
+        public MacHalBase GetHalDevice(EnumMacDeviceId key) { return this.GetHalDevice(key.ToString()); }
         public MacHalBase GetHalDevice(string key)
         {
             var hals = (from row in this.Hals
@@ -36,7 +36,7 @@ namespace MvAssistant.v0_2.Mac.Hal
 
             return hals.FirstOrDefault().Value;
         }
-        public bool IsContainDevice(MacEnumDevice key) { return this.IsContainDevice(key.ToString()); }
+        public bool IsContainDevice(EnumMacDeviceId key) { return this.IsContainDevice(key.ToString()); }
         public bool IsContainDevice(string key)
         {
             var qhals = (from row in this.Hals
@@ -46,7 +46,7 @@ namespace MvAssistant.v0_2.Mac.Hal
         }
 
 
-        public void SetHalDevice(MacEnumDevice key, MacHalBase hal) { this.SetHalDevice(key, hal); }
+        public void SetHalDevice(EnumMacDeviceId key, MacHalBase hal) { this.SetHalDevice(key, hal); }
         public void SetHalDevice(string key, MacHalBase hal) { this.Hals[key] = hal; }
 
         #endregion

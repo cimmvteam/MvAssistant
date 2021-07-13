@@ -26,8 +26,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var cbn = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 cbn.HalConnect();
 
@@ -43,8 +43,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var cbn = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 cbn.HalConnect();
 
@@ -60,8 +60,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var cbn = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 cbn.HalConnect();
 
@@ -77,8 +77,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var cbn = halContext.HalDevices[MacEnumDevice.cabinet_assembly.ToString()] as MacHalCabinet;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var cbn = halContext.HalDevices[EnumMacDeviceId.cabinet_assembly.ToString()] as MacHalCabinet;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 cbn.HalConnect();
             }

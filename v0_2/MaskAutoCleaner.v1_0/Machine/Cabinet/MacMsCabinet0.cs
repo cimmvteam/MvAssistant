@@ -97,7 +97,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
                         if (dicDrawerAndBoxInfos == null)
                         {
                             dicDrawerAndBoxInfos = new Dictionary<BoxrobotTransferLocation, DrawerBoxInfo>();
-                            var drawerIdRange = MacEnumDevice.boxtransfer_assembly.GetDrawerRange();
+                            var drawerIdRange = EnumMacDeviceId.boxtransfer_assembly.GetDrawerRange();
                             for (var i = drawerIdRange.StartID; i <= drawerIdRange.EndID; i++)
                             {
                                try
@@ -172,7 +172,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet
 
         /// <summary>Bank out load 時, 將指定的 Drawer (可多個, 送回 HOME)  </summary>
         /// <param name="drawer"></param>
-        public void BankOutLoadMoveTraysToHomeAfterPutBoxOnTray(List<MacEnumDevice> drawerIDs)
+        public void BankOutLoadMoveTraysToHomeAfterPutBoxOnTray(List<EnumMacDeviceId> drawerIDs)
         {
             var dic = this.GetDicMacHalDrawers();
             foreach (var drawerID in drawerIDs)

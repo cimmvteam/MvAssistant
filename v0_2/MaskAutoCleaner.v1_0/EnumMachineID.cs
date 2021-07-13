@@ -68,10 +68,10 @@ namespace MaskAutoCleaner.v1_0
             var rtnV = new DrawerStateMachineIDRange(EnumMachineID.MID_DRAWER_01_01, EnumMachineID.MID_DRAWER_07_05);
             return rtnV;
         }
-        public static Tuple<bool, MacEnumDevice> ToMacEnumDeviceForDrawer(this EnumMachineID inst)
+        public static Tuple<bool, EnumMacDeviceId> ToMacEnumDeviceForDrawer(this EnumMachineID inst)
         {
             DrawerStateMachineIDRange drawerRangeOfEnumMachineID = inst.GetDrawerStateMachineIDRange();
-            var rtnV = default(Tuple<bool, MacEnumDevice>);
+            var rtnV = default(Tuple<bool, EnumMacDeviceId>);
             if (inst.IsInDrawerRange())
             {
                 var diff = inst - drawerRangeOfEnumMachineID.StartID;
@@ -80,7 +80,7 @@ namespace MaskAutoCleaner.v1_0
             }
             else
             {
-                rtnV = Tuple.Create(false, MacEnumDevice.boxtransfer_assembly);
+                rtnV = Tuple.Create(false, EnumMacDeviceId.boxtransfer_assembly);
             }
             return rtnV;
         }

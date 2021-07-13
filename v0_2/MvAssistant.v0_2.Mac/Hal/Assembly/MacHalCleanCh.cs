@@ -14,9 +14,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(MacEnumDevice.cleanch_plc); } }
-        public IMacHalLight LightSideInsp { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.cleanch_inspection_spot_light_001); } }
-        public IHalCamera CameraInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.clean_camera_particle_1); } }
+        public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(EnumMacDeviceId.cleanch_plc); } }
+        public IMacHalLight LightSideInsp { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.cleanch_inspection_spot_light_001); } }
+        public IHalCamera CameraInsp { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.clean_camera_particle_1); } }
 
 
         #endregion Device Components
