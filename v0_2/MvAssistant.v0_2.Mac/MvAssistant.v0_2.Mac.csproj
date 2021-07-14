@@ -157,7 +157,7 @@
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferLocationDrawerRange.cs" />
     <Compile Include="JSon\RobotTransferFile\MaskrobotTransferLocation.cs" />
     <Compile Include="JSon\RobotTransferFile\MaskrobotTransferPathFile.cs" />
-    <Compile Include="Manifest\MacEnumDevice.cs" />
+    <Compile Include="Manifest\EnumMacDeviceId.cs" />
     <Compile Include="Manifest\MacEnumDeviceDrawerRange.cs" />
     <Compile Include="Manifest\MacEnumPositionId.cs" />
     <Compile Include="Manifest\Exceptions\MacHalObjectNotFoundException.cs" />

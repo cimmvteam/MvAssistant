@@ -25,10 +25,13 @@ namespace MvAssistant.v0_2.Sensor.Device
         /// <summary> 是否  </summary>
         public bool IsActivelyTx;
 
-        MvaSsProtoCmd Buffer = new MvaSsProtoCmd();
+        MvaSsProtoCmdBuffer Buffer = new MvaSsProtoCmdBuffer();
+        public MvaSsProtoCmdCfg Config = new MvaSsProtoCmdCfg();
+
 
         AutoResetEvent areMsg = new AutoResetEvent(false);
         DateTime prevAckTime = DateTime.Now;
+
         CtkTask task;
         public MvaSsTcpCmd() { }
         ~MvaSsTcpCmd() { this.Dispose(false); }
@@ -46,21 +49,21 @@ namespace MvAssistant.v0_2.Sensor.Device
 
             if (this.IsActivelyTx)
             {
-                
-                var ackDataMsg = this.SignalTran.CreateAckMsg(this.Config.SignalCfgList);
+
+                var ackDataMsg = this.Buffer.CreateAckMsg(this.Config.SvidConfigs);
                 if (ackDataMsg != null)
-                    this.ProtoConn.WriteMsg(ackDataMsg);
+                    this.tcpClient.WriteMsg(ackDataMsg);
             }
             else
             {
                 //等待下次要求資料的間隔
-                if (this.Config.TxInterval > 0)
+                if (this.Config.TxIntervalMs > 0)
                 {
                     var interval = DateTime.Now - prevAckTime;
-                    while (interval.TotalMilliseconds < this.Config.TxInterval)
+                    while (interval.TotalMilliseconds < this.Config.TxIntervalMs)
                     {
                         if (!this.CfIsRunning) return 0;//若不再執行->直接return
-                        var sleep = this.Config.TxInterval - (int)interval.TotalMilliseconds;
+                        var sleep = this.Config.TxIntervalMs - (int)interval.TotalMilliseconds;
                         if (sleep > 0)
                             Thread.Sleep(sleep);
                         interval = DateTime.Now - prevAckTime;
@@ -68,8 +71,8 @@ namespace MvAssistant.v0_2.Sensor.Device
                 }
                 prevAckTime = DateTime.Now;
 
-                var reqDataMsg = this.SignalTran.CreateDataReqMsg(this.Config.SignalCfgList);
-                this.ProtoConn.WriteMsg(reqDataMsg);
+                var reqDataMsg = this.Buffer.CreateDataReqMsg(this.Config.SvidConfigs);
+                this.tcpClient.WriteMsg(reqDataMsg);
 
             }
 
@@ -81,39 +84,40 @@ namespace MvAssistant.v0_2.Sensor.Device
         }
         protected virtual void SignalHandle()
         {
-            while (this.ProtoFormat.HasMessage())
+            while (this.Buffer.HasMessage())
             {
-                object msg = null;
-                if (!this.ProtoFormat.TryDequeueMsg(out msg)) return;
+                string msg = null;
+                if (!this.Buffer.TryDequeueMsg(out msg)) return;
 
-                if (this.ProtoSession.ProcessSession(this.ProtoConn, msg)) continue;
+                if (this.Buffer.ProcessSession(this.tcpClient, msg)) continue;
 
 
-                var eaSignals = this.SignalTran.AnalysisSignal(this, msg, this.Config.SignalCfgList);
-                for (var idx = 0; idx < eaSignals.Count; idx++)
+                var msgEventArgs = this.Buffer.Parse(msg as string);
+
+                for (var idx = 0; idx < msgEventArgs.Count; idx++)
                 {
-                    var eaSignal = eaSignals[idx];
+                    var ea = msgEventArgs[idx];
 
-                    eaSignal.Sender = this;
-                    eaSignal.CalibrateData = new List<double>();
+                    ea.Sender = this;
 
-                    if (eaSignal.Svid == null && this.Config.SignalCfgList.Count > idx)
-                        eaSignal.Svid = this.Config.SignalCfgList[idx].Svid;
+                    if (ea.Svid == null || this.Config.SvidConfigs.Count > idx)
+                        continue;
 
+                    var svidConfig = this.Config.SvidConfigs[idx];
+                    ea.SvidConfig = svidConfig;
+                    ea.Svid = svidConfig.Svid;
+                    ea.RcvDateTime = DateTime.Now;
 
-                    var signalCfg = this.Config.SignalCfgList.FirstOrDefault(x => x.Svid == eaSignal.Svid);
-                    if (signalCfg == null) continue;
-                    for (int idx_data = 0; idx_data < eaSignal.Data.Count; idx_data++)
+                    for (int idx_data = 0; idx_data < ea.Data.Count; idx_data++)
                     {
-                        var signal = eaSignal.Data[idx_data];
+                        var signal = ea.Data[idx_data];
                         //var signal = d / (Math.Pow(2, 23) - 1) * 5; //轉回電壓
-                        signal = signal * signalCfg.CalibrateSysScale + signalCfg.CalibrateSysOffset;//轉成System值
-                        eaSignal.CalibrateData.Add(signal * signalCfg.CalibrateUserScale + signalCfg.CalibrateUserOffset);//轉入User Define
+                        signal = signal * svidConfig.CalibrateSysScale + svidConfig.CalibrateSysOffset;//轉成System值
+                        ea.CalibrateData.Add(signal * svidConfig.CalibrateUserScale + svidConfig.CalibrateUserOffset);//轉入User Define
                     }
 
-                    eaSignal.SignalConfig = signalCfg;
-                    eaSignal.RcvDateTime = DateTime.Now;
-                    this.OnSignalCapture(eaSignal);
+
+                    this.OnSignalCapture(ea);
                 }
             }
         }
@@ -121,8 +125,8 @@ namespace MvAssistant.v0_2.Sensor.Device
 
 
         #region Event
-        public event EventHandler<SNetSignalTransEventArgs> EhReceive;
-        void OnSignalCapture(SNetSignalTransEventArgs e)
+        public event EventHandler<MvaSsProtoCmdMsg> EhReceive;
+        void OnSignalCapture(MvaSsProtoCmdMsg e)
         {
             if (EhReceive == null) return;
             this.EhReceive(this, e);
@@ -141,7 +145,7 @@ namespace MvAssistant.v0_2.Sensor.Device
         {
             try
             {
-                this.ProtoConn.ConnectIfNoAsyn();//內部會處理重複要求連線
+                this.tcpClient.ConnectIfNoAsyn();//內部會處理重複要求連線
                 this.RealExec();
 
             }
@@ -164,7 +168,7 @@ namespace MvAssistant.v0_2.Sensor.Device
         }
         public virtual int CfInit()
         {
-            if (this.Config == null) throw new SNetException("沒有設定參數");
+            if (this.Config == null) throw new MvaException("沒有設定參數");
 
             var remoteUri = new Uri(this.Config.RemoteUri);
             var localUri = string.IsNullOrEmpty(this.Config.LocalUri) ? null : new Uri(this.Config.LocalUri);
@@ -172,98 +176,36 @@ namespace MvAssistant.v0_2.Sensor.Device
             localUri = CtkNetUtil.ToUri(localIpAddr.ToString(), localUri == null ? 0 : localUri.Port);
 
 
-            switch (this.Config.ProtoConnect)
-            {
-                case SNetEnumProtoConnect.Tcp:
-                    this.ProtoConn = new SNetProtoConnTcp(localUri, remoteUri, this.Config.IsActivelyConnect);
-                    break;
-                case SNetEnumProtoConnect.Custom:
-                    //由使用者自己實作
-                    break;
-                default: throw new ArgumentException("ProtoConn"); ;
-            }
 
-            this.ProtoConn.IntervalTimeOfConnectCheck = this.Config.IntervalTimeOfConnectCheck;
-            this.ProtoConn.EhFirstConnect += (ss, ee) =>
+            this.tcpClient = new CtkTcpClient(remoteUri, localUri);
+            this.tcpClient.EhFirstConnect += (ss, ee) =>
             {
-                this.ProtoSession.FirstConnect(this.ProtoConn);
+                this.Buffer.FirstConnect(this.tcpClient);
 
                 if (this.Config.IsActivelyTx)
                 {
-                    var ackDataMsg = this.SignalTran.CreateAckMsg(this.Config.SignalCfgList);
+                    var ackDataMsg = this.Buffer.CreateAckMsg(this.Config.SvidConfigs);
                     if (ackDataMsg != null)
-                        this.ProtoConn.WriteMsg(ackDataMsg);
+                        this.tcpClient.WriteMsg(ackDataMsg);
                 }
                 else
                 {
-                    var reqDataMsg = this.SignalTran.CreateDataReqMsg(this.Config.SignalCfgList);
+                    var reqDataMsg = this.Buffer.CreateDataReqMsg(this.Config.SvidConfigs);
                     if (reqDataMsg != null)
                     {
-                        this.ProtoConn.WriteMsg(reqDataMsg);
+                        this.tcpClient.WriteMsg(reqDataMsg);
                     }
                 }
             };
-            this.ProtoConn.EhDataReceive += (ss, ee) =>
+            this.tcpClient.EhDataReceive += (ss, ee) =>
             {
                 var ea = ee as CtkProtocolEventArgs;
-                this.ProtoFormat.ReceiveMsg(ea.TrxMessage);
+                this.Buffer.ReceiveMsg(ea.TrxMessage);
                 this.areMsg.Set();
 
-                if (this.ProtoFormat.HasMessage())
+                if (this.Buffer.HasMessage())
                     SignalHandle();
             };
-
-
-
-
-            switch (this.Config.ProtoFormat)
-            {
-                case SNetEnumProtoFormat.SNetCmd:
-                    this.ProtoFormat = new SNetProtoFormatSNetCmd();
-                    break;
-                case SNetEnumProtoFormat.Secs:
-                    this.ProtoFormat = new SNetProtoFormatSecs();
-                    break;
-                case SNetEnumProtoFormat.Custom:
-                    //由使用者自己實作
-                    break;
-                default: throw new ArgumentException("必須指定ProtoFormat");
-            }
-
-
-
-            switch (this.Config.ProtoSession)
-            {
-                case SNetEnumProtoSession.SNetCmd:
-                    this.ProtoSession = new SNetProtoSessionSNetCmd();
-                    break;
-                case SNetEnumProtoSession.Secs:
-                    this.ProtoSession = new SNetProtoSessionSecs();
-                    break;
-                case SNetEnumProtoSession.Custom:
-                    //由使用者自己實作
-                    break;
-                default: throw new ArgumentException("必須指定ProtoFormat");
-            }
-
-
-            switch (this.Config.SignalTran)
-            {
-                case SNetEnumSignalTrans.SNetCmd:
-                    this.SignalTran = new SNetSignalTransSNetCmd();
-                    break;
-                case SNetEnumSignalTrans.Secs001:
-                    this.SignalTran = new SNetSignalTransSecs001();
-                    break;
-                case SNetEnumSignalTrans.Custom:
-                    //由使用者自己實作
-                    break;
-                default: throw new ArgumentException("必須指定ProtoFormat");
-            }
-
-
-
-
 
 
             return 0;
@@ -327,11 +269,9 @@ namespace MvAssistant.v0_2.Sensor.Device
                 this.task.Dispose();
                 this.task = null;
             }
-            if (this.ProtoConn != null)
+            if (this.tcpClient != null)
             {
-                this.ProtoConn.Disconnect();
-                this.ProtoConn.Dispose();
-                this.ProtoConn = null;
+                CtkNetUtil.DisposeTcpClientTry(this.tcpClient);
             }
             CtkEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);
 

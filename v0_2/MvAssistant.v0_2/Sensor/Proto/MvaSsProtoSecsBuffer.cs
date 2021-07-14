@@ -14,14 +14,14 @@ namespace MvAssistant.v0_2.Sensor.Proto
     /// <summary>
     /// 客戶要求的Secs Format
     /// </summary>
-    public class MvaSsProtoBufferSecs : IDisposable
+    public class MvaSsProtoSecsBuffer : IDisposable
     {
 
         public ConcurrentQueue<CxHsmsMessage> MsgQueue = new ConcurrentQueue<CxHsmsMessage>();
 
         CxHsmsMessageReceiver hsmsMsgRcv = new CxHsmsMessageReceiver();
 
-        ~MvaSsProtoBufferSecs() { this.Dispose(false); }
+        ~MvaSsProtoSecsBuffer() { this.Dispose(false); }
 
         void ReceiveBytes(byte[] buffer, int offset, int length)
         {

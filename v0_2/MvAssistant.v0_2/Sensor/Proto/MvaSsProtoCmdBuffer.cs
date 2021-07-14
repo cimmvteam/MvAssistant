@@ -6,12 +6,13 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using CToolkit.v1_1.Net;
 using CToolkit.v1_1.Protocol;
 
 namespace MvAssistant.v0_2.Sensor.Proto
 
 {
-    public class MvaSsProtoCmd : IDisposable
+    public class MvaSsProtoCmdBuffer : IDisposable
     {
         public ConcurrentQueue<string> MsgQueue = new ConcurrentQueue<string>();
         StringBuilder receivingString = new StringBuilder();
@@ -41,58 +42,36 @@ namespace MvAssistant.v0_2.Sensor.Proto
 
         #region ISNetProtoFormatBase
         public int Count() { return this.MsgQueue.Count; }
+        public CtkProtocolTrxMessage CreateAckMsg(IList<MvaSsProtoCmdSvidCfg> reqSvids)
+        {
+            var result = new StringBuilder();
+            result.Append("cmd  \n");
+            return result.ToString();
+        }
+
+        public CtkProtocolTrxMessage CreateDataReqMsg(IList<MvaSsProtoCmdSvidCfg> reqSvids)
+        {
+
+            var result = new StringBuilder();
+            result.Append("cmd -reqData -svid ");
+
+            foreach (var svid in reqSvids)
+                result.Append($" {svid.Svid}");
+
+            result.Append("\n");//.AppendLine();
+
+            return result.ToString();
+        }
+
+        public void FirstConnect(CtkTcpClient protoConn)
+        {
+        }
+
         public bool HasMessage() { return this.MsgQueue.Count > 0; }
 
         public bool IsReceiving() { return this.receivingString.Length > 0; }
 
-        public void ReceiveMsg(CtkProtocolTrxMessage msg)
-        {
-            if (msg.Is<CtkProtocolBufferMessage>())
-            {
-                var buffer = msg.As<CtkProtocolBufferMessage>();
-                this.ReceiveBytes(buffer.Buffer, buffer.Offset, buffer.Length);
-            }
-            else throw new ArgumentException("Not support type");
-        }
-
-        public bool TryDequeueMsg(out object msg)
-        {
-            string line = null;
-            var flag = this.MsgQueue.TryDequeue(out line);
-            msg = line;
-
-            System.Diagnostics.Debug.WriteLine(msg);
-
-            return flag;
-        }
-
-
-
-
-
-
-
-        int ReadData(String[] args, int start, List<double> data)
-        {
-            //讀取資料, 皆為double, 否則視為結束
-            //return 最後一筆資料的索引
-
-            var d = 0.0;
-            //第一筆為 -data
-            int idx = 0;
-            for (idx = start + 1; idx < args.Length; idx++)
-            {
-                if (Double.TryParse(args[idx], out d))
-                    data.Add(d);
-                else
-                    break;
-            }
-
-            return idx - 1;
-        }
-
-
-        public List<MvaSsProtoCmdMsg> Parse<T>(string msg, IList<T> infos)
+        public List<MvaSsProtoCmdMsg> Parse(string msg)
         {
             var rtn = new List<MvaSsProtoCmdMsg>();
 
@@ -136,37 +115,54 @@ namespace MvAssistant.v0_2.Sensor.Proto
             return rtn;
         }
 
-        public CtkProtocolTrxMessage CreateDataReqMsg(IList<UInt32> reqInfos)
+        public bool ProcessSession(CtkTcpClient protoConn, object msg)
         {
-            var listInfo = reqInfos as IList<SNetSignalTransCfg>;
-            if (listInfo == null) throw new ArgumentException("未定義此型別的操作方式");
-            //public static byte[] TxDataAck { get { return Encoding.UTF8.GetBytes("\n"); } }//減少處理量, 只以換行作為Ack
-
-            var result = new StringBuilder();
-            result.Append("cmd -reqData -svid ");
-
-            foreach (var cfg in listInfo)
-                result.AppendFormat(" {0} ", cfg.Svid);
-
-
-            result.Append("\n");//.AppendLine();
-
-            return result.ToString();
+            return false;
         }
 
-        public CtkProtocolTrxMessage CreateAckMsg<T>(IList<T> reqInfos)
+        public void ReceiveMsg(CtkProtocolTrxMessage msg)
         {
-            var listInfo = reqInfos as IList<SNetSignalTransCfg>;
-            if (listInfo == null) throw new ArgumentException("未定義此型別的操作方式");
+            if (msg.Is<CtkProtocolBufferMessage>())
+            {
+                var buffer = msg.As<CtkProtocolBufferMessage>();
+                this.ReceiveBytes(buffer.Buffer, buffer.Offset, buffer.Length);
+            }
+            else throw new ArgumentException("Not support type");
+        }
 
-            var result = new StringBuilder();
-            result.Append("cmd  \n");
+        public bool TryDequeueMsg(out string msg)
+        {
+            string line = null;
+            var flag = this.MsgQueue.TryDequeue(out line);
+            msg = line;
 
-            return result.ToString();
+            System.Diagnostics.Debug.WriteLine(msg);
+
+            return flag;
         }
 
 
 
+
+
+        int ReadData(String[] args, int start, List<double> data)
+        {
+            //讀取資料, 皆為double, 否則視為結束
+            //return 最後一筆資料的索引
+
+            var d = 0.0;
+            //第一筆為 -data
+            int idx = 0;
+            for (idx = start + 1; idx < args.Length; idx++)
+            {
+                if (Double.TryParse(args[idx], out d))
+                    data.Add(d);
+                else
+                    break;
+            }
+
+            return idx - 1;
+        }
         #endregion
 
 

@@ -275,6 +275,13 @@
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecF8.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetC.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetF8.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsTcpCmd.cs" />
+    <Compile Include="Sensor\Proto\EnumMvaSsProtoCmdCat.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdCfg.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdSvidCfg.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoSecsBuffer.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoCmdBuffer.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdMsg.cs" />
     <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="Threading\MvaSpinSleep.cs" />
     <Compile Include="Threading\MvaSpinWait.cs" />
@@ -301,9 +308,6 @@
     <Compile Include="DeviceDrive\E84\MvaE84AmlLdd.cs" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sensor\Device\" />
-    <Folder Include="Sensor\Proto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
