@@ -8,6 +8,7 @@ namespace MvAssistant.v0_2.Mac
 {
     public enum EnumMacMaskBoxType : uint
     {
+        None,
         DontCare = 0,
         IronBox = 1,
         CrystalBox = 2

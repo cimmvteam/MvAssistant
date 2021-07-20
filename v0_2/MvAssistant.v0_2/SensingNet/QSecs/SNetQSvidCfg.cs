@@ -25,7 +25,7 @@ namespace SensingNet.v0_2.QSecs
 
 
 
-        public void SaveToXmlFile(string fn) { CtkUtilFw.SaveToXmlFileT(this, fn); }
+        public void SaveToXmlFile(string fn) { CtkUtil.SaveToXmlFileT(this, fn); }
 
     }
 
