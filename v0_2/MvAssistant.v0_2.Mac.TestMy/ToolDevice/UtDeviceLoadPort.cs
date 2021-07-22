@@ -736,7 +736,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         {
             using (var loadport = new MvGudengLoadPortCollection())
             {
-                loadport.ConnectIfNo();
+                loadport.ConnectTry();
 
 
             }

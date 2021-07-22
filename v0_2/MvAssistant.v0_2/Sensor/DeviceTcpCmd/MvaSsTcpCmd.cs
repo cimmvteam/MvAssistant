@@ -145,7 +145,7 @@ namespace MvAssistant.v0_2.Sensor.Device
         {
             try
             {
-                this.tcpClient.ConnectIfNoAsyn();//內部會處理重複要求連線
+                this.tcpClient.ConnectTryStart();//內部會處理重複要求連線
                 this.RealExec();
 
             }

@@ -45,7 +45,7 @@ namespace SensingNet.v0_2.TdSignalProc
         {
             try
             {
-                hsmsConnector.ConnectIfNo();
+                hsmsConnector.ConnectTry();
                 hsmsConnector.ReceiveLoop();
             }
             catch (Exception ex)

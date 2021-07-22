@@ -79,7 +79,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
         {
             robotHandler = new MacHalBoxRobotFanuc();
             robotHandler.ldd.RobotIp = "192.168.0.51";
-            if (robotHandler.ConnectIfNO() == 0)
+            if (robotHandler.ConnectTry() == 0)
             {
                 this.LogWrite("Connection Success");
             }

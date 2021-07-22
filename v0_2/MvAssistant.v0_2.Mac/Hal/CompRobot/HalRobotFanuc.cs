@@ -38,7 +38,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             if (this.ldd == null)
                 this.ldd = new MvaFanucRobotLdd();
             this.ldd.RobotIp = ip;
-            var success = this.ldd.ConnectIfNo();
+            var success = this.ldd.ConnectTry();
             return success;
         }
 

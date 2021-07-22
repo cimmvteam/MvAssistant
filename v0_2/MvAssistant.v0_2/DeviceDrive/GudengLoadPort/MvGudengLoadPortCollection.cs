@@ -25,7 +25,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             return loadport;
 
         }
-        public int ConnectIfNo(string ip = null, int? port = null)
+        public int ConnectTry(string ip = null, int? port = null)
         {
 
 

@@ -39,10 +39,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\OmronPLC.1.7.0\CIPCompolet.dll</HintPath>
     </Reference>
-    <Reference Include="CodeExpress.v1_0">
+    <Reference Include="CodeExpress.v1_0, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.dll</HintPath>
     </Reference>
-    <Reference Include="CToolkit.v1_1">
+    <Reference Include="CToolkit.v1_1, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\CToolkit.1.1.1\CToolkit.v1_1.dll</HintPath>
     </Reference>
     <Reference Include="GenApiDotNet20">
@@ -299,4 +301,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(ProjectDir)/../DLL/CToolkit.1.1.1/" "./"
+copy "$(ProjectDir)/../DLL/CodeExpress.1.0.0/" "./"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

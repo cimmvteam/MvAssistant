@@ -84,10 +84,10 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public bool IsRemoteConnected { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsRemoteConnected; } }
 
         //用途是避免重複要求連線
-        public int ConnectIfNo() { return this.ConnectIfNoAsyn(); }
-        public int ConnectIfNoAsyn()
+        public int ConnectTry() { return this.ConnectTryStart(); }
+        public int ConnectTryStart()
         {
-            if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectIfNo
+            if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectTry
             if (this.IsRemoteConnected || this.IsOpenRequesting) return 0;
 
             var now = DateTime.Now;
@@ -95,7 +95,7 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             this.timeOfBeginConnect = DateTime.Now;
 
             this.ReloadComPort();
-            this.nonStopSerialPort.ConnectIfNo();
+            this.nonStopSerialPort.ConnectTry();
             return 0;
         }
         public void Disconnect()
@@ -123,14 +123,12 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             }
         }
 
-        #endregion
 
-        #region ICtkProtocolNonStopConnect
 
         public bool IsNonStopRunning { get { return this.nonStopSerialPort == null ? false : this.nonStopSerialPort.IsNonStopRunning; } }
         public int IntervalTimeOfConnectCheck { get { return this.nonStopSerialPort.IntervalTimeOfConnectCheck; } set { this.nonStopSerialPort.IntervalTimeOfConnectCheck = value; } }
-        public void AbortNonStopRun() { this.nonStopSerialPort.AbortNonStopRun(); }
-        public void NonStopRunAsyn()
+        public void NonStopRunStop() { this.nonStopSerialPort.NonStopRunStop(); }
+        public void NonStopRunStart()
         {
             if (this.IsRemoteConnected || this.IsOpenRequesting) return;
 
@@ -139,7 +137,7 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             this.timeOfBeginConnect = now;
 
             this.ReloadComPort();
-            this.nonStopSerialPort.NonStopRunAsyn();
+            this.nonStopSerialPort.NonStopRunStart();
         }
 
         #endregion

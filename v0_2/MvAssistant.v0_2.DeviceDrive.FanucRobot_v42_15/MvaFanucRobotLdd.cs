@@ -102,7 +102,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
             }
             return 0;
         }
-        public int ConnectIfNo()
+        public int ConnectTry()
         {
             if (!this.IsConnected())
             {
