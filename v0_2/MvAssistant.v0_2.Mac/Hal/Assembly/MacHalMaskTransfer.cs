@@ -14,8 +14,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     {
         #region Device Components
 
-        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetHalDevice(MacEnumDevice.masktransfer_plc); } }
-        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.masktransfer_robot_1); } }
+        public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetHalDevice(EnumMacDeviceId.masktransfer_plc); } }
+        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(EnumMacDeviceId.masktransfer_robot_1); } }
 
         #endregion Device Components
 
@@ -232,7 +232,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 throw new Exception("MT clamp tactile sensor maximum limit cannot be lower than the minimum limit !");
             Plc.SetClampTactileLim(TactileMaxLimit, TactileMinLimit);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadClampTactileLimSetting();
+            var SetResult = Plc.ReadClampTactileLimit();
             if ((TactileMaxLimit != null && SetResult.Item1 != TactileMaxLimit)
                 || (TactileMinLimit != null && SetResult.Item2 != TactileMinLimit))
                 throw new Exception("MT clamp tactile sensor limit setting error !");
@@ -248,7 +248,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetLevelLimit(Level_X, Level_Y, Level_Z);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadLevelLimitSetting();
+            var SetResult = Plc.ReadLevelLimit();
             if ((Level_X != null && SetResult.Item1 != Level_X)
                 || (Level_Y != null && SetResult.Item2 != Level_Y)
                 || (Level_Z != null && SetResult.Item3 != Level_Z))
@@ -268,7 +268,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorUpperLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
@@ -291,7 +291,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetSixAxisSensorLowerLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorLowerLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorLowerLimit();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
@@ -310,9 +310,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             if (ClampSpeed < 1.0 || ClampSpeed > 10.0)
                 throw new Exception("MT clamp speed setting only between 1.0 ~ 10.0 (mm/sec) !");
-            Plc.SetSpeed(ClampSpeed, CCDSpinSpeed);
+            Plc.SetSpeedVar(ClampSpeed, CCDSpinSpeed);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSpeedSetting();
+            var SetResult = Plc.ReadSpeedVar();
             if (ClampSpeed != null && SetResult.Item1 != ClampSpeed)
                 throw new Exception("MT clamp speed setting error !");
             else if (CCDSpinSpeed != null && SetResult.Item2 != CCDSpinSpeed)
@@ -330,7 +330,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 throw new Exception("MT static electricity sensor maximum limit cannot be lower than the minimum limit !");
             Plc.SetStaticElecLimit(Maximum, Minimum);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadStaticElecLimitSetting();
+            var SetResult = Plc.ReadStaticElecLimit();
             if ((Maximum != null && SetResult.Item1 != Maximum)
                 || (Minimum != null && SetResult.Item2 != Minimum))
                 throw new Exception("MT static electricity sensor limit setting error !");
@@ -342,43 +342,43 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取夾爪觸覺極限設定值，上限、下限
         /// </summary>
         /// <returns>Maximum、Minimum</returns>
-        public Tuple<int, int> ReadClampTactileLimSetting()
-        { return Plc.ReadClampTactileLimSetting(); }
+        public Tuple<int, int> ReadClampTactileLimit()
+        { return Plc.ReadClampTactileLimit(); }
 
         /// <summary>
         /// 讀取三軸水平極限值設定，X軸、Y軸、Z軸
         /// </summary>
         /// <returns>X軸、Y軸、Z軸</returns>
-        public Tuple<int, int, int> ReadLevelLimitSetting()
-        { return Plc.ReadLevelLimitSetting(); }
+        public Tuple<int, int, int> ReadLevelLimit()
+        { return Plc.ReadLevelLimit(); }
 
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值上限設定，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
-        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
+        { return Plc.ReadSixAxisSensorUpperLimit(); }
 
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值下限設定，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
         /// <returns></returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
-        { return Plc.ReadSixAxisSensorLowerLimitSetting(); }
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
+        { return Plc.ReadSixAxisSensorLowerLimit(); }
 
         /// <summary>
         /// 讀取速度設定，夾爪速度、CCD旋轉速度
         /// </summary>
         /// <returns>夾爪速度、CCD旋轉速度</returns>
-        public Tuple<double, long> ReadSpeedSetting()
-        { return Plc.ReadSpeedSetting(); }
+        public Tuple<double, long> ReadSpeedVar()
+        { return Plc.ReadSpeedVar(); }
 
         /// <summary>
         /// 讀取靜電感測的區間限制設定值，上限、下限
         /// </summary>
         /// <returns>上限、下限</returns>
-        public Tuple<double, double> ReadStaticElecLimitSetting()
-        { return Plc.ReadStaticElecLimitSetting(); }
+        public Tuple<double, double> ReadStaticElecLimit()
+        { return Plc.ReadStaticElecLimit(); }
         #endregion
 
         #region Read Component Value

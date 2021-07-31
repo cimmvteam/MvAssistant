@@ -16,7 +16,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
     {
         MacHalBoxRobotFanuc robotHandler;
 
-        MvaCancelTask task;
+        MvaTask task;
         public UcBoxRobot()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
             if (this.task != null) return;
             if (this.task != null && !this.task.IsEnd()) return;
 
-            this.task = MvaCancelTask.RunLoop(() =>
+            this.task = MvaTask.RunLoop(() =>
             {
                 //大迴圈, 來回一次
                 try
@@ -79,7 +79,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
         {
             robotHandler = new MacHalBoxRobotFanuc();
             robotHandler.ldd.RobotIp = "192.168.0.51";
-            if (robotHandler.ConnectIfNO() == 0)
+            if (robotHandler.ConnectTry() == 0)
             {
                 this.LogWrite("Connection Success");
             }

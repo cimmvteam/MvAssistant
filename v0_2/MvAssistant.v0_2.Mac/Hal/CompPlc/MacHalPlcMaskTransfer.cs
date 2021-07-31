@@ -146,7 +146,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// </summary>
         /// <param name="ClampSpeed">(1~10mm/S)</param>
         /// <param name="CCDSpinSpeed"> * 0.01(deg/S)</param>
-        public void SetSpeed(double? ClampSpeed, long? CCDSpinSpeed)
+        public void SetSpeedVar(double? ClampSpeed, long? CCDSpinSpeed)
         {
             var plc = plcContext;
             if (ClampSpeed != null)
@@ -159,7 +159,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取速度設定
         /// </summary>
         /// <returns>夾爪速度 , CCD旋轉速度</returns>
-        public Tuple<double, long> ReadSpeedSetting()
+        public Tuple<double, long> ReadSpeedVar()
         {
             var plc = plcContext;
             return new Tuple<double, long>(
@@ -289,7 +289,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取六軸力覺Sensor的壓力值上限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
         {
             var plc = this.plcContext;
             return new Tuple<double, double, double, double, double, double>(
@@ -306,7 +306,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取六軸力覺Sensor的壓力值下限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
         {
             var plc = this.plcContext;
             return new Tuple<double, double, double, double, double, double>(
@@ -352,7 +352,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取夾爪觸覺極限設定值，上限、下限
         /// </summary>
         /// <returns>上限、下限</returns>
-        public Tuple<int, int> ReadClampTactileLimSetting()
+        public Tuple<int, int> ReadClampTactileLimit()
         {
             var plc = plcContext;
             return new Tuple<int, int>(
@@ -446,7 +446,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取三軸水平極限值設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int> ReadLevelLimitSetting()
+        public Tuple<int, int, int> ReadLevelLimit()
         {
             var plc = plcContext;
             return new Tuple<int, int, int>(
@@ -490,7 +490,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取靜電感測的區間限制設定值
         /// </summary>
         /// <returns></returns>
-        public Tuple<double, double> ReadStaticElecLimitSetting()
+        public Tuple<double, double> ReadStaticElecLimit()
         {
             var plc = this.plcContext;
             return new Tuple<double, double>(

@@ -495,7 +495,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         {
             using (var drawer = new MvaKjMachineDrawerManager())
             {
-                drawer.ConnectIfNo();
+                drawer.ConnectTry();
 
 
             }

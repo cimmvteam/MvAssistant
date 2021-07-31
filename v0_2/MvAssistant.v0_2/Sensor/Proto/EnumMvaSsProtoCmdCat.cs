@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MvAssistant.v0_2.Mac
+namespace MvAssistant.v0_2.Sensor.Proto
 {
-    public enum  BoxType:uint
+    public enum EnumMvaSsProtoCmdCat
     {
-        DontCare=0,
-        IronBox =1,
-        CrystalBox=2
+        None,
+        ReqData,
+        RespData,
     }
 }

@@ -20,7 +20,7 @@ namespace SensingNet.v0_2.TdSignalProc
         /// <summary>
         /// MathNet FFT 選 Matlab -> 算出來的結果可以加總後取平均, 仍是頻域圖
         /// </summary>
-        public SNetTSignalSecSetF8 TSignal = new SNetTSignalSecSetF8();
+        public SNetTSignalSecSetF8 TSignalSet = new SNetTSignalSecSetF8();
 
 
         ~SNetTdnFft() { this.Dispose(false); }
@@ -30,40 +30,50 @@ namespace SensingNet.v0_2.TdSignalProc
             if (this.PurgeCounts < 0) return;
             var now = DateTime.Now;
             //var oldKey = new CtkTimeSecond(now.AddSeconds(-this.PurgeSeconds));
-            this.TSignal.RemoveByCount(this.PurgeCounts);
+            this.TSignalSet.RemoveByCount(this.PurgeCounts);
         }
 
         public void Input(object sender, SNetTdEventArg e)
         {
             if (!this.IsEnalbed) return;
-            var ea = e as SNetTdSignalSecSetF8EventArg;
-            if (ea == null) throw new SNetException("尚未無法處理此類資料: " + e.GetType().FullName);
+            var myea = e as SNetTdSignalSecSetF8EventArg;
+            if (myea == null) throw new SNetException("尚未無法處理此類資料: " + e.GetType().FullName);
 
 
 
 
-            if (!ea.PrevTime.HasValue) return;
-            if (ea.Time == ea.PrevTime.Value) return;
-            var t = ea.PrevTime.Value;
+            if (!myea.PrevTime.HasValue) return;
+            if (myea.Time == myea.PrevTime.Value) return;
+            var t = myea.PrevTime.Value;
+            this.Purge();//先Purge, 避免Exception造成沒有Purge
+
 
             //取得時間變更前的時間資料
-            IList<double> signalData = ea.TSignalSource.GetOrCreate(t);
+            IList<double> signalData = myea.TSignalSource.GetOrCreate(t);
             signalData = CtkNumUtil.InterpolationForce(signalData, this.SampleRate);
 
             var ctkNumContext = CtkNumContext.GetOrCreate();
             var comp = ctkNumContext.FftForward(signalData);
 
             var fftData = new double[comp.Length];
-            this.TSignal.Set(t, fftData.ToList());
-
             Parallel.For(0, comp.Length, (idx) =>
             {
                 fftData[idx] = comp[idx].Magnitude;
             });
+            this.TSignalSet.Set(t, fftData.ToList());
 
 
-            this.ProcAndPushData(this.TSignal, new SNetTSignalSecF8(t, signalData));
-            ea.InvokeResult = this.disposed ? SNetTdEnumInvokeResult.IsDisposed : SNetTdEnumInvokeResult.None;
+
+
+            var ea = new SNetTdSignalSecSetF8EventArg();
+            ea.Sender = this;
+            ea.PrevTime = this.PrevTime;
+            ea.Time = t;
+            ea.TSignalSource = this.TSignalSet;
+            ea.TSignalNew = new SNetTSignalSecSetF8(t, fftData);
+            this.OnDataChange(ea);
+
+            myea.InvokeResult = this.disposed ? SNetTdEnumInvokeResult.IsDisposed : SNetTdEnumInvokeResult.None;
         }
 
 

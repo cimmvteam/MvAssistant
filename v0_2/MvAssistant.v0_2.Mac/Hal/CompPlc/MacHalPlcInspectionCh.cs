@@ -203,7 +203,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             return Result;
         }
 
-        public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
+        public void SetSpeedVar(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
         {
             var plc = this.plcContext;
             if (StageXYSpeed != null)
@@ -229,7 +229,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取各種大小Particle的數量限制
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
             var plc = this.plcContext;
 
@@ -255,7 +255,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         #region 微壓差計
         //設定壓差極限值
-        public void SetPressureDiffLimit(uint? GaugeLimit)
+        public void SetChamberPressureDiffLimit(uint? GaugeLimit)
         {
             var plc = this.plcContext;
 
@@ -264,7 +264,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取壓差極限值
-        public int ReadPressureDiffLimitSrtting()
+        public int ReadChamberPressureDiffLimit()
         {
             var plc = this.plcContext;
 
@@ -272,7 +272,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取實際壓差
-        public int ReadPressureDiff()
+        public int ReadChamberPressureDiff()
         {
             var plc = this.plcContext;
 
@@ -281,7 +281,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         #endregion 微壓差計
 
         //讀取速度設定
-        public Tuple<double, double, double> ReadSpeedSetting()
+        public Tuple<double, double, double> ReadSpeedVar()
         {
             var plc = this.plcContext;
 
@@ -346,7 +346,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         #region 手臂入侵(左右)
         //設定手臂可侵入的左右區間極限值
-        public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
+        public void SetRobotPosLeftRightLimit(double? AboutLimit_L, double? AboutLimit_R)
         {
             var plc = this.plcContext;
 
@@ -357,7 +357,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取手臂可侵入的左右區間極限值
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
         {
             var plc = this.plcContext;
 
@@ -368,7 +368,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取Robot侵入位置(左右)
-        public double ReadRobotPosAbout()
+        public double ReadRobotPosLeftRight()
         {
             var plc = this.plcContext;
 
@@ -378,7 +378,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         #region 手臂入侵(上下)
         //設定手臂可侵入的上下區間極限值
-        public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
+        public void SetRobotPosUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
         {
             var plc = this.plcContext;
 
@@ -389,7 +389,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取手臂可侵入的上下區間極限值
-        public Tuple<double, double> ReadRobotUpDownLimitSetting()
+        public Tuple<double, double> ReadRobotPosUpDownLimit()
         {
             var plc = this.plcContext;
 

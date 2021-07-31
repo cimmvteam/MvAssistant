@@ -26,55 +26,55 @@ namespace MaskAutoCleaner.v1_0.TestMy.GenCfg
             {
                 ID = EnumMachineID.MID_LP_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcLoadPort),
-                HalId = EnumMacDeviceId.HID_LP_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_LP_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_LP_B_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcLoadPort),
-                HalId = EnumMacDeviceId.HID_LP_B_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_LP_B_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_MT_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcMaskTransfer),
-                HalId = EnumMacDeviceId.HID_MT_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_MT_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_IC_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcInspectionCh),
-                HalId = EnumMacDeviceId.HID_IC_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_IC_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_CC_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcCleanCh),
-                HalId = EnumMacDeviceId.HID_CC_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_CC_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_OS_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcOpenStage),
-                HalId = EnumMacDeviceId.HID_OS_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_OS_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_BT_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcBoxTransfer),
-                HalId = EnumMacDeviceId.HID_BT_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_BT_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_CB_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcDrawer),
-                HalId = EnumMacDeviceId.HID_CB_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_CB_A_ASSY.ToString(),
             });
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()
             {
                 ID = EnumMachineID.MID_UNI_A_ASB.ToString(),
                 MachineCtrlType = typeof(MacMcUniversal),
-                HalId = EnumMacDeviceId.HID_EQP_A_ASSY.ToString(),
+                HalId = EnumMacHalId.HID_EQP_A_ASSY.ToString(),
             });
             /**
             cfg.MachineCtrls.Add(new MacMachineCtrlCfg()

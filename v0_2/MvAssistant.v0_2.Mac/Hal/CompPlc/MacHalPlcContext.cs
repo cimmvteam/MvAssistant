@@ -19,7 +19,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public int PlcPortId;
         bool m_isConnected = false;
 
-        MvaCancelTask m_keepConnection;
+        MvaTask m_keepConnection;
 
 
         public bool IsConnectedByHandShake { get { return m_isConnected; } }
@@ -32,7 +32,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public MacHalPlcCabinet Cabinet;
         public MacHalPlcCleanCh CleanCh;
         public MacHalPlcLoadPort LoadPort;
-        public MacHalPlcUniversal Universal;
+        public MacHalPlcEqp Universal;
 
         public MacHalPlcContext()
         {
@@ -43,7 +43,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             this.Cabinet = new MacHalPlcCabinet(this);
             this.CleanCh = new MacHalPlcCleanCh(this);
             this.LoadPort = new MacHalPlcLoadPort(this);
-            this.Universal = new MacHalPlcUniversal(this);
+            this.Universal = new MacHalPlcEqp(this);
         }
         ~MacHalPlcContext() { this.Dispose(false); }
 
@@ -85,7 +85,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
 
 
-            this.m_keepConnection = MvaCancelTask.RunLoop(() =>
+            this.m_keepConnection = MvaTask.RunLoop(() =>
             {
 
                 this.Write(MacHalPlcEnumVariable.PC_TO_PLC_CheckClock, false);

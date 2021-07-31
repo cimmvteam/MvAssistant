@@ -19,10 +19,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     {
         #region Device Components
 
-        public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(MacEnumDevice.boxtransfer_plc); } }
-        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(MacEnumDevice.boxtransfer_robot_1); } }
-        public IMacHalLight LightCircleGripper { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.boxtransfer_light_1); } }
-        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.boxtransfer_camera_gripper_1); } }
+        public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(EnumMacDeviceId.boxtransfer_plc); } }
+        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(EnumMacDeviceId.boxtransfer_robot_1); } }
+        public IMacHalLight LightCircleGripper { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.boxtransfer_light_1); } }
+        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.boxtransfer_camera_gripper_1); } }
 
         #endregion Device Components
 
@@ -508,8 +508,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 夾爪速度設定，單位(mm/sec)
         /// </summary>
         /// <param name="ClampSpeed">夾爪速度</param>
-        public void SetClampSpeed(double ClampSpeed)
-        { Plc.SetSpeed(ClampSpeed); }
+        public void SetClampSpeedVar(double ClampSpeed)
+        { Plc.SetSpeedVar(ClampSpeed); }
 
         /// <summary>
         /// 設定夾爪間距的極限值，最小間距、最大間距
@@ -523,7 +523,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定Clamp與Cabinet的最小間距限制
         /// </summary>
         /// <param name="Minimum">最小間距</param>
-        public void SetSpacingLimitBetweenClampAndCabinet(double Minimum)
+        public void SetClampAndCabinetSpacingLimit(double Minimum)
         { Plc.SetClampToCabinetSpaceLimit(Minimum); }
 
         /// <summary>
@@ -547,7 +547,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorUpperLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
@@ -570,7 +570,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             Plc.SetSixAxisSensorLowerLimit(Fx, Fy, Fz, Mx, My, Mz);
             Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorLowerLimitSetting();
+            var SetResult = Plc.ReadSixAxisSensorLowerLimit();
             if ((Fx != null && SetResult.Item1 != Fx)
                 || (Fy != null && SetResult.Item2 != Fy)
                 || (Fz != null && SetResult.Item3 != Fz)
@@ -586,43 +586,43 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取夾爪速度設定
         /// </summary>
         /// <returns></returns>
-        public double ReadClampSpeedSetting()
-        { return Plc.ReadSpeedSetting(); }
+        public double ReadClampSpeedVar()
+        { return Plc.ReadSpeedVar(); }
 
         /// <summary>
         /// 讀取夾爪間距的極限值設定，最小夾距、最大夾距
         /// </summary>
         /// <returns>最小夾距、最大夾距</returns>
-        public Tuple<double, double> ReadClampSpacingLimitSetting()
+        public Tuple<double, double> ReadClampSpacingLimit()
         { return Plc.ReadHandSpaceLimitSetting(); }
 
         /// <summary>
         /// 讀取Clamp與Cabinet的最小間距設定
         /// </summary>
         /// <returns>最小間距</returns>
-        public double ReadSpacingLimitBetweenClampAndCabinetSetting()
+        public double ReadClampAndCabinetSpacingLimit()
         { return Plc.ReadClampToCabinetSpaceLimitSetting(); }
 
         /// <summary>
         /// 設定XY軸水平Sensor限制，X軸水平限制、Y軸水平限制
         /// </summary>
         /// <returns>X軸水平限制、Y軸水平限制</returns>
-        public Tuple<double, double> ReadLevelSensorLimitSetting()
+        public Tuple<double, double> ReadLevelSensorLimit()
         { return Plc.ReadLevelSensorLimitSetting(); }
 
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值上限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
-        { return Plc.ReadSixAxisSensorUpperLimitSetting(); }
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
+        { return Plc.ReadSixAxisSensorUpperLimit(); }
 
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值下限設定
         /// </summary>
         /// <returns></returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
-        { return Plc.ReadSixAxisSensorLowerLimitSetting(); }
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
+        { return Plc.ReadSixAxisSensorLowerLimit(); }
         #endregion
 
         #region Read Component Value

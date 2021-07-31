@@ -88,7 +88,7 @@ namespace SensingNet.v0_2.TdSignalProc
                     if (this.TSignalSet.ContainKey(prevTime))
                     {
                         var prevSignal = this.TSignalSet.Get(prevTime);
-                        evtea.TSignalNew.AddRange(time, newSignals.SignalsShot);
+                        evtea.TSignalNew.AddRange(time, prevSignal.SignalsShot);
                         this.OnDataChange(evtea);
                     }
                 }

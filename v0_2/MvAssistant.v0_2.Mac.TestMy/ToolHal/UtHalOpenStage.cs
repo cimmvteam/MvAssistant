@@ -17,7 +17,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
                 os.HalConnect();
                 
                 os.Camera_Top_CapToSave("D:/Image/OS/Top", "jpg");
@@ -35,10 +35,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfInit();
                 halContext.MvaCfLoad();
 
-                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
 
                 os.SetBoxType(1);
-                os.SetSpeed(50);
+                os.SetSpeedVar(50);
                 os.SetParticleCntLimit(10,20,30);
             }
         }
@@ -51,11 +51,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfInit();
                 halContext.MvaCfLoad();
 
-                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                var os = halContext.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
 
-                os.ReadBoxTypeSetting();
-                os.ReadSpeedSetting();
-                os.ReadParticleCntLimitSetting();
+                os.ReadBoxTypeVar();
+                os.ReadSpeedVar();
+                os.ReadParticleCntLimit();
             }
         }
 
@@ -69,8 +69,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     halContext.MvaCfInit();
                     halContext.MvaCfLoad();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
-                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
+                    var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
+                    var os = halContext.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
                     unv.HalConnect();
                     os.HalConnect();
 
@@ -103,8 +103,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var os = halContext.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 os.HalConnect();
 

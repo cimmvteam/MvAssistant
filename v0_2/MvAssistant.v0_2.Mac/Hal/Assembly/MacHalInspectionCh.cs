@@ -14,17 +14,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(MacEnumDevice.inspectionch_plc); } }
-        public IMacHalLight LightLineLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_line_left_001); } }
-        public IMacHalLight LightLineBack { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_line_back_001); } }
-        public IMacHalLight LightCrlDefenseTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_circle_defense_top_001); } }
-        public IMacHalLight LightCrlInspTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_circle_inspection_top_001); } }
-        public IMacHalLight LightBarLeft { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_left_001); } }
-        public IMacHalLight LightBarRight { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.inspectionch_light_bar_right_001); } }
-        public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_side_001); } }
-        public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_defense_side_001); } }
-        public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_defense_top_001); } }
-        public IHalCamera CameraLink { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.inspectionch_camera_inspect_top_001); } }
+        public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(EnumMacDeviceId.inspectionch_plc); } }
+        public IMacHalLight LightLineLeft { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_line_left_001); } }
+        public IMacHalLight LightLineBack { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_line_back_001); } }
+        public IMacHalLight LightCrlDefenseTop { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_circle_defense_top_001); } }
+        public IMacHalLight LightCrlInspTop { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_circle_inspection_top_001); } }
+        public IMacHalLight LightBarLeft { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_bar_left_001); } }
+        public IMacHalLight LightBarRight { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.inspectionch_light_bar_right_001); } }
+        public IHalCamera CameraSideInsp { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_inspect_side_001); } }
+        public IHalCamera CameraSideDfs { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_defense_side_001); } }
+        public IHalCamera CameraTopDfs { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_defense_top_001); } }
+        public IHalCamera CameraLink { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.inspectionch_camera_inspect_top_001); } }
 
 
         #endregion Device Components
@@ -124,24 +124,24 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="StageXYSpeed">Stage XY軸移動速度(mm/S)</param>
         /// <param name="CcdZSpeed">CCD Z軸移動速度(mm/S)</param>
         /// <param name="MaskWSpeed">Mask W軸旋轉速度(Deg/S)</param>
-        public void SetSpeed(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
-        { Plc.SetSpeed(StageXYSpeed, CcdZSpeed, MaskWSpeed); }
+        public void SetSpeedVar(double? StageXYSpeed, double? CcdZSpeed, double? MaskWSpeed)
+        { Plc.SetSpeedVar(StageXYSpeed, CcdZSpeed, MaskWSpeed); }
 
         /// <summary>
         /// 設定手臂入侵的左右區間極限，左極限、右極限
         /// </summary>
         /// <param name="AboutLimit_L">左極限</param>
         /// <param name="AboutLimit_R">右極限</param>
-        public void SetRobotAboutLimit(double? AboutLimit_L, double? AboutLimit_R)
-        { Plc.SetRobotAboutLimit(AboutLimit_L, AboutLimit_R); }
+        public void SetRobotPosLeftRightLimit(double? AboutLimit_L, double? AboutLimit_R)
+        { Plc.SetRobotPosLeftRightLimit(AboutLimit_L, AboutLimit_R); }
 
         /// <summary>
         /// 設定手臂入侵的上下區間極限，上極限、下極限
         /// </summary>
         /// <param name="UpDownLimit_U"></param>
         /// <param name="UpDownLimit_D"></param>
-        public void SetRobotUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
-        { Plc.SetRobotUpDownLimit(UpDownLimit_U, UpDownLimit_D); }
+        public void SetRobotPosUpDownLimit(double? UpDownLimit_U, double? UpDownLimit_D)
+        { Plc.SetRobotPosUpDownLimit(UpDownLimit_U, UpDownLimit_D); }
 
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         { Plc.SetParticleCntLimit(L_Limit, M_Limit, S_Limit); }
@@ -151,7 +151,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="GaugeLimit">壓差限制</param>
         public void SetPressureDiffLimit(uint? GaugeLimit)
-        { Plc.SetPressureDiffLimit(GaugeLimit); }
+        { Plc.SetChamberPressureDiffLimit(GaugeLimit); }
         #endregion
 
         #region Read Parameter
@@ -159,25 +159,25 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取速度設定，Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)
         /// </summary>
         /// <returns>Stage XY軸移動速度(mm/S)、CCD Z軸移動速度(mm/S)、Mask W軸旋轉速度(Deg/S)</returns>
-        public Tuple<double, double, double> ReadSpeedSetting()
-        { return Plc.ReadSpeedSetting(); }
+        public Tuple<double, double, double> ReadSpeedVar()
+        { return Plc.ReadSpeedVar(); }
 
         /// <summary>
         /// 讀取手臂入侵的左右區間極限設定，左極限、右極限
         /// </summary>
         /// <returns>左極限、右極限</returns>
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
-        { return Plc.ReadRobotAboutLimitSetting(); }
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
+        { return Plc.ReadRobotPosLeftRightLimit(); }
 
         /// <summary>
         /// 讀取手臂入侵的上下區間極限設定，上極限、下極限
         /// </summary>
         /// <returns>上極限、下極限</returns>
-        public Tuple<double, double> ReadRobotUpDownLimitSetting()
-        { return Plc.ReadRobotUpDownLimitSetting(); }
+        public Tuple<double, double> ReadRobotPosUpDownLimit()
+        { return Plc.ReadRobotPosUpDownLimit(); }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
-        { return Plc.ReadParticleCntLimitSetting(); }
+        public Tuple<int, int, int> ReadParticleCntLimit()
+        { return Plc.ReadParticleCntLimit(); }
 
         public Tuple<int, int, int> ReadParticleCount()
         { return Plc.ReadParticleCount(); }
@@ -186,8 +186,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Inspection Chamber內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
         /// </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        public int ReadPressureDiffLimitSrtting()
-        { return Plc.ReadPressureDiffLimitSrtting(); }
+        public int ReadChamberPressureDiffLimit()
+        { return Plc.ReadChamberPressureDiffLimit(); }
         #endregion
 
         #region Read Component Value
@@ -216,8 +216,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取手臂橫向位置(左右區間)
         /// </summary>
         /// <returns></returns>
-        public double ReadRobotPosAbout()
-        { return Plc.ReadRobotPosAbout(); }
+        public double ReadRobotPosLeftRight()
+        { return Plc.ReadRobotPosLeftRight(); }
 
         /// <summary>
         /// 讀取手臂直向位置(上下區間)
@@ -230,8 +230,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取Inspection Chamber內部與外部環境壓差
         /// </summary>
         /// <returns>錶壓差</returns>
-        public int ReadPressureDiff()
-        { return Plc.ReadPressureDiff(); }
+        public int ReadChamberPressureDiff()
+        { return Plc.ReadChamberPressureDiff(); }
         #endregion
 
         public Bitmap Camera_TopInsp_Cap()

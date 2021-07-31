@@ -20,7 +20,7 @@ namespace MvAssistantMacVerifyEqp.ViewUc
 
         UDPSocket udpServer1;
         UDPSocket udpClient1;
-        MvaCancelTask task;
+        MvaTask task;
         string dr_logData;
         public UcDrawer()
         {

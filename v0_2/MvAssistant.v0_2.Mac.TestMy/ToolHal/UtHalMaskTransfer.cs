@@ -17,8 +17,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 mt.HalConnect();
 
@@ -40,17 +40,17 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 {
                     halContext.MvaCfLoad();
 
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                    var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                    var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                     uni.HalConnect();
                     mt.HalConnect();
 
-                    mt.ReadClampTactileLimSetting();
-                    mt.ReadLevelLimitSetting();
-                    mt.ReadSixAxisSensorUpperLimitSetting();
-                    mt.ReadSixAxisSensorLowerLimitSetting();
-                    mt.ReadSpeedSetting();
-                    mt.ReadStaticElecLimitSetting();
+                    mt.ReadClampTactileLimit();
+                    mt.ReadLevelLimit();
+                    mt.ReadSixAxisSensorUpperLimit();
+                    mt.ReadSixAxisSensorLowerLimit();
+                    mt.ReadSpeedVar();
+                    mt.ReadStaticElecLimit();
                 }
             }
             catch (Exception ex)
@@ -66,8 +66,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 mt.HalConnect();
 
@@ -91,8 +91,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 mt.HalConnect();
 

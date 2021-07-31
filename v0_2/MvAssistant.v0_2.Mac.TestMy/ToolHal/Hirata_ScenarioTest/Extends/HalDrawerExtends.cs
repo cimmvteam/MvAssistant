@@ -14,11 +14,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
     public static class HalDrawerExtends
     {
        static int timeoutMilliSecs = 30000;
-       static List<MacEnumDevice> drawerCode = null;
+       static List<EnumMacDeviceId> drawerCode = null;
         static List<BoxrobotTransferLocation> drawerLocations = null;
         static readonly object lockDrawerCode=new object();
         static readonly object lockDrawerLocation = new object();
-        public static List<MacEnumDevice> DrawerKeys
+        public static List<EnumMacDeviceId> DrawerKeys
         {
             get
             {
@@ -28,16 +28,16 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
                     {
                         if (drawerCode == null)
                         { 
-                          drawerCode = new List<MacEnumDevice>(
-                            new MacEnumDevice[]
+                          drawerCode = new List<EnumMacDeviceId>(
+                            new EnumMacDeviceId[]
                             {
-                             MacEnumDevice.cabinet_drawer_01_02,MacEnumDevice.cabinet_drawer_01_03,MacEnumDevice.cabinet_drawer_01_04,
-                             MacEnumDevice.cabinet_drawer_02_02,MacEnumDevice.cabinet_drawer_02_03,MacEnumDevice.cabinet_drawer_02_04,
-                            MacEnumDevice.cabinet_drawer_03_02,MacEnumDevice.cabinet_drawer_03_03,MacEnumDevice.cabinet_drawer_03_04,
-                            MacEnumDevice.cabinet_drawer_04_02,MacEnumDevice.cabinet_drawer_04_03,MacEnumDevice.cabinet_drawer_04_04,
-                            MacEnumDevice.cabinet_drawer_05_02,MacEnumDevice.cabinet_drawer_05_03,MacEnumDevice.cabinet_drawer_05_04,
-                            MacEnumDevice.cabinet_drawer_06_02,MacEnumDevice.cabinet_drawer_06_03,MacEnumDevice.cabinet_drawer_06_04,
-                            MacEnumDevice.cabinet_drawer_07_02,MacEnumDevice.cabinet_drawer_07_03
+                             EnumMacDeviceId.cabinet_drawer_01_02,EnumMacDeviceId.cabinet_drawer_01_03,EnumMacDeviceId.cabinet_drawer_01_04,
+                             EnumMacDeviceId.cabinet_drawer_02_02,EnumMacDeviceId.cabinet_drawer_02_03,EnumMacDeviceId.cabinet_drawer_02_04,
+                            EnumMacDeviceId.cabinet_drawer_03_02,EnumMacDeviceId.cabinet_drawer_03_03,EnumMacDeviceId.cabinet_drawer_03_04,
+                            EnumMacDeviceId.cabinet_drawer_04_02,EnumMacDeviceId.cabinet_drawer_04_03,EnumMacDeviceId.cabinet_drawer_04_04,
+                            EnumMacDeviceId.cabinet_drawer_05_02,EnumMacDeviceId.cabinet_drawer_05_03,EnumMacDeviceId.cabinet_drawer_05_04,
+                            EnumMacDeviceId.cabinet_drawer_06_02,EnumMacDeviceId.cabinet_drawer_06_03,EnumMacDeviceId.cabinet_drawer_06_04,
+                            EnumMacDeviceId.cabinet_drawer_07_02,EnumMacDeviceId.cabinet_drawer_07_03
                            });
                        }
                     }

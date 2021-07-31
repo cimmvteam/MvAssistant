@@ -19,8 +19,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfLoad();
 
 
-                var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 ic.HalConnect();
 
@@ -46,14 +46,14 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfInit();
                 halContext.MvaCfLoad();
 
-                var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.SetSpeed(200, 100, 50);
-                ic.SetRobotAboutLimit(10, 100);
-                ic.SetRobotUpDownLimit(10, -20);
+                ic.SetSpeedVar(200, 100, 50);
+                ic.SetRobotPosLeftRightLimit(10, 100);
+                ic.SetRobotPosUpDownLimit(10, -20);
                 ic.SetParticleCntLimit(15,25,35);
                 ic.SetPressureDiffLimit(20);
             }
@@ -68,16 +68,16 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfInit();
                 halContext.MvaCfLoad();
 
-                var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 ic.HalConnect();
 
-                ic.ReadSpeedSetting();
-                ic.ReadRobotAboutLimitSetting();
-                ic.ReadRobotUpDownLimitSetting();
-                ic.ReadParticleCntLimitSetting();
-                ic.ReadPressureDiffLimitSrtting();
+                ic.ReadSpeedVar();
+                ic.ReadRobotPosLeftRightLimit();
+                ic.ReadRobotPosUpDownLimit();
+                ic.ReadParticleCntLimit();
+                ic.ReadChamberPressureDiffLimit();
             }
         }
 
@@ -90,8 +90,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 halContext.MvaCfInit();
                 halContext.MvaCfLoad();
 
-                var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 ic.HalConnect();
 
@@ -99,10 +99,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 ic.ReadXYPosition();
                 ic.ReadZPosition();
                 ic.ReadWPosition();
-                ic.ReadRobotPosAbout();
+                ic.ReadRobotPosLeftRight();
                 ic.ReadRobotPosUpDown();
                 ic.ReadParticleCount();
-                ic.ReadPressureDiff();
+                ic.ReadChamberPressureDiff();
             }
         }
 
@@ -114,8 +114,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 ic.HalConnect();
 
@@ -135,8 +135,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext.MvaCfLoad();
 
-                var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                var uni = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
+                var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                var uni = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
                 uni.HalConnect();
                 ic.HalConnect();
 

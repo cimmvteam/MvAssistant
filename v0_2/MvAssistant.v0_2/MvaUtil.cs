@@ -356,11 +356,6 @@ namespace MvAssistant.v0_2
             if (task == null) return;
             task.Dispose();
         }
-        public static void DisposeTask(MvaCancelTask task)
-        {
-            if (task == null) return;
-            task.Dispose();
-        }
         public static bool DisposeTaskTry(Task task, int millisecond = 100)
         {
             try
@@ -387,19 +382,8 @@ namespace MvAssistant.v0_2
                 return false;
             }
         }
-        public static bool DisposeTaskTry(MvaCancelTask task)
-        {
-            try
-            {
-                DisposeTask(task);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MvaLog.Warn(ex);
-                return false;
-            }
-        }
+    
+
 
         #endregion
 

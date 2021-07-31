@@ -51,6 +51,6 @@ namespace SensingNet.v0_2.DvcSensor
         /// </summary>
         public int TxInterval = 0;
 
-        public void SaveToXmlFile(string fn) { CtkUtilFw.SaveToXmlFileT(this, fn); }
+        public void SaveToXmlFile(string fn) { CtkUtil.SaveToXmlFileT(this, fn); }
     }
 }

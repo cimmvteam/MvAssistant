@@ -41,7 +41,7 @@ namespace SensingNet.v0_2.Simulate
 
             };
 
-            client.NonStopRunAsyn();
+            client.NonStopRunStart();
         }
 
 
@@ -78,7 +78,7 @@ namespace SensingNet.v0_2.Simulate
             {
                 using (this.client)
                 {
-                    this.client.AbortNonStopRun();
+                    this.client.NonStopRunStop();
                     this.client.Disconnect();
                 }
             }

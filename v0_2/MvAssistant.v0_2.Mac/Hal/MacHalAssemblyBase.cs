@@ -13,6 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal
 
         #region Hal
 
+
         public override int HalConnect()
         {
             var errcnt = 0;

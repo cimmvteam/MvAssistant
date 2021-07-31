@@ -28,7 +28,7 @@ namespace SensingNet.v0_2.QSecs
         public SNetQSecsCfg cfg;
         [JsonIgnore]
         public CxHsmsConnector HsmsConnector;
-        CtkCancelTask RunningTask;
+        CtkTask RunningTask;
 
         public bool IsWaitDispose;
 
@@ -102,7 +102,7 @@ namespace SensingNet.v0_2.QSecs
             if (this.RunningTask != null && this.RunningTask.Status < TaskStatus.RanToCompletion) return 1;
 
             //需要重複確認機台的功能是活著的, 因此使用RunLoop重複運作
-            this.RunningTask = CtkCancelTask.RunLoop(() =>
+            this.RunningTask = CtkTask.RunLoop(() =>
             {
                 try
                 {
@@ -122,7 +122,7 @@ namespace SensingNet.v0_2.QSecs
         public int CfRunOnce()
         {
             //持續確認連線狀態, 有需要就重新連線
-            this.HsmsConnector.ConnectIfNoAsyn();
+            this.HsmsConnector.ConnectTryStart();
             //HsmsConnector.ReceiveLoop();//IsAutoReceive=true
             return 0;
         }

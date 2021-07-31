@@ -34,7 +34,7 @@ namespace SensingNet.v0_2.Simulate
 
             DateTime? prevTime = DateTime.Now;
             this.listener = new CtkTcpListener("127.0.0.1", 5003);
-            listener.NonStopRunAsyn();
+            listener.NonStopRunStart();
             var rnd = new Random((int)DateTime.Now.Ticks);
 
             listener.EhFirstConnect += (ss, ee) =>
@@ -92,7 +92,7 @@ namespace SensingNet.v0_2.Simulate
 
         public void Stop()
         {
-            this.listener.AbortNonStopRun();
+            this.listener.NonStopRunStop();
         }
 
 

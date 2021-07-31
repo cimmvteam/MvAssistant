@@ -32,7 +32,7 @@ namespace SensingNet.v0_2.Simulate
                 CtkLog.InfoNs(this, "evtDataReceive");
             };
 
-            client.NonStopRunAsyn();
+            client.NonStopRunStart();
         }
 
 
@@ -85,7 +85,7 @@ namespace SensingNet.v0_2.Simulate
         public void Stop()
         {
             if (this.client != null)
-                this.client.AbortNonStopRun();
+                this.client.NonStopRunStop();
         }
 
 

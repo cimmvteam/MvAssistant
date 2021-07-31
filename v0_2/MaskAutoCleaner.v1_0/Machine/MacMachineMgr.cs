@@ -58,7 +58,7 @@ namespace MaskAutoCleaner.v1_0.Machine
 
 
                 //Assign HAL to machine controller
-                var hal = this.HalContext.HalDevices.Where(x => x.Value.HID == row.HalId).FirstOrDefault();
+                var hal = this.HalContext.HalDevices.Where(x => x.Value.HalId == row.HalId).FirstOrDefault();
 
                 machine.HalAssembly = hal.Value as MacHalAssemblyBase;
                 machine.HalAssembly.HalConnect();
@@ -103,12 +103,12 @@ namespace MaskAutoCleaner.v1_0.Machine
 
         #region Fake-Simulation
 
-        protected MvaCancelTask FakeTask;
+        protected MvaTask FakeTask;
 
         public int SimulateFakeNormalAsyn()
         {
 
-            this.FakeTask = MvaCancelTask.Run((ct) =>
+            this.FakeTask = MvaTask.RunOnce((ct) =>
             {
                 var cabinets = this.CtrlMachines.Where(x => x is IMacHalCabinet).ToList();
 

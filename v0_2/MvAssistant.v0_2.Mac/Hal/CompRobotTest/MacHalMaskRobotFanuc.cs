@@ -31,7 +31,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobotTest
                     this.ldd.Close();
         }
 
-        public int ConnectIfNO() { return this.ldd.ConnectIfNo(); }
+        public int ConnectTry() { return this.ldd.ConnectTry(); }
 
 
 

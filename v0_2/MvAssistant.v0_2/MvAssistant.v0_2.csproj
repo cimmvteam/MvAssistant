@@ -39,21 +39,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\OmronPLC.1.7.0\CIPCompolet.dll</HintPath>
     </Reference>
-    <Reference Include="CodeExpress.v1_0.Fw, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CodeExpress.v1_0, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.Fw.dll</HintPath>
+      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.dll</HintPath>
     </Reference>
-    <Reference Include="CodeExpress.v1_0.Std, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CToolkit.v1_1, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.Std.dll</HintPath>
-    </Reference>
-    <Reference Include="CToolkit.v1_1.Fw, Version=1.1.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CToolkit.1.1.0\CToolkit.v1_1.Fw.dll</HintPath>
-    </Reference>
-    <Reference Include="CToolkit.v1_1.Std, Version=1.1.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CToolkit.1.1.0\CToolkit.v1_1.Std.dll</HintPath>
+      <HintPath>..\DLL\CToolkit.1.1.1\CToolkit.v1_1.dll</HintPath>
     </Reference>
     <Reference Include="GenApiDotNet20">
       <HintPath>..\DLL\StApiDotNet20.1.0.8\GenApiDotNet20.dll</HintPath>
@@ -275,10 +267,16 @@
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecF8.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetC.cs" />
     <Compile Include="SensingNet\TimeSignal\SNetTSignalSecSetF8.cs" />
-    <Compile Include="Threading\MvaCancelTask.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsTcpCmd.cs" />
+    <Compile Include="Sensor\Proto\EnumMvaSsProtoCmdCat.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdCfg.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdSvidCfg.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoSecsBuffer.cs" />
+    <Compile Include="Sensor\Proto\MvaSsProtoCmdBuffer.cs" />
+    <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdMsg.cs" />
+    <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="Threading\MvaSpinSleep.cs" />
     <Compile Include="Threading\MvaSpinWait.cs" />
-    <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>
@@ -302,6 +300,9 @@
     <Compile Include="DeviceDrive\E84\MvaE84AmlLdd.cs" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(ProjectDir)/../DLL/CToolkit.1.1.1/" "./"
+copy "$(ProjectDir)/../DLL/CodeExpress.1.0.0/" "./"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

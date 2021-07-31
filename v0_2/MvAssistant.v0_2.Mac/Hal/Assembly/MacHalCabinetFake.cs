@@ -18,17 +18,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             {
                 //return this.
                 IMacHalDrawer drawer = null;
-                for (var idx = (int)MacEnumDevice.cabinet_drawer_01_01; idx <= (int)MacEnumDevice.cabinet_drawer_07_05; idx++)
+                for (var idx = (int)EnumMacDeviceId.cabinet_drawer_01_01; idx <= (int)EnumMacDeviceId.cabinet_drawer_07_05; idx++)
                 {
                     //減少拋出的Exception量, 事先判斷是否存在
-                    if (!this.IsContainDevice((MacEnumDevice)idx)) continue;
-                    drawer = (IMacHalDrawer)this.GetHalDevice((MacEnumDevice)idx);
+                    if (!this.IsContainDevice((EnumMacDeviceId)idx)) continue;
+                    drawer = (IMacHalDrawer)this.GetHalDevice((EnumMacDeviceId)idx);
                 }
                 return drawer;
             }
         }
 
-        public Tuple<int, int> ReadExhaustFlowSetting()
+        public Tuple<int, int> ReadExhaustFlowVar()
         {
             return new Tuple<int, int>(0, 0);
         }
@@ -38,22 +38,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(false, false, false, false, false, false, false);
         }
 
-        public Tuple<int, int> ReadPressureDiff()
+        public Tuple<int, int> ReadChamberPressureDiff()
         {
             return new Tuple<int, int>(0,0);
         }
 
-        public Tuple<int, int> ReadPressureDiffLimitSetting()
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
         {
             return new Tuple<int, int>(1,1);
         }
 
-        public void SetExhaustFlow(int? Valve1, int? Valve2)
+        public void SetExhaustFlowVar(int? Valve1, int? Valve2)
         {
             return;
         }
 
-        public void SetPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
+        public void SetChamberPressureDiffLimit(uint? Gauge1Limit, uint? Gauge2Limit)
         {
             return;
         }

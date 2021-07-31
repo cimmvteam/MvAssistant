@@ -17,14 +17,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
-        public IMacHalLight LightBarDfsTop { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_top_001); } }
-        public IMacHalLight LightBarDfsSide { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_side_001); } }
-        public IMacHalLight LightBarDfsFront { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.openstage_light_bar_defense_front_001); } }
-        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
-        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
-        public IHalCamera CameraLeft { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_left_1); } }
-        public IHalCamera CameraRight { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_right_1); } }
+        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(EnumMacDeviceId.openstage_plc); } }
+        public IMacHalLight LightBarDfsTop { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.openstage_light_bar_defense_top_001); } }
+        public IMacHalLight LightBarDfsSide { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.openstage_light_bar_defense_side_001); } }
+        public IMacHalLight LightBarDfsFront { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.openstage_light_bar_defense_front_001); } }
+        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_side_1); } }
+        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_top_1); } }
+        public IHalCamera CameraLeft { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_left_1); } }
+        public IHalCamera CameraRight { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_right_1); } }
 
         #endregion Device Components
 
@@ -105,14 +105,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="BoxType">1：鐵盒 , 2：水晶盒</param>
         public void SetBoxType(uint BoxType)
-        { Plc.SetBoxType(BoxType); }
+        { Plc.SetBoxTypeVar(BoxType); }
 
         /// <summary>
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed">(%)</param>
-        public void SetSpeed(uint Speed)
-        { Plc.SetSpeed(Speed); }
+        public void SetSpeedVar(uint Speed)
+        { Plc.SetSpeedVar(Speed); }
 
         public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
         { Plc.SetParticleCntLimit(L_Limit, M_Limit, S_Limit); }
@@ -120,11 +120,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         #region Read Parameter
 
-        public int ReadBoxTypeSetting()
-        { return Plc.ReadBoxTypeSetting(); }
+        public int ReadBoxTypeVar()
+        { return Plc.ReadBoxTypeVar(); }
 
-        public int ReadSpeedSetting()
-        { return Plc.ReadSpeedSetting(); }
+        public int ReadSpeedVar()
+        { return Plc.ReadSpeedVar(); }
         #endregion
 
         #region Read Component Value
@@ -201,8 +201,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public bool ReadBoxExist()
         { return Plc.ReadBoxExist(); }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
-        { return Plc.ReadParticleCntLimitSetting(); }
+        public Tuple<int, int, int> ReadParticleCntLimit()
+        { return Plc.ReadParticleCntLimit(); }
 
         public Tuple<int, int, int> ReadParticleCount()
         { return Plc.ReadParticleCount(); }

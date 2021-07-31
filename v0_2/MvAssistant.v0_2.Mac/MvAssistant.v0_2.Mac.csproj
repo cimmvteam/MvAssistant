@@ -66,31 +66,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BoxType.cs" />
+    <Compile Include="EnumMacMaskBoxType.cs" />
     <Compile Include="DrawerSocketTest\AsyncClient.cs" />
     <Compile Include="DrawerSocketTest\AsyncHost.cs" />
     <Compile Include="DrawerSocketTest\EnumSocketCMDList.cs" />
     <Compile Include="DrawerSocketTest\SocketMsgTranslator.cs" />
     <Compile Include="DrawerSocketTest\StateObject.cs" />
     <Compile Include="DrawerSocketTest\UDPSocket.cs" />
-    <Compile Include="EnumMacDeviceId.cs" />
+    <Compile Include="EnumMacHalId.cs" />
     <Compile Include="EnumMacMaskType.cs" />
     <Compile Include="Hal\Assembly\IMacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\IMacHalCleanCh.cs" />
-    <Compile Include="Hal\Assembly\IMacHalEqp.cs" />
     <Compile Include="Hal\Assembly\IMacHalInspectionCh.cs" />
     <Compile Include="Hal\Assembly\IMacHalLoadPort.cs" />
     <Compile Include="Hal\Assembly\IMacHalMaskTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalOpenStage.cs" />
+    <Compile Include="Hal\Assembly\IMacHalEqp.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinet.cs" />
     <Compile Include="Hal\Assembly\MacHalCabinetFake.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanCh.cs" />
     <Compile Include="Hal\Assembly\MacHalCleanChFake.cs" />
-    <Compile Include="Hal\Assembly\MacHalEqp.cs" />
-    <Compile Include="Hal\Assembly\MacHalEqpFake.cs" />
     <Compile Include="Hal\Assembly\MacHalInspectionCh.cs" />
     <Compile Include="Hal\Assembly\MacHalInspectionChFake.cs" />
     <Compile Include="Hal\Assembly\MacHalLoadPort.cs" />
@@ -99,6 +97,8 @@
     <Compile Include="Hal\Assembly\MacHalMaskTransferFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStageFake.cs" />
     <Compile Include="Hal\Assembly\MacHalOpenStage.cs" />
+    <Compile Include="Hal\Assembly\MacHalEqp.cs" />
+    <Compile Include="Hal\Assembly\MacHalEqpFake.cs" />
     <Compile Include="Hal\CompCamera\MacHalCameraLink.cs" />
     <Compile Include="Hal\CompDrawer\HalDrawerBoxDetectReturn.cs" />
     <Compile Include="Hal\CompDrawer\MacHalDrawerFake.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="Hal\CompRobot\HalRobotMotion.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPose.cs" />
     <Compile Include="Hal\CompRobot\IHalRobot.cs" />
-    <Compile Include="Hal\CompPlc\IMacHalPlcUniversal.cs" />
+    <Compile Include="Hal\CompPlc\IMacHalPlcEqp.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcOpenStage.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcMaskTransfer.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcLoadPort.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="Hal\CompPlc\IMacHalPlcCabinet.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcBoxTransfer.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcBase.cs" />
-    <Compile Include="Hal\CompPlc\MacHalPlcUniversal.cs" />
+    <Compile Include="Hal\CompPlc\MacHalPlcEqp.cs" />
     <Compile Include="Hal\IMacHalAssembly.cs" />
     <Compile Include="Hal\IMacHalComponent.cs" />
     <Compile Include="Hal\MacHalAssemblyBase.cs" />
@@ -157,7 +157,7 @@
     <Compile Include="JSon\RobotTransferFile\BoxrobotTransferLocationDrawerRange.cs" />
     <Compile Include="JSon\RobotTransferFile\MaskrobotTransferLocation.cs" />
     <Compile Include="JSon\RobotTransferFile\MaskrobotTransferPathFile.cs" />
-    <Compile Include="Manifest\MacEnumDevice.cs" />
+    <Compile Include="Manifest\EnumMacDeviceId.cs" />
     <Compile Include="Manifest\MacEnumDeviceDrawerRange.cs" />
     <Compile Include="Manifest\MacEnumPositionId.cs" />
     <Compile Include="Manifest\Exceptions\MacHalObjectNotFoundException.cs" />
@@ -185,6 +185,7 @@
     <Compile Include="Hal\CompPlc\MacHalPlcOpenStage.cs" />
     <Compile Include="Manifest\MacManifestGenCfgBase.cs" />
     <Compile Include="Manifest\MacManifestDriverId.cs" />
+    <Compile Include="MvaMacUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xml\XmlHelper.cs" />
   </ItemGroup>
@@ -208,4 +209,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy "$(ProjectDir)/../DLL/CToolkit.1.1.1/" "./"
+copy "$(ProjectDir)/../DLL/CodeExpress.1.0.0/" "./"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

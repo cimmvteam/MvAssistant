@@ -27,10 +27,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     halContext.MvaCfInit();
                     halContext.MvaCfLoad();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                    var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
-                    var lpa = halContext.HalDevices[MacEnumDevice.loadportA_assembly.ToString()] as MacHalLoadPort;
+                    var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
+                    var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                    var lpa = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     lpa.HalConnect();
@@ -46,7 +46,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //2. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    var about = ic.ReadRobotPosAbout();
+                    var about = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
 
@@ -71,9 +71,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     halContext.MvaCfInit();
                     halContext.MvaCfLoad();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                    var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                    var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
+                    var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
 
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
@@ -100,7 +100,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    var About = ic.ReadRobotPosAbout();
+                    var About = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Load Port A
@@ -142,7 +142,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    About = ic.ReadRobotPosAbout();
+                    About = ic.ReadRobotPosLeftRight();
                     UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Load Port B
@@ -175,10 +175,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     halContext.MvaCfInit();
                     halContext.MvaCfLoad();
 
-                    var unv = halContext.HalDevices[MacEnumDevice.eqp_assembly.ToString()] as MacHalEqp;
-                    var mt = halContext.HalDevices[MacEnumDevice.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
-                    var os = halContext.HalDevices[MacEnumDevice.openstage_assembly.ToString()] as MacHalOpenStage;
-                    var ic = halContext.HalDevices[MacEnumDevice.inspectionch_assembly.ToString()] as MacHalInspectionCh;
+                    var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
+                    var mt = halContext.HalDevices[EnumMacDeviceId.masktransfer_assembly.ToString()] as MacHalMaskTransfer;
+                    var os = halContext.HalDevices[EnumMacDeviceId.openstage_assembly.ToString()] as MacHalOpenStage;
+                    var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
                     unv.HalConnect();//需要先將MacHalUniversal建立連線，各Assembly的Hal建立連線時，才能讓PLC的連線成功
                     mt.HalConnect();
                     os.HalConnect();
@@ -231,7 +231,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    var About = ic.ReadRobotPosAbout();
+                    var About = ic.ReadRobotPosLeftRight();
                     var UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Open Stage
@@ -313,7 +313,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     mt.RobotMoving(false);
 
                     //5. 雷射sensor可以偵測到Mask Robot進入Inspection Chamber & 報值
-                    About = ic.ReadRobotPosAbout();
+                    About = ic.ReadRobotPosLeftRight();
                     UpDown = ic.ReadRobotPosUpDown();
 
                     //6. Mask Robot將光罩從Inspection Chamber, 移回Open Stage

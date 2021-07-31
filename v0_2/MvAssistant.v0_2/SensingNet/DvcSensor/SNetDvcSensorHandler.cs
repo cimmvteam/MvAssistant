@@ -30,7 +30,7 @@ namespace SensingNet.v0_2.DvcSensor
 
         AutoResetEvent areMsg = new AutoResetEvent(false);
         DateTime prevAckTime = DateTime.Now;
-        CtkCancelTask taskRun;
+        CtkTask taskRun;
         public SNetDvcSensorHandler() { }
         ~SNetDvcSensorHandler() { this.Dispose(false); }
 
@@ -141,7 +141,7 @@ namespace SensingNet.v0_2.DvcSensor
         {
             try
             {
-                this.ProtoConn.ConnectIfNoAsyn();//內部會處理重複要求連線
+                this.ProtoConn.ConnectTryStart();//內部會處理重複要求連線
                 this.RealExec();
 
             }
@@ -304,7 +304,7 @@ namespace SensingNet.v0_2.DvcSensor
                 if (!this.taskRun.Wait(100)) return 0;//正在工作
 
             //the CfRun is loop function
-            this.taskRun = CtkCancelTask.RunOnce((ct) => { this.CfRunLoop(); });
+            this.taskRun = CtkTask.RunOnce((ct) => { this.CfRunLoop(); });
             return 0;
         }
         public virtual int CfUnLoad()

@@ -26,13 +26,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         string Initial();
 
-        void SetBoxType(uint BoxType);
+        void SetBoxTypeVar(uint BoxType);
 
-        int ReadBoxTypeSetting();
+        int ReadBoxTypeVar();
 
-        void SetSpeed(uint Speed);
+        void SetSpeedVar(uint Speed);
 
-        int ReadSpeedSetting();
+        int ReadSpeedVar();
 
         Tuple<bool, bool> SetRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
 
@@ -46,7 +46,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
 
-        Tuple<int, int, int> ReadParticleCntLimitSetting();
+        Tuple<int, int, int> ReadParticleCntLimit();
 
         Tuple<int, int, int> ReadParticleCount();
 

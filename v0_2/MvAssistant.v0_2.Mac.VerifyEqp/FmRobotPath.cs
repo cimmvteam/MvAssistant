@@ -391,7 +391,7 @@ namespace MaskCleanerVerify
                 groupBox1.Enabled = false;
                 ldd = new MvaFanucRobotLdd();
                 this.ldd.RobotIp = this.RobotPathFileConfigSet.GetCurrentConfig(CmbBoxDeviceName.Text).DeviceIP;
-                if (ldd.ConnectIfNo() != 0)
+                if (ldd.ConnectTry() != 0)
                 { throw new Exception("無法連接裝置"); }
                 ldd.ExecutePNS("PNS0101");
                 groupBox1.Enabled = true;
@@ -581,7 +581,7 @@ namespace MaskCleanerVerify
         private MvaFanucRobotPosReg GetCurrentPosUf()
         {
 
-            // if (ldd.ConnectIfNo() != 0)
+            // if (ldd.ConnectTry() != 0)
             // { throw new Exception("無法連接裝置"); }
             // ldd.ExecutePNS("PNS0101");
             var rtnV = ldd.ReadCurPosUf();

@@ -22,24 +22,24 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_1));
             // Units.Add((IMacHalLoadPortUnit)this.GetHalDevice(MacEnumDevice.loadport_2));
         }
-        public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(MacEnumDevice.loadport_plc); } }
-        public IHalCamera CameraLoadPortA { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadportA_camera_inspect); } }
-        public IHalCamera CameraLoadPortB { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadportB_camera_inspect); } }
-        public IHalCamera CameraBarcodeInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.loadport_camera_barcode_inspect); } }
-        public IMacHalLight LightBarLoadPortA { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.loadport_light_bar_001); } }
-        public IMacHalLight LightBarLoadPortB { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.loadport_light_bar_002); } }
-        public IMacHalLight LightBarBarcodeReader { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.loadport_light_bar_003); } }
+        public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(EnumMacDeviceId.loadport_plc); } }
+        public IHalCamera CameraLoadPortA { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.loadportA_camera_inspect); } }
+        public IHalCamera CameraLoadPortB { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.loadportB_camera_inspect); } }
+        public IHalCamera CameraBarcodeInsp { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.loadport_camera_barcode_inspect); } }
+        public IMacHalLight LightBarLoadPortA { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.loadport_light_bar_001); } }
+        public IMacHalLight LightBarLoadPortB { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.loadport_light_bar_002); } }
+        public IMacHalLight LightBarBarcodeReader { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.loadport_light_bar_003); } }
 
         public IMacHalLoadPortUnit LoadPortUnit
         {
             get
             {
                 IMacHalLoadPortUnit rtnV = null;
-                for (var i = (int)MacEnumDevice.loadport_1; i <= (int)MacEnumDevice.loadport_2; i++)
+                for (var i = (int)EnumMacDeviceId.loadport_1; i <= (int)EnumMacDeviceId.loadport_2; i++)
                 {
                     try
                     {
-                        rtnV = (IMacHalLoadPortUnit)this.GetHalDevice((MacEnumDevice)i);
+                        rtnV = (IMacHalLoadPortUnit)this.GetHalDevice((EnumMacDeviceId)i);
                         if (rtnV != null)
                         {
                             break;
@@ -117,8 +117,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取LoadPort內部與外部環境最大壓差限制設定，錶1壓差限制、錶2壓差限制
         /// </summary>
         /// <returns>錶1壓差限制、錶2壓差限制</returns>
-        public Tuple<int, int> ReadPressureDiffLimitSrtting()
-        { return Plc.ReadPressureDiffLimitSrtting(); }
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
+        { return Plc.ReadChamberPressureDiffLimit(); }
         #endregion
 
         #region Read Component Value

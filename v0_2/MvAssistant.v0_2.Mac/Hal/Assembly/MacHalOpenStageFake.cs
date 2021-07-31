@@ -16,11 +16,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(MacEnumDevice.openstage_plc); } }
-        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_side_1); } }
-        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_top_1); } }
-        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_left_1); } }
-        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.openstage_camera_right_1); } }
+        public IMacHalPlcOpenStage Plc { get { return (IMacHalPlcOpenStage)this.GetHalDevice(EnumMacDeviceId.openstage_plc); } }
+        public IHalCamera CameraSide { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_side_1); } }
+        public IHalCamera CameraTop { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_top_1); } }
+        public IHalCamera CameraNearLP { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_left_1); } }
+        public IHalCamera CameraNearCC { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.openstage_camera_right_1); } }
 
         #endregion Device Components
 
@@ -89,16 +89,16 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed">(%)</param>
-        public void SetSpeed(uint Speed)
+        public void SetSpeedVar(uint Speed)
         { return; }
         #endregion
 
         #region Read Parameter
 
-        public int ReadBoxTypeSetting()
+        public int ReadBoxTypeVar()
         { return 1; }
 
-        public int ReadSpeedSetting()
+        public int ReadSpeedVar()
         { return 1; }
         #endregion
 
@@ -257,7 +257,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
             return new Tuple<int, int, int>(2,2,2);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -12,7 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
     [Serializable]
     public class HalRobotPose
     {
-        [XmlIgnore] public MathNet.Numerics.LinearAlgebra.Single.DenseVector Xyzwpr = new MathNet.Numerics.LinearAlgebra.Single.DenseVector(9);
+        [XmlIgnore][JsonIgnore] public MathNet.Numerics.LinearAlgebra.Single.DenseVector Xyzwpr = new MathNet.Numerics.LinearAlgebra.Single.DenseVector(9);
 
         [XmlAttribute] public float X { get { return this.Xyzwpr[0]; } set { this.Xyzwpr[0] = value; } }
         [XmlAttribute] public float Y { get { return this.Xyzwpr[1]; } set { this.Xyzwpr[1] = value; } }

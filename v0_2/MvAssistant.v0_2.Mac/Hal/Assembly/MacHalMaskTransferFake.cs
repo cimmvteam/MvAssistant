@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<double, double, double, double>(0, 0, 0, 0);
         }
 
-        public Tuple<int, int> ReadClampTactileLimSetting()
+        public Tuple<int, int> ReadClampTactileLimit()
         {
             return new Tuple<int, int>(50, 0);
         }
@@ -101,7 +101,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<int, int, int>(0, 0, 0);
         }
 
-        public Tuple<int, int, int> ReadLevelLimitSetting()
+        public Tuple<int, int, int> ReadLevelLimit()
         {
             return new Tuple<int, int, int>(0, 0, 0);
         }
@@ -116,17 +116,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<double, double, double, double, double, double>(1, 1, 1, 1, 1, 1);
         }
 
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
         {
             return new Tuple<double, double, double, double, double, double>(0, 0, 0, 0, 0, 0);
         }
 
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimitSetting()
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
         {
             return new Tuple<double, double, double, double, double, double>(10, 10, 10, 10, 10, 10);
         }
 
-        public Tuple<double, long> ReadSpeedSetting()
+        public Tuple<double, long> ReadSpeedVar()
         {
             return new Tuple<double, long>(1, 1);
         }
@@ -136,7 +136,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 0;
         }
 
-        public Tuple<double, double> ReadStaticElecLimitSetting()
+        public Tuple<double, double> ReadStaticElecLimit()
         {
             return new Tuple<double, double>(1, 0);
         }

@@ -37,7 +37,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
         }
 
 
-        public int ConnectIfNo(string ip = null, int? port = null)
+        public int ConnectTry(string ip = null, int? port = null)
         {
             lock (this)
             {
@@ -50,7 +50,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
                 if (port.HasValue) this.RemotePort = port.Value;
 
                 if (!this.TcpClient.IsOpenRequesting && !this.TcpClient.IsRemoteConnected)
-                    this.TcpClient.ConnectIfNo();
+                    this.TcpClient.ConnectTry();
                 return 0;
             }
         }

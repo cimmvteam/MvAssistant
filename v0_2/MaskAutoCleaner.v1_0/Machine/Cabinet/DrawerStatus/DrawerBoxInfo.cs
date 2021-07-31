@@ -19,7 +19,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
     {
         //MacHalAssemblyBase Assembly { get; set; }
 
-        public MacEnumDevice DeviceID { get;  }
+        public EnumMacDeviceId DeviceID { get;  }
         public string MaskBarCode { get; private set;}
 
         /// <summary> Drawer 裝置實體 </summary>
@@ -32,7 +32,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
         public BoxrobotTransferLocation BoxrobotTransferLocation { get { return DeviceID.ToBoxrobotTransferLocation(); } }
 
         /// <summary>盒子種類</summary>
-        public BoxType BoxType { get; private set; }
+        public EnumMacMaskBoxType BoxType { get; private set; }
 
         /// <summary>開放 Drawer 工作</summary>
         public bool DrawerAbled { get; private set; }
@@ -59,14 +59,14 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
         private DrawerBoxInfo()
         {
             Duration = DrawerDuration.Idle_TrayAtHome;
-            BoxType = BoxType.DontCare;
+            BoxType = EnumMacMaskBoxType.DontCare;
             DrawerAbled = true;
         }
 
         /// <summary>Constructor</summary>
         /// <param name="deviceID">Drawer Device ID</param>
         /// <param name="drawer">Drawer 裝置</param>
-        public DrawerBoxInfo(MacEnumDevice deviceID, IMacHalDrawer drawer):this()
+        public DrawerBoxInfo(EnumMacDeviceId deviceID, IMacHalDrawer drawer):this()
         {
             Drawer = drawer;
             UpdateLastTime();
@@ -74,7 +74,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.DrawerStatus
 
         /// <summary>設定 BoxType</summary>
         /// <param name="boxType">Box 種類 (鐵盒/水晶盒)</param>
-        public void SetBoxType(BoxType boxType)
+        public void SetBoxType(EnumMacMaskBoxType boxType)
         {
             this.BoxType = boxType;
         }

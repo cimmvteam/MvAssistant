@@ -16,7 +16,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
             instance.Lock();
         }
 
-        public static void SetBoxTypeAndSortClamp(this MacHalOpenStage instance, BoxType boxType)
+        public static void SetBoxTypeAndSortClamp(this MacHalOpenStage instance, EnumMacMaskBoxType boxType)
         {
             instance.SetBoxType((uint) boxType);
             instance.SortClamp();

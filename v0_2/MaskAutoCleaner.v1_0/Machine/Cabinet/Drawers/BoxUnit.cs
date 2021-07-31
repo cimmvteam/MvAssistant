@@ -14,7 +14,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawers
         public string BoxBarcode { get; private set; }
         
         /// <summary>光罩盒型態</summary>
-        public BoxType BoxType { set;private get; }
+        public EnumMacMaskBoxType BoxType { set;private get; }
 
         /// <summary>光罩</summary>
         public MaskUnit MaskUnit { get; private set; }
@@ -26,7 +26,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawers
         public BoxUnit()
         {
             BoxBarcode = string.Empty;
-            BoxType = BoxType.DontCare;
+            BoxType = EnumMacMaskBoxType.DontCare;
             MaskUnit = null;
             HasMask = false;
         }
@@ -34,7 +34,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawers
         /// <summary>Constructor</summary>
         /// <param name="barcode">光罩盒條碼</param>
         /// <param name="boxType">光罩盒種類</param>
-        public BoxUnit(string barcode, BoxType boxType):this()
+        public BoxUnit(string barcode, EnumMacMaskBoxType boxType):this()
         {
             BoxBarcode = barcode;
             BoxType = BoxType;

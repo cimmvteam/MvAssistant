@@ -441,7 +441,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// BoxType = 1：鐵盒 , 2：水晶盒
         /// </summary>
         /// <param name="BoxType">BoxType = 1：鐵盒 , 2：水晶盒</param>
-        public void SetBoxType(uint BoxType)
+        public void SetBoxTypeVar(uint BoxType)
         {
             var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BoxType, BoxType);
@@ -452,7 +452,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 讀取盒子種類設定，1:鐵盒 , 2:水晶盒
         /// </summary>
         /// <returns>1:鐵盒 , 2:水晶盒</returns>
-        public int ReadBoxTypeSetting()
+        public int ReadBoxTypeVar()
         {
             string Result = "";
             var plc = this.plcContext;
@@ -463,14 +463,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         /// 設定速度(%)
         /// </summary>
         /// <param name="Speed"></param>
-        public void SetSpeed(uint Speed)
+        public void SetSpeedVar(uint Speed)
         {
             var plc = this.plcContext;
             plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Speed, Speed);
 
         }
 
-        public int ReadSpeedSetting()
+        public int ReadSpeedVar()
         {
             var plc = this.plcContext;
             return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_Speed);
@@ -589,7 +589,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取各種大小Particle的數量限制
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
             var plc = this.plcContext;
 

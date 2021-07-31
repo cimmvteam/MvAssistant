@@ -63,7 +63,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         }
 
 
-        public void MoveToLock(BoxType boxType)
+        public void MoveToLock(EnumMacMaskBoxType boxType)
         {
             Debug.WriteLine("Command: MoveToLock(), " + "BoxType=" + boxType.ToString());
 
@@ -79,7 +79,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
 
         }
 
-        public void MoveToUnlock(BoxType boxType)
+        public void MoveToUnlock(EnumMacMaskBoxType boxType)
         {
             Debug.WriteLine("Command: MoveToUnLock(), " + "BoxType=" + boxType.ToString());
             // from: sCB1Home, to: sUnlocking
@@ -94,7 +94,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         }
 
 
-        public void MoveToOpenStageGet(BoxType boxType)
+        public void MoveToOpenStageGet(EnumMacMaskBoxType boxType)
         {
             Debug.WriteLine("Command: MoveToOpenStageGet(), BoxType= " + boxType);
             MacTransition transition = null;
@@ -132,7 +132,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         /// <para>合併 State</para>
         /// </remarks>
         /// <param name="drawerLocation"></param>
-        public void MoveToCabinetGet(BoxrobotTransferLocation drawerLocation, BoxType boxType = BoxType.DontCare)
+        public void MoveToCabinetGet(BoxrobotTransferLocation drawerLocation, EnumMacMaskBoxType boxType = EnumMacMaskBoxType.DontCare)
         {
             Debug.WriteLine("Command: MoveToCabinetGet, DrawerLocation: " + drawerLocation + ", BoxType:" + boxType);
             MacTransition transition = null;
@@ -158,7 +158,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
         /// <para>合併State 測試</para>
         /// </remarks>
         /// <param name="CabinetNumber">0101~0705</param>
-        public void MoveToCabinetPut(BoxrobotTransferLocation drawerLocation, BoxType boxType)
+        public void MoveToCabinetPut(BoxrobotTransferLocation drawerLocation, EnumMacMaskBoxType boxType)
         {
 
             Debug.WriteLine("Command: MoveToCabinetPut, DrawerNumber=" + drawerLocation + ", BoxType=" + boxType);
@@ -819,14 +819,14 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                                 throw new Exception("Robot is not at position of Cabinet_01_Home, can not move to lock box.");
                             var intrudeResult= Mediater.RobotIntrudeOpenStage(true, null);  // Fake OK
                             HalBoxTransfer.RobotMoving(true); // Fake OK
-                            if (boxType == BoxType.IronBox)
+                            if (boxType == EnumMacMaskBoxType.IronBox)
                             {  // 鐵盒 
 
                                 // path: @"D:\Positions\BTRobot\LockIronBox.json"
                                 path = pathObj.LockIronBoxPathFile();
                                 var moveResult=HalBoxTransfer.ExePathMove(path); // Fake OK
                             }
-                            else if (boxType == BoxType.CrystalBox)
+                            else if (boxType == EnumMacMaskBoxType.CrystalBox)
                             {   // 水晶盒
 
                                 //path: @"D:\Positions\BTRobot\LockCrystalBox.json"
@@ -892,13 +892,13 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
                             }
                            var intrudeResult= Mediater.RobotIntrudeOpenStage(true, null); // Fake OK
                             HalBoxTransfer.RobotMoving(true);  // Fake OK
-                            if (boxType == BoxType.IronBox)
+                            if (boxType == EnumMacMaskBoxType.IronBox)
                             {
                                 // path: @"D:\Positions\BTRobot\UnlockIronBox.json"
                                 path = pathObj.UnlockIronBoxPathFile();
                                 var moveResult=HalBoxTransfer.ExePathMove(path);  // Fake OK
                             }
-                            else if (boxType == BoxType.CrystalBox)
+                            else if (boxType == EnumMacMaskBoxType.CrystalBox)
                             {
                                 //path: @"D:\Positions\BTRobot\UnlockCrystalBox.json"
                                 path = pathObj.UnlockCrystalBoxPathFile();
@@ -1267,7 +1267,7 @@ namespace MaskAutoCleaner.v1_0.Machine.BoxTransfer
             {
                 var eventArgs = (MacStateMovingToCB1HomeFromDrawerEntryEventArgs)e;
                 var drawerLocation = eventArgs.DrawerLocation;
-                var boxType = (BoxType)eventArgs.BoxType;
+                var boxType = (EnumMacMaskBoxType)eventArgs.BoxType;
                 Debug.WriteLine("State: [stateMovingToCB1HomeFromDrawer.OnEntry], + DrawerNumber=" + drawerLocation + ", BoxType=" + boxType);
                 SetCurrentState((MacState)sender, drawerLocation);
 

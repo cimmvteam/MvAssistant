@@ -14,9 +14,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #region Device Components
 
 
-        public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(MacEnumDevice.cleanch_plc); } }
-        public IMacHalLight LightSideInsp { get { return (IMacHalLight)this.GetHalDevice(MacEnumDevice.cleanch_inspection_spot_light_001); } }
-        public IHalCamera CameraInsp { get { return (IHalCamera)this.GetHalDevice(MacEnumDevice.clean_camera_particle_1); } }
+        public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(EnumMacDeviceId.cleanch_plc); } }
+        public IMacHalLight LightSideInsp { get { return (IMacHalLight)this.GetHalDevice(EnumMacDeviceId.cleanch_inspection_spot_light_001); } }
+        public IHalCamera CameraInsp { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.clean_camera_particle_1); } }
 
 
         #endregion Device Components
@@ -36,7 +36,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="BlowTime">(100ms)</param>
         /// <returns></returns>
-        public string GasValveBlow(uint BlowTime)
+        public string SetGasValveTime(uint BlowTime)
         { return Plc.GasValveBlow(BlowTime); }
 
         #region Set Parameter
@@ -54,7 +54,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// </summary>
         /// <param name="Limit_L">左極限</param>
         /// <param name="Limit_R">右極限</param>
-        public void SetRobotAboutLimit(double? Limit_L, double? Limit_R)
+        public void SetRobotLeftRightLimit(double? Limit_L, double? Limit_R)
         { Plc.SetRobotAboutLimit(Limit_L, Limit_R); }
 
         /// <summary>
@@ -69,14 +69,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 設定壓力表壓差限制
         /// </summary>
         /// <param name="PressureLimit"></param>
-        public void SetManometerPressureDiffLimit(uint PressureLimit)
+        public void SetManometerPressureLimit(uint PressureLimit)
         { Plc.SetPressureDiffLimit(PressureLimit); }
 
         /// <summary>
         /// 設定吹氣壓力值
         /// </summary>
         /// <param name="AirPressure"></param>
-        public void SetBlowPressureCtrl(double AirPressure)
+        public void SetGasValvePressurVar(double AirPressure)
         { Plc.SetPressureCtrl(AirPressure); }
         #endregion
 
@@ -85,35 +85,35 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取各種大小Particle的數量限制設定，大Particle、中Particle、小Particle的數量
         /// </summary>
         /// <returns></returns>
-        public Tuple<int, int, int> ReadParticleCntLimitSetting()
+        public Tuple<int, int, int> ReadParticleCntLimit()
         { return Plc.ReadParticleCntLimitSetting(); }
 
         /// <summary>
         /// 讀取手臂入侵的左右區間極限設定，左極限、右極限
         /// </summary>
         /// <returns>左極限、右極限</returns>
-        public Tuple<double, double> ReadRobotAboutLimitSetting()
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
         { return Plc.ReadRobotAboutLimitSetting(); }
 
         /// <summary>
         /// 讀取手臂入侵的上下區間極限設定，上極限、下極限
         /// </summary>
         /// <returns>上極限、下極限</returns>
-        public Tuple<double, double> ReadRobotUpDownLimitSetting()
+        public Tuple<double, double> ReadRobotPosUpDownLimit()
         { return Plc.ReadRobotUpDownLimitSetting(); }
 
         /// <summary>
         /// 讀取壓力表壓差限制設定
         /// </summary>
         /// <returns></returns>
-        public int ReadManometerPressureDiffLimitSetting()
+        public int ReadManometerPressureLimit()
         { return Plc.ReadPressureDiffLimitSetting(); }
 
         /// <summary>
         /// 讀取吹氣壓力設定值
         /// </summary>
         /// <returns></returns>
-        public double ReadBlowPressureCtrlSetting()
+        public double ReadGasValvePressureVar()
         { return Plc.ReadPressureCtrlSetting(); }
         #endregion
 
@@ -137,7 +137,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取手臂橫向位置(左右區間)
         /// </summary>
         /// <returns></returns>
-        public double ReadRobotPosAbout()
+        public double ReadRobotPosLeftRight()
         { return Plc.ReadRobotPosAbout(); }
 
         /// <summary>
@@ -151,14 +151,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// 讀取實際壓差
         /// </summary>
         /// <returns></returns>
-        public int ReadPressureDiff()
+        public int ReadChamberPressureDiff()
         { return Plc.ReadPressureDiff(); }
 
         /// <summary>
         /// 讀取實際吹氣壓力
         /// </summary>
         /// <returns></returns>
-        public Single ReadBlowPressure()
+        public Single ReadGasValvePressure()
         { return Plc.ReadBlowPressure(); }
 
         /// <summary>

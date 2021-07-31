@@ -24,7 +24,7 @@ namespace MvAssistant.v0_2.DeviceDrive.E84
 
 
 
-            this.SerialPort.ConnectIfNo();
+            this.SerialPort.ConnectTry();
 
             return 0;
         }

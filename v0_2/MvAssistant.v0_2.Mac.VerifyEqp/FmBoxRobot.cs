@@ -38,7 +38,7 @@ namespace MvAssistantMacVerifyEqp
         private void RobotConnect(object sender, EventArgs e)
         {
             this.robotHandler.ldd.RobotIp = "192.168.0.51";
-            int connectRes = robotHandler.ConnectIfNO();
+            int connectRes = robotHandler.ConnectTry();
             if (robotHandler != null)
             {
                 robotHandler.ldd.StopProgram();

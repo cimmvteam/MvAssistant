@@ -14,7 +14,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut003_CB
     {
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         public Ut003_CB()
         {
@@ -34,9 +34,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         /// <param name="boxType"></param>
         /// <param name="autoConnect"></param>
         [TestMethod]
-        [DataRow(BoxType.IronBox,false )]// 鐵盒
+        [DataRow(EnumMacMaskBoxType.IronBox,false )]// 鐵盒
         //[DataRow(BoxType.CrystalBox, false)]// 水晶盒
-        public void Test_Ut003_CB(BoxType boxType  ,bool autoConnect)
+        public void Test_Ut003_CB(EnumMacMaskBoxType boxType  ,bool autoConnect)
         {
             Debug.WriteLine("---------MI-CT02-ST-003-------");
             Debug.WriteLine("BoxType=" + boxType.ToString());
@@ -174,7 +174,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     universal.HalConnect();
 
                     // get drawer
-                    var drawer0 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_01_04,true);
+                    var drawer0 = halContext.GetDrawer(EnumMacDeviceId.cabinet_drawer_01_04,true);
                    // var drawer1 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_02, true);
                     //var drawer2 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_04_04, true);
                     //var drawer3 = halContext.GetDrawer(MacEnumDevice.cabinet_drawer_03_02, true);

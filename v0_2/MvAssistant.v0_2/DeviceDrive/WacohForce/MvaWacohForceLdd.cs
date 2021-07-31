@@ -87,14 +87,14 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
         ~MvaWacohForceLdd() { this.Dispose(false); }
 
 
-        public int ConnectIfNo()
+        public int ConnectTry()
         {
             if (this.remoteEP == null) return -1;
 
 
             if (this.connectionStatus == MvaWacohForceEnumConnectionStatus.Connecting) return 1;
 
-            this.netNonStopTcpClient.ConnectIfNo();
+            this.netNonStopTcpClient.ConnectTry();
             if (this.netNonStopTcpClient.IsLocalReadyConnect)
                 this.connectionStatus = MvaWacohForceEnumConnectionStatus.Connecting;
 

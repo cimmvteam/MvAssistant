@@ -126,10 +126,10 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
         public bool IsRemoteConnected { get { var obj = this.ctkProtoConnect; return obj == null ? false : obj.IsRemoteConnected; } }
 
         //用途是避免重複要求連線
-        public int ConnectIfNo() { throw new NotImplementedException(); }
-        public int ConnectIfNoAsyn()
+        public int ConnectTry() { throw new NotImplementedException(); }
+        public int ConnectTryStart()
         {
-            if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectIfNo
+            if (this.IsNonStopRunning) return 0;//NonStopConnect 己在進行中的話, 不需再用ConnectTry
             if (this.IsRemoteConnected || this.IsOpenRequesting) return 0;
 
 
@@ -142,13 +142,13 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             {
                 this.ReloadListener();
                 this.listener.IsAsynAutoRead = true;
-                this.listener.ConnectIfNoAsyn();
+                this.listener.ConnectTryStart();
             }
             else
             {
                 this.ReloadClient();
                 this.client.IsAsynAutoRead = true;
-                this.client.ConnectIfNoAsyn();
+                this.client.ConnectTryStart();
             }
 
             return 0;
@@ -186,8 +186,8 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
 
         public int IntervalTimeOfConnectCheck { get; set; }
         public bool IsNonStopRunning { get { return this.ctkProtoConnect == null ? false : this.ctkProtoConnect.IsNonStopRunning; } }
-        public void AbortNonStopRun() { this.ctkProtoConnect.AbortNonStopRun(); }
-        public void NonStopRunAsyn()
+        public void NonStopRunStop() { this.ctkProtoConnect.NonStopRunStop(); }
+        public void NonStopRunStart()
         {
             if (this.IsRemoteConnected || this.IsOpenRequesting) return;
 
@@ -199,12 +199,12 @@ namespace SensingNet.v0_2.DvcSensor.Protocol
             if (this.isListener)
             {
                 this.ReloadListener();
-                this.listener.NonStopRunAsyn();
+                this.listener.NonStopRunStart();
             }
             else
             {
                 this.ReloadClient();
-                this.client.NonStopRunAsyn();
+                this.client.NonStopRunStart();
             }
         }
 

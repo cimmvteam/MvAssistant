@@ -35,7 +35,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         //讀取壓差極限值
-        public Tuple<int, int> ReadPressureDiffLimitSrtting()
+        public Tuple<int, int> ReadChamberPressureDiffLimit()
         {
             var plc = this.plcContext;
 

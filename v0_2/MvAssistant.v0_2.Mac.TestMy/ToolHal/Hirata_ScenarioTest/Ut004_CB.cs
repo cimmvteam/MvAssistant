@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut004_CB
     {
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         BoxrobotTransferPathFile pathFileObj;//= new BoxrobotTransferPathFile(PositionInstance.BTR_Path);
         public Ut004_CB()
@@ -39,8 +39,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         /// </summary>
         [TestMethod]
         //[DataRow(BoxType.IronBox,true)] // 鐵盒
-         [DataRow(BoxType.CrystalBox, true)]  // 水晶盒
-        public void Test_Ut004_CB(BoxType boxType, bool autoConnect)
+         [DataRow(EnumMacMaskBoxType.CrystalBox, true)]  // 水晶盒
+        public void Test_Ut004_CB(EnumMacMaskBoxType boxType, bool autoConnect)
         {
             var BREAK_POINT = 0;
             using (var halContext = MacHalContextExtends.Create_MacHalContext_Instance())

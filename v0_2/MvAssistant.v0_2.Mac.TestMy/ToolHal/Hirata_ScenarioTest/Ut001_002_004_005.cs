@@ -21,7 +21,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
     [TestClass]
     public class Ut001_002_004_005
     {
-        List<MacEnumDevice> DrawerKeys;
+        List<EnumMacDeviceId> DrawerKeys;
         List<BoxrobotTransferLocation> DrawerLocations;
         BoxrobotTransferPathFile pathFileObj;
         MacHalContext HalContext;
@@ -150,8 +150,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
         /// <param name="drawerReplaceBoxPlace">更換盒子的地方</param>
         [TestMethod]
         // [DataRow(BoxType.IronBox,true,ReplaceBoxPlace.In)]
-        [DataRow(BoxType.CrystalBox,true, DrawerReplaceBoxPlace.In)]
-        public void Test_MainMethod(BoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace drawerReplaceBoxPlace)
+        [DataRow(EnumMacMaskBoxType.CrystalBox,true, DrawerReplaceBoxPlace.In)]
+        public void Test_MainMethod(EnumMacMaskBoxType boxType, bool getComeraShot, DrawerReplaceBoxPlace drawerReplaceBoxPlace)
         {
             /** Index & array
              * [0]   [1]  [2]    
@@ -482,7 +482,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 
 
         /// <summary>綁定事件</summary>
-        void  BindEvent(  List<MacEnumDevice> connectErrDrawerKey)
+        void  BindEvent(  List<EnumMacDeviceId> connectErrDrawerKey)
         {
             foreach(var drawerKey in DrawerKeys)
             {

@@ -20,7 +20,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawers
         /// <summary>使用 Boxrobot 時, 描述往 Drawer路徑的 Drawer 代碼 </summary>
         public BoxrobotTransferLocation DrawerLocation { get { return DeviceID.ToBoxrobotTransferLocation(); } }
         /// <summary>在 Manifest 中定義的 裝置 ID </summary>
-        public MacEnumDevice DeviceID { get; set; }
+        public EnumMacDeviceId DeviceID { get; set; }
 
         public bool Enabled { get; private set; }
 
@@ -52,7 +52,7 @@ namespace MaskAutoCleaner.v1_0.Machine.Cabinet.Drawers
         
 
         /// <summary>Constructor</summary>
-        public DrawerDetail(MacEnumDevice deviceID, IMacHalDrawer halDrawer)
+        public DrawerDetail(EnumMacDeviceId deviceID, IMacHalDrawer halDrawer)
         {
             HasBox = false;
             HalDrawer = halDrawer;
