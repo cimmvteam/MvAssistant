@@ -319,7 +319,7 @@ PC_TO_IC_PD_S_Limit,
         IC_TO_PC_PD_L,
 IC_TO_PC_PD_M,
 IC_TO_PC_PD_S,
-        PC_TO_IC_DPLimit,
+        PC_TO_IC_DP_Limit,
         IC_TO_PC_DP,
         PC_TO_IC_Robot_AboutLimit_R,//檢測Robot侵入位置(左右)
         PC_TO_IC_Robot_AboutLimit_L,

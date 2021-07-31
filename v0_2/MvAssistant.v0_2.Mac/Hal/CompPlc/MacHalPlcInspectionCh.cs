@@ -260,7 +260,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             if (GaugeLimit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_DPLimit, GaugeLimit);
+                plc.Write(MacHalPlcEnumVariable.PC_TO_IC_DP_Limit, GaugeLimit);
         }
 
         //讀取壓差極限值
@@ -268,7 +268,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
 
-            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_IC_DPLimit);
+            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_IC_DP_Limit);
         }
 
         //讀取實際壓差
