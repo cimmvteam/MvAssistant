@@ -30,6 +30,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
+                double originalX = plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_XPoint);
+                double originalY = plc.Read<double>(MacHalPlcEnumVariable.PC_TO_IC_YPoint);
+
                 if (X_Position != null)
                     plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XPoint, X_Position);
                 if (Y_Position != null)
@@ -51,6 +54,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         Result = "OK";
                         break;
                     case 2:
+                        plc.Write(MacHalPlcEnumVariable.PC_TO_IC_XPoint, originalX);//當帶入的數值超出範圍，恢復成原先的數值
+                        plc.Write(MacHalPlcEnumVariable.PC_TO_IC_YPoint, originalY);//當帶入的數值超出範圍，恢復成原先的數值
                         throw new MvaException("Inspection Chamber XY-axis Move Error : ABS point out range");
                     case 5:
                         Result = "ABS point not change";
