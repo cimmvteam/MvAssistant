@@ -58,48 +58,92 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         #endregion
 
+        #region Timeout Function
+        public virtual bool IsTimeOut(DateTime startTime, int targetDiffSecs = 20 * 1000)
+        {
+            var thisTime = DateTime.Now;
+            var diff = thisTime.Subtract(startTime).TotalSeconds;
+            if (diff >= targetDiffSecs)
+                return true;
+            else
+                return false;
+        }
+        #endregion Timeout Function
+
         public string Dock()
         {
+            DateTime startTime = DateTime.Now;
+            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandDockRequest();
 
-            if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete, 20 * 1000))
-                return "Load Port Dock Timeout";
-            else
-                return "OK";
+            while (!IsTimeOut(startTime))
+            {
+                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
+                    return loadportNum + " Dock complete.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                    return loadportNum + " Dock must initial.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                    return loadportNum + " Dock must reset.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.PODNotPutProperly)
+                    return loadportNum + " PODNotPutProperly.";
+            }
+
+            return loadportNum + " Dock timeout.";
         }
 
         public string Undock()
         {
+            DateTime startTime = DateTime.Now;
+            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandUndockRequest();
 
-            if (!SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete, 20 * 1000))
-                return "Load Port Undock Timeout";
-            else
-                return "OK";
+            while (!IsTimeOut(startTime))
+            {
+                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete)
+                    return loadportNum + " Undock complete.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                    return loadportNum + " Undock must initial.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                    return loadportNum + " Undock must reset.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.PODNotPutProperly)
+                    return loadportNum + " PODNotPutProperly.";
+            }
+
+            return loadportNum + " Undock timeout.";
         }
 
         public string Initial()
         {
+            DateTime startTime = DateTime.Now;
+            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandInitialRequest();
 
-            if (SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete, 20 * 1000))
-                return "OK";
-            else if (LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
-                return "Load Port must reset first";
-            else
-                return "Load Port Initial timeout";
+            while (!IsTimeOut(startTime))
+            {
+                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                    return loadportNum + " Initial complete.";
+                else if (LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                    return loadportNum + " Initial must reset.";
+            }
+
+            return loadportNum + " Initial timeout.";
         }
 
         public string AlarmReset()
         {
+            DateTime startTime = DateTime.Now;
+            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandAlarmReset();
 
-            if (SpinWait.SpinUntil(() => LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete, 20 * 1000))
-                return "OK";
-            else if (LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
-                return "Load Port AlarmReset failed";
-            else
-                return "Load Port AlarmReset timeout";
+            while (!IsTimeOut(startTime))
+            {
+                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
+                    return loadportNum + " AlarmReset complete.";
+                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
+                    return loadportNum + " AlarmReset fail.";
+            }
+
+            return loadportNum + " AlarmReset timeout.";
         }
 
         #region Set Parameter
