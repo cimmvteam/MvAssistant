@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Logging
         public string Message;
         public Exception Exception;
         public MvaLoggerEnumLevel Level;
-
+        public DateTime CreateTime = DateTime.Now;
 
 
         public static implicit operator MvaLoggerEventArgs(string d)
