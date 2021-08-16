@@ -149,12 +149,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             var CurrentPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
             {
-                if (CurrentPosInfo.x <= TargetPos.X + 50 && CurrentPosInfo.x >= TargetPos.X - 50
-                    && CurrentPosInfo.y <= TargetPos.Y + 50 && CurrentPosInfo.y >= TargetPos.Y - 50
-                    && CurrentPosInfo.z <= TargetPos.Z + 50 && CurrentPosInfo.z >= TargetPos.Z - 50
-                    && CurrentPosInfo.w <= TargetPos.W + 50 && CurrentPosInfo.w >= TargetPos.W - 50
-                    && CurrentPosInfo.p <= TargetPos.P + 50 && CurrentPosInfo.p >= TargetPos.P - 50
-                    && CurrentPosInfo.r <= TargetPos.R + 50 && CurrentPosInfo.r >= TargetPos.R - 50)
+                if (CurrentPosInfo.x <= TargetPos.X + 100 && CurrentPosInfo.x >= TargetPos.X - 100
+                    && CurrentPosInfo.y <= TargetPos.Y + 100 && CurrentPosInfo.y >= TargetPos.Y - 100
+                    && CurrentPosInfo.z <= TargetPos.Z + 100 && CurrentPosInfo.z >= TargetPos.Z - 100
+                    && CurrentPosInfo.w <= TargetPos.W + 100 && CurrentPosInfo.w >= TargetPos.W - 100
+                    && CurrentPosInfo.p <= TargetPos.P + 100 && CurrentPosInfo.p >= TargetPos.P - 100
+                    && CurrentPosInfo.r <= TargetPos.R + 100 && CurrentPosInfo.r >= TargetPos.R - 100)
                 {
                     return true;
                 }
