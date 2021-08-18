@@ -94,6 +94,8 @@ namespace SensingNet.v0_2.Framework.Storage
                 this.fsInfo.WriteValues(this.fwriter, nowUtc, dataList);
 
                 this.fwriter.Flush();
+
+                this.DeleteOld();
             }
             finally { Monitor.Exit(this); }
 

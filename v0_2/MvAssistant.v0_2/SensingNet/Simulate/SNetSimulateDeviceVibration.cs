@@ -27,7 +27,8 @@ namespace SensingNet.v0_2.Simulate
                 var sb = new StringBuilder();
                 sb.AppendFormat("[{0}] ", now.ToString("yyyyMMdd HH:mm:ss"));
                 sb.AppendFormat("{0} ", ea.Message);
-                sb.AppendFormat("{0}", ea.Exception.StackTrace);
+                if (ea.Exception != null)
+                    sb.AppendFormat("{0}", ea.Exception.StackTrace);
                 CtkLog.InfoNs(this, sb.ToString());
             });
 
