@@ -726,7 +726,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         #region Pns0101
 
 
-        public int Pns0101MoveStraightAsync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed)
+        public int Pns0101MoveStraightAsync(Array Target, int _SelectCorJ, int _SelectOfstOrPos, int _IsMoveUT, int Speed, int? UserTool = null)
         {
             if (!this.IsConnected()) return -1;
 
@@ -738,7 +738,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
             this.SetRegIntValue(9, Speed);//Write R[9]. R[9] mm/sec
             this.SetRegIntValue(5, 0);//Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
             this.SetRegIntValues(1, new int[] { 0, 0 });//Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
-
+            if (UserTool != null) this.SetRegIntValue(4, (int)UserTool);//Write R[4] = UserToolNum
 
             //從哪(當前 移到指到位置
             var robotInfo = GetCurrRobotInfo();
@@ -790,13 +790,13 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
 
             this.mobjDataTable.Refresh();
-            
+
             this.SetRegIntValues(1, new int[] { 1, 1 });//R[1]=1 is start program
 
             return 0;
         }
 
-        
+
 
         /// <summary>
         /// must 用thread 
@@ -955,14 +955,14 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
         /// <param name="_SelectCorJ"></param>
         /// <param name="Speed"></param>
         /// <returns></returns>
-        public int Pns0103PositionSaveToPosReg(Array Target, int _SelectCorJ, int Speed,int PR_Num)
+        public int Pns0103PositionSaveToPosReg(Array Target, int _SelectCorJ, int Speed, int PR_Num)
         {
             if (!this.IsConnected()) return -1;
 
             Array TargetPos = Target;
-            
+
             this.SetRegIntValue(PR_Num, _SelectCorJ);//Write R[ PR_Num ]. 0:Mov position, 1:Rotate J1~6
-            this.SetRegIntValue(PR_Num+100, Speed);//Write R[ PR_Num+100 ]. 單位(mm/sec)
+            this.SetRegIntValue(PR_Num + 100, Speed);//Write R[ PR_Num+100 ]. 單位(mm/sec)
 
             //從當前 移到指到位置
             var robotInfo = GetCurrRobotInfo();
@@ -1002,7 +1002,7 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
                 if (!this.SetPosRegJoint(PR_Num, robotInfo.PosReg))
                     throw new MvaException("Fail to write position register");
             }
-            
+
             this.mobjDataTable.Refresh();
 
             return 0;
