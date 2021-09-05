@@ -154,7 +154,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             }
 
 
-            return this.ldd.Pns0101MoveStraightAsync(PosArray, corJ, OfsOrPos, motion.IsTcpMove, motion.Speed);
+            return this.ldd.Pns0101MoveStraightAsync(PosArray, corJ, OfsOrPos, motion.IsTcpMove, motion.Speed, motion.UserTool);
         }
 
         /// <summary>
