@@ -134,7 +134,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                     throw new ArgumentException("Position Name is not in Path csv file!!");
 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }

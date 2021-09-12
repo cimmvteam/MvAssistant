@@ -45,7 +45,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                             break;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception )
                     {
 
                     }

@@ -130,7 +130,7 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
                 tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
                 tStreamWriter.WriteLine(pMessage);
             }
-            catch (Exception e) { }
+            catch (Exception ) { }
             finally
             {
                 if (tStreamWriter != null) tStreamWriter.Close();

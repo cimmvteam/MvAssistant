@@ -42,7 +42,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                 }
                 return _instance;
             }
-            catch(Exception ex)
+            catch(Exception )
             {
                 return null;
             }

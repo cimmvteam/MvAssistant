@@ -172,7 +172,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                 }
                 return connected ? 1 : 0;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 _ldd = null;
                 IsConnected = false;

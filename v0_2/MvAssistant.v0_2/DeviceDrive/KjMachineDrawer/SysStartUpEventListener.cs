@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpEndPoint));
                     OnRcvMessage(rcvMessage, IpEndPoint);
                 }
-                catch (Exception ex) { }
+                catch (Exception ) { }
             }
         }
 

@@ -132,7 +132,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                 _ldd = null;
                 return 1;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return 0;
             }
