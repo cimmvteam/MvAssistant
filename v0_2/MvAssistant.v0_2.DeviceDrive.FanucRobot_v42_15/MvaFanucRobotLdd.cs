@@ -732,13 +732,14 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
             Array TargetPos = Target;
 
+            if (UserTool != null) Pns0101SwitchToolFrame((int)UserTool);//Set UserToolNum
             this.SetRegIntValue(3, _SelectCorJ);//Write R[3]. 0:Mov position, 1:Rotate J1~6
             this.SetRegIntValue(7, _SelectOfstOrPos);//Write R[7]. 0:Mov with related pos, 1:Mov with absolute Pos
             this.SetRegIntValue(8, _IsMoveUT);//Write R[8].0:Offset with UF, 1:Offset with UT
             this.SetRegIntValue(9, Speed);//Write R[9]. R[9] mm/sec
             this.SetRegIntValue(5, 0);//Clear to ZERO. R[5] uses to returen MOV END.Return 51 means done.
             this.SetRegIntValues(1, new int[] { 0, 0 });//Clear to ZERO.ThisR[1] uses to trigger Robot. Set to 1 means go!
-            if (UserTool != null) this.SetRegIntValue(4, (int)UserTool);//Write R[4] = UserToolNum
+            
 
             //從哪(當前 移到指到位置
             var robotInfo = GetCurrRobotInfo();
