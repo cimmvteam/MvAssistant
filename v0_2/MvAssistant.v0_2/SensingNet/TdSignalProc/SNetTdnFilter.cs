@@ -27,7 +27,15 @@ namespace SensingNet.v0_2.TdSignalProc
         };
 
         public CtkFftOnlineFilter PassFilter = new CtkFftOnlineFilter();
-        public SNetTSignalSecSetF8 TSignal = new SNetTSignalSecSetF8();
+        public SNetTSignalSecSetF8 TSignalSet = new SNetTSignalSecSetF8();
+
+
+        public void Reset()
+        {
+            this.TSignalSet.Clear();
+            this.PrevTime = null;
+        }
+
 
         public void Input(object sender, SNetTdSignalEventArg e)
         {
@@ -51,7 +59,7 @@ namespace SensingNet.v0_2.TdSignalProc
                 signalData = this.PassFilter.ProcessSamples(signalData);
             }
 
-            this.ProcAndPushData(this.TSignal, new SNetTSignalSecF8(t, signalData));
+            this.ProcAndPushData(this.TSignalSet, new SNetTSignalSecF8(t, signalData));
             e.InvokeResult = this.disposed ? SNetTdEnumInvokeResult.IsDisposed : SNetTdEnumInvokeResult.None;
         }
 
@@ -60,7 +68,7 @@ namespace SensingNet.v0_2.TdSignalProc
             if (this.PurgeCounts < 0) return;
             //var now = DateTime.Now;
             //var oldKey = new CtkTimeSecond(now.AddSeconds(-this.PurgeSeconds));
-            this.TSignal.RemoveByCount(this.PurgeCounts);
+            this.TSignalSet.RemoveByCount(this.PurgeCounts);
             //PurgeSignalByTime(this.TSignal, oldKey);
         }
         #region IDisposable

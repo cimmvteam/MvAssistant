@@ -33,6 +33,13 @@ namespace SensingNet.v0_2.TdSignalProc
             this.TSignalSet.RemoveByCount(this.PurgeCounts);
         }
 
+        public void Reset()
+        {
+            this.TSignalSet.Clear();
+            this.PrevTime = null;
+        }
+
+
         public void Input(object sender, SNetTdEventArg e)
         {
             if (!this.IsEnalbed) return;

@@ -26,8 +26,13 @@ namespace SensingNet.v0_2.TimeSignal
             lock (this) this.Signals.Clear();
         }
 
+
+
+
         public SNetTSignalSecSetF8() { }
         public SNetTSignalSecSetF8(CtkTimeSecond time, IEnumerable<double> signals) { this.AddRange(time, signals); }
+
+        public void Clear() { this.Signals.Clear(); }
 
 
         public List<double> this[CtkTimeSecond key] { get { lock (this) return this.Signals[key]; } set { lock (this) this.Signals[key] = value; } }

@@ -23,6 +23,15 @@ namespace SensingNet.v0_2.TdSignalProc
 
 
 
+        public void Reset()
+        {
+            this.TSignalAvg.Clear();
+            this.TSignalMax.Clear();
+            this.TSignalMin.Clear();
+            this.PrevTime = null;
+        }
+
+
         protected override void Purge()
         {
             if (this.PurgeCounts < 0) return;
