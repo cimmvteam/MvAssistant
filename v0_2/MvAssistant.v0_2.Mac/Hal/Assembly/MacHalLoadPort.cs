@@ -146,6 +146,21 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return loadportNum + " AlarmReset timeout.";
         }
 
+        public bool IsDock()
+        {
+            DateTime startTime = DateTime.Now;
+            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
+            LoadPortUnit.CommandAskReticleExistStatus();
+            
+            while (!IsTimeOut(startTime))
+            {
+                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
+                    return true;
+            }
+
+            return false;
+        }
+
         #region Set Parameter
         /// <summary>
         /// 設定LoadPort內部與外部環境最大壓差限制，錶1壓差限制、錶2壓差限制
