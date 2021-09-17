@@ -42,6 +42,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string AlarmReset()
         { return "OK"; }
 
+        public bool IsDock()
+        { return true; }
+
+        public bool IsUndock()
+        { return true; }
+
         public bool ReadLP_Light_Curtain()
         {
             return false;
@@ -123,11 +129,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public int ReadLightForBarcodeReader()
         {
             return 1;
-        }
-
-        public bool IsDock()
-        {
-            throw new NotImplementedException();
         }
     }
 }

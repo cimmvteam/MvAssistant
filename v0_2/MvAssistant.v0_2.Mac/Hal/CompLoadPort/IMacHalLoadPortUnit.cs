@@ -1,4 +1,5 @@
 ﻿using MvAssistant.v0_2.DeviceDrive;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         LoadPortWorkState CurrentWorkState { get; }
         void ResetWorkState();
         void SetWorkState(LoadPortWorkState state);
+        EventStagePositionCode StagePosition { get; }
+        void SetStagePosition(EventStagePositionCode stagePosition);
 
         string CommandDockRequest();
         string CommandUndockRequest();
