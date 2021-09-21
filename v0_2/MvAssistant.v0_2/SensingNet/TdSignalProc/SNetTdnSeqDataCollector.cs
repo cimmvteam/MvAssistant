@@ -15,6 +15,12 @@ namespace SensingNet.v0_2.TdSignalProc
         ~SNetTdnSeqDataCollector() { this.Dispose(false); }
 
 
+        public void Reset()
+        {
+            this.TSignalSet.Clear();
+            this.PrevTime = null;
+        }
+
 
 
         /// <summary>
