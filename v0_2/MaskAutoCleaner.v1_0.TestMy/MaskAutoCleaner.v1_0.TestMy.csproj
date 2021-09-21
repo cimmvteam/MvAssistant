@@ -58,7 +58,7 @@
       <HintPath>..\packages\MSTest.TestFramework.2.2.7\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\gitnas001\chidev.csharp\ChiDev\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -120,10 +120,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MaskAutoCleaner.v1_0\MaskAutoCleaner.v1_0.csproj">
-      <Project>{6170a960-30f6-48cf-b50a-7533d0d749b1}</Project>
-      <Name>MaskAutoCleaner.v1_0</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15.csproj">
       <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
       <Name>MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15</Name>

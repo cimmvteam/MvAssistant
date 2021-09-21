@@ -161,10 +161,6 @@
     <None Include="UserData\STC-CL25M_8T freerun.cam" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MaskAutoCleaner.v1_0\MaskAutoCleaner.v1_0.csproj">
-      <Project>{6170a960-30f6-48cf-b50a-7533d0d749b1}</Project>
-      <Name>MaskAutoCleaner.v1_0</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15.csproj">
       <Project>{3fb3f1af-1620-4316-bf69-7fb8f2b1d8a7}</Project>
       <Name>MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15</Name>
