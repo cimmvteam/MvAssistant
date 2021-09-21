@@ -22,6 +22,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         bool IsDock();
 
+        bool IsUndock();
+
         /// <summary> 設定LoadPort內部與外部環境最大壓差限制，錶1壓差限制、錶2壓差限制 </summary>
         /// <param name="Gauge1Limit">錶1壓差限制</param>
         /// <param name="Gauge2Limit">錶2壓差限制</param>

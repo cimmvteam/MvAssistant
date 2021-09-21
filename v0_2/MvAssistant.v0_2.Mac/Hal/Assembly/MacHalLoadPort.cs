@@ -1,4 +1,5 @@
-﻿using MvAssistant.v0_2.Mac.Hal.CompCamera;
+﻿using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
+using MvAssistant.v0_2.Mac.Hal.CompCamera;
 using MvAssistant.v0_2.Mac.Hal.CompLight;
 using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
 using MvAssistant.v0_2.Mac.Hal.CompPlc;
@@ -59,7 +60,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #endregion
 
         #region Timeout Function
-        public virtual bool IsTimeOut(DateTime startTime, int targetDiffSecs = 20 * 1000)
+        public virtual bool IsTimeOut(DateTime startTime, int targetDiffSecs = 20)
         {
             var thisTime = DateTime.Now;
             var diff = thisTime.Subtract(startTime).TotalSeconds;
@@ -148,17 +149,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public bool IsDock()
         {
-            DateTime startTime = DateTime.Now;
-            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
-            LoadPortUnit.CommandAskReticleExistStatus();
-            
-            while (!IsTimeOut(startTime))
-            {
-                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
-                    return true;
-            }
+            return LoadPortUnit.StagePosition == EventStagePositionCode.OnDescentPosition;//Stage處於Dock位置
+        }
 
-            return false;
+        public bool IsUndock()
+        {
+            return LoadPortUnit.StagePosition == EventStagePositionCode.OnAscentPosition;//Stage處於Undock位置
         }
 
         #region Set Parameter

@@ -1,6 +1,8 @@
 ﻿//#define NoConfig
 using MvAssistant.v0_2.DeviceDrive;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
+using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,6 +27,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public  LoadPortWorkState CurrentWorkState { get; private set; }
         public void ResetWorkState() { CurrentWorkState = LoadPortWorkState.AnyState; }
         public void SetWorkState(LoadPortWorkState state){ CurrentWorkState = state; }
+        public EventStagePositionCode StagePosition { get; private set; }
+        public void SetStagePosition(EventStagePositionCode stagePosition) { StagePosition = stagePosition; }
 
 
         public event EventHandler OnPlacementHandler;
@@ -609,6 +613,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnStagePosition(object sender, EventArgs e)
         {
+            this.SetStagePosition(((OnStagePositionEventArgs)e).ReturnCode);
             if (OnStagePositionHandler != null)
             {
                 OnStagePositionHandler.Invoke(this, e);
