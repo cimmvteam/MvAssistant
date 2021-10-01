@@ -245,7 +245,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     UdpSocket.SendTo(Encoding.UTF8.GetBytes(commandText), TargetEndpoint);
                     return commandText;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     if (tryCounter >= 3)
                     {

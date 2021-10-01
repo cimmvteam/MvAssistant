@@ -17,10 +17,10 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 {
     public class MvGudengLoadPortLdd
     {
-       
-        public  delegate string OriginalInvokeMethod() ;
-       public string Index { get; set; }
-        private  OriginalInvokeMethod DelgateOriginalMethod=null;
+
+        public delegate string OriginalInvokeMethod();
+        public string Index { get; set; }
+        private OriginalInvokeMethod DelgateOriginalMethod = null;
         public void InvokeOriginalMethod()
         {
             if (DelgateOriginalMethod != null)
@@ -28,31 +28,31 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
                 DelgateOriginalMethod.Invoke();
             }
         }
-       /** 
-        private bool CommandCascadeMode = false;
-        private bool IsCommandCascade
-        {
-            get
-            {
-                return CommandCascadeMode;
-            }
-        }
-        public void SetCommandCascade()
-        {
-            CommandCascadeMode = true;
-        }
-        public void ReleaseCommandCasadeMode()
-        {
-            CommandCascadeMode = false;
-        }
-        */
+        /** 
+         private bool CommandCascadeMode = false;
+         private bool IsCommandCascade
+         {
+             get
+             {
+                 return CommandCascadeMode;
+             }
+         }
+         public void SetCommandCascade()
+         {
+             CommandCascadeMode = true;
+         }
+         public void ReleaseCommandCasadeMode()
+         {
+             CommandCascadeMode = false;
+         }
+         */
         public void ClearOriginalMethod()
         {
             DelgateOriginalMethod = null;
         }
         public void SetOriginalMethod(OriginalInvokeMethod delegateMethod)
         {
-                DelgateOriginalMethod = delegateMethod;
+            DelgateOriginalMethod = delegateMethod;
         }
         public bool HasInvokeOriginalMethod
         {
@@ -68,7 +68,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
                 }
             }
         }
-     
+
         /*private string OriginalCommandText{get;set;}
         /// <summary>是否有最初指定的 Command</summary>
         private bool HasOriginalCommand
@@ -119,8 +119,8 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <summary>建構式</summary>
         public MvGudengLoadPortLdd()
         {
-           
-           OnReceviceRtnFromServerHandler += ReceiveMessageFromServer;
+
+            OnReceviceRtnFromServerHandler += ReceiveMessageFromServer;
         }
 
         /// <summary>建構式</summary>
@@ -161,7 +161,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             }
             catch (Exception ex)
             {
-
+                MvaLog.WarnNs(this, ex);
             }
 
         }
@@ -199,12 +199,12 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
                     //rtn = "~001,Placement,0@\0\0\0\0";
 
                     Debug.WriteLine("[RETURN] " + rtn);
-                    
+
                     rtn = rtn.Replace("\0", "");
-                  
-                    if (string.IsNullOrEmpty(rtn) )
+
+                    if (string.IsNullOrEmpty(rtn))
                     {  // 忽然斷線(將一直收到空白 50 次視為遺失連線)
-                        if (++rtnEmptyCount > 50 && OnHostLostTcpServerHandler != null  )
+                        if (++rtnEmptyCount > 50 && OnHostLostTcpServerHandler != null)
                         {
                             OnHostLostTcpServerHandler.Invoke(this, EventArgs.Empty);
                             break;
@@ -227,7 +227,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
 
                 }
@@ -236,17 +236,17 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 
         /// <summary>連線後遺失Host 和 TCP Server 間的連線</summary>
         public event EventHandler OnHostLostTcpServerHandler;
-     //   public event EventHandler OnHostCannotConnectToTcpServerHandler;
+        //   public event EventHandler OnHostCannotConnectToTcpServerHandler;
 
         /// <summary>送出 指令</summary>
         /// <param name="commandText">指令</param>
         private void Send(string commandText)
         {
-           // Debug.WriteLine("[COMMAND]" + commandText);
+            // Debug.WriteLine("[COMMAND]" + commandText);
             byte[] B = Encoding.Default.GetBytes(commandText);
 #if OnlyObserveCommandText
 #else
-             ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
+            ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
 #endif
         }
         #region Command
@@ -256,12 +256,12 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         public string CommandDockRequest()
         {
 
-            string command = null; 
+            string command = null;
             if (IsListenServer)
             {
-              
-                 command = new DockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                 Send(command);
+
+                command = new DockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
             }
             return command;
         }
@@ -289,7 +289,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             string command = "";
             if (IsListenServer)
             {
-               
+
                 command = new UndockRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
@@ -320,8 +320,8 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             string command = "";
             if (IsListenServer)
             {
-             
-                 command = new AskPlacementStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+
+                command = new AskPlacementStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
             return command;
@@ -334,7 +334,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             string command = "";
             if (IsListenServer)
             {
-               command = new AskPresentStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskPresentStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
             return command;
@@ -386,7 +386,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             string command = "";
             if (IsListenServer)
             {
-               command = new AskVacuumStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                command = new AskVacuumStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
             return command;
@@ -469,8 +469,8 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         {
             string command = "";
             {
-            if (IsListenServer)
-                command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                if (IsListenServer)
+                    command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
                 Send(command);
             }
             return command;
@@ -589,8 +589,8 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             }
             return command;
         }
-       
-        
+
+
         #endregion
 
 
@@ -606,16 +606,16 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         {
             // rtnCode: 有無Placement 信號
             var rtnCode = (EventPlacementCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-           
+
             var eventArgs = new OnPlacementEventArgs(rtnCode);
             if (OnPlacementHandler != null)
             {
-                OnPlacementHandler.Invoke(this,eventArgs);
+                OnPlacementHandler.Invoke(this, eventArgs);
             }
         }
         public event EventHandler OnPlacementHandler = null;
         public void ResetOnPlacementHandler() { OnPlacementHandler = null; }
-        
+
 
 
 
@@ -626,10 +626,10 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <para>2. 收到 AskPresentStatus</para>
         /// </remarks>
         public void Present(ReturnFromServer rtnFromServer)
-        {  
+        {
             // rtnCode: 有無Present訊息
             var rtnCode = (EventPresentCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-          
+
             if (OnPresentHandler != null)
             {
                 var eventArgs = new OnPresentEventArgs(rtnCode);
@@ -638,7 +638,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnPresentHandler = null;
         public void ResetOnPresentHandler() { OnPresentHandler = null; }
-        
+
 
 
         /// <summary>Event Clamper(003)</summary>
@@ -651,16 +651,16 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         {
             //rtnCode: Clamper狀態(關閉, 開啟, 不在定位需復歸)
             var rtnCode = (EventClamperCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-            
-            if(OnClamperHandler != null)
+
+            if (OnClamperHandler != null)
             {
                 var eventArgs = new OnClamperEventArgs(rtnCode);
-                OnClamperHandler.Invoke(this,eventArgs);
+                OnClamperHandler.Invoke(this, eventArgs);
             }
         }
         public event EventHandler OnClamperHandler = null;
         public void ResetOnClamperHandler() { OnClamperHandler = null; }
-        
+
 
 
         /// <summary>Event RFID(004)</summary>
@@ -672,19 +672,19 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         public void RFID(ReturnFromServer rtnFromServer)
         {   // rfID: 讀取的 RFID
             var rfID = rtnFromServer.ReturnCode;
-            
+
             if (OnRFIDHandler != null)
             {
                 var eventArgs = new OnRFIDEventArgs(rfID);
                 if (OnRFIDHandler != null)
                 {
-                    OnRFIDHandler.Invoke(this,eventArgs);
+                    OnRFIDHandler.Invoke(this, eventArgs);
                 }
             }
         }
         public event EventHandler OnRFIDHandler = null;
         public void ResetOnRFIDHandler() { OnRFIDHandler = null; }
- 
+
         /// <summary>Event Barcode ID (005)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>
@@ -697,7 +697,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             var rtnCode = (EventBarcodeIDCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
             // barcodeID: 讀取成功時的 barcode ID  
             var barcodeID = rtnFromServer.ReturnValue;
-          
+
             if (OnBarcode_IDHandler != null)
             {
                 var eventArgs = new OnBarcode_IDEventArgs(rtnCode, barcodeID);
@@ -706,7 +706,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnBarcode_IDHandler = null;
         public void ResetOnBarcode_IDHandler() { OnBarcode_IDHandler = null; }
-        
+
 
 
         /// <summary>Event ClamperLockComplete(006)</summary>
@@ -719,7 +719,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         {
             // rtnCode: Clamper 關閉/開啟  
             var rtnCode = (EventClamperLockCompleteCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-           
+
             if (OnClamperLockCompleteHandler != null)
             {
                 var eventArgs = new OnClamperLockCompleteEventArgs(rtnCode);
@@ -727,8 +727,8 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
             }
         }
         public event EventHandler OnClamperLockCompleteHandler = null;
-        public void ResetOnClamperLockCompleteHandler()  { OnClamperLockCompleteHandler = null; }
-       
+        public void ResetOnClamperLockCompleteHandler() { OnClamperLockCompleteHandler = null; }
+
 
 
 
@@ -743,7 +743,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         {
             // rtnCode: 是否建立真空
             var rtnCode = (EventVacuumCompleteCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-          
+
             if (OnVacuumCompleteHandler != null)
             {
                 var eventArgs = new OnVacuumCompleteEventArgs(rtnCode);
@@ -752,7 +752,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnVacuumCompleteHandler = null;
         public void ResetOnVacuumCompleteHandler() { OnVacuumCompleteHandler = null; }
-        
+
 
 
         /// <summary>Event  DockPODStart(008)</summary>
@@ -760,7 +760,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>收到DockRequest後, 開始移動Stage前</remarks>
         public void DockPODStart(ReturnFromServer rtnFromServer)
         {
-           
+
             if (OnDockPODStartHandler != null)
             {
                 OnDockPODStartHandler.Invoke(this, EventArgs.Empty);
@@ -778,10 +778,10 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// </remarks>
         public void DockPODComplete_HasReticle(ReturnFromServer rtnFromServer)
         {
-           
+
             if (OnDockPODComplete_HasReticleHandler != null)
             {
-                OnDockPODComplete_HasReticleHandler.Invoke(this,EventArgs.Empty);
+                OnDockPODComplete_HasReticleHandler.Invoke(this, EventArgs.Empty);
             }
         }
         public event EventHandler OnDockPODComplete_HasReticleHandler = null;
@@ -797,10 +797,10 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         public void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
         {
 
-         
+
             if (OnDockPODComplete_EmptyHandler != null)
             {
-                OnDockPODComplete_EmptyHandler.Invoke(this,EventArgs.Empty);
+                OnDockPODComplete_EmptyHandler.Invoke(this, EventArgs.Empty);
             }
         }
         public event EventHandler OnDockPODComplete_EmptyHandler = null;
@@ -811,7 +811,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void UndockComplete(ReturnFromServer rtnFromServer)
         {
-           
+
             if (OnUndockCompleteHandler != null)
             {
                 OnUndockCompleteHandler.Invoke(this, EventArgs.Empty);
@@ -824,7 +824,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void ClamperUnlockComplete(ReturnFromServer rtnFromServer)
         {
-        
+
             if (OnClamperUnlockCompleteHandler != null)
             {
                 OnClamperUnlockCompleteHandler.Invoke(this, EventArgs.Empty);
@@ -840,13 +840,13 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void AlarmResetSuccess(ReturnFromServer rtnFromServer)
         {
-          
-        
+
+
             if (OnAlarmResetSuccessHandler != null)
             {
                 OnAlarmResetSuccessHandler.Invoke(this, EventArgs.Empty);
             }
-            
+
         }
         public event EventHandler OnAlarmResetSuccessHandler = null;
         public void ResetOnAlarmResetSuccessHandler() { OnAlarmResetSuccessHandler = null; }
@@ -856,7 +856,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>異常恢復失敗</remarks>
         public void AlarmResetFail(ReturnFromServer rtnFromServer)
         {
-          
+
             if (OnAlarmResetFailHandler != null)
             {
                 OnAlarmResetFailHandler.Invoke(this, EventArgs.Empty);
@@ -871,8 +871,8 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>提示進行原點復歸動作</remarks>
         public void ExecuteInitialFirst(ReturnFromServer rtnFromServer)
         {
-         
-           if(OnExecuteInitialFirstHandler != null)
+
+            if (OnExecuteInitialFirstHandler != null)
             {
                 OnExecuteInitialFirstHandler.Invoke(this, EventArgs.Empty);
             }
@@ -886,7 +886,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>提示進行異常復歸動作</remarks>
         public void ExecuteAlarmResetFirst(ReturnFromServer rtnFromServer)
         {
-         
+
             if (OnExecuteAlarmResetFirstHandler != null)
             {
                 OnExecuteAlarmResetFirstHandler.Invoke(this, EventArgs.Empty);
@@ -905,16 +905,16 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         {
             // rtnCode: Stage 位置
             var rtnCode = (EventStagePositionCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-            
+
             if (OnStagePositionHandler != null)
             {
                 var eventArgs = new OnStagePositionEventArgs(rtnCode);
-                OnStagePositionHandler.Invoke(this,eventArgs);
+                OnStagePositionHandler.Invoke(this, eventArgs);
             }
         }
         public event EventHandler OnStagePositionHandler = null;
         public void ResetOnStagePositionHandler() { OnStagePositionHandler = null; }
-        
+
 
 
 
@@ -927,17 +927,17 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         public void LoadportStatus(ReturnFromServer rtnFromServer)
         {
             var rtnCode = (EventLoadportStatusCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-         
+
             if (OnLoadportStatusHandler != null)
             {
                 var eventArgs = new OnLoadportStatusEventArgs(rtnCode);
                 OnLoadportStatusHandler.Invoke(this, eventArgs);
             }
-            
+
         }
         public event EventHandler OnLoadportStatusHandler = null;
         public void ResetOnLoadportStatusHandler() { OnLoadportStatusHandler = null; }
-       
+
 
 
         /// <summary>Event Initial Complete(019)</summary>
@@ -945,13 +945,13 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void InitialComplete(ReturnFromServer rtnFromServer)
         {
-           
+
             if (OnInitialCompleteHandler != null)
             {
-                OnInitialCompleteHandler.Invoke(this,EventArgs.Empty);
+                OnInitialCompleteHandler.Invoke(this, EventArgs.Empty);
             }
         }
-        public void ResetInitialOnCompleteHandler(){   OnInitialCompleteHandler = null; }
+        public void ResetInitialOnCompleteHandler() { OnInitialCompleteHandler = null; }
         public event EventHandler OnInitialCompleteHandler = null;
 
 
@@ -962,13 +962,13 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void InitialUnComplete(/*ReturnFromServer rtnFromServer*/)
         {
-            
+
             if (OnInitialUnCompleteHandler != null)
             {
                 OnInitialUnCompleteHandler.Invoke(this, EventArgs.Empty);
             }
         }
-        public void ResetOnInitialUnCompleteHandler(){OnInitialUnCompleteHandler = null;}
+        public void ResetOnInitialUnCompleteHandler() { OnInitialUnCompleteHandler = null; }
         public event EventHandler OnInitialUnCompleteHandler = null;
 
 
@@ -977,14 +977,14 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>2020/06/11 new</remarks>
         public void MustInAutoMode(ReturnFromServer rtnFromServer)
         {
-          
+
             if (OnMustInAutoModeHandler != null)
             {
                 OnMustInAutoModeHandler.Invoke(this, EventArgs.Empty);
             }
         }
         public event EventHandler OnMustInAutoModeHandler = null;
-        public void ResetOnMustInAutoModeHandler(){ OnMustInAutoModeHandler = null; }
+        public void ResetOnMustInAutoModeHandler() { OnMustInAutoModeHandler = null; }
 
         //~021,MustInManualMode@
         public void MustInManualMode(ReturnFromServer rtnFromServer)
@@ -1003,13 +1003,13 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <param name="rtnFromServer"></param>
         public void ClamperNotLock(ReturnFromServer rtnFromServer)
         {
-           
+
             if (OnClamperNotLockHandler != null)
             {
-                OnClamperNotLockHandler.Invoke(this,EventArgs.Empty);
+                OnClamperNotLockHandler.Invoke(this, EventArgs.Empty);
             }
         }
-        public  event EventHandler OnClamperNotLockHandler = null;
+        public event EventHandler OnClamperNotLockHandler = null;
         public void ResetOnClamperNotLockHandler() { OnClamperNotLockHandler = null; }
 
 
@@ -1018,7 +1018,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>2020/06/11 new</remarks>
         public void PODNotPutProperly(ReturnFromServer rtnFromServer)
         {
-         
+
             if (OnPODNotPutProperlyHandler != null)
             {
                 OnPODNotPutProperlyHandler.Invoke(this, EventArgs.Empty);
@@ -1028,14 +1028,14 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         public void ResetOnPODNotPutProperlyHandler() { OnPODNotPutProperlyHandler = null; }
 
 
-#endregion
-#region Alarm
+        #endregion
+        #region Alarm
         /// <summary>Alarm ClamperActionTimeOut(200)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Clamper馬達運動超時</remarks>
         public void ClamperActionTimeOut(ReturnFromServer rtnFromServer)
         {
-         
+
             if (OnClamperActionTimeOutHandler != null)
             { OnClamperActionTimeOutHandler.Invoke(this, EventArgs.Empty); }
         }
@@ -1048,9 +1048,9 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>ClamerUnlock完成後位置錯誤</remarks>
         public void ClamperUnlockPositionFailed(ReturnFromServer rtnFromServer)
         {
-          
+
             if (OnClamperUnlockPositionFailedHandler != null)
-            { OnClamperUnlockPositionFailedHandler.Invoke(this,EventArgs.Empty); }
+            { OnClamperUnlockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
         }
         public event EventHandler OnClamperUnlockPositionFailedHandler = null;
         public void ResetOnClamperUnlockPositionFailedHandler() { OnClamperUnlockPositionFailedHandler = null; }
@@ -1061,7 +1061,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>StageDock/Undock前真空值錯誤</remarks>
         public void VacuumAbnormality(ReturnFromServer rtnFromServer)
         {
-          
+
             if (OnVacuumAbnormalityHandler != null)
             {
                 OnVacuumAbnormalityHandler.Invoke(this, EventArgs.Empty);
@@ -1076,7 +1076,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>Stage運動超時</remarks>
         public void StageMotionTimeout(ReturnFromServer rtnFromServer)
         {
-         
+
             if (OnStageMotionTimeoutHandler != null) { OnStageMotionTimeoutHandler.Invoke(this, EventArgs.Empty); }
         }
         public event EventHandler OnStageMotionTimeoutHandler = null;
@@ -1088,7 +1088,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>Stage上位限制Sensor觸發</remarks>
         public void StageOverUpLimitation(ReturnFromServer rtnFromServer)
         {
-            if (OnStageOverUpLimitationHandler != null){ OnStageOverUpLimitationHandler.Invoke(this, EventArgs.Empty); }
+            if (OnStageOverUpLimitationHandler != null) { OnStageOverUpLimitationHandler.Invoke(this, EventArgs.Empty); }
         }
         public event EventHandler OnStageOverUpLimitationHandler = null;
         public void ResetOnStageOverUpLimitationHandler() { OnStageOverUpLimitationHandler = null; }
@@ -1110,7 +1110,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         ///<remarks>Dock/Undock時, 光罩滑出POD</remarks>
         public void ReticlePositionAbnormality(ReturnFromServer rtnFromServer)
         {
-            if(OnReticlePositionAbnormalityHandler != null)
+            if (OnReticlePositionAbnormalityHandler != null)
             {
                 OnReticlePositionAbnormalityHandler.Invoke(this, EventArgs.Empty);
             }
@@ -1135,7 +1135,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <remarks>POD上下蓋脫離定位</remarks>
         public void PODPresentAbnormality(ReturnFromServer rtnFromServer)
         {
-             if (OnPODPresentAbnormalityHandler != null) { OnPODPresentAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+            if (OnPODPresentAbnormalityHandler != null) { OnPODPresentAbnormalityHandler.Invoke(this, EventArgs.Empty); }
         }
         public event EventHandler OnPODPresentAbnormalityHandler = null;
         public void ResetOnPODPresentAbnormalityHandler() { OnPODPresentAbnormalityHandler = null; }
@@ -1161,16 +1161,16 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         }
         public event EventHandler OnStageMotorAbnormalityHandler = null;
         public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormalityHandler = null; }
-#endregion
+        #endregion
 
 
 
     }
 
-   
-
-   
 
 
-  
+
+
+
+
 }
