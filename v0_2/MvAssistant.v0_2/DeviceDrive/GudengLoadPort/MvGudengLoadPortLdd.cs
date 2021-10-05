@@ -229,7 +229,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
                 }
                 catch (Exception ex)
                 {
-
+                    MvaLog.WarnNs(this, ex);
                 }
             }
         }

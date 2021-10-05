@@ -184,7 +184,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                 Debug.WriteLine(drawer.DeviceIP);
                 return drawer;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
