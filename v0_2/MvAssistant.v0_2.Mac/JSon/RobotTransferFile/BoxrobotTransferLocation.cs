@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 {
-   public  enum BoxrobotTransferLocation
+    public enum BoxrobotTransferLocation
     {
-        Dontcare=0,
+        Dontcare = 0,
         Cabinet_01_Home,
         Cabinet_02_Home,
         OpenStage,
@@ -47,11 +47,11 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         Drawer_07_03,
         Drawer_07_04,
         Drawer_07_05,
-        LockCrystalBox,UnlockCrystalBox,
-        LockIronBox,UnlockIronBox
+        LockCrystalBox, UnlockCrystalBox,
+        LockIronBox, UnlockIronBox
     }
 
-    
+
 
     public static class BoxrobotTransferLocationExtends
     {
@@ -62,7 +62,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
 
         public static BoxrobotTransferLocationDrawerRange GetDrawerRange(this BoxrobotTransferLocation inst)
         {
-            var rtnV= new BoxrobotTransferLocationDrawerRange();
+            var rtnV = new BoxrobotTransferLocationDrawerRange();
             return rtnV;
         }
 
@@ -91,24 +91,24 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         /// <returns></returns>
         public static Tuple<bool, BoxrobotTransferLocation> GetCabinetHomeCode(this BoxrobotTransferLocation inst)
         {
-            if(inst.IsDrawer() )
+            if (inst.IsDrawer())
             {
                 if (inst < BoxrobotTransferLocationExtends.Cabinet2Start)
                 {
-                    return   Tuple.Create(true,  BoxrobotTransferLocation.Cabinet_01_Home);
+                    return Tuple.Create(true, BoxrobotTransferLocation.Cabinet_01_Home);
                 }
                 else
                 {
                     return Tuple.Create(true, BoxrobotTransferLocation.Cabinet_02_Home);
                 }
 
-            
+
             }
             else
             {
                 if (inst == BoxrobotTransferLocation.Cabinet_01_Home || inst == BoxrobotTransferLocation.Cabinet_02_Home)
                 {
-                    return  Tuple.Create(false, inst);
+                    return Tuple.Create(false, inst);
                 }
                 else
                 {
@@ -123,7 +123,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         /// <returns></returns>
         public static bool IsDrawer(this BoxrobotTransferLocation inst)
         {
-         
+
             if (inst < BoxrobotTransferLocationExtends.DrawerStart || inst > BoxrobotTransferLocationExtends.DrawerEnd)
             {
                 return false;
@@ -141,7 +141,7 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
         /// </summary>
         /// <param name="inst"></param>
         /// <returns></returns>
-        public static Tuple<bool,string> To4DigitDrawerCode(this BoxrobotTransferLocation inst)
+        public static Tuple<bool, string> To4DigitDrawerCode(this BoxrobotTransferLocation inst)
         {
             Tuple<bool, string> rtnV = null;
             if (inst.IsDrawer())
@@ -155,9 +155,11 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
                     code = ary[ary.Length - 2] + ary[aryLength - 1];
                     rtnV = Tuple.Create(true, code);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    rtnV= Tuple.Create(false, string.Empty);
+                    rtnV = Tuple.Create(false, string.Empty);
+                    MvaLog.Warn(ex);
+
                 }
 
             }
@@ -168,6 +170,6 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
             return rtnV;
         }
     }
-   
+
 
 }

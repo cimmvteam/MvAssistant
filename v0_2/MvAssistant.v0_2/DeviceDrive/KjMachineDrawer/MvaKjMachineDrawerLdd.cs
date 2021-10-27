@@ -82,6 +82,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                 {
                     portTable.Remove(variablePort);
                     portTable.Add(variablePort, false);
+                    MvaLog.WarnNs(this, ex);
                 }
             }
             ListenThread = new Thread(Listen);

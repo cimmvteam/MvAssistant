@@ -847,7 +847,6 @@ namespace MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15
 
                 int UT_Selected = ToolSelected;
                 int[] intValues = new int[1];
-                bool a;
                 Array xyzwprArray = new float[9];
                 Array ConfigArray = new short[7];
                 Array JointArray = new float[9];

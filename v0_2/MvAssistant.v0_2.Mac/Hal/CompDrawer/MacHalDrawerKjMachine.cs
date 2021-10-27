@@ -166,6 +166,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             catch (Exception ex)
             {
                 connected = false;
+                MvaLog.WarnNs(this, ex);
             }
             return connected ? 1:0;
         }

@@ -48,6 +48,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             }
             catch(Exception ex)
             {
+                MvaLog.WarnNs(this, ex);
 
             }
         }
@@ -143,7 +144,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             }
             catch (Exception ex)
             {
-
+                MvaLog.WarnNs(this, ex);
             }
 
         }

@@ -150,6 +150,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
             }
             catch (Exception ex)
             {
+                MvaLog.WarnNs(this, ex);
                 return null;
             }
 

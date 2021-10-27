@@ -289,6 +289,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                 }
                 catch(Exception ex)
                 {
+                    MvaLog.WarnNs(this, ex);
 
                 }
 

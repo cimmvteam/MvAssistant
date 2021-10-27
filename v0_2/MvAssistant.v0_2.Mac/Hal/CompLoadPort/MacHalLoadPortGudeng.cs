@@ -137,6 +137,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             }
             catch (Exception ex)
             {
+                MvaLog.WarnNs(this, ex);
+
                 return 0;
             }
         }
