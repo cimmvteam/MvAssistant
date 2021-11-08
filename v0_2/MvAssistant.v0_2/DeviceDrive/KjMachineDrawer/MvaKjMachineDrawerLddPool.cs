@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
-   public  class MvaKjMachineDrawerLddPool:IDisposable
+    public class MvaKjMachineDrawerLddPool : IDisposable
     {
         /// <summary>這個物件的實體</summary>
         private static MvaKjMachineDrawerLddPool _instance;
         /// <summary></summary>
         private static object lockGetInstanceObj = new object();
         /// <summary>存放 Ldd 的容器</summary>
-        public List<MvaKjMachineDrawerLdd> _ldd = null;
+        public List<MvaKjMachineDrawerLdd> _ldds = null;
         /// <summary>存放可用 port 的 Dictionary</summary>
         public IDictionary<int, bool?> PortStatusDictionary { get; private set; }
         /// <summary>接收到Drawer 硬體發送的 SysStartUp以 及 OnButton 事件時 須Invoke 的方法 </summary>
         public SysStartUpEventListener SysEventListener;
         public void SetSysStartUpEventListener(SysStartUpEventListener listener)
         {
-            SysEventListener=  listener;
+            SysEventListener = listener;
         }
         public static MvaKjMachineDrawerLddPool GetInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
         {
@@ -36,13 +36,13 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     {
                         if (_instance == null)
                         {
-                            _instance = new MvaKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort,false);
+                            _instance = new MvaKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort, false);
                         }
                     }
                 }
                 return _instance;
             }
-            catch(Exception )
+            catch (Exception)
             {
                 return null;
             }
@@ -57,25 +57,25 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         public static MvaKjMachineDrawerLddPool GetFakeInstance(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort)
         {
 
-             if (_instance == null)
-              {
-                    lock (lockGetInstanceObj)
+            if (_instance == null)
+            {
+                lock (lockGetInstanceObj)
+                {
+                    if (_instance == null)
                     {
-                        if (_instance == null)
-                        {
-                            _instance = new MvaKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort, true);
-                        }
+                        _instance = new MvaKjMachineDrawerLddPool(listenDrawerPortMin, listenDrawerPortMax, sysStartUpEventListenPort, true);
                     }
                 }
-                return _instance;
-           
-            
+            }
+            return _instance;
+
+
         }
 
         /// <summary>建構式</summary>
         private MvaKjMachineDrawerLddPool()
         {
-            _ldd = new List<MvaKjMachineDrawerLdd>();
+            _ldds = new List<MvaKjMachineDrawerLdd>();
             //ReceiveInfos = new List<ReceiveInfo>();
 
         }
@@ -89,11 +89,12 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         /// <remarks>
         /// <para>暫時保留</para>
         /// </remarks>
-        public  MvaKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort,bool isFake):this()
+        public MvaKjMachineDrawerLddPool(int listenDrawerPortMin, int listenDrawerPortMax, int sysStartUpEventListenPort, bool isFake) : this()
         {
 
             /**設定可用 Port 的最初狀況狀*/
-            Action initialPortStatusDictionary = () => {
+            Action initialPortStatusDictionary = () =>
+            {
                 PortStatusDictionary = new Dictionary<int, bool?>();
                 for (int i = listenDrawerPortMin; i <= listenDrawerPortMax; i++)
                 {
@@ -108,6 +109,8 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
             }
 
         }
+
+        ~MvaKjMachineDrawerLddPool() { this.Dispose(false); }
 
         public void ListenSystStartUpEvent()
         {
@@ -144,8 +147,8 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
             {
 
                 // 檢查一下, ldd 是否存在, 如果存在, 就將 Ldd 找出來,回傳 Note: 2020/11/13 King
-                MvaKjMachineDrawerLdd ldd = new MvaKjMachineDrawerLdd( drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
-                _ldd.Add(ldd);
+                MvaKjMachineDrawerLdd ldd = new MvaKjMachineDrawerLdd(drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
+                _ldds.Add(ldd);
                 return ldd;
             }
             catch (Exception ex)
@@ -169,8 +172,8 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         public MvaKjMachineDrawerLdd CreateFakeLdd(string drawerIndex, IPEndPoint deviceEndpoint, string localIP)
         {
             MvaKjMachineDrawerLdd ldd = new MvaKjMachineDrawerLdd(true, drawerIndex, deviceEndpoint, localIP, this.PortStatusDictionary);
-                _ldd.Add(ldd);
-                return ldd;
+            _ldds.Add(ldd);
+            return ldd;
         }
 
 
@@ -181,7 +184,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         {
             try
             {
-                var drawer = _ldd.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
+                var drawer = _ldds.Where(m => m.DeviceIP.Equals(deviceIP)).FirstOrDefault();
                 Debug.WriteLine(drawer.DeviceIP);
                 return drawer;
             }
@@ -218,6 +221,21 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 
         public void Close()
         {
+            foreach (var obj in this._ldds)
+            {
+                try
+                {
+                    if (obj != null)
+                        obj.Dispose();
+                }
+                catch (Exception) { }
+            }
+
+            if (this.SysEventListener != null)
+            {
+                try { this.SysEventListener.Dispose(); }
+                catch (Exception) { }
+            }
 
 
         }

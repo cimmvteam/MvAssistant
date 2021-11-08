@@ -174,6 +174,8 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 
         }
 
+        ~MvaKjMachineDrawerLdd() { this.Dispose(false); }
+
         /// <summary>監聽的函式</summary>
         private void Listen()
         {
@@ -1106,6 +1108,8 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         //public DelegateDrawerBooleanResult TrayArriveOutResult = null;
         public DelegateDrawerIntResult TrayArriveResult { get; set; } //= null;
 
+
+        #region IDisposable
         protected bool disposed = false;
 
         // Public implementation of Dispose pattern callable by consumers.
@@ -1135,10 +1139,25 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
             disposed = true;
         }
 
-
         protected virtual void DisposeSelf()
         {
+            if (this.UdpSocket != null)
+                using (var obj = this.UdpSocket)
+                {
+                    try
+                    {
+                        obj.Shutdown(SocketShutdown.Both);
+                        obj.Close();
+                    }
+                    catch (Exception) { }
+                }
 
+            if (this.ListenThread != null)
+            {
+                try { this.ListenThread.Abort(); }
+                catch (Exception) { /*不需要catch, 到dispose階段的中斷成敗都要結束*/ }
+            }
         }
+        #endregion
     }
 }

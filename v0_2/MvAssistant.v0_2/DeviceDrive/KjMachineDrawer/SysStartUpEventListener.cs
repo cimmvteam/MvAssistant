@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 {
 
     /// <summary>Lisent SysStartUp Event 的物件類別</summary>
-    public class SysStartUpEventListener
+    public class SysStartUpEventListener : IDisposable
     {
         /// <summary>Listen Port</summary>
         private int _listenPort;
@@ -40,6 +40,8 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 
         }
 
+        ~SysStartUpEventListener() { this.Dispose(false); }
+
         /// <summary>開始監聽</summary>
         /// <param name="onReciveMessageCallback">監聽到訊息後的回呼函式</param>
         public void Listen(DelOnRcvMessage onReciveMessageCallback)
@@ -61,7 +63,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
                     var rcvMessage = System.Text.Encoding.UTF8.GetString(UdpClient.Receive(ref IpEndPoint));
                     OnRcvMessage(rcvMessage, IpEndPoint);
                 }
-                catch (Exception ) { }
+                catch (Exception) { }
             }
         }
 
@@ -80,5 +82,54 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
 
         /// <summary>回呼函式</summary>
         public DelOnRcvMessage OnRcvMessageCallBack = null;
+
+
+        #region IDisposable
+        protected bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+
+            this.DisposeSelf();
+
+            disposed = true;
+        }
+
+        protected virtual void DisposeSelf()
+        {
+            if (this.UdpClient != null)
+                using (var obj = this.UdpClient)
+                {
+                    try { obj.Close(); }
+                    catch (Exception) { }
+                }
+
+            if (this._listenThread != null)
+            {
+                try { this._listenThread.Abort(); }
+                catch (Exception) { /*不需要catch, 到dispose階段的中斷成敗都要結束*/ }
+            }
+        }
+        #endregion
+
     }
 }
