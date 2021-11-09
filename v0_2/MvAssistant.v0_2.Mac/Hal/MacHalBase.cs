@@ -53,7 +53,7 @@ namespace MvAssistant.v0_2.Mac.Hal
 
         #region IHal
 
-        
+
 
         public abstract int HalClose();
         public abstract int HalConnect();
@@ -74,7 +74,7 @@ namespace MvAssistant.v0_2.Mac.Hal
             }
         }
 
-        protected string DeviceConnStr { get { return this.HalDeviceCfg.DevConnStr; } }
+        protected string DeviceConnStr { get { return this.HalDeviceCfg == null ? null : this.HalDeviceCfg.DevConnStr; } }
 
 
         public string GetDevConnStr(string key) { return this.DevSettings[key.ToLower()]; }
