@@ -55,7 +55,7 @@ namespace MvAssistant.v0_2.DeviceDrive.KjMachineDrawer
         {
             IpEndPoint = new IPEndPoint(IPAddress.Any, _listenPort);
             UdpClient = new UdpClient(IpEndPoint.Port);
-            while (true)
+            while (!this.disposed)
             {
                 try
                 {
