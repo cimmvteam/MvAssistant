@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -113,6 +114,32 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
             throw new MvaException("PLC read fail over 3 times", myex);
         }
 
+        public Hashtable ReadMulti(String[] VarNames)
+        {
+            Exception myex = null;
+            //Fail允許重新再執行, 上限3次
+            for (var tryIndex = 0; tryIndex < 3; tryIndex++)
+            {
+                try
+                {
+                    lock (this)
+                    {
+                        //每個要存取PLC的 都要稍等一下, 讓PLC有恢復Clock的時間
+                        Thread.Sleep(50);
+                        return _CIPcompolet.ReadVariableMultiple(VarNames);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogInfo(ex.Message);
+                    MvaLog.WarnNs(this, ex);
+                    myex = ex;
+                }
+            }
+
+            //若3次嘗試存取失敗, 直接拋出Exception
+            throw new MvaException("PLC read fail over 3 times", myex);
+        }
 
         public int ReadInt32(string varName) { return Convert.ToInt32(this.Read(varName)); }
         public void WriteIn32(string varName, int data) { this.Write(varName, data); }
@@ -130,7 +157,7 @@ namespace MvAssistant.v0_2.DeviceDrive.OmronPlc
                 tStreamWriter = new StreamWriter(tFilePath, true, System.Text.UTF8Encoding.UTF8);
                 tStreamWriter.WriteLine(pMessage);
             }
-            catch (Exception ) { }
+            catch (Exception) { }
             finally
             {
                 if (tStreamWriter != null) tStreamWriter.Close();
