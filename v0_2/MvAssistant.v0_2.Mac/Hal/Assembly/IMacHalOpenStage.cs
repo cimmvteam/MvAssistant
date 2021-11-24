@@ -10,6 +10,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     {
         IMacHalPlcOpenStage Plc { get; }
 
+
+
+        #region PLC
+
         /// <summary> 將Slider開啟到Open位置，讓Mask Transfer可以入侵 </summary>
         /// <returns></returns>
         string Open();
@@ -59,11 +63,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit);
 
         /// <summary> 讀取各種大小Particle的數量限制設定，大Particle、中Particle、小Particle的數量 </summary>
-        /// <returns></returns>
         Tuple<int, int, int> ReadParticleCntLimit();
 
         /// <summary> 讀取各種大小Particle的數量，大Particle、中Particle、小Particle的數量 </summary>
-        /// <returns></returns>
         Tuple<int, int, int> ReadParticleCount();
 
         int ReadBoxTypeVar();
@@ -73,71 +75,57 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary> 發送入侵訊號，確認Robot能否入侵 </summary>
         /// <param name="isBTIntrude">BT Robot是否要入侵</param>
         /// <param name="isMTIntrude">MT Robot是否要入侵</param>
-        /// <returns></returns>
         Tuple<bool, bool> SetRobotIntrude(bool? isBTIntrude, bool? isMTIntrude);
 
         /// <summary> 讀取目前是否被Robot侵入 </summary>
-        /// <returns></returns>
         Tuple<bool, bool> ReadRobotIntruded();
 
         /// <summary> 讀取開盒夾爪狀態 </summary>
-        /// <returns></returns>
         string ReadClampStatus();
 
         /// <summary> 讀取Stage上固定盒子位置的夾具位置 </summary>
-        /// <returns></returns>
         Tuple<long, long> ReadSortClampPosition();
 
         /// <summary> 讀取Slider的位置 </summary>
-        /// <returns></returns>
         Tuple<long, long> ReadSliderPosition();
 
         /// <summary> 讀取盒蓋位置 </summary>
-        /// <returns></returns>
         Tuple<double, double> ReadCoverPos();
 
         /// <summary> 讀取盒蓋開闔， Open ; Close </summary>
-        /// <returns></returns>
         Tuple<bool, bool> ReadCoverSensor();
 
         /// <summary> 讀取盒子是否變形 </summary>
-        /// <returns></returns>
         double ReadBoxDeform();
 
         /// <summary> 讀取平台上的重量 </summary>
-        /// <returns></returns>
         double ReadWeightOnStage();
 
         /// <summary> 讀取是否有Box </summary>
-        /// <returns></returns>
         bool ReadBoxExist();
 
+        #endregion
+
+
+        #region Light / Camera
+
         void LightForSideBarDfsSetValue(int value);
-
         void LightForTopBarDfsSetValue(int value);
-
         void LightForFrontBarDfsSetValue(int value);
-
         int ReadLightForSideBarDfs();
-
         int ReadLightForTopBarDfs();
-
         int ReadLightForFrontBarDfs();
 
         Bitmap Camera_Top_Cap();
-
         void Camera_Top_CapToSave(string SavePath, string FileType);
-
         Bitmap Camera_Side_Cap();
-
         void Camera_Side_CapToSave(string SavePath, string FileType);
-
         Bitmap Camera_Left_Cap();
-
         void Camera_Left_CapToSave(string SavePath, string FileType);
-
         Bitmap Camera_Right_Cap();
-
         void Camera_Right_CapToSave(string SavePath, string FileType);
+
+        #endregion
+
     }
 }

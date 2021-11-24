@@ -29,10 +29,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #endregion Device Components
 
 
-        /// <summary>
-        /// 開盒
-        /// </summary>
-        /// <returns></returns>
+
+        #region PLC
+
+        /// <summary> 開盒 </summary>
         public string Open()
         {
             string result = "";
@@ -209,6 +209,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         #endregion
 
+        #endregion
+
+
+
+        #region Light / Camera
+
         public void LightForSideBarDfsSetValue(int value)
         {
             LightBarDfsSide.TurnOn(value);
@@ -272,6 +278,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             CameraRight.ShotToSaveImage(SavePath, FileType);
         }
+
+        #endregion
 
     }
 }
