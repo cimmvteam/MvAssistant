@@ -1,4 +1,5 @@
 ﻿using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,8 +10,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("8E7C81C2-3074-43AA-867E-E3F3700668E0")]
     public interface IMacHalLoadPort : IMacHalAssembly
     {
+        IMacHalPlcLoadPort Plc { get; }
+
         /// <summary>Load Port 單元 (執行 Dock/Undock 的單元)</summary>
-        IMacHalLoadPortUnit LoadPortUnit{ get; }
+        IMacHalLoadPortUnit LoadPortUnit { get; }
 
         string Dock();
 
@@ -65,6 +68,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <returns>True：遮斷、False：Normal</returns>
         bool ReadLP_Light_Curtain();
 
-        
+
     }
 }

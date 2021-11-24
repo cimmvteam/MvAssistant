@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -10,6 +12,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("7380FBCE-0552-4558-991A-771328870B5A")]
     public class MacHalEqpFake : MacHalAssemblyBase, IMacHalEqp
     {
+        public IMacHalPlcEqp plc_01 { get { return (IMacHalPlcEqp)this.GetHalDevice(EnumMacDeviceId.eqp_plc_01); } }
         public string CoverFanCtrl(uint FanID, uint WindSpeed)
         {
             return "OK";

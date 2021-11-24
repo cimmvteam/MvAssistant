@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public interface IMacHalPlcCleanCh : IMacHalComponent
+    public interface IMacHalPlcCleanCh : IMacHalPlcBase
     {
         string GasValveBlow(uint BlowTime);
 

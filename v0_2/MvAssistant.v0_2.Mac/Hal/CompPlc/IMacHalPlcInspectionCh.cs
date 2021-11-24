@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public interface IMacHalPlcInspectionCh : IMacHalComponent
+    public interface IMacHalPlcInspectionCh : IMacHalPlcBase
     {
         string XYPosition(double? X_Position, double? Y_Position);
 

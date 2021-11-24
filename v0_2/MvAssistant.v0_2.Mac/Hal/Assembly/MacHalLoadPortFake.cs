@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using MvAssistant.v0_2.Mac.Hal.CompLoadPort;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 using MvAssistant.v0_2.Mac.Manifest;
 
 namespace MvAssistant.v0_2.Mac.Hal.Assembly
@@ -13,6 +14,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("24DF35C8-AF37-4103-BE97-770294647EEF")]
     public class MacHalLoadPortFake : MacHalAssemblyBase, IMacHalLoadPort
     {
+        public IMacHalPlcLoadPort Plc { get { return (IMacHalPlcLoadPort)this.GetHalDevice(EnumMacDeviceId.loadport_plc); } }
         public IMacHalLoadPortUnit LoadPortUnit
         {
             get

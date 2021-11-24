@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public interface IMacHalPlcEqp : IMacHalComponent
+    public interface IMacHalPlcEqp : IMacHalPlcBase
     {
         void SetSignalTower(bool Red, bool Orange, bool Blue);
 

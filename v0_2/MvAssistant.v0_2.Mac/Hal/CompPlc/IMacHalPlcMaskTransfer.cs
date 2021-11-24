@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public interface IMacHalPlcMaskTransfer : IMacHalComponent
+    public interface IMacHalPlcMaskTransfer : IMacHalPlcBase
     {
 
         string Clamp(uint MaskType);

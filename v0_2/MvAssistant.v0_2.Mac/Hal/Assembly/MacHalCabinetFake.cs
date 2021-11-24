@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 using MvAssistant.v0_2.Mac.Manifest;
 
 namespace MvAssistant.v0_2.Mac.Hal.Assembly
@@ -12,6 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("19A85428-6B91-400C-9347-8F72159C576B")]
     public class MacHalCabinetFake : MacHalAssemblyBase, IMacHalCabinet
     {
+        public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(EnumMacDeviceId.cabinet_plc); } }
         public IMacHalDrawer MacHalDrawer
         {
             get

@@ -1,5 +1,6 @@
 ﻿using MvAssistant.v0_2.DeviceDrive.KjMachineDrawer;
 using MvAssistant.v0_2.Mac.Hal.CompDrawer;
+using MvAssistant.v0_2.Mac.Hal.CompPlc;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -9,6 +10,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("002CE873-5909-4874-96BF-6CD3971DAB39")]
     public interface IMacHalCabinet : IMacHalAssembly
     {
+        IMacHalPlcCabinet Plc { get; }
         IMacHalDrawer MacHalDrawer { get; }
 
         /** To Drop

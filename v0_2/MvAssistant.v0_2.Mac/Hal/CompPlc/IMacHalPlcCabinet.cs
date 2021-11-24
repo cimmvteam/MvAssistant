@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public interface IMacHalPlcCabinet : IMacHalComponent
+    public interface IMacHalPlcCabinet : IMacHalPlcBase
     {
 
         #region Set Parameter

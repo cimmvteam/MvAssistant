@@ -1,6 +1,7 @@
 ﻿using MvAssistant.v0_2.DeviceDrive.OmronPlc;
 using MvAssistant.v0_2.Threading;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,25 +15,21 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
     {
 
 
-        public MvaOmronPlcLdd PlcLdd;
+        public MacHalPlcBoxTransfer BoxRobot;
+        public MacHalPlcCabinet Cabinet;
+        public MacHalPlcCleanCh CleanCh;
+        public MacHalPlcInspectionCh InspCh;
+        public MacHalPlcLoadPort LoadPort;
+        public MacHalPlcMaskTransfer MaskRobot;
+        public MacHalPlcOpenStage OpenStage;
         public string PlcIp;
+        public MvaOmronPlcLdd PlcLdd;
         public int PlcPortId;
+        public MacHalPlcEqp Universal;
         bool m_isConnected = false;
 
         MvaTask m_keepConnection;
 
-
-        public bool IsConnectedByHandShake { get { return m_isConnected; } }
-        public bool IsConnected { get { return PlcLdd.IsConnected(); } }
-
-        public MacHalPlcInspectionCh InspCh;
-        public MacHalPlcBoxTransfer BoxRobot;
-        public MacHalPlcMaskTransfer MaskRobot;
-        public MacHalPlcOpenStage OpenStage;
-        public MacHalPlcCabinet Cabinet;
-        public MacHalPlcCleanCh CleanCh;
-        public MacHalPlcLoadPort LoadPort;
-        public MacHalPlcEqp Universal;
 
         public MacHalPlcContext()
         {
@@ -45,11 +42,41 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             this.LoadPort = new MacHalPlcLoadPort(this);
             this.Universal = new MacHalPlcEqp(this);
         }
+
         ~MacHalPlcContext() { this.Dispose(false); }
 
+        public bool IsConnected { get { return PlcLdd.IsConnected(); } }
+        public bool IsConnectedByHandShake { get { return m_isConnected; } }
 
 
+        #region Communication
 
+        public void Close()
+        {
+            if (this.PlcLdd != null)
+            {
+                using (var obj = this.PlcLdd)
+                {
+                    obj.NLPLC_ClosePort();
+                    this.PlcLdd = null;
+                }
+            }
+
+            if (this.m_keepConnection != null)
+            {
+                using (var obj = this.m_keepConnection)
+                {
+                    obj.Cancel();
+                    SpinWait.SpinUntil(() => obj.IsEnd(), 1000);
+                }
+                this.m_keepConnection = null;
+            }
+        }
+
+        public void ClosePort()
+        {
+            this.PlcLdd.NLPLC_ClosePort();
+        }
 
         public void Connect(string ip = null, int? port = null)
         {
@@ -58,27 +85,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
             this.PlcLdd = new MvaOmronPlcLdd();
             this.PlcLdd.NLPLC_Initial(this.PlcIp, this.PlcPortId);
-        }
-
-
-        public T Read<T>(MacHalPlcEnumVariable plcvar)
-        {
-            var obj = this.PlcLdd.Read(plcvar.ToString());
-
-            return (T)obj;
-        }
-        public void Write(MacHalPlcEnumVariable plcvar, object data)
-        {
-            this.PlcLdd.Write(plcvar.ToString(), data);
-        }
-
-
-        void LockAssign<T>(ref T prop, T val)
-        {
-            lock (this)
-            {
-                prop = val;
-            }
         }
 
         public int StartAsyn()
@@ -113,47 +119,49 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
             return 0;
         }
-
-        public void Close()
+        void LockAssign<T>(ref T prop, T val)
         {
-            if (this.PlcLdd != null)
+            lock (this)
             {
-                using (var obj = this.PlcLdd)
-                {
-                    obj.NLPLC_ClosePort();
-                    this.PlcLdd = null;
-                }
-            }
-
-            if (this.m_keepConnection != null)
-            {
-                using (var obj = this.m_keepConnection)
-                {
-                    obj.Cancel();
-                    SpinWait.SpinUntil(() => obj.IsEnd(), 1000);
-                }
-                this.m_keepConnection = null;
+                prop = val;
             }
         }
+        #endregion
 
-        public void ClosePort()
+        #region Access
+
+        public T Read<T>(MacHalPlcEnumVariable plcvar)
         {
-            this.PlcLdd.NLPLC_ClosePort();
+            var obj = this.PlcLdd.Read(plcvar.ToString());
+            return (T)obj;
+        }
+        public Object Read(MacHalPlcEnumVariable plcvar)
+        {
+            var obj = this.PlcLdd.Read(plcvar.ToString());
+            return obj;
         }
 
-        //信號燈
-        public void SetSignalTower(bool Red, bool Orange, bool Blue)
+        public Dictionary<MacHalPlcEnumVariable, Object> ReadMulti(IEnumerable<MacHalPlcEnumVariable> varNames)
         {
-            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Red, Red);
-            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Orange, Orange);
-            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Blue, Blue);
+            var names = varNames.Select(x => x.ToString()).ToArray();
+            var table = this.PlcLdd.ReadMulti(names);
+            var rtn = new Dictionary<MacHalPlcEnumVariable, Object>();
+            foreach (DictionaryEntry kv in table)
+            {
+                var key = MvaUtil.EnumParse<MacHalPlcEnumVariable>(kv.Key as String);
+                rtn[key] = kv.Value;
+            }
+            return rtn;
+        }
+        public void Write(MacHalPlcEnumVariable plcvar, object data)
+        {
+            this.PlcLdd.Write(plcvar.ToString(), data);
         }
 
-        //蜂鳴器
-        public void SetBuzzer(uint BuzzerType)
-        {
-            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Buzzer, BuzzerType);
-        }
+        #endregion
+
+
+        #region EQP Comm
 
         /// <summary>
         /// A08外罩風扇編號、風速控制
@@ -201,6 +209,31 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             return Result;
         }
 
+        /// <summary>
+        /// 當Assembly出錯時，針對部件下緊急停止訊號
+        /// </summary>
+        /// <param name="BT_EMS">Box Transfer是否緊急停止</param>
+        /// <param name="RT_EMS">Mask Transfer是否緊急停止</param>
+        /// <param name="OS_EMS">Open Stage是否緊急停止</param>
+        /// <param name="IC_EMS">Inspection Chamber是否緊急停止</param>
+        public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
+        {
+            this.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, RT_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
+            this.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
+            Thread.Sleep(1000);
+            if (this.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
+                throw new MvaException("PLC did not get 'Box Transfer EMS' alarm signal");
+            else if (this.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != RT_EMS)
+                throw new MvaException("PLC did not get 'Mask Transfer EMS' alarm signal");
+            else if (this.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
+                throw new MvaException("PLC did not get 'Open Stage EMS' alarm signal");
+            else if (this.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_EMS_Reply) != IC_EMS)
+                throw new MvaException("PLC did not get 'Inspection Chamber EMS' alarm signal");
+
+        }
+
         public List<int> ReadCoverFanSpeed()
         {
             List<int> FanSpeedList = new List<int>();
@@ -240,45 +273,28 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             }
         }
 
-        /// <summary>
-        /// 當Assembly出錯時，針對部件下緊急停止訊號
-        /// </summary>
-        /// <param name="BT_EMS">Box Transfer是否緊急停止</param>
-        /// <param name="RT_EMS">Mask Transfer是否緊急停止</param>
-        /// <param name="OS_EMS">Open Stage是否緊急停止</param>
-        /// <param name="IC_EMS">Inspection Chamber是否緊急停止</param>
-        public void EMSAlarm(bool BT_EMS, bool RT_EMS, bool OS_EMS, bool IC_EMS)
+        //蜂鳴器
+        public void SetBuzzer(uint BuzzerType)
         {
-            this.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
-            this.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, RT_EMS);
-            this.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
-            this.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
-            Thread.Sleep(1000);
-            if (this.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
-                throw new MvaException("PLC did not get 'Box Transfer EMS' alarm signal");
-            else if (this.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != RT_EMS)
-                throw new MvaException("PLC did not get 'Mask Transfer EMS' alarm signal");
-            else if (this.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
-                throw new MvaException("PLC did not get 'Open Stage EMS' alarm signal");
-            else if (this.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_EMS_Reply) != IC_EMS)
-                throw new MvaException("PLC did not get 'Inspection Chamber EMS' alarm signal");
-
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Buzzer, BuzzerType);
         }
+
+        //信號燈
+        public void SetSignalTower(bool Red, bool Orange, bool Blue)
+        {
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Red, Red);
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Orange, Orange);
+            this.Write(MacHalPlcEnumVariable.PC_TO_DR_Blue, Blue);
+        }
+        #endregion
+
+
+
 
         #region PLC狀態訊號
-        public bool ReadPowerON()
+        public bool ReadBCP_Door()
         {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_PowerON);
-        }
-
-        public bool ReadBCP_Maintenance()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Maintenance);
-        }
-
-        public bool ReadCB_Maintenance()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Door);
         }
 
         public Tuple<bool, bool, bool, bool, bool> ReadBCP_EMO()
@@ -292,6 +308,22 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 );
         }
 
+        public bool ReadBCP_Maintenance()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Maintenance);
+        }
+
+        public bool ReadBCP_Smoke()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Smoke);
+        }
+
+        public bool ReadBT_FrontLimitSenser()
+        { return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_FLS); }
+
+        public bool ReadBT_RearLimitSenser()
+        { return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_RLS); }
+
         public Tuple<bool, bool, bool> ReadCB_EMO()
         {
             return new Tuple<bool, bool, bool>(
@@ -301,34 +333,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 );
         }
 
-        public bool ReadLP1_EMO()
+        public bool ReadCB_Maintenance()
         {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_EMO);
-        }
-
-        public bool ReadLP2_EMO()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_EMO);
-        }
-
-        public bool ReadBCP_Door()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Door);
-        }
-
-        public bool ReadLP1_Door()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_Door);
-        }
-
-        public bool ReadLP2_Door()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_Door);
-        }
-
-        public bool ReadBCP_Smoke()
-        {
-            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Smoke);
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
         }
 
         public bool ReadLP_Light_Curtain()
@@ -336,30 +343,44 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
         }
 
-        public bool ReadBT_FrontLimitSenser()
-        { return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_FLS); }
+        public bool ReadLP1_Door()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_Door);
+        }
 
-        public bool ReadBT_RearLimitSenser()
-        { return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BT_RLS); }
+        public bool ReadLP1_EMO()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_EMO);
+        }
+
+        public bool ReadLP2_Door()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_Door);
+        }
+
+        public bool ReadLP2_EMO()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_EMO);
+        }
+
+        public bool ReadPowerON()
+        {
+            return this.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_PowerON);
+        }
         #endregion
 
 
 
 
         #region IDisposable
-
-
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
-
-
         // Public implementation of Dispose pattern callable by consumers.
         public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
@@ -379,29 +400,21 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
             disposed = true;
         }
-
-
         protected virtual void DisposeSelf()
         {
             this.Close();//若有 Close 呼叫 Close, 若沒有就呼叫 DisposeSelf
         }
-
-
-
         #endregion
 
 
 
         //=== Static ===============================================================================================
 
-
         #region Singleton Mapper
         /// <summary>
         /// Design Pattern - Singleton Pattern
         /// </summary>
         static Dictionary<string, MacHalPlcContext> m_mapper = new Dictionary<string, MacHalPlcContext>();
-
-
         public static MacHalPlcContext Get(string ip, string portid) { return Get(ip, Convert.ToInt32(portid)); }
         public static MacHalPlcContext Get(string ip, int portid)
         {
@@ -415,9 +428,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             rtn.PlcPortId = portid;
             return rtn;
         }
-
-
-
         #endregion
 
 

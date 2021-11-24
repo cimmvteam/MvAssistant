@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -7,6 +8,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("BE05B67D-DB09-4358-81C2-D8DC9F76208A")]
     public interface IMacHalOpenStage : IMacHalAssembly
     {
+        IMacHalPlcOpenStage Plc { get; }
+
         /// <summary> 將Slider開啟到Open位置，讓Mask Transfer可以入侵 </summary>
         /// <returns></returns>
         string Open();

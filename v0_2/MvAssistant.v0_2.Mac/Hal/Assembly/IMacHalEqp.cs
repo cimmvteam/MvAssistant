@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -7,6 +8,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("85C61EE9-7989-48D9-B5DC-9A93E7146863")]
     public interface IMacHalEqp : IMacHalAssembly
     {
+        IMacHalPlcEqp plc_01 { get; }
+
         /// <summary> 設備訊號燈設定 </summary>
         /// <param name="Red"></param>
         /// <param name="Orange"></param>

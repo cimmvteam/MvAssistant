@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -7,6 +8,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("42CBD958-4DB6-4C5A-852C-3265A3B7F794")]
     public interface IMacHalInspectionCh : IMacHalAssembly
     {
+        IMacHalPlcInspectionCh Plc { get; }
+
         Bitmap Camera_SideDfs_Cap();
 
         void Camera_SideDfs_CapToSave(string SavePath, string FileType);

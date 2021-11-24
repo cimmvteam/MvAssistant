@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("18DB892D-D5A9-42B7-B101-CA70EF238753")]
     public class MacHalInspectionChFake : MacHalAssemblyBase, IMacHalInspectionCh
     {
+        public IMacHalPlcInspectionCh Plc { get { return (IMacHalPlcInspectionCh)this.GetHalDevice(EnumMacDeviceId.inspectionch_plc); } }
         public Bitmap Camera_SideDfs_Cap()
         {
             Bitmap bmp = null;

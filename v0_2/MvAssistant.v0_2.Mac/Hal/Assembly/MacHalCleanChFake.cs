@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Manifest;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [Guid("C19F5058-1CE7-47AD-810C-418746779F6A")]
     public class MacHalCleanChFake : MacHalAssemblyBase, IMacHalCleanCh
     {
+        public IMacHalPlcCleanCh Plc { get { return (IMacHalPlcCleanCh)this.GetHalDevice(EnumMacDeviceId.cleanch_plc); } }
         public Bitmap Camera_Cap()
         {
             Bitmap bmp = null;

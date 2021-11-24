@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -7,6 +8,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("D86FA618-FDA6-4B8C-B8D2-E1FBF5F824A6")]
     public interface IMacHalCleanCh : IMacHalAssembly
     {
+        IMacHalPlcCleanCh Plc { get; }
+
         Bitmap Camera_Cap();
 
         void Camera_Insp_CapToSave(string SavePath, string FileType);

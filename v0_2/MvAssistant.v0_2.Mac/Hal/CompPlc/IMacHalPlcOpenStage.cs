@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public interface IMacHalPlcOpenStage : IMacHalComponent
+    public interface IMacHalPlcOpenStage : IMacHalPlcBase
     {
         string Open();
 

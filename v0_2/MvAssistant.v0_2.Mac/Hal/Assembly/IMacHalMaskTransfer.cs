@@ -1,4 +1,5 @@
-﻿using MvAssistant.v0_2.Mac.Hal.CompRobot;
+﻿using MvAssistant.v0_2.Mac.Hal.CompPlc;
+using MvAssistant.v0_2.Mac.Hal.CompRobot;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -8,6 +9,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     [GuidAttribute("6412D4A0-41F3-4659-B12B-7A8BF9399BAE")]
     public interface IMacHalMaskTransfer : IMacHalAssembly
     {
+        IMacHalPlcMaskTransfer Plc { get; }
+
         /// <summary> 讀取檔案的路徑點位 </summary>
         /// <param name="PathFileLocation"></param>
         /// <returns></returns>
