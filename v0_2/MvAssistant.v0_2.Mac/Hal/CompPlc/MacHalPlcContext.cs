@@ -15,12 +15,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
     {
 
 
-        public MacHalPlcBoxTransfer BoxRobot;
+        public MacHalPlcBoxTransfer BoxTransfer;
         public MacHalPlcCabinet Cabinet;
         public MacHalPlcCleanCh CleanCh;
-        public MacHalPlcInspectionCh InspCh;
+        public MacHalPlcInspectionCh InspectionCh;
         public MacHalPlcLoadPort LoadPort;
-        public MacHalPlcMaskTransfer MaskRobot;
+        public MacHalPlcMaskTransfer MaskTransfer;
         public MacHalPlcOpenStage OpenStage;
         public string PlcIp;
         public MvaOmronPlcLdd PlcLdd;
@@ -33,9 +33,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         public MacHalPlcContext()
         {
-            this.InspCh = new MacHalPlcInspectionCh(this);
-            this.BoxRobot = new MacHalPlcBoxTransfer(this);
-            this.MaskRobot = new MacHalPlcMaskTransfer(this);
+            this.InspectionCh = new MacHalPlcInspectionCh(this);
+            this.BoxTransfer = new MacHalPlcBoxTransfer(this);
+            this.MaskTransfer = new MacHalPlcMaskTransfer(this);
             this.OpenStage = new MacHalPlcOpenStage(this);
             this.Cabinet = new MacHalPlcCabinet(this);
             this.CleanCh = new MacHalPlcCleanCh(this);

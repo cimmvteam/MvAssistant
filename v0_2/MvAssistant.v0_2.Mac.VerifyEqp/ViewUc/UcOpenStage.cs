@@ -36,24 +36,24 @@ namespace MvAssistantMacVerifyEqp.ViewUc
                       {
                           try
                           {
-                              Console.WriteLine(plc.InspCh.SetRobotIntrude(false));
-                              plc.InspCh.SetSpeedVar(100, 50, 500);
-                              Console.WriteLine(plc.InspCh.Initial());
+                              Console.WriteLine(plc.InspectionCh.SetRobotIntrude(false));
+                              plc.InspectionCh.SetSpeedVar(100, 50, 500);
+                              Console.WriteLine(plc.InspectionCh.Initial());
 
                               while (boolTestStop == false)
                               {
-                                  Console.WriteLine(plc.InspCh.XYPosition(200, 10));//X:300~-10,Y:250~-10  左下
+                                  Console.WriteLine(plc.InspectionCh.XYPosition(200, 10));//X:300~-10,Y:250~-10  左下
                                   if (boolTestStop) break;
-                                  Console.WriteLine(plc.InspCh.WPosition(52));//0~359
+                                  Console.WriteLine(plc.InspectionCh.WPosition(52));//0~359
                                   if (boolTestStop) break;
-                                  Console.WriteLine(plc.InspCh.XYPosition(10, 10));//X:300~-10,Y:250~-10  右下
+                                  Console.WriteLine(plc.InspectionCh.XYPosition(10, 10));//X:300~-10,Y:250~-10  右下
                                   if (boolTestStop) break;
-                                  Console.WriteLine(plc.InspCh.XYPosition(10, 150));//X:300~-10,Y:250~-10  右上
+                                  Console.WriteLine(plc.InspectionCh.XYPosition(10, 150));//X:300~-10,Y:250~-10  右上
                                   if (boolTestStop) break;
-                                  Console.WriteLine(plc.InspCh.XYPosition(200, 150));//X:300~-10,Y:250~-10  左上
+                                  Console.WriteLine(plc.InspectionCh.XYPosition(200, 150));//X:300~-10,Y:250~-10  左上
                                   if (boolTestStop) break;
-                                  Console.WriteLine(plc.InspCh.ZPosition(-10));//1~-85
-                                  Console.WriteLine(plc.InspCh.ZPosition(-50));//1~-85
+                                  Console.WriteLine(plc.InspectionCh.ZPosition(-10));//1~-85
+                                  Console.WriteLine(plc.InspectionCh.ZPosition(-50));//1~-85
                                   if (boolTestStop) break;
                               }
                           }

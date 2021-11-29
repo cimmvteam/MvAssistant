@@ -15,11 +15,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.MaskRobot.SetSpeedVar(10,null);
-                plc.MaskRobot.SetStaticElecLimit(20, 10);
-                plc.MaskRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
-                plc.MaskRobot.SetClampTactileLim(15,10);
-                plc.MaskRobot.SetLevelLimit(15, 10, 5);
+                plc.MaskTransfer.SetSpeedVar(10,null);
+                plc.MaskTransfer.SetStaticElecLimit(20, 10);
+                plc.MaskTransfer.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
+                plc.MaskTransfer.SetClampTactileLim(15,10);
+                plc.MaskTransfer.SetLevelLimit(15, 10, 5);
             }
         }
 
@@ -29,11 +29,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.MaskRobot.ReadSpeedVar());
-                Console.WriteLine(plc.MaskRobot.ReadStaticElecLimit());
-                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensorUpperLimit());
-                Console.WriteLine(plc.MaskRobot.ReadClampTactileLimit());
-                Console.WriteLine(plc.MaskRobot.ReadLevelLimit());
+                Console.WriteLine(plc.MaskTransfer.ReadSpeedVar());
+                Console.WriteLine(plc.MaskTransfer.ReadStaticElecLimit());
+                Console.WriteLine(plc.MaskTransfer.ReadSixAxisSensorUpperLimit());
+                Console.WriteLine(plc.MaskTransfer.ReadClampTactileLimit());
+                Console.WriteLine(plc.MaskTransfer.ReadLevelLimit());
             }
         }
 
@@ -43,15 +43,15 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.MaskRobot.ReadStaticElec());
-                Console.WriteLine(plc.MaskRobot.ReadClampGripPos());
-                Console.WriteLine(plc.MaskRobot.ReadCCDSpinDegree());
-                Console.WriteLine(plc.MaskRobot.ReadSixAxisSensor());
-                Console.WriteLine(plc.MaskRobot.ReadClampTactile_FrontSide());
-                Console.WriteLine(plc.MaskRobot.ReadClampTactile_BehindSide());
-                Console.WriteLine(plc.MaskRobot.ReadClampTactile_LeftSide());
-                Console.WriteLine(plc.MaskRobot.ReadClampTactile_RightSide());
-                Console.WriteLine(plc.MaskRobot.ReadLevel());
+                Console.WriteLine(plc.MaskTransfer.ReadStaticElec());
+                Console.WriteLine(plc.MaskTransfer.ReadClampGripPos());
+                Console.WriteLine(plc.MaskTransfer.ReadCCDSpinDegree());
+                Console.WriteLine(plc.MaskTransfer.ReadSixAxisSensor());
+                Console.WriteLine(plc.MaskTransfer.ReadClampTactile_FrontSide());
+                Console.WriteLine(plc.MaskTransfer.ReadClampTactile_BehindSide());
+                Console.WriteLine(plc.MaskTransfer.ReadClampTactile_LeftSide());
+                Console.WriteLine(plc.MaskTransfer.ReadClampTactile_RightSide());
+                Console.WriteLine(plc.MaskTransfer.ReadLevel());
             }
         }
 
@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.MaskRobot.ReadMTRobotStatus());
+                Console.WriteLine(plc.MaskTransfer.ReadMTRobotStatus());
             }
         }
 
@@ -71,13 +71,13 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.MaskRobot.RobotMoving(true);
-                Console.WriteLine(plc.MaskRobot.Initial());
-                Console.WriteLine(plc.MaskRobot.Clamp(0));
-                Console.WriteLine(plc.MaskRobot.Unclamp());
-                Console.WriteLine(plc.MaskRobot.ReadHandInspection()); //OK
-                plc.MaskRobot.CCDSpin(10);
-                plc.MaskRobot.RobotMoving(false);
+                plc.MaskTransfer.RobotMoving(true);
+                Console.WriteLine(plc.MaskTransfer.Initial());
+                Console.WriteLine(plc.MaskTransfer.Clamp(0));
+                Console.WriteLine(plc.MaskTransfer.Unclamp());
+                Console.WriteLine(plc.MaskTransfer.ReadHandInspection()); //OK
+                plc.MaskTransfer.CCDSpin(10);
+                plc.MaskTransfer.RobotMoving(false);
             }
         }
     }

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
 
+
     [Guid("22421239-9CEA-4050-AE0C-FF997A872FED")]
     public abstract class MacHalPlcBase : MacHalComponentBase, IMacHalPlcBase
     {

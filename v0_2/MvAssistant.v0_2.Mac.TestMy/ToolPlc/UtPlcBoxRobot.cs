@@ -48,12 +48,12 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.BoxRobot.SetSpeedVar(10); //Speed：1~100mm/s
-                plc.BoxRobot.SetHandSpaceLimit(10, 20);
-                plc.BoxRobot.SetClampToCabinetSpaceLimit(10);
-                plc.BoxRobot.SetLevelSensorLimit(10, 15);
-                plc.BoxRobot.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
-                Console.WriteLine(plc.BoxRobot.LevelReset());
+                plc.BoxTransfer.SetSpeedVar(10); //Speed：1~100mm/s
+                plc.BoxTransfer.SetHandSpaceLimit(10, 20);
+                plc.BoxTransfer.SetClampToCabinetSpaceLimit(10);
+                plc.BoxTransfer.SetLevelSensorLimit(10, 15);
+                plc.BoxTransfer.SetSixAxisSensorUpperLimit(10, 20, 30, 10, 10, 10);
+                Console.WriteLine(plc.BoxTransfer.LevelReset());
             }
         }
 
@@ -63,11 +63,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.BoxRobot.ReadSpeedVar());
-                Console.WriteLine(plc.BoxRobot.ReadHandSpaceLimitSetting());
-                Console.WriteLine(plc.BoxRobot.ReadClampToCabinetSpaceLimitSetting());
-                Console.WriteLine(plc.BoxRobot.ReadLevelSensorLimitSetting());
-                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensorUpperLimit());
+                Console.WriteLine(plc.BoxTransfer.ReadSpeedVar());
+                Console.WriteLine(plc.BoxTransfer.ReadHandSpaceLimitSetting());
+                Console.WriteLine(plc.BoxTransfer.ReadClampToCabinetSpaceLimitSetting());
+                Console.WriteLine(plc.BoxTransfer.ReadLevelSensorLimitSetting());
+                Console.WriteLine(plc.BoxTransfer.ReadSixAxisSensorUpperLimit());
             }
         }
 
@@ -77,13 +77,13 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.BoxRobot.ReadHandPos());
-                Console.WriteLine(plc.BoxRobot.ReadBoxDetect());
-                Console.WriteLine(plc.BoxRobot.ReadHandPosByLSR());
-                Console.WriteLine(plc.BoxRobot.ReadClampDistance());
-                Console.WriteLine(plc.BoxRobot.ReadLevelSensor());
-                Console.WriteLine(plc.BoxRobot.ReadSixAxisSensor());
-                Console.WriteLine(plc.BoxRobot.ReadHandVacuum());
+                Console.WriteLine(plc.BoxTransfer.ReadHandPos());
+                Console.WriteLine(plc.BoxTransfer.ReadBoxDetect());
+                Console.WriteLine(plc.BoxTransfer.ReadHandPosByLSR());
+                Console.WriteLine(plc.BoxTransfer.ReadClampDistance());
+                Console.WriteLine(plc.BoxTransfer.ReadLevelSensor());
+                Console.WriteLine(plc.BoxTransfer.ReadSixAxisSensor());
+                Console.WriteLine(plc.BoxTransfer.ReadHandVacuum());
             }
         }
 
@@ -93,7 +93,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.BoxRobot.ReadBTRobotStatus());
+                Console.WriteLine(plc.BoxTransfer.ReadBTRobotStatus());
             }
         }
 
@@ -103,11 +103,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.BoxRobot.RobotMoving(true);
-                Console.WriteLine(plc.BoxRobot.Initial());
-                Console.WriteLine(plc.BoxRobot.Clamp(1));
-                Console.WriteLine(plc.BoxRobot.Unclamp());
-                plc.BoxRobot.RobotMoving(false);
+                plc.BoxTransfer.RobotMoving(true);
+                Console.WriteLine(plc.BoxTransfer.Initial());
+                Console.WriteLine(plc.BoxTransfer.Clamp(1));
+                Console.WriteLine(plc.BoxTransfer.Unclamp());
+                plc.BoxTransfer.RobotMoving(false);
             }
         }
     }

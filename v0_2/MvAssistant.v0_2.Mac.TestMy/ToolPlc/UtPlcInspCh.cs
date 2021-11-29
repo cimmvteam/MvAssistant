@@ -44,9 +44,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                plc.InspCh.SetSpeedVar(10, 10, 10);
-                plc.InspCh.SetRobotPosLeftRightLimit(-10, 10);
-                plc.InspCh.SetRobotPosUpDownLimit(10, 0);
+                plc.InspectionCh.SetSpeedVar(10, 10, 10);
+                plc.InspectionCh.SetRobotPosLeftRightLimit(-10, 10);
+                plc.InspectionCh.SetRobotPosUpDownLimit(10, 0);
             }
         }
 
@@ -56,9 +56,9 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.InspCh.ReadSpeedVar());
-                Console.WriteLine(plc.InspCh.ReadRobotPosLeftRightLimit());
-                Console.WriteLine(plc.InspCh.ReadRobotPosUpDownLimit());
+                Console.WriteLine(plc.InspectionCh.ReadSpeedVar());
+                Console.WriteLine(plc.InspectionCh.ReadRobotPosLeftRightLimit());
+                Console.WriteLine(plc.InspectionCh.ReadRobotPosUpDownLimit());
             }
         }
 
@@ -68,11 +68,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.InspCh.ReadXYPosition());
-                Console.WriteLine(plc.InspCh.ReadZPosition());
-                Console.WriteLine(plc.InspCh.ReadWPosition());
-                Console.WriteLine(plc.InspCh.ReadRobotPosLeftRight());
-                Console.WriteLine(plc.InspCh.ReadRobotPosUpDown());
+                Console.WriteLine(plc.InspectionCh.ReadXYPosition());
+                Console.WriteLine(plc.InspectionCh.ReadZPosition());
+                Console.WriteLine(plc.InspectionCh.ReadWPosition());
+                Console.WriteLine(plc.InspectionCh.ReadRobotPosLeftRight());
+                Console.WriteLine(plc.InspectionCh.ReadRobotPosUpDown());
             }
         }
 
@@ -82,7 +82,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.InspCh.ReadInspChStatus());
+                Console.WriteLine(plc.InspectionCh.ReadInspChStatus());
             }
         }
 
@@ -92,11 +92,11 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.InspCh.Initial());
-                Console.WriteLine(plc.InspCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
-                Console.WriteLine(plc.InspCh.ZPosition(-30));//1~-85
-                Console.WriteLine(plc.InspCh.WPosition(20));//0~359
-                Console.WriteLine(plc.InspCh.SetRobotIntrude(true));
+                Console.WriteLine(plc.InspectionCh.Initial());
+                Console.WriteLine(plc.InspectionCh.XYPosition(20, 10));//X:300~-10,Y:250~-10
+                Console.WriteLine(plc.InspectionCh.ZPosition(-30));//1~-85
+                Console.WriteLine(plc.InspectionCh.WPosition(20));//0~359
+                Console.WriteLine(plc.InspectionCh.SetRobotIntrude(true));
             }
         }
     }
