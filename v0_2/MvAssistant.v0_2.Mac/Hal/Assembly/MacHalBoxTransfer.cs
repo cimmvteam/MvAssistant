@@ -134,7 +134,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                     throw new ArgumentException("Position Name is not in Path csv file!!");
 
             }
-            catch (Exception )
+            catch (Exception)
             {
 
             }
@@ -446,9 +446,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 if (CurrentPosInfo.x <= TargetPos.X + 100 && CurrentPosInfo.x >= TargetPos.X - 100
                     && CurrentPosInfo.y <= TargetPos.Y + 100 && CurrentPosInfo.y >= TargetPos.Y - 100
                     && CurrentPosInfo.z <= TargetPos.Z + 100 && CurrentPosInfo.z >= TargetPos.Z - 100
-                    && CurrentPosInfo.w <= TargetPos.W + 100 && CurrentPosInfo.w >= TargetPos.W - 100
-                    && CurrentPosInfo.p <= TargetPos.P + 100 && CurrentPosInfo.p >= TargetPos.P - 100
-                    && CurrentPosInfo.r <= TargetPos.R + 100 && CurrentPosInfo.r >= TargetPos.R - 100)
+                    //&& CurrentPosInfo.w <= TargetPos.W + 100 && CurrentPosInfo.w >= TargetPos.W - 100
+                    //&& CurrentPosInfo.p <= TargetPos.P + 100 && CurrentPosInfo.p >= TargetPos.P - 100
+                    //&& CurrentPosInfo.r <= TargetPos.R + 100 && CurrentPosInfo.r >= TargetPos.R - 100
+                    )
                 {
                     return true;
                 }
