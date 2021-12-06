@@ -165,7 +165,6 @@
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BaseHostToEquipmentCommand.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLdd.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\HostToEquipmentContent.cs" />
-    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerManager.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BoxDetection.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\BrightLED.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\UDPCommand\HostToEquipment\INI.cs" />
