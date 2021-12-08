@@ -79,7 +79,6 @@
   <ItemGroup>
     <Compile Include="SensingNet\UtVibration.cs" />
     <Compile Include="ToolDevice\UtDeviceLoadPort.cs" />
-    <Compile Include="ToolDevice\UtDeviceDrawer.cs" />
     <Compile Include="ToolDevice\UtDeviceLight.cs" />
     <Compile Include="ToolDevice\UtDeviceCamera.cs" />
     <Compile Include="ToolDevice\UtDeviceRobot.cs" />
