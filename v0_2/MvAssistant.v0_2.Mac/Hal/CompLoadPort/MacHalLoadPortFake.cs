@@ -118,7 +118,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             get
             {
 
-                return HalDeviceCfg.DeviceName;
+                return HalDeviceCfg.DeviceId;
             }
 #endif
 

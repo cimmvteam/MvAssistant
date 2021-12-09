@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 {
-    public enum MacHalPlcEnumVariable
+    public enum EnumMacHalPlcVariable
     {
         //PLC Connection & Public Area
         PC_TO_PLC_CheckClock,//PLC軟體狀態檢查

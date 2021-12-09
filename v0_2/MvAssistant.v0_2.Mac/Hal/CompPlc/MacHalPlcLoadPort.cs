@@ -29,9 +29,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             if (Gauge1Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_LP_DP1Limit, Gauge1Limit);
             if (Gauge2Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_LP_DP2Limit, Gauge2Limit);
         }
 
         //讀取壓差極限值
@@ -40,8 +40,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_LP_DP1Limit),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_LP_DP2Limit)
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_LP_DP1Limit),
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_LP_DP2Limit)
                 );
         }
 
@@ -51,15 +51,15 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.LP_TO_PC_DP1),
-                plc.Read<int>(MacHalPlcEnumVariable.LP_TO_PC_DP2)
+                plc.Read<int>(EnumMacHalPlcVariable.LP_TO_PC_DP1),
+                plc.Read<int>(EnumMacHalPlcVariable.LP_TO_PC_DP2)
                 );
         }
 
         public bool ReadLP_Light_Curtain()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP_Light_Curtain);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_LP_Light_Curtain);
         }
 
     }

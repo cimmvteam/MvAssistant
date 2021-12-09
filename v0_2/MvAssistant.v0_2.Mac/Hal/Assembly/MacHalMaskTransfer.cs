@@ -152,9 +152,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 if (CurrentPosInfo.x <= TargetPos.X + 100 && CurrentPosInfo.x >= TargetPos.X - 100
                     && CurrentPosInfo.y <= TargetPos.Y + 100 && CurrentPosInfo.y >= TargetPos.Y - 100
                     && CurrentPosInfo.z <= TargetPos.Z + 100 && CurrentPosInfo.z >= TargetPos.Z - 100
-                    && CurrentPosInfo.w <= TargetPos.W + 100 && CurrentPosInfo.w >= TargetPos.W - 100
-                    && CurrentPosInfo.p <= TargetPos.P + 100 && CurrentPosInfo.p >= TargetPos.P - 100
-                    && CurrentPosInfo.r <= TargetPos.R + 100 && CurrentPosInfo.r >= TargetPos.R - 100)
+                    //&& CurrentPosInfo.w <= TargetPos.W + 100 && CurrentPosInfo.w >= TargetPos.W - 100
+                    //&& CurrentPosInfo.p <= TargetPos.P + 100 && CurrentPosInfo.p >= TargetPos.P - 100
+                    //&& CurrentPosInfo.r <= TargetPos.R + 100 && CurrentPosInfo.r >= TargetPos.R - 100
+                    )
                 {
                     return true;
                 }
@@ -210,8 +211,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             Plc.Initial();
         }
 
-        public string ReadMTRobotStatus()
-        { return Plc.ReadMTRobotStatus(); }
+        public EnumMacPlcAssemblyStatus ReadMTStatus()
+        { return Plc.ReadMTStatus(); }
 
         /// <summary>
         /// 當手臂作動或停止時，需要下指令讓PLC知道目前Robot是移動或靜止狀態

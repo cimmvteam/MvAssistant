@@ -96,8 +96,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return result;
         }
 
-        public string ReadOpenStageStatus()
-        { return Plc.ReadOpenStageStatus(); }
+        public EnumMacPlcAssemblyStatus ReadOSStatus()
+        { return Plc.ReadOSStatus(); }
 
         #region Set Parameter
         /// <summary>

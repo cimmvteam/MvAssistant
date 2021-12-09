@@ -48,7 +48,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <returns>錶壓差限制</returns>
         int ReadChamberPressureDiffLimit();
 
-        string ReadInspChStatus();
+        EnumMacPlcAssemblyStatus ReadICStatus();
 
         int ReadLightForBackLine();
 

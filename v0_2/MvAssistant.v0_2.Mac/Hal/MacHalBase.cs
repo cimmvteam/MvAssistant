@@ -17,7 +17,7 @@ namespace MvAssistant.v0_2.Mac.Hal
         public MacManifestDriverCfg HalDriverCfg;
         public Dictionary<string, MacHalBase> Hals = new Dictionary<string, MacHalBase>();
         ~MacHalBase() { this.Dispose(false); }
-        public string HalId { get { return this.HalDeviceCfg.ID; } }
+        public string DeviceId { get { return this.HalDeviceCfg.DeviceId; } }
 
 
         #region Machines Get/Set

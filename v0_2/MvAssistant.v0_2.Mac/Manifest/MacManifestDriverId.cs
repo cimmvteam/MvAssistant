@@ -17,7 +17,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
         public static Guid LoadPort = new Guid("4E4CBD28-08FB-4FB8-988D-57CDC10E7871");
         public static Guid MaskTransfer = new Guid("69FC9C19-9621-4852-82E2-4AD1CF14E642");
         public static Guid OpenStage = new Guid("A6A5EB63-AB45-4C91-BC04-417825B927AB");
-        public static Guid Universal = new Guid("5ABE148E-4DBC-4C3C-A615-958A817C26BA");
+        public static Guid Eqp = new Guid("5ABE148E-4DBC-4C3C-A615-958A817C26BA");
 
         #endregion
 

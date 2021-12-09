@@ -100,7 +100,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 mt.Unclamp();
                 mt.CCDSpin(2000);
                 mt.Initial();
-                mt.ReadMTRobotStatus();
+                mt.ReadMTStatus();
                 mt.RobotMoving(false);
             }
         }

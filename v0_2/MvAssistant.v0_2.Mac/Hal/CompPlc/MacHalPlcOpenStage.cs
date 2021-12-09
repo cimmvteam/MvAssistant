@@ -24,16 +24,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Open, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Open, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Open_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Open_Reply), 1000))
                     throw new MvaException("Open Stage Open Box T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Open_Complete), 10 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Open_Complete), 10 * 1000))
                     throw new MvaException("Open Stage Open Box T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Open_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Open_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Open Error : Invalid");
@@ -52,14 +52,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Open Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Open, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Open_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Open_Complete), 1000))
                     throw new MvaException("Open Stage Open Box T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Open, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Open, false);
                 throw ex;
             }
             return Result;
@@ -71,16 +71,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Close, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Close, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Close_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Close_Reply), 1000))
                     throw new MvaException("Open Stage Close Box T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Close_Complete), 10 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Close_Complete), 10 * 1000))
                     throw new MvaException("Open Stage Close Box T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Close_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Close_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Close Error : Invalid");
@@ -97,14 +97,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Close Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Close, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Close_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Close_Complete), 1000))
                     throw new MvaException("Open Stage Close Box T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Close, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Close, false);
                 throw ex;
             }
             return Result;
@@ -120,16 +120,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Clamp, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Clamp, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Clamp_Reply), 1000))
                     throw new MvaException("Open Stage Clamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Clamp_Complete), 5000))
                     throw new MvaException("Open Stage Clamp T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Clamp_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Clamp Error : Invalid");
@@ -144,14 +144,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Clamp Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Clamp, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Clamp_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Clamp_Complete), 1000))
                     throw new MvaException("Open Stage Clamp T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Clamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Clamp, false);
                 throw ex;
             }
             return Result;
@@ -167,16 +167,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Unclamp, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Unclamp, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Unclamp_Reply), 1000))
                     throw new MvaException("Open Stage Unclamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Unclamp_Complete), 5000))
                     throw new MvaException("Open Stage Unclamp T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Unclamp_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Unclamp Error : Invalid");
@@ -191,14 +191,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Unclamp Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Unclamp, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Unclamp_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Unclamp_Complete), 1000))
                     throw new MvaException("Open Stage Unclamp T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Unclamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Unclamp, false);
                 throw ex;
             }
             return Result;
@@ -214,16 +214,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortClamp, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortClamp, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_SortClamp_Reply), 1000))
                     throw new MvaException("Open Stage SortClamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_SortClamp_Complete), 5000))
                     throw new MvaException("Open Stage SortClamp T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_SortClamp_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage SortClamp Error : Invalid");
@@ -240,14 +240,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage SortClamp Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortClamp, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_SortClamp_Complete), 1000))
                     throw new MvaException("Open Stage SortClamp T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortClamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortClamp, false);
                 throw ex;
             }
             return Result;
@@ -263,16 +263,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortUnclamp, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortUnclamp, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_SortUnclamp_Reply), 1000))
                     throw new MvaException("Open Stage SortUnclamp T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_SortUnclamp_Complete), 5000))
                     throw new MvaException("Open Stage SortUnclamp T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_SortUnclamp_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage SortUnclamp Error : Invalid");
@@ -283,14 +283,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage SortUnclamp Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortUnclamp, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_SortUnclamp_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_SortUnclamp_Complete), 1000))
                     throw new MvaException("Open Stage SortUnclamp T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_SortUnclamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_SortUnclamp, false);
                 throw ex;
             }
             return Result;
@@ -306,16 +306,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Lock, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Lock, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Lock_Reply), 1000))
                     throw new MvaException("Open Stage Lock/Unlock T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Complete), 15 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Lock_Complete), 15 * 1000))
                     throw new MvaException("Open Stage Lock/Unlock T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Lock_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Lock/Unlock Error : Invalid");
@@ -328,14 +328,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Lock/Unlock Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Lock, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Lock_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Lock_Complete), 1000))
                     throw new MvaException("Open Stage Lock/Unlock T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Lock, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Lock, false);
                 throw ex;
             }
             return Result;
@@ -352,20 +352,20 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_ON, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_OFF, false);
                 Thread.Sleep(100);
                 if (isSuck)
-                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, true);
+                    plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_ON, true);
                 else if (isSuck == false)
-                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, true);
+                    plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_OFF, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Vacuum_Reply), 1000))
                     throw new MvaException("Open Stage Vacuum T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Vacuum_Complete), 5000))
                     throw new MvaException("Open Stage Vacuum T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Vacuum_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Vacuum Error : Invalid");
@@ -382,16 +382,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Vacuum Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_ON, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_OFF, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Vacuum_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Vacuum_Complete), 1000))
                     throw new MvaException("Open Stage Vacuum T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_ON, false);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Vacuum_OFF, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_ON, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Vacuum_OFF, false);
                 throw ex;
             }
             return Result;
@@ -403,16 +403,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Initial_A05, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Initial_A05, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Initial_A05_Reply), 1000))
                     throw new MvaException("Open Stage Initial T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Complete), 300 * 1000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Initial_A05_Complete), 300 * 1000))
                     throw new MvaException("Open Stage Initial T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_Initial_A05_Result))
                 {
                     case 0:
                         throw new MvaException("Open Stage Initial Error : Invalid");
@@ -423,14 +423,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Open Stage Initial Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Initial_A05, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_Initial_A05_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_Initial_A05_Complete), 1000))
                     throw new MvaException("Open Stage Initial T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Initial_A05, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Initial_A05, false);
                 throw ex;
             }
             return Result;
@@ -444,7 +444,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public void SetBoxTypeVar(uint BoxType)
         {
             var plc = this.plcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BoxType, BoxType);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_OS_BoxType, BoxType);
 
         }
 
@@ -456,7 +456,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             string Result = "";
             var plc = this.plcContext;
-            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_BoxType);
+            return plc.Read<int>(EnumMacHalPlcVariable.PC_TO_OS_BoxType);
         }
 
         /// <summary>
@@ -466,14 +466,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public void SetSpeedVar(uint Speed)
         {
             var plc = this.plcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_OS_Speed, Speed);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_OS_Speed, Speed);
 
         }
 
         public int ReadSpeedVar()
         {
             var plc = this.plcContext;
-            return plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_Speed);
+            return plc.Read<int>(EnumMacHalPlcVariable.PC_TO_OS_Speed);
 
         }
 
@@ -489,26 +489,26 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             try
             {
                 if (isBTIntrude != null)
-                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
+                    plc.Write(EnumMacHalPlcVariable.PC_TO_OS_BTIntrude, !isBTIntrude);
                 if (isMTIntrude != null)
-                    plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
+                    plc.Write(EnumMacHalPlcVariable.PC_TO_OS_MTIntrude, !isMTIntrude);
                 Thread.Sleep(100);
 
-                if (isBTIntrude != null && plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可
+                if (isBTIntrude != null && plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_BTLicense) != isBTIntrude)//如果BT要入侵但不被許可
                     throw new MvaException("Box Transfer Intrude is not allowed");
-                else if (isMTIntrude != null && plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense) != isMTIntrude)//如果MT要入侵但不被許可
+                else if (isMTIntrude != null && plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_MTLicense) != isMTIntrude)//如果MT要入侵但不被許可
                     throw new MvaException("Mask Transfer Intrude is not allowed");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_BTIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_MTIntrude, true);//復歸入侵請求，因為訊號是反向觸發所以復歸成 True
                 throw ex;
             }
 
             return new Tuple<bool, bool>(
-                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BTLicense),
-                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_MTLicense)
+                plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_BTLicense),
+                plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_MTLicense)
                 );
         }
 
@@ -520,7 +520,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             string Result = "";
             var plc = this.plcContext;
-            switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_ClampStatus))
+            switch (plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_ClampStatus))
             {
                 case 1:
                     Result = "Clamp";
@@ -541,8 +541,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<long, long>(
-                plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp1_Position),
-                plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_SortClamp2_Position)
+                plc.Read<long>(EnumMacHalPlcVariable.OS_TO_PC_SortClamp1_Position),
+                plc.Read<long>(EnumMacHalPlcVariable.OS_TO_PC_SortClamp2_Position)
                 );
         }
 
@@ -555,8 +555,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<long, long>(
-                plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_Slider1_Position),
-                plc.Read<long>(MacHalPlcEnumVariable.OS_TO_PC_Slider2_Position)
+                plc.Read<long>(EnumMacHalPlcVariable.OS_TO_PC_Slider1_Position),
+                plc.Read<long>(EnumMacHalPlcVariable.OS_TO_PC_Slider2_Position)
                 );
         }
 
@@ -569,8 +569,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<double, double>(
-                plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Cover1_Position),
-                plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Cover2_Position)
+                plc.Read<double>(EnumMacHalPlcVariable.OS_TO_PC_Cover1_Position),
+                plc.Read<double>(EnumMacHalPlcVariable.OS_TO_PC_Cover2_Position)
                 );
         }
 
@@ -581,11 +581,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             if (L_Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_PD_L_Limit, L_Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_PD_L_Limit, L_Limit);
             if (M_Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_PD_M_Limit, M_Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_PD_M_Limit, M_Limit);
             if (S_Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_OS_PD_S_Limit, S_Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_OS_PD_S_Limit, S_Limit);
         }
 
         //讀取各種大小Particle的數量限制
@@ -594,9 +594,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_PD_L_Limit),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_PD_M_Limit),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_OS_PD_S_Limit)
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_OS_PD_L_Limit),
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_OS_PD_M_Limit),
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_OS_PD_S_Limit)
                 );
         }
 
@@ -606,9 +606,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<int, int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_PD_L),
-                plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_PD_M),
-                plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_PD_S)
+                plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_PD_L),
+                plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_PD_M),
+                plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_PD_S)
                 );
         }
         #endregion Particle數量監控
@@ -622,8 +622,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
 
             return new Tuple<bool, bool>(
-                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_CoverSensor_Open),
-                plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_CoverSensor_Close)
+                plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_CoverSensor_Open),
+                plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_CoverSensor_Close)
                 );
         }
 
@@ -634,7 +634,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public double ReadBoxDeform()
         {
             var plc = this.plcContext;
-            return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_SoundWave);
+            return plc.Read<double>(EnumMacHalPlcVariable.OS_TO_PC_SoundWave);
         }
 
         /// <summary>
@@ -644,7 +644,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public double ReadWeightOnStage()
         {
             var plc = this.plcContext;
-            return plc.Read<double>(MacHalPlcEnumVariable.OS_TO_PC_Weight_Cruuent);
+            return plc.Read<double>(EnumMacHalPlcVariable.OS_TO_PC_Weight_Cruuent);
         }
 
         /// <summary>
@@ -654,35 +654,20 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadBoxExist()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_BoxCheckOK);
+            return plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_BoxCheckOK);
         }
 
-        public string ReadOpenStageStatus()
+        public EnumMacPlcAssemblyStatus ReadOSStatus()
         {
-            string Result = "";
             var plc = this.plcContext;
-            switch (plc.Read<int>(MacHalPlcEnumVariable.OS_TO_PC_A05Status))
-            {
-                case 1:
-                    Result = "Idle";
-                    break;
-                case 2:
-                    Result = "Busy";
-                    break;
-                case 3:
-                    Result = "Alarm";
-                    break;
-                case 4:
-                    Result = "Maintenance";
-                    break;
-            }
-            return Result;
+            var status = plc.Read<int>(EnumMacHalPlcVariable.OS_TO_PC_A05Status);
+            return (EnumMacPlcAssemblyStatus)status;
         }
 
         public Tuple<bool, bool> ReadRobotIntruded()
         {
             var plc = this.plcContext;
-            return new Tuple<bool, bool>(!plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_BTIntrude),!plc.Read<bool>(MacHalPlcEnumVariable.PC_TO_OS_MTIntrude));
+            return new Tuple<bool, bool>(!plc.Read<bool>(EnumMacHalPlcVariable.PC_TO_OS_BTIntrude), !plc.Read<bool>(EnumMacHalPlcVariable.PC_TO_OS_MTIntrude));
         }
     }
 }

@@ -79,13 +79,10 @@
   <ItemGroup>
     <Compile Include="SensingNet\UtVibration.cs" />
     <Compile Include="ToolDevice\UtDeviceLoadPort.cs" />
-    <Compile Include="ToolDevice\UtDeviceDrawer.cs" />
     <Compile Include="ToolDevice\UtDeviceLight.cs" />
     <Compile Include="ToolDevice\UtDeviceCamera.cs" />
     <Compile Include="ToolDevice\UtDeviceRobot.cs" />
     <Compile Include="ToolDevice\UtDevicePlc.cs" />
-    <Compile Include="GenCfg\Manifest\UtGenManifestTest.cs" />
-    <Compile Include="GenCfg\Manifest\UtGenManifestFake.cs" />
     <Compile Include="GenCfg\Manifest\UtGenManifestDevelop.cs" />
     <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\BoxrobotTransferPathFileExtends.cs" />
     <Compile Include="ToolHal\Hirata_ScenarioTest\Extends\MacHalBoxTransferExtends.cs" />

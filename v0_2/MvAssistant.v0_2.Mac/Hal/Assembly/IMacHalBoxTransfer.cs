@@ -54,7 +54,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <returns>True：Nomal, False：Error</returns>
         bool ReadBT_RearLimitSenser();
 
-        string ReadBTRobotStatus();
+        EnumMacPlcAssemblyStatus ReadBTStatus();
+
+        /// <summary> 讀取Clamp與Cabinet的最小間距限制 </summary>
+        /// <returns>最小間</returns>
+        double ReadClampAndCabinetSpacingLimit();
 
         /// <summary> 讀取Clamp前方物體距離 </summary>
         /// <returns></returns>
@@ -101,11 +105,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary> 讀取六軸力覺Sensor的壓力值上限設定 </summary>
         /// <returns></returns>
         Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit();
-
-        /// <summary> 讀取Clamp與Cabinet的最小間距限制 </summary>
-        /// <returns>最小間</returns>
-        double ReadClampAndCabinetSpacingLimit();
-
         /// <summary> 當手臂作動或停止時，需要下指令讓PLC知道目前Robot是移動或靜止狀態 </summary>
         /// <param name="isMoving">手臂是否要移動</param>
         void RobotMoving(bool isMoving);
@@ -120,6 +119,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary> 手臂停止程序 </summary>
         /// <returns></returns>
         int RobotStopProgram();
+        /// <summary> 設定Clamp與Cabinet的最小間距限制 </summary>
+        /// <param name="Minimum">最小間距</param>
+        void SetClampAndCabinetSpacingLimit(double Minimum);
+
         /// <summary> 設定夾爪間距的極限值，最小間距、最大間距 </summary>
         /// <param name="Minimum">最小間距</param>
         /// <param name="Maximum">最大間距</param>
@@ -151,11 +154,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="My"></param>
         /// <param name="Mz"></param>
         void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz);
-
-        /// <summary> 設定Clamp與Cabinet的最小間距限制 </summary>
-        /// <param name="Minimum">最小間距</param>
-        void SetClampAndCabinetSpacingLimit(double Minimum);
-
         string Unclamp();
     }
 }

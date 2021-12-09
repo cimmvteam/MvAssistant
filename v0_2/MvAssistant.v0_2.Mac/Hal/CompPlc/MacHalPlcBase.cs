@@ -25,7 +25,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         protected MacHalPlcContext plcContext;
 
-        public Dictionary<MacHalPlcEnumVariable, Object> ReadMulti(IEnumerable<MacHalPlcEnumVariable> varNames) { return this.plcContext.ReadMulti(varNames); }
+        public Dictionary<EnumMacHalPlcVariable, Object> ReadMulti(IEnumerable<EnumMacHalPlcVariable> varNames) { return this.plcContext.ReadMulti(varNames); }
 
 
         #region Hal

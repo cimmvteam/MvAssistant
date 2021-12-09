@@ -109,9 +109,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<int, int, int>(0, 0, 0);
         }
 
-        public string ReadMTRobotStatus()
+        public EnumMacPlcAssemblyStatus ReadMTStatus()
         {
-            return "";
+            return EnumMacPlcAssemblyStatus.Idle;
         }
 
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()

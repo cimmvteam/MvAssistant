@@ -93,7 +93,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
             using (var plc = new MacHalPlcContext())
             {
                 plc.Connect("192.168.0.200", 2);
-                Console.WriteLine(plc.BoxTransfer.ReadBTRobotStatus());
+                Console.WriteLine(plc.BoxTransfer.ReadBTStatus());
             }
         }
 

@@ -73,7 +73,7 @@
     <Compile Include="DrawerSocketTest\SocketMsgTranslator.cs" />
     <Compile Include="DrawerSocketTest\StateObject.cs" />
     <Compile Include="DrawerSocketTest\UDPSocket.cs" />
-    <Compile Include="EnumMacHalId.cs" />
+    <Compile Include="EnumMacHalIdBackup.cs" />
     <Compile Include="EnumMacMaskType.cs" />
     <Compile Include="Hal\Assembly\IMacHalBoxTransfer.cs" />
     <Compile Include="Hal\Assembly\IMacHalCabinet.cs" />
@@ -112,6 +112,8 @@
     <Compile Include="Hal\CompLoadPort\IMacHalLoadPortUnit.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortFake.cs" />
     <Compile Include="Hal\CompLoadPort\MacHalLoadPortGudeng.cs" />
+    <Compile Include="Hal\CompPlc\EnumMacPlcAlarms.cs" />
+    <Compile Include="Hal\CompPlc\EnumMacPlcAssemblyStatus.cs" />
     <Compile Include="Hal\CompPlc\IMacHalPlcBase.cs" />
     <Compile Include="Hal\CompRobot\HalRobotPath.cs" />
     <Compile Include="Hal\CompRobot\HalRobotEnumMotionType.cs" />
@@ -175,7 +177,7 @@
     <Compile Include="Manifest\MacManifestDeviceProgKpiAttribute.cs" />
     <Compile Include="Manifest\MacManifestDriverCfg.cs" />
     <Compile Include="Manifest\MacManifestCfg.cs" />
-    <Compile Include="Hal\CompPlc\MacHalPlcEnumVariable.cs" />
+    <Compile Include="Hal\CompPlc\EnumMacHalPlcVariable.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcBoxTransfer.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcCabinet.cs" />
     <Compile Include="Hal\CompPlc\MacHalPlcCleanCh.cs" />

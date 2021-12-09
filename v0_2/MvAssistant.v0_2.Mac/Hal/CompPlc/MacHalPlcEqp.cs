@@ -36,16 +36,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public void SetSignalTower(bool Red, bool Orange, bool Blue)
         {
             var plc = this.plcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Red, Red);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Orange, Orange);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Blue, Blue);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_DR_Red, Red);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_DR_Orange, Orange);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_DR_Blue, Blue);
         }
 
         //蜂鳴器
         public void SetBuzzer(uint BuzzerType)
         {
             var plc = this.plcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_DR_Buzzer, BuzzerType);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_DR_Buzzer, BuzzerType);
         }
 
         /// <summary>
@@ -60,18 +60,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_SetSpeed, WindSpeed);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Address, FanID);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_FFU_SetSpeed, WindSpeed);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_FFU_Address, FanID);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_FFU_Write, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, true);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_FFU_Write, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Reply), 1000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.FFU_TO_PC_Write_Reply), 1000))
                     throw new MvaException("Outer Cover Fan Control T0 timeout");
-                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Complete), 5000))
+                else if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.FFU_TO_PC_Write_Complete), 5000))
                     throw new MvaException("Outer Cover Fan Control T2 timeout");
 
-                switch (plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Result))
+                switch (plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_Write_Result))
                 {
                     case 1:
                         Result = "OK";
@@ -82,14 +82,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                         throw new MvaException("Outer Cover Fan Control Error : Unknown error");
                 }
 
-                plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_FFU_Write, false);
 
-                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(MacHalPlcEnumVariable.FFU_TO_PC_Write_Complete), 1000))
+                if (!SpinWait.SpinUntil(() => !plc.Read<bool>(EnumMacHalPlcVariable.FFU_TO_PC_Write_Complete), 1000))
                     throw new MvaException("Outer Cover Fan Control T4 timeout");
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.PC_TO_FFU_Write, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_FFU_Write, false);
                 throw ex;
             }
             return Result;
@@ -99,18 +99,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             List<int> FanSpeedList = new List<int>();
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_1));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_2));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_3));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_4));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_5));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_6));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_7));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_8));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_9));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_10));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_11));
-            FanSpeedList.Add(plc.Read<int>(MacHalPlcEnumVariable.FFU_TO_PC_FFUCurrentSpeed_12));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_1));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_2));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_3));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_4));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_5));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_6));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_7));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_8));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_9));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_10));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_11));
+            FanSpeedList.Add(plc.Read<int>(EnumMacHalPlcVariable.FFU_TO_PC_FFUCurrentSpeed_12));
             return FanSpeedList;
 
         }
@@ -120,18 +120,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                plc.Write(MacHalPlcEnumVariable.Reset_ALL, false);
+                plc.Write(EnumMacHalPlcVariable.Reset_ALL, false);
                 Thread.Sleep(100);
-                plc.Write(MacHalPlcEnumVariable.Reset_ALL, true);
+                plc.Write(EnumMacHalPlcVariable.Reset_ALL, true);
 
-                if (!SpinWait.SpinUntil(() => plc.Read<bool>(MacHalPlcEnumVariable.Reset_ALL_Complete), 2000))
+                if (!SpinWait.SpinUntil(() => plc.Read<bool>(EnumMacHalPlcVariable.Reset_ALL_Complete), 2000))
                     throw new MvaException("Reset All T0 timeout");
 
-                plc.Write(MacHalPlcEnumVariable.Reset_ALL, false);
+                plc.Write(EnumMacHalPlcVariable.Reset_ALL, false);
             }
             catch (Exception ex)
             {
-                plc.Write(MacHalPlcEnumVariable.Reset_ALL, false);
+                plc.Write(EnumMacHalPlcVariable.Reset_ALL, false);
                 throw ex;
             }
         }
@@ -146,18 +146,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public void EMSAlarm(bool BT_EMS, bool MT_EMS, bool OS_EMS, bool IC_EMS)
         {
             var plc = this.plcContext;
-            plc.Write(MacHalPlcEnumVariable.PC_TO_BT_EMS, BT_EMS);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_MT_EMS, MT_EMS);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_OS_EMS, OS_EMS);
-            plc.Write(MacHalPlcEnumVariable.PC_TO_IC_EMS, IC_EMS);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_BT_EMS, BT_EMS);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_MT_EMS, MT_EMS);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_OS_EMS, OS_EMS);
+            plc.Write(EnumMacHalPlcVariable.PC_TO_IC_EMS, IC_EMS);
             Thread.Sleep(1000);
-            if (plc.Read<bool>(MacHalPlcEnumVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
+            if (plc.Read<bool>(EnumMacHalPlcVariable.BT_TO_PC_EMS_Reply) != BT_EMS)
                 throw new MvaException("PLC did not get 'Box Transfer EMS' alarm signal");
-            else if (plc.Read<bool>(MacHalPlcEnumVariable.MT_TO_PC_EMS_Reply) != MT_EMS)
+            else if (plc.Read<bool>(EnumMacHalPlcVariable.MT_TO_PC_EMS_Reply) != MT_EMS)
                 throw new MvaException("PLC did not get 'Mask Transfer EMS' alarm signal");
-            else if (plc.Read<bool>(MacHalPlcEnumVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
+            else if (plc.Read<bool>(EnumMacHalPlcVariable.OS_TO_PC_EMS_Reply) != OS_EMS)
                 throw new MvaException("PLC did not get 'Open Stage EMS' alarm signal");
-            else if (plc.Read<bool>(MacHalPlcEnumVariable.IC_TO_PC_EMS_Reply) != IC_EMS)
+            else if (plc.Read<bool>(EnumMacHalPlcVariable.IC_TO_PC_EMS_Reply) != IC_EMS)
                 throw new MvaException("PLC did not get 'Inspection Chamber EMS' alarm signal");
 
         }
@@ -170,7 +170,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadPowerON()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_PowerON);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_PowerON);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadBCP_Maintenance()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Maintenance);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_Maintenance);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadCB_Maintenance()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_Maintenance);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_CB_Maintenance);
         }
 
         /// <summary>
@@ -201,11 +201,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             return new Tuple<bool, bool, bool, bool, bool>(
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO1),
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO2),
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO3),
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO4),
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_EMO5)
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_EMO1),
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_EMO2),
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_EMO3),
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_EMO4),
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_EMO5)
                 );
         }
 
@@ -217,9 +217,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             return new Tuple<bool, bool, bool>(
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO1),
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO2),
-                plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_CB_EMO3)
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_CB_EMO1),
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_CB_EMO2),
+                plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_CB_EMO3)
                 );
         }
 
@@ -230,7 +230,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadLP1_EMO()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_EMO);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_LP1_EMO);
         }
 
         /// <summary>
@@ -240,7 +240,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadLP2_EMO()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_EMO);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_LP2_EMO);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadBCP_Door()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Door);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_Door);
         }
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadLP1_Door()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP1_Door);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_LP1_Door);
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadLP2_Door()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_LP2_Door);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_LP2_Door);
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         public bool ReadBCP_Smoke()
         {
             var plc = this.plcContext;
-            return plc.Read<bool>(MacHalPlcEnumVariable.PLC_TO_PC_BCP_Smoke);
+            return plc.Read<bool>(EnumMacHalPlcVariable.PLC_TO_PC_BCP_Smoke);
         }
 
         #endregion
@@ -292,7 +292,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.General_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -325,7 +325,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A01_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -378,7 +378,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A02_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -431,7 +431,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A03_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -482,7 +482,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A04_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -559,7 +559,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A05_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -636,7 +636,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A06_Alarm);
 
 
                 for (int i = 0; i < AlarmList.Length; i++)
@@ -678,7 +678,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A07_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -724,7 +724,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A08_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -775,7 +775,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var AlarmList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Alarm);
+                var AlarmList = plc.Read<bool[]>(EnumMacHalPlcVariable.A09_Alarm);
 
                 for (int i = 0; i < AlarmList.Length; i++)
                 {
@@ -814,7 +814,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.General_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.General_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -838,7 +838,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A01_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A01_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -862,7 +862,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A02_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A02_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -889,7 +889,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A03_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A03_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -960,7 +960,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A04_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A04_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -1027,7 +1027,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A05_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A05_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -1095,7 +1095,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A06_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A06_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -1158,7 +1158,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A07_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A07_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -1182,7 +1182,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A08_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A08_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {
@@ -1233,7 +1233,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
-                var WarningList = plc.Read<bool[]>(MacHalPlcEnumVariable.A09_Warning);
+                var WarningList = plc.Read<bool[]>(EnumMacHalPlcVariable.A09_Warning);
 
                 for (int i = 0; i < WarningList.Length; i++)
                 {

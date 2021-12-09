@@ -68,7 +68,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return;
         }
 
+        public void LightForLeftBarSetValue(int value)
+        {
+            return;
+        }
+
         public void LightForLeftLineSetValue(int value)
+        {
+            return;
+        }
+
+        public void LightForRightBarSetValue(int value)
         {
             return;
         }
@@ -82,30 +92,47 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             return;
         }
-
-        public void LightForLeftBarSetValue(int value)
+        public int ReadChamberPressureDiff()
         {
-            return;
+            return 1;
         }
 
-        public void LightForRightBarSetValue(int value)
+        public int ReadChamberPressureDiffLimit()
         {
-            return;
+            return 1;
         }
 
-        public string ReadInspChStatus()
+        public EnumMacPlcAssemblyStatus ReadICStatus()
         {
-            return "";
+            return EnumMacPlcAssemblyStatus.None;
         }
 
-        public Tuple<double, double> ReadRobotPosLeftRightLimit()
+        public int ReadLightForBackLine()
+        { return 1; }
+
+        public int ReadLightForLeftBar()
+        { return 1; }
+
+        public int ReadLightForLeftLine()
+        { return 1; }
+
+        public int ReadLightForRightBar()
+        { return 1; }
+
+        public int ReadLightForTopCrlDfs()
+        { return 1; }
+
+        public int ReadLightForTopCrlInsp()
+        { return 1; }
+
+        public Tuple<int, int, int> ReadParticleCntLimit()
         {
-            return new Tuple<double, double>(1, 0);
+            return new Tuple<int, int, int>(2, 2, 2);
         }
 
-        public bool SetRobotIntrude(bool isIntrude)
+        public Tuple<int, int, int> ReadParticleCount()
         {
-            return isIntrude;
+            return new Tuple<int, int, int>(1, 1, 1);
         }
 
         public bool ReadRobotIntruded()
@@ -116,6 +143,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public double ReadRobotPosLeftRight()
         {
             return 0;
+        }
+
+        public Tuple<double, double> ReadRobotPosLeftRightLimit()
+        {
+            return new Tuple<double, double>(1, 0);
         }
 
         public double ReadRobotPosUpDown()
@@ -148,6 +180,20 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 1;
         }
 
+        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
+        {
+            return;
+        }
+
+        public void SetPressureDiffLimit(uint? GaugeLimit)
+        {
+            return;
+        }
+
+        public bool SetRobotIntrude(bool isIntrude)
+        {
+            return isIntrude;
+        }
         public void SetRobotPosLeftRightLimit(double? AboutLimit_L, double? AboutLimit_R)
         {
             return;
@@ -177,53 +223,5 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             return "OK";
         }
-
-        public void SetParticleCntLimit(uint? L_Limit, uint? M_Limit, uint? S_Limit)
-        {
-            return;
-        }
-
-        public Tuple<int, int, int> ReadParticleCntLimit()
-        {
-            return new Tuple<int, int, int>(2, 2, 2);
-        }
-
-        public Tuple<int, int, int> ReadParticleCount()
-        {
-            return new Tuple<int, int, int>(1, 1, 1);
-        }
-
-        public void SetPressureDiffLimit(uint? GaugeLimit)
-        {
-            return;
-        }
-
-        public int ReadChamberPressureDiffLimit()
-        {
-            return 1;
-        }
-
-        public int ReadChamberPressureDiff()
-        {
-            return 1;
-        }
-
-        public int ReadLightForLeftLine()
-        { return 1; }
-               
-        public int ReadLightForBackLine()
-        { return 1; }
-                
-        public int ReadLightForTopCrlDfs()
-        { return 1; }
-               
-        public int ReadLightForTopCrlInsp()
-        { return 1; }
-               
-        public int ReadLightForLeftBar()
-        { return 1; }
-               
-        public int ReadLightForRightBar()
-        { return 1; }
     }
 }

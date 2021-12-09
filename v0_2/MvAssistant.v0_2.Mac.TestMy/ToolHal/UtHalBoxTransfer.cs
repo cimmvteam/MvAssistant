@@ -181,7 +181,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 bt.Clamp(1);
                 bt.Unclamp();
                 bt.LevelReset();
-                bt.ReadBTRobotStatus();
+                bt.ReadBTStatus();
                 bt.RobotMoving(false);
                 bt.Initial();
             }

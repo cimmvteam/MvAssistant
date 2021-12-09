@@ -16,7 +16,7 @@ namespace MvAssistant.v0_2.Mac.Hal
     {
         public Dictionary<string, MacHalBase> HalDevices = new Dictionary<string, MacHalBase>();
         public string Path;
-        public String HalId { get { return null; } }
+        public String DeviceId { get { return null; } }
         MacManifestCfg manifest;
         public MacHalContext(string path = null)
         {
@@ -51,8 +51,8 @@ namespace MvAssistant.v0_2.Mac.Hal
             inst.HalContext = this;
 
             if (hal == null)
-                this.HalDevices[deviceCfg.DeviceName] = inst;
-            else hal.Hals[deviceCfg.DeviceName] = inst;
+                this.HalDevices[deviceCfg.DeviceId] = inst;
+            else hal.Hals[deviceCfg.DeviceId] = inst;
 
 
             if (deviceCfg.Devices == null) return;

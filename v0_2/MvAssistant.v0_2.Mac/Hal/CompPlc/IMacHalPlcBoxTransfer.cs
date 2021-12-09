@@ -9,40 +9,58 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
     public interface IMacHalPlcBoxTransfer : IMacHalPlcBase
     {
         string Clamp(uint BoxType);
-        string Unclamp();
         string Initial();
+
         bool LevelReset();
-        string ReadBTRobotStatus();
+
+        EnumMacPlcAssemblyStatus ReadBTStatus();
+
         void RobotMoving(bool isMoving);
 
+        string Unclamp();
         #region Set Parameter
-        void SetSpeedVar(double ClampSpeed);
-        void SetHandSpaceLimit(double? Minimum, double? Maximum);
         void SetClampToCabinetSpaceLimit(double Minimum);
+
+        void SetHandSpaceLimit(double? Minimum, double? Maximum);
+
         void SetLevelSensorLimit(double? Level_X, double? Level_Y);
-        void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz);
+
         void SetSixAxisSensorLowerLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz);
+
+        void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz);
+
+        void SetSpeedVar(double ClampSpeed);
         #endregion
 
         #region Read Parameter
-        double ReadSpeedVar();
-        Tuple<double, double> ReadHandSpaceLimitSetting();
         double ReadClampToCabinetSpaceLimitSetting();
+
+        Tuple<double, double> ReadHandSpaceLimitSetting();
+
         Tuple<double, double> ReadLevelSensorLimitSetting();
-        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit();
+
         Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit();
+
+        Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit();
+
+        double ReadSpeedVar();
         #endregion
 
         #region Read Component Value
-        double ReadHandPos();
         bool ReadBoxDetect();
-        double ReadHandPosByLSR();
+
+        bool ReadBT_FrontLimitSenser();
+
+        bool ReadBT_RearLimitSenser();
+
         double ReadClampDistance();
+
+        double ReadHandPos();
+        double ReadHandPosByLSR();
+        bool ReadHandVacuum();
+
         Tuple<double, double> ReadLevelSensor();
         Tuple<double, double, double, double, double, double> ReadSixAxisSensor();
-        bool ReadHandVacuum();
-        bool ReadBT_FrontLimitSenser();
-        bool ReadBT_RearLimitSenser();
         #endregion
     }
 }

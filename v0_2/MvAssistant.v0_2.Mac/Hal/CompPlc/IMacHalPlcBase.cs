@@ -22,6 +22,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
     public interface IMacHalPlcBase: IMacHalComponent
     {
-        Dictionary<MacHalPlcEnumVariable, Object> ReadMulti(IEnumerable<MacHalPlcEnumVariable> varNames);
+        Dictionary<EnumMacHalPlcVariable, Object> ReadMulti(IEnumerable<EnumMacHalPlcVariable> varNames);
     }
 }

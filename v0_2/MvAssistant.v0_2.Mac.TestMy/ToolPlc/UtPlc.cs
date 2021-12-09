@@ -103,27 +103,27 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                     Console.WriteLine(plc.ReadBCP_Smoke());// OK
                     Console.WriteLine(plc.ReadLP_Light_Curtain());// OK
 
-                    plc.Universal.ReadAlarm_General();
-                    plc.Universal.ReadAlarm_Cabinet();
-                    plc.Universal.ReadAlarm_CleanCh();
-                    plc.Universal.ReadAlarm_BTRobot();
-                    plc.Universal.ReadAlarm_MTRobot();
-                    plc.Universal.ReadAlarm_OpenStage();
-                    plc.Universal.ReadAlarm_InspCh();
-                    plc.Universal.ReadAlarm_LoadPort();
-                    plc.Universal.ReadAlarm_CoverFan();
-                    plc.Universal.ReadAlarm_MTClampInsp();
+                    plc.Eqp.ReadAlarm_General();
+                    plc.Eqp.ReadAlarm_Cabinet();
+                    plc.Eqp.ReadAlarm_CleanCh();
+                    plc.Eqp.ReadAlarm_BTRobot();
+                    plc.Eqp.ReadAlarm_MTRobot();
+                    plc.Eqp.ReadAlarm_OpenStage();
+                    plc.Eqp.ReadAlarm_InspCh();
+                    plc.Eqp.ReadAlarm_LoadPort();
+                    plc.Eqp.ReadAlarm_CoverFan();
+                    plc.Eqp.ReadAlarm_MTClampInsp();
 
-                    plc.Universal.ReadWarning_General();
-                    plc.Universal.ReadWarning_Cabinet();
-                    plc.Universal.ReadWarning_CleanCh();
-                    plc.Universal.ReadWarning_BTRobot();
-                    plc.Universal.ReadWarning_MTRobot();
-                    plc.Universal.ReadWarning_OpenStage();
-                    plc.Universal.ReadWarning_InspCh();
-                    plc.Universal.ReadWarning_LoadPort();
-                    plc.Universal.ReadWarning_CoverFan();
-                    plc.Universal.ReadWarning_MTClampInsp();
+                    plc.Eqp.ReadWarning_General();
+                    plc.Eqp.ReadWarning_Cabinet();
+                    plc.Eqp.ReadWarning_CleanCh();
+                    plc.Eqp.ReadWarning_BTRobot();
+                    plc.Eqp.ReadWarning_MTRobot();
+                    plc.Eqp.ReadWarning_OpenStage();
+                    plc.Eqp.ReadWarning_InspCh();
+                    plc.Eqp.ReadWarning_LoadPort();
+                    plc.Eqp.ReadWarning_CoverFan();
+                    plc.Eqp.ReadWarning_MTClampInsp();
                 }
 
             }
@@ -160,7 +160,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 Console.WriteLine(plc.BoxTransfer.ReadSixAxisSensorUpperLimit());
                 Console.WriteLine(plc.BoxTransfer.ReadSixAxisSensor());
                 Console.WriteLine(plc.BoxTransfer.ReadHandVacuum());
-                Console.WriteLine(plc.BoxTransfer.ReadBTRobotStatus());
+                Console.WriteLine(plc.BoxTransfer.ReadBTStatus());
                 plc.BoxTransfer.RobotMoving(false);// OK
             }
         }
@@ -233,7 +233,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                 plc.InspectionCh.SetRobotPosUpDownLimit(10, 0);
                 Console.WriteLine(plc.InspectionCh.ReadRobotPosUpDownLimit());
                 Console.WriteLine(plc.InspectionCh.ReadRobotPosUpDown());
-                Console.WriteLine(plc.InspectionCh.ReadInspChStatus());
+                Console.WriteLine(plc.InspectionCh.ReadICStatus());
 
                 //AlarmArray = plc.InspCh.ReadAlarmArray();
                 //Console.WriteLine(plc.InspCh.ReadAlarmArray());
@@ -284,7 +284,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                     plc.MaskTransfer.SetStaticElecLimit(20, 10);
                     Console.WriteLine(plc.MaskTransfer.ReadStaticElecLimit());
                     Console.WriteLine(plc.MaskTransfer.ReadStaticElec());
-                    Console.WriteLine(plc.MaskTransfer.ReadMTRobotStatus());
+                    Console.WriteLine(plc.MaskTransfer.ReadMTStatus());
                     Console.WriteLine(plc.MaskTransfer.ReadHandInspection());
                     plc.MaskTransfer.RobotMoving(false);//OK
                 }
@@ -326,7 +326,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolPlc
                         Console.WriteLine(plc.OpenStage.ReadBoxDeform());
                         Console.WriteLine(plc.OpenStage.ReadWeightOnStage());
                         Console.WriteLine(plc.OpenStage.ReadBoxExist());
-                        Console.WriteLine(plc.OpenStage.ReadOpenStageStatus());
+                        Console.WriteLine(plc.OpenStage.ReadOSStatus());
                         Console.WriteLine(plc.OpenStage.ReadRobotIntruded());
                     }
                     catch (Exception ex)

@@ -16,7 +16,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         string Initial();
 
-        string ReadInspChStatus();
+        EnumMacPlcAssemblyStatus ReadICStatus();
 
         bool SetRobotIntrude(bool isIntrude);
 

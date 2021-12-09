@@ -230,7 +230,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
                     Product = "Equipment",
                     Remark = null,
                     AssignType = typeof(Hal.Assembly.MacHalEqp),
-                    DriverId = MacManifestDriverId.Universal.ToString(),
+                    DriverId = MacManifestDriverId.Eqp.ToString(),
                 },
 
             }.ToList();

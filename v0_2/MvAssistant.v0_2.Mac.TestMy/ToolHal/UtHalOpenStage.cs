@@ -85,7 +85,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     os.ReadBoxDeform();
                     os.ReadWeightOnStage();
                     os.ReadBoxExist();
-                    os.ReadOpenStageStatus();
+                    os.ReadOSStatus();
                     os.ReadRobotIntruded();
                     os.ReadParticleCount();
                 }

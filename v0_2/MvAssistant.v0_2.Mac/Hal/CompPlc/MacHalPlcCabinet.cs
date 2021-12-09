@@ -31,9 +31,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             if (Gauge1Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_DB_DP1Limit, Gauge1Limit);
             if (Gauge2Limit != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_DB_DP2Limit, Gauge2Limit);
         }
 
         //讀取Cabinet內部與外部環境最大壓差限制
@@ -41,8 +41,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             return new Tuple<int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_DP1Limit),
-                plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_DP2Limit)
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_DB_DP1Limit),
+                plc.Read<int>(EnumMacHalPlcVariable.PC_TO_DB_DP2Limit)
                 );
         }
 
@@ -51,8 +51,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             return new Tuple<int, int>(
-                plc.Read<int>(MacHalPlcEnumVariable.DB_TO_PC_DP1),
-                plc.Read<int>(MacHalPlcEnumVariable.DB_TO_PC_DP2)
+                plc.Read<int>(EnumMacHalPlcVariable.DB_TO_PC_DP1),
+                plc.Read<int>(EnumMacHalPlcVariable.DB_TO_PC_DP2)
                 );
         }
         #endregion
@@ -63,9 +63,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             if (Valve1 != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1, Valve1);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_DB_Exhaust1, Valve1);
             if (Valve2 != null)
-                plc.Write(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2, Valve2);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_DB_Exhaust2, Valve2);
         }
 
         //設定節流閥開啟大小
@@ -73,8 +73,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             return new Tuple<int, int>(
-            plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_Exhaust1),
-            plc.Read<int>(MacHalPlcEnumVariable.PC_TO_DB_Exhaust2)
+            plc.Read<int>(EnumMacHalPlcVariable.PC_TO_DB_Exhaust1),
+            plc.Read<int>(EnumMacHalPlcVariable.PC_TO_DB_Exhaust2)
             );
         }
         #endregion
@@ -84,13 +84,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         {
             var plc = this.plcContext;
             return new Tuple<bool, bool, bool, bool, bool, bool, bool>(
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area1),
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area2),
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area3),
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area4),
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area5),
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area6),
-            plc.Read<bool>(MacHalPlcEnumVariable.DR_TO_PC_Area7)
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area1),
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area2),
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area3),
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area4),
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area5),
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area6),
+            plc.Read<bool>(EnumMacHalPlcVariable.DR_TO_PC_Area7)
             );
         }
     }

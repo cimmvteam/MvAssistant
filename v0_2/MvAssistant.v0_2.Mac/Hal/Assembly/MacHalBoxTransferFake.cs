@@ -13,15 +13,138 @@ using System.Threading;
 
 namespace MvAssistant.v0_2.Mac.Hal.Assembly
 {
+    /// <summary>Path Test Position Collection</summary>
+    /// <remarks>King, 2020/05/15 Add</remarks>
+    public class BoxTransferPathPositionsFake
+    {
+
+        /// <summary>Drawer 1 的 Home 點</summary>
+        public HalRobotMotion Cabinet1Home
+        {
+            get
+            {
+                var position = new HalRobotMotion
+                {
+                    // TODO: 加上 World 座標資料 
+                    J1 = -89.99923f,
+                    J2 = 0.000476679532f,
+                    J3 = -50.0014839f,
+                    J4 = -0.000300816144f,
+                    J5 = 49.9995537f,
+                    J6 = -0.00238952623f,
+                    J7 = 517.0201f,
+                    X = 0.00552143529f,
+                    Y = -438.778259f,
+                    Z = 140.748138f,
+                    W = -126.767067f,
+                    P = -89.99678f,
+                    R = -143.2324f,
+                    E1 = 517.0201f,
+                    Speed = 50,
+                    MotionType = HalRobotEnumMotionType.Joint,
+
+
+                };
+                // TODO: 設定 Home 點位
+                return position;
+            }
+        }
+
+        /// <summary>Drawer 2 的 Home 點</summary>
+        public HalRobotMotion Cabinet2Home
+        {
+            get
+            {
+                var position = new HalRobotMotion
+                { // TODO: 加入實際 World 及 Joint 點位
+                    X = 527.898438f,
+                    Y = -9.219327f,
+                    Z = 38.3116455f,
+                    W = 147.213242f,
+                    P = -86.85704f,
+                    R = 32.5399f,
+                    E1 = 414.897583f,
+                    J1 = -1.15107226f,
+                    J2 = 22.9280548f,
+                    J3 = -64.14249f,
+                    J4 = 0.983132958f,
+                    J5 = 61.5038452f,
+                    J6 = 1.27394938f,
+                    J7 = 414.897583f,
+                    Speed = 60,
+                    MotionType = HalRobotEnumMotionType.Position
+                };
+                return position;
+            }
+        }
+
+        public List<HalRobotMotion> CabinetHomeToOpenStage01
+        {
+
+            get
+            {
+
+                var position = new List<HalRobotMotion>();
+                position.Add(Cabinet1Home);
+                position.Add(
+                    new HalRobotMotion
+                    {
+                        X = -380.6985f,
+                        Y = -690.6075f,
+                        Z = 181.8245f,
+                        W = -0.563894749f,
+                        P = -88.21404f,
+                        R = 25.5681438f,
+                        E1 = 517.0209f,
+                        J1 = -114.525215f,
+                        J2 = 39.1008873f,
+                        J3 = -27.4424839f,
+                        J4 = -59.767025f,
+                        J5 = 48.666275f,
+                        J6 = 50.079895f,
+                        J7 = 517.0209f,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 60,
+                    });
+                return position;
+            }
+        }
+
+        /// <summary>從 Home 到 OpenStage 點位 </summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public HalRobotMotion OpenStage
+        {
+            get
+            {
+                HalRobotMotion position = new HalRobotMotion();
+                // TODO: 加入 Home 到 OpenStage點位資料
+                return position;
+            }
+        }
+
+        /// <summary>Open Statge 的 Home 點</summary>
+        public HalRobotMotion OpenStageHome
+        {
+            get
+            {
+                var position = new HalRobotMotion
+                { // TODO: 加入實際 World 及 Joint 點位 
+
+                };
+                return position;
+            }
+
+        }
+    }
+
     [Guid("B57BDC28-ACA8-46DF-8B51-1A2285950031")]
     public class MacHalBoxTransferFake : MacHalAssemblyBase, IMacHalBoxTransfer
     {
         #region Device Components
 
+        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.boxtransfer_camera_gripper_1); } }
         public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(EnumMacDeviceId.boxtransfer_plc); } }
         public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(EnumMacDeviceId.boxtransfer_robot_1); } }
-        public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.boxtransfer_camera_gripper_1); } }
-
         #endregion Device Components
 
         #region Path test, 2020/05/25
@@ -29,50 +152,105 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         Dictionary<string, HalRobotMotion> btPathInfo = new Dictionary<string, HalRobotMotion>();
 
-        DataTable readCSV(string filePath)
+        /// <summary>回到 Cabinet1 Home</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void BackCabinet1Home()
         {
-            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs, Encoding.Default);
-            DataTable dt = new DataTable();
-            string[] aryLine = null;
-            string[] tableHead = null;
-            string strLine = "";
-            int columnCount = 10;
-            bool IsFirst = true;
-            while ((strLine = sr.ReadLine()) != null)
-            {
-                if (IsFirst)
-                {
-                    tableHead = strLine.Split(',');
-                    IsFirst = false;
-                    columnCount = tableHead.Length;
+            var position = new BoxTransferPathPositionsFake().Cabinet1Home;
+            this.MoveAsync(position);
+        }
 
-                    for (int i = 0; i < columnCount; i++)
-                    {
-                        tableHead[i] = tableHead[i].Replace("\"", "");
-                        DataColumn dc = new DataColumn(tableHead[i]);
-                        dt.Columns.Add(dc);
-                    }
+        /// <summary>回到 Cabinet 1 Home</summary>
+        public void BackwardFromCabinet1()
+        {
+            var position = new BoxTransferPathPositionsFake().Cabinet1Home;
+            this.MoveAsync(position);
+        }
+
+        /// <summary>回到 Cabinet 2 Home</summary>
+        public void BackwardFromCabinet2()
+        {
+            var position = new BoxTransferPathPositionsFake().Cabinet2Home;
+            this.MoveAsync(position);
+        }
+
+        /// <summary>從Open Stage Back Home</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void BackwardFromOpenStage()
+        {
+            var position = new BoxTransferPathPositionsFake().OpenStageHome;
+            this.MoveAsync(position);
+        }
+
+        /// <summary>轉到面對 Cabinet 1 的方向</summary>
+        public void ChangeDirectionToFaceCabinet1()
+        {
+            this.ChangeDirectionToFaceCabinet(1);
+        }
+
+        /// <summary>轉到面對 Cabinet 2 方向</summary>
+        public void ChangeDirectionToFaceCabinet2()
+        {
+            this.ChangeDirectionToFaceCabinet(2);
+        }
+
+        /// <summary>轉向面對 Open Statge 的方向 </summary>
+        public void ChangeDirectionToFaceOpenStage()
+        {
+            var position = new BoxTransferPathPositionsFake().OpenStageHome;
+            ChangeDirection(position);
+        }
+
+        /// <summary>移到 Cabinet1(Drawer 1) 某個 Box</summary>
+        /// <param name="boxIndex">Box 的索引</param>
+        public void ForwardToCabinet1(int boxIndex)
+        {
+            this.ForwardToCabinet(1, boxIndex);
+        }
+
+        /// <summary>移到 Cabinet2(Drawer 2) 某個 Box</summary>
+        /// <param name="boxIndex"> Box 索引</param>
+        public void ForwardToCabinet2(int boxIndex)
+        {
+            this.ForwardToCabinet(2, boxIndex);
+        }
+
+        /// <summary>移至 OpenStage</summary>
+        /// <remarks>King, 2020/05/25 Add</remarks>
+        public void ForwardToOpenStage()
+        {
+            var position = new BoxTransferPathPositionsFake().OpenStage;
+            this.MoveAsync(position);
+
+        }
+
+        public void GotoStage1()
+        {
+            var position = new BoxTransferPathPositionsFake().CabinetHomeToOpenStage01;
+            this.MoveAsync(position);
+        }
+
+        /// <summary>
+        /// 透過Position Name去對應到Dictionary中的HalRobotMotion物件
+        /// </summary>
+        /// <param name="pName"></param>
+        public void MoveByDefaultPath(string pName)
+        {
+            try
+            {
+                if (btPathInfo.ContainsKey(pName))
+                {
+                    var position = btPathInfo[pName];
+                    this.MoveAsync(position);
                 }
                 else
-                {
-                    aryLine = strLine.Split(',');
-                    DataRow dr = dt.NewRow();
-                    for (int j = 0; j < columnCount; j++)
-                    {
-                        dr[j] = aryLine[j].Replace("\"", "");
-                    }
-                    dt.Rows.Add(dr);
-                }
-            }
-            if (aryLine != null && aryLine.Length > 0)
-            {
-                dt.DefaultView.Sort = tableHead[2] + "" + "DESC";
-            }
-            sr.Close();
-            fs.Close();
+                    throw new ArgumentException("Position Name is not in Path csv file!!");
 
-            return dt;
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         /// <summary>
@@ -113,72 +291,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// 透過Position Name去對應到Dictionary中的HalRobotMotion物件
-        /// </summary>
-        /// <param name="pName"></param>
-        public void MoveByDefaultPath(string pName)
-        {
-            try
-            {
-                if (btPathInfo.ContainsKey(pName))
-                {
-                    var position = btPathInfo[pName];
-                    this.MoveAsync(position);
-                }
-                else
-                    throw new ArgumentException("Position Name is not in Path csv file!!");
-
-            }
-            catch (Exception )
-            {
-
-            }
-        }
-
-        /// <summary>回到 Cabinet1 Home</summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public void BackCabinet1Home()
-        {
-            var position = new BoxTransferPathPositionsFake().Cabinet1Home;
-            this.MoveAsync(position);
-        }
-
-
-
-        /// <summary>轉到面對 Cabinet 1 的方向</summary>
-        public void ChangeDirectionToFaceCabinet1()
-        {
-            this.ChangeDirectionToFaceCabinet(1);
-        }
-        /// <summary>轉到面對 Cabinet 2 方向</summary>
-        public void ChangeDirectionToFaceCabinet2()
-        {
-            this.ChangeDirectionToFaceCabinet(2);
-        }
-        /// <summary>轉向面對指定的 Cabinet</summary>
-        /// <param name="cabinetIndex">cabinet index</param>
-        private void ChangeDirectionToFaceCabinet(int cabinetIndex)
-        {
-            var position = default(HalRobotMotion);
-            if (cabinetIndex == 1)
-            {
-                position = new BoxTransferPathPositionsFake().Cabinet1Home;
-            }
-            else if (cabinetIndex == 2)
-            {
-                position = new BoxTransferPathPositionsFake().Cabinet2Home;
-            }
-            ChangeDirection(position);
-        }
-
-        /// <summary>轉向面對 Open Statge 的方向 </summary>
-        public void ChangeDirectionToFaceOpenStage()
-        {
-            var position = new BoxTransferPathPositionsFake().OpenStageHome;
-            ChangeDirection(position);
         }
 
         private void ChangeDirection(HalRobotMotion targetPosition)
@@ -303,19 +415,20 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 throw new Exception("Mask robot can not change direction. Because robot is not in the safe range now");
         }
 
-
-        /// <summary>移到 Cabinet1(Drawer 1) 某個 Box</summary>
-        /// <param name="boxIndex">Box 的索引</param>
-        public void ForwardToCabinet1(int boxIndex)
+        /// <summary>轉向面對指定的 Cabinet</summary>
+        /// <param name="cabinetIndex">cabinet index</param>
+        private void ChangeDirectionToFaceCabinet(int cabinetIndex)
         {
-            this.ForwardToCabinet(1, boxIndex);
-        }
-
-        /// <summary>移到 Cabinet2(Drawer 2) 某個 Box</summary>
-        /// <param name="boxIndex"> Box 索引</param>
-        public void ForwardToCabinet2(int boxIndex)
-        {
-            this.ForwardToCabinet(2, boxIndex);
+            var position = default(HalRobotMotion);
+            if (cabinetIndex == 1)
+            {
+                position = new BoxTransferPathPositionsFake().Cabinet1Home;
+            }
+            else if (cabinetIndex == 2)
+            {
+                position = new BoxTransferPathPositionsFake().Cabinet2Home;
+            }
+            ChangeDirection(position);
         }
 
         /// <summary>從Home 移動到 Cabinet 某個 Box</summary>
@@ -361,42 +474,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             this.MoveAsync(positions);
         }
 
-        public void GotoStage1()
-        {
-            var position = new BoxTransferPathPositionsFake().CabinetHomeToOpenStage01;
-            this.MoveAsync(position);
-        }
-
-        /// <summary>回到 Cabinet 1 Home</summary>
-        public void BackwardFromCabinet1()
-        {
-            var position = new BoxTransferPathPositionsFake().Cabinet1Home;
-            this.MoveAsync(position);
-        }
-        /// <summary>回到 Cabinet 2 Home</summary>
-        public void BackwardFromCabinet2()
-        {
-            var position = new BoxTransferPathPositionsFake().Cabinet2Home;
-            this.MoveAsync(position);
-        }
-        /// <summary>移至 OpenStage</summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public void ForwardToOpenStage()
-        {
-            var position = new BoxTransferPathPositionsFake().OpenStage;
-            this.MoveAsync(position);
-
-        }
-
-
-        /// <summary>從Open Stage Back Home</summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public void BackwardFromOpenStage()
-        {
-            var position = new BoxTransferPathPositionsFake().OpenStageHome;
-            this.MoveAsync(position);
-        }
-
         /// <summary>非同步移動到某個位置</summary>
         /// <param name="targetPosition">目標位置</param>
         /// <remarks>King, 2020/05/25 Add</remarks>
@@ -418,21 +495,67 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 this.MoveAsync(position);
             }
         }
+
+        DataTable readCSV(string filePath)
+        {
+            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs, Encoding.Default);
+            DataTable dt = new DataTable();
+            string[] aryLine = null;
+            string[] tableHead = null;
+            string strLine = "";
+            int columnCount = 10;
+            bool IsFirst = true;
+            while ((strLine = sr.ReadLine()) != null)
+            {
+                if (IsFirst)
+                {
+                    tableHead = strLine.Split(',');
+                    IsFirst = false;
+                    columnCount = tableHead.Length;
+
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        tableHead[i] = tableHead[i].Replace("\"", "");
+                        DataColumn dc = new DataColumn(tableHead[i]);
+                        dt.Columns.Add(dc);
+                    }
+                }
+                else
+                {
+                    aryLine = strLine.Split(',');
+                    DataRow dr = dt.NewRow();
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        dr[j] = aryLine[j].Replace("\"", "");
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+            if (aryLine != null && aryLine.Length > 0)
+            {
+                dt.DefaultView.Sort = tableHead[2] + "" + "DESC";
+            }
+            sr.Close();
+            fs.Close();
+
+            return dt;
+        }
         #endregion
 
-        public int ExePathMove(string PathFileLocation)
+        public int BacktrackPathMove(string PathFileLocation)
         {
-
-            /** real
-
-            var PathPosition = Robot.ReadMovePath(PathFileLocation);
-            return Robot.ExePosMove(PathPosition);
-            */
-            #region fake
-            FakeMoveSleep();
-            //return Robot.ExePosMove(null);
             return 0;
-            #endregion
+        }
+
+        public Bitmap Camera_Cap()
+        {
+            return CameraOnGripper.Shot();
+        }
+
+        public void Camera_CapToSave(string SavePath, string FileType)
+        {
+            CameraOnGripper.ShotToSaveImage(SavePath, FileType);
         }
 
         /// <summary>
@@ -466,21 +589,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             #endregion
         }
 
-        public int RobotReset()
-        {
-            return 0;
-        }
-
-        public int RobotRecover()
-        {
-            return 0;
-        }
-
-        public int RobotStopProgram()
-        {
-            return 0;
-        }
-
         /// <summary>
         /// 夾取，1：鐵盒、2：水晶盒
         /// </summary>
@@ -498,18 +606,20 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             #endregion
         }
 
-        public string Unclamp()
+        public int ExePathMove(string PathFileLocation)
         {
-            /** real
-            return Plc.Unclamp();
-            */
 
+            /** real
+
+            var PathPosition = Robot.ReadMovePath(PathFileLocation);
+            return Robot.ExePosMove(PathPosition);
+            */
             #region fake
-            FakeClampSleep();
-            return "OK";
+            FakeMoveSleep();
+            //return Robot.ExePosMove(null);
+            return 0;
             #endregion
         }
-
         public string Initial()
         {
             /**real
@@ -527,8 +637,24 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public bool LevelReset()
         { return Plc.LevelReset(); }
 
-        public string ReadBTRobotStatus()
-        { return Plc.ReadBTRobotStatus(); }
+        public void LightForGripperSetValue(int value)
+        { return; }
+
+        public bool ReadBT_FrontLimitSenser()
+        {
+            return true;
+        }
+
+        public bool ReadBT_RearLimitSenser()
+        {
+            return true;
+        }
+
+        public EnumMacPlcAssemblyStatus ReadBTStatus()
+        { return Plc.ReadBTStatus(); }
+
+        public int ReadLightForGripper()
+        { return 1; }
 
         /// <summary>
         /// 當手臂作動或停止時，需要下指令讓PLC知道目前Robot是移動或靜止狀態
@@ -545,13 +671,37 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             #endregion
         }
 
+        public int RobotRecover()
+        {
+            return 0;
+        }
+
+        public int RobotReset()
+        {
+            return 0;
+        }
+        public int RobotStopProgram()
+        {
+            return 0;
+        }
+        public string Unclamp()
+        {
+            /** real
+            return Plc.Unclamp();
+            */
+
+            #region fake
+            FakeClampSleep();
+            return "OK";
+            #endregion
+        }
         #region Set Parameter
         /// <summary>
-        /// 夾爪速度設定，單位(mm/sec)
+        /// 設定Clamp與Cabinet的最小間距限制
         /// </summary>
-        /// <param name="ClampSpeed">夾爪速度</param>
-        public void SetClampSpeedVar(double ClampSpeed)
-        { Plc.SetSpeedVar(ClampSpeed); }
+        /// <param name="Minimum">最小間距</param>
+        public void SetClampAndCabinetSpacingLimit(double Minimum)
+        { Plc.SetClampToCabinetSpaceLimit(Minimum); }
 
         /// <summary>
         /// 設定夾爪間距的極限值，最小間距、最大間距
@@ -562,12 +712,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { Plc.SetHandSpaceLimit(Minimum, Maximum); }
 
         /// <summary>
-        /// 設定Clamp與Cabinet的最小間距限制
+        /// 夾爪速度設定，單位(mm/sec)
         /// </summary>
-        /// <param name="Minimum">最小間距</param>
-        public void SetClampAndCabinetSpacingLimit(double Minimum)
-        { Plc.SetClampToCabinetSpaceLimit(Minimum); }
-
+        /// <param name="ClampSpeed">夾爪速度</param>
+        public void SetClampSpeedVar(double ClampSpeed)
+        { Plc.SetSpeedVar(ClampSpeed); }
         /// <summary>
         /// 設定水平Sensor的XY軸極限值，X軸水平極限、Y軸水平極限
         /// </summary>
@@ -575,29 +724,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="Level_Y">Y軸水平極限</param>
         public void SetLevelSensorLimit(double? Level_X, double? Level_Y)
         { Plc.SetLevelSensorLimit(Level_X, Level_Y); }
-
-        /// <summary>
-        /// 設定六軸力覺Sensor的壓力值上限
-        /// </summary>
-        /// <param name="Fx"></param>
-        /// <param name="Fy"></param>
-        /// <param name="Fz"></param>
-        /// <param name="Mx"></param>
-        /// <param name="My"></param>
-        /// <param name="Mz"></param>
-        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
-        {
-            Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
-            Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
-            if ((Fx != null && SetResult.Item1 != Fx)
-                || (Fy != null && SetResult.Item2 != Fy)
-                || (Fz != null && SetResult.Item3 != Fz)
-                || (Mx != null && SetResult.Item4 != Mx)
-                || (My != null && SetResult.Item5 != My)
-                || (Mz != null && SetResult.Item6 != Mz))
-                throw new Exception("BT six axis sensor upper limit setting error !");
-        }
 
         /// <summary>
         /// 設定六軸力覺Sensor的壓力值下限
@@ -621,15 +747,38 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 || (Mz != null && SetResult.Item6 != Mz))
                 throw new Exception("BT six axis sensor lower limit setting error !");
         }
+
+        /// <summary>
+        /// 設定六軸力覺Sensor的壓力值上限
+        /// </summary>
+        /// <param name="Fx"></param>
+        /// <param name="Fy"></param>
+        /// <param name="Fz"></param>
+        /// <param name="Mx"></param>
+        /// <param name="My"></param>
+        /// <param name="Mz"></param>
+        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
+        {
+            Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
+            if ((Fx != null && SetResult.Item1 != Fx)
+                || (Fy != null && SetResult.Item2 != Fy)
+                || (Fz != null && SetResult.Item3 != Fz)
+                || (Mx != null && SetResult.Item4 != Mx)
+                || (My != null && SetResult.Item5 != My)
+                || (Mz != null && SetResult.Item6 != Mz))
+                throw new Exception("BT six axis sensor upper limit setting error !");
+        }
         #endregion
 
         #region Read Parameter
         /// <summary>
-        /// 讀取夾爪速度設定
+        /// 讀取Clamp與Cabinet的最小間距設定
         /// </summary>
-        /// <returns></returns>
-        public double ReadClampSpeedVar()
-        { return Plc.ReadSpeedVar(); }
+        /// <returns>最小間距</returns>
+        public double ReadClampAndCabinetSpacingLimit()
+        { return Plc.ReadClampToCabinetSpaceLimitSetting(); }
 
         /// <summary>
         /// 讀取夾爪間距的極限值設定，最小夾距、最大夾距
@@ -639,12 +788,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return Plc.ReadHandSpaceLimitSetting(); }
 
         /// <summary>
-        /// 讀取Clamp與Cabinet的最小間距設定
+        /// 讀取夾爪速度設定
         /// </summary>
-        /// <returns>最小間距</returns>
-        public double ReadClampAndCabinetSpacingLimit()
-        { return Plc.ReadClampToCabinetSpaceLimitSetting(); }
-
+        /// <returns></returns>
+        public double ReadClampSpeedVar()
+        { return Plc.ReadSpeedVar(); }
         /// <summary>
         /// 設定XY軸水平Sensor限制，X軸水平限制、Y軸水平限制
         /// </summary>
@@ -653,28 +801,21 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return Plc.ReadLevelSensorLimitSetting(); }
 
         /// <summary>
-        /// 讀取六軸力覺Sensor的壓力值上限設定
-        /// </summary>
-        /// <returns></returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
-        { return Plc.ReadSixAxisSensorUpperLimit(); }
-
-        /// <summary>
         /// 讀取六軸力覺Sensor的壓力值下限設定
         /// </summary>
         /// <returns></returns>
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
         { return Plc.ReadSixAxisSensorLowerLimit(); }
+
+        /// <summary>
+        /// 讀取六軸力覺Sensor的壓力值上限設定
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
+        { return Plc.ReadSixAxisSensorUpperLimit(); }
         #endregion
 
         #region Read Component Value
-        /// <summary>
-        /// 讀取軟體記憶的夾爪位置
-        /// </summary>
-        /// <returns></returns>
-        public double ReadHandPos()
-        { return Plc.ReadHandPos(); }
-
         /// <summary>
         /// 讀取夾爪前方是否有Box
         /// </summary>
@@ -683,19 +824,31 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return Plc.ReadBoxDetect(); }
 
         /// <summary>
-        /// 讀取由雷射檢測的夾爪位置
-        /// </summary>
-        /// <returns></returns>
-        public double ReadHandPosByLSR()
-        { return Plc.ReadHandPosByLSR(); }
-
-        /// <summary>
         /// 讀取Clamp前方物體距離
         /// </summary>
         /// <returns></returns>
         public double ReadClampDistance()
         { return Plc.ReadClampDistance(); }
 
+        /// <summary>
+        /// 確認Hand吸塵狀態
+        /// </summary>
+        /// <returns></returns>
+        public bool ReadClampVacuum()
+        { return Plc.ReadHandVacuum(); }
+
+        /// <summary>
+        /// 讀取軟體記憶的夾爪位置
+        /// </summary>
+        /// <returns></returns>
+        public double ReadHandPos()
+        { return Plc.ReadHandPos(); }
+        /// <summary>
+        /// 讀取由雷射檢測的夾爪位置
+        /// </summary>
+        /// <returns></returns>
+        public double ReadHandPosByLSR()
+        { return Plc.ReadHandPosByLSR(); }
         /// <summary>
         /// 讀取XY軸水平Sensor目前數值，X軸水平數值、Y軸水平數值
         /// </summary>
@@ -709,28 +862,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <returns></returns>
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensor()
         { return Plc.ReadSixAxisSensor(); }
-
-        /// <summary>
-        /// 確認Hand吸塵狀態
-        /// </summary>
-        /// <returns></returns>
-        public bool ReadClampVacuum()
-        { return Plc.ReadHandVacuum(); }
         #endregion
-
-        public Bitmap Camera_Cap()
+        private void FakeClampSleep()
         {
-            return CameraOnGripper.Shot();
-        }
-
-        public void Camera_CapToSave(string SavePath, string FileType)
-        {
-            CameraOnGripper.ShotToSaveImage(SavePath, FileType);
-        }
-
-        private void FakeSleep()
-        {
-            System.Threading.Thread.Sleep(500);
+            FakeSleep();
+            FakeSleep();
         }
 
         private void FakeMoveSleep()
@@ -740,159 +876,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             FakeSleep();
         }
 
-        private void FakeClampSleep()
+        private void FakeSleep()
         {
-            FakeSleep();
-            FakeSleep();
-        }
-
-        public bool ReadBT_FrontLimitSenser()
-        {
-            return true;
-        }
-
-        public bool ReadBT_RearLimitSenser()
-        {
-            return true;
-        }
-
-        public void LightForGripperSetValue(int value)
-        { return; }
-
-        public int ReadLightForGripper()
-        { return 1; }
-
-        public int BacktrackPathMove(string PathFileLocation)
-        {
-            return 0;
+            System.Threading.Thread.Sleep(500);
         }
     }
-    /// <summary>Path Test Position Collection</summary>
-    /// <remarks>King, 2020/05/15 Add</remarks>
-    public class BoxTransferPathPositionsFake
-    {
-
-        /// <summary>Open Statge 的 Home 點</summary>
-        public HalRobotMotion OpenStageHome
-        {
-            get
-            {
-                var position = new HalRobotMotion
-                { // TODO: 加入實際 World 及 Joint 點位 
-
-                };
-                return position;
-            }
-
-        }
-
-        /// <summary>Drawer 2 的 Home 點</summary>
-        public HalRobotMotion Cabinet2Home
-        {
-            get
-            {
-                var position = new HalRobotMotion
-                { // TODO: 加入實際 World 及 Joint 點位
-                    X = 527.898438f,
-                    Y = -9.219327f,
-                    Z = 38.3116455f,
-                    W = 147.213242f,
-                    P = -86.85704f,
-                    R = 32.5399f,
-                    E1 = 414.897583f,
-                    J1 = -1.15107226f,
-                    J2 = 22.9280548f,
-                    J3 = -64.14249f,
-                    J4 = 0.983132958f,
-                    J5 = 61.5038452f,
-                    J6 = 1.27394938f,
-                    J7 = 414.897583f,
-                    Speed = 60,
-                    MotionType = HalRobotEnumMotionType.Position
-                };
-                return position;
-            }
-        }
-
-        /// <summary>Drawer 1 的 Home 點</summary>
-        public HalRobotMotion Cabinet1Home
-        {
-            get
-            {
-                var position = new HalRobotMotion
-                {
-                    // TODO: 加上 World 座標資料 
-                    J1 = -89.99923f,
-                    J2 = 0.000476679532f,
-                    J3 = -50.0014839f,
-                    J4 = -0.000300816144f,
-                    J5 = 49.9995537f,
-                    J6 = -0.00238952623f,
-                    J7 = 517.0201f,
-                    X = 0.00552143529f,
-                    Y = -438.778259f,
-                    Z = 140.748138f,
-                    W = -126.767067f,
-                    P = -89.99678f,
-                    R = -143.2324f,
-                    E1 = 517.0201f,
-                    Speed = 50,
-                    MotionType = HalRobotEnumMotionType.Joint,
-
-
-                };
-                // TODO: 設定 Home 點位
-                return position;
-            }
-        }
-
-
-        public List<HalRobotMotion> CabinetHomeToOpenStage01
-        {
-
-            get
-            {
-
-                var position = new List<HalRobotMotion>();
-                position.Add(Cabinet1Home);
-                position.Add(
-                    new HalRobotMotion
-                    {
-                        X = -380.6985f,
-                        Y = -690.6075f,
-                        Z = 181.8245f,
-                        W = -0.563894749f,
-                        P = -88.21404f,
-                        R = 25.5681438f,
-                        E1 = 517.0209f,
-                        J1 = -114.525215f,
-                        J2 = 39.1008873f,
-                        J3 = -27.4424839f,
-                        J4 = -59.767025f,
-                        J5 = 48.666275f,
-                        J6 = 50.079895f,
-                        J7 = 517.0209f,
-                        MotionType = HalRobotEnumMotionType.Position,
-                        Speed = 60,
-                    });
-                return position;
-            }
-        }
-
-        /// <summary>從 Home 到 OpenStage 點位 </summary>
-        /// <remarks>King, 2020/05/25 Add</remarks>
-        public HalRobotMotion OpenStage
-        {
-            get
-            {
-                HalRobotMotion position = new HalRobotMotion();
-                // TODO: 加入 Home 到 OpenStage點位資料
-                return position;
-            }
-        }
-
-    }
-
-
-
 }
