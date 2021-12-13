@@ -273,9 +273,8 @@
     <Compile Include="Sensor\Proto\MvaSsProtoSecsBuffer.cs" />
     <Compile Include="Sensor\Proto\MvaSsProtoCmdBuffer.cs" />
     <Compile Include="Sensor\DeviceTcpCmd\MvaSsProtoCmdMsg.cs" />
-    <Compile Include="Threading\MvaTask.cs" />
-    <Compile Include="Threading\MvaSpinSleep.cs" />
     <Compile Include="Threading\MvaSpinWait.cs" />
+    <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
   </ItemGroup>
