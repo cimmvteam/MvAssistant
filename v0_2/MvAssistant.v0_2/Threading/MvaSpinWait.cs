@@ -50,11 +50,28 @@ namespace MvAssistant.v0_2.Threading
             //先行判定
             var flag = condition(); //先執行一次, 避免來不及/沒時間執行, 已滿足就return
             if (flag) return true;
-            while ((DateTime.Now - start).TotalMilliseconds < this.WaitLimitTotalMs)
-            {
-                flag = condition();
-                if (flag) return true;
-                Thread.Sleep(this.WaitCheckIntervalMs);
+
+            if (this.WaitCheckIntervalMs > 0)
+            {// =0代表無間隔 或 小於0也是
+                while ((DateTime.Now - start).TotalMilliseconds < this.WaitLimitTotalMs || this.WaitLimitTotalMs < 0)
+                {//持續確認到滿足限制時間, 若沒設置限制 無限等待
+                    flag = condition();
+                    if (flag) return true;
+                    Thread.Sleep(this.WaitCheckIntervalMs);
+                }
+            }
+            else
+            {// 若沒設置間隔時間, 視為 SpinUnit
+                if (this.WaitLimitTotalMs >= 0)
+                {//但有設置限制時間
+                    var waitMs = (int)(DateTime.Now - start).TotalMilliseconds;
+                    var remaindMs = this.WaitLimitTotalMs - waitMs;//剩餘等待時間
+                    if (remaindMs > 0)
+                        flag = SpinWait.SpinUntil(condition, remaindMs);
+                    // == 0 代表沒剩餘時間等待了, 下面flag會return false
+                }
+                else
+                    flag = SpinWait.SpinUntil(condition, -1);
             }
             return flag;
         }
@@ -78,13 +95,12 @@ namespace MvAssistant.v0_2.Threading
 
             if (this.WaitCheckIntervalMs > 0)
             {//若有設定 判定間隔
-                while ((DateTime.Now - start).TotalMilliseconds < this.WaitLimitTotalMs)
+                while ((DateTime.Now - start).TotalMilliseconds < this.WaitLimitTotalMs || this.WaitLimitTotalMs < 0)
                 {
                     //每隔段時間會出來
                     flag = SpinWait.SpinUntil(condition, this.WaitCheckIntervalMs);
                     if (flag) return true;
                 }
-
             }
             else
             {
@@ -136,7 +152,7 @@ namespace MvAssistant.v0_2.Threading
             { if (fail != null) fail(); }
             return flag;
         }
-        
+
         #endregion
 
 
