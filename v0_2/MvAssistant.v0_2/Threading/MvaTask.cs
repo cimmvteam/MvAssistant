@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +10,14 @@ namespace MvAssistant.v0_2.Threading
 {
     public class MvaTask : IDisposable, IAsyncResult
     {
-        public string Name;
-        public Task Task;
         public CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
+        public string Name;
+        public int Sleep = 0;
+        public Task Task;
         public CancellationToken CancelToken { get { return this.CancelTokenSource.Token; } }
-
-        public void Cancel() { this.CancelTokenSource.Cancel(); }
-
-
         public TaskStatus Status { get { return this.Task.Status; } }
 
-
+        public void Cancel() { this.CancelTokenSource.Cancel(); }
         public TaskAwaiter GetAwaiter() { return this.Task.GetAwaiter(); }
         public bool IsEnd() { return this.Task == null ? true : this.Task.IsCompleted || this.Task.IsFaulted || this.Task.IsCanceled; }
 
@@ -34,96 +30,161 @@ namespace MvAssistant.v0_2.Threading
         public bool Wait(int milliseconds) { return this.Task.Wait(milliseconds); }
         public void Wait() { this.Task.Wait(); }
 
+        void SetupThreadName()
+        {
+            if (!String.IsNullOrEmpty(this.Name) && String.IsNullOrEmpty(Thread.CurrentThread.Name))
+                Thread.CurrentThread.Name = this.Name;
+        }
+
 
         #region --- IAsyncResult --- --- ---
-        public bool IsCompleted { get { return this.Task.IsCompleted; } }
-        public WaitHandle AsyncWaitHandle { get { throw new NotImplementedException(); } }
         public object AsyncState { get { return this.Task.AsyncState; } }
+        public WaitHandle AsyncWaitHandle { get { throw new NotImplementedException(); } }
         public bool CompletedSynchronously { get { throw new NotImplementedException(); } }
+        public bool IsCompleted { get { return this.Task.IsCompleted; } }
         #endregion--- --- ---
+
+
+
 
         #region --- Static --- --- ---
 
-        public static MvaTask RunOnce(Action act, String name = null)
-        {
-            var task = new MvaTask();
-            task.Task = Task.Factory.StartNew(act);
-            task.Name = name;
-            return task;
-        }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="funcIsContinue">if return ture then continue</param>
-        /// <returns></returns>
-        public static MvaTask RunLoop(Func<bool> funcIsContinue)
+        public static MvaTask RunLoop(Func<bool> funcIsContinue, int sleep = 0)
         {
             var task = new MvaTask();
+            task.Sleep = sleep;
+
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
+                task.SetupThreadName();
                 while (!ct.IsCancellationRequested)
                 {
                     ct.ThrowIfCancellationRequested();
                     if (!funcIsContinue()) break;
+                    if (task.Sleep > 0) Thread.Sleep(task.Sleep);
                 }
             }, ct);
 
             return task;
         }
-        public static MvaTask RunLoop(Func<bool> funcIsContinue, int sleep)
+        public static MvaTask RunLoop(Func<bool> funcIsContinue, string name, int sleep = 0)
         {
             var task = new MvaTask();
-            var ct = task.CancelTokenSource.Token;
-            task.Task = Task.Factory.StartNew(() =>
-            {
-                while (!ct.IsCancellationRequested)
-                {
-                    ct.ThrowIfCancellationRequested();
-                    if (!funcIsContinue()) break;
-                    Thread.Sleep(sleep);
-                }
-            }, ct);
+            task.Sleep = sleep;
 
-            return task;
-        }
-        public static MvaTask RunLoop(Func<bool> funcIsContinue, string name)
-        {
-            var task = new MvaTask();
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
+                task.SetupThreadName();
                 while (!ct.IsCancellationRequested)
                 {
                     ct.ThrowIfCancellationRequested();
                     if (!funcIsContinue()) break;
+                    if (task.Sleep > 0) Thread.Sleep(task.Sleep);
                 }
             }, ct);
             task.Name = name;
             return task;
         }
-        public static MvaTask RunLoop(Func<CancellationToken, bool> funcIsContinue, string name)
+        public static MvaTask RunLoop(Func<CancellationToken, bool> funcIsContinue, int sleep = 0)
         {
             var task = new MvaTask();
+            task.Sleep = sleep;
+
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
+                task.SetupThreadName();
                 while (!ct.IsCancellationRequested)
                 {
                     ct.ThrowIfCancellationRequested();
                     if (!funcIsContinue(ct)) break;
+                    if (task.Sleep > 0) Thread.Sleep(task.Sleep);
+                }
+            }, ct);
+            return task;
+        }
+        public static MvaTask RunLoop(Func<CancellationToken, bool> funcIsContinue, string name, int sleep = 0)
+        {
+            var task = new MvaTask();
+            task.Sleep = sleep;
+
+            var ct = task.CancelTokenSource.Token;
+            task.Task = Task.Factory.StartNew(() =>
+            {
+                task.SetupThreadName();
+                while (!ct.IsCancellationRequested)
+                {
+                    ct.ThrowIfCancellationRequested();
+                    if (!funcIsContinue(ct)) break;
+                    if (task.Sleep > 0) Thread.Sleep(task.Sleep);
                 }
             }, ct);
             task.Name = name;
             return task;
         }
-        public static MvaTask RunOnce(Action<CancellationToken> act)
+
+
+
+        public static MvaTask RunOnce(Action act, int sleep = 0)
         {
             var task = new MvaTask();
+            task.Sleep = sleep;
+
+            task.Task = Task.Factory.StartNew(() =>
+            {
+                task.SetupThreadName();
+                act();
+                if (task.Sleep > 0) Thread.Sleep(task.Sleep);
+            });
+            return task;
+        }
+        public static MvaTask RunOnce(Action act, String name, int sleep = 0)
+        {
+            var task = new MvaTask();
+            task.Sleep = sleep;
+            task.Name = name;
+
+            task.Task = Task.Factory.StartNew(() =>
+            {
+                task.SetupThreadName();
+                act();
+                if (task.Sleep > 0) Thread.Sleep(task.Sleep);
+            });
+            return task;
+        }
+        public static MvaTask RunOnce(Action<CancellationToken> act, int sleep = 0)
+        {
+            var task = new MvaTask();
+            task.Sleep = sleep;
+
             var ct = task.CancelTokenSource.Token;
             task.Task = Task.Factory.StartNew(() =>
             {
+                task.SetupThreadName();
                 act(ct);
+                if (task.Sleep > 0) Thread.Sleep(task.Sleep);
+            }, ct);
+
+            return task;
+        }
+        public static MvaTask RunOnce(Action<CancellationToken> act, String name, int sleep = 0)
+        {
+            var task = new MvaTask();
+            task.Sleep = sleep;
+            task.Name = name;
+
+            var ct = task.CancelTokenSource.Token;
+            task.Task = Task.Factory.StartNew(() =>
+            {
+                task.SetupThreadName();
+                act(ct);
+                if (task.Sleep > 0) Thread.Sleep(task.Sleep);
             }, ct);
 
             return task;
