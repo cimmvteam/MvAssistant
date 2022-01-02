@@ -259,15 +259,18 @@ PLC_TO_PC_BT_FLS,
         OS_TO_PC_Initial_A05_Result,
         PC_TO_OS_BoxType,//設定內容 1.Box type－鐵盒：1、水晶盒：2     
         PC_TO_OS_Speed,//作動速度%
-        PC_TO_OS_BTIntrude,//Robot侵入A05
+        /// <summary> Robot侵入A05 </summary>
+        PC_TO_OS_BTIntrude,
         PC_TO_OS_MTIntrude,
-        OS_TO_PC_BTLicense,//Robot侵入A05許可
+        /// <summary> Robot侵入A05許可 </summary>
+        OS_TO_PC_BTLicense,
         OS_TO_PC_MTLicense,
         OS_TO_PC_ClampStatus,
         OS_TO_PC_SortClamp1_Position,
         OS_TO_PC_SortClamp2_Position,
         OS_TO_PC_Slider1_Position,
         OS_TO_PC_Slider2_Position,
+        /// <summary>  </summary>
         OS_TO_PC_Cover1_Position,
         OS_TO_PC_Cover2_Position,
         PC_TO_OS_PD_L_Limit,
