@@ -11,7 +11,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
     public interface IMacHalLoadPortUnit : IMacHalComponent
     {
         bool IsConnected { get; }
-        string DeviceIndex { get; }
         LoadPortWorkState CurrentWorkState { get; }
         void ResetWorkState();
         void SetWorkState(LoadPortWorkState state);

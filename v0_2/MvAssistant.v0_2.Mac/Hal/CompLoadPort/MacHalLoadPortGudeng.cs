@@ -23,9 +23,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
         private static object getLddObject = new object();
         private MvGudengLoadPortLdd _ldd;
-        public  LoadPortWorkState CurrentWorkState { get; private set; }
+        public LoadPortWorkState CurrentWorkState { get; private set; }
         public void ResetWorkState() { CurrentWorkState = LoadPortWorkState.AnyState; }
-        public void SetWorkState(LoadPortWorkState state){ CurrentWorkState = state; }
+        public void SetWorkState(LoadPortWorkState state) { CurrentWorkState = state; }
         public EventStagePositionCode StagePosition { get; private set; }
         public void SetStagePosition(EventStagePositionCode stagePosition) { StagePosition = stagePosition; }
 
@@ -97,31 +97,15 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             }
 #else
             get
-            { 
-            var port = Convert.ToInt32(this.DevSettings["port"]);
+            {
+                var port = Convert.ToInt32(this.DevSettings["port"]);
                 return port;
-            } 
+            }
 #endif
 
 
         }
-        public string DeviceIndex
-        {
-#if NoConfig
-            get
-            {
 
-                return "loadport_1";
-            }
-#else
-            get
-            {
-
-                return HalDeviceCfg.DeviceId;
-            }
-#endif
-
-        }
 
 
 
@@ -142,8 +126,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                 return 0;
             }
         }
-       public override bool HalIsConnected()
-       {
+        public override bool HalIsConnected()
+        {
             return this.IsConnected;
         }
 
@@ -158,7 +142,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                     {
                         if (_ldd == null)
                         {
-                            _ldd = new MvGudengLoadPortLdd(DeviceIP, DevicePort, DeviceIndex);
+                            _ldd = new MvGudengLoadPortLdd(DeviceIP, DevicePort, DeviceId);
                             this.BindEvents();
                             connected = _ldd.StartListenServerThread();
 
@@ -178,7 +162,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                 }
                 return connected ? 1 : 0;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 _ldd = null;
                 IsConnected = false;
@@ -240,16 +224,16 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         {
             this.SetWorkState(LoadPortWorkState.DockIng);
             var commandText = _ldd.CommandDockRequest();
-           
+
             return commandText;
-            
+
         }
 
         public string CommandUndockRequest()
         {
             this.SetWorkState(LoadPortWorkState.UndockIng);
             var commandText = _ldd.CommandUndockRequest();
-           
+
             return commandText;
         }
 
@@ -368,14 +352,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             return commandText;
         }
 
-       
+
 
         public void OnPlacement(object sender, EventArgs e)
         {
             if (OnPlacementHandler != null)
             {
-                OnPlacementHandler.Invoke(this,e);
-                
+                OnPlacementHandler.Invoke(this, e);
+
             }
         }
         public void OnPresent(object sender, EventArgs e)
@@ -436,7 +420,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnDockPODComplete_HasReticle(object sender, EventArgs e)
         {
-           
+
             this.SetWorkState(LoadPortWorkState.DockComplete);
             if (OnDockPODComplete_HasReticleHandler != null)
             {
@@ -446,7 +430,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnDockPODComplete_Empty(object sender, EventArgs e)
         {
-          
+
             this.SetWorkState(LoadPortWorkState.DockComplete);
             if (OnDockPODComplete_EmptyHandler != null)
             {
@@ -456,7 +440,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnUndockComplete(object sender, EventArgs e)
         {
-         
+
             this.SetWorkState(LoadPortWorkState.UndockComplete);
             if (OnUndockCompleteHandler != null)
             {
@@ -474,7 +458,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnAlarmResetSuccess(object sender, EventArgs e)
         {
-          
+
             this.SetWorkState(LoadPortWorkState.AlarmResetComplete);
             if (OnAlarmResetSuccessHandler != null)
             {
@@ -493,7 +477,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnExecuteInitialFirst(object sender, EventArgs e)
         {
-           
+
             this.SetWorkState(LoadPortWorkState.MustInitialFirst);
             if (OnExecuteInitialFirstHandler != null)
             {
@@ -503,7 +487,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnExecuteAlarmResetFirst(object sender, EventArgs e)
         {
-           
+
             this.SetWorkState(LoadPortWorkState.MustResetFirst);
             if (OnExecuteAlarmResetFirstHandler != null)
             {
@@ -675,7 +659,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         {
             IsConnected = false;
             _ldd = null;
-            if (OnHostLostLoadPortConnectionHandler !=null)
+            if (OnHostLostLoadPortConnectionHandler != null)
             {
                 OnHostLostLoadPortConnectionHandler.Invoke(this, e);
             }

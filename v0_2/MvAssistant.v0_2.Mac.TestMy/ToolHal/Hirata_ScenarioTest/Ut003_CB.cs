@@ -60,7 +60,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                         {
                             var drawer = halContext.GetDrawer(drawerKey);
                          
-                            Debug.WriteLine("Drawer DeviceIndex=" + drawer.DeviceIndex);
+                            Debug.WriteLine("Drawer DeviceIndex=" + drawer.DeviceId);
                             drawer.Initial();
 
                             /** 1. 操作人員透過S/W開啟Drawer (從Cabinet退出至機台外部) */
@@ -120,7 +120,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                         for (var i =0; i <20; i++)
                         {
                         var drawer = halContext.GetDrawer(DrawerKeys[i], true);
-                        Debug.WriteLine("Drawer Initial, DeviceIndex=" + drawer.DeviceIndex);
+                        Debug.WriteLine("Drawer Initial, DeviceIndex=" + drawer.DeviceId);
                         try
                         {
                            drawer.CommandINI();
@@ -129,7 +129,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             drawer.OnButtonEventHandler += (sender, e) =>
                             {
                                 var rtnDrawer = ((IMacHalDrawer)sender);
-                                Debug.WriteLine("(Ut003)Invoke OnButtonEventHandler,  Drawer= " + rtnDrawer.DeviceIndex  );
+                                Debug.WriteLine("(Ut003)Invoke OnButtonEventHandler,  Drawer= " + rtnDrawer.DeviceId  );
                                 rtnDrawer.CommandPositionRead();
                             };
                             drawer.OnPositionStatusHandler += (sender, e) =>
@@ -137,7 +137,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                                
                                 var eventArgs = (OnReplyPositionEventArgs)e;
                                 var rtnDrawer = ((IMacHalDrawer)sender);
-                                Debug.WriteLine("(Ut003)Invoke OnPositionStatusHandler,  Drawer= " + rtnDrawer.DeviceIndex + ", IHOStatus=" + eventArgs.IHOStatus);
+                                Debug.WriteLine("(Ut003)Invoke OnPositionStatusHandler,  Drawer= " + rtnDrawer.DeviceId + ", IHOStatus=" + eventArgs.IHOStatus);
                                 if (eventArgs.IHOStatus == "111")   //在Home, 往外推
                                 {
                                     rtnDrawer.CommandTrayMotionOut();

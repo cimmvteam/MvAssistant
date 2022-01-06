@@ -190,7 +190,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             var drawer = (IMacHalDrawer)sender;
             // vs 2013
             //Debug.WriteLine($"DeviceIndex={drawer.DeviceIndex}");
-            Debug.WriteLine("DeviceIndex=" + drawer.DeviceIndex);
+            Debug.WriteLine("DeviceIndex=" + drawer.DeviceId);
         }
         void OnLCDCMsgFailed(object sender, EventArgs e)
         {
@@ -270,7 +270,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             var drawer = (IMacHalDrawer)sender;
             // vs 2013
             //Debug.WriteLine($"DeviceIndex={drawer.DeviceIndex},Invoke={nameof(OnBrightLEDOK)}");
-            Debug.WriteLine("DeviceIndex=" + drawer.DeviceIndex + ",Invoke=OnBrightLEDOK");
+            Debug.WriteLine("DeviceIndex=" + drawer.DeviceId + ",Invoke=OnBrightLEDOK");
         }
         void OnBrightLEDFailed(object sender, EventArgs e)
         {
@@ -278,7 +278,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
             // vs 2013
             //Debug.WriteLine($"DeviceIndex={drawer.DeviceIndex},Invoke={nameof(OnBrightLEDFailed)}");
-             Debug.WriteLine("DeviceIndex=" + drawer.DeviceIndex+ ",Invoke=OnBrightLEDFailed");
+             Debug.WriteLine("DeviceIndex=" + drawer.DeviceId+ ",Invoke=OnBrightLEDFailed");
         }
         void OnDetectedEmptyBox(object sender,EventArgs e)
         {
@@ -331,35 +331,35 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                           IMacHalDrawer drawer = (IMacHalDrawer)sender;
                           // vs 2013
                           //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionFailedHandler)} 事件");
-                           Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotionFailedHandler 事件");
+                           Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotionFailedHandler 事件");
                       };
                     testDrawer.OnTrayMotionOKHandler += (sender, e) =>
                     {
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                         // vs 2013
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionOKHandler)} 事件");
-                        Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotionOKHandler 事件");
+                        Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotionOKHandler 事件");
                     };
                     testDrawer.OnTrayMotionSensorOFFHandler += (sender, e) =>
                     {
                            // vs 2013
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionSensorOFFHandler)} 事件");
-                        Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotionSensorOFFHandler 事件");
+                        Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotionSensorOFFHandler 事件");
                     };
                     testDrawer.OnERRORErrorHandler += (sender, e) =>
                     {
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                         // vs 2013
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORErrorHandler)} 事件");
-                        Debug.WriteLine("Index=" + drawer.DeviceIndex+ ", 觸發 drawer.OnERRORErrorHandler 事件");
+                        Debug.WriteLine("Index=" + drawer.DeviceId+ ", 觸發 drawer.OnERRORErrorHandler 事件");
                     };
                     testDrawer.OnERRORREcoveryHandler += (sender, e) =>
                     {
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                          // vs 2013
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORREcoveryHandler)} 事件");
-                        Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnERRORREcoveryHandler 事件");
+                        Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnERRORREcoveryHandler 事件");
                     };
                     testDrawer.OnTrayMotioningHandler += (sender, e) =>
                     {
@@ -367,7 +367,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                          // vs 2013
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotioningHandler)} 事件");
-                         Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotioningHandler 事件");
+                         Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotioningHandler 事件");
                     };
                     /**到逹 Home*/
                     testDrawer.OnTrayArriveHomeHandler += ( sender,  e) => 
@@ -375,7 +375,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                           // vs 2013
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 檢查有沒有放盒子");
-                        Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 檢查有沒有放盒子");
+                        Debug.WriteLine("Index=" + drawer.DeviceId + ", 檢查有沒有放盒子");
                         drawer.CommandBoxDetection();
                     };
                     /**檢查沒有盒子 */
@@ -388,8 +388,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                         Debug.WriteLine($"Index={drawer.DeviceIndex}, 將 Drawer 送回 In");
                         */
                         
-                        Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 沒有盒子");
-                        Debug.WriteLine( "Index="  + drawer.DeviceIndex + ", 將 Drawer 送回 In");
+                        Debug.WriteLine("Index=" + drawer.DeviceId + ", 沒有盒子");
+                        Debug.WriteLine( "Index="  + drawer.DeviceId + ", 將 Drawer 送回 In");
                         drawer.CommandTrayMotionIn();
                     };
                     /**檢查有盒子 */
@@ -399,7 +399,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
                          // vs 2013
                         //Debug.Write($"Indexx={drawer.DeviceIndex}, 有放盒子, 將 Drawer 送往 Out");
-                        Debug.Write("Index=" + drawer.DeviceIndex + ", 有放盒子, 將 Drawer 送往 Out");
+                        Debug.Write("Index=" + drawer.DeviceId + ", 有放盒子, 將 Drawer 送往 Out");
                         
                         drawer.CommandTrayMotionOut();
                     };
@@ -408,7 +408,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                         IMacHalDrawer drawer = (IMacHalDrawer)sender;
                           // vs 2013
                         //Debug.WriteLine($"Index={drawer.DeviceIndex}, 已經到達 Out ");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 已經到達 Out ");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 已經到達 Out ");
                     };
                     testDrawer.OnTrayArriveInHandler += ( sender,  e) =>
                      {
@@ -416,7 +416,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
                           // vs 2013
                          //Debug.Write($"Index={drawer.DeviceIndex}, Drawer沒有盒子, 已經退回 In , 請重新裝入盒子");
-                         Debug.Write("Index=" + drawer.DeviceIndex + ", Drawer沒有盒子, 已經退回 In , 請重新裝入盒子");
+                         Debug.Write("Index=" + drawer.DeviceId + ", Drawer沒有盒子, 已經退回 In , 請重新裝入盒子");
                      };
                    
 
@@ -428,7 +428,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             }
             catch(Exception ex)
             {
-                var deviceIndex = testDrawer == null ? "" : testDrawer.DeviceIndex;
+                var deviceIndex = testDrawer == null ? "" : testDrawer.DeviceId;
                   // vs 2013
                 // Debug.WriteLine($"Index={deviceIndex},  Exception={ex.Message}");
                   Debug.WriteLine("Index=" + deviceIndex + ",  Exception=" +  ex.Message);
@@ -463,21 +463,21 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     
                     // vs 2013
                     //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionFailedHandler)} 事件");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotionFailedHandler 事件");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotionFailedHandler 事件");
                 };
                 testDrawer.OnTrayMotionOKHandler += (sender, e) =>
                 {
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionOKHandler)} 事件");
-                    Debug.WriteLine("Index= "+  drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotionOKHandler 事件");
+                    Debug.WriteLine("Index= "+  drawer.DeviceId + ", 觸發 drawer.OnTrayMotionOKHandler 事件");
                 };
                 testDrawer.OnTrayMotionSensorOFFHandler += (sender, e) =>
                 {
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                       // vs 2013
                     //Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotionSensorOFFHandler)} 事件");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotionSensorOFFHandler 事件");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotionSensorOFFHandler 事件");
 
                 };
                 testDrawer.OnERRORErrorHandler += (sender, e) =>
@@ -485,7 +485,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     // Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORErrorHandler)} 事件");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnERRORErrorHandler 事件");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnERRORErrorHandler 事件");
                 };
                 testDrawer.OnERRORREcoveryHandler += (sender, e) =>
                 {
@@ -493,14 +493,14 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
                     // vs 2013
                     // Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnERRORREcoveryHandler)} 事件");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnERRORREcoveryHandler 事件");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnERRORREcoveryHandler 事件");
                 };
                 testDrawer.OnTrayMotioningHandler += (sender, e) =>
                 {
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     // Debug.WriteLine($"Index={drawer.DeviceIndex}, 觸發 {nameof(drawer.OnTrayMotioningHandler)} 事件");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 觸發 drawer.OnTrayMotioningHandler 事件");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 觸發 drawer.OnTrayMotioningHandler 事件");
                 };
                 /**到逹 Home*/
                 testDrawer.OnTrayArriveHomeHandler += (sender, e) =>
@@ -508,7 +508,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     //Debug.WriteLine($"Index={drawer.DeviceIndex}, 檢查有沒有放盒子");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 檢查有沒有放盒子");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 檢查有沒有放盒子");
                     drawer.CommandBoxDetection();
                 };
                 /**檢查沒有盒子 */
@@ -520,8 +520,8 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     Debug.WriteLine($"Index={drawer.DeviceIndex}, 將 Drawer 送回 Out");
                      */ 
 
-                     Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 沒有盒子");
-                    Debug.WriteLine("Index="  + drawer.DeviceIndex +  ", 將 Drawer 送回 Out");
+                     Debug.WriteLine("Index=" + drawer.DeviceId + ", 沒有盒子");
+                    Debug.WriteLine("Index="  + drawer.DeviceId +  ", 將 Drawer 送回 Out");
                     drawer.CommandTrayMotionOut();
                 };
                 /**檢查有盒子 */
@@ -530,7 +530,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     //Debug.Write($"Index={drawer.DeviceIndex}, 有放盒子, 將 Drawer 送往 In");
-                    Debug.Write("Index=" + drawer.DeviceIndex + ", 有放盒子, 將 Drawer 送往 In");
+                    Debug.Write("Index=" + drawer.DeviceId + ", 有放盒子, 將 Drawer 送往 In");
                     drawer.CommandTrayMotionIn();
                 };
                 testDrawer.OnTrayArriveInHandler += (sender, e) =>
@@ -538,21 +538,21 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     // Debug.WriteLine($"Index={drawer.DeviceIndex}, 已經到達 In ");
-                    Debug.WriteLine("Index=" + drawer.DeviceIndex + ", 已經到達 In ");
+                    Debug.WriteLine("Index=" + drawer.DeviceId + ", 已經到達 In ");
                 };
                 testDrawer.OnTrayArriveOutHandler += (sender, e) =>
                 {
                     IMacHalDrawer drawer = (IMacHalDrawer)sender;
                     // vs 2013
                     //Debug.Write($"Index={drawer.DeviceIndex}, Drawer沒有盒子, 已經退回 Out , 請重新裝入盒子");
-                    Debug.Write("Index=" + drawer.DeviceIndex + ", Drawer沒有盒子, 已經退回 Out , 請重新裝入盒子");
+                    Debug.Write("Index=" + drawer.DeviceId + ", Drawer沒有盒子, 已經退回 Out , 請重新裝入盒子");
                 };
                 testDrawer.CommandTrayMotionHome();
                 Repeat();
             }
             catch(Exception ex)
             {
-                var deviceIndex = testDrawer == null ? "" : testDrawer.DeviceIndex;
+                var deviceIndex = testDrawer == null ? "" : testDrawer.DeviceId;
                 // vs 2013
                 // Debug.WriteLine($"Index={deviceIndex},  Exception={ex.Message}");
                 Debug.WriteLine("Index=" + deviceIndex + ",  Exception=" + ex.Message);

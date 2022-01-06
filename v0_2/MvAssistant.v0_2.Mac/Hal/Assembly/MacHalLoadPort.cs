@@ -74,7 +74,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string Dock()
         {
             DateTime startTime = DateTime.Now;
-            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
+            String loadportNum = LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandDockRequest();
 
             while (!IsTimeOut(startTime))
@@ -95,7 +95,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string Undock()
         {
             DateTime startTime = DateTime.Now;
-            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
+            String loadportNum = LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandUndockRequest();
 
             while (!IsTimeOut(startTime))
@@ -116,7 +116,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string Initial()
         {
             DateTime startTime = DateTime.Now;
-            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
+            String loadportNum = LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandInitialRequest();
 
             while (!IsTimeOut(startTime))
@@ -133,7 +133,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public string AlarmReset()
         {
             DateTime startTime = DateTime.Now;
-            String loadportNum = LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceIndex == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
+            String loadportNum = LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_1.ToString() ? "Load Port A" : LoadPortUnit.DeviceId == EnumMacDeviceId.loadport_2.ToString() ? "Load Port B" : "Unknown Device ID";
             LoadPortUnit.CommandAlarmReset();
 
             while (!IsTimeOut(startTime))

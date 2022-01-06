@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 {
     public interface IMacHalDrawer : IMacHalComponent
     {
-        string DeviceIndex { get; }
+        string DeviceId { get; }
         
         void SetDrawerWorkState(DrawerWorkState state);
         void ResetCurrentWorkState();

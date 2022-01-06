@@ -56,7 +56,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         #endregion
 
 
-        public string DeviceIndex
+        public string DeviceId
         {
             get
             {
@@ -149,7 +149,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                 else
                 {
                   
-                    Ldd = LddPool.CreateLdd(DeviceIndex, DeviceEndPoint, HostIP);
+                    Ldd = LddPool.CreateLdd(DeviceId, DeviceEndPoint, HostIP);
                 }
                 if (Ldd == null || LddPool==null)
                 {
