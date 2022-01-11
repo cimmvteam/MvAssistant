@@ -79,13 +79,13 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             while (!IsTimeOut(startTime))
             {
-                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.DockComplete)
+                if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.DockComplete)
                     return loadportNum + " Dock complete.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.MustInitialFirst)
                     return loadportNum + " Dock must initial.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.MustResetFirst)
                     return loadportNum + " Dock must reset.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.PODNotPutProperly)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.PODNotPutProperly)
                     return loadportNum + " PODNotPutProperly.";
             }
 
@@ -100,13 +100,13 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             while (!IsTimeOut(startTime))
             {
-                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.UndockComplete)
+                if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.UndockComplete)
                     return loadportNum + " Undock complete.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustInitialFirst)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.MustInitialFirst)
                     return loadportNum + " Undock must initial.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.MustResetFirst)
                     return loadportNum + " Undock must reset.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.PODNotPutProperly)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.PODNotPutProperly)
                     return loadportNum + " PODNotPutProperly.";
             }
 
@@ -121,9 +121,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             while (!IsTimeOut(startTime))
             {
-                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.InitialComplete)
+                if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.InitialComplete)
                     return loadportNum + " Initial complete.";
-                else if (LoadPortUnit.CurrentWorkState == LoadPortWorkState.MustResetFirst)
+                else if (LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.MustResetFirst)
                     return loadportNum + " Initial must reset.";
             }
 
@@ -138,9 +138,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             while (!IsTimeOut(startTime))
             {
-                if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetComplete)
+                if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.AlarmResetComplete)
                     return loadportNum + " AlarmReset complete.";
-                else if (this.LoadPortUnit.CurrentWorkState == LoadPortWorkState.AlarmResetFail)
+                else if (this.LoadPortUnit.CurrentWorkState == EnumLoadPortWorkState.AlarmResetFail)
                     return loadportNum + " AlarmReset fail.";
             }
 

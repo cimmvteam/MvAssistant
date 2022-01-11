@@ -1,4 +1,5 @@
 ﻿//#define NO_DEVICE //無裝置可連接時要 define 這個條件
+using MvAssistant.v0_2;
 using MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15;
 using MvAssistant.v0_2.Mac.Hal.CompRobot;
 using MvAssistant.v0_2.Mac.JSon;
@@ -274,10 +275,7 @@ namespace MaskCleanerVerify
                     MessageBox.Show(TxtBxDevicePath.Text + " 不存在");
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
         }
 
         /// <summary>Motion Type 選單初始化,預設停在 Position </summary>

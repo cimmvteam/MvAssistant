@@ -49,10 +49,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     drawer.MoveTrayToHome();
                    drawer.MoveTrayToIn();
                 }
-                catch(Exception ex)
-                {
-
-                }
+                catch(Exception ex)                { MvaLog.WarnNs(this, ex); }
             }
         }
         [TestMethod]
@@ -364,17 +361,10 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             BREAK_POINT++; // [一定要暫停] 這個 drawer 做好了, 準備下一個
 
                          }
-                        catch (Exception ex)
-                        {
-
-                        }
+                        catch (Exception ex)                       {                            MvaLog.WarnNs(this, ex);                        }
                     }
                 }
-                catch (Exception ex)
-                {
-
-
-                }
+                catch (Exception ex)                { MvaLog.WarnNs(this, ex); }
 
             }
         }

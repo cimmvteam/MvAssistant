@@ -81,10 +81,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex) { MvaLog.WarnNs(this, ex); }
         }
         #region Loadport Event Handler
         void BindLoadPortEvent(IMacHalLoadPortUnit loadport)
@@ -433,10 +430,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 TestLoadport.CommandAlarmReset();
                 Repeat();
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex)            {                MvaLog.WarnNs(this, ex);            }
             finally
             {
                 if (halContext != null)
@@ -465,9 +459,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 TestLoadport.CommandInitialRequest();
                 Repeat();
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -487,18 +479,15 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real");
                 halContext.MvaCfLoad();
-               
+
                 loportAssembly = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
-                TestLoadport= loportAssembly.Hals[EnumMacDeviceId.loadport_1.ToString()] as MacHalLoadPortGudeng;
+                TestLoadport = loportAssembly.Hals[EnumMacDeviceId.loadport_1.ToString()] as MacHalLoadPortGudeng;
                 TestLoadport.HalConnect();
                 BindLoadPortEvent(TestLoadport);
                 TestLoadport.CommandDockRequest();
                 Repeat();
             }
-            catch(Exception ex)
-            {
-
-            }
+            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -523,15 +512,12 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
                 loportAssembly = halContext.HalDevices[EnumMacDeviceId.loadportA_assembly.ToString()] as MacHalLoadPort;
                 TestLoadport = loportAssembly.Hals[EnumMacDeviceId.loadport_1.ToString()] as MacHalLoadPortGudeng;
                 TestLoadport.HalConnect();
-                
+
                 BindLoadPortEvent(TestLoadport);
                 TestLoadport.CommandUndockRequest();
                 Repeat();
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)

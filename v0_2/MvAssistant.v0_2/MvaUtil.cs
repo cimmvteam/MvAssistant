@@ -22,16 +22,9 @@ namespace MvAssistant.v0_2
     {
         public static T ChangeType<T>(object data) { return (T)Convert.ChangeType(data, typeof(T)); }
 
-        public static Enum EnumParse(string val, Type type) { return (Enum)Enum.Parse(type, val, true); }
-        /// <summary>
-        /// 泛型 Enum.Parse
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="val"></param>
-        /// <returns></returns>
-        public static T EnumParse<T>(string val) { return (T)Enum.Parse(typeof(T), val, true); }
 
-        public static bool EnumTryParse<T>(String val, out T result) where T : struct { return Enum.TryParse<T>(val, true, out result); }
+
+       
 
 
         /// <summary>
@@ -410,7 +403,32 @@ namespace MvAssistant.v0_2
 
 
 
+        #region Enum
 
+        public static List<T> EnumList<T>()
+        {
+            var ary = Enum.GetValues(typeof(T));
+            var list = new List<T>();
+            foreach (var e in ary) list.Add((T)e);
+            return list;
+        }
+        public static Enum EnumParse(String val, Type type) { return (Enum)Enum.Parse(type, val, true); }
+        public static T EnumParse<T>(String val) { return (T)Enum.Parse(typeof(T), val, true); }
+        public static bool EnumParseTry<T>(String val, out T rs) where T : struct { return Enum.TryParse(val, true, out rs); }
+        public static T EnumParseOrDefault<T>(String val) where T : struct
+        {
+            var rs = default(T);
+            Enum.TryParse(val, true, out rs);
+            return rs;
+        }
+        public static T EnumParseOrDefault<T>(String val, T def) where T : struct
+        {
+            var rs = def;
+            Enum.TryParse(val, true, out rs);
+            return rs;
+        }
+
+        #endregion
 
 
     }

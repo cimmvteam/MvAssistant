@@ -23,9 +23,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
         private static object getLddObject = new object();
         private MvGudengLoadPortLdd _ldd;
-        public LoadPortWorkState CurrentWorkState { get; private set; }
-        public void ResetWorkState() { CurrentWorkState = LoadPortWorkState.AnyState; }
-        public void SetWorkState(LoadPortWorkState state) { CurrentWorkState = state; }
+        public EnumLoadPortWorkState CurrentWorkState { get; private set; }
+        public void ResetWorkState() { CurrentWorkState = EnumLoadPortWorkState.AnyState; }
+        public void SetWorkState(EnumLoadPortWorkState state) { CurrentWorkState = state; }
         public EventStagePositionCode StagePosition { get; private set; }
         public void SetStagePosition(EventStagePositionCode stagePosition) { StagePosition = stagePosition; }
 
@@ -215,14 +215,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
         public string CommandAlarmReset()
         {
-            SetWorkState(LoadPortWorkState.ResetIng);
+            SetWorkState(EnumLoadPortWorkState.ResetIng);
             var commandText = _ldd.CommandAlarmReset();
             return commandText;
         }
 
         public string CommandDockRequest()
         {
-            this.SetWorkState(LoadPortWorkState.DockIng);
+            this.SetWorkState(EnumLoadPortWorkState.DockIng);
             var commandText = _ldd.CommandDockRequest();
 
             return commandText;
@@ -231,7 +231,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
         public string CommandUndockRequest()
         {
-            this.SetWorkState(LoadPortWorkState.UndockIng);
+            this.SetWorkState(EnumLoadPortWorkState.UndockIng);
             var commandText = _ldd.CommandUndockRequest();
 
             return commandText;
@@ -293,7 +293,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
         public string CommandInitialRequest()
         {
-            this.SetWorkState(LoadPortWorkState.InitialIng);
+            this.SetWorkState(EnumLoadPortWorkState.InitialIng);
             var commandText = _ldd.CommandInitialRequest();
             return commandText;
         }
@@ -421,7 +421,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnDockPODComplete_HasReticle(object sender, EventArgs e)
         {
 
-            this.SetWorkState(LoadPortWorkState.DockComplete);
+            this.SetWorkState(EnumLoadPortWorkState.DockComplete);
             if (OnDockPODComplete_HasReticleHandler != null)
             {
                 OnDockPODComplete_HasReticleHandler.Invoke(this, e);
@@ -431,7 +431,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnDockPODComplete_Empty(object sender, EventArgs e)
         {
 
-            this.SetWorkState(LoadPortWorkState.DockComplete);
+            this.SetWorkState(EnumLoadPortWorkState.DockComplete);
             if (OnDockPODComplete_EmptyHandler != null)
             {
                 OnDockPODComplete_EmptyHandler.Invoke(this, e);
@@ -441,7 +441,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnUndockComplete(object sender, EventArgs e)
         {
 
-            this.SetWorkState(LoadPortWorkState.UndockComplete);
+            this.SetWorkState(EnumLoadPortWorkState.UndockComplete);
             if (OnUndockCompleteHandler != null)
             {
                 OnUndockCompleteHandler.Invoke(this, e);
@@ -459,7 +459,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnAlarmResetSuccess(object sender, EventArgs e)
         {
 
-            this.SetWorkState(LoadPortWorkState.AlarmResetComplete);
+            this.SetWorkState(EnumLoadPortWorkState.AlarmResetComplete);
             if (OnAlarmResetSuccessHandler != null)
             {
                 OnAlarmResetSuccessHandler.Invoke(this, e);
@@ -468,7 +468,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnAlarmResetFail(object sender, EventArgs e)
         {
-            this.SetWorkState(LoadPortWorkState.AlarmResetFail);
+            this.SetWorkState(EnumLoadPortWorkState.AlarmResetFail);
             if (OnAlarmResetFailHandler != null)
             {
                 OnAlarmResetFailHandler.Invoke(this, e);
@@ -478,7 +478,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnExecuteInitialFirst(object sender, EventArgs e)
         {
 
-            this.SetWorkState(LoadPortWorkState.MustInitialFirst);
+            this.SetWorkState(EnumLoadPortWorkState.MustInitialFirst);
             if (OnExecuteInitialFirstHandler != null)
             {
                 OnExecuteInitialFirstHandler.Invoke(this, e);
@@ -488,7 +488,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnExecuteAlarmResetFirst(object sender, EventArgs e)
         {
 
-            this.SetWorkState(LoadPortWorkState.MustResetFirst);
+            this.SetWorkState(EnumLoadPortWorkState.MustResetFirst);
             if (OnExecuteAlarmResetFirstHandler != null)
             {
                 OnExecuteAlarmResetFirstHandler.Invoke(this, e);
@@ -514,7 +514,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnInitialComplete(object sender, EventArgs e)
         {
-            this.SetWorkState(LoadPortWorkState.InitialComplete);
+            this.SetWorkState(EnumLoadPortWorkState.InitialComplete);
             if (OnInitialCompleteHandler != null)
             {
                 OnInitialCompleteHandler.Invoke(this, e);
@@ -555,7 +555,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnPODNotPutProperly(object sender, EventArgs e)
         {
-            this.SetWorkState(LoadPortWorkState.PODNotPutProperly);
+            this.SetWorkState(EnumLoadPortWorkState.PODNotPutProperly);
             if (OnPODNotPutProperlyHandler != null)
             {
                 OnPODNotPutProperlyHandler.Invoke(this, e);

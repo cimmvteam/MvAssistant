@@ -11,9 +11,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
     public interface IMacHalLoadPortUnit : IMacHalComponent
     {
         bool IsConnected { get; }
-        LoadPortWorkState CurrentWorkState { get; }
+        EnumLoadPortWorkState CurrentWorkState { get; }
         void ResetWorkState();
-        void SetWorkState(LoadPortWorkState state);
+        void SetWorkState(EnumLoadPortWorkState state);
         EventStagePositionCode StagePosition { get; }
         void SetStagePosition(EventStagePositionCode stagePosition);
 
@@ -76,7 +76,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         event EventHandler OnStageMotorAbnormalityHandler;
         event EventHandler OnHostLostLoadPortConnectionHandler;
     }
-    public enum LoadPortWorkState
+    public enum EnumLoadPortWorkState
     {
         AnyState,
         MustResetFirst,

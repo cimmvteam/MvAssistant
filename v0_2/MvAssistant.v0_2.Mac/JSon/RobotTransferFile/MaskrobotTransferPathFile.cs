@@ -112,49 +112,57 @@ namespace MvAssistant.v0_2.Mac.JSon.RobotTransferFile
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.DeformInsp, MaskrobotTransferLocation.ICHome);
         }
 
-
+        /// <summary> Glass=Front Side </summary>
         public string FromICHomeToICFrontSidePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICHome, MaskrobotTransferLocation.ICFrontSide);
         }
+        /// <summary> Pellicle=Back Side </summary>
         public string FromICHomeToICBackSidePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICHome, MaskrobotTransferLocation.ICBackSide);
         }
+        /// <summary> Glass=Front Side </summary>
         public string FromICFrontSideToICStagePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICFrontSide, MaskrobotTransferLocation.ICStage);
         }
+        /// <summary> Pellicle=Back Side </summary>
         public string FromICBackSideToICStagePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICBackSide, MaskrobotTransferLocation.ICStage);
         }
+        /// <summary> Glass=Front Side </summary>
         public string FromICStageToICFrontSidePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICStage, MaskrobotTransferLocation.ICFrontSide);
         }
+        /// <summary> Pellicle=Back Side </summary>
         public string FromICStageToICBackSidePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICStage, MaskrobotTransferLocation.ICBackSide);
         }
+        /// <summary> Glass=Front Side </summary>
         public string FromICFrontSideToICHomePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICFrontSide, MaskrobotTransferLocation.ICHome);
         }
+        /// <summary> Pellicle=Back Side </summary>
         public string FromICBackSideToICHomePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.ICBackSide, MaskrobotTransferLocation.ICHome);
         }
+        /// <summary> Glass=Front Side </summary>
         public string FromCCHomeToCCFrontSidePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCHome, MaskrobotTransferLocation.CCFrontSide);
         }
-
+        /// <summary> Glass=Front Side </summary>
         public string FromCCFrontSideToCCHomePathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCFrontSide, MaskrobotTransferLocation.CCHome);
         }
-
+        /// <summary> Glass=Front Side </summary>
         public string FromCCFrontSideToCleanPathFile()
         {
             return FromStartPointToDestinationPathFile(MaskrobotTransferLocation.CCFrontSide, MaskrobotTransferLocation.Clean);

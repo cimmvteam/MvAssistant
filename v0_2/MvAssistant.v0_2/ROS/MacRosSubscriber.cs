@@ -7,7 +7,7 @@ namespace RosTest
 {
     public class Subscriber
     {
-        Subscription<object> Token;
+        Subscription<object> Token = null;
         EventAggregator eventAggregator;
 
         private string rcvStrMsg;
@@ -15,7 +15,7 @@ namespace RosTest
         private double rcvDoubleMsg;
         private double[] rcvDoubleMsgArray;
         bool msgBindingFlag = false;
-        
+
         /** //vs 2013
         public string RcvStrMsg { get => rcvStrMsg; }
         public string[] RcvStrMsgArray { get => rcvStrMsgArray; }
@@ -23,10 +23,10 @@ namespace RosTest
         public double[] RcvDoubleMsgArray { get => rcvDoubleMsgArray; }
         */
 
-        public string RcvStrMsg { get { return rcvStrMsg;} }
+        public string RcvStrMsg { get { return rcvStrMsg; } }
         public string[] RcvStrMsgArray { get { return rcvStrMsgArray; } }
         public double RcvDoubleMsg { get { return rcvDoubleMsg; } }
-        public double[] RcvDoubleMsgArray { get { return  rcvDoubleMsgArray; } }
+        public double[] RcvDoubleMsgArray { get { return rcvDoubleMsgArray; } }
 
 
         public Subscriber(EventAggregator eve)

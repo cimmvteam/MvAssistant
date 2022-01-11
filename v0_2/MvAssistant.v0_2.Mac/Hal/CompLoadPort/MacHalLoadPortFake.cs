@@ -24,9 +24,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
         private static object getLddObject = new object();
         private MvGudengLoadPortLdd _ldd;
-        public  LoadPortWorkState CurrentWorkState { get; private set; }
-        public void ResetWorkState() { CurrentWorkState = LoadPortWorkState.AnyState; }
-        public void SetWorkState(LoadPortWorkState state){ CurrentWorkState = state; }
+        public  EnumLoadPortWorkState CurrentWorkState { get; private set; }
+        public void ResetWorkState() { CurrentWorkState = EnumLoadPortWorkState.AnyState; }
+        public void SetWorkState(EnumLoadPortWorkState state){ CurrentWorkState = state; }
         public EventStagePositionCode StagePosition { get; private set; }
         public void SetStagePosition(EventStagePositionCode stagePosition) { StagePosition = stagePosition; }
 
@@ -257,7 +257,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
            */
 
             #region Fake
-            SetWorkState(LoadPortWorkState.ResetIng);
+            SetWorkState(EnumLoadPortWorkState.ResetIng);
             //var commandText = _ldd.FakeCommandAlarmReset();
             var commandText = "Fake Test: AlarmReset";
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport Command Name=CommandAlarmReset(), Command Text=" + commandText);
@@ -266,8 +266,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                 () =>
                 {
                     FakeSleep();
-                    SetWorkState(LoadPortWorkState.AlarmResetComplete);
-                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + LoadPortWorkState.AlarmResetComplete.ToString());
+                    SetWorkState(EnumLoadPortWorkState.AlarmResetComplete);
+                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + EnumLoadPortWorkState.AlarmResetComplete.ToString());
                     //Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.AlarmResetComplete.ToString());
                 }
                 ).Start();
@@ -285,7 +285,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             */
 
             #region Fake
-            this.SetWorkState(LoadPortWorkState.DockIng);
+            this.SetWorkState(EnumLoadPortWorkState.DockIng);
             var commandText = "Fake Test: DocRequest";
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
            // Debug.WriteLine("[Fake] Loadport Command Name=CommandDockRequest(), Command Text=" + commandText);
@@ -293,8 +293,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                 () =>
                 {
                     FakeSleep();
-                    this.SetWorkState(LoadPortWorkState.DockComplete);
-                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + LoadPortWorkState.DockComplete.ToString());
+                    this.SetWorkState(EnumLoadPortWorkState.DockComplete);
+                    Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + EnumLoadPortWorkState.DockComplete.ToString());
                    // Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.DockComplete.ToString());
                 }
                 ).Start();
@@ -313,7 +313,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 
 
             #region Fake
-            this.SetWorkState(LoadPortWorkState.UndockIng);
+            this.SetWorkState(EnumLoadPortWorkState.UndockIng);
             var commandText = "Fake Test: UndockRequest"; //_ldd.FakeCommandUndockRequest();
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
             //Debug.WriteLine("[Fake] Loadport Command Name=CommandUndockRequest(), Command Text=" + commandText);
@@ -321,8 +321,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
                () =>
                {
                    FakeSleep();
-                   this.SetWorkState(LoadPortWorkState.UndockComplete);
-                   Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + LoadPortWorkState.UndockComplete.ToString());
+                   this.SetWorkState(EnumLoadPortWorkState.UndockComplete);
+                   Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + EnumLoadPortWorkState.UndockComplete.ToString());
                   // Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.UndockComplete.ToString());
                }
                ).Start();
@@ -394,7 +394,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
           */
 
             #region Fake
-            this.SetWorkState(LoadPortWorkState.InitialIng);
+            this.SetWorkState(EnumLoadPortWorkState.InitialIng);
             //var commandText = _ldd.FakeCommandInitialRequest();
             var commandText ="Fake Test: CommandInitialRequest";
             Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport Command Name=CommandInitialRequest(), Command Text=" + commandText);
@@ -403,8 +403,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
               () =>
               {
                   FakeSleep();
-                  this.SetWorkState(LoadPortWorkState.InitialComplete);
-                  Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + LoadPortWorkState.InitialComplete.ToString());
+                  this.SetWorkState(EnumLoadPortWorkState.InitialComplete);
+                  Debug.WriteLine("[Fake] Loadport DeviceIP=" + DeviceIP + ", DevicePort=" + DevicePort + ", DeviceIndex=" + DeviceId + "\r\n[Fake] Loadport State=" + EnumLoadPortWorkState.InitialComplete.ToString());
                   //Debug.WriteLine("[Fake] Loadport State=" + LoadPortWorkState.InitialComplete.ToString());
               }
               ).Start();
@@ -537,7 +537,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnDockPODComplete_HasReticle(object sender, EventArgs e)
         {
            
-            this.SetWorkState(LoadPortWorkState.DockComplete);
+            this.SetWorkState(EnumLoadPortWorkState.DockComplete);
             if (OnDockPODComplete_HasReticleHandler != null)
             {
                 OnDockPODComplete_HasReticleHandler.Invoke(this, e);
@@ -547,7 +547,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnDockPODComplete_Empty(object sender, EventArgs e)
         {
           
-            this.SetWorkState(LoadPortWorkState.DockComplete);
+            this.SetWorkState(EnumLoadPortWorkState.DockComplete);
             if (OnDockPODComplete_EmptyHandler != null)
             {
                 OnDockPODComplete_EmptyHandler.Invoke(this, e);
@@ -557,7 +557,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnUndockComplete(object sender, EventArgs e)
         {
          
-            this.SetWorkState(LoadPortWorkState.UndockComplete);
+            this.SetWorkState(EnumLoadPortWorkState.UndockComplete);
             if (OnUndockCompleteHandler != null)
             {
                 OnUndockCompleteHandler.Invoke(this, e);
@@ -575,7 +575,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnAlarmResetSuccess(object sender, EventArgs e)
         {
           
-            this.SetWorkState(LoadPortWorkState.AlarmResetComplete);
+            this.SetWorkState(EnumLoadPortWorkState.AlarmResetComplete);
             if (OnAlarmResetSuccessHandler != null)
             {
                 OnAlarmResetSuccessHandler.Invoke(this, e);
@@ -584,7 +584,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnAlarmResetFail(object sender, EventArgs e)
         {
-            this.SetWorkState(LoadPortWorkState.AlarmResetFail);
+            this.SetWorkState(EnumLoadPortWorkState.AlarmResetFail);
             if (OnAlarmResetFailHandler != null)
             {
                 OnAlarmResetFailHandler.Invoke(this, e);
@@ -594,7 +594,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnExecuteInitialFirst(object sender, EventArgs e)
         {
            
-            this.SetWorkState(LoadPortWorkState.MustInitialFirst);
+            this.SetWorkState(EnumLoadPortWorkState.MustInitialFirst);
             if (OnExecuteInitialFirstHandler != null)
             {
                 OnExecuteInitialFirstHandler.Invoke(this, e);
@@ -604,7 +604,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public void OnExecuteAlarmResetFirst(object sender, EventArgs e)
         {
            
-            this.SetWorkState(LoadPortWorkState.MustResetFirst);
+            this.SetWorkState(EnumLoadPortWorkState.MustResetFirst);
             if (OnExecuteAlarmResetFirstHandler != null)
             {
                 OnExecuteAlarmResetFirstHandler.Invoke(this, e);
@@ -630,7 +630,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         }
         public void OnInitialComplete(object sender, EventArgs e)
         {
-            this.SetWorkState(LoadPortWorkState.InitialComplete);
+            this.SetWorkState(EnumLoadPortWorkState.InitialComplete);
             if (OnInitialCompleteHandler != null)
             {
                 OnInitialCompleteHandler.Invoke(this, e);
