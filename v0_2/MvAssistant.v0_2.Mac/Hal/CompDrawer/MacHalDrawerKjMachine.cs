@@ -23,7 +23,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public bool IsInitialing { get; set; }
         MvaKjMachineDrawerLddPool LddPool;
-       // private bool IsCommandINI = false;
+        // private bool IsCommandINI = false;
         /// <summary>工作狀態</summary>
         public DrawerWorkState CurrentWorkState { get; private set; }
         /// <summary>設定工作狀態</summary>
@@ -56,7 +56,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         #endregion
 
 
-        public string DeviceId
+        public string DeviceIndex
         {
             get
             {
@@ -71,13 +71,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             return true;
         }
         public MvaKjMachineDrawerLdd Ldd { get; set; }
-    
+
 
         /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(起始) </summary>
         public int HostListenDrawerPortRangeStart
         {
-            get {
-                
+            get
+            {
+
                 return Convert.ToInt32(this.DevSettings[DevConnStr_StartPort]);
             }
         }
@@ -112,7 +113,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                return  Convert.ToInt32( this.DevSettings[DevConnStr_Port]);
+                return Convert.ToInt32(this.DevSettings[DevConnStr_Port]);
             }
         }
 
@@ -129,18 +130,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         {
             get
             {
-                                
+
                 return this.DevSettings[DevConnStr_LocalIp];
             }
         }
-         
+
         public override int HalConnect()
         {  // LddPool
             var connected = false;
             try
             {
 
-                LddPool = MvaKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart,HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
+                LddPool = MvaKjMachineDrawerLddPool.GetInstance(HostListenDrawerPortRangeStart, HostListenDrawerPortRangeEnd, HostListenDrawerSysEventPort);
                 if (LddPool == null)
                 {
                     connected = false;
@@ -148,17 +149,17 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                 }
                 else
                 {
-                  
+
                     Ldd = LddPool.CreateLdd(DeviceId, DeviceEndPoint, HostIP);
                 }
-                if (Ldd == null || LddPool==null)
+                if (Ldd == null || LddPool == null)
                 {
                     connected = false;
                 }
                 else
                 {
                     BindLddEvent();
-                    
+
                     connected = true;
                 }
 
@@ -168,7 +169,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                 connected = false;
                 MvaLog.WarnNs(this, ex);
             }
-            return connected ? 1:0;
+            return connected ? 1 : 0;
         }
 
         public override int HalClose()
@@ -183,13 +184,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         public void BindResult()
         {
             Ldd.BoxDetectionResult += this.BoxDetectionResult;
-           
+
             Ldd.BrightLEDResult = this.BrightLEDResult;
             Ldd.INIResult += this.INIResult;
             Ldd.PositionReadResult += this.PositionReadResult;
             Ldd.SetMotionSpeedResult += this.SetMotionSpeedResult;
             Ldd.SetTimeOutResult += this.SetTimeOutResult;
-           Ldd.TrayArriveResult += this.TrayArriveResult;
+            Ldd.TrayArriveResult += this.TrayArriveResult;
 
         }
 
@@ -218,19 +219,19 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             }
         }
 
-        public  event EventHandler OnTrayMotionFailedHandler;
-        public  event EventHandler OnTrayMotionOKHandler;
+        public event EventHandler OnTrayMotionFailedHandler;
+        public event EventHandler OnTrayMotionOKHandler;
         public event EventHandler OnSetMotionSpeedFailedHandler;
         public event EventHandler OnSetMotionSpeedOKHandler;
-        public  event EventHandler OnSetTimeOutOKHandler;
+        public event EventHandler OnSetTimeOutOKHandler;
         public event EventHandler OnSetTimeOutFailedHandler;
-      
+
         public event EventHandler OnTrayArriveHomeHandler;
         public event EventHandler OnTrayArriveInHandler;
         public event EventHandler OnTrayArriveOutHandler;
         public event EventHandler OnTrayMotioningHandler;
         public event EventHandler OnPositionStatusHandler;
-        
+
 
         public event EventHandler OnDetectedHasBoxHandler;
         public event EventHandler OnDetectedEmptyBoxHandler;
@@ -241,15 +242,15 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         public event EventHandler OnSysStartUpHandler;
         public event EventHandler OnButtonEventHandler;
 
-       public event EventHandler OnBrightLEDOKHandler;
-       public event EventHandler OnBrightLEDFailedHandler;
+        public event EventHandler OnBrightLEDOKHandler;
+        public event EventHandler OnBrightLEDFailedHandler;
 
         public event EventHandler OnLCDCMsgOKHandler;
         public event EventHandler OnLCDCMsgFailedHandler;
 
-        public  event EventHandler OnINIFailedHandler;
+        public event EventHandler OnINIFailedHandler;
         public event EventHandler OnINIOKHandler;
-       
+
         void BindLddEvent()
         {
             Ldd.OnTrayMotionFailedHandler += OnTrayMotionFailed;
@@ -258,7 +259,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             Ldd.OnSetMotionSpeedOKHandler += OnSetMotionSpeedOK;
 
             Ldd.OnSetTimeOutOKHandler += OnSetTimeOutOK;
-            Ldd.OnSetTimeOutFailedHandler+= OnSetTimeOutFailed;
+            Ldd.OnSetTimeOutFailedHandler += OnSetTimeOutFailed;
 
             Ldd.OnTrayArriveHomeHandler += OnTrayArriveHome;
             Ldd.OnTrayArriveOutHandler += OnTrayArriveOut;
@@ -318,7 +319,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             }
         }
 
-       
+
         private void OnLCDCMsgOK(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgOK");
@@ -337,8 +338,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         }
 
-      
-        private void OnBrightLEDOK(object sender,EventArgs e)
+
+        private void OnBrightLEDOK(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDOK");
             if (OnBrightLEDOKHandler != null)
@@ -346,7 +347,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                 OnBrightLEDOKHandler.Invoke(this, e);
             }
         }
-        private void OnBrightLEDFailed(object sender,EventArgs e)
+        private void OnBrightLEDFailed(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDFailed");
             if (OnBrightLEDFailedHandler != null)
@@ -358,11 +359,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         /// <summary> OnTrayMotionFailedHandler</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnTrayMotionFailed(object sender,EventArgs e)
+        private void OnTrayMotionFailed(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionFailed");
             this.SetDrawerWorkState(DrawerWorkState.TrayMotionFailed);
-            if (OnTrayMotionFailedHandler!=null)
+            if (OnTrayMotionFailedHandler != null)
             {
                 OnTrayMotionFailedHandler.Invoke(this, e);
             }
@@ -376,7 +377,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedOK");
             if (OnSetMotionSpeedOKHandler != null)
             {
-                OnSetMotionSpeedOKHandler.Invoke(this ,e);
+                OnSetMotionSpeedOKHandler.Invoke(this, e);
             }
         }
         /// <summary>OnSetMotionSpeedFailedHandler</summary>
@@ -394,7 +395,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         /// <summary>OnSetTimeOutOKHandler</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnSetTimeOutOK(Object sender,EventArgs e)
+        private void OnSetTimeOutOK(Object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutOK");
             if (OnSetTimeOutOKHandler != null)
@@ -427,7 +428,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             {
                 OnTrayArriveHomeHandler.Invoke(this, e);
             }
-            
+
         }
         /// <summary>OnTrayArriveOutHandler</summary>
         /// <param name="sender"></param>
@@ -459,7 +460,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         /// <summary>OnTrayMotioningHandler</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnTrayMotioning(object sender,EventArgs e)
+        private void OnTrayMotioning(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotioning");
             if (OnTrayMotioningHandler != null)
@@ -471,11 +472,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         /// <summary>OnPositionStatusHandler </summary>
         /// <param name="sender"></param>
         /// <param name="e">typeof(OnReplyPositionEventArgs)</param>
-        private void OnPositionStatus(object sender ,EventArgs e)
+        private void OnPositionStatus(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnPositionStatus");
-            var args= (OnReplyPositionEventArgs)e;
-            if (OnPositionStatusHandler !=null)
+            var args = (OnReplyPositionEventArgs)e;
+            if (OnPositionStatusHandler != null)
             {
                 OnPositionStatusHandler.Invoke(this, e);
             }
@@ -492,7 +493,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             {
                 OnDetectedHasBoxHandler.Invoke(this, e);
             }
-           
+
         }
         /// <summary>OnDetectedHasBoxHandler</summary>
         /// <param name="sender"></param>
@@ -526,7 +527,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         private void OnTrayMothingSensorOFF(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMothingSensorOFF");
-            if (OnTrayMotionSensorOFFHandler!= null)
+            if (OnTrayMotionSensorOFFHandler != null)
             {
                 OnTrayMotionSensorOFFHandler.Invoke(this, e);
             }
@@ -550,13 +551,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         private void OnERRORError(object sender, EventArgs e)
         {
             Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnERRORError");
-            if (OnERRORErrorHandler!=null)
+            if (OnERRORErrorHandler != null)
             {
                 OnERRORErrorHandler.Invoke(this, e);
             }
         }
 
-     
+
         #endregion
 
         #region command
@@ -576,14 +577,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public string CommandSetMotionSpeed(int speed)
         {
-           
+
             var commandText = Ldd.CommandSetMotionSpeed(speed);
             return commandText;
         }
 
         public string CommandSetTimeOut(int timeoutSeconds)
         {
-           
+
             var commandText = Ldd.CommandSetTimeOut(timeoutSeconds);
             return commandText;
         }
@@ -593,7 +594,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             //ResetCurrentWorkState();
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionHomeIng);
             var commandText = Ldd.CommandTrayMotionHome();
-           
+
             return commandText;
         }
 
@@ -615,43 +616,43 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             // ResetCurrentWorkState();
             this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
             var commandText = Ldd.CommandTrayMotionIn();
-           
+
             return commandText;
         }
 
-        
+
 
         public string CommandBrightLEDAllOn()
         {
-          
+
             var commandText = Ldd.CommandBrightLEDAllOn();
             return commandText;
         }
 
         public string CommandBrightLEDAllOff()
         {
-           
+
             var commandText = Ldd.CommandBrightLEDAllOff();
             return commandText;
         }
 
         public string CommandBrightLEDGreenOn()
         {
-          
+
             var commandText = Ldd.CommandBrightLEDGreenOn();
             return commandText;
         }
 
         public string CommandBrightLEDRedOn()
         {
-         
+
             var commandText = Ldd.CommandBrightLEDRedOn();
             return commandText;
         }
 
         public string CommandPositionRead()
         {
-           
+
             var commandText = Ldd.CommandPositionRead();
             return commandText;
         }
@@ -665,49 +666,49 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
         public string CommandWriteNetSetting()
         {
-         
+
             var commandText = Ldd.CommandWriteNetSetting();
             return commandText;
         }
 
         public string CommandLCDMsg(string message)
         {
-        
-          var commandText = Ldd.CommandLCDMsg(message);
+
+            var commandText = Ldd.CommandLCDMsg(message);
             return commandText;
         }
 
         public string CommandSetParameterHomePosition(string homePosition)
         {
-          
+
             var commandText = Ldd.CommandSetParameterHomePosition(homePosition);
             return commandText;
         }
 
         public string CommandSetParameterOutSidePosition(string outsidePosition)
         {
-          
+
             var commandText = Ldd.CommandSetParameterOutSidePosition(outsidePosition);
             return commandText;
         }
 
         public string CommandSetParameterInSidePosition(string insidePosition)
         {
-         
+
             var commandText = Ldd.CommandSetParameterInSidePosition(insidePosition);
             return commandText;
         }
 
         public string CommandSetParameterIPAddress(string ipAddress)
         {
-           
+
             var commandText = Ldd.CommandSetParameterIPAddress(ipAddress);
             return commandText;
         }
 
         public string CommandSetParameterSubMask(string submaskAddress)
         {
-           
+
             var commandText = Ldd.CommandSetParameterSubMask(submaskAddress);
             return commandText;
         }
@@ -723,7 +724,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             {   // 如果當時是發 initial 指令, 視為 初始化成功
                 if (arriveType == TrayArriveType.ArriveHome)
                 {
-                    this.INIResult(sender,true);
+                    this.INIResult(sender, true);
                 }
             }
             else
@@ -746,8 +747,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         }
 
 
-        
-        public void INIResult(object sender,bool result)
+
+        public void INIResult(object sender, bool result)
         {
             var ldd = (MvaKjMachineDrawerLdd)sender;
             if (result)
@@ -786,8 +787,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             }
         }
 
-      
-      
+
+
         public void BrightLEDResult(object sender, bool result)
         {
             MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
@@ -797,23 +798,23 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
                 // vs 2013
                 // if(command == nameof(CommandBrightLEDAllOff))
-                if(command == "CommandBrightLEDAllOff")
+                if (command == "CommandBrightLEDAllOff")
                 { // 關掉所有的 led 
                     DebugLog(ldd, "所有 LED off OK");
                 }
                 // vs 2013
                 //else if (command ==nameof(CommandBrightLEDAllOn))
-                else if (command =="CommandBrightLEDAllOn")
+                else if (command == "CommandBrightLEDAllOn")
                 {// 打亮所有的led
                     DebugLog(ldd, "所有 LED On OK");
                 }
                 // vs 2013
                 // else if (command == nameof(CommandBrightLEDGreenOn))
-                else if (command =="CommandBrightLEDGreenOn")
+                else if (command == "CommandBrightLEDGreenOn")
                 {  // 打亮綠色LED
                     DebugLog(ldd, "綠色 LED On OK");
                 }
-                else 
+                else
                 {   // 打亮 紅色LED
                     DebugLog(ldd, "紅色 LED On OK");
                 }
@@ -844,7 +845,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                 }
             }
         }
-       
+
 
         public void PositionReadResult(object sender, string result)
         {
@@ -867,7 +868,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             if (result)
             {  // 有盒子
                 DebugLog(ldd, "有盒子");
-                
+
             }
             else
             {
@@ -878,10 +879,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                 OnBoxDetectionResultHandler.Invoke(this, new HalDrawerBoxDetectReturn { HasBox = result });
             }
         }
-      
 
 
-        public void ErrorResult(object sender,int result)
+
+        public void ErrorResult(object sender, int result)
         {
             MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
             var errorResult = (ReplyErrorCode)result;
@@ -896,13 +897,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
             }
         }
 
-#endregion
+        #endregion
         void DebugLog(MvaKjMachineDrawerLdd ldd, string text)
         {
             // vs 2013
             // string str = $"Ldd={ldd.DeviceIP}, Text={text}";
             string str = "Ldd=" + ldd.DeviceIP + ", Text=" + text;
-            Debug.WriteLine("\r\n"+ str);
+            Debug.WriteLine("\r\n" + str);
         }
 
     }

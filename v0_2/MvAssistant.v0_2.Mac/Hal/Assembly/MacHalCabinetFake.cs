@@ -18,15 +18,13 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             get
             {
-                //return this.
-                IMacHalDrawer drawer = null;
                 for (var idx = (int)EnumMacDeviceId.cabinet_drawer_01_01; idx <= (int)EnumMacDeviceId.cabinet_drawer_07_05; idx++)
                 {
-                    //減少拋出的Exception量, 事先判斷是否存在
-                    if (!this.IsContainDevice((EnumMacDeviceId)idx)) continue;
-                    drawer = (IMacHalDrawer)this.GetHalDevice((EnumMacDeviceId)idx);
+                    var did = (EnumMacDeviceId)idx;
+                    if (!this.IsContainDevice(did)) continue;//減少拋出的Exception量, 事先判斷是否存在
+                    return (IMacHalDrawer)this.GetHalDevice(did);
                 }
-                return drawer;
+                return null;
             }
         }
 
@@ -42,12 +40,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public Tuple<int, int> ReadChamberPressureDiff()
         {
-            return new Tuple<int, int>(0,0);
+            return new Tuple<int, int>(0, 0);
         }
 
         public Tuple<int, int> ReadChamberPressureDiffLimit()
         {
-            return new Tuple<int, int>(1,1);
+            return new Tuple<int, int>(1, 1);
         }
 
         public void SetExhaustFlowVar(int? Valve1, int? Valve2)

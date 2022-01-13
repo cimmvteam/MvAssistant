@@ -1,4 +1,5 @@
 ﻿//#define OnlyObserveCommandText
+using CToolkit.v1_1.Net;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 {
-    public class MvGudengLoadPortLdd
+    public class MvGudengLoadPortLdd : IDisposable
     {
 
         public delegate string OriginalInvokeMethod();
@@ -944,8 +945,9 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         /// <summary>Event Initial Complete(019)</summary>
         /// <remarks>初始化完畢後</remarks>
         /// <param name="rtnFromServer"></param>
-        public void InitialComplete(ReturnFromServer rtnFromServer)
+        public void InitialComple(ReturnFromServer rtnFromServer)
         {
+            /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
 
             if (OnInitialCompleteHandler != null)
             {
@@ -1165,6 +1167,48 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
         #endregion
 
 
+
+
+
+        #region IDisposable
+        protected bool disposed = false;
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here.
+                //
+            }
+
+            // Free any unmanaged objects here.
+            //
+
+            this.DisposeSelf();
+
+            disposed = true;
+        }
+
+        protected virtual void DisposeSelf()
+        {
+            if (this.ClientSocket != null)
+            {
+                CtkNetUtil.DisposeSocketTry(this.ClientSocket);
+            }
+
+        }
+        #endregion
 
     }
 

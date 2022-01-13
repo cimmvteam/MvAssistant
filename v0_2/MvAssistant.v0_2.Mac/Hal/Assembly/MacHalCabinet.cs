@@ -13,7 +13,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     public class MacHalCabinet : MacHalAssemblyBase, IMacHalCabinet
     {
 
-      //  public MvKjMachineDrawerManager LddManager = null;
+        //  public MvKjMachineDrawerManager LddManager = null;
 
         #region Device Components
         public IMacHalPlcCabinet Plc { get { return (IMacHalPlcCabinet)this.GetHalDevice(EnumMacDeviceId.cabinet_plc); } }
@@ -22,36 +22,25 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             get
             {
-                //return this.
-                IMacHalDrawer drawer = null;
                 for (var i = (int)EnumMacDeviceId.cabinet_drawer_01_01; i <= (int)EnumMacDeviceId.cabinet_drawer_07_05; i++)
                 {
-                    try
-                    {
-                        drawer = (IMacHalDrawer)this.GetHalDevice((EnumMacDeviceId)i);
-                        if (drawer != null)
-                        {
-                            break;
-                        }
-                    }
-                    catch (Exception )
-                    {
-
-                    }
+                    var did = (EnumMacDeviceId)i;
+                    if (!this.IsContainDevice(did)) continue;
+                    return (IMacHalDrawer)this.GetHalDevice(did);
                 }
-                return drawer;
-               ;
+                return null;
+                ;
             }
         }
 
-      //  public Dictionary<string, IMacHalDrawer> Drawers { get; set; }
-      /*
-        public IMacHalDrawer Drawer(int index)
-        {
-            var key = string.Format("{0}_{1:000}", MacEnumDevice.cabinet_drawer, index);
-            return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
-        }
-        */
+        //  public Dictionary<string, IMacHalDrawer> Drawers { get; set; }
+        /*
+          public IMacHalDrawer Drawer(int index)
+          {
+              var key = string.Format("{0}_{1:000}", MacEnumDevice.cabinet_drawer, index);
+              return (IMacHalDrawer)this.GetHalDevice(MacEnumDevice.cabinet_drawer);
+          }
+          */
         /*
         public IMacHalDrawer GetDrawer(string index)
         {
@@ -68,26 +57,26 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             }
         }
         */
-       /*
-        public void CreateDrawers<T>(Dictionary<string, HalBase> hals) where T: HalBase,IMacHalDrawer, new()
-        {
-            Drawers = new Dictionary<string, IMacHalDrawer>();
-            var keys = hals.Keys;
-            var index = 0;
-            foreach (string key in keys)
-            {
-                if (index != 0)
-                {
-                    HalBase drawer;
-                   var isValue= hals.TryGetValue(key, out drawer);
-                    var inst = (T)drawer;
-                    inst.Index = key;
-                    Drawers.Add(key,inst);
+        /*
+         public void CreateDrawers<T>(Dictionary<string, HalBase> hals) where T: HalBase,IMacHalDrawer, new()
+         {
+             Drawers = new Dictionary<string, IMacHalDrawer>();
+             var keys = hals.Keys;
+             var index = 0;
+             foreach (string key in keys)
+             {
+                 if (index != 0)
+                 {
+                     HalBase drawer;
+                    var isValue= hals.TryGetValue(key, out drawer);
+                     var inst = (T)drawer;
+                     inst.Index = key;
+                     Drawers.Add(key,inst);
 
-                }
-                index++;
-            }
-        }*/
+                 }
+                 index++;
+             }
+         }*/
         #endregion Device Components
 
 
@@ -141,7 +130,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public Tuple<bool, bool, bool, bool, bool, bool, bool> ReadLightCurtain()
         { return Plc.ReadLightCurtain(); }
 
-        
+
 
 
 

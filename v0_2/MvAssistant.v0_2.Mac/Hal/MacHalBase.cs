@@ -25,6 +25,8 @@ namespace MvAssistant.v0_2.Mac.Hal
         public MacHalBase this[string key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
         public MacHalBase this[EnumMacDeviceId key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
         public MacHalBase GetHalDevice(EnumMacDeviceId key) { return this.GetHalDevice(key.ToString()); }
+        public MacHalBase GetHalDeviceOrDefault(EnumMacDeviceId key) { return this.GetHalDeviceOrDefault(key.ToString()); }
+
         public MacHalBase GetHalDevice(string key)
         {
             var hals = (from row in this.Hals
@@ -32,6 +34,19 @@ namespace MvAssistant.v0_2.Mac.Hal
                         select row).ToList();
 
             if (hals.Count == 0) throw new MacException("No exist machine");
+            else if (hals.Count > 1) throw new MacException("Duplicate machine");
+
+            return hals.FirstOrDefault().Value;
+        }
+
+
+        public MacHalBase GetHalDeviceOrDefault(string key)
+        {
+            var hals = (from row in this.Hals
+                        where row.Key == key
+                        select row).ToList();
+
+            if (hals.Count == 0) return null;
             else if (hals.Count > 1) throw new MacException("Duplicate machine");
 
             return hals.FirstOrDefault().Value;

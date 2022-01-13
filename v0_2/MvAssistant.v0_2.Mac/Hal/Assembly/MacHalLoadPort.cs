@@ -35,23 +35,13 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             get
             {
-                IMacHalLoadPortUnit rtnV = null;
                 for (var i = (int)EnumMacDeviceId.loadport_1; i <= (int)EnumMacDeviceId.loadport_2; i++)
                 {
-                    try
-                    {
-                        rtnV = (IMacHalLoadPortUnit)this.GetHalDevice((EnumMacDeviceId)i);
-                        if (rtnV != null)
-                        {
-                            break;
-                        }
-                    }
-                    catch (Exception )
-                    {
-
-                    }
+                    var did = (EnumMacDeviceId)i;
+                    if (!this.IsContainDevice(did)) continue;
+                    return (IMacHalLoadPortUnit)this.GetHalDevice(did);
                 }
-                return rtnV;
+                return null;
 
             }
 
