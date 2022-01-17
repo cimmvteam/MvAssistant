@@ -384,7 +384,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 {
                     if (AlarmList[i])
                         if (i == 0)
-                            Result += "CC:PD skt error, ";
+                            Result += "CC:PD skt error, ";//Particle Detector Socket Error = 離線
                         else if (i == 1)
                             Result += "CC:DP skt error, ";
                         else if (i == 2)
