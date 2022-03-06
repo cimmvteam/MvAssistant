@@ -56,13 +56,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         #endregion
 
 
-        public string DeviceIndex
-        {
-            get
-            {
-                return this.DevSettings[DevConnStr_Index];
-            }
-        }
+        public string DeviceIndex { get { return this.DevSettings[DevConnStr_Index]; } }
+
         public override bool HalIsConnected()
         {
             if (LddPool == null) { return false; }

@@ -60,13 +60,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         #endregion
 
 
-        public string DeviceId
-        {
-            get
-            {
-                return this.DevSettings["index"];
-            }
-        }
+        public string DeviceIndex { get { return this.DevSettings[DevConnStr_Index]; } }
+
         public override bool HalIsConnected()
         {
             /* real
@@ -585,7 +580,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
                     Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceId + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
                     // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionHome.ToString());
-                    OnTrayArriveHome(this,null);
+                    OnTrayArriveHome(this, null);
                 }
                 ).Start();
             return commandText;
@@ -664,7 +659,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
                     this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
                     Debug.WriteLine("[Fake] Drawer; DeviceIndex=" + DeviceId + ", HostIP=" + HostIP + ", DeviceEndPoint=" + DeviceEndPoint.Address + ":" + DeviceEndPoint.Port + "\r\n[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
                     // Debug.WriteLine("[Fake] Drawer; State=" + DrawerWorkState.TrayArriveAtPositionOut.ToString());
-                    OnTrayArriveOut(this,null);
+                    OnTrayArriveOut(this, null);
                 }
                 ).Start();
 
