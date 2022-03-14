@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.v0_2.Mac", "MvA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.v0_2.Mac.VerifyEqp", "MvAssistant.v0_2.Mac.VerifyEqp\MvAssistant.v0_2.Mac.VerifyEqp.csproj", "{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15", "MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_15.csproj", "{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14", "MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14\MvAssistant.v0_2.DeviceDrive.FanucRobot_v42_14.csproj", "{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvAssistant.v0_2.Mac.TestMy", "MvAssistant.v0_2.Mac.TestMy\MvAssistant.v0_2.Mac.TestMy.csproj", "{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}"
 EndProject
 Global
@@ -47,22 +43,6 @@ Global
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|x86.ActiveCfg = Release|Any CPU
 		{7029E959-7B21-4F3B-8FB7-A4FA084EBF83}.Release|x86.Build.0 = Release|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Debug|x86.Build.0 = Debug|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|x86.ActiveCfg = Release|Any CPU
-		{3FB3F1AF-1620-4316-BF69-7FB8F2B1D8A7}.Release|x86.Build.0 = Release|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Debug|x86.Build.0 = Debug|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.ActiveCfg = Release|Any CPU
-		{9C54BB72-9B0F-4AF1-AFB0-F5AF49C69338}.Release|x86.Build.0 = Release|Any CPU
 		{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C720DF8C-B6FE-4284-A4AE-B1FEC882F9CD}.Debug|x86.ActiveCfg = Debug|Any CPU

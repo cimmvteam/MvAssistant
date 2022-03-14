@@ -50,6 +50,14 @@
     <Reference Include="GenApiDotNet20">
       <HintPath>..\DLL\StApiDotNet20.1.0.8\GenApiDotNet20.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.FRRJIf">
+      <HintPath>..\DLL\FanucRobotCom.42.15.0\Interop.FRRJIf.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.FRRobotIFLib">
+      <HintPath>..\DLL\FanucRobotCom.42.15.0\Interop.FRRobotIFLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Filtering.0.7.0\lib\net40\MathNet.Filtering.dll</HintPath>
     </Reference>
@@ -89,6 +97,11 @@
     <Compile Include="DeviceDrive\BaslerCamera\MvaPylonDotNetLdd_v5_0.cs" />
     <Compile Include="DeviceDrive\CameraLink\MvaMultiCam.cs" />
     <Compile Include="DeviceDrive\CameraLink\MvaCameraLinkLdd.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\MvaFanucRobotInfo.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\MvaFanucRobotLdd.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\MvaFanucRobotPosReg.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\MvaRobotAlarm.cs" />
+    <Compile Include="DeviceDrive\FanucRobot_v42_15\MvaRobotUIOParameter.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnBarcode_IDEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperEventArgs.cs" />
     <Compile Include="DeviceDrive\GudengLoadPort\LoadPortEventArgs\OnClamperUnlockCompleteEventArgs.cs" />
