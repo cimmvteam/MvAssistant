@@ -314,7 +314,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(ProjectDir)/../DLL/CToolkit.1.1.1/" "./"
-copy "$(ProjectDir)/../DLL/CodeExpress.1.0.0/" "./"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
