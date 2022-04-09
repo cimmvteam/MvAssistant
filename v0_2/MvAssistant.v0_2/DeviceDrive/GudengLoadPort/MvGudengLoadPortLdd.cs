@@ -942,10 +942,17 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 
 
 
+
+    
         /// <summary>Event Initial Complete(019)</summary>
         /// <remarks>初始化完畢後</remarks>
         /// <param name="rtnFromServer"></param>
         public void InitialComple(ReturnFromServer rtnFromServer)
+        {
+            /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
+            this.InitialComplete(rtnFromServer);
+        }
+        public void InitialComplete(ReturnFromServer rtnFromServer)
         {
             /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
 
