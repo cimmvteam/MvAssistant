@@ -201,12 +201,6 @@
   <ItemGroup>
     <Folder Include="UserData\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MvAssistant.v0_2\MvAssistant.v0_2.csproj">
-      <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
-      <Name>MvAssistant.v0_2</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(ProjectDir)/../DLL/CToolkit.1.1.1/" "./"

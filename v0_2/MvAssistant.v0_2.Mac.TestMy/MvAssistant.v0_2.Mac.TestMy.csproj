@@ -159,16 +159,6 @@
     <None Include="UserData\STC-CL25M_8T freerun.cam" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MvAssistant.v0_2.Mac\MvAssistant.v0_2.Mac.csproj">
-      <Project>{1c5a74ce-c1b7-44b6-b09f-59f36c442506}</Project>
-      <Name>MvAssistant.v0_2.Mac</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MvAssistant.v0_2\MvAssistant.v0_2.csproj">
-      <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>
-      <Name>MvAssistant.v0_2</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ToolDevice\ReadMe.txt" />
     <Content Include="ToolHal\ReadMe.txt" />
     <Content Include="ToolPlc\ReadMe.txt" />
