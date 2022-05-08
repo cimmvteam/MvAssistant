@@ -72,7 +72,7 @@ namespace MvAssistant.v0_2.Mac.Hal
             this.DisposeSelf();
             return 0;
         }
-        public int MvaCfInit()
+        public int MvaCfBookup()
         {
             if (!string.IsNullOrEmpty(this.Path))
                 this.manifest = MacManifestCfg.LoadFromXmlFile(this.Path);

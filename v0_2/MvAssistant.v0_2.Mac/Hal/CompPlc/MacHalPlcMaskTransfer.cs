@@ -544,6 +544,13 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
                 plc.Write(EnumMacHalPlcVariable.MT_TO_PC_StaticElectricity_Limit_Down, Minimum);
         }
         #endregion
+
+
+        public void WriteInitialCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Initial_A04, flag); }
+        public void WriteClampCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Clamp, flag); }
+        public void WriteUnClampCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Unclamp, flag); }
+
+
     }
 
 }

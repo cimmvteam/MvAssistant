@@ -115,15 +115,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         {
             try
             {
-
-                _ldd = null;
-                return 1;
+                this._ldd.Dispose();
+                this._ldd = null;
+                return 0;
             }
             catch (Exception ex)
             {
                 MvaLog.WarnNs(this, ex);
-
-                return 0;
+                return 1;
             }
         }
         public override bool HalIsConnected()
@@ -663,6 +662,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             {
                 OnHostLostLoadPortConnectionHandler.Invoke(this, e);
             }
+        }
+
+
+        protected override void DisposeSelf()
+        {
+            this.HalClose();
         }
 
     }

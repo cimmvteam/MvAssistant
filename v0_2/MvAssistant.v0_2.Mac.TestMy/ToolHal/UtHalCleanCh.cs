@@ -72,7 +72,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext(ManifestPath))
             {
-                halContext.MvaCfInit();
+                halContext.MvaCfBookup();
                 halContext.MvaCfLoad();
 
                 var cc = halContext.HalDevices[EnumMacDeviceId.clean_assembly.ToString()] as MacHalCleanCh;

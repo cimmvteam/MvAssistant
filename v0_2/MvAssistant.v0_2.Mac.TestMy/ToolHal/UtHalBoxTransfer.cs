@@ -146,7 +146,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
-                halContext.MvaCfInit();
+                halContext.MvaCfBookup();
                 halContext.MvaCfLoad();
 
                 var bt = halContext.HalDevices[EnumMacDeviceId.boxtransfer_assembly.ToString()] as MacHalBoxTransfer;

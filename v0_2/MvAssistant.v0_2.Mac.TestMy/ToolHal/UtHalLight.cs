@@ -14,7 +14,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
         {
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
-                halContext.MvaCfInit();
+                halContext.MvaCfBookup();
                 halContext.MvaCfLoad();
 
                 var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;

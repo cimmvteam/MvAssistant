@@ -61,7 +61,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
             {
                 using (var halContext = new MacHalContext("GenCfg/Manifest/Manifest.xml.real"))
                 {
-                    halContext.MvaCfInit();
+                    halContext.MvaCfBookup();
                     halContext.MvaCfLoad();
                    // halContext.MvCfInit();
                     //halContext.MvCfLoad();
