@@ -69,6 +69,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
+
+                plc.Write(EnumMacHalPlcVariable.PC_TO_MT_Clamp, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_MT_Unclamp, false);
+
+
                 plc.Write(EnumMacHalPlcVariable.PC_TO_MT_Initial_A04, false);
                 Thread.Sleep(100);
                 plc.Write(EnumMacHalPlcVariable.PC_TO_MT_Initial_A04, true);

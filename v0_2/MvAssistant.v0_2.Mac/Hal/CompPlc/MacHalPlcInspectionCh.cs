@@ -30,6 +30,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
+                plc.Write(EnumMacHalPlcVariable.PC_TO_IC_XYCmd, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_IC_ZCmd, false);
+                plc.Write(EnumMacHalPlcVariable.PC_TO_IC_WCmd, false);
+
+
+
                 double originalX = plc.Read<double>(EnumMacHalPlcVariable.IC_TO_PC_Positon_X);
                 double originalY = plc.Read<double>(EnumMacHalPlcVariable.IC_TO_PC_Positon_Y);
 
