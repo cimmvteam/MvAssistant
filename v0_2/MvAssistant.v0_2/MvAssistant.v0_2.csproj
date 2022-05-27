@@ -82,6 +82,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -203,8 +204,111 @@
     <Compile Include="DeviceDrive\WacohForce\MvaWacohForceMessageEventArgs.cs" />
     <Compile Include="DeviceDrive\WacohForce\MvaWacohForceMessageReceiver.cs" />
     <Compile Include="DeviceDrive\WacohForce\MvaWacohForceVector.cs" />
+    <Compile Include="Mac\DrawerSocketTest\AsyncClient.cs" />
+    <Compile Include="Mac\DrawerSocketTest\AsyncHost.cs" />
+    <Compile Include="Mac\DrawerSocketTest\EnumSocketCMDList.cs" />
+    <Compile Include="Mac\DrawerSocketTest\SocketMsgTranslator.cs" />
+    <Compile Include="Mac\DrawerSocketTest\StateObject.cs" />
+    <Compile Include="Mac\DrawerSocketTest\UDPSocket.cs" />
+    <Compile Include="Mac\EnumMacHalIdBackup.cs" />
+    <Compile Include="Mac\EnumMacMaskBoxType.cs" />
+    <Compile Include="Mac\EnumMacMaskType.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalBoxTransfer.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalCabinet.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalCleanCh.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalEqp.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalInspectionCh.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalLoadPort.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalMaskTransfer.cs" />
+    <Compile Include="Mac\Hal\Assembly\IMacHalOpenStage.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalBoxTransfer.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalBoxTransferFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalCabinet.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalCabinetFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalCleanCh.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalCleanChFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalEqp.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalEqpFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalInspectionCh.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalInspectionChFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalLoadPort.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalLoadPortFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalMaskTransfer.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalMaskTransferFake.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalOpenStage.cs" />
+    <Compile Include="Mac\Hal\Assembly\MacHalOpenStageFake.cs" />
+    <Compile Include="Mac\Hal\CompCamera\IHalCamera.cs" />
+    <Compile Include="Mac\Hal\CompCamera\MacHalCameraFake.cs" />
+    <Compile Include="Mac\Hal\CompCamera\MacHalCameraLink.cs" />
+    <Compile Include="Mac\Hal\CompCamera\MacHalCameraSenTech.cs" />
+    <Compile Include="Mac\Hal\CompDrawer\HalDrawerBoxDetectReturn.cs" />
+    <Compile Include="Mac\Hal\CompDrawer\IMacHalDrawer.cs" />
+    <Compile Include="Mac\Hal\CompDrawer\MacHalDrawerFake.cs" />
+    <Compile Include="Mac\Hal\CompDrawer\MacHalDrawerKjMachine.cs" />
+    <Compile Include="Mac\Hal\CompE84\IMacHalE84.cs" />
+    <Compile Include="Mac\Hal\CompE84\MacHalE84Aml.cs" />
+    <Compile Include="Mac\Hal\CompLight\IMacHalLight.cs" />
+    <Compile Include="Mac\Hal\CompLight\MacHalLightFake.cs" />
+    <Compile Include="Mac\Hal\CompLight\MacHalLightLeimac.cs" />
+    <Compile Include="Mac\Hal\CompLoadPort\IMacHalLoadPortUnit.cs" />
+    <Compile Include="Mac\Hal\CompLoadPort\MacHalLoadPortFake.cs" />
+    <Compile Include="Mac\Hal\CompLoadPort\MacHalLoadPortGudeng.cs" />
+    <Compile Include="Mac\Hal\CompPlc\EnumMacHalPlcVariable.cs" />
+    <Compile Include="Mac\Hal\CompPlc\EnumMacPlcAlarms.cs" />
+    <Compile Include="Mac\Hal\CompPlc\EnumMacPlcAssemblyStatus.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcBase.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcBoxTransfer.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcCabinet.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcCleanCh.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcEqp.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcInspectionCh.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcLoadPort.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcMaskTransfer.cs" />
+    <Compile Include="Mac\Hal\CompPlc\IMacHalPlcOpenStage.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcBase.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcBoxTransfer.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcCabinet.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcCleanCh.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcContext.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcEqp.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcInspectionCh.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcLoadPort.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcMaskTransfer.cs" />
+    <Compile Include="Mac\Hal\CompPlc\MacHalPlcOpenStage.cs" />
+    <Compile Include="Mac\Hal\CompRobotTest\MacHalBoxRobotFanuc.cs" />
+    <Compile Include="Mac\Hal\CompRobotTest\MacHalMaskRobotFanuc.cs" />
+    <Compile Include="Mac\Hal\CompRobotTest\MacHalRobotMotionInfo.cs" />
+    <Compile Include="Mac\Hal\CompRobot\HalRobotEnumMotionType.cs" />
+    <Compile Include="Mac\Hal\CompRobot\HalRobotFake.cs" />
+    <Compile Include="Mac\Hal\CompRobot\HalRobotFanuc.cs" />
+    <Compile Include="Mac\Hal\CompRobot\HalRobotMotion.cs" />
+    <Compile Include="Mac\Hal\CompRobot\HalRobotPath.cs" />
+    <Compile Include="Mac\Hal\CompRobot\HalRobotPose.cs" />
+    <Compile Include="Mac\Hal\CompRobot\IHalRobot.cs" />
+    <Compile Include="Mac\Hal\IMacHal.cs" />
+    <Compile Include="Mac\Hal\IMacHalAssembly.cs" />
+    <Compile Include="Mac\Hal\IMacHalComponent.cs" />
+    <Compile Include="Mac\Hal\IMacHalFake.cs" />
+    <Compile Include="Mac\Hal\MacHalAssemblyBase.cs" />
+    <Compile Include="Mac\Hal\MacHalBase.cs" />
+    <Compile Include="Mac\Hal\MacHalComponentBase.cs" />
+    <Compile Include="Mac\Hal\MacHalContext.cs" />
+    <Compile Include="Mac\Hal\MacHalFakeComponentBase.cs" />
+    <Compile Include="Mac\ImgProc\MacImgProcBase.cs" />
     <Compile Include="IMvaContextFlow.cs" />
     <Compile Include="IMvaContextFlowRun.cs" />
+    <Compile Include="Mac\JSon\BTRobotPath.cs" />
+    <Compile Include="Mac\JSon\JSonHelper.cs" />
+    <Compile Include="Mac\JSon\PositionInfo.cs" />
+    <Compile Include="Mac\JSon\PositionInstance.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\BaserobotTransferPathFile.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\BoxrobotTransferActionType.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\BoxrobotTransferDirection.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\BoxrobotTransferLocation.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\BoxrobotTransferLocationDrawerRange.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\BoxrobotTransferPathFile.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\MaskrobotTransferLocation.cs" />
+    <Compile Include="Mac\JSon\RobotTransferFile\MaskrobotTransferPathFile.cs" />
     <Compile Include="Logging\IMvaLoggable.cs" />
     <Compile Include="Logging\MvaLogger.cs" />
     <Compile Include="Logging\MvaLoggerDisplayEnum.cs" />
@@ -212,8 +316,27 @@
     <Compile Include="Logging\MvaLoggerEventArgs.cs" />
     <Compile Include="Logging\MvaLoggerMapper.cs" />
     <Compile Include="Logging\MvaLoggerMapperEventArgs.cs" />
+    <Compile Include="Mac\MacException.cs" />
+    <Compile Include="Mac\Manifest\EnumMacDeviceId.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacGenCheckSumException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacHalObjectNotFoundException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacInvalidCheckSumException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacInvalidManifestException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacLackAssemblyElementException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacNoPropertyException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\MacWrongDriverException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\ManifestAccessException.cs" />
+    <Compile Include="Mac\Manifest\Exceptions\ManifestSemanticException.cs" />
+    <Compile Include="Mac\Manifest\MacEnumDeviceDrawerRange.cs" />
+    <Compile Include="Mac\Manifest\MacEnumPositionId.cs" />
+    <Compile Include="Mac\Manifest\MacManifestCfg.cs" />
+    <Compile Include="Mac\Manifest\MacManifestDeviceCfg.cs" />
+    <Compile Include="Mac\Manifest\MacManifestDriverCfg.cs" />
+    <Compile Include="Mac\Manifest\MacManifestDriverId.cs" />
+    <Compile Include="Mac\Manifest\MacManifestGenCfgBase.cs" />
     <Compile Include="MvaException.cs" />
     <Compile Include="MvaLog.cs" />
+    <Compile Include="Mac\MacUtil.cs" />
     <Compile Include="MvaUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ROS\MacRosEventAggregator.cs" />
@@ -290,6 +413,7 @@
     <Compile Include="Threading\MvaTask.cs" />
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
+    <Compile Include="Mac\Xml\XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SensingNet\Readme\CUDA.NET.Readme.txt" />
@@ -310,11 +434,12 @@
   <ItemGroup>
     <Compile Include="DeviceDrive\E84\MvaE84AmlLdd.cs" />
     <None Include="app.config" />
+    <None Include="Mac\JSon\RobotPathFileConfigSetFile.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mac\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
