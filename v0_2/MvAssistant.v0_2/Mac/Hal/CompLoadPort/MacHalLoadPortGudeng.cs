@@ -29,6 +29,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         public EventStagePositionCode StagePosition { get; private set; }
         public void SetStagePosition(EventStagePositionCode stagePosition) { StagePosition = stagePosition; }
 
+        public MvGudengLoadPortLdd GetLogicDeviceDrive() { return this._ldd; }
+
+
 
         public event EventHandler OnPlacementHandler;
         public event EventHandler OnPresentHandler;
