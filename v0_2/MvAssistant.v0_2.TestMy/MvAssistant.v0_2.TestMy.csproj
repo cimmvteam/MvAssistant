@@ -74,7 +74,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mac\SensingNet\UtVibration.cs" />
     <Compile Include="Mac\ToolDevice\UtDeviceLoadPort.cs" />
     <Compile Include="Mac\ToolDevice\UtDeviceLight.cs" />
     <Compile Include="Mac\ToolDevice\UtDeviceCamera.cs" />
