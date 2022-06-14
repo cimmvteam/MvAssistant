@@ -919,7 +919,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 
 
 
-
+        public void LoadportStatu2(ReturnFromServer rtnFromServer) { this.LoadportStatus(rtnFromServer); }
         /// <summary>Event LoadportStatus(018)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>
@@ -943,7 +943,7 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 
 
 
-    
+
         /// <summary>Event Initial Complete(019)</summary>
         /// <remarks>初始化完畢後</remarks>
         /// <param name="rtnFromServer"></param>
