@@ -83,7 +83,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
             * 7-2,  7-3,         IP: 91~92
             */
 
-                halContext.MvaCfBookup();
+                halContext.MvaCfBootup();
                 halContext.MvaCfLoad();
 
                 try

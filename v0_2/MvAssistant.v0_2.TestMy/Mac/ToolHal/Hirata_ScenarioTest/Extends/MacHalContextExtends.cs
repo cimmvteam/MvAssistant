@@ -27,7 +27,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest.Extends
         /// <param name="instance"></param>
         public static void InitialAndLoad(this MacHalContext instance)
         {
-            instance.MvaCfBookup();
+            instance.MvaCfBootup();
             instance.MvaCfLoad();
         }
 

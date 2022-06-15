@@ -12,7 +12,7 @@ namespace MvAssistant.v0_2
         /// 初始化資源/參數
         /// </summary>
         /// <returns></returns>
-        int MvaCfBookup();
+        int MvaCfBootup();
         /// <summary>
         /// 載入資源
         /// </summary>

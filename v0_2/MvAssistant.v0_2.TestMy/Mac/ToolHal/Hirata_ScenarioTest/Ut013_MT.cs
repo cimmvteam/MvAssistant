@@ -24,7 +24,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
             {
                 using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
-                    halContext.MvaCfBookup();
+                    halContext.MvaCfBootup();
                     halContext.MvaCfLoad();
 
                     var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
@@ -50,7 +50,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
             {
                 using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
-                    halContext.MvaCfBookup();
+                    halContext.MvaCfBootup();
                     halContext.MvaCfLoad();
 
                     var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;
@@ -117,7 +117,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal.Hirata_ScenarioTest
             {
                 using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
                 {
-                    halContext.MvaCfBookup();
+                    halContext.MvaCfBootup();
                     halContext.MvaCfLoad();
 
                     var unv = halContext.HalDevices[EnumMacDeviceId.eqp_assembly.ToString()] as MacHalEqp;

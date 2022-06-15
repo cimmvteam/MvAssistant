@@ -43,7 +43,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
-                halContext.MvaCfBookup();
+                halContext.MvaCfBootup();
                 halContext.MvaCfLoad();
 
                 var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
@@ -65,7 +65,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
-                halContext.MvaCfBookup();
+                halContext.MvaCfBootup();
                 halContext.MvaCfLoad();
 
                 var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
@@ -87,7 +87,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolHal
 
             using (var halContext = new MacHalContext("UserData/Manifest/Manifest.xml.real"))
             {
-                halContext.MvaCfBookup();
+                halContext.MvaCfBootup();
                 halContext.MvaCfLoad();
 
                 var ic = halContext.HalDevices[EnumMacDeviceId.inspectionch_assembly.ToString()] as MacHalInspectionCh;
