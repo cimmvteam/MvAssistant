@@ -118,7 +118,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
         {
             try
             {
-                this._ldd.Dispose();
+                if (this._ldd != null)
+                    this._ldd.Dispose();
                 this._ldd = null;
                 return 0;
             }
