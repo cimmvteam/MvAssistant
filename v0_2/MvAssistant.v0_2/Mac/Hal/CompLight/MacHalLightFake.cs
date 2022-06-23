@@ -54,10 +54,10 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLight
 
         public override int HalConnect()
         {
-            this.ip = this.GetDevConnStr(DevConnStr_Ip);
-            this.port = this.GetDevConnStrInt(DevConnStr_Port);
-            this.model = this.GetDevConnStrEnum<MvaEnumLeimacModel>(DevConnStr_Model);
-            this.channel = this.GetDevConnStrInt(DevConnStr_Channel);
+            this.ip = this.GetDevConnSetting(DevConnStr_Ip);
+            this.port = this.GetDevConnSettingInt(DevConnStr_Port);
+            this.model = this.GetDevConnSettingEnum<MvaEnumLeimacModel>(DevConnStr_Model);
+            this.channel = this.GetDevConnSettingInt(DevConnStr_Channel);
 
             this.ldd = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MvaLeimacLightLdd()
             {

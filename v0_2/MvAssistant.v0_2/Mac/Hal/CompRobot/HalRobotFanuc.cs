@@ -33,7 +33,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         public override int HalConnect()
         {
-            var ip = this.DevSettings["ip"];
+            var ip = this.GetDevConnSetting("ip");
 
             if (this.ldd == null)
                 this.ldd = new MvaFanucRobotLdd();

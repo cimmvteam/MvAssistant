@@ -208,8 +208,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
         #region 吹氣壓力控制
-        //設定吹氣壓力值
-        public void SetPressureCtrl(double AirPressure)
+        /// <summary> 設定吹氣壓力值, 預設為25 </summary>
+        public void SetPressureCtrl(double AirPressure=25)
         {
             var plc = this.plcContext;
 

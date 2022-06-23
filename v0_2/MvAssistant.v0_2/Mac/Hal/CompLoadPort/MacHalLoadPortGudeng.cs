@@ -82,7 +82,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
             get
             {
 
-                var ip = this.DevSettings["ip"];
+                var ip = this.GetDevConnSetting("ip");
                 return ip;
             }
 #endif
@@ -101,7 +101,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompLoadPort
 #else
             get
             {
-                var port = Convert.ToInt32(this.DevSettings["port"]);
+                var port = this.GetDevConnSettingInt("port");
                 return port;
             }
 #endif

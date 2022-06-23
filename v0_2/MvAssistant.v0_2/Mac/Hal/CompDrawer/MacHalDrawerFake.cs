@@ -60,7 +60,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
         #endregion
 
 
-        public string DeviceIndex { get { return this.DevSettings[DevConnStr_Index]; } }
+        public string DeviceIndex { get { return this.GetDevConnSetting(DevConnStr_Index); } }
 
         public override bool HalIsConnected()
         {
@@ -79,65 +79,18 @@ namespace MvAssistant.v0_2.Mac.Hal.CompDrawer
 
 
         /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(起始) </summary>
-        public int HostListenDrawerPortRangeStart
-        {
-            get
-            {
-
-                return Convert.ToInt32(this.DevSettings["startport"]);
-            }
-        }
+        public int HostListenDrawerPortRangeStart { get { return this.GetDevConnSettingInt("startport"); } }
         /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(結束) </summary>
-        public int HostListenDrawerPortRangeEnd
-        {
-            get
-            {
-                return Convert.ToInt32(this.DevSettings["endport"]);
-            }
-        }
-
+        public int HostListenDrawerPortRangeEnd { get { return this.GetDevConnSettingInt("endport"); } }
         /// <summary>Host 監聽Drawer 系統事件的 port(Host 上的)</summary>
-        public int HostListenDrawerSysEventPort
-        {
-            get
-            {
-                return Convert.ToInt32(this.DevSettings["local_port"]);
-            }
-        }
-
+        public int HostListenDrawerSysEventPort { get { return this.GetDevConnSettingInt("local_port"); } }
         /// <summary>硬體裝置 的IP </summary>
-        public string DeviceIP
-        {
-            get
-            {
-                return this.DevSettings["ip"];
-            }
-        }
+        public string DeviceIP { get { return this.GetDevConnSetting("ip"); } }
         /// <summary>硬體裝置的 Listen Port</summary>
-        public int DevicePort
-        {
-            get
-            {
-                return Convert.ToInt32(this.DevSettings["port"]);
-            }
-        }
-
+        public int DevicePort { get { return this.GetDevConnSettingInt("port"); } }
         /// <summary>硬體裝置的 Listen Port</summary>
-        public IPEndPoint DeviceEndPoint
-        {
-            get
-            {
-                return new IPEndPoint(IPAddress.Parse(DeviceIP), DevicePort);
-            }
-        }
-
-        public string HostIP
-        {
-            get
-            {
-                return this.DevSettings["local_ip"];
-            }
-        }
+        public IPEndPoint DeviceEndPoint { get { return new IPEndPoint(IPAddress.Parse(DeviceIP), DevicePort); } }
+        public string HostIP { get { return this.GetDevConnSetting("local_ip"); } }
 
         public override int HalConnect()
         {  // LddPool

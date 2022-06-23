@@ -46,8 +46,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         public override int HalConnect()
         {
-            this.ip = this.GetDevConnStr(DevConnStr_Ip);
-            this.portid = this.GetDevConnStrInt(DevConnStr_PortId);
+            this.ip = this.GetDevConnSetting(DevConnStr_Ip);
+            this.portid = this.GetDevConnSettingInt(DevConnStr_PortId);
             this.plcContext = this.HalContext.ResourceGetOrRegister(this.resourceKey, () => new MacHalPlcContext()
             {
                 PlcIp = this.ip,

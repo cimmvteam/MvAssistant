@@ -13,8 +13,8 @@ namespace MvAssistant.v0_2.Mac.Hal
     public abstract class MacHalBase : IHal, IDisposable
     {
         public MacHalContext HalContext;
-        public MacManifestDeviceCfg HalDeviceCfg;
-        public MacManifestDriverCfg HalDriverCfg;
+        public MacManifestDeviceCfg HalDeviceCfg = new MacManifestDeviceCfg();
+        public MacManifestDriverCfg HalDriverCfg = new MacManifestDriverCfg();
         public Dictionary<string, MacHalBase> Hals = new Dictionary<string, MacHalBase>();
         ~MacHalBase() { this.Dispose(false); }
         public string DeviceId { get { return this.HalDeviceCfg.DeviceId; } }
@@ -25,8 +25,6 @@ namespace MvAssistant.v0_2.Mac.Hal
         public MacHalBase this[string key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
         public MacHalBase this[EnumMacDeviceId key] { get { return this.GetHalDevice(key); } set { this.SetHalDevice(key, value); } }
         public MacHalBase GetHalDevice(EnumMacDeviceId key) { return this.GetHalDevice(key.ToString()); }
-        public MacHalBase GetHalDeviceOrDefault(EnumMacDeviceId key) { return this.GetHalDeviceOrDefault(key.ToString()); }
-
         public MacHalBase GetHalDevice(string key)
         {
             var hals = (from row in this.Hals
@@ -39,7 +37,7 @@ namespace MvAssistant.v0_2.Mac.Hal
             return hals.FirstOrDefault().Value;
         }
 
-
+        public MacHalBase GetHalDeviceOrDefault(EnumMacDeviceId key) { return this.GetHalDeviceOrDefault(key.ToString()); }
         public MacHalBase GetHalDeviceOrDefault(string key)
         {
             var hals = (from row in this.Hals
@@ -79,38 +77,54 @@ namespace MvAssistant.v0_2.Mac.Hal
 
         #region Device Setting
 
-        private Dictionary<string, string> m_DevSettings;
-        public Dictionary<string, string> DevSettings
+
+        protected Dictionary<string, string> DeviceConnSetting
         {
-            get
-            {
-                if (this.m_DevSettings == null) { this.m_DevSettings = this.GetDevConnStr(); }
-                return this.m_DevSettings;
-            }
+            get { return this.ReadDevConnSetting(); }
+            set { this.WriteDevConnSetting(value); }
         }
 
-        protected string DeviceConnStr { get { return this.HalDeviceCfg == null ? null : this.HalDeviceCfg.DevConnStr; } }
+
+        public string GetDevConnSetting(string key) { return this.DeviceConnSetting[key.ToLower()]; }
+
+        public T GetDevConnSettingEnum<T>(string key) { return MvaUtil.EnumParse<T>(this.GetDevConnSetting(key)); }
+
+        public int GetDevConnSettingInt(string key) { return Int32.Parse(this.GetDevConnSetting(key)); }
 
 
-        public string GetDevConnStr(string key) { return this.DevSettings[key.ToLower()]; }
-
-        public T GetDevConnStrEnum<T>(string key) { return MvaUtil.EnumParse<T>(this.DevSettings[key] as string); }
-
-        public int GetDevConnStrInt(string key) { return Int32.Parse(this.DevSettings[key.ToLower()]); }
-        protected Dictionary<string, string> GetDevConnStr()
+        public void SetDevConnSetting(String key, String value)
         {
-            if (string.IsNullOrEmpty(this.DeviceConnStr)) return new Dictionary<string, string>();
+            var dict = this.ReadDevConnSetting();
+            dict[key.ToLower()] = value;
+            this.WriteDevConnSetting(dict);
+        }
+        public void SetDevConnSetting(String key, int value) { this.SetDevConnSetting(key, value + ""); }
 
-            var settings = (from row in this.DeviceConnStr.Split(new char[] { ';' })
+
+
+
+        protected Dictionary<string, string> ReadDevConnSetting()
+        {
+            if (this.HalDeviceCfg == null) return new Dictionary<string, string>();
+            var connSettingStr = this.HalDeviceCfg.DevConnStr;
+
+            var settings = (from row in connSettingStr.Split(new char[] { ';' })
                             where !string.IsNullOrEmpty(row)
                             select row.Trim()).ToList();
-
-            //Key 全轉小寫
             var dict = (from row in settings
                         where row.Contains("=")
                         select new { row = row, idx = row.IndexOf("=") }
-                        ).ToDictionary(x => x.row.Substring(0, x.idx).ToLower(), x => x.row.Substring(x.idx + 1));
+                        ).ToDictionary(x => x.row.Substring(0, x.idx).Trim().ToLower(), x => x.row.Trim().Substring(x.idx + 1));
             return dict;
+        }
+
+        protected void WriteDevConnSetting(Dictionary<String, String> dict)
+        {
+            if (this.HalDeviceCfg == null) this.HalDeviceCfg = new MacManifestDeviceCfg();
+
+            var list = (from row in dict
+                        select row.Key + "=" + row.Value).ToList();
+            this.HalDeviceCfg.DevConnStr = String.Join(";", list);
         }
 
 
