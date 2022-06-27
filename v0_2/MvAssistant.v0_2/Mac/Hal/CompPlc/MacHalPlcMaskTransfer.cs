@@ -19,9 +19,6 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         }
 
 
-
-
-
         public string Clamp(uint MaskType)
         {
             var Result = "";
@@ -135,6 +132,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             );
         }
 
+        public bool ReadMaskPresentVar() { return this.plcContext.Read<bool>(EnumMacHalPlcVariable.MT_TO_PC_MaskPresent); }
+
         public EnumMacPlcAssemblyStatus ReadMTStatus()
         {
             var plc = this.plcContext;
@@ -192,6 +191,17 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             }
             return Result;
         }
+
+        public void WriteClampCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Clamp, flag); }
+
+        public void WriteInitialCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Initial_A04, flag); }
+        public void WriteUnClampCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Unclamp, flag); }
+     
+        
+        
+        
+        
+        
         #region Speed setting
         /// <summary>
         /// 讀取速度設定
@@ -551,11 +561,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
         #endregion
 
 
-        public void WriteInitialCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Initial_A04, flag); }
-        public void WriteClampCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Clamp, flag); }
-        public void WriteUnClampCmd(bool flag) { this.plcContext.Write(EnumMacHalPlcVariable.PC_TO_MT_Unclamp, flag); }
-
-
+       
     }
 
 }

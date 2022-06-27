@@ -218,6 +218,7 @@ PLC_TO_PC_BT_FLS,
         MT_TO_PC_A04Status,
         PC_TO_MT_RobotMoving,
         MT_TO_PC_RobotMoving_Reply,
+        MT_TO_PC_MaskPresent,
 
         //Open Stage(A05)
         PC_TO_OS_Open,//開盒

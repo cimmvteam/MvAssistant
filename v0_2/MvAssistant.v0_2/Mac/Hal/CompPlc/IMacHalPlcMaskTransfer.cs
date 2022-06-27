@@ -35,6 +35,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
 
         Tuple<int, int, int> ReadLevelLimit();
 
+        bool ReadMaskPresentVar();
         EnumMacPlcAssemblyStatus ReadMTStatus();
 
         Tuple<double, double, double, double, double, double> ReadSixAxisSensor();

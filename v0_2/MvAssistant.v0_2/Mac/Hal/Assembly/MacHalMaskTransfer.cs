@@ -19,25 +19,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         #endregion Device Components
 
-        /// <summary> 讀取檔案的路徑點位 </summary>
-        /// <param name="PathFileLocation"></param>
-        /// <returns></returns>
-        public List<HalRobotMotion> ReadFilePosition(string PathFileLocation)
-        { return Robot.ReadMovePath(PathFileLocation); }
 
-        /// <summary> 帶入點位資訊，移動Robot </summary>
-        /// <param name="MovePosition"></param>
-        /// <returns></returns>
-        public int ExePathMove(List<HalRobotMotion> MovePosition)
-        { return Robot.ExePosMove(MovePosition); }
-
-        /// <summary> 給點位清單，依序移動 </summary>
-        /// <param name="PathPosition"></param>
-        public int ExePathMove(string PathFileLocation)
-        {
-            var PathPosition = Robot.ReadMovePath(PathFileLocation);
-            return Robot.ExePosMove(PathPosition);
-        }
 
         /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
         /// <param name="PathFileLocation"></param>
@@ -46,6 +28,18 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         {
             var PathPosition = Robot.ReadMovePath(PathFileLocation);
             return Robot.BacktrackPosMove(PathPosition);
+        }
+
+        /// <summary>
+        /// CCD旋轉(單位 0.01 Degree)
+        /// </summary>
+        /// <param name="SpinDegree"></param>
+        /// <returns></returns>
+        public string CCDSpin(int SpinDegree)
+        {
+            string result = "";
+            result = Plc.CCDSpin(SpinDegree);
+            return result;
         }
 
         /// <summary>
@@ -164,21 +158,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             }
         }
 
-        public int RobotReset()
-        {
-            if (Robot.HalReset() == -1)
-                throw new Exception("Mask Transfer reset failed.");
-            return 0;
-        }
-
-        public int RobotRecover()
-        {
-            return Robot.HalSysRecover();
-        }
-
-        public int RobotStopProgram()
-        { return Robot.HalStopProgram(); }
-
         public string Clamp(uint MaskType)
         {
             string result = "";
@@ -186,23 +165,18 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return result;
         }
 
-        public string Unclamp()
-        {
-            string result = "";
-            result = Plc.Unclamp();
-            return result;
-        }
-
-        /// <summary>
-        /// CCD旋轉(單位 0.01 Degree)
-        /// </summary>
-        /// <param name="SpinDegree"></param>
+        /// <summary> 帶入點位資訊，移動Robot </summary>
+        /// <param name="MovePosition"></param>
         /// <returns></returns>
-        public string CCDSpin(int SpinDegree)
+        public int ExePathMove(List<HalRobotMotion> MovePosition)
+        { return Robot.ExePosMove(MovePosition); }
+
+        /// <summary> 給點位清單，依序移動 </summary>
+        /// <param name="PathPosition"></param>
+        public int ExePathMove(string PathFileLocation)
         {
-            string result = "";
-            result = Plc.CCDSpin(SpinDegree);
-            return result;
+            var PathPosition = Robot.ReadMovePath(PathFileLocation);
+            return Robot.ExePosMove(PathPosition);
         }
 
         public void Initial()
@@ -210,6 +184,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             //TODO: Safety , robot how to initial?
             Plc.Initial();
         }
+
+        /// <summary> 讀取檔案的路徑點位 </summary>
+        /// <param name="PathFileLocation"></param>
+        /// <returns></returns>
+        public List<HalRobotMotion> ReadFilePosition(string PathFileLocation)
+        { return Robot.ReadMovePath(PathFileLocation); }
 
         public EnumMacPlcAssemblyStatus ReadMTStatus()
         { return Plc.ReadMTStatus(); }
@@ -221,7 +201,28 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public void RobotMoving(bool isMoving)
         { Plc.RobotMoving(isMoving); }
 
-        #region Set Parameter
+        public int RobotRecover()
+        {
+            return Robot.HalSysRecover();
+        }
+
+        public int RobotReset()
+        {
+            if (Robot.HalReset() == -1)
+                throw new Exception("Mask Transfer reset failed.");
+            return 0;
+        }
+        public int RobotStopProgram()
+        { return Robot.HalStopProgram(); }
+        public string Unclamp()
+        {
+            string result = "";
+            result = Plc.Unclamp();
+            return result;
+        }
+        
+        
+        #region Write PLC
         /// <summary>
         /// 設定夾爪觸覺極限
         /// </summary>
@@ -257,29 +258,6 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         }
 
         /// <summary>
-        /// 設定六軸力覺Sensor的壓力值上限
-        /// </summary>
-        /// <param name="Fx"></param>
-        /// <param name="Fy"></param>
-        /// <param name="Fz"></param>
-        /// <param name="Mx"></param>
-        /// <param name="My"></param>
-        /// <param name="Mz"></param>
-        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
-        {
-            Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
-            Thread.Sleep(100);
-            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
-            if ((Fx != null && SetResult.Item1 != Fx)
-                || (Fy != null && SetResult.Item2 != Fy)
-                || (Fz != null && SetResult.Item3 != Fz)
-                || (Mx != null && SetResult.Item4 != Mx)
-                || (My != null && SetResult.Item5 != My)
-                || (Mz != null && SetResult.Item6 != Mz))
-                throw new Exception("MT six axis sensor upper limit setting error !");
-        }
-
-        /// <summary>
         /// 設定六軸力覺Sensor的壓力值下限
         /// </summary>
         /// <param name="Fx"></param>
@@ -302,6 +280,28 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                 throw new Exception("MT six axis sensor lower limit setting error !");
         }
 
+        /// <summary>
+        /// 設定六軸力覺Sensor的壓力值上限
+        /// </summary>
+        /// <param name="Fx"></param>
+        /// <param name="Fy"></param>
+        /// <param name="Fz"></param>
+        /// <param name="Mx"></param>
+        /// <param name="My"></param>
+        /// <param name="Mz"></param>
+        public void SetSixAxisSensorUpperLimit(double? Fx, double? Fy, double? Fz, double? Mx, double? My, double? Mz)
+        {
+            Plc.SetSixAxisSensorUpperLimit(Fx, Fy, Fz, Mx, My, Mz);
+            Thread.Sleep(100);
+            var SetResult = Plc.ReadSixAxisSensorUpperLimit();
+            if ((Fx != null && SetResult.Item1 != Fx)
+                || (Fy != null && SetResult.Item2 != Fy)
+                || (Fz != null && SetResult.Item3 != Fz)
+                || (Mx != null && SetResult.Item4 != Mx)
+                || (My != null && SetResult.Item5 != My)
+                || (Mz != null && SetResult.Item6 != Mz))
+                throw new Exception("MT six axis sensor upper limit setting error !");
+        }
         /// <summary>
         /// 夾速度設定，單位(mm/sec)，CCD旋轉速度設定，單位(0.01 deg/sec)
         /// </summary>
@@ -338,7 +338,8 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         }
         #endregion
 
-        #region Read Parameter
+        #region Read PLC
+
         /// <summary>
         /// 讀取夾爪觸覺極限設定值，上限、下限
         /// </summary>
@@ -353,13 +354,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public Tuple<int, int, int> ReadLevelLimit()
         { return Plc.ReadLevelLimit(); }
 
-        /// <summary>
-        /// 讀取六軸力覺Sensor的壓力值上限設定，Fx、Fy、Fz、Mx、My、Mz
-        /// </summary>
-        /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
-        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
-        { return Plc.ReadSixAxisSensorUpperLimit(); }
-
+        public bool ReadMaskPresentVar() { return this.Plc.ReadMaskPresentVar(); }
         /// <summary>
         /// 讀取六軸力覺Sensor的壓力值下限設定，Fx、Fy、Fz、Mx、My、Mz
         /// </summary>
@@ -367,6 +362,12 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         public Tuple<double, double, double, double, double, double> ReadSixAxisSensorLowerLimit()
         { return Plc.ReadSixAxisSensorLowerLimit(); }
 
+        /// <summary>
+        /// 讀取六軸力覺Sensor的壓力值上限設定，Fx、Fy、Fz、Mx、My、Mz
+        /// </summary>
+        /// <returns>Fx、Fy、Fz、Mx、My、Mz</returns>
+        public Tuple<double, double, double, double, double, double> ReadSixAxisSensorUpperLimit()
+        { return Plc.ReadSixAxisSensorUpperLimit(); }
         /// <summary>
         /// 讀取速度設定，夾爪速度、CCD旋轉速度
         /// </summary>
@@ -398,19 +399,18 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         { return Plc.ReadClampGripPos(); }
 
         /// <summary>
-        /// 讀取夾爪前端觸覺數值(前端Sensor會有三個數值)
-        /// </summary>
-        /// <returns></returns>
-        public Tuple<int, int, int> ReadClampTactile_FrontSide()
-        { return Plc.ReadClampTactile_FrontSide(); }
-
-        /// <summary>
         /// 讀取夾爪後端觸覺數值(後端Sensor會有三個數值)
         /// </summary>
         /// <returns></returns>
         public Tuple<int, int, int> ReadClampTactile_BehindSide()
         { return Plc.ReadClampTactile_BehindSide(); }
 
+        /// <summary>
+        /// 讀取夾爪前端觸覺數值(前端Sensor會有三個數值)
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<int, int, int> ReadClampTactile_FrontSide()
+        { return Plc.ReadClampTactile_FrontSide(); }
         /// <summary>
         /// 讀取夾爪左側觸覺數值(左側Sensor會有六個數值)
         /// </summary>
@@ -455,215 +455,78 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         #endregion
 
         #region 路徑、點位資訊
-        public List<HalRobotMotion> HomeToOpenStage()
+        /// <summary>
+        /// 此路徑正取Mask，對Mask背面進行拍照
+        /// </summary>
+        /// <returns></returns>
+        public List<HalRobotMotion> BackSideCCDTakeImage()
         {
             var poss = new List<HalRobotMotion>();
 
-            //PR[54]-Load Port upside
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)0.784,
-                Y = (float)302.846,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+
+            });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.976,
+                Y = (float)-634.621,
                 Z = (float)229.596,
-                W = (float)45.267,
+                W = (float)45.253,
                 P = (float)-88.801,
-                R = (float)-135.761,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[56]-LoadPort前(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-379.331,
-                Y = (float)248.502,
-                Z = (float)333.276,
-                W = (float)-11.711,
-                P = (float)-88.971,
-                R = (float)11.523,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[57]-LoadPort上方(伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-610.020,
-                Y = (float)248.503,
-                Z = (float)333.276,
-                W = (float)-11.712,
-                P = (float)-88.971,
-                R = (float)11.523,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[58]-LoadPort上方(盒子上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-610.020,
-                Y = (float)248.503,
-                Z = (float)70.845,
-                W = (float)-11.712,
-                P = (float)-88.971,
-                R = (float)11.523,
+                R = (float)44.586,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
 
-            //PR[59]-LoadPort上方(盒子上夾放Mask位置)
+            //PR[27]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[29]點位
+            for (float y = 0; y <= (float)150.0; y += (float)50.0)
+                for (float x = 0; x <= (float)150.0; x += (float)150.0)
+                    poss.Add(new HalRobotMotion()
+                    {
+                        X = (float)-114.608 + x,
+                        Y = (float)-730.624 + y,
+                        Z = (float)205.211,
+                        W = (float)45.266,
+                        P = (float)-88.801,
+                        R = (float)44.572,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 20
+                    });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)-610.020,
-                Y = (float)248.503,
-                Z = (float)64.855,
-                W = (float)-11.710,
-                P = (float)-88.971,
-                R = (float)11.521,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-            return poss;
-        }
-
-        public List<HalRobotMotion> OpenStageToHome()
-        {
-            var poss = new List<HalRobotMotion>();
-
-            //PR[59]-LoadPort上方(盒子上夾放Mask位置)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-610.020,
-                Y = (float)248.503,
-                Z = (float)64.855,
-                W = (float)-11.710,
-                P = (float)-88.971,
-                R = (float)11.521,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-            //PR[58]-LoadPort上方(盒子上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-610.020,
-                Y = (float)248.503,
-                Z = (float)70.845,
-                W = (float)-11.712,
-                P = (float)-88.971,
-                R = (float)11.523,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-            //PR[57]-LoadPort上方(伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-610.020,
-                Y = (float)248.503,
-                Z = (float)333.276,
-                W = (float)-11.712,
-                P = (float)-88.971,
-                R = (float)11.523,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[56]-LoadPort前(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-379.331,
-                Y = (float)248.502,
-                Z = (float)333.276,
-                W = (float)-11.711,
-                P = (float)-88.971,
-                R = (float)11.523,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[54]-Load Port upside
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)0.784,
-                Y = (float)302.846,
+                X = (float)0.976,
+                Y = (float)-634.621,
                 Z = (float)229.596,
-                W = (float)45.267,
+                W = (float)45.253,
                 P = (float)-88.801,
-                R = (float)-135.761,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            return poss;
-        }
-
-        public List<HalRobotMotion> FrontSideIntoInspCh()
-        {
-            var poss = new List<HalRobotMotion>();
-
-            //PR[60]-要進InspCh的位置
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)302.84552,
-                Y = (float)-0.784070134,
-                Z = (float)229.5958,
-                W = (float)45.2667427,
-                P = (float)-88.80105,
-                R = (float)134.238617,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-            //PR[61]-InspCh前(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)347.455,
-                Y = (float)83.942,
-                Z = (float)229.596,
-                W = (float)54.857,
-                P = (float)-88.535,
-                R = (float)123.174,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[62]-InspCh內(伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)705.727,
-                Y = (float)83.942,
-                Z = (float)229.596,
-                W = (float)54.874,
-                P = (float)-88.536,
-                R = (float)123.157,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
-            });
-
-            //PR[63]-Stage上方(盒子上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)705.727,
-                Y = (float)83.942,
-                Z = (float)147.870,
-                W = (float)54.875,
-                P = (float)-88.536,
-                R = (float)123.156,
+                R = (float)44.586,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
 
-            //PR[64]-Stage上方(雲台上夾放Mask位置)
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)705.727,
-                Y = (float)83.942,
-                Z = (float)136.927,
-                W = (float)54.875,
-                P = (float)-88.536,
-                R = (float)123.156,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -671,71 +534,78 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return poss;
         }
 
-        public List<HalRobotMotion> FrontSideLeaveInspCh()
+        /// <summary>
+        /// 此路徑正取Mask，對Mask背面進行清理
+        /// </summary>
+        /// <returns></returns>
+        public List<HalRobotMotion> BackSideClean()
         {
             var poss = new List<HalRobotMotion>();
 
-            //PR[64]-Stage上方(雲台上夾放Mask位置)
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)705.727,
-                Y = (float)83.942,
-                Z = (float)136.927,
-                W = (float)54.875,
-                P = (float)-88.536,
-                R = (float)123.156,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
+
             });
 
-            //PR[63]-Stage上方(盒子上方)
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)705.727,
-                Y = (float)83.942,
-                Z = (float)147.870,
-                W = (float)54.875,
-                P = (float)-88.536,
-                R = (float)123.156,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-            //PR[62]-InspCh內(伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)705.727,
-                Y = (float)83.942,
+                X = (float)0.976,
+                Y = (float)-634.621,
                 Z = (float)229.596,
-                W = (float)54.874,
-                P = (float)-88.536,
-                R = (float)123.157,
+                W = (float)45.253,
+                P = (float)-88.801,
+                R = (float)44.586,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
 
-            //PR[61]-InspCh前(未伸出手臂)
+            //PR[25]-CleanCh內(伸出手臂於Air Gun上方，以Mask左下方為清理起點)
+            for (float y = 0; y <= (float)150.0; y += (float)50.0)
+                for (float x = 0; x <= (float)150.0; x += (float)150.0)
+                    poss.Add(new HalRobotMotion()
+                    {
+                        X = (float)121.264 + x,
+                        Y = (float)-701.341 + y,
+                        Z = (float)116.219,
+                        W = (float)45.243,
+                        P = (float)-88.800,
+                        R = (float)44.595,
+                        MotionType = HalRobotEnumMotionType.Position,
+                        Speed = 20
+                    });
+
+            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)347.455,
-                Y = (float)83.942,
+                X = (float)0.976,
+                Y = (float)-634.621,
                 Z = (float)229.596,
-                W = (float)54.857,
-                P = (float)-88.535,
-                R = (float)123.174,
+                W = (float)45.253,
+                P = (float)-88.801,
+                R = (float)44.586,
                 MotionType = HalRobotEnumMotionType.Position,
-                Speed = 200
+                Speed = 100
             });
 
-            //PR[60]-要進InspCh的位置
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)302.84552,
-                Y = (float)-0.784070134,
-                Z = (float)229.5958,
-                W = (float)45.2667427,
-                P = (float)-88.80105,
-                R = (float)134.238617,
+                X = (float)-0.7841019,
+                Y = (float)-302.845428,
+                Z = (float)229.595718,
+                W = (float)45.2669678,
+                P = (float)-88.8010559,
+                R = (float)44.2383842,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -940,10 +810,10 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         }
 
         /// <summary>
-        /// 此路徑正取Mask，對Mask背面進行清理
+        /// 此路徑反取Mask，對Mask正面進行拍照
         /// </summary>
         /// <returns></returns>
-        public List<HalRobotMotion> BackSideClean()
+        public List<HalRobotMotion> FrontSideCCDTakeImage()
         {
             var poss = new List<HalRobotMotion>();
 
@@ -961,127 +831,102 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
             });
 
-            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)0.976,
-                Y = (float)-634.621,
+                X = (float)-0.784,
+                Y = (float)-302.845,
                 Z = (float)229.596,
-                W = (float)45.253,
-                P = (float)-88.801,
-                R = (float)44.586,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[25]-CleanCh內(伸出手臂於Air Gun上方，以Mask左下方為清理起點)
-            for (float y = 0; y <= (float)150.0; y += (float)50.0)
-                for (float x = 0; x <= (float)150.0; x += (float)150.0)
-                    poss.Add(new HalRobotMotion()
-                    {
-                        X = (float)121.264 + x,
-                        Y = (float)-701.341 + y,
-                        Z = (float)116.219,
-                        W = (float)45.243,
-                        P = (float)-88.800,
-                        R = (float)44.595,
-                        MotionType = HalRobotEnumMotionType.Position,
-                        Speed = 20
-                    });
-
-            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)0.976,
-                Y = (float)-634.621,
-                Z = (float)229.596,
-                W = (float)45.253,
-                P = (float)-88.801,
-                R = (float)44.586,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[21]-要進CleanCh的位置(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.7841019,
-                Y = (float)-302.845428,
-                Z = (float)229.595718,
-                W = (float)45.2669678,
-                P = (float)-88.8010559,
-                R = (float)44.2383842,
+                W = (float)89.486,
+                P = (float)-0.897,
+                R = (float)0.836,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
 
-            return poss;
-        }
-
-        /// <summary>
-        /// 此路徑正取Mask，對Mask背面進行拍照
-        /// </summary>
-        /// <returns></returns>
-        public List<HalRobotMotion> BackSideCCDTakeImage()
-        {
-            var poss = new List<HalRobotMotion>();
-
-            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            //PR[32]-要進CleanCh的位置，旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)-0.7841019,
-                Y = (float)-302.845428,
-                Z = (float)229.595718,
-                W = (float)45.2669678,
-                P = (float)-88.8010559,
-                R = (float)44.2383842,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-
-            });
-
-            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)0.976,
-                Y = (float)-634.621,
-                Z = (float)229.596,
-                W = (float)45.253,
-                P = (float)-88.801,
-                R = (float)44.586,
+                X = (float)-0.783,
+                Y = (float)-302.845,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
 
-            //PR[27]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[29]點位
+            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)78.704,
+                Y = (float)-676.093,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+
+
+            //PR[39]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[40]點位
             for (float y = 0; y <= (float)150.0; y += (float)50.0)
                 for (float x = 0; x <= (float)150.0; x += (float)150.0)
                     poss.Add(new HalRobotMotion()
                     {
-                        X = (float)-114.608 + x,
-                        Y = (float)-730.624 + y,
-                        Z = (float)205.211,
-                        W = (float)45.266,
-                        P = (float)-88.801,
-                        R = (float)44.572,
+                        X = (float)-138.934 + x,
+                        Y = (float)-725.532 + y,
+                        Z = (float)227.905,
+                        W = (float)-70.183,
+                        P = (float)89.091,
+                        R = (float)-160.030,
                         MotionType = HalRobotEnumMotionType.Position,
                         Speed = 20
                     });
 
-            //PR[30]-CleanCh內(伸出手臂於Air Gun上方)
+            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)0.976,
-                Y = (float)-634.621,
-                Z = (float)229.596,
-                W = (float)45.253,
-                P = (float)-88.801,
-                R = (float)44.586,
+                X = (float)78.704,
+                Y = (float)-676.093,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[32]-要進CleanCh的位置(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-0.783,
+                Y = (float)-302.845,
+                Z = (float)229.595,
+                W = (float)-81.019,
+                P = (float)87.027,
+                R = (float)-170.573,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
 
-            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-0.784,
+                Y = (float)-302.845,
+                Z = (float)229.596,
+                W = (float)89.486,
+                P = (float)-0.897,
+                R = (float)0.836,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[21]-要進CleanCh的位置，旋轉180度(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
                 X = (float)-0.7841019,
@@ -1228,132 +1073,71 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return poss;
         }
 
-        /// <summary>
-        /// 此路徑反取Mask，對Mask正面進行拍照
-        /// </summary>
-        /// <returns></returns>
-        public List<HalRobotMotion> FrontSideCCDTakeImage()
+        public List<HalRobotMotion> FrontSideIntoInspCh()
         {
             var poss = new List<HalRobotMotion>();
 
-            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            //PR[60]-要進InspCh的位置
             poss.Add(new HalRobotMotion()
             {
-                X = (float)-0.7841019,
-                Y = (float)-302.845428,
-                Z = (float)229.595718,
-                W = (float)45.2669678,
-                P = (float)-88.8010559,
-                R = (float)44.2383842,
+                X = (float)302.84552,
+                Y = (float)-0.784070134,
+                Z = (float)229.5958,
+                W = (float)45.2667427,
+                P = (float)-88.80105,
+                R = (float)134.238617,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
-
             });
 
-            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
+            //PR[61]-InspCh前(未伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)-0.784,
-                Y = (float)-302.845,
+                X = (float)347.455,
+                Y = (float)83.942,
                 Z = (float)229.596,
-                W = (float)89.486,
-                P = (float)-0.897,
-                R = (float)0.836,
+                W = (float)54.857,
+                P = (float)-88.535,
+                R = (float)123.174,
                 MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
+                Speed = 200
             });
 
-            //PR[32]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            //PR[62]-InspCh內(伸出手臂)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)-0.783,
-                Y = (float)-302.845,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)78.704,
-                Y = (float)-676.093,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-
-
-            //PR[39]-CleanCh內(伸出手臂於CCD上方，以Mask左下方為拍照起點)，新PR[40]點位
-            for (float y = 0; y <= (float)150.0; y += (float)50.0)
-                for (float x = 0; x <= (float)150.0; x += (float)150.0)
-                    poss.Add(new HalRobotMotion()
-                    {
-                        X = (float)-138.934 + x,
-                        Y = (float)-725.532 + y,
-                        Z = (float)227.905,
-                        W = (float)-70.183,
-                        P = (float)89.091,
-                        R = (float)-160.030,
-                        MotionType = HalRobotEnumMotionType.Position,
-                        Speed = 20
-                    });
-
-            //PR[41]-CleanCh內(伸出手臂於Air Gun上方)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)78.704,
-                Y = (float)-676.093,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 20
-            });
-
-            //PR[32]-要進CleanCh的位置(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.783,
-                Y = (float)-302.845,
-                Z = (float)229.595,
-                W = (float)-81.019,
-                P = (float)87.027,
-                R = (float)-170.573,
-                MotionType = HalRobotEnumMotionType.Position,
-                Speed = 100
-            });
-
-            //PR[31]-要進CleanCh的位置，旋轉90度(未伸出手臂)
-            poss.Add(new HalRobotMotion()
-            {
-                X = (float)-0.784,
-                Y = (float)-302.845,
+                X = (float)705.727,
+                Y = (float)83.942,
                 Z = (float)229.596,
-                W = (float)89.486,
-                P = (float)-0.897,
-                R = (float)0.836,
+                W = (float)54.874,
+                P = (float)-88.536,
+                R = (float)123.157,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[63]-Stage上方(盒子上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)705.727,
+                Y = (float)83.942,
+                Z = (float)147.870,
+                W = (float)54.875,
+                P = (float)-88.536,
+                R = (float)123.156,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 100
             });
 
-            //PR[21]-要進CleanCh的位置，旋轉180度(未伸出手臂)
+            //PR[64]-Stage上方(雲台上夾放Mask位置)
             poss.Add(new HalRobotMotion()
             {
-                X = (float)-0.7841019,
-                Y = (float)-302.845428,
-                Z = (float)229.595718,
-                W = (float)45.2669678,
-                P = (float)-88.8010559,
-                R = (float)44.2383842,
+                X = (float)705.727,
+                Y = (float)83.942,
+                Z = (float)136.927,
+                W = (float)54.875,
+                P = (float)-88.536,
+                R = (float)123.156,
                 MotionType = HalRobotEnumMotionType.Position,
                 Speed = 20
             });
@@ -1361,6 +1145,221 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return poss;
         }
 
+        public List<HalRobotMotion> FrontSideLeaveInspCh()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[64]-Stage上方(雲台上夾放Mask位置)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)705.727,
+                Y = (float)83.942,
+                Z = (float)136.927,
+                W = (float)54.875,
+                P = (float)-88.536,
+                R = (float)123.156,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[63]-Stage上方(盒子上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)705.727,
+                Y = (float)83.942,
+                Z = (float)147.870,
+                W = (float)54.875,
+                P = (float)-88.536,
+                R = (float)123.156,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[62]-InspCh內(伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)705.727,
+                Y = (float)83.942,
+                Z = (float)229.596,
+                W = (float)54.874,
+                P = (float)-88.536,
+                R = (float)123.157,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[61]-InspCh前(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)347.455,
+                Y = (float)83.942,
+                Z = (float)229.596,
+                W = (float)54.857,
+                P = (float)-88.535,
+                R = (float)123.174,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[60]-要進InspCh的位置
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)302.84552,
+                Y = (float)-0.784070134,
+                Z = (float)229.5958,
+                W = (float)45.2667427,
+                P = (float)-88.80105,
+                R = (float)134.238617,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            return poss;
+        }
+
+        public List<HalRobotMotion> HomeToOpenStage()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[54]-Load Port upside
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.784,
+                Y = (float)302.846,
+                Z = (float)229.596,
+                W = (float)45.267,
+                P = (float)-88.801,
+                R = (float)-135.761,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[56]-LoadPort前(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-379.331,
+                Y = (float)248.502,
+                Z = (float)333.276,
+                W = (float)-11.711,
+                P = (float)-88.971,
+                R = (float)11.523,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[57]-LoadPort上方(伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-610.020,
+                Y = (float)248.503,
+                Z = (float)333.276,
+                W = (float)-11.712,
+                P = (float)-88.971,
+                R = (float)11.523,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[58]-LoadPort上方(盒子上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-610.020,
+                Y = (float)248.503,
+                Z = (float)70.845,
+                W = (float)-11.712,
+                P = (float)-88.971,
+                R = (float)11.523,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 100
+            });
+
+            //PR[59]-LoadPort上方(盒子上夾放Mask位置)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-610.020,
+                Y = (float)248.503,
+                Z = (float)64.855,
+                W = (float)-11.710,
+                P = (float)-88.971,
+                R = (float)11.521,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            return poss;
+        }
+
+        public List<HalRobotMotion> OpenStageToHome()
+        {
+            var poss = new List<HalRobotMotion>();
+
+            //PR[59]-LoadPort上方(盒子上夾放Mask位置)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-610.020,
+                Y = (float)248.503,
+                Z = (float)64.855,
+                W = (float)-11.710,
+                P = (float)-88.971,
+                R = (float)11.521,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[58]-LoadPort上方(盒子上方)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-610.020,
+                Y = (float)248.503,
+                Z = (float)70.845,
+                W = (float)-11.712,
+                P = (float)-88.971,
+                R = (float)11.523,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 20
+            });
+
+            //PR[57]-LoadPort上方(伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-610.020,
+                Y = (float)248.503,
+                Z = (float)333.276,
+                W = (float)-11.712,
+                P = (float)-88.971,
+                R = (float)11.523,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[56]-LoadPort前(未伸出手臂)
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)-379.331,
+                Y = (float)248.502,
+                Z = (float)333.276,
+                W = (float)-11.711,
+                P = (float)-88.971,
+                R = (float)11.523,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            //PR[54]-Load Port upside
+            poss.Add(new HalRobotMotion()
+            {
+                X = (float)0.784,
+                Y = (float)302.846,
+                Z = (float)229.596,
+                W = (float)45.267,
+                P = (float)-88.801,
+                R = (float)-135.761,
+                MotionType = HalRobotEnumMotionType.Position,
+                Speed = 200
+            });
+
+            return poss;
+        }
         public HalRobotMotion PosHome()
         {
             var posotion = new HalRobotMotion();
@@ -1377,11 +1376,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return posotion;
         }
 
-        public HalRobotMotion PosToInspCh()
+        public HalRobotMotion PosToCleanCh()
         {
             var posotion = new HalRobotMotion();
-            //PR[60]-要進InspCh的位置
-            posotion.J1 = (float)0.000;
+            //PR[21]-要進CleanCh的位置(未伸出手臂)
+            posotion.J1 = (float)-90.000;
             posotion.J2 = (float)-32.347;
             posotion.J3 = (float)-24.667;
             posotion.J4 = (float)-1.134;
@@ -1393,11 +1392,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return posotion;
         }
 
-        public HalRobotMotion PosToCleanCh()
+        public HalRobotMotion PosToInspCh()
         {
             var posotion = new HalRobotMotion();
-            //PR[21]-要進CleanCh的位置(未伸出手臂)
-            posotion.J1 = (float)-90.000;
+            //PR[60]-要進InspCh的位置
+            posotion.J1 = (float)0.000;
             posotion.J2 = (float)-32.347;
             posotion.J3 = (float)-24.667;
             posotion.J4 = (float)-1.134;
