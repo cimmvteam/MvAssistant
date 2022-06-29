@@ -66,6 +66,8 @@ namespace MvAssistant.v0_2.Mac.Hal.CompPlc
             var plc = this.plcContext;
             try
             {
+                if (this.ReadMaskPresentVar()) throw new MacException("Cannot initital when holding mask");
+
 
                 plc.Write(EnumMacHalPlcVariable.PC_TO_MT_Clamp, false);
                 plc.Write(EnumMacHalPlcVariable.PC_TO_MT_Unclamp, false);
