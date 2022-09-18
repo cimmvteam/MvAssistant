@@ -43,9 +43,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\DLL\CodeExpress.1.0.0\CodeExpress.v1_0.dll</HintPath>
     </Reference>
-    <Reference Include="CToolkit.v1_1, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\DLL\CToolkit.1.1.1\CToolkit.v1_1.dll</HintPath>
+    <Reference Include="CToolkitCs.v1_1">
+      <HintPath>..\DLL\CToolkitCs.1.1.1\CToolkitCs.v1_1.dll</HintPath>
     </Reference>
     <Reference Include="GenApiDotNet20">
       <HintPath>..\DLL\StApiDotNet20.1.0.8\GenApiDotNet20.dll</HintPath>
@@ -367,7 +366,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

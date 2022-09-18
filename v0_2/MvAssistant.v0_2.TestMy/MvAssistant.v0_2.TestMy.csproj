@@ -163,9 +163,9 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ctoolkit.csharp\v1_1\CToolkit.v1_1\CToolkit.v1_1.csproj">
+    <ProjectReference Include="..\..\..\ctoolkitcs\v1_1\CToolkitCs.v1_1\CToolkitCs.v1_1.csproj">
       <Project>{cf3eb29a-279a-409c-a683-e756a72817b7}</Project>
-      <Name>CToolkit.v1_1</Name>
+      <Name>CToolkitCs.v1_1</Name>
     </ProjectReference>
     <ProjectReference Include="..\MvAssistant.v0_2\MvAssistant.v0_2.csproj">
       <Project>{1f694fa5-2647-4a70-a97d-4e443d5b79ee}</Project>

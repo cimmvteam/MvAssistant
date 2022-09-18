@@ -1,4 +1,4 @@
-﻿using CToolkit.v1_1.Net;
+﻿using CToolkitCs.v1_1.Net;
 using MvAssistant.v0_2.Threading;
 using System;
 using System.Collections.Generic;
@@ -55,7 +55,7 @@ namespace MvAssistant.v0_2.DeviceDrive.LeimacLight
             }
         }
 
-        private void TcpClient_EhDataReceive(object sender, CToolkit.v1_1.Protocol.CtkProtocolEventArgs e)
+        private void TcpClient_EhDataReceive(object sender, CToolkitCs.v1_1.Protocol.CtkProtocolEventArgs e)
         {
             var resp = e.TrxMessage.GetString();
 

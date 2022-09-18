@@ -1,5 +1,5 @@
 ﻿//#define OnlyObserveCommandText
-using CToolkit.v1_1.Net;
+using CToolkitCs.v1_1.Net;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.ReplyCode;
 using MvAssistant.v0_2.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
