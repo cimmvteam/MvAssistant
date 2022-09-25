@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [Guid("D164A8D9-031A-4EBB-8876-679F0874C8E7")]
-    public class HalRobotFake : MacHalFakeComponentBase, IHalRobot
+    public class MacHalRobotFake : MacHalFakeComponentBase, IMacHalRobot
     {
         public int HalReset()
         {
@@ -30,7 +30,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             return 0;
         }
 
-        public int HalMoveStraightAsyn(HalRobotMotion motion)
+        public int HalMoveStraightAsyn(MacHalRobotMotion motion)
         {
             return 0;
         }
@@ -50,15 +50,15 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             return 0;
         }
 
-        public HalRobotMotion HalGetPose()
+        public MacHalRobotMotion HalGetPose()
         {
-            var motion = new HalRobotMotion();
+            var motion = new MacHalRobotMotion();
 
             return motion;
         }
 
 
-        public float HalDistanceWithCurr(HalRobotPose pose)
+        public float HalDistanceWithCurr(MacHalRobotPose pose)
         {
             return 0;
         }
@@ -69,7 +69,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             return 0;
         }
 
-        public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
+        public List<MacHalRobotMotion> ReadMovePath(string PathFileLocation)
         {
             //var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
             var PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
@@ -77,12 +77,12 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             return PosList;
         }
 
-        public int ExePosMove(List<HalRobotMotion> PathPosition)
+        public int ExePosMove(List<MacHalRobotMotion> PathPosition)
         {
             return 0;
         }
 
-        public int BacktrackPosMove(List<HalRobotMotion> PathPosition)
+        public int BacktrackPosMove(List<MacHalRobotMotion> PathPosition)
         {
             return 0;
         }

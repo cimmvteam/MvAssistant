@@ -10,15 +10,15 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [Guid("0F7340AE-4295-4659-A626-6F10471152A9")]
     [Serializable]
-    public class HalRobotMotion
+    public class MacHalRobotMotion
     {
 
-        [XmlAttribute] public HalRobotEnumMotionType MotionType = HalRobotEnumMotionType.None;
+        [XmlAttribute] public MacHalRobotEnumMotionType MotionType = MacHalRobotEnumMotionType.None;
         [XmlAttribute] public int IsTcpMove = 0;
         [XmlAttribute] public int Speed = 60;//mm per second
         [XmlAttribute] public int UserFrame = 9;
         [XmlAttribute] public int UserTool = 0;
-        public HalRobotPose Pose = new HalRobotPose();
+        public MacHalRobotPose Pose = new MacHalRobotPose();
 
 
 
@@ -28,7 +28,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         public float[] ToXyzwprArray() { return this.Pose.Xyzwpr.ToArray(); }
         public float[] ToJointArray() { return this.Pose.Joint.ToArray(); }
-        public bool IntersectRange(HalRobotPose start, HalRobotPose end)
+        public bool IntersectRange(MacHalRobotPose start, MacHalRobotPose end)
         {
             var func = new Func<float, float, float, bool>(delegate (float s, float x, float e) { return s <= x && x <= e; });
             var flag = true;
@@ -41,23 +41,23 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
             return flag;
         }
-        public float Distance(HalRobotMotion target)
+        public float Distance(MacHalRobotMotion target)
         {
             var vec = target.Pose.Xyzwpr - this.Pose.Xyzwpr;
             var distnace = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
             return (float)Math.Sqrt(distnace);
         }
-        public float Distance(HalRobotPose target)
+        public float Distance(MacHalRobotPose target)
         {
             var vec = target.Xyzwpr - this.Pose.Xyzwpr;
             var distnace = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
             return (float)Math.Sqrt(distnace);
         }
 
-        public HalRobotMotion Clone()
+        public MacHalRobotMotion Clone()
         {
             var buffer = MvaUtil.SerializeBinary(this);
-            var rtn = MvaUtil.DeserializeBinary<HalRobotMotion>(buffer);
+            var rtn = MvaUtil.DeserializeBinary<MacHalRobotMotion>(buffer);
             return rtn;
         }
 

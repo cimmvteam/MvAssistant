@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [GuidAttribute("E197224B-15F4-4582-A915-B2763CF979DC")]
-    public enum HalRobotEnumMotionType
+    public enum MacHalRobotEnumMotionType
     {
         None,
         Offset,

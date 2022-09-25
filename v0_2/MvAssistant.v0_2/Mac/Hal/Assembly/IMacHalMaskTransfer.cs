@@ -10,6 +10,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     public interface IMacHalMaskTransfer : IMacHalAssembly
     {
         IMacHalPlcMaskTransfer Plc { get; }
+        IMacHalRobot Robot { get; }
 
         /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
         /// <param name="PathFileLocation"></param>
@@ -36,7 +37,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary> 帶入點位資訊，移動Robot </summary>
         /// <param name="MovePosition"></param>
         /// <returns></returns>
-        int ExePathMove(List<HalRobotMotion> MovePosition);
+        int ExePathMove(List<MacHalRobotMotion> MovePosition);
 
         /// <summary> 給點位清單，依序移動 </summary>
         /// <param name="PathPosition"></param>
@@ -56,7 +57,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary> 讀取檔案的路徑點位 </summary>
         /// <param name="PathFileLocation"></param>
         /// <returns></returns>
-        List<HalRobotMotion> ReadFilePosition(string PathFileLocation);
+        List<MacHalRobotMotion> ReadFilePosition(string PathFileLocation);
         /// <summary> 讀取夾爪變形檢測數值(需要先將手臂伸到檢測平台) </summary>
         /// <returns></returns>
         Tuple<double, double, double, double, double, double> ReadHandInspection();

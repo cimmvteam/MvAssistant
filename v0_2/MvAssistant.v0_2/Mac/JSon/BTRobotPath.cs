@@ -93,7 +93,7 @@ namespace MvAssistant.v0_2.Mac.JSon
         public string UsageDescription { get; set; }
         /// <summary>內容說明</summary>
         public string PositionFileDescription { get; set; }
-        public HalRobotEnumMotionType MotionType { get; set; }
+        public MacHalRobotEnumMotionType MotionType { get; set; }
         /// <summary>取得點位檔全名</summary>
         public string GetPositionFileFullName(string directoryWithEndSign)
         {

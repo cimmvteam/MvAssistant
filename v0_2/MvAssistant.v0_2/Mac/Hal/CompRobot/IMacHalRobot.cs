@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [GuidAttribute("A3065B41-C1F5-41B0-937E-A13205DB0D46")]
-    public interface IHalRobot : IMacHalComponent
+    public interface IMacHalRobot : IMacHalComponent
     {
 
         int HalReset();
@@ -28,7 +28,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         /// 直線運動
         /// </summary>
         /// <returns></returns>
-        int HalMoveStraightAsyn(HalRobotMotion motion);
+        int HalMoveStraightAsyn(MacHalRobotMotion motion);
 
         bool HalMoveIsComplete();
         int HalMoveEnd();
@@ -36,14 +36,14 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         int HalAlarm();
 
-        HalRobotMotion HalGetPose();
+        MacHalRobotMotion HalGetPose();
 
-        float HalDistanceWithCurr(HalRobotPose pose);
+        float HalDistanceWithCurr(MacHalRobotPose pose);
 
-        List<HalRobotMotion> ReadMovePath(string PathFileLocation);
+        List<MacHalRobotMotion> ReadMovePath(string PathFileLocation);
 
-        int ExePosMove(List<HalRobotMotion> PathPosition);
+        int ExePosMove(List<MacHalRobotMotion> PathPosition);
 
-        int BacktrackPosMove(List<HalRobotMotion> PathPosition);
+        int BacktrackPosMove(List<MacHalRobotMotion> PathPosition);
     }
 }

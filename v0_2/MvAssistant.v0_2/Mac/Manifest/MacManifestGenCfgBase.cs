@@ -140,7 +140,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
                     Vendor="Fake",
                     Product ="Fake Robot",
                     Remark=null,
-                    AssignType=typeof(Hal.CompRobot.HalRobotFake),
+                    AssignType=typeof(Hal.CompRobot.MacHalRobotFake),
                     DriverId=MacManifestDriverId.RobotFake.ToString(),
                 },
 
@@ -357,7 +357,7 @@ namespace MvAssistant.v0_2.Mac.Manifest
                     Vendor = "Fanuc",
                     Product = "Fanuc Robot LR Mate 200iD",
                     Remark = null,
-                    AssignType = typeof(Hal.CompRobot. HalRobotFanuc),
+                    AssignType = typeof(Hal.CompRobot. MacHalRobotFanuc),
                     DriverId = MacManifestDriverId.RobotFanuc.ToString(),
                     DriverPath = null,
                 },

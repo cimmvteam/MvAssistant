@@ -10,21 +10,21 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
 
     [GuidAttribute("5EDFE42F-A27A-42B5-9702-11FC84208D74")]
-    public class HalRobotFanuc : MacHalComponentBase, IHalRobot
+    public class MacHalRobotFanuc : MacHalComponentBase, IMacHalRobot
     {
-        public HalRobotFanuc()
+        public MacHalRobotFanuc()
         {
-            Console.WriteLine("Create " + typeof(HalRobotFanuc).Name);
+            Console.WriteLine("Create " + typeof(MacHalRobotFanuc).Name);
         }
 
 
         public MvaFanucRobotLdd ldd;
 
-        public static HalRobotEnumMotionType GetMotionType(int corJ, int OfsOrPos)
+        public static MacHalRobotEnumMotionType GetMotionType(int corJ, int OfsOrPos)
         {
-            if (corJ == 0 && OfsOrPos == 0) return HalRobotEnumMotionType.Offset;
-            if (corJ == 0 && OfsOrPos == 1) return HalRobotEnumMotionType.Position;
-            if (corJ == 1 && OfsOrPos == 0) return HalRobotEnumMotionType.Joint;
+            if (corJ == 0 && OfsOrPos == 0) return MacHalRobotEnumMotionType.Offset;
+            if (corJ == 0 && OfsOrPos == 1) return MacHalRobotEnumMotionType.Position;
+            if (corJ == 1 && OfsOrPos == 0) return MacHalRobotEnumMotionType.Joint;
 
             throw new ArgumentException("無對應的移動方式");
         }
@@ -81,7 +81,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         /// <summary> 讀路徑Jason檔，依照清單移動 </summary>
         /// <param name="PathFileLocation"></param>
-        public List<HalRobotMotion> ReadMovePath(string PathFileLocation)
+        public List<MacHalRobotMotion> ReadMovePath(string PathFileLocation)
         {
             // var PosInfo = JSonHelper.GetInstanceFromJsonFile<List<PositionInfo>>(PathFileLocation);
             var PosInfo = JSonHelper.GetPositionPathPositionsFromJson(PathFileLocation);
@@ -92,9 +92,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         /// <summary> 給點位清單，依序移動 </summary>
         /// <param name="PathPosition"></param>
-        public int ExePosMove(List<HalRobotMotion> PathPosition)
+        public int ExePosMove(List<MacHalRobotMotion> PathPosition)
         {
-            var targets = new List<HalRobotMotion>();
+            var targets = new List<MacHalRobotMotion>();
             targets.AddRange(PathPosition);
             for (int idx = 0; idx < targets.Count; idx++)
             {
@@ -109,9 +109,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 
         /// <summary> 給點位清單，回朔移動路徑，從最後一個點位返回依序移動至清單起始點位 </summary>
         /// <param name="PathPosition"></param>
-        public int BacktrackPosMove(List<HalRobotMotion> PathPosition)
+        public int BacktrackPosMove(List<MacHalRobotMotion> PathPosition)
         {
-            var targets = new List<HalRobotMotion>();
+            var targets = new List<MacHalRobotMotion>();
             targets.AddRange(PathPosition);
             for (int idx = targets.Count - 1; idx >= 0; idx--)
             {
@@ -129,7 +129,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             throw new NotImplementedException();
         }
 
-        public int HalMoveStraightAsyn(HalRobotMotion motion)
+        public int HalMoveStraightAsyn(MacHalRobotMotion motion)
         {
 
             this.HalStopProgram();
@@ -143,11 +143,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
             float[] PosArray;
             switch (motion.MotionType)
             {
-                case HalRobotEnumMotionType.Offset:
+                case MacHalRobotEnumMotionType.Offset:
                     corJ = 0; OfsOrPos = 0; PosArray = motion.ToXyzwprArray(); break;
-                case HalRobotEnumMotionType.Position:
+                case MacHalRobotEnumMotionType.Position:
                     corJ = 0; OfsOrPos = 1; PosArray = motion.ToXyzwprArray(); break;
-                case HalRobotEnumMotionType.Joint:
+                case MacHalRobotEnumMotionType.Joint:
                     corJ = 1; OfsOrPos = 0; PosArray = motion.ToJointArray(); break;//Joint模式讀取J1~J6座標
                 default:
                     corJ = 0; OfsOrPos = 0; PosArray = motion.ToXyzwprArray(); break;
@@ -162,9 +162,9 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         /// </summary>
         /// <param name="motion"></param>
         /// <returns></returns>
-        public void HalWriteContinuousMotionAsyn(List<HalRobotMotion> PathPosition)
+        public void HalWriteContinuousMotionAsyn(List<MacHalRobotMotion> PathPosition)
         {
-            var targets = new List<HalRobotMotion>();
+            var targets = new List<MacHalRobotMotion>();
             targets.AddRange(PathPosition);
 
             if (targets.Count > 30)
@@ -189,11 +189,11 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
                 float[] PosArray;
                 switch (motion.MotionType)
                 {
-                    case HalRobotEnumMotionType.Offset:
+                    case MacHalRobotEnumMotionType.Offset:
                         corJ = 0; PosArray = motion.ToXyzwprArray(); break;
-                    case HalRobotEnumMotionType.Position:
+                    case MacHalRobotEnumMotionType.Position:
                         corJ = 0; PosArray = motion.ToXyzwprArray(); break;
-                    case HalRobotEnumMotionType.Joint:
+                    case MacHalRobotEnumMotionType.Joint:
                         corJ = 1; PosArray = motion.ToJointArray(); break;//Joint模式讀取J1~J6座標
                     default:
                         corJ = 0; PosArray = motion.ToXyzwprArray(); break;
@@ -205,33 +205,33 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         }
 
 
-        bool IHalRobot.HalMoveIsComplete()
+        bool IMacHalRobot.HalMoveIsComplete()
         {
 
             var flag = this.ldd.MoveIsComplete();
             return flag;
         }
-        int IHalRobot.HalMoveEnd()
+        int IMacHalRobot.HalMoveEnd()
         {
             this.ldd.MoveCompeleteReply();
             return 0;
         }
 
 
-        int IHalRobot.HalAlarm()
+        int IMacHalRobot.HalAlarm()
         {
             throw new NotImplementedException();
         }
 
 
 
-        public HalRobotMotion HalGetPose()
+        public MacHalRobotMotion HalGetPose()
         {
             var robotInfo = this.ldd.GetCurrRobotInfo();
 
-            var motion = new HalRobotMotion()
+            var motion = new MacHalRobotMotion()
             {
-                MotionType = HalRobotEnumMotionType.None,//取得資料不會有移動類型
+                MotionType = MacHalRobotEnumMotionType.None,//取得資料不會有移動類型
                 UserFrame = robotInfo.UserFrame,
                 UserTool = robotInfo.UserTool,
                 X = robotInfo.x,
@@ -254,7 +254,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
         }
 
 
-        public float HalDistanceWithCurr(HalRobotPose pose)
+        public float HalDistanceWithCurr(MacHalRobotPose pose)
         {
             return this.HalGetPose().Distance(pose);
         }

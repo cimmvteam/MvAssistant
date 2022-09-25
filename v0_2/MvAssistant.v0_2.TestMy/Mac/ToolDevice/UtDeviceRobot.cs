@@ -35,13 +35,13 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
         public void TestRobotPathSerialize()
         {
 
-            var robotPath = new HalRobotPath()
+            var robotPath = new MacHalRobotPath()
             {
                 Name = "Test",
                 Remark = "Test",
             };
 
-            var robotMotion = new HalRobotMotion()
+            var robotMotion = new MacHalRobotMotion()
             {
                 X = 1.1f,
                 Y = 2.2f,
@@ -53,7 +53,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
                 UserFrame = 1,
                 UserTool = 1,
                 Speed = 60,
-                MotionType = HalRobotEnumMotionType.Position,
+                MotionType = MacHalRobotEnumMotionType.Position,
             };
             robotPath.Motions.Add(robotMotion);
 
@@ -71,7 +71,7 @@ namespace MvAssistant.v0_2.Mac.TestMy.ToolDevice
 
 
             MvaUtil.SaveXmlToFile(robotPath, robotPath.Name + ".xml");
-            var loadPath = MvaUtil.LoadFromXmlFile<HalRobotPath>(robotPath.Name + ".xml");
+            var loadPath = MvaUtil.LoadFromXmlFile<MacHalRobotPath>(robotPath.Name + ".xml");
             var loadMotion = loadPath.Motions.LastOrDefault();
 
 

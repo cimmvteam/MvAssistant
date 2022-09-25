@@ -11,7 +11,7 @@ namespace MvAssistant.v0_2.Mac.Hal.CompRobot
 {
     [GuidAttribute("27EEE4BE-B9A4-436D-A0F2-4DAF4319BE09")]
     [Serializable]
-    public class HalRobotPose
+    public class MacHalRobotPose
     {
         [XmlIgnore][JsonIgnore] public MathNet.Numerics.LinearAlgebra.Single.DenseVector Xyzwpr = new MathNet.Numerics.LinearAlgebra.Single.DenseVector(9);
 

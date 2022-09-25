@@ -12,14 +12,14 @@ namespace MvAssistant.v0_2.Mac.JSon
         /// <summary>Serial No </summary>
         public int Sn { get; set; }
 
-        public HalRobotMotion Position;
+        public MacHalRobotMotion Position;
 
-        public HalRobotMotion GetPosition()
+        public MacHalRobotMotion GetPosition()
         {
             return Position;
         }
 
-        public void SetPosition(HalRobotMotion value)
+        public void SetPosition(MacHalRobotMotion value)
         {
             Position = value;
         }
@@ -33,7 +33,7 @@ namespace MvAssistant.v0_2.Mac.JSon
         public override string ToString()
         {
             string text = Sn.ToString("00000") + " | ";
-            PropertyInfo[] properties = typeof(HalRobotMotion).GetProperties();
+            PropertyInfo[] properties = typeof(MacHalRobotMotion).GetProperties();
             foreach (var property in properties)
             {
                 if (property.CanRead)

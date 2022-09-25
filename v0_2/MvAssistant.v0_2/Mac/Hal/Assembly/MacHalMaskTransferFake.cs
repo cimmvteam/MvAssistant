@@ -14,6 +14,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     public class MacHalMaskTransferFake : MacHalAssemblyBase, IMacHalMaskTransfer
     {
         public IMacHalPlcMaskTransfer Plc { get { return (IMacHalPlcMaskTransfer)this.GetHalDevice(EnumMacDeviceId.masktransfer_plc); } }
+        public IMacHalRobot Robot { get { return (IMacHalRobot)this.GetHalDevice(EnumMacDeviceId.masktransfer_robot_1); } }
         public int BacktrackPathMove(string PathFileLocation)
         {
             return 0;
@@ -44,7 +45,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return 0;
         }
 
-        public int ExePathMove(List<HalRobotMotion> MovePosition)
+        public int ExePathMove(List<MacHalRobotMotion> MovePosition)
         {
             return 0;
         }
@@ -89,9 +90,9 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             return new Tuple<int, int, int, int, int, int>(1, 1, 1, 1, 1, 1);
         }
 
-        public List<HalRobotMotion> ReadFilePosition(string PathFileLocation)
+        public List<MacHalRobotMotion> ReadFilePosition(string PathFileLocation)
         {
-            return new List<HalRobotMotion>();
+            return new List<MacHalRobotMotion>();
         }
 
         public Tuple<double, double, double, double, double, double> ReadHandInspection()

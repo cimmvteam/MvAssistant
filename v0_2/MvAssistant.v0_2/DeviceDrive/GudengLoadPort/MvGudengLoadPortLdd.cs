@@ -734,7 +734,9 @@ namespace MvAssistant.v0_2.DeviceDrive.GudengLoadPort
 
 
 
+
         public void VacuumComplet0(ReturnFromServer rtnFromServer) { this.VacuumComplete(rtnFromServer); }
+        public void VacuumComplet1(ReturnFromServer rtnFromServer) { this.VacuumComplete(rtnFromServer); }
 
         /// <summary>Event VacummComplete(007)</summary>
         /// <param name="rtnFromServer"></param>

@@ -19,11 +19,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
     {
 
         /// <summary>Drawer 1 的 Home 點</summary>
-        public HalRobotMotion Cabinet1Home
+        public MacHalRobotMotion Cabinet1Home
         {
             get
             {
-                var position = new HalRobotMotion
+                var position = new MacHalRobotMotion
                 {
                     // TODO: 加上 World 座標資料 
                     J1 = -89.99923f,
@@ -41,7 +41,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                     R = -143.2324f,
                     E1 = 517.0201f,
                     Speed = 50,
-                    MotionType = HalRobotEnumMotionType.Joint,
+                    MotionType = MacHalRobotEnumMotionType.Joint,
 
 
                 };
@@ -51,11 +51,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         }
 
         /// <summary>Drawer 2 的 Home 點</summary>
-        public HalRobotMotion Cabinet2Home
+        public MacHalRobotMotion Cabinet2Home
         {
             get
             {
-                var position = new HalRobotMotion
+                var position = new MacHalRobotMotion
                 { // TODO: 加入實際 World 及 Joint 點位
                     X = 527.898438f,
                     Y = -9.219327f,
@@ -72,22 +72,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                     J6 = 1.27394938f,
                     J7 = 414.897583f,
                     Speed = 60,
-                    MotionType = HalRobotEnumMotionType.Position
+                    MotionType = MacHalRobotEnumMotionType.Position
                 };
                 return position;
             }
         }
 
-        public List<HalRobotMotion> CabinetHomeToOpenStage01
+        public List<MacHalRobotMotion> CabinetHomeToOpenStage01
         {
 
             get
             {
 
-                var position = new List<HalRobotMotion>();
+                var position = new List<MacHalRobotMotion>();
                 position.Add(Cabinet1Home);
                 position.Add(
-                    new HalRobotMotion
+                    new MacHalRobotMotion
                     {
                         X = -380.6985f,
                         Y = -690.6075f,
@@ -103,7 +103,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                         J5 = 48.666275f,
                         J6 = 50.079895f,
                         J7 = 517.0209f,
-                        MotionType = HalRobotEnumMotionType.Position,
+                        MotionType = MacHalRobotEnumMotionType.Position,
                         Speed = 60,
                     });
                 return position;
@@ -112,22 +112,22 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         /// <summary>從 Home 到 OpenStage 點位 </summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        public HalRobotMotion OpenStage
+        public MacHalRobotMotion OpenStage
         {
             get
             {
-                HalRobotMotion position = new HalRobotMotion();
+                MacHalRobotMotion position = new MacHalRobotMotion();
                 // TODO: 加入 Home 到 OpenStage點位資料
                 return position;
             }
         }
 
         /// <summary>Open Statge 的 Home 點</summary>
-        public HalRobotMotion OpenStageHome
+        public MacHalRobotMotion OpenStageHome
         {
             get
             {
-                var position = new HalRobotMotion
+                var position = new MacHalRobotMotion
                 { // TODO: 加入實際 World 及 Joint 點位 
 
                 };
@@ -144,13 +144,13 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
 
         public IHalCamera CameraOnGripper { get { return (IHalCamera)this.GetHalDevice(EnumMacDeviceId.boxtransfer_camera_gripper_1); } }
         public IMacHalPlcBoxTransfer Plc { get { return (IMacHalPlcBoxTransfer)this.GetHalDevice(EnumMacDeviceId.boxtransfer_plc); } }
-        public IHalRobot Robot { get { return (IHalRobot)this.GetHalDevice(EnumMacDeviceId.boxtransfer_robot_1); } }
+        public IMacHalRobot Robot { get { return (IMacHalRobot)this.GetHalDevice(EnumMacDeviceId.boxtransfer_robot_1); } }
         #endregion Device Components
 
         #region Path test, 2020/05/25
 
 
-        Dictionary<string, HalRobotMotion> btPathInfo = new Dictionary<string, HalRobotMotion>();
+        Dictionary<string, MacHalRobotMotion> btPathInfo = new Dictionary<string, MacHalRobotMotion>();
 
         /// <summary>回到 Cabinet1 Home</summary>
         /// <remarks>King, 2020/05/25 Add</remarks>
@@ -262,11 +262,11 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             DataTable pathDt = readCSV(CsvPath);
             for (int k = 1; k < pathDt.Rows.Count - 1; k++)
             {
-                HalRobotMotion robotMotion = new HalRobotMotion();
+                MacHalRobotMotion robotMotion = new MacHalRobotMotion();
                 switch (pathDt.Rows[k][10].ToString())
                 {
                     case "W":
-                        robotMotion.MotionType = HalRobotEnumMotionType.Position;
+                        robotMotion.MotionType = MacHalRobotEnumMotionType.Position;
                         robotMotion.X = float.Parse(pathDt.Rows[k][2].ToString());
                         robotMotion.Y = float.Parse(pathDt.Rows[k][3].ToString());
                         robotMotion.Z = float.Parse(pathDt.Rows[k][4].ToString());
@@ -278,7 +278,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                         btPathInfo.Add(pathDt.Rows[k][1].ToString(), robotMotion);
                         break;
                     case "J":
-                        robotMotion.MotionType = HalRobotEnumMotionType.Joint;
+                        robotMotion.MotionType = MacHalRobotEnumMotionType.Joint;
                         robotMotion.J1 = float.Parse(pathDt.Rows[k][2].ToString());
                         robotMotion.J2 = float.Parse(pathDt.Rows[k][3].ToString());
                         robotMotion.J3 = float.Parse(pathDt.Rows[k][4].ToString());
@@ -293,17 +293,17 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
             }
         }
 
-        private void ChangeDirection(HalRobotMotion targetPosition)
+        private void ChangeDirection(MacHalRobotMotion targetPosition)
         { // TODO: 待討論
             var positionInst = new BoxTransferPathPositionsFake();
-            HalRobotMotion openStageHome = positionInst.OpenStageHome;
-            HalRobotMotion cabinet1Home = positionInst.Cabinet1Home;
-            HalRobotMotion cabinet2Home = positionInst.Cabinet2Home;
+            MacHalRobotMotion openStageHome = positionInst.OpenStageHome;
+            MacHalRobotMotion cabinet1Home = positionInst.Cabinet1Home;
+            MacHalRobotMotion cabinet2Home = positionInst.Cabinet2Home;
             bool Licence = false;
             string StartPosName = "";
             string EndPosName = "";
             #region 確認Robot是否在三個可以轉動方向的點位內，並確認目前在哪個方位
-            var StartPosInfo = (this.Robot as HalRobotFanuc).ldd.GetCurrRobotInfo();
+            var StartPosInfo = (this.Robot as MacHalRobotFanuc).ldd.GetCurrRobotInfo();
             if (
                     StartPosInfo.j1 <= openStageHome.J1 + 5 && StartPosInfo.j1 >= openStageHome.J1 - 5
                     && StartPosInfo.j2 <= openStageHome.J2 + 5 && StartPosInfo.j2 >= openStageHome.J2 - 5
@@ -392,7 +392,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                         RobotMove(PosToAssembly);
                     }
                    */
-                    cabinet1Home.MotionType = targetPosition.MotionType = HalRobotEnumMotionType.Joint;
+                    cabinet1Home.MotionType = targetPosition.MotionType = MacHalRobotEnumMotionType.Joint;
                     if (StartPosName != "Cabinet1 Home" && EndPosName != "Cabinet1 Target")
                     {
                         // RobotMove(PosToInspCh());
@@ -419,7 +419,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <param name="cabinetIndex">cabinet index</param>
         private void ChangeDirectionToFaceCabinet(int cabinetIndex)
         {
-            var position = default(HalRobotMotion);
+            var position = default(MacHalRobotMotion);
             if (cabinetIndex == 1)
             {
                 position = new BoxTransferPathPositionsFake().Cabinet1Home;
@@ -437,14 +437,14 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <remarks>King, 2020/05/25 Add</remarks>
         private void ForwardToCabinet(int cabinetIndex, int boxIndex)
         {
-            Func<HalRobotMotion> GetBoxPosition = () =>
+            Func<MacHalRobotMotion> GetBoxPosition = () =>
             {
-                HalRobotMotion halRobotMotion = null;
+                MacHalRobotMotion halRobotMotion = null;
                 if (cabinetIndex == 1)
                 {
                     // 終點 
                     //  TODO: 要獲得實際的 Position
-                    halRobotMotion = new HalRobotMotion
+                    halRobotMotion = new MacHalRobotMotion
                     {
                         X = 3.3f,
                         Y = -438.782349f,
@@ -461,7 +461,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
                         J6 = 0.0f,
                         J7 = 517.0209f,
                         Speed = 60,
-                        MotionType = HalRobotEnumMotionType.Position
+                        MotionType = MacHalRobotEnumMotionType.Position
                     };
                 }
                 else
@@ -477,7 +477,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary>非同步移動到某個位置</summary>
         /// <param name="targetPosition">目標位置</param>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        private void MoveAsync(HalRobotMotion targetPosition)
+        private void MoveAsync(MacHalRobotMotion targetPosition)
         {
             this.Robot.HalMoveStraightAsyn(targetPosition);
             while (!this.Robot.HalMoveIsComplete())
@@ -488,7 +488,7 @@ namespace MvAssistant.v0_2.Mac.Hal.Assembly
         /// <summary>非同步沿某一組點位資料移動</summary>
         /// <param name="targetPositions">點位資料集合</param>
         /// <remarks>King, 2020/05/25 Add</remarks>
-        private void MoveAsync(List<HalRobotMotion> targetPositions)
+        private void MoveAsync(List<MacHalRobotMotion> targetPositions)
         {
             foreach (var position in targetPositions)
             {
