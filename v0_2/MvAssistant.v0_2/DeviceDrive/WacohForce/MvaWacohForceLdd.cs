@@ -1,4 +1,5 @@
 ﻿using CToolkitCs.v1_1.Net;
+using CToolkitCs.v1_1.Net.Socketing;
 using MvAssistant.v0_2;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace MvAssistant.v0_2.DeviceDrive.WacohForce
         {
             this.netNonStopTcpClient.EhDataReceive += (sender, e) =>
             {
-                var ee = e as CtkTcpStateEventArgs;
+                var ee = e as CtkNetStateEventArgs;
                 var msg = ee.TrxMessageBuffer;
                 this.messageReceiver.Receive(msg.Buffer, msg.Offset, msg.Length);
                 this.messageReceiver.AnalysisMessage();
