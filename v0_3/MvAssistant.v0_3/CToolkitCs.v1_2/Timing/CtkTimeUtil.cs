@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Timing
+namespace MvaCToolkitCs.v1_2.Timing
 {
     public class CtkTimeUtil
     {

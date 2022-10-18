@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
 
-namespace CToolkitCs.v1_2.Logging
+namespace MvaCToolkitCs.v1_2.Logging
 {
     [Serializable]
     public class CtkLoggerMapper : Dictionary<String, CtkLogger>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CToolkitCs.v1_2.Net.HttpWebTx
+namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 {
     public class CtkNetUserAgent
     {

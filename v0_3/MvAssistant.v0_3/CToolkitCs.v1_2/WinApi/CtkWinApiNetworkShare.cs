@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CToolkitCs.v1_2.WinApi
+namespace MvaCToolkitCs.v1_2.WinApi
 {
     public static class CtkWinApiNetworkShare
     {

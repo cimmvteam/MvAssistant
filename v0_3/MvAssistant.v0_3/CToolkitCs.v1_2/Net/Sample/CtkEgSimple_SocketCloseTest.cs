@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace CToolkitCs.v1_2.Net
+namespace MvaCToolkitCs.v1_2.Net
 {
     public class CtkEgSimple_SocketCloseTest
     {

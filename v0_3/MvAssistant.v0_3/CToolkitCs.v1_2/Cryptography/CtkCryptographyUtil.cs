@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Cryptography
+namespace MvaCToolkitCs.v1_2.Cryptography
 {
     public class CtkCryptographyUtil
     {

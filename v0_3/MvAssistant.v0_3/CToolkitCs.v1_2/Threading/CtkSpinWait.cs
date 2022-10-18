@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace CToolkitCs.v1_2.Threading
+namespace MvaCToolkitCs.v1_2.Threading
 {
     /// <summary>
     /// 有限制全部或延遲等待時間之類的需求, 才需要用此類別.

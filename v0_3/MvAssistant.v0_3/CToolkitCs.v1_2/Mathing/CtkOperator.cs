@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Mathing
+namespace MvaCToolkitCs.v1_2.Mathing
 {
     public abstract class CtkOperator<T> : ICtkOperator<T> where T : CtkOperator<T>, new()
     {

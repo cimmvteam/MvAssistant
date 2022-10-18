@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CToolkitCs.v1_2.Numeric
+namespace MvaCToolkitCs.v1_2.Numeric
 {
     public class CtkFftOnlineFilter
     {

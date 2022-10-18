@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CToolkitCs.v1_2.WinApiNative;
+using MvaCToolkitCs.v1_2.WinApiNative;
 using System.Threading;
 
 
-namespace CToolkitCs.v1_2.WinApi
+namespace MvaCToolkitCs.v1_2.WinApi
 {
     public class CtkWinApiHookKeyboard
     {

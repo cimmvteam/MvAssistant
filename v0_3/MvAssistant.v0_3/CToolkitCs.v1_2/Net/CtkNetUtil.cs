@@ -1,4 +1,4 @@
-﻿using CToolkitCs.v1_2.Net.SocketTx;
+﻿using MvaCToolkitCs.v1_2.Net.SocketTx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Net
+namespace MvaCToolkitCs.v1_2.Net
 {
     public class CtkNetUtil
     {

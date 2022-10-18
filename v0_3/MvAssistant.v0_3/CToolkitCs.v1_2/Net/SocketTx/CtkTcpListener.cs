@@ -1,5 +1,5 @@
-using CToolkitCs.v1_2.Protocol;
-using CToolkitCs.v1_2.Threading;
+using MvaCToolkitCs.v1_2.Protocol;
+using MvaCToolkitCs.v1_2.Threading;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CToolkitCs.v1_2.Net.SocketTx
+namespace MvaCToolkitCs.v1_2.Net.SocketTx
 {
     public class CtkTcpListener : ICtkProtocolNonStopConnect, IDisposable
     {

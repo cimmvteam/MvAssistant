@@ -5,7 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Numeric
+namespace MvaCToolkitCs.v1_2.Numeric
 {
     public class CtkNumUtil
     {

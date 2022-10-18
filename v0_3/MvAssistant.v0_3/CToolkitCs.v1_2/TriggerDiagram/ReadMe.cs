@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CToolkitCs.v1_2.TriggerDiagram
+namespace MvaCToolkitCs.v1_2.TriggerDiagram
 {
     public class ReadMe
     {

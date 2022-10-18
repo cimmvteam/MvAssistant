@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Modbus
+namespace MvaCToolkitCs.v1_2.Modbus
 {
     public class CtkModbusOldMessage
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Net.HttpWebTx
+namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 {
     public class CtkNetHttpWebSession : IDisposable
     {

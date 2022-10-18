@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace CToolkitCs.v1_2.WinApiNative
+namespace MvaCToolkitCs.v1_2.WinApiNative
 {
     public class CtkUser32Lib
     {

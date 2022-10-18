@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CToolkitCs.v1_2.Cryptography
+namespace MvaCToolkitCs.v1_2.Cryptography
 {
     public class CtkCryptographyRsa : IDisposable
     {

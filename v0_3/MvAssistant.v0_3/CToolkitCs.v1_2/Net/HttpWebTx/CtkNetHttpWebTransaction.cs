@@ -8,13 +8,13 @@ using System.Text.RegularExpressions;
 using System.Data;
 using System.IO.Compression;
 using System.IO;
-using CToolkitCs.v1_2.Compress;
+using MvaCToolkitCs.v1_2.Compress;
 using System.Threading.Tasks;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-namespace CToolkitCs.v1_2.Net.HttpWebTx
+namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 {
     public class CtkNetHttpWebTransaction : IDisposable
     {

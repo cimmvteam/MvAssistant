@@ -1,4 +1,4 @@
-﻿using CToolkitCs.v1_2.Threading;
+﻿using MvaCToolkitCs.v1_2.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace CToolkitCs.v1_2.Logging
+namespace MvaCToolkitCs.v1_2.Logging
 {
     public class CtkLogger : IDisposable
     {

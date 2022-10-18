@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace CToolkitCs.v1_2
+namespace MvaCToolkitCs.v1_2
 {
     public class CtkObject
     {

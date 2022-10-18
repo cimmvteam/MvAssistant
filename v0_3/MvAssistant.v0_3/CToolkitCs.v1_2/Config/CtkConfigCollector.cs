@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Config
+namespace MvaCToolkitCs.v1_2.Config
 {
     /// <summary>
     /// 儲存各類Config

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Threading
+namespace MvaCToolkitCs.v1_2.Threading
 {
     public class CtkThreadingUtil
     {

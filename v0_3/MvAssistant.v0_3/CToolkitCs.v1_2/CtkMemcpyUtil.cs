@@ -1,11 +1,11 @@
-﻿using CToolkitCs.v1_2.WinApiNative;
+﻿using MvaCToolkitCs.v1_2.WinApiNative;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace CToolkitCs.v1_2
+namespace MvaCToolkitCs.v1_2
 {
     public class CtkMemcpyUtil
     {

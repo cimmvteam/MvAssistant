@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Paint
+namespace MvaCToolkitCs.v1_2.Paint
 {
     public class CtkRgbColor
     {

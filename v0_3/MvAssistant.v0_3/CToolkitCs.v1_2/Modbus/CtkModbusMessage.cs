@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
 
-namespace CToolkitCs.v1_2.Modbus
+namespace MvaCToolkitCs.v1_2.Modbus
 {
     /// <summary>
     /// Modbus TCP common driver class. This class implements a modbus TCP master driver.

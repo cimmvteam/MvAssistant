@@ -4,7 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.DigitalPort
+namespace MvaCToolkitCs.v1_2.DigitalPort
 {
     [Serializable]
     public class CtkSerialPortCfg

@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Data.OleDb;
 
-namespace CToolkitCs.v1_2.Data
+namespace MvaCToolkitCs.v1_2.Data
 {
     public class CtkExcelOleDb : IDisposable
     {

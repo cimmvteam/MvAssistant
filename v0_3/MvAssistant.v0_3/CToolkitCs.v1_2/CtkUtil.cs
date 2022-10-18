@@ -1,4 +1,4 @@
-﻿using CToolkitCs.v1_2.Threading;
+﻿using MvaCToolkitCs.v1_2.Threading;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace CToolkitCs.v1_2
+namespace MvaCToolkitCs.v1_2
 {
     public class CtkUtil
     {

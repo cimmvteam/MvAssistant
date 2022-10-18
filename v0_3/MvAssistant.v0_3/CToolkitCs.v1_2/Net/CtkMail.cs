@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Mail;
 
-namespace CToolkitCs.v1_2.Net
+namespace MvaCToolkitCs.v1_2.Net
 {
     public class CtkMail
     {

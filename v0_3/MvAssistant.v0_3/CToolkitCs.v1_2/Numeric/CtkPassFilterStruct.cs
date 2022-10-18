@@ -1,11 +1,11 @@
-﻿using CToolkitCs.v1_2.Numeric;
+﻿using MvaCToolkitCs.v1_2.Numeric;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace CToolkitCs.v1_2.Numeric
+namespace MvaCToolkitCs.v1_2.Numeric
 {
     /// <summary>
     /// 使用Struct傳入是傳值, 修改是無法帶出來的, 但你可以回傳同一個結構後接住它

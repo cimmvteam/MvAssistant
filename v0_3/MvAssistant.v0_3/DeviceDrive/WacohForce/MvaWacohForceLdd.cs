@@ -1,5 +1,5 @@
-﻿using CToolkitCs.v1_2.Net;
-using CToolkitCs.v1_2.Net.SocketTx;
+﻿using MvaCToolkitCs.v1_2.Net;
+using MvaCToolkitCs.v1_2.Net.SocketTx;
 using MvAssistant.v0_3;
 using System;
 using System.Collections.Generic;

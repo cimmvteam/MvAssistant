@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Security;
 using System.Text;
 
-namespace CToolkitCs.v1_2.Net.FtpTx
+namespace MvaCToolkitCs.v1_2.Net.FtpTx
 {
     public class CtkNetFtpTransaction : IDisposable
     {

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.IO
+namespace MvaCToolkitCs.v1_2.IO
 {
     public class CtkStreamSegment : Stream
     {

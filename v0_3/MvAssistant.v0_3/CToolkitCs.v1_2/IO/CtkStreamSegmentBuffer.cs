@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CToolkitCs.v1_2.IO
+namespace MvaCToolkitCs.v1_2.IO
 {
     [Serializable]
     public class CtkStreamSegmentBuffer
