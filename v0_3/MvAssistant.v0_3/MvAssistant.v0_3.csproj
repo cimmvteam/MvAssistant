@@ -80,6 +80,8 @@
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -501,6 +503,31 @@
     <Compile Include="TypeGuid\MvTypeGuidMapper.cs" />
     <Compile Include="TypeGuid\MvTypeGuid.cs" />
     <Compile Include="Mac\Xml\XmlHelper.cs" />
+    <Compile Include="Wcf\CtkWcfMessage.cs" />
+    <Compile Include="Wcf\DuplexTcp\CtkWcfChannelInfo.cs" />
+    <Compile Include="Wcf\DuplexTcp\CtkWcfDuplexEventArgs.cs" />
+    <Compile Include="Wcf\DuplexTcp\CtkWcfDuplexTcpClient.cs" />
+    <Compile Include="Wcf\DuplexTcp\CtkWcfDuplexTcpClientInst.cs" />
+    <Compile Include="Wcf\DuplexTcp\CtkWcfDuplexTcpListener.cs" />
+    <Compile Include="Wcf\DuplexTcp\CtkWcfDuplexTcpListenerInst.cs" />
+    <Compile Include="Wcf\DuplexTcp\ICTkWcfDuplexTcpCallback.cs" />
+    <Compile Include="Wcf\DuplexTcp\ICtkWcfDuplexTcpService.cs" />
+    <Compile Include="Wcf\NetTcp\CtkWcfNetTcpClient.cs" />
+    <Compile Include="Wcf\NetTcp\CtkWcfNetTcpListener.cs" />
+    <Compile Include="Wcf\NetTcp\SampleCtkWcfNetTcpInst01.cs" />
+    <Compile Include="Wcf\NetTcp\SampleCtkWcfNetTcpInst02.cs" />
+    <Compile Include="Wcf\NetTcp\SampleCtkWcfNetTcpMsg.cs" />
+    <Compile Include="Wcf\NetTcp\SampleCtkWcfNetTcpReq.cs" />
+    <Compile Include="Wcf\NetTcp\SampleCtkWcfNetTcpResp.cs" />
+    <Compile Include="Wcf\NetTcp\SampleICtkWcfNetTcp0101.cs" />
+    <Compile Include="Wcf\NetTcp\SampleICtkWcfNetTcp0102.cs" />
+    <Compile Include="Wcf\NetTcp\SampleICtkWcfNetTcp0201.cs" />
+    <Compile Include="Wcf\NetTcp\SampleICtkWcfNetTcp0202.cs" />
+    <Compile Include="Wcf\NonStop\CtkWcfDuplexTcpNonStopClient.cs" />
+    <Compile Include="Wcf\NonStop\CtkWcfDuplexTcpNonStopListener.cs" />
+    <Compile Include="Wcf\WebJson\CtkWcfWebJsonListener.cs" />
+    <Compile Include="Wcf\WebJson\CtkWcfWebJsonListenerInst.cs" />
+    <Compile Include="Wcf\WebJson\ICtkWcfWebJsonListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CToolkitCs.v1_2\Mathing\CtkMath.ReadMe.txt" />
