@@ -35,7 +35,7 @@ namespace MvaCToolkitCs.v1_2.Wcf.DuplexTcp
         public event EventHandler<CtkProtocolEventArgs> EhFailConnect;
         public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
 
-        public object ActiveWorkClient { get { return this.activeWorkClient; } set { this.activeWorkClient = value as ICTkWcfDuplexTcpCallback; } }
+        public object ActiveTarget { get { return this.activeWorkClient; } set { this.activeWorkClient = value as ICTkWcfDuplexTcpCallback; } }
         public bool IsLocalReadyConnect { get { return this.host != null && this.host.State <= CommunicationState.Opened; } }
         public bool IsOpenRequesting { get { try { return Monitor.TryEnter(this, 10); } finally { Monitor.Exit(this); } } }
         public bool IsRemoteConnected { get { return this.GetAllChannels().Count > 0; } }

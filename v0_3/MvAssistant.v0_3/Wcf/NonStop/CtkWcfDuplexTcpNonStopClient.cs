@@ -43,7 +43,7 @@ namespace MvaCToolkitCs.v1_2.Wcf.NonStop
         public event EventHandler<CtkProtocolEventArgs> EhFailConnect;
         public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
 
-        public object ActiveWorkClient { get { return this.Channel; } set { this.Channel = (TService)value; } }
+        public object ActiveTarget { get { return this.Channel; } set { this.Channel = (TService)value; } }
         public bool IsLocalReadyConnect { get { return this.IsWcfConnected; } }
         public bool IsOpenRequesting { get { try { return Monitor.TryEnter(this, 10); } finally { Monitor.Exit(this); } } }
         public bool IsRemoteConnected { get { return this.ChannelFactory.State == CommunicationState.Opened; } }

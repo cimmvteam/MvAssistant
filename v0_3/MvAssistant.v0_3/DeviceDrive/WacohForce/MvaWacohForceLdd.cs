@@ -53,7 +53,7 @@ namespace MvAssistant.v0_3.DeviceDrive.WacohForce
             this.netNonStopTcpClient.EhDataReceive += (sender, e) =>
             {
                 var ee = e as CtkNetStateEventArgs;
-                var msg = ee.TrxMessageBuffer;
+                var msg = ee.TrxBuffer;
                 this.messageReceiver.Receive(msg.Buffer, msg.Offset, msg.Length);
                 this.messageReceiver.AnalysisMessage();
 
