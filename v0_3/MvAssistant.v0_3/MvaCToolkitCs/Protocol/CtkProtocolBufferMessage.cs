@@ -8,6 +8,12 @@ namespace MvaCToolkitCs.v1_2.Protocol
     public class CtkProtocolBufferMessage
     {
         public CtkProtocolBufferMessage() { }
+        public CtkProtocolBufferMessage(Byte[] buffer, int offset, int length)
+        {
+            this.Buffer = buffer;
+            this.Offset = offset;
+            this.Length = length;
+        }
         public CtkProtocolBufferMessage(int bufferSize)
         {
             this.Buffer = new byte[bufferSize];

@@ -60,7 +60,7 @@ namespace MvaCToolkitCs.v1_2.DigitalPort
         public event EventHandler<CtkProtocolEventArgs> EhFailConnect;
         public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
 
-        public object ActiveWorkClient { get { return this.serialPort; } set { if (this.serialPort != value) throw new ArgumentException("不可傳入其它ActiveWorkClient"); } }
+        public object ActiveTarget { get { return this.serialPort; } set { if (this.serialPort != value) throw new ArgumentException("不可傳入其它ActiveWorkClient"); } }
 
 
         public int ConnectTry()

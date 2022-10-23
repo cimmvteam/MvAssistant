@@ -6,7 +6,8 @@ namespace MvaCToolkitCs.v1_2.Protocol
     {
         /// <summary>
         /// 若為Client, Local連線成功=遠端連線成功.
-        /// 若為Server, 開啟聆聽即為準備好連線
+        /// 若為Server, 開啟聆聽即為準備好連線.
+        /// 若是 UDP, 不需要交握, 只需要開啟=Read 就可以開工.
         /// </summary>
         bool IsLocalReadyConnect { get; }
         /// <summary>
@@ -30,7 +31,7 @@ namespace MvaCToolkitCs.v1_2.Protocol
         /// 有可能作為Server有多個 Clients, 正在操作中的是哪個.
         /// 作為 Client 就只有一個 Server, 正在操作中的也是同一個.
         /// </summary>
-        Object ActiveWorkClient { get; set; }//可要求變更Active Work
+        Object ActiveTarget { get; set; }//可要求變更Active Work
         void WriteMsg(CtkProtocolTrxMessage msg);
 
 

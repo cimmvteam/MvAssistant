@@ -13,6 +13,9 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
     {
 
         ~CtkSocketTcp() { this.Dispose(false); }
+
+
+        public override Socket CreateSocket() { return new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);/*¹w³]*/ }
     }
 
 }

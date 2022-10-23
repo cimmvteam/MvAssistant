@@ -9,22 +9,8 @@ namespace MvaCToolkitCs.v1_2.Protocol
     {
 
         public List<Byte> DataBuffer = new List<byte>();
-
-        /// <summary> Default=false=由User決定Parses時機點 </summary>
-        public bool IsAutoParse = false;
-
-
-        public void Receive(Byte[] buffer)
-        {
-            lock (this) this.DataBuffer.AddRange(buffer);
-            if (this.IsAutoParse) this.ParseMessage();
-        }
-        public void Receive(Byte[] buffer, int offset, int length)
-        {
-            var mybuffer = new Byte[length];
-            Array.Copy(buffer, offset, mybuffer, 0, length);
-            this.Receive(mybuffer);
-        }
+        /// <summary> Default=true : 每次 Receive 後自動 Parse, 減少使用者理解時間 </summary>
+        public bool IsAutoParse = true;
 
 
 
@@ -49,6 +35,23 @@ namespace MvaCToolkitCs.v1_2.Protocol
 
         }
 
+        public void Receive(Byte[] buffer)
+        {
+            lock (this) this.DataBuffer.AddRange(buffer);
+            if (this.IsAutoParse) this.ParseMessage();
+        }
+        public void Receive(Byte[] buffer, int offset, int length)
+        {
+            var mybuffer = new Byte[length];
+            Array.Copy(buffer, offset, mybuffer, 0, length);
+            this.Receive(mybuffer);
+        }
 
+        public void Receive(CtkProtocolBufferMessage buffer)
+        {
+            var mybuffer = new Byte[buffer.Length];
+            Array.Copy(buffer.Buffer, buffer.Offset, mybuffer, 0, buffer.Length);
+            this.Receive(mybuffer);
+        }
     }
 }

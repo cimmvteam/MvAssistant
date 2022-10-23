@@ -149,7 +149,7 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
                     hwreq.Accept = value;
                 else if (String.Compare(key, "Connection", true) == 0)
                 {
-                    if (String.Compare(value, "keep-alive", true) == 0)
+                    if (String.Compare(key, "keep-alive", true) == 0)
                         hwreq.KeepAlive = true;
                 }
                 else if (String.Compare(key, "Content-Length", true) == 0)
