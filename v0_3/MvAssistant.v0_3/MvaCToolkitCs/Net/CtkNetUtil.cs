@@ -42,6 +42,24 @@ namespace MvaCToolkitCs.v1_2.Net
                 return false;
             }
         }
+        public static bool DisposeSocketTry(CtkSocket socket)
+        {
+            if (socket == null) return true;
+            try
+            {
+                socket.DisposeClose();
+                return true;
+            }
+            catch (SocketException) { return false; }
+            catch (ObjectDisposedException) { return false; }
+            catch (InvalidOperationException) { return false; }
+            catch (Exception ex)
+            {
+                //非預期的Exception, 記錄起來
+                CtkLog.Warn(ex);
+                return false;
+            }
+        }
         public static void DisposeTcpClient(TcpClient client)
         {
             if (client == null) return;

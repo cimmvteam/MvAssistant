@@ -101,6 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLdd_v1_0.cs" />
     <Compile Include="MvaCToolkitCs\Compress\CtkCompressUtil.cs" />
     <Compile Include="MvaCToolkitCs\Config\CtkConfigBase.cs" />
     <Compile Include="MvaCToolkitCs\Config\CtkConfigCollector.cs" />

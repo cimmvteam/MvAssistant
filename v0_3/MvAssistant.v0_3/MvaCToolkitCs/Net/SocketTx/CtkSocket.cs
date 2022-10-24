@@ -311,7 +311,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                     if (this.RemoteUri == null) throw new CtkSocketException("Can not send message in UDP mode");
                     ep = CtkNetUtil.ToIPEndPoint(this.RemoteUri);//注意 RemoteUri 載明的 IPEndPoint, 若為 Any 時, 無法傳送.
                 }
-                this.WriteMsgTo(msg,ep);
+                this.WriteMsgTo(msg, ep);
                 return;
             }
 
@@ -336,7 +336,6 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             }
         }
 
-
         public void WriteMsgTo(CtkProtocolTrxMessage msg, Uri uri) { this.WriteMsgTo(msg, CtkNetUtil.ToIPEndPoint(uri)); }
         public void WriteMsgTo(CtkProtocolTrxMessage msg, EndPoint ep)
         {
@@ -353,6 +352,8 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 throw ex;//就例外就拋出, 不吃掉
             }
         }
+    
+
 
 
 
