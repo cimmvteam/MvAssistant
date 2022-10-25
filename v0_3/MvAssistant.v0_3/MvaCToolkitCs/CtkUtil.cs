@@ -327,7 +327,7 @@ namespace MvaCToolkitCs.v1_2
             }
         }
 
-        public static T LoadXmlFromFile<T>(String fn)
+        public static T LoadXmlFile<T>(String fn)
         {
             var seri = new System.Xml.Serialization.XmlSerializer(typeof(T));
             var fi = new FileInfo(fn);
@@ -339,7 +339,7 @@ namespace MvaCToolkitCs.v1_2
                 return (T)seri.Deserialize(stm);
             }
         }
-        public static T LoadXmlFromFileOrDefault<T>(String fn) where T : class, new()
+        public static T LoadXmlFileOrNew<T>(String fn) where T : class, new()
         {
             var seri = new System.Xml.Serialization.XmlSerializer(typeof(T));
             var fi = new FileInfo(fn);
@@ -355,7 +355,7 @@ namespace MvaCToolkitCs.v1_2
                 return seri.Deserialize(stm) as T;
             }
         }
-        public static void SaveToXmlFileT<T>(T obj, String fn)
+        public static void SaveXmlFileT<T>(T obj, String fn)
         {
             var seri = new System.Xml.Serialization.XmlSerializer(typeof(T));
             var fi = new FileInfo(fn);
@@ -368,7 +368,7 @@ namespace MvaCToolkitCs.v1_2
             }
         }
 
-        public static void SaveXmlToFile(object obj, String fn)
+        public static void SaveXmlFile(object obj, String fn)
         {
             var seri = new System.Xml.Serialization.XmlSerializer(obj.GetType());
             var fi = new FileInfo(fn);
@@ -380,7 +380,7 @@ namespace MvaCToolkitCs.v1_2
                 seri.Serialize(stm, obj);
             }
         }
-        public static void SaveXmlToFile(System.Type type, object obj, String fn)
+        public static void SaveXmlFile(System.Type type, object obj, String fn)
         {
             var seri = new System.Xml.Serialization.XmlSerializer(type);
             var fi = new FileInfo(fn);
