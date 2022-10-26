@@ -47,7 +47,7 @@ namespace MvaCToolkitCs.v1_2.Config
 
                 try
                 {
-                    var config = CtkUtil.LoadXmlFromFileOrDefault<T>(fi.FullName);
+                    var config = CtkUtil.LoadXmlFileOrNew<T>(fi.FullName);
                     this[fi.Name] = config;
                 }
                 catch (Exception ex) { CtkLog.WriteNs(this, ex.Message); }
