@@ -218,6 +218,8 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
         {
             SysEventListener = listener;
         }
+
+
         #region IDisposable
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
@@ -244,13 +246,13 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
             // Free any unmanaged objects here.
             //
 
-            this.DisposeSelf();
+            this.DisposeClose();
 
             disposed = true;
         }
 
 
-        protected virtual void DisposeSelf()
+        protected virtual void DisposeClose()
         {
             this.Close();
         }

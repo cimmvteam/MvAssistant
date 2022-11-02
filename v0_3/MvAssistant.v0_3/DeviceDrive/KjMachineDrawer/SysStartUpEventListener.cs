@@ -30,6 +30,7 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
         {
             _listenThread = new Thread(EventListener);
             _listenThread.IsBackground = true;
+            _listenThread.Name = nameof(SysStartUpEventListener);
         }
 
         /// <summary>建構式</summary>

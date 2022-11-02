@@ -20,67 +20,73 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
     [Guid("AE0A6C92-6B34-495A-B591-93AE4DF65976")]
     public class MacHalDrawerKjMachine : MacHalComponentBase, IMacHalDrawer
     {
+        #region Const
 
-        public bool IsInitialing { get; set; }
+        public const string DevConnStr_EndPort = "end_port";
+        public const string DevConnStr_Index = "index";
+        public const string DevConnStr_Ip = "ip";
+        public const string DevConnStr_LocalIp = "local_ip";
+        public const string DevConnStr_LocalPort = "local_port";
+        public const string DevConnStr_Port = "port";
+        public const string DevConnStr_StartPort = "start_port";
+        public event EventHandler OnBoxDetectionResultHandler;
+
+        #endregion
+
         MvaKjMachineDrawerLddPool LddPool;
+
+        ~MacHalDrawerKjMachine() { this.Dispose(false); }
+
         // private bool IsCommandINI = false;
         /// <summary>工作狀態</summary>
         public DrawerWorkState CurrentWorkState { get; private set; }
-        /// <summary>設定工作狀態</summary>
-        /// <param name="state"></param>
-        public void SetDrawerWorkState(DrawerWorkState state)
-        {
-            //此狀態非State Machine使用, Drawer本身不知道自己的狀態
-            //需要由Drawer軟體內部自己要記錄
-            CurrentWorkState = state;
-        }
-        /// <summary>將工作狀態設為 AnyState</summary>
-        public void ResetCurrentWorkState()
-        {
-            CurrentWorkState = DrawerWorkState.AnyState;
-        }
 
-        #region Const
-        public const string DevConnStr_Ip = "ip";
-        public const string DevConnStr_Port = "port";
-
-        public const string DevConnStr_LocalIp = "local_ip";
-        public const string DevConnStr_LocalPort = "local_port";
-
-        public const string DevConnStr_StartPort = "start_port";
-        public const string DevConnStr_EndPort = "end_port";
-
-        public const string DevConnStr_Index = "index";
-
-        public event EventHandler OnBoxDetectionResultHandler;
-        #endregion
-
+        /// <summary>硬體裝置的 Listen Port</summary>
+        public IPEndPoint DeviceEndPoint { get { return new IPEndPoint(IPAddress.Parse(DeviceIP), DevicePort); } }
 
         public string DeviceIndex { get { return this.GetDevConnSetting(DevConnStr_Index); } }
+        /// <summary>硬體裝置 的IP </summary>
+        public string DeviceIP { get { return this.GetDevConnSetting(DevConnStr_Ip); } }
 
-        public override bool HalIsConnected()
-        {
-            if (LddPool == null) { return false; }
-            if (Ldd == null) { return false; }
+        /// <summary>硬體裝置的 Listen Port</summary>
+        public int DevicePort { get { return this.GetDevConnSettingInt(DevConnStr_Port); } }
 
-            return true;
-        }
-        public MvaKjMachineDrawerLdd Ldd { get; set; }
-
+        public string HostIP { get { return this.GetDevConnSetting(DevConnStr_LocalIp); } }
+        /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(結束) </summary>
+        public int HostListenDrawerPortRangeEnd { get { return this.GetDevConnSettingInt(DevConnStr_EndPort); } }
 
         /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(起始) </summary>
         public int HostListenDrawerPortRangeStart { get { return this.GetDevConnSettingInt(DevConnStr_StartPort); } }
-        /// <summary>Host 對Drawer硬體 發送指令及監聽一般事件的 Port(Host上的Port) 範圍(結束) </summary>
-        public int HostListenDrawerPortRangeEnd { get { return this.GetDevConnSettingInt(DevConnStr_EndPort); } }
+
         /// <summary>Host 監聽Drawer 系統事件的 port(Host 上的)</summary>
         public int HostListenDrawerSysEventPort { get { return this.GetDevConnSettingInt(DevConnStr_LocalPort); } }
-        /// <summary>硬體裝置 的IP </summary>
-        public string DeviceIP { get { return this.GetDevConnSetting(DevConnStr_Ip); } }
-        /// <summary>硬體裝置的 Listen Port</summary>
-        public int DevicePort { get { return this.GetDevConnSettingInt(DevConnStr_Port); } }
-        /// <summary>硬體裝置的 Listen Port</summary>
-        public IPEndPoint DeviceEndPoint { get { return new IPEndPoint(IPAddress.Parse(DeviceIP), DevicePort); } }
-        public string HostIP { get { return this.GetDevConnSetting(DevConnStr_LocalIp); } }
+
+        public bool IsInitialing { get; set; }
+        public MvaKjMachineDrawerLdd Ldd { get; set; }
+
+        public Action PressButtonToLoad { get; set; }
+
+        public object Tag { get; set; }
+
+        //public string Index { get; set; }
+        public void BindResult()
+        {
+            Ldd.BoxDetectionResult += this.BoxDetectionResult;
+
+            Ldd.BrightLEDResult = this.BrightLEDResult;
+            Ldd.INIResult += this.INIResult;
+            Ldd.PositionReadResult += this.PositionReadResult;
+            Ldd.SetMotionSpeedResult += this.SetMotionSpeedResult;
+            Ldd.SetTimeOutResult += this.SetTimeOutResult;
+            Ldd.TrayArriveResult += this.TrayArriveResult;
+
+        }
+
+        public override int HalClose()
+        {
+            //throw new NotImplementedException();
+            return 0;
+        }
 
         public override int HalConnect()
         {  // LddPool
@@ -119,28 +125,13 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             return connected ? 1 : 0;
         }
 
-        public override int HalClose()
+        public override bool HalIsConnected()
         {
-            //throw new NotImplementedException();
-            return 0;
+            if (LddPool == null) { return false; }
+            if (Ldd == null) { return false; }
+
+            return true;
         }
-        public object Tag { get; set; }
-        public Action PressButtonToLoad { get; set; }
-
-        //public string Index { get; set; }
-        public void BindResult()
-        {
-            Ldd.BoxDetectionResult += this.BoxDetectionResult;
-
-            Ldd.BrightLEDResult = this.BrightLEDResult;
-            Ldd.INIResult += this.INIResult;
-            Ldd.PositionReadResult += this.PositionReadResult;
-            Ldd.SetMotionSpeedResult += this.SetMotionSpeedResult;
-            Ldd.SetTimeOutResult += this.SetTimeOutResult;
-            Ldd.TrayArriveResult += this.TrayArriveResult;
-
-        }
-
 
         public void InvokeMethod(string rtnMsgCascade)
         {
@@ -166,37 +157,19 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             }
         }
 
-        public event EventHandler OnTrayMotionFailedHandler;
-        public event EventHandler OnTrayMotionOKHandler;
-        public event EventHandler OnSetMotionSpeedFailedHandler;
-        public event EventHandler OnSetMotionSpeedOKHandler;
-        public event EventHandler OnSetTimeOutOKHandler;
-        public event EventHandler OnSetTimeOutFailedHandler;
-
-        public event EventHandler OnTrayArriveHomeHandler;
-        public event EventHandler OnTrayArriveInHandler;
-        public event EventHandler OnTrayArriveOutHandler;
-        public event EventHandler OnTrayMotioningHandler;
-        public event EventHandler OnPositionStatusHandler;
-
-
-        public event EventHandler OnDetectedHasBoxHandler;
-        public event EventHandler OnDetectedEmptyBoxHandler;
-        public event EventHandler OnTrayMotionSensorOFFHandler;
-        public event EventHandler OnERRORREcoveryHandler;
-        public event EventHandler OnERRORErrorHandler;
-
-        public event EventHandler OnSysStartUpHandler;
-        public event EventHandler OnButtonEventHandler;
-
-        public event EventHandler OnBrightLEDOKHandler;
-        public event EventHandler OnBrightLEDFailedHandler;
-
-        public event EventHandler OnLCDCMsgOKHandler;
-        public event EventHandler OnLCDCMsgFailedHandler;
-
-        public event EventHandler OnINIFailedHandler;
-        public event EventHandler OnINIOKHandler;
+        /// <summary>將工作狀態設為 AnyState</summary>
+        public void ResetCurrentWorkState()
+        {
+            CurrentWorkState = DrawerWorkState.AnyState;
+        }
+        /// <summary>設定工作狀態</summary>
+        /// <param name="state"></param>
+        public void SetDrawerWorkState(DrawerWorkState state)
+        {
+            //此狀態非State Machine使用, Drawer本身不知道自己的狀態
+            //需要由Drawer軟體內部自己要記錄
+            CurrentWorkState = state;
+        }
 
         void BindLddEvent()
         {
@@ -230,8 +203,99 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             Ldd.OnButtonEventHandler += OnButtonEvent;
             Ldd.OnSysStartUpHandler += OnSysStartUp;
         }
+        void DebugLog(MvaKjMachineDrawerLdd ldd, string text)
+        {
+            // vs 2013
+            // string str = $"Ldd={ldd.DeviceIP}, Text={text}";
+            string str = "Ldd=" + ldd.DeviceIP + ", Text=" + text;
+            Debug.WriteLine("\r\n" + str);
+        }
+
+
+
+
+        protected override void DisposeClose()
+        {
+            if(this.LddPool != null)
+            {
+                using (var pool = this.LddPool)
+                    pool.Close();
+            }
+
+            base.DisposeClose();
+        }
+
+
+
         #region   Event
 
+        public event EventHandler OnBrightLEDFailedHandler;
+
+        public event EventHandler OnBrightLEDOKHandler;
+
+        public event EventHandler OnButtonEventHandler;
+
+        public event EventHandler OnDetectedEmptyBoxHandler;
+
+        public event EventHandler OnDetectedHasBoxHandler;
+
+        public event EventHandler OnERRORErrorHandler;
+
+        public event EventHandler OnERRORREcoveryHandler;
+
+        public event EventHandler OnINIFailedHandler;
+
+        public event EventHandler OnINIOKHandler;
+
+        public event EventHandler OnLCDCMsgFailedHandler;
+
+        public event EventHandler OnLCDCMsgOKHandler;
+
+        public event EventHandler OnPositionStatusHandler;
+
+        public event EventHandler OnSetMotionSpeedFailedHandler;
+
+        public event EventHandler OnSetMotionSpeedOKHandler;
+
+        public event EventHandler OnSetTimeOutFailedHandler;
+
+        public event EventHandler OnSetTimeOutOKHandler;
+
+        public event EventHandler OnSysStartUpHandler;
+
+        public event EventHandler OnTrayArriveHomeHandler;
+
+        public event EventHandler OnTrayArriveInHandler;
+
+        public event EventHandler OnTrayArriveOutHandler;
+
+        public event EventHandler OnTrayMotionFailedHandler;
+
+        public event EventHandler OnTrayMotioningHandler;
+
+        public event EventHandler OnTrayMotionOKHandler;
+
+        public event EventHandler OnTrayMotionSensorOFFHandler;
+
+
+
+        private void OnBrightLEDFailed(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDFailed");
+            if (OnBrightLEDFailedHandler != null)
+            {
+                OnBrightLEDFailedHandler.Invoke(this, e);
+            }
+        }
+
+        private void OnBrightLEDOK(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDOK");
+            if (OnBrightLEDOKHandler != null)
+            {
+                OnBrightLEDOKHandler.Invoke(this, e);
+            }
+        }
 
         private void OnButtonEvent(object sender, EventArgs e)
         {
@@ -246,186 +310,16 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
                 OnButtonEventHandler.Invoke(this, e);
             }
         }
-        private void OnSysStartUp(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSysStartUp");
-            if (OnSysStartUpHandler != null)
-            {
-                OnSysStartUpHandler.Invoke(this, e);
-            }
-        }
-
-        private void OnINIFailed(object sender, EventArgs e)
-        {
-            // Sleep100msecs();
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnINIFailed");
-            this.SetDrawerWorkState(DrawerWorkState.InitialFailed);
-            if (OnINIFailedHandler != null)
-            {
-                OnINIFailedHandler.Invoke(this, e);
-            }
-        }
-
-
-        private void OnLCDCMsgOK(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgOK");
-            if (OnLCDCMsgOKHandler != null)
-            {
-                OnLCDCMsgOKHandler.Invoke(this, e);
-            }
-        }
-        private void OnLCDCMsgFailed(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgFailed");
-            if (OnLCDCMsgFailedHandler != null)
-            {
-                OnLCDCMsgFailedHandler.Invoke(this, e);
-            }
-
-        }
-
-
-        private void OnBrightLEDOK(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDOK");
-            if (OnBrightLEDOKHandler != null)
-            {
-                OnBrightLEDOKHandler.Invoke(this, e);
-            }
-        }
-        private void OnBrightLEDFailed(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnBrightLEDFailed");
-            if (OnBrightLEDFailedHandler != null)
-            {
-                OnBrightLEDFailedHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary> OnTrayMotionFailedHandler</summary>
+        /// <summary>OnDetectedHasBoxHandler</summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnTrayMotionFailed(object sender, EventArgs e)
+        private void OnDetectedEmptyBox(object sender, EventArgs e)
         {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionFailed");
-            this.SetDrawerWorkState(DrawerWorkState.TrayMotionFailed);
-            if (OnTrayMotionFailedHandler != null)
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnDetectedEmptyBox");
+            SetDrawerWorkState(DrawerWorkState.BoxNotExist);
+            if (OnDetectedEmptyBoxHandler != null)
             {
-                OnTrayMotionFailedHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary>OnTrayMotionOKHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnSetMotionSpeedOK(Object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedOK");
-            if (OnSetMotionSpeedOKHandler != null)
-            {
-                OnSetMotionSpeedOKHandler.Invoke(this, e);
-            }
-        }
-        /// <summary>OnSetMotionSpeedFailedHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e">OnSetMotionSpeedOKHandler</param>
-        private void OnSetMotionSpeedFailed(Object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedFailed");
-            if (OnSetMotionSpeedFailedHandler != null)
-            {
-                OnSetMotionSpeedFailedHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary>OnSetTimeOutOKHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnSetTimeOutOK(Object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutOK");
-            if (OnSetTimeOutOKHandler != null)
-            {
-                OnSetTimeOutOKHandler.Invoke(this, e);
-            }
-        }
-        /// <summary>OnSetTimeOutFailedHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnSetTimeOutFailed(Object sender, EventArgs e)
-        {
-
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutFailed");
-            if (OnSetTimeOutFailedHandler != null)
-            {
-                OnSetTimeOutFailedHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary>OnTrayArriveHomeHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTrayArriveHome(object sender, EventArgs e)
-        {
-            //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveHome");
-            if (OnTrayArriveHomeHandler != null)
-            {
-                OnTrayArriveHomeHandler.Invoke(this, e);
-            }
-
-        }
-        /// <summary>OnTrayArriveOutHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTrayArriveOut(object sender, EventArgs e)
-        {
-            //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveOut");
-            if (OnTrayArriveOutHandler != null)
-            {
-                OnTrayArriveOutHandler.Invoke(this, e);
-            }
-        }
-        /// <summary>OnTrayArriveInHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTrayArriveIn(object sender, EventArgs e)
-        {
-            //Sleep100msecs();
-            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveIn");
-            if (OnTrayArriveInHandler != null)
-            {
-                OnTrayArriveInHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary>OnTrayMotioningHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTrayMotioning(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotioning");
-            if (OnTrayMotioningHandler != null)
-            {
-                OnTrayMotioningHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary>OnPositionStatusHandler </summary>
-        /// <param name="sender"></param>
-        /// <param name="e">typeof(OnReplyPositionEventArgs)</param>
-        private void OnPositionStatus(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnPositionStatus");
-            var args = (OnReplyPositionEventArgs)e;
-            if (OnPositionStatusHandler != null)
-            {
-                OnPositionStatusHandler.Invoke(this, e);
+                OnDetectedEmptyBoxHandler.Invoke(this, e);
             }
         }
 
@@ -442,41 +336,16 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             }
 
         }
-        /// <summary>OnDetectedHasBoxHandler</summary>
+
+        /// <summary></summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnDetectedEmptyBox(object sender, EventArgs e)
+        private void OnERRORError(object sender, EventArgs e)
         {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnDetectedEmptyBox");
-            SetDrawerWorkState(DrawerWorkState.BoxNotExist);
-            if (OnDetectedEmptyBoxHandler != null)
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnERRORError");
+            if (OnERRORErrorHandler != null)
             {
-                OnDetectedEmptyBoxHandler.Invoke(this, e);
-            }
-        }
-
-        /// <summary>OnTrayMotionOKHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTrayMotionOK(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionOK");
-            if (OnTrayMotionOKHandler != null)
-            {
-                OnTrayMotionOKHandler.Invoke(this, e);
-            }
-        }
-
-
-        /// <summary>OnTrayMothingSensorOFFHandler</summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTrayMothingSensorOFF(object sender, EventArgs e)
-        {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMothingSensorOFF");
-            if (OnTrayMotionSensorOFFHandler != null)
-            {
-                OnTrayMotionSensorOFFHandler.Invoke(this, e);
+                OnERRORErrorHandler.Invoke(this, e);
             }
         }
 
@@ -492,25 +361,233 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             }
         }
 
-        /// <summary></summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnERRORError(object sender, EventArgs e)
+        private void OnINIFailed(object sender, EventArgs e)
         {
-            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnERRORError");
-            if (OnERRORErrorHandler != null)
+            // Sleep100msecs();
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnINIFailed");
+            this.SetDrawerWorkState(DrawerWorkState.InitialFailed);
+            if (OnINIFailedHandler != null)
             {
-                OnERRORErrorHandler.Invoke(this, e);
+                OnINIFailedHandler.Invoke(this, e);
             }
         }
 
+        private void OnLCDCMsgFailed(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgFailed");
+            if (OnLCDCMsgFailedHandler != null)
+            {
+                OnLCDCMsgFailedHandler.Invoke(this, e);
+            }
 
+        }
+
+        private void OnLCDCMsgOK(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnLCDCMsgOK");
+            if (OnLCDCMsgOKHandler != null)
+            {
+                OnLCDCMsgOKHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnPositionStatusHandler </summary>
+        /// <param name="sender"></param>
+        /// <param name="e">typeof(OnReplyPositionEventArgs)</param>
+        private void OnPositionStatus(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnPositionStatus");
+            var args = (OnReplyPositionEventArgs)e;
+            if (OnPositionStatusHandler != null)
+            {
+                OnPositionStatusHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnSetMotionSpeedFailedHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e">OnSetMotionSpeedOKHandler</param>
+        private void OnSetMotionSpeedFailed(Object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedFailed");
+            if (OnSetMotionSpeedFailedHandler != null)
+            {
+                OnSetMotionSpeedFailedHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnTrayMotionOKHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSetMotionSpeedOK(Object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetMotionSpeedOK");
+            if (OnSetMotionSpeedOKHandler != null)
+            {
+                OnSetMotionSpeedOKHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnSetTimeOutFailedHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSetTimeOutFailed(Object sender, EventArgs e)
+        {
+
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutFailed");
+            if (OnSetTimeOutFailedHandler != null)
+            {
+                OnSetTimeOutFailedHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnSetTimeOutOKHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnSetTimeOutOK(Object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSetTimeOutOK");
+            if (OnSetTimeOutOKHandler != null)
+            {
+                OnSetTimeOutOKHandler.Invoke(this, e);
+            }
+        }
+
+        private void OnSysStartUp(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnSysStartUp");
+            if (OnSysStartUpHandler != null)
+            {
+                OnSysStartUpHandler.Invoke(this, e);
+            }
+        }
+        /// <summary>OnTrayArriveHomeHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayArriveHome(object sender, EventArgs e)
+        {
+            //Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionHome);
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveHome");
+            if (OnTrayArriveHomeHandler != null)
+            {
+                OnTrayArriveHomeHandler.Invoke(this, e);
+            }
+
+        }
+
+        /// <summary>OnTrayArriveInHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayArriveIn(object sender, EventArgs e)
+        {
+            //Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionIn);
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveIn");
+            if (OnTrayArriveInHandler != null)
+            {
+                OnTrayArriveInHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnTrayArriveOutHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayArriveOut(object sender, EventArgs e)
+        {
+            //Sleep100msecs();
+            this.SetDrawerWorkState(DrawerWorkState.TrayArriveAtPositionOut);
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayArriveOut");
+            if (OnTrayArriveOutHandler != null)
+            {
+                OnTrayArriveOutHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary>OnTrayMothingSensorOFFHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMothingSensorOFF(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMothingSensorOFF");
+            if (OnTrayMotionSensorOFFHandler != null)
+            {
+                OnTrayMotionSensorOFFHandler.Invoke(this, e);
+            }
+        }
+
+        /// <summary> OnTrayMotionFailedHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMotionFailed(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionFailed");
+            this.SetDrawerWorkState(DrawerWorkState.TrayMotionFailed);
+            if (OnTrayMotionFailedHandler != null)
+            {
+                OnTrayMotionFailedHandler.Invoke(this, e);
+            }
+        }
+        /// <summary>OnTrayMotioningHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMotioning(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotioning");
+            if (OnTrayMotioningHandler != null)
+            {
+                OnTrayMotioningHandler.Invoke(this, e);
+            }
+        }
+        /// <summary>OnTrayMotionOKHandler</summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnTrayMotionOK(object sender, EventArgs e)
+        {
+            Debug.WriteLine("Drawer IP=" + this.DeviceIP + ", Event=" + "OnTrayMotionOK");
+            if (OnTrayMotionOKHandler != null)
+            {
+                OnTrayMotionOKHandler.Invoke(this, e);
+            }
+        }
         #endregion
 
+
+
         #region command
-        private void Sleep100msecs()
+        public string CommandBoxDetection()
         {
-            Thread.Sleep(100);
+            ResetCurrentWorkState();
+            var commandText = Ldd.CommandBoxDetection();
+            return commandText;
+        }
+
+        public string CommandBrightLEDAllOff()
+        {
+
+            var commandText = Ldd.CommandBrightLEDAllOff();
+            return commandText;
+        }
+
+        public string CommandBrightLEDAllOn()
+        {
+
+            var commandText = Ldd.CommandBrightLEDAllOn();
+            return commandText;
+        }
+
+        public string CommandBrightLEDGreenOn()
+        {
+
+            var commandText = Ldd.CommandBrightLEDGreenOn();
+            return commandText;
+        }
+
+        public string CommandBrightLEDRedOn()
+        {
+
+            var commandText = Ldd.CommandBrightLEDRedOn();
+            return commandText;
         }
 
         public string CommandINI()
@@ -522,10 +599,59 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             return commandText;
         }
 
+        public string CommandLCDMsg(string message)
+        {
+
+            var commandText = Ldd.CommandLCDMsg(message);
+            return commandText;
+        }
+
+        public string CommandPositionRead()
+        {
+
+            var commandText = Ldd.CommandPositionRead();
+            return commandText;
+        }
+
         public string CommandSetMotionSpeed(int speed)
         {
 
             var commandText = Ldd.CommandSetMotionSpeed(speed);
+            return commandText;
+        }
+
+        public string CommandSetParameterHomePosition(string homePosition)
+        {
+
+            var commandText = Ldd.CommandSetParameterHomePosition(homePosition);
+            return commandText;
+        }
+
+        public string CommandSetParameterInSidePosition(string insidePosition)
+        {
+
+            var commandText = Ldd.CommandSetParameterInSidePosition(insidePosition);
+            return commandText;
+        }
+
+        public string CommandSetParameterIPAddress(string ipAddress)
+        {
+
+            var commandText = Ldd.CommandSetParameterIPAddress(ipAddress);
+            return commandText;
+        }
+
+        public string CommandSetParameterOutSidePosition(string outsidePosition)
+        {
+
+            var commandText = Ldd.CommandSetParameterOutSidePosition(outsidePosition);
+            return commandText;
+        }
+
+        public string CommandSetParameterSubMask(string submaskAddress)
+        {
+
+            var commandText = Ldd.CommandSetParameterSubMask(submaskAddress);
             return commandText;
         }
 
@@ -545,9 +671,13 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             return commandText;
         }
 
-        private void SetDrawerWorkState(object moveTrayToPositionHomeIng)
+        public string CommandTrayMotionIn()
         {
-            throw new NotImplementedException();
+            // ResetCurrentWorkState();
+            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
+            var commandText = Ldd.CommandTrayMotionIn();
+
+            return commandText;
         }
 
         public string CommandTrayMotionOut()
@@ -558,59 +688,6 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             return commandText;
         }
 
-        public string CommandTrayMotionIn()
-        {
-            // ResetCurrentWorkState();
-            this.SetDrawerWorkState(DrawerWorkState.MoveTrayToPositionInIng);
-            var commandText = Ldd.CommandTrayMotionIn();
-
-            return commandText;
-        }
-
-
-
-        public string CommandBrightLEDAllOn()
-        {
-
-            var commandText = Ldd.CommandBrightLEDAllOn();
-            return commandText;
-        }
-
-        public string CommandBrightLEDAllOff()
-        {
-
-            var commandText = Ldd.CommandBrightLEDAllOff();
-            return commandText;
-        }
-
-        public string CommandBrightLEDGreenOn()
-        {
-
-            var commandText = Ldd.CommandBrightLEDGreenOn();
-            return commandText;
-        }
-
-        public string CommandBrightLEDRedOn()
-        {
-
-            var commandText = Ldd.CommandBrightLEDRedOn();
-            return commandText;
-        }
-
-        public string CommandPositionRead()
-        {
-
-            var commandText = Ldd.CommandPositionRead();
-            return commandText;
-        }
-
-        public string CommandBoxDetection()
-        {
-            ResetCurrentWorkState();
-            var commandText = Ldd.CommandBoxDetection();
-            return commandText;
-        }
-
         public string CommandWriteNetSetting()
         {
 
@@ -618,123 +695,35 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             return commandText;
         }
 
-        public string CommandLCDMsg(string message)
+        private void SetDrawerWorkState(object moveTrayToPositionHomeIng)
         {
-
-            var commandText = Ldd.CommandLCDMsg(message);
-            return commandText;
+            throw new NotImplementedException();
         }
 
-        public string CommandSetParameterHomePosition(string homePosition)
+        private void Sleep100msecs()
         {
-
-            var commandText = Ldd.CommandSetParameterHomePosition(homePosition);
-            return commandText;
-        }
-
-        public string CommandSetParameterOutSidePosition(string outsidePosition)
-        {
-
-            var commandText = Ldd.CommandSetParameterOutSidePosition(outsidePosition);
-            return commandText;
-        }
-
-        public string CommandSetParameterInSidePosition(string insidePosition)
-        {
-
-            var commandText = Ldd.CommandSetParameterInSidePosition(insidePosition);
-            return commandText;
-        }
-
-        public string CommandSetParameterIPAddress(string ipAddress)
-        {
-
-            var commandText = Ldd.CommandSetParameterIPAddress(ipAddress);
-            return commandText;
-        }
-
-        public string CommandSetParameterSubMask(string submaskAddress)
-        {
-
-            var commandText = Ldd.CommandSetParameterSubMask(submaskAddress);
-            return commandText;
+            Thread.Sleep(100);
         }
         #endregion
+
         #region Result
-        public void TrayArriveResult(object sender, int result)
+        public void BoxDetectionResult(object sender, bool result)
         {
-            var arriveType = (TrayArriveType)result;
+            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
+            if (result)
+            {  // 有盒子
+                DebugLog(ldd, "有盒子");
 
-            // vs 2013
-            // if (this.Tag.ToString() == nameof(CommandINI))
-            if (this.Tag.ToString() == "CommandINI")
-            {   // 如果當時是發 initial 指令, 視為 初始化成功
-                if (arriveType == TrayArriveType.ArriveHome)
-                {
-                    this.INIResult(sender, true);
-                }
             }
             else
             {
-                var ldd = (MvaKjMachineDrawerLdd)sender;
-                if (arriveType == TrayArriveType.ArriveHome)
-                { // 回到 Home
-
-                    DebugLog(ldd, "已經回到 Home");
-                }
-                else if (arriveType == TrayArriveType.ArriveIn)
-                { //  回到 In
-                    DebugLog(ldd, "已經回到 In");
-                }
-                else// if (arriveType == TrayArriveType.ArriveOut)
-                {  // 回到 Out
-                    DebugLog(ldd, "已經回到 Out");
-                }
+                DebugLog(ldd, "没有盒子");
             }
-        }
-
-
-
-        public void INIResult(object sender, bool result)
-        {
-            var ldd = (MvaKjMachineDrawerLdd)sender;
-            if (result)
-            {  // 初始化成功
-                DebugLog(ldd, "初始化成功");
-            }
-            else
-            { // 初始化失敗
-                DebugLog(ldd, "初始化失敗");
-            }
-        }
-
-        public void SetMotionSpeedResult(object sender, bool result)
-        {
-            var ldd = (MvaKjMachineDrawerLdd)sender;
-            if (result)
-            {  // 速度設定成功
-                DebugLog(ldd, "設定速度成功");
-            }
-            else
-            {  // 速度設定失敗
-                DebugLog(ldd, "設定速度失敗");
-            }
-        }
-
-        public void SetTimeOutResult(object sender, bool result)
-        {
-            var ldd = (MvaKjMachineDrawerLdd)sender;
-            if (result)
-            { // 逾時時間設定成功
-                DebugLog(ldd, "設定Time Out成功");
-            }
-            else
+            if (OnBoxDetectionResultHandler != null)
             {
-                DebugLog(ldd, "設定Time Out 失敗");
+                OnBoxDetectionResultHandler.Invoke(this, new HalDrawerBoxDetectReturn { HasBox = result });
             }
         }
-
-
 
         public void BrightLEDResult(object sender, bool result)
         {
@@ -793,6 +782,33 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             }
         }
 
+        public void ErrorResult(object sender, int result)
+        {
+            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
+            var errorResult = (ReplyErrorCode)result;
+            if (errorResult == ReplyErrorCode.Error)
+            { // Error
+
+                DebugLog(ldd, "Error");
+            }
+            else //if (errorResult == ReplyErrorCode.Recovery)
+            {// Recovery
+                DebugLog(ldd, "Recovery");
+            }
+        }
+
+        public void INIResult(object sender, bool result)
+        {
+            var ldd = (MvaKjMachineDrawerLdd)sender;
+            if (result)
+            {  // 初始化成功
+                DebugLog(ldd, "初始化成功");
+            }
+            else
+            { // 初始化失敗
+                DebugLog(ldd, "初始化失敗");
+            }
+        }
 
         public void PositionReadResult(object sender, string result)
         {
@@ -809,49 +825,64 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             }
         }
 
-        public void BoxDetectionResult(object sender, bool result)
+        public void SetMotionSpeedResult(object sender, bool result)
         {
-            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
+            var ldd = (MvaKjMachineDrawerLdd)sender;
             if (result)
-            {  // 有盒子
-                DebugLog(ldd, "有盒子");
+            {  // 速度設定成功
+                DebugLog(ldd, "設定速度成功");
+            }
+            else
+            {  // 速度設定失敗
+                DebugLog(ldd, "設定速度失敗");
+            }
+        }
 
+        public void SetTimeOutResult(object sender, bool result)
+        {
+            var ldd = (MvaKjMachineDrawerLdd)sender;
+            if (result)
+            { // 逾時時間設定成功
+                DebugLog(ldd, "設定Time Out成功");
             }
             else
             {
-                DebugLog(ldd, "没有盒子");
-            }
-            if (OnBoxDetectionResultHandler != null)
-            {
-                OnBoxDetectionResultHandler.Invoke(this, new HalDrawerBoxDetectReturn { HasBox = result });
+                DebugLog(ldd, "設定Time Out 失敗");
             }
         }
 
-
-
-        public void ErrorResult(object sender, int result)
+        public void TrayArriveResult(object sender, int result)
         {
-            MvaKjMachineDrawerLdd ldd = (MvaKjMachineDrawerLdd)sender;
-            var errorResult = (ReplyErrorCode)result;
-            if (errorResult == ReplyErrorCode.Error)
-            { // Error
+            var arriveType = (TrayArriveType)result;
 
-                DebugLog(ldd, "Error");
-            }
-            else //if (errorResult == ReplyErrorCode.Recovery)
-            {// Recovery
-                DebugLog(ldd, "Recovery");
-            }
-        }
-
-        #endregion
-        void DebugLog(MvaKjMachineDrawerLdd ldd, string text)
-        {
             // vs 2013
-            // string str = $"Ldd={ldd.DeviceIP}, Text={text}";
-            string str = "Ldd=" + ldd.DeviceIP + ", Text=" + text;
-            Debug.WriteLine("\r\n" + str);
+            // if (this.Tag.ToString() == nameof(CommandINI))
+            if (this.Tag.ToString() == "CommandINI")
+            {   // 如果當時是發 initial 指令, 視為 初始化成功
+                if (arriveType == TrayArriveType.ArriveHome)
+                {
+                    this.INIResult(sender, true);
+                }
+            }
+            else
+            {
+                var ldd = (MvaKjMachineDrawerLdd)sender;
+                if (arriveType == TrayArriveType.ArriveHome)
+                { // 回到 Home
+
+                    DebugLog(ldd, "已經回到 Home");
+                }
+                else if (arriveType == TrayArriveType.ArriveIn)
+                { //  回到 In
+                    DebugLog(ldd, "已經回到 In");
+                }
+                else// if (arriveType == TrayArriveType.ArriveOut)
+                {  // 回到 Out
+                    DebugLog(ldd, "已經回到 Out");
+                }
+            }
         }
+        #endregion
 
     }
 }

@@ -160,14 +160,14 @@ namespace MvAssistant.v0_3.Mac.Hal
             //
 
 
-            this.DisposeSelf();
+            this.DisposeClose();
 
             disposed = true;
         }
 
 
 
-        protected virtual void DisposeSelf()
+        protected virtual void DisposeClose()
         {
             this.HalClose();
         }
