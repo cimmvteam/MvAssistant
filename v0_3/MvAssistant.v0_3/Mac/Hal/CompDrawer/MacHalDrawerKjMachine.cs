@@ -84,7 +84,11 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
 
         public override int HalClose()
         {
-            //throw new NotImplementedException();
+            if (this.LddPool != null)
+            {
+                using (var pool = this.LddPool)
+                    pool.Close();
+            }
             return 0;
         }
 
@@ -214,16 +218,6 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
 
 
 
-        protected override void DisposeClose()
-        {
-            if(this.LddPool != null)
-            {
-                using (var pool = this.LddPool)
-                    pool.Close();
-            }
-
-            base.DisposeClose();
-        }
 
 
 

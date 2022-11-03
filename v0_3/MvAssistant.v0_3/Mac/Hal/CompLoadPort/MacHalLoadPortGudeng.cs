@@ -669,10 +669,8 @@ namespace MvAssistant.v0_3.Mac.Hal.CompLoadPort
         }
 
 
-        protected override void DisposeClose()
-        {
-            this.HalClose();
-        }
+
+
 
     }
 }

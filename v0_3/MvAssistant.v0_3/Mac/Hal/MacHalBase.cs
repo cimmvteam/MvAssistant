@@ -167,7 +167,7 @@ namespace MvAssistant.v0_3.Mac.Hal
 
 
 
-        protected virtual void DisposeClose()
+        public virtual void DisposeClose()
         {
             this.HalClose();
         }
