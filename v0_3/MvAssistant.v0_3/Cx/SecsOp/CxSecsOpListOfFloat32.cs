@@ -1,11 +1,11 @@
-﻿using CodeExpress.v1_1Core.Secs;
+﻿using MvaCodeExpress.v1_1.Secs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace CodeExpress.v1_1Core.SecsOp
+namespace MvaCodeExpress.v1_1.SecsOp
 {
     [Serializable]
     [Guid("1B098E40-63DA-4030-8AE1-07304B57824C")]

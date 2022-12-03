@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeExpress.v1_1Core
+namespace MvaCodeExpress.v1_1
 {
     public class CxUtil
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace CodeExpress.v1_1Core.Secs
+namespace MvaCodeExpress.v1_1.Secs
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct CxHsmsHeader

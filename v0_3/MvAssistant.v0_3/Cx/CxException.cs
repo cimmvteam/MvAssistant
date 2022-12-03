@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeExpress.v1_1Core
+namespace MvaCodeExpress.v1_1
 {
     public class CxException : Exception
     {

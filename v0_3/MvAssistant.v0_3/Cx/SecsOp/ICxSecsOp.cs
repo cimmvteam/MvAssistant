@@ -1,9 +1,9 @@
-﻿using CodeExpress.v1_1Core.Secs;
+﻿using MvaCodeExpress.v1_1.Secs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeExpress.v1_1Core.SecsOp
+namespace MvaCodeExpress.v1_1.SecsOp
 {
     public interface ICxSecsOp
     {

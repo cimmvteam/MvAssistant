@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace CodeExpress.v1_1Core.Secs
+namespace MvaCodeExpress.v1_1.Secs
 {
 
 

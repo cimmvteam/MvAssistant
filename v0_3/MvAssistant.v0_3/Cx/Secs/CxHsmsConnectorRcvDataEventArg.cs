@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CodeExpress.v1_1Core.Secs
+namespace MvaCodeExpress.v1_1.Secs
 {
 
     public class CxHsmsConnectorRcvDataEventArg : EventArgs

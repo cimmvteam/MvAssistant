@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace CodeExpress.v1_1Core.Secs
+namespace MvaCodeExpress.v1_1.Secs
 {
     /// <summary>
     /// HSMS topic 處理, 不用Thread, 不重新連線, 讓使用者自行決定處理方式

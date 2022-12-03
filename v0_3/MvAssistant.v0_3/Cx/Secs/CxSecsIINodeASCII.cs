@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace CodeExpress.v1_1Core.Secs
+namespace MvaCodeExpress.v1_1.Secs
 {
 
 

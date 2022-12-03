@@ -1,9 +1,9 @@
-﻿using CodeExpress.v1_1Core.Secs;
+﻿using MvaCodeExpress.v1_1.Secs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeExpress.v1_1Core.SecsMsg
+namespace MvaCodeExpress.v1_1.SecsMsg
 {
     public class CxSecsS01F02
     {
