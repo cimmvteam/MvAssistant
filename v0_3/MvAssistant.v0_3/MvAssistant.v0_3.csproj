@@ -515,13 +515,6 @@
     <Compile Include="Mac\JSon\RobotTransferFile\BoxrobotTransferPathFile.cs" />
     <Compile Include="Mac\JSon\RobotTransferFile\MaskrobotTransferLocation.cs" />
     <Compile Include="Mac\JSon\RobotTransferFile\MaskrobotTransferPathFile.cs" />
-    <Compile Include="Logging\IMvaLoggable.cs" />
-    <Compile Include="Logging\MvaLogger.cs" />
-    <Compile Include="Logging\MvaLoggerDisplayEnum.cs" />
-    <Compile Include="Logging\MvaLoggerEnumLevel.cs" />
-    <Compile Include="Logging\MvaLoggerEventArgs.cs" />
-    <Compile Include="Logging\MvaLoggerMapper.cs" />
-    <Compile Include="Logging\MvaLoggerMapperEventArgs.cs" />
     <Compile Include="Mac\MacException.cs" />
     <Compile Include="Mac\Manifest\EnumMacDeviceId.cs" />
     <Compile Include="Mac\Manifest\Exceptions\MacGenCheckSumException.cs" />
@@ -541,7 +534,6 @@
     <Compile Include="Mac\Manifest\MacManifestDriverId.cs" />
     <Compile Include="Mac\Manifest\MacManifestGenCfgBase.cs" />
     <Compile Include="MvaException.cs" />
-    <Compile Include="MvaLog.cs" />
     <Compile Include="Mac\MacUtil.cs" />
     <Compile Include="MvaUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using MvaCToolkitCs.v1_2;
 using OMRON.Compolet.CIP;
 namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
 {
@@ -78,7 +79,7 @@ namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
                     myex = ex;
                 }
             }
@@ -105,7 +106,7 @@ namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
                     myex = ex;
                 }
             }
@@ -132,7 +133,7 @@ namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
                     myex = ex;
                 }
             }

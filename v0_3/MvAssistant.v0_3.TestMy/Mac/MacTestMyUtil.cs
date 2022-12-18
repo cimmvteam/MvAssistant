@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MvaCToolkitCs.v1_2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace MvAssistant.v0_3.Mac.TestMy
     {
         public static void RegisterLog()
         {
-            MvaLog.RegisterEveryLogWrite((ss, ee) =>
+            CtkLog.RegisterEveryLogWrite((ss, ee) =>
             {
                 var now = DateTime.Now;
 

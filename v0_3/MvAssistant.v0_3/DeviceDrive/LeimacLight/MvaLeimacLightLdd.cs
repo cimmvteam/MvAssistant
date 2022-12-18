@@ -1,4 +1,5 @@
-﻿using MvaCToolkitCs.v1_2.Net;
+﻿using MvaCToolkitCs.v1_2;
+using MvaCToolkitCs.v1_2.Net;
 using MvaCToolkitCs.v1_2.Net.SocketTx;
 using MvaCToolkitCs.v1_2.Protocol;
 using MvAssistant.v0_3.Threading;
@@ -51,7 +52,7 @@ namespace MvAssistant.v0_3.DeviceDrive.LeimacLight
                 if (!string.IsNullOrEmpty(ip)) this.RemoteIp = ip;
                 if (port.HasValue) this.RemotePort = port.Value;
 
-                if (!this.TcpClient.IsOpenRequesting && !this.TcpClient.IsRemoteConnected)
+                if (!this.TcpClient.IsOpenConnecting && !this.TcpClient.IsRemoteConnected)
                     this.TcpClient.ConnectTry();
                 return 0;
             }
@@ -187,7 +188,7 @@ namespace MvAssistant.v0_3.DeviceDrive.LeimacLight
                 if (this.TcpClient != null)
                     using (var obj = this.TcpClient) { obj.Disconnect(); }
             }
-            catch (Exception ex) { MvaLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
         }
 
 

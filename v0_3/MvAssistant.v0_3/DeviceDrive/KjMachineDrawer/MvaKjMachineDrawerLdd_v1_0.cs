@@ -1,4 +1,5 @@
-﻿using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
+﻿using MvaCToolkitCs.v1_2;
+using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.Exceptions;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.UDPCommand;
@@ -82,7 +83,7 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
                 {
                     portTable.Remove(variablePort);
                     portTable.Add(variablePort, false);
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
                 }
             }
             ListenThread = new Thread(Listen);

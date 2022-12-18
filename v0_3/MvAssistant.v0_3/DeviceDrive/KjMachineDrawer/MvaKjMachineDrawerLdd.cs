@@ -1,4 +1,5 @@
-﻿using MvaCToolkitCs.v1_2.Net;
+﻿using MvaCToolkitCs.v1_2;
+using MvaCToolkitCs.v1_2.Net;
 using MvaCToolkitCs.v1_2.Net.SocketTx;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.Exceptions;
@@ -68,7 +69,7 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
                 {
                     portTable.Remove(variablePort);
                     portTable.Add(variablePort, false);
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
                 }
             }
 

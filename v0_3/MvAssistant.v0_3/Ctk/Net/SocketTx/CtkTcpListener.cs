@@ -333,8 +333,8 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             }
         }
 
-        public bool IsLocalReadyConnect { get { return this.myTcpListener != null && this.myTcpListener.Active; } }
-        public bool IsOpenRequesting { get { return !this.mreIsConnecting.WaitOne(10); } }
+        public bool IsLocalPrepared { get { return this.myTcpListener != null && this.myTcpListener.Active; } }
+        public bool IsOpenConnecting { get { return !this.mreIsConnecting.WaitOne(10); } }
         public bool IsRemoteConnected { get { return this.ConnectCount() > 0; } }
 
         //用途是避免重複要求連線

@@ -22,15 +22,10 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
         public HttpWebRequest HwRequest;
         public string HwRequestData;
         public Encoding HwRequestEncoding = Encoding.UTF8;
-        public Encoding HwResponseEncoding;
-        protected String HwResponseData;
+        public Encoding HwResponseEncoding = Encoding.UTF8;
         protected HttpWebResponse hwResponse;
-
-
-        ~CtkNetHttpWebTransaction() { this.Dispose(false); }
-
-
-
+        protected String HwResponseData;
+        
         public HttpWebResponse GetHwResponse()
         {
             if (this.hwResponse != null) return this.hwResponse;
@@ -69,7 +64,6 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
             using (var reader = new StreamReader(stream, hwrespEncoding))
                 return this.HwResponseData = reader.ReadToEnd();
         }
-
         public String GetHwResponseDataGZip()
         {
             if (this.HwResponseData != null) return this.HwResponseData;//只有null, 空字串仍代表已讀過
@@ -121,8 +115,6 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
             }
         }
-
-
         public void SetHeaders(String headers)
         {
             var lines = headers.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -178,26 +170,11 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
 
 
-        public void Close()
-        {
-            if (this.hwResponse != null)
-            {
-                try
-                {
-                    this.hwResponse.Close();
-                    this.hwResponse.Dispose();
-                }
-                catch (Exception) { }
-            }
-        }
-
-
 
         #region IDisposable
         // Flag: Has Dispose already been called?
-        bool disposed = false;
-
-
+        protected bool disposed = false;
+        ~CtkNetHttpWebTransaction() { this.Dispose(false); }
         // Public implementation of Dispose pattern callable by consumers.
         public void Dispose()
         {
@@ -219,13 +196,24 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
             // Free any unmanaged objects here.
             //
 
-            this.DisposeSelf();
+            this.DisposeClose();
 
             disposed = true;
         }
-        void DisposeSelf()
+        void DisposeClose()
         {
-            try { this.Close(); }
+            try
+            {
+                if (this.hwResponse != null)
+                {
+                    try
+                    {
+                        this.hwResponse.Close();
+                        this.hwResponse.Dispose();
+                    }
+                    catch (Exception) { }
+                }
+            }
             catch (Exception ex) { CtkLog.Write(ex); }
             //斷線不用清除Event, 但Dispsoe需要, 因為即使斷線此物件仍存活著
             CtkEventUtil.RemoveEventHandlersOfOwnerByFilter(this, (dlgt) => true);
@@ -366,7 +354,10 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
 
 
-        #region Selenium
+
+        #endregion
+
+        #region Static - Selenium
 
 
         public static async Task<CtkNetHttpWebGetRtn<IWebDriver>> SeleniumChromeHttpGetAsyn(String uri,
@@ -447,7 +438,7 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
         }
 
 
-        public static async Task<CtkNetHttpWebGetRtn<IWebDriver>> SeleniumRemoteChromeHttpGetAsyn(string seleniumRemoteUri,   String reqUri,
+        public static async Task<CtkNetHttpWebGetRtn<IWebDriver>> SeleniumRemoteChromeHttpGetAsyn(string seleniumRemoteUri, String reqUri,
             Func<IWebDriver, bool> callback = null, int timeout = 30 * 1000, int delayBrowserOpen = 5 * 1000)
         {
             var rtn = new CtkNetHttpWebGetRtn<IWebDriver>();
@@ -508,7 +499,6 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
         #endregion
 
-        #endregion
 
     }
 }

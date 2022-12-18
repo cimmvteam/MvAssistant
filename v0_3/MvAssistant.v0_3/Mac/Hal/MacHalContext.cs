@@ -1,4 +1,5 @@
-﻿using MvAssistant.v0_3.Mac.Hal.CompLight;
+﻿using MvaCToolkitCs.v1_2;
+using MvAssistant.v0_3.Mac.Hal.CompLight;
 using MvAssistant.v0_3.Mac.Manifest;
 using MvAssistant.v0_3.Mac.Manifest.Exceptions;
 using System;
@@ -110,7 +111,7 @@ namespace MvAssistant.v0_3.Mac.Hal
             foreach (var kv in this.HalDevices)
             {
                 try { this.HalClose(kv.Value); }
-                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
+                catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             }
 
             //釋放資源
@@ -121,7 +122,7 @@ namespace MvAssistant.v0_3.Mac.Hal
                     if (kv.Value == null) continue;
                     kv.Value.Dispose();
                 }
-                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
+                catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             }
 
 
@@ -204,7 +205,7 @@ namespace MvAssistant.v0_3.Mac.Hal
 
             foreach (var did in duplicates)
             {
-                MvaLog.WarnNs(this, "Duplicate driver id: {0}", did.Key);
+                CtkLog.WarnNsF(this, "Duplicate driver id: {0}", did.Key);
             }
 
             if (duplicates.Count != 0)
@@ -257,7 +258,7 @@ namespace MvAssistant.v0_3.Mac.Hal
             foreach (var rsc in this.Resources)
             {
                 try { rsc.Value.Dispose(); }
-                catch (Exception ex) { MvaLog.WarnNs(this, ex); }
+                catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             }
         }
 

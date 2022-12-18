@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvaCToolkitCs.v1_2;
 using MvAssistant.v0_3.DeviceDrive.LeimacLight;
 
 namespace MvAssistant.v0_3.Mac.TestMy.ToolDevice
@@ -22,26 +23,26 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolDevice
 
                 light.TcpClient.EhDataReceive += (ss, ee) =>
                 {
-                    MvaLog.WarnNs(this, ee.Message);
-                    MvaLog.WarnNs(this, ee.TrxMessage.GetString());
+                    CtkLog.WarnNs(this, ee.Message);
+                    CtkLog.WarnNs(this, ee.TrxMessage.GetString());
                     are.Set();
                 };
 
                 light.TcpClient.EhErrorReceive += (ss, ee) =>
                 {
-                    MvaLog.WarnNs(this, ee.Message);
+                    CtkLog.WarnNs(this, ee.Message);
                 };
                 light.TcpClient.EhFailConnect += (ss, ee) =>
                 {
-                    MvaLog.WarnNs(this, ee.Message);
+                    CtkLog.WarnNs(this, ee.Message);
                 };
                 light.TcpClient.EhDisconnect += (ss, ee) =>
                 {
-                    MvaLog.WarnNs(this, ee.Message);
+                    CtkLog.WarnNs(this, ee.Message);
                 };
                 light.TcpClient.EhFirstConnect += (ss, ee) =>
                 {
-                    MvaLog.WarnNs(this, ee.Message);
+                    CtkLog.WarnNs(this, ee.Message);
                 };
 
 

@@ -275,7 +275,6 @@ namespace MvaCToolkitCs.v1_2.Net
             return macList;
         }
 
-
         public static IPAddress GetSuitableIp(string request_ip, string reference_ip)
         {
             //如果要求的IP有被設定, 就回傳要求的
@@ -318,6 +317,7 @@ namespace MvaCToolkitCs.v1_2.Net
 
             return ipaddr;
         }
+
 
         public static bool IsConnected(TcpClient obj)
         {

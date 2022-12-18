@@ -1,4 +1,5 @@
-﻿using MvaCToolkitCs.v1_2.Net;
+﻿using MvaCToolkitCs.v1_2;
+using MvaCToolkitCs.v1_2.Net;
 using MvaCToolkitCs.v1_2.Net.SocketTx;
 using MvAssistant.v0_3;
 using System;
@@ -96,7 +97,7 @@ namespace MvAssistant.v0_3.DeviceDrive.WacohForce
             if (this.connectionStatus == MvaWacohForceEnumConnectionStatus.Connecting) return 1;
 
             this.netNonStopTcpClient.ConnectTry();
-            if (this.netNonStopTcpClient.IsLocalReadyConnect)
+            if (this.netNonStopTcpClient.IsLocalPrepared)
                 this.connectionStatus = MvaWacohForceEnumConnectionStatus.Connecting;
 
             return 0;
@@ -155,7 +156,7 @@ namespace MvAssistant.v0_3.DeviceDrive.WacohForce
                     this.evtDataReceive -= (EventHandler<MvaWacohForceMessageEventArgs>)d;
                 }
             }
-            catch (Exception ex) { MvaLog.Write(ex); }
+            catch (Exception ex) { CtkLog.Write(ex); }
         }
 
 

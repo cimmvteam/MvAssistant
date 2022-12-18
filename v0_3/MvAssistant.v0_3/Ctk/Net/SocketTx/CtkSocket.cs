@@ -43,6 +43,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
         bool m_isReceiveLoop = false;
         ~CtkSocket() { this.Dispose(false); }
 
+        /// <summary> 同步時的重複接收旗標 </summary>
         public bool IsReceiveLoop { get { return m_isReceiveLoop; } private set { lock (this) m_isReceiveLoop = value; } }
         public bool IsWaitReceive { get { return this.mreIsReceiving.WaitOne(10); } }
         public Socket SocketConn { get; protected set; }
@@ -184,7 +185,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
         }
         public void DisconnectIfUnReadable()
         {
-            if (this.IsOpenRequesting) return;//開啟中不執行
+            if (this.IsOpenConnecting) return;//開啟中不執行
             if (this.SocketConn == null) return;//沒連線不執行
             if (this.TargetSockets.Count == 0) return;//沒連線不執行
             if (!this.CheckConnectReadable())//確認無法連線
@@ -205,8 +206,12 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
         /// <summary> 設定主要通訊對象 </summary>
         public object ActiveTarget { get; set; }
-        public bool IsLocalReadyConnect { get { return this.SocketConn != null && this.SocketConn.IsBound; } }
-        public bool IsOpenRequesting { get { return !this.mreIsConnecting.WaitOne(10); } }
+
+        /// <summary> Local 設置好+Bound 就算完成 </summary>
+        public bool IsLocalPrepared { get { return this.SocketConn != null && this.SocketConn.IsBound; } }
+        /// <summary> 嘗試建立連線都算, 包含聆聽者等待連線以及開始下次聆聽中 </summary>
+        public bool IsOpenConnecting { get { return !this.mreIsConnecting.WaitOne(10); } }
+        /// <summary> 確實有建立連線的對象 </summary>
         public bool IsRemoteConnected { get { this.CleanInvalidWorks(); return this.TargetSockets.Count > 0 || this.TargetEndPoints.Count > 0; } }
 
 
@@ -217,8 +222,20 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
         public int ConnectTry() { /*暫時不支援同步型, 也很少用*/ throw new NotImplementedException(); }
         public int ConnectTryStart()
         {
-            if (this.IsOpenRequesting || this.IsRemoteConnected) return 0;
-            if (this.IsLocalReadyConnect) return 0; //非同步連線 有可能在等待連線, 此時不需重啟連線.
+            /*Client: 
+             * 連線中=嘗試不需重啟; 
+             * 已連線=已可通訊不需重啟; 
+             * 若不在連線中也沒對象=會嘗試重啟連線.
+             * Local 準備好不代表連線成功.
+             */
+            /*Listener: 
+             * 連線中=包含重複聆聽, 不需重啟. 若非連線中=不再Accept; 
+             * 已連線=已有建立通訊的對象;
+             * 若不在連線中也沒對象=會嘗試重啟連線
+             * Local 準備好不代表連線成功 也不代表聆聽中
+             */
+            if (this.IsOpenConnecting || this.IsRemoteConnected) return 0;
+
 
             try
             {
@@ -391,13 +408,16 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
 
                 if (this.IsAsynAutoListen)
-                    state.SocketConn.BeginAccept(new AsyncCallback(EndAcceptCallback), state);
+                {
+                    try { state.SocketConn.BeginAccept(new AsyncCallback(EndAcceptCallback), state); }
+                    catch (Exception) { this.mreIsConnecting.Set(); /*例外導致不再Listen的話 = 非連線中*/ }
+                }
+                else { this.mreIsConnecting.Set(); /*不再Listen的話 = 非連線中*/ }
                 if (this.IsAsynAutoReceive)
                     target.BeginReceive(trxmBuffer.Buffer, 0, trxmBuffer.Buffer.Length, SocketFlags.None, new AsyncCallback(EndReceiveCallback), myea);
             }
             catch (Exception ex)
             {
-
                 CtkNetUtil.DisposeSocketTry(target);//失敗清除, Listener不用
                 myea.Message = ex.Message;
                 myea.Exception = ex;
@@ -406,8 +426,6 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             }
             finally
             {
-                try { this.mreIsConnecting.Set(); /*同步型的, 結束就可以Set*/ }
-                catch (ObjectDisposedException) { }
                 Monitor.Exit(this);
             }
         }
@@ -564,9 +582,6 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
         #region 連線模式 Method
         public abstract Socket CreateSocket();
-
-
-
 
 
 

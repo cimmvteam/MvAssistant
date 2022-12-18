@@ -36,18 +36,18 @@ namespace MvaCToolkitCs.v1_2.Wcf.DuplexTcp
         public event EventHandler<CtkProtocolEventArgs> EhFirstConnect;
 
         public object ActiveTarget { get { return this.activeWorkClient; } set { this.activeWorkClient = value as ICTkWcfDuplexTcpCallback; } }
-        public bool IsLocalReadyConnect { get { return this.host != null && this.host.State <= CommunicationState.Opened; } }
-        public bool IsOpenRequesting { get { try { return Monitor.TryEnter(this, 10); } finally { Monitor.Exit(this); } } }
+        public bool IsLocalPrepared { get { return this.host != null && this.host.State <= CommunicationState.Opened; } }
+        public bool IsOpenConnecting { get { try { return Monitor.TryEnter(this, 10); } finally { Monitor.Exit(this); } } }
         public bool IsRemoteConnected { get { return this.GetAllChannels().Count > 0; } }
 
         public int ConnectTry() { return this.ConnectTryStart(); }
         public int ConnectTryStart()
         {
-            if (this.IsLocalReadyConnect) return 0;
+            if (this.IsLocalPrepared) return 0;
             try
             {
                 if (!Monitor.TryEnter(this, 1000)) return -1;//進不去先離開
-                if (this.IsLocalReadyConnect) return 0;
+                if (this.IsLocalPrepared) return 0;
                 this.CleanDisconnected();
                 this.CleanHost();
                 this.NewHost();

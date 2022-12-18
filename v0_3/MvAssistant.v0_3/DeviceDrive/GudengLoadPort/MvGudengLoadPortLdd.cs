@@ -1,4 +1,6 @@
-﻿using MvaCToolkitCs.v1_2.Net;
+﻿using MvaCToolkitCs.v1_2;
+using MvaCToolkitCs.v1_2.Net;
+using MvaCToolkitCs.v1_2.Protocol;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort.ReplyCode;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort.TCPCommand.HostToLoadPort;
@@ -18,103 +20,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
     public class MvGudengLoadPortLdd : IDisposable
     {
 
-        public delegate string OriginalInvokeMethod();
-        public string Index { get; set; }
         private OriginalInvokeMethod DelgateOriginalMethod = null;
-        public void InvokeOriginalMethod()
-        {
-            if (DelgateOriginalMethod != null)
-            {
-                DelgateOriginalMethod.Invoke();
-            }
-        }
-        /** 
-         private bool CommandCascadeMode = false;
-         private bool IsCommandCascade
-         {
-             get
-             {
-                 return CommandCascadeMode;
-             }
-         }
-         public void SetCommandCascade()
-         {
-             CommandCascadeMode = true;
-         }
-         public void ReleaseCommandCasadeMode()
-         {
-             CommandCascadeMode = false;
-         }
-         */
-        public void ClearOriginalMethod()
-        {
-            DelgateOriginalMethod = null;
-        }
-        public void SetOriginalMethod(OriginalInvokeMethod delegateMethod)
-        {
-            DelgateOriginalMethod = delegateMethod;
-        }
-        public bool HasInvokeOriginalMethod
-        {
-            get
-            {
-                if (DelgateOriginalMethod == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-
-        /*private string OriginalCommandText{get;set;}
-        /// <summary>是否有最初指定的 Command</summary>
-        private bool HasOriginalCommand
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(OriginalCommandText))
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-        */
-        /// <summary>Load Port 編號</summary>
-        public int LoadPortNo { get; private set; }
-        /// <summary>Server 端 End point</summary>
-        public IPEndPoint ServerEndPoint { get; private set; }
-        /// <summary>本地端要送資料到 Server 端的 Client 物件</summary>
-        private Socket ClientSocket = null;
-        /// <summary>是否已監聽 Server </summary>
-#if OnlyObserveCommandText
-        public bool IsListenServer
-        {
-            get { return true; }
-            set { }
-        }
-#else
-        ///<summary>是否已完成監聽, 這個變數為 false 時, 均無法送出指令 </summary>
-        public bool IsListenServer { get; private set; }
-
-#endif
-
-
-
-
-
-
-
-        /// <summary>Client(本地端) 端監 Server</summary>
-        public Thread ThreadClientListen = null;
-        /// <summary>收到 Server 端傳回資料時的事件處理程序</summary>
-        private event EventHandler OnReceviceRtnFromServerHandler = null;
 
         /// <summary>建構式</summary>
         public MvGudengLoadPortLdd()
@@ -146,6 +52,50 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             ServerEndPoint = new IPEndPoint(IPAddress.Parse(serverIP), serverPort);
             Index = index;
         }
+
+        public delegate string OriginalInvokeMethod();
+        public bool HasInvokeOriginalMethod
+        {
+            get
+            {
+                if (DelgateOriginalMethod == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
+
+        public string Index { get; set; }
+        /// <summary>Load Port 編號</summary>
+        public int LoadPortNo { get; private set; }
+
+        public void ClearOriginalMethod()
+        {
+            DelgateOriginalMethod = null;
+        }
+
+        public void InvokeOriginalMethod()
+        {
+            if (DelgateOriginalMethod != null)
+            {
+                DelgateOriginalMethod.Invoke();
+            }
+        }
+
+
+        public void SetOriginalMethod(OriginalInvokeMethod delegateMethod)
+        {
+            DelgateOriginalMethod = delegateMethod;
+        }
+
+
+
+
+
         /// <summary>Client(本地)端 Listen 收到 Server 端回傳資料後引發的事件程序</summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
@@ -161,10 +111,20 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             }
             catch (Exception ex)
             {
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
             }
 
         }
+
+
+
+
+
+        #region Socket Communication
+
+        public List<Byte> DataBuffer = new List<byte>();
+
+
 
         /// <summary>啟動監聽 Server 端的 Thread</summary>
         public bool StartListenServerThread()
@@ -179,27 +139,45 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             }
             catch (Exception ex)
             {
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
                 IsListenServer = false;
             }
             return IsListenServer;
         }
 
+
+        /// <summary>Client(本地端) 端監 Server</summary>
+        public Thread ThreadClientListen = null;
+
+        /// <summary>本地端要送資料到 Server 端的 Client 物件</summary>
+        private Socket ClientSocket = null;
+
+        /// <summary>連線後遺失Host 和 TCP Server 間的連線</summary>
+        public event EventHandler OnHostLostTcpServerHandler;
+        //   public event EventHandler OnHostCannotConnectToTcpServerHandler;
+        /// <summary>收到 Server 端傳回資料時的事件處理程序</summary>
+        private event EventHandler OnReceviceRtnFromServerHandler = null;
+
+        ///<summary>是否已完成監聽, 這個變數為 false 時, 均無法送出指令 </summary>
+        public bool IsListenServer { get; private set; }
+
+        /// <summary>Server 端 End point</summary>
+        public IPEndPoint ServerEndPoint { get; private set; }
         /// <summary>監聽 Server 的Method</summary>
         private void ListenFromServer()
         {
             int rtnEmptyCount = 0;
-            while (true)
+            while (!this.disposed)
             {
                 try
                 {
-                    byte[] B = new byte[1023];
-                    int inLine = ClientSocket.Receive(B);//從Server端回復(Listen Point)
-                    string rtn = Encoding.Default.GetString(B, 0, inLine);
+                    byte[] buffer = new byte[1023];
+                    int cntReadByte = ClientSocket.Receive(buffer);//從Server端回復(Listen Point)
+                    string rtn = Encoding.Default.GetString(buffer, 0, cntReadByte);
 
                     //rtn = "~001,Placement,0@\0\0\0\0";
 
-                    Debug.WriteLine("[RETURN] " + rtn);
+                    CtkLog.DebugNsF(this, "[LoadPort] " + rtn);
 
                     rtn = rtn.Replace("\0", "");
 
@@ -230,27 +208,173 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                 }
                 catch (Exception ex)
                 {
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
                 }
             }
         }
-
-        /// <summary>連線後遺失Host 和 TCP Server 間的連線</summary>
-        public event EventHandler OnHostLostTcpServerHandler;
-        //   public event EventHandler OnHostCannotConnectToTcpServerHandler;
-
         /// <summary>送出 指令</summary>
         /// <param name="commandText">指令</param>
         private void Send(string commandText)
         {
             // Debug.WriteLine("[COMMAND]" + commandText);
             byte[] B = Encoding.Default.GetBytes(commandText);
-#if OnlyObserveCommandText
-#else
             ClientSocket.Send(B, 0, B.Length, SocketFlags.None);
-#endif
         }
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
         #region Command
+
+        /// <summary>AlarmReset(109)</summary>
+        /// <remarks>
+        /// Main Event: 
+        /// <para>AlarmResetSuccess</para>
+        /// <para>.OR.</para>
+        /// <para>AlarmResetFail</para>
+        /// </remarks>
+        public string CommandAlarmReset()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AlarmReset().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskBarcodeStatus(106)</summary>
+        /// <remarks>Main Event: Barcode ID(Invoke: Barcode_ID)</remarks>
+        public string CommandAskBarcodeStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskBarcodeStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskClamperStatus(104)</summary>
+        /// <remarks>Main Event: Clamper</remarks>
+        public string CommandAskClamperStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskClamperStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskLoadportStatus(111)</summary>
+        /// <remarks>Main Event: LoadportStatus</remarks>
+        public string CommandAskLoadportStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskLoadportStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskPlacementStatus(102)</summary>
+        /// <remarks>Main Event: Placement</remarks>
+        public string CommandAskPlacementStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+
+                command = new AskPlacementStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskPresentStatus(103)</summary>
+        /// <remarks>Main Event: Present</remarks>
+        public string CommandAskPresentStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskPresentStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskReticleExistStatus(108)</summary>
+        /// <remarks>
+        /// Main Event: 
+        /// <para>DockPODComplete_HasReticle(009)</para><para>.OR.</para>
+        /// <para>DockPODComplete_Empty(010)</para>
+        /// </remarks>
+        public string CommandAskReticleExistStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskReticleExistStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskRFIDStatus(105)</summary>
+        /// <remarks>Main Event: RFID</remarks>
+        public string CommandAskRFIDStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskRFIDStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskStagePosition(110)</summary>
+        /// <remarks>Main Event: StagePosition</remarks>
+        public string CommandAskStagePosition()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskStagePosition().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command AskVacuumStatus(107)</summary>
+        /// <remarks>Main Event: VacuumComplete</remarks>
+        public string CommandAskVacuumStatus()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new AskVacuumStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
 
         /// <summary>Command DockRequest(100)</summary>
         /// <remarks>Main Event: DockPODStart</remarks>
@@ -282,6 +406,119 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
         }
         */
 
+        /// <summary>Command Initilial Request(112)</summary>
+        public string CommandInitialRequest()
+        {
+            string command = "";
+            {
+                if (IsListenServer)
+                    command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        /// <summary>Command ManualClamperLock</summary>
+        /// <remarks>Main Event: Clamper</remarks>
+        public string CommandManualClamperLock()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualClamperLock().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualClamperOPR()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualClamperOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualClamperUnlock()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualClamperUnlock().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualStageDown()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualStageDown().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualStageInspection()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualStageInspection().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualStageOPR()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualStageOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualStageUp()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualStageUp().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualVacuumOff()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualVacuumOff().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
+        public string CommandManualVacuumOn()
+        {
+            string command = "";
+            if (IsListenServer)
+            {
+                command = new ManualVacuumOn().GetCommandText<IHostToLoadPortCommandParameter>(null);
+                Send(command);
+            }
+            return command;
+        }
+
         /// <summary>Command UndockRequest(101)</summary>
         /// <remarks></remarks>
         public string CommandUndockRequest()
@@ -311,123 +548,6 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             return command;
         }
         */
-
-
-
-        /// <summary>Command AskPlacementStatus(102)</summary>
-        /// <remarks>Main Event: Placement</remarks>
-        public string CommandAskPlacementStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-
-                command = new AskPlacementStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskPresentStatus(103)</summary>
-        /// <remarks>Main Event: Present</remarks>
-        public string CommandAskPresentStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskPresentStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskClamperStatus(104)</summary>
-        /// <remarks>Main Event: Clamper</remarks>
-        public string CommandAskClamperStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskClamperStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskRFIDStatus(105)</summary>
-        /// <remarks>Main Event: RFID</remarks>
-        public string CommandAskRFIDStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskRFIDStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskBarcodeStatus(106)</summary>
-        /// <remarks>Main Event: Barcode ID(Invoke: Barcode_ID)</remarks>
-        public string CommandAskBarcodeStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskBarcodeStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskVacuumStatus(107)</summary>
-        /// <remarks>Main Event: VacuumComplete</remarks>
-        public string CommandAskVacuumStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskVacuumStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskReticleExistStatus(108)</summary>
-        /// <remarks>
-        /// Main Event: 
-        /// <para>DockPODComplete_HasReticle(009)</para><para>.OR.</para>
-        /// <para>DockPODComplete_Empty(010)</para>
-        /// </remarks>
-        public string CommandAskReticleExistStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskReticleExistStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>AlarmReset(109)</summary>
-        /// <remarks>
-        /// Main Event: 
-        /// <para>AlarmResetSuccess</para>
-        /// <para>.OR.</para>
-        /// <para>AlarmResetFail</para>
-        /// </remarks>
-        public string CommandAlarmReset()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AlarmReset().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
         /**
         /// <summary>AlarmReset(109)</summary>
         /// <remarks>
@@ -440,43 +560,6 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             return command;
         }
         */
-        /// <summary>Command AskStagePosition(110)</summary>
-        /// <remarks>Main Event: StagePosition</remarks>
-        public string CommandAskStagePosition()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskStagePosition().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        /// <summary>Command AskLoadportStatus(111)</summary>
-        /// <remarks>Main Event: LoadportStatus</remarks>
-        public string CommandAskLoadportStatus()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new AskLoadportStatus().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-        /// <summary>Command Initilial Request(112)</summary>
-        public string CommandInitialRequest()
-        {
-            string command = "";
-            {
-                if (IsListenServer)
-                    command = new InitialRequest().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
         /**
         /// <summary>FakeCommand Initilial Request(112)</summary>
         /// <remarks>
@@ -489,202 +572,84 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             return command;
         }
         */
-
-        /// <summary>Command ManualClamperLock</summary>
-        /// <remarks>Main Event: Clamper</remarks>
-        public string CommandManualClamperLock()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualClamperLock().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualClamperUnlock()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualClamperUnlock().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualClamperOPR()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualClamperOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualStageUp()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualStageUp().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualStageInspection()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualStageInspection().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualStageDown()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualStageDown().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualStageOPR()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualStageOPR().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualVacuumOn()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualVacuumOn().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-        public string CommandManualVacuumOff()
-        {
-            string command = "";
-            if (IsListenServer)
-            {
-                command = new ManualVacuumOff().GetCommandText<IHostToLoadPortCommandParameter>(null);
-                Send(command);
-            }
-            return command;
-        }
-
-
         #endregion
 
 
-        #region event
+        #region Normal Event
 
-        /// <summary>Event Placement (001)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. placement 狀態改變</para>
-        /// <para>2. 收到 AskPlacement </para>
-        /// </remarks>
-        public void Placement(ReturnFromServer rtnFromServer)
-        {
-            // rtnCode: 有無Placement 信號
-            var rtnCode = (EventPlacementCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+        public event EventHandler OnAlarmResetFailHandler = null;
 
-            var eventArgs = new OnPlacementEventArgs(rtnCode);
-            if (OnPlacementHandler != null)
-            {
-                OnPlacementHandler.Invoke(this, eventArgs);
-            }
-        }
-        public event EventHandler OnPlacementHandler = null;
-        public void ResetOnPlacementHandler() { OnPlacementHandler = null; }
+        public event EventHandler OnAlarmResetSuccessHandler = null;
 
+        public event EventHandler OnBarcode_IDHandler = null;
 
-
-
-        /// <summary>Event Present(002)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. Present狀態改變</para>
-        /// <para>2. 收到 AskPresentStatus</para>
-        /// </remarks>
-        public void Present(ReturnFromServer rtnFromServer)
-        {
-            // rtnCode: 有無Present訊息
-            var rtnCode = (EventPresentCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-
-            if (OnPresentHandler != null)
-            {
-                var eventArgs = new OnPresentEventArgs(rtnCode);
-                OnPresentHandler.Invoke(this, eventArgs);
-            }
-        }
-        public event EventHandler OnPresentHandler = null;
-        public void ResetOnPresentHandler() { OnPresentHandler = null; }
-
-
-
-        /// <summary>Event Clamper(003)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. Clamper 狀態改變</para>
-        /// <para>2. 收到 AskClamperStatus</para>
-        /// </remarks>
-        public void Clamper(ReturnFromServer rtnFromServer)
-        {
-            //rtnCode: Clamper狀態(關閉, 開啟, 不在定位需復歸)
-            var rtnCode = (EventClamperCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-
-            if (OnClamperHandler != null)
-            {
-                var eventArgs = new OnClamperEventArgs(rtnCode);
-                OnClamperHandler.Invoke(this, eventArgs);
-            }
-        }
         public event EventHandler OnClamperHandler = null;
-        public void ResetOnClamperHandler() { OnClamperHandler = null; }
 
+        public event EventHandler OnClamperLockCompleteHandler = null;
 
+        public event EventHandler OnClamperNotLockHandler = null;
 
-        /// <summary>Event RFID(004)</summary>
+        public event EventHandler OnClamperUnlockCompleteHandler = null;
+
+        public event EventHandler OnDockPODComplete_EmptyHandler = null;
+
+        public event EventHandler OnDockPODComplete_HasReticleHandler = null;
+
+        public event EventHandler OnDockPODStartHandler = null;
+
+        public event EventHandler OnExecuteAlarmResetFirstHandler = null;
+
+        public event EventHandler OnExecuteInitialFirstHandler = null;
+
+        public event EventHandler OnInitialCompleteHandler = null;
+
+        public event EventHandler OnInitialUnCompleteHandler = null;
+
+        public event EventHandler OnLoadportStatusHandler = null;
+
+        public event EventHandler OnMustInAutoModeHandler = null;
+
+        public event EventHandler OnMustInManualModeHandler = null;
+
+        public event EventHandler OnPlacementHandler = null;
+
+        public event EventHandler OnPODNotPutProperlyHandler = null;
+
+        public event EventHandler OnPresentHandler = null;
+
+        public event EventHandler OnRFIDHandler = null;
+
+        public event EventHandler OnStagePositionHandler = null;
+
+        public event EventHandler OnUndockCompleteHandler = null;
+
+        public event EventHandler OnVacuumCompleteHandler = null;
+
+        /// <summary>Event AlarmResetFail(014)</summary>
         /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. Load貨, 完成讀取RFID後</para>
-        /// <para>2. 收到AskRFIDStatus</para>
-        /// </remarks>
-        public void RFID(ReturnFromServer rtnFromServer)
-        {   // rfID: 讀取的 RFID
-            var rfID = rtnFromServer.ReturnCode;
+        /// <remarks>異常恢復失敗</remarks>
+        public void AlarmResetFail(ReturnFromServer rtnFromServer)
+        {
 
-            if (OnRFIDHandler != null)
+            if (OnAlarmResetFailHandler != null)
             {
-                var eventArgs = new OnRFIDEventArgs(rfID);
-                if (OnRFIDHandler != null)
-                {
-                    OnRFIDHandler.Invoke(this, eventArgs);
-                }
+                OnAlarmResetFailHandler.Invoke(this, EventArgs.Empty);
             }
         }
-        public event EventHandler OnRFIDHandler = null;
-        public void ResetOnRFIDHandler() { OnRFIDHandler = null; }
+
+        /// <summary>Event AlarmResetSuccess (013)</summary>
+        /// <remarks>異常恢復成功</remarks>
+        /// <param name="rtnFromServer"></param>
+        public void AlarmResetSuccess(ReturnFromServer rtnFromServer)
+        {
+
+
+            if (OnAlarmResetSuccessHandler != null)
+            {
+                OnAlarmResetSuccessHandler.Invoke(this, EventArgs.Empty);
+            }
+
+        }
 
         /// <summary>Event Barcode ID (005)</summary>
         /// <param name="rtnFromServer"></param>
@@ -705,10 +670,24 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                 OnBarcode_IDHandler.Invoke(this, eventArgs);
             }
         }
-        public event EventHandler OnBarcode_IDHandler = null;
-        public void ResetOnBarcode_IDHandler() { OnBarcode_IDHandler = null; }
 
+        /// <summary>Event Clamper(003)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. Clamper 狀態改變</para>
+        /// <para>2. 收到 AskClamperStatus</para>
+        /// </remarks>
+        public void Clamper(ReturnFromServer rtnFromServer)
+        {
+            //rtnCode: Clamper狀態(關閉, 開啟, 不在定位需復歸)
+            var rtnCode = (EventClamperCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
 
+            if (OnClamperHandler != null)
+            {
+                var eventArgs = new OnClamperEventArgs(rtnCode);
+                OnClamperHandler.Invoke(this, eventArgs);
+            }
+        }
 
         /// <summary>Event ClamperLockComplete(006)</summary>
         /// <param name="rtnFromServer"></param>
@@ -727,12 +706,310 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                 OnClamperLockCompleteHandler.Invoke(this, eventArgs);
             }
         }
-        public event EventHandler OnClamperLockCompleteHandler = null;
+
+        /// <summary>Event ClamperNotLock(022)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperNotLock(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnClamperNotLockHandler != null)
+            {
+                OnClamperNotLockHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event ClamperUnlockComplete(012)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void ClamperUnlockComplete(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnClamperUnlockCompleteHandler != null)
+            {
+                OnClamperUnlockCompleteHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event  DockPODComplete_Empty(010)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. StageDock完畢後</para>
+        /// <para>2. 收到AskReticleExistStatus</para>
+        /// </remarks>
+        public void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
+        {
+
+
+            if (OnDockPODComplete_EmptyHandler != null)
+            {
+                OnDockPODComplete_EmptyHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event  DockPODComplete_HasReticle(009)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. StageDock完畢後</para>
+        /// <para>2. 收到AskReticleExistStatus</para>
+        /// </remarks>
+        public void DockPODComplete_HasReticle(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnDockPODComplete_HasReticleHandler != null)
+            {
+                OnDockPODComplete_HasReticleHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event  DockPODStart(008)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>收到DockRequest後, 開始移動Stage前</remarks>
+        public void DockPODStart(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnDockPODStartHandler != null)
+            {
+                OnDockPODStartHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event AlarmResetFirst (016)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>提示進行異常復歸動作</remarks>
+        public void ExecuteAlarmResetFirst(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnExecuteAlarmResetFirstHandler != null)
+            {
+                OnExecuteAlarmResetFirstHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event  ExecuteInitialFirst(015)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>提示進行原點復歸動作</remarks>
+        public void ExecuteInitialFirst(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnExecuteInitialFirstHandler != null)
+            {
+                OnExecuteInitialFirstHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event Initial Complete(019)</summary>
+        /// <remarks>初始化完畢後</remarks>
+        /// <param name="rtnFromServer"></param>
+        public void InitialComple(ReturnFromServer rtnFromServer)
+        {
+            /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
+            this.InitialComplete(rtnFromServer);
+        }
+
+        public void InitialComplete(ReturnFromServer rtnFromServer)
+        {
+            /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
+
+            if (OnInitialCompleteHandler != null)
+            {
+                OnInitialCompleteHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// <para>傳送Initial Request 時沒有在指定時間內收到 InitialComplete 事件</para>
+        /// <para>原始文件中未定義這個事件, 本事件為自定</para>
+        /// </summary>
+        /// <param name="rtnFromServer"></param>
+        public void InitialUnComplete(/*ReturnFromServer rtnFromServer*/)
+        {
+
+            if (OnInitialUnCompleteHandler != null)
+            {
+                OnInitialUnCompleteHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void LoadportStatu2(ReturnFromServer rtnFromServer) { this.LoadportStatus(rtnFromServer); }
+
+        /// <summary>Event LoadportStatus(018)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. Loadport內部狀態改變</para>
+        /// <para>2. 收到AskLoadportStatus</para>
+        /// </remarks>
+        public void LoadportStatus(ReturnFromServer rtnFromServer)
+        {
+            var rtnCode = (EventLoadportStatusCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+
+            if (OnLoadportStatusHandler != null)
+            {
+                var eventArgs = new OnLoadportStatusEventArgs(rtnCode);
+                OnLoadportStatusHandler.Invoke(this, eventArgs);
+            }
+
+        }
+
+        /// <summary>Event MustInAutoMode(020)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>2020/06/11 new</remarks>
+        public void MustInAutoMode(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnMustInAutoModeHandler != null)
+            {
+                OnMustInAutoModeHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        //~021,MustInManualMode@
+        public void MustInManualMode(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnMustInManualModeHandler != null)
+            {
+                OnMustInManualModeHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event Placement (001)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. placement 狀態改變</para>
+        /// <para>2. 收到 AskPlacement </para>
+        /// </remarks>
+        public void Placement(ReturnFromServer rtnFromServer)
+        {
+            // rtnCode: 有無Placement 信號
+            var rtnCode = (EventPlacementCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+
+            var eventArgs = new OnPlacementEventArgs(rtnCode);
+            if (OnPlacementHandler != null)
+            {
+                OnPlacementHandler.Invoke(this, eventArgs);
+            }
+        }
+        /// <summary>Event PODNotPutProperly(023)</summary>
+        /// <remarks>2020/06/11 new</remarks>
+        public void PODNotPutProperly(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnPODNotPutProperlyHandler != null)
+            {
+                OnPODNotPutProperlyHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Event Present(002)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. Present狀態改變</para>
+        /// <para>2. 收到 AskPresentStatus</para>
+        /// </remarks>
+        public void Present(ReturnFromServer rtnFromServer)
+        {
+            // rtnCode: 有無Present訊息
+            var rtnCode = (EventPresentCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+
+            if (OnPresentHandler != null)
+            {
+                var eventArgs = new OnPresentEventArgs(rtnCode);
+                OnPresentHandler.Invoke(this, eventArgs);
+            }
+        }
+
+        public void ResetDockOnPODStartHandler() { OnDockPODStartHandler = null; }
+
+        public void ResetExecuteOnAlarmResetFirstHandler() { OnExecuteAlarmResetFirstHandler = null; }
+
+        public void ResetInitialOnCompleteHandler() { OnInitialCompleteHandler = null; }
+
+        public void ResetMustInManualModeHandler() { OnMustInAutoModeHandler = null; }
+
+        public void ResetOnAlarmResetFailHandler() { OnAlarmResetFailHandler = null; }
+
+        public void ResetOnAlarmResetSuccessHandler() { OnAlarmResetSuccessHandler = null; }
+
+        public void ResetOnBarcode_IDHandler() { OnBarcode_IDHandler = null; }
+
+        public void ResetOnClamperHandler() { OnClamperHandler = null; }
+
         public void ResetOnClamperLockCompleteHandler() { OnClamperLockCompleteHandler = null; }
 
+        public void ResetOnClamperNotLockHandler() { OnClamperNotLockHandler = null; }
 
+        public void ResetOnClamperUnlockCompleteHandler() { OnClamperUnlockCompleteHandler = null; }
 
+        public void ResetOnDockPODComplete_EmptyHandler() { OnDockPODComplete_EmptyHandler = null; }
 
+        public void ResetOnDockPODComplete_HasReticleHandler() { OnDockPODComplete_HasReticleHandler = null; }
+
+        public void ResetOnExecuteInitialFirstHandler() { OnExecuteInitialFirstHandler = null; }
+
+        public void ResetOnInitialUnCompleteHandler() { OnInitialUnCompleteHandler = null; }
+
+        public void ResetOnLoadportStatusHandler() { OnLoadportStatusHandler = null; }
+
+        public void ResetOnMustInAutoModeHandler() { OnMustInAutoModeHandler = null; }
+
+        public void ResetOnPlacementHandler() { OnPlacementHandler = null; }
+        public void ResetOnPODNotPutProperlyHandler() { OnPODNotPutProperlyHandler = null; }
+
+        public void ResetOnPresentHandler() { OnPresentHandler = null; }
+        public void ResetOnRFIDHandler() { OnRFIDHandler = null; }
+
+        public void ResetOnStagePositionHandler() { OnStagePositionHandler = null; }
+
+        public void ResetOnUndockCompleteHandler() { OnUndockCompleteHandler = null; }
+
+        public void ResetOnVacuumCompleteHandler() { OnVacuumCompleteHandler = null; }
+
+        /// <summary>Event RFID(004)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. Load貨, 完成讀取RFID後</para>
+        /// <para>2. 收到AskRFIDStatus</para>
+        /// </remarks>
+        public void RFID(ReturnFromServer rtnFromServer)
+        {   // rfID: 讀取的 RFID
+            var rfID = rtnFromServer.ReturnCode;
+
+            if (OnRFIDHandler != null)
+            {
+                var eventArgs = new OnRFIDEventArgs(rfID);
+                if (OnRFIDHandler != null)
+                {
+                    OnRFIDHandler.Invoke(this, eventArgs);
+                }
+            }
+        }
+        /// <summary>Event StagePosition (017)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>
+        /// <para>1. Stage位置改變</para>
+        /// <para>2. 收到AskStagePosition</para>
+        /// </remarks>
+        public void StagePosition(ReturnFromServer rtnFromServer)
+        {
+            // rtnCode: Stage 位置
+            var rtnCode = (EventStagePositionCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
+
+            if (OnStagePositionHandler != null)
+            {
+                var eventArgs = new OnStagePositionEventArgs(rtnCode);
+                OnStagePositionHandler.Invoke(this, eventArgs);
+            }
+        }
+
+        /// <summary>Event UndockComplete(011)</summary>
+        /// <param name="rtnFromServer"></param>
+        public void UndockComplete(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnUndockCompleteHandler != null)
+            {
+                OnUndockCompleteHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         public void VacuumComplet0(ReturnFromServer rtnFromServer) { this.VacuumComplete(rtnFromServer); }
         public void VacuumComplet1(ReturnFromServer rtnFromServer) { this.VacuumComplete(rtnFromServer); }
@@ -755,294 +1032,32 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                 OnVacuumCompleteHandler.Invoke(this, eventArgs);
             }
         }
-        public event EventHandler OnVacuumCompleteHandler = null;
-        public void ResetOnVacuumCompleteHandler() { OnVacuumCompleteHandler = null; }
-
-
-
-        /// <summary>Event  DockPODStart(008)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>收到DockRequest後, 開始移動Stage前</remarks>
-        public void DockPODStart(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnDockPODStartHandler != null)
-            {
-                OnDockPODStartHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public void ResetDockOnPODStartHandler() { OnDockPODStartHandler = null; }
-        public event EventHandler OnDockPODStartHandler = null;
-
-
-        /// <summary>Event  DockPODComplete_HasReticle(009)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. StageDock完畢後</para>
-        /// <para>2. 收到AskReticleExistStatus</para>
-        /// </remarks>
-        public void DockPODComplete_HasReticle(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnDockPODComplete_HasReticleHandler != null)
-            {
-                OnDockPODComplete_HasReticleHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnDockPODComplete_HasReticleHandler = null;
-        public void ResetOnDockPODComplete_HasReticleHandler() { OnDockPODComplete_HasReticleHandler = null; }
-
-
-        /// <summary>Event  DockPODComplete_Empty(010)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. StageDock完畢後</para>
-        /// <para>2. 收到AskReticleExistStatus</para>
-        /// </remarks>
-        public void DockPODComplete_Empty(ReturnFromServer rtnFromServer)
-        {
-
-
-            if (OnDockPODComplete_EmptyHandler != null)
-            {
-                OnDockPODComplete_EmptyHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnDockPODComplete_EmptyHandler = null;
-        public void ResetOnDockPODComplete_EmptyHandler() { OnDockPODComplete_EmptyHandler = null; }
-
-
-        /// <summary>Event UndockComplete(011)</summary>
-        /// <param name="rtnFromServer"></param>
-        public void UndockComplete(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnUndockCompleteHandler != null)
-            {
-                OnUndockCompleteHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnUndockCompleteHandler = null;
-        public void ResetOnUndockCompleteHandler() { OnUndockCompleteHandler = null; }
-
-        /// <summary>Event ClamperUnlockComplete(012)</summary>
-        /// <param name="rtnFromServer"></param>
-        public void ClamperUnlockComplete(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnClamperUnlockCompleteHandler != null)
-            {
-                OnClamperUnlockCompleteHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnClamperUnlockCompleteHandler = null;
-        public void ResetOnClamperUnlockCompleteHandler() { OnClamperUnlockCompleteHandler = null; }
-
-
-
-        /// <summary>Event AlarmResetSuccess (013)</summary>
-        /// <remarks>異常恢復成功</remarks>
-        /// <param name="rtnFromServer"></param>
-        public void AlarmResetSuccess(ReturnFromServer rtnFromServer)
-        {
-
-
-            if (OnAlarmResetSuccessHandler != null)
-            {
-                OnAlarmResetSuccessHandler.Invoke(this, EventArgs.Empty);
-            }
-
-        }
-        public event EventHandler OnAlarmResetSuccessHandler = null;
-        public void ResetOnAlarmResetSuccessHandler() { OnAlarmResetSuccessHandler = null; }
-
-        /// <summary>Event AlarmResetFail(014)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>異常恢復失敗</remarks>
-        public void AlarmResetFail(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnAlarmResetFailHandler != null)
-            {
-                OnAlarmResetFailHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnAlarmResetFailHandler = null;
-        public void ResetOnAlarmResetFailHandler() { OnAlarmResetFailHandler = null; }
-
-
-        /// <summary>Event  ExecuteInitialFirst(015)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>提示進行原點復歸動作</remarks>
-        public void ExecuteInitialFirst(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnExecuteInitialFirstHandler != null)
-            {
-                OnExecuteInitialFirstHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnExecuteInitialFirstHandler = null;
-        public void ResetOnExecuteInitialFirstHandler() { OnExecuteInitialFirstHandler = null; }
-
-
-        /// <summary>Event AlarmResetFirst (016)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>提示進行異常復歸動作</remarks>
-        public void ExecuteAlarmResetFirst(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnExecuteAlarmResetFirstHandler != null)
-            {
-                OnExecuteAlarmResetFirstHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnExecuteAlarmResetFirstHandler = null;
-        public void ResetExecuteOnAlarmResetFirstHandler() { OnExecuteAlarmResetFirstHandler = null; }
-
-        /// <summary>Event StagePosition (017)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. Stage位置改變</para>
-        /// <para>2. 收到AskStagePosition</para>
-        /// </remarks>
-        public void StagePosition(ReturnFromServer rtnFromServer)
-        {
-            // rtnCode: Stage 位置
-            var rtnCode = (EventStagePositionCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-
-            if (OnStagePositionHandler != null)
-            {
-                var eventArgs = new OnStagePositionEventArgs(rtnCode);
-                OnStagePositionHandler.Invoke(this, eventArgs);
-            }
-        }
-        public event EventHandler OnStagePositionHandler = null;
-        public void ResetOnStagePositionHandler() { OnStagePositionHandler = null; }
-
-
-
-        public void LoadportStatu2(ReturnFromServer rtnFromServer) { this.LoadportStatus(rtnFromServer); }
-        /// <summary>Event LoadportStatus(018)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>
-        /// <para>1. Loadport內部狀態改變</para>
-        /// <para>2. 收到AskLoadportStatus</para>
-        /// </remarks>
-        public void LoadportStatus(ReturnFromServer rtnFromServer)
-        {
-            var rtnCode = (EventLoadportStatusCode)(Convert.ToInt32(rtnFromServer.ReturnCode));
-
-            if (OnLoadportStatusHandler != null)
-            {
-                var eventArgs = new OnLoadportStatusEventArgs(rtnCode);
-                OnLoadportStatusHandler.Invoke(this, eventArgs);
-            }
-
-        }
-        public event EventHandler OnLoadportStatusHandler = null;
-        public void ResetOnLoadportStatusHandler() { OnLoadportStatusHandler = null; }
-
-
-
-
-
-        /// <summary>Event Initial Complete(019)</summary>
-        /// <remarks>初始化完畢後</remarks>
-        /// <param name="rtnFromServer"></param>
-        public void InitialComple(ReturnFromServer rtnFromServer)
-        {
-            /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
-            this.InitialComplete(rtnFromServer);
-        }
-        public void InitialComplete(ReturnFromServer rtnFromServer)
-        {
-            /*[d20220113] 名稱必須為 InitialComple, 這是 Gudeng Load Port 回傳的字串*/
-
-            if (OnInitialCompleteHandler != null)
-            {
-                OnInitialCompleteHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public void ResetInitialOnCompleteHandler() { OnInitialCompleteHandler = null; }
-        public event EventHandler OnInitialCompleteHandler = null;
-
-
-        /// <summary>
-        /// <para>傳送Initial Request 時沒有在指定時間內收到 InitialComplete 事件</para>
-        /// <para>原始文件中未定義這個事件, 本事件為自定</para>
-        /// </summary>
-        /// <param name="rtnFromServer"></param>
-        public void InitialUnComplete(/*ReturnFromServer rtnFromServer*/)
-        {
-
-            if (OnInitialUnCompleteHandler != null)
-            {
-                OnInitialUnCompleteHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public void ResetOnInitialUnCompleteHandler() { OnInitialUnCompleteHandler = null; }
-        public event EventHandler OnInitialUnCompleteHandler = null;
-
-
-        /// <summary>Event MustInAutoMode(020)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>2020/06/11 new</remarks>
-        public void MustInAutoMode(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnMustInAutoModeHandler != null)
-            {
-                OnMustInAutoModeHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnMustInAutoModeHandler = null;
-        public void ResetOnMustInAutoModeHandler() { OnMustInAutoModeHandler = null; }
-
-        //~021,MustInManualMode@
-        public void MustInManualMode(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnMustInManualModeHandler != null)
-            {
-                OnMustInManualModeHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnMustInManualModeHandler = null;
-        public void ResetMustInManualModeHandler() { OnMustInAutoModeHandler = null; }
-
-
-        /// <summary>Event ClamperNotLock(022)</summary>
-        /// <param name="rtnFromServer"></param>
-        public void ClamperNotLock(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnClamperNotLockHandler != null)
-            {
-                OnClamperNotLockHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnClamperNotLockHandler = null;
-        public void ResetOnClamperNotLockHandler() { OnClamperNotLockHandler = null; }
-
-
-
-        /// <summary>Event PODNotPutProperly(023)</summary>
-        /// <remarks>2020/06/11 new</remarks>
-        public void PODNotPutProperly(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnPODNotPutProperlyHandler != null)
-            {
-                OnPODNotPutProperlyHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnPODNotPutProperlyHandler = null;
-        public void ResetOnPODNotPutProperlyHandler() { OnPODNotPutProperlyHandler = null; }
-
-
         #endregion
-        #region Alarm
+
+
+        #region Alarm Event
+        public event EventHandler OnClamperActionTimeOutHandler = null;
+
+        public event EventHandler OnClamperLockPositionFailedHandler = null;
+
+        public event EventHandler OnClamperMotorAbnormalityHandler = null;
+
+        public event EventHandler OnClamperUnlockPositionFailedHandler = null;
+
+        public event EventHandler OnPODPresentAbnormalityHandler = null;
+
+        public event EventHandler OnReticlePositionAbnormalityHandler = null;
+
+        public event EventHandler OnStageMotionTimeoutHandler = null;
+
+        public event EventHandler OnStageMotorAbnormalityHandler = null;
+
+        public event EventHandler OnStageOverDownLimitationHandler = null;
+
+        public event EventHandler OnStageOverUpLimitationHandler = null;
+
+        public event EventHandler OnVacuumAbnormalityHandler = null;
+
         /// <summary>Alarm ClamperActionTimeOut(200)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Clamper馬達運動超時</remarks>
@@ -1052,9 +1067,21 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             if (OnClamperActionTimeOutHandler != null)
             { OnClamperActionTimeOutHandler.Invoke(this, EventArgs.Empty); }
         }
-        public event EventHandler OnClamperActionTimeOutHandler = null;
-        public void ResetOnClamperActionTimeOutHandler() { OnClamperActionTimeOutHandler = null; }
+        /// <summary>Alarm ClamperLockPositionFailed(207)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>ClamerLock完成後位置錯誤</remarks>
+        public void ClamperLockPositionFailed(ReturnFromServer rtnFromServer)
+        {
+            if (OnClamperLockPositionFailedHandler != null) { OnClamperLockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
+        }
 
+        /// <summary>Alarm ClamperMotorAbnormality(209)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>Clamper開合馬達驅動器異常</remarks>
+        public void ClamperMotorAbnormality(ReturnFromServer rtnFromServer)
+        {
+            if (OnClamperMotorAbnormalityHandler != null) { OnClamperMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+        }
 
         /// <summary>Alarm ClamperUnlockPositionFailed(201)</summary>
         /// <param name="rtnFromServer"></param>
@@ -1065,9 +1092,81 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             if (OnClamperUnlockPositionFailedHandler != null)
             { OnClamperUnlockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
         }
-        public event EventHandler OnClamperUnlockPositionFailedHandler = null;
+
+        /// <summary>Alarm PODPresentAbnormality(208)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>POD上下蓋脫離定位</remarks>
+        public void PODPresentAbnormality(ReturnFromServer rtnFromServer)
+        {
+            if (OnPODPresentAbnormalityHandler != null) { OnPODPresentAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+        }
+
+        public void ResetOnClamperActionTimeOutHandler() { OnClamperActionTimeOutHandler = null; }
+        public void ResetOnClamperLockPositionFailed() { OnClamperLockPositionFailedHandler = null; }
+
+        public void ResetOnClamperMotorAbnormality()
+        { OnClamperMotorAbnormalityHandler = null; }
+
         public void ResetOnClamperUnlockPositionFailedHandler() { OnClamperUnlockPositionFailedHandler = null; }
 
+
+        public void ResetOnPODPresentAbnormalityHandler() { OnPODPresentAbnormalityHandler = null; }
+
+        public void ResetOnReticlePositionAbnormalityHandler() { OnReticlePositionAbnormalityHandler = null; }
+
+        public void ResetOnStageMotionTimeoutHandler() { OnStageMotionTimeoutHandler = null; }
+
+        public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormalityHandler = null; }
+
+        public void ResetOnStageOverDownLimitationHandler() { OnStageOverDownLimitationHandler = null; }
+
+        public void ResetOnStageOverUpLimitationHandler() { OnStageOverUpLimitationHandler = null; }
+
+        public void ResetOnVacuumAbnormalityHandler() { OnVacuumAbnormalityHandler = null; }
+
+        /// <summary>Alarm ReticlePositionAbnormality(206)</summary>
+        /// <param name="rtnFromServer"></param>
+        ///<remarks>Dock/Undock時, 光罩滑出POD</remarks>
+        public void ReticlePositionAbnormality(ReturnFromServer rtnFromServer)
+        {
+            if (OnReticlePositionAbnormalityHandler != null)
+            {
+                OnReticlePositionAbnormalityHandler.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>Alarm StageMotionTimeout(203)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>Stage運動超時</remarks>
+        public void StageMotionTimeout(ReturnFromServer rtnFromServer)
+        {
+
+            if (OnStageMotionTimeoutHandler != null) { OnStageMotionTimeoutHandler.Invoke(this, EventArgs.Empty); }
+        }
+
+        /// <summary>Alarm StageMotorAbnormality(210)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>Stage升降馬達驅動器異常</remarks>
+        public void StageMotorAbnormality(ReturnFromServer rtnFromServer)
+        {
+            if (OnStageMotorAbnormalityHandler != null) { OnStageMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+        }
+
+        /// <summary>Alarm StageOverDownLimitation(205)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>Stage下位限制Sensor觸發</remarks>
+        public void StageOverDownLimitation(ReturnFromServer rtnFromServer)
+        {
+            if (OnStageOverDownLimitationHandler != null) { OnStageOverDownLimitationHandler.Invoke(this, EventArgs.Empty); }
+        }
+
+        /// <summary>Alarm StageOverUpLimitation(204)</summary>
+        /// <param name="rtnFromServer"></param>
+        /// <remarks>Stage上位限制Sensor觸發</remarks>
+        public void StageOverUpLimitation(ReturnFromServer rtnFromServer)
+        {
+            if (OnStageOverUpLimitationHandler != null) { OnStageOverUpLimitationHandler.Invoke(this, EventArgs.Empty); }
+        }
 
         /// <summary>Alarm VacuumAbnormality(202)</summary>
         /// <param name="rtnFromServer"></param>
@@ -1080,100 +1179,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                 OnVacuumAbnormalityHandler.Invoke(this, EventArgs.Empty);
             }
         }
-        public event EventHandler OnVacuumAbnormalityHandler = null;
-        public void ResetOnVacuumAbnormalityHandler() { OnVacuumAbnormalityHandler = null; }
 
-
-        /// <summary>Alarm StageMotionTimeout(203)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>Stage運動超時</remarks>
-        public void StageMotionTimeout(ReturnFromServer rtnFromServer)
-        {
-
-            if (OnStageMotionTimeoutHandler != null) { OnStageMotionTimeoutHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnStageMotionTimeoutHandler = null;
-        public void ResetOnStageMotionTimeoutHandler() { OnStageMotionTimeoutHandler = null; }
-
-
-        /// <summary>Alarm StageOverUpLimitation(204)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>Stage上位限制Sensor觸發</remarks>
-        public void StageOverUpLimitation(ReturnFromServer rtnFromServer)
-        {
-            if (OnStageOverUpLimitationHandler != null) { OnStageOverUpLimitationHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnStageOverUpLimitationHandler = null;
-        public void ResetOnStageOverUpLimitationHandler() { OnStageOverUpLimitationHandler = null; }
-
-        /// <summary>Alarm StageOverDownLimitation(205)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>Stage下位限制Sensor觸發</remarks>
-        public void StageOverDownLimitation(ReturnFromServer rtnFromServer)
-        {
-            if (OnStageOverDownLimitationHandler != null) { OnStageOverDownLimitationHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnStageOverDownLimitationHandler = null;
-        public void ResetOnStageOverDownLimitationHandler() { OnStageOverDownLimitationHandler = null; }
-
-
-
-        /// <summary>Alarm ReticlePositionAbnormality(206)</summary>
-        /// <param name="rtnFromServer"></param>
-        ///<remarks>Dock/Undock時, 光罩滑出POD</remarks>
-        public void ReticlePositionAbnormality(ReturnFromServer rtnFromServer)
-        {
-            if (OnReticlePositionAbnormalityHandler != null)
-            {
-                OnReticlePositionAbnormalityHandler.Invoke(this, EventArgs.Empty);
-            }
-        }
-        public event EventHandler OnReticlePositionAbnormalityHandler = null;
-        public void ResetOnReticlePositionAbnormalityHandler() { OnReticlePositionAbnormalityHandler = null; }
-
-
-        /// <summary>Alarm ClamperLockPositionFailed(207)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>ClamerLock完成後位置錯誤</remarks>
-        public void ClamperLockPositionFailed(ReturnFromServer rtnFromServer)
-        {
-            if (OnClamperLockPositionFailedHandler != null) { OnClamperLockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnClamperLockPositionFailedHandler = null;
-        public void ResetOnClamperLockPositionFailed() { OnClamperLockPositionFailedHandler = null; }
-
-
-        /// <summary>Alarm PODPresentAbnormality(208)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>POD上下蓋脫離定位</remarks>
-        public void PODPresentAbnormality(ReturnFromServer rtnFromServer)
-        {
-            if (OnPODPresentAbnormalityHandler != null) { OnPODPresentAbnormalityHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnPODPresentAbnormalityHandler = null;
-        public void ResetOnPODPresentAbnormalityHandler() { OnPODPresentAbnormalityHandler = null; }
-
-        /// <summary>Alarm ClamperMotorAbnormality(209)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>Clamper開合馬達驅動器異常</remarks>
-        public void ClamperMotorAbnormality(ReturnFromServer rtnFromServer)
-        {
-            if (OnClamperMotorAbnormalityHandler != null) { OnClamperMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnClamperMotorAbnormalityHandler = null;
-        public void ResetOnClamperMotorAbnormality()
-        { OnClamperMotorAbnormalityHandler = null; }
-
-
-        /// <summary>Alarm StageMotorAbnormality(210)</summary>
-        /// <param name="rtnFromServer"></param>
-        /// <remarks>Stage升降馬達驅動器異常</remarks>
-        public void StageMotorAbnormality(ReturnFromServer rtnFromServer)
-        {
-            if (OnStageMotorAbnormalityHandler != null) { OnStageMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
-        }
-        public event EventHandler OnStageMotorAbnormalityHandler = null;
-        public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormalityHandler = null; }
         #endregion
 
 
@@ -1181,6 +1187,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
 
 
         #region IDisposable
+
         protected bool disposed = false;
 
         // Public implementation of Dispose pattern callable by consumers.
@@ -1205,12 +1212,12 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             // Free any unmanaged objects here.
             //
 
-            this.DisposeSelf();
+            this.DisposeClose();
 
             disposed = true;
         }
 
-        protected virtual void DisposeSelf()
+        protected virtual void DisposeClose()
         {
             if (this.ClientSocket != null)
             {

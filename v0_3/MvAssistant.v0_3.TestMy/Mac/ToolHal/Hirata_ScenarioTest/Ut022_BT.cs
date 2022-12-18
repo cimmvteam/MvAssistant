@@ -11,6 +11,7 @@ using MvAssistant.v0_3.Mac.Hal.CompDrawer;
 using MvAssistant.v0_3.Mac.JSon;
 using MvAssistant.v0_3.Mac.JSon.RobotTransferFile;
 using MvAssistant.v0_3.Mac.Manifest;
+using MvaCToolkitCs.v1_2;
 
 namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 {
@@ -49,7 +50,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     drawer.MoveTrayToHome();
                    drawer.MoveTrayToIn();
                 }
-                catch(Exception ex)                { MvaLog.WarnNs(this, ex); }
+                catch(Exception ex)                { CtkLog.WarnNs(this, ex); }
             }
         }
         [TestMethod]
@@ -179,7 +180,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                             catch(Exception ex)
                             {
-                                MvaLog.WarnNs(this, ex);
+                                CtkLog.WarnNs(this, ex);
 
                             }
                             finally
@@ -321,7 +322,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                             catch(Exception ex)
                             {
-                                MvaLog.WarnNs(this, ex);
+                                CtkLog.WarnNs(this, ex);
 
                             }
                             finally
@@ -361,10 +362,10 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             BREAK_POINT++; // [一定要暫停] 這個 drawer 做好了, 準備下一個
 
                          }
-                        catch (Exception ex)                       {                            MvaLog.WarnNs(this, ex);                        }
+                        catch (Exception ex)                       {                            CtkLog.WarnNs(this, ex);                        }
                     }
                 }
-                catch (Exception ex)                { MvaLog.WarnNs(this, ex); }
+                catch (Exception ex)                { CtkLog.WarnNs(this, ex); }
 
             }
         }

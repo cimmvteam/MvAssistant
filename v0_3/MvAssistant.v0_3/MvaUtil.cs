@@ -1,3 +1,4 @@
+using MvaCToolkitCs.v1_2;
 using MvAssistant.v0_3.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -159,7 +160,7 @@ namespace MvAssistant.v0_3
             }
             catch (Exception ex)
             {
-                MvaLog.Write(ex);
+                CtkLog.Write(ex);
                 return ex;
             }
         }
@@ -327,7 +328,7 @@ namespace MvAssistant.v0_3
             catch (Exception ex)
             {
                 if (exceptionHandler != null) exceptionHandler(ex);
-                else MvaLog.Write(ex);
+                else CtkLog.Write(ex);
                 return false;
             }
 
@@ -358,7 +359,7 @@ namespace MvAssistant.v0_3
             }
             catch (Exception ex)
             {
-                MvaLog.Warn(ex);
+                CtkLog.Warn(ex);
                 return false;
             }
         }
@@ -371,7 +372,7 @@ namespace MvAssistant.v0_3
             }
             catch (Exception ex)
             {
-                MvaLog.Warn(ex);
+                CtkLog.Warn(ex);
                 return false;
             }
         }
@@ -394,7 +395,7 @@ namespace MvAssistant.v0_3
                 catch (Exception ex)
                 {
                     if (exceptionHandler != null) exceptionHandler(ex);
-                    else MvaLog.Write(ex);
+                    else CtkLog.Write(ex);
                 }
             }
         }

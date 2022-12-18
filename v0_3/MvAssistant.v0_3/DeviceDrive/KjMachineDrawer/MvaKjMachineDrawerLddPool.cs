@@ -1,4 +1,5 @@
-﻿using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.ReplyCode;
+﻿using MvaCToolkitCs.v1_2;
+using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.ReplyCode;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.UDPCommand;
 using System;
 using System.Collections.Generic;
@@ -160,7 +161,7 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
             }
             catch (Exception ex)
             {
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
                 return null;
             }
 

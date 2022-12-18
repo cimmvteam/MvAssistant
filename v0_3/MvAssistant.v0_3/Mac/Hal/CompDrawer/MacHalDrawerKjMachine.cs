@@ -13,6 +13,7 @@ using MvAssistant.v0_3.DeviceDrive;
 using System.Net;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using System.Threading;
+using MvaCToolkitCs.v1_2;
 
 namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
 {
@@ -124,7 +125,7 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             catch (Exception ex)
             {
                 connected = false;
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
             }
             return connected ? 1 : 0;
         }

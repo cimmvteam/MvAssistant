@@ -6,6 +6,7 @@ using MvAssistant.v0_3.Mac;
 using MvAssistant.v0_3.Mac.JSon;
 using MvAssistant.v0_3.Mac.JSon.RobotTransferFile;
 using MvAssistant.v0_3.Mac.Manifest;
+using MvaCToolkitCs.v1_2;
 
 namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
 {
@@ -199,14 +200,14 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                         }
                         catch (Exception ex)
                         {
-                            MvaLog.WarnNs(this, ex);
+                            CtkLog.WarnNs(this, ex);
 
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MvaLog.WarnNs(this, ex);
+                    CtkLog.WarnNs(this, ex);
 
                 }
 

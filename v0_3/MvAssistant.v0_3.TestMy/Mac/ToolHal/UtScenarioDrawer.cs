@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvaCToolkitCs.v1_2;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer;
 using MvAssistant.v0_3.DeviceDrive.KjMachineDrawer.DrawerEventArgs;
 using MvAssistant.v0_3.Mac.Hal;
@@ -48,7 +49,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
             }
             catch(Exception ex)
             {
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
 
             }
         }
@@ -144,7 +145,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
             }
             catch (Exception ex)
             {
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
             }
 
         }

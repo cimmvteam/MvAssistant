@@ -9,7 +9,7 @@ namespace MvaCToolkitCs.v1_2.Protocol
         /// 若為Server, 開啟聆聽即為準備好連線.
         /// 若是 UDP, 不需要交握, 只需要開啟=Read 就可以開工.
         /// </summary>
-        bool IsLocalReadyConnect { get; }
+        bool IsLocalPrepared { get; }
         /// <summary>
         /// 遠端真的連線成功.
         /// 部份連線機制無法確保斷線時, 此Flag可以反應.
@@ -19,7 +19,7 @@ namespace MvaCToolkitCs.v1_2.Protocol
         /// <summary>
         /// 在準備開啟連時中設為true, 用途是避免重複要求連線
         /// </summary>
-        bool IsOpenRequesting { get; }
+        bool IsOpenConnecting { get; }
 
         int ConnectTry();
         int ConnectTryStart();

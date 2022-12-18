@@ -1,4 +1,5 @@
 ﻿//#define NoConfig
+using MvaCToolkitCs.v1_2;
 using MvAssistant.v0_3.DeviceDrive;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
@@ -125,7 +126,7 @@ namespace MvAssistant.v0_3.Mac.Hal.CompLoadPort
             }
             catch (Exception ex)
             {
-                MvaLog.WarnNs(this, ex);
+                CtkLog.WarnNs(this, ex);
                 return 1;
             }
         }

@@ -277,8 +277,8 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
         [JsonIgnore]
         public object ActiveTarget { get { return this.MyTcpClient; } set { if (this.MyTcpClient != value) throw new ArgumentException("不可傳入Active Client"); } }
-        public bool IsLocalReadyConnect { get { return this.IsRemoteConnected; } }//Local連線成功=遠端連線成功
-        public bool IsOpenRequesting { get { return !this.mreIsConnecting.WaitOne(10); } }
+        public bool IsLocalPrepared { get { return this.IsRemoteConnected; } }//Local連線成功=遠端連線成功
+        public bool IsOpenConnecting { get { return !this.mreIsConnecting.WaitOne(10); } }
         public bool IsRemoteConnected { get { return CtkNetUtil.IsConnected(this.MyTcpClient); } }
 
         public int ConnectTry()

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvaCToolkitCs.v1_2;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort.LoadPortEventArgs;
 using MvAssistant.v0_3.DeviceDrive.GudengLoadPort.ReplyCode;
 using MvAssistant.v0_3.Mac.Hal;
@@ -81,7 +82,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
 
                 }
             }
-            catch (Exception ex) { MvaLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
         }
         #region Loadport Event Handler
         void BindLoadPortEvent(IMacHalLoadPortUnit loadport)
@@ -430,7 +431,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandAlarmReset();
                 Repeat();
             }
-            catch (Exception ex)            {                MvaLog.WarnNs(this, ex);            }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -459,7 +460,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandInitialRequest();
                 Repeat();
             }
-            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -487,7 +488,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandDockRequest();
                 Repeat();
             }
-            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -517,7 +518,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandUndockRequest();
                 Repeat();
             }
-            catch (Exception ex)            { MvaLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
             finally
             {
                 if (halContext != null)

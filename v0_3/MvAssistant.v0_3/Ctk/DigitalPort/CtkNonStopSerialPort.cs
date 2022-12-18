@@ -43,9 +43,9 @@ namespace MvaCToolkitCs.v1_2.DigitalPort
 
         ~CtkNonStopSerialPort() { this.Dispose(false); }
 
-        public bool IsLocalReadyConnect { get { return this.IsRemoteConnected; } }//Local連線成功=遠端連線成功
+        public bool IsLocalPrepared { get { return this.IsRemoteConnected; } }//Local連線成功=遠端連線成功
         public bool IsNonStopRunning { get { return this.threadNonStopConnect != null && this.threadNonStopConnect.IsAlive; } }
-        public bool IsOpenRequesting { get { return !this.connectMre.WaitOne(10); } }
+        public bool IsOpenConnecting { get { return !this.connectMre.WaitOne(10); } }
         public bool IsRemoteConnected { get { return this.serialPort == null ? false : this.serialPort.IsOpen; } }
         //用途是避免重複要求連線
         public void WriteBytes(byte[] buff, int offset, int length) { this.serialPort.Write(buff, offset, length); }

@@ -1,3 +1,4 @@
+using MvaCToolkitCs.v1_2;
 using MvaCToolkitCs.v1_2.DigitalPort;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace MvAssistant.v0_3.DeviceDrive.E84
                 if (this.SerialPort != null)
                     using (var obj = this.SerialPort) { obj.Disconnect(); }
             }
-            catch (Exception ex) { MvaLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
         }
 
 
