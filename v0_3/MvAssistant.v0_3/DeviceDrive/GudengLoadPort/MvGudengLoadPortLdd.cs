@@ -122,8 +122,8 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
 
         #region Socket Communication
 
-        public List<Byte> DataBuffer = new List<byte>();
-
+        List<Byte> DataBuffer = new List<byte>();
+        Queue<String> DataMessage = new Queue<string>();
 
 
         /// <summary>啟動監聽 Server 端的 Thread</summary>
@@ -171,40 +171,56 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             {
                 try
                 {
+                    //cmd = "~001,Placement,0@\0\0\0\0";
                     byte[] buffer = new byte[1023];
                     int cntReadByte = ClientSocket.Receive(buffer);//從Server端回復(Listen Point)
-                    string rtn = Encoding.Default.GetString(buffer, 0, cntReadByte);
+                    for (var idx = 0; idx < cntReadByte; idx++) this.DataBuffer.Add(buffer[idx]);
 
-                    //rtn = "~001,Placement,0@\0\0\0\0";
 
-                    CtkLog.DebugNsF(this, "[LoadPort] " + rtn);
-
-                    rtn = rtn.Replace("\0", "");
-
-                    if (string.IsNullOrEmpty(rtn))
-                    {  // 忽然斷線(將一直收到空白 50 次視為遺失連線)
+                    //--- Confirm 是否斷線 ---
+                    var cmd = Encoding.Default.GetString(buffer, 0, cntReadByte);
+                    cmd = cmd.Replace("\0", "");
+                    if (string.IsNullOrEmpty(cmd))
+                    {/*忽然斷線(將一直收到空白 50 次視為遺失連線)*/
                         if (++rtnEmptyCount > 50 && OnHostLostTcpServerHandler != null)
                         {
                             OnHostLostTcpServerHandler.Invoke(this, EventArgs.Empty);
                             break;
                         }
-                        System.Threading.Thread.Sleep(100);
+                        Thread.Sleep(100);
                         continue;
                     }
-                    else
-                    {
-                        rtnEmptyCount = 0;
+                    else { rtnEmptyCount = 0; }
+
+                    //--- Receive Message ---
+                    for (var idx = 0; idx < 99 && !this.disposed; idx++)
+                    {/*一次最多99個, 也不應該累積到99個*/
+
+                        while (this.DataBuffer.Count > 0 && this.DataBuffer[0] != '~')
+                            this.DataBuffer.RemoveAt(0);//機率很低, 所以一個個移除比較好
+                        var endIndex = this.DataBuffer.IndexOf((Byte)'@');
+
+                        if (endIndex < 0) break;
+
+                        var cmdArray = this.DataBuffer.Take(endIndex + 1).ToArray();
+                        cmd = Encoding.Default.GetString(cmdArray, 0, cmdArray.Length);
+                        this.DataBuffer.RemoveRange(0, endIndex + 1);
+                        this.DataMessage.Enqueue(cmd);
+                        CtkLog.DebugNsF(this, "[LoadPort] " + cmd);
                     }
-                    if (OnReceviceRtnFromServerHandler != null)
-                    {
-                        // 可能一次會有多個結果
-                        var rtnAry = rtn.Split(new string[] { BaseHostToLoadPortCommand.CommandPostfixText }, StringSplitOptions.RemoveEmptyEntries);
-                        foreach (var element in rtnAry)
+
+                    //--- Process Message ---
+                    for (var idx = 0; idx < 99 && this.DataMessage.Count > 0 && !this.disposed; idx++)
+                    {/*一次最多99個, 也不應該累積到99個*/
+                        cmd = this.DataMessage.Dequeue();
+                        cmd = cmd.Replace("\0", "");
+                        if (OnReceviceRtnFromServerHandler != null)
                         {
-                            var eventArgs = new OnReceviceRtnFromServerEventArgs(element);
+                            var eventArgs = new OnReceviceRtnFromServerEventArgs(cmd);
                             OnReceviceRtnFromServerHandler.Invoke(this, eventArgs);
                         }
                     }
+
                 }
                 catch (Exception ex)
                 {
