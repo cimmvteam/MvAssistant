@@ -188,7 +188,7 @@ namespace MvAssistant.v0_3.DeviceDrive.LeimacLight
                 if (this.TcpClient != null)
                     using (var obj = this.TcpClient) { obj.Disconnect(); }
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
         }
 
 

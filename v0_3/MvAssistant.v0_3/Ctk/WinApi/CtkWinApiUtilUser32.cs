@@ -18,7 +18,7 @@ namespace MvaCToolkitCs.v1_2.WinApi
             CtkMdlInput mouseInput = new CtkMdlInput();
 
             mouseInput.dwType = 0;
-            mouseInput.mi = new CtkMdlHookMouseStruct();
+            mouseInput.mi = new CtkStructHookMouse();
             mouseInput.mi.dwExtraInfo = IntPtr.Zero;
             mouseInput.mi.dx = 0;
             mouseInput.mi.dy = 0;
@@ -59,7 +59,7 @@ namespace MvaCToolkitCs.v1_2.WinApi
             input.dwType = CtkMdlInputType.Keyboard;
 
 
-            input.ki = new CtkMdlHookKeyboardStruct();
+            input.ki = new CtkStructHookKeyboard();
             input.ki.wVk = vk;
             input.ki.dwFlags = 0;
             input.ki.wScan = 0;
@@ -75,7 +75,7 @@ namespace MvaCToolkitCs.v1_2.WinApi
             input.dwType = CtkMdlInputType.Keyboard;
 
 
-            input.ki = new CtkMdlHookKeyboardStruct();
+            input.ki = new CtkStructHookKeyboard();
             input.ki.wVk = vk;
             input.ki.dwFlags = CtkEnumKeyboardFlag.KEYUP;
             input.ki.wScan = 0;

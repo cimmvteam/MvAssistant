@@ -54,22 +54,24 @@ namespace MvaCToolkitCs.v1_2.Threading
 
         protected ManualResetEvent _resetEvent = new ManualResetEvent(true);
 
+
+
         /// <summary> 不使用Monitor阻塞 </summary>
-        public virtual CtkMonitorManualResetEventBlocker OnceBlocker()
+        public virtual CtkMonitorManualResetEventBlocker OnceBlockerEvent()
         {
-            if (!this.TryReset()) return null;
+            if (!this.EventReset()) return null;
             return new CtkMonitorManualResetEventBlocker(this, false);
         }
         /// <summary> 使用Monitor阻塞 </summary>
-        public virtual CtkMonitorManualResetEventBlocker OnceBlockerM()
+        public virtual CtkMonitorManualResetEventBlocker OnceBlockerMonitor()
         {
-            if (!this.TryEnter()) return null;
+            if (!this.MonitorReset()) return null;
             return new CtkMonitorManualResetEventBlocker(this, true);
         }
 
 
         /// <summary> 使用Monitor進行Reset </summary>
-        public virtual bool TryEnter(int waitTimeLimitMs = 0, int eachTryGetLockTimeLimitMs = 10, int eachTryResetTimeLimitMs = 10, int eachSleepTimeMs = 10)
+        public virtual bool MonitorReset(int waitTimeLimitMs = 0, int eachTryGetLockTimeLimitMs = 10, int eachTryResetTimeLimitMs = 10, int eachSleepTimeMs = 10)
         {
             var entryTime = DateTime.Now;
 
@@ -91,9 +93,11 @@ namespace MvaCToolkitCs.v1_2.Threading
 
                     if (isGetLock)
                     {
-                        //若在這Wait不歸還Lock, 會導致其它Thread無法取得Lock, 無法進行Set就永遠等不到
+                        /* 若在這Wait不歸還Lock, 會導致其它Thread無法取得Lock, 無法進行Set就永遠等不到. 
+                         * 若確定要這樣做, 請直接使用 ResetEvent.WaitOne, 不需使用此物件*/
                         if (eachTryResetTimeLimitMs <= 0)
                             throw new ArgumentException("if you can get locker then another cannot, reset time <= 0 will cause dead lock");
+
 
                         if (this._resetEvent.WaitOne(eachTryResetTimeLimitMs))
                         {
@@ -110,7 +114,7 @@ namespace MvaCToolkitCs.v1_2.Threading
         }
 
         /// <summary> 使用Monitor進行Set </summary>
-        public virtual bool TryExit(int waitTimeLimitMs = 0, int eachTryGetLockTimeLimitMs = 10, int eachSleepTimeMs = 10)
+        public virtual bool MonitorSet(int waitTimeLimitMs = 0, int eachTryGetLockTimeLimitMs = 10, int eachSleepTimeMs = 10)
         {
             var entryTime = DateTime.Now;
 
@@ -141,8 +145,11 @@ namespace MvaCToolkitCs.v1_2.Threading
             return false;
         }
 
+
+
+
         /// <summary> 不使用Monitor進行Reset </summary>
-        public virtual bool TryReset(int waitTimeLimitMs = 0, int eachTryResetTimeLimitMs = 10, int eachSleepTimeMs = 10)
+        public virtual bool EventReset(int waitTimeLimitMs = 0, int eachTryResetTimeLimitMs = 10, int eachSleepTimeMs = 10)
         {
             var entryTime = DateTime.Now;
 
@@ -174,7 +181,7 @@ namespace MvaCToolkitCs.v1_2.Threading
         }
 
         /// <summary> 不使用Monitor進行Set </summary>
-        public virtual bool TrySet(int waitTimeLimitMs = 0, int eachSleepTimeMs = 10)
+        public virtual bool EventSet(int waitTimeLimitMs = 0, int eachSleepTimeMs = 10)
         {
             var entryTime = DateTime.Now;
 

@@ -263,7 +263,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnFailConnect(myea);
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {

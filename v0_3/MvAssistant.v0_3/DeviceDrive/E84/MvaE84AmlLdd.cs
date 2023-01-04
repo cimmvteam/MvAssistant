@@ -39,7 +39,7 @@ namespace MvAssistant.v0_3.DeviceDrive.E84
                 if (this.SerialPort != null)
                     using (var obj = this.SerialPort) { obj.Disconnect(); }
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
         }
 
 

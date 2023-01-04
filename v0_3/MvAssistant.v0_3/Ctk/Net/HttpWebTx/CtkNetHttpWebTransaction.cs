@@ -14,17 +14,20 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using System.Net.Cache;
 
 namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 {
     public class CtkNetHttpWebTransaction : IDisposable
     {
         public HttpWebRequest HwRequest;
-        public string HwRequestData;
         public Encoding HwRequestEncoding = Encoding.UTF8;
         public Encoding HwResponseEncoding = Encoding.UTF8;
+        protected string HwRequestData;
         protected HttpWebResponse hwResponse;
         protected String HwResponseData;
+
+
         
         public HttpWebResponse GetHwResponse()
         {
@@ -115,6 +118,12 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
             }
         }
+        /// <summary> Post時使用 </summary>
+        public void SetFormData(String formData)
+        {
+            this.HwRequestData = formData;
+        }
+
         public void SetHeaders(String headers)
         {
             var lines = headers.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -164,13 +173,6 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
 
         }
-
-
-
-
-
-
-
         #region IDisposable
         // Flag: Has Dispose already been called?
         protected bool disposed = false;
@@ -226,29 +228,46 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
         #region === Static === === ===
 
-        public static String HttpGet(string uri, System.Net.Cache.RequestCacheLevel cachePolicy) { return HttpGet(new Uri(uri), cachePolicy); }
-        public static String HttpGet(Uri uri, System.Net.Cache.RequestCacheLevel cachePolicy)
+        public static CtkNetHttpWebTransaction Create(String url)
+        {
+            var rs = new CtkNetHttpWebTransaction();
+            rs.HwRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            return rs;
+        }
+
+        public static CtkNetHttpWebTransaction Create(String url, RequestCacheLevel cachePolicy, String httpMethod = "GET")
+        {
+            var rs = new CtkNetHttpWebTransaction();
+            var req = rs.HwRequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.CachePolicy = new System.Net.Cache.RequestCachePolicy(cachePolicy);
+            req.Method = httpMethod;
+
+            return rs;
+        }
+
+        public static String HttpGet(string uri, RequestCacheLevel cachePolicy) { return HttpGet(new Uri(uri), cachePolicy); }
+        public static String HttpGet(Uri uri, RequestCacheLevel cachePolicy)
         {
             WebRequest wreq = WebRequest.Create(uri);
-            wreq.CachePolicy = new System.Net.Cache.RequestCachePolicy(cachePolicy);
+            wreq.CachePolicy = new RequestCachePolicy(cachePolicy);
             using (var wresp = wreq.GetResponse())
             using (var wrespStream = wresp.GetResponseStream())
             using (var reader = new System.IO.StreamReader(wrespStream))
                 return reader.ReadToEnd();
         }
-        public static String HttpGet(string uri, Encoding encoding = null) { return HttpGet(new Uri(uri), encoding); }
-        public static String HttpGet(Uri uri, Encoding encoding = null)
+        public static String HttpGet(string uri, Encoding encodingResp = null) { return HttpGet(new Uri(uri), encodingResp); }
+        public static String HttpGet(Uri uri, Encoding encodingResp = null)
         {
-            if (encoding == null) encoding = Encoding.UTF8;
+            if (encodingResp == null) encodingResp = Encoding.UTF8;
             var wreq = WebRequest.Create(uri);
             using (var wresp = wreq.GetResponse())
             using (var wrespStream = wresp.GetResponseStream())
-            using (var reader = new System.IO.StreamReader(wrespStream, encoding))
+            using (var reader = new StreamReader(wrespStream, encodingResp))
                 return reader.ReadToEnd();
 
         }
 
-        public static String HttpPost(String uri, Dictionary<string, object> postData, Encoding reqEncoding = null)
+        public static String HttpPost(String uri, Dictionary<string, object> postData, Encoding encodingReq = null)
         {
             var list = new List<string>();
             foreach (var kv in postData)
@@ -258,18 +277,18 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
             }
             var post = string.Join("&", list.ToArray());
 
-            return HttpPost(uri, post, reqEncoding);
+            return HttpPost(uri, post, encodingReq);
 
         }
-        public static String HttpPost(String uri, String post, Encoding reqEncoding = null)
+        public static String HttpPost(String uri, String post, Encoding encodingReq = null)
         {
-            if (reqEncoding == null) reqEncoding = Encoding.UTF8;
-            byte[] byteData = reqEncoding.GetBytes(post);
+            if (encodingReq == null) encodingReq = Encoding.UTF8;
+            byte[] byteData = encodingReq.GetBytes(post);
 
             HttpWebRequest wreq = null;
-            System.IO.Stream reqstm = null;
+            Stream reqstm = null;
             HttpWebResponse wresp = null;
-            System.IO.StreamReader reader = null;
+            StreamReader reader = null;
             try
             {
                 wreq = (HttpWebRequest)WebRequest.Create(uri);
@@ -296,15 +315,15 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
             }
         }
 
-        public static string HttpRequest(HttpWebRequest wreq, string reqData = null, Encoding reqEncoding = null, Encoding respEncoding = null)
+        public static string HttpRequest(HttpWebRequest wreq, string dataReq = null, Encoding encodingReq = null, Encoding encodingResp = null)
         {
-            if (reqEncoding == null) reqEncoding = Encoding.UTF8;
+            if (encodingReq == null) encodingReq = Encoding.UTF8;
 
 
             if (string.Compare(wreq.Method, "POST", true) == 0)
             {
-                if (reqData == null) reqData = "";
-                var byteData = reqEncoding.GetBytes(reqData);
+                if (dataReq == null) dataReq = "";
+                var byteData = encodingReq.GetBytes(dataReq);
                 wreq.ContentLength = byteData.Length;
                 using (var reqstm = wreq.GetRequestStream())
                     reqstm.Write(byteData, 0, byteData.Length);
@@ -314,48 +333,24 @@ namespace MvaCToolkitCs.v1_2.Net.HttpWebTx
 
             using (var wresp = (HttpWebResponse)wreq.GetResponse())
             {
-                if (respEncoding == null && !string.IsNullOrEmpty(wresp.CharacterSet))
+                if (encodingResp == null && !string.IsNullOrEmpty(wresp.CharacterSet))
                 {
-                    try { respEncoding = Encoding.GetEncoding(wresp.CharacterSet); }
+                    try { encodingResp = Encoding.GetEncoding(wresp.CharacterSet); }
                     catch (Exception) { }
                 }
-                if (respEncoding == null) { respEncoding = Encoding.UTF8; }
+                if (encodingResp == null) { encodingResp = Encoding.UTF8; }
 
                 using (var wrespStream = wresp.GetResponseStream())
-                using (var reader = new System.IO.StreamReader(wrespStream, respEncoding))
+                using (var reader = new System.IO.StreamReader(wrespStream, encodingResp))
                     return reader.ReadToEnd();
             }
         }
-
-
-
-
-
-        public static CtkNetHttpWebTransaction HttpRequestTx(String url)
-        {
-            var rs = new CtkNetHttpWebTransaction();
-            var req = rs.HwRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            return rs;
-        }
-
-        public static CtkNetHttpWebTransaction HttpRequestTx(String url, System.Net.Cache.RequestCacheLevel cachePolicy, String httpMethod = "GET")
-        {
-            var rs = new CtkNetHttpWebTransaction();
-            var req = rs.HwRequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            req.CachePolicy = new System.Net.Cache.RequestCachePolicy(cachePolicy);
-            req.Method = httpMethod;
-
-            return rs;
-        }
-
-
         public static Regex RegexUrl() { return new Regex(@"^(?<proto>\w+)://[^/]+?(?<port>:\d+)?/", RegexOptions.Compiled); }
 
 
-
-
-
         #endregion
+
+
 
         #region Static - Selenium
 

@@ -49,12 +49,6 @@ namespace MvaCToolkitCs.v1_2.Logging
 
 
 
-        #region Static
-
-        static CtkLoggerMapper m_Singleton;
-        public static CtkLoggerMapper Singleton { get { if (m_Singleton == null) { m_Singleton = new CtkLoggerMapper(); } return m_Singleton; } }
-
-        #endregion
 
     }
 }

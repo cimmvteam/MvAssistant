@@ -28,7 +28,12 @@ namespace MvaCToolkitCs.v1_2
         public static T ChangeType<T>(object data) { return (T)Convert.ChangeType(data, typeof(T)); }
 
 
-
+        public static bool IsCurrentProcessAdmin()
+        {
+            var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            var principal = new System.Security.Principal.WindowsPrincipal(identity);
+            return principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+        }
 
         public static TAttr GetAttribute<TEnum, TAttr>(TEnum val) where TAttr : Attribute
         {

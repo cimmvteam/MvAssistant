@@ -69,7 +69,7 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
                 {
                     portTable.Remove(variablePort);
                     portTable.Add(variablePort, false);
-                    CtkLog.WarnNs(this, ex);
+                    CtkLog.WarnAn(this, ex);
                 }
             }
 

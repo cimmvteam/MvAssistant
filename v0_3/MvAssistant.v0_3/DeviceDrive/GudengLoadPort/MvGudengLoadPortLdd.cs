@@ -111,7 +111,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             }
             catch (Exception ex)
             {
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
 
         }
@@ -139,7 +139,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             }
             catch (Exception ex)
             {
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
                 IsListenServer = false;
             }
             return IsListenServer;
@@ -206,7 +206,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                         cmd = Encoding.Default.GetString(cmdArray, 0, cmdArray.Length);
                         this.DataBuffer.RemoveRange(0, endIndex + 1);
                         this.DataMessage.Enqueue(cmd);
-                        CtkLog.DebugNsF(this, "[LoadPort] " + cmd);
+                        CtkLog.DebugAn(this, "[LoadPort] " + cmd);
                     }
 
                     //--- Process Message ---
@@ -224,7 +224,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
                 }
                 catch (Exception ex)
                 {
-                    CtkLog.WarnNs(this, ex);
+                    CtkLog.WarnAn(this, ex);
                 }
             }
         }

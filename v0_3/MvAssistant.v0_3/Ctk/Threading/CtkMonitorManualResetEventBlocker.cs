@@ -19,8 +19,8 @@ namespace MvaCToolkitCs.v1_2.Threading
 
         public void Close()
         {
-            if (this._isUsedMonitor) this._mare.TryExit();
-            else this._mare.TrySet();
+            if (this._isUsedMonitor) this._mare.MonitorSet();
+            else this._mare.EventSet();
         }
 
 

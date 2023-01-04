@@ -229,11 +229,12 @@
     <Compile Include="Ctk\WinApiNative\CtkGdiPlus.cs" />
     <Compile Include="Ctk\WinApiNative\CtkGpStatus.cs" />
     <Compile Include="Ctk\WinApiNative\CtkKernel32Lib.cs" />
-    <Compile Include="Ctk\WinApiNative\CtkMdlHookHardwareStruct.cs" />
-    <Compile Include="Ctk\WinApiNative\CtkMdlHookKeyboardStruct.cs" />
-    <Compile Include="Ctk\WinApiNative\CtkMdlHookMouseStruct.cs" />
     <Compile Include="Ctk\WinApiNative\CtkMdlInput.cs" />
     <Compile Include="Ctk\WinApiNative\CtkMdlInputType.cs" />
+    <Compile Include="Ctk\WinApiNative\CtkStructHookHardware.cs" />
+    <Compile Include="Ctk\WinApiNative\CtkStructHookKeyboard.cs" />
+    <Compile Include="Ctk\WinApiNative\CtkStructHookMouse.cs" />
+    <Compile Include="Ctk\WinApiNative\CtkStructSystemTime.cs" />
     <Compile Include="Ctk\WinApiNative\CtkUser32Lib.cs" />
     <Compile Include="Ctk\WinApiNative\CtkWinInetLib.cs" />
     <Compile Include="Ctk\WinApi\CtkWinApiEnumMouseLMR.cs" />

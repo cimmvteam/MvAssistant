@@ -6,15 +6,15 @@ using System.Text;
 namespace MvaCToolkitCs.v1_2.WinApiNative
 {
 
-
-
     [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential, Pack = 1)]
-    public struct CtkMdlHookKeyboardStruct
+    public struct CtkStructHookMouse
     {
-        public Int16 wVk; // VirtualKeyCode
-        public Int16 wScan;
-        public CtkEnumKeyboardFlag dwFlags;
+        public Int32 dx;
+        public Int32 dy;
+        public Int32 mouseData;
+        public CtkEnumMouseFlag dwFlags;
         public Int32 time;
         public IntPtr dwExtraInfo;
+      
     }
 }

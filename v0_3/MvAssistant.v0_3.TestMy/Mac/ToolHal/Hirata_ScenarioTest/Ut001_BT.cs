@@ -290,7 +290,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                 }
                 catch(Exception ex)
                 {
-                    CtkLog.WarnNs(this, ex);
+                    CtkLog.WarnAn(this, ex);
 
                 }
 

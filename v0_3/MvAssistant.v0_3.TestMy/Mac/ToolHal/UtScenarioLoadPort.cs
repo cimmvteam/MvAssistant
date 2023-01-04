@@ -82,7 +82,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
 
                 }
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
         }
         #region Loadport Event Handler
         void BindLoadPortEvent(IMacHalLoadPortUnit loadport)
@@ -431,7 +431,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandAlarmReset();
                 Repeat();
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -460,7 +460,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandInitialRequest();
                 Repeat();
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -488,7 +488,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandDockRequest();
                 Repeat();
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
             finally
             {
                 if (halContext != null)
@@ -518,7 +518,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
                 TestLoadport.CommandUndockRequest();
                 Repeat();
             }
-            catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+            catch (Exception ex) { CtkLog.WarnAn(this, ex); }
             finally
             {
                 if (halContext != null)

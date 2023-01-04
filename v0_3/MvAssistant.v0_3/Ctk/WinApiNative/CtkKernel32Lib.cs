@@ -12,5 +12,8 @@ namespace MvaCToolkitCs.v1_2.WinApiNative
         [DllImport("kernel32.dll", EntryPoint = "CopyMemory", SetLastError = false)]
         public static extern void CopyMemory(IntPtr dest, IntPtr src, uint count);
 
+        [DllImport("kernel32.dll", EntryPoint= "SetSystemTime", SetLastError = true)]
+        public static extern bool SetSystemTime(ref CtkStructSystemTime st);
+
     }
 }

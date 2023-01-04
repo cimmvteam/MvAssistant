@@ -126,7 +126,7 @@ namespace MvAssistant.v0_3.Mac.Hal.CompLoadPort
             }
             catch (Exception ex)
             {
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
                 return 1;
             }
         }

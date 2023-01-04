@@ -50,7 +50,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                     drawer.MoveTrayToHome();
                    drawer.MoveTrayToIn();
                 }
-                catch(Exception ex)                { CtkLog.WarnNs(this, ex); }
+                catch(Exception ex)                { CtkLog.WarnAn(this, ex); }
             }
         }
         [TestMethod]
@@ -180,7 +180,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                             catch(Exception ex)
                             {
-                                CtkLog.WarnNs(this, ex);
+                                CtkLog.WarnAn(this, ex);
 
                             }
                             finally
@@ -322,7 +322,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             }
                             catch(Exception ex)
                             {
-                                CtkLog.WarnNs(this, ex);
+                                CtkLog.WarnAn(this, ex);
 
                             }
                             finally
@@ -362,10 +362,10 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal.Hirata_ScenarioTest
                             BREAK_POINT++; // [一定要暫停] 這個 drawer 做好了, 準備下一個
 
                          }
-                        catch (Exception ex)                       {                            CtkLog.WarnNs(this, ex);                        }
+                        catch (Exception ex)                       {                            CtkLog.WarnAn(this, ex);                        }
                     }
                 }
-                catch (Exception ex)                { CtkLog.WarnNs(this, ex); }
+                catch (Exception ex)                { CtkLog.WarnAn(this, ex); }
 
             }
         }

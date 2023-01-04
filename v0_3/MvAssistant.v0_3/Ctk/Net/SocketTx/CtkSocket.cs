@@ -314,6 +314,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             try { this.mreIsReceiving.Set();/*僅Set不釋放, 可能還會使用*/ } catch (ObjectDisposedException) { }
             try { this.mreIsConnecting.Set();/*僅Set不釋放, 可能還會使用*/ } catch (ObjectDisposedException) { }
 
+            // Socket斷開後, 此物件無法再使用 等同 Released, 所以直接 Dispose, 若仍需要 請另開
             foreach (var socket in this.TargetSockets) CtkNetUtil.DisposeSocketTry(socket);
             CtkNetUtil.DisposeSocketTry(this.SocketConn);
             this.OnDisconnect(new CtkProtocolEventArgs() { Message = "Disconnect method is executed" });
@@ -348,7 +349,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             catch (Exception ex)
             {
                 this.Disconnect();//寫入失敗就斷線
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
                 throw ex;//就例外就拋出, 不吃掉
             }
         }
@@ -366,7 +367,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             catch (Exception ex)
             {
                 this.Disconnect();//寫入失敗就斷線
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
                 throw ex;//就例外就拋出, 不吃掉
             }
         }
@@ -404,7 +405,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
                 //呼叫他人不應影響自己運作, catch起來
                 try { this.OnFirstConnect(myea); }
-                catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+                catch (Exception ex) { CtkLog.WarnAn(this, ex); }
 
 
                 if (this.IsAsynAutoListen)
@@ -422,7 +423,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnFailConnect(myea);
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {
@@ -455,7 +456,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
                 //呼叫他人不應影響自己運作, catch起來
                 try { this.OnFirstConnect(myea); }
-                catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+                catch (Exception ex) { CtkLog.WarnAn(this, ex); }
 
 
                 if (this.IsAsynAutoReceive)
@@ -478,7 +479,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnFailConnect(myea);
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {
@@ -521,7 +522,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnErrorReceive(myea);//但要呼叫 OnErrorReceive
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {
@@ -567,7 +568,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnErrorReceive(myea);//但要呼叫 OnErrorReceive
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {

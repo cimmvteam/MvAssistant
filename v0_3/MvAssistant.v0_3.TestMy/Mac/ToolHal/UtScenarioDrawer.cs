@@ -49,7 +49,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
             }
             catch(Exception ex)
             {
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
 
             }
         }
@@ -145,7 +145,7 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolHal
             }
             catch (Exception ex)
             {
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
 
         }

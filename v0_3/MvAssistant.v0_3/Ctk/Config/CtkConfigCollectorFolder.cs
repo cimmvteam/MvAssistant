@@ -50,7 +50,7 @@ namespace MvaCToolkitCs.v1_2.Config
                     var config = CtkUtil.LoadXmlFileTOrNew<T>(fi.FullName);
                     this[fi.Name] = config;
                 }
-                catch (Exception ex) { CtkLog.WriteNs(this, ex.Message); }
+                catch (Exception ex) { CtkLog.WriteAn(this, ex.Message); }
 
                 //更新存在的
                 orignalConfigs[fi.Name] = true;

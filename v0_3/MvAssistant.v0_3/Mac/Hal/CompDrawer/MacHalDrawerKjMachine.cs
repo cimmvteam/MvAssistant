@@ -125,7 +125,7 @@ namespace MvAssistant.v0_3.Mac.Hal.CompDrawer
             catch (Exception ex)
             {
                 connected = false;
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             return connected ? 1 : 0;
         }

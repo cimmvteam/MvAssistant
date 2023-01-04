@@ -66,7 +66,7 @@ namespace MvaCToolkitCs.v1_2.WinApi
                 try
                 {
                     var hookType = (CtkEnumConst)wParam;
-                    var mouseHookStruct = (CtkMdlHookMouseStruct)Marshal.PtrToStructure(lParam, typeof(CtkMdlHookMouseStruct));
+                    var mouseHookStruct = (CtkStructHookMouse)Marshal.PtrToStructure(lParam, typeof(CtkStructHookMouse));
 
                     short mouseDelta = 0;
 

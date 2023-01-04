@@ -79,7 +79,7 @@ namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    CtkLog.WarnNs(this, ex);
+                    CtkLog.WarnAn(this, ex);
                     myex = ex;
                 }
             }
@@ -106,7 +106,7 @@ namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    CtkLog.WarnNs(this, ex);
+                    CtkLog.WarnAn(this, ex);
                     myex = ex;
                 }
             }
@@ -133,7 +133,7 @@ namespace MvAssistant.v0_3.DeviceDrive.OmronPlc
                 catch (Exception ex)
                 {
                     LogInfo(ex.Message);
-                    CtkLog.WarnNs(this, ex);
+                    CtkLog.WarnAn(this, ex);
                     myex = ex;
                 }
             }

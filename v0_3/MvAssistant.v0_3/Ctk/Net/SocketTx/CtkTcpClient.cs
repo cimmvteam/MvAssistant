@@ -166,7 +166,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
             {
                 //資料寫入錯誤, 普遍是斷線造成, 先中斷連線清除資料
                 this.Disconnect();
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             //stm.BeginWrite(buff, offset, length, new AsyncCallback((ar) =>
             //{
@@ -197,7 +197,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
 
                 //呼叫他人不應影響自己運作, catch起來
                 try { this.OnFirstConnect(myea); }
-                catch (Exception ex) { CtkLog.WarnNs(this, ex); }
+                catch (Exception ex) { CtkLog.WarnAn(this, ex); }
 
                 if (this.IsAsynAutoRead)
                 {
@@ -213,7 +213,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnFailConnect(myea);
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {
@@ -253,7 +253,7 @@ namespace MvaCToolkitCs.v1_2.Net.SocketTx
                 myea.Message = ex.Message;
                 myea.Exception = ex;
                 this.OnErrorReceive(myea);//但要呼叫 OnErrorReceive
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
             }
             finally
             {

@@ -161,7 +161,7 @@ namespace MvAssistant.v0_3.DeviceDrive.KjMachineDrawer
             }
             catch (Exception ex)
             {
-                CtkLog.WarnNs(this, ex);
+                CtkLog.WarnAn(this, ex);
                 return null;
             }
 
