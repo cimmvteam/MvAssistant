@@ -1052,27 +1052,28 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
 
 
         #region Alarm Event
-        public event EventHandler OnClamperActionTimeOutHandler = null;
 
-        public event EventHandler OnClamperLockPositionFailedHandler = null;
+        public event EventHandler EhClamperActionTimeOut = null;
 
-        public event EventHandler OnClamperMotorAbnormalityHandler = null;
+        public event EventHandler EhClamperLockPositionFailed = null;
 
-        public event EventHandler OnClamperUnlockPositionFailedHandler = null;
+        public event EventHandler EhClamperMotorAbnormality = null;
 
-        public event EventHandler OnPODPresentAbnormalityHandler = null;
+        public event EventHandler EhClamperUnlockPositionFailed = null;
 
-        public event EventHandler OnReticlePositionAbnormalityHandler = null;
+        public event EventHandler EhPODPresentAbnormality = null;
 
-        public event EventHandler OnStageMotionTimeoutHandler = null;
+        public event EventHandler EhReticlePositionAbnormality = null;
 
-        public event EventHandler OnStageMotorAbnormalityHandler = null;
+        public event EventHandler EhStageMotionTimeout = null;
 
-        public event EventHandler OnStageOverDownLimitationHandler = null;
+        public event EventHandler EhStageMotorAbnormality = null;
 
-        public event EventHandler OnStageOverUpLimitationHandler = null;
+        public event EventHandler EhStageOverDownLimitation = null;
 
-        public event EventHandler OnVacuumAbnormalityHandler = null;
+        public event EventHandler EhStageOverUpLimitation = null;
+
+        public event EventHandler EhVacuumAbnormality = null;
 
         /// <summary>Alarm ClamperActionTimeOut(200)</summary>
         /// <param name="rtnFromServer"></param>
@@ -1080,119 +1081,99 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
         public void ClamperActionTimeOut(ReturnFromServer rtnFromServer)
         {
 
-            if (OnClamperActionTimeOutHandler != null)
-            { OnClamperActionTimeOutHandler.Invoke(this, EventArgs.Empty); }
+            if (EhClamperActionTimeOut != null)
+            { EhClamperActionTimeOut.Invoke(this, EventArgs.Empty); }
         }
         /// <summary>Alarm ClamperLockPositionFailed(207)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>ClamerLock完成後位置錯誤</remarks>
         public void ClamperLockPositionFailed(ReturnFromServer rtnFromServer)
         {
-            if (OnClamperLockPositionFailedHandler != null) { OnClamperLockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
+            if (EhClamperLockPositionFailed != null) { EhClamperLockPositionFailed.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm ClamperMotorAbnormality(209)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Clamper開合馬達驅動器異常</remarks>
         public void ClamperMotorAbnormality(ReturnFromServer rtnFromServer)
         {
-            if (OnClamperMotorAbnormalityHandler != null) { OnClamperMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+            if (EhClamperMotorAbnormality != null) { EhClamperMotorAbnormality.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm ClamperUnlockPositionFailed(201)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>ClamerUnlock完成後位置錯誤</remarks>
         public void ClamperUnlockPositionFailed(ReturnFromServer rtnFromServer)
         {
 
-            if (OnClamperUnlockPositionFailedHandler != null)
-            { OnClamperUnlockPositionFailedHandler.Invoke(this, EventArgs.Empty); }
+            if (EhClamperUnlockPositionFailed != null)
+            { EhClamperUnlockPositionFailed.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm PODPresentAbnormality(208)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>POD上下蓋脫離定位</remarks>
         public void PODPresentAbnormality(ReturnFromServer rtnFromServer)
         {
-            if (OnPODPresentAbnormalityHandler != null) { OnPODPresentAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+            if (EhPODPresentAbnormality != null) { EhPODPresentAbnormality.Invoke(this, EventArgs.Empty); }
         }
-
-        public void ResetOnClamperActionTimeOutHandler() { OnClamperActionTimeOutHandler = null; }
-        public void ResetOnClamperLockPositionFailed() { OnClamperLockPositionFailedHandler = null; }
-
+        public void ResetOnClamperActionTimeOutHandler() { EhClamperActionTimeOut = null; }
+        public void ResetOnClamperLockPositionFailed() { EhClamperLockPositionFailed = null; }
         public void ResetOnClamperMotorAbnormality()
-        { OnClamperMotorAbnormalityHandler = null; }
-
-        public void ResetOnClamperUnlockPositionFailedHandler() { OnClamperUnlockPositionFailedHandler = null; }
-
-
-        public void ResetOnPODPresentAbnormalityHandler() { OnPODPresentAbnormalityHandler = null; }
-
-        public void ResetOnReticlePositionAbnormalityHandler() { OnReticlePositionAbnormalityHandler = null; }
-
-        public void ResetOnStageMotionTimeoutHandler() { OnStageMotionTimeoutHandler = null; }
-
-        public void ResetOnStageMotorAbnormality() { OnStageMotorAbnormalityHandler = null; }
-
-        public void ResetOnStageOverDownLimitationHandler() { OnStageOverDownLimitationHandler = null; }
-
-        public void ResetOnStageOverUpLimitationHandler() { OnStageOverUpLimitationHandler = null; }
-
-        public void ResetOnVacuumAbnormalityHandler() { OnVacuumAbnormalityHandler = null; }
-
+        { EhClamperMotorAbnormality = null; }
+        public void ResetOnClamperUnlockPositionFailedHandler() { EhClamperUnlockPositionFailed = null; }
+        public void ResetOnPODPresentAbnormalityHandler() { EhPODPresentAbnormality = null; }
+        public void ResetOnReticlePositionAbnormalityHandler() { EhReticlePositionAbnormality = null; }
+        public void ResetOnStageMotionTimeoutHandler() { EhStageMotionTimeout = null; }
+        public void ResetOnStageMotorAbnormality() { EhStageMotorAbnormality = null; }
+        public void ResetOnStageOverDownLimitationHandler() { EhStageOverDownLimitation = null; }
+        public void ResetOnStageOverUpLimitationHandler() { EhStageOverUpLimitation = null; }
+        public void ResetOnVacuumAbnormalityHandler() { EhVacuumAbnormality = null; }
         /// <summary>Alarm ReticlePositionAbnormality(206)</summary>
         /// <param name="rtnFromServer"></param>
         ///<remarks>Dock/Undock時, 光罩滑出POD</remarks>
         public void ReticlePositionAbnormality(ReturnFromServer rtnFromServer)
         {
-            if (OnReticlePositionAbnormalityHandler != null)
+            if (EhReticlePositionAbnormality != null)
             {
-                OnReticlePositionAbnormalityHandler.Invoke(this, EventArgs.Empty);
+                EhReticlePositionAbnormality.Invoke(this, EventArgs.Empty);
             }
         }
-
         /// <summary>Alarm StageMotionTimeout(203)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Stage運動超時</remarks>
         public void StageMotionTimeout(ReturnFromServer rtnFromServer)
         {
 
-            if (OnStageMotionTimeoutHandler != null) { OnStageMotionTimeoutHandler.Invoke(this, EventArgs.Empty); }
+            if (EhStageMotionTimeout != null) { EhStageMotionTimeout.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm StageMotorAbnormality(210)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Stage升降馬達驅動器異常</remarks>
         public void StageMotorAbnormality(ReturnFromServer rtnFromServer)
         {
-            if (OnStageMotorAbnormalityHandler != null) { OnStageMotorAbnormalityHandler.Invoke(this, EventArgs.Empty); }
+            if (EhStageMotorAbnormality != null) { EhStageMotorAbnormality.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm StageOverDownLimitation(205)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Stage下位限制Sensor觸發</remarks>
         public void StageOverDownLimitation(ReturnFromServer rtnFromServer)
         {
-            if (OnStageOverDownLimitationHandler != null) { OnStageOverDownLimitationHandler.Invoke(this, EventArgs.Empty); }
+            if (EhStageOverDownLimitation != null) { EhStageOverDownLimitation.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm StageOverUpLimitation(204)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>Stage上位限制Sensor觸發</remarks>
         public void StageOverUpLimitation(ReturnFromServer rtnFromServer)
         {
-            if (OnStageOverUpLimitationHandler != null) { OnStageOverUpLimitationHandler.Invoke(this, EventArgs.Empty); }
+            if (EhStageOverUpLimitation != null) { EhStageOverUpLimitation.Invoke(this, EventArgs.Empty); }
         }
-
         /// <summary>Alarm VacuumAbnormality(202)</summary>
         /// <param name="rtnFromServer"></param>
         /// <remarks>StageDock/Undock前真空值錯誤</remarks>
         public void VacuumAbnormality(ReturnFromServer rtnFromServer)
         {
 
-            if (OnVacuumAbnormalityHandler != null)
+            if (EhVacuumAbnormality != null)
             {
-                OnVacuumAbnormalityHandler.Invoke(this, EventArgs.Empty);
+                EhVacuumAbnormality.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -1241,6 +1222,7 @@ namespace MvAssistant.v0_3.DeviceDrive.GudengLoadPort
             }
 
         }
+
         #endregion
 
     }
