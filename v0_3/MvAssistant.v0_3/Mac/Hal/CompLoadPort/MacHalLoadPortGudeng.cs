@@ -177,29 +177,29 @@ namespace MvAssistant.v0_3.Mac.Hal.CompLoadPort
         /// <summary></summary>
         private void BindEvents()
         {
-            _ldd.OnPlacementHandler += this.OnPlacement;
-            _ldd.OnPresentHandler += this.OnPresent;
-            _ldd.OnClamperHandler += this.OnClamper;
-            _ldd.OnBarcode_IDHandler += this.OnBarcode_ID;
-            _ldd.OnClamperLockCompleteHandler += this.OnClamperLockComplete;
-            _ldd.OnVacuumCompleteHandler += this.OnVacuumComplete;
-            _ldd.OnDockPODStartHandler += this.OnDockPODStart;
-            _ldd.OnDockPODComplete_HasReticleHandler += this.OnDockPODComplete_HasReticle;
-            _ldd.OnDockPODComplete_EmptyHandler += this.OnDockPODComplete_Empty;
-            _ldd.OnUndockCompleteHandler += this.OnUndockComplete;
-            _ldd.OnClamperUnlockCompleteHandler += this.OnClamperUnlockComplete;
-            _ldd.OnAlarmResetSuccessHandler += this.OnAlarmResetSuccess;
-            _ldd.OnAlarmResetFailHandler += this.OnAlarmResetFail;
-            _ldd.OnExecuteInitialFirstHandler += this.OnExecuteInitialFirst;
-            _ldd.OnExecuteAlarmResetFirstHandler += this.OnExecuteAlarmResetFirst;
-            _ldd.OnStagePositionHandler += this.OnStagePosition;
-            _ldd.OnLoadportStatusHandler += this.OnLoadportStatus;
-            _ldd.OnInitialCompleteHandler += this.OnInitialComplete;
-            _ldd.OnInitialUnCompleteHandler += this.OnInitialUnComplete;
-            _ldd.OnMustInAutoModeHandler += this.OnMustInAutoMode;
-            _ldd.OnMustInManualModeHandler += this.OnMustInManualMode;
-            _ldd.OnClamperNotLockHandler += this.OnClamperNotLock;
-            _ldd.OnPODNotPutProperlyHandler += this.OnPODNotPutProperly;
+            _ldd.EhPlacement += this.OnPlacement;
+            _ldd.EhPresent += this.OnPresent;
+            _ldd.EhClamper += this.OnClamper;
+            _ldd.EhBarcode_ID += this.OnBarcode_ID;
+            _ldd.EhClamperLockComplete += this.OnClamperLockComplete;
+            _ldd.EhVacuumComplete += this.OnVacuumComplete;
+            _ldd.EhDockPODStart += this.OnDockPODStart;
+            _ldd.EhDockPODComplete_HasReticle += this.OnDockPODComplete_HasReticle;
+            _ldd.EhDockPODComplete_Empty += this.OnDockPODComplete_Empty;
+            _ldd.EhUndockComplete += this.OnUndockComplete;
+            _ldd.EhClamperUnlockComplete += this.OnClamperUnlockComplete;
+            _ldd.EhAlarmResetSuccess += this.OnAlarmResetSuccess;
+            _ldd.EhAlarmResetFail += this.OnAlarmResetFail;
+            _ldd.EhExecuteInitialFirst += this.OnExecuteInitialFirst;
+            _ldd.EhExecuteAlarmResetFirst += this.OnExecuteAlarmResetFirst;
+            _ldd.EhStagePosition += this.OnStagePosition;
+            _ldd.EhLoadportStatus += this.OnLoadportStatus;
+            _ldd.EhInitialComplete += this.OnInitialComplete;
+            _ldd.EhInitialUnComplete += this.OnInitialUnComplete;
+            _ldd.EhMustInAutoMode += this.OnMustInAutoMode;
+            _ldd.EhMustInManualMode += this.OnMustInManualMode;
+            _ldd.EhClamperNotLock += this.OnClamperNotLock;
+            _ldd.EhPODNotPutProperly += this.OnPODNotPutProperly;
             _ldd.EhClamperActionTimeOut += this.OnClamperActionTimeOut;
             _ldd.EhClamperUnlockPositionFailed += this.OnClamperUnlockPositionFailed;
             _ldd.EhVacuumAbnormality += this.OnVacuumAbnormality;
@@ -211,8 +211,8 @@ namespace MvAssistant.v0_3.Mac.Hal.CompLoadPort
             _ldd.EhPODPresentAbnormality += this.OnPODPresentAbnormality;
             _ldd.EhClamperMotorAbnormality += this.OnClamperMotorAbnormality;
             _ldd.EhStageMotorAbnormality += this.OnStageMotorAbnormality;
-            _ldd.OnRFIDHandler += this.OnRFID;
-            _ldd.OnHostLostTcpServerHandler += this.OnHostLostTcpServer;
+            _ldd.EhRFID += this.OnRFID;
+            _ldd.EhHostLostTcpServer += this.OnHostLostTcpServer;
         }
 
 

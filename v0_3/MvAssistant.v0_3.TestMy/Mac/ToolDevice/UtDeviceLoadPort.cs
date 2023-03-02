@@ -33,41 +33,41 @@ namespace MvAssistant.v0_3.Mac.TestMy.ToolDevice
         {
             foreach (var loadport in ldd.LoadPorts)
             {
-                loadport.OnAlarmResetFailHandler += this.OnAlarmResetFail;//014
-                loadport.OnAlarmResetSuccessHandler += this.OnAlarmResetSuccess;//013
-                loadport.OnBarcode_IDHandler += this.OnBarcode_ID;//005
+                loadport.EhAlarmResetFail += this.OnAlarmResetFail;//014
+                loadport.EhAlarmResetSuccess += this.OnAlarmResetSuccess;//013
+                loadport.EhBarcode_ID += this.OnBarcode_ID;//005
                 loadport.EhClamperActionTimeOut += this.OnClamperActionTimeOut;// 200
-                loadport.OnClamperHandler += this.OnClamper;//003
-                loadport.OnClamperUnlockCompleteHandler += this.OnClamperUnlockComplete;//012
+                loadport.EhClamper += this.OnClamper;//003
+                loadport.EhClamperUnlockComplete += this.OnClamperUnlockComplete;//012
                 loadport.EhClamperLockPositionFailed += this.OnClamperLockPositionFailed;//207
                 loadport.EhClamperMotorAbnormality += this.OnClamperMotorAbnormality;//209
-                loadport.OnClamperNotLockHandler += this.OnClamperNotLock;//022
-                loadport.OnClamperLockCompleteHandler += this.OnClamperLockComplete;//006
+                loadport.EhClamperNotLock += this.OnClamperNotLock;//022
+                loadport.EhClamperLockComplete += this.OnClamperLockComplete;//006
                 loadport.EhClamperUnlockPositionFailed += this.OnClamperUnlockPositionFailed;//201
                 loadport.EhPODPresentAbnormality += this.OnPODPresentAbnormality;//208
-                loadport.OnDockPODComplete_EmptyHandler += this.OnDockPODComplete_Empty;//010
-                loadport.OnDockPODComplete_HasReticleHandler += this.OnDockPODComplete_HasReticle;// 009
-                loadport.OnDockPODStartHandler += this.OnDockPODStart;//008
-                loadport.OnExecuteAlarmResetFirstHandler += this.OnExecuteAlarmResetFirst;// 016
-                loadport.OnExecuteInitialFirstHandler += this.OnExecuteInitialFirst;//015
-                loadport.OnInitialCompleteHandler += this.OnInitialComplete;//019
-                loadport.OnInitialUnCompleteHandler += this.OnInitialUnComplete; // 自訂
-                loadport.OnLoadportStatusHandler += this.OnLoadportStatus;// 018
-                loadport.OnMustInAutoModeHandler += this.OnMustInAutoMode;//020
-                loadport.OnPlacementHandler += this.OnPlacement;//001
-                loadport.OnPODNotPutProperlyHandler += this.OnPODNotPutProperly;//023
-                loadport.OnPresentHandler += this.OnPresent;//002
+                loadport.EhDockPODComplete_Empty += this.OnDockPODComplete_Empty;//010
+                loadport.EhDockPODComplete_HasReticle += this.OnDockPODComplete_HasReticle;// 009
+                loadport.EhDockPODStart += this.OnDockPODStart;//008
+                loadport.EhExecuteAlarmResetFirst += this.OnExecuteAlarmResetFirst;// 016
+                loadport.EhExecuteInitialFirst += this.OnExecuteInitialFirst;//015
+                loadport.EhInitialComplete += this.OnInitialComplete;//019
+                loadport.EhInitialUnComplete += this.OnInitialUnComplete; // 自訂
+                loadport.EhLoadportStatus += this.OnLoadportStatus;// 018
+                loadport.EhMustInAutoMode += this.OnMustInAutoMode;//020
+                loadport.EhPlacement += this.OnPlacement;//001
+                loadport.EhPODNotPutProperly += this.OnPODNotPutProperly;//023
+                loadport.EhPresent += this.OnPresent;//002
                 loadport.EhReticlePositionAbnormality += this.OnReticlePositionAbnormality;//206
-                loadport.OnRFIDHandler += this.OnRFID;//004
+                loadport.EhRFID += this.OnRFID;//004
                 loadport.EhStageMotionTimeout += this.OnStageMotionTimeout;//203
                 loadport.EhStageMotorAbnormality += this.OnStageMotorAbnormality;//210
                 loadport.EhStageOverDownLimitation += this.OnStageOverDownLimitation;//205
                 loadport.EhStageOverUpLimitation += this.OnStageOverUpLimitation;//204
-                loadport.OnStagePositionHandler += this.OnStagePosition;//017
-                loadport.OnUndockCompleteHandler += this.OnUndockComplete;//011
+                loadport.EhStagePosition += this.OnStagePosition;//017
+                loadport.EhUndockComplete += this.OnUndockComplete;//011
                 loadport.EhVacuumAbnormality += this.OnVacuumAbnormality;//202
-                loadport.OnVacuumCompleteHandler += this.OnVacuumComplete;//007
-                loadport.OnMustInManualModeHandler += this.OnMustInManualMode;// 021
+                loadport.EhVacuumComplete += this.OnVacuumComplete;//007
+                loadport.EhMustInManualMode += this.OnMustInManualMode;// 021
 
             }
         }
