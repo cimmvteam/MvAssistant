@@ -49,11 +49,11 @@
       <HintPath>..\DLL\StApiDotNet20.1.0.8\GenApiDotNet20.dll</HintPath>
     </Reference>
     <Reference Include="Interop.FRRJIf">
-      <HintPath>..\DLL\FanucRobotCom.42.15.0\Interop.FRRJIf.dll</HintPath>
+      <HintPath>..\DLL\FanucRobot.42.15.0\Interop.FRRJIf.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Interop.FRRobotIFLib">
-      <HintPath>..\DLL\FanucRobotCom.42.15.0\Interop.FRRobotIFLib.dll</HintPath>
+      <HintPath>..\DLL\FanucRobot.42.15.0\Interop.FRRobotIFLib.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -249,57 +249,6 @@
     <Compile Include="Ctk\Worker\ICtkWorkerProcBase01Msg.cs" />
     <Compile Include="Ctk\XmlSerialize\CtkDictionary.cs" />
     <Compile Include="Ctk\XmlSerialize\CtkKeyValuePair.cs" />
-    <Compile Include="Cx\CxCertify.cs" />
-    <Compile Include="Cx\CxException.cs" />
-    <Compile Include="Cx\CxUtil.cs" />
-    <Compile Include="Cx\SecsMsg\CxSecsS01F01.cs" />
-    <Compile Include="Cx\SecsMsg\CxSecsS01F02.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpBase.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpKeyValueOfInt32String.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpKeyValueOfStringBoolean.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpKeyValueOfStringObject.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpKeyValueOfStringString.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpList.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfFloat32.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfFloat64.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfInt08.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfInt16.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfInt32.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfInt64.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfObject.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfString.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfUInt08.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfUInt16.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfUInt32.cs" />
-    <Compile Include="Cx\SecsOp\CxSecsOpListOfUInt64.cs" />
-    <Compile Include="Cx\SecsOp\ICxSecsOp.cs" />
-    <Compile Include="Cx\Secs\CxHelloWorld.cs" />
-    <Compile Include="Cx\Secs\CxHsmsConnector.cs" />
-    <Compile Include="Cx\Secs\CxHsmsConnectorRcvDataEventArg.cs" />
-    <Compile Include="Cx\Secs\CxHsmsHeader.cs" />
-    <Compile Include="Cx\Secs\CxHsmsMessage.cs" />
-    <Compile Include="Cx\Secs\CxHsmsMessageReceiver.cs" />
-    <Compile Include="Cx\Secs\CxHsmsMessageSet.cs" />
-    <Compile Include="Cx\Secs\CxHsmsMgr.cs" />
-    <Compile Include="Cx\Secs\CxSecsException.cs" />
-    <Compile Include="Cx\Secs\CxSecsIIFormatCode.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINode.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeASCII.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeBinary.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeBoolean.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeFloat32.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeFloat64.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeInt16.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeInt32.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeInt64.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeInt8.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeJIS8.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeList.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeUInt16.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeUInt32.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeUInt64.cs" />
-    <Compile Include="Cx\Secs\CxSecsIINodeUInt8.cs" />
-    <Compile Include="Cx\Secs\CxSecsUtil.cs" />
     <Compile Include="DeviceDrive\KjMachineDrawer\MvaKjMachineDrawerLdd_v1_0.cs" />
     <Compile Include="DeviceDrive\CwTechDevice\MvaCwTechDeviceLdd.cs" />
     <Compile Include="DeviceDrive\BaslerCamera\MvaPylonDotNetLdd_v5_0.cs" />
